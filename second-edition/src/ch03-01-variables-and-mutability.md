@@ -100,7 +100,7 @@ Rustでは、値が不変であると宣言したら、本当に変わらない�
 <!-- of the code by indicating that other parts of the code will be changing this -->
 <!-- variable value. -->
 
-しかし、可変性は時として非常に便利なこともあります。変数は、標準でのみ、不変です。つまり、変数名の前に
+しかし、可変性は時として非常に有益なこともあります。変数は、標準でのみ、不変です。つまり、変数名の前に
 `mut`キーワードを付ければ、可変にできるわけです。この値が変化できるようにするとともに、未来の読者に対して
 コードの別の部分がこの変数の値を変えることを示すことで、その意図を汲ませることができるのです。
 
@@ -186,7 +186,7 @@ The value of x is: 6
 <!-- them useful for values that many parts of code need to know about. -->
 
 定数はどんなスコープでも定義できます。グローバルスコープも含めてね。なので、いろんなところで使用される可能性のある値を
-定義するのに便利です。
+定義するのに役に立ちます。
 
 <!-- The last difference is that constants may only be set to a constant expression, -->
 <!-- not the result of a function call or any other value that could only be -->
@@ -212,7 +212,7 @@ const MAX_POINTS: u32 = 100_000;
 <!-- of light. -->
 
 定数は、プログラムが走る期間、定義されたスコープ内でずっと有効です。従って、プログラムのいろんなところで
-使用される可能性のあるアプリケーション空間の値を定義するのに便利な選択肢になります。例えば、
+使用される可能性のあるアプリケーション空間の値を定義するのに有益な選択肢になります。例えば、
 ゲームでプレイヤーが取得可能なポイントの最高値や、光速度などですね。
 
 <!-- Naming hardcoded values used throughout your program as constants is useful in -->
@@ -221,7 +221,7 @@ const MAX_POINTS: u32 = 100_000;
 <!-- hardcoded value needed to be updated in the future. -->
 
 プログラム中で使用されるハードコードされた値に対して、定数として名前付けすることは、コードの将来的な
-管理者にとって値の意味を汲むのに便利です。将来、ハードコードされた値を変える必要が出た時に、
+管理者にとって値の意味を汲むのに役に立ちます。将来、ハードコードされた値を変える必要が出た時に、
 たった1箇所を変更するだけで済むようにもしてくれます。
 
 <!-- ### Shadowing -->

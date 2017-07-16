@@ -360,7 +360,7 @@ error[E0308]: if and else have incompatible types
 <!-- body to the end and then starts immediately back at the beginning. To -->
 <!-- experiment with loops, let’s make a new project called *loops*. -->
 
-一連のコードを1回以上実行できることは、しばしば便利です。この作業用に、Rustにはいくつかの
+一連のコードを1回以上実行できることは、しばしば役に立ちます。この作業用に、Rustにはいくつかの
 *ループ*が用意されています。ループは、本体内のコードを最後まで実行し、直後にまた最初から開始します。
 ループを試してみるのに、*loops*という名の新プロジェクトを作りましょう。
 
@@ -441,7 +441,7 @@ again!
 <!-- combination of `loop`, `if`, `else`, and `break`; you could try that now in a -->
 <!-- program, if you’d like. -->
 
-プログラムにとってループ内で条件式を評価できると、便利なことがしばしばあります。条件が真の間、
+プログラムにとってループ内で条件式を評価できると、有益なことがしばしばあります。条件が真の間、
 ループが走るわけです。条件が真でなくなった時に`break`を呼び出し、ループを終了します。
 このタイプのループは、`loop`、`if`、`else`、`break`を組み合わせることで実装できます;
 なんならプログラムで試してみるのもいいでしょう。

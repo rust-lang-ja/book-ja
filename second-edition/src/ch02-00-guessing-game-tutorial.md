@@ -870,7 +870,7 @@ fn main() {
 <!-- delete it from the final version. It’s not much of a game if the program prints -->
 <!-- the answer as soon as it starts! -->
 
-コードに追加した2行目は、秘密の数字を出力してくれます。これは、プログラムをテストする構築中には便利ですが、
+コードに追加した2行目は、秘密の数字を出力してくれます。これは、プログラムをテストする構築中には役立ちますが、
 最終版からは削除する予定です。プログラムがスタートと同時に答えを出力しちゃったら、ゲームにならないからですね！
 
 <!-- Try running the program a few times: -->
