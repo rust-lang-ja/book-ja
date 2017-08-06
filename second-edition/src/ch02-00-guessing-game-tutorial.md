@@ -146,6 +146,7 @@ fn main() {
 }
 ```
 
+<<<<<<< HEAD
 <!-- <span class="caption">Listing 2-1: Code to get a guess from the user and print it out</span> -->
 
 <span class="caption">リスト2-1: ユーザに予想を入力してもらい、それを出力するコード</span>
@@ -158,6 +159,10 @@ fn main() {
 <!-- obtain user input and then print the result as output, we need to bring the -->
 <!-- `io` (input/output) library into scope. The `io` library comes from the -->
 <!-- standard library (which is known as `std`): -->
+=======
+<span class="caption">Listing 2-1: Code to get a guess from the user and print
+it out</span>
+>>>>>>> fork_master_master
 
 このコードには、たくさんの情報が詰め込まれてますね。なので、少しずつ噛み砕いていきましょう。
 ユーザ入力を受け付け、結果を出力するためには、`io`(入/出力)ライブラリをスコープに導入する必要があります。
@@ -504,7 +509,8 @@ println!("x = {} and y = {}", x, y);
 
 ### 最初の部分をテストする
 
-<!-- Let’s test the first part of the guessing game. You can run it using `cargo run`: -->
+<!-- Let’s test the first part of the guessing game. You can run it using -->
+<!-- `cargo run`: -->
 
 数当てゲームの最初の部分をテストしてみましょう。`cargo run`コマンドでプログラムを走らせることができます:
 
@@ -1135,18 +1141,22 @@ let guess: u32 = guess.trim().parse()
 <!-- expression refers to the original `guess` that was a `String` with the input in -->
 <!-- it. The `trim` method on a `String` instance will eliminate any whitespace at -->
 <!-- the beginning and end. `u32` can only contain numerical characters, but the -->
-<!-- user must press the Return key to satisfy `read_line`. When the user presses -->
-<!-- Return, a newline character is added to the string. For example, if the user -->
-<!-- types 5 and presses return, `guess` looks like this: `5\n`. The `\n` represents -->
-<!-- “newline,” the return key. The `trim` method eliminates `\n`, resulting in just -->
-<!-- `5`. -->
+<!-- user must press the <span class="keystroke">return</span> key to satisfy -->
+<!-- `read_line`. When the user presses <span class="keystroke">return</span>, a -->
+<!-- newline character is added to the string. For example, if the user types -->
+<!-- <span class="keystroke">5</span> and presses <span class="keystroke"> -->
+<!-- return</span>, `guess` looks like this: `5\n`. The `\n` represents “newline,” -->
+<!-- the <span class="keystroke">return</span> key. The `trim` method eliminates -->
+<!-- `\n`, resulting in just `5`. -->
 
-`guess`を`guess.trim().parse()`という式に束縛しています。この式中の`guess`は、入力が入った
-`String`型の元々の`guess`を指しています。`String`オブジェクトの`trim`メソッドは、
-両端の空白をすべて除去します。`u32`型は、数字しか含むことができませんが、ユーザは、`read_line`の
-処理を終えるためにリターンキーを押さなければなりません。ユーザがリターンキーを押したら、改行文字が
-文字列に追加されます。具体例として、ユーザが5を入力して、リターンキーを押せば、`guess`変数は
-次のようになります: `5\n`。この`\n`が改行、つまりリターンキーを表しているわけです。
+`guess`を`guess.trim().parse()`という式に束縛しています。この式中の`guess`は、
+入力が入った`String`型の元々の`guess`を指しています。`String`オブジェクトの`trim`メソッドは、
+両端の空白をすべて除去します。`u32`型は、数字しか含むことができませんが、ユーザは、
+`read_line`の処理を終えるために<span class="keystroke">リターン</span>キーを押さなければなりません。
+ユーザが<span class="keystroke">リターン</span>キーを押したら、改行文字が文字列に追加されます。
+具体例として、ユーザが<span class="keystroke">5</span>を入力して、
+<span class="keystroke">リターン</span>キーを押せば、`guess`変数は次のようになります: `5\n`。
+この`\n`が改行、つまり<span class="keystroke">リターン</span>キーを表しているわけです。
 `trim`メソッドは、`\n`を削除するので、ただの`5`になります。
 
 <!-- The [`parse` method on strings][parse] parses a string into some -->
@@ -1161,13 +1171,13 @@ let guess: u32 = guess.trim().parse()
 <!-- comparison will be between two values of the same type! -->
 
 [文字列の`parse`メソッド][parse]<!-- ignore -->は、文字列を解析して何らかの数値にします。
-このメソッドは、いろんな数値型を解析できるので、`let guess: u32`としてコンパイラに私たちが
-求めている型をズバリ示唆する必要があるのです。`guess`の後のコロン(`:`)がコンパイラに変数の型を
-注釈する合図になります。Rustには、組み込みの数値型がいくつかあります; ここで見られる`u32`型は、
-32ビットの非負整数です。小さな非負整数は、良い基準になります。他の数値型については、第3章で学ぶでしょう。
+このメソッドは、いろんな数値型を解析できるので、`let guess: u32`としてコンパイラに私たちが求めている型をズバリ示唆する必要があるのです。
+`guess`の後のコロン(`:`)がコンパイラに変数の型を注釈する合図になります。
+Rustには、組み込みの数値型がいくつかあります; ここで見られる`u32`型は、32ビットの非負整数です。
+小さな非負整数は、良い基準になります。他の数値型については、第3章で学ぶでしょう。
 付け加えると、このサンプルプログラムの`u32`という注釈と`secret_number`変数との比較は、
-`secret_number`変数も`u32`型であるとコンパイラが推論することを意味します。さて、従って、比較が同じ型の
-2つの値で行われることになります。
+`secret_number`変数も`u32`型であるとコンパイラが推論することを意味します。
+さて、従って、比較が同じ型の2つの値で行われることになります。
 
 [parse]: ../../std/primitive.str.html#method.parse
 
@@ -1277,6 +1287,7 @@ fn main() {
 <!-- exactly what we told it to do: ask for another guess forever! It doesn’t seem -->
 <!-- like the user can quit! -->
 
+<<<<<<< HEAD
 見てわかる通り、予想入力部分以降をループに入れ込みました。変更した行にインデントを追加するのを忘れないようにして、
 またプログラムを走らせてみましょう。新たな問題が発生したことに気をつけてください。
 プログラムが教えた通りに動作しているからですね: 永遠に予想入力を求めるわけです！
@@ -1292,6 +1303,13 @@ fn main() {
 しかし、「予想を秘密の数字と比較する」節の`parse`メソッドに関する議論で触れたこの貪欲なモンスターを
 回避する別の方法があります: ユーザが数字以外の答えを入力すれば、プログラムはクラッシュするのです。
 ユーザは、その利点を活かして、終了することができます。以下のようにね:
+=======
+The user could always halt the program by using the keyboard shortcut
+<span class="keystroke">ctrl-C</span>. But there’s another way to escape this
+insatiable monster that we mentioned in the `parse` discussion in “Comparing the
+Guess to the Secret Number”: if the user enters a non-number answer, the program
+will crash. The user can take advantage of that in order to quit, as shown here:
+>>>>>>> fork_master_master
 
 ```text
 $ cargo run

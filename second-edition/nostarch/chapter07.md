@@ -34,8 +34,6 @@ people can pull into their projects as a dependency. For example, the `rand`
 crate in Chapter 2 is a library crate that we used as a dependency in the
 guessing game project.
 
-Prod: Check xref
-
 We’ll create a skeleton of a library that provides some general networking
 functionality; we’ll concentrate on the organization of the modules and
 functions but we won’t worry about what code goes in the function bodies. We’ll
@@ -68,8 +66,6 @@ Cargo creates an empty test to help us get our library started, rather than the
 at the `#[]` and `mod tests` syntax in the “Using `super` to Access a Parent
 Module” section later in this chapter, but for now, leave this code at the
 bottom of *src/lib.rs*.
-
-Prod: Check xref
 
 Because we don’t have a *src/main.rs* file, there’s nothing for Cargo to
 execute with the `cargo run` command. Therefore, we’ll use the `cargo build`
@@ -129,7 +125,7 @@ not conflict with each other because they’re in different modules.
 In this case, because we’re building a library, the file that serves as the
 entry point for building our library is *src/lib.rs*. However, in respect to
 creating modules, there’s nothing special about *src/lib.rs*. We could also
-create modules in *src/main.rs* for a binary crate in the same way as we're
+create modules in *src/main.rs* for a binary crate in the same way as we’re
 creating modules in *src/lib.rs* for the library crate. In fact, we can put
 modules inside of modules, which can be useful as your modules grow to keep
 related functionality organized together and separate functionality apart. The
@@ -233,8 +229,8 @@ lines of code inside the functions will start getting lengthy as well. These
 would be good reasons to separate the `client`, `network`, and `server` modules
 from *src/lib.rs* and place them into their own files.
 
-First, replace the `client` module code with only the declaration of the
-`client` module, so that your *src/lib.rs* looks like the following:
+First, replace the `client` module code with only the declaration of the `client`
+module, so that your *src/lib.rs* looks like the following:
 
 Filename: src/lib.rs
 
@@ -316,8 +312,6 @@ These warnings tell us that we have functions that are never used. Don’t worry
 about these warnings for now; we’ll address them in the “Controlling Visibility
 with `pub`” section later in this chapter. The good news is that they’re just
 warnings; our project built successfully!
-
-Prod: Check xref
 
 Next, let’s extract the `network` module into its own file using the same
 pattern. In *src/lib.rs*, delete the body of the `network` module and add a
@@ -632,8 +626,8 @@ error: function `connect` is private
 ```
 
 Hooray! We have a different error! Yes, different error messages are a cause
-for celebration. The new error shows `` function `connect` is private ``, so let’s
-edit *src/client.rs* to make `client::connect` public too:
+for celebration. The new error shows `` function `connect` is private ``, so
+let’s edit *src/client.rs* to make `client::connect` public too:
 
 Filename: src/client.rs
 
@@ -729,8 +723,8 @@ Only one warning is left! Try to fix this one on your own!
 Overall, these are the rules for item visibility:
 
 1. If an item is public, it can be accessed through any of its parent modules.
-2. If an item is private, it can be accessed only by the current module and its
-   child modules.
+2. If an item is private, it can be accessed only by its immediate parent
+   module and any of the parent’s child modules.
 
 ### Privacy Examples
 
@@ -909,8 +903,8 @@ fn main() {
 }
 ```
 
-We're still specifying the `TrafficLight` namespace for the `Green` variant
-because we didn't include `Green` in the `use` statement.
+We’re still specifying the `TrafficLight` namespace for the `Green` variant
+because we didn’t include `Green` in the `use` statement.
 
 ### Glob Imports with `*`
 
@@ -963,8 +957,6 @@ sense now: we have a module named `tests` that lives next to our other modules
 and contains one function named `it_works`. Even though there are special
 annotations, the `tests` module is just another module! So our module hierarchy
 looks like this:
-
-Prod: Check xref
 
 ```
 communicator

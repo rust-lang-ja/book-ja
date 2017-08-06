@@ -396,10 +396,11 @@ fn main() {
 
 <!-- When we run this program, we’ll see `again!` printed over and over continuously -->
 <!-- until we stop the program manually. Most terminals support a keyboard shortcut, -->
-<!--  ctrl-C, to halt a program that is stuck in a continual loop. Give it a try: -->
+<!-- <span class="keystroke">ctrl-C</span>, to halt a program that is stuck in a -->
+<!-- continual loop. Give it a try: -->
 
 このプログラムを実行すると、プログラムを手動で止めるまで、何度も何度も続けて`again!`と出力するでしょう。
-ほとんどのターミナルでctrl-Cというショートカットが使え、永久ループに囚われてしまったプログラムを終了させられます。
+ほとんどのターミナルで<span class="keystroke">ctrl-C</span>というショートカットが使え、永久ループに囚われてしまったプログラムを終了させられます。
 試しにやってみましょう:
 
 ```text
@@ -413,6 +414,7 @@ again!
 ^Cagain!
 ```
 
+<<<<<<< HEAD
 <!-- The symbol `^C` represents where you pressed ctrl-C. You may or may not see the -->
 <!-- word `again!` printed after the `^C`, depending on where the code was in the -->
 <!-- loop when it received the halt signal. -->
@@ -430,6 +432,11 @@ again!
 キーワードを配置することでプログラムに実行を終了すべきタイミングを教えることができます。
 第2章の「正しい予想をした後に終了する」節の数当てゲーム内でこれをして、ユーザが予想を的中させ、
 ゲームに勝った時にプログラムを終了させたことを思い出してください。
+=======
+The symbol `^C` represents where you pressed <span class="keystroke">ctrl-C
+</span>. You may or may not see the word `again!` printed after the `^C`,
+depending on where the code was in the loop when it received the halt signal.
+>>>>>>> fork_master_master
 
 <!-- #### Conditional Loops with `while` -->
 

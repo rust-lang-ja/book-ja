@@ -228,7 +228,40 @@ impl Rectangle {
 To call this associated function, we use the `::` syntax with the struct name,
 like `let sq = Rectangle::square(3);`, for example. This function is
 namespaced by the struct: the `::` syntax is used for both associated functions
-and namespaces created by modules, which we'll discuss in Chapter 7.
+and namespaces created by modules, which we’ll discuss in Chapter 7.
+
+### Multiple `impl` Blocks
+
+Each struct is allowed to have multiple `impl` blocks. For example, Listing
+5-15 is equivalent to the code shown in Listing 5-16, which has each method
+in its own `impl` block:
+
+```rust
+# #[derive(Debug)]
+# struct Rectangle {
+#     length: u32,
+#     width: u32,
+# }
+#
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.length * self.width
+    }
+}
+
+impl Rectangle {
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.length > other.length && self.width > other.width
+    }
+}
+```
+
+<span class="caption">Listing 5-16: Rewriting Listing 5-15 using multiple `impl`
+blocks</span>
+
+There’s no reason to separate these methods into multiple `impl` blocks here,
+but it’s valid syntax. We will see a case when multiple `impl` blocks are useful
+in Chapter 10 when we discuss generic types and traits.
 
 ## Summary
 

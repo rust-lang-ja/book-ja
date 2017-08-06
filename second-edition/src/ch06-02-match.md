@@ -125,6 +125,7 @@ fn value_in_cents(coin: Coin) -> u32 {
 }
 ```
 
+<<<<<<< HEAD
 <!-- ### Patterns that Bind to Values -->
 
 ### 値に束縛されるパターン
@@ -164,6 +165,20 @@ enumのバリアントから値を取り出すことができます。
 <!--     Quarter(UsState), -->
 <!-- } -->
 <!-- ``` -->
+=======
+### Patterns that Bind to Values
+
+Another useful feature of match arms is that they can bind to parts of the
+values that match the pattern. This is how we can extract values out of enum
+variants.
+
+As an example, let’s change one of our enum variants to hold data inside it.
+From 1999 through 2008, the United States minted quarters with different
+designs for each of the 50 states on one side. No other coins got state
+designs, so only quarters have this extra value. We can add this information to
+our `enum` by changing the `Quarter` variant to include a `State` value stored
+inside it, which we’ve done here in Listing 6-4:
+>>>>>>> fork_master_master
 
 ```rust
 #[derive(Debug)] // すぐに州を点検できるように
@@ -314,12 +329,12 @@ None => None,
 Some(i) => Some(i + 1),
 ```
 
-<!-- Does `Some(5)` match `Some(i)`? Why yes it does! We have the same variant. -->
+<!-- Does `Some(5)` match `Some(i)`? Well yes it does! We have the same variant. -->
 <!-- The `i` binds to the value contained in `Some`, so `i` takes the value `5`. The -->
 <!-- code in the match arm is then executed, so we add one to the value of `i` and -->
 <!-- create a new `Some` value with our total `6` inside. -->
 
-`Some(5)`は`Some(i)`にマッチしますか？もちろん、します！バリアントが同じです。`i`は`Some`に含まれる値に束縛されるので、
+`Some(5)`は`Some(i)`にマッチしますか？えっと、します！バリアントが同じです。`i`は`Some`に含まれる値に束縛されるので、
 `i`は値`5`になります。それから、このマッチのアームのコードが実行されるので、`i`の値に1を足し、
 合計の`6`を中身にした新しい`Some`値を生成します。
 
