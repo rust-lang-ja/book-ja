@@ -8,13 +8,21 @@
 <!-- structs are more flexible than tuples: we don’t have to rely on the order of -->
 <!-- the data to specify or access the values of an instance. -->
 
-
+構造体は第3章で議論したタプルと似ています。タプル同様、構造体の一部を異なる型にできます。
+一方タプルとは違って、各データ片には名前をつけるので、値の意味が明確になります。
+この名前のおかげで、構造体はタプルに比して、より柔軟になるわけです: データの順番に頼って、
+インスタンスの値を指定したり、アクセスしたりする必要がないのです。
 
 <!-- To define a struct, we enter the keyword `struct` and name the entire struct. A -->
 <!-- struct’s name should describe the significance of the pieces of data being -->
 <!-- grouped together. Then, inside curly braces, we define the names and types of -->
 <!-- the pieces of data, which we call *fields*. For example, Listing 5-1 shows a -->
 <!-- struct to store information about a user account: -->
+
+構造体の定義は、`struct`キーワードを入れ、構造体全体に名前を付けます。構造体名は、
+一つにグループ化されるデータ片の意義を表すものであるべきです。そして、波かっこ内に、
+データ片の名前と型を定義し、これは*フィールド*と呼ばれます。例えば、リスト5-1では、
+ユーザアカウントに関する情報を保持する構造体を示しています:
 
 ```rust
 struct User {
@@ -39,7 +47,7 @@ struct User {
 <!-- in that template with particular data to create values of the type. For -->
 <!-- example, we can declare a particular user as shown in Listing 5-2: -->
 
-構造体を定義した後に使用するには、各フィールドに対して確固たる値を指定して構造体の*インスタンス*を生成します。
+構造体を定義した後に使用するには、各フィールドに対して具体的な値を指定して構造体の*インスタンス*を生成します。
 インスタンスは、構造体名を記述し、`key: value`ペアを含む波かっこを付け加えることで生成します。
 ここで、キーはフィールド名、値はそのフィールドに格納したいデータになります。フィールドは、
 構造体で定義した時通りの順番に指定する必要はありません。換言すると、構造体定義とは、
@@ -187,7 +195,7 @@ fn build_user(email: String, username: String) -> User {
 <!-- `username` but using the same values for the rest of the fields from the -->
 <!-- `user1` instance we created in Listing 5-2: -->
 
-多くは古いインスタンスの値を使いつつ、変更する箇所もある形で、古いインスタンスから新しいインスタンスを生成できると、
+大部分は古いインスタンスの値を使いつつ、変更する箇所もある形で、古いインスタンスから新しいインスタンスを生成できると、
 しばしば有用なわけです。リスト5-6では、`email`と`username`の値をセットしつつ、残りのフィールドにはリスト5-2で生成した、
 `User1`インスタンスと同じ値を使って、`user2`に新規`User`インスタンスを生成する例を示しました。
 
@@ -303,7 +311,7 @@ let origin = Point(0, 0, 0);
 <!-- implement a trait on some type, but you don’t have any data that you want to -->
 <!-- store in the type itself. We’ll be discussing traits in Chapter 10. -->
 
-また、一切フィールドのない構造体を定義することもできます！これらは、`()`、ユニット型と似た様な振る舞いをすることから、
+また、一切フィールドのない構造体を定義することもできます！これらは、`()`、ユニット型と似たような振る舞いをすることから、
 *ユニット様(よう)構造体*と呼ばれます。ユニット様構造体は、ある型にトレイトを実装するけれども、
 型自体に保持させるデータは一切ないような場合に有効になります。トレイトについては第10章で議論します。
 
@@ -364,7 +372,7 @@ let origin = Point(0, 0, 0);
 > ### 構造体データの所有権
 >
 > リスト5-1の`User`構造体定義において、`&str`文字列スライス型ではなく、所有権のある`String`型を使用しました。
-> これは意図的な選択であり、この構造体のインスタンスには全データを所有してもらう必要があり、
+> これは意図的な選択です。というのも、この構造体のインスタンスには全データを所有してもらう必要があり、
 > このデータは、構造体全体が有効な間はずっと有効である必要があるのです。
 >
 > 構造体に、他の何かに所有されたデータへの参照を保持させることもできますが、
