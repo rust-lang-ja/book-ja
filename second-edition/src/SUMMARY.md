@@ -60,10 +60,15 @@
 
 ## Basic Rust Literacy
 
-- [Modules](ch07-00-modules.md)
-    - [`mod` and the Filesystem](ch07-01-mod-and-the-filesystem.md)
-    - [Controlling Visibility with `pub`](ch07-02-controlling-visibility-with-pub.md)
-    - [Importing Names with `use`](ch07-03-importing-names-with-use.md)
+<!-- - [Modules](ch07-00-modules.md) -->
+<!--     - [`mod` and the Filesystem](ch07-01-mod-and-the-filesystem.md) -->
+<!--     - [Controlling Visibility with `pub`](ch07-02-controlling-visibility-with-pub.md) -->
+<!--     - [Importing Names with `use`](ch07-03-importing-names-with-use.md) -->
+
+- [モジュール](ch07-00-modules.md)
+    - [`mod`とファイルシステム](ch07-01-mod-and-the-filesystem.md)
+    - [`pub`で公開するか制御する](ch07-02-controlling-visibility-with-pub.md)
+    - [`use`で名前をインポートする](ch07-03-importing-names-with-use.md)
 
 - [Common Collections](ch08-00-common-collections.md)
     - [Vectors](ch08-01-vectors.md)
