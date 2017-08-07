@@ -487,18 +487,12 @@ let some_string = Some("a string");
 let absent_number: Option<i32> = None;
 ```
 
-<<<<<<< HEAD
 <!-- If we use `None` rather than `Some`, we need to tell Rust what type of -->
 <!-- `Option<T>` we have, because the compiler can't infer the type that the `Some` -->
 <!-- variant will hold by looking only at a `None` value. -->
 
 `Some`ではなく、`None`を使ったら、コンパイラに`Option<T>`の型が何になるかを教えなければいけません。
 というのも、`None`値を見ただけでは、`Some`バリアントが保持する型をコンパイラが推論できないからです。
-=======
-If we use `None` rather than `Some`, we need to tell Rust what type of
-`Option<T>` we have, because the compiler can’t infer the type that the `Some`
-variant will hold by looking only at a `None` value.
->>>>>>> fork_master_master
 
 <!-- When we have a `Some` value, we know that a value is present, and the value is -->
 <!-- held within the `Some`. When we have a `None` value, in some sense, it means -->

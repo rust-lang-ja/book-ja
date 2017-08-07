@@ -146,8 +146,8 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
-<!-- <span class="caption">Listing 2-1: Code to get a guess from the user and print it out</span> -->
+<!-- <span class="caption">Listing 2-1: Code to get a guess from the user and print -->
+<!-- it out</span> -->
 
 <span class="caption">リスト2-1: ユーザに予想を入力してもらい、それを出力するコード</span>
 
@@ -159,10 +159,6 @@ fn main() {
 <!-- obtain user input and then print the result as output, we need to bring the -->
 <!-- `io` (input/output) library into scope. The `io` library comes from the -->
 <!-- standard library (which is known as `std`): -->
-=======
-<span class="caption">Listing 2-1: Code to get a guess from the user and print
-it out</span>
->>>>>>> fork_master_master
 
 このコードには、たくさんの情報が詰め込まれてますね。なので、少しずつ噛み砕いていきましょう。
 ユーザ入力を受け付け、結果を出力するためには、`io`(入/出力)ライブラリをスコープに導入する必要があります。
@@ -1287,29 +1283,21 @@ fn main() {
 <!-- exactly what we told it to do: ask for another guess forever! It doesn’t seem -->
 <!-- like the user can quit! -->
 
-<<<<<<< HEAD
 見てわかる通り、予想入力部分以降をループに入れ込みました。変更した行にインデントを追加するのを忘れないようにして、
 またプログラムを走らせてみましょう。新たな問題が発生したことに気をつけてください。
 プログラムが教えた通りに動作しているからですね: 永遠に予想入力を求めるわけです！
 これでは、ユーザが終了できないようです！
 
-<!-- The user could always halt the program by using the keyboard shortcut `Ctrl-C`. -->
-<!-- But there’s another way to escape this insatiable monster that we mentioned in -->
-<!-- the `parse` discussion in “Comparing the Guess to the Secret Number”: if the user -->
-<!-- enters a non-number answer, the program will crash. The user can take advantage -->
-<!-- of that in order to quit, as shown here: -->
+<!-- The user could always halt the program by using the keyboard shortcut -->
+<!-- <span class="keystroke">Ctrl-C</span>. But there’s another way to escape this -->
+<!-- insatiable monster that we mentioned in the `parse` discussion in “Comparing the -->
+<!-- Guess to the Secret Number”: if the user enters a non-number answer, the program -->
+<!-- will crash. The user can take advantage of that in order to quit, as shown here: -->
 
 ユーザは、`Ctrl-C`というキーボードショートカットを使って、いつでもプログラムを強制終了させられます。
 しかし、「予想を秘密の数字と比較する」節の`parse`メソッドに関する議論で触れたこの貪欲なモンスターを
 回避する別の方法があります: ユーザが数字以外の答えを入力すれば、プログラムはクラッシュするのです。
 ユーザは、その利点を活かして、終了することができます。以下のようにね:
-=======
-The user could always halt the program by using the keyboard shortcut
-<span class="keystroke">ctrl-C</span>. But there’s another way to escape this
-insatiable monster that we mentioned in the `parse` discussion in “Comparing the
-Guess to the Secret Number”: if the user enters a non-number answer, the program
-will crash. The user can take advantage of that in order to quit, as shown here:
->>>>>>> fork_master_master
 
 ```text
 $ cargo run

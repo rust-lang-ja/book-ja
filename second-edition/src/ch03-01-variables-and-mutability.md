@@ -188,7 +188,6 @@ The value of x is: 6
 定数はどんなスコープでも定義できます。グローバルスコープも含めてね。なので、いろんなところで使用される可能性のある値を
 定義するのに役に立ちます。
 
-<<<<<<< HEAD
 <!-- The last difference is that constants may only be set to a constant expression, -->
 <!-- not the result of a function call or any other value that could only be -->
 <!-- computed at runtime. -->
@@ -199,13 +198,8 @@ The value of x is: 6
 <!-- `MAX_POINTS` and its value is set to 100,000. (Rust constant naming convention -->
 <!-- is to use all upper case with underscores between words): -->
 
-定数の名前が`MAX_POINTS`で値が100,000にセットされた定数定義の例をご覧ください。(Rustの定数の命名規則は、
+定数の名前が`MAX_POINTS`で、値が100,000にセットされた定数定義の例をご覧ください。(Rustの定数の命名規則は、
 全て大文字でアンダースコアで単語区切りすることです):
-=======
-Here’s an example of a constant declaration where the constant’s name is
-`MAX_POINTS` and its value is set to 100,000. (Rust constant naming convention
-is to use all upper case with underscores between words):
->>>>>>> fork_master_master
 
 ```rust
 const MAX_POINTS: u32 = 100_000;

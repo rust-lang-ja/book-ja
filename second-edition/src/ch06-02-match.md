@@ -125,7 +125,6 @@ fn value_in_cents(coin: Coin) -> u32 {
 }
 ```
 
-<<<<<<< HEAD
 <!-- ### Patterns that Bind to Values -->
 
 ### 値に束縛されるパターン
@@ -165,20 +164,6 @@ enumのバリアントから値を取り出すことができます。
 <!--     Quarter(UsState), -->
 <!-- } -->
 <!-- ``` -->
-=======
-### Patterns that Bind to Values
-
-Another useful feature of match arms is that they can bind to parts of the
-values that match the pattern. This is how we can extract values out of enum
-variants.
-
-As an example, let’s change one of our enum variants to hold data inside it.
-From 1999 through 2008, the United States minted quarters with different
-designs for each of the 50 states on one side. No other coins got state
-designs, so only quarters have this extra value. We can add this information to
-our `enum` by changing the `Quarter` variant to include a `State` value stored
-inside it, which we’ve done here in Listing 6-4:
->>>>>>> fork_master_master
 
 ```rust
 #[derive(Debug)] // すぐに州を点検できるように

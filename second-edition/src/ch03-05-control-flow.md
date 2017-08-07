@@ -414,12 +414,11 @@ again!
 ^Cagain!
 ```
 
-<<<<<<< HEAD
-<!-- The symbol `^C` represents where you pressed ctrl-C. You may or may not see the -->
-<!-- word `again!` printed after the `^C`, depending on where the code was in the -->
-<!-- loop when it received the halt signal. -->
+<!-- The symbol `^C` represents where you pressed <span class="keystroke">ctrl-C -->
+<!-- </span>. You may or may not see the word `again!` printed after the `^C`, -->
+<!-- depending on where the code was in the loop when it received the halt signal. -->
 
-`^C`という記号が出た場所が、ctrl-Cを押した場所です。`^C`の後には`again!`と表示されたり、
+`^C`という記号が出た場所が、<span class="keystroke">ctrl-C</span>を押した場所です。`^C`の後には`again!`と表示されたり、
 されなかったりします。ストップシグナルをコードが受け取った時にループのどこにいたかによります。
 
 <!-- Fortunately, Rust provides another, more reliable way to break out of a loop. -->
@@ -432,11 +431,6 @@ again!
 キーワードを配置することでプログラムに実行を終了すべきタイミングを教えることができます。
 第2章の「正しい予想をした後に終了する」節の数当てゲーム内でこれをして、ユーザが予想を的中させ、
 ゲームに勝った時にプログラムを終了させたことを思い出してください。
-=======
-The symbol `^C` represents where you pressed <span class="keystroke">ctrl-C
-</span>. You may or may not see the word `again!` printed after the `^C`,
-depending on where the code was in the loop when it received the halt signal.
->>>>>>> fork_master_master
 
 <!-- #### Conditional Loops with `while` -->
 

@@ -165,17 +165,10 @@ fn another_function(x: i32, y: i32) {
 }
 ```
 
-<<<<<<< HEAD
 <!-- This example creates a function with two parameters, both of which are `i32` -->
 <!-- types. The function then prints out the values in both of its parameters. Note -->
 <!-- that function parameters don't all need to be the same type, they just happen -->
 <!-- to be in this example. -->
-=======
-This example creates a function with two parameters, both of which are `i32`
-types. The function then prints out the values in both of its parameters. Note
-that function parameters don’t all need to be the same type, they just happen
-to be in this example.
->>>>>>> fork_master_master
 
 この例では、2引数の関数を生成しています。そして、引数はどちらも`i32`型です。この関数は、
 仮引数の値を両方出力します。関数引数は、全てが同じ型である必要はありません。今回は、
