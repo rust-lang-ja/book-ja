@@ -1,34 +1,62 @@
-# The Rust Programming Language
+<!-- # The Rust Programming Language -->
 
-## Getting started
+# Rustプログラミング言語
+
+<!-- ## Getting started -->
+
+## 事始め
 
 - [Introduction](ch01-00-introduction.md)
     - [Installation](ch01-01-installation.md)
     - [Hello, World!](ch01-02-hello-world.md)
 
-- [Guessing Game Tutorial](ch02-00-guessing-game-tutorial.md)
+<!-- - [Guessing Game Tutorial](ch02-00-guessing-game-tutorial.md) -->
 
-- [Common Programming Concepts](ch03-00-common-programming-concepts.md)
-    - [Variables and Mutability](ch03-01-variables-and-mutability.md)
-    - [Data Types](ch03-02-data-types.md)
-    - [How Functions Work](ch03-03-how-functions-work.md)
-    - [Comments](ch03-04-comments.md)
-    - [Control Flow](ch03-05-control-flow.md)
+- [数当てゲームチュートリアル](ch02-00-guessing-game-tutorial.md)
 
-- [Understanding Ownership](ch04-00-understanding-ownership.md)
-    - [What is Ownership?](ch04-01-what-is-ownership.md)
-    - [References & Borrowing](ch04-02-references-and-borrowing.md)
-    - [Slices](ch04-03-slices.md)
+<!-- - [Common Programming Concepts](ch03-00-common-programming-concepts.md) -->
+<!--     - [Variables and Mutability](ch03-01-variables-and-mutability.md) -->
+<!--     - [Data Types](ch03-02-data-types.md) -->
+<!--     - [How Functions Work](ch03-03-how-functions-work.md) -->
+<!--     - [Comments](ch03-04-comments.md) -->
+<!--     - [Control Flow](ch03-05-control-flow.md) -->
 
-- [Using Structs to Structure Related Data](ch05-00-structs.md)
-    - [Defining and Instantiating Structs](ch05-01-defining-structs.md)
-    - [An Example Program Using Structs](ch05-02-example-structs.md)
-    - [Method Syntax](ch05-03-method-syntax.md)
+- [普遍的なプログラミング概念](ch03-00-common-programming-concepts.md)
+    - [変数と可変性](ch03-01-variables-and-mutability.md)
+    - [データ型](ch03-02-data-types.md)
+    - [関数の動作法](ch03-03-how-functions-work.md)
+    - [コメント](ch03-04-comments.md)
+    - [制御フロー](ch03-05-control-flow.md)
 
-- [Enums and Pattern Matching](ch06-00-enums.md)
-    - [Defining an Enum](ch06-01-defining-an-enum.md)
-    - [The `match` Control Flow Operator](ch06-02-match.md)
-    - [Concise Control Flow with `if let`](ch06-03-if-let.md)
+<!-- - [Understanding Ownership](ch04-00-understanding-ownership.md) -->
+<!--     - [What is Ownership?](ch04-01-what-is-ownership.md) -->
+<!--     - [References & Borrowing](ch04-02-references-and-borrowing.md) -->
+<!--     - [Slices](ch04-03-slices.md) -->
+
+- [所有権を理解する](ch04-00-understanding-ownership.md)
+    - [所有権とは？](ch04-01-what-is-ownership.md)
+    - [参照と借用](ch04-02-references-and-borrowing.md)
+    - [スライス](ch04-03-slices.md)
+
+<!-- - [Using Structs to Structure Related Data](ch05-00-structs.md) -->
+<!--     - [Defining and Instantiating Structs](ch05-01-defining-structs.md) -->
+<!--     - [An Example Program Using Structs](ch05-02-example-structs.md) -->
+<!--     - [Method Syntax](ch05-03-method-syntax.md) -->
+
+- [構造体を使用して関連のあるデータを構造化する](ch05-00-structs.md)
+    - [構造体を定義し、インスタンス化する](ch05-01-defining-structs.md)
+    - [構造体を使用したプログラム例](ch05-02-example-structs.md)
+    - [メソッド記法](ch05-03-method-syntax.md)
+
+<!-- - [Enums and Pattern Matching](ch06-00-enums.md) -->
+<!--     - [Defining an Enum](ch06-01-defining-an-enum.md) -->
+<!--     - [The `match` Control Flow Operator](ch06-02-match.md) -->
+<!--     - [Concise Control Flow with `if let`](ch06-03-if-let.md) -->
+
+- [Enumとパターンマッチング](ch06-00-enums.md)
+    - [Enumを定義する](ch06-01-defining-an-enum.md)
+    - [`match`制御フロー演算子](ch06-02-match.md)
+    - [`if let`で簡潔な制御フロー](ch06-03-if-let.md)
 
 ## Basic Rust Literacy
 
