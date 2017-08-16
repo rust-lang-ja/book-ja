@@ -58,6 +58,7 @@
 | deadlock                       | デッドロック
 | deallocate                     | デアロケートする
 | declaration statement          | 宣言文
+| (crateの)dependency            | 依存
 | dereferencing                  | 参照外し
 | destructor                     | デストラクタ
 | destructuring                  | 分配
@@ -90,13 +91,13 @@
 | generic parameter              | ジェネリックパラメータ
 | generics                       | ジェネリクス
 | glob                           | グロブ
-| growable                       | 伸張可能
+| growable                       | サイズ可変
 | guard                          | ガード
 | handle                         | ハンドル
 | hash                           | ハッシュ
 | identifier                     | 識別子
-| immutable                      | イミュータブル
-| immutability                   | イミュータビリティ
+| immutable                      | 不変
+| immutability                   | 不変性
 | implement                      | 実装する
 | initialize                     | 初期化する
 | input lifetime                 | 入力ライフタイム
@@ -125,9 +126,9 @@
 | method                         | メソッド
 | monomorphization               | 単相化
 | move                           | ムーブ
-| mutability                     | ミュータビリティ
-| mutable                        | ミュータブル
-| mutable binding                | ミュータブルな束縛
+| mutability                     | 可変性
+| mutable                        | 可変
+| mutable binding                | 可変束縛
 | mutual-exclusion               | 相互排他
 | null                           | ヌル
 | object-safe                    | オブジェクト安全
@@ -169,6 +170,7 @@
 | scope                          | スコープ
 | scoped                         | スコープ化された
 | script                         | スクリプト
+| semantic versioning            | セマンティックバージョニング
 | semantics                      | セマンティクス
 | shadow                         | 覆い隠す
 | shadowing                      | シャドーイング
@@ -212,7 +214,7 @@
 | value constructor              | 値コンストラクタ
 | variable                       | 変数
 | variable binding               | 変数束縛
-| variant                        | ヴァリアント
+| variant                        | バリアント
 | vector                         | ベクタ
 | version                        | バージョン
 | warning                        | ウォーニング
