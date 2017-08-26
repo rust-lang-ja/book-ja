@@ -62,7 +62,7 @@ fn first_word(s: &String) -> usize {
 <!-- `String` to an array of bytes using the `as_bytes` method: -->
 
 このコードを少し噛み砕いていきましょう。`String`の値を要素ごとに見て、空白かどうかを確かめる必要があるので、
-`as_bytes`メソッドを使って、`String`オブジェクトをバイト配列に変換しました。
+`as_bytes`メソッドを使って、`String`オブジェクトをバイト配列に変換しています。
 
 ```rust,ignore
 let bytes = s.as_bytes();
@@ -83,7 +83,7 @@ for (i, &item) in bytes.iter().enumerate() {
 <!-- reference to the element. This is a bit more convenient than calculating the -->
 <!-- index ourselves. -->
 
-イテレータについて詳しくは、第13章で議論します。今は、`iter`は、コレクション内の各要素を返す関数であること、
+イテレータについて詳しくは、第13章で議論します。今は、`iter`は、コレクション内の各要素を返すメソッドであること、
 `enumerate`が`iter`の結果を包んで、代わりにタプルの一部として各要素を返すことを知っておいてください。
 戻り値のタプルの第1要素は、番号であり、2番目の要素は、(コレクションの)要素への参照になります。
 これは、手動で番号を計算するよりも少しだけ便利です。
@@ -241,7 +241,7 @@ let world = &s[6..11];
 
 これは、`String`全体への参照を取ることに似ていますが、余計な`[0..5]`という部分が付いています。
 `String`全体への参照というよりも、`String`の一部への参照です。`開始..終点`という記法は、`開始`から始まり、
-`終端`未満までずっと続く範囲です。
+`終点`未満までずっと続く範囲です。
 
 <!-- We can create slices using a range within brackets by specifying -->
 <!-- `[starting_index..ending_index]`, where `starting_index` is the first position -->
@@ -251,9 +251,9 @@ let world = &s[6..11];
 <!-- `starting_index`. So in the case of `let world = &s[6..11];`, `world` would be -->
 <!-- a slice that contains a pointer to the 6th byte of `s` and a length value of 5. -->
 
-`[starting_index..ending_index`と指定することで、角かっこに範囲を使い、スライスを生成できます。
+`[starting_index..ending_index]`と指定することで、角かっこに範囲を使い、スライスを生成できます。
 ここで、`starting_index`はスライスに含まれる最初の位置、`ending_index`はスライスに含まれる終端位置よりも、
-1大きくなります。内部的には、スライスデータは、開始地点とスライスの長さを保持しており、
+1大きくなります。内部的には、スライスデータ構造は、開始地点とスライスの長さを保持しており、
 スライスの長さは`ending_index`から`starting_index`を引いたものに対応します。以上より、
 `let world = &s[6..11];`の場合には、`world`は`s`の6バイト目へのポインタと5という長さを保持するスライスになるでしょう。
 
@@ -261,12 +261,14 @@ let world = &s[6..11];
 
 図4-12は、これを図解しています。
 
-<img alt="world containing a pointer to the 6th byte of String s and a length 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
+<!-- <img alt="world containing a pointer to the 6th byte of String s and a length 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" /> -->
+
+<img alt="文字列sの6バイト目へのポインタと長さ5を保持するworld" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
 
 <!-- <span class="caption">Figure 4-12: String slice referring to part of a -->
 <!-- `String`</span> -->
 
-<span class="caption">`String`オブジェクトの一部を参照する文字列スライス</span>
+<span class="caption">図4-12: `String`オブジェクトの一部を参照する文字列スライス</span>
 
 <!-- With Rust’s `..` range syntax, if you want to start at the first index (zero), -->
 <!-- you can drop the value before the two periods. In other words, these are equal: -->
@@ -452,7 +454,7 @@ let s = "Hello, world!";
 <!-- improvement on `first_word`, and that’s its signature: -->
 
 リテラルや`String`のスライスを得ることができると知ると、`first_word`に対して、もう一つ改善点を見出すことができます。
-それはシグニチャです:
+シグニチャです:
 
 ```rust,ignore
 fn first_word(s: &String) -> &str {
@@ -474,7 +476,7 @@ fn first_word(s: &str) -> &str {
 <!-- without losing any functionality: -->
 
 もし、文字列スライスがあるなら、それを直接渡せます。`String`オブジェクトがあるなら、
-その`String`全体のスライスを渡せます。Stringへの参照の代わりに文字列リテラルを取るよう関数を定義すると、
+その`String`全体のスライスを渡せます。Stringへの参照の代わりに文字列スライスを取るよう関数を定義すると、
 何も機能を失うことなくAPIをより一般的で有益なものにできるのです。
 
 <span class="filename">Filename: src/main.rs</span>
@@ -531,8 +533,8 @@ fn main() {
     // first_wordは文字列リテラルのスライスに対して機能する
     let word = first_word(&my_string_literal[..]);
 
-    // 文字列リテラルは、すでに文字列リテラル*なの*で、
-    // こちらも、スライス記法なしで機能するのだ！
+    // 文字列リテラルは、すでに文字列スライス*な*ので、
+    // スライス記法なしでも機能するのだ！
     let word = first_word(my_string_literal);
 }
 ```
@@ -568,7 +570,7 @@ let slice = &a[1..3];
 <!-- slice for all sorts of other collections. We’ll discuss these collections in -->
 <!-- detail when we talk about vectors in Chapter 8. -->
 
-このスライスは、`&[i32]`という型になります。これも文字列リテラルと全く同じ方法で動作しています。
+このスライスは、`&[i32]`という型になります。これも文字列スライスと全く同じように動作します。
 つまり、最初の要素への参照と長さを保持することです。他のすべての種類のコレクションに対して、
 この種のスライスは使用することができるでしょう。これらのコレクションについて詳しくは、
 第8章でベクタ型について話すときに議論します。
@@ -585,7 +587,7 @@ let slice = &a[1..3];
 
 所有権、借用、スライスの概念は、コンパイル時にRustプログラムにおいて、メモリ安全性を確保するものです。
 Rust言語も他のシステムプログラミング言語同様、メモリの使用法について制御させてくれるわけですが、
-データの所有者に所有者がスコープを抜けたときに自動的にデータを片付けさせることは、この制御を得るために、
+所有者がスコープを抜けたときにデータの所有者に自動的にデータを片付けさせることは、この制御を得るために、
 余計なコードを書いてデバッグする必要がないことを意味します。
 
 <!-- Ownership affects how lots of other parts of Rust work, so we’ll talk about -->

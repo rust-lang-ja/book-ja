@@ -6,7 +6,7 @@
 <!-- name as part of the call, as in the call to the `nested_modules` function shown -->
 <!-- here in Listing 7-6: -->
 
-モジュール名を呼び出しの一部に使用してモジュール内に定義された関数の呼び出し方法を解説しました。
+モジュール名を呼び出しの一部に使用して、モジュール内に定義された関数の呼び出し方法を解説しました。
 リスト7-6に示した`nested_modules`関数の呼び出しのような感じですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
