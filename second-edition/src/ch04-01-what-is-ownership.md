@@ -129,7 +129,7 @@ Rustの中心的な機能は、*所有権*です。機能は説明するのに�
 > 保管することができますが、実データが必要になったら、ポインタを追いかける必要があります。
 >
 > レストランで席を確保することを考えましょう。入店したら、グループの人数を告げ、店員が全員座れる
-> 空いている席を探し、そこまで誘導します。もしグループの誰かが遅れて来るのなら、着いた席の場所を訪ねて
+> 空いている席を探し、そこまで誘導します。もしグループの誰かが遅れて来るのなら、着いた席の場所を尋ねて
 > あなたを発見することができます。
 >
 > ヒープへのデータアクセスは、スタックのデータへのアクセスよりも低速です。ポインタを追って目的の場所に
@@ -338,7 +338,7 @@ println!("{}", s); // これは`hello, world!`と出力する
 <!-- running the program. -->
 
 文字列リテラルの場合、中身はコンパイル時に判明しているので、テキストは最終的なバイナリファイルに直接ハードコードされます。
-その結果、文字列リテラルは、高速で効率的になるのです。しかし、これらの要素は、その不変性にのみ
+その結果、文字列リテラルは、高速で効率的になるのです。しかし、これらの特性は、その不変性にのみ
 端を発するものです。残念なことに、コンパイル時にサイズが不明だったり、プログラム実行に合わせてサイズが
 可変なテキスト片用に一塊のメモリをバイナリに確保しておくことは不可能です。
 
@@ -354,13 +354,13 @@ println!("{}", s); // これは`hello, world!`と出力する
 <!-- done with our `String`. -->
 
 1. メモリは、実行時にOSに要求される。
-2. `String`型を使用し終わったら、OSにこのメモリを変換する方法が必要である。
+2. `String`型を使用し終わったら、OSにこのメモリを返還する方法が必要である。
 
 <!-- That first part is done by us: when we call `String::from`, its implementation -->
 <!-- requests the memory it needs. This is pretty much universal in programming -->
 <!-- languages. -->
 
-この最初の部分は、すでにしています: `String::from`関数を読んだら、その実装が必要なメモリを要求するのです。
+この最初の部分は、すでにしています: `String::from`関数を呼んだら、その実装が必要なメモリを要求するのです。
 これは、プログラミング言語において、極めて普遍的です。
 
 <!-- However, the second part is different. In languages with a *garbage collector -->
@@ -435,7 +435,7 @@ Rustは、異なる道を歩んでいます: ひとたび、メモリを所有�
 
 このパターンは、Rustコードの書かれ方に甚大な衝撃をもたらします。現状は簡単そうに見えるかもしれませんが、
 ヒープ上に確保されたデータを複数の変数に使用させるようなもっと複雑な場面では、コードの振る舞いは、
-予期しないものになる可能性もあります。
+予期しないものになる可能性もあります。これから、そのような場面を掘り下げてみましょう。
 
 <!-- #### Ways Variables and Data Interact: Move -->
 
@@ -463,7 +463,7 @@ to `y`</span> -->
 <!-- This is indeed what is happening because integers are simple values with a -->
 <!-- known, fixed size, and these two `5` values are pushed onto the stack. -->
 
-もしかしたら、他の言語の経験に基づいて、これが何をしているのか予想することができるでしょう: 
+もしかしたら、他の言語の経験に基づいて、何をしているのか予想することができるでしょう: 
 「値`5`を`x`に束縛する; それから`x`の値をコピーして`y`に束縛する。」これで、二つの変数(`x`と
 `y`)が存在し、両方、値は`5`になりました。これは確かに起こっている現象を説明しています。
 なぜなら、整数は既知の固定サイズの単純な値で、これら二つの`5`という値は、スタックに積まれるからです。
@@ -496,7 +496,9 @@ let s2 = s1;
 メモリへのポインタと長さ、そして、許容量です。この種のデータは、スタックに保持されます。
 右側には、ヒープ上の中身を保持したメモリがあります。 
 
-<img alt="String in memory" src="img/trpl04-01.svg" class="center" style="width: 50%;" />
+<!-- <img alt="String in memory" src="img/trpl04-01.svg" class="center" style="width: 50%;" /> -->
+
+<img alt="メモリ上の文字列" src="img/trpl04-01.svg" class="center" style="width: 50%;" />
 
 <!-- <span class="caption">Figure 4-3: Representation in memory of a `String`
 holding the value `"hello"` bound to `s1`</span> -->
@@ -523,7 +525,9 @@ OSから受け取った全メモリ量をバイトで表したものです。長
 コピーするということです。ポインタが指すヒープ上のデータはコピーしません。言い換えると、メモリ上のデータ表現は
 図4-4のようになるということです。
 
-<img alt="s1 and s2 pointing to the same value" src="img/trpl04-02.svg" class="center" style="width: 50%;" />
+<!-- <img alt="s1 and s2 pointing to the same value" src="img/trpl04-02.svg" class="center" style="width: 50%;" /> -->
+
+<img alt="同じ値を指すs1とs2" src="img/trpl04-02.svg" class="center" style="width: 50%;" />
 
 <!-- <span class="caption">Figure 4-4: Representation in memory of the variable `s2`
 that has a copy of the pointer, length, and capacity of `s1`</span> -->
@@ -540,7 +544,9 @@ that has a copy of the pointer, length, and capacity of `s1`</span> -->
 という選択をしていた場合のメモリ表現ですね。Rustがこれをしていたら、ヒープ上のデータが大きい時に
 `s2 = s1`という処理の実行時性能がとても悪くなっていた可能性があるでしょう。
 
-<img alt="s1 and s2 to two places" src="img/trpl04-03.svg" class="center" style="width: 50%;" />
+<!-- <img alt="s1 and s2 to two places" src="img/trpl04-03.svg" class="center" style="width: 50%;" /> -->
+
+<img alt="2箇所へのs1とs2" src="img/trpl04-03.svg" class="center" style="width: 50%;" />
 
 <!-- <span class="caption">Figure 4-5: Another possibility of what `s2 = s1` might
 do if Rust copied the heap data as well</span> -->
@@ -568,7 +574,7 @@ do if Rust copied the heap data as well</span> -->
 <!-- anything when `s1` goes out of scope. Check out what happens when you try to -->
 <!-- use `s1` after `s2` is created: -->
 
-<!-- この文は、こなれた日本語にしにくい -->
+<!-- この最初の文は、こなれた日本語にしにくい -->
 
 メモリ安全性を保証するために、Rustにおいてこの場面で知っておきたい起こる事の詳細がもう一つあります。
 確保されたメモリをコピーしようとする代わりに、コンパイラは、`s1`が最早有効ではないと考え、故に
@@ -613,11 +619,13 @@ which does not implement the `Copy` trait
 
 他の言語を触っている間に"shallow copy"と"deep copy"という用語を耳にしたことがあるなら、
 データのコピーなしにポインタと長さ、許容量をコピーするという概念は、shallow copyのように思えるかもしれません。
-ですが、コンパイラは最初の変数を無効化するので、これをshallow copyと呼ぶ代わりに、
+ですが、コンパイラは最初の変数をも無効化するので、これをshallow copyと呼ぶ代わりに、
 ムーブとして知られているわけです。ここでは、`s1`は`s2`に*ムーブ*されたと解読します。
 以上より、実際に起きることを図4-6に示してみました。
 
-<img alt="s1 moved to s2" src="img/trpl04-04.svg" class="center" style="width: 50%;" />
+<!-- <img alt="s1 moved to s2" src="img/trpl04-04.svg" class="center" style="width: 50%;" /> -->
+
+<img alt="s2にムーブされたs1" src="img/trpl04-04.svg" class="center" style="width: 50%;" />
 
 <!-- <span class="caption">Figure 4-6: Representation in memory after `s1` has been
 invalidated</span> -->
@@ -736,7 +744,7 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、整数の�
 
 では、どの型が`Copy`なのでしょうか？ある型について、ドキュメントをチェックすればいいのですが、
 一般規則として、単純なスカラー値の集合は何でも`Copy`であり、メモリ確保が必要だったり、
-何らかの携帯のリソースだったりするものは`Copy`ではありません。ここに`Copy`の型を並べておきます。
+何らかの形態のリソースだったりするものは`Copy`ではありません。ここに`Copy`の型を並べておきます。
 
 <!-- * All the integer types, like `u32`. -->
 <!-- * The boolean type, `bool`, with values `true` and `false`. -->
@@ -744,9 +752,9 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、整数の�
 <!-- * Tuples, but only if they contain types that are also `Copy`. `(i32, i32)` is -->
 <!-- `Copy`, but `(i32, String)` is not. -->
 
-* 全部の整数型。`u32`など。
+* あらゆる整数型。`u32`など。
 * 論理値型、`bool`、`true`と`false`という値がある。
-* 全部の浮動小数点型、`f64`など。
+* あらゆる浮動小数点型、`f64`など。
 * タプル。ただ、`Copy`の型だけを含む場合。`(i32, i32)`は`Copy`だが
 `(i32, String)`は違う。
 
@@ -969,5 +977,5 @@ fn calculate_length(s: String) -> (String, usize) {
 <!-- common. Luckily for us, Rust has a feature for this concept, and it’s called -->
 <!-- *references*. -->
 
-でも、これでは、大袈裟すぎますし、ありふれているはずの概念に対して、作業量が多すぎます。私たちにとって
-幸運なことにRustにはこの概念に対する機能があり、それは*参照*と呼ばれます。
+でも、これでは、大袈裟すぎますし、ありふれているはずの概念に対して、作業量が多すぎます。
+私たちにとって幸運なことに、Rustにはこの概念に対する機能があり、それは*参照*と呼ばれます。
