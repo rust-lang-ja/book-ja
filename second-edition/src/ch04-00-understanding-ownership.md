@@ -2,7 +2,7 @@
 
 # 所有権を理解する
 
-<!--Ownership is Rust’s most unique feature, and it enables Rust to make memory -->
+<!-- Ownership is Rust’s most unique feature, and it enables Rust to make memory -->
 <!-- safety guarantees without needing a garbage collector. Therefore, it’s -->
 <!-- important to understand how ownership works in Rust. In this chapter we’ll talk -->
 <!-- about ownership as well as several related features: borrowing, slices, and how -->
