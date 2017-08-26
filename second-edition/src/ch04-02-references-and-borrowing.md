@@ -50,7 +50,9 @@ fn calculate_length(s: &String) -> usize {
 これらのアンド記号が参照であり、これのおかげで所有権をもらうことなく値を参照することができるのです。
 図4-8はその図解です。
 
-<img alt="&String s pointing at String s1" src="img/trpl04-05.svg" class="center" />
+<!-- <img alt="&String s pointing at String s1" src="img/trpl04-05.svg" class="center" /> -->
+
+<img alt="文字列s1を指す&String型のs" src="img/trpl04-05.svg" class="center" />
 
 <!-- <span class="caption">Figure 4-8: `&String s` pointing at `String s1`</span> -->
 
@@ -355,7 +357,7 @@ immutable
 ポインタのある言語では、誤ってダングリングポインタを生成してしまいやすいです。ダングリングポインタとは、
 他人に渡されてしまった可能性のあるメモリを指すポインタのことであり、その箇所へのポインタを保持している間に、
 メモリを解放してしまうことで発生します。対照的にRustでは、コンパイラが、
-参照がダングリング参照に絶対ならないよう保証しくれます:つまり、何らかのデータへの参照があったら、
+参照がダングリング参照に絶対ならないよう保証してくれます:つまり、何らかのデータへの参照があったら、
 コンパイラは参照がスコープを抜けるまで、データがスコープを抜けることがないよう確認してくれるわけです。
 
 <!-- Let’s try to create a dangling reference: -->
