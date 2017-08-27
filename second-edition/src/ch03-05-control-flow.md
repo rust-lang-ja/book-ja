@@ -8,9 +8,9 @@
 <!-- let you control the flow of execution of Rust code are `if` expressions and -->
 <!-- loops. -->
 
-条件が真かどうかによってコードを走らせるかどうかを決定したり、条件が真の間繰り返しコードを走らせるか
-決定したりすることは、多くのプログラミング言語において、基本的な構成ブロックです。Rustコードの
-実行フローを制御する最も一般的な文法要素は、`if`式とループです。
+条件が真かどうかによってコードを走らせるかどうかを決定したり、
+条件が真の間繰り返しコードを走らせるか決定したりすることは、多くのプログラミング言語において、基本的な構成ブロックです。
+Rustコードの実行フローを制御する最も一般的な文法要素は、`if`式とループです。
 
 <!-- ### `if` Expressions -->
 
@@ -60,13 +60,14 @@ fn main() {
 <!-- the condition is false, the program will just skip the `if` block and move on -->
 <!-- to the next bit of code. -->
 
-`if`式は全て、キーワードの`if`から始め、条件式を続けます。今回の場合、条件式は変数`number`が
-５未満の値になっているかどうかをチェックします。条件が真の時に実行したい一連のコードを条件式の直後に
-波かっこで包んで配置します。`if`式の条件式と紐付けられる一連のコードは、時として*アーム*と呼ばれることがあります。
+`if`式は全て、キーワードの`if`から始め、条件式を続けます。今回の場合、
+条件式は変数`number`が５未満の値になっているかどうかをチェックします。
+条件が真の時に実行したい一連のコードを条件式の直後に波かっこで包んで配置します。`if`式の条件式と紐付けられる一連のコードは、
+時として*アーム*と呼ばれることがあります。
 第2章の「予想と秘密の数字を比較する」の節で議論した`match`式のアームのようですね。オプションとして、
-`else`式を含むこともでき(ここではそうしています)、これによりプログラムは、条件式が偽になった時に
-実行するコードを与えられることになります。仮に、`else`式を与えずに条件式が偽になったら、プログラムは単に
-`if`ブロックを無視して次のコードを実行しにいきます。
+`else`式を含むこともでき(ここではそうしています)、これによりプログラムは、
+条件式が偽になった時に実行するコードを与えられることになります。仮に、`else`式を与えずに条件式が偽になったら、
+プログラムは単に`if`ブロックを無視して次のコードを実行しにいきます。
 
 <!-- Try running this code; you should see the following output: -->
 
@@ -103,8 +104,8 @@ condition was false
 <!-- see what happens if the condition isn’t a `bool`, try running the following -->
 <!-- code: -->
 
-このコード内の条件式は、`bool`型で*なければならない*ことにも触れる価値があります。条件式が、
-`bool`型でない時に何が起こるかを確かめるために、以下のコードを走らせてみましょう:
+このコード内の条件式は、`bool`型で*なければならない*ことにも触れる価値があります。
+条件式が、`bool`型でない時に何が起こるかを確かめるために、以下のコードを走らせてみましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -146,9 +147,9 @@ error[E0308]: mismatched types
 <!-- expression to the following: -->
 
 このエラーは、コンパイラは`bool`型を予期していたのに、整数だったことを示唆しています。Rustでは、
-論理値以外の値が、自動的に論理値に変換されることはありません。RubyやJavaScriptなどの言語とは
-異なりますね。明示的に必ず`if`には条件式として、`論理値`を与えなければなりません。例えば、
-数値が`0`以外の時だけ`if`のコードを走らせたいなら、以下のように`if`式を変更することができます:
+論理値以外の値が、自動的に論理値に変換されることはありません。
+RubyやJavaScriptなどの言語とは異なります。明示的に必ず`if`には条件式として、`論理値`を与えなければなりません。
+例えば、数値が`0`以外の時だけ`if`のコードを走らせたいなら、以下のように`if`式を変更することができます:
 
 <!--<span class="filename">Filename: src/main.rs</span> -->
 
@@ -201,7 +202,7 @@ fn main() {
 }
 ```
 
-<!--This program has four possible paths it can take. After running it, you should -->
+<!-- This program has four possible paths it can take. After running it, you should -->
 <!-- see the following output: -->
 
 このプログラムには、通り道が4つあります。実行後、以下のような出力を目の当たりにするはずです:
@@ -221,16 +222,17 @@ number is divisible by 3
 <!-- and once it finds one, it won’t even check the rest. -->
 
 このプログラムを実行すると、`if`式が順番に吟味され、最初に条件が真になった本体が実行されます。
-6は2で割り切れるものの、`number is devisible by 2`や`else`ブロックの`number is not divisible by 4, 3, or 2`
-という出力はされないことに注目してください。その原因は、言語が最初の真条件のブロックのみを実行し、
-条件に合ったものが見つかったら、残りはチェックすらしないということだからです。
+6は2で割り切れるものの、`number is devisible by 2`や、
+`else`ブロックの`number is not divisible by 4, 3, or 2`という出力はされないことに注目してください。
+その原因は、言語が最初の真条件のブロックのみを実行し、
+条件に合ったものが見つかったら、残りはチェックすらしないからです。
 
 <!-- Using too many `else if` expressions can clutter your code, so if you have more -->
 <!-- than one, you might want to refactor your code. Chapter 6 describes a powerful -->
 <!-- Rust branching construct called `match` for these cases. -->
 
 `else if`式を使いすぎると、コードがめちゃくちゃになってしまうので、1つ以上あるなら、
-コードをリファクタリングしたくなるかもしれません。これらのケースに有用な`match`と呼ばれる
+コードをリファクタリングしたくなるかもしれません。これらのケースに有用な`match`と呼ばれる、
 強力なRustの枝分かれ文法要素については第6章で解説します。
 
 <!-- #### Using `if` in a `let` statement -->
@@ -344,12 +346,11 @@ error[E0308]: if and else have incompatible types
 <!-- multiple hypothetical types for any variable. -->
 
 `if`ブロックの式は整数に評価され、`else`ブロックの式は文字列に評価されます。これでは動作しません。
-変数は単独の型でなければならないのです。コンパイラは、コンパイル時に`number`変数の型を確実に
-把握する必要があるため、コンパイル時に`number`が使われている箇所全部で型が有効かどうか
-検査することができるのです。`number`の型が実行時にしか決まらないのであれば、コンパイラは
-それを実行することができなくなってしまいます; コンパイラはより複雑であり、どの変数に対しても、
-架空の複数の型があることを追いかけなければならないのであれば、コードに対して行える保証が
-少なくなってしまうでしょう。
+変数は単独の型でなければならないからです。コンパイラは、コンパイル時に`number`変数の型を確実に把握する必要があるため、
+コンパイル時に`number`が使われている箇所全部で型が有効かどうか検査することができるのです。
+`number`の型が実行時にしか決まらないのであれば、コンパイラはそれを実行することができなくなってしまいます;
+どの変数に対しても、架空の複数の型があることを追いかけなければならないのであれば、コンパイラはより複雑になり、
+コードに対して行える保証が少なくなってしまうでしょう。
 
 <!-- ### Repetition with Loops -->
 
@@ -360,8 +361,9 @@ error[E0308]: if and else have incompatible types
 <!-- body to the end and then starts immediately back at the beginning. To -->
 <!-- experiment with loops, let’s make a new project called *loops*. -->
 
-一連のコードを1回以上実行できることは、しばしば役に立ちます。この作業用に、Rustにはいくつかの
-*ループ*が用意されています。ループは、本体内のコードを最後まで実行し、直後にまた最初から開始します。
+一連のコードを1回以上実行できると、しばしば役に立ちます。この作業用に、
+Rustにはいくつかの*ループ*が用意されています。ループは、本体内のコードを最後まで実行し、
+直後にまた最初から処理を開始します。
 ループを試してみるのに、*loops*という名の新プロジェクトを作りましょう。
 
 <!-- Rust has three kinds of loops: `loop`, `while`, and `for`. Let’s try each one. -->
@@ -400,8 +402,8 @@ fn main() {
 <!-- continual loop. Give it a try: -->
 
 このプログラムを実行すると、プログラムを手動で止めるまで、何度も何度も続けて`again!`と出力するでしょう。
-ほとんどのターミナルで<span class="keystroke">ctrl-C</span>というショートカットが使え、永久ループに囚われてしまったプログラムを終了させられます。
-試しにやってみましょう:
+ほとんどのターミナルで<span class="keystroke">ctrl-C</span>というショートカットが使え、
+永久ループに囚われてしまったプログラムを終了させられます。試しにやってみましょう:
 
 ```text
 $ cargo run
@@ -427,8 +429,8 @@ again!
 <!-- “Quitting After a Correct Guess” section of Chapter 2 to exit the -->
 <!-- program when the user won the game by guessing the correct number. -->
 
-幸いなことに、Rustにはループを抜け出す別のより信頼できる手段があります。ループ内に`break`
-キーワードを配置することでプログラムに実行を終了すべきタイミングを教えることができます。
+幸いなことに、Rustにはループを抜け出す別のより信頼できる手段があります。
+ループ内に`break`キーワードを配置することでプログラムに実行を終了すべきタイミングを教えることができます。
 第2章の「正しい予想をした後に終了する」節の数当てゲーム内でこれをして、ユーザが予想を的中させ、
 ゲームに勝った時にプログラムを終了させたことを思い出してください。
 
@@ -444,8 +446,8 @@ again!
 
 プログラムにとってループ内で条件式を評価できると、有益なことがしばしばあります。条件が真の間、
 ループが走るわけです。条件が真でなくなった時に`break`を呼び出し、ループを終了します。
-このタイプのループは、`loop`、`if`、`else`、`break`を組み合わせることで実装できます;
-なんならプログラムで試してみるのもいいでしょう。
+このタイプのループは、`loop`、`if`、`else`、`break`を組み合わせることでも実装できます;
+お望みなら、プログラムで試してみるのもいいでしょう。
 
 <!-- However, this pattern is so common that Rust has a built-in language construct -->
 <!-- for it, and it’s called a `while` loop. The following example uses `while`: the -->
@@ -538,7 +540,7 @@ the value is: 50
 <!-- will reach a value of `5` at some point, the loop stops executing before trying -->
 <!-- to fetch a sixth value from the array. -->
 
-予想通り、配列の5つの要素が全てターミナルに出力されました。`index`変数の値はどこかで`5`という値になるものの、
+予想通り、配列の5つの要素が全てターミナルに出力されています。`index`変数の値はどこかで`5`という値になるものの、
 配列から6番目の値を拾おうとする前にループは実行を終了します。
 
 <!-- But this approach is error prone; we could cause the program to panic if the -->
@@ -546,14 +548,14 @@ the value is: 50
 <!-- code to perform the conditional check on every element on every iteration -->
 <!-- through the loop. -->
 
-しかし、このアプローチは間違いが発生しやすいです; 添え字の長さが間違っていれば、プログラムは
-パニックしてしまいます。また遅いです。コンパイラが実行時にループの各回ごとに境界値チェックを行う
-ようなコードを追加するからです。
+しかし、このアプローチは間違いが発生しやすいです; 添え字の長さが間違っていれば、
+プログラムはパニックしてしまいます。また遅いです。
+コンパイラが実行時にループの各回ごとに境界値チェックを行うようなコードを追加するからです。
 
 <!-- As a more efficient alternative, you can use a `for` loop and execute some code -->
 <!-- for each item in a collection. A `for` loop looks like this: -->
 
-より効率的な対立案として、`for`ループを使ってコレクションの各アイテムにコードを実行することができます。
+より効率的な対立案として、`for`ループを使ってコレクションの各アイテムに対してコードを実行することができます。
 `for`ループはこんな見た目です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -581,17 +583,17 @@ fn main() {
 <!-- chance of bugs that might result from going beyond the end of the array or not -->
 <!-- going far enough and missing some items. -->
 
-このコードを走らせたら、リスト3-5と同じ出力が得られるでしょう。より重要なのは、コードの安全性を
-向上させ、配列の終端を超えてアクセスしたり、終端に届く前にループを終えてアイテムを見逃してしまったりする
-バグの可能性を完全に排除したことです。
+このコードを走らせたら、リスト3-5と同じ出力が得られるでしょう。より重要なのは、
+コードの安全性を向上させ、配列の終端を超えてアクセスしたり、
+終端に届く前にループを終えてアイテムを見逃してしまったりするバグの可能性を完全に排除したことです。
 
 <!-- For example, in the code in Listing 3-5, if you removed an item from the `a` -->
 <!-- array but forgot to update the condition to `while index < 4`, the code would -->
 <!-- panic. Using the `for` loop, you don’t need to remember to change any other -->
 <!-- code if you changed the number of values in the array. -->
 
-例えば、リスト3-5のコードで、`a`配列からアイテムを1つ削除したのに、条件式を`while index < 4`に
-するのを忘れていたら、コードはパニックします。`for`ループを使っていれば、配列の要素数を変えても、
+例えば、リスト3-5のコードで、`a`配列からアイテムを1つ削除したのに、条件式を`while index < 4`にするのを忘れていたら、
+コードはパニックします。`for`ループを使っていれば、配列の要素数を変えても、
 他のコードをいじることを覚えておく必要はなくなるわけです。
 
 <!-- The safety and conciseness of `for` loops make them the most commonly used loop -->
@@ -603,16 +605,15 @@ fn main() {
 <!-- before another number. -->
 
 `for`ループのこの安全性と簡潔性により、Rustで使用頻度の最も高いループになっています。
-リスト3-5で`while`ループを使ったカウントダウンサンプルのように、一定の回数、同じコードを実行したい
-ような状況であっても、多くのRust市民は、`for`ループを使うでしょう。どうやってやるかといえば、
-`Range`型を使うのです。Range型は、標準ライブラリで提供される片方の数字から始まって、もう片方の数字未満の
-数値を順番に生成する型です。
+リスト3-5で`while`ループを使ったカウントダウンサンプルのように、一定の回数、同じコードを実行したいような状況であっても、
+多くのRust市民は、`for`ループを使うでしょう。どうやってやるかといえば、
+`Range`型を使うのです。Range型は、標準ライブラリで提供される片方の数字から始まって、
+もう片方の数字未満の数値を順番に生成する型です。
 
 <!-- Here’s what the countdown would look like using a `for` loop and another method -->
 <!-- we’ve not yet talked about, `rev`, to reverse the range: -->
 
-`for`ループを使い、まだ話していない別のメソッド`rev`を使って範囲を逆順にした
-カウントダウンはこうなります:
+`for`ループを使い、まだ話していない別のメソッド`rev`を使って範囲を逆順にしたカウントダウンはこうなります:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -649,7 +650,7 @@ fn main() {
 
 * 温度を華氏と摂氏で変換する。
 * フィボナッチ数列のn番目を生成する。
-* クリスマスキャロルの定番、"The Twelve Days of Christmas"の歌詞を
+* クリスマスキャロルの定番、"The Twelve Days of Christmas"の歌詞を、
 曲の反復性を利用して出力する。
 
 <!-- When you’re ready to move on, we’ll talk about a concept in Rust that *doesn’t* -->
