@@ -189,7 +189,7 @@ fn area(rectangle: &Rectangle) -> u32 {
 <!-- using `rect1`, which is the reason we use the `&` in the function signature and -->
 <!-- where we call the function. -->
 
-これで`area`関数は引数が一つになり、この引数は名前が`rectangle`、型は`Rectangle`構造体インスタンスへの不変参照になりました。
+これで`area`関数は引数が一つになり、この引数は名前が`rectangle`、型は`Rectangle`構造体インスタンスへの不変借用になりました。
 第4章で触れたように、構造体の所有権を奪うよりも借用する必要があります。こうすることで`main`は所有権を保って、
 `rect1`を使用し続けることができ、そのために関数シグニチャと関数呼び出し時に`&`を使っているわけです。
 
