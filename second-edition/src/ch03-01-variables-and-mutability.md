@@ -8,17 +8,17 @@
 <!-- still have the option to make your variables mutable. Let’s explore how and why -->
 <!-- Rust encourages you to favor immutability, and why you might want to opt out. -->
 
-第2章で触れた通り、変数は標準で*不変*になります。これは、Rustが提供する安全性や簡潔な並列プログラミングの
-利点を享受する形でコードを書くことを推奨してくれる一押しです。ところが、まだ変数を可変にするという
-選択肢も残されています。不変性を好むようコンパイラが推奨する手段と理由および、それと違う道を選びたくなる理由を
-見ていきましょう。
+第2章で触れた通り、変数は標準で*不変*になります。これは、
+Rustが提供する安全性や簡潔な並列プログラミングの利点を享受する形でコードを書くことを推奨してくれる一押しです。
+ところが、まだ変数を可変にするという選択肢も残されています。不変性を好むようコンパイラが推奨する手段と理由および、
+それと違う道を選びたくなる理由を見ていきましょう。
 
 <!-- When a variable is immutable, that means once a value is bound to a name, you -->
 <!-- can’t change that value. To illustrate, let’s generate a new project called -->
 <!-- *variables* in your *projects* directory by using `cargo new --bin variables`. -->
 
 変数が不変であるとは、値が一旦名前に束縛されたら、その値を変えることができないことを意味します。
-具体化するために、*projects*ディレクトリに`cargo new --bin variables`コマンドを使って
+具体化するために、*projects*ディレクトリに`cargo new --bin variables`コマンドを使って、
 *variables*という名前のプロジェクトを生成しましょう。
 
 <!-- Then, in your new *variables* directory, open *src/main.rs* and replace its -->
@@ -66,8 +66,8 @@ error[E0384]: re-assignment of immutable variable `x`
 <!-- variable. -->
 
 この例では、コンパイラがプログラムに潜むエラーを見つけ出す手助けをしてくれることが示されています。
-コンパイルエラーは、イライラするものですが、まだプログラムにしてほしいことを安全に行えていないだけ
-なのです; エラーが出るからといって、あなたがいいプログラマではないという意味では*ありません*！
+コンパイルエラーは、イライラすることもあるものですが、まだプログラムにしてほしいことを安全に行えていないだけということなのです;
+エラーが出るからといって、あなたがいいプログラマではないという意味では*ありません*！
 経験豊富なRust市民でも、コンパイラエラーを出すことはあります。このエラーは、エラーの原因が
 `不変変数への再代入`であると示しています。不変な`x`という変数に第2段階の値を代入しようとしたからです。
 
@@ -80,10 +80,11 @@ error[E0384]: re-assignment of immutable variable `x`
 <!-- when the second piece of code changes the value only *sometimes*. -->
 
 以前に不変と指定された値を変えようとした時に、コンパイルエラーが出るのは重要なことです。
-なぜなら、この状況はまさしく、バグに繋がるからです。コードのある部分は、値が変わることはないという
-前提のもとに処理を行い、別の部分がその値を変更していたら、最初の部分が目論見通りに
-動いていない可能性があるのです。このようなバグの発生は、事実(`脚注`:実際にプログラムを走らせた結果のことと思われる)
-の後には追いかけづらいものです。特に第2のコード破片が、値を*時々*しか変えない場合尚更です。
+なぜなら、この状況はまさしく、バグに繋がるからです。コードのある部分は、
+値が変わることはないという前提のもとに処理を行い、別の部分がその値を変更していたら、
+最初の部分が目論見通りに動いていない可能性があるのです。このようなバグの発生は、
+事実(`脚注`:実際にプログラムを走らせた結果のことと思われる)の後には追いかけづらいものです。
+特に第2のコード破片が、値を*時々*しか変えない場合尚更です。
 
 <!-- In Rust the compiler guarantees that when we state that a value won’t change, -->
 <!-- it really won’t change. That means that when you’re reading and writing code, -->
@@ -100,9 +101,9 @@ Rustでは、値が不変であると宣言したら、本当に変わらない�
 <!-- of the code by indicating that other parts of the code will be changing this -->
 <!-- variable value. -->
 
-しかし、可変性は時として非常に有益なこともあります。変数は、標準でのみ、不変です。つまり、変数名の前に
-`mut`キーワードを付ければ、可変にできるわけです。この値が変化できるようにするとともに、未来の読者に対して
-コードの別の部分がこの変数の値を変えることを示すことで、その意図を汲ませることができるのです。
+しかし、可変性は時として非常に有益なこともあります。変数は、標準でのみ、不変です。つまり、
+変数名の前に`mut`キーワードを付ければ、可変にできるわけです。この値が変化できるようにするとともに、
+未来の読者に対してコードの別の部分がこの変数の値を変える可能性を示すことで、その意図を汲ませることができるのです。
 
 <!-- For example, change *src/main.rs* to the following: -->
 
@@ -139,7 +140,7 @@ The value of x is: 6
 <!-- variables. -->
 
 `mut`キーワードを使うことで、`x`が束縛している値を`5`から`6`に変更できるようになりました。
-変数を可変にする方が、不変変数だけを使う実装よりも書きやすくなるケースもあるでしょう。
+変数を可変にする方が、不変変数だけを使う実装よりも書きやすくなるケースもあるので、変数を可変にしたくなることもあるでしょう。
 
 <!-- There are multiple trade-offs to consider, in addition to the prevention of -->
 <!-- bugs. For example, in cases where you’re using large data structures, mutating -->
@@ -149,10 +150,9 @@ The value of x is: 6
 <!-- performance might be a worthwhile penalty for gaining that clarity. -->
 
 考えるべきトレードオフはバグの阻止以外にも、いくつかあります。例えば、大きなデータ構造を使う場合などです。
-オブジェクトを可変にして変更できるようにする方が、いちいちオブジェクトをコピーして新しくメモリ割り当てされた
-オブジェクトを返すよりも速くなります。小規模なデータ構造なら、新規オブジェクトを生成して、
-もっと関数型っぽいコードを書く方が中身を把握しやすくなるため、低パフォーマンスは、その簡潔性を得るのに
-足りうるペナルティになるかもしれません。
+インスタンスを可変にして変更できるようにする方が、いちいちインスタンスをコピーして新しくメモリ割り当てされたインスタンスを返すよりも速くなります。
+小規模なデータ構造なら、新規インスタンスを生成して、もっと関数型っぽいコードを書く方が中身を把握しやすくなるため、
+低パフォーマンスは、その簡潔性を得るのに足りうるペナルティになるかもしれません。
 
 <!-- ### Differences Between Variables and Constants -->
 
@@ -164,7 +164,7 @@ The value of x is: 6
 <!-- are not allowed to change, but there are a few differences between constants -->
 <!-- and variables. -->
 
-変数の値を変更できないようにするといえば、他の多くの言語も持っている別のプログラミング概念を思い浮かべるでしょう:
+変数の値を変更できないようにするといえば、他の多くの言語も持っている別のプログラミング概念を思い浮かべるかもしれません:
 *定数*です. 不変変数のように、定数も名前に紐付き、変更することが叶わない値のことですが、
 定数と変数の間にはいくつかの違いがあります。
 
@@ -180,19 +180,19 @@ The value of x is: 6
 
 定数は`let`キーワードの代わりに、`const`キーワードで宣言し、値の型は*必ず*注釈しなければなりません。
 型と型注釈については次のセクション、「データ型」で解説する予定なので、その詳細については気にする必要はありません。
-ただ単に型を注釈しなければならないのだと思っていてください。
+ただ単に型は常に注釈しなければならないのだと思っていてください。
 
 <!-- Constants can be declared in any scope, including the global scope, which makes -->
 <!-- them useful for values that many parts of code need to know about. -->
 
-定数はどんなスコープでも定義できます。グローバルスコープも含めてね。なので、いろんなところで使用される可能性のある値を
-定義するのに役に立ちます。
+定数はどんなスコープでも定義できます。グローバルスコープも含めてね。なので、
+いろんなところで使用される可能性のある値を定義するのに役に立ちます。
 
 <!-- The last difference is that constants may only be set to a constant expression, -->
 <!-- not the result of a function call or any other value that could only be -->
 <!-- computed at runtime. -->
 
-最後の違いは、定数は定数式にしかセットできないことです。関数呼び出し結果や、実行時に評価される値ではありません。
+最後の違いは、定数は定数式にしかセットすることが叶わないことです。関数呼び出し結果や、実行時に評価される値にはセットできません。
 
 <!-- Here's an example of a constant declaration where the constant's name is -->
 <!-- `MAX_POINTS` and its value is set to 100,000. (Rust constant naming convention -->
@@ -211,22 +211,22 @@ const MAX_POINTS: u32 = 100_000;
 <!-- maximum number of points any player of a game is allowed to earn or the speed -->
 <!-- of light. -->
 
-定数は、プログラムが走る期間、定義されたスコープ内でずっと有効です。従って、プログラムのいろんなところで
-使用される可能性のあるアプリケーション空間の値を定義するのに有益な選択肢になります。例えば、
-ゲームでプレイヤーが取得可能なポイントの最高値や、光速度などですね。
+定数は、プログラムが走る期間、定義されたスコープ内でずっと有効です。従って、
+プログラムのいろんなところで使用される可能性のあるアプリケーション空間の値を定義するのに有益な選択肢になります。
+例えば、ゲームでプレイヤーが取得可能なポイントの最高値や、光速度などですね。
 
 <!-- Naming hardcoded values used throughout your program as constants is useful in -->
 <!-- conveying the meaning of that value to future maintainers of the code. It also -->
 <!-- helps to have only one place in your code you would need to change if the -->
 <!-- hardcoded value needed to be updated in the future. -->
 
-プログラム中で使用されるハードコードされた値に対して、定数として名前付けすることは、コードの将来的な
-管理者にとって値の意味を汲むのに役に立ちます。将来、ハードコードされた値を変える必要が出た時に、
+プログラム中で使用されるハードコードされた値に対して、定数として名前付けすることは、
+コードの将来的な管理者にとって値の意味を汲むのに役に立ちます。将来、ハードコードされた値を変える必要が出た時に、
 たった1箇所を変更するだけで済むようにもしてくれます。
 
 <!-- ### Shadowing -->
 
-### (変数の)多重定義
+### (変数の)多重定義(shadowing)
 
 <!-- As we saw in the guessing game tutorial in Chapter 2, we can declare a new -->
 <!-- variable with the same name as a previous variable, and the new variable -->
@@ -235,9 +235,9 @@ const MAX_POINTS: u32 = 100_000;
 <!-- we’ll see when we use the variable. We can shadow a variable by using the same -->
 <!-- variable’s name and repeating the use of the `let` keyword as follows: -->
 
-第2章の数当てゲームのチュートリアルで見たように、前に定義した変数と同じ名前の変数を新しく定義でき、
-新しい変数は、前の変数を*上書き*(shadow)する。Rust市民はこれを最初の変数は、2番目の変数に*上書き*
-されたと言い、この変数を使用した際に、2番目の変数の値が得られるということです。
+第2章の数当てゲームのチュートリアルで見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
+新しい変数は、前の変数を*上書き*(shadow)します。Rust市民はこれを最初の変数は、
+2番目の変数に*上書き*されたと言い、この変数を使用した際に、2番目の変数の値が得られるということです。
 以下のようにして、同じ変数名を用いて変数を上書きし、`let`キーワードの使用を繰り返します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -262,8 +262,8 @@ fn main() {
 <!-- previous value and multiplying it by `2` to give `x` a final value of `12`. -->
 <!-- When you run this program, it will output the following: -->
 
-このプログラムはまず、`x`を`5`という値に束縛します。それから`let x =`という文法要素を繰り返すことで
-`x`を上書きし、元の値に`1`を加えることになるので、`x`の値は、`6`になります。
+このプログラムはまず、`x`を`5`という値に束縛します。それから`let x =`を繰り返すことで`x`を上書きし、
+元の値に`1`を加えることになるので、`x`の値は、`6`になります。
 3番目の`let`文も`x`を上書きし、以前の値に`2`をかけることになるので、`x`の最終的な値は`12`になります。
 このプログラムを走らせたら、以下のように出力するでしょう:
 
@@ -279,8 +279,8 @@ The value of x is: 12
 <!-- reassign to this variable. We can perform a few transformations on a value but -->
 <!-- have the variable be immutable after those transformations have been completed. -->
 
-これは、変数を`mut`にするのとは違います。なぜなら、`let`キーワードを使っている限り、誤ってこの変数に
-再代入を試みようものなら、コンパイルエラーが出るからです。値にちょっとした加工は加えられますが、
+これは、変数を`mut`にするのとは違います。なぜなら、`let`キーワードを再度使わない限り、
+誤ってこの変数に再代入を試みようものなら、コンパイルエラーが出るからです。値にちょっとした加工は加えられますが、
 その加工が終わったら、変数は不変になるわけです。
 
 <!-- The other difference between `mut` and shadowing is that because we’re -->
@@ -290,9 +290,9 @@ The value of x is: 12
 <!-- inputting space characters, but we really want to store that input as a number: -->
 
 `mut`と上書きのもう一つの違いは、再度`let`キーワードを使用したら、実効的には新しい変数を生成していることになるので、
-値の型を変えつつ、同じ変数名を使いまわせることです。例えば、プログラムがユーザに何らかのテキストに対して
-空白文字を入力することで何個分のスペースを表示したいかを尋ねるとします。ただ、この入力を数値として
-保持したいとしましょう:
+値の型を変えつつ、同じ変数名を使いまわせることです。例えば、
+プログラムがユーザに何らかのテキストに対して空白文字を入力することで何個分のスペースを表示したいかを尋ねるとします。
+ただ、実際にはこの入力を数値として保持したいとしましょう:
 
 ```rust
 let spaces = "   ";
@@ -307,7 +307,7 @@ let spaces = spaces.len();
 <!-- try to use `mut` for this, as shown here: -->
 
 この文法要素は、容認されます。というのも、最初の`spaces`変数は文字列型であり、2番目の`spaces`変数は、
-たまたま最初の変数と同じ名前になったまっさらな変数のわけですが、数値型になるからです。故に、多重定義のおかげで、
+たまたま最初の変数と同じ名前になったまっさらな変数のわけですが、数値型になるからです。故に、上書きのおかげで、
 異なる名前を思いつく必要がなくなるわけです。`spaces_str`と`spaces_num`などですね; 代わりに、
 よりシンプルな`spaces`という名前を再利用できるわけです。一方で、この場合に`mut`を使おうとすると、
 以下に示した通りですが:
