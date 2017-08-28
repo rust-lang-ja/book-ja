@@ -11,7 +11,7 @@
 <!-- possible cases are handled. -->
 
 Rustには、一連のパターンに対して値を比較し、マッチしたパターンに応じてコードを実行させてくれる`match`と呼ばれる、
-非常に強力なフロー制御演算子があります。パターンは、リテラル値、変数名、ワイルドカードや他の多くのもので構成することができます;
+非常に強力なフロー制御演算子があります。パターンは、リテラル値、変数名、ワイルドカードやその他多数のもので構成することができます;
 第18章で、全ての種類のパターンと、その目的については解説します。`match`のパワーは、
 パターンの表現力に由来し、コンパイラが全てのありうるパターンを処理しているかを確認してくれます。
 
@@ -22,7 +22,7 @@ Rustには、一連のパターンに対して値を比較し、マッチした�
 <!-- the value will fall into the associated code block to be used during execution. -->
 
 `match`式をコイン並べ替え装置のようなものと考えてください: コインは、様々なサイズの穴が空いた通路を流れ落ち、
-各コインは、サイズのあった最初の穴に落ちます。同様に、値は`match`の各パターンを通り抜け、値が適合する最初のパターンで、
+各コインは、サイズのあった最初の穴に落ちます。同様に、値は`match`の各パターンを通り抜け、値が「適合する」最初のパターンで、
 値は紐付けられたコードブロックに落ち、実行中に使用されるわけです。
 
 <!-- Because we just mentioned coins, let’s use them as an example using `match`! We -->
@@ -63,7 +63,7 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- Here, it can be any type. The type of `coin` in this example is the `Coin` enum -->
 <!-- that we defined in Listing 6-3. -->
 
-`value_in_cents`関数内の`match`を掘り下げてみましょう。まず、`match`キーワードに続けて式を並べています。
+`value_in_cents`関数内の`match`を分解してみましょう。まず、`match`キーワードに続けて式を並べています。
 この式は今回の場合、値`coin`です。`if`で使用した式と非常に酷似していますね。しかし、大きな違いがあります:
 `if`では、式は論理値を返す必要があります。ここでは、どんな型でも構いません。この例における`coin`の型は、
 リスト6-3で定義した`Coin`enumです。
@@ -257,14 +257,14 @@ fn value_in_cents(coin: Coin) -> u32 {
 
 前節では、`Option<T>`を使用する際に、`Some`ケースから中身の`T`の値を取得したくなりました。要するに、
 `Coin`enumに対して行ったように、`match`を使って`Option<T>`を扱うこともできるというわけです！
-コインを比較する代わりに、`Option<T>`のバリアントを比較するのですが、`match`式の動作の仕方は同じになったままです。
+コインを比較する代わりに、`Option<T>`のバリアントを比較するのですが、`match`式の動作の仕方は同じままです。
 
 <!-- Let’s say we want to write a function that takes an `Option<i32>`, and if -->
 <!-- there’s a value inside, adds one to that value. If there isn’t a value inside, -->
 <!-- the function should return the `None` value and not attempt to perform any -->
 <!-- operations. -->
 
-`Option<i32>`をとる関数を書きたくなったとし、中に値があったら、その値に1を足すことにしましょう。
+`Option<i32>`を取る関数を書きたくなったとし、中に値があったら、その値に1を足すことにしましょう。
 中に値がなければ、関数は`None`値を返し、何も処理すべきではありません。
 
 <!-- This function is very easy to write, thanks to `match`, and will look like -->
@@ -299,7 +299,7 @@ let none = plus_one(None);
 <!-- value `Some(5)`. We then compare that against each match arm. -->
 
 `plus_one`の最初の実行についてもっと詳しく検証しましょう。`plus_one(five)`と呼び出した時、
-`plus_one`の本体の変数`x`は`Some(5)`になります。そして、これを各マッチのアームに比較します。
+`plus_one`の本体の変数`x`は`Some(5)`になります。そして、これをマッチの各アームと比較します。
 
 ```rust,ignore
 None => None,
@@ -356,7 +356,7 @@ enumに対し`match`し、内部のデータに変数を束縛させ、それに
 
 <!-- ### Matches Are Exhaustive -->
 
-<!-- いい単語を探したい -->
+<!-- いい単語を探したい(Exhaustive) -->
 
 ### マッチは包括的
 
@@ -397,7 +397,7 @@ error[E0004]: non-exhaustive patterns: `None` not covered
 <!-- have null, thus making the billion dollar mistake discussed earlier. -->
 
 全可能性を網羅していないことをコンパイラは検知しています。もっと言えば、どのパターンを忘れているかさえ知っているのです。
-Rustにおけるマッチは、*包括的*です: 全てのあらゆる可能性を消費し尽くさなければ、コードは有効にならないのです。
+Rustにおけるマッチは、*包括的*です: 全てのあらゆる可能性を網羅し尽くさなければ、コードは有効にならないのです。
 特に`Option<T>`の場合には、コンパイラが明示的に`None`の場合を扱うのを忘れないようにする時、
 nullになるかもしれない値があることを想定しないように、つまり、前に議論した10億ドルの失敗を犯さないよう、
 保護してくれるわけです。
@@ -441,5 +441,5 @@ match some_u8_value {
 <!-- However, the `match` expression can be a bit wordy in a situation in which we -->
 <!-- only care about *one* of the cases. For this situation, Rust provides `if let`. -->
 
-ですが、一つのケースにしか興味がないような場面では、`match`式はちょっと長ったらしすぎます。
+ですが、*一つ*のケースにしか興味がないような場面では、`match`式はちょっと長ったらしすぎます。
 このような場面用に、Rustには、`if let`が用意されています。
