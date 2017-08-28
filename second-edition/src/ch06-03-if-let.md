@@ -1,6 +1,6 @@
 <!-- ## Concise Control Flow with `if let` -->
 
-## `if let`で完結なフロー制御
+## `if let`で簡潔なフロー制御
 
 <!-- The `if let` syntax lets you combine `if` and `let` into a less verbose way to -->
 <!-- handle values that match one pattern and ignore the rest. Consider the program -->
@@ -66,8 +66,8 @@ if let Some(3) = some_u8_value {
 <!-- In other words, you can think of `if let` as syntax sugar for a `match` that -->
 <!-- runs code when the value matches one pattern and then ignores all other values. -->
 
-言い換えると、`if let`は値が一つのパターンにマッチした時にコードを走らせ、他は無視する`match`への糖衣構文と、
-考えることができます。
+言い換えると、`if let`は値が一つのパターンにマッチした時にコードを走らせ、
+他は無視する`match`への糖衣構文と考えることができます。
 
 <!-- We can include an `else` with an `if let`. The block of code that goes with the -->
 <!-- `else` is the same as the block of code that would go with the `_` case in the -->
@@ -81,7 +81,7 @@ if let Some(3) = some_u8_value {
 `if let`と`else`に等価な`match`式の`_`の場合に入るコードブロックと同じになります。
 リスト6-4の`Coin`enum定義を思い出してください。ここでは、`Quarter`バリアントは、
 `UsState`の値も保持していましたね。クォーターコインの状態を告げつつ、
-見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式ですることができます:
+見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式で実現することができます:
 
 ```rust
 # #[derive(Debug)]
