@@ -9,7 +9,7 @@
 <!-- address that our program will come across: we can *enumerate* all possible -->
 <!-- values, which is where enumeration gets its name. -->
 
-コードで表現したくなるかもしれない場面を見て、enumが有効でこの場合、構造体よりも適切である理由を確認しましょう。
+コードで表現したくなるかもしれない場面に目を向けて、enumが有効でこの場合、構造体よりも適切である理由を確認しましょう。
 IPアドレスを扱う必要が出たとしましょう。現在、IPアドレスの規格は二つあります: バージョン4とバージョン6です。
 これらは、プログラムが遭遇するIPアドレスのすべての可能性です: 列挙型は、取りうる値をすべて*列挙*でき、
 これが列挙型の名前の由来です。
@@ -22,7 +22,7 @@ IPアドレスを扱う必要が出たとしましょう。現在、IPアドレ�
 <!-- handling situations that apply to any kind of IP address. -->
 
 どんなIPアドレスも、バージョン4かバージョン6のどちらかになりますが、同時に両方にはなり得ません。
-今回の場合、IPアドレスのその要素によりenumデータ構造が適切なものになります。というのも、
+今回の場合、IPアドレスのその特性によりenumデータ構造が適切なものになります。というのも、
 enumの値は、そのバリアントのいずれか一つにしかなり得ないからです。バージョン4とバージョン6のアドレスは、
 どちらも根源的にはIPアドレスですから、コードがいかなる種類のIPアドレスにも適用される場面を扱う際には、
 同じ型として扱われるべきです。
@@ -43,7 +43,7 @@ enum IpAddrKind {
 
 <!-- `IpAddrKind` is now a custom data type that we can use elsewhere in our code. -->
 
-これで、`IpAddrKind`はコードの他の場所で使用できるカスタマイズされたデータ型になります。
+これで、`IpAddrKind`はコードの他の場所で使用できる独自のデータ型になります。
 
 <!-- ### Enum Values -->
 
@@ -85,7 +85,7 @@ fn route(ip_type: IpAddrKind) { }
 
 <!-- And we can call this function with either variant: -->
 
-そして、この関数をどちらのバリアント対しても呼び出せます:
+そして、この関数をどちらのバリアントに対しても呼び出せます:
 
 ```rust
 # enum IpAddrKind {
@@ -156,7 +156,7 @@ let loopback = IpAddr {
 <!-- variant. This new definition of the `IpAddr` enum says that both `V4` and `V6` -->
 <!-- variants will have associated `String` values: -->
 
-各enumのバリアントに直接データを格納して、enumを構造体の一部というよりもenumだけを使って、
+各enumのバリアントに直接データを格納して、enumを構造体の一部にするというよりもenumだけを使って、
 同じ概念をもっと簡潔な方法で表現することができます。この新しい`IpAddr`の定義は、
 `V4`と`V6`バリアント両方に`String`値が紐付けられていることを述べています。
 
@@ -174,7 +174,7 @@ let loopback = IpAddr::V6(String::from("::1"));
 <!-- We attach data to each variant of the enum directly, so there is no need for an -->
 <!-- extra struct. -->
 
-enumの各バリアントにデータを直接添加できるので、余計な構造体を作る必要は全くありません。
+enumの各バリアントにデータを直接添付できるので、余計な構造体を作る必要は全くありません。
 
 <!-- There’s another advantage to using an enum rather than a struct: each variant -->
 <!-- can have different types and amounts of associated data. Version four type IP -->
@@ -305,6 +305,7 @@ enum Message {
 
 リスト6-2のようなバリアントを含むenumを定義することは、enumの場合、`struct`キーワードを使わず、
 全部のバリアントが`Message`型の元に分類される点を除いて、異なる種類の構造体定義を定義するのと類似しています。
+以下の構造体も、先ほどのenumのバリアントが保持しているのと同じデータを格納することができます:
 
 <!-- ```rust -->
 <!-- struct QuitMessage; // unit struct -->
@@ -374,7 +375,7 @@ m.call();
 <!-- Let’s look at another enum in the standard library that is very common and -->
 <!-- useful: `Option`. -->
 
-非常に一般的で有効な別の標準ライブラリのenumを見てみましょう: `Option`です。
+非常に一般的で有用な別の標準ライブラリのenumを見てみましょう: `Option`です。
 
 <!-- ### The `Option` Enum and Its Advantages Over Null Values -->
 
@@ -389,7 +390,7 @@ m.call();
 <!-- compiler can check that you’ve handled all the cases you should be handling, -->
 <!-- which can prevent bugs that are extremely common in other programming languages. -->
 
-前節で、`IpAddr`enumがRustの型システムを使用して、プログラムにデータ以上の情報をエンコードできる方法を見ました。
+前節で、`IpAddr`enumがRustの型システムを使用して、プログラムにデータ以上の情報をエンコードできる方法を目撃しました。
 この節では、`Option`のケーススタディを掘り下げていきます。この型も標準ライブラリにより定義されているenumです。
 この`Option`型はいろんな箇所で使用されます。なぜなら、値が何かかそうでないかという非常に一般的な筋書きをコード化するからです。
 この概念を型システムの観点で表現することは、コンパイラが、プログラマが処理すべき場面全てを処理していることをチェックできることを意味し、
@@ -421,7 +422,7 @@ nullの開発者であるTony Hoareの著書"Null References: The Billion Dollar
 <!--  the last forty years. -->
 
 > 私はそれを10億ドルの失敗と呼んでいます。その頃、私は、オブジェクト指向言語の参照に対する、
-> 最初のわかりやすい型システムをデザインしていました。私の目標は、
+> 最初のわかりやすい型システムを設計していました。私の目標は、
 > どんな参照の使用も全て完全に安全であるべきことを、コンパイラにそのチェックを自動で行ってもらって保証することだったのです。
 > しかし、null参照を入れるという誘惑に打ち勝つことができませんでした。それは、単純に実装が非常に容易だったからです。
 > これが無数のエラーや脆弱性、システムクラッシュにつながり、過去40年で10億ドルの苦痛や損害を引き起こしたであろうということなのです。
@@ -438,7 +439,7 @@ null値の問題は、nullの値をnullでない値のように実際に使用�
 <!-- null is a value that is currently invalid or absent for some reason. -->
 
 しかしながら、nullが表現しようとしている概念は、それでも役に立つものです: nullは、
-何らかの理由で現在無効または存在しない値のことなのです。
+何らかの理由で現在無効、または存在しない値のことなのです。
 
 <!-- The problem isn’t with the actual concept but with the particular -->
 <!-- implementation. As such, Rust does not have nulls, but it does have an enum -->
@@ -466,7 +467,7 @@ enum Option<T> {
 <!-- variants of type `Option<T>`. -->
 
 `Option<T>`は有益すぎて、初期化処理(prelude)にさえ含まれています。つまり、明示的にインポートする必要がないのです。
-さらに、バリアントもそうなっています: `Some`と`None`を`Option::`と接頭辞をつけることなく直接使えるわけです。
+さらに、バリアントもそうなっています: `Some`と`None`を`Option::`と接頭辞を付けることなく直接使えるわけです。
 ただ、`Option<T>`は普通のenumであり、`Some(T)`と`None`は`Option<T>`型のバリアントです。
 
 <!-- The `<T>` syntax is a feature of Rust we haven’t talked about yet. It’s a -->
@@ -501,7 +502,7 @@ let absent_number: Option<i32> = None;
 
 `Some`値がある時、値が存在するとわかり、その値は、`Some`に保持されています。`None`値がある場合、
 ある意味、nullと同じことを意図します: 有効な値がないのです。では、なぜ`Option<T>`の方が、
-nullよりも好ましいのでしょうか？
+nullよりも少しでも好ましいのでしょうか？
 
 <!-- In short, because `Option<T>` and `T` (where `T` can be any type) are different -->
 <!-- types, the compiler won’t let us use an `Option<T>` value as if it was -->
@@ -572,7 +573,7 @@ nullでない値があるという想定を見逃す心配をしなくてもよ�
 nullになる可能性のある値を保持するには、その値の型を`Option<T>`にすることで明示的に同意しなければなりません。
 それからその値を使用する際には、値がnullである場合を明示的に処理する必要があります。
 値が`Option<T>`以外の型であるとこ全てにおいて、値がnullでないと安全に想定することが*できます*。
-これは、Rustにとって、意図的なデザイン決定であり、nullの普遍性を制限し、Rustコードの安全性を向上させます。
+これは、Rustにとって、意図的な設計上の決定であり、nullの普遍性を制限し、Rustコードの安全性を向上させます。
 
 <!-- So, how do you get the `T` value out of a `Some` variant when you have a value -->
 <!-- of type `Option<T>` so you can use that value? The `Option<T>` enum has a large -->
@@ -599,5 +600,5 @@ Rustの旅が極めて有益になるでしょう。
 一般的に、`Option<T>`値を使うには、各バリアントを処理するコードが欲しくなります。
 `Some(T)`値がある時だけ走る何らかのコードが欲しくなり、このコードが内部の`T`を使用できます。
 `None`値があった場合に走る別のコードが欲しくなり、そちらのコードは`T`値は使用できない状態になります。
-`match`式が、enumとともに使用した時にこれだけをするフロー制御文法要素になります: enumのバリアントによって、
-違うコードが走り、そのコードがマッチした値の中のデータを使用できるのです。
+`match`式が、enumとともに使用した時にこれだけの動作をするフロー制御文法要素になります:
+enumのバリアントによって、違うコードが走り、そのコードがマッチした値の中のデータを使用できるのです。
