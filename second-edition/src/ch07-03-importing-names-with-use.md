@@ -72,7 +72,7 @@ fn main() {
 <!-- `a::series::of` path wherever we want to refer to the `of` module, we can use -->
 <!-- `of`. -->
 
-`use a::series::of`の行は、`of`モジュールを参照したい箇所全部でフルパスの`a::series::of`を使用するのではなく、
+`use a::series::of;`の行は、`of`モジュールを参照したい箇所全部でフルパスの`a::series::of`を使用するのではなく、
 `of`を利用できることを意味しています。
 
 <!-- The `use` keyword brings only what we’ve specified into scope: it does not -->
@@ -85,7 +85,7 @@ fn main() {
 <!-- We could have chosen to bring the function into scope by instead specifying the -->
 <!-- function in the `use` as follows: -->
 
-以下のように、代わりに`use`で関数を指定して、関数をスコープに入れることもできます:
+以下のように、代わりに`use`で関数を指定して、関数をスコープに入れることもできました:
 
 ```rust
 pub mod a {
@@ -136,7 +136,7 @@ fn main() {
 <!-- We’re still specifying the `TrafficLight` namespace for the `Green` variant -->
 <!-- because we didn’t include `Green` in the `use` statement. -->
 
-`Green`を`use`文に含んでいないので、まだ`Green`バリアント用に`TrafficLight`名前空間を参照しています。
+`Green`を`use`文に含んでいないので、まだ`Green`バリアント用に`TrafficLight`名前空間を指定しています。
 
 <!-- ### Glob Imports with `*` -->
 
@@ -169,7 +169,7 @@ fn main() {
 
 `*`は*glob*(塊)と呼ばれ、名前空間内で公開されている要素全てをインポートします。
 あまりglobは使用するべきではありません: 便利ではありますが、予想以上の要素を引き込んで、
-名前衝突を引き起こすかもしれないのです。
+名前衝突を引き起こす可能性があるのです。
 
 <!-- ### Using `super` to Access a Parent Module -->
 
@@ -222,7 +222,7 @@ communicator
 <!-- be checking any functionality right now: -->
 
 テストは、ライブラリ内でコードの準備運動を行うためのものなので、この`it_works`関数から`client::connect`関数を呼び出してみましょう。
-まあ、今のところは、機能の検査は何もしないんですけどね:
+まあ、最も今のところ、機能の検査は何もしないんですけどね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -260,7 +260,7 @@ error[E0433]: failed to resolve. Use of undeclared type or module `client`
 <!-- exception is in a `use` statement, where paths are relative to the crate root -->
 <!-- by default. Our `tests` module needs the `client` module in its scope! -->
 
-コンパイルが失敗しましたが、なぜでしょうか？*src/main.rs*でしたように、関数の直前に`communicator::`を配置する必要はありません。
+コンパイルが失敗しましたが、なぜでしょうか？*src/main.rs*のように、関数の直前に`communicator::`を配置する必要はありません。
 なぜなら、間違いなくここでは、`communicator`ライブラリクレート内にいるからです。
 原因は、パスが常に現在のモジュールに対して相対的になり、ここでは`tests`になっているからです。
 唯一の例外は、`use`文内であり、パスは標準でクレートのルートに相対的になります。
