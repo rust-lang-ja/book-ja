@@ -147,7 +147,7 @@ if let Coin::Quarter(state) = coin {
 <!-- data inside them, you can use `match` or `if let` to extract and use those -->
 <!-- values, depending on how many cases you need to handle. -->
 
-これで、enumを使用してワンセットの列挙された値のどれかになりうるカスタマイズされた型を生成する方法を解説しました。
+これで、enumを使用してワンセットの列挙された値のどれかになりうる独自の型を生成する方法を解説しました。
 標準ライブラリの`Option<T>`が型システムを使用して、エラーを回避する際に役立つ方法についても示しました。
 enumの値がデータを内部に含む場合、処理すべきケースの数に応じて、`match`か`if let`を使用して値を取り出し、
 使用できます。
@@ -157,7 +157,7 @@ enumの値がデータを内部に含む場合、処理すべきケースの数�
 <!-- compiler will make certain your functions only get values of the type each -->
 <!-- function expects. -->
 
-もうRustプログラムで構造体とenumを使用して、自分の領域の概念を表現できます。API内で使用するためにカスタマイズされた型を生成することで、
+もうRustプログラムで構造体とenumを使用して、自分の領域の概念を表現できます。API内で使用するために独自の型を生成することで、
 型安全性を保証することができます: コンパイラが、各関数の予期する型の値のみを関数が得ることを確かめてくれるのです。
 
 <!-- In order to provide a well-organized API to your users that is straightforward -->

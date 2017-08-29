@@ -82,7 +82,7 @@ Cargoは、`--bin`オプションを使った時に得られる"Hello, world!"�
 <!-- beginning of the *src/lib.rs* file, above the test code: -->
 
 `communicator`ネットワークライブラリについて、まずは`connect`という関数定義を含む`network`という名前のモジュールを定義します。
-Rustにおいて、モジュール定義は、`mod`キーワードから開始します。このコードを*src/lib.rs*ファイルの頭、
+Rustにおいて、モジュール定義は全て、`mod`キーワードから開始します。このコードを*src/lib.rs*ファイルの頭、
 テストコードの上に追記してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -113,8 +113,8 @@ mod network {
 <!-- For example, to also have a `client` module that has a function named `connect` -->
 <!-- as well, we can add it as shown in Listing 7-1: -->
 
-同じ*src/lib.rs*ファイル内に複数のモジュールを並べることもできます。`connect`という関数を含む`client`モジュールを用意するには、
-リスト7-1に示したように追記すればいいわけです:
+同じ*src/lib.rs*ファイル内に複数のモジュールを並べることもできます。例として、
+`connect`という関数を含む`client`モジュールを用意するには、リスト7-1に示したように追記すればいいわけです:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -364,7 +364,7 @@ fn connect() {
 <!-- we’d be giving the `client` module its own submodule named `client`! -->
 
 このファイルには、`mod`宣言が必要ないことに着目してください。なぜなら、*src/lib.rs*に`mod`を使って、
-もう`client`モジュールを宣言しているからです。このファイルは、`client`モジュールの中身を提供するだけなのです。
+もう`client`モジュールを宣言しているからです。このファイルは、`client`モジュールの*中身*を提供するだけなのです。
 ここにも`mod client`を記述したら、`client`に`client`という名前のサブモジュールを与えることになってしまいます！
 
 <!-- Rust only knows to look in *src/lib.rs* by default. If we want to add more -->
@@ -414,7 +414,8 @@ warning: function is never used: `connect`, #[warn(dead_code)] on by default
 <!-- warnings; our project built successfully! -->
 
 これらの警告は、全く使用されていない関数があると忠告してくれています。今は、警告を危惧する必要はありません;
-この章の後ほど、「`pub`で公開するか制御する」節で特定します。嬉しいことにただの警告です; プロジェクトはビルドに成功しました！
+この章の後ほど、「`pub`で公開するか制御する」節で特定します。嬉しいことにただの警告です;
+プロジェクトはビルドに成功しました！
 
 <!-- Next, let’s extract the `network` module into its own file using the same -->
 <!-- pattern. In *src/lib.rs*, delete the body of the `network` module and add a -->
@@ -455,7 +456,7 @@ mod server {
 <!-- because we still want `server` to be a submodule of `network`. -->
 
 このモジュールファイル内にもまだ`mod`宣言があることに気付いてください; 
-`server`は`network`のサブモジュールにしたいからです。
+`server`はまだ`network`のサブモジュールにしたいからです。
 
 <!-- Run `cargo build` again. Success! We have one more module to extract: `server`. -->
 <!-- Because it’s a submodule—that is, a module within a module—our current tactic -->
@@ -574,7 +575,8 @@ $ mv src/server.rs src/network
 <!-- same as it did when we had all the code in *src/lib.rs* in Listing 7-3: -->
 
 `cargo build`を走らせたら、ようやくコンパイルは通ります(まだ警告はありますけどね)。
-モジュールの配置は以下のような感じになります。これは、リスト7-3で*src/lib.rs*に全てのコードを収めていたときと全く変わらないですね:
+それでも、モジュールの配置は以下のような感じになります。
+これは、リスト7-3で*src/lib.rs*に全てのコードを収めていたときと全く変わらないですね:
 
 ```text
 communicator
@@ -585,7 +587,7 @@ communicator
 
 <!-- The corresponding file layout now looks like this: -->
 
-対応するファイルの配置は、以下のようになりました:
+対応するファイルの配置は、以下のようになっています:
 
 ```text
 ├── src
