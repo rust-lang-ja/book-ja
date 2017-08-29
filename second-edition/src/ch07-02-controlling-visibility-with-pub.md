@@ -12,7 +12,7 @@
 リスト7-4に示したエラーメッセージを`network`と`network::server`のコードを、
 *src/network/mod.rs*と*src/network/server.rs*ファイルにそれぞれ移動することで解決しました。
 その時点で`cargo build`はプロジェクトをビルドできましたが、`client::connect`と`network::connect`と`network::server::connect`関数が、
-まだ使用されていないという警告メッセージが出ていました:
+使用されていないという警告メッセージが出ていました:
 
 ```text
 warning: function is never used: `connect`, #[warn(dead_code)] on by default
@@ -140,7 +140,7 @@ Rustの文脈において、*公開*とか*非公開*という概念にぶち当
 関数が未使用であるという警告も消え去るわけです。関数を公開にすれば、コンパイラは、
 関数が自分のプログラム外のコードからも使用されることがあると知ります。コンパイラは、
 関数が「使用されている」という架空の外部使用の可能性を考慮してくれます。それ故に、何かが公開とマークされれば、
-コンパイラはそれが使用されるべきという要求をなくし、その要素が未使用という警告も止めるのです。
+コンパイラはそれが自分のプログラムで使用されるべきという要求をなくし、その要素が未使用という警告も止めるのです。
 
 <!-- ### Making a Function Public -->
 
@@ -228,9 +228,9 @@ warning: function is never used: `connect`, #[warn(dead_code)] on by default
 <!-- called. -->
 
 コード未使用警告が必ずしも、コード内の要素を公開にしなければならないことを示唆しているわけではありません:
-これらの関数を公開APIの一部にしたく*なかった*ら、未使用コード警告がもう必要なく、安全に削除できるコードに注意を向けてくれる可能性もあります。
+これらの関数を公開APIの一部にしたく*なかった*ら、未使用コード警告がもう必要なく、安全に削除できるコードに注意を向けてくれている可能性もあります。
 また未使用コード警告は、ライブラリ内でこの関数を呼び出している箇所全てを誤って削除した場合に、
-バグに目を向けさせてくれる可能性もあります。
+バグに目を向けさせてくれている可能性もあります。
 
 <!-- But in this case, we *do* want the other two functions to be part of our -->
 <!-- crate’s public API, so let’s mark them as `pub` as well to get rid of the -->
@@ -367,7 +367,7 @@ fn try_me() {
 <!-- you were right, and read on for the discussion of the errors! -->
 
 このコードをコンパイルする前に、`try_me`関数のどの行がエラーになるか当ててみてください。
-それからコンパイルを試して、合ってたかどうか確かめ、エラーの議論を読み進めてください！
+それからコンパイルを試して、合ってたかどうか確かめ、エラーの議論を求めて読み進めてください！
 
 <!-- #### Looking at the Errors -->
 
@@ -380,7 +380,7 @@ fn try_me() {
 
 `try_me`関数は、プロジェクトのルートモジュールに存在しています。`outermost`という名前のモジュールは非公開ですが、
 プライバシー規則の2番目にある通り、`try_me`そのままに、`outermost`は現在(ルート)のモジュールなので、
-`try_me`関数は、`outermost`にアクセスすることを許可されるのです。
+`try_me`関数は、`outermost`モジュールにアクセスすることを許可されるのです。
 
 <!-- The call to `outermost::middle_function` will work because `middle_function` is -->
 <!-- public, and `try_me` is accessing `middle_function` through its parent module -->
@@ -396,9 +396,10 @@ fn try_me() {
 <!-- module is neither the current module of `middle_secret_function` (`outermost` -->
 <!-- is), nor is it a child module of the current module of `middle_secret_function`. -->
 
-`outermost::middle_secret_function`の呼び出しは、コンパイルエラーになります。
+`outermost::middle_secret_function`の呼び出しは、コンパイルエラーになるでしょう。
 `middle_secret_function`は非公開なので、2番目の規則が適用されます。ルートモジュールは、
-`middle_secret_function`の現在のモジュール(`outermost`がそうです)でも、`middle_secret_function`のモジュールの子供でもないのです。
+`middle_secret_function`の現在のモジュール(`outermost`がそうです)でも、
+`middle_secret_function`の現在のモジュールの子供でもないのです。
 
 <!-- The module named `inside` is private and has no child modules, so it can only -->
 <!-- be accessed by its current module `outermost`. That means the `try_me` function -->
