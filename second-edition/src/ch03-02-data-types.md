@@ -399,7 +399,7 @@ fn main() {
 <!-- use pattern matching to destructure a tuple value, like this: -->
 
 変数`tup`は、タプル全体に束縛されています。なぜなら、タプルは、一つの複合要素と考えられるからです。
-タプルから個々の値を取り出すには、パターンマッチングにより分解を使用することができます。以下のように:
+タプルから個々の値を取り出すには、パターンマッチングを使用して分解することができます。以下のように:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
