@@ -466,7 +466,7 @@ fn main() {
 <!-- fixed length: once declared, they cannot grow or shrink in size. -->
 
 *配列*によっても、複数の値のコレクションを得ることができます。タプルと異なり、配列の全要素は、
-同じ型でなければなりません。Rustの配列は、他の言語と異なっている場合があります。Rustの配列は、
+同じ型でなければなりません。Rustの配列は、他の言語と異なっています。Rustの配列は、
 固定長なのです: 一度宣言されたら、サイズを伸ばすことも縮めることもできません。
 
 <!-- In Rust, the values going into an array are written as a comma-separated list -->
