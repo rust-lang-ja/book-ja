@@ -60,7 +60,7 @@ fn calculate_length(s: &String) -> usize {
 
 <!-- Let’s take a closer look at the function call here: -->
 
-ここの関数呼び出しについてついてもっと詳しく見てみましょう:
+ここの関数呼び出しについて、もっと詳しく見てみましょう:
 
 ```rust
 # fn calculate_length(s: &String) -> usize {
@@ -147,7 +147,7 @@ fn change(some_string: &String) {
 
 ```text
 error: cannot borrow immutable borrowed content `*some_string` as mutable
-(エラー: 不変な借用した中身`*some_string`を可変で借用できません)
+(エラー: 不変な借用をした中身`*some_string`を可変で借用できません)
  --> error.rs:8:5
   |
 8 |     some_string.push_str(", world");
@@ -394,9 +394,9 @@ error[E0106]: missing lifetime specifier
   |
   = help: this function's return type contains a borrowed value, but there is no
     value for it to be borrowed from
-    (ヘルプ: この関数の戻り値型は、借用した値を含んでいますが、借用される値がどこにもありません)
+    (助言: この関数の戻り値型は、借用した値を含んでいますが、借用される値がどこにもありません)
   = help: consider giving it a 'static lifetime
-  ('static lifetimeを与えることを考慮してみてください)
+  ('staticライフタイムを与えることを考慮してみてください)
 
 error: aborting due to previous error
 ```
@@ -445,7 +445,7 @@ fn dangle() -> &String { // dangleはStringへの参照を返す
 <!-- this reference would be pointing to an invalid `String`! That’s no good. Rust -->
 <!-- won’t let us do this. -->
 
-`s`は、`dangle`関数内で生成されているので、`dangle`関数のコードが終わったら、`s`は解放されてしまいますが、
+`s`は、`dangle`内で生成されているので、`dangle`のコードが終わったら、`s`は解放されてしまいますが、
 そこへの参照を返そうとしました。つまり、この参照は無効な`String`を指していると思われるのです。
 よくないことです。コンパイラは、これを阻止してくれるのです。
 

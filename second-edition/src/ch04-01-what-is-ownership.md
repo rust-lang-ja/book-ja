@@ -4,7 +4,7 @@
 <!-- Rust’s central feature is *ownership*. Although the feature is straightforward -->
 <!-- to explain, it has deep implications for the rest of the language. -->
 
-Rustの中心的な機能は、*所有権*です。機能は説明するのに実直なのですが、言語の残りの機能全てにかかるほど
+Rustの中心的な機能は、*所有権*です。機能は説明するのに単純なのですが、言語の残りの機能全てにかかるほど
 深い裏の意味を含んでいるのです。
 
 <!-- All programs have to manage the way they use a computer’s memory while running. -->
@@ -18,15 +18,15 @@ Rustの中心的な機能は、*所有権*です。機能は説明するのに�
 定期的に使用されていないメモリを検索するガベージコレクションを持つ言語もありますが、他の言語では、
 プログラマが明示的にメモリを確保したり、解放したりしなければなりません。Rustでは第3の選択肢を取っています: 
 メモリは、コンパイラがコンパイル時にチェックする一定の規則とともに所有権システムを通じて管理されています。
-実行コストを、所有権機能に負担することはありません。
+実行コストを、所有権機能のために負担することはありません。
 
 <!-- Because ownership is a new concept for many programmers, it does take some time -->
 <!-- to get used to. The good news is that the more experienced you become with Rust -->
 <!-- and the rules of the ownership system, the more you’ll be able to naturally -->
 <!-- develop code that is safe and efficient. Keep at it!  -->
 
-所有権は多くのプログラマにとって新しい概念なので、慣れるまでに時間がかかります。Rustと
-所有権システムの経験を積むにつれて、自然に安全かつ効率的なコードを構築できるようになることは、
+所有権は多くのプログラマにとって新しい概念なので、慣れるまでに時間がかかります。
+Rustと所有権システムの経験を積むにつれて、自然に安全かつ効率的なコードを構築できるようになることは、
 素晴らしいお知らせです。その調子でいきましょう！
 
 <!-- When you understand ownership, you’ll have a solid foundation for understanding -->
@@ -109,15 +109,15 @@ Rustの中心的な機能は、*所有権*です。機能は説明するのに�
 > この章の後半でスタックとヒープを絡めて所有権について解説するので、ここでちょっと予行演習をしておきましょう。
 >
 > スタックもヒープも、実行時にコードが使用できるメモリの一部になりますが、異なる手段で構成されています。
-> スタックは、得た順番に値を並べ、逆の順で値を取り除いていきます。これは、*last in, first out*
-> (あえて日本語にするなら、けつ入れ頭出しといったところでしょうか)と呼ばれます。お皿の山を思い浮かべてください:
-> お皿を追加する時には、山の一番上に置き、お皿が必要になったら、一番上から1枚を取り去りますよね。
+> スタックは、得た順番に値を並べ、逆の順で値を取り除いていきます。これは、
+> *last in, first out*(`脚注`: あえて日本語にするなら、けつ入れ頭出しといったところでしょうか)と呼ばれます。
+> お皿の山を思い浮かべてください: お皿を追加する時には、山の一番上に置き、お皿が必要になったら、一番上から1枚を取り去りますよね。
 > 途中や一番下に追加したり、取り除いたりすることは同じようにはできません。データを追加することは、
-> *スタックにpushする*といい、データを取り除くことは、*スタックからpopする*と表現します(`脚注`: これらの動作に対する
-> 画一的な日本語訳を見かけたことはありません)。
+> *スタックにpushする*といい、データを取り除くことは、*スタックからpopする*と表現します(`脚注`:
+> これらの動作に対する画一的な日本語訳を見かけたことはありません)。
 >
-> データへのアクセス方法のおかげで、スタックは高速です: 新データを置いたり、データを取得する場所を
-> 探す必要が絶対にないわけです。というのも、その場所は常に一番上だからですね。スタックを高速にする要素は、
+> データへのアクセス方法のおかげで、スタックは高速です: 新データを置いたり、
+> データを取得する場所を探す必要が絶対にないわけです。というのも、その場所は常に一番上だからですね。スタックを高速にする特性は、
 > 他にもあり、それはスタック上のデータは全て既知の固定サイズにならなければならないということです。
 >
 > コンパイル時にサイズがわからなかったり、サイズが可変のデータについては、代わりにヒープに格納することができます。
@@ -125,24 +125,24 @@ Rustの中心的な機能は、*所有権*です。機能は説明するのに�
 > OSはヒープ上に十分な大きさの空の領域を見つけ、使用中にし、その場所へのポインタを返してきます。
 > この過程は、*ヒープに領域を確保する*と呼ばれ、時としてそのフレーズを単に*allocateする*などと省略したりします。
 > (`脚注`: こちらもこなれた日本語訳はないでしょう。allocateはメモリを確保すると訳したいところですが)
-> スタックに値を載せることは、メモリ確保とは考えられません。ポインタは、既知の固定サイズなので、スタックに
-> 保管することができますが、実データが必要になったら、ポインタを追いかける必要があります。
+> スタックに値を載せることは、メモリ確保とは考えられません。ポインタは、既知の固定サイズなので、
+> スタックに保管することができますが、実データが必要になったら、ポインタを追いかける必要があります。
 >
-> レストランで席を確保することを考えましょう。入店したら、グループの人数を告げ、店員が全員座れる
-> 空いている席を探し、そこまで誘導します。もしグループの誰かが遅れて来るのなら、着いた席の場所を尋ねて
-> あなたを発見することができます。
+> レストランで席を確保することを考えましょう。入店したら、グループの人数を告げ、
+> 店員が全員座れる空いている席を探し、そこまで誘導します。もしグループの誰かが遅れて来るのなら、
+> 着いた席の場所を尋ねてあなたを発見することができます。
 >
-> ヒープへのデータアクセスは、スタックのデータへのアクセスよりも低速です。ポインタを追って目的の場所に
-> 到達しなければならないからです。現代のプロセッサは、メモリをあちこち行き来しなければ、より速くなります。
-> 似た例えを続けましょう。レストランで多くのテーブルから注文を受ける給仕人を考えましょう。最も効率的なのは、
+> ヒープへのデータアクセスは、スタックのデータへのアクセスよりも低速です。
+> ポインタを追って目的の場所に到達しなければならないからです。現代のプロセッサは、メモリをあちこち行き来しなければ、
+> より速くなります。似た例えを続けましょう。レストランで多くのテーブルから注文を受ける給仕人を考えましょう。最も効率的なのは、
 > 次のテーブルに移らずに、一つのテーブルで全部の注文を受け付けてしまうことです。テーブルAで注文を受け、
-> それからテーブルBの注文、さらにまたA、それからまたBと渡り歩くのは、かなり低速な過程になってしまいます。
-> 同じ意味で、プロセッサは、データが隔離されている(ヒープではそうなっている可能性がある)よりも近くにある
-> (スタックではこうなる)ほうが、仕事をうまくこなせるのです。ヒープに大きな領域を確保する行為も時間が
-> かかることがあります。
+> それからテーブルBの注文、さらにまたA、それからまたBと渡り歩くのは、かなり低速な過程になってしまうでしょう。
+> 同じ意味で、プロセッサは、
+> データが隔離されている(ヒープではそうなっている可能性がある)よりも近くにある(スタックではこうなる)ほうが、
+> 仕事をうまくこなせるのです。ヒープに大きな領域を確保する行為も時間がかかることがあります。
 >
-> コードが関数を呼び出すと、関数に渡された値(可能性として、ヒープのデータへのポインタも含めて)と関数の
-> ローカル変数がスタックに載ります。関数の実行が終了すると、それらの値はスタックから取り除かれます。
+> コードが関数を呼び出すと、関数に渡された値(ヒープのデータへのポインタも含まれる可能性あり)と、
+> 関数のローカル変数がスタックに載ります。関数の実行が終了すると、それらの値はスタックから取り除かれます。
 >
 > どの部分のコードがどのヒープ上のデータを使用しているか把握すること、ヒープ上の重複するデータを最小化すること、
 > メモリ不足にならないようにヒープ上の未使用のデータを掃除することは全て、所有権が解決する問題です。
@@ -181,17 +181,17 @@ Rustの中心的な機能は、*所有権*です。機能は説明するのに�
 <!-- bit more concise, letting us focus on the actual details rather than -->
 <!-- boilerplate code. -->
 
-第2章で、Rustプログラムの例はすでに見ています。もう基本的な記法は通り過ぎたので、`fn main() {`
-というコードはもう例に含みません。従って、例をなぞっているなら、これからの例は`main`関数に手動で
-入れ込まなければいけなくなるでしょう。結果的に、例は少々簡潔になり、定型コードよりも
-具体的な詳細に集中しやすくなります。
+第2章で、Rustプログラムの例はすでに見ています。もう基本的な記法は通り過ぎたので、
+`fn main() {`というコードはもう例に含みません。従って、例をなぞっているなら、
+これからの例は`main`関数に手動で入れ込まなければいけなくなるでしょう。結果的に、例は少々簡潔になり、
+定型コードよりも具体的な詳細に集中しやすくなります。
 
 <!-- As a first example of ownership, we’ll look at the *scope* of some variables. A -->
 <!-- scope is the range within a program for which an item is valid. Let’s say we -->
 <!-- have a variable that looks like this: -->
 
-所有権の最初の例として、何らかの変数の*スコープ*について見ていきましょう。スコープとは、要素が有効になる
-プログラム内の範囲のことです。以下のような変数があるとしましょう:
+所有権の最初の例として、何らかの変数の*スコープ*について見ていきましょう。スコープとは、
+要素が有効になるプログラム内の範囲のことです。以下のような変数があるとしましょう:
 
 ```rust
 let s = "hello";
@@ -203,8 +203,8 @@ let s = "hello";
 <!-- comments annotating where the variable `s` is valid: -->
 
 変数`s`は、文字列リテラルを参照し、ここでは、文字列の値はプログラムのテキストとしてハードコードされています。
-この変数は、宣言された地点から、現在の*スコープ*の終わりまで有効になります。リスト4-1には、変数`s`が
-有効な場所に関する注釈がコメントで付記されています:
+この変数は、宣言された地点から、現在の*スコープ*の終わりまで有効になります。リスト4-1には、
+変数`s`が有効な場所に関する注釈がコメントで付記されています:
 
 <!-- ```rust -->
 <!-- {                      // s is not valid here, it’s not yet declared -->
@@ -256,8 +256,8 @@ valid</span> -->
 
 所有権の規則を具体化するには、第3章で解説したものよりも、より複雑なデータ型が必要になります。
 以前見たデータ型は全てスタックに保管され、スコープが終わるとスタックから取り除かれますが、
-ヒープに確保されるデータ型を観察して、コンパイラがどうそのデータを掃除すべきタイミングを把握しているか
-を掘り下げていきたいです。
+ヒープに確保されるデータ型を観察して、
+コンパイラがどうそのデータを掃除すべきタイミングを把握しているかを掘り下げていきたいです。
 
 <!-- We’ll use `String` as the example here and concentrate on the parts of `String` -->
 <!-- that relate to ownership. These aspects also apply to other complex data types -->
@@ -279,12 +279,12 @@ valid</span> -->
 <!-- using the `from` function, like so: -->
 
 すでに文字列リテラルは見かけましたね。文字列リテラルでは、文字列の値はプログラムにハードコードされます。
-文字列リテラルは便利ですが、テキストを使いたい場面全てに最適なわけではありません。一因は、文字列リテラルが
-不変であることに起因します。別の原因は、コードを書く際に、全ての文字列値が判明するわけではないからです:
+文字列リテラルは便利ですが、テキストを使いたい場面全てに最適なわけではありません。一因は、
+文字列リテラルが不変であることに起因します。別の原因は、コードを書く際に、全ての文字列値が判明するわけではないからです:
 例えば、ユーザ入力を受け付け、それを保持したいとしたらどうでしょうか？このような場面用に、Rustには、
-2種類目の文字列型、`String`型があります。この型はヒープにメモリを確保するので、コンパイル時には
-サイズが不明なテキストも保持することができるのです。`from`関数を使用して、文字列リテラルから
-`String`型を生成できます。以下のように:
+2種類目の文字列型、`String`型があります。この型はヒープにメモリを確保するので、
+コンパイル時にはサイズが不明なテキストも保持することができるのです。`from`関数を使用して、
+文字列リテラルから`String`型を生成できます。以下のように:
 
 ```rust
 let s = String::from("hello");
@@ -296,9 +296,9 @@ let s = String::from("hello");
 <!-- Syntax” section of Chapter 5 and when we talk about namespacing with modules in -->
 <!-- Chapter 7. -->
 
-この二重コロンは、`string_from`などの名前を使うのではなく、`String`型直下の`from`関数を特定する働きをする
-演算子です。この記法について詳しくは、第5章の「メソッド記法」節と、第7章のモジュールを使った名前空間分け
-について話をするときに議論します。
+この二重コロンは、`string_from`などの名前を使うのではなく、
+`String`型直下の`from`関数を特定する働きをする演算子です。この記法について詳しくは、
+第5章の「メソッド記法」節と、第7章のモジュールを使った名前空間分けについて話をするときに議論します。
 
 <!-- This kind of string *can* be mutated: -->
 
@@ -338,9 +338,9 @@ println!("{}", s); // これは`hello, world!`と出力する
 <!-- running the program. -->
 
 文字列リテラルの場合、中身はコンパイル時に判明しているので、テキストは最終的なバイナリファイルに直接ハードコードされます。
-その結果、文字列リテラルは、高速で効率的になるのです。しかし、これらの特性は、その不変性にのみ
-端を発するものです。残念なことに、コンパイル時にサイズが不明だったり、プログラム実行に合わせてサイズが
-可変なテキスト片用に一塊のメモリをバイナリに確保しておくことは不可能です。
+その結果、文字列リテラルは、高速で効率的になるのです。しかし、これらの特性は、
+その不変性にのみ端を発するものです。残念なことに、コンパイル時にサイズが不明だったり、
+プログラム実行に合わせてサイズが可変なテキスト片用に一塊のメモリをバイナリに確保しておくことは不可能です。
 
 <!-- With the `String` type, in order to support a mutable, growable piece of text, -->
 <!-- we need to allocate an amount of memory on the heap, unknown at compile time, -->
@@ -378,8 +378,8 @@ println!("{}", s); // これは`hello, world!`と出力する
 しかしながら、2番目の部分は異なります。*ガベージコレクタ*(GC)付きの言語では、GCがこれ以上、
 使用されないメモリを検知して片付けるため、私たちプログラマは、そのことを考慮する必要はありません。
 GCがないなら、メモリがもう使用されないことを見計らって、明示的に返還するコードを呼び出すのは、
-プログラマの責任になります。ちょうど要求の際にしたようにですね。これを正確にすることは、歴史的にも
-難しいプログラミング問題の一つであり続けています。もし、忘れていたら、メモリを無駄にします。
+プログラマの責任になります。ちょうど要求の際にしたようにですね。これを正確にすることは、
+歴史的にも難しいプログラミング問題の一つであり続けています。もし、忘れていたら、メモリを無駄にします。
 タイミングが早すぎたら、無効な変数を作ってしまいます。2回解放してしまっても、バグになるわけです。
 `allocate`と`free`は1対1対応にしなければならないのです。
 
@@ -388,8 +388,8 @@ GCがないなら、メモリがもう使用されないことを見計らって
 <!-- from Listing 4-1 using a `String` instead of a string literal: -->
 
 Rustは、異なる道を歩んでいます: ひとたび、メモリを所有している変数がスコープを抜けたら、
-メモリは自動的に返還されます。こちらの例は、リスト4-1のスコープ例を文字列リテラルから
-`String`型を使うものに変更したバージョンになります:
+メモリは自動的に返還されます。こちらの例は、
+リスト4-1のスコープ例を文字列リテラルから`String`型を使うものに変更したバージョンになります:
 
 <!-- ```rust -->
 <!-- { -->
@@ -416,24 +416,24 @@ Rustは、異なる道を歩んでいます: ひとたび、メモリを所有�
 <!-- Rust calls `drop` automatically at the closing `}`. -->
 
 `String`型が必要とするメモリをOSに返還することが自然な地点があります: `s`変数がスコープを抜ける時です。
-変数がスコープを抜ける時、Rustは特別な関数を呼んでくれます。この関数は、`drop`と呼ばれ、ここに`String`型の
-書き手はメモリ返還するコードを配置することができます。Rustは、閉じ`}`で自動的に`drop`関数を呼び出します。
+変数がスコープを抜ける時、Rustは特別な関数を呼んでくれます。この関数は、`drop`と呼ばれ、
+ここに`String`型の書き手はメモリ返還するコードを配置することができます。Rustは、閉じ`}`で自動的に`drop`関数を呼び出します。
 
 <!-- Note: In C++, this pattern of deallocating resources at the end of an item's -->
 <!-- lifetime is sometimes called *Resource Acquisition Is Initialization (RAII)*. -->
 <!-- The `drop` function in Rust will be familiar to you if you’ve used RAII -->
 <!-- patterns. -->
 
-> 注釈: C++では、要素の生存期間の終了地点でリソースを解放するこのパターンを時に、*RAII*(Resource Aquisition
-> Is Initialization)と呼んだりします。Rustの`drop`関数は、あなたがRAIIパターンを使ったことがあれば、
-> 馴染み深いものでしょう。
+> 注釈: C++では、要素の生存期間の終了地点でリソースを解放するこのパターンを時に、
+> *RAII*(Resource Aquisition Is Initialization: リソースの獲得は、初期化である)と呼んだりします。
+> Rustの`drop`関数は、あなたがRAIIパターンを使ったことがあれば、馴染み深いものでしょう。
 
 <!-- This pattern has a profound impact on the way Rust code is written. It may seem -->
 <!-- simple right now, but the behavior of code can be unexpected in more -->
 <!-- complicated situations when we want to have multiple variables use the data -->
 <!-- we’ve allocated on the heap. Let’s explore some of those situations now. -->
 
-このパターンは、Rustコードの書かれ方に甚大な衝撃をもたらします。現状は簡単そうに見えるかもしれませんが、
+このパターンは、Rustコードの書かれ方に甚大な影響をもたらします。現状は簡単そうに見えるかもしれませんが、
 ヒープ上に確保されたデータを複数の変数に使用させるようなもっと複雑な場面では、コードの振る舞いは、
 予期しないものになる可能性もあります。これから、そのような場面を掘り下げてみましょう。
 
@@ -464,8 +464,8 @@ to `y`</span> -->
 <!-- known, fixed size, and these two `5` values are pushed onto the stack. -->
 
 もしかしたら、他の言語の経験に基づいて、何をしているのか予想することができるでしょう: 
-「値`5`を`x`に束縛する; それから`x`の値をコピーして`y`に束縛する。」これで、二つの変数(`x`と
-`y`)が存在し、両方、値は`5`になりました。これは確かに起こっている現象を説明しています。
+「値`5`を`x`に束縛する; それから`x`の値をコピーして`y`に束縛する。」これで、
+二つの変数(`x`と`y`)が存在し、両方、値は`5`になりました。これは確かに起こっている現象を説明しています。
 なぜなら、整数は既知の固定サイズの単純な値で、これら二つの`5`という値は、スタックに積まれるからです。
 
 <!-- Now let’s look at the `String` version: -->
@@ -482,8 +482,8 @@ let s2 = s1;
 <!-- value in `s1` and bind it to `s2`. But this isn’t quite what happens. -->
 
 このコードは先ほどのコードに酷似していますので、動作方法も同じだと思い込んでしまうかもしれません:
-要するに、2行目で`s1`の値をコピーし、`s2`に束縛するということです。ところが、これは全く起こることを
-言い当てていません。
+要するに、2行目で`s1`の値をコピーし、`s2`に束縛するということです。ところが、
+これは全く起こることを言い当てていません。
 
 <!-- To explain this more thoroughly, let’s look at what `String` looks like under -->
 <!-- the covers in Figure 4-3. A `String` is made up of three parts, shown on the -->
@@ -492,9 +492,9 @@ let s2 = s1;
 <!-- memory on the heap that holds the contents. -->
 
 これをもっと徹底的に説明するために、図4-3を見て`String`型のベールを剥がしてみましょう。
-`String`型は、左側に示されているように、3つの部品でできています: 文字列の中身を保持する
-メモリへのポインタと長さ、そして、許容量です。この種のデータは、スタックに保持されます。
-右側には、ヒープ上の中身を保持したメモリがあります。 
+`String`型は、左側に示されているように、3つの部品でできています: 
+文字列の中身を保持するメモリへのポインタと長さ、そして、許容量です。この種のデータは、スタックに保持されます。
+右側には、中身を保持したヒープ上のメモリがあります。 
 
 <!-- <img alt="String in memory" src="img/trpl04-01.svg" class="center" style="width: 50%;" /> -->
 
@@ -503,8 +503,7 @@ let s2 = s1;
 <!-- <span class="caption">Figure 4-3: Representation in memory of a `String`
 holding the value `"hello"` bound to `s1`</span> -->
 
-<span class="caption">図4-3: `s1`に束縛された`"hello"`という値を保持する`String`
-  のメモリ上の表現</span>
+<span class="caption">図4-3: `s1`に束縛された`"hello"`という値を保持する`String`のメモリ上の表現</span>
 
 <!-- The length is how much memory, in bytes, the contents of the `String` is -->
 <!-- currently using. The capacity is the total amount of memory, in bytes, that the -->
@@ -512,8 +511,8 @@ holding the value `"hello"` bound to `s1`</span> -->
 <!-- and capacity matters, but not in this context, so for now, it’s fine to ignore -->
 <!-- the capacity. -->
 
-長さは、`String`型の中身が現在使用しているメモリ量をバイトで表したものです。許容量は、`String`型が
-OSから受け取った全メモリ量をバイトで表したものです。長さと許容量の違いは問題になることですが、
+長さは、`String`型の中身が現在使用しているメモリ量をバイトで表したものです。許容量は、
+`String`型がOSから受け取った全メモリ量をバイトで表したものです。長さと許容量の違いは問題になることですが、
 この文脈では違うので、とりあえずは、許容量を無視しても構わないでしょう。 
 
 <!-- When we assign `s1` to `s2`, the `String` data is copied, meaning we copy the -->
@@ -521,9 +520,9 @@ OSから受け取った全メモリ量をバイトで表したものです。長
 <!-- data on the heap that the pointer refers to. In other words, the data -->
 <!-- representation in memory looks like Figure 4-4. -->
 
-`s1`を`s2`に代入すると、`String`型のデータがコピーされます。つまり、スタックにあるポインタ、長さ、許容量を
-コピーするということです。ポインタが指すヒープ上のデータはコピーしません。言い換えると、メモリ上のデータ表現は
-図4-4のようになるということです。
+`s1`を`s2`に代入すると、`String`型のデータがコピーされます。つまり、スタックにあるポインタ、長さ、
+許容量をコピーするということです。ポインタが指すヒープ上のデータはコピーしません。言い換えると、
+メモリ上のデータ表現は図4-4のようになるということです。
 
 <!-- <img alt="s1 and s2 pointing to the same value" src="img/trpl04-02.svg" class="center" style="width: 50%;" /> -->
 
@@ -532,17 +531,16 @@ OSから受け取った全メモリ量をバイトで表したものです。長
 <!-- <span class="caption">Figure 4-4: Representation in memory of the variable `s2`
 that has a copy of the pointer, length, and capacity of `s1`</span> -->
 
-<span class="caption">図4-4: `s1`のポインタ、長さ、許容量のコピーを保持する変数`s2`の
-  メモリ上での表現</span>
+<span class="caption">図4-4: `s1`のポインタ、長さ、許容量のコピーを保持する変数`s2`のメモリ上での表現</span>
 
 <!-- The representation does *not* look like Figure 4-5, which is what memory would -->
 <!-- look like if Rust instead copied the heap data as well. If Rust did this, the -->
 <!-- operation `s2 = s1` could potentially be very expensive in terms of runtime -->
 <!-- performance if the data on the heap was large. -->
 
-メモリ上の表現は、図4-5のようにはなり*ません*。これは、Rustが代わりにヒープデータもコピーする
-という選択をしていた場合のメモリ表現ですね。Rustがこれをしていたら、ヒープ上のデータが大きい時に
-`s2 = s1`という処理の実行時性能がとても悪くなっていた可能性があるでしょう。
+メモリ上の表現は、図4-5のようにはなり*ません*。これは、
+Rustが代わりにヒープデータもコピーするという選択をしていた場合のメモリ表現ですね。Rustがこれをしていたら、
+ヒープ上のデータが大きい時に`s2 = s1`という処理の実行時性能がとても悪くなっていた可能性があるでしょう。
 
 <!-- <img alt="s1 and s2 to two places" src="img/trpl04-03.svg" class="center" style="width: 50%;" /> -->
 
@@ -551,8 +549,7 @@ that has a copy of the pointer, length, and capacity of `s1`</span> -->
 <!-- <span class="caption">Figure 4-5: Another possibility of what `s2 = s1` might
 do if Rust copied the heap data as well</span> -->
 
-<span class="caption">図4-5: Rustがヒープデータもコピーしていた場合に`s2 = s1`という
-  処理が行なった可能性のあること</span>
+<span class="caption">図4-5: Rustがヒープデータもコピーしていた場合に`s2 = s1`という処理が行なった可能性のあること</span>
 
 <!-- Earlier, we said that when a variable goes out of scope, Rust automatically -->
 <!-- calls the `drop` function and cleans up the heap memory for that variable. But -->
@@ -562,10 +559,10 @@ do if Rust copied the heap data as well</span> -->
 <!-- safety bugs we mentioned previously. Freeing memory twice can lead to memory -->
 <!-- corruption, which can potentially lead to security vulnerabilities. -->
 
-先ほど、変数がスコープを抜けたら、Rustは自動的に`drop`関数を呼び出し、その変数が使っていた
-ヒープメモリを片付けると述べました。しかし、図4-4は、両方のデータポインタが同じ場所を指していることを
-示しています。これは問題です: `s2`と`s1`がスコープを抜けたら、両方とも同じメモリを解放しようとします。
-これは*二重解放*エラーとして知られ、以前触れたメモリ安全性上のバグの一つになります。
+先ほど、変数がスコープを抜けたら、Rustは自動的に`drop`関数を呼び出し、
+その変数が使っていたヒープメモリを片付けると述べました。しかし、図4-4は、
+両方のデータポインタが同じ場所を指していることを示しています。これは問題です: `s2`と`s1`がスコープを抜けたら、
+両方とも同じメモリを解放しようとします。これは*二重解放*エラーとして知られ、以前触れたメモリ安全性上のバグの一つになります。
 メモリを2回解放することは、メモリの退廃につながり、さらにセキュリティ上の脆弱性を生む可能性があります。
 
 <!-- To ensure memory safety, there’s one more detail to what happens in this -->
@@ -577,8 +574,8 @@ do if Rust copied the heap data as well</span> -->
 <!-- この最初の文は、こなれた日本語にしにくい -->
 
 メモリ安全性を保証するために、Rustにおいてこの場面で知っておきたい起こる事の詳細がもう一つあります。
-確保されたメモリをコピーしようとする代わりに、コンパイラは、`s1`が最早有効ではないと考え、故に
-`s1`がスコープを抜けた際に何も解放する必要がなくなるわけです。`s2`の生成後に`s1`を使用しようとしたら、
+確保されたメモリをコピーしようとする代わりに、コンパイラは、`s1`が最早有効ではないと考え、
+故に`s1`がスコープを抜けた際に何も解放する必要がなくなるわけです。`s2`の生成後に`s1`を使用しようとしたら、
 どうなるかを確認してみましょう:
 
 ```rust,ignore
@@ -642,8 +639,8 @@ invalidated</span> -->
 <!-- automatically create “deep” copies of your data. Therefore, any *automatic* -->
 <!-- copying can be assumed to be inexpensive in terms of runtime performance. -->
 
-付け加えると、これにより暗示されるデザイン上の選択があります: Rustでは、自動的にデータの"deep copy"が
-行われることは絶対にないわけです。それ故に、あらゆる*自動*コピーは、実行時性能の観点で言うと、
+付け加えると、これにより暗示される設計上の選択があります: Rustでは、
+自動的にデータの"deep copy"が行われることは絶対にないわけです。それ故に、あらゆる*自動*コピーは、実行時性能の観点で言うと、
 悪くないと考えてよいことになります。
 
 <!-- #### Ways Variables and Data Interact: Clone -->
@@ -673,7 +670,7 @@ println!("s1 = {}, s2 = {}", s1, s2);
 <!-- This works just fine and is how you can explicitly produce the behavior shown -->
 <!-- in Figure 4-5, where the heap data *does* get copied. -->
 
-これは単純にうまく動き、図4-5で示した動作を明示的に生み出す手段です。ここでは、
+これは単純にうまく動き、こうして図4-5で示した動作を明示的に生み出すことができます。ここでは、
 ヒープデータが*実際に*コピーされています。
 
 <!-- When you see a call to `clone`, you know that some arbitrary code is being -->
@@ -703,8 +700,8 @@ println!("x = {}, y = {}", x, y);
 <!-- But this code seems to contradict what we just learned: we don’t have a call to -->
 <!-- `clone`, but `x` is still valid and wasn’t moved into `y`. -->
 
-ですが、このコードは一見、今学んだことと矛盾しているように見えます: `clone`メソッドの呼び出しが
-ないのに、`x`は有効で、`y`にムーブされませんでした。
+ですが、このコードは一見、今学んだことと矛盾しているように見えます:
+`clone`メソッドの呼び出しがないのに、`x`は有効で、`y`にムーブされませんでした。
 
 <!-- The reason is that types like integers that have a known size at compile time -->
 <!-- are stored entirely on the stack, so copies of the actual values are quick to -->
@@ -714,10 +711,10 @@ println!("x = {}, y = {}", x, y);
 <!-- differently from the usual shallow copying and we can leave it out. -->
 
 その理由は、整数のようなコンパイル時に既知のサイズを持つ型は、スタック上にすっぽり保持されるので、
-実際の値を生成するのも高速だからです。これは、変数`y`を生成した後にも`x`を無効化したくなる
-理由がないことを意味します。換言すると、ここでは、shallow copyとdeep copyの違いがないことになり、
-`clone`メソッドを呼び出しても、一般的なshallow copy以上のことをしなくなり、そのまま放置しておける
-ということです。
+実際の値をコピーするのも高速だからです。これは、変数`y`を生成した後にも`x`を無効化したくなる理由がないことを意味します。
+換言すると、ここでは、shallow copyとdeep copyの違いがないことになり、
+`clone`メソッドを呼び出しても、一般的なshallow copy以上のことをしなくなり、
+そのまま放置しておけるということです。
 
 <!-- Rust has a special annotation called the `Copy` trait that we can place on -->
 <!-- types like integers that are stored on the stack (we’ll talk more about traits -->
@@ -729,13 +726,12 @@ println!("x = {}, y = {}", x, y);
 <!-- learn about how to add the `Copy` annotation to your type, see Appendix C on -->
 <!-- Derivable Traits. -->
 
-Rustには`Copy`トレイトと呼ばれる特別な注釈があり、整数のようなスタックに保持される型に対して
-配置することができます(トレイトについては第10章でもっと詳しく話します)。型が`Copy`トレイトに
-適合していれば、代入後も古い変数が使用可能になります。コンパイラは、型やその一部分でも`Drop`
-トレイトを実装している場合、`Copy`トレイトによる注釈をさせてくれません。型の値がスコープを外れた時に
-何か特別なことを起こす必要がある場合に、`Copy`注釈を追加すると、コンパイルエラーが出ます。
-型に`Copy`注釈をつける方法について学ぶには、付録Cの継承可能トレイト(Derivable Traits)についてを
-ご覧ください。
+Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
+整数のようなスタックに保持される型に対して配置することができます(トレイトについては第10章でもっと詳しく話します)。
+型が`Copy`トレイトに適合していれば、代入後も古い変数が使用可能になります。コンパイラは、
+型やその一部分でも`Drop`トレイトを実装している場合、`Copy`トレイトによる注釈をさせてくれません。
+型の値がスコープを外れた時に何か特別なことを起こす必要がある場合に、`Copy`注釈を追加すると、コンパイルエラーが出ます。
+型に`Copy`注釈をつける方法について学ぶには、付録Cの継承可能トレイト(Derivable Traits)についてをご覧ください。
 
 <!-- So what types are `Copy`? You can check the documentation for the given type to -->
 <!-- be sure, but as a general rule, any group of simple scalar values can be -->
@@ -755,7 +751,7 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、整数の�
 * あらゆる整数型。`u32`など。
 * 論理値型、`bool`、`true`と`false`という値がある。
 * あらゆる浮動小数点型、`f64`など。
-* タプル。ただ、`Copy`の型だけを含む場合。`(i32, i32)`は`Copy`だが
+* タプル。ただ、`Copy`の型だけを含む場合。`(i32, i32)`は`Copy`だが、
 `(i32, String)`は違う。
 
 <!-- ### Ownership and Functions -->
@@ -768,8 +764,8 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、整数の�
 <!-- variables go into and out of scope: -->
 
 意味論的に、関数に値を渡すことと、値を変数に代入することは似ています。関数に変数を渡すと、
-代入のようにムーブやコピーされます。リスト4-7は変数がスコープに入ったり、抜けたりする地点に
-ついて注釈してある例です:
+代入のようにムーブやコピーされます。リスト4-7は変数がスコープに入ったり、
+抜けたりする地点について注釈してある例です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -918,8 +914,8 @@ fn takes_and_gives_back(a_string: String) -> String { // a_stringがスコープ
 <!-- has been moved to be owned by another variable. -->
 
 変数の所有権は、毎回同じパターンを辿っています: 別の変数に値を代入すると、ムーブされます。
-ヒープにデータを含む変数がスコープを抜けると、データが別の変数に所有されるようムーブされていない
-限り、`drop`により片付けられるでしょう。
+ヒープにデータを含む変数がスコープを抜けると、データが別の変数に所有されるようムーブされていない限り、
+`drop`により片付けられるでしょう。
 
 <!-- Taking ownership and then returning ownership with every function is a bit -->
 <!-- tedious. What if we want to let a function use a value but not take ownership? -->
@@ -928,8 +924,8 @@ fn takes_and_gives_back(a_string: String) -> String { // a_stringがスコープ
 <!-- function that we might want to return as well. -->
 
 所有権を得ては返すを全ての関数でしていたら、ちょっとめんどくさいですね。関数に値を使わせたいけど、
-所有権は保持させたくない場合はどうすればいいのでしょうか？返したいと思うかもしれない関数本体で発生した
-あらゆるデータとともに再利用したかったら、渡されたものをまた返さなきゃいけないのは、
+所有権は保持させたくない場合はどうすればいいのでしょうか？
+返したいと思うかもしれない関数本体で発生したあらゆるデータとともに再利用したかったら、渡されたものをまた返さなきゃいけないのは、
 非常に煩わしいことです。
 
 <!-- It’s possible to return multiple values using a tuple, like this: -->

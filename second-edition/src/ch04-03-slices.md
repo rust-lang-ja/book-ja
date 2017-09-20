@@ -31,7 +31,7 @@ fn first_word(s: &String) -> ?
 <!-- end of the word. Let’s try that as shown in Listing 4-10: -->
 
 この関数、`first_word`は引数に`&String`をとります。所有権はいらないので、これで十分です。
-ですが、何を返すべきでしょうか？文字列の一部について語る方法が全くありません。しかし、
+ですが、何を返すべきでしょうか？文字列の*一部*について語る方法が全くありません。しかし、
 単語の終端の番号を返すことができますね。リスト4-10に示したように、その方法を試してみましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -96,7 +96,7 @@ for (i, &item) in bytes.iter().enumerate() {
 
 `enumerate`メソッドがタプルを返すので、Rustのあらゆる場所同様、パターンを使って、そのタプルを分解できます。
 従って、`for`ループ内で、タプルの番号に対する`i`とタプルの1バイトに対応する`&item`を含むパターンを指定しています。
-`.iter().enumerate()`から要素への参照を取得するので、パターンにも`&`を使っています。
+`.iter().enumerate()`から要素への参照を取得するので、パターンに`&`を使っています。
 
 <!-- We search for the byte that represents the space by using the byte literal -->
 <!-- syntax. If we find a space, we return the position. Otherwise, we return the -->
@@ -225,7 +225,7 @@ fn second_word(s: &String) -> (usize, usize) {
 
 <!-- A *string slice* is a reference to part of a `String`, and looks like this: -->
 
-文字列スライスとは、`String`の一部への参照で、こんな見た目をしています:
+*文字列スライス*とは、`String`の一部への参照で、こんな見た目をしています:
 
 ```rust
 let s = String::from("hello world");
