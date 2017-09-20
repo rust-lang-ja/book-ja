@@ -70,17 +70,17 @@ Rustでの動作方法について見ていきましょう。
 #### 整数型
 
 <!-- An *integer* is a number without a fractional component. We used one integer -->
-<!-- type earlier in this chapter, the `i32` type. This type declaration indicates -->
-<!-- that the value it’s associated with should be a signed integer (hence the `i`, -->
-<!-- as opposed to a `u` for unsigned) that takes up 32 bits of space. Table 3-1 -->
-<!-- shows the built-in integer types in Rust. Each variant in the Signed and -->
-<!-- Unsigned columns (for example, *i32*) can be used to declare the type of an -->
-<!-- integer value. -->
+<!-- type earlier in this chapter, the `u32` type. This type declaration indicates -->
+<!-- that the value it’s associated with should be an unsigned signed integer -->
+<!-- (signed integer types start with `i` instead of `u`) that takes up 32 bits of -->
+<!-- space. Table 3-1 shows the built-in integer types in Rust. Each variant in the -->
+<!-- Signed and Unsigned columns (for example, *i8*) can be used to declare the type -->
+<!-- of an integer value. -->
 
-整数とは、小数部分のない数値のことです。この章の前半で一つの整数型を使用しました。`i32`型です。
-この型定義は、紐付けられる値が、符号付き整数(そのため、`i`になります。非負整数に対する`u`と逆ですね)になり、
+整数とは、小数部分のない数値のことです。この章の前半で一つの整数型を使用しました。`u32`型です。
+この型定義は、紐付けられる値が、符号なし整数(符号付き整数は`u`ではなく、`i`で始まります)になり、
 これは、32ビット分のサイズを取ります。表3-1は、Rustの組み込み整数型を表示しています。
-符号付きと符号なし欄の各バリアント(例: *i32*)を使用して、整数値の型を宣言することができます。
+符号付きと符号なし欄の各バリアント(例: *i8*)を使用して、整数値の型を宣言することができます。
 
 <!-- <span class="caption">Table 3-1: Integer Types in Rust</span> -->
 

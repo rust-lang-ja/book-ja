@@ -6,10 +6,10 @@ closures: function pointers, diverging functions, and returning closures.
 ### Function pointers
 
 We’ve talked about how to pass closures to functions, but you can pass regular
-functions to functions too! Functions have the type `fn`, with a lower case ‘f’
-not to be confused with the `Fn` closure trait. `fn` is called a *function
-pointer*. The syntax for specifying that a parameter is a function pointer is
-similar to that of closures, as shown in Listing 19-34:
+functions to functions too! Functions coerce to the type `fn`, with a lower
+case ‘f’ not to be confused with the `Fn` closure trait. `fn` is called a
+*function pointer*. The syntax for specifying that a parameter is a function
+pointer is similar to that of closures, as shown in Listing 19-34:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -112,7 +112,7 @@ std::marker::Sized` is not satisfied
   = note: the return type of a function must have a statically known size
 ```
 
-The `Sized` trait again! Rust doesn’t know much space it’ll need to store the
+The `Sized` trait again! Rust doesn’t know how much space it’ll need to store the
 closure. We saw a solution to this in the previous section, though: we can use
 a trait object:
 

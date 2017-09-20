@@ -85,7 +85,7 @@ the `next` method. In other words, the `Item` type will be the type of element
 that’s returned from the iterator.
 
 The `next` method is the only method that the `Iterator` trait requires
-implementers of the trait to define. `next` returns one item of the iterator
+implementors of the trait to define. `next` returns one item of the iterator
 at a time wrapped in `Some`, and when iteration is over, it returns `None`.
 We can call the `next` method on iterators directly if we’d like; Listing 13-15
 has a test that demonstrates the values we’d get on repeated calls to `next`
@@ -113,7 +113,9 @@ iterator</span>
 Note that we needed to make `v1_iter` mutable: calling the `next` method on an
 iterator changes the iterator’s state that keeps track of where it is in the
 sequence. Put another way, this code *consumes*, or uses up, the iterator. Each
-call to `next` eats up an item from the iterator.
+call to `next` eats up an item from the iterator. We didn’t need to make
+`v1_iter` mutable when we used a `for` loop because the `for` loop took
+ownership of `v1_iter` and made `v1_iter` mutable behind the scenes.
 
 Also note that the values we get from the calls to `next` are immutable
 references to the values in the vector. The `iter` method produces an iterator

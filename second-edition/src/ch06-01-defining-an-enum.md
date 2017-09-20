@@ -365,11 +365,11 @@ m.call();
 
 <!-- The body of the method would use `self` to get the value that we called the -->
 <!-- method on. In this example, we’ve created a variable `m` that has the value -->
-<!-- `Message::Write("hello")`, and that is what `self` will be in the body of the -->
+<!-- `Message::Write(String::from("hello"))`, and that is what `self` will be in the body of the -->
 <!-- `call` method when `m.call()` runs. -->
 
 メソッドの本体では、`self`を使用して、メソッドを呼び出した相手の値を取得できます。この例では、
-`Message::Write("hello")`という値を持つ、変数`m`を生成したので、これが`m.call()`を走らせた時に、
+`Message::Write(String::from("hello"))`という値を持つ、変数`m`を生成したので、これが`m.call()`を走らせた時に、
 `call`メソッドの本体内で`self`が表す値になります。
 
 <!-- Let’s look at another enum in the standard library that is very common and -->

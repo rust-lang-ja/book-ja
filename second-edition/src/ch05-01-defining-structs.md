@@ -109,21 +109,16 @@ user1.email = String::from("anotheremail@example.com");
 
 <span class="caption">リスト5-3: ある`User`インスタンスの`email`フィールド値を変更する</span>
 
-<!-- ### Field Init Shorthand when Variables Have the Same Name as Fields -->
+<!-- Like any expression, we can implicitly return a new instance of a struct from a -->
+<!-- function by constructing the new instance as the last expression in the -->
+<!-- function body. Listing 5-4 shows a `build_user` function that returns a `User` -->
+<!-- instance with the given `email` and `username`. The `active` field gets the -->
+<!-- value of `true`, and the `sign_in_count` gets a value of `1`. -->
 
-### フィールドと同名の変数があるときのフィールド初期化省略記法
-
-<!-- If you have variables with the same names as struct fields, you can use *field -->
-<!-- init shorthand*. This can make functions that create new instances of structs -->
-<!-- more concise. First, let’s look at the more verbose way to initialize a struct -->
-<!-- instance. The function named `build_user` shown here in Listing 5-4 has -->
-<!-- parameters named `email` and `username`. The function creates and returns a -->
-<!-- `User` instance: -->
-
-構造体のフィールドと同名の変数がある場合、*フィールド初期化省略記法*を使用することができます。
-これにより、構造体の新規インスタンスを生成する関数をより簡潔にすることができます。
-まず、構造体インスタンスを初期化する、より冗長的な方法を見てみましょう。リスト5-4で示されている`build_user`という名前の関数には、
-`email`と`username`という引数があります。この関数は、`User`インスタンスを生成して返します:
+あらゆる式同様、新規インスタンスを関数本体の最後の式として生成することで構造体の新規インスタンスを関数から、
+非明示的に返すことができます。リスト5-4は、
+与えられた`email`と`username`で`User`インスタンスを生成する`build_user`関数を示しています。
+`active`フィールドには`true`値が入り、`sign_in_count`には値`1`が入ります。
 
 ```rust
 # struct User {
@@ -148,15 +143,36 @@ fn build_user(email: String, username: String) -> User {
 
 <span class="caption">リスト5-4: Eメールとユーザ名を取り、`User`インスタンスを返す`build_user`関数</span>
 
-<!-- Because the parameter names `email` and `username` are the same as the `User` -->
-<!-- struct’s field names `email` and `username`, we can write `build_user` without -->
-<!-- the repetition of `email` and `username` as shown in Listing 5-5. This version -->
-<!-- of `build_user` behaves the same way as the one in Listing 5-4. The field init -->
-<!-- syntax can make cases like this shorter to write, especially when structs have -->
-<!-- many fields. -->
+<!-- Repeating the `email` field name and `email` variable, and the same for -->
+<!-- `username`, is a bit tedious, though. It makes sense to name the function -->
+<!-- arguments with the same name as the struct fields, but if the struct had more -->
+<!-- fields, repeating each name would get even more annoying. Luckily, there’s a -->
+<!-- convenient shorthand! -->
 
-`email`と`username`という引数名と、`email`と`username`という`User`構造体のフィールド名が同じなので、
-リスト5-5に示したように、`email`と`username`を繰り返すことなく`build_user`を書くことができます。
+`email`フィールド名と`email`変数と繰り返し、同じことを`username`にも行うのはちょっと面倒ですね。
+関数引数を構造体のフィールドと同じ名前にするのは筋が通っていますが、構造体のフィールド数が増えたら、
+各名前を繰り返すのはさらに煩わしくなってしまうでしょう。幸運なことに、便利な省略記法があります！
+
+<!-- ### Field Init Shorthand when Variables Have the Same Name as Fields -->
+
+### フィールドと同名の変数があるときのフィールド初期化省略記法
+
+<!-- If you have variables with the same names as struct fields, you can use *field -->
+<!-- init shorthand*. This can make functions that create new instances of structs -->
+<!-- more concise. -->
+
+構造体のフィールドと同名の変数がある場合、*フィールド初期化省略記法*を使用することができます。
+これにより、構造体の新規インスタンスを生成する関数をより簡潔にすることができます。
+
+<!-- In Listing 5-4, the parameter names `email` and `username` are the same as the -->
+<!-- `User` struct’s field names `email` and `username`. Because the names are -->
+<!-- exactly the same, we can write `build_user` without the repetition of `email` -->
+<!-- and `username` as shown in Listing 5-5. This version of `build_user` behaves -->
+<!-- the same way as the one in Listing 5-4. The field init syntax can make cases -->
+<!-- like this shorter to write, especially when structs have many fields. -->
+
+リスト5-4で`email`と`username`という引数名と、`email`と`username`という`User`構造体のフィールド名が同じです。
+名前が全く同じなので、リスト5-5に示したように、`email`と`username`を繰り返すことなく`build_user`を書くことができます。
 このバージョンの`build_user`もリスト5-4のものと同じように振る舞います。フィールド初期化記法は、
 今回のようなケース(特に構造体に多くのフィールドがあるとき)を短く書けるようにします。
 
