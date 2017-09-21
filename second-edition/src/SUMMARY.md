@@ -70,10 +70,15 @@
     - [`pub`で公開するか制御する](ch07-02-controlling-visibility-with-pub.md)
     - [`use`で名前をインポートする](ch07-03-importing-names-with-use.md)
 
-- [Common Collections](ch08-00-common-collections.md)
-    - [Vectors](ch08-01-vectors.md)
-    - [Strings](ch08-02-strings.md)
-    - [Hash Maps](ch08-03-hash-maps.md)
+<!-- - [Common Collections](ch08-00-common-collections.md) -->
+<!--     - [Vectors](ch08-01-vectors.md) -->
+<!--     - [Strings](ch08-02-strings.md) -->
+<!--     - [Hash Maps](ch08-03-hash-maps.md) -->
+
+- [一般的なコレクション](ch08-00-common-collections.md)
+    - [ベクタ型](ch08-01-vectors.md)
+    - [文字列型](ch08-02-strings.md)
+    - [ハッシュマップ](ch08-03-hash-maps.md)
 
 - [Error Handling](ch09-00-error-handling.md)
     - [Unrecoverable Errors with `panic!`](ch09-01-unrecoverable-errors-with-panic.md)
