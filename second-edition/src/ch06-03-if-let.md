@@ -31,7 +31,7 @@ match some_u8_value {
 
 `Some(3)`にマッチした時だけ何かをし、他の`Some<u8>`値や`None`値の時には何もしたくありません。
 `match`式を満たすためには、バリアントを一つだけ処理した後に`_ => ()`を追加しなければなりません。
-これでは、追加すべき典型コードが多すぎます。
+これでは、追加すべき定型コードが多すぎます。
 
 <!-- Instead, we could write this in a shorter way using `if let`. The following -->
 <!-- code behaves the same as the `match` in Listing 6-6: -->
@@ -59,7 +59,7 @@ if let Some(3) = some_u8_value {
 <!-- your particular situation and if gaining conciseness is an appropriate -->
 <!-- trade-off for losing exhaustive checking. -->
 
-`if let`を使うと、タイプ数が減り、インデントも少なくなり、典型コードも減ります。しかしながら、
+`if let`を使うと、タイプ数が減り、インデントも少なくなり、定型コードも減ります。しかしながら、
 `match`では強制された包括性チェックがなくなってしまいます。`match`か`if let`かの選択は、
 特定の場面でどんなことをしたいかと簡潔性を得ることが包括性チェックを失うのに適切な代償となるかによります。
 
@@ -81,7 +81,7 @@ if let Some(3) = some_u8_value {
 `if let`と`else`に等価な`match`式の`_`の場合に入るコードブロックと同じになります。
 リスト6-4の`Coin`enum定義を思い出してください。ここでは、`Quarter`バリアントは、
 `UsState`の値も保持していましたね。クォーターコインの状態を告げつつ、
-見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式で実現することができます:
+見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式で実現することができるでしょう:
 
 ```rust
 # #[derive(Debug)]
@@ -107,7 +107,7 @@ match coin {
 
 <!-- Or we could use an `if let` and `else` expression like this: -->
 
-または、以下のように`if let`と`else`を使うこともできます:
+または、以下のように`if let`と`else`を使うこともできるでしょう:
 
 ```rust
 # #[derive(Debug)]
