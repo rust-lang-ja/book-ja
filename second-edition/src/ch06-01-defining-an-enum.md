@@ -69,10 +69,10 @@ let six = IpAddrKind::V6;
 <!-- `IpAddrKind`. We can then, for instance, define a function that takes any -->
 <!-- `IpAddrKind`: -->
 
-enumのバリアントは、その識別子の元に名前空間わけされていることと、
+enumのバリアントは、その識別子の元に名前空間分けされていることと、
 2連コロンを使ってその二つを区別していることに注意してください。
 これが有効な理由は、こうすることで、値`IpAddrKind::V4`と`IpAddrKind::V6`という値は両方とも、
-同じ型`IpAddrKind`になったことです。そうしたら、例えば、どんな`IpAddrKind`を取る関数も定義できるようになります。
+同じ型`IpAddrKind`になったからです。そうしたら、例えば、どんな`IpAddrKind`を取る関数も定義できるようになります。
 
 ```rust
 # enum IpAddrKind {
@@ -105,7 +105,7 @@ route(IpAddrKind::V6);
 <!-- Chapter 5, you might tackle this problem as shown in Listing 6-1: -->
 
 enumの利用には、さらなる利点さえもあります。このIPアドレス型についてもっと考えてみると、現状では、
-実際のIPアドレスの*データ*を保持する方法がありません。つまり、どんな種類であるかを知っているだけです。
+実際のIPアドレスの*データ*を保持する方法がありません。つまり、どんな*種類*であるかを知っているだけです。
 構造体について第5章で学んだばっかりとすると、この問題に対しては、リスト6-1のように対処するかもしれません。
 
 ```rust
@@ -209,8 +209,8 @@ let loopback = IpAddr::V6(String::from("::1"));
 <!-- structs, which are defined differently for each variant: -->
 
 enumを使用して、コード内で二つの異なるバラエティを持つIPアドレスを定義するいくつかの異なる可能性を示してきました。
-しかしながら、蓋を開けてみれば、IPアドレスを格納してその種類をエンコードしたくなるということは一般的なので、
-[標準ライブラリに使用可能な定義があります！][IpAddr] 標準ライブラリでの`IpAddr`の定義のされ方を見てみましょう。
+しかしながら、蓋を開けてみれば、IPアドレスを格納してその種類をコード化したくなるということは一般的なので、
+[標準ライブラリに使用可能な定義があります！][IpAddr] 標準ライブラリでの`IpAddr`の定義のされ方を見てみましょう:
 私たちが定義し、使用したのと全く同じenumとバリアントがありますが、アドレスデータを二種の異なる構造体の形でバリアントに埋め込み、
 この構造体は各バリアント用に異なる形で定義されています。
 
@@ -305,7 +305,7 @@ enum Message {
 
 リスト6-2のようなバリアントを含むenumを定義することは、enumの場合、`struct`キーワードを使わず、
 全部のバリアントが`Message`型の元に分類される点を除いて、異なる種類の構造体定義を定義するのと類似しています。
-以下の構造体も、先ほどのenumのバリアントが保持しているのと同じデータを格納することができます:
+以下の構造体も、先ほどのenumのバリアントが保持しているのと同じデータを格納することができるでしょう:
 
 <!-- ```rust -->
 <!-- struct QuitMessage; // unit struct -->
@@ -368,7 +368,7 @@ m.call();
 <!-- `Message::Write(String::from("hello"))`, and that is what `self` will be in the body of the -->
 <!-- `call` method when `m.call()` runs. -->
 
-メソッドの本体では、`self`を使用して、メソッドを呼び出した相手の値を取得できます。この例では、
+メソッドの本体では、`self`を使用して、メソッドを呼び出した相手の値を取得できるでしょう。この例では、
 `Message::Write(String::from("hello"))`という値を持つ、変数`m`を生成したので、これが`m.call()`を走らせた時に、
 `call`メソッドの本体内で`self`が表す値になります。
 
@@ -390,7 +390,7 @@ m.call();
 <!-- compiler can check that you’ve handled all the cases you should be handling, -->
 <!-- which can prevent bugs that are extremely common in other programming languages. -->
 
-前節で、`IpAddr`enumがRustの型システムを使用して、プログラムにデータ以上の情報をエンコードできる方法を目撃しました。
+前節で、`IpAddr`enumがRustの型システムを使用して、プログラムにデータ以上の情報をコード化できる方法を目撃しました。
 この節では、`Option`のケーススタディを掘り下げていきます。この型も標準ライブラリにより定義されているenumです。
 この`Option`型はいろんな箇所で使用されます。なぜなら、値が何かかそうでないかという非常に一般的な筋書きをコード化するからです。
 この概念を型システムの観点で表現することは、コンパイラが、プログラマが処理すべき場面全てを処理していることをチェックできることを意味し、
@@ -468,7 +468,7 @@ enum Option<T> {
 
 `Option<T>`は有益すぎて、初期化処理(prelude)にさえ含まれています。つまり、明示的にインポートする必要がないのです。
 さらに、バリアントもそうなっています: `Some`と`None`を`Option::`と接頭辞を付けることなく直接使えるわけです。
-ただ、`Option<T>`は普通のenumであり、`Some(T)`と`None`は`Option<T>`型のバリアントです。
+ただ、`Option<T>`はそうは言っても、普通のenumであり、`Some(T)`と`None`も`Option<T>`型のただのバリアントです。
 
 <!-- The `<T>` syntax is a feature of Rust we haven’t talked about yet. It’s a -->
 <!-- generic type parameter, and we’ll cover generics in more detail in Chapter 10. -->
@@ -556,7 +556,7 @@ not satisfied
 <!-- common issues with null: assuming that something isn’t null when it actually -->
 <!-- is. -->
 
-言い換えると、`T`型の処理を行うには、`Option<T>`を`T`に変換する必要があるわけです。一般的に、
+言い換えると、`T`型の処理を行う前には、`Option<T>`を`T`に変換する必要があるわけです。一般的に、
 これにより、nullの最もありふれた問題の一つを捕捉できます: 実際にはnullなのに、
 そうでないかのように想定することです。
 

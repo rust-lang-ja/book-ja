@@ -420,7 +420,7 @@ impl Rectangle {
 構造体により、自分の領域で意味のある独自の型を作成することができます。構造体を使用することで、
 関連のあるデータ片を相互に結合させたままにし、各部品に名前を付け、コードを明確にすることができます。
 メソッドにより、構造体のインスタンスが行う動作を指定することができ、関連関数により、
-構造体に特有の機能をインスタンスを利用することなく名前空間分けすることができます。
+構造体に特有の機能をインスタンスを利用することなく、名前空間分けすることができます。
 
 <!-- But structs aren’t the only way we can create custom types: let’s turn to -->
 <!-- Rust’s enum feature to add another tool to our toolbox. -->

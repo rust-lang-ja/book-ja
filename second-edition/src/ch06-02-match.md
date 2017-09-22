@@ -63,8 +63,8 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- Here, it can be any type. The type of `coin` in this example is the `Coin` enum -->
 <!-- that we defined in Listing 6-3. -->
 
-`value_in_cents`関数内の`match`を分解しましょう。まず、`match`キーワードに続けて式を並べています。
-この式は今回の場合、値`coin`です。`if`で使用した式と非常に酷似していますね。しかし、大きな違いがあります:
+`value_in_cents`関数内の`match`を噛み砕きましょう。まず、`match`キーワードに続けて式を並べています。
+この式は今回の場合、値`coin`です。`if`で使用した式と非常に酷似しているみたいですね。しかし、大きな違いがあります:
 `if`では、式は論理値を返す必要があります。ここでは、どんな型でも構いません。この例における`coin`の型は、
 リスト6-3で定義した`Coin`enumです。
 
