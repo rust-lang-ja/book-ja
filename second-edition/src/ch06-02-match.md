@@ -133,20 +133,20 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- values that match the pattern. This is how we can extract values out of enum -->
 <!-- variants. -->
 
-マッチのアームの別の便利な機能は、パターンにマッチした値の一部に束縛できる点です。これにより、
+マッチのアームの別の有益な機能は、パターンにマッチした値の一部に束縛できる点です。こうして、
 enumのバリアントから値を取り出すことができます。
 
 <!-- As an example, let’s change one of our enum variants to hold data inside it. -->
 <!-- From 1999 through 2008, the United States minted quarters with different -->
 <!-- designs for each of the 50 states on one side. No other coins got state -->
 <!-- designs, so only quarters have this extra value. We can add this information to -->
-<!-- our `enum` by changing the `Quarter` variant to include a `State` value stored -->
+<!-- our enum by changing the Quarter variant to include a UsState value stored -->
 <!-- inside it, which we've done here in Listing 6-4: -->
 
 例として、enumのバリアントの一つを中にデータを保持するように変えましょう。1999年から2008年まで、
 アメリカは、片側に50の州それぞれで異なるデザインをしたクォーターコインを鋳造していました。
 他のコインは州のデザインがなされることはなかったので、クォーターだけがこのおまけの値を保持します。
-`Quarter`バリアントを変更して、`State`値が中に保持されるようにすることでenumにこの情報を追加でき、
+Quarterバリアントを変更して、UsState値が中に保持されるようにすることでenumにこの情報を追加でき、
 それをしたのがリスト6-4のコードになります:
 
 <!-- ```rust -->
@@ -351,7 +351,7 @@ None => None,
 <!-- consistently a user favorite. -->
 
 `match`とenumの組み合わせは、多くの場面で有効です。Rustコードにおいて、このパターンはよく見かけるでしょう:
-enumに対し`match`し、内部のデータに変数を束縛させ、それに基づいたコードを実行します。一目にはちょっと巧妙ですが、
+enumに対し`match`し、内部のデータに変数を束縛させ、それに基づいたコードを実行します。最初はちょっと巧妙ですが、
 一旦慣れてしまえば、全ての言語にあってほしいと願うことになるでしょう。一貫してユーザのお気に入りなのです。
 
 <!-- ### Matches Are Exhaustive -->
@@ -399,7 +399,7 @@ error[E0004]: non-exhaustive patterns: `None` not covered
 全可能性を網羅していないことをコンパイラは検知しています。もっと言えば、どのパターンを忘れているかさえ知っているのです。
 Rustにおけるマッチは、*包括的*です: 全てのあらゆる可能性を網羅し尽くさなければ、コードは有効にならないのです。
 特に`Option<T>`の場合には、コンパイラが明示的に`None`の場合を扱うのを忘れないようにする時、
-nullになるかもしれない値があることを想定しないように、つまり、前に議論した10億ドルの失敗を犯さないよう、
+nullになるかもしれない値があることを想定しないように、故に、前に議論した10億ドルの失敗を犯さないよう、
 保護してくれるわけです。
 
 <!-- ### The `_` Placeholder -->
