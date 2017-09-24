@@ -609,7 +609,7 @@ communicator
 <!-- where all the definitions are in *src/lib.rs*: -->
 
 では、`network::server`モジュールを抽出したかったときに、
-`network::server`モジュールを*src/server.rs*に直接抽出できずに、
+なぜ、`network::server`モジュールを*src/server.rs*に直接抽出できずに、
 *src/network.rs*ファイルを*src/network/mod.rs*ファイルに変更し、
 `network::server`のコードを*network*ディレクトリ内の*src/network/server.rs*に置かなければならなかったのでしょうか？
 理由は、*server.rs*ファイルが*src*ディレクトリにあると、コンパイラが、
