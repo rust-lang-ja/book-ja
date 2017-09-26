@@ -600,7 +600,7 @@ character boundary', ../src/libcore/str/mod.rs:1694
 
 <!-- ### Methods for Iterating Over Strings -->
 
-### 文字列を操作するメソッド群
+### 文字列を走査するメソッド群
 
 <!-- Fortunately, we can access elements in a string in other ways. -->
 
@@ -684,9 +684,9 @@ for b in "नमस्ते".bytes() {
 
 まとめると、文字列は込み入っています。プログラミング言語ごとにこの複雑性をプログラマに提示する方法は違います。
 Rustでは、`String`データを正しく扱うことが、全てのRustプログラムにとっての規定動作になっているわけであり、
-これは、プログラマがUTF-8データを素直に扱う際により思考しないといけないことを意味します。
+これは、プログラマがUTF-8データを素直に扱う際に、より思考しないといけないことを意味します。
 このトレードオフにより、他のプログラミング言語よりも文字列の複雑性がより露出していますが、
-ASCII以外の文字に関するエラーを開発の後半で扱わなければならない可能性を排除してくれているのです。
+ASCII以外の文字に関するエラーを開発の後半で扱わなければならない可能性が排除されているのです。
 
 <!-- Let’s switch to something a bit less complex: hash maps! -->
 

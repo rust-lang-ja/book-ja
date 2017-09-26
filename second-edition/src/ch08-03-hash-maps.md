@@ -11,7 +11,7 @@
 
 一般的なコレクションのトリを飾るのは、*ハッシュマップ*です。型`HashMap<K, V>`は、
 `K`型のキーと`V`型の値の対応関係を保持します。これを*ハッシュ関数*を介して行います。
-これは、キーと値のメモリ配置方法を決めるものです。色々なプログラミング言語でもこの種のデータ構造はサポートされていますが、
+ハッシュ関数は、キーと値のメモリ配置方法を決めるものです。色々なプログラミング言語でもこの種のデータ構造はサポートされていますが、
 しばしば名前が違います。hash、map、object、ハッシュテーブル、連想配列など、枚挙に<ruby>暇<rp>(</rp><rt>いとま</rt><rp>)</rp>はありません。
 
 <!-- Hash maps are useful for when you want to look up data not by an index, as you -->
@@ -64,7 +64,7 @@ scores.insert(String::from("Yellow"), 50);
 <!-- prelude. Hash maps also have less support from the standard library; there’s no -->
 <!-- built-in macro to construct them, for example. -->
 
-最初に標準ライブラリからコレクション部分の`HashMap`を`use`する必要があることに注意してください。
+最初に標準ライブラリのコレクション部分から`HashMap`を`use`する必要があることに注意してください。
 今までの3つの一般的なコレクションの内、これが最も使用頻度が低いので、初期化処理で自動的にインポートされる機能には含まれていません。
 また、標準ライブラリからのサポートもハッシュマップは少ないです; 例えば、生成するための組み込みマクロがありません。
 
@@ -450,5 +450,5 @@ UTF-8エンコードに関する詳細を心に留めておいてください！
 <!-- We’re getting into more complex programs in which operations can fail; so, it’s -->
 <!-- a perfect time to discuss error handling next! -->
 
-処理が失敗する可能性のあるようなより複雑なプログラムに入り込んできています; ということは、
+処理が失敗する可能性のあるような、より複雑なプログラムに入り込んできています; ということは、
 次にエラーの処理法について議論するのにぴったりということですね！
