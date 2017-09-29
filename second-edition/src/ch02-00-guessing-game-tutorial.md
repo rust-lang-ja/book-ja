@@ -111,7 +111,7 @@ Hello, world!
 
 <!-- Reopen the *src/main.rs* file. You’ll be writing all the code in this file. -->
 
-*src/main.rs*ファイルを開き直しましょう。ここにすべてのコードを書いてきます。
+*src/main.rs*ファイルを開き直しましょう。ここにすべてのコードを書いていきます。
 
 <!-- ## Processing a Guess -->
 
@@ -347,7 +347,7 @@ io::stdin().read_line(&mut guess)
 `&`という記号は、この引数が*参照*であることを表し、これのおかげで、データを複数回メモリにコピーせずとも、
 コードの複数箇所で同じデータにアクセスできるようになるわけです。参照は複雑な機能であり、
 とても安全かつ簡単に参照を使うことができることは、Rustの主要な利点の一つでもあります。
-そのような詳細は知らなくても、このプログラムを完成させることはできます:
+そのような詳細を知らなくても、このプログラムを完成させることはできます:
 第4章で参照について詳しく見ることにしましょう。現時点では、変数のように、参照も標準で不変であることを
 知っておけばいいでしょう。故に、`&guess`と書くのではなく、`&mut guess`と書いて、可変にする必要があるのです。
 
@@ -536,7 +536,7 @@ You guessed(次のように予想したよ): 6
 
 次に、ユーザが数当てに挑戦する秘密の数字を生成する必要があります。毎回この秘密の数字は、変わるべきです。
 ゲームが何回も楽しめるようにですね。ゲームが難しくなりすぎないように、1から100までの乱数を使用しましょう。
-Rustの標準ライブラリには、乱数機能はまだ含まれていません。ですが、
+Rustの標準ライブラリには、乱数機能はまだ含まれていません。ですが、実は、
 Rustチームが[`rand`クレート][randcrate]を用意してくれています。
 
 [randcrate]: https://crates.io/crates/rand
@@ -551,7 +551,7 @@ Rustチームが[`rand`クレート][randcrate]を用意してくれています
 
 *クレート*はRustコードのパッケージであることを思い出してください。私たちがここまで作ってきたプロジェクトは、
 *バイナリークレート*であり、これは実行可能形式になります。`rand`クレートは*ライブラリクレート*であり、
-他のプログラムで使用する用のコードが含まれています。
+他のプログラムで使用するためのコードが含まれています。
 
 <!-- Cargo’s use of external crates is where it really shines. Before we can write -->
 <!-- code that uses `rand`, we need to modify the *Cargo.toml* file to include the -->
@@ -615,7 +615,7 @@ $ cargo build
 <!-- You may see different version numbers (but they will all be compatible with -->
 <!-- the code, thanks to SemVer!), and the lines may be in a different order. -->
 
-もしかしたら、バージョンナンバーは違うかもしれません(でも、互換性はあります、SemVerのおかげでね！)
+もしかしたら、バージョンナンバーは違うかもしれません(でも、互換性はあります、SemVerのおかげでね！)。
 そして、行の出力順序も違うかもしれません。
 
 <!-- Now that we have an external dependency, Cargo fetches the latest versions of -->
@@ -865,14 +865,14 @@ fn main() {
 クレートの使用方法は、各クレートのドキュメントにあります。Cargoの別の巧妙な機能は、
 `cargo doc --open`コマンドを走らせてローカルに存在する依存ファィルすべてのドキュメントをビルドし、Webブラウザで閲覧できる機能です。
 例えば、`rand`クレートの他の機能に興味があるなら、`cargo doc --open`コマンドを走らせて、
-左側のサイドバーから`rand`をクリックすればいいわけです。
+左側のサイドバーから`rand`をクリックしてください。
 
 <!-- The second line that we added to the code prints the secret number. This is -->
 <!-- useful while we’re developing the program to be able to test it, but we’ll -->
 <!-- delete it from the final version. It’s not much of a game if the program prints -->
 <!-- the answer as soon as it starts! -->
 
-コードに追加した2行目は、秘密の数字を出力してくれます。これは、プログラムをテストする構築中には役立ちますが、
+コードに追加した2行目は、秘密の数字を出力してくれます。これは、プログラムをテストする開発中には役立ちますが、
 最終版からは削除する予定です。プログラムがスタートと同時に答えを出力しちゃったら、ゲームにならないからですね！
 
 <!-- Try running the program a few times: -->
@@ -950,7 +950,7 @@ fn main() {
 <!-- <span class="caption">Listing 2-4: Handling the possible return values of -->
 <!-- comparing two numbers</span> -->
 
-<span class="caption">リスト2-4: 2値比較の返り値を処理する</span>
+<span class="caption">リスト2-4: 2値比較の可能性のある返り値を処理する</span>
 
 <!-- The first new bit here is another `use`, bringing a type called -->
 <!-- `std::cmp::Ordering` into scope from the standard library. `Ordering` is -->
@@ -1023,7 +1023,7 @@ match guess.cmp(&secret_number) {
 値の`Ordering::Greater`と`Ordering::Less`はマッチしないため、このアームのコードは無視され、
 次のアームに移ります。次のアームのパターン、`Ordering::Greater`は*見事に*`Ordering::Greater`とマッチします！
 このアームに紐づけられたコードが実行され、画面に`Too big!`が表示されます。
-これで`match`式の実行は終わりになります。この筋書きでは、最後のアームを吟味する必要はもうないからですね。
+これで`match`式の実行は終わりになります。この特定の筋書きでは、最後のアームを吟味する必要はもうないからですね。
 
 <!-- However, the code in Listing 2-4 won’t compile yet. Let’s try it: -->
 
@@ -1190,7 +1190,7 @@ Rustには、組み込みの数値型がいくつかあります; ここで見�
 
 `parse`メソッドの呼び出しは、エラーになりやすいです。例としては、文字列が`A👍%`を含んでいたら、
 数値に変換できるわけがありません。失敗する可能性があるので、`parse`メソッドは、
-`Result`型を返すわけです。ちょうど、「Result型で失敗する可能性に対処する」節で先ほど議論した`read_line`メソッドがするようにというわけですね。
+`Result`型を返すわけです。ちょうど、「Result型で失敗する可能性に対処する」節で先ほど議論した`read_line`メソッドのようにというわけですね。
 今回も、`expect`メソッドを使用して`Result`型を同じように扱います。
 もし、文字列から数値を生成できなかったために、`parse`メソッドが`Result`型の`Err`値を返したら、
 `expect`メソッドの呼び出しは、ゲームをクラッシュさせ、与えたメッセージを表示します。
@@ -1219,7 +1219,7 @@ Too big!
 <!-- guess a number that is too high, and guess a number that is too low. -->
 
 いいですね！予想の前にスペースを追加したにもかかわらず、プログラムはちゃんとユーザが76と予想したことを導き出しました。
-プログラムを何回か走らせて、異なる入力の異なる振る舞いを確認してください: つまり、
+プログラムを何回か走らせて、異なる入力の色々な振る舞いを確認してください: つまり、
 数字を正しく言い当てたり、大きすぎる値を予想したり、低すぎる数字を入力したりということです。
 
 <!-- We have most of the game working now, but the user can make only one guess. -->
@@ -1294,9 +1294,9 @@ fn main() {
 <!-- Guess to the Secret Number”: if the user enters a non-number answer, the program -->
 <!-- will crash. The user can take advantage of that in order to quit, as shown here: -->
 
-ユーザは、`Ctrl-C`というキーボードショートカットを使って、いつでもプログラムを強制終了させられます。
-しかし、「予想を秘密の数字と比較する」節の`parse`メソッドに関する議論で触れたこの貪欲なモンスターを
-回避する別の方法があります: ユーザが数字以外の答えを入力すれば、プログラムはクラッシュするのです。
+ユーザは、<span class="keystroke">Ctrl-C</span>というキーボードショートカットを使って、いつでもプログラムを強制終了させられます。
+しかし、「予想を秘密の数字と比較する」節の`parse`メソッドに関する議論で触れたこの貪欲なモンスターを回避する別の方法があります:
+ユーザが数字以外の答えを入力すれば、プログラムはクラッシュするのです。
 ユーザは、その利点を活かして、終了することができます。以下のようにね:
 
 ```text
@@ -1340,7 +1340,7 @@ error: Process didn't exit successfully: `target/debug/guess` (exit code: 101)
 
 <!-- Let’s program the game to quit when the user wins by adding a `break`: -->
 
-`break`文を追加して、ユーザが勝った時にゲームが終了するようにしましょう:
+`break`文を追加して、ユーザが勝った時にゲームが終了するようにプログラムしましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -1422,7 +1422,7 @@ let guess: u32 = match guess.trim().parse() {
 `expect`メソッドの呼び出しから`match`式に切り替えることは、
 エラーでクラッシュする動作から実際にエラー処理を行う処理へ変更する一般的な手段になります。`parse`メソッドは、
 `Result`型を返し、`Result`は`Ok`か`Err`の値を取りうるenumであることを思い出してください。
-ここでは`match`式を使っています。`cmp`メソッドの`Ordering`という結果でしたのと同じですね。
+ここでは`match`式を使っています。`cmp`メソッドの`Ordering`という結果のような感じですね。
 
 <!-- If `parse` is able to successfully turn the string into a number, it will return -->
 <!-- an `Ok` value that contains the resulting number. That `Ok` value will match the -->
@@ -1447,9 +1447,9 @@ let guess: u32 = match guess.trim().parse() {
 `parse`メソッドは、文字列から数値への変換に*失敗*したら、エラーに関する情報を多く含む`Err`値を返します。
 この`Err`値は、最初の`match`アームの`Ok(num)`というパターンにはマッチしないものの、
 2番目のアームの`Err(_)`というパターンにはマッチするわけです。この`_`は、包括値です; この例では、
-保持している情報がどんなものでもいいから全ての`Err`値にマッチさせたいと宣言しています。
+保持している情報がどんなものでもいいから、全ての`Err`値にマッチさせたいと宣言しています。
 従って、プログラムは2番目のアームのコードを実行し(`continue`ですね)、これは、
-`loop`の次の段階に移り、再度予想入力を求めることを意味します。故に実効的には、
+`loop`の次の繰り返しに移り、再度予想入力を求めることを意味します。故に実効的には、
 プログラムは`parse`メソッドが遭遇しうる全てのエラーを無視するようになります！
 
 <!-- Now everything in the program should work as expected. Let’s try it by running -->
@@ -1485,7 +1485,7 @@ You win!
 <!-- secret number. Listing 2-5 shows the final code: -->
 
 素晴らしい！最後にひとつまみ変更を加えて、数当てゲームを完了にしましょう:
- プログラムが未だに秘密の数字を出力していることを思い出してください。テスト中はうまく動くけど、
+プログラムが未だに秘密の数字を出力していることを思い出してください。テスト中はうまく動くけど、
 ゲームを台無しにしてしまいます。秘密の数字を出力する`println!`を削除しましょう。
 リスト2-5が成果物のコードです:
 
