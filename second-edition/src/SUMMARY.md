@@ -80,10 +80,15 @@
     - [文字列型](ch08-02-strings.md)
     - [ハッシュマップ](ch08-03-hash-maps.md)
 
-- [Error Handling](ch09-00-error-handling.md)
-    - [Unrecoverable Errors with `panic!`](ch09-01-unrecoverable-errors-with-panic.md)
-    - [Recoverable Errors with `Result`](ch09-02-recoverable-errors-with-result.md)
-    - [To `panic!` or Not To `panic!`](ch09-03-to-panic-or-not-to-panic.md)
+<!-- - [Error Handling](ch09-00-error-handling.md) -->
+<!--     - [Unrecoverable Errors with `panic!`](ch09-01-unrecoverable-errors-with-panic.md) -->
+<!--     - [Recoverable Errors with `Result`](ch09-02-recoverable-errors-with-result.md) -->
+<!--     - [To `panic!` or Not To `panic!`](ch09-03-to-panic-or-not-to-panic.md) -->
+
+- [エラー処理](ch09-00-error-handling.md)
+    - [`panic!`で回復不能なエラー](ch09-01-unrecoverable-errors-with-panic.md)
+    - [`Result`で回復可能なエラー](ch09-02-recoverable-errors-with-result.md)
+    - [`panic!`すべきかするまいか](ch09-03-to-panic-or-not-to-panic.md)
 
 - [Generic Types, Traits, and Lifetimes](ch10-00-generics.md)
     - [Generic Data Types](ch10-01-syntax.md)
