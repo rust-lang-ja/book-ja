@@ -183,19 +183,12 @@ Rustの基準型は一般的にいい選択肢になります。整数型の基�
 <!-- Rust also has two primitive types for *floating-point numbers*, which are -->
 <!-- numbers with decimal points. Rust’s floating-point types are `f32` and `f64`, -->
 <!-- which are 32 bits and 64 bits in size, respectively. The default type is `f64` -->
-<!-- because it’s roughly the same speed as `f32` but is capable of more precision. -->
-<!-- It’s possible to use an `f64` type on 32-bit systems, but it will be slower -->
-<!-- than using an `f32` type on those systems. Most of the time, trading potential -->
-<!-- worse performance for better precision is a reasonable initial choice, and you -->
-<!-- should benchmark your code if you suspect floating-point size is a problem in -->
-<!-- your situation. -->
+<!-- because on modern CPUs it’s roughly the same speed as `f32` but is capable of -->
+<!-- more precision. -->
 
 Rustにはさらに、*浮動小数点数*に対しても、2種類の基本型があり、浮動小数点数とは10進小数のことです。
 Rustの浮動小数点型は、`f32`と`f64`で、それぞれ32ビットと64ビットサイズです。基準型は`f64`です。
-なぜなら、`f32`とほぼ同スピードにもかかわらず、より精度が高くなるからです。32ビットシステム上でも、
-`f64`型を使用することはできますが、`f32`型を使うよりも遅くなります。ほとんどの場合、
-パフォーマンスが悪くなる可能性と引き換えに高精度を得ることは、一考の価値のある第1選択肢になる上、
-自らのコードで浮動小数点数のサイズが問題になる可能性があると疑うのなら、ベンチマークをしてみるべきです。
+なぜなら、現代のCPUでは、`f32`とほぼ同スピードにもかかわらず、より精度が高くなるからです。
 
 <!-- Here’s an example that shows floating-point numbers in action: -->
 
@@ -355,7 +348,7 @@ Rustの`char`型は、ユニコードのスカラー値を表します。これ�
 絵文字、ゼロ幅スペースは、全てRustでは、有効な`char`型になります。ユニコードスカラー値は、
 `U+0000`から`U+D7FF`までと`U+E0000`から`U+10FFFF`までの範囲になります。
 ところが、「文字」は実はユニコードの概念ではないので、文字とは何かという人間としての直観は、
-Rustにおける`char`型が何かとは合致しない可能性があります。この話題については第8章の「文字列」節で詳しく議論しましょう。
+Rustにおける`char`型が何かとは合致しない可能性があります。この話題については、第8章の「文字列」節で詳しく議論しましょう。
 
 <!-- ### Compound Types -->
 

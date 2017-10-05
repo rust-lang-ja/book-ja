@@ -10,12 +10,12 @@
 単一の変数から始め、代わりに構造体を使うようにプログラムをリファクタリングします。
 
 <!-- Let’s make a new binary project with Cargo called *rectangles* that will take -->
-<!-- the length and width of a rectangle specified in pixels and will calculate the -->
+<!-- the width and height of a rectangle specified in pixels and will calculate the -->
 <!-- area of the rectangle. Listing 5-8 shows a short program with one way of doing -->
 <!-- just that in our project’s *src/main.rs*: -->
 
 Cargoで*rectangles*という新規バイナリプロジェクトを作成しましょう。このプロジェクトは、
-四角形の長さと幅をピクセルで指定し、その面積を求めます。リスト5-8に、プロジェクトの*src/main.rs*で、
+四角形の幅と高さをピクセルで指定し、その面積を求めます。リスト5-8に、プロジェクトの*src/main.rs*で、
 そうする一例を短いプログラムとして示しました:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -24,25 +24,25 @@ Cargoで*rectangles*という新規バイナリプロジェクトを作成しま
 
 ```rust
 fn main() {
-    let length1 = 50;
     let width1 = 30;
+    let height1 = 50;
 
     // 四角形の面積は、{}平方ピクセルです
     println!(
         "The area of the rectangle is {} square pixels.",
-        area(length1, width1)
+        area(width1, height1)
     );
 }
 
-fn area(length: u32, width: u32) -> u32 {
-    length * width
+fn area(width: u32, height: u32) -> u32 {
+    width * height
 }
 ```
 
 <!-- <span class="caption">Listing 5-8: Calculating the area of a rectangle -->
-<!-- specified by its length and width in separate variables</span> -->
+<!-- specified by its width and height in separate variables</span> -->
 
-<span class="caption">リスト5-8: 個別の変数で長さと幅を指定して四角形の面積を求める</span>
+<span class="caption">リスト5-8: 個別の変数で幅と高さを指定して四角形の面積を求める</span>
 
 <!-- Now, run this program using `cargo run`: -->
 
@@ -58,32 +58,32 @@ The area of the rectangle is 1500 square pixels.
 ### タプルでリファクタリングする
 
 <!-- Even though Listing 5-8 works and figures out the area of the rectangle by -->
-<!-- calling the `area` function with each dimension, we can do better. The length -->
-<!-- and the width are related to each other because together they describe one -->
+<!-- calling the `area` function with each dimension, we can do better. The width -->
+<!-- and the height are related to each other because together they describe one -->
 <!-- rectangle. -->
 
 リスト5-8のコードはうまく動き、各次元で`area`関数を呼び出すことで四角形の面積を割り出しますが、
-改善点があります。長さと幅は、組み合わせると一つの四角形を表すので、相互に関係があるわけです。
+改善点があります。幅と高さは、組み合わせると一つの四角形を表すので、相互に関係があるわけです。
 
 <!-- The issue with this method is evident in the signature of `area`: -->
 
 この方法の問題点は、`area`のシグニチャから明らかです:
 
 ```rust,ignore
-fn area(length: u32, width: u32) -> u32 {
+fn area(width: u32, height: u32) -> u32 {
 ```
 
 <!-- The `area` function is supposed to calculate the area of one rectangle, but the -->
 <!-- function we wrote has two parameters. The parameters are related, but that’s -->
 <!-- not expressed anywhere in our program. It would be more readable and more -->
-<!-- manageable to group length and width together. We’ve already discussed one way -->
+<!-- manageable to group width and height together. We’ve already discussed one way -->
 <!-- we might do that in the Grouping Values into Tuples section of Chapter 3 on -->
 <!-- page XX: by using tuples. Listing 5-9 shows another version of our program that -->
 <!-- uses tuples: -->
 
 `area`関数は、1四角形の面積を求めるものと考えられますが、今書いた関数には、引数が2つあります。
 引数は関連性があるのに、このプログラム内のどこにもそのことは表現されていません。
-長さと幅を一緒にグループ化する方が、より読みやすく、扱いやすくなるでしょう。
+幅と高さを一緒にグループ化する方が、より読みやすく、扱いやすくなるでしょう。
 それをする一つの方法については、ページXXの第3章の「値をタプルにまとめ上げる」節ですでに議論しました:
 タプルを使うのです。リスト5-9に、タプルを使う別バージョンのプログラムを示します:
 
@@ -93,7 +93,7 @@ fn area(length: u32, width: u32) -> u32 {
 
 ```rust
 fn main() {
-    let rect1 = (50, 30);
+    let rect1 = (30, 50);
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -106,10 +106,10 @@ fn area(dimensions: (u32, u32)) -> u32 {
 }
 ```
 
-<!-- <span class="caption">Listing 5-8: Specifying the length and width of the -->
+<!-- <span class="caption">Listing 5-8: Specifying the width and height of the -->
 <!-- rectangle with a tuple</span> -->
 
-<span class="caption">リスト5-8: タプルで四角形の長さと幅を指定する</span>
+<span class="caption">リスト5-8: タプルで四角形の幅と高さを指定する</span>
 
 <!-- In one way, this program is better. Tuples let us add a bit of structure, and -->
 <!-- we’re now passing just one argument. But in another way this version is less -->
@@ -120,18 +120,18 @@ fn area(dimensions: (u32, u32)) -> u32 {
 しかし別の意味では、このバージョンは明確性を失っています: タプルは要素に名前を付けないので、
 計算が不明瞭になったのです。なぜなら、タプルの一部に添え字アクセスする必要があるからです。
 
-<!-- It doesn’t matter if we mix up length and width for the area calculation, but -->
+<!-- It doesn’t matter if we mix up width and height for the area calculation, but -->
 <!-- if we want to draw the rectangle on the screen, it would matter! We would have -->
-<!-- to keep in mind that `length` is the tuple index `0` and `width` is the tuple -->
+<!-- to keep in mind that `width` is the tuple index `0` and `height` is the tuple -->
 <!-- index `1`. If someone else worked on this code, they would have to figure this -->
 <!-- out and keep it in mind as well. It would be easy to forget or mix up these -->
 <!-- values and cause errors, because we haven’t conveyed the meaning of our data in -->
 <!-- our code. -->
 
-面積計算で長さと幅を混在させるのなら問題はないのですが、四角形を画面に描画したいとなると、問題になるのです！
-タプルの添え字`0`が`長さ`で、添え字`1`が`幅`であることを肝に命じておかなければなりません。
+面積計算で幅と高さを混在させるのなら問題はないのですが、四角形を画面に描画したいとなると、問題になるのです！
+タプルの添え字`0`が`幅`で、添え字`1`が`高さ`であることを肝に命じておかなければなりません。
 他人がこのコードをいじることになったら、このことを割り出し、同様に肝に命じなければならないでしょう。
-容易く、このことを忘れ、これらの値を混ぜこぜにしてエラーを発生させてしまうでしょう。
+容易く、このことを忘れたり、これらの値を混ぜこぜにしたりしてエラーを発生させてしまうでしょう。
 データの意味をコードに載せていないからです。
 
 <!-- ### Refactoring with Structs: Adding More Meaning -->
@@ -151,12 +151,12 @@ fn area(dimensions: (u32, u32)) -> u32 {
 
 ```rust
 struct Rectangle {
-    length: u32,
     width: u32,
+    height: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { width: 30, height: 50 };
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -165,7 +165,7 @@ fn main() {
 }
 
 fn area(rectangle: &Rectangle) -> u32 {
-    rectangle.length * rectangle.width
+    rectangle.width * rectangle.height
 }
 ```
 
@@ -174,13 +174,13 @@ fn area(rectangle: &Rectangle) -> u32 {
 <span class="caption">リスト5-10: `Rectangle`構造体を定義する</span>
 
 <!-- Here we’ve defined a struct and named it `Rectangle`. Inside the `{}` we -->
-<!-- defined the fields as `length` and `width`, both of which have type `u32`. Then -->
-<!-- in `main` we create a particular instance of a `Rectangle` that has a length of -->
-<!-- 50 and a width of 30. -->
+<!-- defined the fields as `width` and `height`, both of which have type `u32`. Then -->
+<!-- in `main` we create a particular instance of a `Rectangle` that has a width of -->
+<!-- 30 and a height of 30. -->
 
-ここでは、構造体を定義し、`Rectangle`という名前にしています。`{}`の中で`length`と`width`というフィールドを定義し、
+ここでは、構造体を定義し、`Rectangle`という名前にしています。`{}`の中で`width`と`height`というフィールドを定義し、
 `u32`という型にしました。それから`main`内で`Rectangle`の特定のインスタンスを生成し、
-長さを50、幅を30にしました。
+幅を30、高さを50にしました。
 
 <!-- Our `area` function is now defined with one parameter, which we’ve named -->
 <!-- `rectangle`, whose type is an immutable borrow of a struct `Rectangle` -->
@@ -193,16 +193,16 @@ fn area(rectangle: &Rectangle) -> u32 {
 第4章で触れたように、構造体の所有権を奪うよりも借用する必要があります。こうすることで`main`は所有権を保って、
 `rect1`を使用し続けることができ、そのために関数シグニチャと関数呼び出し時に`&`を使っているわけです。
 
-<!-- The `area` function accesses the `length` and `width` fields of the `Rectangle` -->
+<!-- The `area` function accesses the `width` and `height` fields of the `Rectangle` -->
 <!-- instance. Our function signature for `area` now indicates exactly what we mean: -->
-<!-- calculate the area of a `Rectangle` using its `length` and `width` fields. This -->
-<!-- conveys that the length and width are related to each other, and gives -->
+<!-- calculate the area of a `Rectangle` using its `width` and `height` fields. This -->
+<!-- conveys that the width and height are related to each other, and gives -->
 <!-- descriptive names to the values rather than using the tuple index values of `0` -->
 <!-- and `1`—a win for clarity. -->
 
-`area`関数は、`Rectangle`インスタンスの`length`と`width`フィールドにアクセスしています。
-これで、`area`の関数シグニチャは、我々の意図をズバリ示すようになりました: `length`と`width`フィールドを使って、
-`Rectangle`の面積を計算します。これにより、長さと幅が相互に関係していることが伝わり、
+`area`関数は、`Rectangle`インスタンスの`width`と`height`フィールドにアクセスしています。
+これで、`area`の関数シグニチャは、我々の意図をズバリ示すようになりました: `width`と`height`フィールドを使って、
+`Rectangle`の面積を計算します。これにより、幅と高さが相互に関係していることが伝わり、
 タプルの`0`や`1`という添え字を使うのではなく、値に説明的な名前を与えられるのです。簡潔性を勝ち取ったわけですね。
 
 <!-- ### Adding Useful Functionality with Derived Traits -->
@@ -223,12 +223,12 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 ```rust,ignore
 struct Rectangle {
-    length: u32,
     width: u32,
+    height: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { width: 30, height: 50 };
 
     // rect1は{}です
     println!("rect1 is {}", rect1);
@@ -324,12 +324,12 @@ crate, add `#[derive(Debug)]` or manually implement it
 ```rust
 #[derive(Debug)]
 struct Rectangle {
-    length: u32,
     width: u32,
+    height: u32,
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { width: 30, height: 50 };
 
     println!("rect1 is {:?}", rect1);
 }
@@ -347,7 +347,7 @@ fn main() {
 これでプログラムを実行すれば、エラーは出ず、以下のような出力が得られるでしょう:
 
 ```text
-rect1 is Rectangle { length: 50, width: 30 }
+rect1 is Rectangle { width: 30, height: 50 }
 ```
 
 <!-- Nice! It’s not the prettiest output, but it shows the values of all the fields -->
@@ -363,8 +363,8 @@ rect1 is Rectangle { length: 50, width: 30 }
 
 ```text
 rect1 is Rectangle {
-    length: 50,
-    width: 30
+    width: 30,
+    height: 50
 }
 ```
 

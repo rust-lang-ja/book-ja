@@ -552,7 +552,7 @@ note: maybe move this module `network` to its own directory via
 
 <!-- 1. Make a new *directory* named *network*, the parent module’s name. -->
 <!-- 2. Move the *src/network.rs* file into the new *network* directory, and -->
-<!--    rename *src/network/mod.rs*. -->
+<!--    rename it to *src/network/mod.rs*. -->
 <!-- 3. Move the submodule file *src/server.rs* into the *network* directory. -->
 
 1. 親モジュール名である*network*という名前の新規*ディレクトリ*を作成する。

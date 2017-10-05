@@ -33,18 +33,18 @@
 ```rust
 #[derive(Debug)]
 struct Rectangle {
-    length: u32,
     width: u32,
+    height: u32,
 }
 
 impl Rectangle {
     fn area(&self) -> u32 {
-        self.length * self.width
+        self.width * self.height
     }
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { width: 30, height: 50 };
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -222,9 +222,9 @@ fn main() {
 
 ```rust,ignore
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
-    let rect2 = Rectangle { length: 40, width: 10 };
-    let rect3 = Rectangle { length: 45, width: 60 };
+    let rect1 = Rectangle { width: 30, height: 50 };
+    let rect2 = Rectangle { width: 10, height: 40 };
+    let rect3 = Rectangle { width: 60, height: 45 };
 
     // rect1にrect2ははまり込む？
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
@@ -258,8 +258,8 @@ Can rect1 hold rect3? false
 <!-- read `rect2` (rather than write, which would mean we’d need a mutable borrow), -->
 <!-- and we want `main` to retain ownership of `rect2` so we can use it again after -->
 <!-- calling the `can_hold` method. The return value of `can_hold` will be a -->
-<!-- boolean, and the implementation will check whether the length and width of -->
-<!-- `self` are both greater than the length and width of the other `Rectangle`, -->
+<!-- boolean, and the implementation will check whether the width and height of -->
+<!-- `self` are both greater than the width and height of the other `Rectangle`, -->
 <!-- respectively. Let’s add the new `can_hold` method to the `impl` block from -->
 <!-- Listing 5-13, shown in Listing 5-15: -->
 
@@ -269,7 +269,7 @@ Can rect1 hold rect3? false
 `&rect2`、`Rectangle`のインスタンスである`rect2`への不変借用を渡しています。
 これは道理が通っています。なぜなら、`rect2`を読み込む(書き込みではなく。この場合、可変借用が必要になります)だけでよく、
 `can_hold`メソッドを呼び出した後にも`rect2`が使えるよう、所有権を`main`に残したままにしたいからです。
-`can_hold`の返り値は、論理型になり、メソッドの中身は、`self`の長さと幅がもう一つの`Rectangle`の長さと幅よりも、
+`can_hold`の返り値は、論理型になり、メソッドの中身は、`self`の幅と高さがもう一つの`Rectangle`の幅と高さよりも、
 それぞれ大きいことを確認します。リスト5-13の`impl`ブロックに新しい`can_hold`メソッドを追記しましょう。
 リスト5-15に示した通りです:
 
@@ -280,17 +280,17 @@ Can rect1 hold rect3? false
 ```rust
 # #[derive(Debug)]
 # struct Rectangle {
-#     length: u32,
 #     width: u32,
+#     height: u32,
 # }
 #
 impl Rectangle {
     fn area(&self) -> u32 {
-        self.length * self.width
+        self.width * self.height
     }
 
     fn can_hold(&self, other: &Rectangle) -> bool {
-        self.length > other.length && self.width > other.width
+        self.width > other.width && self.height > other.height
     }
 }
 ```
@@ -314,12 +314,20 @@ impl Rectangle {
 
 ### 関連関数
 
+<<<<<<< HEAD
 <!-- Another useful feature of `impl` blocks is that we’re allowed to define -->
 <!-- functions within `impl` blocks that *don’t* take `self` as a parameter. These -->
 <!-- are called *associated functions* because they’re associated with the struct. -->
 <!-- They’re still functions, not methods, because they don’t have an instance of -->
 <!-- the struct to work with. You’ve already used the `String::from` associated -->
 <!-- function. -->
+=======
+Associated functions are often used for constructors that will return a new
+instance of the struct. For example, we could provide an associated function
+that would have one dimension parameter and use that as both width and height,
+thus making it easier to create a square `Rectangle` rather than having to
+specify the same value twice:
+>>>>>>> fork_master_master
 
 `impl`ブロックの別の有益な機能は、`impl`ブロック内に`self`を引数に取ら*ない*関数を定義できることです。
 これは、構造体に関連付けられているので、*関連関数*と呼ばれます。それでも、関連関数は関数であり、メソッドではありません。
@@ -342,13 +350,13 @@ impl Rectangle {
 ```rust
 # #[derive(Debug)]
 # struct Rectangle {
-#     length: u32,
 #     width: u32,
+#     height: u32,
 # }
 #
 impl Rectangle {
     fn square(size: u32) -> Rectangle {
-        Rectangle { length: size, width: size }
+        Rectangle { width: size, height: size }
     }
 }
 ```
@@ -377,19 +385,19 @@ impl Rectangle {
 ```rust
 # #[derive(Debug)]
 # struct Rectangle {
-#     length: u32,
 #     width: u32,
+#     height: u32,
 # }
 #
 impl Rectangle {
     fn area(&self) -> u32 {
-        self.length * self.width
+        self.width * self.height
     }
 }
 
 impl Rectangle {
     fn can_hold(&self, other: &Rectangle) -> bool {
-        self.length > other.length && self.width > other.width
+        self.width > other.width && self.height > other.height
     }
 }
 ```
