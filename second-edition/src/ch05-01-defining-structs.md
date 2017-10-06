@@ -287,7 +287,6 @@ let user2 = User {
 <span class="caption">リスト5-7: 構造体更新記法を使用して、新しい`User`インスタンス用の値に新しい`email`と`username`をセットしつつ、
 残りの値は、`user1`変数のフィールド値を使う</span>
 
-<<<<<<< HEAD
 <!-- The code in Listing 5-7 also creates an instance in `user2` that has a -->
 <!-- different value for `email` and `username` but has the same values for the -->
 <!-- `active` and `sign_in_count` fields from `user1`. -->
