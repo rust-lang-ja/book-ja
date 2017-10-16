@@ -121,6 +121,7 @@ error[E0308]: mismatched types
 この戻り値型は、`File::open`の呼び出しが成功し、読み込みと書き込みを行えるファイルハンドルを返す可能性があることを意味します。
 また、関数呼び出しは失敗もする可能性があります: 例えば、ファイルが存在しない可能性、ファイルへのアクセス権限がない可能性です。
 `File::open`には成功したか失敗したかを知らせる方法とファイルハンドルまたは、エラー情報を与える方法が必要なのです。
+この情報こそが`Result`enumが意図するものなのです。
 
 <!-- In the case where `File::open` succeeds, the value we will have in the variable -->
 <!-- `f` will be an instance of `Ok` that contains a file handle. In the case where -->
@@ -376,7 +377,7 @@ fn main() {
 <!-- will be the parameter that we pass to `expect`, rather than the default -->
 <!-- `panic!` message that `unwrap` uses. Here’s what it looks like: -->
 
-`expect`を`unwrap`と同じように使用してファイルハンドルを返したり、`panic!`マクロを呼び出しています。
+`expect`を`unwrap`と同じように使用してます: ファイルハンドルを返したり、`panic!`マクロを呼び出しています。
 `expect`が`panic!`呼び出しで使用するエラーメッセージは、`unwrap`が使用するデフォルトの`panic!`メッセージではなく、
 `expect`に渡した引数になります。以下のようになります:
 
@@ -469,7 +470,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 `Result<T, E>`型の値を返しているということです。ここでジェネリック引数の`T`は、具体型`String`で埋められ、
 ジェネリック引数の`E`は具体型`io::Error`で埋められています。この関数が何の問題もなく成功すれば、
 この関数を呼び出したコードは、`String`(関数がファイルから読み取ったユーザ名)を保持する`Ok`値を受け取ります。
-この関数が何かエラーに行き当たったら、呼び出し元のコードは`io::Error`のインスタンスを保持する`Err`値を受け取り、
+この関数が何か問題に行き当たったら、呼び出し元のコードは`io::Error`のインスタンスを保持する`Err`値を受け取り、
 この`io::Error`は問題の内容に関する情報をより多く含んでいます。関数の戻り値の型に`io::Error`を選んだのは、
 この関数本体で呼び出している失敗する可能性のある処理が両方ともたまたまこの型をエラー値として返すからです:
 `File::open`関数と`read_to_string`メソッドです。
@@ -481,7 +482,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 <!-- calling code as this function’s error value. If `File::open` succeeds, we store -->
 <!-- the file handle in the variable `f` and continue. -->
 
-関数の本体は、`File::open`関数を呼び出すとこから始まります。そして、リスト9-4の`match`に似た`match`で返ってくる`Result`値を扱い、
+関数の本体は、`File::open`関数を呼び出すところから始まります。そして、リスト9-4の`match`に似た`match`で返ってくる`Result`値を扱い、
 `Err`ケースに`panic!`を呼び出す代わりだけですが、この関数から早期リターンしてこの関数のエラー値として、
 `File::open`から得たエラー値を呼び出し元に渡し返します。`File::open`が成功すれば、
 ファイルハンドルを変数`f`に保管して継続します。
@@ -646,7 +647,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 `read_to_string`の呼び出しを直接`File::open("hello.txt")?`の結果に連結させました。
 それでも、`read_to_string`呼び出しの末尾には`?`があり、`File::open`と`read_to_string`両方が成功したら、
 エラーを返すというよりもまだ`s`にユーザ名を含む`Ok`値を返します。機能もまたリスト9-6及び、9-7と同じです;
-ただ単に異バージョンのよりプログラマフレンドリーな書き方なのです。
+ただ単に異なるバージョンのよりプログラマフレンドリーな書き方なのです。
 
 <!-- #### `?` Can Only Be Used in Functions That Return Result -->
 
