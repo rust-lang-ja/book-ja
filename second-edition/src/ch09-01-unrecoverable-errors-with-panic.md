@@ -121,7 +121,7 @@ error: Process didn't exit successfully: `target/debug/panic` (exit code: 101)
 fn main() {
     let v = vec![1, 2, 3];
 
-    v[100];
+    v[99];
 }
 ```
 
@@ -131,12 +131,13 @@ fn main() {
 <span class="caption">リスト9-1: ベクタの境界を超えて要素へのアクセスを試み、
   `panic!`を発生させる</span>
 
-<!-- Here, we’re attempting to access the hundredth element of our vector, but it -->
-<!-- has only three elements. In this situation, Rust will panic. Using `[]` is -->
-<!-- supposed to return an element, but if you pass an invalid index, there’s no -->
-<!-- element that Rust could return here that would be correct. -->
+<!-- Here, we’re attempting to access the hundredth element (hundredth as indexing -->
+<!-- starts at zero) of our vector, but it has only three elements. In this case, -->
+<!-- Rust will panic. Using `[]` is supposed to return an element, but if you pass -->
+<!-- an invalid index, there’s no element that Rust could return here that would be -->
+<!-- correct. -->
 
-ここでは、ベクタの100番目の要素にアクセスを試みていますが、ベクタには3つしか要素がありません。
+ここでは、ベクタの100番目の要素(添字は0始まりなので100番目)にアクセスを試みていますが、ベクタには3つしか要素がありません。
 この場面では、Rustはパニックします。`[]`の使用は、要素を返すと想定されるものの、
 無効な番号を渡せば、ここでRustが返せて正しいと思われる要素は何もないわけです。
 

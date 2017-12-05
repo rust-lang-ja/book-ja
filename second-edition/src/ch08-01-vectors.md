@@ -1,6 +1,6 @@
-<!-- ## Vectors -->
+<!-- ## Vectors Store Lists of Values -->
 
-## ベクタ型
+## ベクタ型は一連の値を保持する
 
 <!-- The first collection type we’ll look at is `Vec<T>`, also known as a *vector*. -->
 <!-- Vectors allow us to store more than one value in a single data structure that -->
@@ -191,9 +191,9 @@ let third: Option<&i32> = v.get(2);
 
 <!-- The reason Rust has two ways to reference an element is so you can choose how -->
 <!-- the program behaves when you try to use an index value that the vector doesn’t -->
-<!-- have an element for. As an example, what should a program do if it has a vector -->
-<!-- that holds five elements and then tries to access an element at index 100, as -->
-<!-- shown in Listing 8-6: -->
+<!-- have an element for. As an example, what should a program do if it has -->
+<!-- a vector that holds five elements and then tries to access an element at index -->
+<!-- 100, as shown in Listing 8-6: -->
 
 Rustに要素を参照する方法が2通りある理由は、ベクタ型に要素が含まれない番号の値を使用しようとした時に、
 プログラムの振る舞いを選択できるようにするためです。例として、ベクタ型に5つ要素があり、
@@ -227,14 +227,14 @@ let does_not_exist = v.get(100);
 <!-- `None`, as discussed in Chapter 6. For example, the index could be coming from -->
 <!-- a person entering a number. If they accidentally enter a number that’s too -->
 <!-- large and the program gets a `None` value, you could tell the user how many -->
-<!-- items are in the current `Vec` and give them another chance to enter a valid -->
+<!-- items are in the current vector and give them another chance to enter a valid -->
 <!-- value. That would be more user-friendly than crashing the program due to a typo! -->
 
 `get`メソッドがベクタ外の番号を渡されると、パニックすることなく`None`を返します。
 普通の状態でも、ベクタの範囲外にアクセスする可能性がある場合に、このメソッドを使用することになるでしょう。
 そうしたら、コードには`Some(&element)`か`None`を扱うロジックが存在することになります。そう、
 第6章で議論したように。例えば、番号は人間に数値を入力してもらうことで得ることもできます。
-もし大きすぎる値を誤って入力し、プログラムが`None`値を得てしまったら、現在`Vec`に幾つ要素があるかをユーザに教え、
+もし大きすぎる値を誤って入力し、プログラムが`None`値を得てしまったら、現在ベクタに幾つ要素があるかをユーザに教え、
 再度正しい値を入力してもらうことができるでしょう。その方が、タイプミスでプログラムをクラッシュさせるより、
 ユーザに優しくなるでしょう。
 
@@ -247,13 +247,14 @@ let does_not_exist = v.get(100);
 <!-- and any other references to the contents of the vector remain valid. Recall the -->
 <!-- rule that states we can’t have mutable and immutable references in the same -->
 <!-- scope. That rule applies in Listing 8-7 where we hold an immutable reference to -->
-<!-- the first element in a vector and try to add an element to the end: -->
+<!-- the first element in a vector and try to add an element to the end, which won't -->
+<!-- work: -->
 
 プログラムに有効な参照がある場合、borrow checker(借用精査機)は(第4章で解説しましたが)、
 所有権と借用規則を強制し、ベクタ型の中身へのこの参照や他のいかなる参照も有効であり続けることを保証してくれます。
 同一スコープ上では、可変と不変な参照を同時には存在させられないというルールを思い出してください。
 このルールはリスト8-7にも適用され、リスト8-7ではベクタの最初の要素への不変参照を保持し、
-終端に要素を追加しようとしています:
+終端に要素を追加しようとしていますが、動きません:
 
 ```rust,ignore
 let mut v = vec![1, 2, 3, 4, 5];
@@ -273,17 +274,16 @@ v.push(6);
 このコードをコンパイルすると、こんなエラーになります:
 
 ```text
-error[E0502]: cannot borrow `v` as mutable because it is also borrowed as
-immutable
+error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immutable
 (エラー: 不変としても借用されているので、`v`を可変で借用できません)
   |
-4 | let first = &v[0];
-  |              - immutable borrow occurs here
-  |              (不変借用はここで発生しています)
+4 |     let first = &v[0];
+  |                  - immutable borrow occurs here
+  |                  (不変借用はここで発生しています)
 5 |
-6 | v.push(6);
-  | ^ mutable borrow occurs here
-  |  (可変借用は、ここで発生しています)
+6 |     v.push(6);
+  |     ^ mutable borrow occurs here
+  |      (可変借用は、ここで発生しています)
 7 | }
   | - immutable borrow ends here
   |   (不変借用はここで終了しています)
@@ -315,12 +315,12 @@ immutable
 
 ### ベクタの値を走査する
 
-<!-- If we want to access each element in a vector in turn, rather than using -->
-<!-- indexing to access one element, we can iterate through all of the elements. -->
-<!-- Listing 8-8 shows how to use a `for` loop to get immutable references to each -->
-<!-- element in a vector of `i32` values and print them out: -->
+<!-- If we want to access each element in a vector in turn, we can iterate through -->
+<!-- all of the elements rather than use indexes to access one at a time. Listing -->
+<!-- 8-8 shows how to use a `for` loop to get immutable references to each element -->
+<!-- in a vector of `i32` values and print them out: -->
 
-ベクタの要素に順番にアクセスしたいなら、添え字で1要素にアクセスするのではなく、全要素を走査することができます。
+ベクタの要素に順番にアクセスしたいなら、添え字で1回に1要素にアクセスするのではなく、全要素を走査することができます。
 リスト8-8で`for`ループを使い、`i32`のベクタの各要素に対する不変な参照を得て、それらを出力する方法を示しています:
 
 ```rust
@@ -336,10 +336,10 @@ for i in &v {
 <span class="caption">リスト8-8: `for`ループで要素を走査し、ベクタの各要素を出力する</span>
 
 <!-- We can also iterate over mutable references to each element in a mutable vector -->
-<!-- if we want to make changes to all the elements. The `for` loop in Listing 8-9 -->
+<!-- in order to make changes to all the elements. The `for` loop in Listing 8-9 -->
 <!-- will add `50` to each element: -->
 
-全要素に変更を加えたかったら、可変なベクタの各要素への可変な参照を走査することもできます。
+全要素に変更を加える目的で、可変なベクタの各要素への可変な参照を走査することもできます。
 リスト8-9の`for`ループでは、各要素に`50`を足しています:
 
 ```rust
@@ -354,12 +354,12 @@ for i in &mut v {
 
 <span class="caption">リスト8-9: ベクタの要素への可変な参照を走査する</span>
 
-<!-- In order to change the value that the mutable reference refers to, before we -->
-<!-- can use the `+=` operator with `i`, we have to use the dereference operator -->
-<!-- (`*`) to get to the value. -->
+<!-- To change the value that the mutable reference refers to, we have to use the  -->
+<!-- dereference operator (`*`) to get to the value in `i` before we can use the -->
+<!-- `+=` operator. -->
 
-可変参照が参照する値を変更するには、`i`に対して`+=`演算子を使用する前に、
-参照外し演算子(`*`)を使用して値に辿り着かないといけません。
+可変参照が参照している値を変更するには、`+=`演算子を使用する前に、
+参照外し演算子(`*`)を使用して`i`の値に辿り着かないといけません。
 
 <!-- ### Using an Enum to Store Multiple Types -->
 
@@ -379,14 +379,14 @@ enumを定義して使用することができます！
 <!-- For example, let’s say we want to get values from a row in a spreadsheet where -->
 <!-- some of the columns in the row contain integers, some floating-point numbers, -->
 <!-- and some strings. We can define an enum whose variants will hold the different -->
-<!-- value types, and then all the enum variants will be considered the same type, -->
+<!-- value types, and then all the enum variants will be considered the same type: -->
 <!-- that of the enum. Then we can create a vector that holds that enum and so, -->
-<!-- ultimately, holds different types. We’ve demonstrated this in Listing 8-8: -->
+<!-- ultimately, holds different types. We’ve demonstrated this in Listing 8-10: -->
 
 例えば、スプレッドシートの行から値を得たくなったとしましょう。ここで行の列には、整数を含むものや、
 浮動小数点数を含むもの、文字列を含むものがあります。バリアントが異なる値の型を保持するenumを定義できます。
-そして、このenumのバリアントは全て同じ型、つまり、enumの型と考えられるわけです。それからそのenumを保持するベクタを生成でき、
-結果的に異なる型を保持できるようになるわけです。リスト8-8でこれを模擬しています。
+そして、このenumのバリアントは全て同じ型: enumの型と考えられるわけです。それからそのenumを保持するベクタを生成でき、
+結果的に異なる型を保持できるようになるわけです。リスト8-10でこれを模擬しています。
 
 ```rust
 enum SpreadsheetCell {
@@ -402,10 +402,10 @@ let row = vec![
 ];
 ```
 
-<!-- <span class="caption">Listing 8-8: Defining an `enum` to store values of -->
+<!-- <span class="caption">Listing 8-10: Defining an `enum` to store values of -->
 <!-- different types in one vector</span> -->
 
-<span class="caption">リスト8-8: `enum`を定義して、一つのベクタに異なる型の値を保持する</span>
+<span class="caption">リスト8-10: `enum`を定義して、一つのベクタに異なる型の値を保持する</span>
 
 <!-- The reason Rust needs to know what types will be in the vector at compile time -->
 <!-- is so it knows exactly how much memory on the heap will be needed to store each -->
@@ -423,21 +423,19 @@ let row = vec![
 enumに加えて`match`式を使うことは、第6章で議論した通り、コンパイル時にありうる場合全てに対処していることをコンパイラが、
 確認できることを意味します。
 
-<!-- 第1文がちょっとわからない。特にwriting a program the exhaustive...のところ。いわゆるSVOOかな？ -->
-
-<!-- If you don’t know when you’re writing a program the exhaustive set of types the -->
-<!-- program will get at runtime to store in a vector, the enum technique won’t -->
+<!-- If you don’t know the exhaustive set of types the program will get at runtime -->
+<!-- to store in a vector when you’re writing a program, the enum technique won’t -->
 <!-- work. Instead, you can use a trait object, which we’ll cover in Chapter 17. -->
 
-ベクタに実行時に保持される一連の型をプログラムに記述してあげる場合を知らない場合、このenumテクニックはうまくいかないでしょう。
-代わりに、トレイトオブジェクトを使用することができ、こちらは第17章で解説します。
+プログラム記述時にプログラムがベクタに実行時に保持するありとあらゆる一連の型をプログラマが知らない場合、
+このenumテクニックはうまく動かないでしょう。代わりにトレイトオブジェクトを使用することができ、こちらは第17章で解説します。
 
 <!-- Now that we’ve discussed some of the most common ways to use vectors, be sure -->
 <!-- to review the API documentation for all the many useful methods defined on -->
-<!-- `Vec` by the standard library. For example, in addition to `push`, a `pop` -->
+<!-- `Vec<T>` by the standard library. For example, in addition to `push`, a `pop` -->
 <!-- method removes and returns the last element. Let’s move on to the next -->
 <!-- collection type: `String`! -->
 
-今や、ベクタを使用するべきありふれた方法について議論したので、標準ライブラリで`Vec`に定義されている多くの有益なメソッドについては、
+今や、ベクタを使用するべきありふれた方法について議論したので、標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについては、
 APIドキュメントを確認することを心得てください。例として、`push`に加えて、`pop`メソッドは最後の要素を削除して返します。
 次のコレクション型に移りましょう: `String`です！

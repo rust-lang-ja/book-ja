@@ -15,7 +15,7 @@
 
 <!-- To define a struct, we enter the keyword `struct` and name the entire struct. A -->
 <!-- struct’s name should describe the significance of the pieces of data being -->
-<!-- grouped together. Then, inside curly braces, we define the names and types of -->
+<!-- grouped together. Then, inside curly brackets, we define the names and types of -->
 <!-- the pieces of data, which we call *fields*. For example, Listing 5-1 shows a -->
 <!-- struct to store information about a user account: -->
 
@@ -39,7 +39,7 @@ struct User {
 
 <!-- To use a struct after we’ve defined it, we create an *instance* of that struct -->
 <!-- by specifying concrete values for each of the fields. We create an instance by -->
-<!-- stating the name of the struct, and then add curly braces containing `key: -->
+<!-- stating the name of the struct, and then add curly brackets containing `key: -->
 <!-- value` pairs where the keys are the names of the fields and the values are the -->
 <!-- data we want to store in those fields. We don’t have to specify the fields in -->
 <!-- the same order in which we declared them in the struct. In other words, the -->
@@ -156,7 +156,7 @@ fn build_user(email: String, username: String) -> User {
 構造体のフィールドと同じ名前を関数の引数にもつけることは筋が通っていますが、
 `email`と`username`というフィールド名と変数を繰り返さなきゃいけないのは、ちょっと面倒です。
 構造体にもっとフィールドがあれば、名前を繰り返すことはさらに煩わしくなるでしょう。
-幸運なことに、便利な省略法があります！
+幸運なことに、便利な省略記法があります！
 
 <!-- ### Using the Field Init Shorthand when Variables and Fields Have the Same Name -->
 
@@ -280,7 +280,7 @@ let user2 = User {
 };
 ```
 
-<!-- <span class="caption">Listing 5-7: Using struct update syntax to set a new -->
+<!-- <span class="caption">Listing 5-7: Using struct update syntax to set new -->
 <!-- `email` and `username` values for a `User` instance but use the rest of the -->
 <!-- values from the fields of the instance in the `user1` variable</span> -->
 
@@ -298,15 +298,17 @@ let user2 = User {
 
 ### 異なる型を生成する名前付きフィールドのないタプル構造体
 
-<!-- We can also define structs that look similar to tuples, called *tuple structs*, -->
-<!-- that have the added meaning the struct name provides, but don’t have names -->
-<!-- associated with their fields, just the types of the fields. Tuple structs are -->
-<!-- useful when you want to give the whole tuple a name and make the tuple be a -->
-<!-- different type than other tuples, but naming each field as in a regular struct -->
-<!-- would be verbose or redundant. -->
 
-構造体名により追加の意味を含むものの、フィールドに紐づけられた名前がなく、フィールドの型だけの*タプル構造体*と呼ばれる、
-タプルに似た構造体を定義することもできます。タプル構造体は、タプル全体に名前をつけ、
+<!-- We can also define structs that look similar to tuples (which were discussed in -->
+<!-- Chapter 3), called *tuple structs*, that have the added meaning the struct name -->
+<!-- provides, but don’t have names associated with their fields; rather, they just -->
+<!-- have the types of the fields. Tuple structs are useful when you want to give -->
+<!-- the whole tuple a name and make the tuple be a different type than other -->
+<!-- tuples, but naming each field as in a regular struct would be verbose or -->
+<!-- redundant. -->
+
+構造体名により追加の意味を含むものの、フィールドに紐づけられた名前がなく、むしろフィールドの型だけの*タプル構造体*と呼ばれる、
+(第3章で議論した)タプルに似た構造体を定義することもできます。タプル構造体は、タプル全体に名前をつけ、
 そのタプルを他のタプルとは異なる型にしたい場合に有用ですが、普通の構造体のように各フィールド名を与えるのは、
 冗長、または余計になるでしょう。
 
@@ -330,16 +332,15 @@ let origin = Point(0, 0, 0);
 <!-- even though the fields within the struct have the same types. For example, a -->
 <!-- function that takes a parameter of type `Color` cannot take a `Point` as an -->
 <!-- argument, even though both types are made up of three `i32` values. Otherwise, -->
-<!-- tuple struct instances behave like tuples, which we covered in Chapter 3: you -->
-<!-- can destructure them into their individual pieces, you can use a `.` followed -->
-<!-- by the index to access an individual value, and so on. -->
+<!-- tuple struct instances behave like tuples: you destructure them into their -->
+<!-- individual pieces and you can use a `.` followed by the index to access an -->
+<!-- individual value, and so on. -->
 
 `black`と`origin`の値は、違う型であることに注目してください。これらは、異なるタプル構造体のインスタンスだからですね。
 定義された各構造体は、構造体内のフィールドが同じ型であっても、それ自身が独自の型になります。
 例えば、`Color`型を引数に取る関数は、`Point`を引数に取ることはできません。たとえ、両者の型が、
 3つの`i32`値からできているにもかかわらずです。それ以外については、タプル構造体のインスタンスは、
-第3章で解説したタプルと同じように振る舞います: 分解して個々の部品にしたり、
-`.`と番号を使用して個々の値にアクセスするなどです。
+タプルと同じように振る舞います: 分解して個々の部品にしたり、`.`と番号を使用して個々の値にアクセスするなどです。
 
 <!-- ### Unit-Like Structs without Any Fields -->
 
@@ -363,11 +364,11 @@ let origin = Point(0, 0, 0);
 <!--  because we want instances of this struct to own all of its data and for that -->
 <!--  data to be valid for as long as the entire struct is valid. -->
 <!--  -->
-<!--  It’s possible for structs to store references to data owned by something else, -->
-<!--  but to do so requires the use of *lifetimes*, a Rust feature that is discussed -->
-<!--  in Chapter 10. Lifetimes ensure that the data referenced by a struct is valid -->
-<!--  for as long as the struct is. Let’s say you try to store a reference in a -->
-<!--  struct without specifying lifetimes, like this: -->
+<!-- It’s possible for structs to store references to data owned by something else, -->
+<!-- but to do so requires the use of *lifetimes*, a Rust feature that we’ll -->
+<!-- discuss in Chapter 10. Lifetimes ensure that the data referenced by a struct -->
+<!-- is valid for as long as the struct is. Let’s say you try to store a reference -->
+<!-- in a struct without specifying lifetimes, like this: -->
 <!--  -->
 <!--  <span class="filename">Filename: src/main.rs</span> -->
 <!--  -->
@@ -405,9 +406,9 @@ let origin = Point(0, 0, 0);
 <!-- >   |            ^ expected lifetime parameter -->
 <!-- > ``` -->
 <!-- > -->
-<!-- > We’ll discuss how to fix these errors so you can store references in structs -->
-<!-- > in Chapter 10, but for now, we’ll fix errors like these using owned types like -->
-<!-- > `String` instead of references like `&str`. -->
+<!-- > In Chapter 10, we’ll discuss how to fix these errors so you can store -->
+<!-- > references in structs, but for now, we’ll fix errors like these using owned -->
+<!-- > types like `String` instead of references like `&str`. -->
 
 > ### 構造体データの所有権
 >
@@ -416,7 +417,7 @@ let origin = Point(0, 0, 0);
 > このデータは、構造体全体が有効な間はずっと有効である必要があるのです。
 >
 > 構造体に、他の何かに所有されたデータへの参照を保持させることもできますが、
-> そうするには*ライフタイム*という第10章で議論されるRustの機能を使用しなければなりません。
+> そうするには*ライフタイム*という第10章で議論するRustの機能を使用しなければなりません。
 > ライフタイムのおかげで構造体に参照されたデータが、構造体自体が有効な間、ずっと有効であることを保証してくれるのです。
 > ライフタイムを指定せずに構造体に参照を保持させようとしたとしましょう。このように:
 >
@@ -457,5 +458,5 @@ let origin = Point(0, 0, 0);
 >   |            ^ expected lifetime parameter
 > ```
 >
-> これらのエラーを解消して構造体に参照を保持する方法については、第10章で議論しますが、
+> 第10章で、これらのエラーを解消して構造体に参照を保持する方法について議論しますが、
 > 当面、今回のようなエラーは、`&str`のような参照の代わりに、`String`のような所有された型を使うことで解消します。

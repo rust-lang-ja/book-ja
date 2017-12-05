@@ -152,11 +152,11 @@ let loopback = IpAddr {
 もうバリアントは値と紐付けられています。
 
 <!-- We can represent the same concept in a more concise way using just an enum -->
-<!-- rather than an enum as part of a struct by putting data directly into each enum -->
+<!-- rather than an enum inside a struct, by putting data directly into each enum -->
 <!-- variant. This new definition of the `IpAddr` enum says that both `V4` and `V6` -->
 <!-- variants will have associated `String` values: -->
 
-各enumのバリアントに直接データを格納して、enumを構造体の一部にするというよりもenumだけを使って、
+各enumのバリアントに直接データを格納して、enumを構造体内に使うというよりもenumだけを使って、
 同じ概念をもっと簡潔な方法で表現することができます。この新しい`IpAddr`の定義は、
 `V4`と`V6`バリアント両方に`String`値が紐付けられていることを述べています。
 
@@ -258,10 +258,10 @@ enum IpAddr {
 <!-- Note that even though the standard library contains a definition for `IpAddr`, -->
 <!-- we can still create and use our own definition without conflict because we -->
 <!-- haven’t brought the standard library’s definition into our scope. We’ll talk -->
-<!-- more about importing types in Chapter 7. -->
+<!-- more about bringing types into scope in Chapter 7. -->
 
 標準ライブラリに`IpAddr`に対する定義は含まれるものの、標準ライブラリの定義をスコープに導入していないので、
-まだ、干渉することなく自分自身の定義を生成して使用できることに注意してください。型のインポートについては、
+まだ、干渉することなく自分自身の定義を生成して使用できることに注意してください。型をスコープに導入することについては、
 第7章でもっと詳しく言及します。
 
 <!-- Let’s look at another example of an enum in Listing 6-2: this one has a wide -->
@@ -290,12 +290,12 @@ enum Message {
 <!-- * `Quit` has no data associated with it at all. -->
 <!-- * `Move` includes an anonymous struct inside it. -->
 <!-- * `Write` includes a single `String`. -->
-<!-- * `ChangeColor` includes three `i32`s. -->
+<!-- * `ChangeColor` includes three `i32` values. -->
 
 * `Quit`には紐付けられたデータは全くなし。
 * `Move`は、中に匿名構造体を含む。
 * `Write`は、単独の`String`オブジェクトを含む。
-* `ChangeColor`は、3つの`i32`を含む。
+* `ChangeColor`は、3つの`i32`値を含む。
 
 <!-- Defining an enum with variants like the ones in Listing 6-2 is similar to -->
 <!-- defining different kinds of struct definitions except the enum doesn’t use the -->
@@ -461,12 +461,12 @@ enum Option<T> {
 ```
 
 <!-- The `Option<T>` enum is so useful that it’s even included in the prelude; you -->
-<!-- don’t need to import it explicitly.  In addition, so are its variants: you can -->
-<!-- use `Some` and `None` directly without prefixing them with `Option::`. -->
+<!-- don’t need to bring it into scope explicitly.  In addition, so are its variants: -->
+<!-- you can use `Some` and `None` directly without prefixing them with `Option::`. -->
 <!-- `Option<T>` is still just a regular enum, and `Some(T)` and `None` are still -->
 <!-- variants of type `Option<T>`. -->
 
-`Option<T>`は有益すぎて、初期化処理(prelude)にさえ含まれています。つまり、明示的にインポートする必要がないのです。
+`Option<T>`は有益すぎて、初期化処理(prelude)にさえ含まれています。つまり、明示的にスコープに導入する必要がないのです。
 さらに、バリアントもそうなっています: `Some`と`None`を`Option::`と接頭辞を付けることなく直接使えるわけです。
 ただ、`Option<T>`はそうは言っても、普通のenumであり、`Some(T)`と`None`も`Option<T>`型のただのバリアントです。
 
@@ -530,13 +530,13 @@ not satisfied
 (エラー: `i8: std::ops::Add<std::option::Option<i8>>`というトレイト境界が満たされていません)
  -->
   |
-7 | let sum = x + y;
-  |           ^^^^^
+5 |     let sum = x + y;
+  |                 ^ no implementation for `i8 + std::option::Option<i8>`
   |
 ```
 
 <!-- Intense! In effect, this error message means that Rust doesn’t understand how -->
-<!-- to add an `Option<i8>` and an `i8`, because they’re different types. When we -->
+<!-- to add an `i8` and an `Option<i8>`, because they’re different types. When we -->
 <!-- have a value of a type like `i8` in Rust, the compiler will ensure that we -->
 <!-- always have a valid value. We can proceed confidently without having to check -->
 <!-- for null before using that value. Only when we have an `Option<i8>` (or -->
@@ -544,7 +544,7 @@ not satisfied
 <!-- not having a value, and the compiler will make sure we handle that case before -->
 <!-- using the value. -->
 
-なんて強烈な！実際に、このエラーメッセージは、`Option<i8>`と`i8`が異なる型なので、
+なんて強烈な！実際に、このエラーメッセージは、`i8`と`Option<i8>`が異なる型なので、
 足し合わせる方法がコンパイラにはわからないことを意味します。Rustにおいて、`i8`のような型の値がある場合、
 コンパイラが常に有効な値であることを確認してくれます。この値を使う前にnullであることをチェックする必要なく、
 自信を持って先に進むことができるのです。`Option<i8>`がある時(あるいはどんな型を扱おうとしていても)のみ、

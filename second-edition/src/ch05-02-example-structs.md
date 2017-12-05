@@ -65,9 +65,9 @@ The area of the rectangle is 1500 square pixels.
 リスト5-8のコードはうまく動き、各次元で`area`関数を呼び出すことで四角形の面積を割り出しますが、
 改善点があります。幅と高さは、組み合わせると一つの四角形を表すので、相互に関係があるわけです。
 
-<!-- The issue with this method is evident in the signature of `area`: -->
+<!-- The issue with this code is evident in the signature of `area`: -->
 
-この方法の問題点は、`area`のシグニチャから明らかです:
+このコードの問題点は、`area`のシグニチャから明らかです:
 
 ```rust,ignore
 fn area(width: u32, height: u32) -> u32 {
@@ -77,14 +77,13 @@ fn area(width: u32, height: u32) -> u32 {
 <!-- function we wrote has two parameters. The parameters are related, but that’s -->
 <!-- not expressed anywhere in our program. It would be more readable and more -->
 <!-- manageable to group width and height together. We’ve already discussed one way -->
-<!-- we might do that in the Grouping Values into Tuples section of Chapter 3 on -->
-<!-- page XX: by using tuples. Listing 5-9 shows another version of our program that -->
-<!-- uses tuples: -->
+<!-- we might do that in the "Grouping Values into Tuples" section of Chapter 3: by -->
+<!-- using tuples. Listing 5-9 shows another version of our program that uses tuples: -->
 
 `area`関数は、1四角形の面積を求めるものと考えられますが、今書いた関数には、引数が2つあります。
 引数は関連性があるのに、このプログラム内のどこにもそのことは表現されていません。
 幅と高さを一緒にグループ化する方が、より読みやすく、扱いやすくなるでしょう。
-それをする一つの方法については、ページXXの第3章の「値をタプルにまとめ上げる」節ですでに議論しました:
+それをする一つの方法については、第3章の「値をタプルにまとめ上げる」節ですでに議論しました:
 タプルを使うのです。リスト5-9に、タプルを使う別バージョンのプログラムを示します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -106,10 +105,10 @@ fn area(dimensions: (u32, u32)) -> u32 {
 }
 ```
 
-<!-- <span class="caption">Listing 5-8: Specifying the width and height of the -->
+<!-- <span class="caption">Listing 5-9: Specifying the width and height of the -->
 <!-- rectangle with a tuple</span> -->
 
-<span class="caption">リスト5-8: タプルで四角形の幅と高さを指定する</span>
+<span class="caption">リスト5-9: タプルで四角形の幅と高さを指定する</span>
 
 <!-- In one way, this program is better. Tuples let us add a bit of structure, and -->
 <!-- we’re now passing just one argument. But in another way this version is less -->
@@ -195,10 +194,10 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 <!-- The `area` function accesses the `width` and `height` fields of the `Rectangle` -->
 <!-- instance. Our function signature for `area` now indicates exactly what we mean: -->
-<!-- calculate the area of a `Rectangle` using its `width` and `height` fields. This -->
-<!-- conveys that the width and height are related to each other, and gives -->
+<!-- calculate the area of a `Rectangle`, using its `width` and `height` fields. -->
+<!-- This conveys that the width and height are related to each other, and gives -->
 <!-- descriptive names to the values rather than using the tuple index values of `0` -->
-<!-- and `1`—a win for clarity. -->
+<!-- and `1`. This is a win for clarity. -->
 
 `area`関数は、`Rectangle`インスタンスの`width`と`height`フィールドにアクセスしています。
 これで、`area`の関数シグニチャは、我々の意図をズバリ示すようになりました: `width`と`height`フィールドを使って、
@@ -209,13 +208,12 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 ### トレイトの継承で有用な機能を追加する
 
-<!-- It would be helpful to be able to print out an instance of the `Rectangle` -->
-<!-- while we’re debugging our program in order to see the values for all its -->
-<!-- fields. Listing 5-11 uses the `println!` macro as we have been in earlier -->
-<!-- chapters: -->
+<!-- It’d be nice to be able to print out an instance of our `Rectangle` while we’re -->
+<!-- debugging our program and see the values for all its fields. Listing 5-11 tries -->
+<!-- the `println!` macro as we have used it in Chapters 2, 3, and 4: -->
 
-プログラムのデバッグ中、フィールドの値を調べる目的で`Rectangle`のインスタンスを出力できると、
-助かるでしょう。リスト5-11では、以前の章でしたように、`println!`マクロを使用しています:
+プログラムのデバッグをし、フィールドの値を調べている間に`Rectangle`のインスタンスを出力できると、
+素晴らしいわけです。リスト5-11では、第2、3、4章のように、`println!`マクロを使用しています:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -255,7 +253,7 @@ error[E0277]: the trait bound `Rectangle: std::fmt::Display` is not satisfied
 <!-- `Display` by default, because there’s only one way you’d want to show a `1` or -->
 <!-- any other primitive type to a user. But with structs, the way `println!` should -->
 <!-- format the output is less clear because there are more display possibilities: -->
-<!-- do you want commas or not? Do you want to print the curly braces? Should all -->
+<!-- do you want commas or not? Do you want to print the curly brackets? Should all -->
 <!-- the fields be shown? Due to this ambiguity, Rust doesn’t try to guess what we -->
 <!-- want and structs don’t have a provided implementation of `Display`. -->
 
@@ -271,7 +269,7 @@ Rustは必要なものを推測しようとせず、構造体には`Display`実�
 エラーを読み下すと、こんな有益な注意書きがあります:
 
 ```text
-note: `Rectangle` cannot be formatted with the default formatter; try using
+`Rectangle` cannot be formatted with the default formatter; try using
 `:?` instead if you are using a format string
 (注釈: `Rectangle`は、デフォルト整形機では、整形できません; フォーマット文字列を使うのなら
 代わりに`:?`を試してみてください)
@@ -293,7 +291,7 @@ note: `Rectangle` cannot be formatted with the default formatter; try using
 変更してコードを走らせてください。なに！まだエラーが出ます:
 
 ```text
-error: the trait bound `Rectangle: std::fmt::Debug` is not satisfied
+error[E0277]: the trait bound `Rectangle: std::fmt::Debug` is not satisfied
 (エラー: トレイト境界`Rectangle: std::fmt::Debug`は満たされていません)
 ```
 
@@ -302,7 +300,7 @@ error: the trait bound `Rectangle: std::fmt::Debug` is not satisfied
 しかし今回も、コンパイラは有益な注意書きを残してくれています:
 
 ```text
-note: `Rectangle` cannot be formatted using `:?`; if it is defined in your
+`Rectangle` cannot be formatted using `:?`; if it is defined in your
 crate, add `#[derive(Debug)]` or manually implement it
 (注釈: `Rectangle`は`:?`を使って整形できません; 自分のクレートで定義しているのなら
 `#[derive(Debug)]`を追加するか、手動で実装してください)

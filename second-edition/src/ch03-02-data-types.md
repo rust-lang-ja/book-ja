@@ -36,8 +36,8 @@ let guess: u32 = "42".parse().expect("Not a number!");    // 数字ではあり�
 どの型を使用したいのかを知るのに、コンパイラがプログラマからもっと情報を得る必要があることを意味します:
 
 ```text
-error[E0282]: unable to infer enough type information about `_`
-              (`_`型に関して十分な情報を推論できませんでした)
+error[E0282]: type annotations needed
+              (型注釈が必要です)
  --> src/main.rs:2:9
   |
 2 |     let guess = "42".parse().expect("Not a number!");
@@ -71,16 +71,16 @@ Rustでの動作方法について見ていきましょう。
 
 <!-- An *integer* is a number without a fractional component. We used one integer -->
 <!-- type earlier in this chapter, the `u32` type. This type declaration indicates -->
-<!-- that the value it’s associated with should be an unsigned signed integer -->
-<!-- (signed integer types start with `i` instead of `u`) that takes up 32 bits of -->
-<!-- space. Table 3-1 shows the built-in integer types in Rust. Each variant in the -->
-<!-- Signed and Unsigned columns (for example, *i8*) can be used to declare the type -->
-<!-- of an integer value. -->
+<!-- that the value it’s associated with should be an unsigned integer (signed -->
+<!-- integer types start with `i` instead of `u`) that takes up 32 bits of space. -->
+<!-- Table 3-1 shows the built-in integer types in Rust. Each variant in the Signed -->
+<!-- and Unsigned columns (for example, *i16*) can be used to declare the type of an -->
+<!-- integer value. -->
 
 整数とは、小数部分のない数値のことです。この章の前半で一つの整数型を使用しました。`u32`型です。
 この型定義は、紐付けられる値が、符号なし整数(符号付き整数は`u`ではなく、`i`で始まります)になり、
 これは、32ビット分のサイズを取ります。表3-1は、Rustの組み込み整数型を表示しています。
-符号付きと符号なし欄の各バリアント(例: *i8*)を使用して、整数値の型を宣言することができます。
+符号付きと符号なし欄の各バリアント(例: *i16*)を使用して、整数値の型を宣言することができます。
 
 <!-- <span class="caption">Table 3-1: Integer Types in Rust</span> -->
 
@@ -291,7 +291,6 @@ Rustの論理値型は、`bool`と指定されます。
 <!-- ```rust -->
 <!-- fn main() { -->
 <!--     let t = true; -->
-
 <!--     let f: bool = false; // with explicit type annotation -->
 <!-- } -->
 <!-- ``` -->
@@ -304,7 +303,7 @@ fn main() {
 }
 ```
 
-<!-- The main way to consume boolean values is through conditionals, such as an `if` -->
+<!-- The main way to consume Boolean values is through conditionals, such as an `if` -->
 <!-- expression. We’ll cover how `if` expressions work in Rust in the “Control Flow” -->
 <!-- section. -->
 
@@ -317,10 +316,12 @@ fn main() {
 
 <!-- So far we’ve only worked with numbers, but Rust supports letters too. Rust’s -->
 <!-- `char` type is the language’s most primitive alphabetic type, and the following -->
-<!-- code shows one way to use it: -->
+<!-- code shows one way to use it. Note that the `char` type is specified with -->
+<!-- single quotes, as opposed to strings that use double quotes: -->
 
 ここまで、数値型のみ扱ってきましたが、Rustには文字も用意されています。Rustの`char`型は、
-言語の最も基本的なアルファベット型であり、以下のコードでその使用方法の一例を見ることができます:
+言語の最も基本的なアルファベット型であり、以下のコードでその使用方法の一例を見ることができます。
+`char`は、ダブルクォーテーションマークを使用する文字列に対して、シングルクォートで指定されることに注意してください:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -538,11 +539,12 @@ fn main() {
 
 ##### 配列要素への無効なアクセス
 
-<!-- What happens if we try to access an element of an array that is past the end of -->
-<!-- the array? Say we change the example to the following: -->
+<!-- What happens if you try to access an element of an array that is past the end -->
+<!-- of the array? Say you change the example to the following code, which will -->
+<!-- compile but exit with an error when it runs: -->
 
 配列の終端を越えて要素にアクセスしようとしたら、どうなるでしょうか？
-先ほどの例を以下のように変えたとしましょう:
+先ほどの例を以下のように変えたとすると、コンパイルは通りますが、実行するとエラーで終了します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -566,6 +568,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling arrays v0.1.0 (file:///projects/arrays)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/arrays`
 thread '<main>' panicked at 'index out of bounds: the len is 5 but the index is
  10', src/main.rs:6

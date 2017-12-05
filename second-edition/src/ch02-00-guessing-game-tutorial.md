@@ -97,6 +97,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.50 secs
      Running `target/debug/guessing_game`
 Hello, world!
 ```
@@ -206,10 +207,10 @@ println!("Guess the number!");
 println!("Please input your guess.");
 ```
 
-<!-- This code is just printing a prompt stating what the game is and requesting -->
+<!-- This code is printing a prompt stating what the game is and requesting -->
 <!-- input from the user. -->
 
-このコードは、このゲームが何かを出力し、ユーザに入力を求めているだけです。
+このコードは、このゲームが何かを出力し、ユーザに入力を求めています。
 
 <!-- ### Storing Values with Variables -->
 
@@ -447,6 +448,7 @@ enumについては、第6章で詳しく解説します。
 ```text
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+<<<<<<< HEAD
 src/main.rs:10:5: 10:39 warning: unused result which must be used
                        (警告: 使用するべき結果が使用されていません),
 #[warn(unused_must_use)] on by default
@@ -468,11 +470,32 @@ src/main.rs:10     io::stdin().read_line(&mut guess);
 <!-- ### Printing Values with `println!` Placeholders -->
 
 ### `println!`マクロのプレースホルダーで値を出力する
+=======
+warning: unused `std::result::Result` which must be used
+  --> src/main.rs:10:5
+   |
+10 |     io::stdin().read_line(&mut guess);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: #[warn(unused_must_use)] on by default
+```
+
+Rust warns that we haven’t used the `Result` value returned from `read_line`,
+indicating that the program hasn’t handled a possible error. The right way to
+suppress the warning is to actually write error handling, but since we want to
+crash this program when a problem occurs, we can use `expect`. You’ll learn
+about recovering from errors in Chapter 9.
+>>>>>>> fork_master_master
 
 <!-- Aside from the closing curly brace, there’s only one more line to discuss in -->
 <!-- the code added so far, which is the following: -->
 
+<<<<<<< HEAD
 閉じ波かっこを除けば、ここまでに追加されたコードのうち議論すべきものは、残り1行であり、それは以下の通りです:
+=======
+Aside from the closing curly brackets, there’s only one more line to discuss in
+the code added so far, which is the following:
+>>>>>>> fork_master_master
 
 ```rust,ignore
 println!("You guessed: {}", guess);
@@ -512,6 +535,7 @@ println!("x = {} and y = {}", x, y);
 ```text
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
      Running `target/debug/guessing_game`
 Guess the number!           (数を当ててごらん)
 Please input your guess.    (ほら、予想を入力して)
@@ -605,6 +629,7 @@ $ cargo build
    Compiling libc v0.2.14                                            (libc v0.2.14をコンパイルしています)
    Compiling rand v0.3.14                                            (rand v0.3.14をコンパイルしています)
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)   (guessing_game v0.1.0をコンパイルしています)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs    
 ```
 
 <!-- <span class="caption">Listing 2-2: The output from running `cargo build` after -->
@@ -658,9 +683,10 @@ Cargoはプログラマがコードを変更していないことも検知する
 ```text
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
 ```
 
-<!-- This line shows Cargo only updates the build with your tiny change to the -->
+<!-- These lines show Cargo only updates the build with your tiny change to the -->
 <!-- *src/main.rs* file. Your dependencies haven't changed, so Cargo knows it can -->
 <!-- reuse what it has already downloaded and compiled for those. It just rebuilds -->
 <!-- your part of the code. -->
@@ -882,6 +908,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
      Running `target/debug/guessing_game`
 Guess the number!                         (何回も出ているので、ここでは和訳は省略します)
 The secret number is: 7
@@ -940,9 +967,9 @@ fn main() {
     println!("You guessed: {}", guess);
 
     match guess.cmp(&secret_number) {
-        Ordering::Less    => println!("Too small!"),    //小さすぎ！
+        Ordering::Less => println!("Too small!"),       //小さすぎ！
         Ordering::Greater => println!("Too big!"),      //大きすぎ！
-        Ordering::Equal   => println!("You win!"),      //やったね！
+        Ordering::Equal => println!("You win!"),        //やったね！
     }
 }
 ```
@@ -968,9 +995,9 @@ fn main() {
 
 ```rust,ignore
 match guess.cmp(&secret_number) {
-    Ordering::Less    => println!("Too small!"),
+    Ordering::Less => println!("Too small!"),
     Ordering::Greater => println!("Too big!"),
-    Ordering::Equal   => println!("You win!"),
+    Ordering::Equal => println!("You win!"),
 }
 ```
 
@@ -1103,9 +1130,9 @@ fn main() {
     println!("You guessed: {}", guess);
 
     match guess.cmp(&secret_number) {
-        Ordering::Less    => println!("Too small!"),
+        Ordering::Less => println!("Too small!"),
         Ordering::Greater => println!("Too big!"),
-        Ordering::Equal   => println!("You win!"),
+        Ordering::Equal => println!("You win!"),
     }
 }
 ```
@@ -1137,22 +1164,21 @@ let guess: u32 = guess.trim().parse()
 <!-- expression refers to the original `guess` that was a `String` with the input in -->
 <!-- it. The `trim` method on a `String` instance will eliminate any whitespace at -->
 <!-- the beginning and end. `u32` can only contain numerical characters, but the -->
-<!-- user must press the <span class="keystroke">return</span> key to satisfy -->
-<!-- `read_line`. When the user presses <span class="keystroke">return</span>, a -->
-<!-- newline character is added to the string. For example, if the user types -->
-<!-- <span class="keystroke">5</span> and presses <span class="keystroke"> -->
-<!-- return</span>, `guess` looks like this: `5\n`. The `\n` represents “newline,” -->
-<!-- the <span class="keystroke">return</span> key. The `trim` method eliminates -->
-<!-- `\n`, resulting in just `5`. -->
+<!-- user must press the <span class="keystroke">enter</span> key to satisfy -->
+<!-- `read_line`. When the user presses <span class="keystroke">enter</span>, a -->
+<!-- newline character is added to the string. For example, if the user types <span -->
+<!-- class="keystroke">5</span> and presses <span class="keystroke"> enter</span>, -->
+<!-- `guess` looks like this: `5\n`. The `\n` represents “newline,” the enter key. -->
+<!-- The `trim` method eliminates `\n`, resulting in just `5`. -->
 
 `guess`を`guess.trim().parse()`という式に束縛しています。この式中の`guess`は、
 入力が入った`String`型の元々の`guess`を指しています。`String`オブジェクトの`trim`メソッドは、
 両端の空白をすべて除去します。`u32`型は、数字しか含むことができませんが、ユーザは、
-`read_line`の処理を終えるために<span class="keystroke">リターン</span>キーを押さなければなりません。
-ユーザが<span class="keystroke">リターン</span>キーを押したら、改行文字が文字列に追加されます。
+`read_line`の処理を終えるために<span class="keystroke">エンター</span>キーを押さなければなりません。
+ユーザが<span class="keystroke">エンター</span>キーを押したら、改行文字が文字列に追加されます。
 具体例として、ユーザが<span class="keystroke">5</span>を入力して、
-<span class="keystroke">リターン</span>キーを押せば、`guess`は次のようになります: `5\n`。
-この`\n`が「改行」、つまり<span class="keystroke">リターン</span>キーを表しているわけです。
+<span class="keystroke">エンター</span>キーを押せば、`guess`は次のようになります: `5\n`。
+この`\n`が「改行」、つまりエンターキーを表しているわけです。
 `trim`メソッドは、`\n`を削除するので、ただの`5`になります。
 
 <!-- The [`parse` method on strings][parse] parses a string into some -->
@@ -1204,6 +1230,7 @@ Rustには、組み込みの数値型がいくつかあります; ここで見�
 ```text
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.43 secs
      Running `target/guessing_game`
 Guess the number!
 The secret number is: 58
@@ -1269,9 +1296,9 @@ fn main() {
         println!("You guessed: {}", guess);
 
         match guess.cmp(&secret_number) {
-            Ordering::Less    => println!("Too small!"),
+            Ordering::Less => println!("Too small!"),
             Ordering::Greater => println!("Too big!"),
-            Ordering::Equal   => println!("You win!"),
+            Ordering::Equal => println!("You win!"),
         }
     }
 }
@@ -1374,9 +1401,9 @@ fn main() {
         println!("You guessed: {}", guess);
 
         match guess.cmp(&secret_number) {
-            Ordering::Less    => println!("Too small!"),
+            Ordering::Less => println!("Too small!"),
             Ordering::Greater => println!("Too big!"),
-            Ordering::Equal   => {
+            Ordering::Equal => {
                 println!("You win!");
                 break;
             }
@@ -1521,9 +1548,9 @@ fn main() {
         println!("You guessed: {}", guess);
 
         match guess.cmp(&secret_number) {
-            Ordering::Less    => println!("Too small!"),
+            Ordering::Less => println!("Too small!"),
             Ordering::Greater => println!("Too big!"),
-            Ordering::Equal   => {
+            Ordering::Equal => {
                 println!("You win!");
                 break;
             }

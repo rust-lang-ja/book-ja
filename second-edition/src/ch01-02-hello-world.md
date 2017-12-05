@@ -92,10 +92,10 @@ says, “I’m declaring a function named `main` that has no parameters and retu
 nothing.” If there were parameters, their names would go inside the
 parentheses, `(` and `)`.
 
-Also note that the function body is wrapped in curly braces, `{` and `}`. Rust
-requires these around all function bodies. It’s considered good style to put
-the opening curly brace on the same line as the function declaration, with one
-space in between.
+Also note that the function body is wrapped in curly brackets, `{` and `}`.
+Rust requires these around all function bodies. It’s considered good style to
+put the opening curly bracket on the same line as the function declaration,
+with one space in between.
 
 Inside the `main` function:
 
@@ -110,7 +110,7 @@ style is to indent with four spaces, not a tab.
 The second important part is `println!`. This is calling a Rust *macro*,
 which is how metaprogramming is done in Rust. If it were calling a function
 instead, it would look like this: `println` (without the `!`). We’ll discuss
-Rust macros in more detail in Appendix E, but for now you just need to know
+Rust macros in more detail in Appendix D, but for now you just need to know
 that when you see a `!` that means that you’re calling a macro instead of a
 normal function.
 

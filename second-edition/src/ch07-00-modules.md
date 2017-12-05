@@ -25,7 +25,7 @@ Rustには、コードの再利用を体系化された形で行うことので�
 選択することができます。以下が、モジュールの動作法の概要です:
 
 <!-- * The `mod` keyword declares a new module. Code within the module appears -->
-<!--   either immediately following this declaration within curly braces or in -->
+<!--   either immediately following this declaration within curly brackets or in -->
 <!--   another file. -->
 <!-- * By default, functions, types, constants, and modules are private. The `pub` -->
 <!--   keyword makes an item public and therefore visible outside its namespace. -->

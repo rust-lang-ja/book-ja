@@ -51,7 +51,7 @@ fn main() {
 <!-- condition. In this case, the condition checks whether or not the variable -->
 <!-- `number` has a value less than 5. The block of code we want to execute if the -->
 <!-- condition is true is placed immediately after the condition inside curly -->
-<!-- braces. Blocks of code associated with the conditions in `if` expressions are -->
+<!-- brackets. Blocks of code associated with the conditions in `if` expressions are -->
 <!-- sometimes called *arms*, just like the arms in `match` expressions that we -->
 <!-- discussed in the “Comparing the Guess to the Secret Number” section of -->
 <!-- Chapter 2. Optionally, we can also include an `else` expression, which we chose -->
@@ -76,6 +76,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 condition was true
 ```
@@ -96,16 +97,17 @@ let number = 7;
 ```text
 $ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 condition was false
 ```
 
-<!-- It’s also worth noting that the condition in this code *must* be a `bool`. To -->
-<!-- see what happens if the condition isn’t a `bool`, try running the following -->
-<!-- code: -->
+<!-- It’s also worth noting that the condition in this code *must* be a `bool`. If -->
+<!-- the condition isn’t a `bool`, we’ll get an error. For example, try running the -->
+<!-- following code: -->
 
 このコード内の条件式は、`bool`型で*なければならない*ことにも触れる価値があります。
-条件式が、`bool`型でない時に何が起こるかを確かめるために、以下のコードを走らせてみましょう:
+条件式が、`bool`型でない時は、エラーになります。例として、以下のコードを走らせてみましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -140,9 +142,9 @@ error[E0308]: mismatched types
 ```
 
 <!-- The error indicates that Rust expected a `bool` but got an integer. Rust will -->
-<!-- not automatically try to convert non-boolean types to a boolean, unlike -->
+<!-- not automatically try to convert non-Boolean types to a Boolean, unlike -->
 <!-- languages such as Ruby and JavaScript. You must be explicit and always provide -->
-<!-- `if` with a `boolean` as its condition. If we want the `if` code block to run -->
+<!-- `if` with a Boolean as its condition. If we want the `if` code block to run -->
 <!-- only when a number is not equal to `0`, for example, we can change the `if` -->
 <!-- expression to the following: -->
 
@@ -210,6 +212,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 number is divisible by 3
 ```
@@ -240,9 +243,9 @@ number is divisible by 3
 #### `let`文内で`if`式を使う
 
 <!-- Because `if` is an expression, we can use it on the right side of a `let` -->
-<!-- statement, for instance in Listing 3-4: -->
+<!-- statement, for instance in Listing 3-2: -->
 
-`if`は式なので、`let`文の右辺に持ってくることができます。例はリスト3-4の通り:
+`if`は式なので、`let`文の右辺に持ってくることができます。例はリスト3-2の通り:
 
 <!--<span class="filename">Filename: src/main.rs</span> -->
 
@@ -262,10 +265,10 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 3-4: Assigning the result of an `if` expression
+<!-- <span class="caption">Listing 3-2: Assigning the result of an `if` expression
 to a variable</span> -->
 
-<span class="caption">リスト3-4: `if`式の結果を変数に代入する</span>
+<span class="caption">リスト3-2: `if`式の結果を変数に代入する</span>
 
 <!-- The `number` variable will be bound to a value based on the outcome of the `if` -->
 <!-- expression. Run this code to see what happens: -->
@@ -275,6 +278,7 @@ to a variable</span> -->
 ```text
 $ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
      Running `target/debug/branches`
 The value of number is: 5
 ```
@@ -283,15 +287,15 @@ The value of number is: 5
 <!-- numbers by themselves are also expressions. In this case, the value of the -->
 <!-- whole `if` expression depends on which block of code executes. This means the -->
 <!-- values that have the potential to be results from each arm of the `if` must be -->
-<!-- the same type; in Listing 3-4, the results of both the `if` arm and the `else` -->
-<!-- arm were `i32` integers. But what happens if the types are mismatched, as in -->
-<!-- the following example? -->
+<!-- the same type; in Listing 3-2, the results of both the `if` arm and the `else` -->
+<!-- arm were `i32` integers. If the types are mismatched, as in the following -->
+<!-- example, we'll get an error: -->
 
 一連のコードは、そのうちの最後の式に評価され、数値はそれ単独でも式になることを思い出してください。
 今回の場合、この`if`式全体の値は、どのブロックのコードが実行されるかに基づきます。これはつまり、
 `if`の各アームの結果になる可能性がある値は、同じ型でなければならないということになります;
-リスト3-4で、`if`アームも`else`アームも結果は、`i32`の整数でした。では、以下の例のように、
-型が合わない時には、どうなるのでしょうか？
+リスト3-4で、`if`アームも`else`アームも結果は、`i32`の整数でした。以下の例のように、
+型が合わない時には、エラーになるでしょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -333,7 +337,7 @@ error[E0308]: if and else have incompatible types
   |         (整数変数を予期しましたが、参照が見つかりました)
   |
   = note: expected type `{integer}`
-             found type `&'static str`
+             found type `&str`
 ```
 
 <!-- The expression in the `if` block evaluates to an integer, and the expression in -->
@@ -408,6 +412,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.29 secs
      Running `target/debug/loops`
 again!
 again!
@@ -489,9 +494,9 @@ fn main() {
 #### `for`でコレクションを覗き見る
 
 <!-- You could use the `while` construct to loop over the elements of a collection, -->
-<!-- such as an array. For example: -->
+<!-- such as an array. For example, let's look at Listing 3-3: -->
 
-`while`要素を使って配列などのコレクションの要素を覗き見ることができます。例です:
+`while`要素を使って配列などのコレクションの要素を覗き見ることができます。例えば、リスト3-3を見てみましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -511,10 +516,10 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 3-5: Looping through each element of a collection -->
+<!-- <span class="caption">Listing 3-3: Looping through each element of a collection -->
 <!-- using a `while` loop</span> -->
 
-<span class="caption">リスト3-5: `while`ループでコレクションの各要素を覗き見る</span>
+<span class="caption">リスト3-3: `while`ループでコレクションの各要素を覗き見る</span>
 
 <!-- Here, the code counts up through the elements in the array. It starts at index -->
 <!-- `0`, and then loops until it reaches the final index in the array (that is, -->
@@ -528,6 +533,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
      Running `target/debug/loops`
 the value is: 10
 the value is: 20
@@ -555,8 +561,13 @@ the value is: 50
 <!-- As a more efficient alternative, you can use a `for` loop and execute some code -->
 <!-- for each item in a collection. A `for` loop looks like this: -->
 
+<<<<<<< HEAD
 より効率的な対立案として、`for`ループを使ってコレクションの各アイテムに対してコードを実行することができます。
 `for`ループはこんな見た目です:
+=======
+As a more concise alternative, you can use a `for` loop and execute some code
+for each item in a collection. A `for` loop looks like this code in Listing 3-4:
+>>>>>>> fork_master_master
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -573,12 +584,12 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 3-6: Looping through each element of a collection -->
+<!-- <span class="caption">Listing 3-4: Looping through each element of a collection -->
 <!-- using a `for` loop</span> -->
 
-<span class="caption">リスト3-6: `for`ループを使ってコレクションの各要素を覗き見る</span>
+<span class="caption">リスト3-4: `for`ループを使ってコレクションの各要素を覗き見る</span>
 
-<!-- When we run this code, we’ll see the same output as in Listing 3-5. More -->
+<!-- When we run this code, we’ll see the same output as in Listing 3-3. More -->
 <!-- importantly, we’ve now increased the safety of the code and eliminated the -->
 <!-- chance of bugs that might result from going beyond the end of the array or not -->
 <!-- going far enough and missing some items. -->
@@ -587,7 +598,7 @@ fn main() {
 コードの安全性を向上させ、配列の終端を超えてアクセスしたり、
 終端に届く前にループを終えてアイテムを見逃してしまったりするバグの可能性を完全に排除したことです。
 
-<!-- For example, in the code in Listing 3-5, if you removed an item from the `a` -->
+<!-- For example, in the code in Listing 3-3, if you removed an item from the `a` -->
 <!-- array but forgot to update the condition to `while index < 4`, the code would -->
 <!-- panic. Using the `for` loop, you don’t need to remember to change any other -->
 <!-- code if you changed the number of values in the array. -->
@@ -599,7 +610,7 @@ fn main() {
 <!-- The safety and conciseness of `for` loops make them the most commonly used loop -->
 <!-- construct in Rust. Even in situations in which you want to run some code a -->
 <!-- certain number of times, as in the countdown example that used a `while` loop -->
-<!-- in Listing 3-5, most Rustaceans would use a `for` loop. The way to do that -->
+<!-- in Listing 3-3, most Rustaceans would use a `for` loop. The way to do that -->
 <!-- would be to use a `Range`, which is a type provided by the standard library -->
 <!-- that generates all numbers in sequence starting from one number and ending -->
 <!-- before another number. -->

@@ -45,8 +45,8 @@ fn main() {
 これを保存し、`cargo run`コマンドでプログラムを走らせてください。次の出力に示されているようなエラーメッセージを受け取るはずです:
 
 ```text
-error[E0384]: re-assignment of immutable variable `x`
-              (不変変数`x`への再代入)
+error[E0384]: cannot assgin twice immutable variable `x`
+              (不変変数`x`に2回代入できません)
  --> src/main.rs:4:5
   |
 2 |     let x = 5;
@@ -54,22 +54,24 @@ error[E0384]: re-assignment of immutable variable `x`
   |         (`x`への最初の代入)
 3 |     println!("The value of x is: {}", x);
 4 |     x = 6;
-  |     ^^^^^ re-assignment of immutable variable
+  |     ^^^^^ cannot assign twice to immutable variable
 ```
 
 <!-- This example shows how the compiler helps you find errors in your programs. -->
 <!-- Even though compiler errors can be frustrating, they only mean your program -->
 <!-- isn’t safely doing what you want it to do yet; they do *not* mean that you’re -->
-<!-- not a good programmer! Experienced Rustaceans still get compiler errors. The -->
-<!-- error indicates that the cause of the error is `re-assignment of immutable -->
-<!-- variable`, because we tried to assign a second value to the immutable `x` -->
-<!-- variable. -->
+<!-- not a good programmer! Experienced Rustaceans still get compiler errors. -->
 
 この例では、コンパイラがプログラムに潜むエラーを見つけ出す手助けをしてくれることが示されています。
 コンパイルエラーは、イライラすることもあるものですが、まだプログラムにしてほしいことを安全に行えていないだけということなのです;
 エラーが出るからといって、あなたがいいプログラマではないという意味では*ありません*！
-経験豊富なRust市民でも、コンパイラエラーを出すことはあります。このエラーは、エラーの原因が
-`不変変数への再代入`であると示しています。不変な`x`という変数に第2段階の値を代入しようとしたからです。
+経験豊富なRust市民でも、コンパイルエラーを出すことはあります。
+
+<!-- The error indicates that the cause of the error is that we `cannot assign twice -->
+<!-- to immutable variable x`, because we tried to assign a second value to the -->
+<!-- immutable `x` variable. -->
+
+このエラーは、エラーの原因が`不変変数xに2回代入できない`であると示しています。不変な`x`という変数に第2段階の値を代入しようとしたからです。
 
 <!-- It’s important that we get compile-time errors when we attempt to change a -->
 <!-- value that we previously designated as immutable because this very situation -->
@@ -129,6 +131,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
      Running `target/debug/variables`
 The value of x is: 5   (xの値は5です)
 The value of x is: 6
@@ -270,6 +273,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/variables`
 The value of x is: 12
 ```
@@ -304,23 +308,23 @@ let spaces = spaces.len();
 <!-- have the same name as the first one, is a number type. Shadowing thus spares us -->
 <!-- from having to come up with different names, like `spaces_str` and -->
 <!-- `spaces_num`; instead, we can reuse the simpler `spaces` name. However, if we -->
-<!-- try to use `mut` for this, as shown here: -->
+<!-- try to use `mut` for this, as shown here, we'll get a compile-time error: -->
 
 この文法要素は、容認されます。というのも、最初の`spaces`変数は文字列型であり、2番目の`spaces`変数は、
 たまたま最初の変数と同じ名前になったまっさらな変数のわけですが、数値型になるからです。故に、上書きのおかげで、
 異なる名前を思いつく必要がなくなるわけです。`spaces_str`と`spaces_num`などですね; 代わりに、
 よりシンプルな`spaces`という名前を再利用できるわけです。一方で、この場合に`mut`を使おうとすると、
-以下に示した通りですが:
+以下に示した通りですが、コンパイルエラーになるわけです:
 
 ```rust,ignore
 let mut spaces = "   ";
 spaces = spaces.len();
 ```
 
-<!-- we’ll get a compile-time error because we’re not allowed to mutate a variable’s -->
+<!-- The error says we’re not allowed to mutate a variable’s -->
 <!-- type: -->
 
-コンパイルエラーが発生します。変数の型を可変にすることは許されていないからですね:
+変数の型を可変にすることは許されていないと言われているわけです:
 
 ```text
 error[E0308]: mismatched types          (型が合いません)

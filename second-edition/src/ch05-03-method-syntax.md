@@ -60,7 +60,7 @@ fn main() {
 
 <!-- To define the function within the context of `Rectangle`, we start an `impl` -->
 <!-- (*implementation*) block. Then we move the `area` function within the `impl` -->
-<!-- curly braces and change the first (and in this case, only) parameter to be -->
+<!-- curly brackets and change the first (and in this case, only) parameter to be -->
 <!-- `self` in the signature and everywhere within the body. In `main` where we -->
 <!-- called the `area` function and passed `rect1` as an argument, we can instead -->
 <!-- use *method syntax* to call the `area` method on our `Rectangle` instance. -->
@@ -258,7 +258,7 @@ Can rect1 hold rect3? false
 <!-- read `rect2` (rather than write, which would mean we’d need a mutable borrow), -->
 <!-- and we want `main` to retain ownership of `rect2` so we can use it again after -->
 <!-- calling the `can_hold` method. The return value of `can_hold` will be a -->
-<!-- boolean, and the implementation will check whether the width and height of -->
+<!-- Boolean, and the implementation will check whether the width and height of -->
 <!-- `self` are both greater than the width and height of the other `Rectangle`, -->
 <!-- respectively. Let’s add the new `can_hold` method to the `impl` block from -->
 <!-- Listing 5-13, shown in Listing 5-15: -->
@@ -314,20 +314,12 @@ impl Rectangle {
 
 ### 関連関数
 
-<<<<<<< HEAD
 <!-- Another useful feature of `impl` blocks is that we’re allowed to define -->
 <!-- functions within `impl` blocks that *don’t* take `self` as a parameter. These -->
 <!-- are called *associated functions* because they’re associated with the struct. -->
 <!-- They’re still functions, not methods, because they don’t have an instance of -->
 <!-- the struct to work with. You’ve already used the `String::from` associated -->
 <!-- function. -->
-=======
-Associated functions are often used for constructors that will return a new
-instance of the struct. For example, we could provide an associated function
-that would have one dimension parameter and use that as both width and height,
-thus making it easier to create a square `Rectangle` rather than having to
-specify the same value twice:
->>>>>>> fork_master_master
 
 `impl`ブロックの別の有益な機能は、`impl`ブロック内に`self`を引数に取ら*ない*関数を定義できることです。
 これは、構造体に関連付けられているので、*関連関数*と呼ばれます。それでも、関連関数は関数であり、メソッドではありません。
@@ -335,7 +327,7 @@ specify the same value twice:
 
 <!-- Associated functions are often used for constructors that will return a new -->
 <!-- instance of the struct. For example, we could provide an associated function -->
-<!-- that would have one dimension parameter and use that as both length and width, -->
+<!-- that would have one dimension parameter and use that as both width and height, -->
 <!-- thus making it easier to create a square `Rectangle` rather than having to -->
 <!-- specify the same value twice: -->
 

@@ -63,12 +63,12 @@
 <!-- - [Modules](ch07-00-modules.md) -->
 <!--     - [`mod` and the Filesystem](ch07-01-mod-and-the-filesystem.md) -->
 <!--     - [Controlling Visibility with `pub`](ch07-02-controlling-visibility-with-pub.md) -->
-<!--     - [Importing Names with `use`](ch07-03-importing-names-with-use.md) -->
+<!--     - [Referring to Names in Different Modules](ch07-03-importing-names-with-use.md) -->
 
 - [モジュール](ch07-00-modules.md)
     - [`mod`とファイルシステム](ch07-01-mod-and-the-filesystem.md)
     - [`pub`で公開するか制御する](ch07-02-controlling-visibility-with-pub.md)
-    - [`use`で名前をインポートする](ch07-03-importing-names-with-use.md)
+    - [異なるモジュールの名前を参照する](ch07-03-importing-names-with-use.md)
 
 <!-- - [Common Collections](ch08-00-common-collections.md) -->
 <!--     - [Vectors](ch08-01-vectors.md) -->
@@ -168,7 +168,6 @@
     - [A - Keywords](appendix-01-keywords.md)
     - [B - Operators](appendix-02-operators.md)
     - [C - Derivable Traits]()
-    - [D - Nightly Rust]()
-    - [E - Macros]()
-    - [F - Translations]()
-    - [G - Newest Features](appendix-07-newest-features.md)
+    - [D - Macros]()
+    - [E - Translations]()
+    - [F - Newest Features](appendix-07-newest-features.md)

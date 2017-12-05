@@ -28,11 +28,11 @@ fn first_word(s: &String) -> ?
 <!-- This function, `first_word`, has a `&String` as a parameter. We don’t want -->
 <!-- ownership, so this is fine. But what should we return? We don’t really have a -->
 <!-- way to talk about *part* of a string. However, we could return the index of the -->
-<!-- end of the word. Let’s try that as shown in Listing 4-10: -->
+<!-- end of the word. Let’s try that as shown in Listing 4-5: -->
 
 この関数、`first_word`は引数に`&String`をとります。所有権はいらないので、これで十分です。
 ですが、何を返すべきでしょうか？文字列の*一部*について語る方法が全くありません。しかし、
-単語の終端の番号を返すことができますね。リスト4-10に示したように、その方法を試してみましょう:
+単語の終端の番号を返すことができますね。リスト4-5に示したように、その方法を試してみましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -52,10 +52,10 @@ fn first_word(s: &String) -> usize {
 }
 ```
 
-<!-- <span class="caption">Listing 4-10: The `first_word` function that returns a -->
+<!-- <span class="caption">Listing 4-5: The `first_word` function that returns a -->
 <!-- byte index value into the `String` parameter</span> -->
 
-<span class="caption">リスト4-10: `String`引数へのバイト数で表された番号を返す`first_word`関数</span>
+<span class="caption">リスト4-5: `String`引数へのバイト数で表された番号を返す`first_word`関数</span>
 
 <!-- Let’s break down this code a bit. Because we need to go through the `String` -->
 <!-- element by element and check whether a value is a space, we’ll convert our -->
@@ -68,7 +68,7 @@ fn first_word(s: &String) -> usize {
 let bytes = s.as_bytes();
 ```
 
-<!-- Next, we create an iterator over the array of bytes using the `iter` method : -->
+<!-- Next, we create an iterator over the array of bytes using the `iter` method: -->
 
 次に、そのバイト配列に対して、`iter`メソッドを使用してイテレータを生成しています:
 
@@ -117,8 +117,8 @@ s.len()
 <!-- string, but there’s a problem. We’re returning a `usize` on its own, but it’s -->
 <!-- only a meaningful number in the context of the `&String`. In other words, -->
 <!-- because it’s a separate value from the `String`, there’s no guarantee that it -->
-<!-- will still be valid in the future. Consider the program in Listing 4-11 that -->
-<!-- uses the `first_word` function from Listing 4-10: -->
+<!-- will still be valid in the future. Consider the program in Listing 4-6 that -->
+<!-- uses the `first_word` function from Listing 4-5: -->
 
 さて、文字列内の最初の単語の終端の番号を見つけ出せるようになりましたが、問題があります。
 `usize`型を単独で返していますが、これは`&String`の文脈でのみ意味を持つ数値です。
@@ -179,10 +179,10 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 4-11: Storing the result from calling the -->
+<!-- <span class="caption">Listing 4-6: Storing the result from calling the -->
 <!-- `first_word` function then changing the `String` contents</span> -->
 
-<span class="caption">リスト4-11: `first_word`関数の呼び出し結果を保持し、`String`の中身を変更する</span>
+<span class="caption">リスト4-6: `first_word`関数の呼び出し結果を保持し、`String`の中身を変更する</span>
 
 <!-- This program compiles without any errors and also would if we used `word` after -->
 <!-- calling `s.clear()`. `word` isn’t connected to the state of `s` at all, so -->
@@ -257,18 +257,18 @@ let world = &s[6..11];
 スライスの長さは`ending_index`から`starting_index`を引いたものに対応します。以上より、
 `let world = &s[6..11];`の場合には、`world`は`s`の6バイト目へのポインタと5という長さを保持するスライスになるでしょう。
 
-<!-- Figure 4-12 shows this in a diagram. -->
+<!-- Figure 4-6 shows this in a diagram. -->
 
-図4-12は、これを図解しています。
+図4-6は、これを図解しています。
 
 <!-- <img alt="world containing a pointer to the 6th byte of String s and a length 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" /> -->
 
 <img alt="文字列sの6バイト目へのポインタと長さ5を保持するworld" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
 
-<!-- <span class="caption">Figure 4-12: String slice referring to part of a -->
+<!-- <span class="caption">Figure 4-6: String slice referring to part of a -->
 <!-- `String`</span> -->
 
-<span class="caption">図4-12: `String`オブジェクトの一部を参照する文字列スライス</span>
+<span class="caption">図4-6: `String`オブジェクトの一部を参照する文字列スライス</span>
 
 <!-- With Rust’s `..` range syntax, if you want to start at the first index (zero), -->
 <!-- you can drop the value before the two periods. In other words, these are equal: -->
@@ -312,6 +312,18 @@ let slice = &s[0..len];
 let slice = &s[..];
 ```
 
+<!-- Note: String slice range indices must occur at valid UTF-8 character -->
+<!-- boundaries. If you attempt to create a string slice in the middle of a -->
+<!-- multibyte character, your program will exit with an error. For the purposes -->
+<!-- of introducing string slices, we are assuming ASCII only in this section; a -->
+<!-- more thorough discussion of UTF-8 handling is in the “Strings” section of -->
+<!-- Chapter 8. -->
+
+> 注釈: 文字列スライスの範囲インデックスは、有効なUTF-8文字境界に置かなければなりません。
+> マルチバイト文字の真ん中で文字列スライスを生成しようとしたら、エラーでプログラムは落ちるでしょう。
+> 文字列スライスを導入する目的で、この節ではASCIIのみを想定しています; UTF-8に関する
+> より徹底した議論は、第8章の「文字列」節で行います。
+
 <!-- With all this information in mind, let’s rewrite `first_word` to return a -->
 <!-- slice. The type that signifies “string slice” is written as `&str`: -->
 
@@ -337,11 +349,11 @@ fn first_word(s: &String) -> &str {
 ```
 
 <!-- We get the index for the end of the word in the same way as we did in Listing -->
-<!-- 4-10, by looking for the first occurrence of a space. When we find a space, we -->
+<!-- 4-5, by looking for the first occurrence of a space. When we find a space, we -->
 <!-- return a string slice using the start of the string and the index of the space -->
 <!-- as the starting and ending indices. -->
 
-リスト4-10で取った手段と同じ方法で単語の終端番号を取得しています。つまり、最初の空白を探すことです。
+リスト4-5で取った手段と同じ方法で単語の終端番号を取得しています。つまり、最初の空白を探すことです。
 空白を発見したら、文字列の最初と、空白の番号を開始、終了地点として使用して文字列スライスを返しています。
 
 <!-- Now when we call `first_word`, we get back a single value that is tied to the -->
@@ -361,7 +373,7 @@ fn second_word(s: &String) -> &str {
 
 <!-- We now have a straightforward API that’s much harder to mess up, since the -->
 <!-- compiler will ensure the references into the `String` remain valid. Remember -->
-<!-- the bug in the program in Listing 4-11, when we got the index to the end of the -->
+<!-- the bug in the program in Listing 4-6, when we got the index to the end of the -->
 <!-- first word but then cleared the string so our index was invalid? That code was -->
 <!-- logically incorrect but didn’t show any immediate errors. The problems would -->
 <!-- show up later if we kept trying to use the first word index with an emptied -->
@@ -371,7 +383,7 @@ fn second_word(s: &String) -> &str {
 
 これで、ずっと混乱しにくい素直なAPIになりました。なぜなら、`String`への参照が有効なままであることをコンパイラが、
 保証してくれるからです。最初の単語の終端番号を得た時に、
-文字列を空っぽにして先ほどの番号が無効になってしまったリスト4-11のプログラムのバグを覚えていますか？
+文字列を空っぽにして先ほどの番号が無効になってしまったリスト4-6のプログラムのバグを覚えていますか？
 そのコードは、論理的に正しくないのですが、即座にエラーにはなりませんでした。問題は後になってから発生し、
 それは空の文字列に対して、最初の単語の番号を使用し続けようとした時でした。スライスならこんなバグはあり得ず、
 コードに問題があるなら、もっと迅速に判明します。スライスバージョンの`first_word`を使用すると、
@@ -396,23 +408,17 @@ fn main() {
 こちらがコンパイルエラーです:
 
 ```text
-17:6 error: cannot borrow `s` as mutable because it is also borrowed as
-            immutable [E0502]
-    (エラー: 不変として借用されているので、`s`を可変として借用できません)
-    s.clear(); // Error!
-    ^
-15:29 note: previous borrow of `s` occurs here; the immutable borrow prevents
-            subsequent moves or mutable borrows of `s` until the borrow ends
-      (注釈: 前の`s`の借用はここで発生しています; 不変借用すると、借用が終わるまで、
-      他のムーブや可変借用を`s`に行うことはできません)
-    let word = first_word(&s);
-                           ^
-18:2 note: previous borrow ends here
-     (注釈: 前の借用は、ここで終わっています)
-fn main() {
-
-}
-^
+error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
+(エラー: 不変として借用されているので、`s`を可変で借用できません)
+ --> src/main.rs:6:5
+  |
+4 |     let word = first_word(&s);
+  |                            - immutable borrow occurs here (不変借用はここで起きています)
+5 |
+6 |     s.clear(); // Error!
+  |     ^ mutable borrow occurs here (可変借用はここで起きています)
+7 | }
+  | - immutable borrow ends here (不変借用はここで終わっています)
 ```
 
 <!-- Recall from the borrowing rules that if we have an immutable reference to -->

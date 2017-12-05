@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Rust言語
 
 このリポジトリには、Rust本第1版と第2版両方がありますが、今回は第2版のみの翻訳です。
@@ -54,6 +55,17 @@
 
 [translation-table]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/TranslationTable.md
 [contributing]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/CONTRIBUTING.md
+=======
+# NOTICE ABOUT STATUS
+
+The second edition of The Rust Programming Language is getting ever closer to being printed!
+This means we're not able to make large changes to chapters that are in any column to the 
+right of, and including, the "Frozen" column [on our Project board][proj]. Issues or pull
+requests submitted for frozen chapters are welcome but will be closed until we start work
+on a third edition. Thank you!
+
+[proj]: https://github.com/rust-lang/book/projects/1
+>>>>>>> fork_master_master
 
 # The Rust Programming Language
 
@@ -64,24 +76,37 @@ This repo contains two editions of “The Rust Programming Language”.
 The second edition is a rewrite that will be printed by NoStarch Press,
 available around October 2017.
 
-[You can read it online][html]; the last few chapters aren't completed yet, but
+[You can read the very latest online][html]; the last few chapters aren't completed yet, but
 the first half of the book is much improved from the first edition. We recommend
 starting with the second edition.
 
 [html]: http://rust-lang.github.io/book/
 
+Note that links to the standard library won't work in this version; this is intentional
+so that links work with the book and API docs shipped with Rust installations for offline
+reading. For a version of the book where these links do work, please see the book as shipped
+with the latest [stable], [beta], or [nightly] Rust releases. Be aware that issues in those
+versions may have been fixed in this repository already.
+
+[stable]: https://doc.rust-lang.org/stable/book/second-edition/
+[beta]: https://doc.rust-lang.org/beta/book/second-edition/
+[nightly]: https://doc.rust-lang.org/nightly/book/second-edition/
+
 [The first edition is still available to read online][first].
 
 [first]: https://doc.rust-lang.org/book/
 
+
 ## Requirements
 
-Building the book requires [mdBook] >= v0.0.13. To get it:
+Building the book requires [mdBook], ideally the same version that
+[rust-lang/rust uses in this file][rust-mdbook]. To get it:
 
 [mdBook]: https://github.com/azerupi/mdBook
+[rust-mdbook]: https://github.com/rust-lang/rust/blob/master/src/tools/rustbook/Cargo.toml
 
 ```bash
-$ cargo install mdbook
+$ cargo install mdbook --vers [version-num]
 ```
 
 ## Building

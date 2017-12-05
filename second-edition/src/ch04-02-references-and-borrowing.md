@@ -45,18 +45,26 @@ fn calculate_length(s: &String) -> usize {
 2番目に、`&s1`を`calcuate_length`に渡し、その定義では、`String`型ではなく、`&String`を受け取っていることに注目してください。
 
 <!-- These ampersands are *references*, and they allow you to refer to some value -->
-<!-- without taking ownership of it. Figure 4-8 shows a diagram. -->
+<!-- without taking ownership of it. Figure 4-5 shows a diagram. -->
 
 これらのアンド記号が参照であり、これのおかげで所有権をもらうことなく値を参照することができるのです。
-図4-8はその図解です。
+図4-5はその図解です。
 
 <!-- <img alt="&String s pointing at String s1" src="img/trpl04-05.svg" class="center" /> -->
 
 <img alt="文字列s1を指す&String型のs" src="img/trpl04-05.svg" class="center" />
 
-<!-- <span class="caption">Figure 4-8: `&String s` pointing at `String s1`</span> -->
+<!-- <span class="caption">Figure 4-5: `&String s` pointing at `String s1`</span> -->
 
-<span class="caption">図4-8: `String s1`を指す`&String`</span>
+<span class="caption">図4-5: `String s1`を指す`&String`</span>
+
+<!-- Note: The opposite of referencing by using `&` is *dereferencing*, which is -->
+<!-- accomplished with the dereference operator, `*`. We’ll see some uses of the -->
+<!-- dereference operator in Chapter 8 and discuss details of dereferencing in -->
+<!-- Chapter 15. -->
+
+> 注釈: `&`による参照の逆は、*参照外し*であり、参照外し演算子の`*`で達成できます。
+> 第8章で参照外し演算子の使用例を眺め、第15章で参照外しについて詳しく議論します。
 
 <!-- Let’s take a closer look at the function call here: -->
 
@@ -116,7 +124,7 @@ fn calculate_length(s: &String) -> usize { // sはStringへの参照
 それを借りることができます。用が済んだら、返さなきゃいけないわけです。
 
 <!-- So what happens if we try to modify something we’re borrowing? Try the code in -->
-<!-- Listing 4-9. Spoiler alert: it doesn’t work! -->
+<!-- Listing 4-4. Spoiler alert: it doesn’t work! -->
 
 では、借用した何かを変更しようとしたら、どうなるのでしょうか？リスト4-9のコードを試してください。
 ネタバレ注意: 動きません！
@@ -137,21 +145,23 @@ fn change(some_string: &String) {
 }
 ```
 
-<!-- <span class="caption">Listing 4-9: Attempting to modify a borrowed value</span> -->
+<!-- <span class="caption">Listing 4-4: Attempting to modify a borrowed value</span> -->
 
-<span class="caption">リスト4-9: 借用した値を変更しようと試みる</span>
+<span class="caption">リスト4-4: 借用した値を変更しようと試みる</span>
 
 <!-- Here’s the error: -->
 
 これがエラーです:
 
 ```text
-error: cannot borrow immutable borrowed content `*some_string` as mutable
+error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable
 (エラー: 不変な借用をした中身`*some_string`を可変で借用できません)
  --> error.rs:8:5
   |
+7 | fn change(some_string: &String) {
+  |                        ------- use `&mut String` here to make mutable
 8 |     some_string.push_str(", world");
-  |     ^^^^^^^^^^^
+  |     ^^^^^^^^^^^ cannot borrow as mutable
 ```
 
 <!-- Just as variables are immutable by default, so are references. We’re not -->
@@ -163,7 +173,7 @@ error: cannot borrow immutable borrowed content `*some_string` as mutable
 
 ### 可変な参照
 
-<!-- We can fix the error in the code from Listing 4-9 with just a small tweak: -->
+<!-- We can fix the error in the code from Listing 4-4 with just a small tweak: -->
 
 一捻り加えるだけでリスト4-9のコードのエラーは解決します:
 
@@ -237,10 +247,10 @@ error[E0499]: cannot borrow `s` as mutable more than once at a time
 壁です。なぜなら、多くの言語では、いつでも好きな時に可変化できるからです。この制約がある利点は、
 コンパイラがコンパイル時にデータ競合を防ぐことができる点です。
 
-<!-- A *data race* is a particular type of race condition in which these three -->
+<!-- A *data race* is similar to a race condition and happens when these three -->
 <!-- behaviors occur: -->
 
-データ競合とは、これら3つの振る舞いが起きる特定のタイプの競合条件です:
+データ競合とは、競合条件と類似していて、これら3つの振る舞いが起きる時に発生します:
 
 <!-- 1. Two or more pointers access the same data at the same time. -->
 <!-- 1. At least one of the pointers is being used to write to the data. -->
@@ -360,9 +370,10 @@ immutable
 参照がダングリング参照に絶対ならないよう保証してくれます:つまり、何らかのデータへの参照があったら、
 コンパイラは参照がスコープを抜けるまで、データがスコープを抜けることがないよう確認してくれるわけです。
 
-<!-- Let’s try to create a dangling reference: -->
+<!-- Let’s try to create a dangling reference, which Rust will prevent with a -->
+<!-- compile-time error: -->
 
-ダングリング参照作りを試してみましょう:
+ダングリング参照作りを試してみますが、コンパイラはこれをコンパイルエラーで阻止します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -390,15 +401,13 @@ error[E0106]: missing lifetime specifier
  --> dangle.rs:5:16
   |
 5 | fn dangle() -> &String {
-  |                ^^^^^^^
+  |                ^ expected lifetime parameter
   |
   = help: this function's return type contains a borrowed value, but there is no
     value for it to be borrowed from
     (助言: この関数の戻り値型は、借用した値を含んでいますが、借用される値がどこにもありません)
   = help: consider giving it a 'static lifetime
   ('staticライフタイムを与えることを考慮してみてください)
-
-error: aborting due to previous error
 ```
 
 <!-- This error message refers to a feature we haven’t covered yet: *lifetimes*. -->

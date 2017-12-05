@@ -1,6 +1,6 @@
-<!-- ## Hash Maps -->
+<!-- ## Hash Maps Store Keys Associated with Values -->
 
-## ハッシュマップ
+## ハッシュマップは、値に紐づいたキーを保持する
 
 <!-- The last of our common collections is the *hash map*. The type `HashMap<K, V>` -->
 <!-- stores a mapping of keys of type `K` to values of type `V`. It does this via a -->
@@ -37,11 +37,11 @@
 ### 新規ハッシュマップを生成する
 
 <!-- We can create an empty hash map with `new` and add elements with `insert`. In -->
-<!-- Listing 8-18, we’re keeping track of the scores of two teams whose names are -->
+<!-- Listing 8-20, we’re keeping track of the scores of two teams whose names are -->
 <!-- Blue and Yellow. The Blue team will start with 10 points, and the Yellow team -->
 <!-- starts with 50: -->
 
-空のハッシュマップを`new`で作り、要素を`insert`で追加することができます。リスト8-18では、
+空のハッシュマップを`new`で作り、要素を`insert`で追加することができます。リスト8-20では、
 名前がブルーとイエローの2チームのスコアを追いかけています。ブルーチームは10点から、イエローチームは50点から始まります:
 
 ```rust
@@ -53,19 +53,19 @@ scores.insert(String::from("Blue"), 10);
 scores.insert(String::from("Yellow"), 50);
 ```
 
-<!-- <span class="caption">Listing 8-18: Creating a new hash map and inserting some -->
+<!-- <span class="caption">Listing 8-20: Creating a new hash map and inserting some -->
 <!-- keys and values</span> -->
 
-<span class="caption">リスト8-18: ハッシュマップを生成してキーと値を挿入する</span>
+<span class="caption">リスト8-20: ハッシュマップを生成してキーと値を挿入する</span>
 
 <!-- Note that we need to first `use` the `HashMap` from the collections portion of -->
 <!-- the standard library. Of our three common collections, this one is the least -->
-<!-- often used, so it’s not included in the features imported automatically in the -->
-<!-- prelude. Hash maps also have less support from the standard library; there’s no -->
-<!-- built-in macro to construct them, for example. -->
+<!-- often used, so it’s not included in the features brought into scope -->
+<!-- automatically in the prelude. Hash maps also have less support from the -->
+<!-- the standard library; there's no built-in macro to construct them, for example. -->
 
 最初に標準ライブラリのコレクション部分から`HashMap`を`use`する必要があることに注意してください。
-今までの3つの一般的なコレクションの内、これが最も使用頻度が低いので、初期化処理で自動的にインポートされる機能には含まれていません。
+今までの3つの一般的なコレクションの内、これが最も使用頻度が低いので、初期化処理で自動的にスコープに導入される機能には含まれていません。
 また、標準ライブラリからのサポートもハッシュマップは少ないです; 例えば、生成するための組み込みマクロがありません。
 
 <!-- Just like vectors, hash maps store their data on the heap. This `HashMap` has -->
@@ -83,13 +83,13 @@ scores.insert(String::from("Yellow"), 50);
 <!-- `HashMap`. For example, if we had the team names and initial scores in two -->
 <!-- separate vectors, we can use the `zip` method to create a vector of tuples -->
 <!-- where “Blue” is paired with 10, and so forth. Then we can use the `collect` -->
-<!-- method to turn that vector of tuples into a `HashMap` as shown in Listing 8-19: -->
+<!-- method to turn that vector of tuples into a `HashMap` as shown in Listing 8-21: -->
 
 ハッシュマップを生成する別の方法は、タプルのベクタに対して`collect`メソッドを使用するものです。
 ここで、各タプルは、キーと値から構成されています。`collect`メソッドはいろんなコレクション型にデータをまとめ上げ、
 そこには`HashMap`も含まれています。例として、チーム名と初期スコアが別々のベクタに含まれていたら、
 `zip`メソッドを使ってタプルのベクタを作り上げることができ、そこでは「ブルー」は10とペアになるなどします。
-リスト8-19に示したように、それから`collect`メソッドを使って、そのタプルのベクタを`HashMap`に変換することができるわけです:
+リスト8-21に示したように、それから`collect`メソッドを使って、そのタプルのベクタを`HashMap`に変換することができるわけです:
 
 ```rust
 use std::collections::HashMap;
@@ -100,10 +100,10 @@ let initial_scores = vec![10, 50];
 let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
 ```
 
-<!-- <span class="caption">Listing 8-19: Creating a hash map from a list of teams -->
+<!-- <span class="caption">Listing 8-21: Creating a hash map from a list of teams -->
 <!-- and a list of scores</span> -->
 
-<span class="caption">リスト8-19: チームのリストとスコアのリストからハッシュマップを作る</span>
+<span class="caption">リスト8-21: チームのリストとスコアのリストからハッシュマップを作る</span>
 
 <!-- The type annotation `HashMap<_, _>` is needed here because it’s possible to -->
 <!-- `collect` into many different data structures, and Rust doesn’t know which you -->
@@ -121,10 +121,10 @@ let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
 
 <!-- For types that implement the `Copy` trait, like `i32`, the values are copied -->
 <!-- into the hash map. For owned values like `String`, the values will be moved and -->
-<!-- the hash map will be the owner of those values as demonstrated in Listing 8-20: -->
+<!-- the hash map will be the owner of those values as demonstrated in Listing 8-22: -->
 
 `i32`のような`Copy`トレイトを実装する型について、値はハッシュマップにコピーされます。
-`String`のような所有権のある値なら、値はムーブされ、リスト8-20でデモされているように、
+`String`のような所有権のある値なら、値はムーブされ、リスト8-22でデモされているように、
 ハッシュマップはそれらの値の所有者になるでしょう:
 
 ```rust
@@ -141,10 +141,10 @@ map.insert(field_name, field_value);
 // どんなコンパイルエラーが出るか確認してみて！
 ```
 
-<!-- <span class="caption">Listing 8-20: Showing that keys and values are owned by -->
+<!-- <span class="caption">Listing 8-22: Showing that keys and values are owned by -->
 <!-- the hash map once they’re inserted</span> -->
 
-<span class="caption">リスト8-20: 一旦挿入されたら、キーと値はハッシュマップに所有されることを示す</span>
+<span class="caption">リスト8-22: 一旦挿入されたら、キーと値はハッシュマップに所有されることを示す</span>
 
 <!-- We aren’t able to use the variables `field_name` and `field_value` after -->
 <!-- they’ve been moved into the hash map with the call to `insert`. -->
@@ -166,9 +166,9 @@ map.insert(field_name, field_value);
 ### ハッシュマップの値にアクセスする
 
 <!-- We can get a value out of the hash map by providing its key to the `get` method -->
-<!-- as shown in Listing 8-21: -->
+<!-- as shown in Listing 8-23: -->
 
-リスト8-21に示したように、キーを`get`メソッドに提供することで、ハッシュマップから値を取り出すことができます:
+リスト8-23に示したように、キーを`get`メソッドに提供することで、ハッシュマップから値を取り出すことができます:
 
 ```rust
 use std::collections::HashMap;
@@ -182,10 +182,10 @@ let team_name = String::from("Blue");
 let score = scores.get(&team_name);
 ```
 
-<!-- <span class="caption">Listing 8-21: Accessing the score for the Blue team -->
+<!-- <span class="caption">Listing 8-23: Accessing the score for the Blue team -->
 <!-- stored in the hash map</span> -->
 
-<span class="caption">リスト8-21: ハッシュマップに保持されたブルーチームのスコアにアクセスする</span>
+<span class="caption">リスト8-23: ハッシュマップに保持されたブルーチームのスコアにアクセスする</span>
 
 <!-- Here, `score` will have the value that’s associated with the Blue team, and the -->
 <!-- result will be `Some(&10)`. The result is wrapped in `Some` because `get` -->
@@ -249,12 +249,12 @@ Blue: 10
 
 <!-- If we insert a key and a value into a hash map, and then insert that same key -->
 <!-- with a different value, the value associated with that key will be replaced. -->
-<!-- Even though the code in Listing 8-22 calls `insert` twice, the hash map will -->
+<!-- Even though the code in Listing 8-24 calls `insert` twice, the hash map will -->
 <!-- only contain one key/value pair because we’re inserting the value for the Blue -->
 <!-- team’s key both times: -->
 
 キーと値をハッシュマップに挿入し、同じキーを異なる値で挿入したら、そのキーに紐づけられている値は置換されます。
-リスト8-22のコードは、`insert`を二度呼んでいるものの、ハッシュマップには一つのキーと値の組しか含まれません。
+リスト8-24のコードは、`insert`を二度呼んでいるものの、ハッシュマップには一つのキーと値の組しか含まれません。
 なぜなら、ブルーチームキーに対する値を2回とも挿入しているからです:
 
 ```rust
@@ -268,10 +268,10 @@ scores.insert(String::from("Blue"), 25);
 println!("{:?}", scores);
 ```
 
-<!-- <span class="caption">Listing 8-22: Replacing a value stored with a particular -->
+<!-- <span class="caption">Listing 8-24: Replacing a value stored with a particular -->
 <!-- key</span> -->
 
-<span class="caption">リスト8-22: 特定のキーで保持された値を置き換える</span>
+<span class="caption">リスト8-24: 特定のキーで保持された値を置き換える</span>
 
 <!-- This code will print `{"Blue": 25}`. The original value of `10` has been -->
 <!-- overwritten. -->
@@ -289,13 +289,13 @@ println!("{:?}", scores);
 <!-- or might not exist. Let’s say we want to check whether the key for the Yellow -->
 <!-- team has a value associated with it. If it doesn’t, we want to insert the value -->
 <!-- 50, and the same for the Blue team. Using the `entry` API, the code looks like -->
-<!-- Listing 8-23: -->
+<!-- Listing 8-25: -->
 
 特定のキーに値があるか確認することは一般的であり、存在しない時に値を挿入することも一般的です。
 ハッシュマップには、これを行う`entry`と呼ばれる特別なAPIがあり、これは、引数としてチェックしたいキーを取ります。
 この`entry`関数の戻り値は、`Entry`と呼ばれるenumであり、これは存在したりしなかったりするかもしれない値を表します。
 イエローチームに対するキーに値が紐づけられているか否か確認したくなったとしましょう。存在しなかったら、
-50という値を挿入したく、ブルーチームに対しても同様です。`entry`APIを使用すれば、コードはリスト8-23のようになります:
+50という値を挿入したく、ブルーチームに対しても同様です。`entry`APIを使用すれば、コードはリスト8-25のようになります:
 
 ```rust
 use std::collections::HashMap;
@@ -309,10 +309,10 @@ scores.entry(String::from("Blue")).or_insert(50);
 println!("{:?}", scores);
 ```
 
-<!-- <span class="caption">Listing 8-23: Using the `entry` method to only insert if -->
+<!-- <span class="caption">Listing 8-25: Using the `entry` method to only insert if -->
 <!-- the key does not already have a value</span> -->
 
-<span class="caption">リスト8-23: `entry`メソッドを使ってキーに値がない場合だけ挿入する</span>
+<span class="caption">リスト8-25: `entry`メソッドを使ってキーに値がない場合だけ挿入する</span>
 
 <!-- The `or_insert` method on `Entry` is defined to return the value for the -->
 <!-- corresponding `Entry` key if that key exists, and if not, inserts the parameter -->
@@ -324,13 +324,13 @@ println!("{:?}", scores);
 もしなかったら、引数をこのキーの新しい値として挿入し、変更された`Entry`を返します。このテクニックの方が、
 そのロジックを自分で書くよりもはるかに綺麗な上に、borrow checkerとも親和性が高くなります。
 
-<!-- Running the code in Listing 8-23 will print `{"Yellow": 50, "Blue": 10}`. The -->
+<!-- Running the code in Listing 8-25 will print `{"Yellow": 50, "Blue": 10}`. The -->
 <!-- first call to `entry` will insert the key for the Yellow team with the value -->
 <!-- `50` because the Yellow team doesn’t have a value already. The second call to -->
 <!-- `entry` will not change the hash map because the Blue team already has the -->
 <!-- value `10`. -->
 
-リスト8-23のコードを実行すると、`{"Yellow": 50, "Blue": 10}`と出力するでしょう。
+リスト8-25のコードを実行すると、`{"Yellow": 50, "Blue": 10}`と出力するでしょう。
 最初の`entry`呼び出しは、まだイエローチームに対する値がないので、値`50`でイエローチームのキーを挿入します。
 `entry`の2回目の呼び出しはハッシュマップを変更しません。なぜなら、ブルーチームにはすでに`10`という値があるからです。
 
@@ -339,14 +339,14 @@ println!("{:?}", scores);
 #### 古い値に基づいて値を更新する
 
 <!-- Another common use case for hash maps is to look up a key’s value and then -->
-<!-- update it based on the old value. For instance, Listing 8-24 shows code that -->
+<!-- update it based on the old value. For instance, Listing 8-26 shows code that -->
 <!-- counts how many times each word appears in some text. We use a hash map with -->
 <!-- the words as keys and increment the value to keep track of how many times we’ve -->
 <!-- seen that word. If it’s the first time we’ve seen a word, we’ll first insert -->
 <!-- the value `0`: -->
 
 ハッシュマップの別の一般的なユースケースは、キーの値を探し、古い値に基づいてそれを更新することです。
-例えば、リスト8-24は、各単語があるテキストに何回出現するかを数え上げるコードを示しています。
+例えば、リスト8-26は、各単語があるテキストに何回出現するかを数え上げるコードを示しています。
 キーに単語を入れたハッシュマップを使用し、その単語を何回見かけたか追いかけるために値を増やします。
 ある単語を見かけたのが最初だったら、まず`0`という値を挿入します:
 
@@ -365,10 +365,10 @@ for word in text.split_whitespace() {
 println!("{:?}", map);
 ```
 
-<!-- <span class="caption">Listing 8-24: Counting occurrences of words using a hash -->
+<!-- <span class="caption">Listing 8-26: Counting occurrences of words using a hash -->
 <!-- map that stores words and counts</span> -->
 
-<span class="caption">リスト8-24: 単語とカウントを保持するハッシュマップを使って単語の出現数をカウントする</span>
+<span class="caption">リスト8-26: 単語とカウントを保持するハッシュマップを使って単語の出現数をカウントする</span>
 
 <!-- This code will print `{"world": 2, "hello": 1, "wonderful": 1}`. The -->
 <!-- `or_insert` method actually returns a mutable reference (`&mut V`) to the value -->

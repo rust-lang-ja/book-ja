@@ -191,8 +191,8 @@ fn main() {
 
 ```text
 thread 'main' panicked at 'There was a problem opening the file: Error { repr:
-Os { code: 2, message: "No such file or directory" } }', src/main.rs:8
-('main'スレッドは、src/main.rs:8の「ファイルを開く際に問題がありました: Error{ repr:
+Os { code: 2, message: "No such file or directory" } }', src/main.rs:9:12
+('main'スレッドは、src/main.rs:9:12の「ファイルを開く際に問題がありました: Error{ repr:
 Os { code: 2, message: "そのような名前のファイルまたはディレクトリはありません"}}」でパニックしました)
 ```
 

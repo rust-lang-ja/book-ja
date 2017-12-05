@@ -5,9 +5,9 @@
 <!-- Rust has an extremely powerful control-flow operator called `match` that allows -->
 <!-- us to compare a value against a series of patterns and then execute code based -->
 <!-- on which pattern matches. Patterns can be made up of literal values, variable -->
-<!-- names, wildcards, and many other things; Chapter 18 will cover all the -->
-<!-- different kinds of patterns and what they do. The power of `match` comes from -->
-<!-- the expressiveness of the patterns and the compiler checks that make sure all -->
+<!-- names, wildcards, and many other things; Chapter 18 covers all the different -->
+<!-- kinds of patterns and what they do. The power of `match` comes from the -->
+<!-- expressiveness of the patterns and the compiler checks that make sure all -->
 <!-- possible cases are handled. -->
 
 Rustには、一連のパターンに対して値を比較し、マッチしたパターンに応じてコードを実行させてくれる`match`と呼ばれる、
@@ -59,7 +59,7 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- Let’s break down the `match` in the `value_in_cents` function. First, we list -->
 <!-- the `match` keyword followed by an expression, which in this case is the value -->
 <!-- `coin`. This seems very similar to an expression used with `if`, but there’s a -->
-<!-- big difference: with `if`, the expression needs to return a boolean value. -->
+<!-- big difference: with `if`, the expression needs to return a Boolean value. -->
 <!-- Here, it can be any type. The type of `coin` in this example is the `Coin` enum -->
 <!-- that we defined in Listing 6-3. -->
 
@@ -93,9 +93,9 @@ fn value_in_cents(coin: Coin) -> u32 {
 
 各アームに紐付けられるコードは式であり、マッチしたアームの式の結果が`match`式全体の戻り値になります。
 
-<!-- Curly braces typically aren’t used if the match arm code is short, as it is in -->
-<!-- Listing 6-3 where each arm just returns a value. If you want to run multiple -->
-<!-- lines of code in a match arm, you can use curly braces. For example, the -->
+<!-- Curly brackets typically aren’t used if the match arm code is short, as it is -->
+<!-- in Listing 6-3 where each arm just returns a value. If you want to run multiple -->
+<!-- lines of code in a match arm, you can use curly brackets. For example, the -->
 <!-- following code would print out “Lucky penny!” every time the method was called -->
 <!-- with a `Coin::Penny` but would still return the last value of the block, `1`: -->
 

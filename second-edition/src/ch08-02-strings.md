@@ -1,6 +1,6 @@
-<!-- ## Strings -->
+<!-- ## Strings Store UTF-8 Encoded Text -->
 
-## 文字列
+## 文字列は、UTF-8でエンコードされたテキストを保持する
 
 <!-- We talked about strings in Chapter 4, but we’ll look at them in more depth now. -->
 <!-- New Rustaceans commonly get stuck on strings due to a combination of three -->
@@ -77,30 +77,35 @@
 
 ### 新規文字列を生成する
 
-<!-- Many of the same operations available with `Vec` are available with `String` as -->
-<!-- well, starting with the `new` function to create a string, shown in Listing 8-9: -->
+<!-- Many of the same operations available with `Vec<T>` are available with `String` -->
+<!-- as well, starting with the `new` function to create a string, shown in Listing -->
+<!-- 8-11: -->
 
-`Vec`で使用可能な処理の多くが`String`でも使用できます。文字列を生成する`new`関数から始めましょうか。
-リスト8-9に示したようにね:
+Many of the same operations available with `Vec<T>` are available with `String`
+as well, starting with the `new` function to create a string, shown in Listing
+8-11:
+
+`Vec<T>`で使用可能な処理の多くが`String`でも使用できます。文字列を生成する`new`関数から始めましょうか。
+リスト8-11に示したようにね:
 
 ```rust
 let mut s = String::new();
 ```
 
-<!-- <span class="caption">Listing 8-9: Creating a new, empty `String`</span> -->
+<!-- <span class="caption">Listing 8-11: Creating a new, empty `String`</span> -->
 
-<span class="caption">リスト8-9: 新しい空の`String`を生成する</span>
+<span class="caption">リスト8-11: 新しい空の`String`を生成する</span>
 
 <!-- This line creates a new empty string called `s` that we can then load data -->
 <!-- into. Often, we’ll have some initial data that we want to start the string -->
 <!-- with. For that, we use the `to_string` method, which is available on any type -->
-<!-- that implements the `Display` trait, which string literals do. Listing 8-10 -->
+<!-- that implements the `Display` trait, which string literals do. Listing 8-12 -->
 <!-- shows two examples: -->
 
 この行は、新しい空の`s`という文字列を生成しています。それからここにデータを読み込むことができるわけです。
 だいたい、文字列の初期値を決めるデータがあるでしょう。そのために、`to_string`メソッドを使用します。
 このメソッドは、`Display`トレイトを実装する型ならなんでも使用でき、文字列リテラルはこれに適合しています。
-リスト8-10に2例、示しています:
+リスト8-12に2例、示しています:
 
 ```rust
 let data = "initial contents";
@@ -111,17 +116,17 @@ let s = data.to_string();
 let s = "initial contents".to_string();
 ```
 
-<!-- <span class="caption">Listing 8-10: Using the `to_string` method to create a -->
+<!-- <span class="caption">Listing 8-12: Using the `to_string` method to create a -->
 <!-- `String` from a string literal</span> -->
 
-<span class="caption">リスト8-10: `to_string`メソッドを使用して文字列リテラルから`String`を生成する</span>
+<span class="caption">リスト8-12: `to_string`メソッドを使用して文字列リテラルから`String`を生成する</span>
 
 <!-- This code creates a string containing `initial contents`. -->
 
 このコードは、`initial contents`(初期値)を含む文字列を生成します。
 
 <!-- We can also use the function `String::from` to create a `String` from a string -->
-<!-- literal. The code in Listing 8-11 is equivalent to the code from Listing 8-10 -->
+<!-- literal. The code in Listing 8-13 is equivalent to the code from Listing 8-12 -->
 <!-- that uses `to_string`: -->
 
 さらに、`String::from`関数を使っても、文字列リテラルから`String`を生成することができます。
@@ -131,10 +136,10 @@ let s = "initial contents".to_string();
 let s = String::from("initial contents");
 ```
 
-<!-- <span class="caption">Listing 8-11: Using the `String::from` function to create -->
+<!-- <span class="caption">Listing 8-13: Using the `String::from` function to create -->
 <!-- a `String` from a string literal</span> -->
 
-<span class="caption">リスト8-11: `String::from`関数を使って文字列リテラルから`String`を作る</span>
+<span class="caption">リスト8-13: `String::from`関数を使って文字列リテラルから`String`を作る</span>
 
 <!-- Because strings are used for so many things, we can use many different generic -->
 <!-- APIs for strings, providing us with a lot of options. Some of them can seem -->
@@ -146,10 +151,10 @@ let s = String::from("initial contents");
 従って、どちらを選ぶかは、スタイル次第です。
 
 <!-- Remember that strings are UTF-8 encoded, so we can include any properly encoded -->
-<!-- data in them, as shown in Listing 8-12: -->
+<!-- data in them, as shown in Listing 8-14: -->
 
 文字列はUTF-8エンコードされていることを覚えていますか？要するに文字列には、適切にエンコードされていればどんなものでも含めます。
-リスト8-12に示したように:
+リスト8-14に示したように:
 
 ```rust
 let hello = String::from("السلام عليكم");
@@ -165,10 +170,10 @@ let hello = String::from("Здравствуйте");
 let hello = String::from("Hola");
 ```
 
-<!-- <span class="caption">Listing 8-12: Storing greetings in different languages in -->
+<!-- <span class="caption">Listing 8-14: Storing greetings in different languages in -->
 <!-- strings</span> -->
 
-<span class="caption">リスト8-12: いろんな言語の挨拶を文字列に保持する</span>
+<span class="caption">リスト8-14: いろんな言語の挨拶を文字列に保持する</span>
 
 <!-- All of these are valid `String` values. -->
 
@@ -179,10 +184,11 @@ let hello = String::from("Hola");
 ### 文字列を更新する
 
 <!-- A `String` can grow in size and its contents can change, just like the contents -->
-<!-- of a `Vec`, by pushing more data into it. In addition, we can conveniently use -->
-<!-- the `+` operator or the `format!` macro to concatenate `String` values together. -->
+<!-- of a `Vec<T>`, by pushing more data into it. In addition, we can conveniently -->
+<!-- use the `+` operator or the `format!` macro to concatenate `String` values -->
+<!-- together. -->
 
-`String`は、サイズを伸ばすことができ、中身も変化します。`Vec`の中身のようですね。それは、
+`String`は、サイズを伸ばすことができ、中身も変化します。`Vec<T>`の中身のようですね。それは、
 追加のデータをプッシュすることで行います。付け加えると、`String`値を連結する`+`演算子や、
 `format!`マクロを便利に使用することができます。
 
@@ -191,28 +197,28 @@ let hello = String::from("Hola");
 #### `push_str`と`push`で文字列に追加する
 
 <!-- We can grow a `String` by using the `push_str` method to append a string slice, -->
-<!-- as shown in Listing 8-13: -->
+<!-- as shown in Listing 8-15: -->
 
 `push_str`メソッドで文字列スライスを追記することで、`String`を伸ばすことができます。
-リスト8-13の通りです:
+リスト8-15の通りです:
 
 ```rust
 let mut s = String::from("foo");
 s.push_str("bar");
 ```
 
-<!-- <span class="caption">Listing 8-13: Appending a string slice to a `String` -->
+<!-- <span class="caption">Listing 8-15: Appending a string slice to a `String` -->
 <!-- using the `push_str` method</span> -->
 
-<span class="caption">リスト8-13: `push_str`メソッドで`String`に文字列スライスを追記する</span>
+<span class="caption">リスト8-15: `push_str`メソッドで`String`に文字列スライスを追記する</span>
 
 <!-- After these two lines, `s` will contain `foobar`. The `push_str` method takes a -->
 <!-- string slice because we don’t necessarily want to take ownership of the -->
-<!-- parameter. For example, the code in Listing 8-14 shows that it would be -->
+<!-- parameter. For example, the code in Listing 8-16 shows that it would be -->
 <!-- unfortunate if we weren’t able to use `s2` after appending its contents to `s1`: -->
 
 この2行の後、`s`は`foobar`を含むことになります。`push_str`メソッドは、必ずしも引数の所有権を得なくていいので、
-文字列スライスを取ります。例えば、リスト8-14のコードは、中身を`s1`に追加した後、
+文字列スライスを取ります。例えば、リスト8-16のコードは、中身を`s1`に追加した後、
 `s2`を使えなかったら不幸だということを示しています:
 
 ```rust
@@ -222,10 +228,10 @@ s1.push_str(&s2);
 println!("s2 is {}", s2);
 ```
 
-<!-- <span class="caption">Listing 8-14: Using a string slice after appending its -->
+<!-- <span class="caption">Listing 8-16: Using a string slice after appending its -->
 <!-- contents to a `String`</span> -->
 
-<span class="caption">リスト8-14: 中身を`String`に追加した後に、文字列スライスを使用する</span>
+<span class="caption">リスト8-16: 中身を`String`に追加した後に、文字列スライスを使用する</span>
 
 <!-- If the `push_str` method took ownership of `s2`, we wouldn’t be able to print -->
 <!-- out its value on the last line. However, this code works as we’d expect! -->
@@ -234,21 +240,21 @@ println!("s2 is {}", s2);
 ところが、このコードは予想通りに動きます！
 
 <!-- The `push` method takes a single character as a parameter and adds it to the -->
-<!-- `String`. Listing 8-15 shows code that adds an l to a `String` using the `push` -->
-<!-- method: -->
+<!-- `String`. Listing 8-17 shows code that adds the letter l character to a -->
+<!-- `String` using the `push` method: -->
 
 `push`メソッドは、1文字を引数として取り、`String`に追加します。リスト8-15は、
-`push`メソッドでlを`String`に追加するコードを提示しています。
+`push`メソッドでlという文字を`String`に追加するコードを提示しています。
 
 ```rust
 let mut s = String::from("lo");
 s.push('l');
 ```
 
-<!-- <span class="caption">Listing 8-15: Adding one character to a `String` value -->
+<!-- <span class="caption">Listing 8-17: Adding one character to a `String` value -->
 <!-- using `push`</span> -->
 
-<span class="caption">リスト8-15: `push`で`String`値に1文字を追加する</span>
+<span class="caption">リスト8-17: `push`で`String`値に1文字を追加する</span>
 
 <!-- As a result of this code, `s` will contain `lol`. -->
 
@@ -259,9 +265,9 @@ s.push('l');
 #### `+`演算子、または`format!`マクロで連結
 
 <!-- Often, we’ll want to combine two existing strings. One way is to use the `+` -->
-<!-- operator, as shown in Listing 8-16: -->
+<!-- operator, as shown in Listing 8-18: -->
 
-2つのすでにある文字列を組み合わせたくなることがよくあります。リスト8-16に示したように、
+2つのすでにある文字列を組み合わせたくなることがよくあります。リスト8-18に示したように、
 一つ目の方法は、`+`演算子を使用することです:
 
 <!-- ```rust -->
@@ -276,12 +282,12 @@ let s2 = String::from("world!");
 let s3 = s1 + &s2; // s1はムーブされ、もう使用できないことに注意
 ```
 
-<!-- <span class="caption">Listing 8-16: Using the `+` operator to combine two -->
+<!-- <span class="caption">Listing 8-18: Using the `+` operator to combine two -->
 <!-- `String` values into a new `String` value</span> -->
 
-<span class="caption">リスト8-16: `+`演算子を使用して二つの`String`値を新しい`String`値にする</span>
+<span class="caption">リスト8-18: `+`演算子を使用して二つの`String`値を新しい`String`値にする</span>
 
-<!-- As a result of this code, the string `s3` will contain `Hello, world!`. The -->
+<!-- The string `s3` will contain `Hello, world!` as a result of this code. The -->
 <!-- reason `s1` is no longer valid after the addition and the reason we used a -->
 <!-- reference to `s2` has to do with the signature of the method that gets called -->
 <!-- when we use the `+` operator. The `+` operator uses the `add` method, whose -->
@@ -312,25 +318,27 @@ fn add(self, s: &str) -> String {
 <!-- string to the first string because of the `s` parameter in the `add` function: -->
 <!-- we can only add a `&str` to a `String`; we can’t add two `String` values -->
 <!-- together. But wait - the type of `&s2` is `&String`, not `&str`, as specified -->
-<!-- in the second parameter to `add`. Why does Listing 8-16 compile? We are able to -->
-<!-- use `&s2` in the call to `add` because the compiler can *coerce* the `&String` -->
-<!-- argument into a `&str`. When we call the `add` method, Rust uses something -->
-<!-- called a *deref coercion*, which you could think of here as turning `&s2` into -->
-<!-- `&s2[..]`. We’ll discuss deref coercion in more depth in Chapter 15. Because -->
-<!-- `add` does not take ownership of the `s` parameter, `s2` will still be a valid -->
-<!-- `String` after this operation. -->
+<!-- in the second parameter to `add`. Why does Listing 8-18 compile? -->
 
 まず、`s2`には`&`がついてます。つまり、`add`関数の`s`引数のために最初の文字列に2番目の文字列の参照を追加するということです:
 `String`には`&str`を追加することしかできません。要するに2つの`String`値を追加することはできないのです。
 でも待ってください。`add`の第2引数で指定されているように、`&s2`の型は、`&str`ではなく、
-`&String`ではないですか。なぜ、リスト8-16は、コンパイルできるのでしょうか？`add`呼び出しで`&s2`を使える理由は、
-コンパイラが`&String`引数を`&str`に*型強制*してくれるためです。`add`メソッド呼び出しの際、
-コンパイラは、*参照外し型強制*というものを使用し、ここでは、`&s2`を`&s2[..]`に変えるものと考えることができます。
-参照外し型強制について詳しくは、第15章で議論します。`add`が`s`引数の所有権を奪わないので、
-この処理後も`s2`が有効な`String`になるわけです。
+`&String`ではないですか。なぜ、リスト8-18は、コンパイルできるのでしょうか？
+
+<!-- The reason we’re able to use `&s2` in the call to `add` is that the compiler -->
+<!-- can *coerce* the `&String` argument into a `&str`. When we call the `add` -->
+<!-- method, Rust uses a *deref coercion*, which here turns `&s2` into `&s2[..]`. -->
+<!-- We’ll discuss deref coercion in more depth in Chapter 15. Because `add` does -->
+<!-- not take ownership of the `s` parameter, `s2` will still be a valid `String` -->
+<!-- after this operation. -->
+
+`add`呼び出しで`&s2`を使える理由は、コンパイラが`&String`引数を`&str`に*型強制*してくれるためです。
+`add`メソッド呼び出しの際、コンパイラは、*参照外し型強制*というものを使用し、ここでは、
+`&s2`を`&s2[..]`に変えるものと考えることができます。参照外し型強制について詳しくは、第15章で議論します。
+`add`が`s`引数の所有権を奪わないので、この処理後も`s2`が有効な`String`になるわけです。
 
 <!-- Second, we can see in the signature that `add` takes ownership of `self`, -->
-<!-- because `self` does *not* have an `&`. This means `s1` in Listing 8-16 will be -->
+<!-- because `self` does *not* have an `&`. This means `s1` in Listing 8-18 will be -->
 <!-- moved into the `add` call and no longer be valid after that. So although `let -->
 <!-- s3 = s1 + &s2;` looks like it will copy both strings and create a new one, this -->
 <!-- statement actually takes ownership of `s1`, appends a copy of the contents of -->
@@ -339,7 +347,7 @@ fn add(self, s: &str) -> String {
 <!-- than copying. -->
 
 2番目に、シグニチャから`add`は`self`の所有権をもらうことがわかります。`self`には`&`がついてい*ない*からです。
-これはつまり、リスト8-16において`s1`は`add`呼び出しにムーブされ、その後は有効ではなくなるということです。
+これはつまり、リスト8-18において`s1`は`add`呼び出しにムーブされ、その後は有効ではなくなるということです。
 故に、`s3 = s1 + &s2;`は両文字列をコピーして新しいものを作るように見えますが、
 この文は実際には`s1`の所有権を奪い、`s2`の中身のコピーを追記し、結果の所有権を返すのです。言い換えると、
 たくさんのコピーをしているように見えますが、違います: 実装は、コピーよりも効率的です。
@@ -387,35 +395,35 @@ let s = format!("{}-{}-{}", s1, s2, s3);
 <!-- In many other programming languages, accessing individual characters in a -->
 <!-- string by referencing them by index is a valid and common operation. However, -->
 <!-- if we try to access parts of a `String` using indexing syntax in Rust, we’ll -->
-<!-- get an error. Consider the code in Listing 8-17: -->
+<!-- get an error. Consider the code in Listing 8-19: -->
 
 他の多くのプログラミング言語では、文字列中の文字に、番号で参照してアクセスすることは、有効なコードであり、
 一般的な処理です。しかしながら、Rustにおいて、添え字記法で`String`の一部にアクセスしようとすると、
-エラーが発生するでしょう。リスト8-17のコードを考えてください:
+エラーが発生するでしょう。リスト8-19のコードを考えてください:
 
 ```rust,ignore
 let s1 = String::from("hello");
 let h = s1[0];
 ```
 
-<!-- <span class="caption">Listing 8-17: Attempting to use indexing syntax with a -->
+<!-- <span class="caption">Listing 8-19: Attempting to use indexing syntax with a -->
 <!-- String</span> -->
 
-<span class="caption">リスト8-17: 文字列に対して添え字記法を試みる</span>
+<span class="caption">リスト8-19: 文字列に対して添え字記法を試みる</span>
 
 <!-- This code will result in the following error: -->
 
 このコードは、以下のようなエラーに落ち着きます:
 
 ```text
-error: the trait bound `std::string::String: std::ops::Index<_>` is not
-satisfied [--explain E0277]
-(エラー: トレイト境界`std::string::String: std::ops::Index<_>`が満たされていません)
+error[E0277]: the trait bound `std::string::String: std::ops::Index<{Integer}>` is not satisfied
+(エラー: トレイト境界`std::string::String: std::ops::Index<{Integer}>`が満たされていません)
   |>
-  |>     let h = s1[0];
-  |>             ^^^^^
-note: the type `std::string::String` cannot be indexed by `_`
-(注釈: 型`std::string::String`は`_`で添え字アクセスできません)
+3 |>     let h = s1[0];
+  |>             ^^^^^ the type `std::string::String` cannot be indexed by `{Integer}`
+  |>                   (型`std::string::String`は`{Integer}`で添え字アクセスできません)
+  = help: the trait `std::ops::Index<{Integer}>` is not implemented for `std::string::String`
+  (ヘルプ: `std::ops::Index<{Integer}>`というトレイトが`std::string::String`に対して実装されていません)
 ```
 
 <!-- The error and the note tell the story: Rust strings don’t support indexing. But -->
@@ -430,9 +438,9 @@ note: the type `std::string::String` cannot be indexed by `_`
 #### 内部表現
 
 <!-- A `String` is a wrapper over a `Vec<u8>`. Let’s look at some of our properly -->
-<!-- encoded UTF-8 example strings from Listing 8-12. First, this one: -->
+<!-- encoded UTF-8 example strings from Listing 8-14. First, this one: -->
 
-`String`は`Vec<u8>`のラッパです。リスト8-12から適切にUTF-8でエンコードされた文字列の例をご覧ください。
+`String`は`Vec<u8>`のラッパです。リスト8-14から適切にUTF-8でエンコードされた文字列の例をご覧ください。
 まずは、これ:
 
 ```rust
@@ -450,12 +458,15 @@ let len = String::from("Hola").len();
 let len = String::from("Здравствуйте").len();
 ```
 
-<!-- Asked how long the string is, you might say 12. However, Rust’s answer is 24: -->
-<!-- that’s the number of bytes it takes to encode “Здравствуйте” in UTF-8, because -->
-<!-- each Unicode scalar value takes two bytes of storage. Therefore, an index into -->
-<!-- the string’s bytes will not always correlate to a valid Unicode scalar value. -->
-<!-- To demonstrate, consider this invalid Rust code: -->
+<!-- Note that this string begins with the capital Cyrillic letter Ze, not the -->
+<!-- Arabic number 3. Asked how long the string is, you might say 12. However, -->
+<!-- Rust’s answer is 24: that’s the number of bytes it takes to encode -->
+<!-- “Здравствуйте” in UTF-8, because each Unicode scalar value takes two bytes of -->
+<!-- storage. Therefore, an index into the string’s bytes will not always correlate -->
+<!-- to a valid Unicode scalar value. To demonstrate, consider this invalid Rust -->
+<!-- code: -->
 
+この文字列は、アラビア数字の3ではなく、キリル文字のZeで始まっていることに注意してください。
 文字列の長さはと問われたら、あなたは12と答えるかもしれません。ところが、Rustの答えは、24です:
 “Здравствуйте”をUTF-8でエンコードすると、この長さになります。各Unicodeスカラー値は、2バイトの領域を取るからです。
 それ故に、文字列のバイト番号は、必ずしも有効なUnicodeのスカラー値とは相互に関係しないのです。
@@ -588,9 +599,8 @@ let s = &hello[0..4];
 実行時にパニックするでしょう:
 
 ```text
-thread 'main' panicked at 'index 0 and/or 1 in `Здравствуйте` do not lie on
-character boundary', ../src/libcore/str/mod.rs:1694
-('main'スレッドは「番号0かつ/または1は`Здравствуйте`において文字境界になっていません」でパニックしました)
+thread 'main' panicked at 'byte index 1 is not a char boundary; it is inside 'З' (bytes 0..2) of `Здравствуйте`', src/libcore/str/mod.rs:2188:4
+('main'スレッドは「バイト番号1は文字の境界ではありません; `Здравствуйте`の'З'(バイト番号0から2)の中です」でパニックしました)
 ```
 
 <!-- You should use ranges to create string slices with caution, because it can -->

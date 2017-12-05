@@ -1,5 +1,6 @@
-## 所有権とは？
 <!-- ## What Is Ownership? -->
+
+## 所有権とは？
 
 <!-- Rust’s central feature is *ownership*. Although the feature is straightforward -->
 <!-- to explain, it has deep implications for the rest of the language. -->
@@ -63,36 +64,37 @@ Rustと所有権システムの経験を積むにつれて、自然に安全か�
 <!-- place is always the top. Another property that makes the stack fast is that all -->
 <!-- data on the stack must take up a known, fixed size. -->
 
-<!-- For data with a size unknown to us at compile time or a size that might change, -->
-<!-- we can store data on the heap instead. The heap is less organized: when we put -->
-<!-- data on the heap, we ask for some amount of space. The operating system finds -->
-<!-- an empty spot somewhere in the heap that is big enough, marks it as being in -->
-<!-- use, and returns to us a pointer to that location. This process is called -->
-<!-- *allocating on the heap*, and sometimes we abbreviate the phrase as just -->
-<!-- “allocating.” Pushing values onto the stack is not considered allocating. -->
-<!-- Because the pointer is a known, fixed size, we can store the pointer on the -->
-<!-- stack, but when we want the actual data, we have to follow the pointer. -->
+<!-- For data with a size unknown to us at compile time or a size that might -->
+<!-- change, we can store data on the heap instead. The heap is less organized: -->
+<!-- when we put data on the heap, we ask for some amount of space. The operating -->
+<!-- system finds an empty spot somewhere in the heap that is big enough, marks it -->
+<!-- as being in use, and returns to us a *pointer*, which is the address of that -->
+<!-- location. This process is called *allocating on the heap*, and sometimes we -->
+<!-- abbreviate the phrase as just “allocating.” Pushing values onto the stack is -->
+<!-- not considered allocating. Because the pointer is a known, fixed size, we can -->
+<!-- store the pointer on the stack, but when we want the actual data, we have to -->
+<!-- follow the pointer. -->
 
 <!-- Think of being seated at a restaurant. When you enter, you state the number of -->
 <!-- people in your group, and the staff finds an empty table that fits everyone and -->
-<!-- leads you there. If someone in your group comes late, they can ask where you’ve -->
-<!-- been seated to find you. -->
+<!-- leads you there. If someone in your group comes late, they can ask where -->
+<!-- you've been seated to find you. -->
 
 <!-- Accessing data in the heap is slower than accessing data on the stack because -->
-<!-- we have to follow a pointer to get there. Contemporary processors are faster if -->
-<!-- they jump around less in memory. Continuing the analogy, consider a server at a -->
-<!-- restaurant taking orders from many tables. It’s most efficient to get all the -->
-<!-- orders at one table before moving on to the next table. Taking an order from -->
-<!-- table A, then an order from table B, then one from A again, and then one from B -->
-<!-- again would be a much slower process. By the same token, a processor can do its -->
-<!-- job better if it works on data that’s close to other data (as it is on the -->
-<!-- stack) rather than farther away (as it can be on the heap). Allocating a large -->
-<!-- amount of space on the heap can also take time. -->
+<!-- we have to follow a pointer to get there. Contemporary processors are faster -->
+<!-- if they jump around less in memory. Continuing the analogy, consider a server -->
+<!-- at a restaurant taking orders from many tables. It’s most efficient to get -->
+<!-- all the orders at one table before moving on to the next table. Taking an -->
+<!-- order from table A, then an order from table B, then one from A again, and -->
+<!-- then one from B again would be a much slower process. By the same token, a -->
+<!-- processor can do its job better if it works on data that’s close to other -->
+<!-- data (as it is on the stack) rather than farther away (as it can be on the -->
+<!-- heap). Allocating a large amount of space on the heap can also take time. -->
 
-<!-- When our code calls a function, the values passed into the function (including, -->
-<!-- potentially, pointers to data on the heap) and the function’s local variables -->
-<!-- get pushed onto the stack. When the function is over, those values get popped -->
-<!-- off the stack. -->
+<!-- When our code calls a function, the values passed into the function -->
+<!-- (including, potentially, pointers to data on the heap) and the function’s -->
+<!-- local variables get pushed onto the stack. When the function is over, those -->
+<!-- values get popped off the stack. -->
 
 <!-- Keeping track of what parts of code are using what data on the heap, minimizing -->
 <!-- the amount of duplicate data on the heap, and cleaning up unused data on the -->
@@ -122,7 +124,7 @@ Rustと所有権システムの経験を積むにつれて、自然に安全か�
 >
 > コンパイル時にサイズがわからなかったり、サイズが可変のデータについては、代わりにヒープに格納することができます。
 > ヒープは、もっとごちゃごちゃしています: ヒープにデータを置く時、私たちは、あるサイズのスペースを求めます。
-> OSはヒープ上に十分な大きさの空の領域を見つけ、使用中にし、その場所へのポインタを返してきます。
+> OSはヒープ上に十分な大きさの空の領域を見つけ、使用中にし、*ポインタ*を返してきます。ポインタとは、その場所へのアドレスです。
 > この過程は、*ヒープに領域を確保する*と呼ばれ、時としてそのフレーズを単に*allocateする*などと省略したりします。
 > (`脚注`: こちらもこなれた日本語訳はないでしょう。allocateはメモリを確保すると訳したいところですが)
 > スタックに値を載せることは、メモリ確保とは考えられません。ポインタは、既知の固定サイズなので、
@@ -249,13 +251,13 @@ valid</span> -->
 ### `String`型
 
 <!-- To illustrate the rules of ownership, we need a data type that is more complex -->
-<!-- than the ones we covered in Chapter 3. All the data types we’ve looked at -->
-<!-- previously are stored on the stack and popped off the stack when their scope is -->
-<!-- over, but we want to look at data that is stored on the heap and explore how -->
+<!-- than the ones we covered in Chapter 3. The types covered in the “Data Types” -->
+<!-- section are all stored on the stack and popped off the stack when their scope -->
+<!-- is over, but we want to look at data that is stored on the heap and explore how -->
 <!-- Rust knows when to clean up that data. -->
 
 所有権の規則を具体化するには、第3章で解説したものよりも、より複雑なデータ型が必要になります。
-以前見たデータ型は全てスタックに保管され、スコープが終わるとスタックから取り除かれますが、
+データ型節で解説した型は全てスタックに保管され、スコープが終わるとスタックから取り除かれますが、
 ヒープに確保されるデータ型を観察して、
 コンパイラがどうそのデータを掃除すべきタイミングを把握しているかを掘り下げていきたいです。
 
@@ -486,7 +488,7 @@ let s2 = s1;
 これは全く起こることを言い当てていません。
 
 <!-- To explain this more thoroughly, let’s look at what `String` looks like under -->
-<!-- the covers in Figure 4-3. A `String` is made up of three parts, shown on the -->
+<!-- the covers in Figure 4-1. A `String` is made up of three parts, shown on the -->
 <!-- left: a pointer to the memory that holds the contents of the string, a length, -->
 <!-- and a capacity. This group of data is stored on the stack. On the right is the -->
 <!-- memory on the heap that holds the contents. -->
@@ -500,10 +502,10 @@ let s2 = s1;
 
 <img alt="メモリ上の文字列" src="img/trpl04-01.svg" class="center" style="width: 50%;" />
 
-<!-- <span class="caption">Figure 4-3: Representation in memory of a `String`
+<!-- <span class="caption">Figure 4-1: Representation in memory of a `String`
 holding the value `"hello"` bound to `s1`</span> -->
 
-<span class="caption">図4-3: `s1`に束縛された`"hello"`という値を保持する`String`のメモリ上の表現</span>
+<span class="caption">図4-1: `s1`に束縛された`"hello"`という値を保持する`String`のメモリ上の表現</span>
 
 <!-- The length is how much memory, in bytes, the contents of the `String` is -->
 <!-- currently using. The capacity is the total amount of memory, in bytes, that the -->
@@ -518,7 +520,7 @@ holding the value `"hello"` bound to `s1`</span> -->
 <!-- When we assign `s1` to `s2`, the `String` data is copied, meaning we copy the -->
 <!-- pointer, the length, and the capacity that are on the stack. We do not copy the -->
 <!-- data on the heap that the pointer refers to. In other words, the data -->
-<!-- representation in memory looks like Figure 4-4. -->
+<!-- representation in memory looks like Figure 4-2. -->
 
 `s1`を`s2`に代入すると、`String`型のデータがコピーされます。つまり、スタックにあるポインタ、長さ、
 許容量をコピーするということです。ポインタが指すヒープ上のデータはコピーしません。言い換えると、
@@ -528,12 +530,12 @@ holding the value `"hello"` bound to `s1`</span> -->
 
 <img alt="同じ値を指すs1とs2" src="img/trpl04-02.svg" class="center" style="width: 50%;" />
 
-<!-- <span class="caption">Figure 4-4: Representation in memory of the variable `s2`
+<!-- <span class="caption">Figure 4-2: Representation in memory of the variable `s2`
 that has a copy of the pointer, length, and capacity of `s1`</span> -->
 
-<span class="caption">図4-4: `s1`のポインタ、長さ、許容量のコピーを保持する変数`s2`のメモリ上での表現</span>
+<span class="caption">図4-2: `s1`のポインタ、長さ、許容量のコピーを保持する変数`s2`のメモリ上での表現</span>
 
-<!-- The representation does *not* look like Figure 4-5, which is what memory would -->
+<!-- The representation does *not* look like Figure 4-3, which is what memory would -->
 <!-- look like if Rust instead copied the heap data as well. If Rust did this, the -->
 <!-- operation `s2 = s1` could potentially be very expensive in terms of runtime -->
 <!-- performance if the data on the heap was large. -->
@@ -546,14 +548,14 @@ Rustが代わりにヒープデータもコピーするという選択をして�
 
 <img alt="2箇所へのs1とs2" src="img/trpl04-03.svg" class="center" style="width: 50%;" />
 
-<!-- <span class="caption">Figure 4-5: Another possibility of what `s2 = s1` might
+<!-- <span class="caption">Figure 4-3: Another possibility of what `s2 = s1` might
 do if Rust copied the heap data as well</span> -->
 
-<span class="caption">図4-5: Rustがヒープデータもコピーしていた場合に`s2 = s1`という処理が行なった可能性のあること</span>
+<span class="caption">図4-3: Rustがヒープデータもコピーしていた場合に`s2 = s1`という処理が行なった可能性のあること</span>
 
 <!-- Earlier, we said that when a variable goes out of scope, Rust automatically -->
 <!-- calls the `drop` function and cleans up the heap memory for that variable. But -->
-<!-- Figure 4-4 shows both data pointers pointing to the same location. This is a -->
+<!-- Figure 4-2 shows both data pointers pointing to the same location. This is a -->
 <!-- problem: when `s2` and `s1` go out of scope, they will both try to free the -->
 <!-- same memory. This is known as a *double free* error and is one of the memory -->
 <!-- safety bugs we mentioned previously. Freeing memory twice can lead to memory -->
@@ -569,14 +571,14 @@ do if Rust copied the heap data as well</span> -->
 <!-- situation in Rust. Instead of trying to copy the allocated memory, Rust -->
 <!-- considers `s1` to no longer be valid and therefore, Rust doesn’t need to free -->
 <!-- anything when `s1` goes out of scope. Check out what happens when you try to -->
-<!-- use `s1` after `s2` is created: -->
+<!-- use `s1` after `s2` is created, it won't work: -->
 
 <!-- この最初の文は、こなれた日本語にしにくい -->
 
 メモリ安全性を保証するために、Rustにおいてこの場面で知っておきたい起こる事の詳細がもう一つあります。
 確保されたメモリをコピーしようとする代わりに、コンパイラは、`s1`が最早有効ではないと考え、
 故に`s1`がスコープを抜けた際に何も解放する必要がなくなるわけです。`s2`の生成後に`s1`を使用しようとしたら、
-どうなるかを確認してみましょう:
+どうなるかを確認してみましょう。動かないでしょう:
 
 ```rust,ignore
 let s1 = String::from("hello");
@@ -593,16 +595,17 @@ println!("{}, world!", s1);
 ```text
 error[E0382]: use of moved value: `s1`
               (ムーブされた値の使用: `s1`)
- --> src/main.rs:4:27
+ --> src/main.rs:5:28
   |
 3 |     let s2 = s1;
   |         -- value moved here
-4 |     println!("{}, world!", s1);
+4 |
+5 |     println!("{}, world!", s1);
   |                            ^^ value used here after move
   |                               (ムーブ後にここで使用されています)
   |
-  = note: move occurs because `s1` has type `std::string::String`,
-which does not implement the `Copy` trait
+  = note: move occurs because `s1` has type `std::string::String`, which does
+  not implement the `Copy` trait
     (注釈: ムーブが起きたのは、`s1`が`std::string::String`という
     `Copy`トレイトを実装していない型だからです)
 ```
@@ -612,7 +615,7 @@ which does not implement the `Copy` trait
 <!-- without copying the data probably sounds like a shallow copy. But because Rust -->
 <!-- also invalidates the first variable, instead of calling this a shallow copy, -->
 <!-- it’s known as a *move*. Here we would read this by saying that `s1` was *moved* -->
-<!-- into `s2`. So what actually happens is shown in Figure 4-6. -->
+<!-- into `s2`. So what actually happens is shown in Figure 4-4. -->
 
 他の言語を触っている間に"shallow copy"と"deep copy"という用語を耳にしたことがあるなら、
 データのコピーなしにポインタと長さ、許容量をコピーするという概念は、shallow copyのように思えるかもしれません。
@@ -624,10 +627,10 @@ which does not implement the `Copy` trait
 
 <img alt="s2にムーブされたs1" src="img/trpl04-04.svg" class="center" style="width: 50%;" />
 
-<!-- <span class="caption">Figure 4-6: Representation in memory after `s1` has been
+<!-- <span class="caption">Figure 4-4: Representation in memory after `s1` has been
 invalidated</span> -->
 
-<span class="caption">図4-6: `s1`が無効化された後のメモリ表現</span>
+<span class="caption">図4-4: `s1`が無効化された後のメモリ表現</span>
 
 <!-- That solves our problem! With only `s2` valid, when it goes out of scope, it -->
 <!-- alone will free the memory, and we’re done. -->
@@ -668,7 +671,7 @@ println!("s1 = {}, s2 = {}", s1, s2);
 ```
 
 <!-- This works just fine and is how you can explicitly produce the behavior shown -->
-<!-- in Figure 4-5, where the heap data *does* get copied. -->
+<!-- in Figure 4-3, where the heap data *does* get copied. -->
 
 これは単純にうまく動き、こうして図4-5で示した動作を明示的に生み出すことができます。ここでは、
 ヒープデータが*実際に*コピーされています。
@@ -743,13 +746,15 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
 何らかの形態のリソースだったりするものは`Copy`ではありません。ここに`Copy`の型を並べておきます。
 
 <!-- * All the integer types, like `u32`. -->
-<!-- * The boolean type, `bool`, with values `true` and `false`. -->
+<!-- * The Boolean type, `bool`, with values `true` and `false`. -->
+<!-- * The character type, `char`. -->
 <!-- * All the floating point types, like `f64`. -->
 <!-- * Tuples, but only if they contain types that are also `Copy`. `(i32, i32)` is -->
 <!-- `Copy`, but `(i32, String)` is not. -->
 
 * あらゆる整数型。`u32`など。
 * 論理値型、`bool`、`true`と`false`という値がある。
+* 文字型、`char`。
 * あらゆる浮動小数点型、`f64`など。
 * タプル。ただ、`Copy`の型だけを含む場合。`(i32, i32)`は`Copy`だが、
 `(i32, String)`は違う。
@@ -760,7 +765,7 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
 
 <!-- The semantics for passing a value to a function are similar to assigning a -->
 <!-- value to a variable. Passing a variable to a function will move or copy, just -->
-<!-- like assignment. Listing 4-7 has an example with some annotations showing where -->
+<!-- like assignment. Listing 4-3 has an example with some annotations showing where -->
 <!-- variables go into and out of scope: -->
 
 意味論的に、関数に値を渡すことと、値を変数に代入することは似ています。関数に変数を渡すと、
@@ -800,9 +805,16 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
 fn main() {
     let s = String::from("hello");  // sがスコープに入る。
 
+<<<<<<< HEAD
     takes_ownership(s);             // sの値が関数にムーブされ...
                                     // ... ここではもう有効ではない。
     let x = 5;                      // xがスコープに入る。
+=======
+    takes_ownership(s);             // s's value moves into the function...
+                                    // ... and so is no longer valid here.
+
+    let x = 5;                      // x comes into scope.
+>>>>>>> fork_master_master
 
     makes_copy(x);                  // xも関数にムーブされるが、
                                     // i32はCopyなので、この後にxを使っても
@@ -821,10 +833,10 @@ fn makes_copy(some_integer: i32) { // some_integerがスコープに入る。
 } // ここでsome_integerがスコープを抜ける。何も特別なことはない。
 ```
 
-<!-- <span class="caption">Listing 4-7: Functions with ownership and scope
+<!-- <span class="caption">Listing 4-3: Functions with ownership and scope
 annotated</span> -->
 
-<span class="caption">リスト4-7: 所有権とスコープが注釈された関数群</span>
+<span class="caption">リスト4-3: 所有権とスコープが注釈された関数群</span>
 
 <!-- If we tried to use `s` after the call to `takes_ownership`, Rust would throw a -->
 <!-- compile time error. These static checks protect us from mistakes. Try adding -->
@@ -840,9 +852,9 @@ annotated</span> -->
 ### 戻り値とスコープ
 
 <!-- Returning values can also transfer ownership. Here’s an example with similar -->
-<!-- annotations to those in Listing 4-7: -->
+<!-- annotations to those in Listing 4-3: -->
 
-値を返すことでも、所有権は移動します。リスト4-7と似た注釈のついた例です:
+値を返すことでも、所有権は移動します。リスト4-3と似た注釈のついた例です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
