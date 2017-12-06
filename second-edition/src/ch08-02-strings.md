@@ -260,6 +260,9 @@ s.push('l');
 
 このコードの結果、`s`は`lol`を含むことになるでしょう。
 
+> 編者注: `lol`は`laughing out loud`(大笑いする)の頭文字からできたスラングです。
+> 日本語の`www`みたいなものですね。
+
 <!-- #### Concatenation with the `+` Operator or the `format!` Macro -->
 
 #### `+`演算子、または`format!`マクロで連結
