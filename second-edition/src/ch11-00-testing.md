@@ -54,6 +54,6 @@ Rustは、プログラムの正当性に重きを置いて設計されたプロ�
 <!-- writing your tests, the default behavior and options provided for running your -->
 <!-- tests, and how to organize tests into unit tests and integration tests. -->
 
-テストは、煩雑なスキルです: いいテストの書き方をあらゆる方面から解説することは1章だけではきないのですが、
+テストは、煩雑なスキルです: いいテストの書き方をあらゆる方面から解説することは1章だけではできないのですが、
 Rustのテスト機構のメカニズムについて議論します。テストを書く際に利用可能になるアノテーションとマクロについて、
 テストを実行するのに提供されているオプションと標準の動作、さらにテストをユニットテストや統合テストに体系化する方法について語ります。

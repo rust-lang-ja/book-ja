@@ -559,15 +559,10 @@ the value is: 50
 コンパイラが実行時にループの各回ごとに境界値チェックを行うようなコードを追加するからです。
 
 <!-- As a more efficient alternative, you can use a `for` loop and execute some code -->
-<!-- for each item in a collection. A `for` loop looks like this: -->
+<!-- for each item in a collection. A `for` loop looks like this code in Listing 3-4: -->
 
-<<<<<<< HEAD
 より効率的な対立案として、`for`ループを使ってコレクションの各アイテムに対してコードを実行することができます。
-`for`ループはこんな見た目です:
-=======
-As a more concise alternative, you can use a `for` loop and execute some code
-for each item in a collection. A `for` loop looks like this code in Listing 3-4:
->>>>>>> fork_master_master
+`for`ループはリスト3-4のこんな見た目です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

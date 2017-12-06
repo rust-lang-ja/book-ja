@@ -782,6 +782,7 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
 
 <!--    takes_ownership(s);             // s's value moves into the function... -->
 <!--                                    // ... and so is no longer valid here. -->
+
 <!--    let x = 5;                      // x comes into scope. -->
 
 <!--    makes_copy(x);                  // x would move into the function, -->
@@ -805,16 +806,10 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
 fn main() {
     let s = String::from("hello");  // sがスコープに入る。
 
-<<<<<<< HEAD
     takes_ownership(s);             // sの値が関数にムーブされ...
                                     // ... ここではもう有効ではない。
-    let x = 5;                      // xがスコープに入る。
-=======
-    takes_ownership(s);             // s's value moves into the function...
-                                    // ... and so is no longer valid here.
 
-    let x = 5;                      // x comes into scope.
->>>>>>> fork_master_master
+    let x = 5;                      // xがスコープに入る。
 
     makes_copy(x);                  // xも関数にムーブされるが、
                                     // i32はCopyなので、この後にxを使っても
