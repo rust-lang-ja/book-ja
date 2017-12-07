@@ -81,10 +81,6 @@
 <!-- as well, starting with the `new` function to create a string, shown in Listing -->
 <!-- 8-11: -->
 
-Many of the same operations available with `Vec<T>` are available with `String`
-as well, starting with the `new` function to create a string, shown in Listing
-8-11:
-
 `Vec<T>`で使用可能な処理の多くが`String`でも使用できます。文字列を生成する`new`関数から始めましょうか。
 リスト8-11に示したようにね:
 
