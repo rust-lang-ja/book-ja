@@ -305,7 +305,7 @@ Rustの借用規則に違反してしまうことを意味します。
 
 > ### `clone`を使用するトレードオフ
 >
-> 実行時コストのために`clone`を使用して所有権問題を解消するのを避ける傾向が多くのRustにあります。
+> 実行時コストのために`clone`を使用して所有権問題を解消するのを避ける傾向が多くのRust市民にあります。
 > 第13章で、この種の状況においてより効率的なメソッドの使用法を学ぶでしょう。ですがとりあえずは、
 > これらのコピーをするのは1回だけですし、ファイル名とクエリ文字列は非常に小さなものなので、
 > いくつかの文字列をコピーして進捗するのは良しとしましょう。最初の通り道でコードを究極的に効率化しようとするよりも、
@@ -326,7 +326,7 @@ Rustの借用規則に違反してしまうことを意味します。
 <!-- for their purpose. -->
 
 これでコードは`query`と`filename`が関連しているとより明確に伝え、その目的はプログラムの振る舞い方を設定することになりました。
-これらの値を使用するあらゆるコードは、`config`インスタンスの目的の名前を冠したフィールドに発見することを把握しています。
+これらの値を使用するあらゆるコードは、`config`インスタンスの目的の名前を冠したフィールドにそれらを発見することを把握しています。
 
 <!-- #### Creating a Constructor for `Config` -->
 
@@ -654,7 +654,7 @@ fn main() {
 <!-- it: -->
 
 新規`use`行を追加して標準ライブラリから`process`をインポートしました。クロージャ内のエラー時に走るコードは、
-たった２行です: `err`の値を出力し、それから`process:exit`を呼び出します。`process:exit`関数は、
+たった2行です: `err`の値を出力し、それから`process::exit`を呼び出します。`process::exit`関数は、
 即座にプログラムを停止させ、渡された数字を終了コードとして返します。これは、リスト12-8で使用した`panic!`ベースの処理と似ていますが、
 もう余計な出力はされません。試しましょう:
 
@@ -794,7 +794,7 @@ fn run(config: Config) -> Result<(), Box<Error>> {
 <!-- error cases. -->
 
 エラー型については、*トレイトオブジェクト*の`Box<Error>`を使用しました(同時に冒頭で`use`文により、
-`std::error:Error`をスコープに導入しています)。トレイトオブジェクトについては、第17章で講義します。
+`std::error::Error`をスコープに導入しています)。トレイトオブジェクトについては、第17章で講義します。
 とりあえず、`Box<Error>`は、関数が`Error`トレイトを実装する型を返すことを意味しますが、
 戻り値の型を具体的に指定する必要はないことを知っておいてください。これにより、
 エラーケースによって異なる型のエラー値を返す柔軟性を得ます。
@@ -844,13 +844,20 @@ warning: unused `std::result::Result` which must be used
 コンパイラは、ここにエラー処理コードを書くつもりだったんじゃないかと思い出させてくれています！
 今、その問題を改修しましょう。
 
-#### Handling Errors Returned from `run` in `main`
+<!-- #### Handling Errors Returned from `run` in `main` -->
 
-We’ll check for errors and handle them using a technique similar to the way we
-handled errors with `Config::new` in Listing 12-10, but with a slight
-difference:
+#### `main`で`run`から返ってきたエラーを処理する
 
-<span class="filename">Filename: src/main.rs</span>
+<!-- We’ll check for errors and handle them using a technique similar to the way we -->
+<!-- handled errors with `Config::new` in Listing 12-10, but with a slight -->
+<!-- difference: -->
+
+リスト12-10の`Config::new`に対してエラー処理を行った方法に似たテクニックを使用してエラーを確認し、扱いますが、
+少し違いがあります:
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -867,34 +874,57 @@ fn main() {
 }
 ```
 
-We use `if let` rather than `unwrap_or_else` to check whether `run` returns an
-`Err` value and call `process::exit(1)` if it does. The `run` function doesn’t
-return a value that we want to `unwrap` in the same way that `Config::new`
-returns the `Config` instance. Because `run` returns a `()` in the success
-case, we only care about detecting an error, so we don’t need `unwrap_or_else`
-to return the unwrapped value because it would only be `()`.
+<!-- We use `if let` rather than `unwrap_or_else` to check whether `run` returns an -->
+<!-- `Err` value and call `process::exit(1)` if it does. The `run` function doesn’t -->
+<!-- return a value that we want to `unwrap` in the same way that `Config::new` -->
+<!-- returns the `Config` instance. Because `run` returns a `()` in the success -->
+<!-- case, we only care about detecting an error, so we don’t need `unwrap_or_else` -->
+<!-- to return the unwrapped value because it would only be `()`. -->
 
-The bodies of the `if let` and the `unwrap_or_else` functions are the same in
-both cases: we print the error and exit.
+`unwrap_or_else`ではなく、`if let`で`run`が`Err`値を返したかどうかを確認し、そうなら`process::exit(1)`を呼び出しています。
+`run`関数は、`Config::new`が`Config`インスタンスを返すのと同じように`unwrap`したい値を返すことはありません。
+`run`は成功時に`()`を返すので、エラーを検知することにのみ興味があり、`()`でしかないので、
+`unwrap_or_else`に包まれた値を返してもらう必要はないのです。
 
-### Splitting Code into a Library Crate
+<!-- The bodies of the `if let` and the `unwrap_or_else` functions are the same in -->
+<!-- both cases: we print the error and exit. -->
 
-Our `minigrep` project is looking good so far! Now we’ll split the
-*src/main.rs* file and put some code into the *src/lib.rs* file so we can test
-it and have a *src/main.rs* file with fewer responsibilities.
+`if let`を`unwrap_or_else`関数の中身はどちらも同じです: エラーを出力して終了します。
 
-Let’s move all the code that isn’t the `main` function from *src/main.rs* to
-*src/lib.rs*:
+<!-- ### Splitting Code into a Library Crate -->
 
-* The `run` function definition
-* The relevant `use` statements
-* The definition of `Config`
-* The `Config::new` function definition
+### コードをライブラリクレートに分割する
 
-The contents of *src/lib.rs* should have the signatures shown in Listing 12-13
-(we’ve omitted the bodies of the functions for brevity):
+<!-- Our `minigrep` project is looking good so far! Now we’ll split the -->
+<!-- *src/main.rs* file and put some code into the *src/lib.rs* file so we can test -->
+<!-- it and have a *src/main.rs* file with fewer responsibilities. -->
 
-<span class="filename">Filename: src/lib.rs</span>
+ここまで`minigrep`は良さそうですね！では、テストを行い、*src/main.rs*ファイルの責任が減らせるように、
+*src/main.rs*ファイルを分割し、一部のコードを*src/lib.rs*ファイルに置きましょう。
+
+<!-- Let’s move all the code that isn’t the `main` function from *src/main.rs* to -->
+<!-- *src/lib.rs*: -->
+
+`main`関数以外のコード全部を*src/main.rs*から*src/lib.rs*に移動しましょう:
+
+<!-- * The `run` function definition -->
+<!-- * The relevant `use` statements -->
+<!-- * The definition of `Config` -->
+<!-- * The `Config::new` function definition -->
+
+* `run`関数定義
+* 関係する`use`文
+* `Config`の定義
+* `Config::new`関数定義
+
+<!-- The contents of *src/lib.rs* should have the signatures shown in Listing 12-13 -->
+<!-- (we’ve omitted the bodies of the functions for brevity): -->
+
+*src/lib.rs*の中身にはリスト12-13に示したようなシグニチャがあるはずです(関数の本体は簡潔性のために省略しました):
+
+<!-- <span class="filename">Filename: src/lib.rs</span> -->
+
+<span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust,ignore
 use std::error::Error;
@@ -917,17 +947,27 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
 }
 ```
 
-<span class="caption">Listing 12-13: Moving `Config` and `run` into
-*src/lib.rs*</span>
+<!-- <span class="caption">Listing 12-13: Moving `Config` and `run` into -->
+<!-- *src/lib.rs*</span> -->
 
-We’ve made liberal use of `pub` here: on `Config`, its fields and its `new`
-method, and on the `run` function. We now have a library crate that has a
-public API that we can test!
+<span class="caption">リスト12-13: `Config`と`run`を*src/lib.rs*に移動する</span>
 
-Now we need to bring the code we moved to *src/lib.rs* into the scope of the
-binary crate in *src/main.rs*, as shown in Listing 12-14:
+<!-- We’ve made liberal use of `pub` here: on `Config`, its fields and its `new` -->
+<!-- method, and on the `run` function. We now have a library crate that has a -->
+<!-- public API that we can test! -->
 
-<span class="filename">Filename: src/main.rs</span>
+ここでは、寛大に`pub`を使用しています: `Config`のフィールドと`new`メソッドと、`run`関数です。
+これでテスト可能な公開APIのあるライブラリクレートができました！
+
+<!-- Now we need to bring the code we moved to *src/lib.rs* into the scope of the -->
+<!-- binary crate in *src/main.rs*, as shown in Listing 12-14: -->
+
+さて、*src/lib.rs*に移動したコードを*src/main.rs*のバイナリクレートのスコープに持っていく必要があります。
+リスト12-14に示したようにね:
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
 extern crate minigrep;
@@ -945,19 +985,33 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 12-14: Bringing the `minigrep` crate into the
-scope of *src/main.rs*</span>
+<!-- <span class="caption">Listing 12-14: Bringing the `minigrep` crate into the -->
+<!-- scope of *src/main.rs*</span> -->
 
-To bring the library crate into the binary crate, we use `extern crate
-minigrep`. Then we’ll add a `use minigrep::Config` line to bring the `Config`
-type into scope, and we’ll prefix the `run` function with our crate name. Now
-all the functionality should be connected and should work. Run the program with
-`cargo run` and make sure everything works correctly.
+<span class="caption">リスト12-14: `minigrep`クレートを*src/main.rs*のスコープに持っていく</span>
 
-Whew! That was a lot of work, but we’ve set ourselves up for success in the
-future. Now it’s much easier to handle errors, and we’ve made the code more
-modular. Almost all of our work will be done in *src/lib.rs* from here on out.
+<!-- To bring the library crate into the binary crate, we use `extern crate -->
+<!-- minigrep`. Then we’ll add a `use minigrep::Config` line to bring the `Config` -->
+<!-- type into scope, and we’ll prefix the `run` function with our crate name. Now -->
+<!-- all the functionality should be connected and should work. Run the program with -->
+<!-- `cargo run` and make sure everything works correctly. -->
 
-Let’s take advantage of this newfound modularity by doing something that would
-have been difficult with the old code but is easy with the new code: we’ll
-write some tests!
+ライブラリクレートをバイナリクレートに持っていくのに、`extern crate minigrep`を使用しています。
+それから`use minigrep::Config`行を追加して`Config`型をスコープに持っていき、
+`run`関数にクレート名をプレフィックスとして付けます。これで全機能が連結され、動くはずです。
+`cargo run`でプログラムを走らせて、すべてがうまくいっていることを確かめてください。
+
+<!-- Whew! That was a lot of work, but we’ve set ourselves up for success in the -->
+<!-- future. Now it’s much easier to handle errors, and we’ve made the code more -->
+<!-- modular. Almost all of our work will be done in *src/lib.rs* from here on out. -->
+
+ふう！作業量が多かったですね。ですが、将来成功する準備はできています。
+今では、エラー処理は遥かに楽になり、コードのモジュール化もできました。
+ここから先の作業は、ほぼ*src/lib.rs*で完結するでしょう。
+
+<!-- Let’s take advantage of this newfound modularity by doing something that would -->
+<!-- have been difficult with the old code but is easy with the new code: we’ll -->
+<!-- write some tests! -->
+
+古いコードでは大変だけれども、新しいコードでは楽なことをして新発見のモジュール性を活用しましょう:
+テストを書くのです！
