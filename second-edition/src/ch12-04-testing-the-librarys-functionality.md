@@ -464,7 +464,7 @@ How dreary to be somebody!
 <!-- And finally, let’s make sure that we don’t get any lines when we search for a -->
 <!-- word that isn’t anywhere in the poem, such as “monomorphization”: -->
 
-そして最後に、詩のどこにも表れない単語を探したときに、何も出力がないことを確かめましょう。
+そして最後に、詩のどこにも現れない単語を探したときに、何も出力がないことを確かめましょう。
 "monomorphization"などね:
 
 ```text
