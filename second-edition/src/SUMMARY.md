@@ -123,11 +123,11 @@
 
 ## Thinking in Rust
 
-- [Functional Language Features in Rust](ch13-00-functional-features.md)
-    - [Closures](ch13-01-closures.md)
-    - [Iterators](ch13-02-iterators.md)
-    - [Improving our I/O Project](ch13-03-improving-our-io-project.md)
-    - [Performance](ch13-04-performance.md)
+- [Functional Language Features: Iterators and Closures](ch13-00-functional-features.md)
+    - [Closures: Anonymous Functions that Can Capture Their Environment](ch13-01-closures.md)
+    - [Processing a Series of Items with Iterators](ch13-02-iterators.md)
+    - [Improving Our I/O Project](ch13-03-improving-our-io-project.md)
+    - [Comparing Performance: Loops vs. Iterators](ch13-04-performance.md)
 
 - [More about Cargo and Crates.io](ch14-00-more-about-cargo.md)
     - [Customizing Builds with Release Profiles](ch14-01-release-profiles.md)
@@ -179,8 +179,8 @@
 
 - [Appendix](appendix-00.md)
     - [A - Keywords](appendix-01-keywords.md)
-    - [B - Operators](appendix-02-operators.md)
-    - [C - Derivable Traits]()
-    - [D - Macros]()
-    - [E - Translations]()
-    - [F - Newest Features](appendix-07-newest-features.md)
+    - [B - Operators and Symbols](appendix-02-operators.md)
+    - [C - Derivable Traits](appendix-03-derivable-traits.md)
+    - [D - Macros](appendix-04-macros.md)
+    - [E - Translations](appendix-05-translation.md)
+    - [F - Newest Features](appendix-06-newest-features.md)

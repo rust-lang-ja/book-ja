@@ -191,13 +191,13 @@ let third: Option<&i32> = v.get(2);
 
 <!-- The reason Rust has two ways to reference an element is so you can choose how -->
 <!-- the program behaves when you try to use an index value that the vector doesn’t -->
-<!-- have an element for. As an example, what should a program do if it has -->
+<!-- have an element for. As an example, let’s see what a program will do if it has -->
 <!-- a vector that holds five elements and then tries to access an element at index -->
 <!-- 100, as shown in Listing 8-6: -->
 
 Rustに要素を参照する方法が2通りある理由は、ベクタ型に要素が含まれない番号の値を使用しようとした時に、
 プログラムの振る舞いを選択できるようにするためです。例として、ベクタ型に5つ要素があり、
-番号100の要素にアクセスを試みた場合、プログラムはどう振る舞うべきでしょうか？リスト8-6に示したようにね:
+番号100の要素にアクセスを試みた場合、プログラムがすることを確認しましょう。リスト8-6に示したようにね:
 
 ```rust,should_panic
 let v = vec![1, 2, 3, 4, 5];
