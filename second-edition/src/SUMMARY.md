@@ -58,7 +58,9 @@
     - [`match`制御フロー演算子](ch06-02-match.md)
     - [`if let`で簡潔な制御フロー](ch06-03-if-let.md)
 
-## Basic Rust Literacy
+<!-- ## Basic Rust Literacy -->
+
+## 基本的なRustリテラシー
 
 <!-- - [Modules](ch07-00-modules.md) -->
 <!--     - [`mod` and the Filesystem](ch07-01-mod-and-the-filesystem.md) -->
@@ -121,13 +123,21 @@
     - [環境変数を取り扱う](ch12-05-working-with-environment-variables.md)
     - [標準出力ではなく標準エラーにエラーメッセージを書き込む](ch12-06-writing-to-stderr-instead-of-stdout.md)
 
-## Thinking in Rust
+<!-- ## Thinking in Rust -->
 
-- [Functional Language Features: Iterators and Closures](ch13-00-functional-features.md)
-    - [Closures: Anonymous Functions that Can Capture Their Environment](ch13-01-closures.md)
-    - [Processing a Series of Items with Iterators](ch13-02-iterators.md)
-    - [Improving Our I/O Project](ch13-03-improving-our-io-project.md)
-    - [Comparing Performance: Loops vs. Iterators](ch13-04-performance.md)
+## Rustで思考する
+
+<!-- - [Functional Language Features: Iterators and Closures](ch13-00-functional-features.md) -->
+<!--     - [Closures: Anonymous Functions that Can Capture Their Environment](ch13-01-closures.md) -->
+<!--     - [Processing a Series of Items with Iterators](ch13-02-iterators.md) -->
+<!--     - [Improving Our I/O Project](ch13-03-improving-our-io-project.md) -->
+<!--     - [Comparing Performance: Loops vs. Iterators](ch13-04-performance.md) -->
+
+- [関数型言語の機能: イテレータとクロージャ](ch13-00-functional-features.md)
+    - [クロージャ: 環境をキャプチャできる匿名関数](ch13-01-closures.md)
+    - [一連の要素をイテレータで処理する](ch13-02-iterators.md)
+    - [入出力プロジェクトを改善する](ch13-03-improving-our-io-project.md)
+    - [パフォーマンス比較: ループVSイテレータ](ch13-04-performance.md)
 
 - [More about Cargo and Crates.io](ch14-00-more-about-cargo.md)
     - [Customizing Builds with Release Profiles](ch14-01-release-profiles.md)
@@ -155,7 +165,9 @@
     - [Trait Objects for Using Values of Different Types](ch17-02-trait-objects.md)
     - [Object-Oriented Design Pattern Implementations](ch17-03-oo-design-patterns.md)
 
-## Advanced Topics
+<!-- ## Advanced Topics -->
+
+## 高度なトピック
 
 - [Patterns Match the Structure of Values](ch18-00-patterns.md)
     - [All the Places Patterns May be Used](ch18-01-all-the-places-for-patterns.md)
