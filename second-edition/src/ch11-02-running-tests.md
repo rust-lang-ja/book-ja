@@ -1,6 +1,6 @@
 <!-- ## Controlling How Tests Are Run -->
 
-## テストの実行法を制御する
+## テストの実行され方を制御する
 
 <!-- Just as `cargo run` compiles your code and then runs the resulting binary, -->
 <!-- `cargo test` compiles your code in test mode and runs the resulting test -->
@@ -14,8 +14,8 @@
 `cargo test`はコードをテストモードでコンパイルし、出来上がったテストバイナリを実行します。
 コマンドラインオプションを指定して`cargo test`の規定動作を変更することができます。
 例えば、`cargo test`で生成されるバイナリの規定動作は、テストを全て並行に実行し、
-テスト実行中に生成された出力をキャプチャし、出力が表示されるのを防ぎ、
-テスト結果に関係する出力を読みやすくします。
+テスト実行中に生成された出力をキャプチャして出力が表示されるのを防ぎ、
+テスト結果に関係する出力を読みやすくすることです。
 
 <!-- Some command line options go to `cargo test` and some go to the resulting test -->
 <!-- binary. To separate these two types of arguments, you list the arguments that -->
@@ -96,7 +96,7 @@ $ cargo test -- --test-threads=1
 <!-- line that indicates the test passed. If a test fails, we’ll see whatever was -->
 <!-- printed to standard output with the rest of the failure message. -->
 
-標準では、テストが通ると、Rustのテストライブラリは標準出力に表示されたものをキャプチャします。例えば、
+標準では、テストが通ると、Rustのテストライブラリは標準出力に出力されたものを全てキャプチャします。例えば、
 テストで`println!`を呼び出してテストが通ると、`println!`の出力は、ターミナルに表示されません:
 テストが通ったことを示す行しか見れないでしょう。テストが失敗すれば、
 残りの失敗メッセージと共に、標準出力に出力されたものが全て見えるでしょう。
@@ -325,7 +325,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out
 <!-- will be run. For example, because two of our tests’ names contain `add`, we can -->
 <!-- run those two by running `cargo test add`: -->
 
-テスト名の一部を指定して、その値に合致するあらゆるテストを走らせることができます。例えば、
+テスト名の一部を指定でき、その値に合致するあらゆるテストが走ります。例えば、
 我々のテストの2つが`add`という名前を含むので、`cargo test add`を実行することで、その二つを走らせることができます:
 
 ```text
@@ -416,6 +416,8 @@ test expensive_test ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out
 ```
+
+<!-- 1行目後半、"make sure ..."のところを「結果が早く出る」と訳しているが、この書き方では「結果が早い」としか読めない。どうしたものか -->
 
 <!-- By controlling which tests run, you can make sure your `cargo test` results -->
 <!-- will be fast. When you’re at a point where it makes sense to check the results -->
