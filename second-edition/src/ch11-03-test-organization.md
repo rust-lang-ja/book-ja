@@ -61,7 +61,7 @@ testsモジュールの`#[cfg(test)]`という注釈は、コンパイラに`car
 <!-- Recall that when we generated the new `adder` project in the first section of -->
 <!-- this chapter, Cargo generated this code for us: -->
 
-この章の最初の節で新しい`adder`プロジェクトを生成した時に、Cargoがこのコードも生成したことを思い出してください:
+この章の最初の節で新しい`adder`プロジェクトを生成した時に、Cargoがこのコードも生成してくれたことを思い出してください:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -103,10 +103,10 @@ Cargoがテストコードをコンパイルします。これには、このモ
 <!-- adhere to, Rust’s privacy rules do allow you to test private functions. -->
 <!-- Consider the code in Listing 11-12 with the private function `internal_adder`: -->
 
-テストコミュニティ内で非公開関数を直接テストできるべきかについては議論があり、
+テストコミュニティ内で非公開関数を直接テストするべきかについては議論があり、
 他の言語では非公開関数をテストするのは困難だったり、不可能だったりします。
 あなたがどちらのテストイデオロギーを支持しているかに関わらず、Rustの公開性規則により、
-非公開関数をテストすることが可能です。リスト11-12の非公開関数`internal_adder`を含むコードを考えてください:
+非公開関数をテストすることが確かに可能です。リスト11-12の非公開関数`internal_adder`を含むコードを考えてください:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -144,7 +144,7 @@ mod tests {
 
 `internal_adder`関数は`pub`とマークされていないものの、テストも単なるRustのコードであり、
 `tests`モジュールもただのモジュールでしかないので、テスト内で`internal_adder`を普通にインポートし呼び出すことができます。
-非公開関数はテストできるべきではないとお考えなら、Rustにはそれを強制するものは何もありません。
+非公開関数はテストするべきではないとお考えなら、Rustにはそれを強制するものは何もありません。
 
 <!-- ### Integration Tests -->
 
@@ -175,7 +175,7 @@ Rustにおいて、結合テストは完全にライブラリ外のものです�
 <!-- will compile each of the files as an individual crate. -->
 
 プロジェクトディレクトリのトップ階層、*src*の隣に*tests*ディレクトリを作成します。
-Cargoは、このディレクトリに結合テストのファイルを探せることを把握しています。
+Cargoは、このディレクトリに結合テストのファイルを探すことを把握しています。
 そして、このディレクトリ内にいくらでもテストファイルを作成することができ、
 Cargoはそれぞれのファイルを個別のクレートとしてコンパイルします。
 
@@ -321,9 +321,9 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- separate code into modules and files. -->
 
 各結合テストファイルをそれ自身のクレートとして扱うと、
-エンドユーザが自分のクレートを使用するかのような個別のスコープを生成するのに役立ちます。
+エンドユーザが読者のクレートを使用するかのような個別のスコープを生成するのに役立ちます。
 ですが、これは*tests*ディレクトリのファイルは、*src*のファイルとは同じ振る舞いを共有しないことを意味し、
-これについてはコードをモジュールとファイルに分ける方法について第7章で学びました。
+これについてはコードをモジュールとファイルに分ける方法に関して第7章で学びました。
 
 <!-- The different behavior of files in the *tests* directory is most noticeable -->
 <!-- when you have a set of helper functions that would be useful in multiple -->
@@ -336,7 +336,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 *tests*ディレクトリのファイルの異なる振る舞いは、複数の結合テストファイルで役に立ちそうなヘルパー関数ができ、
 第7章の「モジュールを別のファイルに移動する」節の手順に従って共通モジュールに抽出しようとした時に最も気付きやすくなります。
 例えば、*tests/common.rs*を作成し、そこに`setup`という名前の関数を配置したら、
-複数のテストファイルの複数のテスト関数から呼び出したい何らかのコードを`setup`に追加することができます:
+複数のテストファイルの複数のテスト関数から呼び出したい`setup`に何らかのコードを追加することができます:
 
 <!-- <span class="filename">Filename: tests/common.rs</span> -->
 
@@ -403,7 +403,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- crates or have sections in the test output. -->
 
 `common`がテスト出力に出現するのを防ぐには、*tests/common.rs*を作成する代わりに、
-*tests/common/mod.rs*を作成すればいいのです。第7章の「モジュールファイルシステムの規則」節において、
+*tests/common/mod.rs*を作成します。第7章の「モジュールファイルシステムの規則」節において、
 *module_name/mod.rs*という命名規則をサブモジュールのあるモジュールのファイルに使用したので、
 ここでは`common`にサブモジュールはありませんが、
 このように命名することでコンパイラに`common`モジュールを結合テストファイルとして扱わないように指示します。
@@ -487,7 +487,7 @@ Rustのテスト機能は、変更を加えた後でさえ想定通りにコー�
 コードが機能すべき方法を指定する手段を提供します。単体テストはライブラリの異なる部分を個別に用い、
 非公開の実装詳細をテストすることができます。結合テストは、ライブラリのいろんな部分が共同で正常に動作することを確認し、
 ライブラリの公開APIを使用して外部コードが使用するのと同じ方法でコードをテストします。
-Rustの型システムと所有権ルールにある種のバグは防がれるものの、それでもテストは、
+Rustの型システムと所有権ルールにより防がれるバグの種類もあるものの、それでもテストは、
 コードの振る舞い方に関するロジックのバグを減らすのに重要なのです。
 
 <!-- Let’s combine the knowledge you learned in this chapter and in previous -->
