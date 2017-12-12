@@ -48,7 +48,7 @@ Rustコードの欠片に関するメタデータです; 一例を挙げれば�
 <!-- structure and syntax of test functions every time we start a new project. We -->
 <!-- can add as many additional test functions and as many test modules as we want! -->
 
-第7章で、Cargoで新規ライブラリプロジェクトを作成した時に、テスト関数が含まれるテストモジュールが自動で生成されたことを確かめました。
+第7章で、Cargoで新規ライブラリプロジェクトを作成した時に、テスト関数が含まれるテストモジュールが自動で生成されたことを見かけました。
 このモジュールのおかげでテストを書き始めることができるので、新しいプロジェクトを立ち上げる度に、
 テスト関数の正確な構造と記法を調べる必要がなくなるわけです。必要なだけテスト関数とテストモジュールは追加することができます。
 
@@ -58,7 +58,7 @@ Rustコードの欠片に関するメタデータです; 一例を挙げれば�
 <!-- behavior is correct. -->
 
 実際にテストすることなしにテンプレートのテストが生成されるのを実験することでテストの動作法の一部を探求しましょう。
-それから、自分で書いたコードを呼び出し、振る舞いが正しいかアサーションする現実世界のテストを書きましょう。
+それから、自分で書いた何らかのコードを呼び出し、振る舞いが正しいかアサーションする現実世界のテストを書きましょう。
 
 <!-- Let’s create a new library project called `adder`: -->
 
@@ -102,9 +102,9 @@ mod tests {
 <!-- indicate which functions are tests by using the `#[test]` attribute. -->
 
 とりあえず、最初の2行は無視し、関数に集中してその動作法を見ましょう。
-`fn`行の`#[test]`アノテーションに注目してください:このアトリビュートは、これがテスト関数であることを示唆しますので、
+`fn`行の`#[test]`アノテーションに注目してください: このアトリビュートは、これがテスト関数であることを示唆しますので、
 テスト実行機はこの関数をテストとして扱うとわかるのです。さらに、`tests`モジュール内には非テスト関数を入れ込み、
-一般的なシナリオをセットアップする手助けをしたり、共通の処理を行ったりもできるので、
+一般的なシナリオをセットアップしたり、共通の処理を行う手助けをしたりもできるので、
 `#[test]`アトリビュートでどの関数がテストかを示唆する必要があるのです。
 
 <!-- The function body uses the `assert_eq!` macro to assert that 2 + 2 equals 4. -->
@@ -150,9 +150,9 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- reads `1 passed; 0 failed` totals the number of tests that passed or failed. -->
 
 Cargoがテストをコンパイルし、走らせました。`Compiling`, `Finished`, `Running`の行の後に`running 1 test`の行があります。
-次行が、生成されたテスト関数の`it_works`とこのテストの実行結果、`ok`を示しています。
+次行が、生成されたテスト関数の`it_works`という名前とこのテストの実行結果、`ok`を示しています。
 テスト実行の総合的なまとめが次に出現します。`test result:ok.`というテキストは、
-全テストが通ったことを意味し、`1 passed; 0 failed`と読める部分は、通過または失敗したテストの数を総評しているのです。
+全テストが通ったことを意味し、`1 passed; 0 failed`と読める部分は、通過または失敗したテストの数を合計しているのです。
 
 <!-- Because we don’t have any tests we’ve marked as ignored, the summary shows `0 -->
 <!-- ignored`. We’ll talk about ignoring tests in the next section, “Controlling How -->
@@ -205,7 +205,7 @@ mod tests {
 <!-- Then run `cargo test` again. The output now shows `exploration` instead of -->
 <!-- `it_works`: -->
 
-そして、`cargo test`を再度走らせます。出力が`it_works`の代わりに`exploration`と表示するようになりました:
+そして、`cargo test`を再度走らせます。これで出力が`it_works`の代わりに`exploration`と表示しています:
 
 ```text
 running 1 test
@@ -298,7 +298,7 @@ error: test failed
 これは、*src/lib.rs*ファイルの10行で起きました。次の区域は失敗したテストの名前だけを列挙し、
 テストがたくさんあり、失敗したテストの詳細がたくさん表示されるときに有用になります。
 失敗したテストの名前を使用してそのテストだけを実行し、より簡単にデバッグすることができます。
-ただし、テストの実行方法については、「テストの走らせ方を制御する」節でもっと語りましょう。
+ただし、テストの実行方法については、「テストの実行され方を制御する」節でもっと語りましょう。
 
 <!-- The summary line displays at the end: overall, our test result is `FAILED`. -->
 <!-- We had one test pass and one test fail. -->
@@ -326,7 +326,7 @@ error: test failed
 `assert!`マクロは、標準ライブラリで提供されていますが、テスト内の何らかの条件が`true`と評価されることを確かめたいときに有効です。
 `assert!`マクロには、論理値に評価される引数を与えます。その値が`true`なら、
 `assert!`は何もせず、テストは通ります。その値が`false`なら、`assert!`マクロは`panic!`マクロを呼び出し、
-テストは失敗します。`assert!`マクロを使用することで、コードが意図した通りに機能していることを確認できるわけです。
+テストは失敗します。`assert!`マクロを使用することで、コードが意図した通りに機能していることを確認する助けになるわけです。
 
 <!-- In Chapter 5, Listing 5-9, we used a `Rectangle` struct and a `can_hold` -->
 <!-- method, which are repeated here in Listing 11-5. Let’s put this code in the -->
@@ -364,7 +364,7 @@ impl Rectangle {
 <!-- a width of 7, and asserting that it can hold another `Rectangle` instance that -->
 <!-- has a length of 5 and a width of 1: -->
 
-`can_hold`メソッドは論理値を返すので、`assert!`マクロの完璧な実行例になるわけです。
+`can_hold`メソッドは論理値を返すので、`assert!`マクロの完璧なユースケースになるわけです。
 リスト11-6で、長さが8、幅が7の`Rectangle`インスタンスを生成し、これが長さ5、
 幅1の別の`Rectangle`インスタンスを保持できるとアサーションすることで`can_hold`を用いるテストを書きます:
 
@@ -678,9 +678,10 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 表面下では、`assert_eq!`と`assert_ne!`マクロはそれぞれ、`==`と`!=`演算子を使用しています。
 アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用して出力するので、
 比較対象の値は`PartialEq`と`Debug`トレイトを実装していなければなりません。
+組み込み型の全部と、標準ライブラリの型はほぼ全てこれらのトレイトを実装しています。
 自分で定義した構造体とenumについては、`PartialEq`を実装して、
 その型の値が等しいか等しくないかアサーションする必要があるでしょう。`Debug`を実装して、
-アサーションが失敗した時に値を出力できるようにする必要もあるでしょう。
+アサーションが失敗した時に値を出力する必要もあるでしょう。
 第5章のリスト5-12で触れたように、どちらのトレイトも継承可能トレイトなので、
 これは通常、構造体やenum定義に`#[derive(PartialEq, Debug)]`というアノテーションを追加するくらい率直になります。
 これらや他の継承可能トレイトに関する詳細については、おまけCをご覧ください。
@@ -741,7 +742,7 @@ mod tests {
 <!-- the input parameter. -->
 
 このプログラムの必要事項はまだ合意が得られておらず、挨拶の先頭の`Hello`というテキストは変わるだろうということは確かです。
-そうなった時に名前のためにテストを更新する必要はないと決定したので、
+そうなった時に名前のためにテストを更新しなければならなくはしたくないと決定したので、
 `greeting`関数から返る値と正確な等値性を確認するのではなく、出力が入力引数のテキストを含むことをアサーションするだけにします。
 
 <!-- Let’s introduce a bug into this code by changing `greeting` to not include -->
@@ -781,8 +782,8 @@ failures:
 <!-- filled in with the actual value we got from the `greeting` function: -->
 
 この結果は、アサーションが失敗し、どの行にアサーションがあるかを示しているだけです。
-より役に立つ失敗メッセージは今回の場合、`greeting`関数から得た値を出力することでしょう。
-`greeting`関数から得た実際の値で埋められたプレースホルダーを含むフォーマット文字列からなるカスタムの失敗メッセージを与え、
+より有用な失敗メッセージは今回の場合、`greeting`関数から得た値を出力することでしょう。
+`greeting`関数から得た実際の値で埋められるプレースホルダーを含むフォーマット文字列からなるカスタムの失敗メッセージを与え、
 テスト関数を変更しましょう:
 
 ```rust,ignore
@@ -816,7 +817,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 
 <!-- ### Checking for Panics with `should_panic` -->
 
-### `should_panic`でパニックが発生することを確認する
+### `should_panic`でパニックを確認する
 
 <!-- In addition to checking that our code returns the correct values we expect, -->
 <!-- it’s also important to check that our code handles error conditions as we -->
@@ -887,7 +888,7 @@ mod tests {
 <!-- before the test function it applies to. Let’s look at the result when this test -->
 <!-- passes: -->
 
-`#[test]`アトリビュートの後、適用するテスト関数の前に`#[should_panic]`アトリビュートを配置しました。
+`#[test]`アトリビュートの後、適用するテスト関数の前に`#[should_panic]`アトリビュートを配置しています。
 このテストが通るときの結果を見ましょう:
 
 ```text
@@ -900,7 +901,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- Looks good! Now let’s introduce a bug in our code by removing the condition -->
 <!-- that the `new` function will panic if the value is greater than 100: -->
 
-よさそうですね！では、値が100より大きいときに`new`関数がパニックするという状態を除去することでコードにバグを導入しましょう:
+よさそうですね！では、値が100より大きいときに`new`関数がパニックするという条件を除去することでコードにバグを導入しましょう:
 
 ```rust
 # pub struct Guess {
@@ -955,7 +956,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 
 `should_panic`を使用するテストは不正確なこともあります。なぜなら、コードが何らかのパニックを起こしたことしか示さないからです。
 `should_panic`のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。
-`should_panic`のテストの正確を期すために、`should_panic`アトリビュートのオプションの`expected`引数を追加できます。
+`should_panic`のテストの正確を期すために、`should_panic`アトリビュートの省略可能な`expected`引数を追加できます。
 このテストの拘束具が、失敗メッセージに与えられたテキストが含まれていることを確かめてくれるでしょう。
 例えば、リスト11-9の`Guess`の変更されたコードを考えてください。ここでは、
 `new`関数は、値の大小によって異なるメッセージでパニックします。
@@ -994,6 +995,7 @@ mod tests {
     use super::*;
 
     #[test]
+    // 予想値は100以下でなければなりません
     #[should_panic(expected = "Guess value must be less than or equal to 100")]
     fn greater_than_100() {
         Guess::new(200);
@@ -1016,11 +1018,11 @@ mod tests {
 <!-- panic message is enough to ensure that the code in the test function executes -->
 <!-- the `else if value > 100` case. -->
 
-`should_panic`アトリビュートの`expected`引数においた値が`Guess::new`関数がパニックしたメッセージの一部になっているので、
+`should_panic`アトリビュートの`expected`引数に置いた値が`Guess::new`関数がパニックしたメッセージの一部になっているので、
 このテストは通ります。予想されるパニックメッセージ全体を指定することもでき、そうすれば今回の場合、
 `Guess value must be less than or equal to 100, got 200.`となります。
 `should_panic`の予想される引数に指定すると決めたものは、パニックメッセージの固有性や活動性、
-テストの正確性によります。今回の場合、パニックメッセージの一部でテスト関数内のコードが、
+テストの正確性によります。今回の場合、パニックメッセージの一部でも、テスト関数内のコードが、
 `else if value > 100`ケースを実行していると確認するのに事足りるのです。
 
 <!-- To see what happens when a `should_panic` test with an `expected` message -->

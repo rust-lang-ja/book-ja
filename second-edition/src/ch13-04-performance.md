@@ -1,48 +1,81 @@
-## Comparing Performance: Loops vs. Iterators
+<!-- ## Comparing Performance: Loops vs. Iterators -->
 
-To determine whether to use loops or iterators, we need to know which version
-of our `search` functions is faster: the version with an explicit `for` loop or
-the version with iterators.
+## パフォーマンス比較: ループVSイテレータ
 
-We ran a benchmark by loading the entire contents of *The Adventures of
-Sherlock Holmes* by Sir Arthur Conan Doyle into a `String` and looking for the
-word “the” in the contents. Here are the results of the benchmark on the
-version of `search` using the `for` loop and the version using iterators:
+<!-- To determine whether to use loops or iterators, we need to know which version -->
+<!-- of our `search` functions is faster: the version with an explicit `for` loop or -->
+<!-- the version with iterators. -->
+
+ループを使うべきかイテレータを使うべきか決定するために、`search`関数のうち、どちらのバージョンが速いか知る必要があります:
+明示的な`for`ループがあるバージョンと、イテレータのバージョンです。
+
+<!-- We ran a benchmark by loading the entire contents of *The Adventures of -->
+<!-- Sherlock Holmes* by Sir Arthur Conan Doyle into a `String` and looking for the -->
+<!-- word “the” in the contents. Here are the results of the benchmark on the -->
+<!-- version of `search` using the `for` loop and the version using iterators: -->
+
+サー・アーサー・コナン・ドイル(Sir Arthur Conan Doyle)の、
+*シャーロックホームズの冒険*(The Adventures of Sherlock Homes)全体を`String`に読み込み、
+そのコンテンツで"the"という単語を検索することでベンチマークを行いました。
+こちらが、`for`を使用した`search`関数のバージョンと、イテレータを使用したバージョンに関するベンチマーク結果です。
 
 ```text
 test bench_search_for  ... bench:  19,620,300 ns/iter (+/- 915,700)
 test bench_search_iter ... bench:  19,234,900 ns/iter (+/- 657,200)
 ```
 
-The iterator version was slightly faster! We won’t explain the benchmark code
-here, because the point is not to prove that the two versions are equivalent
-but to get a general sense of how these two implementations compare
-performance-wise.
+<!-- The iterator version was slightly faster! We won’t explain the benchmark code -->
+<!-- here, because the point is not to prove that the two versions are equivalent -->
+<!-- but to get a general sense of how these two implementations compare -->
+<!-- performance-wise. -->
 
-For a more comprehensive benchmark, you should check various texts of various
-sizes, different words, words of different lengths, and all kinds of other
-variations. The point is this: iterators, although a high-level abstraction,
-get compiled down to roughly the same code as if you’d written the lower-level
-code yourself. Iterators are one of Rust’s *zero-cost* *abstractions*, by which
-we mean using the abstraction imposes no additional runtime overhead in the
-same way that Bjarne Stroustrup, the original designer and implementor of C++,
-defines *zero-overhead*:
+イテレータバージョンの方が些か高速ですね！ここでは、ベンチマークのコードは説明しません。
+なぜなら、要点は、2つのバージョンが等価であることを証明することではなく、
+これら2つの実装がパフォーマンス的にどう比較されるかを大まかに把握することだからです。
 
-> In general, C++ implementations obey the zero-overhead principle: What you
-> don’t use, you don’t pay for. And further: What you do use, you couldn’t hand
-> code any better.
+<!-- For a more comprehensive benchmark, you should check various texts of various -->
+<!-- sizes, different words, words of different lengths, and all kinds of other -->
+<!-- variations. The point is this: iterators, although a high-level abstraction, -->
+<!-- get compiled down to roughly the same code as if you’d written the lower-level -->
+<!-- code yourself. Iterators are one of Rust’s *zero-cost* *abstractions*, by which -->
+<!-- we mean using the abstraction imposes no additional runtime overhead in the -->
+<!-- same way that Bjarne Stroustrup, the original designer and implementor of C++, -->
+<!-- defines *zero-overhead*: -->
+
+より理解しやすいベンチマークには、いろんなサイズの様々なテキスト、異なる単語、異なる長さの単語、
+他のあらゆる種類のバリエーションを確認するべきです。重要なのは: イテレータは、
+高度な抽象化にも関わらず、低レベルのコードを自身で書いているかのように、ほぼ同じコードにコンパイルされることです。
+イテレータは、Rustの*ゼロ代償**抽象化*の一つであり、これは、C++の元の設計者であり実装者の、
+ビャーネ・ストルヴストルップ(Bjarne Stroustrup)が、*ゼロオーバーヘッド*を定義したのと同様に、
+抽象化を使うことが何ら追加の実行時オーバーヘッドを生まないことを意味しています。
+
+<!-- > In general, C++ implementations obey the zero-overhead principle: What you -->
+<!-- > don’t use, you don’t pay for. And further: What you do use, you couldn’t hand -->
+<!-- > code any better. -->
+<!-- > -->
+<!-- > Bjarne Stroustrup’s “Foundations of C++” -->
+
+> 一般的に、C++の実装は、ゼロオーバーヘッド原則を遵守します: 使用しないものには、支払わなくてよい。
+> さらに: 実際に使っているものに対して、コードをそれ以上うまく渡すことはできない。
 >
-> Bjarne Stroustrup’s “Foundations of C++”
+> ビャーネ・ストルヴストルップの「C++の基礎」
 
-As another example, the following code is taken from an audio decoder. The
-decoding algorithm uses the linear prediction mathematical operation to
-estimate future values based on a linear function of the previous samples. This
-code uses an iterator chain to do some math on three variables in scope: a
-`buffer` slice of data, an array of 12 `coefficients`, and an amount by which
-to shift data in `qlp_shift`. We’ve declared the variables within this example
-but not given them any values; although this code doesn’t have much meaning
-outside of its context, it’s still a concise, real-world example of how Rust
-translates high-level ideas to low-level code:
+<!-- As another example, the following code is taken from an audio decoder. The -->
+<!-- decoding algorithm uses the linear prediction mathematical operation to -->
+<!-- estimate future values based on a linear function of the previous samples. This -->
+<!-- code uses an iterator chain to do some math on three variables in scope: a -->
+<!-- `buffer` slice of data, an array of 12 `coefficients`, and an amount by which -->
+<!-- to shift data in `qlp_shift`. We’ve declared the variables within this example -->
+<!-- but not given them any values; although this code doesn’t have much meaning -->
+<!-- outside of its context, it’s still a concise, real-world example of how Rust -->
+<!-- translates high-level ideas to low-level code: -->
+
+別の例として、以下のコードは、オーディオデコーダから取ってきました。デコードアルゴリズムは、
+線形予測数学演算を使用して、以前のサンプルの線形関数に基づいて未来の値を予測します。このコードは、
+イテレータ連結をしてスコープにある3つの変数に計算を行っています: `buffer`というデータのスライス、
+12の`coefficients`の配列、`qlp_shift`でデータをシフトする量です。この例の中で変数を宣言しましたが、
+値は与えていません; このコードは、文脈の外では大して意味を持ちませんが、
+それでもRustが高レベルな概念を低レベルなコードに翻訳する簡潔で現実的な例になっています:
 
 ```rust,ignore
 let buffer: &mut [i32];
@@ -59,37 +92,61 @@ for i in 12..buffer.len() {
 }
 ```
 
-To calculate the value of `prediction`, this code iterates through each of the
-12 values in `coefficients` and uses the `zip` method to pair the coefficient
-values with the previous 12 values in `buffer`. Then, for each pair, we
-multiply the values together, sum all the results, and shift the bits in the
-sum `qlp_shift` bits to the right.
+<!-- To calculate the value of `prediction`, this code iterates through each of the -->
+<!-- 12 values in `coefficients` and uses the `zip` method to pair the coefficient -->
+<!-- values with the previous 12 values in `buffer`. Then, for each pair, we -->
+<!-- multiply the values together, sum all the results, and shift the bits in the -->
+<!-- sum `qlp_shift` bits to the right. -->
 
-Calculations in applications like audio decoders often prioritize performance
-most highly. Here, we’re creating an iterator, using two adaptors, and then
-consuming the value. What assembly code would this Rust code compile to? Well,
-as of this writing, it compiles down to the same assembly you’d write by hand.
-There’s no loop at all corresponding to the iteration over the values in
-`coefficients`: Rust knows that there are 12 iterations, so it “unrolls” the
-loop. *Unrolling* is an optimization that removes the overhead of the loop
-controlling code and instead generates repetitive code for each iteration of
-the loop.
+`prediction`の値を算出するには、このコードは、`coefficients`の12の値を繰り返し、`zip`メソッドを使用して、
+係数値を前の`buffer`の12の値と組にします。それから各組について、その値を足し合わせ、結果を全て合計し、
+合計のビットを`qlp_shift`分だけ右にシフトさせます。
 
-All of the coefficients get stored in registers, which means it’s very fast to
-access the values. There are no bounds checks on the array access at runtime.
-All these optimizations Rust is able to apply make the resulting code extremely
-efficient. Now that you know this, you can use iterators and closures without
-fear! They make code seem like it’s higher level but don’t impose a runtime
-performance penalty for doing so.
+<!-- Calculations in applications like audio decoders often prioritize performance -->
+<!-- most highly. Here, we’re creating an iterator, using two adaptors, and then -->
+<!-- consuming the value. What assembly code would this Rust code compile to? Well, -->
+<!-- as of this writing, it compiles down to the same assembly you’d write by hand. -->
+<!-- There’s no loop at all corresponding to the iteration over the values in -->
+<!-- `coefficients`: Rust knows that there are 12 iterations, so it “unrolls” the -->
+<!-- loop. *Unrolling* is an optimization that removes the overhead of the loop -->
+<!-- controlling code and instead generates repetitive code for each iteration of -->
+<!-- the loop. -->
 
-## Summary
+オーディオデコーダのようなアプリケーションの計算は、しばしばパフォーマンスに最も重きを置きます。
+ここでは、イテレータを作成し、2つのアダプタを使用し、それから値を消費しています。
+このRustコードは、どんな機械語コードにコンパイルされるのでしょうか？えー、執筆時点では、
+手作業で書いたものと同じ機械語にコンパイルされます。`coefficients`の値の繰り返しに対応するループは全く存在しません:
+コンパイラは、12回繰り返しがあることを把握しているので、ループを「展開」します。
+*ループの展開*は、ループ制御コードのオーバーヘッドを除去し、代わりにループの繰り返しごとに同じコードを生成する最適化です。
 
-Closures and iterators are Rust features inspired by functional programming
-language ideas. They contribute to Rust’s capability to clearly express
-high-level ideas at low-level performance. The implementations of closures and
-iterators are such that runtime performance is not affected. This is part of
-Rust’s goal to strive to provide zero-cost abstractions.
+<!-- All of the coefficients get stored in registers, which means it’s very fast to -->
+<!-- access the values. There are no bounds checks on the array access at runtime. -->
+<!-- All these optimizations Rust is able to apply make the resulting code extremely -->
+<!-- efficient. Now that you know this, you can use iterators and closures without -->
+<!-- fear! They make code seem like it’s higher level but don’t impose a runtime -->
+<!-- performance penalty for doing so. -->
 
-Now that we’ve improved the expressiveness of our I/O project, let’s look at
-some more features of `cargo` that will help us share the project with the
-world.
+係数は全てレジスタに保存されます。つまり、値に非常に高速にアクセスします。実行時に配列の境界チェックをすることもありません。
+コンパイラが適用可能なこれらの最適化全てにより、結果のコードは究極的に効率化されます。このことがわかったので、
+イテレータとクロージャを恐れなしに使用することができますね！それらのおかげでコードは、高レベルだけれども、
+そうすることに対して実行時のパフォーマンスを犠牲にしないようにします。
+
+<!-- ## Summary -->
+
+## まとめ
+
+<!-- Closures and iterators are Rust features inspired by functional programming -->
+<!-- language ideas. They contribute to Rust’s capability to clearly express -->
+<!-- high-level ideas at low-level performance. The implementations of closures and -->
+<!-- iterators are such that runtime performance is not affected. This is part of -->
+<!-- Rust’s goal to strive to provide zero-cost abstractions. -->
+
+クロージャとイテレータは、関数型言語の考えに着想を得たRustの機能です。低レベルのパフォーマンスで、
+高レベルの考えを明確に表現するというRustの能力に貢献しています。クロージャとイテレータの実装は、
+実行時のパフォーマンスが影響されないようなものです。これは、ゼロ代償抽象化を提供するのに努力を惜しまないRustの目標の一部です。
+
+<!-- Now that we’ve improved the expressiveness of our I/O project, let’s look at -->
+<!-- some more features of `cargo` that will help us share the project with the -->
+<!-- world. -->
+
+今や入出力プロジェクトの表現力を改善したので、プロジェクトを世界と共有するのに役に立つ`cargo`の機能にもっと目を向けましょう。

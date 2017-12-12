@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Rust言語
 
 このリポジトリには、Rust本第1版と第2版両方がありますが、今回は第2版のみの翻訳です。
@@ -6,7 +5,7 @@
 
 * 逐語訳に拘らず、読者にとってわかりやすい訳を目指す(適宜、脚注を挟む、文意に沿った訳語を選択するなど)
 * 原文の語順を極力尊重する。(..., like so)みたいな句を文中に持っていかず、(...。こんな感じに)
-のような形で訳す。つまり、ですます調で訳しますが、あまり堅すぎる文章にはしたくないという意図です
+のような形で訳す。つまり、ですます調で訳しますが、あまり堅すぎる文章にはしたくないという意図です。
 
 僭越ながら、頑張りますので、よろしくお願いいたします。
 
@@ -50,12 +49,17 @@
    * `:`、`;`は基本的に変更せずそのままにするが、`;`は意味が伝わりづらいと考えられるので、可能ならば`つまり`などと訳出して、削除する
 * 英語だとit, thatなどの指示語が多用されるが日本語だと繰り返した方が自然なことが多いので無理に指示語を使わずに自然な方を使う
 * theに関しては文意によって(`この`、`その`)などと訳出していることがあります。(`a`も同様)
+* someについて。someは、漠然と(ぼやけてるけど)あるというイメージを表す単語。通常学校文法などでは[`いくつか`]などと訳されますが、
+その訳語では、イメージを表せないので、some people say that ...などなら(...と述べる人もいる)などのように訳します。
+some of the peopleも(一部の人々)などと訳し、[`いくつか`]は`a few`や`several`などの訳語にします。
+`何か`、`何らかの`などと訳していることも多いです。
 * 逆にyou, your, we, ourなどの英語の文法上仕方なく出てくる人称代名詞は日本語には訳さない方が自然なことが多いので無理に訳に出さない。 特に、一般論を語る時のyouは 訳してはならない 参考 【雑談】"あなた"と訳さない"you" ~ einzelzelle
    * (こんな訳し方はしないので、大丈夫です)
+   * このような代名詞に関しては、訳出しないと不自然な場合のみ、訳します
 
 [translation-table]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/TranslationTable.md
 [contributing]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/CONTRIBUTING.md
-=======
+
 # NOTICE ABOUT STATUS
 
 The second edition of The Rust Programming Language is getting ever closer to being printed!
@@ -65,7 +69,6 @@ requests submitted for frozen chapters are welcome but will be closed until we s
 on a third edition. Thank you!
 
 [proj]: https://github.com/rust-lang/book/projects/1
->>>>>>> fork_master_master
 
 # The Rust Programming Language
 
