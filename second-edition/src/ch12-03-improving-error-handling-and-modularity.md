@@ -58,10 +58,10 @@
 <!-- we’re printing messages that will be meaningful to our end users. -->
 
 4番目は、異なるエラーを処理するのに`expect`を繰り返し使用しているので、ユーザが十分な数の引数を渡さずにプログラムを起動した時に、
-問題を明確に説明しない「範囲外アクセス(index out of bounds)」というエラーがRustから送られることです。
+問題を明確に説明しない「範囲外アクセス(index out of bounds)」というエラーがRustから得られることです。
 エラー処理のコードが全て1箇所に存在し、将来エラー処理ロジックが変更になった時に、
 メンテナンス者が1箇所のコードのみを考慮すればいいようにするのが最善でしょう。
-エラー処理コードが1箇所にあれば、エンドユーザにとって意味のあるメッセージを出力していることを確認できることにもつながります。
+エラー処理コードが1箇所にあれば、エンドユーザにとって意味のあるメッセージを出力していることを確認することにもつながります。
 
 <!-- Let’s address these four problems by refactoring our project. -->
 
@@ -69,7 +69,7 @@
 
 <!-- ### Separation of Concerns for Binary Projects -->
 
-### バイナリプロジェクトで責任の分離
+### バイナリプロジェクトの責任の分離
 
 <!-- The organizational problem of allocating responsibility for multiple tasks to -->
 <!-- the `main` function is common to many binary projects. As a result, the Rust -->
@@ -180,8 +180,8 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 
 このやり直しは、私たちの小規模なプログラムにはやりすぎに思えるかもしれませんが、
 少しずつ段階的にリファクタリングしているのです。この変更後、プログラムを再度実行して、
-引数解析がまだ動作していることを確かめてください。頻繁に進捗を確認するのはいいことです。
-問題が発生した時に原因を特定しやすくなりますからね。
+引数解析がまだ動作していることを実証してください。頻繁に進捗を確認するのはいいことです。
+問題が発生した時に原因を特定する助けになりますからね。
 
 <!-- #### Grouping Configuration Values -->
 
@@ -206,7 +206,7 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 
 まだ改善の余地があると示してくれる他のものは、`parse_config`の`config`の部分であり、
 返却している二つの値は関係があり、一つの設定値の一部にどちらもなることを暗示しています。
-現状では、この意味を一つのタプルにまとめていること以外、データの構造に載せていません:
+現状では、一つのタプルにまとめていること以外、この意味をデータの構造に載せていません:
 この二つの値を1構造体に置き換え、構造体のフィールドそれぞれに意味のある名前をつけることもできるでしょう。
 そうすることで将来このコードのメンテナンス者が、異なる値が相互に関係する仕方や、目的を理解しやすくできるでしょう。
 
@@ -339,8 +339,8 @@ Rustの借用規則に違反してしまうことを意味します。
 <!-- name the related purpose of `query` and `filename`, and to be able to return -->
 <!-- the values’ names as struct field names from the `parse_config` function. -->
 
-ここまで、コマンドライン引数を解析するロジックを`main`から抽出し、`parse_config`関数に配置しました。
-これにより`query`と`filename`の値が関連し、その関係性がコードに載っていることを確認できました。
+ここまで、コマンドライン引数を解析する責任を負ったロジックを`main`から抽出し、`parse_config`関数に配置しました。
+これにより`query`と`filename`の値が関連し、その関係性がコードに載っていることを確認する助けになりました。
 それから`Config`構造体を追加して`query`と`filename`の関係する目的を名前付けし、
 構造体のフィールド名として`parse_config`関数からその値の名前を返すことができています。
 
@@ -356,7 +356,7 @@ Rustの借用規則に違反してしまうことを意味します。
 したがって、今や`parse_config`関数の目的は`Config`インスタンスを生成することになったので、
 `parse_config`をただの関数から`Config`構造体に紐付く`new`という関数に変えることができます。
 この変更を行うことで、コードがより慣用的になります: `String`などの標準ライブラリの型のインスタンスを、
-`String::new`を呼び出すことで生成できるように、`parse_config`を`Config`に紐付く`new`関数に変えれば、
+`String::new`を呼び出すことで生成でき、`parse_config`を`Config`に紐付く`new`関数に変えれば、
 `Config::new`を呼び出すことで`Config`のインスタンスを生成できるようになります。リスト12-7が、
 行う必要のある変更を示しています:
 
@@ -425,7 +425,7 @@ $ cargo run
      Running `target/debug/minigrep`
 thread 'main' panicked at 'index out of bounds: the len is 1
 but the index is 1', src/main.rs:29:21
-(スレッド'main'は、「境界外アクセス: 長さは1なのに添字は1です」でパニックしました)
+(スレッド'main'は、「境界外アクセス: 長さは1なのに添字も1です」でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
@@ -445,7 +445,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- long enough, the program panics and displays a better error message than the -->
 <!-- `index out of bounds` message: -->
 
-リスト12-8で、`new`関数に添字`1`と`2`にアクセスする前にスライスが十分長いことを確認するチェックを追加しています。
+リスト12-8で、`new`関数に添字`1`と`2`にアクセスする前にスライスが十分長いことを実証するチェックを追加しています。
 スライスの長さが十分でなければ、プログラムはパニックし、`境界外アクセス`よりもいいエラーメッセージを表示します。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -477,8 +477,8 @@ fn new(args: &[String]) -> Config {
 
 このコードは、リスト9-9で記述した`value`引数が正常な値の範囲外だった時に`panic!`を呼び出した`Guess::new`関数と似ています。
 ここでは、値の範囲を確かめる代わりに、`args`の長さが少なくとも`3`であることを確かめていて、
-関数の残りの部分は、この条件が満たされているという前提のもとで処理を行うことができます。
-`args`に3要素以下しかなければ、この条件は真になり、`panic!`マクロを呼び出して、即座にプログラムを終了させます。
+関数の残りの部分は、この条件が満たされているという仮定のもとで処理を行うことができます。
+`args`に2要素以下しかなければ、この条件は真になり、`panic!`マクロを呼び出して、即座にプログラムを終了させます。
 
 <!-- With these extra few lines of code in `new`, let’s run the program without any -->
 <!-- arguments again to see what the error looks like now: -->
@@ -507,7 +507,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ユーザに与えたくない追加の情報も含まれてしまっています。おそらく、
 ここではリスト9-9で使用したテクニックを使用するのは最善ではありません: 
 `panic!`の呼び出しは、第9章で議論したように、使用の問題よりもプログラミング上の問題により適しています。
-代わりに、第9章で学んだ別のテクニックを使用することができます。成功か失敗かを示唆する`Result`を返すことです。
+代わりに、第9章で学んだもう一つのテクニックを使用することができます。成功か失敗かを示唆する`Result`を返すことです。
 
 <!-- #### Returning a `Result` from `new` Instead of Calling `panic!` -->
 
@@ -531,7 +531,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- next listing: -->
 
 リスト12-9は、`Config::new`の戻り値に必要な変更と`Result`を返すのに必要な関数の本体を示しています。
-`main`も更新するまで、これはコンパイルできないことに注意してください。こちらは次のリストで行います:
+`main`も更新するまで、これはコンパイルできないことに注意してください。その更新は次のリストで行います:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -563,7 +563,7 @@ impl Config {
 <!-- literals, which is our error message type for now. -->
 
 `new`関数は、今や、成功時には`Config`インスタンスを、エラー時には`&'static str`を伴う`Result`を返すようになりました。
-第10章の「静的ライフタイム」から`&'static str`は文字列リテラルの型であることを思い出してください。
+第10章の「静的ライフタイム」節から`&'static str`は文字列リテラルの型であることを思い出してください。
 これは、今はエラーメッセージの型になっています。
 
 <!-- We’ve made two changes in the body of the `new` function: instead of calling -->
@@ -578,8 +578,8 @@ impl Config {
 <!-- handle the `Result` value returned from the `new` function and exit the process -->
 <!-- more cleanly in the error case. -->
 
-`Config::new`から`Err`値を返すことにより、`main`関数は、`new`関数から帰ってくる`Result`値を処理し、
-エラー時により明確にプロセスから抜け出すことができます。
+`Config::new`から`Err`値を返すことにより、`main`関数は、`new`関数から返ってくる`Result`値を処理し、
+エラー時により綺麗にプロセスから抜け出すことができます。
 
 <!-- #### Calling `Config::new` and Handling Errors -->
 
@@ -593,7 +593,7 @@ impl Config {
 <!-- program that the program exited with an error state. -->
 
 エラーケースを処理し、ユーザフレンドリーなメッセージを出力するために、`main`を更新して、
-リスト12-10に示したように`Config::new`から返される`Result`を処理する必要があります。
+リスト12-10に示したように`Config::new`から返されている`Result`を処理する必要があります。
 また、`panic!`からコマンドラインツールを0以外のエラーコードで抜け出す責任も奪い取り、
 手作業でそれも実装します。0以外の終了コードは、
 我々のプログラムを呼び出したプロセスにプログラムがエラー状態で終了したことを通知する慣習です。
@@ -635,11 +635,11 @@ fn main() {
 <!-- to our closure in the argument `err` that appears between the vertical pipes. -->
 <!-- The code in the closure can then use the `err` value when it runs. -->
 
-このリストにおいて、以前には解説していないメソッドを使用しました: `unwrap_or_else`です。
+このリストにおいて、以前には講義していないメソッドを使用しました: `unwrap_or_else`です。
 これは標準ライブラリで`Result<T, E>`に定義されています。`unwrap_or_else`を使うことで、
 `panic!`ではない何らか独自のエラー処理を定義できるのです。この`Result`が`Ok`値だったら、
 このメソッドの振る舞いは`unwrap`に似ています: `Ok`が包んでいる中身の値を返すのです。
-しかし、値が`Err`値なら、このメソッドは、クロージャ内でコードを呼び出し、
+しかし、値が`Err`値なら、このメソッドは、*クロージャ*内でコードを呼び出し、
 クロージャは定義し、引数として`unwrap_or_else`に渡す匿名関数です。クロージャについては第13章で詳しく解説します。
 とりあえず、`unwrap_or_else`は、今回リスト12-9で追加した`not enough arguments`という静的文字列の`Err`の中身を、
 縦棒の間に出現する`err`引数のクロージャに渡していることだけ知っておく必要があります。
@@ -683,7 +683,7 @@ Problem parsing arguments: not enough arguments
 <!-- other logic. -->
 
 ようやく設定解析のリファクタリングが終了したので、プログラムのロジックに目を向けましょう。
-ページXXの「バイナリプロジェクトの責任分離」で述べたように、
+ページXXの「バイナリプロジェクトの責任の分離」で述べたように、
 現在`main`関数に存在する設定セットやエラー処理に関わらない全てのロジックを保持することになる`run`という関数を抽出します。
 やり終わったら、`main`は簡潔かつ視察で確かめやすくなり、他のロジック全部に対してテストを書くことができるでしょう。
 
@@ -691,7 +691,7 @@ Problem parsing arguments: not enough arguments
 <!-- the small, incremental improvement of extracting the function. We’re still -->
 <!-- defining the function in *src/main.rs*: -->
 
-リスト12-11は、抽出された`run`関数を示しています。今は少しずつ段階的に関数を抽出する改善を行っています。
+リスト12-11は、抜き出した`run`関数を示しています。今は少しずつ段階的に関数を抽出する改善を行っています。
 それでも、*src/main.rs*に関数を定義していきます:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -736,6 +736,10 @@ fn run(config: Config) {
 <!-- #### Returning Errors from the `run` Function -->
 
 #### `run`関数からエラーを返す
+
+<!-- 1行目。ここではwith ...を順接の理由で訳している。with ...は普通、状態を表す表現 -->
+<!-- ちょっと意味が強すぎるかもしれない。 -->
+<!-- With you next to me, I'll drive to wherever you like. (君が隣にいる状態で、何処へでも君の好きな場所にドライブするよ) -->
 
 <!-- With the remaining program logic separated into the `run` function, we can -->
 <!-- improve the error handling, as we did with `Config::new` in Listing 12-9. -->
