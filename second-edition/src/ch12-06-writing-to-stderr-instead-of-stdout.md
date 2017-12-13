@@ -185,4 +185,4 @@ How dreary to be somebody!
 <!-- Next, we’ll explore some Rust features that were influenced by functional -->
 <!-- languages: closures and iterators. -->
 
-次に、関数型言語に影響されたRust機能の一部を探求します: クロージャとイテレータです。
+次は、関数型言語に影響されたRust機能を一部探求します: クロージャとイテレータです。
