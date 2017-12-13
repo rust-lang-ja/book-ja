@@ -90,7 +90,7 @@ fn simulated_expensive_calculation(intensity: u32) -> u32 {
 <!-- * *A random number* that will generate some variety in the workout plans. -->
 
 * *ユーザの強弱値*、これはユーザがトレーニングを要求して、低強度のトレーニングか、
-高強度のトレーニングがしたいかを示します。
+高強度のトレーニングがしたいかを示したときに指定されます。
 * *乱数*、これはトレーニングプランにバリエーションを起こします。
 
 <!-- The output will be the recommended workout plan. Listing 13-2 shows the `main` -->
@@ -299,13 +299,13 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- result value at all. -->
 
 この変更により`simulated_expensive_calculation`の呼び出しが単一化され、
-最初の`if`ブロックが無駄に関数を2回読んでいた問題を解消します。不幸なことに、これでは、
+最初の`if`ブロックが無駄に関数を2回呼んでいた問題を解消します。不幸なことに、これでは、
 あらゆる場合にこの関数を呼び出し、その結果を待つことになり、結果値を全く使用しない内側の`if`ブロックでもそうしてしまいます。
 
 <!-- We want to define code in one place in our program, but only *execute* that -->
 <!-- code where we actually need the result. This is a use case for closures! -->
 
-プログラムの1箇所でコードを定義したいですが、結果が本当に必要なコードだけを実行します。
+プログラムの1箇所でコードを定義したいですが、結果が本当に必要なところでコードを*実行*だけします。
 これは、クロージャのユースケースです！
 
 <!-- #### Refactoring with Closures to Store Code -->
@@ -320,7 +320,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 
 `if`ブロックの前にいつも`simulated_expensive_calculation`関数を呼び出す代わりに、
 クロージャを定義し、結果を保存するのではなく、その*クロージャ*を変数に保存できます。リスト13-5のようにね。
-`simulated_expensive_calculation`の本体全体を実際に、ここで導入するクロージャ内に移すことができます:
+`simulated_expensive_calculation`の本体全体を実際に、ここで導入しているクロージャ内に移すことができます:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -375,8 +375,10 @@ let expensive_closure = |num| {
 
 この`let`文は、`expensive_closure`が、匿名関数を呼び出した*結果の値*ではなく、
 匿名関数の*定義*を含むことを意味することに注意してください。コードを定義して、
-1箇所で呼び出し、そのコードを保存し、後々、それを呼び出したくてクロージャを使用していることを思い出してください;
+1箇所で呼び出し、そのコードを保存し、後々、それを呼び出したいためにクロージャを使用していることを思い出してください;
 呼び出したいコードは、現在、`expensive_closure`に保存されています。
+
+<!-- この冒頭のwithも順接の理由にしている。やはり強すぎるか？ -->
 
 <!-- With the closure defined, we can change the code in the `if` blocks to call the -->
 <!-- closure to execute the code and get the resulting value. We call a closure like -->
@@ -430,6 +432,8 @@ fn generate_workout(intensity: u32, random_number: u32) {
 
 <span class="caption">リスト13-6: 定義した`expensive_closure`を呼び出す</span>
 
+<!-- 2行目最後は、今の通りにもwhereがcodeにかかるようにも取れるが、どちらが最適か考慮し直す必要があるか -->
+
 <!-- Now the expensive calculation is called in only one place, and we’re only -->
 <!-- executing that code where we need the results. -->
 
@@ -446,8 +450,10 @@ fn generate_workout(intensity: u32, random_number: u32) {
 
 ところが、リスト13-3の問題の一つを再浮上させてしまいました: それでも、最初の`if`ブロックでクロージャを2回呼んでいて、
 そうすると、重いコードを2回呼び出し、必要な分の2倍ユーザを待たせてしまいます。その`if`ブロックのみに属する変数を生成して、
-クロージャの呼び出し結果を保持することでこの問題を解消することもできますが、クロージャは他の解決法も用意してくれます。
-その解決策については、もう少し先で語りましょう。でもまずは、クロージャ定義に型注釈がない理由とクロージャに関わるトレイトについて話しましょう。
+クロージャの呼び出し結果を保持するその`if`ブロックに固有の変数を生成することでこの問題を解消することもできますが、
+クロージャは他の解決法も用意してくれます。
+その解決策については、もう少し先で語りましょう。でもまずは、
+クロージャ定義に型注釈がない理由とクロージャに関わるトレイトについて話しましょう。
 
 <!-- ### Closure Type Inference and Annotation -->
 
@@ -521,7 +527,7 @@ let expensive_closure = |num: u32| -> u32 {
 クロージャと関数の記法は、型注釈があると酷似して見えます。以下が、引数に1を加える関数の定義と、
 同じ振る舞いをするクロージャの定義の記法を縦に比べたものです。
 空白を追加して、関連のある部分を並べています。これにより、縦棒の使用と省略可能な記法の量を除いて、
-クロージャ記法が関数記法に似ているところが浮かび上がっています。
+クロージャ記法が関数記法に似ているところを具体化しています。
 
 ```rust,ignore
 fn  add_one_v1   (x: u32) -> u32 { x + 1 }
@@ -553,7 +559,7 @@ let add_one_v4 = |x|               x + 1  ;
 リスト13-8に引数として受け取った値を返すだけの短いクロージャの定義を示しました。
 このクロージャは、この例での目的以外には有用ではありません。この定義には、
 何も型注釈を加えていないことに注意してください: それから1回目に`String`を引数に、
-2回目に`u32`を引数に使用してクロージャを2回呼び出そうとしたら、エラーになります:
+2回目に`u32`を引数に使用してこのクロージャを2回呼び出そうとしたら、エラーになります:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -607,7 +613,7 @@ error[E0308]: mismatched types
 <!-- result instead of calling the closure again. However, this method could result -->
 <!-- in a lot of repeated code. -->
 
-トレーニング生成アプリに戻りましょう。リスト13-6において、コードは必要以上の回数、重い計算のクロージャを呼んでいました。
+トレーニング生成アプリに戻りましょう。リスト13-6において、まだコードは必要以上の回数、重い計算のクロージャを呼んでいました。
 この問題を解決する一つの選択肢は、重いクロージャの結果を再利用できるように変数に保存し、クロージャを再度呼ぶ代わりに、
 結果が必要になる箇所それぞれで代わりにその変数を使用することです。しかしながら、この方法は同じコードの繰り返しになる可能性があります。
 
@@ -623,6 +629,8 @@ error[E0308]: mismatched types
 結果を保存し、再利用する責任を負わなくて済むのです。このパターンは、*メモ化*(memoization)または、
 *遅延実行*(lazy evaluation)として知っているかもしれません。
 
+<!-- 5行目、structs, enumsにthatがかかるか曖昧だが、この訳の方が自然と思われる -->
+
 <!-- To make a struct that holds a closure, we need to specify the type of the -->
 <!-- closure, because a struct definition needs to know the types of each of its -->
 <!-- fields. Each closure instance has its own unique anonymous type: that is, even -->
@@ -632,7 +640,7 @@ error[E0308]: mismatched types
 
 クロージャを保持する構造体を作成するために、クロージャの型を指定する必要があります。
 構造体定義は、各フィールドの型を把握しておく必要がありますからね。各クロージャインスタンスには、
-独自の匿名の型があります: つまり、2つのクロージャが全く同じシグニチャでも、その型は違うものと考えられるということです。
+独自の匿名の型があります: つまり、2つのクロージャが全く同じシグニチャでも、その型はそれでも違うものと考えられるということです。
 クロージャを使用する構造体、enum、関数引数を定義するには、第10章で議論したように、
 ジェネリクスとトレイト境界を使用します。
 
@@ -682,8 +690,8 @@ struct Cacher<T>
 <!-- parameter (specified within the parentheses after `Fn`) and must return a -->
 <!-- `u32` (specified after the `->`). -->
 
-`Cacher`構造体には、ジェネリックな型の`T`の`calculation`フィールドがあります。`T`に関するトレイト境界は、
-`Fn`トレイトを使ったクロージャであると指定しています。`calculation`フィールドに保存したいクロージャは全て、
+`Cacher`構造体には、ジェネリックな型`T`の`calculation`フィールドがあります。`T`に関するトレイト境界は、
+`Fn`トレイトを使うことでクロージャであると指定しています。`calculation`フィールドに保存したいクロージャは全て、
 1つの`u32`引数(`Fn`の後の括弧内で指定されている)を取り、`u32`(`->`の後に指定されている)を返さなければなりません。
 
 <!-- > Note: Functions implement all three of the `Fn` traits too. If what we want -->
@@ -893,7 +901,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- problems with the current implementation of `Cacher` that would make reusing it -->
 <!-- in different contexts difficult. -->
 
-値をキャッシュすることは、コードの他の部分でも異なるクロージャで行いたくなるかもしれない有用な振る舞いです。
+値をキャッシュすることは、コードの他の部分でも異なるクロージャで行いたくなるかもしれない一般的に有用な振る舞いです。
 しかし、現在の`Cacher`の実装には、他の文脈で再利用することを困難にしてしまう問題が2つあります。
 
 <!-- The first problem is that a `Cacher` instance assumes it will always get the -->
@@ -963,7 +971,7 @@ thread 'call_with_different_values' panicked at 'assertion failed: `(left == rig
 <!-- `usize` values, for example. To fix this issue, try introducing more generic -->
 <!-- parameters to increase the flexibility of the `Cacher` functionality. -->
 
-現在の`Cacher`実装の2番目の問題は、引数の型に`u32`を取り、`u32`を返すクロージャしか受け付けないことです。
+現在の`Cacher`実装の2番目の問題は、引数の型に`u32`を一つ取り、`u32`を返すクロージャしか受け付けないことです。
 例えば、文字列スライスを取り、`usize`を返すクロージャの結果をキャッシュしたくなるかもしれません。
 この問題を解決するには、`Cacher`機能の柔軟性を向上させるためによりジェネリックな引数を導入してみてください。
 
@@ -1084,7 +1092,7 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 キャプチャした変数を消費するために、定義された際にクロージャはこれらの変数の所有権を奪い、
 自身にムーブするのです。名前のうち、`Once`の部分は、
 このクロージャは同じ変数の所有権を2回以上奪うことができないという事実を表しているので、1回しか呼ぶことができないのです。
-* `Fn`は、環境から値を不変で借用する。
+* `Fn`は、環境から値を不変で借用します。
 * `FnMut`は、可変で値を借用するので、環境を変更することができます。
 
 <!-- When we create a closure, Rust infers which trait to use based on how the -->
