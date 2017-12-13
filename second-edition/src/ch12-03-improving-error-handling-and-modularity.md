@@ -800,7 +800,7 @@ fn run(config: Config) -> Result<(), Box<Error>> {
 エラー型については、*トレイトオブジェクト*の`Box<Error>`を使用しました(同時に冒頭で`use`文により、
 `std::error::Error`をスコープに導入しています)。トレイトオブジェクトについては、第17章で講義します。
 とりあえず、`Box<Error>`は、関数が`Error`トレイトを実装する型を返すことを意味しますが、
-戻り値の型を具体的に指定する必要はないことを知っておいてください。これにより、
+戻り値の型を具体的に指定しなくても良いことを知っておいてください。これにより、
 エラーケースによって異なる型のエラー値を返す柔軟性を得ます。
 
 <!-- Second, we’ve removed the calls to `expect` in favor of `?`, as we talked about -->
@@ -828,7 +828,7 @@ fn run(config: Config) -> Result<(), Box<Error>> {
 
 ```text
 warning: unused `std::result::Result` which must be used
-(警告: 使用されるはずの`std::result::Result`が未使用です)
+(警告: 使用されなければならない`std::result::Result`が未使用です)
   --> src/main.rs:18:5
    |
 18 |     run(config);

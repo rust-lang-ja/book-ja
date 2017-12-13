@@ -29,7 +29,7 @@
 <!-- 4. Repeat from step 1! -->
 
 1. 失敗するテストを書き、走らせて想定通りの理由で失敗することを確かめる。
-2. 十分な量のコードだけを書くか変更して新しいテストを通過するようにする。
+2. 十分な量のコードを書くか変更して新しいテストを通過するようにする。
 3. 追加または変更したばかりのコードをリファクタリングし、テストが通り続けることを確認する
 4. 手順1から繰り返す！
 
@@ -82,7 +82,7 @@ mod test {
     fn one_result() {
         let query = "duct";
         // Rustは
-        // 安全で早く生産性も高い。
+        // 安全で速く生産性も高い。
         // 3つ選んで。
         let contents = "\
 Rust:
@@ -116,11 +116,11 @@ Pick three.";
 <!-- the test should compile and fail because an empty vector doesn’t match a vector -->
 <!-- containing the line `"safe, fast, productive."`. -->
 
-このテストを走らせ、失敗するところを観察することはできません。このテストはコンパイルできないからです:
+このテストを走らせ、失敗するところを観察することはできません。このテストはコンパイルもできないからです:
 まだ`search`関数が存在していません！ゆえに今度は、空のベクタを常に返す`search`関数の定義を追加することで、
 テストをコンパイルし走らせるだけのコードを追記します。リスト12-16に示したようにね。そうすれば、
 テストはコンパイルでき、失敗するはずです。なぜなら、空のベクタは、
-`"safe, fast, productive"`という行を含むベクタとは合致しないからです。
+`"safe, fast, productive."`という行を含むベクタとは合致しないからです。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -137,6 +137,8 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 
 <span class="caption">リスト12-16: テストがコンパイルできるのに十分なだけ`search`関数を定義する</span>
 
+<!-- 3行目後半、which argument lifetimeをwhich argument's lifetimeの形で訳している。記述ミス？ -->
+
 <!-- Notice that we need an explicit lifetime `'a` defined in the signature of -->
 <!-- `search` and used with the `contents` argument and the return value. Recall in -->
 <!-- Chapter 10 that the lifetime parameters specify which argument lifetime is -->
@@ -144,10 +146,10 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 <!-- the returned vector should contain string slices that reference slices of the -->
 <!-- argument `contents` (rather than the argument `query`). -->
 
-明示的なライフタイムの`'a`が`search`のシグニチャで定義され、`contents`引数と戻り値で使用されていることに注目してください。
+明示的なライフタイムの`'a`が`search`のシグニチャで定義され、`contents`引数と戻り値で使用されていることに気付いてください。
 第10章からライフタイム仮引数は、どの実引数のライフタイムが戻り値のライフタイムに関連づけられているかを指定することを思い出してください。
 この場合、返却されるベクタは、
-(`query`引数よりも)`contents`引数のスライスを参照する文字列スライスを含むべきと示唆しています。
+(`query`引数ではなく)`contents`引数のスライスを参照する文字列スライスを含むべきと示唆しています。
 
 <!-- In other words, we tell Rust that the data returned by the `search` function -->
 <!-- will live as long as the data passed into the `search` function in the -->
@@ -178,7 +180,7 @@ parameter
   |
   = help: this function's return type contains a borrowed value, but the
   signature does not say whether it is borrowed from `query` or `contents`
-  (助言: この関数の戻り値は、借用された値を含んでいますが、シグニチャにはそれが
+  (助言: この関数の戻り値は、借用された値を含んでいますが、シグニチャにはそれが、
   `query`か`contents`から借用されたものであるかが示されていません)
 ```
 
@@ -188,7 +190,7 @@ parameter
 <!-- argument that should be connected to the return value using the lifetime syntax. -->
 
 コンパイラには、二つの引数のどちらが必要なのか知る由がないので、教えてあげる必要があるのです。
-`contents`がテキストを全て含むテキストで、合致するそのテキストの一部を返したいので、
+`contents`がテキストを全て含む引数で、合致するそのテキストの一部を返したいので、
 `contents`がライフタイム記法で戻り値に関連づくはずの引数であることをプログラマは知っています。
 
 <!-- Other programming languages don’t require you to connect arguments to return -->
@@ -251,25 +253,25 @@ error: test failed, to rerun pass '--lib'
 <!-- * If it doesn’t, do nothing. -->
 <!-- * Return the list of results that match. -->
 
-* 中身を各行ごとに見る。
+* 中身を各行ごとに繰り返す。
 * 行にクエリ文字列が含まれるか確認する。
 * するなら、それを返却する値のリストに追加する。
 * しないなら、何もしない。
-* 合致する結果のリストを返す。
+* 一致する結果のリストを返す。
 
 <!-- Let’s work through each step, starting with iterating through lines. -->
 
-各行を見る作業から、この手順に取り掛かりましょう。
+各行を繰り返す作業から、この手順に順に取り掛かりましょう。
 
 <!-- #### Iterating Through Lines with the `lines` Method -->
 
-#### `lines`メソッドで各行を見る
+#### `lines`メソッドで各行を繰り返す
 
 <!-- Rust has a helpful method to handle line-by-line iteration of strings, -->
 <!-- conveniently named `lines`, that works as shown in Listing 12-17. Note this -->
 <!-- won’t compile yet: -->
 
-Rustには、文字列を行ごとに繰り返す有用なメソッドがあり、利便性のために`lines`と名付けられ、
+Rustには、文字列を行ごとに繰り返す役立つメソッドがあり、利便性のために`lines`と名付けられ、
 リスト12-17のように動作します。まだこれはコンパイルできないことに注意してください:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -309,7 +311,7 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 <!-- Listing 12-18. Note this still won’t compile yet: -->
 
 次に現在の行がクエリ文字列を含むか確認します。幸運なことに、
-文字列にはこれを行ってくれる`contains`という有用なメソッドがあります！`search`関数に、
+文字列にはこれを行ってくれる`contains`という役に立つメソッドがあります！`search`関数に、
 `contains`メソッドの呼び出しを追加してください。リスト12-18のようにね。
 これもまだコンパイルできないことに注意してください:
 
@@ -366,7 +368,7 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 <!-- <span class="caption">Listing 12-19: Storing the lines that match so we can -->
 <!-- return them</span> -->
 
-<span class="caption">リスト12-19: 合致する行を保存したので、返すことができます</span>
+<span class="caption">リスト12-19: 合致する行を保存したので、返すことができる</span>
 
 <!-- Now the `search` function should return only the lines that contain `query`, -->
 <!-- and our test should pass. Let’s run the test: -->
@@ -385,7 +387,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 <!-- Our test passed, so we know it works! -->
 
-テストが通りました。動いていることがわかりました！
+テストが通り、動いていることがわかりました！
 
 <!-- At this point, we could consider opportunities for refactoring the -->
 <!-- implementation of the search function while keeping the tests passing to -->
