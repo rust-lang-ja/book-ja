@@ -98,7 +98,8 @@ Trust me.";
 <!-- function in Listing 12-16 to see the test compile and fail. -->
 
 大文字小文字を区別*しない*検索の新しいテストは、クエリに"rUsT"を使用しています。
-追加直前の`search_case_insensitive`関数では、"rUsT"というクエリは、大文字Rの"Rust:"を含む行と、
+追加直前の`search_case_insensitive`関数では、"rUsT"というクエリは、
+両方ともクエリとは大文字小文字が異なるのに、大文字Rの"Rust:"を含む行と、
 "Trust me."という行にもマッチするはずです。これが失敗するテストであり、まだ`search_case_insensitive`関数を定義していないので、
 コンパイルは失敗するでしょう。リスト12-16の`search`関数で行ったように空のベクタを常に返す実装の骨格を追加して、
 ご自由にテストがコンパイルされ、失敗する様を確認してください。
@@ -162,6 +163,8 @@ fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 例として、クエリは"rUsT"としましょう: その文字列スライスは、小文字の"u"や"t"を使えるように含んでいないので、
 "rust"を含む新しい`String`のメモリを確保しなければならないのです。今、`contains`メソッドに引数として`query`を渡すと、
 アンド記号を追加する必要があります。`contains`のシグニチャは、文字列スライスを取るよう定義されているからです。
+
+<!-- 2行目最後、to lowercase ...がかかる先が微妙。今の訳の通りなら、beforeの前にtoを記述する気もする -->
 
 <!-- Next, we add a call to `to_lowercase` on each `line` before we check whether it -->
 <!-- contains `query` to lowercase all characters. Now that we’ve converted `line` -->
@@ -271,7 +274,7 @@ pub fn run(config: Config) -> Result<(), Box<Error>>{
 <!-- in Listing 12-23: -->
 
 最後に、環境変数を確認する必要があります。環境変数を扱う関数は、標準ライブラリの`env`モジュールにあるので、
-`use std::env;`行で*src/lib.rs*の冒頭でそのモジュールをスコープに持ってきたいです。そして、
+`use std::env;`行で*src/lib.rs*の冒頭でそのモジュールをスコープに持ってくる必要があります。そして、
 `env`モジュールから`var`メソッドを使用して`CASE_INSENSITIVE`という環境変数のチェックを行います。
 リスト12-23のようにね:
 
@@ -333,7 +336,8 @@ impl Config {
 `Result`の`is_err`メソッドを使用して、エラーでありゆえに、セットされていないことを確認しています。
 これは大文字小文字を区別する検索をす*べき*ことを意味します。`CASE_INSENSITIVE`環境変数が何かにセットされていれば、
 `is_err`はfalseを返し、大文字小文字を区別しない検索を実行するでしょう。環境変数の値には興味がなく、
-セットされているかどうかだけ気にするので、`unwrap`や`expect`あるいは、他のここまで見かけた`Result`のメソッドはチェックしていません。
+セットされているかどうかだけ気にするので、`unwrap`や`expect`あるいは、他のここまで見かけた`Result`のメソッドではなく、
+`is_err`をチェックしています。
 
 <!-- We pass the value in the `case_sensitive` variable to the `Config` instance so -->
 <!-- the `run` function can read that value and decide whether to call `search` or -->
@@ -362,7 +366,7 @@ How dreary to be somebody!
 <!-- set to `1` but with the same query “to”; we should get lines that contain “to” -->
 <!-- that might have uppercase letters: -->
 
-まだそれは機能しているようです！では、`CASE_INSENSITIVE`を1にしつつ、同じクエリの"to"でプログラムを実行しましょう。
+まだ機能しているようです！では、`CASE_INSENSITIVE`を1にしつつ、同じクエリの"to"でプログラムを実行しましょう。
 つまり、大文字も含む"to"を含有する行が得られるはずです。
 
 ```text
@@ -378,7 +382,7 @@ To an admiring bog!
 <!-- If you’re using PowerShell, you will need to set the environment variable and -->
 <!-- run the program in two commands rather than one: -->
 
-PowerShellを使用していれば、1つではなく、2つのコマンドで環境変数をセットし、プログラムを走らせる必要があります:
+PowerShellを使用していれば、1つではなく、2つのコマンドで環境変数をセットし、プログラムを走らせる必要があるでしょう:
 
 ```text
 $ $env.CASE_INSENSITIVE=1
