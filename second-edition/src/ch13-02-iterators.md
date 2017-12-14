@@ -296,7 +296,7 @@ and do nothing unless consumed
 <!-- never gets called. The warning reminds us why: iterator adaptors are lazy, and -->
 <!-- we need to consume the iterator here. -->
 
-リスト13-17のコードは何もしません: 指定したクロージャは、決して呼ばれないのです。警告が理由に触れています:
+リスト13-17のコードは何もしません; 指定したクロージャは、決して呼ばれないのです。警告が理由に触れています:
 イテレータアダプタは怠惰で、ここでイテレータを消費する必要があるのです。
 
 <!-- To fix this and consume the iterator, we’ll use the `collect` method, which you -->
@@ -337,7 +337,7 @@ assert_eq!(v2, vec![2, 3, 4]);
 <!-- behavior while reusing the iteration behavior that the `Iterator` trait -->
 <!-- provides. -->
 
-`map`はクロージャを取るので、各要素に対して行いどんな処理も指定することができます。
+`map`はクロージャを取るので、各要素に対して行いたいどんな処理も指定することができます。
 これは、`Iterator`トレイトが提供する繰り返し動作を再利用しつつ、
 クロージャによりある動作をカスタマイズできる好例になっています。
 
@@ -448,7 +448,7 @@ fn filters_by_size() {
 
 ベクタに対し、`iter`、`into_iter`、`iter_mut`を呼び出すことでイテレータを作成できることを示してきました。
 ハッシュマップなどの標準ライブラリの他のコレクション型からもイテレータを作成できます。
-`Iterator`トレイトを自分で実装することで、したいことをどんなものでもするイテレータを作成することもできます。
+`Iterator`トレイトを自分で実装することで、したいことを何でもするイテレータを作成することもできます。
 前述の通り、定義を提供する必要のある唯一のメソッドは、`next`メソッドなのです。一旦、そうしてしまえば、
 `Iterator`トレイトが用意しているデフォルト実装のある他の全てのメソッドを使うことができるのです！
 
@@ -457,7 +457,7 @@ fn filters_by_size() {
 <!-- struct into an iterator by implementing the `Iterator` trait and use the values -->
 <!-- in that implementation. -->
 
-デモ用に、1から5をカウントするだけのイテレータを作成しましょう。まず、値を保持する構造体を生成し、
+デモ用に、1から5を絶対にカウントするだけのイテレータを作成しましょう。まず、値を保持する構造体を生成し、
 `Iterator`トレイトを実装することでこの構造体をイテレータにし、その実装内の値を使用します。
 
 <!-- Listing 13-20 has the definition of the `Counter` struct and an associated -->
@@ -607,8 +607,9 @@ fn calling_next_directly() {
 <!-- calls `next` repeatedly, verifying that we have implemented the behavior we -->
 <!-- want this iterator to have: returning the values from 1 to 5. -->
 
-このテストは、`counter`変数に新しい`Counter`インスタンスを生成し、それから`next`を繰り返し呼び出して、
-イテレータにほしい動作が実装し終わっていることを実証しています: 1から5の値を返すことです。
+このテストは、`counter`変数に新しい`Counter`インスタンスを生成し、
+それからイテレータにほしい動作が実装し終わっていることを実証しながら、`next`を繰り返し呼び出しています:
+1から5の値を返すことです。
 
 <!-- #### Using Other `Iterator` Trait Methods -->
 
