@@ -2,13 +2,16 @@
 
 ## 入出力プロジェクトを改善する
 
+<!-- ここでは、withを条件のように訳している。(今まではなかったのに、)今はある状態で -> ...があればという意訳である -->
+<!-- やはりwithは状態を表すだけなので、強すぎる気がしなくもない -->
+
 <!-- With this new knowledge about iterators, we can improve the I/O project in -->
 <!-- Chapter 12 by using iterators to make places in the code clearer and more -->
 <!-- concise. Let’s look at how iterators can improve our implementation of the -->
 <!-- `Config::new` function and the `search` function. -->
 
-このイテレータに関する新しい知識があれば、第12章の入出力プロジェクトをイテレータを使用してコードのいろんな場所をより明確で簡潔にすることで、
-改善することができます。イテレータが`Config::new`関数と`search`関数の実装を改善する方法に目を向けましょう。
+このイテレータに関する新しい知識があれば、イテレータを使用してコードのいろんな場所をより明確で簡潔にすることで、
+第12章の入出力プロジェクトを改善することができます。イテレータが`Config::new`関数と`search`関数の実装を改善する方法に目を向けましょう。
 
 <!-- ### Removing a `clone` Using an Iterator -->
 
@@ -61,9 +64,11 @@ impl Config {
 <!-- ownership of a `Config` instance, we had to clone the values from the `query` -->
 <!-- and `filename` fields of `Config` so the `Config` instance can own its values. -->
 
-引数に`args`に`String`要素のスライスがあるためにここで`clone`が必要だったのですが、
+引数`args`に`String`要素のスライスがあるためにここで`clone`が必要だったのですが、
 `new`関数は`args`を所有していません。`Config`インスタンスの所有権を返すためには、
 `Config`インスタンスがその値を所有できるように、`Config`の`query`と`filename`フィールドから値をクローンしなければなりませんでした。
+
+<!-- ここも節冒頭と同様。やはり強すぎるか？ -->
 
 <!-- With our new knowledge about iterators, we can change the `new` function to -->
 <!-- take ownership of an iterator as its argument instead of borrowing a slice. -->
@@ -150,7 +155,7 @@ fn main() {
 
 次に、`Config::new`の定義を更新する必要があります。入出力プロジェクトの*src/lib.rs*ファイルで、
 `Config::new`のシグニチャをリスト13-26のように変えましょう。関数本体を更新する必要があるので、
-これはそれでもコンパイルできません:
+それでもコンパイルはできません:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -234,6 +239,8 @@ impl Config {
 
 <span class="caption">リスト13-27: `Config::new`の本体をイテレータメソッドを使うように変更する</span>
 
+<!-- 6行目真ん中のandを順接の理由で訳している。 -->
+
 <!-- Remember that the first value in the return value of `env::args` is the name of -->
 <!-- the program. We want to ignore that and get to the next value, so first we call -->
 <!-- `next` and do nothing with the return value. Second, we call `next` on the -->
@@ -291,8 +298,8 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 <!-- 13-29 shows this change: -->
 
 イテレータアダプタメソッドを使用して、このコードをもっと簡潔に書くことができます。そうすれば、
-可変な中間の`results`ベクタをなくすこともできます。関数型プログラミングスタイルは、可変な状態の量を最小化し、
-コードを明瞭化することを好みます。可変な状態を除去すると、検索を同時並行に行うという将来的な改善をするのが、
+可変な中間の`results`ベクタをなくすこともできます。関数型プログラミングスタイルは、可変な状態の量を最小化することを好み、
+コードを明瞭化します。可変な状態を除去すると、検索を同時並行に行うという将来的な改善をするのが、
 簡単になるかもしれません。なぜなら、`results`ベクタへの同時アクセスを管理する必要がなくなるからです。
 リスト13-29は、この変更を示しています:
 
