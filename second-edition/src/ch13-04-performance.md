@@ -75,7 +75,7 @@ test bench_search_iter ... bench:  19,234,900 ns/iter (+/- 657,200)
 イテレータ連結をしてスコープにある3つの変数に計算を行っています: `buffer`というデータのスライス、
 12の`coefficients`の配列、`qlp_shift`でデータをシフトする量です。この例の中で変数を宣言しましたが、
 値は与えていません; このコードは、文脈の外では大して意味を持ちませんが、
-それでもRustが高レベルな概念を低レベルなコードに翻訳する簡潔で現実的な例になっています:
+それでもRustが高レベルな考えを低レベルなコードに翻訳する簡潔で現実的な例になっています:
 
 ```rust,ignore
 let buffer: &mut [i32];
@@ -98,9 +98,9 @@ for i in 12..buffer.len() {
 <!-- multiply the values together, sum all the results, and shift the bits in the -->
 <!-- sum `qlp_shift` bits to the right. -->
 
-`prediction`の値を算出するには、このコードは、`coefficients`の12の値を繰り返し、`zip`メソッドを使用して、
-係数値を前の`buffer`の12の値と組にします。それから各組について、その値を足し合わせ、結果を全て合計し、
-合計のビットを`qlp_shift`分だけ右にシフトさせます。
+`prediction`の値を算出するために、このコードは、`coefficients`の12の値を繰り返し、`zip`メソッドを使用して、
+係数値を前の`buffer`の12の値と組にします。それから各組について、その値をかけ合わせ、結果を全て合計し、
+合計のビットを`qlp_shift`ビット分だけ右にシフトさせます。
 
 <!-- Calculations in applications like audio decoders often prioritize performance -->
 <!-- most highly. Here, we’re creating an iterator, using two adaptors, and then -->
@@ -129,7 +129,7 @@ for i in 12..buffer.len() {
 係数は全てレジスタに保存されます。つまり、値に非常に高速にアクセスします。実行時に配列の境界チェックをすることもありません。
 コンパイラが適用可能なこれらの最適化全てにより、結果のコードは究極的に効率化されます。このことがわかったので、
 イテレータとクロージャを恐れなしに使用することができますね！それらのおかげでコードは、高レベルだけれども、
-そうすることに対して実行時のパフォーマンスを犠牲にしないようにします。
+そうすることに対して実行時のパフォーマンスを犠牲にしないようになります。
 
 <!-- ## Summary -->
 
