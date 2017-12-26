@@ -7,7 +7,7 @@
 <!-- on which pattern matches. Patterns can be made up of literal values, variable -->
 <!-- names, wildcards, and many other things; Chapter 18 covers all the different -->
 <!-- kinds of patterns and what they do. The power of `match` comes from the -->
-<!-- expressiveness of the patterns and the compiler checks that make sure all -->
+<!-- expressiveness of the patterns and the compiler checks that all -->
 <!-- possible cases are handled. -->
 
 Rustには、一連のパターンに対して値を比較し、マッチしたパターンに応じてコードを実行させてくれる`match`と呼ばれる、

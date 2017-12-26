@@ -12,11 +12,11 @@
 容易に解釈し、対応できる理由によることがあります。例えば、ファイルを開こうとして、
 ファイルが存在しないために処理が失敗したら、プロセスを殺すのではなく、ファイルを作成したいことがあります。
 
-<!-- Recall in Chapter 2 in the on “[Handling Potential Failure with the `Result` -->
-<!-- Type][handle_failure]” section that the `Result` enum is defined -->
-<!-- as having two variants, `Ok` and `Err`, as follows: -->
+<!-- Recall from “[Handling Potential Failure with the `Result` -->
+<!-- Type][handle_failure]” in Chapter2 that the `Result` enum is -->
+<!-- defined as having two variants, `Ok` and `Err`, as follows: -->
 
-第2章の[「`Result`型で失敗する可能性に対処する」][handle_failure]節で`Result`enumが以下のように、
+第2章の[「`Result`型で失敗する可能性に対処する」][handle_failure]で`Result`enumが以下のように、
 `Ok`と`Err`の2値からなるよう定義されていることを思い出してください:
 
 [handle_failure]: ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-the-result-type
@@ -97,8 +97,8 @@ error[E0308]: mismatched types
   |
   = note: expected type `u32`
   (注釈: 予期した型は`u32`です)
-  = note:    found type `std::result::Result<std::fs::File, std::io::Error>`
-  (注釈: 実際の型は`std::result::Result<std::fs::File, std::io::Error>`です)
+             found type `std::result::Result<std::fs::File, std::io::Error>`
+  (実際の型は`std::result::Result<std::fs::File, std::io::Error>`です)
 ```
 
 <!-- This tells us the return type of the `File::open` function is a `Result<T, E>`. -->
@@ -344,8 +344,8 @@ fn main() {
 ```text
 thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Error {
 repr: Os { code: 2, message: "No such file or directory" } }',
-/stable-dist-rustc/build/src/libcore/result.rs:868
-('main'スレッドは、/stable-dist-rustc/build/src/libcore/result.rs:868の
+src/libcore/result.rs:906:4
+('main'スレッドは、src/libcore/result.rs:906:4の
 「`Err`値に対して`Result::unwrap()`が呼び出されました: Error{
 repr: Os { code: 2, message: "そのようなファイルまたはディレクトリはありません" } }」でパニックしました)
 ```
@@ -383,8 +383,7 @@ fn main() {
 
 ```text
 thread 'main' panicked at 'Failed to open hello.txt: Error { repr: Os { code:
-2, message: "No such file or directory" } }',
-/stable-dist-rustc/build/src/libcore/result.rs:868
+2, message: "No such file or directory" } }', src/libcore/result.rs:906:4
 ```
 
 <!-- Because this error message starts with the text we specified, `Failed to open -->
@@ -571,27 +570,23 @@ fn read_username_from_file() -> Result<String, io::Error> {
 `return`キーワードを使ったかのように関数全体から`Err`の中身が返ってくるので、
 エラー値は呼び出し元のコードに委譲されます。
 
-<!-- The one difference between the `match` expression from Listing 9-6 and what the -->
-<!-- question mark operator does is that when using the question mark operator, -->
-<!-- error values go through the `from` function defined in the `From` trait in the -->
-<!-- standard library. Many error types implement the `from` function to convert an -->
-<!-- error of one type into an error of another type. When used by the question mark -->
-<!-- operator, the call to the `from` function converts the error type that the -->
-<!-- question mark operator gets into the error type defined in the return type of -->
-<!-- the current function that we’re using `?` in. This is useful when parts of a -->
-<!-- function might fail for many different reasons, but the function returns one -->
-<!-- error type that represents all the ways the function might fail. As long as -->
-<!-- each error type implements the `from` function to define how to convert itself -->
-<!-- to the returned error type, the question mark operator takes care of the -->
+<!-- There is a difference between what the `match` expression from Listing 9-6 and -->
+<!-- the question mark operator do: error values used with `?` go through the `from` -->
+<!-- function, defined in the `From` trait in the standard library, which is used to -->
+<!-- convert errors from one type into another. When the question mark calls the -->
+<!-- `from` function, the error type received is converted into the error type -->
+<!-- defined in the return type of the current function. This is useful when a -->
+<!-- function returns one error type to represent all the ways a function might -->
+<!-- fail, even if parts might fail for many different reasons. As long as each -->
+<!-- error type implements the `from` function to define how to convert itself to -->
+<!-- the returned error type, the question mark operator takes care of the -->
 <!-- conversion automatically. -->
 
-リスト9-6の`match`式とはてなマーク演算子の唯一の違いは、はてなマークを使った時、
-エラー値は標準ライブラリの`From`トレイトで定義されている`from`関数を通ることです。
-多くのエラー型が、ある種から別種のエラー型に変換できる`from`関数を実装しています。
-はてなマークで使用されると、`from`関数の呼び出しは、
-はてな演算子が得たエラー型を演算子が使用されている関数の返り値型に変換してくれます。
-この挙動は、関数のいろんな場所でいろいろな理由により失敗する可能性がある時に有用ですが、
-関数は失敗する全ての方法を表す一つのエラー型を返します。各エラー型が`from`関数を実装して返り値のエラー型への変換を定義している限り、
+リスト9-6の`match`式とはてなマーク演算子には違いがあります: `?`を使ったエラー値は、
+標準ライブラリの`From`トレイトで定義され、エラーの型を別のものに変換する`from`関数を通ることです。
+はてなマークが`from`関数を呼び出すと、受け取ったエラー型が現在の関数の戻り値型で定義されているエラー型に変換されます。
+これは、個々がいろんな理由で失敗する可能性があるのにも関わらず、関数が失敗する可能性を全て一つのエラー型で表現して返す時に有用です。
+各エラー型が`from`関数を実装して返り値のエラー型への変換を定義している限り、
 はてなマークが変換の面倒を自動的に見てくれます。
 
 <!-- In the context of Listing 9-7, the `?` at the end of the `File::open` call will -->
@@ -681,18 +676,17 @@ fn main() {
 このコードをコンパイルすると、以下のようなエラーメッセージが得られます:
 
 ```text
-error[E0277]: the `?` operator can only be used in a function that returns
-`Result` (or another type that implements `std::ops::Try`)
-(エラー: `?`演算子は`Result`(または`std::ops::Try`を実装する別の型)を返す関数でしか
-使用できません)
+error[E0277]: the trait bound `(): std::ops::Try` is not satisfied
+(エラー: `(): std::ops::Try`というトレイト境界が満たされていません)
  --> src/main.rs:4:13
   |
 4 |     let f = File::open("hello.txt")?;
   |             ------------------------
   |             |
-  |             cannot use the `?` operator in a function that returns `()`
+  |             the `?` operator can only be used in a function that returns
+  `Result` (or another type that implements `std::ops::Try`)
   |             in this macro invocation
-  |             (このマクロ呼び出しの`()`を返す関数では、`?`演算子を使用できません)
+  |             (このマクロ呼び出しの`Result`(かまたは`std::ops::Try`を実装する他の型)を返す関数でしか`?`演算子は使用できません)
   |
   = help: the trait `std::ops::Try` is not implemented for `()`
   (助言: `std::ops::Try`トレイトは`()`には実装されていません)

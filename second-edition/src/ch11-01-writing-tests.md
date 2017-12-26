@@ -155,11 +155,13 @@ Cargoがテストをコンパイルし、走らせました。`Compiling`, `Fini
 全テストが通ったことを意味し、`1 passed; 0 failed`と読める部分は、通過または失敗したテストの数を合計しているのです。
 
 <!-- Because we don’t have any tests we’ve marked as ignored, the summary shows `0 -->
-<!-- ignored`. We’ll talk about ignoring tests in the next section, “Controlling How -->
-<!-- Tests Are Run.” -->
+<!-- ignored`. We also haven’t filtered the tests being run, so the end of the -->
+<!-- summary shows `0 filtered out`. We’ll talk about ignoring and filtering out -->
+<!-- tests in the next section, “Controlling How Tests Are Run.” -->
 
-無視すると指定したテストは何もなかったため、まとめは`0 ignored`と示しています。テストを無視することに関しては次の節、
-「テストの実行され方を制御する」で語ります。
+無視すると指定したテストは何もなかったため、まとめは`0 ignored`と示しています。
+また、実行するテストにフィルタをかけもしなかったので、まとめの最後に`0 filtered out`と表示されています。
+テストを無視することとフィルタすることに関しては次の節、「テストの実行され方を制御する」で語ります。
 
 <!-- The `0 measured` statistic is for benchmark tests that measure performance. -->
 <!-- Benchmark tests are, as of this writing, only available in nightly Rust. See -->
@@ -328,11 +330,11 @@ error: test failed
 `assert!`は何もせず、テストは通ります。その値が`false`なら、`assert!`マクロは`panic!`マクロを呼び出し、
 テストは失敗します。`assert!`マクロを使用することで、コードが意図した通りに機能していることを確認する助けになるわけです。
 
-<!-- In Chapter 5, Listing 5-9, we used a `Rectangle` struct and a `can_hold` -->
+<!-- In Chapter 5, Listing 5-15, we used a `Rectangle` struct and a `can_hold` -->
 <!-- method, which are repeated here in Listing 11-5. Let’s put this code in the -->
 <!-- *src/lib.rs* file and write some tests for it using the `assert!` macro. -->
 
-第5章のリスト5-9で、`Rectangle`構造体と`can_hold`メソッドを使用しました。リスト11-5でもそれを繰り返しています。
+第5章のリスト5-15で、`Rectangle`構造体と`can_hold`メソッドを使用しました。リスト11-5でもそれを繰り返しています。
 このコードを*src/lib.rs*ファイルに放り込み、`assert!`マクロでそれ用のテストを何か書いてみましょう。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -615,6 +617,7 @@ failures:
         thread 'tests::it_adds_two' panicked at 'assertion failed: `(left == right)`
   left: `4`,
  right: `5`', src/lib.rs:11:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
 
 failures:
     tests::it_adds_two
@@ -767,8 +770,8 @@ test tests::greeting_contains_name ... FAILED
 failures:
 
 ---- tests::greeting_contains_name stdout ----
-    thread 'tests::greeting_contains_name' panicked at 'assertion failed:
-    result.contains("Carol")', src/lib.rs:12:8
+        thread 'tests::greeting_contains_name' panicked at 'assertion failed:
+result.contains("Carol")', src/lib.rs:12:8
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 
 failures:
@@ -804,8 +807,8 @@ fn greeting_contains_name() {
 
 ```text
 ---- tests::greeting_contains_name stdout ----
-    thread 'tests::greeting_contains_name' panicked at 'Greeting did not contain
-    name, value was `Hello!`', src/lib.rs:12:8
+        thread 'tests::greeting_contains_name' panicked at 'Greeting did not
+contain name, value was `Hello!`', src/lib.rs:12:8
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
@@ -908,6 +911,8 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 #     value: u32,
 # }
 #
+// --snip--
+
 impl Guess {
     pub fn new(value: u32) -> Guess {
         if value < 1  {
@@ -1051,7 +1056,8 @@ test tests::greater_than_100 ... FAILED
 failures:
 
 ---- tests::greater_than_100 stdout ----
-        thread 'tests::greater_than_100' panicked at 'Guess value must be greater than or equal to 1, got 200.', src/lib.rs:11:12
+        thread 'tests::greater_than_100' panicked at 'Guess value must be
+greater than or equal to 1, got 200.', src/lib.rs:11:12
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 note: Panic did not include expected string 'Guess value must be less than or
 equal to 100'
@@ -1071,7 +1077,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 この失敗メッセージは、このテストが確かにまさしく予想通りパニックしたことを示唆していますが、
 パニックメッセージは、予想される文字列の`'Guess value must be less than or equal to 100'`を含んでいませんでした。
 実際に得られたパニックメッセージは今回の場合、`Guess value must be greater than or equal to 1, got 200`でした。
-それでバグの所在地を割り出し始めることができるわけです！
+そうしてバグの所在地を割り出し始めることができるわけです！
 
 <!-- Now that you know several ways to write tests, let’s look at what is happening -->
 <!-- when we run our tests and explore the different options we can use with `cargo -->
