@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- ## Developing the Library’s Functionality with Test Driven Development -->
 
 ## テスト駆動開発でライブラリの機能を開発する
@@ -19,7 +20,7 @@
 <!-- technique follows these steps: -->
 
 この節では、テスト駆動開発(TDD)過程を使用して`minigrep`プログラムに検索ロジックを追加します。
-このソフトウェア開発テクニックは、以下の手順を追います:
+このソフトウェア開発テクニックは、以下の手順に従います:
 
 <!-- 1. Write a test that fails, and run it to make sure it fails for the reason you -->
 <!--    expected. -->
@@ -30,7 +31,7 @@
 
 1. 失敗するテストを書き、走らせて想定通りの理由で失敗することを確かめる。
 2. 十分な量のコードを書くか変更して新しいテストを通過するようにする。
-3. 追加または変更したばかりのコードをリファクタリングし、テストが通り続けることを確認する
+3. 追加または変更したばかりのコードをリファクタリングし、テストが通り続けることを確認する。
 4. 手順1から繰り返す！
 
 <!-- This process is just one of many ways to write software, but TDD can help drive -->
@@ -58,12 +59,12 @@
 <!-- did in Chapter 11. The test function specifies the behavior we want the -->
 <!-- `search` function to have: it will take a query and the text to search for the -->
 <!-- query in, and will return only the lines from the text that contain the query. -->
-<!-- Listing 12-15 shows this test: -->
+<!-- Listing 12-15 shows this test, which won't compile yet: -->
 
 もう必要ないので、プログラムの振る舞いを確認していた`println!`文を*src/lib.rs*と*src/main.rs*から削除しましょう。
 それから*src/lib.rs*で、テスト関数のある`test`モジュールを追加します。第11章のようにね。
 このテスト関数が`search`関数に欲しい振る舞いを指定します: クエリとそれを検索するテキストを受け取り、
-クエリを含む行だけをテキストから返します。リスト12-15にこのテストを示しています:
+クエリを含む行だけをテキストから返します。リスト12-15にこのテストを示していますが、まだコンパイルは通りません:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -196,10 +197,10 @@ parameter
 <!-- Other programming languages don’t require you to connect arguments to return -->
 <!-- values in the signature, so although this might seem strange, it will get -->
 <!-- easier over time. You might want to compare this example with “Validating -->
-<!-- References with Lifetimes” in Chapter 10 on page XX. -->
+<!-- References with Lifetimes” in Chapter 10.-->
 
 他のプログラミング言語では、シグニチャで引数と戻り値を関連づける必要はないので、これは奇妙に思えるかもしれませんが、
-時間とともに楽になっていきます。この例を第10章、ページXXの「ライフタイムで参照を有効化する」と比較したくなるかもしれません。
+時間とともに楽になっていきます。この例を第10章、「ライフタイムで参照を有効化する」と比較したくなるかもしれません。
 
 <!-- Now let’s run the test: -->
 
@@ -207,8 +208,8 @@ parameter
 
 ```text
 $ cargo test
---warnings--
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
+--warnings--
     Finished dev [unoptimized + debuginfo] target(s) in 0.43 secs
      Running target/debug/deps/minigrep-abcabcabc
 

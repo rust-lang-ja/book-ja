@@ -151,6 +151,7 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 }
 ```
 
+<<<<<<< HEAD
 <!-- <span class="caption">Listing 12-5: Extracting a `parse_config` function from -->
 <!-- `main`</span> -->
 
@@ -216,7 +217,7 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 > 注釈: この複雑型(complex type)がより適切な時に組み込みの値を使うアンチパターンを、
 > *primitive obsession*(`脚注`: 初めて聞いた表現。*組み込み型強迫観念*といったところだろうか)と呼ぶ人もいます。
 
-<!-- Listing12-6 shows the addition of a struct named `Config` defined to have -->
+<!-- Listing 12-6 shows the addition of a struct named `Config` defined to have -->
 <!-- fields named `query` and `filename`. We’ve also changed the `parse_config` -->
 <!-- function to return an instance of the `Config` struct and updated `main` to use -->
 <!-- the struct fields rather than having separate variables: -->
@@ -922,9 +923,11 @@ fn main() {
 * `Config::new`関数定義
 
 <!-- The contents of *src/lib.rs* should have the signatures shown in Listing 12-13 -->
-<!-- (we’ve omitted the bodies of the functions for brevity): -->
+<!-- (we’ve omitted the bodies of the functions for brevity). Note that this won't -->
+<!-- compile until we modify *src/main.rs* in the listing after this one: -->
 
-*src/lib.rs*の中身にはリスト12-13に示したようなシグニチャがあるはずです(関数の本体は簡潔性のために省略しました):
+*src/lib.rs*の中身にはリスト12-13に示したようなシグニチャがあるはずです(関数の本体は簡潔性のために省略しました)。
+この後にも*src/main.rs*に変更を加えるまでこのコードはコンパイルできないことに注意してください:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
