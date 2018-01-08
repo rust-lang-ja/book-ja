@@ -305,7 +305,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- We want to define code in one place in our program, but only *execute* that -->
 <!-- code where we actually need the result. This is a use case for closures! -->
 
-プログラムの1箇所でコードを定義したいですが、結果が本当に必要なところでコードを*実行*だけします。
+プログラムの1箇所でコードを定義したいですが、結果が本当に必要なところでだけコードを*実行*します。
 これは、クロージャのユースケースです！
 
 <!-- #### Refactoring with Closures to Store Code -->

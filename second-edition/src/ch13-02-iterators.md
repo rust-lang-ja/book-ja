@@ -303,7 +303,7 @@ and do nothing unless consumed
 <!-- saw briefly in Chapter 12. This method consumes the iterator and collects the -->
 <!-- resulting values into a collection data type. -->
 
-これを解消し、イテレータを消費するには、`collect`メソッドを使用し、これは第12章でちょっとだけ見かけました。
+これを解消し、イテレータを消費するには、`collect`メソッドを使用しますが、これは第12章でちょっとだけ見かけました。
 このメソッドはイテレータを消費し、結果の値をコレクションデータ型に集結させます。
 
 <!-- In Listing 13-18, we collect the results of iterating over the iterator that’s -->
@@ -339,7 +339,7 @@ assert_eq!(v2, vec![2, 3, 4]);
 
 `map`はクロージャを取るので、各要素に対して行いたいどんな処理も指定することができます。
 これは、`Iterator`トレイトが提供する繰り返し動作を再利用しつつ、
-クロージャによりある動作をカスタマイズできる好例になっています。
+クロージャにより一部の動作をカスタマイズできる好例になっています。
 
 <!-- ### Using Closures that Capture Their Environment -->
 
