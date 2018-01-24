@@ -677,14 +677,14 @@ Problem parsing arguments: not enough arguments
 
 <!-- Now that we’ve finished refactoring the configuration parsing, let’s turn to -->
 <!-- the program’s logic. As we stated in “Separation of Concerns for Binary -->
-<!-- Projects” on page XX, we’ll extract a function named `run` that will hold all -->
-<!-- the logic currently in the `main` function that isn’t involved with setting up -->
+<!-- Projects”, we’ll extract a function named `run` that will hold all the logic-->
+<!-- currently in the `main` function that isn’t involved with setting up -->
 <!-- configuration or handling errors. When we’re done, `main` will be concise and -->
 <!-- easy to verify by inspection, and we’ll be able to write tests for all the -->
 <!-- other logic. -->
 
 ようやく設定解析のリファクタリングが終了したので、プログラムのロジックに目を向けましょう。
-ページXXの「バイナリプロジェクトの責任の分離」で述べたように、
+「バイナリプロジェクトの責任の分離」で述べたように、
 現在`main`関数に存在する設定セットやエラー処理に関わらない全てのロジックを保持することになる`run`という関数を抽出します。
 やり終わったら、`main`は簡潔かつ視察で確かめやすくなり、他のロジック全部に対してテストを書くことができるでしょう。
 
@@ -882,9 +882,9 @@ fn main() {
 <!-- We use `if let` rather than `unwrap_or_else` to check whether `run` returns an -->
 <!-- `Err` value and call `process::exit(1)` if it does. The `run` function doesn’t -->
 <!-- return a value that we want to `unwrap` in the same way that `Config::new` -->
-<!-- returns the `Config` instance. Because `run` returns a `()` in the success -->
-<!-- case, we only care about detecting an error, so we don’t need `unwrap_or_else` -->
-<!-- to return the unwrapped value because it would only be `()`. -->
+<!-- returns the `Config` instance. Because `run` returns `()` in the success case -->
+<!-- we only care about detecting an error, so we don’t need `unwrap_or_else` to -->
+<!-- return the unwrapped value because it would only be `()`. -->
 
 `unwrap_or_else`ではなく、`if let`で`run`が`Err`値を返したかどうかを確認し、そうなら`process::exit(1)`を呼び出しています。
 `run`関数は、`Config::new`が`Config`インスタンスを返すのと同じように`unwrap`したい値を返すことはありません。

@@ -448,30 +448,8 @@ enumについては、第6章で詳しく解説します。
 ```text
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-<<<<<<< HEAD
-src/main.rs:10:5: 10:39 warning: unused result which must be used
-                       (警告: 使用するべき結果が使用されていません),
-#[warn(unused_must_use)] on by default
-src/main.rs:10     io::stdin().read_line(&mut guess);
-                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-```
-
-<!-- Rust warns that we haven’t used the `Result` value returned from `read_line`, -->
-<!-- indicating that the program hasn’t handled a possible error. The right way to -->
-<!-- suppress the warning is to actually write error handling, but since we just -->
-<!-- want to crash this program when a problem occurs, we can use `expect`. You’ll -->
-<!-- learn about recovering from errors in Chapter 9. -->
-
-コンパイラは、私たちが`read_line`メソッドから返ってきた`Result`値を使用していないと警告してきており、
-これは、プログラムがエラーの可能性に対処していないことを示します。警告を抑制する正しい手段は、
-実際にエラー対処コードを書くことですが、今は、問題が起きた時にプロラグムをただ単にクラッシュさせたいので、
-`expect`を使用できるわけです。エラーから復旧する方法については、第9章で学ぶでしょう。
-
-<!-- ### Printing Values with `println!` Placeholders -->
-
-### `println!`マクロのプレースホルダーで値を出力する
-=======
 warning: unused `std::result::Result` which must be used
+(警告: 使用されなければならない結果が使用されていません)
   --> src/main.rs:10:5
    |
 10 |     io::stdin().read_line(&mut guess);
@@ -480,22 +458,25 @@ warning: unused `std::result::Result` which must be used
    = note: #[warn(unused_must_use)] on by default
 ```
 
-Rust warns that we haven’t used the `Result` value returned from `read_line`,
-indicating that the program hasn’t handled a possible error. The right way to
-suppress the warning is to actually write error handling, but since we want to
-crash this program when a problem occurs, we can use `expect`. You’ll learn
-about recovering from errors in Chapter 9.
->>>>>>> fork_master_master
+<!-- Rust warns that we haven’t used the `Result` value returned from `read_line`, -->
+<!-- indicating that the program hasn’t handled a possible error. The right way to -->
+<!-- suppress the warning is to actually write error handling, but since we want to -->
+<!-- crash this program when a problem occurs, we can use `expect`. You’ll learn -->
+<!-- about recovering from errors in Chapter 9. -->
 
-<!-- Aside from the closing curly brace, there’s only one more line to discuss in -->
+コンパイラは、私たちが`read_line`メソッドから返ってきた`Result`値を使用していないと警告してきており、
+これは、プログラムがエラーの可能性に対処していないことを示します。警告を抑制する正しい手段は、
+実際にエラー対処コードを書くことですが、今は、問題が起きた時にプロラグムをクラッシュさせたいので、
+`expect`を使用できるわけです。エラーから復旧する方法については、第9章で学ぶでしょう。
+
+<!-- ### Printing Values with `println!` Placeholders -->
+
+### `println!`マクロのプレースホルダーで値を出力する
+
+<!-- Aside from the closing curly brackets, there’s only one more line to discuss in -->
 <!-- the code added so far, which is the following: -->
 
-<<<<<<< HEAD
 閉じ波かっこを除けば、ここまでに追加されたコードのうち議論すべきものは、残り1行であり、それは以下の通りです:
-=======
-Aside from the closing curly brackets, there’s only one more line to discuss in
-the code added so far, which is the following:
->>>>>>> fork_master_master
 
 ```rust,ignore
 println!("You guessed: {}", guess);
@@ -1168,8 +1149,9 @@ let guess: u32 = guess.trim().parse()
 <!-- `read_line`. When the user presses <span class="keystroke">enter</span>, a -->
 <!-- newline character is added to the string. For example, if the user types <span -->
 <!-- class="keystroke">5</span> and presses <span class="keystroke"> enter</span>, -->
-<!-- `guess` looks like this: `5\n`. The `\n` represents “newline,” the enter key. -->
-<!-- The `trim` method eliminates `\n`, resulting in just `5`. -->
+<!-- `guess` looks like this: `5\n`. The `\n` represents “newline,” the -->
+<!-- <span class="keystroke">enter</span> key. The `trim` method eliminates `\n`, -->
+<!-- resulting in just `5`. -->
 
 `guess`を`guess.trim().parse()`という式に束縛しています。この式中の`guess`は、
 入力が入った`String`型の元々の`guess`を指しています。`String`オブジェクトの`trim`メソッドは、
