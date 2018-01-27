@@ -162,11 +162,17 @@
     - [`RefCell<T>` and the Interior Mutability Pattern](ch15-05-interior-mutability.md)
     - [Creating Reference Cycles and Leaking Memory is Safe](ch15-06-reference-cycles.md)
 
-- [Fearless Concurrency](ch16-00-concurrency.md)
-    - [Threads](ch16-01-threads.md)
-    - [Message Passing](ch16-02-message-passing.md)
-    - [Shared State](ch16-03-shared-state.md)
-    - [Extensible Concurrency: `Sync` and `Send`](ch16-04-extensible-concurrency-sync-and-send.md)
+<!-- - [Fearless Concurrency](ch16-00-concurrency.md) -->
+<!--     - [Threads](ch16-01-threads.md) -->
+<!--     - [Message Passing](ch16-02-message-passing.md) -->
+<!--     - [Shared State](ch16-03-shared-state.md) -->
+<!--     - [Extensible Concurrency: `Sync` and `Send`](ch16-04-extensible-concurrency-sync-and-send.md) -->
+
+- [恐れるな！非同期処理](ch16-00-concurrency.md)
+    - [スレッド](ch16-01-threads.md)
+    - [メッセージ受け渡し](ch16-02-message-passing.md)
+    - [状態共有](ch16-03-shared-state.md)
+    - [さらなる非同期処理: `Sync`と`Send`](ch16-04-extensible-concurrency-sync-and-send.md)
 
 - [Is Rust an Object-Oriented Programming Language?](ch17-00-oop.md)
     - [What Does Object-Oriented Mean?](ch17-01-what-is-oo.md)
