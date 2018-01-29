@@ -1298,12 +1298,12 @@ fn main() {
 これでは、ユーザが終了できないようです！
 
 <!-- The user could always halt the program by using the keyboard shortcut -->
-<!-- <span class="keystroke">Ctrl-C</span>. But there’s another way to escape this -->
+<!-- <span class="keystroke">ctrl-c</span>. But there’s another way to escape this -->
 <!-- insatiable monster that we mentioned in the `parse` discussion in “Comparing the -->
 <!-- Guess to the Secret Number”: if the user enters a non-number answer, the program -->
 <!-- will crash. The user can take advantage of that in order to quit, as shown here: -->
 
-ユーザは、<span class="keystroke">Ctrl-C</span>というキーボードショートカットを使って、いつでもプログラムを強制終了させられます。
+ユーザは、<span class="keystroke">ctrl-c</span>というキーボードショートカットを使って、いつでもプログラムを強制終了させられます。
 しかし、「予想を秘密の数字と比較する」節の`parse`メソッドに関する議論で触れたこの貪欲なモンスターを回避する別の方法があります:
 ユーザが数字以外の答えを入力すれば、プログラムはクラッシュするのです。
 ユーザは、その利点を活かして、終了することができます。以下のようにね:
