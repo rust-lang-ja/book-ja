@@ -58,6 +58,11 @@ some of the peopleも(一部の人々)などと訳し、[`いくつか`]は`a fe
    * このような代名詞に関しては、訳出しないと不自然な場合のみ、訳します
 * 「している」「していく」を「してる」「してく」と訳さないこと。後者は会話などの口語では一般的ですが、あくまでもこれは公式の文書なので、似つかわしくありません。
 * doの強調用法(I do appreciate it!)は、「実は」「本当に」「実際に」などと訳出します。
+* 元来、日本語は無生物主語を嫌う言語なので、主語位置にある無生物は、「により」「によって」「のおかげで」などと訳出し、無生物主語を避けます。
+* 基本動詞のhaveですが、上記の方針により、基本的に「AにBがある」「AにBが存在する」などと訳し、「持つ」という訳語を極力避けます。
+
+### PRのマージについて
+* PRをマージする際にレビューしていただいた部分について、議論が必要そうと感じた部分については、「TODO:」コメントを付します。これを目安に議論する際には、検索をかけてください
 
 [translation-table]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/TranslationTable.md
 [contributing]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/CONTRIBUTING.md
