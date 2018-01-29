@@ -61,6 +61,7 @@ fn main() {
 }
 ```
 
-<!-- That’s all there is to comments. They’re not particularly complicated. -->
+<!-- Rust also has another kind of comment, documentation comments, which we’ll -->
+<!-- discuss in Chapter 14. -->
 
-コメントについては以上。特に複雑ではなかったでしょ。
+Rustには他の種類のコメント、ドキュメントコメントもあり、それについては第14章で議論します。

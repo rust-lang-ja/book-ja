@@ -42,14 +42,14 @@ pub trait Summarizable {
 consists of the behavior provided by a `summary` method</span>
 
 We declare a trait with the `trait` keyword, then the trait’s name, in this
-case `Summarizable`. Inside curly braces we declare the method signatures that
-describe the behaviors that types that implement this trait will need to have,
-in this case `fn summary(&self) -> String`. After the method signature, instead
-of providing an implementation within curly braces, we put a semicolon. Each
-type that implements this trait must then provide its own custom behavior for
-the body of the method, but the compiler will enforce that any type that has
-the `Summarizable` trait will have the method `summary` defined for it with
-this signature exactly.
+case `Summarizable`. Inside curly brackets we declare the method signatures
+that describe the behaviors that types that implement this trait will need to
+have, in this case `fn summary(&self) -> String`. After the method signature,
+instead of providing an implementation within curly brackets, we put a
+semicolon. Each type that implements this trait must then provide its own
+custom behavior for the body of the method, but the compiler will enforce that
+any type that has the `Summarizable` trait will have the method `summary`
+defined for it with this signature exactly.
 
 A trait can have multiple methods in its body, with the method signatures
 listed one per line and each line ending in a semicolon.
@@ -106,7 +106,7 @@ related to a trait. The difference is after `impl`, we put the trait name that
 we want to implement, then say `for` and the name of the type that we want to
 implement the trait for. Within the `impl` block, we put the method signatures
 that the trait definition has defined, but instead of putting a semicolon after
-each signature, we put curly braces and fill in the method body with the
+each signature, we put curly brackets and fill in the method body with the
 specific behavior that we want the methods of the trait to have for the
 particular type.
 
@@ -187,7 +187,7 @@ behavior. When we implement the trait on a particular type, we can choose to
 keep or override each method’s default behavior.
 
 Listing 10-15 shows how we could have chosen to specify a default string for
-the `summary` method of the `Summarize` trait instead of only choosing to only
+the `summary` method of the `Summarize` trait instead of choosing to only
 define the method signature like we did in Listing 10-12:
 
 <span class="filename">Filename: lib.rs</span>
@@ -240,7 +240,7 @@ implementation.
 Default implementations are allowed to call the other methods in the same
 trait, even if those other methods don’t have a default implementation. In this
 way, a trait can provide a lot of useful functionality and only require
-implementers to specify a small part of it. We could choose to have the
+implementors to specify a small part of it. We could choose to have the
 `Summarizable` trait also have an `author_summary` method whose implementation
 is required, then a `summary` method that has a default implementation that
 calls the `author_summary` method:
@@ -413,8 +413,6 @@ and `Copy` traits, like `i32` and `char`:
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust
-use std::cmp::PartialOrd;
-
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     let mut largest = list[0];
 
@@ -505,7 +503,7 @@ similar to this code:
 
 ```rust,ignore
 impl<T: Display> ToString for T {
-    // ...snip...
+    // --snip--
 }
 ```
 
@@ -519,7 +517,7 @@ let s = 3.to_string();
 ```
 
 Blanket implementations appear in the documentation for the trait in the
-“Implementers” section.
+“Implementors” section.
 
 Traits and trait bounds let us write code that uses generic type parameters in
 order to reduce duplication, but still specify to the compiler exactly what

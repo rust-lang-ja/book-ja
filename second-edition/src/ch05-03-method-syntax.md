@@ -33,18 +33,18 @@
 ```rust
 #[derive(Debug)]
 struct Rectangle {
-    length: u32,
     width: u32,
+    height: u32,
 }
 
 impl Rectangle {
     fn area(&self) -> u32 {
-        self.length * self.width
+        self.width * self.height
     }
 }
 
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
+    let rect1 = Rectangle { width: 30, height: 50 };
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -60,7 +60,7 @@ fn main() {
 
 <!-- To define the function within the context of `Rectangle`, we start an `impl` -->
 <!-- (*implementation*) block. Then we move the `area` function within the `impl` -->
-<!-- curly braces and change the first (and in this case, only) parameter to be -->
+<!-- curly brackets and change the first (and in this case, only) parameter to be -->
 <!-- `self` in the signature and everywhere within the body. In `main` where we -->
 <!-- called the `area` function and passed `rect1` as an argument, we can instead -->
 <!-- use *method syntax* to call the `area` method on our `Rectangle` instance. -->
@@ -110,7 +110,7 @@ fn main() {
 <!-- provide. -->
 
 関数の代替としてメソッドを使う主な利点は、メソッド記法を使用して全メソッドのシグニチャで`self`の型を繰り返す必要がなくなる以外だと、
-体系化です。コードの将来的な利用者に`Rectangle`の機能を提供しているライブラリ内の各所で探させるのではなく、
+体系化です。コードの将来的な利用者に`Rectangle`の機能を提供しているライブラリ内の各所でその機能を探させるのではなく、
 この型のインスタンスでできることを一つの`impl`ブロックにまとめあげています。
 
 <!-- 例によって、以下の節では、引用ブロックの後に和訳を示します -->
@@ -164,7 +164,7 @@ fn main() {
 > C++のような言語では、メソッド呼び出しには2種類の異なる演算子が使用されます:
 > オブジェクトに対して直接メソッドを呼び出すのなら、`.`を使用するし、オブジェクトのポインタに対してメソッドを呼び出し、
 > 先にポインタを参照外しする必要があるなら、`->`を使用するわけです。
-> 言い換えると、`object`がポインタなら、`object->something()`は、`(*object).something()`と類似するのです。
+> 言い換えると、`object`がポインタなら、`object->something()`は、`(*object).something()`と同等なのです。
 >
 > Rustには`->`演算子の代わりとなるようなものはありません; その代わり、Rustには、
 > *自動参照および参照外し*という機能があります。Rustにおいてメソッド呼び出しは、
@@ -196,8 +196,8 @@ fn main() {
 > ```
 >
 > 前者の方がずっと明確です。メソッドには自明な受け手(`self`の型)がいるので、この自動参照機能は動作するのです。
-> 受け手とメソッド名が与えられれば、コンパイラは確実にメソッドが読み込み専用か、書き込みもするのか、
-> 所有権を奪うのか判断できるわけです。Rustにおいて、メソッドの受け手に関して借用が明示されないという事実は、
+> 受け手とメソッド名が与えられれば、コンパイラは確実にメソッドが読み込み専用(`&self`)か、書き込みもする(`&mut self`)のか、
+> 所有権を奪う(`self`)のか判断できるわけです。Rustにおいて、メソッドの受け手に関して借用が明示されないという事実は、
 > 所有権を現実世界でプログラマフレンドリーにさせる大部分を占めているのです。
 
 <!-- ### Methods with More Parameters -->
@@ -222,9 +222,9 @@ fn main() {
 
 ```rust,ignore
 fn main() {
-    let rect1 = Rectangle { length: 50, width: 30 };
-    let rect2 = Rectangle { length: 40, width: 10 };
-    let rect3 = Rectangle { length: 45, width: 60 };
+    let rect1 = Rectangle { width: 30, height: 50 };
+    let rect2 = Rectangle { width: 10, height: 40 };
+    let rect3 = Rectangle { width: 60, height: 45 };
 
     // rect1にrect2ははまり込む？
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
@@ -258,18 +258,18 @@ Can rect1 hold rect3? false
 <!-- read `rect2` (rather than write, which would mean we’d need a mutable borrow), -->
 <!-- and we want `main` to retain ownership of `rect2` so we can use it again after -->
 <!-- calling the `can_hold` method. The return value of `can_hold` will be a -->
-<!-- boolean, and the implementation will check whether the length and width of -->
-<!-- `self` are both greater than the length and width of the other `Rectangle`, -->
+<!-- Boolean, and the implementation will check whether the width and height of -->
+<!-- `self` are both greater than the width and height of the other `Rectangle`, -->
 <!-- respectively. Let’s add the new `can_hold` method to the `impl` block from -->
 <!-- Listing 5-13, shown in Listing 5-15: -->
 
 メソッドを定義したいことはわかっているので、`impl Rectangle`ブロック内での話になります。
-メソッド名は、`can_hold`になり、引数として別の`Rectangle`を不変参照で取るでしょう。
+メソッド名は、`can_hold`になり、引数として別の`Rectangle`を不変借用で取るでしょう。
 メソッドを呼び出すコードを見れば、引数の型が何になるかわかります: `rect1.can_hold(&rect2)`は、
-`&rect2`、`Rectangle`のインスタンスである`rect2`への不変参照を渡しています。
-これは道理が通っています。なぜなら、`rect2`を読み込む(書き込みではなく。この場合、可変参照が必要になります)だけでよく、
+`&rect2`、`Rectangle`のインスタンスである`rect2`への不変借用を渡しています。
+これは道理が通っています。なぜなら、`rect2`を読み込む(書き込みではなく。この場合、可変借用が必要になります)だけでよく、
 `can_hold`メソッドを呼び出した後にも`rect2`が使えるよう、所有権を`main`に残したままにしたいからです。
-`can_hold`の返り値は、論理型になり、メソッドの中身は、`self`の長さと幅がもう一つの`Rectangle`の長さと幅よりも、
+`can_hold`の返り値は、論理型になり、メソッドの中身は、`self`の幅と高さがもう一つの`Rectangle`の幅と高さよりも、
 それぞれ大きいことを確認します。リスト5-13の`impl`ブロックに新しい`can_hold`メソッドを追記しましょう。
 リスト5-15に示した通りです:
 
@@ -280,17 +280,17 @@ Can rect1 hold rect3? false
 ```rust
 # #[derive(Debug)]
 # struct Rectangle {
-#     length: u32,
 #     width: u32,
+#     height: u32,
 # }
 #
 impl Rectangle {
     fn area(&self) -> u32 {
-        self.length * self.width
+        self.width * self.height
     }
 
     fn can_hold(&self, other: &Rectangle) -> bool {
-        self.length > other.length && self.width > other.width
+        self.width > other.width && self.height > other.height
     }
 }
 ```
@@ -308,7 +308,7 @@ impl Rectangle {
 
 このコードをリスト5-14の`main`関数と合わせて実行すると、望み通りの出力が得られます。
 メソッドは、`self`引数の後にシグニチャに追加した引数を複数取ることができ、
-関数の引数と同様に動作するのです。
+その引数は、関数の引数と同様に動作するのです。
 
 <!-- ### Associated Functions -->
 
@@ -327,7 +327,7 @@ impl Rectangle {
 
 <!-- Associated functions are often used for constructors that will return a new -->
 <!-- instance of the struct. For example, we could provide an associated function -->
-<!-- that would have one dimension parameter and use that as both length and width, -->
+<!-- that would have one dimension parameter and use that as both width and height, -->
 <!-- thus making it easier to create a square `Rectangle` rather than having to -->
 <!-- specify the same value twice: -->
 
@@ -342,13 +342,13 @@ impl Rectangle {
 ```rust
 # #[derive(Debug)]
 # struct Rectangle {
-#     length: u32,
 #     width: u32,
+#     height: u32,
 # }
 #
 impl Rectangle {
     fn square(size: u32) -> Rectangle {
-        Rectangle { length: size, width: size }
+        Rectangle { width: size, height: size }
     }
 }
 ```
@@ -359,8 +359,8 @@ impl Rectangle {
 <!-- and namespaces created by modules, which we’ll discuss in Chapter 7. -->
 
 この関連関数を呼び出すために、例えば、`let sq = Rectangle::square(3);`のように、
-構造体名と一緒に`::`記法を使用しています。この関数は、構造体によって名前空間分けされています:
-`::`という記法は、関連関数とモジュールによって作り出される名前空間両方に使用され、
+構造体名と一緒に`::`記法を使用します。この関数は、構造体によって名前空間分けされています:
+`::`という記法は、関連関数とモジュールによって作り出される名前空間両方に使用されます。
 モジュールについては第7章で議論します。
 
 <!-- ### Multiple `impl` Blocks -->
@@ -377,19 +377,19 @@ impl Rectangle {
 ```rust
 # #[derive(Debug)]
 # struct Rectangle {
-#     length: u32,
 #     width: u32,
+#     height: u32,
 # }
 #
 impl Rectangle {
     fn area(&self) -> u32 {
-        self.length * self.width
+        self.width * self.height
     }
 }
 
 impl Rectangle {
     fn can_hold(&self, other: &Rectangle) -> bool {
-        self.length > other.length && self.width > other.width
+        self.width > other.width && self.height > other.height
     }
 }
 ```
@@ -404,7 +404,7 @@ impl Rectangle {
 <!-- in Chapter 10 when we discuss generic types and traits. -->
 
 ここでこれらのメソッドを個々の`impl`ブロックに分ける理由はないのですが、有効な書き方です。
-複数の`impl`ブロックが有用になるケースは第10章で見ますが、そこではジェネリクスのある型とトレイトについて議論します。
+複数の`impl`ブロックが有用になるケースは第10章で見ますが、そこではジェネリクスのある型と、トレイトについて議論します。
 
 <!-- ## Summary -->
 
@@ -418,9 +418,9 @@ impl Rectangle {
 <!-- available. -->
 
 構造体により、自分の領域で意味のある独自の型を作成することができます。構造体を使用することで、
-関連のあるデータ片を相互に結合させ続け、各部品に名前を付け、コードを明確にすることができます。
+関連のあるデータ片を相互に結合させたままにし、各部品に名前を付け、コードを明確にすることができます。
 メソッドにより、構造体のインスタンスが行う動作を指定することができ、関連関数により、
-構造体に特有の機能をインスタンスを利用することなく名前空間分けすることができます。
+構造体に特有の機能をインスタンスを利用することなく、名前空間分けすることができます。
 
 <!-- But structs aren’t the only way we can create custom types: let’s turn to -->
 <!-- Rust’s enum feature to add another tool to our toolbox. -->

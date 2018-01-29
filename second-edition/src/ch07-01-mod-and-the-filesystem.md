@@ -5,12 +5,12 @@
 <!-- We’ll start our module example by making a new project with Cargo, but instead -->
 <!-- of creating a binary crate, we’ll make a library crate: a project that other -->
 <!-- people can pull into their projects as a dependency. For example, the `rand` -->
-<!-- crate in Chapter 2 is a library crate that we used as a dependency in the -->
-<!-- guessing game project. -->
+<!-- crate discussed in Chapter 2 is a library crate that we used as a dependency in -->
+<!-- the guessing game project. -->
 
 モジュールの例をCargoで新規プロジェクトを生成することから始めるが、バイナリクレートの代わりに、
 ライブラリクレートを作成します: 他人が依存ファイルとして自分のプロジェクトに引き込めるプロジェクトです。
-例を挙げると、第2章の`rand`クレートは、数当てゲームプロジェクトで依存ファイルに使用したライブラリクレートです。
+例を挙げると、第2章で議論した`rand`クレートは、数当てゲームプロジェクトで依存ファイルに使用したライブラリクレートです。
 
 <!-- We’ll create a skeleton of a library that provides some general networking -->
 <!-- functionality; we’ll concentrate on the organization of the modules and -->
@@ -45,15 +45,16 @@ Cargoが*src/main.rs*の代わりに*src/lib.rs*を生成したことに注目�
 mod tests {
     #[test]
     fn it_works() {
+        assert_eq!(2 + 2, 4);
     }
 }
 ```
 
 <!-- Cargo creates an empty test to help us get our library started, rather than the -->
-<!-- “Hello, world!” binary that we get when we use the `--bin` option. We’ll look -->
-<!-- at the `#[]` and `mod tests` syntax in the “Using `super` to Access a Parent -->
-<!-- Module” section later in this chapter, but for now, leave this code at the -->
-<!-- bottom of *src/lib.rs*. -->
+<!-- the “Hello, world!” binary that we get when we use the `--bin` option. We’ll -->
+<!-- look at the `#[]` and `mod tests` syntax in the “Using `super` to Access a -->
+<!-- Parent Module” section later in this chapter, but for now, leave this code at -->
+<!-- the bottom of *src/lib.rs*. -->
 
 Cargoは、`--bin`オプションを使った時に得られる"Hello, world!"バイナリではなく、空のテストを生成して、
 ライブラリの事始めをしてくれました。`#[]`と`mod tests`という記法については、この章の後ほど、
@@ -82,7 +83,7 @@ Cargoは、`--bin`オプションを使った時に得られる"Hello, world!"�
 <!-- beginning of the *src/lib.rs* file, above the test code: -->
 
 `communicator`ネットワークライブラリについて、まずは`connect`という関数定義を含む`network`という名前のモジュールを定義します。
-Rustにおいて、モジュール定義は、`mod`キーワードから開始します。このコードを*src/lib.rs*ファイルの頭、
+Rustにおいて、モジュール定義は全て、`mod`キーワードから開始します。このコードを*src/lib.rs*ファイルの頭、
 テストコードの上に追記してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -97,7 +98,7 @@ mod network {
 ```
 
 <!-- After the `mod` keyword, we put the name of the module, `network`, and then a -->
-<!-- block of code in curly braces. Everything inside this block is inside the -->
+<!-- block of code in curly brackets. Everything inside this block is inside the -->
 <!-- namespace `network`. In this case, we have a single function, `connect`. If we -->
 <!-- wanted to call this function from a script outside the `network` module, we -->
 <!-- would need to specify the module and use the namespace syntax `::`, like so: -->
@@ -113,8 +114,8 @@ mod network {
 <!-- For example, to also have a `client` module that has a function named `connect` -->
 <!-- as well, we can add it as shown in Listing 7-1: -->
 
-同じ*src/lib.rs*ファイル内に複数のモジュールを並べることもできます。`connect`という関数を含む`client`モジュールを用意するには、
-リスト7-1に示したように追記すればいいわけです:
+同じ*src/lib.rs*ファイル内に複数のモジュールを並べることもできます。例として、
+`connect`という関数を含む`client`モジュールを用意するには、リスト7-1に示したように追記すればいいわけです:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -290,21 +291,21 @@ communicator
 
 <!-- If these modules had many functions, and those functions were becoming lengthy, -->
 <!-- it would be difficult to scroll through this file to find the code we wanted to -->
-<!-- work with. Because the functions are nested inside one or more mod blocks, the -->
-<!-- lines of code inside the functions will start getting lengthy as well. These -->
-<!-- would be good reasons to separate the `client`, `network`, and `server` modules -->
-<!-- from *src/lib.rs* and place them into their own files. -->
+<!-- work with. Because the functions are nested inside one or more mod blocks, -->
+<!-- the lines of code inside the functions will start getting lengthy as well. -->
+<!-- These would be good reasons to separate the `client`, `network`, and `server` -->
+<!-- modules from *src/lib.rs* and place them into their own files. -->
 
 これらのモジュールが多数の関数を含み、その関数が長ったらしくなってきたら、このファイルをスクロールして、
 弄りたいコードを探すのが困難になるでしょう。関数が一つ以上のmodブロックにネストされているので、
 関数の中身となるコードも長ったらしくなってしまうのです。これだけで、`client`、`network`、`server`モジュールを*src/lib.rs*から分け、
 単独のファイルに配置するには十分でしょう。
 
-<!-- First, replace the `client` module code with only the declaration of the `client` -->
-<!-- module, so that your *src/lib.rs* looks like the following: -->
+<!-- First, replace the `client` module code with only the declaration of the -->
+<!-- `server` module, so that your *src/lib.rs* looks like code shown in Listing 7-4: -->
 
 最初に、`client`モジュールのコードを`client`モジュールの宣言だけに置き換えてください。
-すると、*src/lib.rs*は以下のようになります:
+すると、*src/lib.rs*はリスト7-4のコードのようになります:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -323,6 +324,10 @@ mod network {
     }
 }
 ```
+
+<!-- <span class="caption">Listing 7-4: Extracting the contents of the `client` module but leaving the declaration in *src/lib.rs*</span> -->
+
+<span class="caption">リスト7-4: `client`モジュールの中身を抽出するが、宣言は*src/lib.rs*に残したまま</span>
 
 <!-- We’re still *declaring* the `client` module here, but by replacing the block -->
 <!-- with a semicolon, we’re telling Rust to look in another location for the code -->
@@ -364,7 +369,7 @@ fn connect() {
 <!-- we’d be giving the `client` module its own submodule named `client`! -->
 
 このファイルには、`mod`宣言が必要ないことに着目してください。なぜなら、*src/lib.rs*に`mod`を使って、
-もう`client`モジュールを宣言しているからです。このファイルは、`client`モジュールの中身を提供するだけなのです。
+もう`client`モジュールを宣言しているからです。このファイルは、`client`モジュールの*中身*を提供するだけなのです。
 ここにも`mod client`を記述したら、`client`に`client`という名前のサブモジュールを与えることになってしまいます！
 
 <!-- Rust only knows to look in *src/lib.rs* by default. If we want to add more -->
@@ -388,33 +393,39 @@ fn connect() {
 $ cargo build
    Compiling communicator v0.1.0 (file:///projects/communicator)
 
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
-(警告: 関数は使用されていません: `connect`、#[warn(dead_code)]は標準で有効です)
+warning: function is never used: `connect`
+(警告: 関数は使用されていません: `connect`)
  --> src/client.rs:1:1
   |
-1 | fn connect() {
-  | ^
+1 | / fn connect() {
+2 | | }
+  | |_^
+  |
+  = note: #[warn(dead_code)] on by default
 
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
+warning: function is never used: `connect`
  --> src/lib.rs:4:5
   |
-4 |     fn connect() {
-  |     ^
+4 | /     fn connect() {
+5 | |     }
+  | |_____^
 
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
+warning: function is never used: `connect`
  --> src/lib.rs:8:9
   |
-8 |         fn connect() {
-  |         ^
+8 | /         fn connect() {
+9 | |         }
+  | |_________^
 ```
 
 <!-- These warnings tell us that we have functions that are never used. Don’t worry -->
-<!-- about these warnings for now; we’ll address them in the “Controlling Visibility -->
-<!-- with `pub`” section later in this chapter. The good news is that they’re just -->
+<!-- about these warnings for now; we’ll address them in this chapter in the  -->
+<!-- "Controlling Visibility with `pub`” section. The good news is that they’re just -->
 <!-- warnings; our project built successfully! -->
 
 これらの警告は、全く使用されていない関数があると忠告してくれています。今は、警告を危惧する必要はありません;
-この章の後ほど、「`pub`で公開するか制御する」節で特定します。嬉しいことにただの警告です; プロジェクトはビルドに成功しました！
+この章の後ほど、「`pub`で公開するか制御する」節で特定します。嬉しいことにただの警告です;
+プロジェクトはビルドに成功しました！
 
 <!-- Next, let’s extract the `network` module into its own file using the same -->
 <!-- pattern. In *src/lib.rs*, delete the body of the `network` module and add a -->
@@ -455,7 +466,7 @@ mod server {
 <!-- because we still want `server` to be a submodule of `network`. -->
 
 このモジュールファイル内にもまだ`mod`宣言があることに気付いてください; 
-`server`は`network`のサブモジュールにしたいからです。
+`server`はまだ`network`のサブモジュールにしたいからです。
 
 <!-- Run `cargo build` again. Success! We have one more module to extract: `server`. -->
 <!-- Because it’s a submodule—that is, a module within a module—our current tactic -->
@@ -494,7 +505,7 @@ fn connect() {
 }
 ```
 
-<!-- When we try to `cargo build`, we’ll get the error shown in Listing 7-4: -->
+<!-- When we try to `cargo build`, we’ll get the error shown in Listing 7-5: -->
 
 `cargo build`を試すと、リスト7-4に示したようなエラーが出ます:
 
@@ -508,8 +519,8 @@ error: cannot declare a new module at this location
 4 | mod server;
   |     ^^^^^^
   |
-note: maybe move this module `network` to its own directory via `network/mod.rs`
-(注釈: もしかして、`network`というこのモジュールを`network/mod.rs`経由で独自のディレクトリに移すの)
+note: maybe move this module `src/network.rs` to its own directory via `src/network/mod.rs`
+(注釈: もしかして、`src/network.rs`というこのモジュールを`src/network/mod.rs`経由で独自のディレクトリに移すの)
  --> src/network.rs:4:5
   |
 4 | mod server;
@@ -522,10 +533,10 @@ note: ... or maybe `use` the module `server` instead of possibly redeclaring it
   |     ^^^^^^
 ```
 
-<!-- <span class="caption">Listing 7-4: Error when trying to extract the `server` -->
+<!-- <span class="caption">Listing 7-5: Error when trying to extract the `server` -->
 <!-- submodule into *src/server.rs*</span> -->
 
-<span class="caption">リスト7-4: `server`サブモジュールを*src/server.rs*に抽出しようとしたときのエラー</span>
+<span class="caption">リスト7-5: `server`サブモジュールを*src/server.rs*に抽出しようとしたときのエラー</span>
 
 <!-- The error says we `cannot declare a new module at this location` and is -->
 <!-- pointing to the `mod server;` line in *src/network.rs*. So *src/network.rs* is -->
@@ -534,10 +545,10 @@ note: ... or maybe `use` the module `server` instead of possibly redeclaring it
 エラーは、`この箇所では新規モジュールを宣言できません`と忠告し、*src/network.rs*の`mod server;`行を指し示しています。
 故に、*src/network.rs*は、*src/lib.rs*と何かしら違うのです: 理由を知るために読み進めましょう。
 
-<!-- The note in the middle of Listing 7-4 is actually very helpful because it -->
+<!-- The note in the middle of Listing 7-5 is actually very helpful because it -->
 <!-- points out something we haven’t yet talked about doing: -->
 
-リスト7-4の真ん中の注釈は、非常に有用です。というのも、まだ話題にしていないことを指摘しているからです。
+リスト7-5の真ん中の注釈は、非常に有用です。というのも、まだ話題にしていないことを指摘しているからです。
 
 ```text
 note: maybe move this module `network` to its own directory via
@@ -551,7 +562,7 @@ note: maybe move this module `network` to its own directory via
 
 <!-- 1. Make a new *directory* named *network*, the parent module’s name. -->
 <!-- 2. Move the *src/network.rs* file into the new *network* directory, and -->
-<!--    rename *src/network/mod.rs*. -->
+<!--    rename it to *src/network/mod.rs*. -->
 <!-- 3. Move the submodule file *src/server.rs* into the *network* directory. -->
 
 1. 親モジュール名である*network*という名前の新規*ディレクトリ*を作成する。
@@ -574,7 +585,8 @@ $ mv src/server.rs src/network
 <!-- same as it did when we had all the code in *src/lib.rs* in Listing 7-3: -->
 
 `cargo build`を走らせたら、ようやくコンパイルは通ります(まだ警告はありますけどね)。
-モジュールの配置は以下のような感じになります。これは、リスト7-3で*src/lib.rs*に全てのコードを収めていたときと全く変わらないですね:
+それでも、モジュールの配置は以下のような感じになります。
+これは、リスト7-3で*src/lib.rs*に全てのコードを収めていたときと全く変わらないですね:
 
 ```text
 communicator
@@ -585,7 +597,7 @@ communicator
 
 <!-- The corresponding file layout now looks like this: -->
 
-対応するファイルの配置は、以下のようになりました:
+対応するファイルの配置は、以下のようになっています:
 
 ```text
 ├── src
@@ -607,7 +619,7 @@ communicator
 <!-- where all the definitions are in *src/lib.rs*: -->
 
 では、`network::server`モジュールを抽出したかったときに、
-`network::server`モジュールを*src/server.rs*に直接抽出できずに、
+なぜ、`network::server`モジュールを*src/server.rs*に直接抽出できずに、
 *src/network.rs*ファイルを*src/network/mod.rs*ファイルに変更し、
 `network::server`のコードを*network*ディレクトリ内の*src/network/server.rs*に置かなければならなかったのでしょうか？
 理由は、*server.rs*ファイルが*src*ディレクトリにあると、コンパイラが、

@@ -104,7 +104,7 @@ to wrap the `thread` value in `Some` when we create a new `Worker`:
 ```rust,ignore
 impl Worker {
     fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {
-        // ...snip...
+        // --snip--
 
         Worker {
             id,
@@ -177,16 +177,16 @@ pub struct ThreadPool {
     sender: mpsc::Sender<Message>,
 }
 
-// ...snip...
+// --snip--
 
 impl ThreadPool {
-    // ...snip...
+    // --snip--
     pub fn new(size: usize) -> ThreadPool {
         assert!(size > 0);
 
         let (sender, receiver) = mpsc::channel();
 
-        // ...snip...
+        // --snip--
     }
 
     pub fn execute<F>(&self, f: F)
@@ -199,7 +199,7 @@ impl ThreadPool {
     }
 }
 
-// ...snip...
+// --snip--
 
 impl Worker {
     fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Message>>>) ->
@@ -307,22 +307,15 @@ fn main() {
     let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
     let pool = ThreadPool::new(4);
 
-    let mut counter = 0;
-
-    for stream in listener.incoming() {
-        if counter == 2 {
-            println!("Shutting down.");
-            break;
-        }
-
-        counter += 1;
-
+    for stream in listener.incoming().take(2) {
         let stream = stream.unwrap();
 
         pool.execute(|| {
             handle_connection(stream);
         });
     }
+
+    println!("Shutting down.");
 }
 ```
 
@@ -333,10 +326,10 @@ Only serving two requests isn’t behavior you’d like a production web server 
 have, but this will let us see the graceful shutdown and cleanup working since
 we won’t be stopping the server with <span class="keystroke">ctrl-C</span>.
 
-We’ve added a `counter` variable that we’ll increment every time we receive an
-incoming TCP stream. If that counter reaches 2, we’ll stop serving requests and
-instead break out of the `for` loop. The `ThreadPool` will go out of scope at
-the end of `main`, and we’ll see the `drop` implementation run.
+The `.take(2)` we added to `listener.incoming()` artificially limits the
+iteration to the first 2 items at most. This combinator works for any
+implementation of the `Iterator` trait. The `ThreadPool` will go out of scope
+at the end of `main`, and we’ll see the `drop` implementation run.
 
 Start the server with `cargo run`, and make three requests. The third request
 should error, and in your terminal you should see output that looks like:
@@ -400,22 +393,15 @@ fn main() {
     let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
     let pool = ThreadPool::new(4);
 
-    let mut counter = 0;
-
-    for stream in listener.incoming() {
-        if counter == 2 {
-            println!("Shutting down.");
-            break;
-        }
-
-        counter += 1;
-
+    for stream in listener.incoming().take(2) {
         let stream = stream.unwrap();
 
         pool.execute(|| {
             handle_connection(stream);
         });
     }
+
+    println!("Shutting down.");
 }
 
 fn handle_connection(mut stream: TcpStream) {
@@ -494,7 +480,7 @@ impl ThreadPool {
         let mut workers = Vec::with_capacity(size);
 
         for id in 0..size {
-            workers.push(Worker::new(id, receiver.clone()));
+            workers.push(Worker::new(id, Arc::clone(&receiver)));
         }
 
         ThreadPool {
