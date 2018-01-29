@@ -56,6 +56,7 @@ some of the peopleも(一部の人々)などと訳し、[`いくつか`]は`a fe
 * 逆にyou, your, we, ourなどの英語の文法上仕方なく出てくる人称代名詞は日本語には訳さない方が自然なことが多いので無理に訳に出さない。 特に、一般論を語る時のyouは 訳してはならない 参考 【雑談】"あなた"と訳さない"you" ~ einzelzelle
    * (こんな訳し方はしないので、大丈夫です)
    * このような代名詞に関しては、訳出しないと不自然な場合のみ、訳します
+* 「している」「していく」を「してる」「してく」と訳さないこと。後者は会話などの口語では一般的ですが、あくまでもこれは公式の文書なので、似つかわしくありません。
 
 [translation-table]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/TranslationTable.md
 [contributing]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/CONTRIBUTING.md
