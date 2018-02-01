@@ -7,9 +7,9 @@
 <!-- point of many programs. You’ve also seen the `fn` keyword, which allows you to -->
 <!-- declare new functions. -->
 
-関数は、Rustのコードにおいてよく見かける存在です。すでに、言語において最も重要な関数のうちの
-一つを目撃していますね: そう、`main`関数で、これは、多くのプログラムのエントリーポイントになります。
-`fn`キーワードもすでに見かけましたね。これによって新しい関数を定義することができます。
+関数は、Rustのコードにおいてよく見かける存在です。すでに、言語において最も重要な関数のうちの一つを目撃していますね:
+そう、`main`関数です。これは、多くのプログラムのエントリーポイント(`脚注`: プログラム実行時に最初に走る関数のこと)になります。
+`fn`キーワードもすでに見かけましたね。これによって新しい関数を宣言することができます。
 
 <!-- Rust code uses *snake case* as the conventional style for function and variable -->
 <!-- names. In snake case, all letters are lowercase and underscores separate words. -->
@@ -36,7 +36,7 @@ fn another_function() {
 ```
 
 <!-- Function definitions in Rust start with `fn` and have a set of parentheses -->
-<!-- after the function name. The curly braces tell the compiler where the function -->
+<!-- after the function name. The curly brackets tell the compiler where the function -->
 <!-- body begins and ends. -->
 
 Rustにおいて関数定義は、`fn`キーワードで始まり、関数名の後に丸かっこの組が続きます。
@@ -49,23 +49,24 @@ Rustにおいて関数定義は、`fn`キーワードで始まり、関数名の
 <!-- as well. Rust doesn’t care where you define your functions, only that they’re -->
 <!-- defined somewhere. -->
 
-定義した関数は、名前に丸かっこの組を続けることで呼び出すことができます。`another_function`関数が
-プログラム内で定義されているので、`main`関数内から呼び出すことができるわけです。ソースコード中で
-`another_function`を`main`関数の*後*に定義していることに注目してください; 勿論、main関数の前に
-定義することもできます。コンパイラは、関数がどこで定義されているかは気にしません。
+定義した関数は、名前に丸かっこの組を続けることで呼び出すことができます。
+`another_function`関数がプログラム内で定義されているので、`main`関数内から呼び出すことができるわけです。
+ソースコード中で`another_function`を`main`関数の*後*に定義していることに注目してください;
+勿論、main関数の前に定義することもできます。コンパイラは、関数がどこで定義されているかは気にしません。
 どこかで定義されていることのみ気にします。
 
 <!-- Let’s start a new binary project named *functions* to explore functions -->
 <!-- further. Place the `another_function` example in *src/main.rs* and run it. You -->
 <!-- should see the following output: -->
 
-*functions*という名前の新しいバイナリ生成プロジェクトを始めて、関数についてさらに深く探知していきましょう。
+*functions*という名前の新しいバイナリ生成プロジェクトを始めて、関数についてさらに深く探求していきましょう。
 `another_function`の例を*src/main.rs*ファイルに配置して、走らせてください。
 以下のような出力が得られるはずです:
 
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.28 secs
      Running `target/debug/functions`
 Hello, world!
 Another function.
@@ -92,14 +93,13 @@ Another function.
 
 関数は、引数を持つようにも定義できます。引数とは、関数シグニチャの一部になる特別な変数のことです。
 関数に引数があると、引数の位置に実際の値を与えることができます。技術的にはこの実際の値は
-*実引数*と呼ばれますが、普段の会話では、仮引数("parameter")と実引数("argument")を
-関数定義の変数と関数呼び出し時に渡す実際の値、両方の意味に区別なく使います(`脚注`: 日本語では、
-どちらも単に引数と呼ぶことが多いでしょう)。
+*実引数*と呼ばれますが、普段の会話では、仮引数("parameter")と実引数("argument")を関数定義の変数と関数呼び出し時に渡す実際の値、
+両方の意味に区別なく使います(`脚注`: 日本語では、どちらも単に引数と呼ぶことが多いでしょう)。
 
 <!-- The following rewritten version of `another_function` shows what parameters -->
 <!-- look like in Rust: -->
 
-以下の書き直した`another_function`では、Rustのパラメータがどんな見た目なのかを示しています:
+以下の書き直した`another_function`では、Rustの仮引数がどんな見た目なのかを示しています:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -122,17 +122,18 @@ fn another_function(x: i32) {
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.21 secs
      Running `target/debug/functions`
 The value of x is: 5
 ```
 
 <!-- The declaration of `another_function` has one parameter named `x`. The type of -->
 <!-- `x` is specified as `i32`. When `5` is passed to `another_function`, the -->
-<!-- `println!` macro puts `5` where the pair of curly braces were in the format -->
+<!-- `println!` macro puts `5` where the pair of curly brackets were in the format -->
 <!-- string. -->
 
-`another_function`の宣言には、`x`という名前の仮引数があります。`x`の型は、`i32`と
-指定されています。値`5`が`another_function`に渡されると、`println!`マクロにより、
+`another_function`の宣言には、`x`という名前の仮引数があります。`x`の型は、
+`i32`と指定されています。値`5`が`another_function`に渡されると、`println!`マクロにより、
 フォーマット文字列中の1組の波かっこがある位置に値`5`が出力されます。
 
 <!-- In function signatures, you *must* declare the type of each parameter. This is -->
@@ -140,9 +141,9 @@ The value of x is: 5
 <!-- definitions means the compiler almost never needs you to use them elsewhere in -->
 <!-- the code to figure out what you mean. -->
 
-関数シグニチャにおいて、各仮引数の型を宣言しなければなりません。これは、Rustの設計において、
-意図的な判断です: 関数定義で型注釈が必要不可欠ということは、コンパイラがその意図するところを
-推し量るのに、コードの他の箇所で使用する必要がないということを意味します。
+関数シグニチャにおいて、各仮引数の型を宣言しなければ*なりません*。これは、Rustの設計において、
+意図的な判断です: 関数定義で型注釈が必要不可欠ということは、コンパイラがその意図するところを推し量るのに、
+コードの他の箇所で使用する必要がないということを意味します。
 
 <!-- When you want a function to have multiple parameters, separate the parameter -->
 <!-- declarations with commas, like this: -->
@@ -170,20 +171,21 @@ fn another_function(x: i32, y: i32) {
 <!-- that function parameters don't all need to be the same type, they just happen -->
 <!-- to be in this example. -->
 
-この例では、2引数の関数を生成しています。そして、引数はどちらも`i32`型です。この関数は、
+この例では、2引数の関数を生成しています。そして、引数はどちらも`i32`型です。それからこの関数は、
 仮引数の値を両方出力します。関数引数は、全てが同じ型である必要はありません。今回は、
 偶然同じになっただけです。
 
-<!-- Let’s try running this code. Replace the program currently in your *function* -->
+<!-- Let’s try running this code. Replace the program currently in your *functions* -->
 <!-- project’s *src/main.rs* file with the preceding example, and run it using -->
 <!-- `cargo run`: -->
 
-このコードを走らせてみましょう。今、*function*プロジェクトの*src/main.rs*ファイルに記載されている
-プログラムを先ほどの例と置き換えて、`cargo run`で走らせてください:
+このコードを走らせてみましょう。今、*function*プロジェクトの*src/main.rs*ファイルに記載されているプログラムを先ほどの例と置き換えて、
+`cargo run`で走らせてください:
 
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/functions`
 The value of x is: 5
 The value of y is: 6
@@ -207,8 +209,8 @@ The value of y is: 6
 <!-- statements and expressions are and how their differences affect the bodies of -->
 <!-- functions. -->
 
-関数本体は、文が並び、最後に式を置くか文を置くという形で形成されます。現在までには、式で終わらない
-関数だけを見てきたわけですが、式が文の一部になっているものなら見かけましたね。Rustは、式志向言語なので、
+関数本体は、文が並び、最後に式を置くか文を置くという形で形成されます。現在までには、
+式で終わらない関数だけを見てきたわけですが、式が文の一部になっているものなら見かけましたね。Rustは、式指向言語なので、
 これは理解しておくべき重要な差異になります。他の言語にこの差異はありませんので、文と式がなんなのかと、
 その違いが関数本体にどんな影響を与えるかを見ていきましょう。
 
@@ -224,10 +226,10 @@ The value of y is: 6
 *式*は結果値に評価されます。ちょっと例を眺めてみましょう。
 
 <!-- Creating a variable and assigning a value to it with the `let` keyword is a -->
-<!-- statement. In Listing 3-3, `let y = 6;` is a statement: -->
+<!-- statement. In Listing 3-1, `let y = 6;` is a statement: -->
 
 `let`キーワードを使用して変数を生成し、値を代入することは文になります。
-リスト3-3で`let y = 6;`は文です:
+リスト3-1で`let y = 6;`は文です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -239,9 +241,9 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 3-3: A `main` function declaration containing one statement.</span> -->
+<!-- <span class="caption">Listing 3-1: A `main` function declaration containing one statement.</span> -->
 
-<span class="caption">リスト3-3: 1文を含む`main`関数宣言</span>
+<span class="caption">リスト3-1: 1文を含む`main`関数宣言</span>
 
 <!-- Function definitions are also statements; the entire preceding example is a -->
 <!-- statement in itself. -->
@@ -249,10 +251,10 @@ fn main() {
 関数定義も文になります。つまり、先の例は全体としても文になるわけです。
 
 <!-- Statements do not return values. Therefore, you can’t assign a `let` statement -->
-<!-- to another variable, as the following code tries to do: -->
+<!-- to another variable, as the following code tries to do; you'll get an error: -->
 
 文は値を返しません。故に、`let`文を他の変数に代入することはできません。
-以下のコードでは試みてますけどね:
+以下のコードでは試みてますけどね; エラーになります:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -264,7 +266,7 @@ fn main() {
 }
 ```
 
-<!-- When you run this program, you’ll get an error like this: -->
+<!-- When you run this program, the error you’ll get looks like this: -->
 
 このプログラムを実行すると、以下のようなエラーが出るでしょう:
 
@@ -296,14 +298,14 @@ CやRubyなどの言語とは異なる動作です。CやRubyでは、代入は�
 <!-- Expressions evaluate to something and make up most of the rest of the code that -->
 <!-- you’ll write in Rust. Consider a simple math operation, such as `5 + 6`, which -->
 <!-- is an expression that evaluates to the value `11`. Expressions can be part of -->
-<!-- statements: in Listing 3-3 that had the statement `let y = 6;`, `6` is an -->
+<!-- statements: in Listing 3-1 that had the statement `let y = 6;`, `6` is an -->
 <!-- expression that evaluates to the value `6`. Calling a function is an -->
 <!-- expression. Calling a macro is an expression. The block that we use to create -->
 <!-- new scopes, `{}`, is an expression, for example: -->
 
-式は何かに評価され、これからあなたが書くRustコードの多くを構成します。簡単な数学演算(`5 + 6`など)を
-思い浮かべましょう。この例は、値`11`に評価される式です。式は文の一部になりえます: `let y = 6`という
-文を含むリスト3-3では、`6`は値`6`に評価される式です。関数呼び出しも式です。マクロ呼び出しも式です。
+式は何かに評価され、これからあなたが書くRustコードの多くを構成します。
+簡単な数学演算(`5 + 6`など)を思い浮かべましょう。この例は、値`11`に評価される式です。式は文の一部になりえます:
+`let y = 6`という文を含むリスト3-3では、`6`は値`6`に評価される式です。関数呼び出しも式です。マクロ呼び出しも式です。
 新しいスコープを作る際に使用するブロック(`{}`)も式です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -325,7 +327,7 @@ fn main() {
 
 <!-- This expression: -->
 
-この式は:
+以下の式は:
 
 ```rust,ignore
 {
@@ -335,15 +337,15 @@ fn main() {
 ```
 
 <!-- is a block that, in this case, evaluates to `4`. That value gets bound to `y` -->
-<!-- as part of the `let` statement. Note the line without a semicolon at the end, -->
-<!-- unlike most of the lines you’ve seen so far. Expressions do not include ending -->
-<!-- semicolons. If you add a semicolon to the end of an expression, you turn it -->
-<!-- into a statement, which will then not return a value. Keep this in mind as you -->
-<!-- explore function return values and expressions next. -->
+<!-- as part of the `let` statement. Note the `x + 1` line without a semicolon at -->
+<!-- the end, unlike most of the lines you’ve seen so far. Expressions do not -->
+<!-- include ending semicolons. If you add a semicolon to the end of an expression, -->
+<!-- you turn it into a statement, which will then not return a value. Keep this in -->
+<!-- mind as you explore function return values and expressions next. -->
 
 今回の場合、`4`に評価されるブロックです。その値が、`let`文の一部として`y`に束縛されます。
-今まで見かけてきた行と異なり、セミコロンがついていない行に気をつけてください。式に終端のセミコロンは、
-含みません。式の終端にセミコロンを付けたら、文に変えてしまいます。そして、文は値を返しません。
+今まで見かけてきた行と異なり、文末にセミコロンがついていない`x + 1`の行に気をつけてください。
+式は終端にセミコロンを、含みません。式の終端にセミコロンを付けたら、文に変えてしまいます。そして、文は値を返しません。
 次に関数の戻り値や式を見ていく際にこのことを肝に命じておいてください。
 
 <!-- ### Functions with Return Values -->
@@ -353,12 +355,15 @@ fn main() {
 <!-- Functions can return values to the code that calls them. We don’t name return -->
 <!-- values, but we do declare their type after an arrow (`->`). In Rust, the return -->
 <!-- value of the function is synonymous with the value of the final expression in -->
-<!-- the block of the body of a function. Here’s an example of a function that -->
+<!-- the block of the body of a function. You can return early from a function by -->
+<!-- using the `return` keyword and specifying a value, but most functions return -->
+<!-- the last expression implicitly. Here’s an example of a function that -->
 <!-- returns a value: -->
 
 関数は、それを呼び出したコードに値を返すことができます。戻り値に名前付けはできませんが、
-矢印(`->`)の後に型を書いて宣言します。Rustでは、関数の戻り値は、関数本体ブロックの最後の式の値と
-同義です。こちらが、値を返す関数の例です:
+矢印(`->`)の後に型を書いて宣言します。Rustでは、関数の戻り値は、関数本体ブロックの最後の式の値と同義です。
+`return`キーワードで関数から早期リターンし、値を指定することもできますが、多くの関数は最後の式を暗黙的に返します。
+こちらが、値を返す関数の例です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -388,6 +393,7 @@ fn main() {
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
      Running `target/debug/functions`
 The value of x is: 5
 ```
@@ -399,8 +405,8 @@ The value of x is: 5
 <!-- that line is the same as the following: -->
 
 `five`内の`5`が関数の戻り値です。だから、戻り値型が`i32`なのです。これについてもっと深く考察しましょう。
-重要な箇所は2つあります: まず、`let x = five()`という行は、関数の戻り値を使って変数を初期化している
-ことを示しています。関数`five`は`5`を返すので、この行は以下のように書くのと同義です:
+重要な箇所は2つあります: まず、`let x = five()`という行は、関数の戻り値を使って変数を初期化していることを示しています。
+関数`five`は`5`を返すので、この行は以下のように書くのと同義です:
 
 ```rust
 let x = 5;
@@ -432,10 +438,11 @@ fn plus_one(x: i32) -> i32 {
 
 <!-- Running this code will print `The value of x is: 6`. What happens if we place a -->
 <!-- semicolon at the end of the line containing `x + 1`, changing it from an -->
-<!-- expression to a statement? -->
+<!-- expression to a statement? We'll get an error: -->
 
-このコードを走らせると、`The value of x is: 6`と出力されるでしょう。では、`x + 1`を含む行の
-終端にセミコロンを付けて、式から文に変えてみたら、どうなるでしょうか？
+このコードを走らせると、`The value of x is: 6`と出力されるでしょう。では、
+`x + 1`を含む行の終端にセミコロンを付けて、式から文に変えてみたら、どうなるでしょうか？
+エラーになるでしょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -465,18 +472,13 @@ error[E0308]: mismatched types
 7 |   fn plus_one(x: i32) -> i32 {
   |  ____________________________^
 8 | |     x + 1;
+  | |          - help: consider removing this semicolon
 9 | | }
   | |_^ expected i32, found ()
   |     (i32を予期したのに、()型が見つかりました)
   |
   = note: expected type `i32`
              found type `()`
-help: consider removing this semicolon:
-(助言: このセミコロンを除くことを考えてみてください)
- --> src/main.rs:8:10
-  |
-8 |     x + 1;
-  |          ^
 ```
 
 <!-- The main error message, “mismatched types,” reveals the core issue with this -->

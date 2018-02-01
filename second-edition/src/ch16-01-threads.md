@@ -1,94 +1,156 @@
-## Using Threads to Run Code Simultaneously
+<!-- ## Using Threads to Run Code Simultaneously -->
 
-In most operating systems in use today, when your program executes, the context
-in which the operating system runs your code is called a *process*. The
-operating system runs many processes, and the operating system managing these
-processes is what lets multiple programs execute at the same time on your
-computer.
+## スレッドを使用してコードを同時に走らせる
 
-We can take the idea of processes each running a program down one level of
-abstraction: your program can also have independent parts that run
-simultaneously within the context of your program. The feature that enables
-this functionality is called *threads*.
+<!-- In most current operating systems, an executed program’s code is run in a -->
+<!-- *process*, and the operating system manages multiple processes at once. Within -->
+<!-- your program, you can also have independent parts that run simultaneously. The -->
+<!-- feature that runs these independent parts is called *threads*. -->
 
-Splitting up the computation your program needs to do into multiple threads can
-improve performance, since the program will be doing multiple things at the
-same time. Programming with threads can add complexity, however. Since threads
-run simultaneously, there’s no inherent guarantee about the order in which the
-parts of your code on different threads will run. This can lead to race
-conditions where threads are accessing data or resources in an inconsistent
-order, deadlocks where two threads both prevent each other from continuing, or
-bugs that only happen in certain situations that are hard to reproduce
-reliably. Rust lessens the effect of these and other downsides of using
-threads, but programming in a multithreaded context still takes thought and
-code structured differently than for programs only expected to run in a single
-thread.
+多くの現代のOSでは、実行中のプログラムのコードは*プロセス*で走り、OSは同時に複数のプロセスを管理します。
+自分のプログラム内で、同時に実行する部分を作ることもできます。これらの個別の部分を走らせる機能を*スレッド*と呼びます。
 
-There are a few different ways that programming languages implement threads.
-Many operating systems provide an API for creating new threads. In addition,
-many programming languages provide their own special implementation of threads.
-Programming language provided threads are sometimes called *lightweight* or
-*green* threads. These languages take a number of green threads and execute
-them in the context of a different number of operating system threads. For this
-reason, the model where a language calls the operating system APIs to create
-threads is sometimes called *1:1*, one OS thread per one language thread. The
-green threaded model is called the *M:N* model, `M` green threads per `N` OS
-threads, where `M` and `N` are not necessarily the same number.
+<!-- Splitting the computation in your program into multiple threads can improve -->
+<!-- performance because the program does multiple tasks at the same time, but it -->
+<!-- also adds complexity. Because threads can run simultaneously, there’s no -->
+<!-- inherent guarantee about the order in which parts of your code on different -->
+<!-- threads will run. This can lead to problems, such as: -->
 
-Each model has its own advantages and tradeoffs. The tradeoff that’s most
-important to Rust is runtime support. *Runtime* is a confusing term; it can
-have different meaning in different contexts. Here, we mean some code included
-by the language in every binary. For some languages, this code is large, and
-for others, this code is small. Colloquially, “no runtime” is often what people
-will say when they mean “small runtime”, since every non-assembly language has
-some amount of runtime. Smaller runtimes have fewer features but have the
-advantage of resulting in smaller binaries. Smaller binaries make it easier to
-combine the language with other languages in more contexts. While many
-languages are okay with increasing the runtime in exchange for more features,
-Rust needs to have nearly no runtime, and cannot compromise on being able to
-call into C in order to maintain performance.
+プログラム内の計算を複数のスレッドに分けると、パフォーマンスが改善します。プログラムが同時に複数の作業をするからですが、
+複雑度も増します。スレッドは同時に走らせることができるので、異なるスレッドのコードが走る順番に関して、
+本来の保証はありません。これは問題を招きます。例えば:
 
-The green threading model is a feature that requires a larger language runtime
-in order to manage the threads. As such, the Rust standard library only
-provides an implementation of 1:1 threading. Because Rust is such a low-level
-language, there are crates that implement M:N threading if you would rather
-trade overhead for aspects such as more control over which threads run when and
-lower costs of context switching, for example.
+<!-- * Race conditions, where threads are accessing data or resources in an -->
+<!--   inconsistent order -->
+<!-- * Deadlocks, where two threads are waiting for each other to finish using a -->
+<!--   resource the other thread has, preventing both threads from continuing -->
+<!-- * Bugs that only happen in certain situations and are hard to reproduce and fix -->
+<!--   reliably -->
 
-Now that we’ve defined what threads are in Rust, let’s explore how to use the
-thread-related API that the standard library provides for us.
+* スレッドがデータやリソースに不安定な順番でアクセスする競合状態
+* 2つのスレッドがお互いにもう一方が持っているリソースを使用し終わるのを待ち、両者が継続するのを防ぐデッドロック
+* 特定の状況でのみ起き、再現や信頼して修正が困難なバグ
 
-### Creating a New Thread with `spawn`
+<!-- Rust attempts to mitigate the negative effects of using threads. Programming in -->
+<!-- a multithreaded context still takes careful thought and requires a code -->
+<!-- structure that is different from programs that run in a single thread. -->
 
-To create a new thread, we call the `thread::spawn` function and pass it a
-closure (we talked about closures in Chapter 13), containing the code we want
-to run in the new thread. The example in Listing 16-1 prints some text from a
-new thread and other text from the main thread:
+Rustは、スレッド使用のマイナスの効果を軽減しようとしています。それでも、マルチスレッドの文脈でのプログラミングは、
+注意深い思考とシングルスレッドで走るプログラムとは異なるコード構造を必要とします。
 
-<span class="filename">Filename: src/main.rs</span>
+<!-- Programming languages implement threads in a few different ways. Many operating -->
+<!-- systems provide an API for creating new threads. This model where a language -->
+<!-- calls the operating system APIs to create threads is sometimes called *1:1*, -->
+<!-- one operating system thread per one language thread. -->
+
+プログラミング言語によってスレッドはいくつかの方法で実装されています。多くのOSで、新規スレッドを生成するAPIが提供されています。
+言語がOSのAPIを呼び出してスレッドを生成するこのモデルを時に*1:1*と呼び、1つのOSスレッドに対して1つの言語スレッドを意味します。
+
+<!-- Many programming languages provide their own special implementation of threads. -->
+<!-- Programming language-provided threads are known as *green* threads, and -->
+<!-- languages that use these green threads will execute them in the context of a -->
+<!-- different number of operating system threads. For this reason, the green -->
+<!-- threaded model is called the *M:N* model: `M` green threads per `N` operating -->
+<!-- system threads, where `M` and `N` are not necessarily the same number. -->
+
+多くのプログラミング言語がスレッドのそれだけの特別な実装を提供しています。プログラミング言語が提供するスレッドは、
+*グリーン*スレッドとして知られ、このグリーンスレッドを使用する言語は、それを異なる数のOSスレッドの文脈で実行します。
+このため、グリーンスレッドのモデルは*M:N*モデルと呼ばれます: `M`個のグリーンスレッドに対して、
+`N`個のOSスレッドで、`M`と`N`は必ずしも同じ数字ではありません。
+
+<!-- Each model has its own advantages and trade-offs, and the trade-off most -->
+<!-- important to Rust is runtime support. Runtime is a confusing term and can have -->
+<!-- different meanings in different contexts. -->
+
+各モデルには、それだけの利点と妥協点があり、Rustにとって最も重要な妥協点は、ランタイムのサポートです。
+ランタイムは、混乱しやすい用語で文脈によって意味も変わります。
+
+<!-- In this context, by *runtime* we mean code that is included by the language in -->
+<!-- every binary. This code can be large or small depending on the language, but -->
+<!-- every non-assembly language will have some amount of runtime code. For that -->
+<!-- reason, colloquially when people say a language has “no runtime,” they often -->
+<!-- mean “small runtime.” Smaller runtimes have fewer features but have the -->
+<!-- advantage of resulting in smaller binaries, which make it easier to combine the -->
+<!-- language with other languages in more contexts. Although many languages are -->
+<!-- okay with increasing the runtime size in exchange for more features, Rust needs -->
+<!-- to have nearly no runtime and cannot compromise on being able to call into C to -->
+<!-- maintain performance. -->
+
+この文脈では、ランタイムとは、言語によって全てのバイナリに含まれるコードのことを意味します。
+言語によってこのコードの大小は決まりますが、非アセンブリ言語は全てある量の実行時コードを含みます。
+そのため、口語的に誰かが「ノーランタイム」と言ったら、「小さいランタイム」のことを意味することがしばしばあります。
+ランタイムが小さいと機能も少ないですが、バイナリのサイズも小さくなるという利点があり、
+その言語を他の言語とより多くの文脈で混ぜることが容易になります。多くの言語では、
+より多くの機能と引き換えにランタイムのサイズが膨れ上がるのは、受け入れられることですが、
+Rustにはほとんどゼロのランタイムが必要でパフォーマンスを維持するためにCコードを呼び出せることを妥協できないのです。
+
+<!-- The green threading M:N model requires a larger language runtime to manage -->
+<!-- threads. As such, the Rust standard library only provides an implementation of -->
+<!-- 1:1 threading. Because Rust is such a low-level language, there are crates that -->
+<!-- implement M:N threading if you would rather trade overhead for aspects such as -->
+<!-- more control over which threads run when and lower costs of context switching, -->
+<!-- for example. -->
+
+M:Nのグリーンスレッドモデルは、スレッドを管理するのにより大きな言語ランタイムが必要です。よって、
+Rustの標準ライブラリは、1:1スレッドの実装のみを提供しています。Rustはそのような低級言語なので、
+例えば、どのスレッドがいつ走るか制御する方向性や、文脈切り替えの低コストを求めるオーバーヘッドと引き換えるなら、
+M:Nスレッドの実装をしたクレートもあります。
+
+<!-- Now that we’ve defined threads in Rust, let’s explore how to use the -->
+<!-- thread-related API provided by the standard library. -->
+
+今やRustにおけるスレッドを定義したので、標準ライブラリで提供されているスレッド関連のAPIの使用法を探求しましょう。
+
+<!-- ### Creating a New Thread with `spawn` -->
+
+### `spawn`で新規スレッドを生成する
+
+<!-- To create a new thread, we call the `thread::spawn` function and pass it a -->
+<!-- closure (we talked about closures in Chapter 13) containing the code we want to -->
+<!-- run in the new thread. The example in Listing 16-1 prints some text from a main -->
+<!-- thread and other text from a new thread: -->
+
+新規スレッドを立ち上げるには、`thread::spawn`関数を呼び出し、
+新規スレッドで走らせたいコードを含むクロージャ(クロージャについては第13章で語りました)を渡します。
+リスト16-1の例は、メインスレッドと新規スレッドからテキストを出力します:
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::thread;
+use std::time::Duration;
 
 fn main() {
     thread::spawn(|| {
         for i in 1..10 {
+            // やあ！立ち上げたスレッドから数字{}だよ！
             println!("hi number {} from the spawned thread!", i);
+            thread::sleep(Duration::from_millis(1));
         }
     });
 
     for i in 1..5 {
+        // メインスレッドから数字{}だよ！
         println!("hi number {} from the main thread!", i);
+        thread::sleep(Duration::from_millis(1));
     }
 }
 ```
 
-<span class="caption">Listing 16-1: Creating a new thread to print one thing
-while the main thread is printing something else</span>
+<!-- <span class="caption">Listing 16-1: Creating a new thread to print one thing -->
+<!-- while the main thread prints something else</span> -->
 
-Note that the way this function is written, when the main thread ends, it will
-stop the new thread too. The output from this program might be a little
-different every time, but it will look similar to this:
+<span class="caption">リスト16-1: メインスレッドが別のものを出力する間に新規スレッドを生成して何かを出力する</span>
+
+<!-- Note that with this function, the new thread will be stopped when the main -->
+<!-- thread ends, whether or not it has finished running. The output from this -->
+<!-- program might be a little different every time, but it will look similar to the -->
+<!-- following: -->
+
+この関数では、実行が終わったかどうかにかかわらず、新しいスレッドは、メインスレッドが終了したら停止することに注意してください。
+このプログラムからの出力は毎回少々異なる可能性がありますが、だいたい以下のような感じでしょう:
 
 ```text
 hi number 1 from the main thread!
@@ -102,50 +164,92 @@ hi number 4 from the spawned thread!
 hi number 5 from the spawned thread!
 ```
 
-The threads will probably take turns, but that’s not guaranteed. In this run,
-the main thread printed first, even though the print statement from the spawned
-thread appears first in the code we wrote. And even though we told the spawned
-thread to print until `i` is 9, it only got to 5 before the main thread shut
-down. If you always only see one thread, or if you don’t see any overlap, try
-increasing the numbers in the ranges to create more opportunities for a thread
-to take a break and give the other thread a turn.
+<!-- The calls to `thread::sleep` force a thread to stop its execution for a short -->
+<!-- duration, which allows a different thread to run. The threads will probably -->
+<!-- take turns, but that isn’t guaranteed: it depends on how your operating system -->
+<!-- schedules the threads. In this run, the main thread printed first, even though -->
+<!-- the print statement from the spawned thread appears first in the code. And even -->
+<!-- though we told the spawned thread to print until `i` is 9, it only got to 5 -->
+<!-- before the main thread shut down. -->
 
-#### Waiting for All Threads to Finish Using `join` Handles
+`thread::sleep`を呼び出すと、少々の間、スレッドの実行を止め、違うスレッドを走らせることができます。
+スレッドは順番待ちをしますが、保証はありません: OSがスレッドのスケジュールを行う方法によります。
+この実行では、立ち上げられたスレッドのprint文がコードでは先に出現しているのに、メインスレッドがまず出力しています。
+立ち上げたスレッドには`i`が9になるまで出力するよう指示しているのに、メインスレッドが終了する前の5までしか到達していません。
 
-Not only does the code in Listing 16-1 not allow the spawned thread to finish
-most of the time since the main thread ends before the spawned thread is done,
-there’s actually no guarantee that the spawned thread will get to run at all! We
-can fix this by saving the return value of `thread::spawn`, which is a
-`JoinHandle`. That looks like Listing 16-2:
+<!-- If you run this code and only see output from the main thread, or don’t see any -->
+<!-- overlap, try increasing the numbers in the ranges to create more opportunities -->
+<!-- for the operating system to switch between the threads. -->
 
-<span class="filename">Filename: src/main.rs</span>
+このコードを実行してメインスレッドの出力しか目の当たりにできなかったり、オーバーラップがなければ、
+範囲の値を増やしてOSがスレッド切り替えを行う機会を増やしてみてください。
+
+<!-- ### Waiting for All Threads to Finish Using `join` Handles -->
+
+### `join`ハンドルで全スレッドの終了を待つ
+
+<!-- The code in Listing 16-1 not only stops the spawned thread prematurely most of -->
+<!-- the time due to the main thread ending, but there is no guarantee that the -->
+<!-- spawned thread will get to run at all. The reason is that there is no guarantee -->
+<!-- on the order in which threads run! -->
+
+リスト16-1のコードは、メインスレッドが終了するためにほとんどの場合、新規スレッドが未完で終わるだけでなく、
+新規スレッドが実行されるかどうかの保証もありません。原因は、スレッドの実行順に保証がないからです。
+
+<!-- We can fix the problem of the spawned thread not getting to run, or not getting -->
+<!-- to run completely, by saving the return value of `thread::spawn` in a variable. -->
+<!-- The return type of `thread::spawn` is `JoinHandle`. A `JoinHandle` is an owned -->
+<!-- value that, when we call the `join` method on it, will wait for its thread to -->
+<!-- finish. Listing 16-2 shows how to use the `JoinHandle` of the thread we created -->
+<!-- in Listing 16-1 and call `join` to make sure the spawned thread finishes before -->
+<!-- `main` exits: -->
+
+`thread::spawn`の戻り値を変数に保存することで、立ち上げたスレッドが実行されなかったり、
+完全に実行されなかったりする問題を修正することができます。`thread:spawn`の戻り値の型は`JoinHandle`です。
+`JoinHandle`は、`join`メソッドを呼び出したときにスレッドの実行を待つ所有された値です。
+リスト16-2は、リスト16-1で生成したスレッドの`JoinHandle`を使用し、`join`を呼び出して、
+立ち上げたスレッドが、`main`が終了する前に完了することを確認する方法を示しています:
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::thread;
+use std::time::Duration;
 
 fn main() {
     let handle = thread::spawn(|| {
         for i in 1..10 {
             println!("hi number {} from the spawned thread!", i);
+            thread::sleep(Duration::from_millis(1));
         }
     });
 
     for i in 1..5 {
         println!("hi number {} from the main thread!", i);
+        thread::sleep(Duration::from_millis(1));
     }
 
-    handle.join();
+    handle.join().unwrap();
 }
 ```
 
-<span class="caption">Listing 16-2: Saving a `JoinHandle` from `thread::spawn`
-to guarantee the thread is run to completion</span>
+<!-- <span class="caption">Listing 16-2: Saving a `JoinHandle` from `thread::spawn` -->
+<!-- to guarantee the thread is run to completion</span> -->
 
-A `JoinHandle` is an owned value that can wait for a thread to finish, which is
-what the `join` method does. By calling `join` on the handle, the current
-thread will block until the thread that the handle represents terminates. Since
-we’ve put the call to `join` after the main thread’s `for` loop, running this
-example should produce output that looks something like this:
+<span class="caption">リスト16-2: `thread::spawn`の`JoinHandle`を保存してスレッドが完了するのを保証する</span>
+
+<!-- Calling `join` on the handle blocks the thread currently running until the -->
+<!-- thread represented by the handle terminates. *Blocking* a thread means that -->
+<!-- thread is prevented from performing work or exiting. Because we’ve put the call -->
+<!-- to `join` after the main thread’s `for` loop, running Listing 16-2 should -->
+<!-- produce output similar to this: -->
+
+ハンドルに対して`join`を呼び出すと、現在実行中のスレッドをハンドルが表すスレッドが停止するまでブロックします。
+スレッドを*ブロック*するとは、そのスレッドが作業をしたり、終了することを防ぐことです。
+`join`の呼び出しをメインスレッドの`for`ループの後に配置したので、リスト16-2を実行すると、
+以下のような出力が出るはずです:
 
 ```text
 hi number 1 from the main thread!
@@ -163,34 +267,47 @@ hi number 8 from the spawned thread!
 hi number 9 from the spawned thread!
 ```
 
-The two threads are still alternating, but the main thread waits because of the
-call to `handle.join()` and does not end until the spawned thread is finished.
+<!-- The two threads continue alternating, but the main thread waits because of the -->
+<!-- call to `handle.join()` and does not end until the spawned thread is finished. -->
 
-If we instead move `handle.join()` before the `for` loop in main, like this:
+2つのスレッドが代わる代わる実行されていますが、`handle.join()`呼び出しのためにメインスレッドは待機し、
+立ち上げたスレッドが終了するまで終わりません。
 
-<span class="filename">Filename: src/main.rs</span>
+<!-- But let’s see what happens when we instead move `handle.join()` before the -->
+<!-- `for` loop in `main`, like this: -->
+
+ですが、代わりに`handle.join()`を`for`ループの前に移動したらどうなるのか確認しましょう。こんな感じに:
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::thread;
+use std::time::Duration;
 
 fn main() {
     let handle = thread::spawn(|| {
         for i in 1..10 {
             println!("hi number {} from the spawned thread!", i);
+            thread::sleep(Duration::from_millis(1));
         }
     });
 
-    handle.join();
+    handle.join().unwrap();
 
     for i in 1..5 {
         println!("hi number {} from the main thread!", i);
+        thread::sleep(Duration::from_millis(1));
     }
 }
 ```
 
-The main thread will wait for the spawned thread to finish before the main
-thread starts running its `for` loop, so the output won’t be interleaved
-anymore:
+<!-- The main thread will wait for the spawned thread to finish and then run its -->
+<!-- `for` loop, so the output won’t be interleaved anymore, as shown here: -->
+
+メインスレッドが、立ち上げたスレッドが終了するまで待ち、それから`for`ループを実行するので、
+以下のように出力はもう混じりません:
 
 ```text
 hi number 1 from the spawned thread!
@@ -208,28 +325,52 @@ hi number 3 from the main thread!
 hi number 4 from the main thread!
 ```
 
-Thinking about a small thing such as where to call `join` can affect whether
-your threads are actually running at the same time or not.
+<!-- Thinking about such a small detail as where to call `join` can affect whether -->
+<!-- or not your threads run at the same time. -->
 
-### Using `move` Closures with Threads
+どこで`join`を呼ぶかのような小さな詳細について考慮することが、スレッドが同時に走るかどうかに影響するのです。
 
-There’s a feature of closures that we didn’t cover in Chapter 13 that’s often
-useful with `thread::spawn`: `move` closures. We said this in Chapter 13:
+<!-- ### Using `move` Closures with Threads -->
 
-> Creating closures that capture values from their environment is mostly used
-> in the context of starting new threads.
+### スレッドで`move`クロージャを使用する
 
-Now we’re creating new threads, so let’s talk about capturing values in
-closures!
+<!-- The `move` closure, which we mentioned briefly in Chapter 13, is often used -->
+<!-- alongside `thread::spawn` because it allows us to use data from one thread in -->
+<!-- another thread. -->
 
-Notice the closure that we pass to `thread::spawn` in Listing 16-1 takes no
-arguments: we’re not using any data from the main thread in the spawned
-thread’s code. In order to use data in the spawned thread that comes from the
-main thread, we need the spawned thread’s closure to capture the values it
-needs. Listing 16-3 shows an attempt to create a vector in the main thread and
-use it in the spawned thread, which won’t work the way this example is written:
+`move`クロージャについては、第13章でちらっとだけ触れましたが、`thread::spawn`とともによく使用されます。
+あるスレッドから別のスレッドにデータを使用させてくれるからです。
 
-<span class="filename">Filename: src/main.rs</span>
+<!-- In Chapter 13, we said that “If we want to force the closure to take ownership -->
+<!-- of the values it uses in the environment, we can use the `move` keyword before -->
+<!-- the parameter list. This technique is mostly useful when passing a closure to a -->
+<!-- new thread to move the data so it’s owned by the new thread.” -->
+
+第13章で、「環境で使用している値の所有権を奪うことをクロージャに強制したいのなら、
+引数リストの前に`move`キーワードを使用でき、このテクニックは、クロージャを新しいスレッドに渡して、
+新しいスレッドが所有するようにデータをムーブするときにだいたい有用です」と述べました。
+
+<!-- Now that we’re creating new threads, we’ll talk about capturing values in -->
+<!-- closures. -->
+
+新規スレッドを立ち上げているので、クロージャに値をキャプチャすることについて語りましょう。
+
+<!-- Notice in Listing 16-1 that the closure we pass to `thread::spawn` takes no -->
+<!-- arguments: we’re not using any data from the main thread in the spawned -->
+<!-- thread’s code. To do so, the spawned thread’s closure must capture the values -->
+<!-- it needs. Listing 16-3 shows an attempt to create a vector in the main thread -->
+<!-- and use it in the spawned thread. However, this won’t yet work, as you’ll see -->
+<!-- in a moment: -->
+
+リスト16-1において、`thread::spawn`に渡したクロージャには引数がなかったことに気付いてください:
+立ち上げたスレッドのコードでメインスレッドからのデータは何も使用していないのです。そうするには、
+立ち上げるスレッドのクロージャは、必要な値をキャプチャしなければなりません。
+リスト16-3は、メインスレッドでベクタを生成し、立ち上げたスレッドで使用する試みを示しています。
+しかしながら、すぐにわかるように、これはまだ動きません:
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
 use std::thread;
@@ -238,26 +379,35 @@ fn main() {
     let v = vec![1, 2, 3];
 
     let handle = thread::spawn(|| {
+        // こちらがベクタ: {:?}
         println!("Here's a vector: {:?}", v);
     });
 
-    handle.join();
+    handle.join().unwrap();
 }
 ```
 
-<span class="caption">Listing 16-3: Attempting to use a vector created by the
-main thread from another thread</span>
+<!-- <span class="caption">Listing 16-3: Attempting to use a vector created by the -->
+<!-- main thread in another thread</span> -->
 
-The closure uses `v`, so the closure will capture `v` and make `v` part of the
-closure’s environment. Because `thread::spawn` runs this closure in a new
-thread, we can access `v` inside that new thread.
+<span class="caption">リスト16-3: 別のスレッドでメインスレッドが生成したベクタを使用しようとする</span>
 
-When we compile this example, however, we’ll get the following error:
+<!-- The closure uses `v`, so it will capture `v` and make it part of the closure’s -->
+<!-- environment. Because `thread::spawn` runs this closure in a new thread, we -->
+<!-- should be able to access `v` inside that new thread. But when we compile this -->
+<!-- example, we get the following error: -->
+
+クロージャは`v`を使用しているので、`v`をキャプチャし、環境の一部にしています。
+`thread::spawn`はこのクロージャを新しいスレッドで走らせるので、
+その新しいスレッド内で`v`にアクセスできるはずです。しかし、このコードをコンパイルすると、
+以下のようなエラーが出ます:
 
 ```text
 error[E0373]: closure may outlive the current function, but it borrows `v`,
 which is owned by the current function
- -->
+(エラー: クロージャは現在の関数よりも長生きするかもしれませんが、現在の関数が所有している
+`v`を借用しています)
+ --> src/main.rs:6:32
   |
 6 |     let handle = thread::spawn(|| {
   |                                ^^ may outlive borrowed value `v`
@@ -265,20 +415,30 @@ which is owned by the current function
   |                                           - `v` is borrowed here
   |
 help: to force the closure to take ownership of `v` (and any other referenced
-variables), use the `move` keyword, as shown:
-  |     let handle = thread::spawn(move || {
+variables), use the `move` keyword
+(ヘルプ: `v`(や他の参照されている変数)の所有権をクロージャに奪わせるには、`move`キーワードを使用してください)
+  |
+6 |     let handle = thread::spawn(move || {
+  |                                ^^^^^^^
 ```
 
-When we capture something in a closure’s environment, Rust will try to infer
-how to capture it. `println!` only needs a reference to `v`, so the closure
-tries to borrow `v`. There’s a problem, though: we don’t know how long the
-spawned thread will run, so we don’t know if the reference to `v` will always
-be valid.
+<!-- Rust *infers* how to capture `v`, and because `println!` only needs a reference -->
+<!-- to `v`, the closure tries to borrow `v`. However, there’s a problem: Rust can’t -->
+<!-- tell how long the spawned thread will run, so it doesn’t know if the reference -->
+<!-- to `v` will always be valid. -->
 
-Consider the code in Listing 16-4 that shows a scenario where it’s more likely
-that the reference to `v` won’t be valid:
+Rustは`v`のキャプチャ方法を*推論*し、`println!`は`v`への参照のみを必要とするので、クロージャは、
+`v`を借用しようとします。ですが、問題があります: コンパイラには、立ち上げたスレッドがどのくらい走るのかわからないので、
+`v`への参照が常に有効であるか把握できないのです。
 
-<span class="filename">Filename: src/main.rs</span>
+<!-- Listing 16-4 provides a scenario that’s more likely to have a reference to `v` -->
+<!-- that won’t be valid: -->
+
+リスト16-4は、`v`への参照がより有効でなさそうな筋書きです:
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
 use std::thread;
@@ -290,36 +450,55 @@ fn main() {
         println!("Here's a vector: {:?}", v);
     });
 
+    // いや〜！
     drop(v); // oh no!
 
-    handle.join();
+    handle.join().unwrap();
 }
 ```
 
-<span class="caption">Listing 16-4: A thread with a closure that attempts to
-capture a reference to `v` from a main thread that drops `v`</span>
+<!-- <span class="caption">Listing 16-4: A thread with a closure that attempts to -->
+<!-- capture a reference to `v` from a main thread that drops `v`</span> -->
 
-This code could be run, and the spawned thread could immediately get put in the
-background without getting a chance to run at all. The spawned thread has a
-reference to `v` inside, but the main thread is still running: it immediately
-drops `v`, using the `drop` function that we discussed in Chapter 15 that
-explicitly drops its argument. Then, the spawned thread starts to execute. `v`
-is now invalid, so a reference to it is also invalid. Oh no!
+<span class="caption">リスト16-4: `v`をドロップするメインスレッドから`v`への参照をキャプチャしようとするクロージャとスレッド</span>
 
-To fix this problem, we can listen to the advice of the error message:
+<!-- If we were allowed to run this code, there’s a possibility the spawned thread -->
+<!-- will be immediately put in the background without running at all. The spawned -->
+<!-- thread has a reference to `v` inside, but the main thread immediately drops -->
+<!-- `v`, using the `drop` function we discussed in Chapter 15. Then, when the -->
+<!-- spawned thread starts to execute, `v` is no longer valid, so a reference to it -->
+<!-- is also invalid. Oh no! -->
+
+このコードを実行することが叶うのなら、立ち上げたスレッドが実行されることなく即座にバックグラウンドに置かれる可能性があります。
+立ち上げたスレッドは内部に`v`への参照を保持していますが、メインスレッドは、第15章で議論した`drop`関数を使用して、
+即座に`v`をドロップしています。そして、立ち上げたスレッドが実行を開始する時には、`v`はもう有効ではなく、
+参照も不正になるのです。あちゃー！
+
+<!-- To fix the compiler error in Listing 16-3, we can use the error message’s -->
+<!-- advice: -->
+
+リスト16-3のコンパイルエラーを修正するには、エラーメッセージのアドバイスを活用できます:
 
 ```text
 help: to force the closure to take ownership of `v` (and any other referenced
-variables), use the `move` keyword, as shown:
-  |     let handle = thread::spawn(move || {
+variables), use the `move` keyword
+  |
+6 |     let handle = thread::spawn(move || {
+  |                                ^^^^^^^
 ```
 
-By adding the `move` keyword before the closure, we force the closure to take
-ownership of the values it’s using, rather than inferring borrowing. This
-modification to the code from Listing 16-3 shown in Listing 16-5 will compile
-and run as we intend:
+<!-- By adding the `move` keyword before the closure, we force the closure to take -->
+<!-- ownership of the values it’s using rather than allowing Rust to infer that it -->
+<!-- should borrow the values. The modification to Listing 16-3 shown in Listing -->
+<!-- 16-5 will compile and run as we intend: -->
 
-<span class="filename">Filename: src/main.rs</span>
+クロージャの前に`move`キーワードを付することで、コンパイラに値を借用すべきと推論させるのではなく、
+クロージャに使用している値の所有権を強制的に奪わせます。リスト16-4に示したリスト16-3に対する変更は、
+コンパイルでき、意図通りに動きます:
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::thread;
@@ -331,20 +510,31 @@ fn main() {
         println!("Here's a vector: {:?}", v);
     });
 
-    handle.join();
+    handle.join().unwrap();
 }
 ```
 
-<span class="caption">Listing 16-5: Using the `move` keyword to force a closure
-to take ownership of the values it uses</span>
+<!-- <span class="caption">Listing 16-5: Using the `move` keyword to force a closure -->
+<!-- to take ownership of the values it uses</span> -->
 
-What about the code in Listing 16-4 where the main thread called `drop`? If we
-add `move` to the closure, we’ve moved `v` into the closure’s environment, and
-we can no longer call `drop` on it. We get this compiler error instead:
+<span class="caption">リスト16-5: `move`キーワードを使用してクロージャに使用している値の所有権を強制的に奪わせる</span>
+
+<!-- What would happen to the code in Listing 16-4 where the main thread called -->
+<!-- `drop` if we use a `move` closure? Would `move` fix that case? Unfortunately, -->
+<!-- no; we would get a different error because what Listing 16-4 is trying to do -->
+<!-- isn’t allowed for a different reason. If we add `move` to the closure, we would -->
+<!-- move `v` into the closure’s environment, and we could no longer call `drop` on -->
+<!-- it in the main thread. We would get this compiler error instead: -->
+
+`move`クロージャを使用していたら、メインスレッドが`drop`を呼び出すリスト16-4のコードはどうなるのでしょうか？
+`move`で解決するのでしょうか？残念ながら、違います; リスト16-4が試みていることは別の理由によりできないので、
+違うエラーが出ます。クロージャに`move`を付与すれば、`v`をクロージャの環境にムーブするので、
+メインスレッドで`drop`を呼び出すことは叶わなくなります。代わりにこのようなコンパイルエラーが出るでしょう:
 
 ```text
 error[E0382]: use of moved value: `v`
-  -->
+(エラー: ムーブされた値の使用: `v`)
+  --> src/main.rs:10:10
    |
 6  |     let handle = thread::spawn(move || {
    |                                ------- value moved (into closure) here
@@ -354,9 +544,29 @@ error[E0382]: use of moved value: `v`
    |
    = note: move occurs because `v` has type `std::vec::Vec<i32>`, which does
    not implement the `Copy` trait
+   (注釈: `v`の型が`std::vec::Vec<i32>`のためムーブが起きました。この型は、`Copy`トレイトを実装していません)
 ```
 
-Rust’s ownership rules have saved us again!
+<!-- Rust’s ownership rules have saved us again! We got an error from the code in -->
+<!-- Listing 16-3 because Rust was being conservative and only borrowing `v` for the -->
+<!-- thread, which meant the main thread could theoretically invalidate the spawned -->
+<!-- thread’s reference. By telling Rust to move ownership of `v` to the spawned -->
+<!-- thread, we’re guaranteeing Rust that the main thread won’t use `v` anymore. If -->
+<!-- we change Listing 16-4 in the same way, we’re then violating the ownership -->
+<!-- rules when we try to use `v` in the main thread. The `move` keyword overrides -->
+<!-- Rust’s conservative default of borrowing; it doesn’t let us violate the -->
+<!-- ownership rules. -->
 
-Now that we have a basic understanding of threads and the thread API, let’s
-talk about what we can actually *do* with threads.
+再三Rustの所有権ルールが救ってくれました！リスト16-3のコードはエラーになりました。
+コンパイラが一時的に保守的になり、スレッドに対して`v`を借用しただけだったからで、
+これは、メインスレッドは理論上、立ち上げたスレッドの参照を不正化する可能性があることを意味します。
+`v`の所有権を立ち上げたスレッドに移動するとコンパイラに指示することで、
+メインスレッドはもう`v`を使用しないとコンパイラに保証しているのです。リスト16-4も同様に変更したら、
+メインスレッドで`v`を使用しようとする際に所有権ルールを侵害することになります。
+`move`キーワードにより、デフォルトで借用するというRustの保守性が上書きされるのです; 
+所有権ルールを侵害させてはくれないのです。
+
+<!-- With a basic understanding of threads and the thread API, let’s look at what we -->
+<!-- can *do* with threads. -->
+
+スレッドとスレッドAPIの基礎知識が入ったので、スレッドでできることを見ていきましょう。

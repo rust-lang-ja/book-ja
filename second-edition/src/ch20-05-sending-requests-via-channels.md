@@ -32,7 +32,7 @@ hold anything for now:
 
 ```rust
 # use std::thread;
-// ...snip...
+// --snip--
 use std::sync::mpsc;
 
 pub struct ThreadPool {
@@ -43,7 +43,7 @@ pub struct ThreadPool {
 struct Job;
 
 impl ThreadPool {
-    // ...snip...
+    // --snip--
     pub fn new(size: usize) -> ThreadPool {
         assert!(size > 0);
 
@@ -60,7 +60,7 @@ impl ThreadPool {
             sender,
         }
     }
-    // ...snip...
+    // --snip--
 }
 #
 # struct Worker {
@@ -96,7 +96,7 @@ won’t quite compile yet:
 
 ```rust,ignore
 impl ThreadPool {
-    // ...snip...
+    // --snip--
     pub fn new(size: usize) -> ThreadPool {
         assert!(size > 0);
 
@@ -113,10 +113,10 @@ impl ThreadPool {
             sender,
         }
     }
-    // ...snip...
+    // --snip--
 }
 
-// ...snip...
+// --snip--
 
 impl Worker {
     fn new(id: usize, receiver: mpsc::Receiver<Job>) -> Worker {
@@ -164,11 +164,11 @@ distribute the jobs across the threads.
 
 Additionally, taking a job off the channel queue involves mutating `receiver`,
 so the threads need a safe way to share `receiver` and be allowed to modify it.
-If the modifications weren’t threadsafe, we might get race conditions such as
+If the modifications weren’t thread-safe, we might get race conditions such as
 two threads executing the same job if they both take the same job off the queue
 at the same time.
 
-So remembering the threadsafe smart pointers that we discussed in Chapter 16,
+So remembering the thread-safe smart pointers that we discussed in Chapter 16,
 in order to share ownership across multiple threads and allow the threads to
 mutate the value, we need to use `Arc<Mutex<T>>`. `Arc` will let multiple
 workers own the receiver, and `Mutex` will make sure that only one worker is
@@ -183,7 +183,7 @@ need to make:
 use std::sync::Arc;
 use std::sync::Mutex;
 
-// ...snip...
+// --snip--
 
 # pub struct ThreadPool {
 #     workers: Vec<Worker>,
@@ -192,7 +192,7 @@ use std::sync::Mutex;
 # struct Job;
 #
 impl ThreadPool {
-    // ...snip...
+    // --snip--
     pub fn new(size: usize) -> ThreadPool {
         assert!(size > 0);
 
@@ -203,7 +203,7 @@ impl ThreadPool {
         let mut workers = Vec::with_capacity(size);
 
         for id in 0..size {
-            workers.push(Worker::new(id, receiver.clone()));
+            workers.push(Worker::new(id, Arc::clone(&receiver)));
         }
 
         ThreadPool {
@@ -212,7 +212,7 @@ impl ThreadPool {
         }
     }
 
-    // ...snip...
+    // --snip--
 }
 # struct Worker {
 #     id: usize,
@@ -221,7 +221,7 @@ impl ThreadPool {
 #
 impl Worker {
     fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {
-        // ...snip...
+        // --snip--
 #         let thread = thread::spawn(|| {
 #            receiver;
 #         });
@@ -252,7 +252,7 @@ this is such a case! Take a look at Listing 20-19:
 <span class="filename">Filename: src/lib.rs</span>
 
 ```rust
-// ...snip...
+// --snip--
 # pub struct ThreadPool {
 #     workers: Vec<Worker>,
 #     sender: mpsc::Sender<Job>,
@@ -263,7 +263,7 @@ this is such a case! Take a look at Listing 20-19:
 type Job = Box<FnOnce() + Send + 'static>;
 
 impl ThreadPool {
-    // ...snip...
+    // --snip--
 
     pub fn execute<F>(&self, f: F)
         where
@@ -275,7 +275,7 @@ impl ThreadPool {
     }
 }
 
-// ...snip...
+// --snip--
 ```
 
 <span class="caption">Listing 20-19: Creating a `Job` type alias for a `Box`
@@ -299,7 +299,7 @@ change shown in Listing 20-20 to `Worker::new`:
 <span class="filename">Filename: src/lib.rs</span>
 
 ```rust,ignore
-// ...snip...
+// --snip--
 
 impl Worker {
     fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {
@@ -401,7 +401,7 @@ impl<F: FnOnce()> FnBox for F {
 
 type Job = Box<FnBox + Send + 'static>;
 
-// ...snip...
+// --snip--
 
 impl Worker {
     fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {

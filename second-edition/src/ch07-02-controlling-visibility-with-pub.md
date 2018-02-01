@@ -2,36 +2,42 @@
 
 ## `pub`で公開するか制御する
 
-<!-- We resolved the error messages shown in Listing 7-4 by moving the `network` and -->
+<!-- We resolved the error messages shown in Listing 7-5 by moving the `network` and -->
 <!-- `network::server` code into the *src/network/mod.rs* and -->
 <!-- *src/network/server.rs* files, respectively. At that point, `cargo build` was -->
 <!-- able to build our project, but we still get warning messages about the -->
 <!-- `client::connect`, `network::connect`, and `network::server::connect` functions -->
 <!-- not being used: -->
 
-リスト7-4に示したエラーメッセージを`network`と`network::server`のコードを、
+リスト7-5に示したエラーメッセージを`network`と`network::server`のコードを、
 *src/network/mod.rs*と*src/network/server.rs*ファイルにそれぞれ移動することで解決しました。
-その時点で`cargo build`はプロジェクトをビルドできましたが、`client::connect`と`network::connect`と`network::server::connect`関数が、
-まだ使用されていないという警告メッセージが出ていました:
+その時点で`cargo build`はプロジェクトをビルドできましたが、
+`client::connect`と`network::connect`と`network::server::connect`関数が、
+使用されていないという警告メッセージが出ていました:
 
 ```text
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
-src/client.rs:1:1
+warning: function is never used: `connect`
+ --> src/client.rs:1:1
   |
-1 | fn connect() {
-  | ^
+1 | / fn connect() {
+2 | | }
+  | |_^
+  |
+  = note: #[warn(dead_code)] on by default
 
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
+warning: function is never used: `connect`
  --> src/network/mod.rs:1:1
   |
-1 | fn connect() {
-  | ^
+1 | / fn connect() {
+2 | | }
+  | |_^
 
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
+warning: function is never used: `connect`
  --> src/network/server.rs:1:1
   |
-1 | fn connect() {
-  | ^
+1 | / fn connect() {
+2 | | }
+  | |_^
 ```
 
 <!-- So why are we receiving these warnings? After all, we’re building a library -->
@@ -106,7 +112,7 @@ fn main() {
 ところが、`cargo build`を呼び出すと、警告の後にエラーが発生します:
 
 ```text
-error: module `client` is private
+error[E0603]: module `client` is private
 (エラー: `client`モジュールは非公開です)
  --> src/main.rs:4:5
   |
@@ -133,26 +139,26 @@ Rustの文脈において、*公開*とか*非公開*という概念にぶち当
 <!-- lets Rust know that the function will be used by code outside of our program. -->
 <!-- Rust considers the theoretical external usage that’s now possible as the -->
 <!-- function “being used.” Thus, when something is marked public, Rust will not -->
-<!-- require that it be used in our program and will stop warning that the item is -->
-<!-- unused. -->
+<!-- require that it be used in our program and will stop warning that the function -->
+<!-- is unused. -->
 
 `client::connect`のような関数を公開にすると指定した後は、バイナリクレートからその関数への呼び出しが許可されるだけでなく、
 関数が未使用であるという警告も消え去るわけです。関数を公開にすれば、コンパイラは、
 関数が自分のプログラム外のコードからも使用されることがあると知ります。コンパイラは、
 関数が「使用されている」という架空の外部使用の可能性を考慮してくれます。それ故に、何かが公開とマークされれば、
-コンパイラはそれが使用されるべきという要求をなくし、その要素が未使用という警告も止めるのです。
+コンパイラはそれが自分のプログラムで使用されるべきという要求をなくし、その関数が未使用という警告も止めるのです。
 
 <!-- ### Making a Function Public -->
 
 ### 関数を公開にする
 
-<!-- To tell Rust to make something public, we add the `pub` keyword to the start of -->
-<!-- the declaration of the item we want to make public. We’ll focus on fixing the -->
-<!-- warning that indicates `client::connect` has gone unused for now, as well as -->
-<!-- the `` module `client` is private `` error from our binary crate. Modify -->
-<!-- *src/lib.rs* to make the `client` module public, like so: -->
+<!-- To tell Rust to make a function public, we add the `pub` keyword to the start -->
+<!-- of the declaration. We’ll focus on fixing the warning that indicates -->
+<!-- `client::connect` has gone unused for now, as well as the `` module `client` is -->
+<!-- private `` error from our binary crate. Modify *src/lib.rs* to make the -->
+<!-- `client` module public, like so: -->
 
-コンパイラに何かを公開すると指示するには、公開にしたい要素の定義の先頭に`pub`キーワードを追記します。
+コンパイラに何かを公開すると指示するには、定義の先頭に`pub`キーワードを追記します。
 今は、`client::connect`が未使用であるとする警告とバイナリークレートの``モジュール`client`が非公開である``エラーの解消に努めます。
 *src/lib.rs*を弄って、`client`モジュールを公開にしてください。そう、こんな感じに:
 
@@ -171,7 +177,7 @@ mod network;
 `pub`キーワードは、`mod`の直前に配置されています。再度ビルドしてみましょう:
 
 ```text
-error: function `connect` is private
+error[E0603]: function `connect` is private
  --> src/main.rs:4:5
   |
 4 |     communicator::client::connect();
@@ -200,17 +206,21 @@ pub fn connect() {
 さて、再び、`cargo build`を走らせてください:
 
 ```text
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
+warning: function is never used: `connect`
  --> src/network/mod.rs:1:1
   |
-1 | fn connect() {
-  | ^
+1 | / fn connect() {
+2 | | }
+  | |_^
+  |
+  = note: #[warn(dead_code)] on by default
 
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
+warning: function is never used: `connect`
  --> src/network/server.rs:1:1
   |
-1 | fn connect() {
-  | ^
+1 | / fn connect() {
+2 | | }
+  | |_^
 ```
 
 <!-- The code compiled, and the warning about `client::connect` not being used is -->
@@ -228,9 +238,9 @@ warning: function is never used: `connect`, #[warn(dead_code)] on by default
 <!-- called. -->
 
 コード未使用警告が必ずしも、コード内の要素を公開にしなければならないことを示唆しているわけではありません:
-これらの関数を公開APIの一部にしたく*なかった*ら、未使用コード警告がもう必要なく、安全に削除できるコードに注意を向けてくれる可能性もあります。
+これらの関数を公開APIの一部にしたく*なかった*ら、未使用コード警告がもう必要なく、安全に削除できるコードに注意を向けてくれている可能性もあります。
 また未使用コード警告は、ライブラリ内でこの関数を呼び出している箇所全てを誤って削除した場合に、
-バグに目を向けさせてくれる可能性もあります。
+バグに目を向けさせてくれている可能性もあります。
 
 <!-- But in this case, we *do* want the other two functions to be part of our -->
 <!-- crate’s public API, so let’s mark them as `pub` as well to get rid of the -->
@@ -255,17 +265,21 @@ mod server;
 そして、コードをコンパイルします:
 
 ```text
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
+warning: function is never used: `connect`
  --> src/network/mod.rs:1:1
   |
-1 | pub fn connect() {
-  | ^
+1 | / pub fn connect() {
+2 | | }
+  | |_^
+  |
+  = note: #[warn(dead_code)] on by default
 
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
+warning: function is never used: `connect`
  --> src/network/server.rs:1:1
   |
-1 | fn connect() {
-  | ^
+1 | / fn connect() {
+2 | | }
+  | |_^
 ```
 
 <!-- Hmmm, we’re still getting an unused function warning, even though -->
@@ -295,11 +309,14 @@ pub mod network;
 これでコンパイルすれば、あの警告はなくなります:
 
 ```text
-warning: function is never used: `connect`, #[warn(dead_code)] on by default
+warning: function is never used: `connect`
  --> src/network/server.rs:1:1
   |
-1 | fn connect() {
-  | ^
+1 | / fn connect() {
+2 | | }
+  | |_^
+  |
+  = note: #[warn(dead_code)] on by default
 ```
 
 <!-- Only one warning is left! Try to fix this one on your own! -->
@@ -326,7 +343,7 @@ warning: function is never used: `connect`, #[warn(dead_code)] on by default
 ### プライバシー例
 
 <!-- Let’s look at a few more privacy examples to get some practice. Create a new -->
-<!-- library project and enter the code in Listing 7-5 into your new project’s -->
+<!-- library project and enter the code in Listing 7-6 into your new project’s -->
 <!-- *src/lib.rs*: -->
 
 もうちょっと鍛錬を得るために、もういくつかプライバシー例を見てみましょう。新しいライブラリプロジェクトを作成し、
@@ -357,17 +374,17 @@ fn try_me() {
 }
 ```
 
-<!-- <span class="caption">Listing 7-5: Examples of private and public functions, -->
+<!-- <span class="caption">Listing 7-6: Examples of private and public functions, -->
 <!-- some of which are incorrect</span> -->
 
-<span class="caption">リスト7-5: 公開と非公開関数の例。不正なものもあります</span>
+<span class="caption">リスト7-6: 公開と非公開関数の例。不正なものもあります</span>
 
 <!-- Before you try to compile this code, make a guess about which lines in the -->
 <!-- `try_me` function will have errors. Then, try compiling the code to see whether -->
 <!-- you were right, and read on for the discussion of the errors! -->
 
 このコードをコンパイルする前に、`try_me`関数のどの行がエラーになるか当ててみてください。
-それからコンパイルを試して、合ってたかどうか確かめ、エラーの議論を読み進めてください！
+それからコンパイルを試して、合ってたかどうか確かめ、エラーの議論を求めて読み進めてください！
 
 <!-- #### Looking at the Errors -->
 
@@ -380,7 +397,7 @@ fn try_me() {
 
 `try_me`関数は、プロジェクトのルートモジュールに存在しています。`outermost`という名前のモジュールは非公開ですが、
 プライバシー規則の2番目にある通り、`try_me`そのままに、`outermost`は現在(ルート)のモジュールなので、
-`try_me`関数は、`outermost`にアクセスすることを許可されるのです。
+`try_me`関数は、`outermost`モジュールにアクセスすることを許可されるのです。
 
 <!-- The call to `outermost::middle_function` will work because `middle_function` is -->
 <!-- public, and `try_me` is accessing `middle_function` through its parent module -->
@@ -396,9 +413,10 @@ fn try_me() {
 <!-- module is neither the current module of `middle_secret_function` (`outermost` -->
 <!-- is), nor is it a child module of the current module of `middle_secret_function`. -->
 
-`outermost::middle_secret_function`の呼び出しは、コンパイルエラーになります。
+`outermost::middle_secret_function`の呼び出しは、コンパイルエラーになるでしょう。
 `middle_secret_function`は非公開なので、2番目の規則が適用されます。ルートモジュールは、
-`middle_secret_function`の現在のモジュール(`outermost`がそうです)でも、`middle_secret_function`のモジュールの子供でもないのです。
+`middle_secret_function`の現在のモジュール(`outermost`がそうです)でも、
+`middle_secret_function`の現在のモジュールの子供でもないのです。
 
 <!-- The module named `inside` is private and has no child modules, so it can only -->
 <!-- be accessed by its current module `outermost`. That means the `try_me` function -->

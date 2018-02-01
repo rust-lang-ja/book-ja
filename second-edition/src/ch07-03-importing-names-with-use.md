@@ -1,13 +1,13 @@
-<!-- ## Importing Names -->
+<!-- ## Referring to Names in Different Modules -->
 
-## 名前をインポートする
+## 異なるモジュールの名前を参照する
 
 <!-- We’ve covered how to call functions defined within a module using the module -->
 <!-- name as part of the call, as in the call to the `nested_modules` function shown -->
-<!-- here in Listing 7-6: -->
+<!-- here in Listing 7-7: -->
 
-モジュール名を呼び出しの一部に使用してモジュール内に定義された関数の呼び出し方法を解説しました。
-リスト7-6に示した`nested_modules`関数の呼び出しのような感じですね:
+モジュール名を呼び出しの一部に使用して、モジュール内に定義された関数の呼び出し方法を解説しました。
+リスト7-7に示した`nested_modules`関数の呼び出しのような感じですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -27,10 +27,10 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 7-6: Calling a function by fully specifying its -->
+<!-- <span class="caption">Listing 7-7: Calling a function by fully specifying its -->
 <!-- enclosing module’s path</span> -->
 
-<span class="caption">リスト7-6: 囲まれたモジュールをフルパス指定して関数を呼び出す</span>
+<span class="caption">リスト7-7: 囲まれたモジュールをフルパス指定して関数を呼び出す</span>
 
 <!-- As you can see, referring to the fully qualified name can get quite lengthy. -->
 <!-- Fortunately, Rust has a keyword to make these calls more concise. -->
@@ -38,9 +38,9 @@ fn main() {
 見てお分かりの通り、フルパス指定した名前を参照すると非常に長ったらしくなります。
 幸い、Rustには、これらの呼び出しをもっと簡潔にするキーワードが用意されています。
 
-<!-- ### Concise Imports with `use` -->
+<!-- ### Bringing Names into Scope with the `use` keyword -->
 
-### `use`で簡潔なインポート
+### `use`キーワードで名前をスコープに導入する
 
 <!-- Rust’s `use` keyword shortens lengthy function calls by bringing the modules of -->
 <!-- the function you want to call into scope. Here’s an example of bringing the -->
@@ -72,7 +72,7 @@ fn main() {
 <!-- `a::series::of` path wherever we want to refer to the `of` module, we can use -->
 <!-- `of`. -->
 
-`use a::series::of`の行は、`of`モジュールを参照したい箇所全部でフルパスの`a::series::of`を使用するのではなく、
+`use a::series::of;`の行は、`of`モジュールを参照したい箇所全部でフルパスの`a::series::of`を使用するのではなく、
 `of`を利用できることを意味しています。
 
 <!-- The `use` keyword brings only what we’ve specified into scope: it does not -->
@@ -85,7 +85,7 @@ fn main() {
 <!-- We could have chosen to bring the function into scope by instead specifying the -->
 <!-- function in the `use` as follows: -->
 
-以下のように、代わりに`use`で関数を指定して、関数をスコープに入れることもできます:
+以下のように、代わりに`use`で関数を指定して、関数をスコープに入れることもできました:
 
 ```rust
 pub mod a {
@@ -108,13 +108,13 @@ fn main() {
 
 そうすれば、モジュールをすべて取り除き、関数を直接参照することができます。
 
-<!-- Because enums also form a sort of namespace like modules, we can import an -->
-<!-- enum’s variants with `use` as well. For any kind of `use` statement, if you’re -->
-<!-- importing multiple items from one namespace, you can list them using curly -->
-<!-- braces and commas in the last position, like so: -->
+<!-- Because enums also form a sort of namespace like modules, we can bring an -->
+<!-- enum’s variants into scope with `use` as well. For any kind of `use` statement,  -->
+<!-- if you're bringing multiple items from one namespace into scope, you can list  -->
+<!-- them using curly brackets and commas in the last position, like so: -->
 
-enumもモジュールのようにある種の名前空間をなすので、enumのバリアントを`use`でインポートすることもできます。
-どんな`use`文に関しても、一つの名前空間から複数の要素をインポートする場合、波かっことお尻にカンマを使用することで列挙できます。
+enumもモジュールのようにある種の名前空間をなすので、enumのバリアントを`use`でスコープに導入することもできます。
+どんな`use`文に関しても、一つの名前空間から複数の要素をスコープに導入する場合、波かっことお尻にカンマを使用することで列挙できます。
 こんな感じで:
 
 ```rust
@@ -136,16 +136,16 @@ fn main() {
 <!-- We’re still specifying the `TrafficLight` namespace for the `Green` variant -->
 <!-- because we didn’t include `Green` in the `use` statement. -->
 
-`Green`を`use`文に含んでいないので、まだ`Green`バリアント用に`TrafficLight`名前空間を参照しています。
+`Green`を`use`文に含んでいないので、まだ`Green`バリアント用に`TrafficLight`名前空間を指定しています。
 
-<!-- ### Glob Imports with `*` -->
+<!-- ### Bringing All Names into Scope with a Glob -->
 
-### `*`でまとめてインポート
+### Globで全ての名前をスコープに導入する
 
-<!-- To import all the items in a namespace at once, we can use the `*` syntax. For -->
-<!-- example: -->
+<!-- To bring all the items in a namespace into scope at once, we can use the `*` syntax, which is called the *glob operator*. This example brings all the variants of an enum into scope without having to list each specifically: -->
 
-ある名前空間の要素を全て一度にインポートするには、`*`表記が使用できます。例:
+ある名前空間の要素を全て一度にスコープに導入するには、`*`表記が使用でき、これはglob(塊)演算子と呼ばれます。
+この例は、あるenumのバリアントを各々を列挙せずに全てスコープに導入しています:
 
 ```rust
 enum TrafficLight {
@@ -163,13 +163,13 @@ fn main() {
 }
 ```
 
-<!-- The `*` is called a *glob*, and it will import all items visible inside the -->
+<!-- The `*` will bring into scope all the visible items in the `TrafficLight` -->
 <!-- namespace. You should use globs sparingly: they are convenient, but this might -->
 <!-- also pull in more items than you expected and cause naming conflicts. -->
 
-`*`は*glob*(塊)と呼ばれ、名前空間内で公開されている要素全てをインポートします。
+`*`は`TrafficLight`名前空間に存在する全て公開要素をスコープに導入します。
 あまりglobは使用するべきではありません: 便利ではありますが、予想以上の要素を引き込んで、
-名前衝突を引き起こすかもしれないのです。
+名前衝突を引き起こす可能性があるのです。
 
 <!-- ### Using `super` to Access a Parent Module -->
 
@@ -195,6 +195,7 @@ pub mod network;
 mod tests {
     #[test]
     fn it_works() {
+        assert_eq!(2 + 2, 4);
     }
 }
 ```
@@ -219,10 +220,10 @@ communicator
 
 <!-- Tests are for exercising the code within our library, so let’s try to call our -->
 <!-- `client::connect` function from this `it_works` function, even though we won’t -->
-<!-- be checking any functionality right now: -->
+<!-- be checking any functionality right now. This won’t work yet: -->
 
 テストは、ライブラリ内でコードの準備運動を行うためのものなので、この`it_works`関数から`client::connect`関数を呼び出してみましょう。
-まあ、今のところは、機能の検査は何もしないんですけどね:
+まあ、尤も今のところ、機能の検査は何もしないんですけどね。これはまだ動きません:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -250,7 +251,7 @@ error[E0433]: failed to resolve. Use of undeclared type or module `client`
  --> src/lib.rs:9:9
   |
 9 |         client::connect();
-  |         ^^^^^^^^^^^^^^^ Use of undeclared type or module `client`
+  |         ^^^^^^ Use of undeclared type or module `client`
 ```
 
 <!-- The compilation failed, but why? We don’t need to place `communicator::` in -->
@@ -260,7 +261,7 @@ error[E0433]: failed to resolve. Use of undeclared type or module `client`
 <!-- exception is in a `use` statement, where paths are relative to the crate root -->
 <!-- by default. Our `tests` module needs the `client` module in its scope! -->
 
-コンパイルが失敗しましたが、なぜでしょうか？*src/main.rs*でしたように、関数の直前に`communicator::`を配置する必要はありません。
+コンパイルが失敗しましたが、なぜでしょうか？*src/main.rs*のように、関数の直前に`communicator::`を配置する必要はありません。
 なぜなら、間違いなくここでは、`communicator`ライブラリクレート内にいるからです。
 原因は、パスが常に現在のモジュールに対して相対的になり、ここでは`tests`になっているからです。
 唯一の例外は、`use`文内であり、パスは標準でクレートのルートに相対的になります。
@@ -347,7 +348,7 @@ $ cargo test
 running 1 test
 test tests::it_works ... ok
 
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
 <!-- ## Summary -->

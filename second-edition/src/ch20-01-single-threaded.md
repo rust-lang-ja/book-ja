@@ -167,8 +167,11 @@ message that we got a connection in the `for` loop in `main`, we’re calling th
 new `handle_connection` function and passing the `stream` to it.
 
 In `handle_connection`, we made the `stream` parameter mutable with the `mut`
-keyword. We’re going to be reading data from the stream, so it’s going to get
-modified.
+keyword. As we read from a stream, the `TcpStream` instance might read more
+than what we ask for into a buffer. Internally, it keeps track of what data it
+has returned to us. It needs to be `mut` because of that state changing, so
+even though we usually think of “reading” as not needing mutation, in this
+case, we do need to use the `mut` keyword.
 
 Next, we need to actually read from the stream. We do this in two steps: first,
 we declare a `buffer` on the stack to hold the data that we read in. We’ve made
@@ -360,7 +363,7 @@ it to the response as a body, and send it:
 # use std::net::TcpStream;
 use std::fs::File;
 
-// ...snip...
+// --snip--
 
 fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 512];
@@ -415,7 +418,7 @@ add code to treat requests differently:
 # use std::io::prelude::*;
 # use std::net::TcpStream;
 # use std::fs::File;
-// ...snip...
+// --snip--
 
 fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 512];
@@ -435,7 +438,7 @@ fn handle_connection(mut stream: TcpStream) {
         stream.flush().unwrap();
     } else {
         // some other request
-    };
+    }
 }
 ```
 
@@ -473,16 +476,16 @@ browser indicating as such to the end user:
 # use std::fs::File;
 # fn handle_connection(mut stream: TcpStream) {
 # if true {
-// ...snip...
+// --snip--
 
 } else {
-    let header = "HTTP/1.1 404 NOT FOUND\r\n\r\n";
+    let status_line = "HTTP/1.1 404 NOT FOUND\r\n\r\n";
     let mut file = File::open("404.html").unwrap();
     let mut contents = String::new();
 
     file.read_to_string(&mut contents).unwrap();
 
-    let response = format!("{}{}", header, contents);
+    let response = format!("{}{}", status_line, contents);
 
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
@@ -493,7 +496,7 @@ browser indicating as such to the end user:
 <span class="caption">Listing 20-7: Responding with status code `404` and an
 error page if anything other than `/` was requested</span>
 
-Here, our response has a header with status code `404` and the reason phrase
+Here, our response has a status line with status code `404` and the reason phrase
 `NOT FOUND`. We still aren’t returning any headers, and the body of the
 response will be the HTML in the file *404.html*. Also create a *404.html* file
 next to *hello.html* for the error page; again feel free to use any HTML you’d
@@ -537,16 +540,16 @@ shown in Listing 20-9:
 # use std::io::prelude::*;
 # use std::net::TcpStream;
 # use std::fs::File;
-// ...snip...
+// --snip--
 
 fn handle_connection(mut stream: TcpStream) {
 #     let mut buffer = [0; 512];
 #     stream.read(&mut buffer).unwrap();
 #
 #     let get = b"GET / HTTP/1.1\r\n";
-    // ...snip...
+    // --snip--
 
-   let (status_line, filename) = if buffer.starts_with(get) {
+    let (status_line, filename) = if buffer.starts_with(get) {
         ("HTTP/1.1 200 OK\r\n\r\n", "hello.html")
     } else {
         ("HTTP/1.1 404 NOT FOUND\r\n\r\n", "404.html")
@@ -569,8 +572,8 @@ blocks only contain the code that differs between the two cases</span>
 
 Here, the only thing the `if` and `else` blocks do is return the appropriate
 values for the status line and filename in a tuple; we then use destructuring
-to assign these two bits to `filename` and `header` using a pattern in the
-`let` statement like we discussed in Chapter 18.
+to assign these two values to `status_line` and `filename` using a pattern in
+the `let` statement like we discussed in Chapter 18.
 
 The duplicated code to read the file and write the response is now outside the
 `if` and `else` blocks, and uses the `status_line` and `filename` variables.

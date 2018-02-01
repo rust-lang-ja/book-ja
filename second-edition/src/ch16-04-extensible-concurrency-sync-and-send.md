@@ -1,88 +1,159 @@
-## Extensible Concurrency with the `Sync` and `Send` Traits
+<!-- ## Extensible Concurrency with the `Sync` and `Send` Traits -->
 
-One interesting aspect of Rust’s concurrency model is that the language knows
-*very* little about concurrency. Almost everything we’ve been talking about so
-far has been part of the standard library, not the language itself. Because we
-don’t need the language to provide everything we need to program in a
-concurrent context, we’re not limited to the concurrency options that the
-standard library or language provide: we can write our own or use ones others
-have written.
+## `Sync`と`Send`トレイトで拡張可能な非同期処理
 
-We said *almost* everything wasn’t in the language, so what is? There are two
-traits, both in `std::marker`: `Sync` and `Send`.
+<!-- Interestingly, the Rust language has *very* few concurrency features. Almost -->
+<!-- every concurrency feature we’ve talked about so far in this chapter has been -->
+<!-- part of the standard library, not the language. Our options for handling -->
+<!-- concurrency are not limited to the language or the standard library; we can -->
+<!-- write our own concurrency features or use those written by others. -->
 
-### `Send` for Indicating Ownership May Be Transferred to Another Thread
+面白いことに、Rust言語には、*寡*少な非同期機能があります。この章でここまでに語った非同期処理のほとんどは、
+標準ライブラリの一部であり、言語ではありません。非同期を扱う選択肢は、言語や標準ライブラリに制限されません;
+独自の非同期処理機能を書いたり、他人が書いたものを利用したりできるのです。
 
-The `Send` marker trait indicates that ownership of that type may be
-transferred between threads. Almost every Rust type is `Send`, but there are
-some exceptions. One type provided by the standard library that is not `Send`
-is `Rc<T>`: if we clone an `Rc<T>` value and try to transfer ownership of the
-clone to another thread, both threads might update the reference count at the
-same time. As we mentioned in the previous section, `Rc<T>` is implemented for
-use in single-threaded situations where you don’t want to pay the performance
-penalty of having a threadsafe reference count.
+<!-- However, two concurrency concepts are embedded in the language: the -->
+<!-- `std::marker` traits `Sync` and `Send`. -->
 
-Because `Rc<T>` is not marked `Send`, Rust’s type system and trait bounds
-ensure that we can never forget and accidentally send an `Rc<T>` value across
-threads unsafely. We tried to do this in Listing 16-14, and we got an error
-that said `the trait Send is not implemented for Rc<Mutex<i32>>`. When we
-switched to `Arc<T>`, which is `Send`, the code compiled.
+ですが、2つの非同期処理概念が言語に埋め込まれています: `std::marker`トレイトの`Sync`と`Send`です。
 
-Any type that is composed entirely of `Send` types is automatically marked as
-`Send` as well. Almost all primitive types are `Send`, aside from raw pointers,
-which we’ll discuss in Chapter 19. Most standard library types are `Send`,
-aside from `Rc<T>`.
+<!-- ### Allowing Transference of Ownership Between Threads with `Send` -->
 
-### `Sync` for Indicating Access from Multiple Threads is Safe
+### `Send`でスレッド間の所有権の転送を許可する
 
-The `Sync` marker trait indicates that a type is safe to have references to a
-value from multiple threads. Another way to say this is for any type `T`, `T`
-is `Sync` if `&T` (a reference to `T`) is `Send` so that the reference can be
-sent safely to another thread. In a similar manner as `Send`, primitive types
-are `Sync` and types composed entirely of types that are `Sync` are also `Sync`.
+<!-- 最後から2行目、single-threaded situationsのsituationsを環境と訳すのが自然なのでそうしている -->
 
-`Rc<T>` is also not `Sync`, for the same reasons that it’s not `Send`.
-`RefCell<T>` (which we talked about in Chapter 15) and the family of related
-`Cell<T>` types are not `Sync`. The implementation of the borrow checking at
-runtime that `RefCell<T>` does is not threadsafe. `Mutex<T>` is `Sync`, and can
-be used to share access with multiple threads as we saw in the previous section.
+<!-- The `Send` marker trait indicates that ownership of the type implementing -->
+<!-- `Send` can be transferred between threads. Almost every Rust type is `Send`, -->
+<!-- but there are some exceptions, including `Rc<T>`: this cannot be `Send` because -->
+<!-- if we cloned an `Rc<T>` value and tried to transfer ownership of the clone to -->
+<!-- another thread, both threads might update the reference count at the same time. -->
+<!-- For this reason, `Rc<T>` is implemented for use in single-threaded situations -->
+<!-- where you don’t want to pay the thread-safe performance penalty. -->
 
-### Implementing `Send` and `Sync` Manually is Unsafe
+`Send`マーカートレイトは、`Send`を実装した型の所有権をスレッド間で転送できることを示唆します。
+Rustのほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外があります: この型は、`Rc<T>`の値をクローンし、
+クローンしたものの所有権を別のスレッドに転送しようとしたら、両方のスレッドが同時に参照カウントを更新できてしまうので、
+`Send`になり得ません。このため、`Rc<T>`はスレッド安全性のためのパフォーマンスの犠牲を支払わなくても済む、
+シングルスレッド環境で使用するために実装されているわけです。
 
-Usually, we don’t need to implement the `Send` and `Sync` traits, since types
-that are made up of `Send` and `Sync` traits are automatically also `Send` and
-`Sync`. Because they’re marker traits, they don’t even have any methods to
-implement. They’re just useful for enforcing concurrency-related invariants.
+<!-- Therefore, Rust’s type system and trait bounds ensure that we can never -->
+<!-- accidentally send an `Rc<T>` value across threads unsafely. When we tried to do -->
+<!-- this in Listing 16-14, we got the error `the trait Send is not implemented for -->
+<!-- Rc<Mutex<i32>>`. When we switched to `Arc<T>`, which is `Send`, the code -->
+<!-- compiled. -->
 
-Implementing the guarantees that these traits are markers for involves
-implementing unsafe Rust code. We’re going to be talking about using unsafe
-Rust code in Chapter 19; for now, the important information is that building
-new concurrent types that aren’t made up of `Send` and `Sync` parts requires
-careful thought to make sure the safety guarantees are upheld. [The Nomicon]
-has more information about these guarantees and how to uphold them.
+故に、Rustの型システムとトレイト境界により、`Rc<T>`の値を不安全にスレッド間で誤って送信することが絶対ないよう保証してくれるのです。
+リスト16-14でこれを試みた時には、`the trait Send is not implemented for Rc<Mutex<i32>>`というエラーが出ました。
+`Send`の`Arc<T>`に切り替えたら、コードはコンパイルできたわけです。
 
-[The Nomicon]: https://doc.rust-lang.org/stable/nomicon/
+<!-- Any type composed entirely of `Send` types is automatically marked as `Send` as -->
+<!-- well. Almost all primitive types are `Send`, aside from raw pointers, which -->
+<!-- we’ll discuss in Chapter 19. -->
 
-## Summary
+完全に`Send`の型からなる型も全て自動的に`Send`と印付けされます。生ポインタを除くほとんどの基本型も`Send`で、
+生ポインタについては第19章で議論します。
 
-This isn’t the last time we’ll see concurrency in this book; the project in
-Chapter 20 will use these concepts in a more realistic situation than the
-smaller examples we discussed in this chapter.
+<!-- ### Allowing Access from Multiple Threads with `Sync` -->
 
-As we mentioned, since very little of how Rust deals with concurrency has to be
-part of the language, there are many concurrency solutions implemented as
-crates. These evolve more quickly than the standard library; search online for
-the current state-of-the-art crates for use in multithreaded situations.
+### `Sync`で複数のスレッドからのアクセスを許可する
 
-Rust provides channels for message passing and smart pointer types like
-`Mutex<T>` and `Arc<T>` that are safe to use in concurrent contexts. The type
-system and the borrow checker will make sure the code we write using these
-solutions won’t have data races or invalid references. Once we get our code
-compiling, we can rest assured that our code will happily run on multiple
-threads without the kinds of hard-to-track-down bugs common in other
-programming languages. Concurrent programming is no longer something to be
-afraid of: go forth and make your programs concurrent, fearlessly!
+<!-- The `Sync` marker trait indicates that it is safe for the type implementing -->
+<!-- `Sync` to be referenced from multiple threads. In other words, any type `T` is -->
+<!-- `Sync` if `&T` (a reference to `T`) is `Send`, meaning the reference can be -->
+<!-- sent safely to another thread. Similar to `Send`, primitive types are `Sync` -->
+<!-- and types composed entirely of types that are `Sync` are also `Sync`. -->
 
-Next, let’s talk about idiomatic ways to model problems and structure solutions
-as your Rust programs get bigger, and how Rust’s idioms relate to those you
-might be familiar with from Object Oriented Programming.
+`Sync`マーカートレイトは、`Sync`を実装した型は、複数のスレッドから参照されても安全であることを示唆します。
+言い換えると、`&T`(`T`への参照)が`Send`なら、型`T`は`Sync`であり、参照が他のスレッドに安全に送信できることを意味します。
+`Send`同様、基本型は`Sync`であり、`Sync`の型からのみ構成される型もまた`Sync`です。
+
+<!-- The smart pointer `Rc<T>` is also not `Sync` for the same reasons that it’s not -->
+<!-- `Send`. The `RefCell<T>` type (which we talked about in Chapter 15) and the -->
+<!-- family of related `Cell<T>` types are not `Sync`. The implementation of borrow -->
+<!-- checking that `RefCell<T>` does at runtime is not thread-safe. The smart -->
+<!-- pointer `Mutex<T>` is `Sync` and can be used to share access with multiple -->
+<!-- threads, as you saw in the “Sharing a `Mutex<T>` Between Multiple Threads” -->
+<!-- section. -->
+
+`Send`ではなかったのと同じ理由で、スマートポインタの`Rc<T>`もまた`Sync`ではありません。
+`RefCell<T>`型(これについては第15章で話しました)と`Cell<T>`系についても`Sync`ではありません。
+`RefCell<T>`が実行時に行う借用チェックの実装は、スレッド安全ではないのです。
+スマートポインタの`Mutex<T>`は`Sync`で、「複数のスレッド間で`Mutex<T>`を共有する」節で見たように、
+複数のスレッドでアクセスを共有するのに使用することができます。
+
+<!-- ### Implementing `Send` and `Sync` Manually Is Unsafe -->
+
+### `Send`と`Sync`を手動で実装するのは非安全である
+
+<!-- Because types that are made up of `Send` and `Sync` traits are automatically -->
+<!-- also `Send` and `Sync`, we don’t have to implement those traits manually. As -->
+<!-- marker traits, they don’t even have any methods to implement. They’re just -->
+<!-- useful for enforcing invariants related to concurrency. -->
+
+`Send`と`Sync`トレイトから構成される型は自動的に`Send`と`Sync`にもなるので、
+それらのトレイトを手動で実装する必要はありません。マーカートレイトとして、
+実装すべきメソッドさえも何もありません。非同期処理に関連する不変条件を強制することに有効なだけなのです。
+
+<!-- Manually implementing these traits involves implementing unsafe Rust code. -->
+<!-- We’ll talk about using unsafe Rust code in Chapter 19; for now, the important -->
+<!-- information is that building new concurrent types not made up of `Send` and -->
+<!-- `Sync` parts requires careful thought to uphold the safety guarantees. [The -->
+<!-- Rustonomicon] has more information about these guarantees and how to uphold -->
+<!-- them. -->
+
+これらのトレイトを手動で実装すると、unsafeなRustコードを実装することが関わってきます。
+unsafeなRustコードを使用することについては第19章で語ります; とりあえず、重要な情報は、
+`Send`と`Sync`ではない部品からなる新しい非同期型を構成するには、安全性保証を保持するために、
+注意深い思考が必要になるということです。[The Rustonomicon]には、
+これらの保証とそれを保持する方法についての情報がより多くあります。
+
+[The Rustonomicon]: https://doc.rust-lang.org/stable/nomicon/
+
+<!-- ## Summary -->
+
+## まとめ
+
+<!-- This isn’t the last you’ll see of concurrency in this book: the project in -->
+<!-- Chapter 20 will use the concepts examined in this chapter in a more realistic -->
+<!-- situation than the smaller examples discussed here. -->
+
+この本において非同期処理を見かけるのは、これで最後ではありません: 第20章のプロジェクトでは、
+この章で調査した概念をここで議論した微小な例よりもより現実的な場面で使用するでしょう。
+
+<!-- 最後はmutithreaded situationsとなっているが、situationを環境と訳した方が自然なので、そうしている -->
+
+<!-- As mentioned earlier, because very little of how Rust handles concurrency is -->
+<!-- part of the language, many concurrency solutions are implemented as crates. -->
+<!-- These evolve more quickly than the standard library, so be sure to search -->
+<!-- online for the current, state-of-the-art crates to use in multithreaded -->
+<!-- situations. -->
+
+前述のように、Rustが非同期処理を扱うごく一部が言語の一部なので、多くの非同期処理解決策は、
+クレートとして実装されています。これらは標準ライブラリよりも迅速に進化するので、
+確実にオンラインでマルチスレッド環境で使用する現在の最先端のクレートを検索してください。
+
+<!-- The Rust standard library provides channels for message passing and smart -->
+<!-- pointer types, such as `Mutex<T>` and `Arc<T>`, that are safe to use in -->
+<!-- concurrent contexts. The type system and the borrow checker ensure that the -->
+<!-- code using these solutions won’t end up with data races or invalid references. -->
+<!-- Once we get our code to compile, we can rest assured that it will happily run -->
+<!-- on multiple threads without the kinds of hard-to-track-down bugs common in -->
+<!-- other languages. Concurrent programming is no longer a concept to be afraid of: -->
+<!-- go forth and make your programs concurrent, fearlessly! -->
+
+Rustの標準ライブラリは、メッセージ受け渡しにチャンネルを、非同期処理の文脈で安全に使用できる、
+`Mutex<T>`や`Arc<T>`などのスマートポインタ型を提供しています。型システムと借用精査機により、
+これらの解決策を使用するコードがデータ競合や無効な参照に行き着かないことを保証してくれます。
+一旦コードをコンパイルすることができたら、他の言語ではありふれている追跡困難なバグなしに、
+複数のスレッドでも喜んで動くので安心できます。非同期プログラミングは、もはや恐れるべき概念ではありません:
+進んでプログラムを非同期にして恐れないでください！
+
+<!-- Next, we’ll talk about idiomatic ways to model problems and structure solutions -->
+<!-- as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idioms -->
+<!-- relate to those you might be familiar with from object oriented programming. -->
+
+
+次は、Rustプログラムが肥大化するにつれて問題をモデル化し、解決策を構造化する慣例的な方法について話します。
+さらに、Rustのイディオムがオブジェクト指向プログラミングで馴染み深いかもしれないイディオムに関連する方法についても議論します。
+

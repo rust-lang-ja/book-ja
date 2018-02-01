@@ -1,6 +1,6 @@
 <!-- ## Concise Control Flow with `if let` -->
 
-## `if let`で完結なフロー制御
+## `if let`で簡潔なフロー制御
 
 <!-- The `if let` syntax lets you combine `if` and `let` into a less verbose way to -->
 <!-- handle values that match one pattern and ignore the rest. Consider the program -->
@@ -31,7 +31,7 @@ match some_u8_value {
 
 `Some(3)`にマッチした時だけ何かをし、他の`Some<u8>`値や`None`値の時には何もしたくありません。
 `match`式を満たすためには、バリアントを一つだけ処理した後に`_ => ()`を追加しなければなりません。
-これでは、追加すべき典型コードが多すぎます。
+これでは、追加すべき定型コードが多すぎます。
 
 <!-- Instead, we could write this in a shorter way using `if let`. The following -->
 <!-- code behaves the same as the `match` in Listing 6-6: -->
@@ -59,15 +59,15 @@ if let Some(3) = some_u8_value {
 <!-- your particular situation and if gaining conciseness is an appropriate -->
 <!-- trade-off for losing exhaustive checking. -->
 
-`if let`を使うと、タイプ数が減り、インデントも少なくなり、典型コードも減ります。しかしながら、
+`if let`を使うと、タイプ数が減り、インデントも少なくなり、定型コードも減ります。しかしながら、
 `match`では強制された包括性チェックがなくなってしまいます。`match`か`if let`かの選択は、
 特定の場面でどんなことをしたいかと簡潔性を得ることが包括性チェックを失うのに適切な代償となるかによります。
 
 <!-- In other words, you can think of `if let` as syntax sugar for a `match` that -->
 <!-- runs code when the value matches one pattern and then ignores all other values. -->
 
-言い換えると、`if let`は値が一つのパターンにマッチした時にコードを走らせ、他は無視する`match`への糖衣構文と、
-考えることができます。
+言い換えると、`if let`は値が一つのパターンにマッチした時にコードを走らせ、
+他は無視する`match`への糖衣構文と考えることができます。
 
 <!-- We can include an `else` with an `if let`. The block of code that goes with the -->
 <!-- `else` is the same as the block of code that would go with the `_` case in the -->
@@ -81,7 +81,7 @@ if let Some(3) = some_u8_value {
 `if let`と`else`に等価な`match`式の`_`の場合に入るコードブロックと同じになります。
 リスト6-4の`Coin`enum定義を思い出してください。ここでは、`Quarter`バリアントは、
 `UsState`の値も保持していましたね。クォーターコインの状態を告げつつ、
-見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式ですることができます:
+見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式で実現することができるでしょう:
 
 ```rust
 # #[derive(Debug)]
@@ -107,7 +107,7 @@ match coin {
 
 <!-- Or we could use an `if let` and `else` expression like this: -->
 
-または、以下のように`if let`と`else`を使うこともできます:
+または、以下のように`if let`と`else`を使うこともできるでしょう:
 
 ```rust
 # #[derive(Debug)]
@@ -147,7 +147,7 @@ if let Coin::Quarter(state) = coin {
 <!-- data inside them, you can use `match` or `if let` to extract and use those -->
 <!-- values, depending on how many cases you need to handle. -->
 
-これで、enumを使用してワンセットの列挙された値のどれかになりうるカスタマイズされた型を生成する方法を解説しました。
+これで、enumを使用してワンセットの列挙された値のどれかになりうる独自の型を生成する方法を解説しました。
 標準ライブラリの`Option<T>`が型システムを使用して、エラーを回避する際に役立つ方法についても示しました。
 enumの値がデータを内部に含む場合、処理すべきケースの数に応じて、`match`か`if let`を使用して値を取り出し、
 使用できます。
@@ -157,7 +157,7 @@ enumの値がデータを内部に含む場合、処理すべきケースの数�
 <!-- compiler will make certain your functions only get values of the type each -->
 <!-- function expects. -->
 
-もうRustプログラムで構造体とenumを使用して、自分の領域の概念を表現できます。API内で使用するためにカスタマイズされた型を生成することで、
+もうRustプログラムで構造体とenumを使用して、自分の領域の概念を表現できます。API内で使用するために独自の型を生成することで、
 型安全性を保証することができます: コンパイラが、各関数の予期する型の値のみを関数が得ることを確かめてくれるのです。
 
 <!-- In order to provide a well-organized API to your users that is straightforward -->

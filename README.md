@@ -5,7 +5,7 @@
 
 * 逐語訳に拘らず、読者にとってわかりやすい訳を目指す(適宜、脚注を挟む、文意に沿った訳語を選択するなど)
 * 原文の語順を極力尊重する。(..., like so)みたいな句を文中に持っていかず、(...。こんな感じに)
-のような形で訳す。つまり、ですます調で訳しますが、あまり堅すぎる文章にはしたくないという意図です
+のような形で訳す。つまり、ですます調で訳しますが、あまり堅すぎる文章にはしたくないという意図です。
 
 僭越ながら、頑張りますので、よろしくお願いいたします。
 
@@ -49,11 +49,47 @@
    * `:`、`;`は基本的に変更せずそのままにするが、`;`は意味が伝わりづらいと考えられるので、可能ならば`つまり`などと訳出して、削除する
 * 英語だとit, thatなどの指示語が多用されるが日本語だと繰り返した方が自然なことが多いので無理に指示語を使わずに自然な方を使う
 * theに関しては文意によって(`この`、`その`)などと訳出していることがあります。(`a`も同様)
+* someについて。someは、漠然と(ぼやけてるけど)あるというイメージを表す単語。通常学校文法などでは[`いくつか`]などと訳されますが、
+その訳語では、イメージを表せないので、some people say that ...などなら(...と述べる人もいる)などのように訳します。
+some of the peopleも(一部の人々)などと訳し、[`いくつか`]は`a few`や`several`などの訳語にします。
+`何か`、`何らかの`などと訳していることも多いです。
 * 逆にyou, your, we, ourなどの英語の文法上仕方なく出てくる人称代名詞は日本語には訳さない方が自然なことが多いので無理に訳に出さない。 特に、一般論を語る時のyouは 訳してはならない 参考 【雑談】"あなた"と訳さない"you" ~ einzelzelle
    * (こんな訳し方はしないので、大丈夫です)
+   * このような代名詞に関しては、訳出しないと不自然な場合のみ、訳します
+* 「している」「していく」を「*してる*」「*してく*」と訳さないこと。後者は会話などの口語では一般的ですが、あくまでもこれは公式の文書なので、似つかわしくありません。
+* doの強調用法(I do appreciate it!)は、「実は」「本当に」「実際に」などと訳出します。
+* 元来、日本語は無生物主語を嫌う言語なので、主語位置にある無生物は、「により」「によって」「のおかげで」などと訳出し、無生物主語を避けます。
+* 基本動詞のhaveですが、上記の方針により、基本的に「AにBがある」「AにBが存在する」などと訳し、「持つ」という訳語を極力避けます(Rust have several wonderful features.のような文がよく出てくるので)。
+* 命令文は、基本的に「〜してください」と訳します。
+* 時制について。日本語の時制は、英語ほど厳密ではなく、曖昧なことが多いため、あまり気にする必要はないと考えています。
+   * 完了形は基本的に本来のイメージに近い「〜してきました」と訳していますが、単純に「〜しました」「〜しています」のように訳している箇所もあります。
+   * 現在形を「〜しています」と訳している箇所もあります。
+   * あと、文意から考えて、過去形を過去で訳していない箇所もあったようななかったような・・・
+* 助動詞について。助動詞の過去形についてですが、助動詞が過去を表すのは時制の一致を受けているときぐらいであり、普通助動詞を使いつつ過去の意味を表したい場合、助動詞の後を完了形にするので、その代わりに意味を弱めて訳しています(If I were(was) there, I could've done it.)。一部、意味を弱めていない場合もあります。
+   * `will`(でしょう) ↔︎ `would`(でしょう): `would`は日本語に訳すなら(かもなぁ)ぐらいの意味ですが、敬体で表すことができないため、同じにしています。
+   * `can`(できます) ↔︎ `could`(できるでしょう)
+   * `may`(かもしれません) ↔︎ `might`(可能性があります)
+   * `should`の現在形は`shall`ですが、現代英語ではほぼ使用されないため、除外します。`should`は訳すなら、「べき」「はず」と訳します。
+   * `must`に過去形はありません(辞書には、過去形は`had to`と書いてありましたが)。
+   * 助動詞っぽいですが、`have to`は例外です。`had to`で普通、過去の意味を表します。
+   * あと、`ought to`という表現もありますが、あまり見かけたことはありません。
+* 漢字について。常用外の漢字について、特に難読と思われるものについては`ruby`タグでルビを振ります。常用漢字であっても、常用外の読みの場合には、ルビを振るよう心がけます。
+
+### PRのマージについて
+* PRをマージする際にレビューしていただいた部分について、議論が必要そうと感じた部分については、「TODO:」コメントを付します。これを目安に議論する際には、検索をかけてください
 
 [translation-table]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/TranslationTable.md
 [contributing]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/CONTRIBUTING.md
+
+# NOTICE ABOUT STATUS
+
+The second edition of The Rust Programming Language is getting ever closer to being printed!
+This means we're not able to make large changes to chapters that are in any column to the 
+right of, and including, the "Frozen" column [on our Project board][proj]. Issues or pull
+requests submitted for frozen chapters are welcome but will be closed until we start work
+on a third edition. Thank you!
+
+[proj]: https://github.com/rust-lang/book/projects/1
 
 # The Rust Programming Language
 
@@ -64,24 +100,37 @@ This repo contains two editions of “The Rust Programming Language”.
 The second edition is a rewrite that will be printed by NoStarch Press,
 available around October 2017.
 
-[You can read it online][html]; the last few chapters aren't completed yet, but
+[You can read the very latest online][html]; the last few chapters aren't completed yet, but
 the first half of the book is much improved from the first edition. We recommend
 starting with the second edition.
 
 [html]: http://rust-lang.github.io/book/
 
+Note that links to the standard library won't work in this version; this is intentional
+so that links work with the book and API docs shipped with Rust installations for offline
+reading. For a version of the book where these links do work, please see the book as shipped
+with the latest [stable], [beta], or [nightly] Rust releases. Be aware that issues in those
+versions may have been fixed in this repository already.
+
+[stable]: https://doc.rust-lang.org/stable/book/second-edition/
+[beta]: https://doc.rust-lang.org/beta/book/second-edition/
+[nightly]: https://doc.rust-lang.org/nightly/book/second-edition/
+
 [The first edition is still available to read online][first].
 
 [first]: https://doc.rust-lang.org/book/
 
+
 ## Requirements
 
-Building the book requires [mdBook] >= v0.0.13. To get it:
+Building the book requires [mdBook], ideally the same version that
+[rust-lang/rust uses in this file][rust-mdbook]. To get it:
 
 [mdBook]: https://github.com/azerupi/mdBook
+[rust-mdbook]: https://github.com/rust-lang/rust/blob/master/src/tools/rustbook/Cargo.toml
 
 ```bash
-$ cargo install mdbook
+$ cargo install mdbook --vers [version-num]
 ```
 
 ## Building
