@@ -30,6 +30,8 @@ Rustの標準ライブラリが実装を提供しているプログラミング�
 水の流れのように考えることができます。小川とか川ですね。アヒルのおもちゃやボートみたいなものを小川に置いたら、
 川の終端まで下流に流れていきます。
 
+<!-- 5行目終わり、for arriving messagesは本来ならfor messages arrivingのような気がするが、その想定で訳してある -->
+
 <!-- A channel in programming has two halves: a transmitter and a receiver. The -->
 <!-- transmitter half is the upstream location where we put rubber ducks into the -->
 <!-- river, and the receiver half is where the rubber duck ends up downstream. One -->
@@ -61,7 +63,7 @@ Rustの標準ライブラリが実装を提供しているプログラミング�
 <!-- want to send over the channel: -->
 
 まず、リスト16-6において、チャンネルを生成するものの、何もしません。
-チャンネルを通してどんな型の値を送りたいのかコンパイラがわからないため、
+チャンネル越しにどんな型の値を送りたいのかコンパイラがわからないため、
 これはまだコンパイルできないことに注意してください:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -95,8 +97,8 @@ fn main() {
 簡潔に言えば、Rustの標準ライブラリがチャンネルを実装している方法は、1つのチャンネルが値を生成する複数の*送信*側と、
 その値を消費するたった1つの*受信*側を持つことができるということを意味します。
 複数の川と小川が互いに合わさって1つの大きな川になるところを想像してください: 
-どの川を通っても、送られたものは最終的に1つの川に行き着きます。今は、1つの生成機から始めますが、
-この例が動作するようになったら、複数の生成機を追加します。
+どの川を通っても、送られたものは最終的に1つの川に行き着きます。今は、1つの生成器から始めますが、
+この例が動作するようになったら、複数の生成器を追加します。
 
 <!-- NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199 -->
 
@@ -173,7 +175,7 @@ fn main() {
 <!-- end of the river or like getting a chat message: -->
 
 リスト16-8において、メインスレッドのチャンネルの受信側から値を得ます。
-アヒルのおもちゃを川の終端で水から取り上げたり、チャットメッセージを取得するみたいですね:
+アヒルのおもちゃを川の終端で水から回収したり、チャットメッセージを取得するみたいですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -355,7 +357,7 @@ fn main() {
     let (tx, rx) = mpsc::channel();
 
     thread::spawn(move || {
-        // スレッドからやあ
+        // スレッドからやあ(hi from the thread)
         let vals = vec![
             String::from("hi"),
             String::from("from"),
@@ -413,12 +415,12 @@ Got: thread
 <!-- main thread, we can tell that the main thread is waiting to receive values from -->
 <!-- the spawned thread. -->
 
-メインスレッドの`for`ループには停止したり、遅れたりするコードは何もないので、
+メインスレッドの`for`ループには停止したり、遅れせたりするコードは何もないので、
 メインスレッドが立ち上げたスレッドから値を受け取るのを待機していることがわかります。
 
 <!-- ### Creating Multiple Producers by Cloning the Transmitter -->
 
-### 転送機をクローンして複数の生成機を作成する
+### 転送機をクローンして複数の生成器を作成する
 
 <!-- Earlier we mentioned that `mpsc` was an acronym for *multiple* *producer, -->
 <!-- single consumer*. Let’s put `mpsc` to use and expand the code in Listing 16-10 -->
@@ -459,7 +461,7 @@ thread::spawn(move || {
 });
 
 thread::spawn(move || {
-    // 君のためにもっとメッセージを
+    // 君のためにもっとメッセージを(more messages for you)
     let vals = vec![
         String::from("more"),
         String::from("messages"),
@@ -484,7 +486,7 @@ for received in rx {
 <!-- <span class="caption">Listing 16-11: Sending multiple messages from multiple -->
 <!-- producers</span> -->
 
-<span class="caption">リスト16-11: 複数の生成機から複数のメッセージを送信する</span>
+<span class="caption">リスト16-11: 複数の生成器から複数のメッセージを送信する</span>
 
 <!-- This time, before we create the first spawned thread, we call `clone` on the -->
 <!-- sending end of the channel. This will give us a new sending handle we can pass -->
