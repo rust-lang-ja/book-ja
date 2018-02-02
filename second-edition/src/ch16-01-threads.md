@@ -27,7 +27,7 @@
 <!-- * Bugs that only happen in certain situations and are hard to reproduce and fix -->
 <!--   reliably -->
 
-* スレッドがデータやリソースに不安定な順番でアクセスする競合状態
+* スレッドがデータやリソースに矛盾した順番でアクセスする競合状態
 * 2つのスレッドがお互いにもう一方が持っているリソースを使用し終わるのを待ち、両者が継続するのを防ぐデッドロック
 * 特定の状況でのみ起き、再現や信頼して修正が困難なバグ
 
@@ -53,7 +53,7 @@ Rustは、スレッド使用のマイナスの効果を軽減しようとして�
 <!-- threaded model is called the *M:N* model: `M` green threads per `N` operating -->
 <!-- system threads, where `M` and `N` are not necessarily the same number. -->
 
-多くのプログラミング言語がスレッドのそれだけの特別な実装を提供しています。プログラミング言語が提供するスレッドは、
+多くのプログラミング言語がスレッドの独自の特別な実装を提供しています。プログラミング言語が提供するスレッドは、
 *グリーン*スレッドとして知られ、このグリーンスレッドを使用する言語は、それを異なる数のOSスレッドの文脈で実行します。
 このため、グリーンスレッドのモデルは*M:N*モデルと呼ばれます: `M`個のグリーンスレッドに対して、
 `N`個のOSスレッドで、`M`と`N`は必ずしも同じ数字ではありません。
@@ -110,7 +110,7 @@ M:Nスレッドの実装をしたクレートもあります。
 <!-- run in the new thread. The example in Listing 16-1 prints some text from a main -->
 <!-- thread and other text from a new thread: -->
 
-新規スレッドを立ち上げるには、`thread::spawn`関数を呼び出し、
+新規スレッドを生成するには、`thread::spawn`関数を呼び出し、
 新規スレッドで走らせたいコードを含むクロージャ(クロージャについては第13章で語りました)を渡します。
 リスト16-1の例は、メインスレッドと新規スレッドからテキストを出力します:
 
@@ -174,7 +174,7 @@ hi number 5 from the spawned thread!
 
 `thread::sleep`を呼び出すと、少々の間、スレッドの実行を止め、違うスレッドを走らせることができます。
 スレッドは順番待ちをしますが、保証はありません: OSがスレッドのスケジュールを行う方法によります。
-この実行では、立ち上げられたスレッドのprint文がコードでは先に出現しているのに、メインスレッドがまず出力しています。
+この実行では、立ち上げられたスレッドのprint文がコードでは先に出現しているのに、メインスレッドがまず出力しています。また、
 立ち上げたスレッドには`i`が9になるまで出力するよう指示しているのに、メインスレッドが終了する前の5までしか到達していません。
 
 <!-- If you run this code and only see output from the main thread, or don’t see any -->
@@ -206,7 +206,7 @@ hi number 5 from the spawned thread!
 
 `thread::spawn`の戻り値を変数に保存することで、立ち上げたスレッドが実行されなかったり、
 完全に実行されなかったりする問題を修正することができます。`thread:spawn`の戻り値の型は`JoinHandle`です。
-`JoinHandle`は、`join`メソッドを呼び出したときにスレッドの実行を待つ所有された値です。
+`JoinHandle`は、`join`メソッドを呼び出したときにスレッドの終了を待つ所有された値です。
 リスト16-2は、リスト16-1で生成したスレッドの`JoinHandle`を使用し、`join`を呼び出して、
 立ち上げたスレッドが、`main`が終了する前に完了することを確認する方法を示しています:
 
@@ -428,7 +428,7 @@ variables), use the `move` keyword
 <!-- to `v` will always be valid. -->
 
 Rustは`v`のキャプチャ方法を*推論*し、`println!`は`v`への参照のみを必要とするので、クロージャは、
-`v`を借用しようとします。ですが、問題があります: コンパイラには、立ち上げたスレッドがどのくらい走るのかわからないので、
+`v`を借用しようとします。ですが、問題があります: コンパイラには、立ち上げたスレッドがどのくらいの期間走るのかわからないので、
 `v`への参照が常に有効であるか把握できないのです。
 
 <!-- Listing 16-4 provides a scenario that’s more likely to have a reference to `v` -->
@@ -493,7 +493,7 @@ variables), use the `move` keyword
 <!-- 16-5 will compile and run as we intend: -->
 
 クロージャの前に`move`キーワードを付することで、コンパイラに値を借用すべきと推論させるのではなく、
-クロージャに使用している値の所有権を強制的に奪わせます。リスト16-4に示したリスト16-3に対する変更は、
+クロージャに使用している値の所有権を強制的に奪わせます。リスト16-5に示したリスト16-3に対する変更は、
 コンパイルでき、意図通りに動きます:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -566,7 +566,9 @@ error[E0382]: use of moved value: `v`
 `move`キーワードにより、デフォルトで借用するというRustの保守性が上書きされるのです; 
 所有権ルールを侵害させてはくれないのです。
 
+<!-- with ...だが、「〜ので」と訳した。やはりやりすぎか？ -->
+
 <!-- With a basic understanding of threads and the thread API, let’s look at what we -->
 <!-- can *do* with threads. -->
 
-スレッドとスレッドAPIの基礎知識が入ったので、スレッドでできることを見ていきましょう。
+スレッドとスレッドAPIの基礎知識が入ったので、スレッドで*できる*ことを見ていきましょう。
