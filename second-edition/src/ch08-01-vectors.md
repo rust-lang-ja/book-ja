@@ -306,10 +306,10 @@ error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immuta
 そのような場面にならないよう回避されるのです。
 
 <!--  Note: For more on the implementation details of the `Vec<T>` type, see “The -->
-<!--  Nomicon” at https://doc.rust-lang.org/stable/nomicon/vec.html. -->
+<!--  Rustonomicon” at https://doc.rust-lang.org/stable/nomicon/vec.html. -->
 
 > 注釈: `Vec<T>`の実装に関する詳細については、https://doc.rust-lang.org/stable/nomicon/vec.htmlの、
-> "The Nomicon"を参照されたし。
+> "The Rustonomicon"を参照されたし。
 
 <!-- ### Iterating Over the Values in a Vector -->
 

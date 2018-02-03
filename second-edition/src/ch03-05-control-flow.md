@@ -402,11 +402,11 @@ fn main() {
 
 <!-- When we run this program, we’ll see `again!` printed over and over continuously -->
 <!-- until we stop the program manually. Most terminals support a keyboard shortcut, -->
-<!-- <span class="keystroke">ctrl-C</span>, to halt a program that is stuck in a -->
+<!-- <span class="keystroke">ctrl-c</span>, to halt a program that is stuck in a -->
 <!-- continual loop. Give it a try: -->
 
 このプログラムを実行すると、プログラムを手動で止めるまで、何度も何度も続けて`again!`と出力するでしょう。
-ほとんどのターミナルで<span class="keystroke">ctrl-C</span>というショートカットが使え、
+ほとんどのターミナルで<span class="keystroke">ctrl-c</span>というショートカットが使え、
 永久ループに囚われてしまったプログラムを終了させられます。試しにやってみましょう:
 
 ```text
@@ -421,11 +421,11 @@ again!
 ^Cagain!
 ```
 
-<!-- The symbol `^C` represents where you pressed <span class="keystroke">ctrl-C -->
+<!-- The symbol `^C` represents where you pressed <span class="keystroke">ctrl-c -->
 <!-- </span>. You may or may not see the word `again!` printed after the `^C`, -->
 <!-- depending on where the code was in the loop when it received the halt signal. -->
 
-`^C`という記号が出た場所が、<span class="keystroke">ctrl-C</span>を押した場所です。`^C`の後には`again!`と表示されたり、
+`^C`という記号が出た場所が、<span class="keystroke">ctrl-c</span>を押した場所です。`^C`の後には`again!`と表示されたり、
 されなかったりします。ストップシグナルをコードが受け取った時にループのどこにいたかによります。
 
 <!-- Fortunately, Rust provides another, more reliable way to break out of a loop. -->
