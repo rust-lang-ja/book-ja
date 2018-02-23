@@ -191,7 +191,7 @@ error[E0040]: explicit use of destructor method
 エラーメッセージは*デストラクタ*という専門用語を使っていて、これは、
 インスタンスを片付ける関数の一般的なプログラミング専門用語です。*デストラクタ*は、
 インスタンスを生成する*コンストラクタ*に類似しています。Rustの`drop`関数は、
-一つの特定のデストラクタです。
+1種の特定のデストラクタです。
 
 <!-- Rust doesn’t let us call `drop` explicitly because Rust would still -->
 <!-- automatically call `drop` on the value at the end of `main`. This would be a -->
@@ -236,6 +236,7 @@ fn main() {
     let c = CustomSmartPointer { data: String::from("some data") };
     println!("CustomSmartPointer created.");
     drop(c);
+    // CustomSmartPointerはmainが終わる前にドロップされた
     println!("CustomSmartPointer dropped before the end of main.");
 }
 ```
@@ -264,6 +265,8 @@ CustomSmartPointer dropped before the end of main.
 `CustomSmartPointer created.`と`CustomSmartPointer dropped before the end of main`テキストの間に出力されるので、
 `drop`メソッドのコードがその時点で呼び出されて`c`をドロップしたことを示しています。
 
+<!-- 3行目のwithを...があれば、と訳している。多分辞書にも載っている -->
+
 <!-- We can use code specified in a `Drop` trait implementation in many ways to make -->
 <!-- cleanup convenient and safe: for instance, we could use it to create our own -->
 <!-- memory allocator! With the `Drop` trait and Rust’s ownership system, we don’t -->
@@ -278,7 +281,7 @@ CustomSmartPointer dropped before the end of main.
 <!-- references are always valid also ensures that `drop` gets called only once when -->
 <!-- the value is no longer being used. -->
 
-コンパイルエラーを引き起こすので、まだ使用中の値を間違って片付けてしまう心配もしなくて済みます。
+コンパイルエラーを引き起こすので、まだ使用中の値を間違って片付けてしまう心配もしなくて済みます:
 参照が常に有効であると確認してくれる所有権システムが、値が最早使用されなくなった時に`drop`が1回だけ呼ばれることを保証してくれるのです。
 
 <!-- Now that we’ve examined `Box<T>` and some of the characteristics of smart -->
