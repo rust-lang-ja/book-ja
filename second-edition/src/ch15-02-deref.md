@@ -319,7 +319,7 @@ impl<T> Deref for MyBox<T> {
 所有権システムのためです。`deref`メソッドが値への参照ではなく、値を直接返したら、値は`self`から外にムーブされてしまいます。
 今回の場合や、参照外し演算子を使用する多くの場合には`MyBox<T>`の中の値の所有権を奪いたくはありません。
 
-<!-- 1行目、just once, each timeのところがよくわからない-->
+<!-- 1行目、just once, each timeのところがよくわからないが、おそらくこれで合っていると思われる-->
 
 <!-- Note that the `*` is replaced with a call to the `deref` method and then a call -->
 <!-- to `*` just once, each time we type a `*` in our code. Because the substitution -->
@@ -355,7 +355,7 @@ impl<T> Deref for MyBox<T> {
 <!-- can work for either references or smart pointers. -->
 
 参照外し型強制は、関数やメソッド呼び出しを書くプログラマが`&`や`*`で多くの明示的な参照や参照外しとして追加する必要がないように、
-Rustに追加されました。また、参照外し型強制のおかげで参照あるいはスマートポインタで動くコードをもっと書くことができます。
+Rustに追加されました。また、参照外し型強制のおかげで参照あるいはスマートポインタのどちらかで動くコードをもっと書くことができます。
 
 <!-- To see deref coercion in action, let’s use the `MyBox<T>` type we defined in -->
 <!-- Listing 15-8 as well as the implementation of `Deref` that we added in Listing -->
