@@ -72,7 +72,7 @@ Rustにおいて、最もありふれた種類のポインタは、参照であ�
 <!-- libraries have their own smart pointers, and you can even write your own. We’ll -->
 <!-- cover the most common smart pointers in the standard library: -->
 
-スマートポインタパターンがRustにおいてよく使われる一般的なデザインパターンだとして、この章では、全ての既存のスマートポインタを講義します。
+スマートポインタパターンがRustにおいてよく使われる一般的なデザインパターンだとして、この章では、全ての既存のスマートポインタを講義しません。
 多くのライブラリに独自のスマートポインタがあり、自分だけのスマートポインタを書くことさえできます。
 標準ライブラリの最もありふれたスマートポインタを講義します:
 
