@@ -39,7 +39,7 @@
 <!--   mutable reference or any number of immutable references. -->
 <!-- * References must always be valid. -->
 
-* いかなる時も以下のどちらかが可能になる: 1つの可変参照、あるいはいくつもの不変参照。
+* いかなる時も以下の両方ではなく、*どちらか*が可能になる: 1つの可変参照、あるいはいくつもの不変参照。
 * 参照は常に有効でなければならない。
 
 <!-- With references and `Box<T>`, the borrowing rules’ invariants are enforced at -->
@@ -76,7 +76,7 @@ Rustコンパイラのような静的な分析は、本質的に保守的です�
 最も有名な例は、停止性問題であり、この本の範疇を超えていますが、調査するのに面白い話題です。
 
 > `編注`: 停止性問題とは、あるチューリング機械(≒コンピュータプログラム・アルゴリズム)が
-> そのテープのある初期状態（≒入力）に対し、有限時間で停止するか、という問題。
+> そのテープのある初期状態（≒入力）に対し、有限時間で停止するか、という問題。   
 > Wikipediaより抜粋
 
 <!-- Because some analysis is impossible, if the Rust compiler can’t be sure the -->
@@ -222,7 +222,7 @@ Rustには、他の言語でいうオブジェクトは存在せず、また、�
 
 作成するライブラリは、値がどれくらい最大に近いかと、いつどんなメッセージになるべきかを追いかける機能を提供するだけです。
 このライブラリを使用するアプリケーションは、メッセージを送信する機構を提供すると期待されるでしょう:
-アプリケーションは、アプリケーションにメッセージを置いたり、メールを送ったり、テキストをメッセージを送るなどできるでしょう。
+アプリケーションは、アプリケーションにメッセージを置いたり、メールを送ったり、テキストメッセージを送るなどできるでしょう。
 ライブラリはその詳細を知る必要はありません。必要なのは、提供する`Messenger`と呼ばれるトレイトを実装している何かなのです。
 リスト15-20は、ライブラリのコードを示しています:
 
@@ -509,7 +509,7 @@ mod tests {
 `RefCell<T>`は、現在活動中の`Ref<T>`と`RefMut<T>`スマートポインタの数を追いかけます。
 `borrow`を呼び出す度に、`RefCell<T>`は活動中の不変参照の数を増やします。`Ref<T>`の値がスコープを抜けたら、
 不変参照の数は1下がります。コンパイル時の借用ルールと全く同じように、`RefCell<T>`はいかなる時も、
-多くの不変借用または1つの可変借用を持たせてくれるのです。
+複数の不変借用または1つの可変借用を持たせてくれるのです。
 
 <!-- If we try to violate these rules, rather than getting a compiler error like we -->
 <!-- would with references, the implementation of `RefCell<T>` will `panic!` at -->
@@ -519,7 +519,7 @@ mod tests {
 <!-- at runtime: -->
 
 これらの規則を侵害しようとすれば、参照のようにコンパイルエラーになるのではなく、
-`RefCell<T>`の実装は実行時に`panic!`するでしょう。リスト15-23はリスト15-22の`send`実装に対する変更を示しています。
+`RefCell<T>`の実装は実行時に`panic!`するでしょう。リスト15-23は、リスト15-22の`send`実装に対する変更を示しています。
 同じスコープで2つの可変借用が活動するようわざと生成し、`RefCell<T>`が実行時にこれをすることを阻止してくれるところを具体化しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -551,13 +551,15 @@ impl Messenger for MockMessenger {
 
 `borrow_mut`から返ってきた`RefMut<T>`スマートポインタに対して変数`one_borrow`を生成しています。
 そして、同様にして変数`two_borrow`にも別の可変借用を生成しています。これにより同じスコープで2つの可変参照ができ、
-これは許可されないことです。このテストをライブラリ用に走らせると、リスト15-23のコードはエラーなくコンパイルできますが、
+これは許可されないことです。このテストを自分のライブラリ用に走らせると、リスト15-23のコードはエラーなくコンパイルできますが、
 テストは失敗するでしょう:
 
 ```text
 ---- tests::it_sends_an_over_75_percent_warning_message stdout ----
 	thread 'tests::it_sends_an_over_75_percent_warning_message' panicked at
     'already borrowed: BorrowMutError', src/libcore/result.rs:906:4
+    (スレッド'tests::it_sends_an_over_75_percent_warning_message'は、
+    'すでに借用されています: BorrowMutError', src/libcore/result.rs:906:4でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 

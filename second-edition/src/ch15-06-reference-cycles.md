@@ -11,7 +11,7 @@
 <!-- other in a cycle. This creates memory leaks because the reference count of each -->
 <!-- item in the cycle will never reach 0, and the values will never be dropped. -->
 
-Rustのメモリ安全保証により誤って絶対に片付けられることのないメモリ(*メモリリーク*として知られています)を生成してしまうことが困難にはなりますが、
+Rustのメモリ安全保証により誤って絶対に片付けられることのないメモリ(*メモリリーク*として知られています)を生成してしまうことが*困難*にはなりますが、
 不可能にはなりません。コンパイル時にデータ競合を防ぐのと同じようにメモリリークを完全に回避することは、
 Rustの保証の一つではなく、メモリリークはRustにおいてはメモリ安全であることを意味します。
 Rustでは、`Rc<T>`と`RefCell<T>`を使用してメモリリークを許可するとわかります:
@@ -158,8 +158,8 @@ fn main() {
 <!-- the `borrow_mut` method on the `RefCell<Rc<List>>` to change the value inside -->
 <!-- from an `Rc<List>` that holds a `Nil` value to the `Rc<List>` in `b`. -->
 
-`a`が`Nil`ではなく`b`を指すように変更して、循環にさせます。`tail`メソッドを使用して、
-`a`の`RefCell<Rc<List>>`への参照を得ることでそうして、この参照は変数`link`に配置します。
+`a`が`Nil`ではなく`b`を指すように変更して、循環させます。`tail`メソッドを使用して、
+`a`の`RefCell<Rc<List>>`への参照を得ることで循環させて、この参照は変数`link`に配置します。
 それから`RefCell<Rc<List>>`の`borrow_mut`メソッドを使用して中の値を`Nil`値を持つ`Rc<List>`から、
 `b`の`Rc<List>`に変更します。
 
@@ -231,7 +231,7 @@ a rc count after changing a = 2
 <!-- minimize. -->
 
 循環参照は簡単にできることではありませんが、不可能というわけでもありません。
-`Rc<T>`値を含む`RefCell<T>`値があるなどの内部可変性と参照カウントのある型がネストしてコンビネーションしていたら、
+`Rc<T>`値を含む`RefCell<T>`値があるなどの内部可変性と参照カウントのある型がネストして組み合わさっていたら、
 循環していないことを保証しなければなりません; コンパイラがそれを捕捉することを信頼できないのです。
 循環参照をするのは、自動化テストやコードレビューなどの他のソフトウェア開発手段を使用して最小化すべきプログラム上のロジックバグでしょう。
 
@@ -467,6 +467,7 @@ fn main() {
         children: RefCell::new(vec![]),
     });
 
+    // leafの親 = {:?}
     println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
 
     let branch = Rc::new(Node {
@@ -578,6 +579,7 @@ fn main() {
         children: RefCell::new(vec![]),
     });
 
+    // leafのstrong_count = {}, weak_count = {}
     println!(
         "leaf strong = {}, weak = {}",
         Rc::strong_count(&leaf),
@@ -593,6 +595,7 @@ fn main() {
 
         *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
 
+        // branchのstrong_count = {}, weak_count = {}
         println!(
             "branch strong = {}, weak = {}",
             Rc::strong_count(&branch),
@@ -620,7 +623,8 @@ fn main() {
 
 <span class="caption">リスト15-29: 内側のスコープで`branch`を作成し、強弱参照カウントを調査する</span>
 
-<!-- 4行目後半、カッコ内、forは接続詞の用法かと思ったが、文ではなかった -->
+<!-- 4行目後半、カッコ内、forは接続詞の用法かと思ったが、文ではなかった。for S to Vのように訳した -->
+<!-- 通常forの後は、現在分詞が来るため、そう書いているだけだろうか -->
 
 <!-- After `leaf` is created, its `Rc<Node>` has a strong count of 1 and a weak -->
 <!-- count of 0. In the inner scope, we create `branch` and associate it with -->
