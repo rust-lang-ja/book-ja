@@ -98,9 +98,9 @@ Rustのほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外が
 <!-- Manually implementing these traits involves implementing unsafe Rust code. -->
 <!-- We’ll talk about using unsafe Rust code in Chapter 19; for now, the important -->
 <!-- information is that building new concurrent types not made up of `Send` and -->
-<!-- `Sync` parts requires careful thought to uphold the safety guarantees. [The -->
-<!-- Rustonomicon] has more information about these guarantees and how to uphold -->
-<!-- them. -->
+<!-- `Sync` parts requires careful thought to uphold the safety guarantees. -->
+<!-- [The Rustonomicon] has more information about these guarantees and how to -->
+<!-- uphold them. -->
 
 これらのトレイトを手動で実装すると、unsafeなRustコードを実装することが関わってきます。
 unsafeなRustコードを使用することについては第19章で語ります; とりあえず、重要な情報は、
@@ -153,7 +153,5 @@ Rustの標準ライブラリは、メッセージ受け渡しにチャンネル�
 <!-- as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idioms -->
 <!-- relate to those you might be familiar with from object oriented programming. -->
 
-
 次は、Rustプログラムが肥大化するにつれて問題をモデル化し、解決策を構造化する慣例的な方法について話します。
 さらに、Rustのイディオムがオブジェクト指向プログラミングで馴染み深いかもしれないイディオムに関連する方法についても議論します。
-

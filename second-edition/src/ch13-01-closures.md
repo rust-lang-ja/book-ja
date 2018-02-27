@@ -491,7 +491,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 
 <!-- Like variables, we can add type annotations if we want to increase explicitness -->
 <!-- and clarity at the cost of being more verbose than is strictly necessary; -->
-<!-- annotating the types for the closure we defined in Listing 13-4 would look like -->
+<!-- annotating the types for the closure we defined in Listing 13-5 would look like -->
 <!-- the definition shown in Listing 13-7: -->
 
 変数のように、厳格に必要な以上に冗長になることと引き換えに、明示性と明瞭性を向上させたいなら、型注釈を加えることができます;
@@ -646,19 +646,21 @@ error[E0308]: mismatched types
 
 <!-- The `Fn` traits are provided by the standard library. All closures implement -->
 <!-- one of the traits: `Fn`, `FnMut`, or `FnOnce`. We’ll discuss the difference -->
-<!-- between these traits in the next section on capturing the environment; in this -->
-<!-- example, we can use the `Fn` trait. -->
+<!-- difference between these traits in the "Capturing the Environment with -->
+<!-- Closures" section; in this example, we can use the `Fn` trait. -->
 
 `Fn`トレイトは、標準ライブラリで用意されています。全てのクロージャは、そのトレイトのどれかを実装しています:
-`Fn`、`FnMut`または、`FnOnce`です。環境をキャプチャすることに関する次の節で、これらのトレイト間の差異を議論します;
+`Fn`、`FnMut`または、`FnOnce`です。「クロージャで環境をキャプチャする」節で、これらのトレイト間の差異を議論します;
 この例では、`Fn`トレイトを使えます。
+
+<!-- 2行目中盤は一見、mustとhave toが重なっているように見えるが、must have [to ...]という構造と思われる -->
 
 <!-- We add types to the `Fn` trait bound to represent the types of the parameters -->
 <!-- and return values the closures must have to match this trait bound. In this -->
 <!-- case, our closure has a parameter of type `u32` and returns a `u32`, so the -->
 <!-- trait bound we specify is `Fn(u32) -> u32`. -->
 
-`Fn`トレイト境界への型を追加して、クロージャがこのトレイト境界を合致させなければならない引数と戻り値の型を表します。
+`Fn`トレイト境界への型を追加して、クロージャがこのトレイト境界を合致させるために持っていなければならない引数と戻り値の型を表します。
 今回の場合、クロージャは、引数の型が`u32`で、`u32`を返すので、指定するトレイト境界は、`Fn(u32) => u32`です。
 
 <!-- Listing 13-9 shows the definition of the `Cacher` struct that holds a closure -->
@@ -1073,11 +1075,11 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 
 <!-- Closures can capture values from their environment in three ways, which -->
 <!-- directly map to the three ways a function can take a parameter: taking -->
-<!-- ownership, borrowing immutably, and borrowing mutably. These are encoded in the -->
+<!-- ownership, borrowing mutably, and borrowing immutably. These are encoded in the -->
 <!-- three `Fn` traits as follows: -->
 
 クロージャは、3つの方法で環境から値をキャプチャでき、この方法は関数が引数を取れる3つの方法に直に対応します:
-所有権を奪う、不変で借用する、可変で借用するです。これらは、以下のように3つの`Fn`トレイトでコード化されています:
+所有権を奪う、可変で借用する、不変で借用するです。これらは、以下のように3つの`Fn`トレイトでコード化されています:
 
 <!-- * `FnOnce` consumes the variables it captures from its enclosing scope, known -->
 <!--   as the closure’s *environment*. To consume the captured variables, the -->
@@ -1085,22 +1087,27 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 <!--   when it is defined. The `Once` part of the name represents the fact that the -->
 <!--   closure can’t take ownership of the same variables more than once, so it can -->
 <!--   only be called one time. -->
-<!-- * `Fn` borrows values from the environment immutably. -->
 <!-- * `FnMut` can change the environment because it mutably borrows values. -->
+<!-- * `Fn` borrows values from the environment immutably. -->
 
 * `FnOnce`は内包されたスコープからキャプチャした変数を消費し、これがクロージャの*環境*として知られています。
 キャプチャした変数を消費するために、定義された際にクロージャはこれらの変数の所有権を奪い、
 自身にムーブするのです。名前のうち、`Once`の部分は、
 このクロージャは同じ変数の所有権を2回以上奪うことができないという事実を表しているので、1回しか呼ぶことができないのです。
-* `Fn`は、環境から値を不変で借用します。
 * `FnMut`は、可変で値を借用するので、環境を変更することができます。
+* `Fn`は、環境から値を不変で借用します。
 
 <!-- When we create a closure, Rust infers which trait to use based on how the -->
-<!-- closure uses the values from the environment. In Listing 13-12, the -->
+<!-- closure uses the values from the environment. All closures implement `FnOnce`, -->
+<!-- because they can all be called at least once. Closures that don't move the -->
+<!-- captured variables also implement `FnMut`, and closures that don't need mutable -->
+<!-- access to the captured variables also implement `Fn`. In Listing 13-12, the -->
 <!-- `equal_to_x` closure borrows `x` immutably (so `equal_to_x` has the `Fn` trait) -->
 <!-- because the body of the closure only needs to read the value in `x`. -->
 
 クロージャを生成する時、クロージャが環境を使用する方法に基づいて、コンパイラはどのトレイトを使用するか推論します。
+少なくとも1回は呼び出されるので、全てのクロージャは`FnOnce`を実装しています。キャプチャした変数をムーブしないクロージャは、
+`FnMut`も実装し、キャプチャした変数に可変でアクセスする必要のないクロージャは、`Fn`も実装しています。
 リスト13-12では、`equal_to_x`クロージャは`x`を不変で借用しています(ゆえに`equal_to_x`は`Fn`トレイトです)。
 クロージャの本体は、`x`を読む必要しかないからです。
 

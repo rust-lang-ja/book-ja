@@ -60,8 +60,7 @@ for val in v1_iter {
 }
 ```
 
-<!-- <span class="caption">Listing 13-14: Making use of an iterator in a `for` -->
-<!-- loop</span> -->
+<!-- <span class="caption">Listing 13-14: Using an iterator in a `for` loop -->
 
 <span class="caption">リスト13-14: `for`ループでイテレータを使用する</span>
 
@@ -299,11 +298,11 @@ and do nothing unless consumed
 リスト13-17のコードは何もしません; 指定したクロージャは、決して呼ばれないのです。警告が理由に触れています:
 イテレータアダプタは怠惰で、ここでイテレータを消費する必要があるのです。
 
-<!-- To fix this and consume the iterator, we’ll use the `collect` method, which you -->
-<!-- saw briefly in Chapter 12. This method consumes the iterator and collects the -->
-<!-- resulting values into a collection data type. -->
+<!-- To fix this and consume the iterator, we’ll use the `collect` method, which we -->
+<!-- used in Chapter 12 with `env::args` in Listing 12-1. This method consumes the -->
+<!-- iterator and collects the resulting values into a collection data type. -->
 
-これを解消し、イテレータを消費するには、`collect`メソッドを使用しますが、これは第12章でちょっとだけ見かけました。
+これを解消し、イテレータを消費するには、`collect`メソッドを使用しますが、これは第12章のリスト12-1で`env::args`とともに使用しました。
 このメソッドはイテレータを消費し、結果の値をコレクションデータ型に集結させます。
 
 <!-- In Listing 13-18, we collect the results of iterating over the iterator that’s -->

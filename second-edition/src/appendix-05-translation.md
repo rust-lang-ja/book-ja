@@ -17,3 +17,5 @@ For resources in languages other than English. Most are still in progress; see
 - [Français](https://github.com/quadrifoglio/rust-book-fr)
 - [Polski](https://github.com/paytchoo/book-pl)
 - [עברית](https://github.com/idanmel/rust-book-heb)
+- [Cebuano](https://github.com/agentzero1/book)
+- [Tagalog](https://github.com/josephace135/book)

@@ -6,14 +6,16 @@
 <!-- techniques, and one significant influence is *functional programming*. -->
 <!-- Programming in a functional style often includes using functions as values by -->
 <!-- passing them in arguments, returning them from other functions, assigning them -->
-<!-- to variables for later execution, and so forth. In this chapter, we won’t -->
-<!-- debate the issue of what functional programming is or isn’t but will instead -->
-<!-- discuss some features of Rust that are similar to features in many languages -->
-<!-- often referred to as functional. -->
+<!-- to variables for later execution, and so forth.  -->
 
 Rustの設計は、多くの既存の言語やテクニックにインスピレーションを得ていて、
 その一つの大きな影響が*関数型プログラミング*です。関数型でのプログラミングには、しばしば、
 引数で渡すことで関数を値として使用したり、関数から関数を返したり、関数を後ほど使用するために変数に代入することなどが含まれます。
+
+<!-- In this chapter, we won’t debate the issue of what functional programming is or -->
+<!-- isn’t but will instead discuss some features of Rust that are similar to -->
+<!-- features in many languages often referred to as functional. -->
+
 この章では、関数型プログラミングがどんなものであったり、なかったりするかという問題については議論しませんが、
 代わりに関数型とよく言及される多くの言語の機能に似たRustの機能の一部について議論しましょう。
 

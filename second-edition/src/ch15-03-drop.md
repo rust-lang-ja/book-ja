@@ -90,7 +90,7 @@ fn main() {
 ここで何らかのテキストを出力し、コンパイラがいつ`drop`を呼ぶのかデモしています。
 
 <!-- In `main`, we create two instances of `CustomSmartPointer` and then print -->
-<!-- `CustomSmartPointers created.`. At the end of `main`, our instance of -->
+<!-- `CustomSmartPointers created.`. At the end of `main`, our instances of -->
 <!-- `CustomSmartPointer` will go out of scope, and Rust will call the code we put -->
 <!-- in the `drop` method, printing our final message. Note that we didn’t need to -->
 <!-- call the `drop` method explicitly. -->
@@ -109,7 +109,7 @@ Dropping CustomSmartPointer with data `other stuff`!
 Dropping CustomSmartPointer with data `my stuff`!
 ```
 
-<!-- Rust automatically called `drop` for us when our instance went out of scope, -->
+<!-- Rust automatically called `drop` for us when our instances went out of scope, -->
 <!-- calling the code we specified. Variables are dropped in the reverse order of -->
 <!-- the order in which they were created, so `d` was dropped before `c`. This -->
 <!-- example just gives you a visual guide to how the `drop` method works, but -->
@@ -211,7 +211,7 @@ error[E0040]: explicit use of destructor method
 <!-- The `std::mem::drop` function is different than the `drop` method in the `Drop` -->
 <!-- trait. We call it by passing the value we want to force to be dropped early as -->
 <!-- an argument. The function is in the prelude, so we can modify `main` in Listing -->
-<!-- 15-14 to call the `drop` function, as shown in Listing 15-16: -->
+<!-- 15-15 to call the `drop` function, as shown in Listing 15-16: -->
 
 `std::mem::drop`関数は、`Drop`トレイトの`drop`メソッドとは異なります。
 早期に強制的にドロップさせたい値を引数で渡すことで呼びます。この関数は初期化処理に含まれているので、

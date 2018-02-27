@@ -228,12 +228,14 @@ lifecycle
 LimitTracker
 lobally
 locators
+LockResult
 login
 lookup
 loopback
 lossy
 lval
 macOS
+Matsakis
 mathematic
 memoization
 metadata
@@ -318,6 +320,7 @@ proc
 pthreads
 pushups
 QuitMessage
+quux
 RAII
 randcrate
 RangeFrom
@@ -441,6 +444,7 @@ tuesday
 tuple
 tuples
 turbofish
+Turon
 typeof
 TypeName
 UFCS

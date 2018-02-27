@@ -243,7 +243,7 @@ let foo = bar;
 Rustでは、変数は標準で不変(immutable)です。以下の例には、
 変数名の前に`mut`修飾子をつけて変数を可変にする方法が示されています:
 
-```rust
+```rust,ignore
 let foo = 5; // immutable
 let mut bar = 5; // mutable
 ```

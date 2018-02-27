@@ -6,11 +6,11 @@
 <!-- data even when there are immutable references to that data: normally, this -->
 <!-- action is disallowed by the borrowing rules. To do so, the pattern uses -->
 <!-- `unsafe` code inside a data structure to bend Rust’s usual rules that govern -->
-<!-- mutation and borrowing. We haven’t yet covered unsafe code; we will in Chapter -->
-<!-- 19. We can use types that use the interior mutability pattern when we can -->
-<!-- ensure that the borrowing rules will be followed at runtime, even though the -->
-<!-- compiler can’t guarantee that. The `unsafe` code involved is then wrapped in a -->
-<!-- safe API, and the outer type is still immutable. -->
+<!-- mutation and borrowing. We haven’t yet covered unsafe code; we will in -->
+<!-- Chapter 19. We can use types that use the interior mutability pattern when we -->
+<!-- can ensure that the borrowing rules will be followed at runtime, even though -->
+<!-- the compiler can’t guarantee that. The `unsafe` code involved is then wrapped -->
+<!-- in a safe API, and the outer type is still immutable. -->
 
 内部可変性は、そのデータへの不変参照がある時でさえもデータを可変化できるRustでのデザインパターンです:
 普通、この行動は借用ルールにより許可されません。そうするために、このパターンは、データ構造内で`unsafe`コードを使用して、
@@ -35,12 +35,15 @@
 `Rc<T>`と異なり、`RefCell<T>`型は、保持するデータに対して単独の所有権を表します。では、
 どうして`RefCell<T>`が`Box<T>`のような型と異なるのでしょうか？第4章で学んだ借用ルールを思い出してください:
 
-<!-- * At any given time, you can have *either* but not both of the following: one -->
-<!--   mutable reference or any number of immutable references. -->
-<!-- * References must always be valid. -->
+<!-- 1. At any given time, you can have *either* but not both of the following: one -->
+<!--   * One mutable reference. -->
+<!--   * Any number of immutable references. -->
+<!-- 2. References must always be valid. -->
 
-* いかなる時も以下の両方ではなく、*どちらか*が可能になる: 1つの可変参照、あるいはいくつもの不変参照。
-* 参照は常に有効でなければならない。
+1. いかなる時も以下の両方ではなく、*どちらか*が可能になる:
+   * 1つの可変参照
+   * いくつもの不変参照
+2. 参照は常に有効でなければならない。
 
 <!-- With references and `Box<T>`, the borrowing rules’ invariants are enforced at -->
 <!-- compile time. With `RefCell<T>`, these invariants are enforced *at runtime*. -->
@@ -64,20 +67,15 @@
 コンパイル時に借用ルールを確認することが大多数の場合において最善の選択であり、
 そのためこれがRustの規定になっているのです。
 
-<!-- The advantage of checking the borrowing rules at runtime instead is that -->
-<!-- certain memory safe scenarios are then allowed, whereas they are disallowed by -->
-<!-- the compile time checks. Static analysis, like the Rust compiler, is inherently -->
-<!-- conservative. Some properties of code are impossible to detect by analyzing the -->
-<!-- code: the most famous example is the Halting Problem, which is beyond the scope -->
-<!-- of this book but is an interesting topic to research. -->
+<!-- The advantages of checking the borrowing rules at compile time are that errors -->
+<!-- will be caught sooner in the development process, and there is no impact on -->
+<!-- runtime performance because all the analysis is completed beforehand. For those -->
+<!-- reasons, checking the borrowing rules at compile time is the best choice in the -->
+<!-- majority of cases, which is why this is Rust’s default. -->
 
-代わりに実行時に借用ルールを確認する利点は、コンパイル時のチェックでは許可されない特定のメモリ安全の筋書きが可能になることです。
-Rustコンパイラのような静的な分析は、本質的に保守的です。コードを分析しても、検出できないコードの特性もあります:
-最も有名な例は、停止性問題であり、この本の範疇を超えていますが、調査するのに面白い話題です。
-
-> `編注`: 停止性問題とは、あるチューリング機械(≒コンピュータプログラム・アルゴリズム)が
-> そのテープのある初期状態（≒入力）に対し、有限時間で停止するか、という問題。   
-> Wikipediaより抜粋
+コンパイル時に借用ルールを精査することの利点は、エラーが開発家庭の早い段階で捕捉されることと、
+あらかじめ全ての分析が終わるので、実行パフォーマンスへの影響がないことです。それらの理由により、
+多くの場合でコンパイル時に借用ルールを精査することが最善の選択肢であり、これがRustの規定になっているのです。
 
 <!-- Because some analysis is impossible, if the Rust compiler can’t be sure the -->
 <!-- code complies with the ownership rules, it might reject a correct program; in -->

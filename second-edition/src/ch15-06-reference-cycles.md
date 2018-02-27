@@ -632,7 +632,7 @@ fn main() {
 <!-- will have a strong count of 1 and a weak count of 1 (for `leaf.parent` pointing -->
 <!-- to `branch` with a `Weak<Node>`). When we print the counts in `leaf`, we’ll see -->
 <!-- it will have a strong count of 2, because `branch` now has a clone of the -->
-<!-- `Rc<Node>` of `leaf` stored in `branch.children` but will still have a weak -->
+<!-- `Rc<Node>` of `leaf` stored in `branch.children`, but will still have a weak -->
 <!-- count of 0. -->
 
 `leaf`作成後、その`Rc<Node>`の強カウントは1、弱カウントは0になります。内側のスコープで`branch`を作成し、

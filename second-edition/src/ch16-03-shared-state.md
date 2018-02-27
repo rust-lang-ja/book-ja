@@ -419,11 +419,15 @@ fn main() {
 ```text
 error[E0277]: the trait bound `std::rc::Rc<std::sync::Mutex<i32>>:
 std::marker::Send` is not satisfied in `[closure@src/main.rs:11:36:
+<<<<<<< HEAD
 15:10
 counter:std::rc::Rc<std::sync::Mutex<i32>>]`
 (エラー: トレイト境界`std::rc::Rc<std::sync::Mutex<i32>>:
 std::marker::Send`は`[closure@src/main.rs:11:36:15:10
 counter:std::rc::Rc<std::sync::Mutex<i32>>]`で満たされていません)
+=======
+15:10 counter:std::rc::Rc<std::sync::Mutex<i32>>]`
+>>>>>>> fork_master_master
   --> src/main.rs:11:22
    |
 11 |         let handle = thread::spawn(move || {
@@ -438,10 +442,14 @@ not implemented for `std::rc::Rc<std::sync::Mutex<i32>>`
      counter:std::rc::Rc<std::sync::Mutex<i32>>]`内でトレイト`std::marker::Send`は、
      `std::rc::Rc<std::sync::Mutex<i32>>`に対して実装されていません)
    = note: required because it appears within the type
+<<<<<<< HEAD
 `[closure@src/main.rs:11:36: 15:10
 counter:std::rc::Rc<std::sync::Mutex<i32>>]`
      (注釈: 型`[closure@src/main.rs:11:36 15:10
      counter:std::rc::Rc<std::sync::Mutex<i32>>]`内に出現するので必要です)
+=======
+`[closure@src/main.rs:11:36: 15:10 counter:std::rc::Rc<std::sync::Mutex<i32>>]`
+>>>>>>> fork_master_master
    = note: required by `std::thread::spawn`
      (注釈: `std::thread::spawn`により必要とされています)
 ```
@@ -506,10 +514,10 @@ between threads safely``と述べています。この理由は、次に注目�
 シングルスレッドで値に処理を施すだけなら、アトミックが提供する保証を強制する必要がなければコードはより速く走るのです。
 
 <!-- Let’s return to our example: `Arc<T>` and `Rc<T>` have the same API, so we fix -->
-<!-- our program by changing the `use` line and the call to `new`. The code in -->
-<!-- Listing 16-15 will finally compile and run: -->
+<!-- our program by changing the `use` line, the call to `new`, and the call to -->
+<!-- `clone`. The code in Listing 16-15 will finally compile and run: -->
 
-例に回帰しましょう: `Arc<T>`と`Rc<T>`のAPIは同じなので、`use`行と`new`の呼び出しを変更して、
+例に回帰しましょう: `Arc<T>`と`Rc<T>`のAPIは同じなので、`use`行と`new`と`clone`の呼び出しを変更して、
 プログラムを修正します。リスト16-15は、ようやくコンパイルでき、動作します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
