@@ -1,11 +1,22 @@
 <!-- ## References and Borrowing -->
 
+<<<<<<< HEAD
 ## 参照と借用
 
 <!-- The issue with the tuple code at the end of the preceding section is that we -->
 <!-- have to return the `String` to the calling function so we can still use the -->
 <!-- `String` after the call to `calculate_length`, because the `String` was moved -->
 <!-- into `calculate_length`. -->
+=======
+The issue with the tuple code in Listing 4-5 is that we have to return the
+`String` to the calling function so we can still use the `String` after the
+call to `calculate_length`, because the `String` was moved into
+`calculate_length`.
+
+Here is how you would define and use a `calculate_length` function that has a
+reference to an object as a parameter instead of taking ownership of the
+value:
+>>>>>>> fork_master_master
 
 前節最後のタプルコードの問題は、`String`型を呼び出し元の関数に戻さないと、`calculate_length`を呼び出した後に、
 `String`オブジェクトが使えなくなることであり、これは`String`オブジェクトが`calculate_length`にムーブされてしまうためでした。
@@ -36,6 +47,7 @@ fn calculate_length(s: &String) -> usize {
 }
 ```
 
+<<<<<<< HEAD
 <!-- First, notice that all the tuple code in the variable declaration and the -->
 <!-- function return value is gone. Second, note that we pass `&s1` into -->
 <!-- `calculate_length`, and in its definition, we take `&String` rather than -->
@@ -51,12 +63,23 @@ fn calculate_length(s: &String) -> usize {
 図4-5はその図解です。
 
 <!-- <img alt="&String s pointing at String s1" src="img/trpl04-05.svg" class="center" /> -->
+=======
+First, notice that all the tuple code in the variable declaration and the
+function return value is gone. Second, note that we pass `&s1` into
+`calculate_length` and, in its definition, we take `&String` rather than
+`String`.
+>>>>>>> fork_master_master
 
 <img alt="文字列s1を指す&String型のs" src="img/trpl04-05.svg" class="center" />
 
 <!-- <span class="caption">Figure 4-5: `&String s` pointing at `String s1`</span> -->
 
+<<<<<<< HEAD
 <span class="caption">図4-5: `String s1`を指す`&String`</span>
+=======
+<span class="caption">Figure 4-5: A diagram of `&String s` pointing at `String
+s1`</span>
+>>>>>>> fork_master_master
 
 <!-- Note: The opposite of referencing by using `&` is *dereferencing*, which is -->
 <!-- accomplished with the dereference operator, `*`. We’ll see some uses of the -->
@@ -106,6 +129,7 @@ fn calculate_length(s: &String) -> usize { // sはStringへの参照
   // 何も起こらない
 ```
 
+<<<<<<< HEAD
 <!-- The scope in which the variable `s` is valid is the same as any function -->
 <!-- parameter's scope, but we don’t drop what the reference points to when it goes -->
 <!-- out of scope because we don’t have ownership. Functions that have references as -->
@@ -119,12 +143,24 @@ fn calculate_length(s: &String) -> usize { // sはStringへの参照
 <!-- We call having references as function parameters *borrowing*. As in real life, -->
 <!-- if a person owns something, you can borrow it from them. When you’re done, you -->
 <!-- have to give it back. -->
+=======
+The scope in which the variable `s` is valid is the same as any function
+parameter’s scope, but we don’t drop what the reference points to when it goes
+out of scope because we don’t have ownership. When functions have references as
+parameters instead of the actual values, we won’t need to return the values in
+order to give back ownership, because we never had ownership.
+>>>>>>> fork_master_master
 
 関数の引数に参照を取ることを*借用*と呼びます。現実生活のように、誰かが何かを所有していたら、
 それを借りることができます。用が済んだら、返さなきゃいけないわけです。
 
+<<<<<<< HEAD
 <!-- So what happens if we try to modify something we’re borrowing? Try the code in -->
 <!-- Listing 4-4. Spoiler alert: it doesn’t work! -->
+=======
+So what happens if we try to modify something we’re borrowing? Try the code in
+Listing 4-6. Spoiler alert: it doesn’t work!
+>>>>>>> fork_master_master
 
 では、借用した何かを変更しようとしたら、どうなるのでしょうか？リスト4-9のコードを試してください。
 ネタバレ注意: 動きません！
@@ -145,11 +181,15 @@ fn change(some_string: &String) {
 }
 ```
 
+<<<<<<< HEAD
 <!-- <span class="caption">Listing 4-4: Attempting to modify a borrowed value</span> -->
 
 <span class="caption">リスト4-4: 借用した値を変更しようと試みる</span>
 
 <!-- Here’s the error: -->
+=======
+<span class="caption">Listing 4-6: Attempting to modify a borrowed value</span>
+>>>>>>> fork_master_master
 
 これがエラーです:
 
@@ -177,7 +217,11 @@ error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable
 
 一捻り加えるだけでリスト4-9のコードのエラーは解決します:
 
+<<<<<<< HEAD
 <!-- <span class="filename">Filename: src/main.rs</span> -->
+=======
+We can fix the error in the code from Listing 4-6 with just a small tweak:
+>>>>>>> fork_master_master
 
 <span class="filename">ファイル名: src/main.rs</span>
 
@@ -238,6 +282,7 @@ error[E0499]: cannot borrow `s` as mutable more than once at a time
   |   (最初の借用はここで終わり)
 ```
 
+<<<<<<< HEAD
 <!-- This restriction allows for mutation but in a very controlled fashion. It’s -->
 <!-- something that new Rustaceans struggle with, because most languages let you -->
 <!-- mutate whenever you’d like. The benefit of having this restriction is that Rust -->
@@ -259,6 +304,19 @@ error[E0499]: cannot borrow `s` as mutable more than once at a time
 1. 2つ以上のポインタが同じデータに同時にアクセスする。
 1. 少なくとも一つのポインタがデータに書き込みを行っている。
 1. データへのアクセスを同期する機構が使用されていない。
+=======
+This restriction allows for mutation but in a very controlled fashion. It’s
+something that new Rustaceans struggle with, because most languages let you
+mutate whenever you’d like.
+
+The benefit of having this restriction is that Rust can prevent data races at
+compile time. A *data race* is similar to a race condition and happens when
+these three behaviors occur:
+
+* Two or more pointers access the same data at the same time.
+* At least one of the pointers is being used to write to the data.
+* There’s no mechanism being used to synchronize access to the data.
+>>>>>>> fork_master_master
 
 <!-- Data races cause undefined behavior and can be difficult to diagnose and fix -->
 <!-- when you’re trying to track them down at runtime; Rust prevents this problem -->
@@ -356,6 +414,7 @@ immutable
 
 ### 宙に浮いた参照
 
+<<<<<<< HEAD
 <!-- In languages with pointers, it’s easy to erroneously create a *dangling -->
 <!-- pointer*, a pointer that references a location in memory that may have been -->
 <!-- given to someone else, by freeing some memory while preserving a pointer to -->
@@ -363,6 +422,12 @@ immutable
 <!-- never be dangling references: if we have a reference to some data, the compiler -->
 <!-- will ensure that the data will not go out of scope before the reference to the -->
 <!-- data does. -->
+=======
+Even though these errors may be frustrating at times, remember that it’s the
+Rust compiler pointing out a potential bug early (at compile time rather than
+at runtime) and showing you exactly where the problem is. Then you don’t have
+to track down why your data isn’t what you thought it was.
+>>>>>>> fork_master_master
 
 ポインタのある言語では、誤ってダングリングポインタを生成してしまいやすいです。ダングリングポインタとは、
 他人に渡されてしまった可能性のあるメモリを指すポインタのことであり、その箇所へのポインタを保持している間に、
@@ -370,8 +435,18 @@ immutable
 参照がダングリング参照に絶対ならないよう保証してくれます:つまり、何らかのデータへの参照があったら、
 コンパイラは参照がスコープを抜けるまで、データがスコープを抜けることがないよう確認してくれるわけです。
 
+<<<<<<< HEAD
 <!-- Let’s try to create a dangling reference, which Rust will prevent with a -->
 <!-- compile-time error: -->
+=======
+In languages with pointers, it’s easy to erroneously create a *dangling
+pointer*, a pointer that references a location in memory that may have been
+given to someone else, by freeing some memory while preserving a pointer to
+that memory. In Rust, by contrast, the compiler guarantees that references will
+never be dangling references: if you have a reference to some data, the
+compiler will ensure that the data will not go out of scope before the
+reference to the data does.
+>>>>>>> fork_master_master
 
 ダングリング参照作りを試してみますが、コンパイラはこれをコンパイルエラーで阻止します:
 
@@ -449,10 +524,17 @@ fn dangle() -> &String { // dangleはStringへの参照を返す
   // 危険だ
 ```
 
+<<<<<<< HEAD
 <!-- Because `s` is created inside `dangle`, when the code of `dangle` is finished, -->
 <!-- `s` will be deallocated. But we tried to return a reference to it. That means -->
 <!-- this reference would be pointing to an invalid `String`! That’s no good. Rust -->
 <!-- won’t let us do this. -->
+=======
+Because `s` is created inside `dangle`, when the code of `dangle` is finished,
+`s` will be deallocated. But we tried to return a reference to it. That means
+this reference would be pointing to an invalid `String` That’s no good! Rust
+won’t let us do this.
+>>>>>>> fork_master_master
 
 `s`は、`dangle`内で生成されているので、`dangle`のコードが終わったら、`s`は解放されてしまいますが、
 そこへの参照を返そうとしました。つまり、この参照は無効な`String`を指していると思われるのです。
@@ -493,6 +575,12 @@ fn no_dangle() -> String {
    * 不変な参照いくつでも
 2. 参照は常に有効でなければならない
 
+<<<<<<< HEAD
 <!-- Next, we’ll look at a different kind of reference: slices. -->
+=======
+* At any given time, you can have *either* (but not both of) one mutable
+  reference or any number of immutable references.
+* References must always be valid.
+>>>>>>> fork_master_master
 
 次は、違う種類の参照を見ていきましょう: スライスです。

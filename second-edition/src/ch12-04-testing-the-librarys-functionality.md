@@ -293,10 +293,17 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 
 <span class="caption">リスト12-17: `contents`の各行を繰り返す</span>
 
+<<<<<<< HEAD
 <!-- The `lines` method returns an iterator. We’ll talk about iterators in depth in -->
 <!-- Chapter 13, but recall that you saw this way of using an iterator in Listing -->
 <!-- 3-4, where we used a `for` loop with an iterator to run some code on each item -->
 <!-- in a collection. -->
+=======
+The `lines` method returns an iterator. We’ll talk about iterators in depth in
+Chapter 13, but recall that you saw this way of using an iterator in Listing
+3-5, where we used a `for` loop with an iterator to run some code on each item
+in a collection.
+>>>>>>> fork_master_master
 
 `lines`メソッドはイテレータを返します。イテレータについて詳しくは、第13章で話しますが、
 リスト3-4でこのようなイテレータの使用法は見かけたことを思い出してください。

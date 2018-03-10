@@ -1,10 +1,21 @@
+<<<<<<< HEAD
 <!-- ## Slices -->
+=======
+## The Slice Type
+>>>>>>> fork_master_master
 
 ## スライス
 
+<<<<<<< HEAD
 <!-- Another data type that does not have ownership is the *slice*. Slices let you -->
 <!-- reference a contiguous sequence of elements in a collection rather than the -->
 <!-- whole collection. -->
+=======
+Here’s a small programming problem: write a function that takes a string and
+returns the first word it finds in that string. If the function doesn’t find a
+space in the string, the whole string must be one word, so the entire string
+should be returned.
+>>>>>>> fork_master_master
 
 所有権のない別のデータ型は、*スライス*です。スライスにより、コレクション全体というより、
 その内の一連の要素を参照することができます。
@@ -25,10 +36,17 @@
 fn first_word(s: &String) -> ?
 ```
 
+<<<<<<< HEAD
 <!-- This function, `first_word`, has a `&String` as a parameter. We don’t want -->
 <!-- ownership, so this is fine. But what should we return? We don’t really have a -->
 <!-- way to talk about *part* of a string. However, we could return the index of the -->
 <!-- end of the word. Let’s try that as shown in Listing 4-5: -->
+=======
+This function, `first_word`, has a `&String` as a parameter. We don’t want
+ownership, so this is fine. But what should we return? We don’t really have a
+way to talk about *part* of a string. However, we could return the index of the
+end of the word. Let’s try that, as shown in Listing 4-7:
+>>>>>>> fork_master_master
 
 この関数、`first_word`は引数に`&String`をとります。所有権はいらないので、これで十分です。
 ですが、何を返すべきでしょうか？文字列の*一部*について語る方法が全くありません。しかし、
@@ -52,6 +70,7 @@ fn first_word(s: &String) -> usize {
 }
 ```
 
+<<<<<<< HEAD
 <!-- <span class="caption">Listing 4-5: The `first_word` function that returns a -->
 <!-- byte index value into the `String` parameter</span> -->
 
@@ -63,6 +82,14 @@ fn first_word(s: &String) -> usize {
 
 このコードを少し噛み砕いていきましょう。`String`の値を要素ごとに見て、空白かどうかを確かめる必要があるので、
 `as_bytes`メソッドを使って、`String`オブジェクトをバイト配列に変換しています。
+=======
+<span class="caption">Listing 4-7: The `first_word` function that returns a
+byte index value into the `String` parameter</span>
+
+Because we need to go through the `String` element by element and check whether
+a value is a space, we’ll convert our `String` to an array of bytes using the
+`as_bytes` method:
+>>>>>>> fork_master_master
 
 ```rust,ignore
 let bytes = s.as_bytes();
@@ -76,6 +103,7 @@ let bytes = s.as_bytes();
 for (i, &item) in bytes.iter().enumerate() {
 ```
 
+<<<<<<< HEAD
 <!-- We’ll discuss iterators in more detail in Chapter 13. For now, know that `iter` -->
 <!-- is a method that returns each element in a collection, and `enumerate` wraps -->
 <!-- the result of `iter` and returns each element as part of a tuple instead. The -->
@@ -93,17 +121,31 @@ for (i, &item) in bytes.iter().enumerate() {
 <!-- loop, we specify a pattern that has `i` for the index in the tuple and `&item` -->
 <!-- for the single byte in the tuple. Because we get a reference to the element -->
 <!-- from `.iter().enumerate()`, we use `&` in the pattern. -->
+=======
+We’ll discuss iterators in more detail in Chapter 13. For now, know that `iter`
+is a method that returns each element in a collection and that `enumerate`
+wraps the result of `iter` and returns each element as part of a tuple instead.
+The first element of the tuple returned from `enumerate` is the index, and the
+second element is a reference to the element. This is a bit more convenient
+than calculating the index ourselves.
+>>>>>>> fork_master_master
 
 `enumerate`メソッドがタプルを返すので、Rustのあらゆる場所同様、パターンを使って、そのタプルを分解できます。
 従って、`for`ループ内で、タプルの番号に対する`i`とタプルの1バイトに対応する`&item`を含むパターンを指定しています。
 `.iter().enumerate()`から要素への参照を取得するので、パターンに`&`を使っています。
 
+<<<<<<< HEAD
 <!-- We search for the byte that represents the space by using the byte literal -->
 <!-- syntax. If we find a space, we return the position. Otherwise, we return the -->
 <!-- length of the string by using `s.len()`: -->
 
 バイトリテラル表記を使用して空白を表すバイトを検索しています。空白が見つかったら、その位置を返します。
 それ以外の場合、`s.len()`を使って文字列の長さを返します。
+=======
+Inside the `for` loop, we search for the byte that represents the space by
+using the byte literal syntax. If we find a space, we return the position.
+Otherwise, we return the length of the string by using `s.len()`:
+>>>>>>> fork_master_master
 
 ```rust,ignore
     if item == b' ' {
@@ -113,6 +155,7 @@ for (i, &item) in bytes.iter().enumerate() {
 s.len()
 ```
 
+<<<<<<< HEAD
 <!-- We now have a way to find out the index of the end of the first word in the -->
 <!-- string, but there’s a problem. We’re returning a `usize` on its own, but it’s -->
 <!-- only a meaningful number in the context of the `&String`. In other words, -->
@@ -153,6 +196,16 @@ s.len()
 <!--     // we could meaningfully use the value 5 with. word is now totally invalid! -->
 <!-- } -->
 <!-- ``` -->
+=======
+We now have a way to find out the index of the end of the first word in the
+string, but there’s a problem. We’re returning a `usize` on its own, but it’s
+only a meaningful number in the context of the `&String`. In other words,
+because it’s a separate value from the `String`, there’s no guarantee that it
+will still be valid in the future. Consider the program in Listing 4-8 that
+uses the `first_word` function from Listing 4-7:
+
+<span class="filename">Filename: src/main.rs</span>
+>>>>>>> fork_master_master
 
 ```rust
 # fn first_word(s: &String) -> usize {
@@ -170,19 +223,36 @@ s.len()
 fn main() {
     let mut s = String::from("hello world");
 
+<<<<<<< HEAD
     let word = first_word(&s); // wordの中身は、値5になる。
 
     s.clear(); // Stringを空にする。つまり、""と等しくする。
+=======
+    let word = first_word(&s); // word will get the value 5
+
+    s.clear(); // This empties the String, making it equal to ""
+>>>>>>> fork_master_master
 
     // wordはまだ値5を保持しているが、もうこの値を有効に使用できる文字列は存在しない。
     // wordは完全に無効なのだ！
 }
 ```
 
+<<<<<<< HEAD
 <!-- <span class="caption">Listing 4-6: Storing the result from calling the -->
 <!-- `first_word` function then changing the `String` contents</span> -->
 
 <span class="caption">リスト4-6: `first_word`関数の呼び出し結果を保持し、`String`の中身を変更する</span>
+=======
+<span class="caption">Listing 4-8: Storing the result from calling the
+`first_word` function and then changing the `String` contents</span>
+
+This program compiles without any errors and would also do so if we used `word`
+after calling `s.clear()`. Because `word` isn’t connected to the state of `s`
+at all, `word` still contains the value `5`. We could use that value `5` with
+the variable `s` to try to extract the first word out, but this would be a bug
+because the contents of `s` have changed since we saved `5` in `word`.
+>>>>>>> fork_master_master
 
 <!-- This program compiles without any errors and also would if we used `word` after -->
 <!-- calling `s.clear()`. `word` isn’t connected to the state of `s` at all, so -->
@@ -207,6 +277,7 @@ fn main() {
 fn second_word(s: &String) -> (usize, usize) {
 ```
 
+<<<<<<< HEAD
 <!-- Now we’re tracking a start *and* an ending index, and we have even more values -->
 <!-- that were calculated from data in a particular state but aren’t tied to that -->
 <!-- state at all. We now have three unrelated variables floating around that need -->
@@ -220,12 +291,22 @@ fn second_word(s: &String) -> (usize, usize) {
 運のいいことに、Rustにはこの問題への解決策が用意されています: 文字列スライスです。
 
 <!-- ### String Slices -->
+=======
+Now we’re tracking a starting *and* an ending index, and we have even more
+values that were calculated from data in a particular state but aren’t tied to
+that state at all. We now have three unrelated variables floating around that
+need to be kept in sync.
+>>>>>>> fork_master_master
 
 ### 文字列スライス
 
 <!-- A *string slice* is a reference to part of a `String`, and looks like this: -->
 
+<<<<<<< HEAD
 *文字列スライス*とは、`String`の一部への参照で、こんな見た目をしています:
+=======
+A *string slice* is a reference to part of a `String`, and it looks like this:
+>>>>>>> fork_master_master
 
 ```rust
 let s = String::from("hello world");
@@ -239,9 +320,19 @@ let world = &s[6..11];
 <!-- to a portion of the `String`. The `start..end` syntax is a range that begins at -->
 <!-- `start` and continues up to, but not including, `end`. -->
 
+<<<<<<< HEAD
 これは、`String`全体への参照を取ることに似ていますが、余計な`[0..5]`という部分が付いています。
 `String`全体への参照というよりも、`String`の一部への参照です。`開始..終点`という記法は、`開始`から始まり、
 `終点`未満までずっと続く範囲です。
+=======
+We can create slices using a range within brackets by specifying
+`[starting_index..ending_index]`, where `starting_index` is the first position
+in the slice and `ending_index` is one more than the last position in the
+slice. Internally, the slice data structure stores the starting position and
+the length of the slice, which corresponds to `ending_index` minus
+`starting_index`. So in the case of `let world = &s[6..11];`, `world` would be
+a slice that contains a pointer to the 6th byte of `s` and a length value of 5.
+>>>>>>> fork_master_master
 
 <!-- We can create slices using a range within brackets by specifying -->
 <!-- `[starting_index..ending_index]`, where `starting_index` is the first position -->
@@ -348,6 +439,7 @@ fn first_word(s: &String) -> &str {
 }
 ```
 
+<<<<<<< HEAD
 <!-- We get the index for the end of the word in the same way as we did in Listing -->
 <!-- 4-5, by looking for the first occurrence of a space. When we find a space, we -->
 <!-- return a string slice using the start of the string and the index of the space -->
@@ -359,6 +451,12 @@ fn first_word(s: &String) -> &str {
 <!-- Now when we call `first_word`, we get back a single value that is tied to the -->
 <!-- underlying data. The value is made up of a reference to the starting point of -->
 <!-- the slice and the number of elements in the slice. -->
+=======
+We get the index for the end of the word in the same way as we did in Listing
+4-7, by looking for the first occurrence of a space. When we find a space, we
+return a string slice using the start of the string and the index of the space
+as the starting and ending indices.
+>>>>>>> fork_master_master
 
 これで、`first_word`を呼び出すと、元のデータに紐付けられた単独の値を得られるようになりました。
 この値は、スライスの開始地点への参照とスライス中の要素数から構成されています。
@@ -371,6 +469,7 @@ fn first_word(s: &String) -> &str {
 fn second_word(s: &String) -> &str {
 ```
 
+<<<<<<< HEAD
 <!-- We now have a straightforward API that’s much harder to mess up, since the -->
 <!-- compiler will ensure the references into the `String` remain valid. Remember -->
 <!-- the bug in the program in Listing 4-6, when we got the index to the end of the -->
@@ -380,6 +479,17 @@ fn second_word(s: &String) -> &str {
 <!-- string. Slices make this bug impossible and let us know we have a problem with -->
 <!-- our code much sooner. Using the slice version of `first_word` will throw a -->
 <!-- compile time error: -->
+=======
+We now have a straightforward API that’s much harder to mess up, because the
+compiler will ensure the references into the `String` remain valid. Remember
+the bug in the program in Listing 4-8, when we got the index to the end of the
+first word but then cleared the string so our index was invalid? That code was
+logically incorrect but didn’t show any immediate errors. The problems would
+show up later if we kept trying to use the first word index with an emptied
+string. Slices make this bug impossible and let us know we have a problem with
+our code much sooner. Using the slice version of `first_word` will throw a
+compile time error:
+>>>>>>> fork_master_master
 
 これで、ずっと混乱しにくい素直なAPIになりました。なぜなら、`String`への参照が有効なままであることをコンパイラが、
 保証してくれるからです。最初の単語の終端番号を得た時に、
@@ -476,6 +586,7 @@ fn first_word(s: &String) -> &str {
 fn first_word(s: &str) -> &str {
 ```
 
+<<<<<<< HEAD
 <!-- If we have a string slice, we can pass that directly. If we have a `String`, we -->
 <!-- can pass a slice of the entire `String`. Defining a function to take a string -->
 <!-- slice instead of a reference to a String makes our API more general and useful -->
@@ -484,6 +595,12 @@ fn first_word(s: &str) -> &str {
 もし、文字列スライスがあるなら、それを直接渡せます。`String`オブジェクトがあるなら、
 その`String`全体のスライスを渡せます。Stringへの参照の代わりに文字列スライスを取るよう関数を定義すると、
 何も機能を失うことなくAPIをより一般的で有益なものにできるのです。
+=======
+If we have a string slice, we can pass that directly. If we have a `String`, we
+can pass a slice of the entire `String`. Defining a function to take a string
+slice instead of a reference to a `String` makes our API more general and useful
+without losing any functionality:
+>>>>>>> fork_master_master
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -539,8 +656,13 @@ fn main() {
     // first_wordは文字列リテラルのスライスに対して機能する
     let word = first_word(&my_string_literal[..]);
 
+<<<<<<< HEAD
     // 文字列リテラルは、すでに文字列スライス*な*ので、
     // スライス記法なしでも機能するのだ！
+=======
+    // Because string literals *are* string slices already,
+    // this works too, without the slice syntax!
+>>>>>>> fork_master_master
     let word = first_word(my_string_literal);
 }
 ```
@@ -559,11 +681,16 @@ fn main() {
 let a = [1, 2, 3, 4, 5];
 ```
 
+<<<<<<< HEAD
 <!-- Just like we might want to refer to a part of a string, we might want to refer -->
 <!-- to part of an array and would do so like this: -->
 
 文字列の一部を参照したくなる可能性があるのと同様、配列の一部を参照したくなる可能性もあり、
 以下のようにすれば、参照することができます:
+=======
+Just as we might want to refer to a part of a string, we might want to refer
+to part of an array. We’d do so like this:
+>>>>>>> fork_master_master
 
 ```rust
 let a = [1, 2, 3, 4, 5];
@@ -596,9 +723,21 @@ Rust言語も他のシステムプログラミング言語同様、メモリの�
 所有者がスコープを抜けたときにデータの所有者に自動的にデータを片付けさせることは、この制御を得るために、
 余計なコードを書いてデバッグする必要がないことを意味します。
 
+<<<<<<< HEAD
 <!-- Ownership affects how lots of other parts of Rust work, so we’ll talk about -->
 <!-- these concepts further throughout the rest of the book. Let’s move on to the -->
 <!-- next chapter and look at grouping pieces of data together in a `struct`. -->
 
 所有権は、Rustの他のいろんな部分が動作する方法に影響を与えるので、これ以降もこれらの概念についてさらに語っていく予定です。
 次の章に移って、`struct`でデータをグループ化することについて見ていきましょう。
+=======
+The concepts of ownership, borrowing, and slices ensure memory safety in Rust
+programs at compile time. The Rust language gives you control over your memory
+usage in the same way as other systems programming languages, but having the
+owner of data automatically clean up that data when the owner goes out of scope
+means you don’t have to write and debug extra code to get this control.
+
+Ownership affects how lots of other parts of Rust work, so we’ll talk about
+these concepts further throughout the rest of the book. Let’s move on to
+Chapter 5 and look at grouping pieces of data together in a `struct`.
+>>>>>>> fork_master_master

@@ -1,5 +1,6 @@
 <!-- ## Data Types -->
 
+<<<<<<< HEAD
 ## データ型
 
 <!-- Every value in Rust is of a certain *type*, which tells Rust what kind of data -->
@@ -23,17 +24,35 @@ Rustにおける値は全て、何らかの*型*になり、コンパイラが�
 使用したい型を推論してくれます。複数の型が推論される可能性がある場合、そう例えば、
 第2章で`parse`メソッドを使って`String`型を数値型に変換した時のような場合には、型注釈をつけなければいけません。
 以下のようにね:
+=======
+Every value in Rust is of a certain *data type*, which tells Rust what kind of
+data is being specified so it knows how to work with that data. We’ll look at
+two data type subsets: scalar and compound.
+
+Keep in mind that Rust is a *statically typed* language, which means that it
+must know the types of all variables at compile time. The compiler can usually
+infer what type we want to use based on the value and how we use it. In cases
+when many types are possible, such as when we converted a `String` to a numeric
+type using `parse` in the “Comparing the Guess to the Secret Number” section in
+Chapter 2, we must add a type annotation, like this:
+>>>>>>> fork_master_master
 
 ```rust
 let guess: u32 = "42".parse().expect("Not a number!");    // 数字ではありません！
 ```
 
+<<<<<<< HEAD
 <!-- If we don’t add the type annotation here, Rust will display the following -->
 <!-- error, which means the compiler needs more information from us to know which -->
 <!-- possible type we want to use: -->
 
 ここで型注釈を付けなければ、コンパイラは以下のエラーを表示し、これは可能性のある型のうち、
 どの型を使用したいのかを知るのに、コンパイラがプログラマからもっと情報を得る必要があることを意味します:
+=======
+If we don’t add the type annotation here, Rust will display the following
+error, which means the compiler needs more information from us to know which
+type we want to use:
+>>>>>>> fork_master_master
 
 ```text
 error[E0282]: type annotations needed
@@ -48,6 +67,7 @@ error[E0282]: type annotations needed
     (注釈: 型注釈、またはジェネリクス引数束縛が必要です)
 ```
 
+<<<<<<< HEAD
 <!-- You’ll see different type annotations as we discuss the various data types. -->
 
 いろいろなデータ型について議論するにつれて、様々な型注釈を目撃することになるでしょう。
@@ -55,19 +75,38 @@ error[E0282]: type annotations needed
 <!-- ### Scalar Types -->
 
 ### スカラー型
+=======
+You’ll see different type annotations for other data types.
+>>>>>>> fork_master_master
 
 <!-- A *scalar* type represents a single value. Rust has four primary scalar types: -->
 <!-- integers, floating-point numbers, booleans, and characters. You’ll likely -->
 <!-- recognize these from other programming languages, but let’s jump into how they -->
 <!-- work in Rust. -->
 
+<<<<<<< HEAD
 スカラー型は、単独の値を表します。Rustには主に4つのスカラー型があります:
 整数、浮動小数点数、論理値、最後に文字です。他のプログラミング言語でも、これらの型を見かけたことはあるでしょうが、
 Rustでの動作方法について見ていきましょう。
+=======
+A *scalar* type represents a single value. Rust has four primary scalar types:
+integers, floating-point numbers, Booleans, and characters. You may recognize
+these from other programming languages. Let’s jump into how they work in Rust.
+>>>>>>> fork_master_master
 
 <!-- #### Integer Types -->
 
+<<<<<<< HEAD
 #### 整数型
+=======
+An *integer* is a number without a fractional component. We used one integer
+type in Chapter 2, the `u32` type. This type declaration indicates that the
+value it’s associated with should be an unsigned integer (signed integer types
+start with `i`, instead of `u`) that takes up 32 bits of space. Table 3-1 shows
+the built-in integer types in Rust. Each variant in the Signed and Unsigned
+columns (for example, `i16`) can be used to declare the type of an integer
+value.
+>>>>>>> fork_master_master
 
 <!-- An *integer* is a number without a fractional component. We used one integer -->
 <!-- type earlier in this chapter, the `u32` type. This type declaration indicates -->
@@ -77,6 +116,7 @@ Rustでの動作方法について見ていきましょう。
 <!-- and Unsigned columns (for example, *i16*) can be used to declare the type of an -->
 <!-- integer value. -->
 
+<<<<<<< HEAD
 整数とは、小数部分のない数値のことです。この章の前半で一つの整数型を使用しました。`u32`型です。
 この型定義は、紐付けられる値が、符号なし整数(符号付き整数は`u`ではなく、`i`で始まります)になり、
 これは、32ビット分のサイズを取ります。表3-1は、Rustの組み込み整数型を表示しています。
@@ -160,6 +200,44 @@ Rustでの動作方法について見ていきましょう。
 <!-- | Byte (`u8` only) | `b'A'`        | -->
 
 | 数値リテラル       | 例       |
+=======
+| Length | Signed  | Unsigned |
+|--------|---------|----------|
+| 8-bit  | `i8`    | `u8`     |
+| 16-bit | `i16`   | `u16`    |
+| 32-bit | `i32`   | `u32`    |
+| 64-bit | `i64`   | `u64`    |
+| arch   | `isize` | `usize`  |
+
+Each variant can be either signed or unsigned and has an explicit size.
+*Signed* and *unsigned* refer to whether it’s possible for the number to be
+negative or positive—in other words, whether the number needs to have a sign
+with it (signed) or whether it will only ever be positive and can therefore be
+represented without a sign (unsigned). It’s like writing numbers on paper: when
+the sign matters, a number is shown with a plus sign or a minus sign; however,
+when it’s safe to assume the number is positive, it’s shown with no sign.
+Signed numbers are stored using two’s complement representation (if you’re
+unsure what this is, you can search for it online; an explanation is outside
+the scope of this book).
+
+Each signed variant can store numbers from -(2<sup>n - 1</sup>) to 2<sup>n -
+1</sup> - 1 inclusive, where *n* is the number of bits that variant uses. So an
+`i8` can store numbers from -(2<sup>7</sup>) to 2<sup>7</sup> - 1, which equals
+-128 to 127. Unsigned variants can store numbers from 0 to 2<sup>n</sup> - 1,
+so a `u8` can store numbers from 0 to 2<sup>8</sup> - 1, which equals 0 to 255.
+
+Additionally, the `isize` and `usize` types depend on the kind of computer your
+program is running on: 64 bits if you’re on a 64-bit architecture and 32 bits
+if you’re on a 32-bit architecture.
+
+You can write integer literals in any of the forms shown in Table 3-2. Note
+that all number literals except the byte literal allow a type suffix, such as
+`57u8`, and `_` as a visual separator, such as `1_000`.
+
+<span class="caption">Table 3-2: Integer Literals in Rust</span>
+
+| Number literals  | Example       |
+>>>>>>> fork_master_master
 |------------------|---------------|
 | 10進数            | `98_222`      |
 | 16進数            | `0xff`        |
@@ -180,11 +258,18 @@ Rustの基準型は一般的にいい選択肢になります。整数型の基�
 
 #### 浮動小数点型
 
+<<<<<<< HEAD
 <!-- Rust also has two primitive types for *floating-point numbers*, which are -->
 <!-- numbers with decimal points. Rust’s floating-point types are `f32` and `f64`, -->
 <!-- which are 32 bits and 64 bits in size, respectively. The default type is `f64` -->
 <!-- because on modern CPUs it’s roughly the same speed as `f32` but is capable of -->
 <!-- more precision. -->
+=======
+So how do you know which type of integer to use? If you’re unsure, Rust’s
+defaults are generally good choices, and integer types default to `i32`: this
+type is generally the fastest, even on 64-bit systems. The primary situation in
+which you’d use `isize` or `usize` is when indexing some sort of collection.
+>>>>>>> fork_master_master
 
 Rustにはさらに、*浮動小数点数*に対しても、2種類の基本型があり、浮動小数点数とは10進小数のことです。
 Rustの浮動小数点型は、`f32`と`f64`で、それぞれ32ビットと64ビットサイズです。基準型は`f64`です。
@@ -232,8 +317,14 @@ Rustにも期待されうる標準的な数学演算が全数値型に対して�
 <!--     // addition -->
 <!--     let sum = 5 + 10; -->
 
+<<<<<<< HEAD
 <!--     // subtraction -->
 <!--     let difference = 95.5 - 4.3; -->
+=======
+Rust supports the basic mathematical operations you’d expect for all of the
+number types: addition, subtraction, multiplication, division, and remainder.
+The following code shows how you’d use each one in a `let` statement:
+>>>>>>> fork_master_master
 
 <!--     // multiplication -->
 <!--     let product = 4 * 30; -->
@@ -310,7 +401,14 @@ fn main() {
 論理値を消費する主な手段は、条件式です。例えば、`if`式などですね。`if`式のRustでの動作方法については、
 「フロー制御」節で解説します。
 
+<<<<<<< HEAD
 <!-- #### The Character Type -->
+=======
+So far we’ve worked only with numbers, but Rust supports letters too. Rust’s
+`char` type is the language’s most primitive alphabetic type, and the following
+code shows one way to use it. (Note that the `char` type is specified with
+single quotes, as opposed to strings, which use double quotes.)
+>>>>>>> fork_master_master
 
 #### 文字型
 
@@ -335,6 +433,7 @@ fn main() {
 }
 ```
 
+<<<<<<< HEAD
 <!-- Rust’s `char` type represents a Unicode Scalar Value, which means it can -->
 <!-- represent a lot more than just ASCII. Accented letters, Chinese/Japanese/Korean -->
 <!-- ideographs, emoji, and zero width spaces are all valid `char` types in Rust. -->
@@ -357,13 +456,29 @@ Rustにおける`char`型が何かとは合致しない可能性があります�
 
 <!-- *Compound types* can group multiple values of other types into one type. Rust -->
 <!-- has two primitive compound types: tuples and arrays. -->
+=======
+Rust’s `char` type represents a Unicode Scalar Value, which means it can
+represent a lot more than just ASCII. Accented letters; Chinese, Japanese, and
+Korean ideographs; emoji; and zero-width spaces are all valid `char` types in
+Rust. Unicode Scalar Values range from `U+0000` to `U+D7FF` and `U+E000` to
+`U+10FFFF` inclusive. However, a “character” isn’t really a concept in Unicode,
+so your human intuition for what a “character” is may not match up with what a
+`char` is in Rust. We’ll discuss this topic in detail in “Strings” in Chapter 8.
+>>>>>>> fork_master_master
 
 *複合型*により、複数の型の値を一つの型にまとめることができます。Rustには、
 2種類の基本的な複合型があります: タプルと配列です。
 
+<<<<<<< HEAD
 <!-- #### Grouping Values into Tuples -->
 
 #### 値をタプルにまとめ上げる
+=======
+*Compound types* can group multiple values into one type. Rust has two
+primitive compound types: tuples and arrays.
+
+#### The Tuple Type
+>>>>>>> fork_master_master
 
 <!-- A tuple is a general way of grouping together some number of other values with -->
 <!-- a variety of types into one compound type. -->
@@ -388,12 +503,18 @@ fn main() {
 }
 ```
 
+<<<<<<< HEAD
 <!-- The variable `tup` binds to the entire tuple, since a tuple is considered a -->
 <!-- single compound element. To get the individual values out of a tuple, we can -->
 <!-- use pattern matching to destructure a tuple value, like this: -->
 
 変数`tup`は、タプル全体に束縛されています。なぜなら、タプルは、一つの複合要素と考えられるからです。
 タプルから個々の値を取り出すには、パターンマッチングを使用して分解することができます。以下のように:
+=======
+The variable `tup` binds to the entire tuple, because a tuple is considered a
+single compound element. To get the individual values out of a tuple, we can
+use pattern matching to destructure a tuple value, like this:
+>>>>>>> fork_master_master
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -427,7 +548,13 @@ fn main() {
 パターンマッチングを通しての分解の他にも、アクセスしたい値の番号をピリオド(`.`)に続けて書くことで、
 タプルの要素に直接アクセスすることもできます。例です:
 
+<<<<<<< HEAD
 <!-- <span class="filename">Filename: src/main.rs</span> -->
+=======
+In addition to destructuring through pattern matching, we can access a tuple
+element directly by using a period (`.`) followed by the index of the value we
+want to access. For example:
+>>>>>>> fork_master_master
 
 <span class="filename">ファイル名: src/main.rs</span>
 
@@ -447,10 +574,19 @@ fn main() {
 <!-- element by using their index. As with most programming languages, the first -->
 <!-- index in a tuple is 0. -->
 
+<<<<<<< HEAD
 このプログラムは、新しいタプル`x`を作成し、添え字アクセスで各要素に対して新しい変数も作成しています。
 多くのプログラミング言語同様、タプルの最初の添え字は0です。
 
 <!-- #### Arrays -->
+=======
+#### The Array Type
+
+Another way to have a collection of multiple values is with an *array*. Unlike
+a tuple, every element of an array must have the same type. Arrays in Rust are
+different from arrays in some other languages because arrays in Rust have a
+fixed length: once declared, they cannot grow or shrink in size.
+>>>>>>> fork_master_master
 
 #### 配列
 
@@ -478,6 +614,7 @@ fn main() {
 }
 ```
 
+<<<<<<< HEAD
 <!-- Arrays are useful when you want your data allocated on the stack rather than -->
 <!-- the heap (we will discuss the stack and the heap more in Chapter 4), or when -->
 <!-- you want to ensure you always have a fixed number of elements. They aren’t as -->
@@ -491,6 +628,15 @@ fn main() {
 ベクタ型も、標準ライブラリによって提供されている似たようなコレクション型で、こちらは、
 サイズを伸縮させることが*できます*。配列とベクタ型、どちらを使うべきか確信が持てない時は、
 おそらくベクタ型を使うべきです: 第8章でベクタ型について詳細に議論します。
+=======
+Arrays are useful when you want your data allocated on the stack rather than
+the heap (we will discuss the stack and the heap more in Chapter 4), or when
+you want to ensure you always have a fixed number of elements. An array isn’t
+as flexible as the vector type, though. A vector is a similar collection type
+provided by the standard library that *is* allowed to grow or shrink in size.
+If you’re unsure whether to use an array or a vector, you should probably use a
+vector. Chapter 8 discusses vectors in more detail.
+>>>>>>> fork_master_master
 
 <!-- An example of when you might want to use an array rather than a vector is in a -->
 <!-- program that needs to know the names of the months of the year. It’s very -->
@@ -509,8 +655,13 @@ let months = ["January", "February", "March", "April", "May", "June", "July",
 
 ##### 配列の要素にアクセスする
 
+<<<<<<< HEAD
 <!-- An array is a single chunk of memory allocated on the stack. We can access -->
 <!-- elements of an array using indexing, like this: -->
+=======
+An array is a single chunk of memory allocated on the stack. You can access
+elements of an array using indexing, like this:
+>>>>>>> fork_master_master
 
 配列は、スタック上に確保される一塊のメモリです。添え字によって、
 配列の要素にアクセスすることができます。こんな感じ:
@@ -577,6 +728,7 @@ thread '<main>' panicked at 'index out of bounds: the len is 5 but the index is
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
+<<<<<<< HEAD
 <!-- The compilation didn’t produce any errors, but the program results in a -->
 <!-- *runtime* error and didn’t exit successfully. When you attempt to access an -->
 <!-- element using indexing, Rust will check that the index you’ve specified is less -->
@@ -598,3 +750,16 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 この種のチェックは行われないため、間違った添え字を与えると、無効なメモリにアクセスできてしまいます。
 Rustでは、メモリアクセスを許可し、処理を継続する代わりに即座にプログラムを終了することで、
 この種のエラーからプログラマを保護しています。Rustのエラー処理については、第9章で詳しく議論します。
+=======
+The compilation didn’t produce any errors, but the program resulted in a
+*runtime* error and didn’t exit successfully. When you attempt to access an
+element using indexing, Rust will check that the index you’ve specified is less
+than the array length. If the index is greater than the length, Rust will
+*panic*, which is the term Rust uses when a program exits with an error.
+
+This is the first example of Rust’s safety principles in action. In many
+low-level languages, this kind of check is not done, and when you provide an
+incorrect index, invalid memory can be accessed. Rust protects you against this
+kind of error by immediately exiting instead of allowing the memory access and
+continuing. Chapter 9 discusses more of Rust’s error handling.
+>>>>>>> fork_master_master

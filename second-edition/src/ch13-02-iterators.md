@@ -35,9 +35,15 @@ let v1_iter = v1.iter();
 <!-- 3-4 in Chapter 3, we used iterators with `for` loops to execute some code on -->
 <!-- each item, although we glossed over what the call to `iter` did until now. -->
 
+<<<<<<< HEAD
 一旦イテレータを生成したら、いろんな手段で使用することができます。第3章のリスト3-4では、
 ここまで`iter`の呼び出しが何をするかごまかしてきましたが、`for`ループでイテレータを使い、
 各要素に何かコードを実行しています。
+=======
+Once we’ve created an iterator, we can use it in a variety of ways. In Listing
+3-5 in Chapter 3, we used iterators with `for` loops to execute some code on
+each item, although we glossed over what the call to `iter` did until now.
+>>>>>>> fork_master_master
 
 <!-- The example in Listing 13-14 separates the creation of the iterator from the -->
 <!-- use of the iterator in the `for` loop. The iterator is stored in the `v1_iter` -->
