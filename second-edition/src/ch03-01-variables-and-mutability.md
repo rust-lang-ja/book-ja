@@ -1,46 +1,32 @@
 <!-- ## Variables and Mutability -->
 
-<<<<<<< HEAD
 ## 変数と可変性
 
-<!-- As mentioned in Chapter 2, by default variables are *immutable*. This is one of -->
-<!-- many nudges in Rust that encourages you to write your code in a way that takes -->
-<!-- advantage of the safety and easy concurrency that Rust offers. However, you -->
-<!-- still have the option to make your variables mutable. Let’s explore how and why -->
-<!-- Rust encourages you to favor immutability, and why you might want to opt out. -->
+<!-- As mentioned in Chapter 2, by default variables are immutable. This is one of -->
+<!-- many nudges Rust gives you to write your code in a way that takes advantage of -->
+<!-- the safety and easy concurrency that Rust offers. However, you still have the -->
+<!-- option to make your variables mutable. Let’s explore how and why Rust -->
+<!-- encourages you to favor immutability and why sometimes you might want to opt -->
+<!-- out. -->
 
-第2章で触れた通り、変数は標準で*不変*になります。これは、
-Rustが提供する安全性や簡潔な並列プログラミングの利点を享受する形でコードを書くことを推奨してくれる一押しです。
+第2章で触れた通り、変数は標準で不変になります。これは、
+Rustが提供する安全性や簡潔な並列プログラミングの利点を享受する形でコードを書くために与えられた一押しです。
 ところが、まだ変数を可変にするという選択肢も残されています。不変性を好むようコンパイラが推奨する手段と理由および、
 それと違う道を選びたくなる理由を見ていきましょう。
-=======
-As mentioned in Chapter 2, by default variables are immutable. This is one of
-many nudges Rust gives you to write your code in a way that takes advantage of
-the safety and easy concurrency that Rust offers. However, you still have the
-option to make your variables mutable. Let’s explore how and why Rust
-encourages you to favor immutability and why sometimes you might want to opt
-out.
 
-When a variable is immutable, once a value is bound to a name, you can’t change
-that value. To illustrate this, let’s generate a new project called *variables*
-in your *projects* directory by using `cargo new --bin variables`.
+<!-- When a variable is immutable, once a value is bound to a name, you can't change-->
+<!-- that value. To illustrate this, let’s generate a new project called *variables* -->
+<!-- in your *projects* directory by using `cargo new --bin variables`. -->
 
-Then, in your new *variables* directory, open *src/main.rs* and replace its
-code with the following code that won’t compile just yet:
->>>>>>> fork_master_master
-
-<!-- When a variable is immutable, that means once a value is bound to a name, you -->
-<!-- can’t change that value. To illustrate, let’s generate a new project called -->
-<!-- *variables* in your *projects* directory by using `cargo new --bin variables`. -->
-
-変数が不変であるとは、値が一旦名前に束縛されたら、その値を変えることができないことを意味します。
-具体化するために、*projects*ディレクトリに`cargo new --bin variables`コマンドを使って、
+変数が不変であると、値が一旦名前に束縛されたら、その値を変えることができません。
+これを具体化するために、*projects*ディレクトリに`cargo new --bin variables`コマンドを使って、
 *variables*という名前のプロジェクトを生成しましょう。
 
 <!-- Then, in your new *variables* directory, open *src/main.rs* and replace its -->
-<!-- code with the following: -->
+<!-- code with the following code that won't compile just yet: -->
 
-それから、新規作成した*variables*ディレクトリで、*src/main.rs*ファイルを開き、その中身を以下のように置き換えましょう:
+それから、新規作成した*variables*ディレクトリで、*src/main.rs*ファイルを開き、
+まだコンパイルできないけれど、その中身を以下のコードに置き換えましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -83,11 +69,10 @@ error[E0384]: cannot assgin twice immutable variable `x`
 エラーが出るからといって、あなたがいいプログラマではないという意味では*ありません*！
 経験豊富なRust市民でも、コンパイルエラーを出すことはあります。
 
-<!-- The error indicates that the cause of the error is that we `cannot assign twice -->
-<!-- to immutable variable x`, because we tried to assign a second value to the -->
+<!-- The error indicates that the cause of the error is that you `cannot assign twice -->
+<!-- to immutable variable x`, because you tried to assign a second value to the -->
 <!-- immutable `x` variable. -->
 
-<<<<<<< HEAD
 このエラーは、エラーの原因が`不変変数xに2回代入できない`であると示しています。不変な`x`という変数に第2段階の値を代入しようとしたからです。
 
 <!-- It’s important that we get compile-time errors when we attempt to change a -->
@@ -95,8 +80,8 @@ error[E0384]: cannot assgin twice immutable variable `x`
 <!-- can lead to bugs. If one part of our code operates on the assumption that a -->
 <!-- value will never change and another part of our code changes that value, it’s -->
 <!-- possible that the first part of the code won’t do what it was designed to do. -->
-<!-- This cause of bugs can be difficult to track down after the fact, especially -->
-<!-- when the second piece of code changes the value only *sometimes*. -->
+<!-- This cause of bugs can be difficult to track down after the fact, -->
+<!-- especially when the second piece of code changes the value only *sometimes*. -->
 
 以前に不変と指定された値を変えようとした時に、コンパイルエラーが出るのは重要なことです。
 なぜなら、この状況はまさしく、バグに繋がるからです。コードのある部分は、
@@ -105,50 +90,24 @@ error[E0384]: cannot assgin twice immutable variable `x`
 事実(`脚注`:実際にプログラムを走らせた結果のことと思われる)の後には追いかけづらいものです。
 特に第2のコード破片が、値を*時々*しか変えない場合尚更です。
 
-<!-- In Rust the compiler guarantees that when we state that a value won’t change, -->
+<!-- In Rust the compiler guarantees that when you state that a value won’t change, -->
 <!-- it really won’t change. That means that when you’re reading and writing code, -->
-<!-- you don’t have to keep track of how and where a value might change, which can -->
-<!-- make code easier to reason about. -->
+<!-- you don’t have to keep track of how and where a value might change. Your code -->
+<!-- is thus easier to reason through. -->
 
 Rustでは、値が不変であると宣言したら、本当に変わらないことをコンパイラが担保してくれます。
-つまり、コードを読み書きする際に、どこでどうやって値が変化しているかを追いかける必要がなくなり、
-コードが行うことを把握しやすくなります。
-=======
-The error indicates that the cause of the error is that you `cannot assign twice
-to immutable variable x`, because you tried to assign a second value to the
-immutable `x` variable.
+つまり、コードを読み書きする際に、どこでどうやって値が変化しているかを追いかける必要がなくなります。
+故にコードを通して推測することが簡単になるのです。
 
-It’s important that we get compile-time errors when we attempt to change a
-value that we previously designated as immutable because this very situation
-can lead to bugs. If one part of our code operates on the assumption that a
-value will never change and another part of our code changes that value, it’s
-possible that the first part of the code won’t do what it was designed to do.
-The cause of this kind of bug can be difficult to track down after the fact,
-especially when the second piece of code changes the value only *sometimes*.
-
-In Rust, the compiler guarantees that when you state that a value won’t change,
-it really won’t change. That means that when you’re reading and writing code,
-you don’t have to keep track of how and where a value might change. Your code
-is thus easier to reason through.
-
-But mutability can be very useful. Variables are immutable only by default; as
-you did in Chapter 2, you can make them mutable by adding `mut` in front of the
-variable name. In addition to allowing this value to change, `mut` conveys
-intent to future readers of the code by indicating that other parts of the code
-will be changing this variable value.
-
-For example, let’s change *src/main.rs* to the following:
->>>>>>> fork_master_master
-
-<!-- But mutability can be very useful. Variables are immutable only by default; we -->
-<!-- can make them mutable by adding `mut` in front of the variable name. In -->
-<!-- addition to allowing this value to change, it conveys intent to future readers -->
-<!-- of the code by indicating that other parts of the code will be changing this -->
-<!-- variable value. -->
+<!-- But mutability can be very useful. Variables are immutable only by default; as -->
+<!-- you did in Chapter 2, you can make them mutable by adding `mut` in front of the -->
+<!-- variable name. In addition to allowing this value to change, `mut` conveys -->
+<!-- intent to future readers of the code by indicating that other parts of the code -->
+<!-- will be changing this variable value. -->
 
 しかし、可変性は時として非常に有益なこともあります。変数は、標準でのみ、不変です。つまり、
-変数名の前に`mut`キーワードを付ければ、可変にできるわけです。この値が変化できるようにするとともに、
-未来の読者に対してコードの別の部分がこの変数の値を変える可能性を示すことで、その意図を汲ませることができるのです。
+第2章のように変数名の前に`mut`キーワードを付けることで、可変にできるわけです。この値が変化できるようにするとともに、
+`mut`により、未来の読者に対してコードの別の部分がこの変数の値を変える可能性を示すことで、その意図を汲ませることができるのです。
 
 <!-- For example, change *src/main.rs* to the following: -->
 
@@ -167,13 +126,9 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
-<!-- When we run this program, we get the following: -->
+<!-- When we run the program now, we get this: -->
 
-このプログラムを走らせると、以下のような出力が得られます:
-=======
-When we run the program now, we get this:
->>>>>>> fork_master_master
+今、このプログラムを走らせると、以下のような出力が得られます:
 
 ```text
 $ cargo run
@@ -184,79 +139,48 @@ The value of x is: 5   (xの値は5です)
 The value of x is: 6
 ```
 
-<<<<<<< HEAD
-<!-- Using `mut`, we’re allowed to change the value that `x` binds to from `5` to -->
-<!-- `6`. In some cases, you’ll want to make a variable mutable because it makes the -->
-<!-- code more convenient to write than an implementation that only uses immutable -->
-<!-- variables. -->
+<!-- We’re allowed to change the value that `x` binds to from `5` to `6` when `mut` -->
+<!-- is used. In some cases, you’ll want to make a variable mutable because it makes -->
+<!-- the code more convenient to write than if it had only immutable variables. -->
 
-`mut`キーワードを使うことで、`x`が束縛している値を`5`から`6`に変更できるようになりました。
-変数を可変にする方が、不変変数だけを使う実装よりも書きやすくなるケースもあるので、変数を可変にしたくなることもあるでしょう。
+`mut`キーワードを使われると、`x`が束縛している値を`5`から`6`に変更できます。
+変数を可変にする方が、不変変数だけがあるよりも書きやすくなるので、変数を可変にしたくなることもあるでしょう。
 
 <!-- There are multiple trade-offs to consider, in addition to the prevention of -->
 <!-- bugs. For example, in cases where you’re using large data structures, mutating -->
 <!-- an instance in place may be faster than copying and returning newly allocated -->
 <!-- instances. With smaller data structures, creating new instances and writing in -->
-<!-- a more functional programming style may be easier to reason about, so the lower -->
+<!-- a more functional programming style may be easier to think through, so lower -->
 <!-- performance might be a worthwhile penalty for gaining that clarity. -->
 
 考えるべきトレードオフはバグの阻止以外にも、いくつかあります。例えば、大きなデータ構造を使う場合などです。
 インスタンスを可変にして変更できるようにする方が、いちいちインスタンスをコピーして新しくメモリ割り当てされたインスタンスを返すよりも速くなります。
-小規模なデータ構造なら、新規インスタンスを生成して、もっと関数型っぽいコードを書く方が中身を把握しやすくなるため、
+小規模なデータ構造なら、新規インスタンスを生成して、もっと関数型っぽいコードを書く方が通して考えやすくなるため、
 低パフォーマンスは、その簡潔性を得るのに足りうるペナルティになるかもしれません。
 
 <!-- ### Differences Between Variables and Constants -->
-=======
-We’re allowed to change the value that `x` binds to from `5` to `6` when `mut`
-is used. In some cases, you’ll want to make a variable mutable because it makes
-the code more convenient to write than if it had only immutable variables.
-
-There are multiple trade-offs to consider in addition to the prevention of
-bugs. For example, in cases where you’re using large data structures, mutating
-an instance in place may be faster than copying and returning newly allocated
-instances. With smaller data structures, creating new instances and writing in
-a more functional programming style may be easier to think through, so lower
-performance might be a worthwhile penalty for gaining that clarity.
->>>>>>> fork_master_master
 
 ### 変数と定数(constants)の違い
 
-<<<<<<< HEAD
 <!-- Being unable to change the value of a variable might have reminded you of -->
 <!-- another programming concept that most other languages have: *constants*. Like -->
-<!-- immutable variables, constants are also values  that are bound to a name and -->
-<!-- are not allowed to change, but there are a few differences between constants -->
-<!-- and variables. -->
+<!-- immutable variables, constants are values that are bound to a name and are not-->
+<!-- allowed to change, but there are a few differences between constants and -->
+<!-- variables. -->
 
 変数の値を変更できないようにするといえば、他の多くの言語も持っている別のプログラミング概念を思い浮かべるかもしれません:
-*定数*です。不変変数のように、定数も名前に紐付き、変更することが叶わない値のことですが、
+*定数*です。不変変数のように、定数は名前に紐付き、変更することが叶わない値のことですが、
 定数と変数の間にはいくつかの違いがあります。
 
-<!-- First, we aren’t allowed to use `mut` with constants: constants aren't only -->
-<!-- immutable by default, they're always immutable. -->
-=======
-Being unable to change the value of a variable might have reminded you of
-another programming concept that most other languages have: *constants*. Like
-immutable variables, constants are values that are bound to a name and are not
-allowed to change, but there are a few differences between constants and
-variables.
-
-First, you aren’t allowed to use `mut` with constants. Constants aren’t just
-immutable by default—they’re always immutable.
-
-You declare constants using the `const` keyword instead of the `let` keyword,
-and the type of the value *must* be annotated. We’re about to cover types and
-type annotations in the next section, “Data Types,” so don’t worry about the
-details right now. Just know that you must always annotate the type.
->>>>>>> fork_master_master
+<!-- First, we aren’t allowed to use `mut` with constants. Constants aren't just -->
+<!-- immutable by default-they're always immutable. -->
 
 まず、定数には`mut`キーワードは使えません: 定数は標準で不変であるだけでなく、常に不変なのです。
 
-<<<<<<< HEAD
-<!-- We declare constants using the `const` keyword instead of the `let` keyword, -->
+<!-- You declare constants using the `const` keyword instead of the `let` keyword, -->
 <!-- and the type of the value *must* be annotated. We're about to cover types and -->
 <!-- type annotations in the next section, “Data Types,” so don't worry about the -->
-<!-- details right now, just know that we must always annotate the type. -->
+<!-- details right now. Just know that we must always annotate the type. -->
 
 定数は`let`キーワードの代わりに、`const`キーワードで宣言し、値の型は*必ず*注釈しなければなりません。
 型と型注釈については次のセクション、「データ型」で解説する予定なので、その詳細については気にする必要はありません。
@@ -268,27 +192,18 @@ details right now. Just know that you must always annotate the type.
 定数はどんなスコープでも定義できます。グローバルスコープも含めてね。なので、
 いろんなところで使用される可能性のある値を定義するのに役に立ちます。
 
-<!-- The last difference is that constants may only be set to a constant expression, -->
+<!-- The last difference is that constants may be set only to a constant expression, -->
 <!-- not the result of a function call or any other value that could only be -->
 <!-- computed at runtime. -->
 
 最後の違いは、定数は定数式にしかセットすることが叶わないことです。関数呼び出し結果や、実行時に評価される値にはセットできません。
 
 <!-- Here's an example of a constant declaration where the constant's name is -->
-<!-- `MAX_POINTS` and its value is set to 100,000. (Rust constant naming convention -->
-<!-- is to use all upper case with underscores between words): -->
+<!-- `MAX_POINTS` and its value is set to 100,000. (Rust constant naming -->
+<!-- convention is to use all upper case with underscores between words): -->
 
 定数の名前が`MAX_POINTS`で、値が100,000にセットされた定数定義の例をご覧ください。(Rustの定数の命名規則は、
 全て大文字でアンダースコアで単語区切りすることです):
-=======
-The last difference is that constants may be set only to a constant expression,
-not the result of a function call or any other value that could only be
-computed at runtime.
-
-Here’s an example of a constant declaration where the constant’s name is
-`MAX_POINTS` and its value is set to 100,000. (Rust’s constant naming
-convention is to use all uppercase with underscores between words):
->>>>>>> fork_master_master
 
 ```rust
 const MAX_POINTS: u32 = 100_000;
@@ -317,26 +232,17 @@ const MAX_POINTS: u32 = 100_000;
 
 ### (変数の)多重定義(shadowing)
 
-<<<<<<< HEAD
-<!-- As we saw in the guessing game tutorial in Chapter 2, we can declare a new -->
-<!-- variable with the same name as a previous variable, and the new variable -->
-<!-- *shadows* the previous variable. Rustaceans say that the first variable is -->
-<!-- *shadowed* by the second, which means that the second variable’s value is what -->
-<!-- we’ll see when we use the variable. We can shadow a variable by using the same -->
-<!-- variable’s name and repeating the use of the `let` keyword as follows: -->
-=======
-As you saw in the “Comparing the Guess to the Secret Number” section in Chapter
-2, you can declare a new variable with the same name as a previous variable,
-and the new variable shadows the previous variable. Rustaceans say that the
-first variable is *shadowed* by the second, which means that the second
-variable’s value is what appears when the variable is used. We can shadow a
-variable by using the same variable’s name and repeating the use of the `let`
-keyword as follows:
->>>>>>> fork_master_master
+<!-- As you saw in the “Comparing the Guess to the Secret Number” section in Chapter -->
+<!-- 2, you can declare a new variable with the same name as a previous variable, -->
+<!-- and the new variable shadows the previous variable. Rustaceans say that the -->
+<!-- first variable is *shadowed* by the second, which means that the second -->
+<!-- variable’s value is what appears when the variable is used. We can shadow a -->
+<!-- variable by using the same variable’s name and repeating the use of the `let` -->
+<!-- keyword as follows: -->
 
-第2章の数当てゲームのチュートリアルで見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
-新しい変数は、前の変数を*上書き*(shadow)します。Rust市民はこれを最初の変数は、
-2番目の変数に*上書き*されたと言い、この変数を使用した際に、2番目の変数の値が得られるということです。
+第2章の「秘密の数字と予想を比較する」節で見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
+新しい変数は、前の変数を上書き(shadow)します。Rust市民はこれを最初の変数は、
+2番目の変数に*上書き*されたと言い、この変数を使用した際に、2番目の変数の値が現れるということです。
 以下のようにして、同じ変数名を用いて変数を上書きし、`let`キーワードの使用を繰り返します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -355,24 +261,16 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
 <!-- This program first binds `x` to a value of `5`. Then it shadows `x` by -->
 <!-- repeating `let x =`, taking the original value and adding `1` so the value of -->
-<!-- `x` is then `6`. The third `let` statement also shadows `x`, taking the -->
-<!-- previous value and multiplying it by `2` to give `x` a final value of `12`. -->
-<!-- When you run this program, it will output the following: -->
+<!-- `x` is then `6`. The third `let` statement also shadows `x`, multiplying the -->
+<!-- previous value by `2` to give `x` a final value of `12`. Wehn we run this -->
+<!-- program, it will output the following: -->
 
 このプログラムはまず、`x`を`5`という値に束縛します。それから`let x =`を繰り返すことで`x`を上書きし、
 元の値に`1`を加えることになるので、`x`の値は、`6`になります。
 3番目の`let`文も`x`を上書きし、以前の値に`2`をかけることになるので、`x`の最終的な値は`12`になります。
 このプログラムを走らせたら、以下のように出力するでしょう:
-=======
-This program first binds `x` to a value of `5`. Then it shadows `x` by
-repeating `let x =`, taking the original value and adding `1` so the value of
-`x` is then `6`. The third `let` statement also shadows `x`, multiplying the
-previous value by `2` to give `x` a final value of `12`. When we run this
-program, it will output the following:
->>>>>>> fork_master_master
 
 ```text
 $ cargo run
@@ -382,19 +280,19 @@ $ cargo run
 The value of x is: 12
 ```
 
-<<<<<<< HEAD
-<!-- This is different than marking a variable as `mut`, because unless we use the -->
-<!-- `let` keyword again, we’ll get a compile-time error if we accidentally try to -->
-<!-- reassign to this variable. We can perform a few transformations on a value but -->
-<!-- have the variable be immutable after those transformations have been completed. -->
+<!-- Shadowing is different than marking a variable as `mut`, because we’ll get a -->
+<!-- compile-time error if we accidentally try to reassign to this variable without -->
+<!-- using the `let` keyword. By using `let`, we can perform a few transformations -->
+<!-- on a value but have the variable be immutable after those transformations have -->
+<!-- been completed. -->
 
-これは、変数を`mut`にするのとは違います。なぜなら、`let`キーワードを再度使わない限り、
-誤ってこの変数に再代入を試みようものなら、コンパイルエラーが出るからです。値にちょっとした加工は加えられますが、
-その加工が終わったら、変数は不変になるわけです。
+シャドーイングは、変数を`mut`にするのとは違います。なぜなら、`let`キーワードを使わずに、
+誤ってこの変数に再代入を試みようものなら、コンパイルエラーが出るからです。`let`を使うことで、
+値にちょっとした加工は加えられますが、その加工が終わったら、変数は不変になるわけです。
 
 <!-- The other difference between `mut` and shadowing is that because we’re -->
 <!-- effectively creating a new variable when we use the `let` keyword again, we can -->
-<!-- change the type of the value, but reuse the same name. For example, say our -->
+<!-- change the type of the value but reuse the same name. For example, say our -->
 <!-- program asks a user to show how many spaces they want between some text by -->
 <!-- inputting space characters, but we really want to store that input as a number: -->
 
@@ -402,27 +300,13 @@ The value of x is: 12
 値の型を変えつつ、同じ変数名を使いまわせることです。例えば、
 プログラムがユーザに何らかのテキストに対して空白文字を入力することで何個分のスペースを表示したいかを尋ねるとします。
 ただ、実際にはこの入力を数値として保持したいとしましょう:
-=======
-Shadowing is different than marking a variable as `mut`, because we’ll get a
-compile-time error if we accidentally try to reassign to this variable without
-using the `let` keyword. By using `let`, we can perform a few transformations
-on a value but have the variable be immutable after those transformations have
-been completed.
-
-The other difference between `mut` and shadowing is that because we’re
-effectively creating a new variable when we use the `let` keyword again, we can
-change the type of the value but reuse the same name. For example, say our
-program asks a user to show how many spaces they want between some text by
-inputting space characters, but we really want to store that input as a number:
->>>>>>> fork_master_master
 
 ```rust
 let spaces = "   ";
 let spaces = spaces.len();
 ```
 
-<<<<<<< HEAD
-<!-- This construct is allowed because the first `spaces` variable is a string type, -->
+<!-- This construct is allowed because the first `spaces` variable is a string type -->
 <!-- and the second `spaces` variable, which is a brand-new variable that happens to -->
 <!-- have the same name as the first one, is a number type. Shadowing thus spares us -->
 <!-- from having to come up with different names, like `spaces_str` and -->
@@ -434,14 +318,6 @@ let spaces = spaces.len();
 異なる名前を思いつく必要がなくなるわけです。`spaces_str`と`spaces_num`などですね; 代わりに、
 よりシンプルな`spaces`という名前を再利用できるわけです。一方で、この場合に`mut`を使おうとすると、
 以下に示した通りですが、コンパイルエラーになるわけです:
-=======
-This construct is allowed because the first `spaces` variable is a string type
-and the second `spaces` variable, which is a brand-new variable that happens to
-have the same name as the first one, is a number type. Shadowing thus spares us
-from having to come up with different names, such as `spaces_str` and
-`spaces_num`; instead, we can reuse the simpler `spaces` name. However, if we
-try to use `mut` for this, as shown here, we’ll get a compile-time error:
->>>>>>> fork_master_master
 
 ```rust,ignore
 let mut spaces = "   ";

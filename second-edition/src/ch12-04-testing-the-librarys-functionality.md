@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- ## Developing the Library’s Functionality with Test Driven Development -->
 
 ## テスト駆動開発でライブラリの機能を開発する
@@ -293,20 +292,13 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 
 <span class="caption">リスト12-17: `contents`の各行を繰り返す</span>
 
-<<<<<<< HEAD
 <!-- The `lines` method returns an iterator. We’ll talk about iterators in depth in -->
 <!-- Chapter 13, but recall that you saw this way of using an iterator in Listing -->
-<!-- 3-4, where we used a `for` loop with an iterator to run some code on each item -->
+<!-- 3-5, where we used a `for` loop with an iterator to run some code on each item -->
 <!-- in a collection. -->
-=======
-The `lines` method returns an iterator. We’ll talk about iterators in depth in
-Chapter 13, but recall that you saw this way of using an iterator in Listing
-3-5, where we used a `for` loop with an iterator to run some code on each item
-in a collection.
->>>>>>> fork_master_master
 
 `lines`メソッドはイテレータを返します。イテレータについて詳しくは、第13章で話しますが、
-リスト3-4でこのようなイテレータの使用法は見かけたことを思い出してください。
+リスト3-5でこのようなイテレータの使用法は見かけたことを思い出してください。
 そこでは、イテレータに`for`ループを使用してコレクションの各要素に対して何らかのコードを走らせていました。
 
 <!-- #### Searching Each Line for the Query -->

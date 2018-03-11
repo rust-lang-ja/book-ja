@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-<!-- ## How Functions Work -->
-=======
-## Functions
->>>>>>> fork_master_master
+<!-- ## Functions -->
 
-## 関数の動作方法
+## 関数
 
 <!-- Functions are pervasive in Rust code. You’ve already seen one of the most -->
 <!-- important functions in the language: the `main` function, which is the entry -->
@@ -88,12 +84,12 @@ Another function.
 ### 関数の引数
 
 <!-- Functions can also be defined to have *parameters*, which are special variables -->
-<!-- that are part of a function's signature. When a function has parameters, we can -->
-<!-- provide it with concrete values for those parameters. Technically, the concrete -->
-<!-- values are called *arguments*, but in casual conversation people tend to use -->
-<!-- the words “parameter” and “argument” interchangeably for either the variables -->
-<!-- in a function's definition or the concrete values passed in when you call a -->
-<!-- function. -->
+<!-- that are part of a function's signature. When a function has parameters, you -->
+<!-- can provide it with concrete values for those parameters. Technically, the -->
+<!-- concrete values are called *arguments*, but in casual conversation people tend -->
+<!-- to use the words “parameter” and “argument” interchangeably for either the -->
+<!-- variables in a function's definition or the concrete values passed in when you -->
+<!-- call a function. -->
 
 関数は、引数を持つようにも定義できます。引数とは、関数シグニチャの一部になる特別な変数のことです。
 関数に引数があると、引数の位置に実際の値を与えることができます。技術的にはこの実際の値は
@@ -103,17 +99,7 @@ Another function.
 <!-- The following rewritten version of `another_function` shows what parameters -->
 <!-- look like in Rust: -->
 
-<<<<<<< HEAD
 以下の書き直した`another_function`では、Rustの仮引数がどんな見た目なのかを示しています:
-=======
-Functions can also be defined to have *parameters*, which are special variables
-that are part of a function’s signature. When a function has parameters, you
-can provide it with concrete values for those parameters. Technically, the
-concrete values are called *arguments*, but in casual conversation, people tend
-to use the words *parameter* and *argument* interchangeably for either the
-variables in a function’s definition or the concrete values passed in when you
-call a function.
->>>>>>> fork_master_master
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -180,32 +166,21 @@ fn another_function(x: i32, y: i32) {
 }
 ```
 
-<<<<<<< HEAD
 <!-- This example creates a function with two parameters, both of which are `i32` -->
-<!-- types. The function then prints out the values in both of its parameters. Note -->
-<!-- that function parameters don't all need to be the same type, they just happen -->
-<!-- to be in this example. -->
+<!-- types. The function then prints the values in both of its parameters. Note that -->
+<!-- function parameters don't all need to be the same type, they just happen to be -->
+<!-- in this example. -->
 
 この例では、2引数の関数を生成しています。そして、引数はどちらも`i32`型です。それからこの関数は、
 仮引数の値を両方出力します。関数引数は、全てが同じ型である必要はありません。今回は、
 偶然同じになっただけです。
 
 <!-- Let’s try running this code. Replace the program currently in your *functions* -->
-<!-- project’s *src/main.rs* file with the preceding example, and run it using -->
-<!-- `cargo run`: -->
+<!-- project’s *src/main.rs* file with the preceding example and run it using `cargo -->
+<!-- run`: -->
 
 このコードを走らせてみましょう。今、*function*プロジェクトの*src/main.rs*ファイルに記載されているプログラムを先ほどの例と置き換えて、
 `cargo run`で走らせてください:
-=======
-This example creates a function with two parameters, both of which are `i32`
-types. The function then prints the values in both of its parameters. Note that
-function parameters don’t all need to be the same type, they just happen to be
-in this example.
-
-Let’s try running this code. Replace the program currently in your *functions*
-project’s *src/main.rs* file with the preceding example and run it using `cargo
-run`:
->>>>>>> fork_master_master
 
 ```text
 $ cargo run
@@ -228,7 +203,7 @@ The value of y is: 6
 
 <!-- Function bodies are made up of a series of statements optionally ending in an -->
 <!-- expression. So far, we’ve only covered functions without an ending expression, -->
-<!-- but we have seen expressions as parts of statements. Because Rust is an -->
+<!-- but we have seen an expression as part of statements. Because Rust is an -->
 <!-- expression-based language, this is an important distinction to understand. -->
 <!-- Other languages don’t have the same distinctions, so let’s look at what -->
 <!-- statements and expressions are and how their differences affect the bodies of -->
@@ -239,17 +214,7 @@ The value of y is: 6
 これは理解しておくべき重要な差異になります。他の言語にこの差異はありませんので、文と式がなんなのかと、
 その違いが関数本体にどんな影響を与えるかを見ていきましょう。
 
-<<<<<<< HEAD
 <!-- ### Statements and Expressions -->
-=======
-Function bodies are made up of a series of statements optionally ending in an
-expression. So far, we’ve only covered functions without an ending expression,
-but you have seen an expression as part of statements. Because Rust is an
-expression-based language, this is an important distinction to understand.
-Other languages don’t have the same distinctions, so let’s look at what
-statements and expressions are and how their differences affect the bodies of
-functions.
->>>>>>> fork_master_master
 
 ### 文と式
 
@@ -276,8 +241,7 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
-<!-- <span class="caption">Listing 3-1: A `main` function declaration containing one statement.</span> -->
+<!-- <span class="caption">Listing 3-1: A `main` function declaration containing one statement</span> -->
 
 <span class="caption">リスト3-1: 1文を含む`main`関数宣言</span>
 
@@ -285,9 +249,6 @@ fn main() {
 <!-- statement in itself. -->
 
 関数定義も文になります。つまり、先の例は全体としても文になるわけです。
-=======
-<span class="caption">Listing 3-1: A `main` function declaration containing one statement</span>
->>>>>>> fork_master_master
 
 <!-- Statements do not return values. Therefore, you can’t assign a `let` statement -->
 <!-- to another variable, as the following code tries to do; you'll get an error: -->
@@ -323,12 +284,11 @@ error: expected expression, found statement (`let`)
     (注釈: `let`を使う変数宣言は、文です)
 ```
 
-<<<<<<< HEAD
 <!-- The `let y = 6` statement does not return a value, so there isn’t anything for -->
-<!-- `x` to bind to. This is different than in other languages, such as C and Ruby, -->
-<!-- where the assignment returns the value of the assignment. In those languages, -->
-<!-- you can write `x = y = 6` and have both `x` and `y` have the value `6`; that is -->
-<!-- not the case in Rust. -->
+<!-- `x` to bind to. This is different from what happens in other languages, such as -->
+<!-- C and Ruby, where the assignment returns the value of the assignment. In those -->
+<!-- languages, you can write `x = y = 6` and have both `x` and `y` have the value -->
+<!-- `6`; that is not the case in Rust. -->
 
 この`let y = 6`という文は値を返さないので、`x`を束縛する相手がないわけです。これは、
 CやRubyなどの言語とは異なる動作です。CやRubyでは、代入は代入値を返します。これらの言語では、
@@ -338,29 +298,14 @@ CやRubyなどの言語とは異なる動作です。CやRubyでは、代入は�
 <!-- Expressions evaluate to something and make up most of the rest of the code that -->
 <!-- you’ll write in Rust. Consider a simple math operation, such as `5 + 6`, which -->
 <!-- is an expression that evaluates to the value `11`. Expressions can be part of -->
-<!-- statements: in Listing 3-1 that had the statement `let y = 6;`, `6` is an -->
+<!-- statements: in Listing 3-1, the `6` in the statement `let y = 6;` is an -->
 <!-- expression that evaluates to the value `6`. Calling a function is an -->
 <!-- expression. Calling a macro is an expression. The block that we use to create -->
 <!-- new scopes, `{}`, is an expression, for example: -->
-=======
-The `let y = 6` statement does not return a value, so there isn’t anything for
-`x` to bind to. This is different from what happens in other languages, such as
-C and Ruby, where the assignment returns the value of the assignment. In those
-languages, you can write `x = y = 6` and have both `x` and `y` have the value
-`6`; that is not the case in Rust.
-
-Expressions evaluate to something and make up most of the rest of the code that
-you’ll write in Rust. Consider a simple math operation, such as `5 + 6`, which
-is an expression that evaluates to the value `11`. Expressions can be part of
-statements: in Listing 3-1, the `6` in the statement `let y = 6;` is an
-expression that evaluates to the value `6`. Calling a function is an
-expression. Calling a macro is an expression. The block that we use to create
-new scopes, `{}`, is an expression, for example:
->>>>>>> fork_master_master
 
 式は何かに評価され、これからあなたが書くRustコードの多くを構成します。
 簡単な数学演算(`5 + 6`など)を思い浮かべましょう。この例は、値`11`に評価される式です。式は文の一部になりえます:
-`let y = 6`という文を含むリスト3-3では、`6`は値`6`に評価される式です。関数呼び出しも式です。マクロ呼び出しも式です。
+リスト3-1において、`let y = 6`という文の`6`は値`6`に評価される式です。関数呼び出しも式です。マクロ呼び出しも式です。
 新しいスコープを作る際に使用するブロック(`{}`)も式です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -391,25 +336,16 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
 <!-- is a block that, in this case, evaluates to `4`. That value gets bound to `y` -->
 <!-- as part of the `let` statement. Note the `x + 1` line without a semicolon at -->
-<!-- the end, unlike most of the lines you’ve seen so far. Expressions do not -->
-<!-- include ending semicolons. If you add a semicolon to the end of an expression, -->
-<!-- you turn it into a statement, which will then not return a value. Keep this in -->
-<!-- mind as you explore function return values and expressions next. -->
-=======
-is a block that, in this case, evaluates to `4`. That value gets bound to `y`
-as part of the `let` statement. Note the `x + 1` line without a semicolon at
-the end, which is unlike most of the lines you’ve seen so far. Expressions do
-not include ending semicolons. If you add a semicolon to the end of an
-expression, you turn it into a statement, which will then not return a value.
-Keep this in mind as you explore function return values and expressions next.
->>>>>>> fork_master_master
+<!-- the end, which is unlike most of the lines you’ve seen so far. Expressions do -->
+<!-- not include ending semicolons. If you add a semicolon to the end of an -->
+<!-- expression, you turn it into a statement, which will then not return a value. -->
+<!-- Keep this in mind as you explore function return values and expressions next. -->
 
 今回の場合、`4`に評価されるブロックです。その値が、`let`文の一部として`y`に束縛されます。
 今まで見かけてきた行と異なり、文末にセミコロンがついていない`x + 1`の行に気をつけてください。
-式は終端にセミコロンを、含みません。式の終端にセミコロンを付けたら、文に変えてしまいます。そして、文は値を返しません。
+式は終端にセミコロンを含みません。式の終端にセミコロンを付けたら、文に変えてしまいます。そして、文は値を返しません。
 次に関数の戻り値や式を見ていく際にこのことを肝に命じておいてください。
 
 <!-- ### Functions with Return Values -->
@@ -476,21 +412,16 @@ The value of x is: 5
 let x = 5;
 ```
 
-<<<<<<< HEAD
 <!-- Second, the `five` function has no parameters and defines the type of the -->
 <!-- return value, but the body of the function is a lonely `5` with no semicolon -->
-<!-- because it’s an expression whose value we want to return. Let’s look at another -->
-<!-- example: -->
-=======
-Second, the `five` function has no parameters and defines the type of the
-return value, but the body of the function is a lonely `5` with no semicolon
-because it’s an expression whose value we want to return.
-
-Let’s look at another example:
->>>>>>> fork_master_master
+<!-- because it’s an expression whose value we want to return. -->
 
 2番目に、`five`関数は仮引数をもたず、戻り値型を定義していますが、関数本体はセミコロンなしの`5`単独です。
-なぜなら、これが返したい値になる式だからです。もう一つ例を見てみましょう:
+なぜなら、これが返したい値になる式だからです。
+
+<!-- Let's look at another example: -->
+
+もう一つ別の例を見ましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -508,19 +439,12 @@ fn plus_one(x: i32) -> i32 {
 }
 ```
 
-<<<<<<< HEAD
-<!-- Running this code will print `The value of x is: 6`. What happens if we place a -->
+<!-- Running this code will print `The value of x is: 6`. But if we place a -->
 <!-- semicolon at the end of the line containing `x + 1`, changing it from an -->
-<!-- expression to a statement? We'll get an error: -->
+<!-- expression to a statement, we'll get an error: -->
 
-このコードを走らせると、`The value of x is: 6`と出力されるでしょう。では、
-`x + 1`を含む行の終端にセミコロンを付けて、式から文に変えてみたら、どうなるでしょうか？
-エラーになるでしょう:
-=======
-Running this code will print `The value of x is: 6`. But if we place a
-semicolon at the end of the line containing `x + 1`, changing it from an
-expression to a statement, we’ll get an error.
->>>>>>> fork_master_master
+このコードを走らせると、`The value of x is: 6`と出力されるでしょう。しかし、
+`x + 1`を含む行の終端にセミコロンを付けて、式から文に変えたら、エラーになるでしょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

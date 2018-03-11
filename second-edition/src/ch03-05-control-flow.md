@@ -1,36 +1,22 @@
 <!-- ## Control Flow -->
 
-<<<<<<< HEAD
 ## フロー制御
-=======
-Deciding whether or not to run some code depending on if a condition is true
-and deciding to run some code repeatedly while a condition is true are basic
-building blocks in most programming languages. The most common constructs that
-let you control the flow of execution of Rust code are `if` expressions and
-loops.
->>>>>>> fork_master_master
 
-<!-- Deciding whether or not to run some code depending on if a condition is true or -->
-<!-- deciding to run some code repeatedly while a condition is true are basic -->
+<!-- Deciding whether or not to run some code depending on if a condition is true -->
+<!-- and deciding to run some code repeatedly while a condition is true are basic -->
 <!-- building blocks in most programming languages. The most common constructs that -->
 <!-- let you control the flow of execution of Rust code are `if` expressions and -->
 <!-- loops. -->
 
-<<<<<<< HEAD
 条件が真かどうかによってコードを走らせるかどうかを決定したり、
 条件が真の間繰り返しコードを走らせるか決定したりすることは、多くのプログラミング言語において、基本的な構成ブロックです。
 Rustコードの実行フローを制御する最も一般的な文法要素は、`if`式とループです。
-=======
-An `if` expression allows you to branch your code depending on conditions. You
-provide a condition and then state, “If this condition is met, run this block
-of code. If the condition is not met, do not run this block of code.”
->>>>>>> fork_master_master
 
 <!-- ### `if` Expressions -->
 
 ### `if`式
 
-<!-- An `if` expression allows us to branch our code depending on conditions. We -->
+<!-- An `if` expression allows us to branch your code depending on conditions. We -->
 <!-- provide a condition and then state, “If this condition is met, run this block -->
 <!-- of code. If the condition is not met, do not run this block of code.” -->
 
@@ -61,7 +47,6 @@ fn main() {
 
 <!-- NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199 -->
 
-<<<<<<< HEAD
 <!-- All `if` expressions start with the keyword `if`, which is followed by a -->
 <!-- condition. In this case, the condition checks whether or not the variable -->
 <!-- `number` has a value less than 5. The block of code we want to execute if the -->
@@ -69,42 +54,27 @@ fn main() {
 <!-- brackets. Blocks of code associated with the conditions in `if` expressions are -->
 <!-- sometimes called *arms*, just like the arms in `match` expressions that we -->
 <!-- discussed in the “Comparing the Guess to the Secret Number” section of -->
-<!-- Chapter 2. Optionally, we can also include an `else` expression, which we chose -->
-<!-- to do here, to give the program an alternative block of code to execute should -->
-<!-- the condition evaluate to false. If you don’t provide an `else` expression and -->
-<!-- the condition is false, the program will just skip the `if` block and move on -->
-<!-- to the next bit of code. -->
+<!-- Chapter 2. -->
 
 `if`式は全て、キーワードの`if`から始め、条件式を続けます。今回の場合、
 条件式は変数`number`が５未満の値になっているかどうかをチェックします。
 条件が真の時に実行したい一連のコードを条件式の直後に波かっこで包んで配置します。`if`式の条件式と紐付けられる一連のコードは、
 時として*アーム*と呼ばれることがあります。
-第2章の「予想と秘密の数字を比較する」の節で議論した`match`式のアームのようですね。オプションとして、
-`else`式を含むこともでき(ここではそうしています)、これによりプログラムは、
+第2章の「予想と秘密の数字を比較する」の節で議論した`match`式のアームのようですね。
+
+<!-- Optionally, we can also include an `else` expression, which we chose -->
+<!-- to do here, to give the program an alternative block of code to execute should -->
+<!-- the condition evaluate to false. If you don’t provide an `else` expression and -->
+<!-- the condition is false, the program will just skip the `if` block and move on -->
+<!-- to the next bit of code. -->
+
+オプションとして、`else`式を含むこともでき(ここではそうしています)、これによりプログラムは、
 条件式が偽になった時に実行するコードを与えられることになります。仮に、`else`式を与えずに条件式が偽になったら、
 プログラムは単に`if`ブロックを無視して次のコードを実行しにいきます。
 
 <!-- Try running this code; you should see the following output: -->
 
 このコードを走らせてみましょう; 以下のような出力を目の当たりにするはずです:
-=======
-All `if` expressions start with the keyword `if`, which is followed by a
-condition. In this case, the condition checks whether or not the variable
-`number` has a value less than 5. The block of code we want to execute if the
-condition is true is placed immediately after the condition inside curly
-brackets. Blocks of code associated with the conditions in `if` expressions are
-sometimes called *arms*, just like the arms in `match` expressions that we
-discussed in the “Comparing the Guess to the Secret Number” section of
-Chapter 2.
-
-Optionally, we can also include an `else` expression, which we chose
-to do here, to give the program an alternative block of code to execute should
-the condition evaluate to false. If you don’t provide an `else` expression and
-the condition is false, the program will just skip the `if` block and move on
-to the next bit of code.
-
-Try running this code; you should see the following output:
->>>>>>> fork_master_master
 
 ```text
 $ cargo run
@@ -135,17 +105,11 @@ $ cargo run
 condition was false
 ```
 
-<<<<<<< HEAD
 <!-- It’s also worth noting that the condition in this code *must* be a `bool`. If -->
-<!-- the condition isn’t a `bool`, we’ll get an error. For example, try running the -->
-<!-- following code: -->
-=======
-It’s also worth noting that the condition in this code *must* be a `bool`. If
-the condition isn’t a `bool`, we’ll get an error. For example:
->>>>>>> fork_master_master
+<!-- the condition isn’t a `bool`, we’ll get an error. For example: -->
 
 このコード内の条件式は、`bool`型で*なければならない*ことにも触れる価値があります。
-条件式が、`bool`型でない時は、エラーになります。例として、以下のコードを走らせてみましょう:
+条件式が、`bool`型でない時は、エラーになります。例です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -179,26 +143,17 @@ error[E0308]: mismatched types
              found type `{integer}`
 ```
 
-<<<<<<< HEAD
-<!-- The error indicates that Rust expected a `bool` but got an integer. Rust will -->
-<!-- not automatically try to convert non-Boolean types to a Boolean, unlike -->
-<!-- languages such as Ruby and JavaScript. You must be explicit and always provide -->
+<!-- The error indicates that Rust expected a `bool` but got an integer. Unlike -->
+<!-- languages such as Ruby and JavaScript, Rust will not automatically try to -->
+<!-- convert non-Boolean types to a Boolean. You must be explicit and always provide -->
 <!-- `if` with a Boolean as its condition. If we want the `if` code block to run -->
 <!-- only when a number is not equal to `0`, for example, we can change the `if` -->
 <!-- expression to the following: -->
 
-このエラーは、コンパイラは`bool`型を予期していたのに、整数だったことを示唆しています。Rustでは、
-論理値以外の値が、自動的に論理値に変換されることはありません。
-RubyやJavaScriptなどの言語とは異なります。明示的に必ず`if`には条件式として、`論理値`を与えなければなりません。
+このエラーは、コンパイラは`bool`型を予期していたのに、整数だったことを示唆しています。
+RubyやJavaScriptなどの言語とは異なり、Rustでは、論理値以外の値が、自動的に論理値に変換されることはありません。
+明示的に必ず`if`には条件式として、`論理値`を与えなければなりません。
 例えば、数値が`0`以外の時だけ`if`のコードを走らせたいなら、以下のように`if`式を変更することができます:
-=======
-The error indicates that Rust expected a `bool` but got an integer. Unlike
-languages such as Ruby and JavaScript, Rust will not automatically try to
-convert non-Boolean types to a Boolean. You must be explicit and always provide
-`if` with a Boolean as its condition. If we want the `if` code block to run
-only when a number is not equal to `0`, for example, we can change the `if`
-expression to the following:
->>>>>>> fork_master_master
 
 <!--<span class="filename">Filename: src/main.rs</span> -->
 
@@ -218,21 +173,14 @@ fn main() {
 
 このコードを実行したら、`number was something other than zero`と表示されるでしょう。
 
-<!-- #### Multiple Conditions with `else if` -->
+<!-- #### Handling Multiple Conditions with `else if` -->
 
-#### `else if`で複数の条件
+#### `else if`で複数の条件を扱う
 
-<<<<<<< HEAD
-<!-- We can have multiple conditions by combining `if` and `else` in an `else if` -->
+<!-- You can have multiple conditions by combining `if` and `else` in an `else if` -->
 <!-- expression. For example: -->
 
 `if`と`else`を組み合わせて`else if`式にすることで複数の条件を持たせることもできます。例です:
-=======
-#### Handling Multiple Conditions with `else if`
-
-You can have multiple conditions by combining `if` and `else` in an `else if`
-expression. For example:
->>>>>>> fork_master_master
 
 <!--<span class="filename">Filename: src/main.rs</span> -->
 
@@ -271,51 +219,35 @@ $ cargo run
 number is divisible by 3
 ```
 
-<<<<<<< HEAD
 <!-- When this program executes, it checks each `if` expression in turn and executes -->
 <!-- the first body for which the condition holds true. Note that even though 6 is -->
 <!-- divisible by 2, we don’t see the output `number is divisible by 2`, nor do we -->
-<!-- see the `number is not divisible by 4, 3, or 2` text from the `else` block. The -->
-<!-- reason is that Rust will only execute the block for the first true condition, -->
-<!-- and once it finds one, it won’t even check the rest. -->
+<!-- see the `number is not divisible by 4, 3, or 2` text from the `else` block. -->
+<!-- That's because Rust will only execute the block for the first true condition, and -->
+<!-- once it finds one, it won’t even check the rest. -->
 
 このプログラムを実行すると、`if`式が順番に吟味され、最初に条件が真になった本体が実行されます。
 6は2で割り切れるものの、`number is devisible by 2`や、
 `else`ブロックの`number is not divisible by 4, 3, or 2`という出力はされないことに注目してください。
-その原因は、言語が最初の真条件のブロックのみを実行し、
+それは、言語が最初の真条件のブロックのみを実行し、
 条件に合ったものが見つかったら、残りはチェックすらしないからです。
 
 <!-- Using too many `else if` expressions can clutter your code, so if you have more -->
 <!-- than one, you might want to refactor your code. Chapter 6 describes a powerful -->
 <!-- Rust branching construct called `match` for these cases. -->
-=======
-When this program executes, it checks each `if` expression in turn and executes
-the first body for which the condition holds true. Note that even though 6 is
-divisible by 2, we don’t see the output `number is divisible by 2`, nor do we
-see the `number is not divisible by 4, 3, or 2` text from the `else` block.
-That’s because Rust only executes the block for the first true condition, and
-once it finds one, it doesn’t even check the rest.
->>>>>>> fork_master_master
 
 `else if`式を使いすぎると、コードがめちゃくちゃになってしまうので、1つ以上あるなら、
 コードをリファクタリングしたくなるかもしれません。これらのケースに有用な`match`と呼ばれる、
 強力なRustの枝分かれ文法要素については第6章で解説します。
 
-<<<<<<< HEAD
-<!-- #### Using `if` in a `let` statement -->
+<!-- #### Using `if` in a `let` Statement -->
 
 #### `let`文内で`if`式を使う
-=======
-#### Using `if` in a `let` Statement
-
-Because `if` is an expression, we can use it on the right side of a `let`
-statement, as in Listing 3-2:
->>>>>>> fork_master_master
 
 <!-- Because `if` is an expression, we can use it on the right side of a `let` -->
-<!-- statement, for instance in Listing 3-2: -->
+<!-- statement, as in Listing 3-2: -->
 
-`if`は式なので、`let`文の右辺に持ってくることができます。例はリスト3-2の通り:
+`if`は式なので、`let`文の右辺に持ってくることができます。リスト3-2のようにね:
 
 <!--<span class="filename">Filename: src/main.rs</span> -->
 
@@ -403,12 +335,8 @@ error[E0308]: if and else have incompatible types
 6 | |     } else {
 7 | |         "six"
 8 | |     };
-<<<<<<< HEAD
-  | |_____^ expected integral variable, found reference
-  |         (整数変数を予期しましたが、参照が見つかりました)
-=======
   | |_____^ expected integral variable, found &str
->>>>>>> fork_master_master
+  |         (整数変数を予期しましたが、&strが見つかりました)
   |
   = note: expected type `{integer}`
              found type `&str`
@@ -517,38 +445,25 @@ again!
 
 #### `while`で条件付きループ
 
-<<<<<<< HEAD
 <!-- It’s often useful for a program to evaluate a condition within a loop. While -->
-<!-- the condition is true, the loop runs. When the condition ceases to be true, you -->
-<!-- call `break`, stopping the loop. This loop type could be implemented using a -->
-<!-- combination of `loop`, `if`, `else`, and `break`; you could try that now in a -->
-<!-- program, if you’d like. -->
+<!-- the condition is true, the loop runs. When the condition ceases to be true, the -->
+<!-- program calls `break`, stopping the loop. This loop type could be implemented -->
+<!-- using a combination of `loop`, `if`, `else`, and `break`; you could try that -->
+<!-- now in a program, if you’d like. -->
 
 プログラムにとってループ内で条件式を評価できると、有益なことがしばしばあります。条件が真の間、
-ループが走るわけです。条件が真でなくなった時に`break`を呼び出し、ループを終了します。
+ループが走るわけです。条件が真でなくなった時にプログラムは`break`を呼び出し、ループを終了します。
 このタイプのループは、`loop`、`if`、`else`、`break`を組み合わせることでも実装できます;
 お望みなら、プログラムで試してみるのもいいでしょう。
-=======
-It’s often useful for a program to evaluate a condition within a loop. While
-the condition is true, the loop runs. When the condition ceases to be true, the
-program calls `break`, stopping the loop. This loop type could be implemented
-using a combination of `loop`, `if`, `else`, and `break`; you could try that
-now in a program, if you’d like.
-
-However, this pattern is so common that Rust has a built-in language construct
-for it, called a `while` loop. Listing 3-3 uses `while`: the program loops
-three times, counting down each time, and then, after the loop, it prints
-another message and exits.
->>>>>>> fork_master_master
 
 <!-- However, this pattern is so common that Rust has a built-in language construct -->
-<!-- for it, and it’s called a `while` loop. The following example uses `while`: the -->
-<!-- program loops three times, counting down each time. Then, after the loop, it -->
-<!-- prints another message and exits: -->
+<!-- for it, called a `while` loop. Listing 3-3 uses `while`: the program loops -->
+<!-- three times, counting down each time, and then, after the loop, it prints -->
+<!-- another message and exits: -->
 
-しかし、このパターンは頻出するので、Rustにはそれ用の文法要素が用意されており、`while`ループと呼ばれます。
-以下の例では、`while`を使用しています: プログラムは3回ループし、それぞれカウントダウンします。
-そして、ループ後に別のメッセージを表示して終了します:
+しかし、このパターンは頻出するので、Rustにはそれ用の文法要素が用意されていて、`while`ループと呼ばれます。
+リスト3-3は、`while`を使用しています: プログラムは3回ループし、それぞれカウントダウンします。
+それから、ループ後に別のメッセージを表示して終了します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -569,35 +484,26 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
+<!-- <span class="caption">Listing 3-3: Using a `while` loop to run code while a -->
+<!-- condition holds true</span> -->
+
+<span class="caption">リスト3-3: 条件が真の間、コードを走らせる`while`ループを使用する</span>
+
 <!-- This construct eliminates a lot of nesting that would be necessary if you used -->
 <!-- `loop`, `if`, `else`, and `break`, and it’s clearer. While a condition holds -->
 <!-- true, the code runs; otherwise, it exits the loop. -->
 
 この文法要素により、`loop`、`if`、`else`、`break`を使った時に必要になるネストがなくなり、
 より明確になります。条件が真の間、コードは実行されます; そうでなければ、ループを抜けます.
-=======
-<span class="caption">Listing 3-3: Using a `while` loop to run code while a
-condition holds true</span>
-
-This construct eliminates a lot of nesting that would be necessary if you used
-`loop`, `if`, `else`, and `break`, and it’s clearer. While a condition holds
-true, the code runs; otherwise, it exits the loop.
->>>>>>> fork_master_master
 
 <!-- #### Looping Through a Collection with `for` -->
 
-<<<<<<< HEAD
 #### `for`でコレクションを覗き見る
-=======
-You could use the `while` construct to loop over the elements of a collection,
-such as an array. For example, let’s look at Listing 3-4:
->>>>>>> fork_master_master
 
 <!-- You could use the `while` construct to loop over the elements of a collection, -->
-<!-- such as an array. For example, let's look at Listing 3-3: -->
+<!-- such as an array. For example, let's look at Listing 3-4: -->
 
-`while`要素を使って配列などのコレクションの要素を覗き見ることができます。例えば、リスト3-3を見てみましょう:
+`while`要素を使って配列などのコレクションの要素を覗き見ることができます。例えば、リスト3-4を見ましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -617,29 +523,19 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
-<!-- <span class="caption">Listing 3-3: Looping through each element of a collection -->
+<!-- <span class="caption">Listing 3-4: Looping through each element of a collection -->
 <!-- using a `while` loop</span> -->
 
-<span class="caption">リスト3-3: `while`ループでコレクションの各要素を覗き見る</span>
+<span class="caption">リスト3-4: `while`ループでコレクションの各要素を覗き見る</span>
 
 <!-- Here, the code counts up through the elements in the array. It starts at index -->
 <!-- `0`, and then loops until it reaches the final index in the array (that is, -->
-<!-- when `index < 5` is no longer true). Running this code will print out every -->
-<!-- element in the array: -->
+<!-- when `index < 5` is no longer true). Running this code will print every element -->
+<!-- in the array: -->
 
 ここで、コードは配列の要素を順番にカウントアップして覗いています。番号0から始まり、
 配列の最終番号に到達するまでループします(つまり、`index < 5`が真でなくなる時です)。
 このコードを走らせると、配列内の全要素が出力されます:
-=======
-<span class="caption">Listing 3-4: Looping through each element of a collection
-using a `while` loop</span>
-
-Here, the code counts up through the elements in the array. It starts at index
-`0`, and then loops until it reaches the final index in the array (that is,
-when `index < 5` is no longer true). Running this code will print every element
-in the array:
->>>>>>> fork_master_master
 
 ```text
 $ cargo run
@@ -670,15 +566,10 @@ the value is: 50
 コンパイラが実行時にループの各回ごとに境界値チェックを行うようなコードを追加するからです。
 
 <!-- As a more efficient alternative, you can use a `for` loop and execute some code -->
-<!-- for each item in a collection. A `for` loop looks like this code in Listing 3-4: -->
+<!-- for each item in a collection. A `for` loop looks like this code in Listing 3-5: -->
 
-<<<<<<< HEAD
 より効率的な対立案として、`for`ループを使ってコレクションの各アイテムに対してコードを実行することができます。
-`for`ループはリスト3-4のこんな見た目です:
-=======
-As a more concise alternative, you can use a `for` loop and execute some code
-for each item in a collection. A `for` loop looks like this code in Listing 3-5:
->>>>>>> fork_master_master
+`for`ループはリスト3-5のこんな見た目です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -695,43 +586,28 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
-<!-- <span class="caption">Listing 3-4: Looping through each element of a collection -->
+<!-- <span class="caption">Listing 3-5: Looping through each element of a collection -->
 <!-- using a `for` loop</span> -->
 
 <span class="caption">リスト3-4: `for`ループを使ってコレクションの各要素を覗き見る</span>
 
-<!-- When we run this code, we’ll see the same output as in Listing 3-3. More -->
+<!-- When we run this code, we’ll see the same output as in Listing 3-4. More -->
 <!-- importantly, we’ve now increased the safety of the code and eliminated the -->
 <!-- chance of bugs that might result from going beyond the end of the array or not -->
 <!-- going far enough and missing some items. -->
 
-このコードを走らせたら、リスト3-5と同じ出力が得られるでしょう。より重要なのは、
+このコードを走らせたら、リスト3-4と同じ出力が得られるでしょう。より重要なのは、
 コードの安全性を向上させ、配列の終端を超えてアクセスしたり、
 終端に届く前にループを終えてアイテムを見逃してしまったりするバグの可能性を完全に排除したことです。
 
-<!-- For example, in the code in Listing 3-3, if you removed an item from the `a` -->
+<!-- For example, in the code in Listing 3-4, if you removed an item from the `a` -->
 <!-- array but forgot to update the condition to `while index < 4`, the code would -->
 <!-- panic. Using the `for` loop, you don’t need to remember to change any other -->
 <!-- code if you changed the number of values in the array. -->
 
-例えば、リスト3-5のコードで、`a`配列からアイテムを1つ削除したのに、条件式を`while index < 4`にするのを忘れていたら、
+例えば、リスト3-4のコードで、`a`配列からアイテムを1つ削除したのに、条件式を`while index < 4`にするのを忘れていたら、
 コードはパニックします。`for`ループを使っていれば、配列の要素数を変えても、
 他のコードをいじることを覚えておく必要はなくなるわけです。
-=======
-<span class="caption">Listing 3-5: Looping through each element of a collection
-using a `for` loop</span>
-
-When we run this code, we’ll see the same output as in Listing 3-4. More
-importantly, we’ve now increased the safety of the code and eliminated the
-chance of bugs that might result from going beyond the end of the array or not
-going far enough and missing some items.
-
-For example, in the code in Listing 3-4, if you removed an item from the `a`
-array but forgot to update the condition to `while index < 4`, the code would
-panic. Using the `for` loop, you wouldn’t need to remember to change any other
-code if you changed the number of values in the array.
->>>>>>> fork_master_master
 
 <!-- The safety and conciseness of `for` loops make them the most commonly used loop -->
 <!-- construct in Rust. Even in situations in which you want to run some code a -->
@@ -774,10 +650,11 @@ fn main() {
 ## まとめ
 
 <!-- You made it! That was a sizable chapter: you learned about variables, scalar -->
-<!-- and `if` expressions, and loops! If you want to practice with the concepts -->
-<!-- discussed in this chapter, try building programs to do the following: -->
+<!-- and compound data types, functions, comments, `if` expressions, and loops! If -->
+<!-- you want to practice with the concepts discussed in this chapter, try building -->
+<!-- programs to do the following: -->
 
-やりましたね！結構長い章でした: 変数とスカラー値、`if`式、そして、ループについて学びました！
+やりましたね！結構長い章でした: 変数とスカラー値、複合データ型、関数、コメント、`if`式、そして、ループについて学びました！
 この章で議論した概念について経験を積みたいのであれば、以下のことをするプログラムを組んでみてください:
 
 <!-- * Convert temperatures between Fahrenheit and Celsius. -->
@@ -785,17 +662,10 @@ fn main() {
 <!-- * Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” -->
 <!-- taking advantage of the repetition in the song. -->
 
-<<<<<<< HEAD
 * 温度を華氏と摂氏で変換する。
 * フィボナッチ数列のn番目を生成する。
 * クリスマスキャロルの定番、"The Twelve Days of Christmas"の歌詞を、
 曲の反復性を利用して出力する。
-=======
-You made it! That was a sizable chapter: you learned about variables, scalar
-and compound data types, functions, comments, `if` expressions, and loops! If
-you want to practice with the concepts discussed in this chapter, try building
-programs to do the following:
->>>>>>> fork_master_master
 
 <!-- When you’re ready to move on, we’ll talk about a concept in Rust that *doesn’t* -->
 <!-- commonly exist in other programming languages: ownership. -->
