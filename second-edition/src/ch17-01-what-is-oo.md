@@ -25,7 +25,7 @@ OOP言語は特定の一般的な特徴を共有しています。具体的に�
 <!-- object-oriented design patterns. It defines OOP this way: -->
 
 *デザインパターン: 再利用可能なオブジェクト指向ソフトウェアの要素*という本は、
-俗に*4冊の本のギャング*と呼ばれ、オブジェクト指向デザインパターンのカタログです。
+俗に*4人のギャングの本*(`脚注`: the Gang of Four book; GoFとよく略される)と呼ばれ、オブジェクト指向デザインパターンのカタログです。
 そこでは、OOPは以下のように定義されています:
 
 <!-- > Object-oriented programs are made up of objects. An *object* packages both -->
@@ -33,7 +33,7 @@ OOP言語は特定の一般的な特徴を共有しています。具体的に�
 <!-- > typically called *methods* or *operations*. -->
 
 > オブジェクト指向プログラムは、オブジェクトで構成される。オブジェクトは、
-> データとそのデータを処理するプロシージャを包含している。このプロシージャは、
+> データとそのデータを処理するプロシージャを梱包している。このプロシージャは、
 > 典型的に*メソッド*または*オペレーション*と呼ばれる。
 
 <!-- Using this definition, Rust is object oriented: structs and enums have data, -->
@@ -43,8 +43,7 @@ OOP言語は特定の一般的な特徴を共有しています。具体的に�
 
 この定義を使用すれば、Rustはオブジェクト指向です: 構造体とenumにはデータがありますし、
 `impl`ブロックが構造体とenumにメソッドを提供します。メソッドのある構造体とenumは、
-オブジェクトとは呼ばれないものの、4冊の本のギャングのオブジェクト定義によると、
-同じ機能を提供します。
+オブジェクトとは呼ばれないものの、GoFのオブジェクト定義によると、同じ機能を提供します。
 
 <!-- ### Encapsulation that Hides Implementation Details -->
 
@@ -286,4 +285,4 @@ Rustコードを共有でき、これは、リスト10-14で`Summary`トレイ�
 <!-- of inheritance. Let’s look at how trait objects enable polymorphism in Rust. -->
 
 これらの理由により、継承ではなくトレイトオブジェクトを使用してRustは異なるアプローチを取っています。
-Rustにおいて、トレイトオブジェクトが多相性を可能にする方法を見ましょう。
+Rustにおいて、トレイトオブジェクトがどう多相性を可能にするかを見ましょう。

@@ -12,11 +12,11 @@
 <!-- different behavior of the states or when to transition between states. -->
 
 ステートパターンは、オブジェクト指向デザインパターンの1つです。このパターンの肝は、
-値が一連の*ステートオブジェクト*で表されるなんらかの内部ステートを持ち、
+値が一連の*ステートオブジェクト*で表されるなんらかの内部状態を持ち、
 その内部の状態に基づいて値の振る舞いが変化するというものです。ステートオブジェクトは、
 機能を共有します: Rustでは、もちろん、オブジェクトと継承ではなく、構造体とトレイトを使用します。
 各ステートオブジェクトは、自身の振る舞いと別の状態に変化すべき時を司ることに責任を持ちます。
-ステートオブジェクトを保持する値は、ステートの異なる振る舞いや、いつ状態が移行するかについては何も知りません。
+ステートオブジェクトを保持する値は、状態ごとの異なる振る舞いや、いつ状態が移行するかについては何も知りません。
 
 <!-- Using the state pattern means when the business requirements of the program -->
 <!-- change, we won’t need to change the code of the value holding the state or the -->
@@ -49,7 +49,7 @@
 <!-- try to approve a draft blog post before we’ve requested a review, the post -->
 <!-- should remain an unpublished draft. -->
 
-それ以外の記事に対する変更は、効果を持ちません。例えば、査読を要求する前にブログ記事の草稿を承認しようとしたら、
+それ以外の記事に対する変更は、効果を持つべきではありません。例えば、査読を要求する前にブログ記事の草稿を承認しようとしたら、
 記事は、非公開の草稿のままになるべきです。
 
 <!-- Listing 17-11 shows this workflow in code form: this is an example usage of the -->
@@ -99,7 +99,7 @@ fn main() {
 ユーザが`Post::new`で新しいブログ記事の草稿を作成できるようにしたいです。それから、
 草稿状態の間にブログ記事にテキストを追加できるようにしたいです。承認前に記事の内容を即座に得ようとしたら、
 記事はまだ草稿なので、何も起きるべきではありません。デモするためにコードに`assert_eq!`を追加しました。
-これに対する素晴らしい単体テストは、ブログ記事の草稿は`content`メソッドから空の文字列を返すことをアサートすることでしょうが、
+これに対する素晴らしい単体テストは、ブログ記事の草稿が`content`メソッドから空の文字列を返すことをアサートすることでしょうが、
 この例に対してテストを書くつもりはありません。
 
 <!-- Next, we want to enable a request for a review of the post, and we want -->
@@ -235,7 +235,7 @@ impl Post {
 <!-- <span class="caption">Listing 17-13: Implementing the `add_text` method to add -->
 <!-- text to a post’s `content`</span> -->
 
-<span class="caption">リスト17-13: `add_text`メソッドを実装して記事の`content`にテキストを追加する</span>
+<span class="caption">リスト17-13: 記事の`content`にテキストを追加する`add_text`メソッドを実装する</span>
 
 <!-- The `add_text` method takes a mutable reference to `self`, because we’re -->
 <!-- changing the `Post` instance that we’re calling `add_text` on. We then call -->
@@ -267,7 +267,7 @@ impl Post {
 それでも`content`メソッドには空の文字列スライスを返してほしいです。
 リスト17-11の8行目で示したようにね。とりあえず、この要求を実現する最も単純な方法で`content`メソッドを実装しましょう:
 常に空の文字列スライスを返すことです。一旦、記事の状態を変更する能力を実装したら、公開できるように、
-これを後ほど変更します。ここまで、記事は草稿状態にしかならないので、記事の内容は常に空のはずです。
+これを後ほど変更します。ここまで、記事は草稿状態にしかなり得ないので、記事の内容は常に空のはずです。
 リスト17-14は、この仮の実装を表示しています:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -371,8 +371,8 @@ impl State for PendingReview {
 
 `State`トレイトに`request_review`メソッドを追加しました; このトレイトを実装する型は全て、
 これで`request_review`メソッドを実装する必要があります。メソッドの第1引数に`self`、`&self`、`&mut self`ではなく、
-`self: Box<Self>`としていることに注意してください。この記法は、型を保持する`Box`に対して呼ばれた時のみ、
-このメソッドが有効になることを意味しています。この記法は、`Box<Self>`の所有権を奪い、古い状態を無効化するので、
+`self: Box<Self>`としていることに注意してください。この記法は、型を保持する`Box`に対して呼ばれた時、
+このメソッドが有効のみになることを意味しています。この記法は、`Box<Self>`の所有権を奪い、古い状態を無効化するので、
 `Post`の状態値は、新しい状態に変形できます。
 
 <!-- To consume the old state, the `request_review` method needs to take ownership -->
@@ -424,7 +424,7 @@ impl State for PendingReview {
 
 `Post`の`content`メソッドを空の文字列スライスを返すというようにそのままにします。
 これで`Post`は`PendingReview`と`Draft`状態になり得ますが、`PendingReview`状態でも、
-同じ振る舞いが欲しいです。これでリスト17-11は11行目まで動くようになりました！
+同じ振る舞いが欲しいです。もうリスト17-11は11行目まで動くようになりました！
 
 <!-- ### Adding the `approve` Method that Changes the Behavior of `content` -->
 
@@ -519,7 +519,7 @@ impl State for Published {
 
 `request_review`のように、`Draft`に対して`approve`メソッドを呼び出したら、`self`を返すので、
 何も効果はありません。`PendingReview`に対して`approve`を呼び出すと、
-`Published`構造体の新しいボックスのインスタンスを返します。`Published`構造体は`State`トレイトを実装し、
+`Published`構造体の新しいボックス化されたインスタンスを返します。`Published`構造体は`State`トレイトを実装し、
 `request_review`メソッドと`approve`メソッド両方に対して、自身を返します。
 そのような場合には記事は、`Published`状態に留まるべきだからです。
 
@@ -531,7 +531,9 @@ impl State for Published {
 記事の`content`フィールドの値を返したいのです; それ以外なら、空の文字列スライスを返したいです。
 リスト17-17のようにね:
 
-<span class="filename">Filename: src/lib.rs</span>
+<!-- <span class="filename">Filename: src/lib.rs</span> -->
+
+<span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
 # trait State {
@@ -651,7 +653,7 @@ impl State for Published {
 <!-- pattern with the rules of the blog post workflow. The logic related to the -->
 <!-- rules lives in the state objects rather than being scattered throughout `Post`. -->
 
-出来上がりました。要するに、リスト17-11は動くようになったのです！ブログ記事ワークフローの規則でステートパターンを実装しました。
+出来上がりました。要するに、リスト17-11はもう動くようになったのです！ブログ記事ワークフローの規則でステートパターンを実装しました。
 その規則に関連するロジックは、`Post`中に散乱するのではなく、ステートオブジェクトに息づいています。
 
 <!-- ### Trade-offs of the State Pattern -->
@@ -669,10 +671,11 @@ impl State for Published {
 
 オブジェクト指向のステートパターンを実装して各状態の時に記事がなり得る異なる種類の振る舞いをカプセル化する能力が、
 Rustにあることを示しました。`Post`のメソッドは、種々の振る舞いについては何も知りません。
-コードを体系化した方法、公開された記事がすることのある様々な方法を知るには、1箇所のみを調べればいいのです:
+コードを体系化した方法、公開された記事が振る舞うことのある様々な方法を知るには、1箇所のみを調べればいいのです:
 `Published`構造体の`State`トレイトの実装です。
 
 <!-- 5行目末尾がよくわからない。The more ..., the more ...のような感じで訳し文脈には合ってそうだが、合ってる自信がない -->
+<!-- つまり、This would only increase, the more states we addedのように訳している -->
 
 <!-- If we were to create an alternative implementation that didn’t use the state -->
 <!-- pattern, we might instead use `match` statements in the methods on `Post` or -->
@@ -769,7 +772,7 @@ Rustの強みを可能なほどには発揮できません。`blog`クレート�
 <!-- types. Consequently, Rust’s type checking system will prevent attempts to use -->
 <!-- draft posts where only published posts are allowed by issuing a compiler error. -->
 
-ステートパターンを再考して別の代償を得る方法をお見せします。状態と遷移を完全にカプセル化して
+ステートパターンを再考して別の代償を得る方法をお見せします。状態と遷移を完全にカプセル化して、
 外部のコードに知らせないようにするよりも、状態を異なる型にコード化します。結果的に、
 Rustの型検査システムが、公開記事のみが許可される箇所で草稿記事の使用を試みることをコンパイルエラーを発して阻止します。
 
@@ -803,7 +806,8 @@ fn main() {
 それでも、`Post::new`で草稿状態の新しい記事を生成することと記事の内容にテキストを追加する能力は可能にします。
 しかし、空の文字列を返す草稿記事の`content`メソッドを保持する代わりに、草稿記事は、
 `content`メソッドを全く持たないようにします。そうすると、草稿記事の内容を得ようとしたら、
-メソッドが存在しないというコンパイルエラーになるでしょう。その結果、誤ってプロダクションコードで草稿記事の内容を表示することが不可能になります。
+メソッドが存在しないというコンパイルエラーになるでしょう。その結果、
+誤ってプロダクションコードで草稿記事の内容を表示することが不可能になります。
 そのようなコードは、コンパイルさえできないからです。リスト17-19は`Post`構造体、`DraftPost`構造体、
 メソッドの定義を示しています:
 
@@ -860,7 +864,7 @@ impl DraftPost {
 <!-- an instance of `Post` right now. -->
 
 それでも`Post::new`関数はありますが、`Post`のインスタンスを返すのではなく、`DraftPost`のインスタンスを返します。
-`content`は非公開であり、`Post`を返す関数は存在しないので、現状`Post`のインスタンスを生成することは不可能です。
+`content`は非公開であり、`Post`を返す関数も存在しないので、現状`Post`のインスタンスを生成することは不可能です。
 
 <!-- The `DraftPost` struct has an `add_text` method so we can add text to `content` -->
 <!-- as before, but note that `DraftPost` does not have a `content` method defined! -->
@@ -870,12 +874,14 @@ impl DraftPost {
 
 `DraftPost`構造体には、以前のようにテキストを`content`に追加できるよう`add_text`メソッドがありますが、
 `DraftPost`には`content`メソッドが定義されていないことに注目してください！
-従って、これでプログラムは、全ての記事が草稿記事から始まり、草稿記事は表示できる内容がないことが保証されます。
+従って、これでプログラムは、全ての記事が草稿記事から始まり、草稿記事は表示できる内容がないことを保証します。
 この制限をかいくぐる試みは、全てコンパイルエラーに落ち着くでしょう。
 
 <!-- #### Implementing Transitions as Transformations into Different Types -->
 
 #### 遷移を異なる型への変形として実装する
+
+<!-- 1行目the rule thatは同格で訳しているが、the rule that a draft post has (the rule) to be...でも意味は通りそう -->
 
 <!-- So how do we get a published post? We want to enforce the rule that a draft -->
 <!-- post has to be reviewed and approved before it can be published. A post in the -->
@@ -886,10 +892,9 @@ impl DraftPost {
 <!-- shown in Listing 17-20: -->
 
 では、どうやって公開された記事を得るのでしょうか？公開される前に草稿記事は査読され、
-承認されるという規則を強制したいです。査読待ち状態の記事は、それでも内容を表示するべきではありません。
-別の構造体`PendingReviewPost`を追加してこれらの制限を実装し、
-`DraftPost`に`PendingReviewPost`を返す`request_review`メソッドを定義し、
-`PendingReviewPost`に`Post`を返す`approve`メソッドを定義しましょう。リスト17-20のようにね:
+承認されなければならないという規則を強制したいです。査読待ち状態の記事は、それでも内容を表示するべきではありません。
+別の構造体`PendingReviewPost`を追加し、`DraftPost`に`PendingReviewPost`を返す`request_review`メソッドを定義し、
+`PendingReviewPost`に`Post`を返す`approve`メソッドを定義してこれらの制限を実装しましょう。リスト17-20のようにね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -1006,19 +1011,21 @@ fn main() {
 
 `post`を再代入するために`main`に行う必要のあった変更は、この実装が最早、
 全くオブジェクト指向のステートパターンに沿っていないことを意味します: 
-状態間の変形は最早、`Post`実装内に全てカプセル化されていません。
-ですが、型システムとコンパイル時に起きる型チェックのおかげで無効な状態があり得なくなりました。
+状態間の変形は最早、`Post`実装内に完全にカプセル化されていません。
+ですが、型システムとコンパイル時に起きる型チェックのおかげでもう無効な状態があり得なくなりました。
 これにより、未公開の記事の内容が表示されるなどの特定のバグが、プロダクションコードに移る前に発見されることが保証されます。
 
 <!-- 特に2行目中盤、as it is afterがよくわからない -->
+<!-- as it is, afterで訳した -->
 
 <!-- Try the tasks suggested for additional requirements that we mentioned at the -->
 <!-- start of this section on the `blog` crate as it is after Listing 17-20 to see -->
 <!-- what you think about the design of this version of the code. Note that some of -->
 <!-- the tasks might be completed already in this design! -->
 
-`blog`クレートに関してこの節の冒頭で触れた追加の要求に提言される作業をリスト17-20の後に試してみて、
-このバージョンのコードについてどう思うか確かめてください。この設計では、既に作業の一部が達成されている可能性があることに注意してください。
+`blog`クレートに関してこの節の冒頭で触れた追加の要求に提言される作業をそのままリスト17-20の後に試してみて、
+このバージョンのコードについてどう思うか確かめてください。この設計では、
+既に作業の一部が達成されている可能性があることに注意してください。
 
 <!-- We’ve seen that even though Rust is capable of implementing object-oriented -->
 <!-- design patterns, other patterns, such as encoding state into the type system, -->
@@ -1050,7 +1057,7 @@ Rustでは利用可能なことを確かめました。これらのパターン�
 <!-- option. -->
 
 この章読了後に、あなたがRustはオブジェクト指向言語であるか考えるかどうかに関わらず、
-これでトレイトオブジェクトを使用してRustでオブジェクト指向の機能の一部を得ることができると知っています。
+もうトレイトオブジェクトを使用してRustでオブジェクト指向の機能の一部を得ることができると知っています。
 ダイナミックディスパッチは、多少の実行時性能と引き換えにコードに柔軟性を<ruby>齎<rp>(</rp><rt>もたら</rt><rp>)</rp></ruby>してくれます。
 この柔軟性を利用してコードのメンテナンス性に寄与するオブジェクト指向パターンを実装することができます。
 Rustにはまた、オブジェクト指向言語にはない所有権などの他の機能もあります。オブジェクト指向パターンは、
