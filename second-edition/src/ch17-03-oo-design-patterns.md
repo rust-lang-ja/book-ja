@@ -414,7 +414,7 @@ impl State for PendingReview {
 <!-- `request_review` method on `Post` is the same no matter its `state` value. Each -->
 <!-- state is responsible for its own rules. -->
 
-ようやくステートパターンの利点が見えてき始めました: `state`が何であれ、`Post`の`request_review`メソッドは同じです。
+ようやくステートパターンの利点が見えてき始めました: `state`値が何であれ、`Post`の`request_review`メソッドは同じです。
 各状態は、独自の規則にのみ責任を持ちます。
 
 <!-- We’ll leave the `content` method on `Post` as is, returning an empty string -->
@@ -828,7 +828,7 @@ impl Post {
     }
 
     pub fn content(&self) -> &str {
-       &self.content
+        &self.content
     }
 }
 

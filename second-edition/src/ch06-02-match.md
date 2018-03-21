@@ -2,24 +2,24 @@
 
 ## `match`フロー制御演算子
 
-<!-- Rust has an extremely powerful control-flow operator called `match` that allows -->
+<!-- Rust has an extremely powerful control flow operator called `match` that allows -->
 <!-- us to compare a value against a series of patterns and then execute code based -->
 <!-- on which pattern matches. Patterns can be made up of literal values, variable -->
 <!-- names, wildcards, and many other things; Chapter 18 covers all the different -->
 <!-- kinds of patterns and what they do. The power of `match` comes from the -->
-<!-- expressiveness of the patterns and the compiler checks that all -->
+<!-- expressiveness of the patterns and the fact that the compiler confirms that all -->
 <!-- possible cases are handled. -->
 
 Rustには、一連のパターンに対して値を比較し、マッチしたパターンに応じてコードを実行させてくれる`match`と呼ばれる、
 非常に強力なフロー制御演算子があります。パターンは、リテラル値、変数名、ワイルドカードやその他多数のもので構成することができます;
 第18章で、全ての種類のパターンと、その目的については解説します。`match`のパワーは、
-パターンの表現力に由来し、コンパイラが全てのありうるパターンを処理しているかを確認してくれます。
+パターンの表現力とコンパイラが全てのありうるパターンを処理しているかを確認してくれるという事実に由来します。
 
 <!-- Think of a `match` expression kind of like a coin sorting machine: coins slide -->
 <!-- down a track with variously sized holes along it, and each coin falls through -->
 <!-- the first hole it encounters that it fits into. In the same way, values go -->
 <!-- through each pattern in a `match`, and at the first pattern the value “fits,” -->
-<!-- the value will fall into the associated code block to be used during execution. -->
+<!-- the value falls into the associated code block to be used during execution. -->
 
 `match`式をコイン並べ替え装置のようなものと考えてください: コインは、様々なサイズの穴が空いた通路を流れ落ち、
 各コインは、サイズのあった最初の穴に落ちます。同様に、値は`match`の各パターンを通り抜け、値が「適合する」最初のパターンで、
@@ -54,19 +54,19 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- <span class="caption">Listing 6-3: An enum and a `match` expression that has -->
 <!-- the variants of the enum as its patterns.</span> -->
 
-<span class="caption">リスト6-3: enumとそのenumのバリアントをパターンにした`match`式</span>
+<span class="caption">リスト6-3: enumとそのenumの列挙子をパターンにした`match`式</span>
 
 <!-- Let’s break down the `match` in the `value_in_cents` function. First, we list -->
 <!-- the `match` keyword followed by an expression, which in this case is the value -->
 <!-- `coin`. This seems very similar to an expression used with `if`, but there’s a -->
-<!-- big difference: with `if`, the expression needs to return a Boolean value. -->
-<!-- Here, it can be any type. The type of `coin` in this example is the `Coin` enum -->
-<!-- that we defined in Listing 6-3. -->
+<!-- big difference: with `if`, the expression needs to return a Boolean value, but -->
+<!-- here, it can be any type. The type of `coin` in this example is the `Coin` enum -->
+<!-- that we defined on 1. -->
 
 `value_in_cents`関数内の`match`を噛み砕きましょう。まず、`match`キーワードに続けて式を並べています。
 この式は今回の場合、値`coin`です。`if`で使用した式と非常に酷似しているみたいですね。しかし、大きな違いがあります:
-`if`では、式は論理値を返す必要があります。ここでは、どんな型でも構いません。この例における`coin`の型は、
-リスト6-3で定義した`Coin`enumです。
+`if`では、式は論理値を返す必要がありますが、ここでは、どんな型でも構いません。この例における`coin`の型は、
+1行目で定義した`Coin`enumです。
 
 <!-- Next are the `match` arms. An arm has two parts: a pattern and some code. The -->
 <!-- first arm here has a pattern that is the value `Coin::Penny` and then the `=>` -->
@@ -80,12 +80,12 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- When the `match` expression executes, it compares the resulting value against -->
 <!-- the pattern of each arm, in order. If a pattern matches the value, the code -->
 <!-- associated with that pattern is executed. If that pattern doesn’t match the -->
-<!-- value, execution continues to the next arm, much like a coin sorting machine. -->
+<!-- value, execution continues to the next arm, much as in a coin-sorting machine. -->
 <!-- We can have as many arms as we need: in Listing 6-3, our `match` has four arms. -->
 
 この`match`式が実行されると、結果の値を各アームのパターンと順番に比較します。パターンに値がマッチしたら、
 そのコードに紐付けられたコードが実行されます。パターンが値にマッチしなければ、コイン並べ替え装置と全く同じように、
-次のアームが継続して実行されます。必要なだけパターンは存在できます: リスト6-3では、`match`は4本のアームを持っています。
+次のアームが継続して実行されます。必要なだけパターンは存在できます: リスト6-3では、`match`には4本のアームがあります。
 
 <!-- The code associated with each arm is an expression, and the resulting value of -->
 <!-- the expression in the matching arm is the value that gets returned for the -->
@@ -96,10 +96,10 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- Curly brackets typically aren’t used if the match arm code is short, as it is -->
 <!-- in Listing 6-3 where each arm just returns a value. If you want to run multiple -->
 <!-- lines of code in a match arm, you can use curly brackets. For example, the -->
-<!-- following code would print out “Lucky penny!” every time the method was called -->
-<!-- with a `Coin::Penny` but would still return the last value of the block, `1`: -->
+<!-- following code would print out “Lucky penny!” every time the method was called with -->
+<!-- a `Coin::Penny` but would still return the last value of the block, `1`: -->
 
-典型的には、アームのコードが短い場合、波かっこは使用されません。リスト6-3では、各アームが値を返すだけなので、
+典型的に、アームのコードが短い場合、波かっこは使用されません。リスト6-3では、各アームが値を返すだけなので、
 これに倣っています。マッチのアームで複数行のコードを走らせたいのなら、波かっこを使用することができます。
 例えば、以下のコードは、メソッドが`Coin::Penny`とともに呼び出されるたびに「ラッキーなペニー」と表示しつつ、
 ブロックの最後の値、`1`を返すでしょう。
@@ -134,19 +134,19 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- variants. -->
 
 マッチのアームの別の有益な機能は、パターンにマッチした値の一部に束縛できる点です。こうして、
-enumのバリアントから値を取り出すことができます。
+enumの列挙子から値を取り出すことができます。
 
 <!-- As an example, let’s change one of our enum variants to hold data inside it. -->
 <!-- From 1999 through 2008, the United States minted quarters with different -->
 <!-- designs for each of the 50 states on one side. No other coins got state -->
 <!-- designs, so only quarters have this extra value. We can add this information to -->
-<!-- our enum by changing the Quarter variant to include a UsState value stored -->
+<!-- our `enum` by changing the `Quarter` variant to include a `UsState` value stored -->
 <!-- inside it, which we've done here in Listing 6-4: -->
 
-例として、enumのバリアントの一つを中にデータを保持するように変えましょう。1999年から2008年まで、
+例として、enumの列挙子の一つを中にデータを保持するように変えましょう。1999年から2008年まで、
 アメリカは、片側に50の州それぞれで異なるデザインをしたクォーターコインを鋳造していました。
 他のコインは州のデザインがなされることはなかったので、クォーターだけがこのおまけの値を保持します。
-Quarterバリアントを変更して、UsState値が中に保持されるようにすることでenumにこの情報を追加でき、
+`Quarter`列挙子を変更して、`UsState`値が中に保持されるようにすることで`enum`にこの情報を追加でき、
 それをしたのがリスト6-4のコードになります:
 
 <!-- ```rust -->
@@ -181,10 +181,10 @@ enum Coin {
 }
 ```
 
-<!-- <span class="caption">Listing 6-4: A `Coin` enum where the `Quarter` variant -->
+<!-- <span class="caption">Listing 6-4: A `Coin` enum in which the `Quarter` variant -->
 <!-- also holds a `UsState` value</span> -->
 
-<span class="caption">リスト6-4: `Quarter`バリアントが`UsState`の値も保持する`Coin`enum</span>
+<span class="caption">リスト6-4: `Quarter`列挙子が`UsState`の値も保持する`Coin`enum</span>
 
 <!-- Let’s imagine that a friend of ours is trying to collect all 50 state quarters. -->
 <!-- While we sort our loose change by coin type, we’ll also call out the name of -->
@@ -201,7 +201,7 @@ enum Coin {
 <!-- `Coin::Quarter` matches, the `state` variable will bind to the value of that -->
 <!-- quarter’s state. Then we can use `state` in the code for that arm, like so: -->
 
-このコードのmatch式では、`Coin::Quarter`バリアントの値にマッチする`state`という名の変数をパターンに追加します。
+このコードのmatch式では、`Coin::Quarter`列挙子の値にマッチする`state`という名の変数をパターンに追加します。
 `Coin::Quarter`がマッチすると、`state`変数はそのクォーターのstateの値に束縛されます。それから、
 `state`をそのアームのコードで使用できます。以下のようにですね:
 
@@ -243,7 +243,7 @@ fn value_in_cents(coin: Coin) -> u32 {
 `Coin::Quarter(UsState::Alaska)`になります。その値をmatchの各アームと比較すると、
 `Coin::Quater(state)`に到達するまで、どれにもマッチしません。その時に、`state`に束縛されるのは、
 `UsState::Alaska`という値です。そして、`println!`式でその束縛を使用することができ、
-そのため、`Coin`enumのバリアントから`Quarter`に対する中身のstateの値を取得できたわけです。
+そのため、`Coin`enumの列挙子から`Quarter`に対する中身のstateの値を取得できたわけです。
 
 <!-- ### Matching with `Option<T>` -->
 
@@ -257,15 +257,15 @@ fn value_in_cents(coin: Coin) -> u32 {
 
 前節では、`Option<T>`を使用する際に、`Some`ケースから中身の`T`の値を取得したくなりました。要するに、
 `Coin`enumに対して行ったように、`match`を使って`Option<T>`を扱うこともできるというわけです！
-コインを比較する代わりに、`Option<T>`のバリアントを比較するのですが、`match`式の動作の仕方は同じままです。
+コインを比較する代わりに、`Option<T>`の列挙子を比較するのですが、`match`式の動作の仕方は同じままです。
 
-<!-- Let’s say we want to write a function that takes an `Option<i32>`, and if -->
-<!-- there’s a value inside, adds one to that value. If there isn’t a value inside, -->
+<!-- Let’s say we want to write a function that takes an `Option<i32>` and, if -->
+<!-- there’s a value inside, adds 1 to that value. If there isn’t a value inside, -->
 <!-- the function should return the `None` value and not attempt to perform any -->
 <!-- operations. -->
 
 `Option<i32>`を取る関数を書きたくなったとし、中に値があったら、その値に1を足すことにしましょう。
-中に値がなければ、関数は`None`値を返し、何も処理すべきではありません。
+中に値がなければ、関数は`None`値を返し、何も処理を試みるべきではありません。
 
 <!-- This function is very easy to write, thanks to `match`, and will look like -->
 <!-- Listing 6-5: -->
@@ -290,10 +290,6 @@ let none = plus_one(None);
 
 <span class="caption">リスト6-5: `Option<i32>`に`match`式を使う関数</span>
 
-<!-- #### Matching `Some(T)` -->
-
-#### `Some(T)にマッチする`
-
 <!-- Let’s examine the first execution of `plus_one` in more detail. When we call -->
 <!-- `plus_one(five)`, the variable `x` in the body of `plus_one` will have the -->
 <!-- value `Some(5)`. We then compare that against each match arm. -->
@@ -314,20 +310,16 @@ None => None,
 Some(i) => Some(i + 1),
 ```
 
-<!-- Does `Some(5)` match `Some(i)`? Well yes it does! We have the same variant. -->
-<!-- The `i` binds to the value contained in `Some`, so `i` takes the value `5`. The -->
+<!-- Does `Some(5)` match `Some(i)`? Why yes it does! We have the same variant. The -->
+<!-- `i` binds to the value contained in `Some`, so `i` takes the value `5`. The -->
 <!-- code in the match arm is then executed, so we add one to the value of `i` and -->
 <!-- create a new `Some` value with our total `6` inside. -->
 
-`Some(5)`は`Some(i)`にマッチしますか？えっと、します！バリアントが同じです。`i`は`Some`に含まれる値に束縛されるので、
+`Some(5)`は`Some(i)`にマッチしますか？えっと、します！列挙子が同じです。`i`は`Some`に含まれる値に束縛されるので、
 `i`は値`5`になります。それから、このマッチのアームのコードが実行されるので、`i`の値に1を足し、
 合計の`6`を中身にした新しい`Some`値を生成します。
 
-<!-- #### Matching `None` -->
-
-#### `None`とマッチする
-
-<!-- Now let’s consider the second call of `plus_one` in Listing 6-5 where `x` is -->
+<!-- Now let’s consider the second call of `plus_one` in Listing 6-5, where `x` is -->
 <!-- `None`. We enter the `match` and compare to the first arm. -->
 
 さて、`x`が`None`になるリスト6-5の2回目の`plus_pne`の呼び出しを考えましょう。`match`に入り、
@@ -361,9 +353,9 @@ enumに対し`match`し、内部のデータに変数を束縛させ、それに
 ### マッチは包括的
 
 <!-- There’s one other aspect of `match` we need to discuss. Consider this version -->
-<!-- of our `plus_one` function: -->
+<!-- of our `plus_one` function that has a bug and won't compile: -->
 
-もう一つ議論する必要のある`match`の観点があります。こんなバージョンの`plus_one`関数を考えてください:
+もう一つ議論する必要のある`match`の観点があります。1点バグがありコンパイルできないこんなバージョンの`plus_one`関数を考えてください:
 
 ```rust,ignore
 fn plus_one(x: Option<i32>) -> Option<i32> {
@@ -406,13 +398,13 @@ nullになるかもしれない値があることを想定しないように、�
 
 ### `_`というプレースホルダー
 
-<!-- Rust also has a pattern we can use in situations when we don’t want to list all -->
-<!-- possible values. For example, a `u8` can have valid values of 0 through 255. If -->
-<!-- we only care about the values 1, 3, 5, and 7, we don’t want to have to list out -->
-<!-- 0, 2, 4, 6, 8, 9 all the way up to 255. Fortunately, we don’t have to: we can -->
-<!-- use the special pattern `_` instead: -->
+<!-- Rust also has a pattern we can use when we don’t want to list all possible -->
+<!-- values. For example, a `u8` can have valid values of 0 through 255. If we only -->
+<!-- care about the values 1, 3, 5, and 7, we don’t want to have to list out 0, 2, -->
+<!-- 4, 6, 8, 9 all the way up to 255. Fortunately, we don’t have to: we can use the -->
+<!-- special pattern `_` instead: -->
 
-Rustには、全ての可能性を列挙したくない場合に使用できるパターンもあります。例えば、`u8`は、有効な値として、
+Rustには、全ての可能性を列挙したくない時に使用できるパターンもあります。例えば、`u8`は、有効な値として、
 0から255までを取ります。1、3、5、7の値にだけ興味があったら、0、2、4、6、8、9と255までの数値を列挙する必要に迫られたくはないです。
 幸運なことに、する必要はありません: 代わりに特別なパターンの`_`を使用できます:
 

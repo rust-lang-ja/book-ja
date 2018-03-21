@@ -1,24 +1,24 @@
-<!-- ## Hash Maps Store Keys Associated with Values -->
+<!-- ## Storing Keys Associated with Values in Hash Maps -->
 
-## ハッシュマップは、値に紐づいたキーを保持する
+## ハッシュマップに値に紐づいたキーを格納する
 
 <!-- The last of our common collections is the *hash map*. The type `HashMap<K, V>` -->
 <!-- stores a mapping of keys of type `K` to values of type `V`. It does this via a -->
 <!-- *hashing function*, which determines how it places these keys and values into -->
-<!-- memory. Many different programming languages support this kind of data -->
-<!-- structure, but often use a different name, such as hash, map, object, hash -->
-<!-- table, or associative array, just to name a few. -->
+<!-- memory. Many programming languages support this kind of data structure, but -->
+<!-- often use a different name, such as hash, map, object, hash table, or -->
+<!-- associative array, just to name a few. -->
 
 一般的なコレクションのトリを飾るのは、*ハッシュマップ*です。型`HashMap<K, V>`は、
 `K`型のキーと`V`型の値の対応関係を保持します。これを*ハッシュ関数*を介して行います。
-ハッシュ関数は、キーと値のメモリ配置方法を決めるものです。色々なプログラミング言語でもこの種のデータ構造はサポートされていますが、
+ハッシュ関数は、キーと値のメモリ配置方法を決めるものです。多くのプログラミング言語でもこの種のデータ構造はサポートされていますが、
 しばしば名前が違います。hash、map、object、ハッシュテーブル、連想配列など、枚挙に<ruby>暇<rp>(</rp><rt>いとま</rt><rp>)</rp>はありません。
 
-<!-- Hash maps are useful for when you want to look up data not by an index, as you -->
-<!-- can with vectors, but by using a key that can be of any type. For example, in a -->
-<!-- game, you could keep track of each team’s score in a hash map where each key is -->
-<!-- a team’s name and the values are each team’s score. Given a team name, you can -->
-<!-- retrieve its score. -->
+<!-- Hash maps are useful when you want to look up data not by an index, as -->
+<!-- you can with vectors, but by using a key that can be of any type. For example, -->
+<!-- in a game, you could keep track of each team’s score in a hash map in which -->
+<!-- each key is a team’s name and the values are each team’s score. Given a team -->
+<!-- name, you can retrieve its score. -->
 
 ハッシュマップは、ベクタで可能なように番号ではなく、どんな型にもなりうるキーを使ってデータを参照したいときに有用です。
 例えば、ゲームにおいて、各チームのスコアをハッシュマップで追いかけることができます。ここで、各キーはチーム名、
@@ -36,9 +36,9 @@
 
 ### 新規ハッシュマップを生成する
 
-<!-- We can create an empty hash map with `new` and add elements with `insert`. In -->
+<!-- You can create an empty hash map with `new` and add elements with `insert`. In -->
 <!-- Listing 8-20, we’re keeping track of the scores of two teams whose names are -->
-<!-- Blue and Yellow. The Blue team will start with 10 points, and the Yellow team -->
+<!-- Blue and Yellow. The Blue team starts with 10 points, and the Yellow team -->
 <!-- starts with 50: -->
 
 空のハッシュマップを`new`で作り、要素を`insert`で追加することができます。リスト8-20では、
@@ -83,13 +83,13 @@ scores.insert(String::from("Yellow"), 50);
 <!-- `HashMap`. For example, if we had the team names and initial scores in two -->
 <!-- separate vectors, we can use the `zip` method to create a vector of tuples -->
 <!-- where “Blue” is paired with 10, and so forth. Then we can use the `collect` -->
-<!-- method to turn that vector of tuples into a `HashMap` as shown in Listing 8-21: -->
+<!-- method to turn that vector of tuples into a hash map, as shown in Listing 8-21: -->
 
 ハッシュマップを生成する別の方法は、タプルのベクタに対して`collect`メソッドを使用するものです。
 ここで、各タプルは、キーと値から構成されています。`collect`メソッドはいろんなコレクション型にデータをまとめ上げ、
 そこには`HashMap`も含まれています。例として、チーム名と初期スコアが別々のベクタに含まれていたら、
 `zip`メソッドを使ってタプルのベクタを作り上げることができ、そこでは「ブルー」は10とペアになるなどします。
-リスト8-21に示したように、それから`collect`メソッドを使って、そのタプルのベクタを`HashMap`に変換することができるわけです:
+リスト8-21に示したように、それから`collect`メソッドを使って、そのタプルのベクタをハッシュマップに変換することができるわけです:
 
 ```rust
 use std::collections::HashMap;
@@ -106,7 +106,7 @@ let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
 <span class="caption">リスト8-21: チームのリストとスコアのリストからハッシュマップを作る</span>
 
 <!-- The type annotation `HashMap<_, _>` is needed here because it’s possible to -->
-<!-- `collect` into many different data structures, and Rust doesn’t know which you -->
+<!-- `collect` into many different data structures and Rust doesn’t know which you -->
 <!-- want unless you specify. For the type parameters for the key and value types, -->
 <!-- however, we use underscores, and Rust can infer the types that the hash map -->
 <!-- contains based on the types of the data in the vectors. -->
@@ -121,7 +121,7 @@ let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
 
 <!-- For types that implement the `Copy` trait, like `i32`, the values are copied -->
 <!-- into the hash map. For owned values like `String`, the values will be moved and -->
-<!-- the hash map will be the owner of those values as demonstrated in Listing 8-22: -->
+<!-- the hash map will be the owner of those values, as demonstrated in Listing 8-22: -->
 
 `i32`のような`Copy`トレイトを実装する型について、値はハッシュマップにコピーされます。
 `String`のような所有権のある値なら、値はムーブされ、リスト8-22でデモされているように、
@@ -165,8 +165,8 @@ map.insert(field_name, field_value);
 
 ### ハッシュマップの値にアクセスする
 
-<!-- We can get a value out of the hash map by providing its key to the `get` method -->
-<!-- as shown in Listing 8-23: -->
+<!-- We can get a value out of the hash map by providing its key to the `get` -->
+<!-- method, as shown in Listing 8-23: -->
 
 リスト8-23に示したように、キーを`get`メソッドに提供することで、ハッシュマップから値を取り出すことができます:
 
@@ -233,7 +233,7 @@ Blue: 10
 <!-- map, we have to decide how to handle the case when a key already has a value -->
 <!-- assigned. We could replace the old value with the new value, completely -->
 <!-- disregarding the old value. We could keep the old value and ignore the new -->
-<!-- value, and only add the new value if the key *doesn’t* already have a value. Or -->
+<!-- value, only adding the new value if the key *doesn’t* already have a value. Or -->
 <!-- we could combine the old value and the new value. Let’s look at how to do each -->
 <!-- of these! -->
 
@@ -247,7 +247,7 @@ Blue: 10
 
 #### 値を上書きする
 
-<!-- If we insert a key and a value into a hash map, and then insert that same key -->
+<!-- If we insert a key and a value into a hash map and then insert that same key -->
 <!-- with a different value, the value associated with that key will be replaced. -->
 <!-- Even though the code in Listing 8-24 calls `insert` twice, the hash map will -->
 <!-- only contain one key/value pair because we’re inserting the value for the Blue -->
@@ -278,11 +278,11 @@ println!("{:?}", scores);
 
 このコードは、`{"Blue": 25}`と出力するでしょう。`10`という元の値は上書きされたのです。
 
-<!-- #### Only Insert If the Key Has No Value -->
+<!-- #### Only Inserting a Value If the Key Has No Value -->
 
-#### キーに値がなかった時のみ挿入する
+#### キーに値がなかった時のみ値を挿入する
 
-<!-- It’s common to check whether a particular key has a value, and if it doesn’t, -->
+<!-- It’s common to check whether a particular key has a value andaaaaAaaaaaa if it doesn’t, -->
 <!-- insert a value for it. Hash maps have a special API for this called `entry` -->
 <!-- that takes the key we want to check as a parameter. The return value of the -->
 <!-- `entry` function is an enum called `Entry` that represents a value that might -->
@@ -314,14 +314,14 @@ println!("{:?}", scores);
 
 <span class="caption">リスト8-25: `entry`メソッドを使ってキーに値がない場合だけ挿入する</span>
 
-<!-- The `or_insert` method on `Entry` is defined to return the value for the -->
-<!-- corresponding `Entry` key if that key exists, and if not, inserts the parameter -->
-<!-- as the new value for this key and returns the modified `Entry`. This technique -->
-<!-- is much cleaner than writing the logic ourselves, and in addition, plays more -->
-<!-- nicely with the borrow checker. -->
+<!-- The `or_insert` method on `Entry` is defined to return a mutable reference to -->
+<!-- the value for the corresponding `Entry` key if that key exists, and if not, -->
+<!-- inserts the parameter as the new value for this key and returns a mutable -->
+<!-- reference to the new value. This technique is much cleaner than writing the -->
+<!-- logic ourselves, and in addition, plays more nicely with the borrow checker. -->
 
-`Entry`上の`or_insert`メソッドは、対応する`Entry`キーが存在した時にそのキーに対する値を返すために定義されており、
-もしなかったら、引数をこのキーの新しい値として挿入し、変更された`Entry`を返します。このテクニックの方が、
+`Entry`上の`or_insert`メソッドは、対応する`Entry`キーが存在した時にそのキーに対する値への可変参照を返すために定義されており、
+もしなかったら、引数をこのキーの新しい値として挿入し、新しい値への可変参照をを返します。このテクニックの方が、
 そのロジックを自分で書くよりもはるかに綺麗な上に、borrow checkerとも親和性が高くなります。
 
 <!-- Running the code in Listing 8-25 will print `{"Yellow": 50, "Blue": 10}`. The -->
@@ -373,7 +373,7 @@ println!("{:?}", map);
 <!-- This code will print `{"world": 2, "hello": 1, "wonderful": 1}`. The -->
 <!-- `or_insert` method actually returns a mutable reference (`&mut V`) to the value -->
 <!-- for this key. Here we store that mutable reference in the `count` variable, so -->
-<!-- in order to assign to that value we must first dereference `count` using the -->
+<!-- in order to assign to that value, we must first dereference `count` using the -->
 <!-- asterisk (`*`). The mutable reference goes out of scope at the end of the `for` -->
 <!-- loop, so all of these changes are safe and allowed by the borrowing rules. -->
 
@@ -412,15 +412,15 @@ println!("{:?}", map);
 ## まとめ
 
 <!-- Vectors, strings, and hash maps will provide a large amount of functionality -->
-<!-- that you need in programs where you need to store, access, and modify data. -->
-<!-- Here are some exercises you should now be equipped to solve: -->
+<!-- necessary in programs when you need to store, access, and modify data. Here are-->
+<!-- some exercises you should now be equipped to solve: -->
 
 ベクタ、文字列、ハッシュマップはデータを保持し、アクセスし、変更する必要のあるプログラムで必要になる、
 多くの機能を提供してくれるでしょう。今なら解決可能なはずの練習問題を用意しました:
 
-<!-- * Given a list of integers, use a vector and return the mean (average), median -->
-<!--   (when sorted, the value in the middle position), and mode (the value that -->
-<!--   occurs most often; a hash map will be helpful here) of the list. -->
+<!-- * Given a list of integers, use a vector and return the mean (the average -->
+<!--   value), median (when sorted, the value in the middle position), and mode (the -->
+<!--   value that occurs most often; a hash map will be helpful here) of the list. -->
 <!-- * Convert strings to pig latin. The first consonant of each word is moved to -->
 <!--   the end of the word and “ay” is added, so “first” becomes “irst-fay.” Words -->
 <!--   that start with a vowel have “hay” added to the end instead (“apple” becomes -->
@@ -431,16 +431,16 @@ println!("{:?}", map);
 <!--   people in a department or all people in the company by department, sorted -->
 <!--   alphabetically. -->
 
-* 整数のリストが与えられ、ベクタを使ってmean(平均)、median(ソートされた時に真ん中に来る値)、
-mode(最も頻繁に出現する値; ハッシュマップがここでは有効活用できるでしょう)を返してください。
+* 整数のリストが与えられ、ベクタを使ってmean(平均値)、median(ソートされた時に真ん中に来る値)、
+  mode(最も頻繁に出現する値; ハッシュマップがここでは有効活用できるでしょう)を返してください。
 * 文字列をピッグ・ラテン(`脚注`: 英語の言葉遊びの一つ)に変換してください。各単語の最初の子音は、
-単語の終端に移り、"ay"が足されます。従って、"first"は"irst-fay"になります。ただし、
-母音で始まる単語には、お尻に"hay"が付け足されます("apple"は"apple-hay"になります)。
-UTF-8エンコードに関する詳細を心に留めておいてください！
+  単語の終端に移り、"ay"が足されます。従って、"first"は"irst-fay"になります。ただし、
+  母音で始まる単語には、お尻に"hay"が付け足されます("apple"は"apple-hay"になります)。
+  UTF-8エンコードに関する詳細を心に留めておいてください！
 * ハッシュマップとベクタを使用して、ユーザに会社の部署に雇用者の名前を追加させられるテキストインターフェイスを作ってください。
-例えば、"Add Sally to Engineering"(開発部門にサリーを追加)や"Add Amir to Sales"(販売部門にアミールを追加)などです。
-それからユーザにある部署にいる人間の一覧や部署ごとにアルファベット順で並べ替えられた会社の全人間の一覧を、
-扱わせてあげてください。
+  例えば、"Add Sally to Engineering"(開発部門にサリーを追加)や"Add Amir to Sales"(販売部門にアミールを追加)などです。
+  それからユーザにある部署にいる人間の一覧や部署ごとにアルファベット順で並べ替えられた会社の全人間の一覧を、
+  扱わせてあげてください。
 
 <!-- The standard library API documentation describes methods that vectors, strings, -->
 <!-- and hash maps have that will be helpful for these exercises! -->
@@ -448,7 +448,7 @@ UTF-8エンコードに関する詳細を心に留めておいてください！
 標準ライブラリのAPIドキュメントには、この練習問題に有用な、ベクタ、文字列、ハッシュマップのメソッドが解説されています。
 
 <!-- We’re getting into more complex programs in which operations can fail; so, it’s -->
-<!-- a perfect time to discuss error handling next! -->
+<!-- a perfect time to discuss error handling. We'll do that next! -->
 
 処理が失敗する可能性のあるような、より複雑なプログラムに入り込んできています; ということは、
-次にエラーの処理法について議論するのにぴったりということですね！
+エラーの処理法について議論するのにぴったりということです。次にそれをします！

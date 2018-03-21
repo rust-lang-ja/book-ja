@@ -3,10 +3,10 @@
 ## 構造体を定義し、インスタンス化する
 
 <!-- Structs are similar to tuples, which were discussed in Chapter 3. Like tuples, -->
-<!-- the pieces of a struct can be different types. Unlike tuples, we name each -->
-<!-- piece of data so it’s clear what the values mean. As a result of these names, -->
-<!-- structs are more flexible than tuples: we don’t have to rely on the order of -->
-<!-- the data to specify or access the values of an instance. -->
+<!-- the pieces of a struct can be different types. Unlike with tuples, you'll name -->
+<!-- each piece of data so it’s clear what the values mean. As a result of these -->
+<!-- names, structs are more flexible than tuples: we don’t have to rely on the -->
+<!-- order of the data to specify or access the values of an instance. -->
 
 構造体は第3章で議論したタプルと似ています。タプル同様、構造体の一部を異なる型にできます。
 一方タプルとは違って、各データ片には名前をつけるので、値の意味が明確になります。
@@ -40,7 +40,7 @@ struct User {
 <!-- To use a struct after we’ve defined it, we create an *instance* of that struct -->
 <!-- by specifying concrete values for each of the fields. We create an instance by -->
 <!-- stating the name of the struct, and then add curly brackets containing `key: -->
-<!-- value` pairs where the keys are the names of the fields and the values are the -->
+<!-- value` pairs, where the keys are the names of the fields and the values are the -->
 <!-- data we want to store in those fields. We don’t have to specify the fields in -->
 <!-- the same order in which we declared them in the struct. In other words, the -->
 <!-- struct definition is like a general template for the type, and instances fill -->
@@ -76,13 +76,13 @@ let user1 = User {
 <span class="caption">リスト5-2: `User`構造体のインスタンスを生成する</span>
 
 <!-- To get a specific value from a struct, we can use dot notation. If we wanted -->
-<!-- just this user’s email address, we can use `user1.email` wherever we want to -->
-<!-- use this value. If the instance is mutable, we can change a value by using the -->
-<!-- dot notation and assigning into a particular field. Listing 5-3 shows -->
-<!-- how to change the value in the `email` field of a mutable `User` instance: -->
+<!-- just this user’s email address, we can use `user1.email` wherever we wanted -->
+<!-- to use this value. If the instance is mutable, we can change a value by using -->
+<!-- the dot notation and assigning into a particular field. Listing 5-3 shows how -->
+<!-- to change the value in the `email` field of a mutable `User` instance: -->
 
 構造体から特定の値を得るには、ドット記法が使えます。このユーザのEメールアドレスだけが欲しいなら、
-この値を使いたい場所全部で`user1.email`が使えます。インスタンスが可変であれば、
+この値を使いたかった場所全部で`user1.email`が使えます。インスタンスが可変であれば、
 ドット記法を使い特定のフィールドに代入することで値を変更できます。リスト5-3では、
 可変な`User`インスタンスの`email`フィールド値を変更する方法を示しています:
 
@@ -110,18 +110,19 @@ user1.email = String::from("anotheremail@example.com");
 <span class="caption">リスト5-3: ある`User`インスタンスの`email`フィールド値を変更する</span>
 
 <!-- Note that the entire instance must be mutable; Rust doesn’t allow us to mark -->
-<!-- only certain fields as mutable. Also note that as with any expression, we can -->
-<!-- construct a new instance of the struct as the last expression in the function -->
-<!-- body to implicitly return that new instance. -->
+<!-- only certain fields as mutable. -->
 
 インスタンス全体が可変でなければならないことに注意してください; Rustでは、一部のフィールドのみを可変にすることはできないのです。
-また、あらゆる式同様、構造体の新規インスタンスを関数本体の最後の式として生成して、
-そのインスタンスを返すことを暗示できます。
 
+
+<!-- As with any expression, we can construct a new instance of the struct as the -->
+<!-- last expression in the function body to implicitly return that new instance. -->
 <!-- Listing 5-4 shows a `build_user` function that returns a `User` instance with -->
 <!-- the given email and username. The `active` field gets the value of `true`, and -->
 <!-- the `sign_in_count` gets a value of `1`. -->
 
+また、あらゆる式同様、構造体の新規インスタンスを関数本体の最後の式として生成して、
+そのインスタンスを返すことを暗示できます。
 リスト5-4は、与えられたemailとusernameで`User`インスタンスを生成する`build_user`関数を示しています。
 `active`フィールドには`true`値が入り、`sign_in_count`には値`1`が入ります。
 
@@ -148,7 +149,7 @@ fn build_user(email: String, username: String) -> User {
 
 <span class="caption">リスト5-4: Eメールとユーザ名を取り、`User`インスタンスを返す`build_user`関数</span>
 
-<!-- It makes sense to name the function arguments with the same name as the struct -->
+<!-- It makes sense to name the function parameters with the same name as the struct -->
 <!-- fields, but having to repeat the `email` and `username` field names and -->
 <!-- variables is a bit tedious. If the struct had more fields, repeating each name -->
 <!-- would get even more annoying. Luckily, there's a convenient shorthand! -->
@@ -165,7 +166,7 @@ fn build_user(email: String, username: String) -> User {
 <!-- Because the parameter names and the struct field names are exactly the same in -->
 <!-- Listing 5-4, we can use the *field init shorthand* syntax to rewrite -->
 <!-- `build_user` so that it behaves exactly the same but doesn’t have the -->
-<!-- repetition of `email` and `username` in the way shown in Listing 5-5. -->
+<!-- repetition of `email` and `username` as shown in Listing 5-5. -->
 
 仮引数名と構造体のフィールド名がリスト5-4では、全く一緒なので、*フィールド初期化省略*記法を使って`build_user`を書き換えても、
 振る舞いは全く同じにしつつ、リスト5-5に示したように`email`と`username`を繰り返さなくてもよくなります。
@@ -189,7 +190,7 @@ fn build_user(email: String, username: String) -> User {
 ```
 
 <!-- <span class="caption">Listing 5-5: A `build_user` function that uses field init -->
-<!-- shorthand since the `email` and `username` parameters have the same name as -->
+<!-- shorthand because the `email` and `username` parameters have the same name as -->
 <!-- struct fields</span> -->
 
 <span class="caption">リスト5-5: `email`と`username`引数が構造体のフィールドと同名なので、
@@ -211,7 +212,7 @@ fn build_user(email: String, username: String) -> User {
 ### 構造体更新記法で他のインスタンスからインスタンスを生成する
 
 <!-- It’s often useful to create a new instance of a struct that uses most of an old -->
-<!-- instance’s values, but changes some. We do this using *struct update syntax*. -->
+<!-- instance’s values, but changes some. You'll do this using *struct update syntax*. -->
 
 多くは前のインスタンスの値を使用しつつ、変更する箇所もある形で新しいインスタンスを生成できるとしばしば有用です。
 *構造体更新記法*でそうすることができます。
@@ -299,21 +300,21 @@ let user2 = User {
 ### 異なる型を生成する名前付きフィールドのないタプル構造体
 
 
-<!-- We can also define structs that look similar to tuples (which were discussed in -->
-<!-- Chapter 3), called *tuple structs*, that have the added meaning the struct name -->
-<!-- provides, but don’t have names associated with their fields; rather, they just -->
-<!-- have the types of the fields. Tuple structs are useful when you want to give -->
-<!-- the whole tuple a name and make the tuple be a different type than other -->
-<!-- tuples, but naming each field as in a regular struct would be verbose or -->
-<!-- redundant. -->
+<!-- We can also define structs that look similar to tuples, called *tuple-->
+<!-- structs*. Tuple structs have the added meaning the struct name provides but -->
+<!-- don’t have names associated with their fields; rather, they just have the types -->
+<!-- of the fields. Tuple structs are useful when you want to give the whole tuple a -->
+<!-- name and make the tuple be a different type than other tuples, and naming each -->
+<!-- field as in a regular struct would be verbose or redundant. -->
 
 構造体名により追加の意味を含むものの、フィールドに紐づけられた名前がなく、むしろフィールドの型だけの*タプル構造体*と呼ばれる、
-(第3章で議論した)タプルに似た構造体を定義することもできます。タプル構造体は、タプル全体に名前をつけ、
+タプルに似た構造体を定義することもできます。タプル構造体は、構造体名が提供する追加の意味は含むものの、
+フィールドに紐付けられた名前はありません; むしろ、フィールドの型だけが存在します。タプル構造体は、タプル全体に名前をつけ、
 そのタプルを他のタプルとは異なる型にしたい場合に有用ですが、普通の構造体のように各フィールド名を与えるのは、
 冗長、または余計になるでしょう。
 
-<!-- To define a tuple struct you start with the `struct` keyword and the struct -->
-<!-- name followed by the types in the tuple. For example, here are definitions and -->
+<!-- To define a tuple struct you start with the `struct` keyword and the struct name -->
+<!-- followed by the types in the tuple. For example, here are definitions and -->
 <!-- usages of two tuple structs named `Color` and `Point`: -->
 
 タプル構造体を定義するには、`struct`キーワードの後に構造体名、さらにタプルに含まれる型を続けます。
@@ -327,13 +328,13 @@ let black = Color(0, 0, 0);
 let origin = Point(0, 0, 0);
 ```
 
-<!-- Note that the `black` and `origin` values are different types, since they’re -->
+<!-- Note that the `black` and `origin` values are different types, because they’re -->
 <!-- instances of different tuple structs. Each struct we define is its own type, -->
 <!-- even though the fields within the struct have the same types. For example, a -->
 <!-- function that takes a parameter of type `Color` cannot take a `Point` as an -->
 <!-- argument, even though both types are made up of three `i32` values. Otherwise, -->
 <!-- tuple struct instances behave like tuples: you destructure them into their -->
-<!-- individual pieces and you can use a `.` followed by the index to access an -->
+<!-- individual pieces, you can use a `.` followed by the index to access an -->
 <!-- individual value, and so on. -->
 
 `black`と`origin`の値は、違う型であることに注目してください。これらは、異なるタプル構造体のインスタンスだからですね。
@@ -347,14 +348,14 @@ let origin = Point(0, 0, 0);
 ### フィールドのないユニット<ruby>様<rp>(</rp><rt>よう</rt><rp>)</rp></ruby>構造体
 
 <!-- We can also define structs that don’t have any fields! These are called -->
-<!-- *unit-like structs* since they behave similarly to `()`, the unit type. -->
-<!-- Unit-like structs can be useful in situations such as when you need to -->
-<!-- implement a trait on some type, but you don’t have any data that you want to -->
-<!-- store in the type itself. We’ll be discussing traits in Chapter 10. -->
+<!-- *unit-like structs* because they behave similarly to `()`, the unit type. -->
+<!-- Unit-like structs can be useful in situations in which you need to implement a -->
+<!-- trait on some type but you don’t have any data that you want to store in the type -->
+<!-- itself. We’ll discuss traits in Chapter 10. -->
 
 また、一切フィールドのない構造体を定義することもできます！これらは、`()`、ユニット型と似たような振る舞いをすることから、
 *ユニット様構造体*と呼ばれます。ユニット様構造体は、ある型にトレイトを実装するけれども、
-型自体に保持させるデータは一切ないような場合に有効になります。トレイトについては第10章で議論します。
+型自体に保持させるデータは一切ない場面に有効になります。トレイトについては第10章で議論します。
 
 <!-- 以下のパラグラフでは、引用されてるブロックの後に、和訳を示します。こうしないと、意図通りのレイアウトにならないようです -->
 
@@ -368,7 +369,7 @@ let origin = Point(0, 0, 0);
 <!-- but to do so requires the use of *lifetimes*, a Rust feature that we’ll -->
 <!-- discuss in Chapter 10. Lifetimes ensure that the data referenced by a struct -->
 <!-- is valid for as long as the struct is. Let’s say you try to store a reference -->
-<!-- in a struct without specifying lifetimes, like this: -->
+<!-- in a struct without specifying lifetimes, like this, which won't work: -->
 <!--  -->
 <!--  <span class="filename">Filename: src/main.rs</span> -->
 <!--  -->
@@ -419,7 +420,7 @@ let origin = Point(0, 0, 0);
 > 構造体に、他の何かに所有されたデータへの参照を保持させることもできますが、
 > そうするには*ライフタイム*という第10章で議論するRustの機能を使用しなければなりません。
 > ライフタイムのおかげで構造体に参照されたデータが、構造体自体が有効な間、ずっと有効であることを保証してくれるのです。
-> ライフタイムを指定せずに構造体に参照を保持させようとしたとしましょう。このように:
+> ライフタイムを指定せずに構造体に参照を保持させようとしたとしましょう。以下の通りですが、これは動きません:
 >
 > <span class="filename">ファイル名: src/main.rs</span>
 >

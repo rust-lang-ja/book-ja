@@ -95,10 +95,10 @@ opt-level = 3
 opt-level = 1
 ```
 
-<!-- This code overrides the default setting of `0`. Now when we run `cargo` -->
-<!-- `build`, Cargo will use the defaults for the `dev` profile plus our -->
-<!-- customization to `opt-level`. Because we set `opt-level` to `1`, Cargo will -->
-<!-- apply more optimizations than the default, but not as many as a release build. -->
+<!-- This code overrides the default setting of `0`. Now when we run `cargo build`, -->
+<!-- Cargo will use the defaults for the `dev` profile plus our customization to -->
+<!-- `opt-level`. Because we set `opt-level` to `1`, Cargo will apply more -->
+<!-- optimizations than the default, but not as many as a release build. -->
 
 このコードは、デフォルト設定の`0`を上書きします。こうすると、`cargo build`を実行したときに、
 `dev`プロファイル用のデフォルト設定に加えて、Cargoは`opt-level`の変更を適用します。

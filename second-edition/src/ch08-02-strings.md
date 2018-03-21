@@ -1,29 +1,29 @@
-<!-- ## Strings Store UTF-8 Encoded Text -->
+<!-- ## Storing UTF-8 Encoded Text with Strings -->
 
-## 文字列は、UTF-8でエンコードされたテキストを保持する
+## 文字列でUTF-8でエンコードされたテキストを保持する
 
 <!-- We talked about strings in Chapter 4, but we’ll look at them in more depth now. -->
 <!-- New Rustaceans commonly get stuck on strings due to a combination of three -->
 <!-- concepts: Rust’s propensity for exposing possible errors, strings being a more -->
 <!-- complicated data structure than many programmers give them credit for, and -->
-<!-- UTF-8. These concepts combine in a way that can seem difficult when you’re -->
+<!-- UTF-8. These factors combine in a way that can seem difficult when you’re -->
 <!-- coming from other programming languages. -->
 
 第4章で文字列について語りましたが、今度はより掘り下げていきましょう。新参者のRust市民は、
 3つの概念の組み合わせにより、文字列でよく行き詰まります: Rustのありうるエラーを晒す性質、
 多くのプログラマが思っている以上に文字列が複雑なデータ構造であること、そしてUTF-8です。
-これらの概念は、他のプログラミング言語から移ってきた場合、一見困難に見えるように絡み合うわけです。
+これらの要因が、他のプログラミング言語から移ってきた場合、一見困難に見えるように絡み合うわけです。
 
-<!-- This discussion of strings is in the collections chapter because strings are -->
-<!-- implemented as a collection of bytes plus some methods to provide useful -->
+<!-- It's useful to discuss strings in the context of collections because strings -->
+<!-- are implemented as a collection of bytes, plus some methods to provide useful -->
 <!-- functionality when those bytes are interpreted as text. In this section, we’ll -->
 <!-- talk about the operations on `String` that every collection type has, such as -->
 <!-- creating, updating, and reading. We’ll also discuss the ways in which `String` -->
-<!-- is different than the other collections, namely how indexing into a `String` is -->
+<!-- is different from the other collections, namely how indexing into a `String` is -->
 <!-- complicated by the differences between how people and computers interpret -->
 <!-- `String` data. -->
 
-この文字列の議論は、コレクションの章に存在します。なぜなら、文字列はテキストとして解釈された時に有用になる機能を提供するメソッドと、
+コレクションの文脈で文字列を議論することは、有用なことです。なぜなら、文字列はテキストとして解釈された時に有用になる機能を提供するメソッドと、
 バイトの塊で実装されているからです。この節では、生成、更新、読み込みのような全コレクションが持つ`String`の処理について語ります。
 また、`String`が他のコレクションと異なる点についても議論します。具体的には、人間とコンピュータが`String`データを解釈する方法の差異により、
 `String`に添え字アクセスする方法がどう複雑なのかということです。
@@ -44,32 +44,32 @@
 これは、別の場所に保持されたUTF-8エンコードされた文字列データへの参照です。例えば、文字列リテラルは、
 プログラムのバイナリ出力に保持されるので、文字列スライスになります。
 
-<!-- The `String` type is provided in Rust’s standard library rather than coded into -->
-<!-- the core language and is a growable, mutable, owned, UTF-8 encoded string type. -->
-<!-- When Rustaceans refer to “strings” in Rust, they usually mean the `String` and -->
-<!-- the string slice `&str` types, not just one of those types. Although this -->
-<!-- section is largely about `String`, both types are used heavily in Rust’s -->
-<!-- standard library and both `String` and string slices are UTF-8 encoded. -->
+<!-- The `String` type, which is provided in Rust’s standard library rather than -->
+<!-- coded into the core language, is a growable, mutable, owned, UTF-8 encoded -->
+<!-- string type. When Rustaceans refer to “strings” in Rust, they usually mean the -->
+<!-- `String` and the string slice `&str` types, not just one of those types. -->
+<!-- Although this section is largely about `String`, both types are used heavily in -->
+<!-- Rust's standard library, and both `String` and string slices are UTF-8 encoded. -->
 
-`String`型は、言語の核として組み込まれるのではなく、Rustの標準ライブラリで提供され、伸長可能、
+`String`型は、言語の核として組み込まれるのではなく、Rustの標準ライブラリで提供されますが、伸長可能、
 可変、所有権のあるUTF-8エンコードされた文字列型です。Rust市民がRustにおいて「文字列」を指したら、
 どちらかではなく、`String`と文字列スライスの`&str`のことを通常意味します。この節は、大方、
-`String`型についてですが、どちらの型もRustの標準ライブラリで重宝されており、
+`String`についてですが、どちらの型もRustの標準ライブラリで重宝されており、
 どちらもUTF-8エンコードされています。
 
 <!-- Rust’s standard library also includes a number of other string types, such as -->
 <!-- `OsString`, `OsStr`, `CString`, and `CStr`. Library crates can provide even -->
-<!-- more options for storing string data. Similar to the `*String`/`*Str` naming, -->
-<!-- they often provide an owned and borrowed variant, just like `String`/`&str`. -->
-<!-- These string types can store text in different encodings or be represented in -->
-<!-- memory in a different way, for example. We won’t discuss these other string -->
-<!-- types in this chapter; see their API documentation for more about how to use -->
-<!-- them and when each is appropriate. -->
+<!-- more options for storing string data. See how those names all end in `String` -->
+<!-- or `Str`? They refer to owned and borrowed variant, just like the `String` and -->
+<!-- `str` types you've seen previously. These string types can store text in -->
+<!-- different encodings or be represented in memory in a different way, for -->
+<!-- example. We won’t discuss these other string types in this chapter; see their -->
+<!-- API documentation for more about how to use them and when each is appropriate. -->
 
 また、Rustの標準ライブラリには、他の文字列型も含まれています。`OsString`、`OsStr`、`CString`、`CStr`などです。
 ライブラリクレートにより、文字列データを保持する選択肢はさらに増えます。
-`*String`と`*Str`の名前付けに似て、所有権ありと借用されたバージョンがしばしば提供されます。
-ちょうど`String`と`&str`のような関係ですね。例えば、これらの文字列型は、異なるエンコード方法でテキストを保持していたり、
+それらの名前が全て`String`か`Str`で終わっているのがわかりますか？所有権ありと借用されたバージョンを指しているのです。
+ちょうど以前見かけた`String`と`&str`のようですね。例えば、これらの文字列型は、異なるエンコード方法でテキストを保持していたり、
 メモリ上の表現が異なったりします。この章では、これらの他の種類の文字列については議論しません;
 使用方法やどれが最適かについては、APIドキュメントを参照してください。
 
@@ -92,15 +92,15 @@ let mut s = String::new();
 
 <span class="caption">リスト8-11: 新しい空の`String`を生成する</span>
 
-<!-- This line creates a new empty string called `s` that we can then load data -->
+<!-- This line creates a new empty string called `s`, which we can then load data -->
 <!-- into. Often, we’ll have some initial data that we want to start the string -->
 <!-- with. For that, we use the `to_string` method, which is available on any type -->
-<!-- that implements the `Display` trait, which string literals do. Listing 8-12 -->
-<!-- shows two examples: -->
+<!-- that implements the `Display` trait, as string literals do. Listing 8-12 shows -->
+<!-- two examples: -->
 
 この行は、新しい空の`s`という文字列を生成しています。それからここにデータを読み込むことができるわけです。
 だいたい、文字列の初期値を決めるデータがあるでしょう。そのために、`to_string`メソッドを使用します。
-このメソッドは、`Display`トレイトを実装する型ならなんでも使用でき、文字列リテラルはこれに適合しています。
+このメソッドは、文字列リテラルがしているように、`Display`トレイトを実装する型ならなんでも使用できます。
 リスト8-12に2例、示しています:
 
 ```rust
@@ -180,13 +180,11 @@ let hello = String::from("Hola");
 ### 文字列を更新する
 
 <!-- A `String` can grow in size and its contents can change, just like the contents -->
-<!-- of a `Vec<T>`, by pushing more data into it. In addition, we can conveniently -->
-<!-- use the `+` operator or the `format!` macro to concatenate `String` values -->
-<!-- together. -->
+<!-- of a `Vec<T>`, if you push more data into it. In addition, we can conveniently -->
+<!-- use the `+` operator or the `format!` macro to concatenate `String` values. -->
 
-`String`は、サイズを伸ばすことができ、中身も変化します。`Vec<T>`の中身のようですね。それは、
-追加のデータをプッシュすることで行います。付け加えると、`String`値を連結する`+`演算子や、
-`format!`マクロを便利に使用することができます。
+`String`は、サイズを伸ばすことができ、中身も変化します。追加のデータをプッシュすれば、`Vec<T>`の中身のようですね。
+付け加えると、`String`値を連結する`+`演算子や、`format!`マクロを便利に使用することができます。
 
 <!-- #### Appending to a String with `push_str` and `push` -->
 
@@ -220,7 +218,7 @@ s.push_str("bar");
 ```rust
 let mut s1 = String::from("foo");
 let s2 = "bar";
-s1.push_str(&s2);
+s1.push_str(s2);
 println!("s2 is {}", s2);
 ```
 
@@ -230,17 +228,17 @@ println!("s2 is {}", s2);
 <span class="caption">リスト8-16: 中身を`String`に追加した後に、文字列スライスを使用する</span>
 
 <!-- If the `push_str` method took ownership of `s2`, we wouldn’t be able to print -->
-<!-- out its value on the last line. However, this code works as we’d expect! -->
+<!-- its value on the last line. However, this code works as we’d expect! -->
 
 もし、`push_str`メソッドが`s2`の所有権を奪っていたら、最後の行でその値を出力することは不可能でしょう。
 ところが、このコードは予想通りに動きます！
 
 <!-- The `push` method takes a single character as a parameter and adds it to the -->
-<!-- `String`. Listing 8-17 shows code that adds the letter l character to a -->
-<!-- `String` using the `push` method: -->
+<!-- `String`. Listing 8-17 shows code that adds the letter l to a `String` using -->
+<!-- the `push` method: -->
 
 `push`メソッドは、1文字を引数として取り、`String`に追加します。リスト8-15は、
-`push`メソッドでlという文字を`String`に追加するコードを提示しています。
+`push`メソッドでlを`String`に追加するコードを呈示しています。
 
 ```rust
 let mut s = String::from("lo");
@@ -263,7 +261,7 @@ s.push('l');
 
 #### `+`演算子、または`format!`マクロで連結
 
-<!-- Often, we’ll want to combine two existing strings. One way is to use the `+` -->
+<!-- Often, you’ll want to combine two existing strings. One way is to use the `+` -->
 <!-- operator, as shown in Listing 8-18: -->
 
 2つのすでにある文字列を組み合わせたくなることがよくあります。リスト8-18に示したように、
@@ -316,13 +314,13 @@ fn add(self, s: &str) -> String {
 <!-- First, `s2` has an `&`, meaning that we’re adding a *reference* of the second -->
 <!-- string to the first string because of the `s` parameter in the `add` function: -->
 <!-- we can only add a `&str` to a `String`; we can’t add two `String` values -->
-<!-- together. But wait - the type of `&s2` is `&String`, not `&str`, as specified -->
-<!-- in the second parameter to `add`. Why does Listing 8-18 compile? -->
+<!-- together. But wait-the type of `&s2` is `&String`, not `&str`, as specified in -->
+<!-- the second parameter to `add`. So why does Listing 8-18 compile? -->
 
 まず、`s2`には`&`がついてます。つまり、`add`関数の`s`引数のために最初の文字列に2番目の文字列の参照を追加するということです:
 `String`には`&str`を追加することしかできません。要するに2つの`String`値を追加することはできないのです。
 でも待ってください。`add`の第2引数で指定されているように、`&s2`の型は、`&str`ではなく、
-`&String`ではないですか。なぜ、リスト8-18は、コンパイルできるのでしょうか？
+`&String`ではないですか。では、なぜ、リスト8-18は、コンパイルできるのでしょうか？
 
 <!-- The reason we’re able to use `&s2` in the call to `add` is that the compiler -->
 <!-- can *coerce* the `&String` argument into a `&str`. When we call the `add` -->
@@ -342,18 +340,19 @@ fn add(self, s: &str) -> String {
 <!-- s3 = s1 + &s2;` looks like it will copy both strings and create a new one, this -->
 <!-- statement actually takes ownership of `s1`, appends a copy of the contents of -->
 <!-- `s2`, and then returns ownership of the result. In other words, it looks like -->
-<!-- it’s making a lot of copies but isn’t: the implementation is more efficient -->
+<!-- it’s making a lot of copies but isn’t; the implementation is more efficient -->
 <!-- than copying. -->
 
 2番目に、シグニチャから`add`は`self`の所有権をもらうことがわかります。`self`には`&`がついてい*ない*からです。
 これはつまり、リスト8-18において`s1`は`add`呼び出しにムーブされ、その後は有効ではなくなるということです。
 故に、`s3 = s1 + &s2;`は両文字列をコピーして新しいものを作るように見えますが、
 この文は実際には`s1`の所有権を奪い、`s2`の中身のコピーを追記し、結果の所有権を返すのです。言い換えると、
-たくさんのコピーをしているように見えますが、違います: 実装は、コピーよりも効率的です。
+たくさんのコピーをしているように見えますが、違います; 実装は、コピーよりも効率的です。
 
-<!-- If we need to concatenate multiple strings, the behavior of `+` gets unwieldy: -->
+<!-- If we need to concatenate multiple strings, the behavior of `+` operator -->
+<!-- gets unwieldy: -->
 
-複数の文字列を連結する必要が出ると、`+`の振る舞いは扱いにくくなります:
+複数の文字列を連結する必要が出ると、`+`演算子の振る舞いは扱いにくくなります:
 
 ```rust
 let s1 = String::from("tic");
@@ -381,11 +380,11 @@ let s = format!("{}-{}-{}", s1, s2, s3);
 <!-- This code also sets `s` to `tic-tac-toe`. The `format!` macro works in the same -->
 <!-- way as `println!`, but instead of printing the output to the screen, it returns -->
 <!-- a `String` with the contents. The version of the code using `format!` is much -->
-<!-- easier to read and also doesn’t take ownership of any of its parameters. -->
+<!-- easier to read and doesn’t take ownership of any of its parameters. -->
 
 このコードでも、`s`は`tic-tac-toe`になります。`format!`マクロは、`println!`と同様の動作をしますが、
 出力をスクリーンに行う代わりに、中身を`String`で返すのです。`format!`を使用したコードの方がはるかに読みやすく、
-引数の所有権を奪うこともありません。
+引数の所有権を奪いません。
 
 <!-- ### Indexing into Strings -->
 
@@ -393,12 +392,12 @@ let s = format!("{}-{}-{}", s1, s2, s3);
 
 <!-- In many other programming languages, accessing individual characters in a -->
 <!-- string by referencing them by index is a valid and common operation. However, -->
-<!-- if we try to access parts of a `String` using indexing syntax in Rust, we’ll -->
-<!-- get an error. Consider the code in Listing 8-19: -->
+<!-- if you try to access parts of a `String` using indexing syntax in Rust, you’ll -->
+<!-- get an error. Consider the invalid code in Listing 8-19: -->
 
 他の多くのプログラミング言語では、文字列中の文字に、番号で参照してアクセスすることは、有効なコードであり、
 一般的な処理です。しかしながら、Rustにおいて、添え字記法で`String`の一部にアクセスしようとすると、
-エラーが発生するでしょう。リスト8-19のコードを考えてください:
+エラーが発生するでしょう。リスト8-19の無効なコードを考えてください:
 
 ```rust,ignore
 let s1 = String::from("hello");
@@ -446,26 +445,25 @@ error[E0277]: the trait bound `std::string::String: std::ops::Index<{Integer}>` 
 let len = String::from("Hola").len();
 ```
 
-<!-- In this case, `len` will be four, which means the `Vec` storing the string -->
-<!-- “Hola” is four bytes long. Each of these letters takes one byte when encoded in -->
-<!-- UTF-8. But what about the following line? -->
+<!-- In this case, `len` will be 4, which means the vector storing the string “Hola” -->
+<!-- is 4 bytes long. Each of these letters takes 1 byte when encoded in UTF-8. But -->
+<!-- what about the following line? (Note that this line begins with the capital -->
+<!-- Cyrillic letter Ze, not the Arabic number 3.) -->
 
-この場合、`len`は4になり、これは、文字列"Hola"を保持する`Vec`の長さが4バイトであることを意味します。
+この場合、`len`は4になり、これは、文字列"Hola"を保持するベクタの長さが4バイトであることを意味します。
 これらの各文字は、UTF-8でエンコードすると、1バイトになるのです。しかし、以下の行ではどうでしょうか？
+(この行は大文字のキリル文字Zeで始まり、アラビア数字の3では始まっていないことに注意してください)
 
 ```rust
 let len = String::from("Здравствуйте").len();
 ```
 
-<!-- Note that this string begins with the capital Cyrillic letter Ze, not the -->
-<!-- Arabic number 3. Asked how long the string is, you might say 12. However, -->
-<!-- Rust’s answer is 24: that’s the number of bytes it takes to encode -->
-<!-- “Здравствуйте” in UTF-8, because each Unicode scalar value takes two bytes of -->
-<!-- storage. Therefore, an index into the string’s bytes will not always correlate -->
-<!-- to a valid Unicode scalar value. To demonstrate, consider this invalid Rust -->
-<!-- code: -->
+<!-- Asked how long the string is, you might say 12. However, Rust’s answer is 24: -->
+<!-- that’s the number of bytes it takes to encode “Здравствуйте” in UTF-8, because -->
+<!-- each Unicode scalar value takes two bytes of storage. Therefore, an index into -->
+<!--  the string’s bytes will not always correlate to a valid Unicode scalar value. -->
+<!-- To demonstrate, consider this invalid Rust code: -->
 
-この文字列は、アラビア数字の3ではなく、キリル文字のZeで始まっていることに注意してください。
 文字列の長さはと問われたら、あなたは12と答えるかもしれません。ところが、Rustの答えは、24です:
 “Здравствуйте”をUTF-8でエンコードすると、この長さになります。各Unicodeスカラー値は、2バイトの領域を取るからです。
 それ故に、文字列のバイト番号は、必ずしも有効なUnicodeのスカラー値とは相互に関係しないのです。
@@ -481,21 +479,21 @@ let answer = &hello[0];
 <!-- `answer` should in fact be `208`, but `208` is not a valid character on its -->
 <!-- own. Returning `208` is likely not what a user would want if they asked for the -->
 <!-- first letter of this string; however, that’s the only data that Rust has at -->
-<!-- byte index 0. Returning the byte value is probably not what users want, even if -->
+<!-- byte index 0. Users generally don't want the byte value returned, even if -->
 <!-- the string contains only Latin letters: if `&"hello"[0]` was valid code that -->
 <!-- returned the byte value, it would return `104`, not `h`. To avoid returning an -->
 <!-- unexpected value and causing bugs that might not be discovered immediately, -->
-<!-- Rust doesn’t compile this code at all and prevents misunderstandings earlier in -->
+<!-- Rust doesn’t compile this code at all and prevents misunderstandings early in -->
 <!-- the development process. -->
 
 `answer`の値は何になるべきでしょうか？最初の文字の`З`になるべきでしょうか？UTF-8エンコードされた時、
 `З`の最初のバイトは`208`、2番目は`151`になるので、`answer`は実際、`208`になるべきですが、
 `208`は単独では有効な文字ではありません。この文字列の最初の文字を求めている場合、`208`を返すことは、
 ユーザの望んでいるものではないでしょう; しかしながら、Rustには、番号0の位置には、そのデータしかないのです。
-バイト値を返すことは、文字列がラテン文字のみを含む場合でも、おそらくユーザが望むものではないでしょう:
+文字列がラテン文字のみを含む場合でも、ユーザは一般的にバイト値が返ることを望みません:
 `&"hello"[0]`がバイト値を返す有効なコードだったら、`h`ではなく、`104`を返すでしょう。
 予期しない値を返し、すぐには判明しないバグを引き起こさないために、Rustはこのコードを全くコンパイルせず、
-開発作業の早い段階で誤解を防いでくれるのです。
+開発過程の早い段階で誤解を防いでくれるのです。
 
 <!-- #### Bytes and Scalar Values and Grapheme Clusters! Oh My! -->
 
@@ -509,10 +507,10 @@ UTF-8について別の要点は、実際Rustの観点から文字列を見る�
 バイトとして、スカラー値として、そして、書記素クラスタ(人間が*文字*と呼ぶものに一番近い)としてです。
 
 <!-- If we look at the Hindi word “नमस्ते” written in the Devanagari script, it is -->
-<!-- ultimately stored as a `Vec` of `u8` values that looks like this: -->
+<!-- stored as a vector of `u8` values that looks like this: -->
 
 ヒンディー語の単語、“नमस्ते”をデーヴァナーガリー(`脚注`: サンスクリット語とヒンディー語を書くときに使われる書記法)で表記したものを見たら、
-最終的に以下のような見た目の`u8`値の`Vec`として保持されます:
+以下のような見た目の`u8`値のベクタとして保持されます:
 
 ```text
 [224, 164, 168, 224, 164, 174, 224, 164, 184, 224, 165, 141, 224, 164, 164,
@@ -584,17 +582,17 @@ let hello = "Здравствуйте";
 let s = &hello[0..4];
 ```
 
-<!-- Here, `s` will be a `&str` that contains the first four bytes of the string. -->
-<!-- Earlier, we mentioned that each of these characters was two bytes, which means -->
+<!-- Here, `s` will be a `&str` that contains the first 4 bytes of the string. -->
+<!-- Earlier, we mentioned that each of these characters was 2 bytes, which means -->
 <!-- `s` will be `Зд`. -->
 
 ここで、`s`は文字列の最初の4バイトを含む`&str`になります。先ほど、これらの文字は各々2バイトになると指摘しましたから、
 `s`は`Зд`になります。
 
-<!-- What would happen if we used `&hello[0..1]`? The answer: Rust will panic at -->
-<!-- runtime in the same way that accessing an invalid index in a vector does: -->
+<!-- What would happen if we used `&hello[0..1]`? The answer: Rust would panic at -->
+<!-- runtime in the same way as if an invalid index were accessed in a vector: -->
 
-`&hello[0..1]`と使用したら、何が起きるでしょうか？答え: Rustはベクタの無効な番号にアクセスした時のように、
+`&hello[0..1]`と使用したら、何が起きるでしょうか？答え: Rustはベクタの無効な番号にアクセスしたかのように、
 実行時にパニックするでしょう:
 
 ```text
@@ -602,20 +600,20 @@ thread 'main' panicked at 'byte index 1 is not a char boundary; it is inside 'З
 ('main'スレッドは「バイト番号1は文字の境界ではありません; `Здравствуйте`の'З'(バイト番号0から2)の中です」でパニックしました)
 ```
 
-<!-- You should use ranges to create string slices with caution, because it can -->
-<!-- crash your program. -->
+<!-- You should use ranges to create string slices with caution, because doing so -->
+<!-- can crash your program. -->
 
-範囲を使用して文字列スライスを作る際にはプログラムをクラッシュさせる可能性があるので、気をつけるべきです。
+範囲を使用して文字列スライスを作る際にはプログラムをクラッシュさせることがあるので、気をつけるべきです。
 
 <!-- ### Methods for Iterating Over Strings -->
 
 ### 文字列を走査するメソッド群
 
-<!-- Fortunately, we can access elements in a string in other ways. -->
+<!-- Fortunately, you can access elements in a string in other ways. -->
 
 幸いなことに、他の方法でも文字列の要素にアクセスすることができます。
 
-<!-- If we need to perform operations on individual Unicode scalar values, the best -->
+<!-- If you need to perform operations on individual Unicode scalar values, the best -->
 <!-- way to do so is to use the `chars` method. Calling `chars` on “नमस्ते” separates -->
 <!-- out and returns six values of type `char`, and you can iterate over the result -->
 <!-- in order to access each element: -->
@@ -654,20 +652,20 @@ for b in "नमस्ते".bytes() {
 }
 ```
 
-<!-- This code will print the 18 bytes that make up this `String`, starting with: -->
+<!-- This code will print the 18 bytes that make up this `String`: -->
 
-このコードは、`String`をなす18バイトを出力し、こう始まります:
+このコードは、`String`をなす18バイトを出力します:
 
 ```text
 224
 164
-168
-224
-// ... etc
+// --snip--
+165
+135
 ```
 
 <!-- But be sure to remember that valid Unicode scalar values may be made up of more -->
-<!-- than one byte. -->
+<!-- than 1 byte. -->
 
 ですが、有効なUnicodeスカラー値は、2バイト以上からなる場合もあることは心得ておいてください。
 
@@ -687,14 +685,14 @@ for b in "नमस्ते".bytes() {
 <!-- has chosen to make the correct handling of `String` data the default behavior -->
 <!-- for all Rust programs, which means programmers have to put more thought into -->
 <!-- handling UTF-8 data upfront. This trade-off exposes more of the complexity of -->
-<!-- strings than other programming languages do but prevents you from having to -->
-<!-- handle errors involving non-ASCII characters later in your development life -->
-<!-- cycle. -->
+<!-- strings than is apparent in other programming languages, but it prevents you -->
+<!-- from having to handle errors involving non-ASCII characters later in your -->
+<!-- development life cycle. -->
 
 まとめると、文字列は込み入っています。プログラミング言語ごとにこの複雑性をプログラマに提示する方法は違います。
 Rustでは、`String`データを正しく扱うことが、全てのRustプログラムにとっての規定動作になっているわけであり、
 これは、プログラマがUTF-8データを素直に扱う際に、より思考しないといけないことを意味します。
-このトレードオフにより、他のプログラミング言語よりも文字列の複雑性がより露出していますが、
+このトレードオフにより、他のプログラミング言語で見えるよりも文字列の複雑性がより露出していますが、
 ASCII以外の文字に関するエラーを開発の後半で扱わなければならない可能性が排除されているのです。
 
 <!-- Let’s switch to something a bit less complex: hash maps! -->

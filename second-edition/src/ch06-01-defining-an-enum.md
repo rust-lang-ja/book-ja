@@ -14,15 +14,15 @@ IPアドレスを扱う必要が出たとしましょう。現在、IPアドレ�
 これらは、プログラムが遭遇するIPアドレスのすべての可能性です: 列挙型は、取りうる値をすべて*列挙*でき、
 これが列挙型の名前の由来です。
 
-<!-- Any IP address can be either a version four or a version six address but not -->
+<!-- Any IP address can be either a version four or a version six address, but not -->
 <!-- both at the same time. That property of IP addresses makes the enum data -->
-<!-- structure appropriate for this case, because enum values can only be one of the -->
-<!-- variants. Both version four and version six addresses are still fundamentally -->
-<!-- IP addresses, so they should be treated as the same type when the code is -->
-<!-- handling situations that apply to any kind of IP address. -->
+<!-- structure appropriate, because enum values can only be one of the variants. -->
+<!-- Both version four and version six addresses are still fundamentally IP -->
+<!-- addresses, so they should be treated as the same type when the code is handling -->
+<!-- situations that apply to any kind of IP address. -->
 
 どんなIPアドレスも、バージョン4かバージョン6のどちらかになりますが、同時に両方にはなり得ません。
-今回の場合、IPアドレスのその特性によりenumデータ構造が適切なものになります。というのも、
+IPアドレスのその特性によりenumデータ構造が適切なものになります。というのも、
 enumの値は、そのバリアントのいずれか一つにしかなり得ないからです。バージョン4とバージョン6のアドレスは、
 どちらも根源的にはIPアドレスですから、コードがいかなる種類のIPアドレスにも適用される場面を扱う際には、
 同じ型として扱われるべきです。
@@ -32,7 +32,7 @@ enumの値は、そのバリアントのいずれか一つにしかなり得な�
 <!-- as the *variants* of the enum: -->
 
 この概念をコードでは、`IpAddrKind`列挙型を定義し、IPアドレスがなりうる種類、`V4`と`V6`を列挙することで、
-表現できます。これらは、enumの*バリアント*として知られています:
+表現できます。これらは、enumの*列挙子*として知られています:
 
 ```rust
 enum IpAddrKind {
@@ -69,7 +69,7 @@ let six = IpAddrKind::V6;
 <!-- `IpAddrKind`. We can then, for instance, define a function that takes any -->
 <!-- `IpAddrKind`: -->
 
-enumのバリアントは、その識別子の元に名前空間分けされていることと、
+enumの列挙子は、その識別子の元に名前空間分けされていることと、
 2連コロンを使ってその二つを区別していることに注意してください。
 これが有効な理由は、こうすることで、値`IpAddrKind::V4`と`IpAddrKind::V6`という値は両方とも、
 同じ型`IpAddrKind`になったからです。そうしたら、例えば、どんな`IpAddrKind`を取る関数も定義できるようになります。
@@ -147,18 +147,18 @@ let loopback = IpAddr {
 ここでは、二つのフィールドを持つ`IpAddr`という構造体を定義しています: `IpAddrKind`型(先ほど定義したenumですね)の`kind`フィールドと、
 `String`型の`address`フィールドです。この構造体のインスタンスが2つあります。最初のインスタンス、
 `home`には`kind`として`IpAddrKind::V4`があり、紐付けられたアドレスデータは`127.0.0.1`です。
-2番目のインスタンス、`loopback`には、`kind`の値として、`IpAddrKind`のもう一つのバリアント、`V6`があり、
+2番目のインスタンス、`loopback`には、`kind`の値として、`IpAddrKind`のもう一つの列挙子、`V6`があり、
 アドレス`::1`が紐付いています。構造体を使って`kind`と`address`値を一緒に包んだので、
-もうバリアントは値と紐付けられています。
+もう列挙子は値と紐付けられています。
 
 <!-- We can represent the same concept in a more concise way using just an enum -->
 <!-- rather than an enum inside a struct, by putting data directly into each enum -->
 <!-- variant. This new definition of the `IpAddr` enum says that both `V4` and `V6` -->
 <!-- variants will have associated `String` values: -->
 
-各enumのバリアントに直接データを格納して、enumを構造体内に使うというよりもenumだけを使って、
+各enumの列挙子に直接データを格納して、enumを構造体内に使うというよりもenumだけを使って、
 同じ概念をもっと簡潔な方法で表現することができます。この新しい`IpAddr`の定義は、
-`V4`と`V6`バリアント両方に`String`値が紐付けられていることを述べています。
+`V4`と`V6`列挙子両方に`String`値が紐付けられていることを述べています。
 
 ```rust
 enum IpAddr {
@@ -174,7 +174,7 @@ let loopback = IpAddr::V6(String::from("::1"));
 <!-- We attach data to each variant of the enum directly, so there is no need for an -->
 <!-- extra struct. -->
 
-enumの各バリアントにデータを直接添付できるので、余計な構造体を作る必要は全くありません。
+enumの各列挙子にデータを直接添付できるので、余計な構造体を作る必要は全くありません。
 
 <!-- There’s another advantage to using an enum rather than a struct: each variant -->
 <!-- can have different types and amounts of associated data. Version four type IP -->
@@ -183,10 +183,10 @@ enumの各バリアントにデータを直接添付できるので、余計な�
 <!-- still express `V6` addresses as one `String` value, we wouldn’t be able to with -->
 <!-- a struct. Enums handle this case with ease: -->
 
-構造体よりもenumを使うことには、別の利点もあります: 各バリアントに紐付けるデータの型と量は、異なってもいいのです。
+構造体よりもenumを使うことには、別の利点もあります: 各列挙子に紐付けるデータの型と量は、異なってもいいのです。
 バージョン4のIPアドレスには、常に0から255の値を持つ4つの数値があります。`V4`のアドレスは、4つの`u8`型の値として、
 格納するけれども、`V6`のアドレスは引き続き、単独の`String`型の値で格納したかったとしても、構造体では不可能です。
-enumなら、こんなケースも容易に対応できます:
+enumなら、こんな場合も容易に対応できます:
 
 ```rust
 enum IpAddr {
@@ -199,20 +199,20 @@ let home = IpAddr::V4(127, 0, 0, 1);
 let loopback = IpAddr::V6(String::from("::1"));
 ```
 
-<!-- We’ve shown several different possibilities that we could define in our code -->
-<!-- for storing IP addresses of the two different varieties using an enum. However, -->
-<!-- as it turns out, wanting to store IP addresses and encode which kind they are -->
-<!-- is so common that [the standard library has a definition we can -->
-<!-- use!][IpAddr] Let’s look at how the standard library defines -->
-<!-- `IpAddr`: it has the exact enum and variants that we’ve defined and used, but -->
-<!-- it embeds the address data inside the variants in the form of two different -->
-<!-- structs, which are defined differently for each variant: -->
+<!-- We’ve shown several different ways to define data structures to store version -->
+<!-- four and version six IP addresses. However, as it turns out, wanting to store -->
+<!-- IP addresses and encode which kind they are is so common that [the standard -->
+<!-- library has a definition we can use!][IpAddr] Let’s look at how -->
+<!-- the standard library defines `IpAddr`: it has the exact enum and variants that -->
+<!-- we’ve defined and used, but it embeds the address data inside the variants in -->
+<!-- the form of two different structs, which are defined differently for each -->
+<!-- variant: -->
 
-enumを使用して、コード内で二つの異なるバラエティを持つIPアドレスを定義するいくつかの異なる可能性を示してきました。
+バージョン4とバージョン6のIPアドレスを格納するデータ構造を定義する複数の異なる方法を示してきました。
 しかしながら、蓋を開けてみれば、IPアドレスを格納してその種類をコード化したくなるということは一般的なので、
 [標準ライブラリに使用可能な定義があります！][IpAddr] 標準ライブラリでの`IpAddr`の定義のされ方を見てみましょう:
-私たちが定義し、使用したのと全く同じenumとバリアントがありますが、アドレスデータを二種の異なる構造体の形でバリアントに埋め込み、
-この構造体は各バリアント用に異なる形で定義されています。
+私たちが定義し、使用したのと全く同じenumと列挙子がありますが、アドレスデータを二種の異なる構造体の形で列挙子に埋め込み、
+この構造体は各列挙子用に異なる形で定義されています。
 
 [IpAddr]: ../../std/net/enum.IpAddr.html
 
@@ -233,11 +233,19 @@ enumを使用して、コード内で二つの異なるバラエティを持つI
 
 ```rust
 struct Ipv4Addr {
+<<<<<<< HEAD
     // 省略
 }
 
 struct Ipv6Addr {
     // 省略
+=======
+    // --snip--
+}
+
+struct Ipv6Addr {
+    // --snip--
+>>>>>>> fork_master_master
 }
 
 enum IpAddr {
@@ -251,7 +259,7 @@ enum IpAddr {
 <!-- enum! Also, standard library types are often not much more complicated than -->
 <!-- what you might come up with. -->
 
-このコードは、enumバリアント内にいかなる種類のデータでも格納できることを描き出しています:
+このコードは、enum列挙子内にいかなる種類のデータでも格納できることを描き出しています:
 例を挙げれば、文字列、数値型、構造体などです。他のenumを含むことさえできます！また、
 標準ライブラリの型は、あなたが思い付いたよりも複雑ではないことがしばしばあります。
 
@@ -267,7 +275,7 @@ enum IpAddr {
 <!-- Let’s look at another example of an enum in Listing 6-2: this one has a wide -->
 <!-- variety of types embedded in its variants: -->
 
-リスト6-2でenumの別の例を見てみましょう: 今回のコードは、幅広い種類の型がバリアントに埋め込まれています:
+リスト6-2でenumの別の例を見てみましょう: 今回のコードは、幅広い種類の型が列挙子に埋め込まれています:
 
 ```rust
 enum Message {
@@ -281,11 +289,11 @@ enum Message {
 <!-- <span class="caption">Listing 6-2: A `Message` enum whose variants each store -->
 <!-- different amounts and types of values</span> -->
 
-<span class="caption">リスト6-2: バリアント各々が異なる型と量の値を格納する`Message`enum</span>
+<span class="caption">リスト6-2: 列挙子各々が異なる型と量の値を格納する`Message`enum</span>
 
 <!-- This enum has four variants with different types: -->
 
-このenumには、異なる型のバリアントが4つあります:
+このenumには、異なる型の列挙子が4つあります:
 
 <!-- * `Quit` has no data associated with it at all. -->
 <!-- * `Move` includes an anonymous struct inside it. -->
@@ -298,14 +306,14 @@ enum Message {
 * `ChangeColor`は、3つの`i32`値を含む。
 
 <!-- Defining an enum with variants like the ones in Listing 6-2 is similar to -->
-<!-- defining different kinds of struct definitions except the enum doesn’t use the -->
+<!-- defining different kinds of struct definitions, except the enum doesn’t use the -->
 <!-- `struct` keyword and all the variants are grouped together under the `Message` -->
 <!-- type. The following structs could hold the same data that the preceding enum -->
 <!-- variants hold: -->
 
-リスト6-2のようなバリアントを含むenumを定義することは、enumの場合、`struct`キーワードを使わず、
-全部のバリアントが`Message`型の元に分類される点を除いて、異なる種類の構造体定義を定義するのと類似しています。
-以下の構造体も、先ほどのenumのバリアントが保持しているのと同じデータを格納することができるでしょう:
+リスト6-2のような列挙子を含むenumを定義することは、enumの場合、`struct`キーワードを使わず、
+全部の列挙子が`Message`型の元に分類される点を除いて、異なる種類の構造体定義を定義するのと類似しています。
+以下の構造体も、先ほどのenumの列挙子が保持しているのと同じデータを格納することができるでしょう:
 
 <!-- ```rust -->
 <!-- struct QuitMessage; // unit struct -->
@@ -328,13 +336,12 @@ struct ChangeColorMessage(i32, i32, i32); // タプル構造体
 ```
 
 <!-- But if we used the different structs, which each have their own type, we -->
-<!-- wouldn’t be able to as easily define a function that could take any of these -->
-<!-- kinds of messages as we could with the `Message` enum defined in Listing 6-2, -->
-<!-- which is a single type. -->
+<!-- couldn't as easily define a function to take any of these kinds of messages as -->
+<!-- we could with the `Message` enum defined in Listing 6-2, which is a single type. -->
 
 <!-- ちょっと文意を適切に表せているか怪しいかも -->
 
-ですが、異なる構造体を使っていたら、各々、それ自身の型があるので、単独の型になるリスト6-2で定義した`Message`enumでするほど、
+ですが、異なる構造体を使っていたら、各々、それ自身の型があるので、単独の型になるリスト6-2で定義した`Message`enumほど、
 これらの種のメッセージいずれもとる関数を簡単に定義することはできないでしょう。
 
 <!-- There is one more similarity between enums and structs: just as we’re able to -->
@@ -365,8 +372,8 @@ m.call();
 
 <!-- The body of the method would use `self` to get the value that we called the -->
 <!-- method on. In this example, we’ve created a variable `m` that has the value -->
-<!-- `Message::Write(String::from("hello"))`, and that is what `self` will be in the body of the -->
-<!-- `call` method when `m.call()` runs. -->
+<!-- `Message::Write(String::from("hello"))`, and that is what `self` will be in the -->
+<!-- body of the `call` method when `m.call()` runs. -->
 
 メソッドの本体では、`self`を使用して、メソッドを呼び出した相手の値を取得できるでしょう。この例では、
 `Message::Write(String::from("hello"))`という値を持つ、変数`m`を生成したので、これが`m.call()`を走らせた時に、
@@ -387,14 +394,15 @@ m.call();
 <!-- by the standard library. The `Option` type is used in many places because it -->
 <!-- encodes the very common scenario in which a value could be something or it -->
 <!-- could be nothing. Expressing this concept in terms of the type system means the -->
-<!-- compiler can check that you’ve handled all the cases you should be handling, -->
-<!-- which can prevent bugs that are extremely common in other programming languages. -->
+<!-- compiler can check that you’ve handled all the cases you should be handling; -->
+<!-- this functionality can prevent bugs that are extremely common in other -->
+<!-- programming languages. -->
 
 前節で、`IpAddr`enumがRustの型システムを使用して、プログラムにデータ以上の情報をコード化できる方法を目撃しました。
 この節では、`Option`のケーススタディを掘り下げていきます。この型も標準ライブラリにより定義されているenumです。
 この`Option`型はいろんな箇所で使用されます。なぜなら、値が何かかそうでないかという非常に一般的な筋書きをコード化するからです。
-この概念を型システムの観点で表現することは、コンパイラが、プログラマが処理すべき場面全てを処理していることをチェックできることを意味し、
-これにより、他の言語において、究極的にありふれたバグを阻止することができます。
+この概念を型システムの観点で表現することは、コンパイラが、プログラマが処理すべき場面全てを処理していることをチェックできることを意味します;
+この機能は、他の言語において、究極的にありふれたバグを阻止することができます。
 
 <!-- Programming language design is often thought of in terms of which features you -->
 <!-- include, but the features you exclude are important too. Rust doesn’t have the -->
@@ -407,19 +415,19 @@ m.call();
 *null*とはそこに何も値がないことを意味する値です。nullのある言語において、
 変数は常に二者択一どちらかの状態になります: nullかそうでないかです。
 
-<!-- In “Null References: The Billion Dollar Mistake,” Tony Hoare, the inventor of -->
-<!-- null, has this to say: -->
+<!-- In his 2009 presentation “Null References: The Billion Dollar Mistake,” Tony -->
+<!-- Hoare, the inventor of null, has this to say: -->
 
-nullの開発者であるTony Hoareの著書"Null References: The Billion Dollar Mistake"では、こんなことが語られています。
+nullの開発者であるTony Hoareの2009年のプレゼンテーション、"Null References: The Billion Dollar Mistake"では、こんなことが語られています。
 
-<!--  I call it my billion-dollar mistake. At that time, I was designing the first -->
-<!--  comprehensive type system for references in an object-oriented language. My -->
-<!--  goal was to ensure that all use of references should be absolutely safe, with -->
-<!--  checking performed automatically by the compiler. But I couldn't resist the -->
-<!--  temptation to put in a null reference, simply because it was so easy to -->
-<!--  implement. This has led to innumerable errors, vulnerabilities, and system -->
-<!--  crashes, which have probably caused a billion dollars of pain and damage in -->
-<!--  the last forty years. -->
+<!-- > I call it my billion-dollar mistake. At that time, I was designing the first -->
+<!-- > comprehensive type system for references in an object-oriented language. My -->
+<!-- > goal was to ensure that all use of references should be absolutely safe, with -->
+<!-- > checking performed automatically by the compiler. But I couldn't resist the -->
+<!-- > temptation to put in a null reference, simply because it was so easy to -->
+<!-- > implement. This has led to innumerable errors, vulnerabilities, and system -->
+<!-- > crashes, which have probably caused a billion dollars of pain and damage in -->
+<!-- > the last forty years. -->
 
 > 私はそれを10億ドルの失敗と呼んでいます。その頃、私は、オブジェクト指向言語の参照に対する、
 > 最初のわかりやすい型システムを設計していました。私の目標は、
@@ -427,12 +435,11 @@ nullの開発者であるTony Hoareの著書"Null References: The Billion Dollar
 > しかし、null参照を入れるという誘惑に打ち勝つことができませんでした。それは、単純に実装が非常に容易だったからです。
 > これが無数のエラーや脆弱性、システムクラッシュにつながり、過去40年で10億ドルの苦痛や損害を引き起こしたであろうということなのです。
 
-<!-- The problem with null values is that if you try to actually use a value that’s -->
-<!-- null as if it is a not-null value, you’ll get an error of some kind. Because -->
-<!-- this null or not-null property is pervasive, it’s extremely easy to make this -->
-<!-- kind of error. -->
+<!-- The problem with null values is that if you try to use a null value as a -->
+<!-- not-null value, you’ll get an error of some kind. Because this null or not-null -->
+<!-- property is pervasive, it’s extremely easy to make this kind of error. -->
 
-null値の問題は、nullの値をnullでない値のように実際に使用しようとしたら、何らかの種類のエラーが出ることです。
+null値の問題は、nullの値をnullでない値のように使用しようとしたら、何らかの種類のエラーが出ることです。
 このnullかそうでないかという特性は広く存在するので、この種の間違いを大変犯しやすいのです。
 
 <!-- However, the concept that null is trying to express is still a useful one: a -->
@@ -441,13 +448,13 @@ null値の問題は、nullの値をnullでない値のように実際に使用�
 しかしながら、nullが表現しようとしている概念は、それでも役に立つものです: nullは、
 何らかの理由で現在無効、または存在しない値のことなのです。
 
-<!-- The problem isn’t with the actual concept but with the particular -->
+<!-- The problem isn’t really with the concept but with the particular -->
 <!-- implementation. As such, Rust does not have nulls, but it does have an enum -->
 <!-- that can encode the concept of a value being present or absent. This enum is -->
 <!-- `Option<T>`, and it is [defined by the standard library][option] -->
 <!-- as follows: -->
 
-問題は、実際の概念にあるのではなく、特定の実装にあるのです。そんな感じなので、Rustにはnullがありませんが、
+問題は、全く概念にあるのではなく、特定の実装にあるのです。そんな感じなので、Rustにはnullがありませんが、
 値が存在するか不在かという概念をコード化するenumならあります。このenumが`Option<T>`で、
 以下のように[標準ライブラリに定義][option]されています。
 
@@ -461,14 +468,14 @@ enum Option<T> {
 ```
 
 <!-- The `Option<T>` enum is so useful that it’s even included in the prelude; you -->
-<!-- don’t need to bring it into scope explicitly.  In addition, so are its variants: -->
-<!-- you can use `Some` and `None` directly without prefixing them with `Option::`. -->
-<!-- `Option<T>` is still just a regular enum, and `Some(T)` and `None` are still -->
-<!-- variants of type `Option<T>`. -->
+<!-- don’t need to bring it into scope explicitly. In addition, so are its variants: -->
+<!-- you can use `Some` and `None` directly without the `Option::` prefix. The -->
+<!-- `Option<T>` is still just a regular enum, and `Some(T)` and `None` are -->
+<!-- still variants of type `Option<T>`. -->
 
 `Option<T>`は有益すぎて、初期化処理(prelude)にさえ含まれています。つまり、明示的にスコープに導入する必要がないのです。
-さらに、バリアントもそうなっています: `Some`と`None`を`Option::`と接頭辞を付けることなく直接使えるわけです。
-ただ、`Option<T>`はそうは言っても、普通のenumであり、`Some(T)`と`None`も`Option<T>`型のただのバリアントです。
+さらに、列挙子もそうなっています: `Some`と`None`を`Option::`の接頭辞なしに直接使えるわけです。
+ただ、`Option<T>`はそうは言っても、普通のenumであり、`Some(T)`と`None`も`Option<T>`型のただの列挙子です。
 
 <!-- The `<T>` syntax is a feature of Rust we haven’t talked about yet. It’s a -->
 <!-- generic type parameter, and we’ll cover generics in more detail in Chapter 10. -->
@@ -477,7 +484,7 @@ enum Option<T> {
 <!-- using `Option` values to hold number types and string types: -->
 
 `<T>`という記法は、まだ語っていないRustの機能です。これは、ジェネリック型引数であり、ジェネリクスについて詳しくは、
-第10章で解説します。とりあえず、知っておく必要があることは、`<T>`は、`Option`enumの`Some`バリアントが、
+第10章で解説します。とりあえず、知っておく必要があることは、`<T>`は、`Option`enumの`Some`列挙子が、
 あらゆる型のデータを1つだけ持つことができることを意味していることだけです。こちらは、
 `Option`値を使って、数値型や文字列型を保持する例です。
 
@@ -493,9 +500,9 @@ let absent_number: Option<i32> = None;
 <!-- variant will hold by looking only at a `None` value. -->
 
 `Some`ではなく、`None`を使ったら、コンパイラに`Option<T>`の型が何になるかを教えなければいけません。
-というのも、`None`値を見ただけでは、`Some`バリアントが保持する型をコンパイラが推論できないからです。
+というのも、`None`値を見ただけでは、`Some`列挙子が保持する型をコンパイラが推論できないからです。
 
-<!-- When we have a `Some` value, we know that a value is present, and the value is -->
+<!-- When we have a `Some` value, we know that a value is present and the value is -->
 <!-- held within the `Some`. When we have a `None` value, in some sense, it means -->
 <!-- the same thing as null: we don’t have a valid value. So why is having -->
 <!-- `Option<T>` any better than having null? -->
@@ -557,19 +564,19 @@ not satisfied
 <!-- is. -->
 
 言い換えると、`T`型の処理を行う前には、`Option<T>`を`T`に変換する必要があるわけです。一般的に、
-これにより、nullの最もありふれた問題の一つを捕捉できます: 実際にはnullなのに、
+これにより、nullの最もありふれた問題の一つを捕捉する一助になります: 実際にはnullなのに、
 そうでないかのように想定することです。
 
-<!-- Not having to worry about missing an assumption of having a not-null value -->
-<!-- helps you to be more confident in your code. In order to have a value that can -->
-<!-- possibly be null, you must explicitly opt in by making the type of that value -->
-<!-- `Option<T>`. Then, when you use that value, you are required to explicitly -->
-<!-- handle the case when the value is null. Everywhere that a value has a type that -->
-<!-- isn’t an `Option<T>`, you *can* safely assume that the value isn’t null. This -->
-<!-- was a deliberate design decision for Rust to limit null’s pervasiveness and -->
-<!-- increase the safety of Rust code. -->
+<!-- Not having to worry about incorrectly assuming a not-null value helps you to be -->
+<!-- more confident in your code. In order to have a value that can possibly be -->
+<!-- null, you must explicitly opt in by making the type of that value `Option<T>`. -->
+<!-- Then, when you use that value, you are required to explicitly handle the case -->
+<!-- when the value is null. Everywhere that a value has a type that isn’t an -->
+<!-- `Option<T>`, you *can* safely assume that the value isn’t null. This was a -->
+<!-- deliberate design decision for Rust to limit null’s pervasiveness and increase -->
+<!-- the safety of Rust code. -->
 
-nullでない値があるという想定を見逃す心配をしなくてもよいということは、コード内でより自信を持てることになります。
+不正確にnullでない値を想定する心配をしなくてもよいということは、コード内でより自信を持てることになります。
 nullになる可能性のある値を保持するには、その値の型を`Option<T>`にすることで明示的に同意しなければなりません。
 それからその値を使用する際には、値がnullである場合を明示的に処理する必要があります。
 値が`Option<T>`以外の型であるとこ全てにおいて、値がnullでないと安全に想定することが*できます*。
@@ -581,15 +588,15 @@ nullになる可能性のある値を保持するには、その値の型を`Opt
 <!-- them out in [its documentation][docs]. Becoming familiar with -->
 <!-- the methods on `Option<T>` will be extremely useful in your journey with Rust. -->
 
-では、`Option<T>`型の値がある時、その値を使えるようにするには、どのように`Some`バリアントから`T`型の値を取り出せばいいのでしょうか？
+では、`Option<T>`型の値がある時、その値を使えるようにするには、どのように`Some`列挙子から`T`型の値を取り出せばいいのでしょうか？
 `Option<T>`には様々な場面で有効に活用できる非常に多くのメソッドが用意されています;
 [ドキュメント][docs]でそれらを確認できます。`Option<T>`のメソッドに馴染むと、
 Rustの旅が極めて有益になるでしょう。
 
 [docs]: ../../std/option/enum.Option.html
 
-<!-- In general, in order to use an `Option<T>` value, we want to have code that -->
-<!-- will handle each variant. We want some code that will run only when we have a -->
+<!-- In general, in order to use an `Option<T>` value, you want to have code that -->
+<!-- will handle each variant. We want some code that will run only when you have a -->
 <!-- `Some(T)` value, and this code is allowed to use the inner `T`. We want some -->
 <!-- other code to run if we have a `None` value, and that code doesn’t have a `T` -->
 <!-- value available. The `match` expression is a control flow construct that does -->
@@ -597,8 +604,17 @@ Rustの旅が極めて有益になるでしょう。
 <!-- variant of the enum it has, and that code can use the data inside the matching -->
 <!-- value. -->
 
-一般的に、`Option<T>`値を使うには、各バリアントを処理するコードが欲しくなります。
+In general, in order to use an `Option<T>` value, you want to have code that
+will handle each variant. You want some code that will run only when you have a
+`Some(T)` value, and this code is allowed to use the inner `T`. You want some
+other code to run if you have a `None` value, and that code doesn’t have a `T`
+value available. The `match` expression is a control flow construct that does
+just this when used with enums: it will run different code depending on which
+variant of the enum it has, and that code can use the data inside the matching
+value.
+
+一般的に、`Option<T>`値を使うには、各列挙子を処理するコードが欲しくなります。
 `Some(T)`値がある時だけ走る何らかのコードが欲しくなり、このコードが内部の`T`を使用できます。
 `None`値があった場合に走る別のコードが欲しくなり、そちらのコードは`T`値は使用できない状態になります。
 `match`式が、enumとともに使用した時にこれだけの動作をするフロー制御文法要素になります:
-enumのバリアントによって、違うコードが走り、そのコードがマッチした値の中のデータを使用できるのです。
+enumの列挙子によって、違うコードが走り、そのコードがマッチした値の中のデータを使用できるのです。

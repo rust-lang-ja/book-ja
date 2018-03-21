@@ -4,7 +4,7 @@
 
 <!-- Most errors aren’t serious enough to require the program to stop entirely. -->
 <!-- Sometimes, when a function fails, it’s for a reason that we can easily -->
-<!-- interpret and respond to. For example, if we try to open a file and that -->
+<!-- interpret and respond to. For example, if you try to open a file and that -->
 <!-- operation fails because the file doesn’t exist, we might want to create the -->
 <!-- file instead of terminating the process. -->
 
@@ -43,7 +43,7 @@ enum Result<T, E> {
 標準ライブラリ上に定義されている`Result`型や関数などを、成功した時とエラーの値が異なるような様々な場面で使用できるのです。
 
 <!-- Let’s call a function that returns a `Result` value because the function could -->
-<!-- fail: in Listing 9-3 we try to open a file: -->
+<!-- fail. In Listing 9-3 we try to open a file: -->
 
 関数が失敗する可能性があるために`Result`値を返す関数を呼び出しましょう: リスト9-3では、
 ファイルを開こうとしています:
@@ -66,16 +66,16 @@ fn main() {
 
 <!-- How do we know `File::open` returns a `Result`? We could look at the standard -->
 <!-- library API documentation, or we could ask the compiler! If we give `f` a type -->
-<!-- annotation of a type that we know the return type of the function is *not* and -->
-<!-- then we try to compile the code, the compiler will tell us that the types don’t -->
-<!-- match. The error message will then tell us what the type of `f` *is*. Let’s try -->
-<!-- it: we know that the return type of `File::open` isn’t of type `u32`, so let’s -->
-<!-- change the `let f` statement to this: -->
+<!-- annotation that we know is *not* the return type of the function and then try -->
+<!-- to compile the code, the compiler will tell us that the types don’t match. The -->
+<!-- error message will then tell us what the type of `f` *is*. Let’s try it! We -->
+<!-- know that the return type of `File::open` isn’t of type `u32`, so let’s change -->
+<!-- the `let f` statement to this: -->
 
 `File::open`が`Result`を返すとどう知るのでしょうか？標準ライブラリのAPIドキュメントを参照することもできますし、
-コンパイラに尋ねることもできます！`f`に関数の戻り値では*ない*と判明している型の型注釈を与えて、
+コンパイラに尋ねることもできます！`f`に関数の戻り値では*ない*と判明している型注釈を与えて、
 コードのコンパイルを試みれば、コンパイラは型が合わないと教えてくれるでしょう。そして、エラーメッセージは、
-`f`の*実際の*型を教えてくれるでしょう。試してみましょう: `File::open`の戻り値の型は`u32`ではないと判明しているので、
+`f`の*実際の*型を教えてくれるでしょう。試してみましょう！`File::open`の戻り値の型は`u32`ではないと判明しているので、
 `let f`文を以下のように変更しましょう:
 
 ```rust,ignore
@@ -110,9 +110,9 @@ error[E0308]: mismatched types
 ここでは成功値の型`std::fs::File`で埋められていて、これはファイルハンドルです。
 エラー値で使用されている`E`の型は、`std::io::Error`です。
 
-<!-- This return type means the call to `File::open` might succeed and return to us -->
-<!-- a file handle that we can read from or write to. The function call also might -->
-<!-- fail: for example, the file might not exist or we might not have permission to -->
+<!-- This return type means the call to `File::open` might succeed and return a file -->
+<!-- handle that we can read from or write to. The function call also might fail: -->
+<!-- for example, the file might not exist, or we might not have permission to -->
 <!-- access the file. The `File::open` function needs to have a way to tell us -->
 <!-- whether it succeeded or failed and at the same time give us either the file -->
 <!-- handle or error information. This information is exactly what the `Result` enum -->
@@ -121,23 +121,23 @@ error[E0308]: mismatched types
 この戻り値型は、`File::open`の呼び出しが成功し、読み込みと書き込みを行えるファイルハンドルを返す可能性があることを意味します。
 また、関数呼び出しは失敗もする可能性があります: 例えば、ファイルが存在しない可能性、ファイルへのアクセス権限がない可能性です。
 `File::open`には成功したか失敗したかを知らせる方法とファイルハンドルまたは、エラー情報を与える方法が必要なのです。
-この情報こそが`Result`enumが意図するものなのです。
+この情報こそが`Result`enumが伝達するものなのです。
 
-<!-- In the case where `File::open` succeeds, the value we will have in the variable -->
-<!-- `f` will be an instance of `Ok` that contains a file handle. In the case where -->
-<!-- it fails, the value in `f` will be an instance of `Err` that contains more -->
-<!-- information about the kind of error that happened. -->
+<!-- In the case where `File::open` succeeds, the value in the variable `f` will be-->
+<!-- an instance of `Ok` that contains a file handle. In the case where it fails, -->
+<!-- the value in `f` will be an instance of `Err` that contains more information -->
+<!-- about the kind of error that happened. -->
 
-`File::open`が成功した場合、変数`f`にはファイルハンドルを含む`Ok`インスタンスが格納されます。
-失敗した場合には、発生したエラーの種類に関する情報をより多く含む`Err`インスタンスが`f`には格納されます。
+`File::open`が成功した場合、変数`f`の値はファイルハンドルを含む`Ok`インスタンスになります。
+失敗した場合には、発生したエラーの種類に関する情報をより多く含む`Err`インスタンスが`f`の値になります。
 
 <!-- We need to add to the code in Listing 9-3 to take different actions depending -->
-<!-- on the value `File::open` returned. Listing 9-4 shows one way to handle the -->
-<!-- `Result` using a basic tool: the `match` expression that we discussed in -->
+<!-- on the value `File::open` returns. Listing 9-4 shows one way to handle the -->
+<!-- `Result` using a basic tool, the `match` expression that we discussed in -->
 <!-- Chapter 6. -->
 
 リスト9-3のコードに追記をして`File::open`が返す値に応じて異なる動作をする必要があります。
-リスト9-4に基礎的な道具を使って`Result`を扱う方法を一つ示しています: 第6章で議論した`match`式です。
+リスト9-4に基礎的な道具を使って`Result`を扱う方法を一つ示しています。第6章で議論した`match`式です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -160,9 +160,9 @@ fn main() {
 ```
 
 <!-- <span class="caption">Listing 9-4: Using a `match` expression to handle the -->
-<!-- `Result` variants we might have</span> -->
+<!-- `Result` variants that might be returned</span> -->
 
-<span class="caption">リスト9-4: `match`式を使用して存在する可能性のある`Result`バリアントを処理する</span>
+<span class="caption">リスト9-4: `match`式を使用して返却される可能性のある`Result`列挙子を処理する</span>
 
 <!-- Note that, like the `Option` enum, the `Result` enum and its variants have been -->
 <!-- imported in the prelude, so we don’t need to specify `Result::` before the `Ok` -->
@@ -173,10 +173,10 @@ fn main() {
 
 <!-- Here we tell Rust that when the result is `Ok`, return the inner `file` value -->
 <!-- out of the `Ok` variant, and we then assign that file handle value to the -->
-<!-- variable `f`. After the `match`, we can then use the file handle for reading or -->
+<!-- variable `f`. After the `match`, we can use the file handle for reading or -->
 <!-- writing. -->
 
-ここでは、結果が`Ok`の時に、`Ok`バリアントから中身の`file`値を返すように指示し、
+ここでは、結果が`Ok`の時に、`Ok`列挙子から中身の`file`値を返すように指示し、
 それからそのファイルハンドル値を変数`f`に代入しています。`match`の後には、
 ファイルハンドルを使用して読み込んだり書き込むことができるわけです。
 
@@ -204,16 +204,16 @@ Os { code: 2, message: "そのような名前のファイルまたはディレ�
 
 ### 色々なエラーにマッチする
 
-<!-- The code in Listing 9-4 will `panic!` no matter the reason that `File::open` -->
-<!-- failed. What we want to do instead is take different actions for different -->
-<!-- failure reasons: if `File::open` failed because the file doesn’t exist, we want -->
-<!-- to create the file and return the handle to the new file. If `File::open` -->
-<!-- failed for any other reason, for example because we didn’t have permission to -->
-<!-- open the file, we still want the code to `panic!` in the same way as it did in -->
-<!-- Listing 9-4. Look at Listing 9-5, which adds another arm to the `match`: -->
+<!-- The code in Listing 9-4 will `panic!` no matter why `File::open` failed. What -->
+<!-- we want to do instead is take different actions for different failure reasons: -->
+<!-- if `File::open` failed because the file doesn’t exist, we want to create the -->
+<!-- file and return the handle to the new file. If `File::open` failed for any -->
+<!-- other reason-for example, because we didn’t have permission to open the file-we-->
+<!-- still want the code to `panic!` in the same way as it did in Listing 9-4. Look -->
+<!-- at Listing 9-5, which adds another arm to the `match`: -->
 
 リスト9-4のコードは、`File::open`が失敗した理由にかかわらず`panic!`します。代わりにしたいことは、
-異なる失敗理由には異なる動作をすることです: ファイルが存在しないために`File::open`が失敗したら、
+失敗理由によって動作を変えることです: ファイルが存在しないために`File::open`が失敗したら、
 ファイルを作成し、その新しいファイルへのハンドルを返したいです。他の理由(例えばファイルを開く権限がなかったなど)で、
 `File::open`が失敗したら、リスト9-4のようにコードには`panic!`してほしいのです。
 リスト9-5を眺めてください。ここでは`match`に別のアームを追加しています:
@@ -263,33 +263,33 @@ fn main() {
 
 <!-- The type of the value that `File::open` returns inside the `Err` variant is -->
 <!-- `io::Error`, which is a struct provided by the standard library. This struct -->
-<!-- has a method `kind` that we can call to get an `io::ErrorKind` value. -->
-<!-- `io::ErrorKind` is an enum provided by the standard library that has variants -->
+<!-- has a method `kind` that we can call to get an `io::ErrorKind` value. The enum-->
+<!-- `io::ErrorKind` is provided by the standard library and has variants -->
 <!-- representing the different kinds of errors that might result from an `io` -->
 <!-- operation. The variant we want to use is `ErrorKind::NotFound`, which indicates -->
 <!-- the file we’re trying to open doesn’t exist yet. -->
 
-`File::open`が`Err`バリアントに含めて返す値の型は、`io::Error`であり、これは標準ライブラリで提供されている構造体です。
-この構造体には、呼び出すと`io::ErrorKind`値が得られる`kind`メソッドがあります。`io::ErrorKind`は、
-標準ライブラリで提供されているenumであり、`io`処理の結果発生する可能性のある色々な種類のエラーを表すバリアントを持ちます。
-使用したいバリアントは、`ErrorKind::NotFound`で、これは開こうとしているファイルがまだ存在しないことを示唆します。
+`File::open`が`Err`列挙子に含めて返す値の型は、`io::Error`であり、これは標準ライブラリで提供されている構造体です。
+この構造体には、呼び出すと`io::ErrorKind`値が得られる`kind`メソッドがあります。`io::ErrorKind`というenumは、
+標準ライブラリで提供されていて、`io`処理の結果発生する可能性のある色々な種類のエラーを表す列挙子があります。
+使用したい列挙子は、`ErrorKind::NotFound`で、これは開こうとしているファイルがまだ存在しないことを示唆します。
 
 <!-- The condition `if error.kind() == ErrorKind::NotFound` is called a *match -->
 <!-- guard*: it’s an extra condition on a `match` arm that further refines the arm’s -->
 <!-- pattern. This condition must be true for that arm’s code to be run; otherwise, -->
 <!-- the pattern matching will move on to consider the next arm in the `match`. The -->
 <!-- `ref` in the pattern is needed so `error` is not moved into the guard condition -->
-<!-- but is merely referenced by it. The reason `ref` is used to take a reference in -->
-<!-- a pattern instead of `&` will be covered in detail in Chapter 18. In short, in -->
-<!-- the context of a pattern, `&` matches a reference and gives us its value, but -->
-<!-- `ref` matches a value and gives us a reference to it. -->
+<!-- but is merely referenced by it. The reason you use `ref` to create a reference -->
+<!-- in a pattern instead of `&` will be covered in detail in Chapter 18. In short, -->
+<!-- in the context of a pattern, `&` matches a reference and gives us its value, -->
+<!-- but `ref` matches a value and gives you a reference to it. -->
 
 `if error.kind() == ErrorKind::Notfound`という条件式は、*マッチガード*と呼ばれます:
 アームのパターンをさらに洗練する`match`アーム上のおまけの条件式です。この条件式は、
 そのアームのコードが実行されるには真でなければいけないのです; そうでなければ、
 パターンマッチングは継続し、`match`の次のアームを考慮します。パターンの`ref`は、
 `error`がガード条件式にムーブされないように必要ですが、ただガード式に参照されます。
-`ref`を使用して`&`の代わりにパターン内で参照を取っている理由は、第18章で詳しく解説されるでしょう。
+`ref`を使用して`&`の代わりにパターン内で参照を作っている理由は、第18章で詳しく解説されるでしょう。
 手短に言えば、パターンの文脈において、`&`は参照にマッチし、その値を返すが、
 `ref`は値にマッチし、それへの参照を返すということなのです。
 
@@ -301,7 +301,7 @@ fn main() {
 <!-- of the outer `match` stays the same so the program panics on any error besides -->
 <!-- the missing file error. -->
 
-マッチガードで精査したい条件は、`error.kind()`により返る値が、`ErrorKind`enumの`NotFound`バリアントであるかということです。
+マッチガードで精査したい条件は、`error.kind()`により返る値が、`ErrorKind`enumの`NotFound`列挙子であるかということです。
 もしそうなら、`File::create`でファイル作成を試みます。ところが、`File::create`も失敗する可能性があるので、
 内部にも`match`文を追加する必要があるのです。ファイルが開けないなら、異なるエラーメッセージが出力されるでしょう。
 外側の`match`の最後のアームは同じままなので、ファイルが行方不明のエラー以外ならプログラムはパニックします。
@@ -321,7 +321,7 @@ fn main() {
 `match`の使用は、十分に仕事をしてくれますが、いささか冗長になり得る上、必ずしも意図をよく伝えるとは限りません。
 `Result<T, E>`型には、色々な作業をするヘルパーメソッドが多く定義されています。それらの関数の一つは、
 `unwrap`と呼ばれますが、リスト9-4で書いた`match`文と同じように実装された短絡メソッドです。
-`Result`値が`Ok`バリアントなら、`unwrap`は`Ok`の中身を返します。`Result`が`Err`バリアントなら、
+`Result`値が`Ok`列挙子なら、`unwrap`は`Ok`の中身を返します。`Result`が`Err`列挙子なら、
 `unwrap`は`panic!`マクロを呼んでくれます。こちらが実際に動作している`unwrap`の例です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -404,7 +404,7 @@ thread 'main' panicked at 'Failed to open hello.txt: Error { repr: Os { code:
 <!-- When you’re writing a function whose implementation calls something that might -->
 <!-- fail, instead of handling the error within this function, you can return the -->
 <!-- error to the calling code so that it can decide what to do. This is known as -->
-<!-- *propagating* the error and gives more control to the calling code where there -->
+<!-- *propagating* the error and gives more control to the calling code, where there -->
 <!-- might be more information or logic that dictates how the error should be -->
 <!-- handled than what you have available in the context of your code. -->
 
@@ -524,9 +524,9 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 Rustにおいて、この種のエラー委譲は非常に一般的なので、Rustにはこれをしやすくする`?`演算子が用意されています。
 
-<!-- #### A Shortcut for Propagating Errors: `?` -->
+<!-- #### A Shortcut for Propagating Errors: the `?` operator -->
 
-#### エラー委譲のショートカット: `?`
+#### エラー委譲のショートカット: `?`演算子
 
 <!-- Listing 9-7 shows an implementation of `read_username_from_file` that has the -->
 <!-- same functionality as it had in Listing 9-6, but this implementation uses the -->
@@ -560,7 +560,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 <!-- The `?` placed after a `Result` value is defined to work in almost the same way -->
 <!-- as the `match` expressions we defined to handle the `Result` values in Listing -->
 <!-- 9-6. If the value of the `Result` is an `Ok`, the value inside the `Ok` will -->
-<!-- get returned from this expression and the program will continue. If the value -->
+<!-- get returned from this expression, and the program will continue. If the value -->
 <!-- is an `Err`, the value inside the `Err` will be returned from the whole -->
 <!-- function as if we had used the `return` keyword so the error value gets -->
 <!-- propagated to the calling code. -->
@@ -571,23 +571,22 @@ fn read_username_from_file() -> Result<String, io::Error> {
 エラー値は呼び出し元のコードに委譲されます。
 
 <!-- There is a difference between what the `match` expression from Listing 9-6 and -->
-<!-- the question mark operator do: error values used with `?` go through the `from` -->
-<!-- function, defined in the `From` trait in the standard library, which is used to -->
-<!-- convert errors from one type into another. When the question mark calls the -->
-<!-- `from` function, the error type received is converted into the error type -->
-<!-- defined in the return type of the current function. This is useful when a -->
-<!-- function returns one error type to represent all the ways a function might -->
-<!-- fail, even if parts might fail for many different reasons. As long as each -->
-<!-- error type implements the `from` function to define how to convert itself to -->
-<!-- the returned error type, the question mark operator takes care of the -->
+<!-- `?` do: error values used with `?` go through the `from` function, defined in -->
+<!-- the `From` trait in the standard library, which is used to convert errors from -->
+<!-- one type into another. When `?` calls the `from` function, the error type -->
+<!-- received is converted into the error type defined in the return type of the -->
+<!-- current function. This is useful when a function returns one error type to -->
+<!-- represent all the ways a function might fail, even if parts might fail for many -->
+<!-- different reasons. As long as each error type implements the `from` function to -->
+<!-- define how to convert itself to the returned error type, `?` takes care of the -->
 <!-- conversion automatically. -->
 
-リスト9-6の`match`式とはてなマーク演算子には違いがあります: `?`を使ったエラー値は、
+リスト9-6の`match`式と`?`には違いがあります: `?`を使ったエラー値は、
 標準ライブラリの`From`トレイトで定義され、エラーの型を別のものに変換する`from`関数を通ることです。
-はてなマークが`from`関数を呼び出すと、受け取ったエラー型が現在の関数の戻り値型で定義されているエラー型に変換されます。
-これは、個々がいろんな理由で失敗する可能性があるのにも関わらず、関数が失敗する可能性を全て一つのエラー型で表現して返す時に有用です。
+`?`が`from`関数を呼び出すと、受け取ったエラー型が現在の関数の戻り値型で定義されているエラー型に変換されます。これは、
+個々がいろんな理由で失敗する可能性があるのにも関わらず、関数が失敗する可能性を全て一つのエラー型で表現して返す時に有用です。
 各エラー型が`from`関数を実装して返り値のエラー型への変換を定義している限り、
-はてなマークが変換の面倒を自動的に見てくれます。
+`?`が変換の面倒を自動的に見てくれます。
 
 <!-- In the context of Listing 9-7, the `?` at the end of the `File::open` call will -->
 <!-- return the value inside an `Ok` to the variable `f`. If an error occurs, `?` -->
@@ -599,11 +598,11 @@ fn read_username_from_file() -> Result<String, io::Error> {
 エラーが発生したら、`?`により関数全体から早期リターンし、あらゆる`Err`値を呼び出し元に与えます。
 同じ法則が`read_to_string`呼び出し末尾の`?`にも適用されます。
 
-<!-- The `?` eliminates a lot of boilerplate and makes this function’s -->
+<!-- The `?` operator eliminates a lot of boilerplate and makes this function’s -->
 <!-- implementation simpler. We could even shorten this code further by chaining -->
-<!-- method calls immediately after the `?` as shown in Listing 9-8: -->
+<!-- method calls immediately after the `?`, as shown in Listing 9-8: -->
 
-`?`により定型コードの多くが排除され、この関数の実装を単純にしてくれます。
+`?`演算子により定型コードの多くが排除され、この関数の実装を単純にしてくれます。
 リスト9-8で示したように、`?`の直後のメソッド呼び出しを連結することでさらにこのコードを短くすることさえもできます:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -624,10 +623,9 @@ fn read_username_from_file() -> Result<String, io::Error> {
 }
 ```
 
-<!-- <span class="caption">Listing 9-8: Chaining method calls after the question -->
-<!-- mark operator</span> -->
+<!-- <span class="caption">Listing 9-8: Chaining method calls after `?`</span> -->
 
-<span class="caption">リスト9-8: はてなマークの後のメソッド呼び出しを連結する</span>
+<span class="caption">リスト9-8: `?`の後のメソッド呼び出しを連結する</span>
 
 <!-- We’ve moved the creation of the new `String` in `s` to the beginning of the -->
 <!-- function; that part hasn’t changed. Instead of creating a variable `f`, we’ve -->
@@ -644,17 +642,17 @@ fn read_username_from_file() -> Result<String, io::Error> {
 エラーを返すというよりもまだ`s`にユーザ名を含む`Ok`値を返します。機能もまたリスト9-6及び、9-7と同じです;
 ただ単に異なるバージョンのよりプログラマフレンドリーな書き方なのです。
 
-<!-- #### `?` Can Only Be Used in Functions That Return Result -->
+<!-- #### `?` Operator Can Only Be Used in Functions That Return `Result` -->
 
-#### `?`は、結果を返す関数でしか使用できない
+#### `?`演算子は、`Result`を返す関数でしか使用できない
 
-<!-- The `?` can only be used in functions that have a return type of `Result`, -->
-<!-- because it is defined to work in the same way as the `match` expression we -->
-<!-- defined in Listing 9-6. The part of the `match` that requires a return type of -->
-<!-- `Result` is `return Err(e)`, so the return type of the function must be a -->
-<!-- `Result` to be compatible with this `return`. -->
+<!-- The `?` operator can only be used in functions that have a return type of -->
+<!-- `Result`, because it is defined to work in the same way as the `match` -->
+<!-- expression we defined in Listing 9-6. The part of the `match` that requires a -->
+<!-- return type of `Result` is `return Err(e)`, so the return type of the function -->
+<!-- must be a `Result` to be compatible with this `return`. -->
 
-`?`は戻り値に`Result`を持つ関数でしか使用できません。というのも、リスト9-6で定義した`match`式と同様に動作するよう、
+`?`演算子は戻り値に`Result`を持つ関数でしか使用できません。というのも、リスト9-6で定義した`match`式と同様に動作するよう、
 定義されているからです。`Result`の戻り値型を要求する`match`の部品は、`return Err(e)`なので、
 関数の戻り値はこの`return`と互換性を保つために`Result`でなければならないのです。
 
@@ -694,13 +692,13 @@ error[E0277]: the trait bound `(): std::ops::Try` is not satisfied
   (注釈: `std::ops::Try::from_error`で要求されています)
 ```
 
-<!-- This error points out that we’re only allowed to use the question mark operator -->
-<!-- in a function that returns `Result`. In functions that don’t return `Result`, -->
-<!-- when you call other functions that return `Result`, you’ll need to use a -->
-<!-- `match` or one of the `Result` methods to handle it instead of using `?` to -->
-<!-- potentially propagate the error to the calling code. -->
+<!-- This error points out that we’re only allowed to use `?` in a function that -->
+<!-- returns `Result`. In functions that don’t return `Result`, when you call other -->
+<!-- functions that return `Result`, you’ll need to use a `match` or one of the -->
+<!-- `Result` methods to handle it instead of using `?` to potentially -->
+<!-- propagate the error to the calling code. -->
 
-このエラーは、はてなマーク演算子は`Result`を返す関数でしか使用が許可されないと指摘しています。
+このエラーは、`?`は`Result`を返す関数でしか使用が許可されないと指摘しています。
 `Result`を返さない関数では、`Result`を返す別の関数を呼び出した時、
 `?`を使用してエラーを呼び出し元に委譲する可能性を生み出す代わりに、`match`か`Result`のメソッドのどれかを使う必要があるでしょう。
 

@@ -3,13 +3,12 @@
 ## `if let`で簡潔なフロー制御
 
 <!-- The `if let` syntax lets you combine `if` and `let` into a less verbose way to -->
-<!-- handle values that match one pattern and ignore the rest. Consider the program -->
-<!-- in Listing 6-6 that matches on an `Option<u8>` value but only wants to execute -->
-<!-- code if the value is three: -->
+<!-- handle values that match one pattern while ignoring the rest. Consider the -->
+<!-- program in Listing 6-6 that matches on an `Option<u8>` value but only wants to -->
+<!-- execute code if the value is 3: -->
 
-`if let`記法で`if`と`let`をより冗長性の少ない方法で組み合わせ、一つのパターンにマッチし、
-残りを無視する値を扱うことができます。`Option<u8>`にマッチするけれど、値が3の時にだけコードを実行したい、
-リスト6-6のプログラムを考えてください:
+`if let`記法で`if`と`let`をより冗長性の少ない方法で組み合わせ、残りを無視しつつ、一つのパターンにマッチする値を扱うことができます。
+`Option<u8>`にマッチするけれど、値が3の時にだけコードを実行したい、リスト6-6のプログラムを考えてください:
 
 ```rust
 let some_u8_value = Some(0u8);
@@ -30,7 +29,7 @@ match some_u8_value {
 <!-- boilerplate code to add. -->
 
 `Some(3)`にマッチした時だけ何かをし、他の`Some<u8>`値や`None`値の時には何もしたくありません。
-`match`式を満たすためには、バリアントを一つだけ処理した後に`_ => ()`を追加しなければなりません。
+`match`式を満たすためには、列挙子を一つだけ処理した後に`_ => ()`を追加しなければなりません。
 これでは、追加すべき定型コードが多すぎます。
 
 <!-- Instead, we could write this in a shorter way using `if let`. The following -->
@@ -46,21 +45,21 @@ if let Some(3) = some_u8_value {
 }
 ```
 
-<!-- `if let` takes a pattern and an expression separated by an `=`. It works the -->
-<!-- same way as a `match`, where the expression is given to the `match` and the -->
-<!-- pattern is its first arm. -->
+<!-- The syntax `if let` takes a pattern and an expression separated by an `=`. It -->
+<!-- works the same way as a `match`, where the expression is given to the `match` -->
+<!-- and the pattern is its first arm. -->
 
-`if let`は`=`で区切られたパターンと式を取り、式が`match`に与えられ、パターンが最初のアームになった`match`と、
+`if let`という記法は`=`で区切られたパターンと式を取り、式が`match`に与えられ、パターンが最初のアームになった`match`と、
 同じ動作をします。
 
-<!-- Using `if let` means you have less to type, less indentation, and less -->
-<!-- boilerplate code. However, we’ve lost the exhaustive checking that `match` -->
+<!-- Using `if let` means you have less typing, less indentation, and less -->
+<!-- boilerplate code. However, you lose the exhaustive checking that `match` -->
 <!-- enforces. Choosing between `match` and `if let` depends on what you’re doing in -->
 <!-- your particular situation and if gaining conciseness is an appropriate -->
 <!-- trade-off for losing exhaustive checking. -->
 
 `if let`を使うと、タイプ数が減り、インデントも少なくなり、定型コードも減ります。しかしながら、
-`match`では強制された包括性チェックがなくなってしまいます。`match`か`if let`かの選択は、
+`match`では強制された包括性チェックを失ってしまいます。`match`か`if let`かの選択は、
 特定の場面でどんなことをしたいかと簡潔性を得ることが包括性チェックを失うのに適切な代償となるかによります。
 
 <!-- In other words, you can think of `if let` as syntax sugar for a `match` that -->
@@ -79,7 +78,7 @@ if let Some(3) = some_u8_value {
 
 `if let`では、`else`を含むこともできます。`else`に入るコードブロックは、
 `if let`と`else`に等価な`match`式の`_`の場合に入るコードブロックと同じになります。
-リスト6-4の`Coin`enum定義を思い出してください。ここでは、`Quarter`バリアントは、
+リスト6-4の`Coin`enum定義を思い出してください。ここでは、`Quarter`列挙子は、
 `UsState`の値も保持していましたね。クォーターコインの状態を告げつつ、
 見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式で実現することができるでしょう:
 
@@ -154,7 +153,7 @@ enumの値がデータを内部に含む場合、処理すべきケースの数�
 
 <!-- Your Rust programs can now express concepts in your domain using structs and -->
 <!-- enums. Creating custom types to use in your API ensures type safety: the -->
-<!-- compiler will make certain your functions only get values of the type each -->
+<!-- compiler will make certain your functions get only values of the type each -->
 <!-- function expects. -->
 
 もうRustプログラムで構造体とenumを使用して、自分の領域の概念を表現できます。API内で使用するために独自の型を生成することで、

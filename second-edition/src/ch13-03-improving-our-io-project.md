@@ -203,6 +203,7 @@ impl Config {
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 # use std::env;
 #
 # struct Config {

@@ -10,13 +10,13 @@
 単一の変数から始め、代わりに構造体を使うようにプログラムをリファクタリングします。
 
 <!-- Let’s make a new binary project with Cargo called *rectangles* that will take -->
-<!-- the width and height of a rectangle specified in pixels and will calculate the -->
-<!-- area of the rectangle. Listing 5-8 shows a short program with one way of doing -->
-<!-- just that in our project’s *src/main.rs*: -->
+<!-- the width and height of a rectangle specified in pixels and will calculate the area -->
+<!-- of the rectangle. Listing 5-8 shows a short program with one way of doing -->
+<!-- exactly that in our project’s *src/main.rs*: -->
 
 Cargoで*rectangles*という新規バイナリプロジェクトを作成しましょう。このプロジェクトは、
 四角形の幅と高さをピクセルで指定し、その面積を求めます。リスト5-8に、プロジェクトの*src/main.rs*で、
-そうする一例を短いプログラムとして示しました:
+正にそうする一例を短いプログラムとして示しました:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -40,9 +40,9 @@ fn area(width: u32, height: u32) -> u32 {
 ```
 
 <!-- <span class="caption">Listing 5-8: Calculating the area of a rectangle -->
-<!-- specified by its width and height in separate variables</span> -->
+<!-- specified by separate width and height variables</span> -->
 
-<span class="caption">リスト5-8: 個別の変数で幅と高さを指定して四角形の面積を求める</span>
+<span class="caption">リスト5-8: 個別の幅と高さ変数を指定して四角形の面積を求める</span>
 
 <!-- Now, run this program using `cargo run`: -->
 
@@ -77,14 +77,20 @@ fn area(width: u32, height: u32) -> u32 {
 <!-- function we wrote has two parameters. The parameters are related, but that’s -->
 <!-- not expressed anywhere in our program. It would be more readable and more -->
 <!-- manageable to group width and height together. We’ve already discussed one way -->
-<!-- we might do that in the "Grouping Values into Tuples" section of Chapter 3: by -->
-<!-- using tuples. Listing 5-9 shows another version of our program that uses tuples: -->
+<!-- we might do that in the "The Tuple Type" section of Chapter 3: by using tuples. -->
 
 `area`関数は、1四角形の面積を求めるものと考えられますが、今書いた関数には、引数が2つあります。
 引数は関連性があるのに、このプログラム内のどこにもそのことは表現されていません。
 幅と高さを一緒にグループ化する方が、より読みやすく、扱いやすくなるでしょう。
-それをする一つの方法については、第3章の「値をタプルにまとめ上げる」節ですでに議論しました:
-タプルを使うのです。リスト5-9に、タプルを使う別バージョンのプログラムを示します:
+それをする一つの方法については、第3章の「タプル型」節ですでに議論しました: タプルを使うのです。
+
+<!-- ### Refactoring with Tuples -->
+
+### タプルでリファクタリングする
+
+<!-- Listing 5-9 shows another version of our program that uses tuples: -->
+
+リスト5-9は、タプルを使う別バージョンのプログラムを示しています: 
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -111,7 +117,7 @@ fn area(dimensions: (u32, u32)) -> u32 {
 <span class="caption">リスト5-9: タプルで四角形の幅と高さを指定する</span>
 
 <!-- In one way, this program is better. Tuples let us add a bit of structure, and -->
-<!-- we’re now passing just one argument. But in another way this version is less -->
+<!-- we’re now passing just one argument. But in another way, this version is less -->
 <!-- clear: tuples don’t name their elements, so our calculation has become more -->
 <!-- confusing because we have to index into the parts of the tuple. -->
 
@@ -172,12 +178,12 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 <span class="caption">リスト5-10: `Rectangle`構造体を定義する</span>
 
-<!-- Here we’ve defined a struct and named it `Rectangle`. Inside the `{}` we -->
-<!-- defined the fields as `width` and `height`, both of which have type `u32`. Then -->
-<!-- in `main` we create a particular instance of a `Rectangle` that has a width of -->
-<!-- 30 and a height of 30. -->
+<!-- Here we’ve defined a struct and named it `Rectangle`. Inside the curly -->
+<!-- brackets, we defined the fields as `width` and `height`, both of which have -->
+<!-- type `u32`. Then in `main`, we create a particular instance of a `Rectangle` -->
+<!-- that has a width of 30 and a height of 50. -->
 
-ここでは、構造体を定義し、`Rectangle`という名前にしています。`{}`の中で`width`と`height`というフィールドを定義し、
+ここでは、構造体を定義し、`Rectangle`という名前にしています。波括弧の中で`width`と`height`というフィールドを定義し、
 `u32`という型にしました。それから`main`内で`Rectangle`の特定のインスタンスを生成し、
 幅を30、高さを50にしました。
 
@@ -194,8 +200,8 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 <!-- The `area` function accesses the `width` and `height` fields of the `Rectangle` -->
 <!-- instance. Our function signature for `area` now indicates exactly what we mean: -->
-<!-- calculate the area of a `Rectangle`, using its `width` and `height` fields. -->
-<!-- This conveys that the width and height are related to each other, and gives -->
+<!-- calculate the area of a `Rectangle`, using its `width` and `height` fields. This -->
+<!-- conveys that the width and height are related to each other, and it gives -->
 <!-- descriptive names to the values rather than using the tuple index values of `0` -->
 <!-- and `1`. This is a win for clarity. -->
 
@@ -208,12 +214,13 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 ### トレイトの継承で有用な機能を追加する
 
-<!-- It’d be nice to be able to print out an instance of our `Rectangle` while we’re -->
+<!-- It’d be nice to be able to print an instance of `Rectangle` while we’re -->
 <!-- debugging our program and see the values for all its fields. Listing 5-11 tries -->
-<!-- the `println!` macro as we have used it in Chapters 2, 3, and 4: -->
+<!-- using the `println!` macro as we have used it in previous chapters. This won't -->
+<!-- work, however: -->
 
 プログラムのデバッグをし、フィールドの値を調べている間に`Rectangle`のインスタンスを出力できると、
-素晴らしいわけです。リスト5-11では、第2、3、4章のように、`println!`マクロを使用しています:
+素晴らしいわけです。リスト5-11では、以前の章のように、`println!`マクロを試しに使用しようとしていますが、動きません:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -247,17 +254,18 @@ error[E0277]: the trait bound `Rectangle: std::fmt::Display` is not satisfied
 (エラー: トレイト境界`Rectangle: std::fmt::Display`が満たされていません)
 ```
 
-<!-- The `println!` macro can do many kinds of formatting, and by default, `{}` -->
-<!-- tells `println!` to use formatting known as `Display`: output intended for -->
-<!-- direct end user consumption. The primitive types we’ve seen so far implement -->
-<!-- `Display` by default, because there’s only one way you’d want to show a `1` or -->
-<!-- any other primitive type to a user. But with structs, the way `println!` should -->
-<!-- format the output is less clear because there are more display possibilities: -->
-<!-- do you want commas or not? Do you want to print the curly brackets? Should all -->
-<!-- the fields be shown? Due to this ambiguity, Rust doesn’t try to guess what we -->
-<!-- want and structs don’t have a provided implementation of `Display`. -->
+<!-- The `println!` macro can do many kinds of formatting, and by default, curly -->
+<!-- brackets tell `println!` to use formatting known as `Display`: output intended -->
+<!-- for direct end user consumption. The primitive types we’ve seen so far -->
+<!-- implement `Display` by default, because there’s only one way you’d want to show -->
+<!-- a `1` or any other primitive type to a user. But with structs, the way -->
+<!-- `println!` should format the output is less clear because there are more -->
+<!-- display possibilities: do you want commas or not? Do you want to print the -->
+<!-- curly brackets? Should all the fields be shown? Due to this ambiguity, Rust -->
+<!-- doesn't try to guess what we want, and structs don’t have a provided -->
+<!-- implementation of `Display`. -->
 
-`println!`マクロには、様々な整形があり、標準では、`{}`は`Display`として知られる整形をするよう、
+`println!`マクロには、様々な整形があり、標準では、波括弧は`Display`として知られる整形をするよう、
 `println!`に指示するのです: 直接エンドユーザ向けの出力です。これまでに見てきた基本型は、
 標準で`Display`を実装しています。というのも、`1`や他の基本型をユーザに見せる方法は一つしかないからです。
 しかし構造体では、`println!`が出力を整形する方法は自明ではなくなります。出力方法がいくつもあるからです:
@@ -276,13 +284,13 @@ Rustは必要なものを推測しようとせず、構造体には`Display`実�
 ```
 
 <!-- Let’s try it! The `println!` macro call will now look like `println!("rect1 is -->
-<!-- {:?}", rect1);`. Putting the specifier `:?` inside the `{}` tells `println!` we -->
-<!-- want to use an output format called `Debug`. `Debug` is a trait that enables us -->
-<!-- to print out our struct in a way that is useful for developers so we can see -->
-<!-- its value while we’re debugging our code. -->
+<!-- {:?}", rect1);`. Putting the specifier `:?` inside the curly brackets tells -->
+<!-- `println!` we want to use an output format called `Debug`. `Debug` is a trait -->
+<!-- that enables us to print our struct in a way that is useful for developers so -->
+<!-- we can see its value while we’re debugging our code. -->
 
 試してみましょう！`pritnln!`マクロ呼び出しは、`println!("rect1 is {:?}", rect1);`という見た目になるでしょう。
-`{}`内に`:?`という指定子を書くと、`println!`に`Debug`と呼ばれる出力整形を使いたいと指示するのです。
+波括弧内に`:?`という指定子を書くと、`println!`に`Debug`と呼ばれる出力整形を使いたいと指示するのです。
 `Debug`とは、開発者にとって有用な方法で構造体を出力させてくれるトレイトなので、
 コードをデバッグしている最中に、値を確認することができます。
 
@@ -307,12 +315,12 @@ crate, add `#[derive(Debug)]` or manually implement it
 ```
 
 <!-- Rust *does* include functionality to print out debugging information, but we -->
-<!-- have to explicitly opt-in to make that functionality available for our struct. -->
+<!-- have to explicitly opt in to make that functionality available for our struct. -->
 <!-- To do that, we add the annotation `#[derive(Debug)]` just before the struct -->
 <!-- definition, as shown in Listing 5-12: -->
 
 *確かに*Rustにはデバッグ用の情報を出力する機能が備わっていますが、この機能を構造体で使えるようにするには、
-明示的な選択が必要なのです。そうするには、構造体定義の直前に`#[derive(Debug)]`という注釈を追加します。
+明示的な選択をしなければならないのです。そうするには、構造体定義の直前に`#[derive(Debug)]`という注釈を追加します。
 そう、リスト5-12で示されている通りです:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -339,7 +347,7 @@ fn main() {
 <span class="caption">リスト5-12: `Debug`トレイトを継承する注釈を追加し、
     `Rectangle`インスタンスをデバッグ用整形機で出力する</span>
 
-<!-- Now when we run the program, we won’t get any errors and we’ll see the -->
+<!-- Now when we run the program, we won’t get any errors, and we’ll see the -->
 <!-- following output: -->
 
 これでプログラムを実行すれば、エラーは出ず、以下のような出力が得られるでしょう:
@@ -366,14 +374,16 @@ rect1 is Rectangle {
 }
 ```
 
+<<<<<<< HEAD
 <!-- Rust has provided a number of traits for us to use with the `derive` annotation -->
 <!-- that can add useful behavior to our custom types. Those traits and their -->
-<!-- behaviors are listed in Appendix C. We’ll cover how to implement these traits -->
-<!-- with custom behavior as well as how to create your own traits in Chapter 10. -->
+<!-- behaviors are listed in Appendix C, “Derivable Traits.” We’ll cover how to -->
+<!-- implement these traints with custom behavior as well as how to create your own -->
+<!-- traits in Chapter 10 -->
 
 Rustには、`derive`注釈で使えるトレイトが多く提供されており、独自の型に有用な振る舞いを追加することができます。
-そのようなトレイトとその振る舞いは、おまけCで一覧になっています。これらのトレイトを独自の動作とともに実装する方法だけでなく、
-独自のトレイトを生成する方法については、第10章で解説します。
+そのようなトレイトとその振る舞いは、おまけC、「継承可能トレイト」で一覧になっています。
+これらのトレイトを独自の動作とともに実装する方法だけでなく、独自のトレイトを生成する方法については、第10章で解説します。
 
 <!-- Our `area` function is very specific: it only computes the area of rectangles. -->
 <!-- It would be helpful to tie this behavior more closely to our `Rectangle` -->
@@ -385,3 +395,16 @@ Rustには、`derive`注釈で使えるトレイトが多く提供されてお�
 役に立つでしょう。なぜなら、他のどんな型でもうまく動作しなくなるからです。
 `area`関数を`Rectangle`型に定義された`area`*メソッド*に変形することで、
 このコードをリファクタリングし続けられる方法について見ていきましょう。
+=======
+Rust has provided a number of traits for us to use with the `derive` annotation
+that can add useful behavior to our custom types. Those traits and their
+behaviors are listed in Appendix C, “Derivable Traits.” We’ll cover how to
+implement these traits with custom behavior as well as how to create your own
+traits in Chapter 10.
+
+Our `area` function is very specific: it only computes the area of rectangles.
+It would be helpful to tie this behavior more closely to our `Rectangle`
+struct, because it won’t work with any other type. Let’s look at how we can
+continue to refactor this code by turning the `area` function into an `area`
+*method* defined on our `Rectangle` type.
+>>>>>>> fork_master_master

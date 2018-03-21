@@ -22,30 +22,30 @@
 `panic!`を呼び出し、回復可能だったエラーを回復不能に変換することもできます。故に、`Result`を返却することは、
 失敗する可能性のある関数を定義する際には、いい第1選択肢になります。
 
-<!-- In a few situations it’s more appropriate to write code that panics instead of -->
-<!-- returning a `Result`, but they are less common. Let’s explore why it’s -->
-<!-- appropriate to panic in examples, prototype code, and tests; then in situations -->
-<!-- where you as a human can know a method won’t fail that the compiler can’t -->
-<!-- reason about; and conclude with some general guidelines on how to decide -->
-<!-- whether to panic in library code. -->
+<!-- In rare situations, it’s more appropriate to write code that panics instead of -->
+<!-- returning a `Result` Let’s explore why it’s appropriate to panic in examples, -->
+<!-- prototype code, and tests. Then we'll discuss situations in which the compiler -->
+<!-- can’t tell that failure is impossible, but you as a human can. The chpater will -->
+<!-- conclude with some general guidelines on how to decide whether to panic in -->
+<!-- library code. -->
 
-いくつかの事例では、`Result`を返すよりもパニックするコードを書く方が適切になることもありますが、
-あまり一般的ではありません。例やプロトタイプコード、テストでパニックするのが適切な理由を探求しましょう;
-それから人間として、コンパイラは推定不能だけど、メソッドが失敗すると把握できる場面に移りましょう;
+稀な場面では、`Result`を返すよりもパニックするコードを書く方がより適切になることもあります。
+例やプロトタイプコード、テストでパニックするのが適切な理由を探求しましょう。
+それからコンパイラは失敗することはないとわからないけれど、人間はできる場面を議論しましょう。
 そして、ライブラリコードでパニックするか決定する方法についての一般的なガイドラインで結論づけましょう。
 
-<!-- ### Examples, Prototype Code, and Tests Are All Places it’s Perfectly Fine to Panic -->
+<!-- ### Examples, Prototype Code, and Tests -->
 
-### 例、プロトタイプコード、テストは全てパニックするのが完全に合理的な箇所である
+### 例、プロトタイプコード、テスト
 
-<!-- When you’re writing an example to illustrate some concept, having robust error -->
-<!-- handling code in the example as well can make the example less clear. In -->
+<!-- When you’re writing an example to illustrate some concept, having robust -->
+<!-- error-handling code in the example as well can make the example less clear. In -->
 <!-- examples, it’s understood that a call to a method like `unwrap` that could -->
-<!-- `panic!` is meant as a placeholder for the way that you’d want your application -->
-<!-- to handle errors, which can differ based on what the rest of your code is doing. -->
+<!-- panic is meant as a placeholder for the way that you’d want your application to -->
+<!-- handle errors, which can differ based on what the rest of your code is doing. -->
 
 例を記述して何らかの概念を具体化している時、頑健なエラー処理コードも例に含むことは、例の明瞭さを欠くことになりかねません。
-例において、`unwrap`などの`panic!`する可能性のあるメソッド呼び出しは、
+例において、`unwrap`などのパニックする可能性のあるメソッド呼び出しは、
 アプリケーションにエラーを処理してほしい方法へのプレースホルダーを意味していると理解され、
 これは残りのコードがしていることによって異なる可能性があります。
 
@@ -65,7 +65,7 @@
 テスト全体が失敗してほしいでしょう。`panic!`が、テストが失敗と印づけられる手段なので、
 `unwrap`や`expect`の呼び出しはスバリ起こるべきことです。
 
-<!-- ### Cases When You Have More Information Than the Compiler -->
+<!-- ### Cases in Which You Have More Information Than the Compiler -->
 
 ### コンパイラよりもプログラマがより情報を持っている場合
 
@@ -81,7 +81,7 @@
 `Result`が`Ok`値であると確認する何らかの別のロジックがある場合、`unwrap`を呼び出すことは適切でしょうが、
 コンパイラは、そのロジックを理解はしません。それでも、処理する必要のある`Result`は存在するでしょう:
 呼び出している処理が何であれ、自分の特定の場面では論理的に起こり得なくても、一般的にまだ失敗する可能性はあるわけです。
-手動でコードを調査して`Err`バリアントは存在しないと確認できたら、`unwrap`を呼び出すことは完全に受容できることです。
+手動でコードを調査して`Err`列挙子は存在しないと確認できたら、`unwrap`を呼び出すことは完全に受容できることです。
 こちらが例です:
 
 ```rust
@@ -94,18 +94,17 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 <!-- that `127.0.0.1` is a valid IP address, so it’s acceptable to use `unwrap` -->
 <!-- here. However, having a hardcoded, valid string doesn’t change the return type -->
 <!-- of the `parse` method: we still get a `Result` value, and the compiler will -->
-<!-- still make us handle the `Result` as if the `Err` variant is still a -->
-<!-- possibility because the compiler isn’t smart enough to see that this string is -->
-<!-- always a valid IP address. If the IP address string came from a user rather -->
-<!-- than being hardcoded into the program, and therefore *did* have a possibility -->
-<!-- of failure, we’d definitely want to handle the `Result` in a more robust way -->
-<!-- instead. -->
+<!-- still make us handle the `Result` as if the `Err` variant is still a possibility -->
+<!-- because the compiler isn’t smart enough to see that this string is always a -->
+<!-- valid IP address. If the IP address string came from a user rather than being -->
+<!-- hardcoded into the program, and therefore *did* have a possibility of failure, -->
+<!-- we’d definitely want to handle the `Result` in a more robust way instead. -->
 
 ハードコードされた文字列を構文解析することで`IpAddr`インスタンスを生成しています。
 プログラマには`127.0.0.1`が有効なIPアドレスであることがわかるので、ここで`unwrap`を使用することは、
-受容可能です。しかしながら、ハードコードされた有効な文字列が存在することは、
+受容可能なことです。しかしながら、ハードコードされた有効な文字列が存在することは、
 `parse`メソッドの戻り値型を変えることにはなりません: それでも得られるのは、`Result`値であり、
-コンパイラはまだ`Err`バリアントになる可能性があるかのように`Result`を処理することを強制してきます。
+コンパイラはまだ`Err`列挙子になる可能性があるかのように`Result`を処理することを強制してきます。
 コンパイラは、この文字列が常に有効なIPアドレスであると把握できるほど利口ではないからです。
 プログラムにハードコードされるのではなく、IPアドレス文字列がユーザ起源でそれ故に*確かに*失敗する可能性がある場合、
 絶対に`Result`をもっと頑健な方法で代わりに処理する必要があるでしょう。
@@ -114,14 +113,14 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 
 ### エラー処理のガイドライン
 
-<!-- It’s advisable to have your code `panic!` when it’s possible that your code -->
-<!-- could end up in a bad state. In this context, bad state is when some -->
+<!-- It’s advisable to have your code panic when it’s possible that your code -->
+<!-- could end up in a bad state. In this context, a *bad state* is when some -->
 <!-- assumption, guarantee, contract, or invariant has been broken, such as when -->
 <!-- invalid values, contradictory values, or missing values are passed to your -->
 <!-- code—plus one or more of the following: -->
 
-コードが悪い状態に陥る可能性があるときに`panic!`させるのは、アドバイスされることです。この文脈において、
-悪い状態とは、何らかの前提、保証、契約、不変性が破られたことを言い、例を挙げれば、無効な値、
+コードが悪い状態に陥る可能性があるときにパニックさせるのは、アドバイスされることです。この文脈において、
+*悪い状態*とは、何らかの前提、保証、契約、不変性が破られたことを言い、例を挙げれば、無効な値、
 矛盾する値、行方不明な値がコードに渡されることと、さらに以下のいずれか一つ以上の状態であります:
 
 <!-- * The bad state is not something that’s *expected* to happen occasionally. -->
@@ -133,9 +132,9 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 * 使用している型にこの情報をコード化するいい手段がないとき
 
 <!-- If someone calls your code and passes in values that don’t make sense, the best -->
-<!-- choice might be to `panic!` and alert the person using your library to the bug -->
-<!-- in their code so they can fix it during development. Similarly, `panic!` is -->
-<!-- often appropriate if you’re calling external code that is out of your control, -->
+<!-- choice might be to `panic!` and alert the person using your library to the -->
+<!-- bug in their code so they can fix it during development. Similarly, `panic!` is -->
+<!-- often appropriate if you’re calling external code that is out of your control -->
 <!-- and it returns an invalid state that you have no way of fixing. -->
 
 誰かが自分のコードを呼び出して筋の通らない値を渡してきたら、最善の選択肢は`panic!`し、
@@ -144,43 +143,43 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 
 <!-- When a bad state is reached, but it’s expected to happen no matter how well you -->
 <!-- write your code, it’s still more appropriate to return a `Result` rather than -->
-<!-- making a `panic!` call. Examples of this include a parser being given malformed -->
-<!-- data or an HTTP request returning a status that indicates you have hit a rate -->
-<!-- limit. In these cases, you should indicate that failure is an expected -->
-<!-- possibility by returning a `Result` to propagate these bad states upwards so -->
-<!-- the calling code can decide how to handle the problem. To `panic!` wouldn’t be -->
-<!-- the best way to handle these cases. -->
+<!-- making a `panic!` call. Examples include a parser being given malformed data -->
+<!-- or an HTTP request returning a status that indicates you have hit a rate limit. -->
+<!-- In these cases, you should indicate that failure is an expected possibility by -->
+<!-- returning a `Result` to propagate these bad states upwards so the calling code -->
+<!-- can decide how to handle the problem. To call `panic!` wouldn’t be the best way -->
+<!-- to handle these cases. -->
 
 悪い状態に達すると、どんなにコードをうまく書いても起こると予想されるが、`panic!`呼び出しをするよりもまだ、
-`Result`を返すほうがより適切です。これの例には、不正なデータを渡されたパーサーとか、
+`Result`を返すほうがより適切です。例には、不正なデータを渡されたパーサーとか、
 訪問制限に引っかかったことを示唆するステータスを返すHTTPリクエストなどが挙げられます。
 このような場合には、呼び出し側が問題の処理方法を決定できるように`Result`を返してこの悪い状態を委譲して、
-失敗が予想される可能性であることを示唆するべきです。`panic!`は、
+失敗が予想される可能性であることを示唆するべきです。`panic!`呼び出すことは、
 これらのケースでは最善策ではないでしょう。
 
 <!-- When your code performs operations on values, your code should verify the -->
-<!-- values are valid first, and `panic!` if the values aren’t valid. This is mostly -->
-<!-- for safety reasons: attempting to operate on invalid data can expose your code -->
-<!-- to vulnerabilities. This is the main reason the standard library will `panic!` -->
-<!-- if you attempt an out-of-bounds memory access: trying to access memory that -->
-<!-- doesn’t belong to the current data structure is a common security problem. -->
+<!-- values are valid first and panic if the values aren’t valid. This is mostly for -->
+<!-- safety reasons: attempting to operate on invalid data can expose your code to -->
+<!-- vulnerabilities. This is the main reason the standard library will call -->
+<!-- `panic!` if you attempt an out-of-bounds memory access: trying to access memory -->
+<!-- that doesn’t belong to the current data structure is a common security problem. -->
 <!-- Functions often have *contracts*: their behavior is only guaranteed if the -->
 <!-- inputs meet particular requirements. Panicking when the contract is violated -->
 <!-- makes sense because a contract violation always indicates a caller-side bug, -->
 <!-- and it’s not a kind of error you want the calling code to have to explicitly -->
-<!-- handle. In fact, there’s no reasonable way for calling code to recover: the -->
+<!-- handle. In fact, there’s no reasonable way for calling code to recover; the -->
 <!-- calling *programmers* need to fix the code. Contracts for a function, -->
 <!-- especially when a violation will cause a panic, should be explained in the API -->
 <!-- documentation for the function. -->
 
 コードが値に対して処理を行う場合、コードはまず値が有効であることを確認し、
-値が有効でなければ`panic!`するべきです。これはほぼ安全性上の理由によるものです: 不正なデータの処理を試みると、
-コードを脆弱性に晒す可能性があります。これが、境界外へのメモリアクセスを試みたときに標準ライブラリが`panic!`する主な理由です:
+値が有効でなければパニックするべきです。これはほぼ安全性上の理由によるものです: 不正なデータの処理を試みると、
+コードを脆弱性に晒す可能性があります。これが、境界外へのメモリアクセスを試みたときに標準ライブラリが`panic!`を呼び出す主な理由です:
 現在のデータ構造に属しないメモリにアクセスを試みることは、ありふれたセキュリティ問題なのです。
 関数にはしばしば*契約*が伴います: 入力が特定の条件を満たすときのみ、振る舞いが保証されるのです。
 契約が侵されたときにパニックすることは、道理が通っています。なぜなら、契約侵害は常に呼び出し側のバグを示唆し、
 呼び出し側に明示的に処理してもらう必要のある種類のエラーではないからです。実際に、
-呼び出し側が回復する合理的な手段はありません: 呼び出し側の*プログラマ*がコードを修正する必要があるのです。
+呼び出し側が回復する合理的な手段はありません; 呼び出し側の*プログラマ*がコードを修正する必要があるのです。
 関数の契約は、特に侵害がパニックを引き起こす際には、関数のAPIドキュメント内で説明されているべきです。
 
 <!-- However, having lots of error checks in all of your functions would be verbose -->
@@ -193,15 +192,15 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 <!-- two cases for the `Some` and `None` variants: it will only have one case for -->
 <!-- definitely having a value. Code trying to pass nothing to your function won’t -->
 <!-- even compile, so your function doesn’t have to check for that case at runtime. -->
-<!-- Another example is using an unsigned integer type like `u32`, which ensures the -->
-<!-- parameter is never negative. -->
+<!-- Another example is using an unsigned integer type like `u32`, which ensures -->
+<!-- the parameter is never negative. -->
 
 ですが、全ての関数でたくさんのエラーチェックを行うことは冗長で煩わしいことでしょう。幸運にも、
 Rustの型システム(故にコンパイラが行う型精査)を使用して多くの精査を行ってもらうことができます。
 関数の引数に特定の型があるなら、有効な値があるとコンパイラがすでに確認していることを把握して、
 コードのロジックに進むことができます。例えば、`Option`以外の型がある場合、プログラムは、
 *何もない*ではなく*何かある*と想定します。そうしたらコードは、
-`Some`と`None`バリアントの2つの場合を処理する必要がなくなるわけです:
+`Some`と`None`列挙子の2つの場合を処理する必要がなくなるわけです:
 確実に値があるという可能性しかありません。関数に何もないことを渡そうとしてくるコードは、
 コンパイルが通りもしませんので、その場合を実行時に精査する必要はないわけです。
 別の例は、`u32`のような符号なし整数を使うことであり、この場合、引数は負には絶対にならないことが確認されます。
@@ -212,14 +211,14 @@ Rustの型システム(故にコンパイラが行う型精査)を使用して�
 
 <!-- Let’s take the idea of using Rust’s type system to ensure we have a valid value -->
 <!-- one step further and look at creating a custom type for validation. Recall the -->
-<!-- guessing game in Chapter 2 where our code asked the user to guess a number -->
+<!-- guessing game in Chapter 2 in which our code asked the user to guess a number -->
 <!-- between 1 and 100. We never validated that the user’s guess was between those -->
 <!-- numbers before checking it against our secret number; we only validated that -->
 <!-- the guess was positive. In this case, the consequences were not very dire: our -->
-<!-- output of “Too high” or “Too low” would still be correct. It would be a useful -->
-<!-- enhancement to guide the user toward valid guesses and have different behavior -->
-<!-- when a user guesses a number that’s out of range versus when a user types, for -->
-<!-- example, letters instead. -->
+<!-- output of “Too high” or “Too low” would still be correct. It would be a -->
+<!-- useful enhancement to guide the user toward valid guesses and have different -->
+<!-- behavior when a user guesses a number that’s out of range versus when a user -->
+<!-- types, for example, letters instead. -->
 
 Rustの型システムを使用して有効な値があると確認するというアイディアを一歩先に進め、
 有効化のために独自の型を作ることに目を向けましょう。第2章の数当てゲームで、
@@ -267,8 +266,8 @@ loop {
 
 <!-- However, this is not an ideal solution: if it was absolutely critical that the -->
 <!-- program only operated on values between 1 and 100, and it had many functions -->
-<!-- with this requirement, it would be tedious (and potentially impact performance) -->
-<!-- to have a check like this in every function. -->
+<!-- with this requirement, having a check like this in every function would be -->
+<!-- tedious (and might impact performance). -->
 
 ところが、これは理想的な解決策ではありません: プログラムが1から100の範囲の値しか処理しないことが間違いなく、
 肝要であり、この要求がある関数の数が多ければ、このようなチェックを全関数で行うことは、
@@ -344,22 +343,22 @@ impl Guess {
 `value`フィールドが`value`引数にセットされた新しい`Guess`を作成して返します。
 
 <!-- Next, we implement a method named `value` that borrows `self`, doesn’t have any -->
-<!-- other parameters, and returns a `u32`. This is a kind of method sometimes -->
-<!-- called a *getter*, because its purpose is to get some data from its fields and -->
-<!-- return it. This public method is necessary because the `value` field of the -->
-<!-- `Guess` struct is private. It’s important that the `value` field is private so -->
-<!-- code using the `Guess` struct is not allowed to set `value` directly: code -->
-<!-- outside the module *must* use the `Guess::new` function to create an instance -->
-<!-- of `Guess`, which ensures there’s no way for a `Guess` to have a `value` that -->
+<!-- other parameters, and returns a `u32`. This kind of method is sometimes called -->
+<!-- a *getter*, because its purpose is to get some data from its fields and return -->
+<!-- it. This public method is necessary because the `value` field of the `Guess` -->
+<!-- struct is private. It’s important that the `value` field is private so code -->
+<!-- using the `Guess` struct is not allowed to set `value` directly: code outside -->
+<!-- the module *must* use the `Guess::new` function to create an instance of -->
+<!-- `Guess`, thereby ensuring there’s no way for a `Guess` to have a `value` that -->
 <!-- hasn’t been checked by the conditions in the `Guess::new` function. -->
 
 次に、`self`を借用し、他に引数はなく、`u32`を返す`value`というメソッドを実装します。
-これはときに*ゲッター*と呼ばれる種のメソッドです。目的がフィールドから何らかのデータを得て返すことだからです。
+この類のメソッドは時に*ゲッター*と呼ばれます。目的がフィールドから何らかのデータを得て返すことだからです。
 この公開メソッドは、`Guess`構造体の`value`フィールドが非公開なので、必要になります。
 `value`フィールドが非公開なことは重要であり、そのために`Guess`構造体を使用するコードは、
 直接`value`をセットすることが叶わないのです: モジュール外のコードは、
 `Guess::new`関数を使用して`Guess`のインスタンスを生成し*なければならず*、
-これにより`Guess::new`関数の条件式でチェックされていない`value`が`Guess`に存在する手段はなくなるわけです。
+それにより、`Guess::new`関数の条件式でチェックされていない`value`が`Guess`に存在する手段はないことが保証されるわけです。
 
 <!-- A function that has a parameter or returns only numbers between 1 and 100 could -->
 <!-- then declare in its signature that it takes or returns a `Guess` rather than a -->
@@ -388,11 +387,10 @@ Rustのエラー処理機能は、プログラマがより頑健なコードを�
 呼び出し側のコードに成功や失敗する可能性を処理する必要があることも教えます。
 適切な場面で`panic!`や`Result`を使用することで、必然的な問題の眼前でコードの信頼性を上げてくれます。
 
-
 <!-- Now that you’ve seen useful ways that the standard library uses generics with -->
 <!-- the `Option` and `Result` enums, we’ll talk about how generics work and how you -->
-<!-- can use them in your code in the next chapter. -->
+<!-- can use them in your code. -->
 
 今や、標準ライブラリが`Option`や`Result`enumなどでジェネリクスを有効活用するところを目の当たりにしたので、
-次章では、ジェネリクスの動作法と自分のコードでの使用方法について語りましょう。
+ジェネリクスの動作法と自分のコードでの使用方法について語りましょう。
 

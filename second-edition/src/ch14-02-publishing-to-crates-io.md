@@ -472,7 +472,7 @@ pub mod utils {
 
 <img alt="トップページに再エクスポートのある`art`クレートの描画されたドキュメンテーション" src="img/trpl14-04.png" class="center" />
 
-<!-- <span class="caption">Figure 14-4: Front page of the documentation for `art` -->
+<!-- <span class="caption">Figure 14-4: The front page of the documentation for `art` -->
 <!-- that lists the re-exports</span> -->
 
 <span class="caption">図14-4: 再エクスポートを列挙する`art`のドキュメンテーションのトップページ</span>
@@ -512,8 +512,8 @@ fn main() {
 クレートの使用者の経験に大きな違いを生みます。
 
 <!-- Creating a useful public API structure is more of an art than a science, and -->
-<!-- you can iterate to find the API that works best for your users. Choosing `pub` -->
-<!-- `use` gives you flexibility in how you structure your crate internally and -->
+<!-- you can iterate to find the API that works best for your users. Choosing `pub -->
+<!-- use` gives you flexibility in how you structure your crate internally and -->
 <!-- decouples that internal structure with what you present to your users. Look at -->
 <!-- some of the code of crates you’ve installed to see if their internal structure -->
 <!-- differs from their public API. -->
@@ -534,7 +534,7 @@ fn main() {
 <!-- site might support other ways of creating an account in the future. Once you’re -->
 <!-- logged in, visit your account settings at -->
 <!-- [https://crates.io/me/](https://crates.io/me/) and retrieve your -->
-<!-- API key. Then run the `cargo` `login` command with your API key, like this: -->
+<!-- API key. Then run the `cargo login` command with your API key, like this: -->
 
 クレートを公開する前に、[crates.io](https://crates.io)のアカウントを作成し、
 APIトークンを取得する必要があります。そうするには、[crates.io](https://crates.io)のホームページを訪れ、

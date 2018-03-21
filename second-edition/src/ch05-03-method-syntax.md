@@ -53,21 +53,22 @@ fn main() {
 }
 ```
 
+<<<<<<< HEAD
 <!-- <span class="caption">Listing 5-13: Defining an `area` method on the -->
 <!-- `Rectangle` struct</span> -->
 
 <span class="caption">リスト5-13: `Rectangle`構造体上に`area`メソッドを定義する</span>
 
 <!-- To define the function within the context of `Rectangle`, we start an `impl` -->
-<!-- (*implementation*) block. Then we move the `area` function within the `impl` -->
+<!-- (implementation) block. Then we move the `area` function within the `impl` -->
 <!-- curly brackets and change the first (and in this case, only) parameter to be -->
-<!-- `self` in the signature and everywhere within the body. In `main` where we -->
+<!-- `self` in the signature and everywhere within the body. In `main`, where we -->
 <!-- called the `area` function and passed `rect1` as an argument, we can instead -->
 <!-- use *method syntax* to call the `area` method on our `Rectangle` instance. -->
 <!-- The method syntax goes after an instance: we add a dot followed by the method -->
 <!-- name, parentheses, and any arguments. -->
 
-`Rectangle`の文脈内で関数を定義するには、`impl`(implementation; *実装*)ブロックを始めます。
+`Rectangle`の文脈内で関数を定義するには、`impl`(implementation; 実装)ブロックを始めます。
 それから`area`関数を`impl`の波かっこ内に移動させ、最初の(今回は唯一の)引数をシグニチャ内と本体内全てで`self`に変えます。
 `area`関数を呼び出し、`rect1`を引数として渡す`main`では、代替としてメソッド記法を使用して、
 `Rectangle`インスタンスの`area`メソッドを呼び出せます。メソッド記法は、インスタンスの後に続きます:
@@ -78,7 +79,7 @@ fn main() {
 <!-- inside the `impl Rectangle` context. Note that we still need to use the `&` -->
 <!-- before `self`, just like we did in `&Rectangle`. Methods can take ownership of -->
 <!-- `self`, borrow `self` immutably as we’ve done here, or borrow `self` mutably, -->
-<!-- just like any other parameter. -->
+<!-- just as they can any other parameter. -->
 
 `area`のシグニチャでは、`rectangle: &Rectangle`の代わりに`&self`を使用しています。
 というのも、コンパイラは、このメソッドが`impl Rectangle`という文脈内に存在するために、
@@ -117,10 +118,10 @@ fn main() {
 
 <!--  ### Where’s the `->` Operator? -->
 <!--  -->
-<!--  In languages like C++, two different operators are used for calling methods: -->
-<!--  you use `.` if you’re calling a method on the object directly and `->` if -->
-<!--  you’re calling the method on a pointer to the object and need to dereference -->
-<!--  the pointer first. In other words, if `object` is a pointer, -->
+<!--  In C and C++, two different operators are used for calling methods: you use -->
+<!--  `.` if you’re calling a method on the object directly and `->` if you're -->
+<!--  calling the method on a pointer to the object and need to dereference the -->
+<!--  pointer first. In other words, if `object` is a pointer, -->
 <!--  `object->something()` is similar to `(*object).something()`. -->
 <!--  -->
 <!--  Rust doesn’t have an equivalent to the `->` operator; instead, Rust has a -->
@@ -161,7 +162,7 @@ fn main() {
 
 > ### `->`演算子はどこに行ったの？
 >
-> C++のような言語では、メソッド呼び出しには2種類の異なる演算子が使用されます:
+> CとC++では、メソッド呼び出しには2種類の異なる演算子が使用されます:
 > オブジェクトに対して直接メソッドを呼び出すのなら、`.`を使用するし、オブジェクトのポインタに対してメソッドを呼び出し、
 > 先にポインタを参照外しする必要があるなら、`->`を使用するわけです。
 > 言い換えると、`object`がポインタなら、`object->something()`は、`(*object).something()`と同等なのです。
@@ -232,14 +233,14 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 5-14: Demonstration of using the as-yet-unwritten -->
-<!-- `can_hold` method</span> -->
+<!-- <span class="caption">Listing 5-14: Using the as-yet-unwritten `can_hold` -->
+<!-- method</span> -->
 
-<span class="caption">リスト5-14: 未完成の`can_hold`を使用するデモ</span>
+<span class="caption">リスト5-14: 未完成の`can_hold`を使用する</span>
 
 <!-- And the expected output would look like the following, because both dimensions -->
-<!-- of `rect2` are smaller than the dimensions of `rect1`, but `rect3` is wider -->
-<!-- than `rect1`: -->
+<!-- of `rect2` are smaller than the dimensions of `rect1` but `rect3` is wider than -->
+<!-- `rect1`: -->
 
 そして、予期される出力は以下のようになります。なぜなら、`rect2`の各次元は`rect1`よりも小さいものの、
 `rect3`は`rect1`より幅が広いからです:
@@ -353,14 +354,13 @@ impl Rectangle {
 }
 ```
 
-<!-- To call this associated function, we use the `::` syntax with the struct name, -->
-<!-- like `let sq = Rectangle::square(3);`, for example. This function is -->
-<!-- namespaced by the struct: the `::` syntax is used for both associated functions -->
-<!-- and namespaces created by modules, which we’ll discuss in Chapter 7. -->
+<!-- To call this associated function, we use the `::` syntax with the struct name; -->
+<!-- `let sq = Rectangle::square(3);` is an example. This function is namespaced by -->
+<!-- the struct: the `::` syntax is used for both associated functions and -->
+<!-- namespaces created by modules. We’ll discuss modules in Chapter 7. -->
 
-この関連関数を呼び出すために、例えば、`let sq = Rectangle::square(3);`のように、
-構造体名と一緒に`::`記法を使用します。この関数は、構造体によって名前空間分けされています:
-`::`という記法は、関連関数とモジュールによって作り出される名前空間両方に使用されます。
+この関連関数を呼び出すために、構造体名と一緒に`::`記法を使用します; 一例は`let sq = Rectangle::square(3);`です。
+この関数は、構造体によって名前空間分けされています: `::`という記法は、関連関数とモジュールによって作り出される名前空間両方に使用されます。
 モジュールについては第7章で議論します。
 
 <!-- ### Multiple `impl` Blocks -->
@@ -400,8 +400,8 @@ impl Rectangle {
 <span class="caption">リスト5-16: 複数の`impl`ブロックを使用してリスト5-15を書き直す</span>
 
 <!-- There’s no reason to separate these methods into multiple `impl` blocks here, -->
-<!-- but it’s valid syntax. We will see a case when multiple `impl` blocks are useful -->
-<!-- in Chapter 10 when we discuss generic types and traits. -->
+<!-- but this is valid syntax. We'll see a case in which multiple `impl` blocks are -->
+<!-- useful in Chapter 10 where we discuss generic types and traits. -->
 
 ここでこれらのメソッドを個々の`impl`ブロックに分ける理由はないのですが、有効な書き方です。
 複数の`impl`ブロックが有用になるケースは第10章で見ますが、そこではジェネリクスのある型と、トレイトについて議論します。
@@ -410,12 +410,12 @@ impl Rectangle {
 
 ## まとめ
 
-<!-- Structs let us create custom types that are meaningful for our domain. By using -->
-<!-- structs, we can keep associated pieces of data connected to each other and name -->
-<!-- each piece to make our code clear. Methods let us specify the behavior that -->
-<!-- instances of our structs have, and associated functions let us namespace -->
-<!-- functionality that is particular to our struct without having an instance -->
-<!-- available. -->
+<!-- Structs let us create custom types that are meaningful for your domain. By -->
+<!-- using structs, we can keep associated pieces of data connected to each other -->
+<!-- and name each piece to make our code clear. Methods let us specify the -->
+<!-- behavior that instances of our structs have, and associated functions let you -->
+<!-- namespace functionality that is particular to our struct without having an -->
+<!-- instance available. -->
 
 構造体により、自分の領域で意味のある独自の型を作成することができます。構造体を使用することで、
 関連のあるデータ片を相互に結合させたままにし、各部品に名前を付け、コードを明確にすることができます。
@@ -426,4 +426,4 @@ impl Rectangle {
 <!-- Rust’s enum feature to add another tool to our toolbox. -->
 
 しかし、構造体だけが独自の型を作成する手段ではありません: Rustのenum機能に目を向けて、
-別の道具をツールボックスに追加しましょう。
+別の道具を道具箱に追加しましょう。

@@ -20,13 +20,13 @@ Rustの標準ライブラリは、*コレクション*と呼ばれる多くの�
 Rustのプログラムにおいて、非常に頻繁に使用される3つのコレクションについて議論しましょう。
 
 <!-- * A *vector* allows us to store a variable number of values next to each other. -->
-<!-- * A *string* is a collection of characters. We’ve discussed the `String` type -->
+<!-- * A *string* is a collection of characters. We’ve mentioned the `String` type -->
 <!--   previously, but in this chapter we’ll talk about it in depth. -->
 <!-- * A *hash map* allows us to associate a value with a particular key. It’s a -->
 <!--   particular implementation of the more general data structure called a *map*. -->
 
 * *ベクタ型*は、可変長の値を並べて保持できる。
-* *文字列*は、文字のコレクションである。以前、`String`型については議論したが、
+* *文字列*は、文字のコレクションである。以前、`String`型について触れたが、
 この章ではより掘り下げていく。
 * *ハッシュマップ*は、値を特定のキーと紐付けさせてくれる。より一般的なデータ構造である、
 *マップ*の特定の実装である。

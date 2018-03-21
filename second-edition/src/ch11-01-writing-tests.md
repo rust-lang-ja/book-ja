@@ -80,6 +80,7 @@ adderライブラリの*src/lib.rs*ファイルの中身はリスト11-1のよ�
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 #[cfg(test)]
 mod tests {
     #[test]
@@ -195,6 +196,7 @@ Cargoがテストをコンパイルし、走らせました。`Compiling`, `Fini
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 #[cfg(test)]
 mod tests {
     #[test]
@@ -234,6 +236,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 #[cfg(test)]
 mod tests {
     #[test]
@@ -342,6 +345,7 @@ error: test failed
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 #[derive(Debug)]
 pub struct Rectangle {
     length: u32,
@@ -375,6 +379,7 @@ impl Rectangle {
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -432,6 +437,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -475,6 +481,7 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 長さを比較する大なり記号を小なり記号で置き換えて`can_hold`メソッドの実装を変更しましょう:
 
 ```rust
+# fn main() {}
 # #[derive(Debug)]
 # pub struct Rectangle {
 #     length: u32,
@@ -552,6 +559,7 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 pub fn add_two(a: i32) -> i32 {
     a + 2
 }
@@ -598,6 +606,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 `add_two`関数の実装を代わりに`3`を足すように変えてください:
 
 ```rust
+# fn main() {}
 pub fn add_two(a: i32) -> i32 {
     a + 3
 }
@@ -721,6 +730,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 pub fn greeting(name: &str) -> String {
     format!("Hello {}!", name)
 }
@@ -754,6 +764,7 @@ mod tests {
 `greeting`が`name`を含まないように変更してこのコードにバグを仕込み、このテストの失敗がどんな見た目になるのか確かめましょう:
 
 ```rust
+# fn main() {}
 pub fn greeting(name: &str) -> String {
     String::from("Hello!")
 }
@@ -853,6 +864,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 pub struct Guess {
     value: u32,
 }
@@ -907,6 +919,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 よさそうですね！では、値が100より大きいときに`new`関数がパニックするという条件を除去することでコードにバグを導入しましょう:
 
 ```rust
+# fn main() {}
 # pub struct Guess {
 #     value: u32,
 # }
@@ -971,6 +984,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
+# fn main() {}
 # pub struct Guess {
 #     value: u32,
 # }

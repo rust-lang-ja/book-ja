@@ -142,10 +142,12 @@ fn main() {
 
 ### Globで全ての名前をスコープに導入する
 
-<!-- To bring all the items in a namespace into scope at once, we can use the `*` syntax, which is called the *glob operator*. This example brings all the variants of an enum into scope without having to list each specifically: -->
+<!-- To bring all the items in a namespace into scope at once, we can use the `*` -->
+<!-- syntax, which is called the *glob operator*. This example brings all the -->
+<!-- variants of an enum into scope without having to list each specifically: -->
 
 ある名前空間の要素を全て一度にスコープに導入するには、`*`表記が使用でき、これはglob(塊)演算子と呼ばれます。
-この例は、あるenumのバリアントを各々を列挙せずに全てスコープに導入しています:
+この例は、あるenumの列挙子を各々を列挙せずに全てスコープに導入しています:
 
 ```rust
 enum TrafficLight {
@@ -164,18 +166,18 @@ fn main() {
 ```
 
 <!-- The `*` will bring into scope all the visible items in the `TrafficLight` -->
-<!-- namespace. You should use globs sparingly: they are convenient, but this might -->
-<!-- also pull in more items than you expected and cause naming conflicts. -->
+<!-- namespace. You should use globs sparingly: they are convenient, but a glob -->
+<!-- might also pull in more items than you expected and cause naming conflicts. -->
 
 `*`は`TrafficLight`名前空間に存在する全て公開要素をスコープに導入します。
-あまりglobは使用するべきではありません: 便利ではありますが、予想以上の要素を引き込んで、
+あまりglobは使用するべきではありません: 便利ではありますが、globは予想以上の要素を引き込んで、
 名前衝突を引き起こす可能性があるのです。
 
 <!-- ### Using `super` to Access a Parent Module -->
 
 ### `super`を使用して親モジュールにアクセスする
 
-<!-- As we saw at the beginning of this chapter, when you create a library crate, -->
+<!-- As you saw at the beginning of this chapter, when you create a library crate, -->
 <!-- Cargo makes a `tests` module for you. Let’s go into more detail about that now. -->
 <!-- In your `communicator` project, open *src/lib.rs*: -->
 
@@ -255,7 +257,7 @@ error[E0433]: failed to resolve. Use of undeclared type or module `client`
 ```
 
 <!-- The compilation failed, but why? We don’t need to place `communicator::` in -->
-<!-- front of the function like we did in *src/main.rs* because we are definitely -->
+<!-- front of the function, as we did in *src/main.rs*, because we are definitely -->
 <!-- within the `communicator` library crate here. The reason is that paths are -->
 <!-- always relative to the current module, which here is `tests`. The only -->
 <!-- exception is in a `use` statement, where paths are relative to the crate root -->
@@ -295,14 +297,14 @@ super::client::connect();
 <!-- code lengthy. In those cases, using `super` to get from the current module to -->
 <!-- sibling modules is a good shortcut. Plus, if you’ve specified the path from the -->
 <!-- root in many places in your code and then you rearrange your modules by moving -->
-<!-- a subtree to another place, you’d end up needing to update the path in several -->
+<!-- a subtree to another place, you’ll end up needing to update the path in several -->
 <!-- places, which would be tedious. -->
 
 この例では、これら二つの選択はそれほど異なるようには見えませんが、モジュール階層がもっと深ければ、
 常にルートから書き始めるのは、コードを冗長にする原因になります。そのような場合、
 `super`を使用して現在のモジュールから兄弟のモジュールに辿り着くのは、いいショートカットになります。
 さらに、コードのいろんなところでルートからパスを指定し、モジュール構造を変化させた場合、
-複数箇所でパスを更新する必要が出てきて、面倒なことになるでしょう。
+複数箇所でパスを更新する必要が陥り、面倒なことになるでしょう。
 
 <!-- It would also be annoying to have to type `super::` in each test, but you’ve -->
 <!-- already seen the tool for that solution: `use`! The `super::` functionality -->
@@ -335,7 +337,7 @@ mod tests {
 }
 ```
 
-<!-- When we run `cargo test` again, the test will pass and the first part of the -->
+<!-- When we run `cargo test` again, the test will pass, and the first part of the -->
 <!-- test result output will be the following: -->
 
 再度`cargo test`を実行すると、テストは通り、テスト結果出力の最初の部分は以下のようになるでしょう:
@@ -363,6 +365,6 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 関連のある機能をまとめ上げ、ファイルが長くなりすぎるのを防ぎ、ライブラリの使用者に整理整頓された公開APIを提供してください。
 
 <!-- Next, we’ll look at some collection data structures in the standard library -->
-<!-- that you can use in your nice, neat code! -->
+<!-- that you can use in your nice, neat code. -->
 
-次は、自分の素晴らしく綺麗なコードで使用できる標準ライブラリのコレクションデータ構造について見ていきましょう！
+次は、自分の素晴らしく綺麗なコードで使用できる標準ライブラリのコレクションデータ構造について見ていきましょう。

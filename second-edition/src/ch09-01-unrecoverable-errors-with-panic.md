@@ -5,36 +5,35 @@
 <!-- Sometimes, bad things happen in your code, and there’s nothing you can do about -->
 <!-- it. In these cases, Rust has the `panic!` macro. When the `panic!` macro -->
 <!-- executes, your program will print a failure message, unwind and clean up the -->
-<!-- stack, and then quit. The most common situation this occurs in is when a bug of -->
-<!-- some kind has been detected, and it’s not clear to the programmer how to handle -->
-<!-- the error. -->
+<!-- stack, and then quit. This most commonly occurs when a bug of some kind has -->
+<!-- been detected, and it’s not clear to the programmer how to handle the error. -->
 
 時として、コードで悪いことが起きるものです。そして、それに対してできることは何もありません。
 このような場面で、Rustには`panic!`マクロが用意されています。`panic!`マクロが実行されると、
-プログラムは失敗のメッセージを表示し、スタックを巻き戻し掃除して、終了します。こうなる最もありふれた場面は、
+プログラムは失敗のメッセージを表示し、スタックを巻き戻し掃除して、終了します。これが最もありふれて起こるのは、
 何らかのバグが検出された時であり、プログラマには、どうエラーを処理すればいいか明確ではありません。
 
-<!--  ### Unwinding the Stack or Aborting in Response to a `panic!` -->
-<!--  -->
-<!--  By default, when a `panic!` occurs, the program starts *unwinding*, which -->
-<!--  means Rust walks back up the stack and cleans up the data from each function -->
-<!--  it encounters. But this walking back and cleanup is a lot of work. The -->
-<!--  alternative is to immediately *abort*, which ends the program without -->
-<!--  cleaning up. Memory that the program was using will then need to be cleaned -->
-<!--  up by the operating system. If in your project you need to make the resulting -->
-<!--  binary as small as possible, you can switch from unwinding to aborting on -->
-<!--  panic by adding `panic = 'abort'` to the appropriate `[profile]` sections in -->
-<!--  your *Cargo.toml* file. For example, if you want to abort on panic in release -->
-<!--  mode, add this: -->
-<!--  -->
-<!--  ```toml -->
-<!--  [profile.release] -->
-<!--  panic = 'abort' -->
-<!--  ``` -->
+<!-- > ### Unwinding the Stack or Aborting in Response to a Panic -->
+<!-- > -->
+<!-- > By default, when a panic occurs, the program starts *unwinding*, which -->
+<!-- > means Rust walks back up the stack and cleans up the data from each function -->
+<!-- > it encounters. But this walking back and cleanup is a lot of work. The -->
+<!-- > alternative is to immediately *abort*, which ends the program without -->
+<!-- > cleaning up. Memory that the program was using will then need to be cleaned -->
+<!-- > up by the operating system. If in your project you need to make the resulting -->
+<!-- > binary as small as possible, you can switch from unwinding to aborting upon a -->
+<!-- > panic by adding `panic = 'abort'` to the appropriate `[profile]` sections in -->
+<!-- > your *Cargo.toml* file. For example, if you want to abort on panic in release -->
+<!-- > mode, add this: -->
+<!-- > -->
+<!-- > ```toml -->
+<!-- > [profile.release] -->
+<!-- > panic = 'abort' -->
+<!-- > ``` -->
 
-> ### `panic!`に対してスタックを巻き戻すか異常終了するか
+> ### パニックに対してスタックを巻き戻すか異常終了するか
 >
-> 標準では、`panic!`が発生すると、プログラムは*巻き戻し*を始めます。つまり、言語がスタックを遡り、
+> 標準では、パニックが発生すると、プログラムは*巻き戻し*を始めます。つまり、言語がスタックを遡り、
 > 遭遇した各関数のデータを片付けるということです。しかし、この遡りと片付けはすべきことが多くなります。
 > 対立案は、即座に異常終了し、片付けをせずにプログラムを終了させることです。そうなると、プログラムが使用していたメモリは、
 > OSが片付ける必要があります。プロジェクトにおいて、実行可能ファイルを極力小さくする必要があれば、
@@ -86,12 +85,12 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 
 <!-- In this case, the line indicated is part of our code, and if we go to that -->
 <!-- line, we see the `panic!` macro call. In other cases, the `panic!` call might -->
-<!-- be in code that our code calls. The filename and line number reported by the -->
-<!-- error message will be someone else’s code where the `panic!` macro is called, -->
-<!-- not the line of our code that eventually led to the `panic!` call. We can use -->
-<!-- the backtrace of the functions the `panic!` call came from to figure out the -->
-<!-- part of our code that is causing the problem. We’ll discuss what a backtrace is -->
-<!-- in more detail next. -->
+<!-- be in code that our code calls, and the filename and line number reported by -->
+<!-- the error message will be someone else’s code where the `panic!` macro is -->
+<!-- called, not the line of our code that eventually led to the `panic!` call. We -->
+<!-- can use the backtrace of the functions the `panic!` call came from to figure -->
+<!-- out the part of our code that is causing the problem. We’ll discuss what a  -->
+<!-- backtrace is in more detail next. -->
 
 この場合、示唆される行は、自分のコードの一部で、その箇所を見に行けば、`panic!`マクロ呼び出しがあるわけです。
 `panic!`呼び出しが、自分のコードが呼び出しているコードの一部になっている可能性もあるわけです。
@@ -171,7 +170,6 @@ thread 'main' panicked at 'index out of bounds: the len is 3 but the index is
 ('main'スレッドは、/checkout/src/liballoc/vec.rs:1555:10の
 「境界外番号: 長さは3なのに、添え字は99です」でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
-error: Process didn't exit successfully: `target/debug/panic` (exit code: 101)
 ```
 
 <!-- This error points at a file we didn’t write, *vec.rs*. That’s the -->
@@ -191,7 +189,8 @@ error: Process didn't exit successfully: `target/debug/panic` (exit code: 101)
 <!-- wrote. That’s the spot where the problem originated. The lines above the lines -->
 <!-- mentioning your files are code that your code called; the lines below are code -->
 <!-- that called your code. These lines might include core Rust code, standard -->
-<!-- library code, or crates that you’re using. Let’s try getting a backtrace: -->
+<!-- library code, or crates that you’re using. Let’s try getting a backtrace by -->
+<!-- setting the `RUST_BACKTRACE` environment variable to any value except 0. -->
 <!-- Listing 9-2 shows output similar to what you’ll see: -->
 
 その次の注釈行は、`RUST_BACKTRACE`環境変数をセットして、まさしく何が起き、
@@ -200,8 +199,8 @@ error: Process didn't exit successfully: `target/debug/panic` (exit code: 101)
 他の言語同様に動作します: バックトレースを読むコツは、頭からスタートして自分のファイルを見つけるまで読むことです。
 そこが、問題の根源になるのです。自分のファイルを言及している箇所以前は、自分のコードで呼び出したコードになります;
 以後は、自分のコードを呼び出しているコードになります。これらの行には、Rustの核となるコード、標準ライブラリのコード、
-使用しているクレートなどが含まれるかもしれません。バックトレースを出力してみましょう:
-リスト9-2のような出力が得られるでしょう:
+使用しているクレートなどが含まれるかもしれません。`RUST_BACKTRACE`環境変数を0以外の値にセットして、
+バックトレースを出力してみましょう。リスト9-2のような出力が得られるでしょう:
 
 ```text
 $ RUST_BACKTRACE=1 cargo run
@@ -254,24 +253,24 @@ stack backtrace:
 <!-- That’s a lot of output! The exact output you see might be different depending -->
 <!-- on your operating system and Rust version. In order to get backtraces with this -->
 <!-- information, debug symbols must be enabled. Debug symbols are enabled by -->
-<!-- default when using cargo build or cargo run without the --release flag, as we -->
-<!-- have here. -->
+<!-- default when using `cargo build` or `cargo run` without the `--release` flag, -->
+<!-- as we have here. -->
 
 出力が多いですね！OSやRustのバージョンによって、出力の詳細は変わる可能性があります。この情報とともに、
 バックトレースを得るには、デバッグシンボルを有効にしなければなりません。デバッグシンボルは、
---releaseオプションなしでcargo buildやcargo runを使用していれば、標準で有効になり、
+`--release`オプションなしで`cargo build`や`cargo run`を使用していれば、標準で有効になり、
 ここではそうなっています。
 
 <!-- In the output in Listing 9-2, line 11 of the backtrace points to the line in -->
-<!-- our project that’s causing the problem: *src/main.rs* in line 4. If we don’t -->
+<!-- our project that’s causing the problem: line 4 of *src/main.rs*. If we don’t -->
 <!-- want our program to panic, the location pointed to by the first line mentioning -->
 <!-- a file we wrote is where we should start investigating to figure out how we got -->
-<!-- to this location with values that caused the panic. In Listing 9-1 where we -->
-<!-- deliberately wrote code that would panic in order to demonstrate how to use -->
+<!-- to this location with values that caused the panic. In Listing 9-1, where -->
+<!-- we deliberately wrote code that would panic in order to demonstrate how to use -->
 <!-- backtraces, the way to fix the panic is to not request an element at index 99 -->
-<!-- from a vector that only contains three items. When your code panics in the -->
-<!-- future, you’ll need to figure out what action the code is taking with what -->
-<!-- values that causes the panic and what the code should do instead. -->
+<!-- from a vector that only contains 3 items. When your code panics in the future, -->
+<!-- you’ll need to figure out what action the code is taking with what values to -->
+<!-- tcause the panic and what the code should do instead. -->
 
 リスト9-2の出力で、バックトレースの11行目が問題発生箇所を指し示しています: *src/main.rs*の4行目です。
 プログラムにパニックしてほしくなければ、自分のファイルについて言及している最初の行で示されている箇所が、
@@ -282,8 +281,9 @@ stack backtrace:
 代わりにコードは何をすべきなのかを算出する必要があるでしょう。
 
 <!-- We’ll come back to `panic!` and when we should and should not use `panic!` to -->
-<!-- handle error conditions later in the chapter. Next, we’ll look at how to -->
-<!-- recover from an error using `Result`. -->
+<!-- handle error conditions in “To `panic!` or Not to `panic!`” section later -->
+<!-- in this chapter. Next, we’ll look at how to recover from an error using -->
+<!-- `Result`. -->
 
-また、この章で`panic!`とエラー状態を扱うのに`panic!`を使うべき時と使わぬべき時について触れます。
+また、この章の後ほど、「`panic!`するか`panic!`するまいか」節で`panic!`とエラー状態を扱うのに`panic!`を使うべき時と使わぬべき時に戻ってきます。
 次は、`Result`を使用してエラーから回復する方法を見ましょう。

@@ -5,13 +5,13 @@
 <!-- When you start writing programs in Rust, your code might live solely in the -->
 <!-- `main` function. As your code grows, you’ll eventually move functionality into -->
 <!-- other functions for reuse and better organization. By splitting your code into -->
-<!-- smaller chunks, each chunk is easier to understand on its own. But what happens -->
-<!-- if you have too many functions? Rust has a module system that enables the reuse -->
-<!-- of code in an organized fashion. -->
+<!-- smaller chunks, you make each chunk easier to understand on its own. But what -->
+<!-- happens if you have too many functions? Rust has a module system that enables -->
+<!-- the reuse of code in an organized fashion. -->
 
 Rustでのプログラミングをし始めた頃は、コードは全て`main`関数内に収まったかもしれません。コードが肥大化するにつれ、
 最終的に機能を別の関数に移して再利用性とまとまりを高めるでしょう。コードを細切りにすることで、
-個々のコード片はそれだけで理解しやすくなります。しかし、あまりにも多くの関数があったらどうなるでしょうか？
+個々のコード片をそれだけで理解しやすくします。しかし、あまりにも多くの関数があったらどうなるでしょうか？
 Rustには、コードの再利用を体系化された形で行うことのできるモジュールシステムが組み込まれています。
 
 <!-- In the same way that you extract lines of code into a function, you can extract -->

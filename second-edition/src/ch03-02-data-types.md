@@ -333,7 +333,7 @@ fn main() {
 ```
 
 <!-- Rust’s `char` type represents a Unicode Scalar Value, which means it can -->
-<!-- represent a lot more than just ASCII. Accented letters, Chinese, Japanese and -->
+<!-- represent a lot more than just ASCII. Accented letters; Chinese, Japanese and -->
 <!-- Korean ideographs; emoji; and zero-width spaces are all valid `char` types in -->
 <!-- Rust. Unicode Scalar Values range from `U+0000` to `U+D7FF` and `U+E000` to -->
 <!-- `U+10FFFF` inclusive. However, a “character” isn’t really a concept in Unicode, -->
@@ -341,7 +341,7 @@ fn main() {
 <!-- `char` is in Rust. We’ll discuss this topic in detail in the “Strings” in Chapter 8. -->
 
 Rustの`char`型は、ユニコードのスカラー値を表します。これはつまり、アスキーよりもずっとたくさんのものを表せるということです。
-アクセント文字、中国語、日本語、韓国語表意文字(`脚注`: 漢字のことだと思われる);
+アクセント文字; 中国語、日本語、韓国語表意文字(`脚注`: 漢字のことだと思われる);
 絵文字; ゼロ幅スペースは、全てRustでは、有効な`char`型になります。ユニコードスカラー値は、
 `U+0000`から`U+D7FF`までと`U+E0000`から`U+10FFFF`までの範囲になります。
 ところが、「文字」は実はユニコードの概念ではないので、文字とは何かという人間としての直観は、

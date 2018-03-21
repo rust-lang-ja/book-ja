@@ -133,19 +133,19 @@ Rustの文脈において、*公開*とか*非公開*という概念にぶち当
 全コードの初期状態は、非公開です: 誰も他の人はコードを使用できないわけです。プログラム内で非公開の関数を使用していなければ、
 自分のプログラムだけがその関数を使用することを許可された唯一のコードなので、コンパイラは関数が未使用と警告してくるのです。
 
-<!-- After we specify that a function like `client::connect` is public, not only -->
-<!-- will our call to that function from our binary crate be allowed, but the -->
+<!-- After you specify that a function like `client::connect` is public, not only -->
+<!-- will your call to that function from our binary crate be allowed, but the -->
 <!-- warning that the function is unused will go away. Marking a function as public -->
 <!-- lets Rust know that the function will be used by code outside of our program. -->
 <!-- Rust considers the theoretical external usage that’s now possible as the -->
-<!-- function “being used.” Thus, when something is marked public, Rust will not -->
+<!-- function “being used.” Thus, when a function is marked public, Rust will not -->
 <!-- require that it be used in our program and will stop warning that the function -->
 <!-- is unused. -->
 
 `client::connect`のような関数を公開にすると指定した後は、バイナリクレートからその関数への呼び出しが許可されるだけでなく、
 関数が未使用であるという警告も消え去るわけです。関数を公開にすれば、コンパイラは、
 関数が自分のプログラム外のコードからも使用されることがあると知ります。コンパイラは、
-関数が「使用されている」という架空の外部使用の可能性を考慮してくれます。それ故に、何かが公開とマークされれば、
+関数が「使用されている」という架空の外部使用の可能性を考慮してくれます。それ故に、関数が公開とマークされれば、
 コンパイラはそれが自分のプログラムで使用されるべきという要求をなくし、その関数が未使用という警告も止めるのです。
 
 <!-- ### Making a Function Public -->
@@ -223,10 +223,10 @@ warning: function is never used: `connect`
   | |_^
 ```
 
-<!-- The code compiled, and the warning about `client::connect` not being used is -->
+<!-- The code compiled, and the warning that `client::connect` is not being used is -->
 <!-- gone! -->
 
-コードのコンパイルが通り、`client:connect`が未使用という警告はなくなりました！
+コードのコンパイルが通り、`client:connect`が使用されていないという警告はなくなりました！
 
 <!-- 3行目、could be alerting you to code you...のところがちょっと不安 -->
 
@@ -319,9 +319,9 @@ warning: function is never used: `connect`
   = note: #[warn(dead_code)] on by default
 ```
 
-<!-- Only one warning is left! Try to fix this one on your own! -->
+<!-- Only one warning is left-try to fix this one on your own! -->
 
-残る警告は1つ！自分で解消してみましょう！
+残る警告は1つなので、自分で解消してみてください！
 
 <!-- ### Privacy Rules -->
 
@@ -331,12 +331,12 @@ warning: function is never used: `connect`
 
 まとめると、要素の公開性は以下のようなルールになります:
 
-<!-- 1. If an item is public, it can be accessed through any of its parent modules. -->
-<!-- 2. If an item is private, it can be accessed only by its immediate parent -->
-<!--    module and any of the parent’s child modules. -->
+<!-- - If an item is public, it can be accessed through any of its parent modules. -->
+<!-- - If an item is private, it can be accessed only by its immediate parent -->
+<!--   module and any of the parent’s child modules. -->
 
-1. 要素が公開なら、どの親モジュールを通してもアクセス可能です。
-2. 要素が非公開なら、直接の親モジュールとその親の子モジュールのみアクセスできます。
+- 要素が公開なら、どの親モジュールを通してもアクセス可能です。
+- 要素が非公開なら、直接の親モジュールとその親の子モジュールのみアクセスできます。
 
 <!-- ### Privacy Examples -->
 
@@ -381,7 +381,7 @@ fn try_me() {
 
 <!-- Before you try to compile this code, make a guess about which lines in the -->
 <!-- `try_me` function will have errors. Then, try compiling the code to see whether -->
-<!-- you were right, and read on for the discussion of the errors! -->
+<!-- you were right-and read on for the discussion of the errors! -->
 
 このコードをコンパイルする前に、`try_me`関数のどの行がエラーになるか当ててみてください。
 それからコンパイルを試して、合ってたかどうか確かめ、エラーの議論を求めて読み進めてください！
@@ -400,7 +400,7 @@ fn try_me() {
 `try_me`関数は、`outermost`モジュールにアクセスすることを許可されるのです。
 
 <!-- The call to `outermost::middle_function` will work because `middle_function` is -->
-<!-- public, and `try_me` is accessing `middle_function` through its parent module -->
+<!-- public and `try_me` is accessing `middle_function` through its parent module -->
 <!-- `outermost`. We determined in the previous paragraph that this module is -->
 <!-- accessible. -->
 
@@ -409,7 +409,7 @@ fn try_me() {
 前の段落でこのモジュールは、アクセス可能と決定しました。
 
 <!-- The call to `outermost::middle_secret_function` will cause a compilation error. -->
-<!-- `middle_secret_function` is private, so the second rule applies. The root -->
+<!-- Because `middle_secret_function` is private, the second rule applies. The root -->
 <!-- module is neither the current module of `middle_secret_function` (`outermost` -->
 <!-- is), nor is it a child module of the current module of `middle_secret_function`. -->
 
@@ -418,9 +418,9 @@ fn try_me() {
 `middle_secret_function`の現在のモジュール(`outermost`がそうです)でも、
 `middle_secret_function`の現在のモジュールの子供でもないのです。
 
-<!-- The module named `inside` is private and has no child modules, so it can only -->
-<!-- be accessed by its current module `outermost`. That means the `try_me` function -->
-<!-- is not allowed to call `outermost::inside::inner_function` or -->
+<!-- The module named `inside` is private and has no child modules, so it can be -->
+<!-- accessed only by its current module `outermost`. That means the `try_me` -->
+<!-- function is not allowed to call `outermost::inside::inner_function` or -->
 <!-- `outermost::inside::secret_function`. -->
 
 `inside`という名前のモジュールは非公開で子モジュールを持たないので、現在のモジュールである`outermost`からのみアクセスできます。
@@ -431,16 +431,17 @@ fn try_me() {
 #### エラーを修正する
 
 <!-- Here are some suggestions for changing the code in an attempt to fix the -->
-<!-- errors. Before you try each one, make a guess as to whether it will fix the -->
-<!-- errors, and then compile the code to see whether or not you’re right, using the -->
-<!-- privacy rules to understand why. -->
+<!-- errors. Make a guess as to whether it will fix the errors before you try each -->
+<!-- one. Then compile the code to see whether or not you’re right, using the -->
+<!-- privacy rules to understand why. Feel free to design more experiments and try -->
+<!-- them out! -->
 
 エラーを修正しようとする過程でできるコード変更案は、以下の通りです。各々試してみる前に、
 エラーを解消できるか当ててみてください。それからコンパイルして正しかったか間違っていたか確かめ、
-プライバシー規則を使用して理由を理解してください。
+プライバシー規則を使用して理由を理解してください。もっと実験を企てて試してみるのもご自由に！
 
-<!-- * What if the `inside` module was public? -->
-<!-- * What if `outermost` was public and `inside` was private? -->
+<!-- * What if the `inside` module were public? -->
+<!-- * What if `outermost` were public and `inside` were private? -->
 <!-- * What if, in the body of `inner_function`, you called -->
 <!--   `::outermost::middle_secret_function()`? (The two colons at the beginning mean -->
 <!--   that we want to refer to the modules starting from the root module.) -->
@@ -449,10 +450,6 @@ fn try_me() {
 * `outermost`が公開で、`inside`が非公開ならどうだろうか？
 * `inner_function`の本体で`::outermost::middle_secret_function()`を呼び出したらどうだろうか？
   (頭の二つのコロンは、ルートモジュールから初めてモジュールを参照したいということを意味します)
-
-<!-- Feel free to design more experiments and try them out! -->
-
-自由にもっと実験を企てて、試してみてくださいね！
 
 <!-- Next, let’s talk about bringing items into scope with the `use` keyword. -->
 

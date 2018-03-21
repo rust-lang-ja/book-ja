@@ -385,7 +385,7 @@ To an admiring bog!
 PowerShellを使用していれば、1つではなく、2つのコマンドで環境変数をセットし、プログラムを走らせる必要があるでしょう:
 
 ```text
-$ $env.CASE_INSENSITIVE=1
+$ $env:CASE_INSENSITIVE=1
 $ cargo run to poem.txt
 ```
 
