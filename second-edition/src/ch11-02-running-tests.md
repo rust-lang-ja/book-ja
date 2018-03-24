@@ -19,10 +19,10 @@
 
 <!-- Some command line options go to `cargo test` and some go to the resulting test -->
 <!-- binary. To separate these two types of arguments, you list the arguments that -->
-<!-- go to `cargo test` followed by the separator `--` and then the arguments that -->
-<!-- go to the test binary. Running `cargo test --help` displays the options you can -->
-<!-- use with `cargo test`, and running `cargo test -- --help` displays the options -->
-<!-- you can use after the separator `--`. -->
+<!-- go to `cargo test` followed by the separator `--` and then the ones that go to -->
+<!-- the test binary. Running `cargo test --help` displays the options you can use -->
+<!-- with `cargo test`, and running `cargo test -- --help` displays the options you -->
+<!-- can use after the separator `--`. -->
 
 コマンドラインオプションの中には`cargo test`にかかるものや、出来上がったテストバイナリにかかるものがあります。
 この2種の引数を区別するために、`cargo test`にかかる引数を`--`という区分記号の後に列挙し、
@@ -50,7 +50,7 @@
 <!-- the data in that file and asserts that the file contains a particular value, -->
 <!-- which is different in each test. Because the tests run at the same time, one -->
 <!-- test might overwrite the file between when another test writes and reads the -->
-<!-- file. The second test will then fail, not because the code is incorrect, but -->
+<!-- file. The second test will then fail, not because the code is incorrect but -->
 <!-- because the tests have interfered with each other while running in parallel. -->
 <!-- One solution is to make sure each test writes to a different file; another -->
 <!-- solution is to run the tests one at a time. -->
@@ -92,12 +92,12 @@ $ cargo test -- --test-threads=1
 
 <!-- By default, if a test passes, Rust’s test library captures anything printed to -->
 <!-- standard output. For example, if we call `println!` in a test and the test -->
-<!-- passes, we won’t see the `println!` output in the terminal: we’ll only see the -->
+<!-- passes, we won’t see the `println!` output in the terminal; we’ll only see the -->
 <!-- line that indicates the test passed. If a test fails, we’ll see whatever was -->
 <!-- printed to standard output with the rest of the failure message. -->
 
 標準では、テストが通ると、Rustのテストライブラリは標準出力に出力されたものを全てキャプチャします。例えば、
-テストで`println!`を呼び出してテストが通ると、`println!`の出力は、ターミナルに表示されません:
+テストで`println!`を呼び出してテストが通ると、`println!`の出力は、ターミナルに表示されません;
 テストが通ったことを示す行しか見れないでしょう。テストが失敗すれば、
 残りの失敗メッセージと共に、標準出力に出力されたものが全て見えるでしょう。
 
@@ -340,10 +340,10 @@ test tests::add_three_and_two ... ok
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out
 ```
 
-<!-- This command ran all tests with `add` in the name name and filtered out the -->
-<!-- test named `one_hundred`. Also note that the module in which tests appear -->
-<!-- becomes part of the test’s name, so we can run all the tests in a module by -->
-<!-- filtering on the module’s name. -->
+<!-- This command ran all tests with `add` in the name and filtered out the test -->
+<!-- named `one_hundred`. Also note that the module in which tests appear becomes -->
+<!-- part of the test’s name, so we can run all the tests in a module by filtering -->
+<!-- on the module’s name. -->
 
 このコマンドは名前に`add`を含むテストを全て実行し、`one_hundred`という名前のテストを除外しました。
 また、テストが出現するモジュールがテスト名の一部になっていて、

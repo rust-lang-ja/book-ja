@@ -34,8 +34,8 @@ Rustの設計は、多くの既存の言語やテクニックにインスピレ�
 * これら2つの機能を使用して第12章の入出力プロジェクトを改善する方法
 * これら2つの機能のパフォーマンス(ネタバレ: 思ったよりも速いです)
 
-<!-- Other Rust features are influenced by the functional style as well, such as -->
-<!-- pattern matching and enums, which we’ve covered in other chapters. Mastering -->
+<!-- Other Rust features, such as pattern matching and enums, which we've covered in -->
+<!-- other chapters, are influenced by the functional style as well. Mastering -->
 <!-- closures and iterators is an important part of writing idiomatic, fast Rust -->
 <!-- code, so we’ll devote this entire chapter to them. -->
 

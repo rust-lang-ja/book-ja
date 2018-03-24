@@ -42,8 +42,8 @@ To an admiring bog!
 感服するような沼地にね！
 ```
 
-<!-- <span class="caption">Listing 12-3: A poem by Emily Dickinson will make a good -->
-<!-- test case.</span> -->
+<!-- <span class="caption">Listing 12-3: A poem by Emily Dickinson makes a good test -->
+<!-- case</span> -->
 
 <span class="caption">リスト12-3: エミリー・ディキンソンの詩は、いいテストケースになる</span>
 
@@ -96,8 +96,8 @@ fn main() {
 <!-- file I/O. In the same way that Rust has a general prelude that brings certain -->
 <!-- types and functions into scope automatically, the `std::io` module has its own -->
 <!-- prelude of common types and functions you’ll need when working with I/O. Unlike -->
-<!-- the default prelude, we must explicitly add a `use` statement for the prelude -->
-<!-- from `std::io`. -->
+<!-- the default prelude, we must explicitly add a `use` statement for the -->
+<!-- prelude from `std::io`. -->
 
 最初に、もう何個か`use`文を追記して、標準ライブラリの関係のある箇所を持ってきています:
 ファイルを扱うのに`std::fs::File`が必要ですし、
@@ -151,11 +151,13 @@ To tell your name the livelong day
 To an admiring bog!
 ```
 
-<!-- Great! The code read and then printed the content of the file. But the code has -->
-<!-- a few flaws. The `main` function has multiple responsibilities: generally, -->
+<!-- 2行目最後の行は、末端のone ideaをあえて訳していない。こちらの方が日本語としては自然と思われる -->
+
+<!-- Great! The code read and then printed the content of the file. But the code -->
+<!-- has a few flaws. The `main` function has multiple responsibilities: generally, -->
 <!-- functions are clearer and easier to maintain if each function is responsible -->
 <!-- for only one idea. The other problem is that we’re not handling errors as well -->
-<!-- as we could be. The program is still small so these flaws aren’t a big problem, -->
+<!-- as we could. The program is still small, so these flaws aren’t a big problem, -->
 <!-- but as the program grows, it will be harder to fix them cleanly. It’s good -->
 <!-- practice to begin refactoring early on when developing a program, because it’s -->
 <!-- much easier to refactor smaller amounts of code. We’ll do that next. -->

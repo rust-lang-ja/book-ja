@@ -86,21 +86,21 @@ Trust me.";
 古いテストの`contents`も変更していることに注意してください。大文字小文字を区別する検索を行う際に、
 "duct"というクエリに合致しないはずの大文字Dを使用した`"Duct tape"`という新しい行を追加しました。
 このように古いテストを変更することで、すでに実装済みの大文字小文字を区別する検索機能を誤って壊してしまわないことを保証する助けになります。
-このテストはこれで通り、大文字小文字を区別しない検索に取り掛かっても通り続けるはずです。
+このテストはもう通り、大文字小文字を区別しない検索に取り掛かっても通り続けるはずです。
 
 <!-- The new test for the case-*insensitive* search uses “rUsT” as its query. In the -->
-<!-- `search_case_insensitive` function we’re about to add, the query “rUsT” should -->
-<!-- match the line containing “Rust:” with a capital R and also the line “Trust -->
-<!-- me.” even though both have different casing than the query. This is our failing -->
-<!-- test, and it will fail to compile because we haven’t yet defined the -->
-<!-- `search_case_insensitive` function. Feel free to add a skeleton implementation -->
-<!-- that always returns an empty vector, similar to the way we did for the `search` -->
-<!-- function in Listing 12-16 to see the test compile and fail. -->
+<!-- `search_case_insensitive` function we’re about to add, the query “rUsT” -->
+<!-- should match the line containing “Rust:” with a capital R and match the line -->
+<!-- `“Trust me.”` even though both have different casing than the query. This is -->
+<!-- our failing test, and it will fail to compile because we haven’t yet defined -->
+<!-- the `search_case_insensitive` function. Feel free to add a skeleton -->
+<!-- implementation that always returns an empty vector, similar to the way we did -->
+<!-- for the `search` function in Listing 12-16 to see the test compile and fail. -->
 
 大文字小文字を区別*しない*検索の新しいテストは、クエリに"rUsT"を使用しています。
 追加直前の`search_case_insensitive`関数では、"rUsT"というクエリは、
 両方ともクエリとは大文字小文字が異なるのに、大文字Rの"Rust:"を含む行と、
-"Trust me."という行にもマッチするはずです。これが失敗するテストであり、まだ`search_case_insensitive`関数を定義していないので、
+`“Trust me.”`という行にもマッチするはずです。これが失敗するテストであり、まだ`search_case_insensitive`関数を定義していないので、
 コンパイルは失敗するでしょう。リスト12-16の`search`関数で行ったように空のベクタを常に返す実装の骨格を追加して、
 ご自由にテストがコンパイルされ、失敗する様を確認してください。
 
@@ -111,7 +111,7 @@ Trust me.";
 <!-- The `search_case_insensitive` function, shown in Listing 12-21, will be almost -->
 <!-- the same as the `search` function. The only difference is that we’ll lowercase -->
 <!-- the `query` and each `line` so whatever the case of the input arguments, -->
-<!-- they’ll be the same case when we check whether the line contains the query: -->
+<!-- they’ll be the same case when we check whether the line contains the query. -->
 
 `search_case_insensitive`関数は、リスト12-21に示しましたが、`search`関数とほぼ同じです。
 唯一の違いは、`query`と各`line`を小文字化していることなので、入力引数の大文字小文字によらず、
@@ -143,28 +143,28 @@ fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 
 <!-- First, we lowercase the `query` string and store it in a shadowed variable with -->
 <!-- the same name. Calling `to_lowercase` on the query is necessary so no matter -->
-<!-- whether the user’s query is “rust”, “RUST”, “Rust”, or “rUsT”, we’ll treat the -->
-<!-- query as if it was “rust” and be insensitive to the case. -->
+<!-- whether the user’s query is `“rust”`, `“RUST”`, `“Rust”`, or `“rUsT”`, we’ll treat the -->
+<!-- query as if it was `“rust”` and be insensitive to the case. -->
 
-まず、`query`文字列を小文字化し、同じ名前の上書きされた変数に保存します。ユーザのクエリが"rust"や"RUST"、
-"Rust"、"rUsT"などだったりしても、"rust"であり、大文字小文字を区別しないかのようにクエリを扱えるように、
+まず、`query`文字列を小文字化し、同じ名前の上書きされた変数に保存します。ユーザのクエリが`"rust"`や`"RUST"`、
+`"Rust"`、`"rUsT"`などだったりしても、`"rust"`であり、大文字小文字を区別しないかのようにクエリを扱えるように、
 `to_lowercase`をクエリに対して呼び出すことは必須です。
 
 <!-- Note that `query` is now a `String` rather than a string slice, because calling -->
 <!-- `to_lowercase` creates new data rather than referencing existing data. Say the -->
-<!-- query is “rUsT”, as an example: that string slice doesn’t contain a lowercase -->
-<!-- “u” or “t” for us to use, so we have to allocate a new `String` containing -->
-<!-- “rust”. When we pass `query` as an argument to the `contains` method now, we -->
+<!-- query is `“rUsT”`, as an example: that string slice doesn’t contain a lowercase -->
+<!-- `u` or `t` for us to use, so we have to allocate a new `String` containing -->
+<!-- `“rust”`. When we pass `query` as an argument to the `contains` method now, we -->
 <!-- need to add an ampersand because the signature of `contains` is defined to take -->
 <!-- a string slice. -->
 
 `query`は最早、文字列スライスではなく`String`であることに注意してください。というのも、
 `to_lowercase`を呼び出すと、既存のデータを参照するというよりも、新しいデータを作成するからです。
-例として、クエリは"rUsT"としましょう: その文字列スライスは、小文字の"u"や"t"を使えるように含んでいないので、
-"rust"を含む新しい`String`のメモリを確保しなければならないのです。今、`contains`メソッドに引数として`query`を渡すと、
+例として、クエリは`"rUsT"`としましょう: その文字列スライスは、小文字の`u`や`t`を使えるように含んでいないので、
+`"rust"`を含む新しい`String`のメモリを確保しなければならないのです。今、`contains`メソッドに引数として`query`を渡すと、
 アンド記号を追加する必要があります。`contains`のシグニチャは、文字列スライスを取るよう定義されているからです。
 
-<!-- 2行目最後、to lowercase ...がかかる先が微妙。今の訳の通りなら、beforeの前にtoを記述する気もする -->
+<!-- 2行目真ん中、to lowercase ...がかかる先が微妙。今の訳の通りなら、beforeの前にtoを記述する気もする -->
 
 <!-- Next, we add a call to `to_lowercase` on each `line` before we check whether it -->
 <!-- contains `query` to lowercase all characters. Now that we’ve converted `line` -->
@@ -328,29 +328,29 @@ impl Config {
 <!-- We’re using the `is_err` method on the `Result` to check whether it’s an error -->
 <!-- and therefore unset, which means it *should* do a case-sensitive search. If the -->
 <!-- `CASE_INSENSITIVE` environment variable is set to anything, `is_err` will -->
-<!-- return false and will perform a case-insensitive search. We don’t care about -->
-<!-- the *value* of the environment variable, just whether it’s set or unset, so -->
-<!-- we’re checking `is_err` rather than `unwrap`, `expect`, or any of the other -->
-<!-- methods we’ve seen on `Result`. -->
+<!-- return false and the program will perform a case-insensitive search. We don’t -->
+<!-- care about the *value* of the environment variable, just whether it’s set or -->
+<!-- unset, so we’re checking `is_err` rather than `unwrap`, `expect`, or any -->
+<!-- of the other methods we’ve seen on `Result`. -->
 
 `Result`の`is_err`メソッドを使用して、エラーでありゆえに、セットされていないことを確認しています。
 これは大文字小文字を区別する検索をす*べき*ことを意味します。`CASE_INSENSITIVE`環境変数が何かにセットされていれば、
-`is_err`はfalseを返し、大文字小文字を区別しない検索を実行するでしょう。環境変数の値には興味がなく、
+`is_err`はfalseを返し、プログラムは大文字小文字を区別しない検索を実行するでしょう。環境変数の値はどうでもよく、
 セットされているかどうかだけ気にするので、`unwrap`や`expect`あるいは、他のここまで見かけた`Result`のメソッドではなく、
 `is_err`をチェックしています。
 
 <!-- We pass the value in the `case_sensitive` variable to the `Config` instance so -->
 <!-- the `run` function can read that value and decide whether to call `search` or -->
-<!-- `search_case_insensitive` as we implemented in Listing 12-22. -->
+<!-- `search_case_insensitive`, as we implemented in Listing 12-22. -->
 
 `case_sensitive`変数の値を`Config`インスタンスに渡しているので、リスト12-22で実装したように、
 `run`関数はその値を読み取り、`search`か`search_case_insensitive`を呼び出すか決定できるのです。
 
 <!-- Let’s give it a try! First, we’ll run our program without the environment -->
-<!-- variable set and with the query “to”, which should match any line that contains -->
+<!-- variable set and with the query `to`, which should match any line that contains -->
 <!-- the word “to” in all lowercase: -->
 
-試行してみましょう！まず、環境変数をセットせずにクエリは、"to"でプログラムを実行し、
+試行してみましょう！まず、環境変数をセットせずにクエリは、`to`でプログラムを実行し、
 この時は全て小文字で"to"という言葉を含むあらゆる行が合致するはずです。
 
 ```text
@@ -363,11 +363,23 @@ How dreary to be somebody!
 ```
 
 <!-- Looks like that still works! Now, let’s run the program with `CASE_INSENSITIVE` -->
-<!-- set to `1` but with the same query “to”; we should get lines that contain “to” -->
-<!-- that might have uppercase letters: -->
+<!-- set to `1` but with the same query `to`. -->
 
-まだ機能しているようです！では、`CASE_INSENSITIVE`を1にしつつ、同じクエリの"to"でプログラムを実行しましょう。
-つまり、大文字も含む"to"を含有する行が得られるはずです。
+まだ機能しているようです！では、`CASE_INSENSITIVE`を1にしつつ、同じクエリの`to`でプログラムを実行しましょう。
+
+<!-- If you’re using PowerShell, you will need to set the environment variable and -->
+<!-- run the program in two commands rather than one: -->
+
+PowerShellを使用しているなら、1コマンドではなく、2コマンドで環境変数をセットし、プログラムを実行する必要があるでしょう:
+
+```text
+$ $env:CASE_INSENSITIVE=1
+$ cargo run to poem.txt
+```
+
+<!-- We should get lines that contain “to” that might have uppercase letters: -->
+
+大文字も含む可能性のある"to"を含有する行が得られるはずです:
 
 ```text
 $ CASE_INSENSITIVE=1 cargo run to poem.txt
@@ -379,24 +391,14 @@ To tell your name the livelong day
 To an admiring bog!
 ```
 
-<!-- If you’re using PowerShell, you will need to set the environment variable and -->
-<!-- run the program in two commands rather than one: -->
-
-PowerShellを使用していれば、1つではなく、2つのコマンドで環境変数をセットし、プログラムを走らせる必要があるでしょう:
-
-```text
-$ $env:CASE_INSENSITIVE=1
-$ cargo run to poem.txt
-```
-
 <!-- Excellent, we also got lines containing “To”! Our `minigrep` program can now do -->
 <!-- case-insensitive searching controlled by an environment variable. Now you know -->
 <!-- how to manage options set using either command line arguments or environment -->
-<!-- variables! -->
+<!-- variables. -->
 
 素晴らしい、"To"を含む行も出てきましたね！`minigrep`プログラムはこれで、
-環境変数によって制御できる大文字小文字を区別しない検索も行えるようになりました。コマンドライン引数か、
-環境変数を使ってオプションを管理する方法も知りましたね！
+環境変数によって制御できる大文字小文字を区別しない検索も行えるようになりました。もうコマンドライン引数か、
+環境変数を使ってオプションを管理する方法も知りましたね。
 
 <!-- Some programs allow arguments *and* environment variables for the same -->
 <!-- configuration. In those cases, the programs decide that one or the other takes -->

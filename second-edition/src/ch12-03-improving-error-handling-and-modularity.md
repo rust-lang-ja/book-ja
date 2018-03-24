@@ -30,7 +30,7 @@
 
 この問題は、2番目の問題にも紐付いています: `query`と`filename`はプログラムの設定用変数ですが、
 `f`や`contents`といった変数は、プログラムのロジックを担っています。`main`が長くなるほど、
-スコープに入れるべき変数も増えます; スコープにある変数が増えれば、各々の目的を追うのも大変になるわけです。
+スコープに入れるべき変数も増えます。そして、スコープにある変数が増えれば、各々の目的を追うのも大変になるわけです。
 設定用変数を一つの構造に押し込め、目的を明瞭化するのが最善です。
 
 <!-- The third problem is that we’ve used `expect` to print an error message when -->
@@ -38,23 +38,23 @@
 <!-- Opening a file can fail in a number of ways besides the file being missing: for -->
 <!-- example, the file might exist, but we might not have permission to open it. -->
 <!-- Right now, if we’re in that situation, we’d print the `file not found` error -->
-<!-- message that would give the user the wrong information! -->
+<!-- message, which would give the user the wrong information! -->
 
 3番目の問題は、ファイルを開き損ねた時に`expect`を使ってエラーメッセージを出力しているのに、
 エラーメッセージが`ファイルが見つかりませんでした`としか表示しないことです。
 ファイルを開く行為は、ファイルが存在しない以外にもいろんな方法で失敗することがあります:
 例えば、ファイルは存在するかもしれないけれど、開く権限がないかもしれないなどです。
-現時点では、そのような状況になった時、
-「ファイルが見つかりませんでした」というユーザに間違った情報を与えるエラーメッセージを表示するわけです。
+現時点では、そのような状況になった時、「ファイルが見つかりませんでした」というエラーメッセージを出力し、
+これはユーザに間違った情報を与えるのです。
 
 <!-- 1行目最後の方のandを順接の理由で訳している -->
 
 <!-- Fourth, we use `expect` repeatedly to handle different errors, and if the user -->
 <!-- runs our program without specifying enough arguments, they’ll get an `index out -->
 <!-- of bounds` error from Rust that doesn’t clearly explain the problem. It would -->
-<!-- be best if all the error handling code was in one place so future maintainers -->
-<!-- have only one place to consult in the code if the error handling logic needs to -->
-<!-- change. Having all the error handling code in one place will also ensure that -->
+<!-- be best if all the error-handling code was in one place so future maintainers -->
+<!-- have only one place to consult in the code if the error-handling logic needs to -->
+<!-- change. Having all the error-handling code in one place will also ensure that -->
 <!-- we’re printing messages that will be meaningful to our end users. -->
 
 4番目は、異なるエラーを処理するのに`expect`を繰り返し使用しているので、ユーザが十分な数の引数を渡さずにプログラムを起動した時に、
@@ -73,31 +73,32 @@
 
 <!-- The organizational problem of allocating responsibility for multiple tasks to -->
 <!-- the `main` function is common to many binary projects. As a result, the Rust -->
-<!-- community has developed a type of guideline process for splitting the separate -->
-<!-- concerns of a binary program when `main` starts getting large. The process has -->
-<!-- the following steps: -->
+<!-- community has developed a process to use as a guideline for splitting the -->
+<!-- separate concerns of a binary program when `main` starts getting large. The -->
+<!-- process has the following steps: -->
 
 `main`関数に複数の仕事の責任を押し付けるという構造上の問題は、多くのバイナリプロジェクトでありふれています。
-結果として、`main`が肥大化し始めた際にバイナリプログラムの個別の責任を分割するためのある種のガイドライン工程をRustコミニュティは、
+結果として、`main`が肥大化し始めた際にバイナリプログラムの個別の責任を分割するためにガイドラインとして活用できる工程をRustコミニュティは、
 開発しました。この工程は、以下のような手順になっています:
 
-<!-- * Split your program into a *main.rs* and a *lib.rs*, and move your program’s -->
-<!-- logic to *lib.rs*. -->
-<!-- * While your command line parsing logic is small, it can remain in *main.rs*. -->
+<!-- * Split your program into a *main.rs* and a *lib.rs* and move your program’s -->
+<!--   logic to *lib.rs*. -->
+<!-- * As long as your command line parsing logic is small, it can remain in -->
+<!--   *main.rs*. -->
 <!-- * When the command line parsing logic starts getting complicated, extract it -->
-<!-- from *main.rs* and move it to *lib.rs*. -->
+<!--   from *main.rs* and move it to *lib.rs*. -->
 <!-- * The responsibilities that remain in the `main` function after this process -->
-<!-- should be limited to: -->
-
-* プログラムを*main.rs*と*lib.rs*に分け、ロジックを*lib.rs*に移動する。
-* コマンドライン引数の解析ロジックが小規模な間は、*main.rs*に置いても良い。
-* コマンドライン引数の解析ロジックが複雑化の様相を呈し始めたら、*main.rs*から抽出して*lib.rs*に移動する。
-* この工程の後に`main`関数に残る責任は以下に限定される:
-
+<!--   should be limited to the following: -->
+<!-- -->
 <!--   * Calling the command line parsing logic with the argument values -->
 <!--   * Setting up any other configuration -->
 <!--   * Calling a `run` function in *lib.rs* -->
 <!--   * Handling the error if `run` returns an error -->
+
+* プログラムを*main.rs*と*lib.rs*に分け、ロジックを*lib.rs*に移動する。
+* コマンドライン引数の解析ロジックが小規模な限り、*main.rs*に置いても良い。
+* コマンドライン引数の解析ロジックが複雑化の様相を呈し始めたら、*main.rs*から抽出して*lib.rs*に移動する。
+* この工程の後に`main`関数に残る責任は以下に限定される:
 
   * 引数の値でコマンドライン引数の解析ロジックを呼び出す
   * 他のあらゆる設定を行う
@@ -106,10 +107,10 @@
 
 <!-- This pattern is about separating concerns: *main.rs* handles running the -->
 <!-- program, and *lib.rs* handles all the logic of the task at hand. Because we -->
-<!-- can’t test the `main` function directly, this structure lets us test all of our -->
-<!-- program’s logic by moving it into functions in *lib.rs*. The only code that -->
-<!-- remains in *main.rs* will be small enough to verify its correctness by reading -->
-<!-- it. Let’s rework our program by following this process. -->
+<!-- can’t test the `main` function directly, this structure lets us test all of -->
+<!-- your program’s logic by moving it into functions in *lib.rs*. The only code -->
+<!-- that remains in *main.rs* will be small enough to verify its correctness by -->
+<!-- reading it. Let’s rework our program by following this process. -->
 
 このパターンは、責任の分離についてです: *main.rs*はプログラムの実行を行い、
 そして、*lib.rs*が手にある仕事のロジック全てを扱います。`main`関数を直接テストすることはできないので、
@@ -126,7 +127,7 @@
 <!-- *src/lib.rs*. Listing 12-5 shows the new start of `main` that calls a new -->
 <!-- function `parse_config`, which we’ll define in *src/main.rs* for the moment. -->
 
-引数解析の機能を`main`が呼び出す関数に抽出して、コマンドライン引数解析ロジックを*src/lib.rs*に移動する準備をしましょう。
+引数解析の機能を`main`が呼び出す関数に抽出して、コマンドライン引数解析ロジックを*src/lib.rs*に移動する準備をします。
 リスト12-5に新しい関数`parse_config`を呼び出す`main`の冒頭部を示し、
 この新しい関数は今だけ*src/main.rs*に定義します。
 
@@ -151,7 +152,6 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 }
 ```
 
-<<<<<<< HEAD
 <!-- <span class="caption">Listing 12-5: Extracting a `parse_config` function from -->
 <!-- `main`</span> -->
 
@@ -176,13 +176,16 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 <!-- This rework may seem like overkill for our small program, but we’re refactoring -->
 <!-- in small, incremental steps. After making this change, run the program again to -->
 <!-- verify that the argument parsing still works. It’s good to check your progress -->
-<!-- often, because that will help you identify the cause of problems when they -->
-<!-- occur. -->
+<!-- often, to help you identify the cause of problems when they occur. -->
+
+This rework may seem like overkill for our small program, but we’re refactoring
+in small, incremental steps. After making this change, run the program again to
+verify that the argument parsing still works. It’s good to check your progress
+often, to help identify the cause of problems when they occur.
 
 このやり直しは、私たちの小規模なプログラムにはやりすぎに思えるかもしれませんが、
 少しずつ段階的にリファクタリングしているのです。この変更後、プログラムを再度実行して、
-引数解析がまだ動作していることを実証してください。頻繁に進捗を確認するのはいいことです。
-問題が発生した時に原因を特定する助けになりますからね。
+引数解析がまだ動作していることを実証してください。問題が発生した時に原因を特定する助けにするために頻繁に進捗を確認するのはいいことです。
 
 <!-- #### Grouping Configuration Values -->
 
@@ -199,15 +202,15 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 <!-- Another indicator that shows there’s room for improvement is the `config` part -->
 <!-- of `parse_config`, which implies that the two values we return are related and -->
 <!-- are both part of one configuration value. We’re not currently conveying this -->
-<!-- meaning in the structure of the data other than grouping the two values into a -->
-<!-- tuple: we could put the two values into one struct and give each of the struct -->
-<!-- fields a meaningful name. Doing so will make it easier for future maintainers -->
-<!-- of this code to understand how the different values relate to each other and -->
-<!-- what their purpose is. -->
+<!-- meaning in the structure of the data other than grouping the two values into -->
+<!-- a tuple; we could put the two values into one struct and give each of the -->
+<!-- struct fields a meaningful name. Doing so will make it easier for future -->
+<!-- maintainers of this code to understand how the different values relate to each -->
+<!-- other and what their purpose is. -->
 
-まだ改善の余地があると示してくれる他のものは、`parse_config`の`config`の部分であり、
+まだ改善の余地があると示してくれる他の徴候は、`parse_config`の`config`の部分であり、
 返却している二つの値は関係があり、一つの設定値の一部にどちらもなることを暗示しています。
-現状では、一つのタプルにまとめていること以外、この意味をデータの構造に載せていません:
+現状では、一つのタプルにまとめていること以外、この意味をデータの構造に載せていません;
 この二つの値を1構造体に置き換え、構造体のフィールドそれぞれに意味のある名前をつけることもできるでしょう。
 そうすることで将来このコードのメンテナンス者が、異なる値が相互に関係する仕方や、目的を理解しやすくできるでしょう。
 
@@ -226,7 +229,9 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 また、`parse_config`関数を`Config`構造体のインスタンを返すように変え、
 `main`も個別の変数ではなく構造体のフィールドを使うように更新しました。
 
-<span class="filename">Filename: src/main.rs</span>
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,should_panic
 # use std::env;
@@ -298,11 +303,11 @@ Rustの借用規則に違反してしまうことを意味します。
 <!-- > ownership problems because of its runtime cost. In Chapter 13, you’ll learn -->
 <!-- > how to use more efficient methods in this type of situation. But for now, -->
 <!-- > it’s okay to copy a few strings to continue making progress because we’ll -->
-<!-- > make these copies only once, and our filename and query string are very -->
+<!-- > make these copies only once and your filename and query string are very -->
 <!-- > small. It’s better to have a working program that’s a bit inefficient than to -->
 <!-- > try to hyperoptimize code on your first pass. As you become more experienced -->
-<!-- > with Rust, it’ll be easier to start with the desirable solution, but for now, -->
-<!-- > it’s perfectly acceptable to call `clone`. -->
+<!-- > with Rust, it’ll be easier to start with the most efficient solution, but for -->
+<!-- > now, it’s perfectly acceptable to call `clone`. -->
 
 > ### `clone`を使用するトレードオフ
 >
@@ -311,7 +316,7 @@ Rustの借用規則に違反してしまうことを意味します。
 > これらのコピーをするのは1回だけですし、ファイル名とクエリ文字列は非常に小さなものなので、
 > いくつかの文字列をコピーして進捗するのは良しとしましょう。最初の通り道でコードを究極的に効率化しようとするよりも、
 > ちょっと非効率的でも動くプログラムを用意する方がいいでしょう。もっとRustの経験を積めば、
-> 希望通りの解決法から開始することも簡単になるでしょうが、今は、`clone`を呼び出すのは完璧に受け入れられることです。
+> 最も効率的な解決法から開始することも簡単になるでしょうが、今は、`clone`を呼び出すのは完璧に受け入れられることです。
 
 <!-- We’ve updated `main` so it places the instance of `Config` returned by -->
 <!-- `parse_config` into a variable named `config`, and we updated the code that -->
@@ -321,12 +326,12 @@ Rustの借用規則に違反してしまうことを意味します。
 `main`を更新したので、`parse_config`から返された`Config`のインスタンスを`config`という変数に置くようになり、
 以前は個別の`query`と`filename`変数を使用していたコードを更新したので、代わりに`Config`構造体のフィールドを使用するようになりました。
 
-<!-- Now our code more clearly conveys that `query` and `filename` are related, and -->
-<!-- their purpose is to configure how the program will work. Any code that uses -->
-<!-- these values knows to find them in the `config` instance in the fields named -->
-<!-- for their purpose. -->
+<!-- Now our code more clearly conveys that `query` and `filename` are related and -->
+<!-- that their purpose is to configure how the program will work. Any code that -->
+<!-- uses these values knows to find them in the `config` instance in the fields -->
+<!-- named for their purpose. -->
 
-これでコードは`query`と`filename`が関連しているとより明確に伝え、その目的はプログラムの振る舞い方を設定することになりました。
+これでコードは`query`と`filename`が関連していることと、その目的がプログラムの振る舞い方を設定するということをより明確に伝えます。
 これらの値を使用するあらゆるコードは、`config`インスタンスの目的の名前を冠したフィールドにそれらを発見することを把握しています。
 
 <!-- #### Creating a Constructor for `Config` -->
@@ -334,30 +339,30 @@ Rustの借用規則に違反してしまうことを意味します。
 #### `Config`のコンストラクタを作成する
 
 <!-- So far, we’ve extracted the logic responsible for parsing the command line -->
-<!-- arguments from `main` and placed it in the `parse_config` function, which -->
+<!-- arguments from `main` and placed it in the `parse_config` function. Doing so -->
 <!-- helped us to see that the `query` and `filename` values were related and that -->
 <!-- relationship should be conveyed in our code. We then added a `Config` struct to -->
-<!-- name the related purpose of `query` and `filename`, and to be able to return -->
-<!-- the values’ names as struct field names from the `parse_config` function. -->
+<!-- name the related purpose of `query` and `filename` and to be able to return the -->
+<!-- values’ names as struct field names from the `parse_config` function. -->
 
 ここまで、コマンドライン引数を解析する責任を負ったロジックを`main`から抽出し、`parse_config`関数に配置しました。
-これにより`query`と`filename`の値が関連し、その関係性がコードに載っていることを確認する助けになりました。
+そうすることで`query`と`filename`の値が関連し、その関係性がコードに載っていることを確認する助けになりました。
 それから`Config`構造体を追加して`query`と`filename`の関係する目的を名前付けし、
 構造体のフィールド名として`parse_config`関数からその値の名前を返すことができています。
 
 <!-- So now that the purpose of the `parse_config` function is to create a `Config` -->
-<!-- instance, we can change `parse_config` from being a plain function to a -->
-<!-- function named `new` that is associated with the `Config` struct. Making this -->
-<!-- change will make the code more idiomatic: we can create instances of types in -->
-<!-- the standard library, such as `String`, by calling `String::new`, and by -->
+<!-- instance, we can change `parse_config` from a plain function to a function -->
+<!-- named `new` that is associated with the `Config` struct. Making this change -->
+<!-- will make the code more idiomatic. We can create instances of types in the -->
+<!-- standard library, such as `String`, by calling `String::new`. Similarly, by -->
 <!-- changing `parse_config` into a `new` function associated with `Config`, we’ll -->
 <!-- be able to create instances of `Config` by calling `Config::new`. Listing 12-7 -->
 <!-- shows the changes we need to make: -->
 
 したがって、今や`parse_config`関数の目的は`Config`インスタンスを生成することになったので、
 `parse_config`をただの関数から`Config`構造体に紐付く`new`という関数に変えることができます。
-この変更を行うことで、コードがより慣用的になります: `String`などの標準ライブラリの型のインスタンスを、
-`String::new`を呼び出すことで生成でき、`parse_config`を`Config`に紐付く`new`関数に変えれば、
+この変更を行うことで、コードがより慣用的になります。`String`などの標準ライブラリの型のインスタンスを、
+`String::new`を呼び出すことで生成できます。同様に、`parse_config`を`Config`に紐付く`new`関数に変えれば、
 `Config::new`を呼び出すことで`Config`のインスタンスを生成できるようになります。リスト12-7が、
 行う必要のある変更を示しています:
 
@@ -444,7 +449,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- In Listing 12-8, we add a check in the `new` function that will verify that the -->
 <!-- slice is long enough before accessing index `1` and `2`. If the slice isn’t -->
 <!-- long enough, the program panics and displays a better error message than the -->
-<!-- `index out of bounds` message: -->
+<!-- `index out of bounds` message. -->
 
 リスト12-8で、`new`関数に添字`1`と`2`にアクセスする前にスライスが十分長いことを実証するチェックを追加しています。
 スライスの長さが十分でなければ、プログラムはパニックし、`境界外アクセス`よりもいいエラーメッセージを表示します。
@@ -468,7 +473,7 @@ fn new(args: &[String]) -> Config {
 
 <span class="caption">リスト12-8: 引数の数のチェックを追加する</span>
 
-<!-- This code is similar to the `Guess::new` function we wrote in Listing 9-9 where -->
+<!-- This code is similar to the `Guess::new` function we wrote in Listing 9-9, where -->
 <!-- we called `panic!` when the `value` argument was out of the range of valid -->
 <!-- values. Instead of checking for a range of values here, we’re checking that the -->
 <!-- length of `args` is at least `3` and the rest of the function can operate under -->
@@ -529,10 +534,10 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- Listing 12-9 shows the changes we need to make to the return value of -->
 <!-- `Config::new` and the body of the function needed to return a `Result`. Note -->
 <!-- that this won’t compile until we update `main` as well, which we’ll do in the -->
-<!-- next listing: -->
+<!-- next listing. -->
 
 リスト12-9は、`Config::new`の戻り値に必要な変更と`Result`を返すのに必要な関数の本体を示しています。
-`main`も更新するまで、これはコンパイルできないことに注意してください。その更新は次のリストで行います:
+`main`も更新するまで、これはコンパイルできないことに注意してください。その更新は次のリストで行います。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -690,10 +695,10 @@ Problem parsing arguments: not enough arguments
 
 <!-- Listing 12-11 shows the extracted `run` function. For now, we’re just making -->
 <!-- the small, incremental improvement of extracting the function. We’re still -->
-<!-- defining the function in *src/main.rs*: -->
+<!-- defining the function in *src/main.rs*. -->
 
 リスト12-11は、抜き出した`run`関数を示しています。今は少しずつ段階的に関数を抽出する改善を行っています。
-それでも、*src/main.rs*に関数を定義していきます:
+それでも、*src/main.rs*に関数を定義していきます。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -839,7 +844,7 @@ warning: unused `std::result::Result` which must be used
 
 <!-- 3行目中盤、andだが、逆接のように訳しています。andはフローが流れていることを表すだけなので、こうなっている模様 -->
 
-<!-- Rust tells us that our code ignored the `Result` value, and the `Result` value -->
+<!-- Rust tells us that our code ignored the `Result` value and the `Result` value -->
 <!-- might indicate that an error occurred. But we’re not checking to see whether or -->
 <!-- not there was an error, and the compiler reminds us that we probably meant to -->
 <!-- have some error handling code here! Let’s rectify that problem now. -->
@@ -853,11 +858,10 @@ warning: unused `std::result::Result` which must be used
 
 #### `main`で`run`から返ってきたエラーを処理する
 
-<!-- We’ll check for errors and handle them using a technique similar to the way we -->
-<!-- handled errors with `Config::new` in Listing 12-10, but with a slight -->
-<!-- difference: -->
+<!-- We’ll check for errors and handle them using a technique similar to one we used -->
+<!-- with `Config::new` in Listing 12-10, but with a slight difference: -->
 
-リスト12-10の`Config::new`に対してエラー処理を行った方法に似たテクニックを使用してエラーを確認し、扱いますが、
+リスト12-10の`Config::new`に対して行った方法に似たテクニックを使用してエラーを確認し、扱いますが、
 少し違いがあります:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -924,10 +928,10 @@ fn main() {
 
 <!-- The contents of *src/lib.rs* should have the signatures shown in Listing 12-13 -->
 <!-- (we’ve omitted the bodies of the functions for brevity). Note that this won't -->
-<!-- compile until we modify *src/main.rs* in the listing after this one: -->
+<!-- compile until we modify *src/main.rs* in the listing after this one. -->
 
 *src/lib.rs*の中身にはリスト12-13に示したようなシグニチャがあるはずです(関数の本体は簡潔性のために省略しました)。
-この後にも*src/main.rs*に変更を加えるまでこのコードはコンパイルできないことに注意してください:
+この後に*src/main.rs*に変更を加えるまでこのコードはコンパイルできないことに注意してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -959,11 +963,11 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
 
 <span class="caption">リスト12-13: `Config`と`run`を*src/lib.rs*に移動する</span>
 
-<!-- We’ve made liberal use of `pub` here: on `Config`, its fields and its `new` -->
-<!-- method, and on the `run` function. We now have a library crate that has a -->
+<!-- We’ve made liberal use of `pub` here: on `Config`, on its fields and its -->
+<!-- `new` method, and on the `run` function. We now have a library crate that has a -->
 <!-- public API that we can test! -->
 
-ここでは、寛大に`pub`を使用しています: `Config`のフィールドと`new`メソッドと、`run`関数です。
+ここでは、寛大に`pub`を使用しています: `Config`のフィールドと`new`メソッドと`run`関数です。
 これでテスト可能な公開APIのあるライブラリクレートができました！
 
 <!-- Now we need to bring the code we moved to *src/lib.rs* into the scope of the -->
@@ -998,14 +1002,14 @@ fn main() {
 <span class="caption">リスト12-14: `minigrep`クレートを*src/main.rs*のスコープに持っていく</span>
 
 <!-- To bring the library crate into the binary crate, we use `extern crate -->
-<!-- minigrep`. Then we’ll add a `use minigrep::Config` line to bring the `Config` -->
-<!-- type into scope, and we’ll prefix the `run` function with our crate name. Now -->
-<!-- all the functionality should be connected and should work. Run the program with -->
-<!-- `cargo run` and make sure everything works correctly. -->
+<!-- minigrep`. Then we add a `use minigrep::Config` line to bring the `Config` type -->
+<!-- into scope, and we prefix the `run` function with our crate name. Now all the -->
+<!-- functionality should be connected and should work. Run the program with `cargo -->
+<!-- run` and make sure everything works correctly. -->
 
 ライブラリクレートをバイナリクレートに持っていくのに、`extern crate minigrep`を使用しています。
 それから`use minigrep::Config`行を追加して`Config`型をスコープに持っていき、
-`run`関数にクレート名をプレフィックスとして付けます。これで全機能が連結され、動くはずです。
+`run`関数にクレート名を接頭辞として付けます。これで全機能が連結され、動くはずです。
 `cargo run`でプログラムを走らせて、すべてがうまくいっていることを確かめてください。
 
 <!-- Whew! That was a lot of work, but we’ve set ourselves up for success in the -->
@@ -1013,7 +1017,7 @@ fn main() {
 <!-- modular. Almost all of our work will be done in *src/lib.rs* from here on out. -->
 
 ふう！作業量が多かったですね。ですが、将来成功する準備はできています。
-今では、エラー処理は遥かに楽になり、コードのモジュール化もできました。
+もう、エラー処理は遥かに楽になり、コードのモジュール化もできました。
 ここから先の作業は、ほぼ*src/lib.rs*で完結するでしょう。
 
 <!-- Let’s take advantage of this newfound modularity by doing something that would -->

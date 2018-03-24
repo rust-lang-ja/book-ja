@@ -2,7 +2,7 @@
 
 ## パフォーマンス比較: ループVSイテレータ
 
-<!-- To determine whether to use loops or iterators, we need to know which version -->
+<!-- To determine whether to use loops or iterators, you need to know which version -->
 <!-- of our `search` functions is faster: the version with an explicit `for` loop or -->
 <!-- the version with iterators. -->
 
@@ -11,12 +11,12 @@
 
 <!-- We ran a benchmark by loading the entire contents of *The Adventures of -->
 <!-- Sherlock Holmes* by Sir Arthur Conan Doyle into a `String` and looking for the -->
-<!-- word “the” in the contents. Here are the results of the benchmark on the -->
+<!-- word *the* in the contents. Here are the results of the benchmark on the -->
 <!-- version of `search` using the `for` loop and the version using iterators: -->
 
 サー・アーサー・コナン・ドイル(Sir Arthur Conan Doyle)の、
 *シャーロックホームズの冒険*(The Adventures of Sherlock Homes)全体を`String`に読み込み、
-そのコンテンツで"the"という単語を検索することでベンチマークを行いました。
+そのコンテンツで*the*という単語を検索することでベンチマークを行いました。
 こちらが、`for`を使用した`search`関数のバージョンと、イテレータを使用したバージョンに関するベンチマーク結果です。
 
 ```text
@@ -33,32 +33,30 @@ test bench_search_iter ... bench:  19,234,900 ns/iter (+/- 657,200)
 なぜなら、要点は、2つのバージョンが等価であることを証明することではなく、
 これら2つの実装がパフォーマンス的にどう比較されるかを大まかに把握することだからです。
 
-<!-- For a more comprehensive benchmark, you should check various texts of various -->
-<!-- sizes, different words, words of different lengths, and all kinds of other -->
-<!-- variations. The point is this: iterators, although a high-level abstraction, -->
-<!-- get compiled down to roughly the same code as if you’d written the lower-level -->
-<!-- code yourself. Iterators are one of Rust’s *zero-cost* *abstractions*, by which -->
-<!-- we mean using the abstraction imposes no additional runtime overhead in the -->
-<!-- same way that Bjarne Stroustrup, the original designer and implementor of C++, -->
-<!-- defines *zero-overhead*: -->
+<!-- For a more comprehensive benchmark, you should check various texts of -->
+<!-- various sizes as the `contents`, different words and words of different lengths -->
+<!-- as the `query`, and all kinds of other variations. The point is this: -->
+<!-- iterators, although a high-level abstraction, get compiled down to roughly the -->
+<!-- same code as if you’d written the lower-level code yourself. Iterators are one -->
+<!-- of Rust’s *zero-cost abstractions*, by which we mean using the abstraction -->
+<!-- imposes no additional runtime overhead. This is analogous to how Bjarne -->
+<!-- Stroustrup, the original designer and implementor of C++, defines -->
+<!-- *zero-overhead* in “Foundations of C++” (2012): -->
 
-より理解しやすいベンチマークには、いろんなサイズの様々なテキスト、異なる単語、異なる長さの単語、
+より理解しやすいベンチマークには、いろんなサイズの様々なテキストを`contents`として、異なる単語、異なる長さの単語を`query`として、
 他のあらゆる種類のバリエーションを確認するべきです。重要なのは: イテレータは、
 高度な抽象化にも関わらず、低レベルのコードを自身で書いているかのように、ほぼ同じコードにコンパイルされることです。
-イテレータは、Rustの*ゼロ代償**抽象化*の一つであり、これは、C++の元の設計者であり実装者の、
-ビャーネ・ストルヴストルップ(Bjarne Stroustrup)が、*ゼロオーバーヘッド*を定義したのと同様に、
-抽象化を使うことが何ら追加の実行時オーバーヘッドを生まないことを意味しています。
+イテレータは、Rustの*ゼロ代償抽象化*の一つであり、これは、抽象化を使うことが追加の実行時オーバーヘッドを生まないことを意味しています。
+このことは、C++の元の設計者であり実装者のビャーネ・ストルヴストルップ(Bjarne Stroustrup)が、
+*ゼロオーバーヘッド*を「C++の基礎(2012)」で定義したのと類似しています。
+
 
 <!-- > In general, C++ implementations obey the zero-overhead principle: What you -->
 <!-- > don’t use, you don’t pay for. And further: What you do use, you couldn’t hand -->
 <!-- > code any better. -->
-<!-- > -->
-<!-- > Bjarne Stroustrup’s “Foundations of C++” -->
 
 > 一般的に、C++の実装は、ゼロオーバーヘッド原則を遵守します: 使用しないものには、支払わなくてよい。
 > さらに: 実際に使っているものに対して、コードをそれ以上うまく渡すことはできない。
->
-> ビャーネ・ストルヴストルップの「C++の基礎」
 
 <!-- As another example, the following code is taken from an audio decoder. The -->
 <!-- decoding algorithm uses the linear prediction mathematical operation to -->
@@ -119,12 +117,12 @@ for i in 12..buffer.len() {
 コンパイラは、12回繰り返しがあることを把握しているので、ループを「展開」します。
 *ループの展開*は、ループ制御コードのオーバーヘッドを除去し、代わりにループの繰り返しごとに同じコードを生成する最適化です。
 
-<!-- All of the coefficients get stored in registers, which means it’s very fast to -->
-<!-- access the values. There are no bounds checks on the array access at runtime. -->
-<!-- All these optimizations Rust is able to apply make the resulting code extremely -->
-<!-- efficient. Now that you know this, you can use iterators and closures without -->
-<!-- fear! They make code seem like it’s higher level but don’t impose a runtime -->
-<!-- performance penalty for doing so. -->
+<!-- All of the coefficients get stored in registers, which means accessing the -->
+<!-- values is very fast. There are no bounds checks on the array access at runtime. -->
+<!-- All these optimizations that Rust is able to apply make the resulting code -->
+<!-- extremely efficient. Now that you know this, you can use iterators and closures -->
+<!-- without fear! They make code seem like it’s higher level but don’t impose a -->
+<!-- runtime performance penalty for doing so. -->
 
 係数は全てレジスタに保存されます。つまり、値に非常に高速にアクセスします。実行時に配列の境界チェックをすることもありません。
 コンパイラが適用可能なこれらの最適化全てにより、結果のコードは究極的に効率化されます。このことがわかったので、

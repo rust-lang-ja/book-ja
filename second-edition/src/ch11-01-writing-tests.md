@@ -9,13 +9,13 @@
 テストは、非テストコードが想定された手段で機能していることを実証するRustの関数です。
 テスト関数の本体は、典型的には以下の3つの動作を行います:
 
-<!-- 1. Set up any needed data or state -->
-<!-- 2. Run the code we want to test -->
-<!-- 3. Assert the results are what we expect -->
+<!-- 1. Set up any needed data or state. -->
+<!-- 2. Run the code we want to test. -->
+<!-- 3. Assert the results are what we expect. -->
 
-1. 必要なデータや状態をセットアップする
-2. テスト対象のコードを走らせる
-3. 結果が想定通りかアサーションする
+1. 必要なデータや状態をセットアップする。
+2. テスト対象のコードを走らせる。
+3. 結果が想定通りかアサーションする。
 
 <!-- Let’s look at the features Rust provides specifically for writing tests that -->
 <!-- take these actions, which include the `test` attribute, a few macros, and the -->
@@ -44,9 +44,10 @@ Rustコードの欠片に関するメタデータです; 一例を挙げれば�
 
 <!-- In Chapter 7, we saw that when we make a new library project with Cargo, a test -->
 <!-- module with a test function in it is automatically generated for us. This -->
-<!-- module helps us start writing our tests so we don’t have to look up the exact -->
-<!-- structure and syntax of test functions every time we start a new project. We -->
-<!-- can add as many additional test functions and as many test modules as we want! -->
+<!-- module helps us start writing our tests so you don’t have to look up the -->
+<!-- exact structure and syntax of test functions every time you start a new -->
+<!-- project. You can add as many additional test functions and as many test modules -->
+<!-- as you want! -->
 
 第7章で、Cargoで新規ライブラリプロジェクトを作成した時に、テスト関数が含まれるテストモジュールが自動で生成されたことを見かけました。
 このモジュールのおかげでテストを書き始めることができるので、新しいプロジェクトを立ち上げる度に、
@@ -65,15 +66,15 @@ Rustコードの欠片に関するメタデータです; 一例を挙げれば�
 `adder`という新しいライブラリプロジェクトを生成しましょう:
 
 ```text
-$ cargo new adder
+$ cargo new adder --lib
      Created library `adder` project
 $ cd adder
 ```
 
-<!-- The contents of the *src/lib.rs* file in your adder library should look like -->
+<!-- The contents of the *src/lib.rs* file in your `adder` library should look like -->
 <!-- Listing 11-1: -->
 
-adderライブラリの*src/lib.rs*ファイルの中身はリスト11-1のような見た目のはずです:
+`adder`ライブラリの*src/lib.rs*ファイルの中身はリスト11-1のような見た目のはずです:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -166,11 +167,13 @@ Cargoがテストをコンパイルし、走らせました。`Compiling`, `Fini
 
 <!-- The `0 measured` statistic is for benchmark tests that measure performance. -->
 <!-- Benchmark tests are, as of this writing, only available in nightly Rust. See -->
-<!-- Chapter 1 for more information about nightly Rust. -->
+<!-- [the documentation about benchmark tests][bench] to learn more. -->
 
 `0 measured`という統計は、パフォーマンスを測定するベンチマークテスト用です。
 ベンチマークテストは、本書記述の時点では、ナイトリー版のRustでのみ利用可能です。
-ナイトリー版のRustについて詳しくは、第1章を参照されたし。
+詳しくは、[ベンチマークテストのドキュメンテーション][bench]を参照されたし。
+
+[bench]: ../../unstable-book/library-features/test.html
 
 <!-- The next part of the test output, which starts with `Doc-tests adder`, is for -->
 <!-- the results of any documentation tests. We don’t have any documentation tests -->
@@ -367,7 +370,7 @@ impl Rectangle {
 <!-- The `can_hold` method returns a Boolean, which means it’s a perfect use case -->
 <!-- for the `assert!` macro. In Listing 11-6, we write a test that exercises the -->
 <!-- `can_hold` method by creating a `Rectangle` instance that has a length of 8 and -->
-<!-- a width of 7, and asserting that it can hold another `Rectangle` instance that -->
+<!-- a width of 7 and asserting that it can hold another `Rectangle` instance that -->
 <!-- has a length of 5 and a width of 1: -->
 
 `can_hold`メソッドは論理値を返すので、`assert!`マクロの完璧なユースケースになるわけです。
@@ -394,19 +397,19 @@ mod tests {
 }
 ```
 
-<!-- <span class="caption">Listing 11-6: A test for `can_hold` that checks that a -->
+<!-- <span class="caption">Listing 11-6: A test for `can_hold` that checks whether a -->
 <!-- larger rectangle can indeed hold a smaller rectangle</span> -->
 
-<span class="caption">リスト11-6: より大きな四角形がより小さな四角形を確かに保持できると確認する`can_hold`用のテスト</span>
+<span class="caption">リスト11-6: より大きな四角形がより小さな四角形を確かに保持できるかを確認する`can_hold`用のテスト</span>
 
-<!-- Note that we’ve added a new line inside the `tests` module: the `use super::*;` -->
-<!-- line. The `tests` module is a regular module that follows the usual visibility -->
-<!-- rules we covered in Chapter 7 in the “Privacy Rules” section. Because the -->
-<!-- `tests` module is an inner module, we need to bring the code under test in the -->
-<!-- outer module into the scope of the inner module. We use a glob here so anything -->
-<!-- we define in the outer module is available to this `tests` module. -->
+<!-- Note that we’ve added a new line inside the `tests` module: the `use super::*;`. -->
+<!-- The `tests` module is a regular module that follows the usual visibility rules -->
+<!-- we covered in Chapter 7 in the “Privacy Rules” section. Because the `tests` -->
+<!-- module is an inner module, we need to bring the code under test in the outer -->
+<!-- module into the scope of the inner module. We use a glob here so anything we -->
+<!-- define in the outer module is available to this `tests` module. -->
 
-`tests`モジュール内に新しい行を加えたことに注目してください: `use super::*`という1行です。
+`tests`モジュール内に新しい行を加えたことに注目してください: `use super::*`です。
 `tests`モジュールは、第7章の「プライバシー規則」節で解説した通常の公開ルールに従う普通のモジュールです。
 `tests`モジュールは、内部モジュールなので、外部モジュール内のテスト配下にあるコードを内部モジュールのスコープに持っていく必要があります。
 ここではglobを使用して、外部モジュールで定義したもの全てがこの`tests`モジュールでも使用可能になるようにしています。
@@ -637,7 +640,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- Our test caught the bug! The `it_adds_two` test failed, displaying the message -->
 <!-- `` assertion failed: `(left == right)` `` and showing that `left` was `4` and -->
 <!-- `right` was `5`. This message is useful and helps us start debugging: it means -->
-<!-- the `left` argument to `assert_eq!` was `4`, but the `right` argument, where we -->
+<!-- the `left` argument to `assert_eq!` was `4` but the `right` argument, where we -->
 <!-- had `add_two(2)`, was `5`. -->
 
 テストがバグを捕捉しました！`it_adds_two`のテストは失敗し、`` assertion failed: `(left == right)` ``というメッセージを表示し、
@@ -681,11 +684,11 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- of the standard library types implement these traits. For structs and enums -->
 <!-- that you define, you’ll need to implement `PartialEq` to assert that values of -->
 <!-- those types are equal or not equal. You’ll need to implement `Debug` to print -->
-<!-- out the values when the assertion fails. Because both traits are derivable -->
-<!-- traits, as mentioned in Listing 5-12 in Chapter 5, this is usually as -->
-<!-- straightforward as adding the `#[derive(PartialEq, Debug)]` annotation to your -->
-<!-- struct or enum definition. See Appendix C for more details about these and -->
-<!-- other derivable traits. -->
+<!-- out the values when the assertion fails. Because both traits are derivable traits, -->
+<!-- as mentioned in Listing 5-12 in Chapter 5, this is usually as straightforward -->
+<!-- as adding the `#[derive(PartialEq, Debug)]` annotation to your struct or enum -->
+<!-- definition. See Appendix C, “Derivable Traits,” for more details about these -->
+<!-- and other derivable traits. -->
 
 表面下では、`assert_eq!`と`assert_ne!`マクロはそれぞれ、`==`と`!=`演算子を使用しています。
 アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用して出力するので、
@@ -696,7 +699,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 アサーションが失敗した時に値を出力する必要もあるでしょう。
 第5章のリスト5-12で触れたように、どちらのトレイトも継承可能トレイトなので、
 これは通常、構造体やenum定義に`#[derive(PartialEq, Debug)]`というアノテーションを追加するくらい率直になります。
-これらや他の継承可能トレイトに関する詳細については、おまけCをご覧ください。
+これらや他の継承可能トレイトに関する詳細については、おまけC、「継承可能トレイト」をご覧ください。
 
 <!-- ### Adding Custom Failure Messages -->
 
@@ -749,13 +752,13 @@ mod tests {
 
 <!-- The requirements for this program haven’t been agreed upon yet, and we’re -->
 <!-- pretty sure the `Hello` text at the beginning of the greeting will change. We -->
-<!-- decided we don’t want to have to update the test for the name when that -->
-<!-- happens, so instead of checking for exact equality to the value returned from -->
-<!-- the `greeting` function, we’ll just assert that the output contains the text of -->
-<!-- the input parameter. -->
+<!-- decided we don’t want to have to update the test when the requirements change, -->
+<!-- so instead of checking for exact equality to the value returned from the -->
+<!-- `greeting` function, we’ll just assert that the output contains the text of the -->
+<!-- input parameter. -->
 
 このプログラムの必要事項はまだ合意が得られておらず、挨拶の先頭の`Hello`というテキストは変わるだろうということは確かです。
-そうなった時に名前のためにテストを更新しなければならなくはしたくないと決定したので、
+要件が変わった時にテストを更新しなくてもよいようにしたいと決定したので、
 `greeting`関数から返る値と正確な等値性を確認するのではなく、出力が入力引数のテキストを含むことをアサーションするだけにします。
 
 <!-- Let’s introduce a bug into this code by changing `greeting` to not include -->
@@ -844,7 +847,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 期待する正しい値をコードが返すことを確認することに加えて、想定通りにコードがエラー状態を扱っていることを確認するのも重要です。
 例えば、第9章のリスト9-9で生成した`Guess`型を考えてください。`Guess`を使用する他のコードは、
 `Guess`のインスタンスは1から100の範囲の値しか含まないという保証に依存しています。
-その範囲外の値で`Guess`インスタンスを生成しようとするとパニックすることを確認するテストを書くことができます。
+その範囲外の値で`Guess`インスタンスを生成しようとするとパニックすることを保証するテストを書くことができます。
 
 <!-- We do this by adding another attribute, `should_panic`, to our test function. -->
 <!-- This attribute makes a test pass if the code inside the function panics; the -->
@@ -855,7 +858,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 関数内のコードがパニックしなかったら、テストは失敗するわけです。
 
 <!-- Listing 11-8 shows a test that checks that the error conditions of `Guess::new` -->
-<!-- happen when we expect: -->
+<!-- happen when we expect them to: -->
 
 リスト11-8は、想定した時に`Guess::new`のエラー状態が発生していることを確認するテストを示しています:
 
@@ -970,7 +973,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- parameter to the `should_panic` attribute. The test harness will make sure that -->
 <!-- the failure message contains the provided text. For example, consider the -->
 <!-- modified code for `Guess` in Listing 11-9 where the `new` function panics with -->
-<!-- different messages depending on whether the value was too small or too large: -->
+<!-- different messages depending on whether the value is too small or too large: -->
 
 `should_panic`を使用するテストは不正確なこともあります。なぜなら、コードが何らかのパニックを起こしたことしか示さないからです。
 `should_panic`のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。

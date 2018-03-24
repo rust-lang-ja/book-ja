@@ -21,11 +21,11 @@
 <!-- an instance of the `Config` struct by indexing into the slice and cloning the -->
 <!-- values, allowing the `Config` struct to own those values. In Listing 13-24, -->
 <!-- we’ve reproduced the implementation of the `Config::new` function as it was in -->
-<!-- Listing 12-23 at the end of Chapter 12: -->
+<!-- Listing 12-23: -->
 
 リスト12-6において、スライスに添字アクセスして値をクローンすることで、`Config`構造体に値を所有させながら、
 `String`値のスライスを取り、`Config`構造体のインスタンスを作るコードを追記しました。リスト13-24では、
-第12章の最後、リスト12-23のような`Config::new`の実装を再現しました。
+リスト12-23のような`Config::new`の実装を再現しました。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -49,9 +49,9 @@ impl Config {
 ```
 
 <!-- <span class="caption">Listing 13-24: Reproduction of the `Config::new` function -->
-<!-- from the end of Chapter 12</span> -->
+<!-- from Listing 12-23</span> -->
 
-<span class="caption">リスト13-24: 第12章の最後から`Config::new`関数の再現</span>
+<span class="caption">リスト13-24: リスト12-23から`Config::new`関数の再現</span>
 
 <!-- At the time, we said not to worry about the inefficient `clone` calls because -->
 <!-- we would remove them in the future. Well, that time is now! -->
@@ -113,12 +113,14 @@ fn main() {
 }
 ```
 
-<!-- We’ll change the start of the `main` function that we had in Listing 12-24 at -->
-<!-- the end of Chapter 12 to the code in Listing 13-25. This won’t compile yet -->
-<!-- until we update `Config::new` as well: -->
+<!-- 1行目最後のatは消し忘れ？ -->
 
-第12章の終わり、リスト12-24のような`main`関数の冒頭をリスト13-25のコードに変更します。
-これは、`Config::new`も更新するまでコンパイルできません:
+<!-- We’ll change the start of the `main` function that we had in Listing 12-24 at -->
+<!-- to the code in Listing 13-25. This won’t compile until we update `Config::new` -->
+<!-- as well. -->
+
+リスト12-24のような`main`関数の冒頭をリスト13-25のコードに変更します。
+これは、`Config::new`も更新するまでコンパイルできません。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -150,12 +152,12 @@ fn main() {
 
 <!-- Next, we need to update the definition of `Config::new`. In your I/O project’s -->
 <!-- *src/lib.rs* file, let’s change the signature of `Config::new` to look like -->
-<!-- Listing 13-26. This still won’t compile yet because we need to update the -->
-<!-- function body: -->
+<!-- Listing 13-26. This still won’t compile because we need to update the function -->
+<!-- body. -->
 
 次に、`Config::new`の定義を更新する必要があります。入出力プロジェクトの*src/lib.rs*ファイルで、
 `Config::new`のシグニチャをリスト13-26のように変えましょう。関数本体を更新する必要があるので、
-それでもコンパイルはできません:
+それでもコンパイルはできません。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -244,7 +246,7 @@ impl Config {
 
 <!-- Remember that the first value in the return value of `env::args` is the name of -->
 <!-- the program. We want to ignore that and get to the next value, so first we call -->
-<!-- `next` and do nothing with the return value. Second, we call `next` on the -->
+<!-- `next` and do nothing with the return value. Second, we call `next` to get the -->
 <!-- value we want to put in the `query` field of `Config`. If `next` returns a -->
 <!-- `Some`, we use a `match` to extract the value. If it returns `None`, it means -->
 <!-- not enough arguments were given and we return early with an `Err` value. We do -->
@@ -252,7 +254,7 @@ impl Config {
 
 `env::args`の戻り値の1番目の値は、プログラム名であることを思い出してください。それは無視し、
 次の値を取得したいので、まず`next`を呼び出し、戻り値に対して何もしません。2番目に、
-`Config`の`query`フィールドに置きたい値に対して`next`を呼び出します。`next`が`Some`を返したら、
+`next`を呼び出して`Config`の`query`フィールドに置きたい値を得ます。`next`が`Some`を返したら、
 `match`を使用してその値を抜き出します。`None`を返したら、十分な引数が与えられなかったということなので、
 `Err`値で早期リターンします。`filename`値に対しても同じことをします。
 
@@ -261,11 +263,10 @@ impl Config {
 ### イテレータアダプタでコードをより明確にする
 
 <!-- We can also take advantage of iterators in the `search` function in our I/O -->
-<!-- project, which is reproduced here in Listing 13-28 as it was in Listing 12-19 -->
-<!-- at the end of Chapter 12: -->
+<!-- project, which is reproduced here in Listing 13-28 as it was in Listing 12-19: -->
 
 入出力プロジェクトの`search`関数でも、イテレータを活用することができ、その関数は、
-第12章の最後、リスト12-19のように、ここリスト13-28に再現しました。
+リスト12-19のように、ここリスト13-28に再現しました。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -286,22 +287,21 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 ```
 
 <!-- <span class="caption">Listing 13-28: The implementation of the `search` -->
-<!-- function from Chapter 12</span> -->
+<!-- function from Listing 12-19</span> -->
 
-<span class="caption">リスト13-28: 第12章の`search`関数の実装</span>
+<span class="caption">リスト13-28: リスト12-19の`search`関数の実装</span>
 
 <!-- We can write this code in a more concise way using iterator adaptor methods. -->
 <!-- Doing so also lets us avoid having a mutable intermediate `results` vector. The -->
 <!-- functional programming style prefers to minimize the amount of mutable state to -->
-<!-- make code clearer. Removing the mutable state might make it easier for us to -->
-<!-- make a future enhancement to make searching happen in parallel, because we -->
-<!-- wouldn’t have to manage concurrent access to the `results` vector. Listing -->
-<!-- 13-29 shows this change: -->
+<!-- make code clearer. Removing the mutable state might enable a future enhancement -->
+<!-- to make searching happen in parallel, because we wouldn’t have to manage -->
+<!-- concurrent access to the `results` vector. Listing 13-29 shows this change: -->
 
 イテレータアダプタメソッドを使用して、このコードをもっと簡潔に書くことができます。そうすれば、
 可変な中間の`results`ベクタをなくすこともできます。関数型プログラミングスタイルは、可変な状態の量を最小化することを好み、
 コードを明瞭化します。可変な状態を除去すると、検索を同時並行に行うという将来的な改善をするのが、
-簡単になるかもしれません。なぜなら、`results`ベクタへの同時アクセスを管理する必要がなくなるからです。
+可能になる可能性があります。なぜなら、`results`ベクタへの同時アクセスを管理する必要がなくなるからです。
 リスト13-29は、この変更を示しています:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -323,14 +323,14 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 
 <!-- Recall that the purpose of the `search` function is to return all lines in -->
 <!-- `contents` that contain the `query`. Similar to the `filter` example in Listing -->
-<!-- 13-19, we can use the `filter` adaptor to keep only the lines that -->
+<!-- 13-19, this code uses the `filter` adaptor to keep only the lines that -->
 <!-- `line.contains(query)` returns true for. We then collect the matching lines -->
 <!-- into another vector with `collect`. Much simpler! Feel free to make the same -->
 <!-- change to use iterator methods in the `search_case_insensitive` function as -->
 <!-- well. -->
 
 `search`関数の目的は、`query`を含む`contents`の行全てを返すことであることを思い出してください。
-リスト13-19の`filter`例に酷似して、`filter`アダプタを使用して`line.contains(query)`が真を返す行だけを残すことができます。
+リスト13-19の`filter`例に酷似して、このコードは`filter`アダプタを使用して`line.contains(query)`が真を返す行だけを残すことができます。
 それから、合致した行を別のベクタに`collect`で集結させます。ずっと単純です！ご自由に、
 同じ変更を行い、`search_case_insensitive`関数でもイテレータメソッドを使うようにしてください。
 

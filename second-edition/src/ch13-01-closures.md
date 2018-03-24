@@ -2,8 +2,8 @@
 
 ## クロージャ: 環境をキャプチャできる匿名関数
 
-<!-- Rust’s *closures* are anonymous functions you can save in a variable or pass as -->
-<!-- arguments to other functions. You can create the closure in one place, and then -->
+<!-- Rust’s closures are anonymous functions you can save in a variable or pass as -->
+<!-- arguments to other functions. You can create the closure in one place and then -->
 <!-- call the closure to evaluate it in a different context. Unlike functions, -->
 <!-- closures can capture values from the scope in which they’re called. We’ll -->
 <!-- demonstrate how these closure features allow for code reuse and behavior -->
@@ -19,31 +19,31 @@ Rustの*クロージャ*は、変数に保存したり、引数として他の�
 ### クロージャで動作の抽象化を生成する
 
 <!-- Let’s work on an example of a situation in which it’s useful to store a closure -->
-<!-- to be executed at a later time. Along the way, we’ll talk about the syntax of -->
-<!-- closures, type inference, and traits. -->
+<!-- to be executed later. Along the way, we’ll talk about the syntax of closures, -->
+<!-- type inference, and traits. -->
 
 クロージャを保存して後々使用できるようにするのが有効な場面の例に取り掛かりましょう。その過程で、
 クロージャの記法、型推論、トレイトについて語ります。
 
 <!-- Consider this hypothetical situation: we work at a startup that’s making an app -->
 <!-- to generate custom exercise workout plans. The backend is written in Rust, and -->
-<!-- the algorithm that generates the workout plan takes into account many different -->
-<!-- factors, such as the app user’s age, body mass index, preferences, recent -->
+<!-- the algorithm that generates the workout plan takes into account many factors, -->
+<!-- such as the app user’s age, body mass index, exercise preferences, recent -->
 <!-- workouts, and an intensity number they specify. The actual algorithm used isn’t -->
 <!-- important in this example; what’s important is that this calculation takes a -->
 <!-- few seconds. We want to call this algorithm only when we need to and only call -->
-<!-- it once, so we don’t make the user wait more than necessary. -->
+<!-- it once so we don’t make the user wait more than necessary. -->
 
 以下のような架空の場面を考えてください: カスタマイズされたエクササイズのトレーニングプランを生成するアプリを作る立ち上げにかかることになりました。
 バックエンドはRustで記述され、トレーニングプランを生成するアルゴリズムは、アプリユーザの年齢や、
-BMI、好み、最近のトレーニング、指定された強弱値などの多くの異なる要因を考慮します。
+BMI、運動の好み、最近のトレーニング、指定された強弱値などの多くの要因を考慮します。
 実際に使用されるアルゴリズムは、この例では重要ではありません; 重要なのは、この計算が数秒要することです。
 必要なときだけこのアルゴリズムを呼び出し、1回だけ呼び出したいので、必要以上にユーザを待たせないことになります。
 
 <!-- We’ll simulate calling this hypothetical algorithm with the -->
-<!-- `simulated_expensive_calculation` function shown in Listing 13-1, which will -->
-<!-- print `calculating slowly...`, wait for two seconds, and then return whatever -->
-<!-- number we passed in: -->
+<!-- `simulated_expensive_calculation` shown in Listing 13-1, which will print -->
+<!-- `calculating slowly...`, wait for two seconds, and then return whatever number -->
+<!-- we passed in: -->
 
 リスト13-1に示した`simulated_expensive_calculation`関数でこの仮定のアルゴリズムを呼び出すことをシミュレートし、
 この関数は`calculating slowly`と出力し、2秒待ってから、渡した数値をなんでも返します:
@@ -65,7 +65,7 @@ fn simulated_expensive_calculation(intensity: u32) -> u32 {
 ```
 
 <!-- <span class="caption">Listing 13-1: A function to stand in for a hypothetical -->
-<!-- calculation that takes about two seconds to run</span> -->
+<!-- calculation that takes about 2 seconds to run</span> -->
 
 <span class="caption">リスト13-1: 実行に約2秒かかる架空の計算の代役を務める関数</span>
 
@@ -80,18 +80,18 @@ fn simulated_expensive_calculation(intensity: u32) -> u32 {
 アプリのフロントエンドと相互作用する部分は、クロージャの使用と関係ないので、プログラムへの入力を表す値をハードコードし、
 その出力を出力します。
 
-<!-- The required inputs are: -->
+<!-- The required inputs are these: -->
 
-必要な入力は:
+必要な入力は以下の通りです:
 
-<!-- * *An intensity number from the user*, which is specified when they request -->
+<!-- * An intensity number from the user, which is specified when they request -->
 <!--   a workout to indicate whether they want a low-intensity workout or a -->
 <!--   high-intensity workout. -->
-<!-- * *A random number* that will generate some variety in the workout plans. -->
+<!-- * A random number that will generate some variety in the workout plans. -->
 
-* *ユーザの強弱値*、これはユーザがトレーニングを要求して、低強度のトレーニングか、
+* ユーザの強弱値、これはユーザがトレーニングを要求して、低強度のトレーニングか、
 高強度のトレーニングがしたいかを示したときに指定されます。
-* *乱数*、これはトレーニングプランにバリエーションを起こします。
+* 乱数、これはトレーニングプランにバリエーションを起こします。
 
 <!-- The output will be the recommended workout plan. Listing 13-2 shows the `main` -->
 <!-- function we’ll use: -->
@@ -120,21 +120,21 @@ fn main() {
 
 <span class="caption">リスト13-2: ユーザ入力や乱数生成をシミュレートするハードコードされた値がある`main`関数</span>
 
-<!-- We’ve hardcoded the variable `simulated_user_specified_value` to 10 and the -->
-<!-- variable `simulated_random_number` to 7 for simplicity’s sake; in an actual -->
-<!-- program, we’d get the intensity number from the app frontend and we’d use the -->
+<!-- We’ve hardcoded the variable `simulated_user_specified_value` as 10 and the -->
+<!-- variable `simulated_random_number` as 7 for simplicity’s sake; in an actual -->
+<!-- program, we’d get the intensity number from the app frontend, and we’d use the -->
 <!-- `rand` crate to generate a random number, as we did in the Guessing Game -->
 <!-- example in Chapter 2. The `main` function calls a `generate_workout` function -->
 <!-- with the simulated input values. -->
 
-簡潔性のために、変数`simulated_user_specified_value`は10に、変数`simulated_random_number`は７にハードコードしました;
+簡潔性のために、変数`simulated_user_specified_value`は10と、変数`simulated_random_number`は7とハードコードしました;
 実際のプログラムにおいては、強弱値はアプリのフロントエンドから取得し、乱数の生成には、`rand`クレートを使用します。
 第2章の数当てゲームの例みたいにね。`main`関数は、シミュレートされた入力値とともに`generate_workout`関数を呼び出します。
 
 <!-- Now that we have the context, let’s get to the algorithm. The -->
 <!-- `generate_workout` function in Listing 13-3 contains the business logic of the -->
 <!-- app that we’re most concerned with in this example. The rest of the code -->
-<!-- changes in this example will be made to this function: -->
+<!-- changes in this example will be made to this function. -->
 
 今や文脈ができたので、アルゴリズムに取り掛かりましょう。リスト13-3の`generate_workout`関数は、
 この例で最も気にかかるアプリのビジネスロジックを含んでいます。この例での残りの変更は、
@@ -220,15 +220,17 @@ fn generate_workout(intensity: u32, random_number: u32) {
 ユーザが高強度のトレーニングを欲していれば、追加のロジックがあります: アプリが生成した乱数がたまたま3なら、
 アプリは休憩と水分補給を勧めます。そうでなければ、ユーザは複雑なアルゴリズムに基づいて数分間のランニングをします。
 
-<!-- The data science team has let us know that we’ll have to make some changes to -->
-<!-- the way we call the algorithm in the future. To simplify the update when those -->
-<!-- changes happen, we want to refactor this code so it calls the -->
+<!-- This code works the way the business wants it to now, but let's say the data -->
+<!-- science team decides that we need to make some changes to the way we call the -->
+<!-- `simulated_expensive_calculation` function in the future. To simplify the -->
+<!-- the update when those changes happen, we want to refactor this code so it calls the -->
 <!-- `simulated_expensive_calculation` function only once. We also want to cut the -->
 <!-- place where we’re currently unnecessarily calling the function twice without -->
 <!-- adding any other calls to that function in the process. That is, we don’t want -->
 <!-- to call it if the result isn’t needed, and we still want to call it only once. -->
 
-データサイエンスチームは、将来アルゴリズムを呼び出す方法に何らかの変更を加える必要があると知らせてくれました。
+このコードは、ビジネスのほしいままに動くでしょうが、データサイエンスチームが、
+`simulated_expensive_calculation`関数を呼び出す方法に何らかの変更を加える必要があると決定したとしましょう。
 そのような変更が起きた時に更新を簡略化するため、`simulated_expensive_calculation`関数を1回だけ呼び出すように、
 このコードをリファクタリングしたいです。また、過程でその関数への呼び出しを増やすことなく無駄に2回、
 この関数を現時点で呼んでいるところを切り捨てたくもあります。要するに、結果が必要なければ関数を呼び出したくなく、
@@ -239,11 +241,11 @@ fn generate_workout(intensity: u32, random_number: u32) {
 #### 関数でリファクタリング
 
 <!-- We could restructure the workout program in many ways. First, we’ll try -->
-<!-- extracting the duplicated call to the `expensive_calculation` function into -->
-<!-- a variable, as shown in Listing 13-4: -->
+<!-- extracting the duplicated call to the `expensive_expensive_calculation` -->
+<!-- function into a variable, as shown in Listing 13-4: -->
 
 多くの方法でトレーニングプログラムを再構築することもできます。
-1番目に`expensive_calculation`関数への重複した呼び出しを変数に抽出しようとしましょう。リスト13-4に示したように:
+1番目に`expensive_expensive_calculation`関数への重複した呼び出しを変数に抽出しようとしましょう。リスト13-4に示したように:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -314,12 +316,12 @@ fn generate_workout(intensity: u32, random_number: u32) {
 
 <!-- Instead of always calling the `simulated_expensive_calculation` function before -->
 <!-- the `if` blocks, we can define a closure and store the *closure* in a variable -->
-<!-- rather than storing the result, as shown in Listing 13-5. We can actually move -->
-<!-- the whole body of `simulated_expensive_calculation` within the closure we’re -->
-<!-- introducing here: -->
+<!-- rather than storing the result of the function call, as shown in Listing 13-5. -->
+<!-- We can actually move the whole body of `simulated_expensive_calculation` within -->
+<!-- the closure we’re introducing here: -->
 
 `if`ブロックの前にいつも`simulated_expensive_calculation`関数を呼び出す代わりに、
-クロージャを定義し、結果を保存するのではなく、その*クロージャ*を変数に保存できます。リスト13-5のようにね。
+クロージャを定義し、関数呼び出しの結果を保存するのではなく、その*クロージャ*を変数に保存できます。リスト13-5のようにね。
 `simulated_expensive_calculation`の本体全体を実際に、ここで導入しているクロージャ内に移すことができます:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -473,12 +475,12 @@ fn generate_workout(intensity: u32, random_number: u32) {
 しかし、クロージャはこのような露出するインターフェイスには使用されません: 変数に保存され、
 名前付けしたり、ライブラリの使用者に晒されることなく、使用されます。
 
-<!-- Additionally, closures are usually short and only relevant within a narrow -->
-<!-- context rather than in any arbitrary scenario. Within these limited contexts, -->
-<!-- the compiler is reliably able to infer the types of the parameters and return -->
-<!-- type, similar to how it’s able to infer the types of most variables. -->
+<!-- Closures are usually short and relevant only within a narrow context rather -->
+<!-- than in any arbitrary scenario. Within these limited contexts, the compiler is -->
+<!-- reliably able to infer the types of the parameters and the return type, similar -->
+<!-- to how it’s able to infer the types of most variables. -->
 
-加えて、クロージャは通常短く、あらゆる任意のシナリオではなく、狭い文脈でのみ関係します。
+クロージャは通常短く、あらゆる任意のシナリオではなく、狭い文脈でのみ関係します。
 このような限定された文脈内では、コンパイラは、多くの変数の型を推論できるのに似て、
 引数や戻り値の型を頼もしく推論することができます。
 
@@ -489,10 +491,10 @@ fn generate_workout(intensity: u32, random_number: u32) {
 このような小さく、匿名の関数で型をプログラマに注釈させることは、煩わしくコンパイラがすでに利用可能な情報と、
 大筋で余分でしょう。
 
-<!-- Like variables, we can add type annotations if we want to increase explicitness -->
-<!-- and clarity at the cost of being more verbose than is strictly necessary; -->
-<!-- annotating the types for the closure we defined in Listing 13-5 would look like -->
-<!-- the definition shown in Listing 13-7: -->
+<!-- As with variables, we can add type annotations if we want to increase -->
+<!-- explicitness and clarity at the cost of being more verbose than is strictly -->
+<!-- necessary. Annotating the types for the closure we defined in Listing 13-5 -->
+<!-- would look like the definition shown in Listing 13-7: -->
 
 変数のように、厳格に必要な以上に冗長になることと引き換えに、明示性と明瞭性を向上させたいなら、型注釈を加えることができます;
 リスト13-4で定義したクロージャに型を注釈するなら、リスト13-7に示した定義のようになるでしょう:
@@ -517,14 +519,14 @@ let expensive_closure = |num: u32| -> u32 {
 
 <span class="caption">リスト13-7: クロージャの引数と戻り値の省略可能な型注釈を追加する</span>
 
-<!-- The syntax of closures and functions looks more similar with type annotations. -->
-<!-- The following is a vertical comparison of the syntax for the definition of a -->
-<!-- function that adds one to its parameter, and a closure that has the same -->
-<!-- behavior. We’ve added some spaces to line up the relevant parts. This -->
-<!-- illustrates how closure syntax is similar to function syntax except for the use -->
-<!-- of pipes and the amount of syntax that is optional: -->
+<!-- With type annotations added, the syntax of closures looks more similar to the -->
+<!-- syntax of functions. The following is a vertical comparison of the syntax for -->
+<!-- the definition of a function that adds 1 to its parameter and a closure that -->
+<!-- has the same behavior. We’ve added some spaces to line up the relevant parts. -->
+<!-- This illustrates how closure syntax is similar to function syntax except for -->
+<!-- the use of pipes and the amount of syntax that is optional: -->
 
-クロージャと関数の記法は、型注釈があると酷似して見えます。以下が、引数に1を加える関数の定義と、
+クロージャと記法は、型注釈があると関数の記法に酷似して見えます。以下が、引数に1を加える関数の定義と、
 同じ振る舞いをするクロージャの定義の記法を縦に比べたものです。
 空白を追加して、関連のある部分を並べています。これにより、縦棒の使用と省略可能な記法の量を除いて、
 クロージャ記法が関数記法に似ているところを具体化しています。
@@ -538,13 +540,13 @@ let add_one_v4 = |x|               x + 1  ;
 
 <!-- The first line shows a function definition, and the second line shows a fully -->
 <!-- annotated closure definition. The third line removes the type annotations from -->
-<!-- the closure definition, and the fourth line removes the brackets that are -->
-<!-- optional, because the closure body has only one expression. These are all valid -->
+<!-- the closure definition, and the fourth line removes the brackets, which are -->
+<!-- optional because the closure body has only one expression. These are all valid -->
 <!-- definitions that will produce the same behavior when they’re called. -->
 
 1行目が関数定義を示し、2行目がフルに注釈したクロージャ定義を示しています。
-3行目は、クロージャ定義から型注釈を取り除き、クロージャの本体がただ1つの式からなるので、
-4行目は、省略可能なかっこを取り除いています。これらは全て、
+3行目は、クロージャ定義から型注釈を取り除き、4行目は、かっこを取り除いていて、
+これはクロージャの本体がただ1つの式からなるので、省略可能です。これらは全て、
 呼び出された時に同じ振る舞いになる有効な定義です。
 
 <!-- Closure definitions will have one concrete type inferred for each of their -->
@@ -553,13 +555,13 @@ let add_one_v4 = |x|               x + 1  ;
 <!-- parameter. This closure isn’t very useful except for the purposes of this -->
 <!-- example. Note that we haven’t added any type annotations to the definition: if -->
 <!-- we then try to call the closure twice, using a `String` as an argument the -->
-<!-- first time and a `u32` the second time, we’ll get an error: -->
+<!-- first time and a `u32` the second time, we’ll get an error. -->
 
 クロージャ定義には、引数それぞれと戻り値に対して推論される具体的な型が一つあります。例えば、
 リスト13-8に引数として受け取った値を返すだけの短いクロージャの定義を示しました。
 このクロージャは、この例での目的以外には有用ではありません。この定義には、
 何も型注釈を加えていないことに注意してください: それから1回目に`String`を引数に、
-2回目に`u32`を引数に使用してこのクロージャを2回呼び出そうとしたら、エラーになります:
+2回目に`u32`を引数に使用してこのクロージャを2回呼び出そうとしたら、エラーになります。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -609,23 +611,23 @@ error[E0308]: mismatched types
 <!-- Let’s return to our workout generation app. In Listing 13-6, our code was still -->
 <!-- calling the expensive calculation closure more times than it needed to. One -->
 <!-- option to solve this issue is to save the result of the expensive closure in a -->
-<!-- variable for reuse and use the variable instead in each place we need the -->
-<!-- result instead of calling the closure again. However, this method could result -->
-<!-- in a lot of repeated code. -->
+<!-- variable for reuse and use the variable in each place we need the result, -->
+<!-- instead of calling the closure again. However, this method could result in a -->
+<!-- lot of repeated code. -->
 
 トレーニング生成アプリに戻りましょう。リスト13-6において、まだコードは必要以上の回数、重い計算のクロージャを呼んでいました。
 この問題を解決する一つの選択肢は、重いクロージャの結果を再利用できるように変数に保存し、クロージャを再度呼ぶ代わりに、
-結果が必要になる箇所それぞれで代わりにその変数を使用することです。しかしながら、この方法は同じコードの繰り返しになる可能性があります。
+結果が必要になる箇所それぞれでその変数を使用することです。しかしながら、この方法は同じコードを大量に繰り返す可能性があります。
 
 <!-- Fortunately, another solution is available to us. We can create a struct that -->
 <!-- will hold the closure and the resulting value of calling the closure. The -->
-<!-- struct will only execute the closure if we need the resulting value, and it -->
+<!-- struct will execute the closure only if we need the resulting value, and it -->
 <!-- will cache the resulting value so the rest of our code doesn’t have to be -->
 <!-- responsible for saving and reusing the result. You may know this pattern as -->
 <!-- *memoization* or *lazy evaluation*. -->
 
 運のいいことに、別の解決策もあります。クロージャやクロージャの呼び出し結果の値を保持する構造体を作れるのです。
-結果の値が必要な場合にその構造体はクロージャを実行し、その結果の値をキャッシュするので、残りのコードは、
+結果の値が必要な場合のみにその構造体はクロージャを実行し、その結果の値をキャッシュするので、残りのコードは、
 結果を保存し、再利用する責任を負わなくて済むのです。このパターンは、*メモ化*(memoization)または、
 *遅延実行*(lazy evaluation)として知っているかもしれません。
 
@@ -778,26 +780,27 @@ impl<T> Cacher<T>
 `value`フィールドに`None`値を保持する`Cacher`インスタンスを`Cacher::new`は返します。
 まだクロージャを実行していないからですね。
 
-<!-- When the calling code wants the result of evaluating the closure, instead of -->
+<!-- When the calling code needs the result of evaluating the closure, instead of -->
 <!-- calling the closure directly, it will call the `value` method. This method -->
 <!-- checks whether we already have a resulting value in `self.value` in a `Some`; -->
 <!-- if we do, it returns the value within the `Some` without executing the closure -->
 <!-- again. -->
 
-呼び出し元のコードがクロージャの評価結果を欲しくなったら、クロージャを直接呼ぶ代わりに、`value`メソッドを呼びます。
+呼び出し元のコードがクロージャの評価結果を必要としたら、クロージャを直接呼ぶ代わりに、`value`メソッドを呼びます。
 このメソッドは、結果の値が`self.value`の`Some`にすでにあるかどうか確認します; そうなら、
 クロージャを再度実行することなく`Some`内の値を返します。
 
-<!-- If `self.value` is `None`, we call the closure stored in `self.calculation`, -->
-<!-- save the result in `self.value` for future use, and return the value as well. -->
+<!-- If `self.value` is `None`, the code calls the closure stored in -->
+<!-- `self.calculation`, savea the result in `self.value` for future use, and -->
+<!-- return the value as well. -->
 
-`self.value`が`None`なら、`self.calculation`に保存されたクロージャを呼び出し、
+`self.value`が`None`なら、コードは`self.calculation`に保存されたクロージャを呼び出し、
 結果を将来使えるように`self.value`に保存し、その値を返しもします。
 
-<!-- Listing 13-11 shows how we can use this `Cacher` struct in the -->
-<!-- `generate_workout` function from Listing 13-6: -->
+<!-- Listing 13-11 shows how we can use this `Cacher` struct in the function -->
+<!-- `generate_workout` from Listing 13-6: -->
 
-リスト13-11は、リスト13-6の`generate_workout`関数でこの`Cacher`構造体を使用する方法を示しています:
+リスト13-11は、リスト13-6の関数`generate_workout`でこの`Cacher`構造体を使用する方法を示しています:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -883,9 +886,9 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- Try running this program with the `main` function from Listing 13-2. Change the -->
 <!-- values in the `simulated_user_specified_value` and `simulated_random_number` -->
 <!-- variables to verify that in all the cases in the various `if` and `else` -->
-<!-- blocks, `calculating slowly...` only appears once and only when needed. The -->
+<!-- blocks, `calculating slowly...` appears only once and only when needed. The -->
 <!-- `Cacher` takes care of the logic necessary to ensure we aren’t calling the -->
-<!-- expensive calculation more than we need to, so `generate_workout` can focus on -->
+<!-- expensive calculation more than we need to so `generate_workout` can focus on -->
 <!-- the business logic. -->
 
 リスト13-2の`main`関数とともにこのプログラムを走らせてみてください。
@@ -927,7 +930,7 @@ fn call_with_different_values() {
 
 <!-- This test creates a new `Cacher` instance with a closure that returns the value -->
 <!-- passed into it. We call the `value` method on this `Cacher` instance with an -->
-<!-- `arg` value of 1 and then an `arg` value of 2, and we expect that the call to -->
+<!-- `arg` value of 1 and then an `arg` value of 2, and we expect the call to -->
 <!-- `value` with the `arg` value of 2 should return 2. -->
 
 このテストは、渡された値を返すクロージャを伴う`Cacher`インスタンスを新しく生成しています。
@@ -979,7 +982,12 @@ thread 'call_with_different_values' panicked at 'assertion failed: `(left == rig
 
 <!-- ### Capturing the Environment with Closures -->
 
+<<<<<<< HEAD
 ### クロージャで環境をキャプチャする
+=======
+Listing 13-12 has an example of a closure stored in the `equal_to_x` variable
+that uses the `x` variable from the closure’s surrounding environment:
+>>>>>>> fork_master_master
 
 <!-- In the workout generator example, we only used closures as inline anonymous -->
 <!-- functions. However, closures have an additional capability that functions don’t -->
@@ -990,10 +998,10 @@ thread 'call_with_different_values' panicked at 'assertion failed: `(left == rig
 クロージャには、関数にはない追加の能力があります: 環境をキャプチャし、
 自分が定義されたスコープの変数にアクセスできるのです。
 
-<!-- Listing 13-12 has an example of a closure stored in the variable `equal_to_x` -->
-<!-- that uses the variable `x` from the closure’s surrounding environment: -->
+<!-- Listing 13-12 has an example of a closure stored in the `equal_to_x` variable -->
+<!-- that uses the `x` variable from the closure’s surrounding environment: -->
 
-リスト13-12は、変数`equal_to_x`に保持されたクロージャを囲む環境から変数`x`を使用するクロージャの例です:
+リスト13-12は、`equal_to_x`変数に保持されたクロージャを囲む環境から`x`変数を使用するクロージャの例です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -1097,7 +1105,7 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 * `FnMut`は、可変で値を借用するので、環境を変更することができます。
 * `Fn`は、環境から値を不変で借用します。
 
-<!-- When we create a closure, Rust infers which trait to use based on how the -->
+<!-- When you create a closure, Rust infers which trait to use based on how the -->
 <!-- closure uses the values from the environment. All closures implement `FnOnce`, -->
 <!-- because they can all be called at least once. Closures that don't move the -->
 <!-- captured variables also implement `FnMut`, and closures that don't need mutable -->
@@ -1111,7 +1119,7 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 リスト13-12では、`equal_to_x`クロージャは`x`を不変で借用しています(ゆえに`equal_to_x`は`Fn`トレイトです)。
 クロージャの本体は、`x`を読む必要しかないからです。
 
-<!-- If we want to force the closure to take ownership of the values it uses in the -->
+<!-- If you want to force the closure to take ownership of the values it uses in the -->
 <!-- environment, we can use the `move` keyword before the parameter list. This -->
 <!-- technique is mostly useful when passing a closure to a new thread to move the -->
 <!-- data so it’s owned by the new thread. -->
@@ -1124,11 +1132,11 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 <!-- concurrency. For now, here’s the code from Listing 13-12 with the `move` -->
 <!-- keyword added to the closure definition and using vectors instead of integers, -->
 <!-- because integers can be copied rather than moved; note that this code will not -->
-<!-- yet compile: -->
+<!-- yet compile. -->
 
 並行性について語る第16章で、`move`クロージャの例はもっと多く出てきます。とりあえず、
 こちらが`move`キーワードがクロージャ定義に追加され、整数の代わりにベクタを使用するリスト13-12からのコードです。
-整数はムーブではなく、コピーされてしまいますからね; このコードはまだコンパイルできないことに注意してください:
+整数はムーブではなく、コピーされてしまいますからね; このコードはまだコンパイルできないことに注意してください。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

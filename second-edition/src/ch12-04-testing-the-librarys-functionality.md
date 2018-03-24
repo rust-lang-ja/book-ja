@@ -24,7 +24,7 @@
 <!-- 1. Write a test that fails, and run it to make sure it fails for the reason you -->
 <!--    expected. -->
 <!-- 2. Write or modify just enough code to make the new test pass. -->
-<!-- 3. Refactor the code you just added or changed, and make sure the tests -->
+<!-- 3. Refactor the code you just added or changed and make sure the tests -->
 <!--    continue to pass. -->
 <!-- 4. Repeat from step 1! -->
 
@@ -57,8 +57,8 @@
 <!-- Then, in *src/lib.rs*, we’ll add a `test` module with a test function, as we -->
 <!-- did in Chapter 11. The test function specifies the behavior we want the -->
 <!-- `search` function to have: it will take a query and the text to search for the -->
-<!-- query in, and will return only the lines from the text that contain the query. -->
-<!-- Listing 12-15 shows this test, which won't compile yet: -->
+<!-- query in, and will return only the lines from the text that contain the -->
+<!-- query. Listing 12-15 shows this test, which won't compile yet: -->
 
 もう必要ないので、プログラムの振る舞いを確認していた`println!`文を*src/lib.rs*と*src/main.rs*から削除しましょう。
 それから*src/lib.rs*で、テスト関数のある`test`モジュールを追加します。第11章のようにね。
@@ -102,11 +102,11 @@ Pick three.";
 
 <span class="caption">リスト12-15: こうだったらいいなという`search`関数の失敗するテストを作成する</span>
 
-<!-- This test searches for the string “duct.” The text we’re searching is three -->
-<!-- lines, only one of which contains “duct.” We assert that the value returned -->
+<!-- This test searches for the string `“duct.”` The text we’re searching is three -->
+<!-- lines, only one of which contains `“duct.”` We assert that the value returned -->
 <!-- from the `search` function contains only the line we expect. -->
 
-このテストは、"duct."という文字列を検索します。検索対象の文字列は3行で、うち1行だけが"duct."を含みます。
+このテストは、`"duct."`という文字列を検索します。検索対象の文字列は3行で、うち1行だけが`"duct."`を含みます。
 `search`関数から返る値が想定している行だけを含むことをアサーションします。
 
 <!-- We aren’t able to run this test and watch it fail because the test doesn’t even -->
@@ -194,12 +194,12 @@ parameter
 `contents`がライフタイム記法で戻り値に関連づくはずの引数であることをプログラマは知っています。
 
 <!-- Other programming languages don’t require you to connect arguments to return -->
-<!-- values in the signature, so although this might seem strange, it will get -->
+<!-- values in the signature. So although this might seem strange, it will get -->
 <!-- easier over time. You might want to compare this example with “Validating -->
-<!-- References with Lifetimes” in Chapter 10.-->
+<!-- References with Lifetimes” section in Chapter 10.-->
 
-他のプログラミング言語では、シグニチャで引数と戻り値を関連づける必要はないので、これは奇妙に思えるかもしれませんが、
-時間とともに楽になっていきます。この例を第10章、「ライフタイムで参照を有効化する」と比較したくなるかもしれません。
+他のプログラミング言語では、シグニチャで引数と戻り値を関連づける必要はありません。従って、これは奇妙に思えるかもしれませんが、
+時間とともに楽になっていきます。この例を第10章、「ライフタイムで参照を有効化する」節と比較したくなるかもしれません。
 
 <!-- Now let’s run the test: -->
 
@@ -393,12 +393,12 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- implementation of the search function while keeping the tests passing to -->
 <!-- maintain the same functionality. The code in the search function isn’t too bad, -->
 <!-- but it doesn’t take advantage of some useful features of iterators. We’ll -->
-<!-- return to this example in Chapter 13 where we’ll explore iterators in detail -->
+<!-- return to this example in Chapter 13, where we’ll explore iterators in detail, -->
 <!-- and look at how to improve it. -->
 
 ここで、テストが通過するよう保ったまま、同じ機能を保持しながら、検索関数の実装をリファクタリングする機会を考えることもできます。
 検索関数のコードは悪すぎるわけではありませんが、イテレータの有効な機能の一部を活用していません。
-この例には第13章で再度触れ、そこでは、イテレータをより深く探求し、改善する方法に目を向けます。
+この例には第13章で再度触れ、そこでは、イテレータをより深く探求しますが、さらに改善する方法に目を向けます。
 
 <!-- #### Using the `search` Function in the `run` Function -->
 

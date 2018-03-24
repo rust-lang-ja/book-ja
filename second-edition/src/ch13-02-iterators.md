@@ -3,23 +3,23 @@
 ## 一連の要素をイテレータで処理する
 
 <!-- The iterator pattern allows you to perform some task on a sequence of items in -->
-<!-- turn. An *iterator* is responsible for the logic of iterating over each item -->
-<!-- and determining when the sequence has finished. When we use iterators, we don’t -->
-<!-- have to reimplement that logic ourselves. -->
+<!-- turn. An iterator is responsible for the logic of iterating over each item and -->
+<!-- determining when the sequence has finished. When you use iterators, you don’t -->
+<!-- have to reimplement that logic yourself. -->
 
-イテレータパターンにより、一連の要素に順番に何らかの作業を行うことができます。*イテレータ*は、
+イテレータパターンにより、一連の要素に順番に何らかの作業を行うことができます。イテレータは、
 各要素を繰り返し、シーケンスが終わったことを決定するロジックの責任を負います。イテレータを使用すると、
 自身でそのロジックを再実装する必要がなくなるのです。
 
-<!-- In Rust, iterators are *lazy*, meaning they have no effect until we call -->
+<!-- In Rust, iterators are *lazy*, meaning they have no effect until you call -->
 <!-- methods that consume the iterator to use it up. For example, the code in -->
 <!-- Listing 13-13 creates an iterator over the items in the vector `v1` by calling -->
 <!-- the `iter` method defined on `Vec`. This code by itself doesn’t do anything -->
-<!-- useful: -->
+<!-- useful. -->
 
 Rustにおいて、イテレータは*怠惰*です。つまり、イテレータを使い込んで消費するメソッドを呼ぶまで何の効果もないということです。
 例えば、リスト13-13のコードは、`Vec`に定義された`iter`メソッドを呼ぶことで`v1`ベクタの要素に対するイテレータを生成しています。
-このコード単独では、何も有用なことはしません:
+このコード単独では、何も有用なことはしません。
 
 ```rust
 let v1 = vec![1, 2, 3];
@@ -43,7 +43,7 @@ let v1_iter = v1.iter();
 <!-- use of the iterator in the `for` loop. The iterator is stored in the `v1_iter` -->
 <!-- variable, and no iteration takes place at that time. When the `for` loop is -->
 <!-- called using the iterator in `v1_iter`, each element in the iterator is used in -->
-<!-- one iteration of the loop, which prints out each value: -->
+<!-- one iteration of the loop, which prints out each value. -->
 
 リスト13-14の例は、イテレータの生成と`for`ループでイテレータを使用することを区別しています。
 イテレータは、`v1_iter`変数に保存され、その時には繰り返しは起きていません。`v1_iter`のイテレータで、
@@ -64,19 +64,19 @@ for val in v1_iter {
 
 <span class="caption">リスト13-14: `for`ループでイテレータを使用する</span>
 
-<!-- In languages that don’t have iterators provided by their standard libraries, we -->
-<!-- would likely write this same functionality by starting a variable at index 0, -->
-<!-- using that variable to index into the vector to get a value, and incrementing -->
-<!-- the variable value in a loop until it gets to the total number of items in the -->
-<!-- vector. -->
+<!-- In languages that don’t have iterators provided by their standard libraries, -->
+<!-- you would likely write this same functionality by starting a variable at index -->
+<!-- 0, using that variable to index into the vector to get a value, and -->
+<!-- incrementing the variable value in a loop until it reached the total number of -->
+<!-- item in the vector. -->
 
 標準ライブラリにより提供されるイテレータが存在しない言語では、変数を添字0から始め、
 その変数でベクタを覗き見て値を得て、ベクタの総要素数に到達するまでループでその変数の値をインクリメントすることで、
 この同じ機能を書く可能性が高いでしょう。
 
-<!-- Iterators handle all that logic for us, cutting down on repetitive code we -->
-<!-- could potentially mess up. Iterators give us more flexibility to use the same -->
-<!-- logic with many different kinds of sequences, not just data structures we can -->
+<!-- Iterators handle all that logic for you, cutting down on repetitive code you -->
+<!-- could potentially mess up. Iterators give you more flexibility to use the same -->
+<!-- logic with many different kinds of sequences, not just data structures you can -->
 <!-- index into, like vectors. Let’s examine how iterators do that. -->
 
 イテレータはそのロジック全てを処理してくれるので、めちゃくちゃにしてしまう可能性のあるコードの繰り返しを減らしてくれます。
@@ -104,23 +104,23 @@ trait Iterator {
 }
 ```
 
-<!-- Notice some new syntax that we haven’t covered yet: `type Item` and -->
-<!-- `Self::Item`, which are defining an *associated type* with this trait. We’ll -->
-<!-- talk about associated types in depth in Chapter 19. For now, all you need to -->
-<!-- know is that this code says implementing the `Iterator` trait requires that you -->
-<!-- also define an `Item` type, and this `Item` type is used in the return type of -->
-<!-- the `next` method. In other words, the `Item` type will be the type returned -->
-<!-- from the iterator. -->
+<!-- Notice this definition uses some new syntax: `type Item` and `Self::Item`, -->
+<!-- which are defining an *associated type* with this trait. We’ll talk about -->
+<!-- associated types in depth in Chapter 19. For now, all you need to know is that -->
+<!-- this code says implementing the `Iterator` trait requires that you also define -->
+<!-- an `Item` type, and this `Item` type is used in the return type of the `next` -->
+<!-- method. In other words, the `Item` type will be the type returned from the -->
+<!-- iterator. -->
 
-まだ講義していない新しい記法があることに気付いてください: `type Item`と`Self::Item`で、
+この定義は、何か新しい記法を使用していることに気付いてください: `type Item`と`Self::Item`で、
 これらはこのトレイトとの*関連型*(associated type)を定義しています。関連型についての詳細は、第19章で語ります。
-今知っておく必要があることは、このコードが`Iterator`トレイトを実装するには、`Item`型も定義する必要があり、
+とりあえず、知っておく必要があることは、このコードが`Iterator`トレイトを実装するには、`Item`型も定義する必要があり、
 そしてこの`Item`型が`next`メソッドの戻り値の型に使われていると述べていることです。換言すれば、
 `Item`型がイテレータから返ってくる型になるだろうということです。
 
 <!-- The `Iterator` trait only requires implementors to define one method: the -->
 <!-- `next` method, which returns one item of the iterator at a time wrapped in -->
-<!-- `Some` and, when iteration is over, it returns `None`. -->
+<!-- `Some` and, when iteration is over, returns `None`. -->
 
 `Iterator`トレイトは、一つのメソッドを定義することを実装者に要求することだけします: `next`メソッドで、
 これは1度に`Some`に包まれたイテレータの1要素を返し、繰り返しが終わったら、`None`を返します。
@@ -136,7 +136,7 @@ trait Iterator {
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust,test_harness
+```rust
 #[test]
 fn iterator_demonstration() {
     let v1 = vec![1, 2, 3];
@@ -156,14 +156,15 @@ fn iterator_demonstration() {
 <span class="caption">リスト13-15: イテレータに対して`next`メソッドを呼び出す</span>
 
 <!-- Note that we needed to make `v1_iter` mutable: calling the `next` method on an -->
-<!-- iterator changes state that keeps track of where it is in the sequence. In -->
-<!-- other words, this code *consumes*, or uses up, the iterator. Each call to -->
-<!-- `next` eats up an item from the iterator. We didn’t need to make `v1_iter` -->
-<!-- mutable when we used a `for` loop because the loop took ownership of `v1_iter` -->
-<!-- and made it mutable behind the scenes. -->
+<!-- iterator changes internal state that the iterator uses to keep track of where -->
+<!-- it is in the sequence. In other words, this code *consumes*, or uses up, the -->
+<!-- iterator. Each call to `next` eats up an item from the iterator. We didn’t need -->
+<!-- to make `v1_iter` mutable when we used a `for` loop because the loop took -->
+<!-- ownership of `v1_iter` and made it mutable behind the scenes. -->
 
 `v1_iter`を可変にする必要があったことに注目してください: イテレータの`next`メソッドを呼び出すと、
-今シーケンスのどこにいるかを追いかける状態が変わります。つまり、このコードはイテレータを*消費*、または使い込むのです。
+今シーケンスのどこにいるかを追いかけるためにイテレータが使用している内部の状態が変わります。
+つまり、このコードはイテレータを*消費*、または使い込むのです。
 `next`の各呼び出しは、イテレータの要素を一つ、食います。`for`ループを使用した時には、
 `v1_iter`を可変にする必要はありませんでした。というのも、ループが`v1_iter`の所有権を奪い、
 陰で可変にしていたからです。
@@ -185,11 +186,11 @@ fn iterator_demonstration() {
 ### イテレータを消費するメソッド
 
 <!-- The `Iterator` trait has a number of different methods with default -->
-<!-- implementations provided for us by the standard library; you can find out about -->
-<!-- these methods by looking in the standard library API documentation for the -->
-<!-- `Iterator` trait. Some of these methods call the `next` method in their -->
-<!-- definition, which is why we’re required to implement the `next` method when -->
-<!-- implementing the `Iterator` trait. -->
+<!-- implementations provided by the standard library; you can find out about these -->
+<!-- methods by looking in the standard library API documentation for the `Iterator` -->
+<!-- trait. Some of these methods call the `next` method in their definition, which -->
+<!-- is why we’re required to implement the `next` method when implementing the -->
+<!-- `Iterator` trait. -->
 
 `Iterator`トレイトには、標準ライブラリが提供してくれているデフォルト実装のある多くの異なるメソッドがあります;
 `Iterator`トレイトの標準ライブラリのAPIドキュメントを検索することで、これらのメソッドについて知ることができます。
@@ -240,7 +241,7 @@ fn iterator_sum() {
 ## 他のイテレータを生成するメソッド
 
 <!-- Other methods defined on the `Iterator` trait, known as *iterator adaptors*, -->
-<!-- allow us to change iterators into different kind of iterators. We can chain -->
+<!-- allow us to change iterators into different kind of iterators. You can chain -->
 <!-- multiple calls to iterator adaptors to perform complex actions in a readable -->
 <!-- way. But because all iterators are lazy, we have to call one of the consuming -->
 <!-- adaptor methods to get results from calls to iterator adaptors. -->
@@ -274,9 +275,9 @@ v1.iter().map(|x| x + 1);
 
 <span class="caption">リスト13-17: イテレータアダプタの`map`を呼び出して新規イテレータを作成する</span>
 
-<!-- The warning we get is: -->
+<!-- The warning we get is this: -->
 
-出る警告は:
+出る警告は以下の通りです:
 
 ```text
 warning: unused `std::iter::Map` which must be used: iterator adaptors are lazy
@@ -307,7 +308,7 @@ and do nothing unless consumed
 
 <!-- In Listing 13-18, we collect the results of iterating over the iterator that’s -->
 <!-- returned from the call to `map` into a vector. This vector will end up -->
-<!-- containing each item from the original vector incremented by 1: -->
+<!-- containing each item from the original vector incremented by 1. -->
 
 リスト13-18において、`map`呼び出しから返ってきたイテレータを繰り返した結果をベクタに集結させています。
 このベクタは、最終的に元のベクタの各要素に1を足したものが含まれます。
@@ -325,7 +326,7 @@ assert_eq!(v2, vec![2, 3, 4]);
 ```
 
 <!-- <span class="caption">Listing 13-18: Calling the `map` method to create a new -->
-<!-- iterator, and then calling the `collect` method to consume the new iterator and -->
+<!-- iterator and then calling the `collect` method to consume the new iterator and -->
 <!-- create a vector</span> -->
 
 <span class="caption">リスト13-18: `map`メソッドを呼び出して新規イテレータを作成し、
@@ -358,16 +359,16 @@ assert_eq!(v2, vec![2, 3, 4]);
 
 <!-- In Listing 13-19 we use `filter` with a closure that captures the `shoe_size` -->
 <!-- variable from its environment to iterate over a collection of `Shoe` struct -->
-<!-- instances. It will return only shoes that are the specified size: -->
+<!-- instances. It will return only shoes that are the specified size. -->
 
 リスト13-19では、環境から`shoe_size`変数をキャプチャするクロージャで`filter`を使って、
-`Shoe`構造体インスタンスのコレクションを繰り返しています。指定したサイズの靴だけを返すわけです:
+`Shoe`構造体インスタンスのコレクションを繰り返しています。指定したサイズの靴だけを返すわけです。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust,test_harness
+```rust
 #[derive(PartialEq, Debug)]
 struct Shoe {
     size: u32,
@@ -428,22 +429,23 @@ fn filters_by_size() {
 その値を各靴のサイズと比較します。最後に、`collect`を呼び出すと、
 関数により返ってきたベクタに適合させたイテレータから返ってきた値が集まるのです。
 
-<!-- The test shows that when we call `shoes_in_my_size`, we only get back shoes -->
+<!-- The test shows that when we call `shoes_in_my_size`, we get back only shoes -->
 <!-- that have the same size as the value we specified. -->
 
 `shoes_in_my_size`を呼び出した時に、指定した値と同じサイズの靴だけが得られることをテストは示しています。
 
-<!-- ### Creating Our Own Iterators with `Iterator` -->
+<!-- ### Creating Our Own Iterators with `Iterator` Trait -->
 
-### `Iterator`で独自のイテレータを作成する
+### `Iterator`トレイトで独自のイテレータを作成する
 
-<!-- We’ve shown that we can create an iterator by calling `iter`, `into_iter`, or -->
-<!-- `iter_mut` on a vector. We can create iterators from the other collection types -->
-<!-- in the standard library, such as hash map. We can also create iterators that do -->
-<!-- anything we want by implementing the `Iterator` trait on our own types. As -->
-<!-- previously mentioned, the only method we’re required to provide a definition -->
-<!-- for is the `next` method. Once we’ve done that, we can use all other methods -->
-<!-- that have default implementations provided by the `Iterator` trait! -->
+<!-- We’ve shown that you can create an iterator by calling `iter`, `into_iter`, or -->
+<!-- `iter_mut` on a vector. You can create iterators from the other collection -->
+<!-- types in the standard library, such as hash map. You can also create iterators -->
+<!-- that do anything you want by implementing the `Iterator` trait on your own -->
+<!-- types. As previously mentioned, the only method you’re required to provide a -->
+<!-- definition for is the `next` method. Once you’ve done that, you can use all -->
+<!-- other methods that have default implementations provided by the `Iterator` -->
+<!-- trait! -->
 
 ベクタに対し、`iter`、`into_iter`、`iter_mut`を呼び出すことでイテレータを作成できることを示してきました。
 ハッシュマップなどの標準ライブラリの他のコレクション型からもイテレータを作成できます。
@@ -452,9 +454,9 @@ fn filters_by_size() {
 `Iterator`トレイトが用意しているデフォルト実装のある他の全てのメソッドを使うことができるのです！
 
 <!-- To demonstrate, let’s create an iterator that will only ever count from 1 to 5. -->
-<!-- First, we’ll create a struct to hold some values, and then we’ll make this -->
-<!-- struct into an iterator by implementing the `Iterator` trait and use the values -->
-<!-- in that implementation. -->
+<!-- First, we’ll create a struct to hold some values. Then we’ll make this struct -->
+<!-- into an iterator by implementing the `Iterator` trait and use the values in -->
+<!-- that implementation. -->
 
 デモ用に、1から5を絶対にカウントするだけのイテレータを作成しましょう。まず、値を保持する構造体を生成し、
 `Iterator`トレイトを実装することでこの構造体をイテレータにし、その実装内の値を使用します。
@@ -539,7 +541,7 @@ impl Iterator for Counter {
 イテレータの`Item`関連型を`u32`に設定しました。つまり、イテレータは、`u32`の値を返します。
 ここでも、まだ関連型について心配しないでください。第19章で講義します。
 
-<!-- We want our iterator to add one to the current state, so we initialized `count` -->
+<!-- We want our iterator to add 1 to the current state, so we initialized `count` -->
 <!-- to 0 so it would return 1 first. If the value of `count` is less than 6, `next` -->
 <!-- will return the current value wrapped in `Some`, but if `count` is 6 or higher, -->
 <!-- our iterator will return `None`. -->
@@ -554,8 +556,8 @@ impl Iterator for Counter {
 
 <!-- Once we’ve implemented the `Iterator` trait, we have an iterator! Listing 13-22 -->
 <!-- shows a test demonstrating that we can use the iterator functionality of our -->
-<!-- `Counter` struct by calling the `next` method on it directly, just like we did -->
-<!-- with the iterator created from a vector in Listing 13-15: -->
+<!-- `Counter` struct by calling the `next` method on it directly, just as we did -->
+<!-- with the iterator created from a vector in Listing 13-15. -->
 
 一旦`Iterator`トレイトを実装し終わったら、イテレータの出来上がりです！リスト13-22は、
 リスト13-15のベクタから生成したイテレータと全く同様に、直接`next`メソッドを呼び出すことで、
@@ -614,24 +616,22 @@ fn calling_next_directly() {
 
 #### 他の`Iterator`トレイトメソッドを使用する
 
-<!-- Because we implemented the `Iterator` trait by defining the `next` method, we -->
+<!-- We implemented the `Iterator` trait by defining the `next` method, so we -->
 <!-- can now use any `Iterator` trait method’s default implementations as defined in -->
 <!-- the standard library, because they all use the `next` method’s functionality. -->
 
 `next`メソッドを定義して`Iterator`トレイトを実装したので、今では、標準ライブラリで定義されているように、
 どんな`Iterator`トレイトメソッドのデフォルト実装も使えるようになりました。全て`next`メソッドの機能を使っているからです。
 
-<!-- 文の構造が読めない。最終行先頭のカンマをピリオドに置き換えて訳した。することを列挙しているだけだが、もっといい訳がありそう？ -->
-
 <!-- For example, if for some reason we wanted to take the values produced by an -->
 <!-- instance of `Counter`, pair them with values produced by another `Counter` -->
 <!-- instance after skipping the first value, multiply each pair together, keep only -->
-<!-- those results that are divisible by three, and add all the resulting values -->
+<!-- those results that are divisible by 3, and add all the resulting values -->
 <!-- together, we could do so, as shown in the test in Listing 13-23: -->
 
-例えば、何らかの理由で、`Counter`インスタンスが生成する値を受け取りたくなったら、最初の値を飛ばしてから、
+例えば、何らかの理由で、`Counter`インスタンスが生成する値を取り、最初の値を飛ばしてから、
 別の`Counter`インスタンスが生成する値と一組にし、各ペアを掛け算し、3で割り切れる結果だけを残し、
-全結果の値を足し合わせます。リスト13-23のテストに示したように、そうすることができます:
+全結果の値を足し合わせたくなったら、リスト13-23のテストに示したように、そうすることができます:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

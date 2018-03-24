@@ -5,32 +5,34 @@
 <!-- In his 1972 essay “The Humble Programmer,” Edsger W. Dijkstra said that -->
 <!-- “Program testing can be a very effective way to show the presence of bugs, but -->
 <!-- it is hopelessly inadequate for showing their absence.” That doesn’t mean we -->
-<!-- shouldn’t try to test as much as we can! Correctness in our programs is the -->
-<!-- extent to which our code does what we intend it to do. Rust is a programming -->
-<!-- language designed with a high degree of concern about the correctness of -->
-<!-- programs, but correctness is complex and not easy to prove. Rust’s type system -->
-<!-- shoulders a huge part of this burden, but the type system cannot catch every -->
-<!-- kind of incorrectness. As such, Rust includes support for writing automated -->
-<!-- software tests within the language. -->
+<!-- shouldn’t try to test as much as we can! -->
 
 1972年のエッセイ「謙虚なプログラマ」でエドガー・W・ダイクストラは以下のように述べている。
 「プログラムのテストは、バグの存在を示すには非常に効率的な手法であるが、
 バグの不在を示すには望み薄く不適切である」と。これは、できるだけテストを試みるべきではないということではありません。
+
+<!-- Correctness in our programs is the extent to which our code does what we intend -->
+<!-- it to do. Rust is designed with a high degree of concern about the correctness -->
+<!-- of programs, but correctness is complex and not easy to prove. Rust’s type -->
+<!-- system shoulders a huge part of this burden, but the type system cannot catch -->
+<!-- every kind of incorrectness. As such, Rust includes support for writing -->
+<!-- automated software tests within the language. -->
+
 プログラムの正当性は、どこまで自分のコードが意図していることをしているかなのです。
-Rustは、プログラムの正当性に重きを置いて設計されたプログラミング言語ですが、
+Rustは、プログラムの正当性に重きを置いて設計されていますが、
 正当性は複雑で、単純に証明することはありません。Rustの型システムは、
 この重荷の多くの部分を肩代わりしてくれますが、型システムはあらゆる種類の不当性を捕捉してはくれません。
 ゆえに、Rustでは、言語内で自動化されたソフトウェアテストを書くことをサポートしているのです。
 
-<!-- As an example, say we write a function called `add_two` that adds two to -->
-<!-- whatever number is passed to it. This function’s signature accepts an integer -->
-<!-- as a parameter and returns an integer as a result. When we implement and -->
-<!-- compile that function, Rust does all the type checking and borrow checking that -->
-<!-- you’ve learned so far to ensure that, for instance, we aren’t passing a -->
-<!-- `String` value or an invalid reference to this function. But Rust *can’t* check -->
-<!-- that this function will do precisely what we intend, which is return the -->
-<!-- parameter plus two rather than, say, the parameter plus 10 or the parameter -->
-<!-- minus 50! That’s where tests come in. -->
+<!-- As an example, say we write a function called `add_two` that adds 2 to whatever -->
+<!-- number is passed to it. This function’s signature accepts an integer as a -->
+<!-- parameter and returns an integer as a result. When we implement and compile -->
+<!-- that function, Rust does all the type checking and borrow checking that you've -->
+<!-- learned so far to ensure that, for instance, we aren’t passing a `String` value -->
+<!-- or an invalid reference to this function. But Rust *can’t* check that this -->
+<!-- function will do precisely what we intend, which is return the parameter plus 2 -->
+<!-- rather than, say, the parameter plus 10 or the parameter minus 50! That's where -->
+<!-- tests come in. -->
 
 例として、渡された何かの数値に2を足す`add_two`という関数を書くとしましょう。
 この関数のシグニチャは、引数に整数を取り、結果として整数を返します。

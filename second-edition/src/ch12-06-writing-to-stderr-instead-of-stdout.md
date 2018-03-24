@@ -58,7 +58,7 @@ $ cargo run > output.txt
 
 <!-- The `>` syntax tells the shell to write the contents of standard output to -->
 <!-- *output.txt* instead of the screen. We didn’t see the error message we were -->
-<!-- expecting printed on the screen, so that means it must have ended up in the -->
+<!-- expecting printed to the screen, so that means it must have ended up in the -->
 <!-- file. This is what *output.txt* contains: -->
 
 `>`記法により、標準出力の中身を画面の代わりに*output.txt*に書き込むようシェルは指示されます。
@@ -70,13 +70,11 @@ Problem parsing arguments: not enough arguments
 ```
 
 <!-- Yup, our error message is being printed to standard output. It’s much more -->
-<!-- useful for error messages like this to be printed to standard error and have -->
-<!-- only data from a successful run end up in the file when we redirect standard -->
-<!-- output this way. We’ll change that. -->
+<!-- useful for error messages like this to be printed to standard error so only -->
+<!-- data from a successful run ends up in the file. We'll change that. -->
 
-そうです。エラーメッセージは標準出力に出力されているのです。このように標準出力をリダイレクトしたら、
-このようなエラーメッセージは標準エラーに出力され、成功した状態のデータのみがファイルに残ると遥かに有用です。
-それを変更します。
+そうです。エラーメッセージは標準出力に出力されているのです。このようなエラーメッセージは標準エラーに出力され、
+成功した状態のデータのみがファイルに残ると遥かに有用です。それを変更します。
 
 <!-- ### Printing Errors to Standard Error -->
 
@@ -87,12 +85,12 @@ Problem parsing arguments: not enough arguments
 <!-- prints error messages is in one function, `main`. The standard library provides -->
 <!-- the `eprintln!` macro that prints to the standard error stream, so let’s change -->
 <!-- the two places we were calling `println!` to print errors to use `eprintln!` -->
-<!-- instead: -->
+<!-- instead. -->
 
 リスト12-24のコードを使用して、エラーメッセージの出力の仕方を変更します。この章の前で行ったリファクタリングのため、
 エラーメッセージを出力するコードはすべて1関数、`main`にあります。標準ライブラリは、
 標準エラーストリームに出力する`eprintln!`マクロを提供しているので、
-`println!`を呼び出してエラーを出力していた2箇所を代わりに`eprintln!`を使うように変更しましょう:
+`println!`を呼び出してエラーを出力していた2箇所を代わりに`eprintln!`を使うように変更しましょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -168,17 +166,17 @@ How dreary to be somebody!
 
 ## まとめ
 
-<!-- In this chapter, we’ve recapped some of the major concepts you’ve learned so -->
-<!-- far and covered how to do common I/O operations in a Rust context. By using -->
-<!-- command line arguments, files, environment variables, and the `eprintln!` macro -->
-<!-- for printing errors, you’re now prepared to write command line applications. By -->
-<!-- using the concepts in previous chapters, your code will be well organized, -->
-<!-- store data effectively in the appropriate data structures, handle errors -->
-<!-- nicely, and be well tested. -->
+<!-- This chapter recapped some of the major concepts you’ve learned so far and -->
+<!-- covered how to perform common I/O operations in Rust. By using command line -->
+<!-- arguments, files, environment variables, and the `eprintln!` macro for printing -->
+<!-- errors, you’re now prepared to write command line applications. By using the -->
+<!-- concepts in previous chapters, your code will be well organized, store data -->
+<!-- effectively in the appropriate data structures, handle errors nicely, and be -->
+<!-- be well tested. -->
 
-この章では、ここまでに学んできた主要な概念の一部を想起させ、Rustの文脈で入出力処理を行う方法を講義しました。
+この章では、ここまでに学んできた主要な概念の一部を想起させ、Rustで入出力処理を行う方法を講義しました。
 コマンドライン引数、ファイル、環境変数、そしてエラー出力に`eprintln!`マクロを使用することで、
-今は、コマンドラインアプリケーションを書く準備ができています。以前の章の概念を使用することで、
+もう、コマンドラインアプリケーションを書く準備ができています。以前の章の概念を使用することで、
 コードはうまく体系化され、適切なデータ構造に効率的にデータを保存し、エラーをうまく扱い、
 よくテストされるでしょう。
 

@@ -28,9 +28,9 @@ Rustのコミュニティでは、テストを2つの大きなカテゴリで捉
 
 <!-- The purpose of unit tests is to test each unit of code in isolation from the -->
 <!-- rest of the code to quickly pinpoint where code is and isn’t working as -->
-<!-- expected. We put unit tests in the *src* directory in each file with the code -->
-<!-- that they’re testing. The convention is that we create a module named `tests` -->
-<!-- in each file to contain the test functions, and we annotate the module with -->
+<!-- expected. We put unit tests in the *src* directory in each file with the -->
+<!-- code that they’re testing. The convention is to create a module named `tests` -->
+<!-- in each file to contain the test functions and to annotate the module with -->
 <!-- `cfg(test)`. -->
 
 単体テストの目的は、残りのコードから切り離して各単位のコードをテストし、
@@ -49,8 +49,8 @@ Rustのコミュニティでは、テストを2つの大きなカテゴリで捉
 <!-- in the resulting compiled artifact because the tests are not included. You’ll -->
 <!-- see that because integration tests go in a different directory, they don’t need -->
 <!-- the `#[cfg(test)]` annotation. However, because unit tests go in the same files -->
-<!-- as the code, we use `#[cfg(test)]` to specify that they shouldn’t be included -->
-<!-- in the compiled result. -->
+<!-- as the code, we use `#[cfg(test)]` to specify that they shouldn’t be -->
+<!-- included in the compiled result. -->
 
 testsモジュールの`#[cfg(test)]`という注釈は、コンパイラに`cargo build`を走らせた時ではなく、`cargo test`を走らせた時にだけ、
 テストコードをコンパイルし走らせるよう指示します。これにより、ライブラリをビルドしたいだけの時にコンパイルタイムを節約し、
@@ -137,7 +137,7 @@ mod tests {
 <span class="caption">リスト11-12: 非公開関数をテストする</span>
 
 <!-- Note that the `internal_adder` function is not marked as `pub`, but because -->
-<!-- tests are just Rust code and the `tests` module is just another module, we can -->
+<!-- tests are just Rust code and the `tests` module is just another module, you can -->
 <!-- import and call `internal_adder` in a test just fine. If you don’t think -->
 <!-- private functions should be tested, there’s nothing in Rust that will compel -->
 <!-- you to do so. -->
@@ -153,14 +153,14 @@ mod tests {
 <!-- In Rust, integration tests are entirely external to your library. They use your -->
 <!-- library in the same way any other code would, which means they can only call -->
 <!-- functions that are part of your library’s public API. Their purpose is to test -->
-<!-- that many parts of your library work together correctly. Units of code that -->
+<!-- whether many parts of your library work together correctly. Units of code that -->
 <!-- work correctly on their own could have problems when integrated, so test -->
 <!-- coverage of the integrated code is important as well. To create integration -->
 <!-- tests, you first need a *tests* directory. -->
 
 Rustにおいて、結合テストは完全にライブラリ外のものです。他のコードがするのと全く同様にあなたのライブラリを使用するので、
 ライブラリの公開APIの一部である関数しか呼び出すことはできません。その目的は、
-ライブラリのいろんな部分が共同で正常に動作していることをテストすることです。
+ライブラリのいろんな部分が共同で正常に動作しているかをテストすることです。
 単体では正常に動くコードも、結合した状態だと問題を孕む可能性もあるので、
 結合したコードのテストの範囲も同様に重要になるのです。結合テストを作成するには、
 まず*tests*ディレクトリが必要になります。
@@ -266,13 +266,13 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 次に、この結合テストの各テスト関数用の行があり、`Doc-tests adder`区域が始まる直前に、
 結合テストの結果用の総括行があります。
 
-<!-- Recall that adding more unit test functions in any *src* file adds more test -->
-<!-- result lines to the unit tests section. Adding more test functions to the -->
-<!-- integration test file we created adds more lines to that file’s section. Each -->
+<!-- Similarly to how adding more unit test functions adds more result lines to the -->
+<!-- unit tests section, adding more test functions to the integration test file -->
+<!-- adds more result lines to this integration test file’s section. Each -->
 <!-- integration test file has its own section, so if we add more files in the -->
 <!-- *tests* directory, there will be more integration test sections. -->
 
-どの*src*ファイルに単体テスト関数を追加しても、単体テスト区域のテスト結果の行が増えることを思い出してください。
+単体テスト関数を追加すると、単体テスト区域のテスト結果の行が増えることに似て、
 作成した結合テストファイルにもっとテスト関数を追加すると、そのファイルの区域に行が増えることになります。
 結合テストファイルはそれぞれ独自の区域があるため、*tests*ディレクトリにさらにファイルを追加すれば、
 結合テストの区域が増えることになるでしょう。
@@ -317,13 +317,13 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- Treating each integration test file as its own crate is useful to create -->
 <!-- separate scopes that are more like the way end users will be using your crate. -->
 <!-- However, this means files in the *tests* directory don’t share the same -->
-<!-- behavior as files in *src* do, which you learned in Chapter 7 regarding how to -->
+<!-- behavior as files in *src* do, as you learned in Chapter 7 regarding how to -->
 <!-- separate code into modules and files. -->
 
 各結合テストファイルをそれ自身のクレートとして扱うと、
 エンドユーザが読者のクレートを使用するかのような個別のスコープを生成するのに役立ちます。
-ですが、これは*tests*ディレクトリのファイルは、*src*のファイルとは同じ振る舞いを共有しないことを意味し、
-これについてはコードをモジュールとファイルに分ける方法に関して第7章で学びました。
+ですが、これは*tests*ディレクトリのファイルが、コードをモジュールとファイルに分ける方法に関して第7章で学んだように、
+*src*のファイルとは同じ振る舞いを共有しないことを意味します。
 
 <!-- The different behavior of files in the *tests* directory is most noticeable -->
 <!-- when you have a set of helper functions that would be useful in multiple -->
@@ -350,7 +350,7 @@ pub fn setup() {
 ```
 
 <!-- When we run the tests again, we’ll see a new section in the test output for the -->
-<!-- *common.rs* file, even though this file doesn’t contain any test functions, nor -->
+<!-- *common.rs* file, even though this file doesn’t contain any test functions nor -->
 <!-- did we call the `setup` function from anywhere: -->
 
 再度テストを実行すると、*common.rs*ファイルは何もテスト関数を含んだり、`setup`関数をどこかから呼んだりしてないのに、
@@ -389,22 +389,20 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 `common`が`running 0 tests`とテスト結果に表示されるのは、望んだ結果ではありません。
 ただ単に他の結合テストファイルと何らかのコードを共有したかっただけです。
 
-<!-- 4行目後半、単なるandを順接の理由で訳したが適切かどうか -->
-
 <!-- To avoid having `common` appear in the test output, instead of creating -->
 <!-- *tests/common.rs*, we’ll create *tests/common/mod.rs*. In the “Rules of Module -->
 <!-- Filesystems” section of Chapter 7, we used the naming convention -->
-<!-- *module_name/mod.rs* for files of modules that have submodules, and we don’t -->
-<!-- have submodules for `common` here, but naming the file this way tells Rust not -->
-<!-- to treat the `common` module as an integration test file. When we move the -->
-<!-- `setup` function code into *tests/common/mod.rs* and delete the -->
-<!-- *tests/common.rs* file, the section in the test output will no longer appear. -->
-<!-- Files in subdirectories of the *tests* directory don’t get compiled as separate -->
-<!-- crates or have sections in the test output. -->
+<!-- *module_name/mod.rs* for files of modules that have submodules. We don’t have -->
+<!-- submodules for `common` here, but naming the file this way tells Rust not to -->
+<!-- treat the `common` module as an integration test file. When we move the `setup` -->
+<!-- function code into *tests/common/mod.rs* and delete the *tests/common.rs* file, -->
+<!-- the section in the test output will no longer appear. Files in subdirectories -->
+<!-- of the *tests* directory don’t get compiled as separate crates or have sections -->
+<!-- in the test output. -->
 
 `common`がテスト出力に出現するのを防ぐには、*tests/common.rs*を作成する代わりに、
 *tests/common/mod.rs*を作成します。第7章の「モジュールファイルシステムの規則」節において、
-*module_name/mod.rs*という命名規則をサブモジュールのあるモジュールのファイルに使用したので、
+*module_name/mod.rs*という命名規則をサブモジュールのあるモジュールのファイルに使用しました。
 ここでは`common`にサブモジュールはありませんが、
 このように命名することでコンパイラに`common`モジュールを結合テストファイルとして扱わないように指示します。
 `setup`関数のコードを*tests/common/mod.rs*に移動し、*tests/common.rs*ファイルを削除すると、
@@ -475,7 +473,7 @@ fn it_adds_two() {
 ## まとめ
 
 <!-- Rust’s testing features provide a way to specify how code should function to -->
-<!-- ensure it continues to work as we expect even as we make changes. Unit tests -->
+<!-- ensure it continues to work as we expect, even as we make changes. Unit tests -->
 <!-- exercise different parts of a library separately and can test private -->
 <!-- implementation details. Integration tests check that many parts of the library -->
 <!-- work together correctly, and they use the library’s public API to test the code -->
@@ -491,6 +489,6 @@ Rustの型システムと所有権ルールにより防がれるバグの種類�
 コードの振る舞い方に関するロジックのバグを減らすのに重要なのです。
 
 <!-- Let’s combine the knowledge you learned in this chapter and in previous -->
-<!-- chapters and work on a project in the next chapter! -->
+<!-- chapters and work on a project! -->
 
-この章と以前の章で学んだ知識を結集して次章のプロジェクトに取り掛かりましょう！
+この章と以前の章で学んだ知識を結集して、とあるプロジェクトに取り掛かりましょう！

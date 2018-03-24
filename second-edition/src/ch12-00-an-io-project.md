@@ -11,20 +11,20 @@
 ファイルやコマンドラインの入出力と相互作用するコマンドラインツールを構築し、
 今やあなたの支配下にあるRustの概念の一部を練習していきます。
 
-<!-- Rust’s speed, safety, *single binary* output, and cross-platform support make -->
-<!-- it an ideal language for creating command line tools, so for our project, we’ll -->
+<!-- Rust’s speed, safety, single binary output, and cross-platform support make it -->
+<!-- an ideal language for creating command line tools, so for our project, we’ll -->
 <!-- make our own version of the classic command line tool `grep` (**g**lobally -->
 <!-- search a **r**egular **e**xpression and **p**rint). In the simplest use case, -->
 <!-- `grep` searches a specified file for a specified string. To do so, `grep` takes -->
-<!-- as its arguments a filename and a string, and then reads the file and finds -->
-<!-- lines in that file that contain the string argument. It then prints those lines. -->
+<!-- as its arguments a filename and a string. Then it reads the file, finds lines -->
+<!-- in that file that contain the string argument, and prints those lines. -->
 
-Rustの速度、安全性、*単バイナリ*出力、クロスプラットフォームサポートにより、コマンドラインツールを作るのにふさわしい言語なので、
+Rustの速度、安全性、単バイナリ出力、クロスプラットフォームサポートにより、コマンドラインツールを作るのにふさわしい言語なので、
 このプロジェクトでは、独自の伝統的なコマンドラインツールの`grep`(**g**lobally search a **r**egular **e**xpression
 and **p**rint: 正規表現をグローバルで検索し表示する)を作成していきます。最も単純な使用法では、
 `grep`は指定したファイルから指定した文字列を検索します。そうするには、
-`grep`は引数としてファイル名と文字列を受け取り、それからファイルを読み込んでそのファイル内で文字列引数を含む行を探すのです。
-そして、検索した行を出力します。
+`grep`は引数としてファイル名と文字列を受け取ります。それからファイルを読み込んでそのファイル内で文字列引数を含む行を探し、
+検索した行を出力するのです。
 
 <!-- Along the way, we’ll show how to make our command line tool use features of the -->
 <!-- terminal that many command line tools use. We’ll read the value of an -->
