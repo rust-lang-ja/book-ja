@@ -5,18 +5,18 @@
 <!-- The `cargo install` command allows you to install and use binary crates -->
 <!-- locally. This isn’t intended to replace system packages; it’s meant to be a -->
 <!-- convenient way for Rust developers to install tools that others have shared on -->
-<!-- [crates.io](https://crates.io). You can only install packages -->
-<!-- that have binary targets. A binary target is the runnable program that is -->
-<!-- created if the crate has a *src/main.rs* file or another file specified as a -->
-<!-- binary, as opposed to a library target that isn’t runnable on its own but is -->
-<!-- suitable for including within other programs. Usually, crates have information -->
-<!-- in the *README* file about whether a crate is a library, has a binary target, -->
-<!-- or both. -->
+<!-- [crates.io](https://crates.io). Note that you can only install -->
+<!-- packages that have binary targets. A binary target is the runnable program -->
+<!-- tht is created if the crate has a *src/main.rs* file or another file specified -->
+<!-- as a binary, as opposed to a library target that isn’t runnable on its own but -->
+<!-- is suitable for including within other programs. Usually, crates have -->
+<!-- information in the *README* file about whether a crate is a library, has a -->
+<!-- binary target, or both. -->
 
 `cargo install`コマンドにより、バイナリクレートをローカルにインストールし、使用することができます。
 これは、システムパッケージを置き換えることを意図したものではありません。<ruby>即<rp>(</rp><rt>すなわ</rt><rp>)</rp></ruby>ち、
 Rustの開発者が、他人が[crates.io](https://crates.io)に共有したツールをインストールするのに便利な方法を意味するのです。
-バイナリターゲットを持つパッケージのみインストールできます。バイナリターゲットとは、
+バイナリターゲットを持つパッケージのみインストールできることに注意してください。バイナリターゲットとは、
 クレートが*src/main.rs*ファイルやバイナリとして指定された他のファイルを持つ場合に生成される実行可能なプログラムのことであり、
 単独では実行不可能なものの、他のプログラムに含むのには適しているライブラリターゲットとは一線を画します。
 通常、クレートには、*README*ファイルに、クレートがライブラリかバイナリターゲットか、両方をもつかという情報があります。

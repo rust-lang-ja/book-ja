@@ -13,12 +13,16 @@
 ライブラリクレートの肥大化が続き、さらに複数のライブラリクレートにパッケージを分割したくなることでしょう。
 この場面において、Cargoは*ワークスペース*という協調して開発された関連のある複数のパッケージを管理するのに役立つ機能を提供しています。
 
+### Creating a Workspace
+
+### ワークスペースを生成する
+
 <!-- A *workspace* is a set of packages that share the same *Cargo.lock* and output -->
 <!-- directory. Let’s make a project using a workspace-we'll use trivial code so we -->
 <!-- can concentrate on the structure of the workspace. There are multiple ways to -->
 <!-- structure a workspace; we’re going to show a common way. We’ll have a -->
-<!-- workspace containing a binary and two libraries. The binary will provide -->
-<!-- the main functionality, and will depend on the two libraries. One library will -->
+<!-- workspace containing a binary and two libraries. The binary, which will provide -->
+<!-- the main functionality, will depend on the two libraries. One library will -->
 <!-- provide an `add_one` function, and a second library an `add_two` function. -->
 <!-- These three crates will be part of the same workspace. We'll start by creating-->
 <!-- a new directory for the workspace: -->
@@ -26,7 +30,7 @@
 *ワークスペース*は、同じ*Cargo.lock*と出力ディレクトリを共有する一連のパッケージです。
 ワークスペースを使用したプロジェクトを作成し、ワークスペースの構造に集中できるよう、瑣末なコードを使用しましょう。
 ワークスペースを構築する方法は複数ありますが、一般的な方法を提示しましょう。バイナリ1つとライブラリ2つを含むワークスペースを作ります。
-バイナリは、主要な機能を提供し、2つのライブラリに依存しています。
+バイナリは、主要な機能を提供しますが、2つのライブラリに依存しています。
 一方のライブラリは、`add_one`関数を提供し、2番目のライブラリは、`add_two`関数を提供します。
 これら3つのクレートが同じワークスペースの一部になります。ワークスペース用の新しいディレクトリを作ることから始めましょう:
 
@@ -37,12 +41,12 @@ $ cd add
 
 <!-- Next, in the *add* directory, we create the *Cargo.toml* file that will -->
 <!-- configure the entire workspace. This file won't have a `[package]` section or-->
-<!-- the metadata we’ve seen in other *Cargo.toml* files, but will instead start -->
+<!-- the metadata we’ve seen in other *Cargo.toml* files. Instead,  it will start -->
 <!-- with a `[workspace]` section that will allow us to add members to the workspace -->
 <!-- by specifying the path to our binary crate; in this case, that path is *adder*: -->
 
 次に*add*ディレクトリにワークスペース全体を設定する*Cargo.toml*ファイルを作成します。
-このファイルには、他の*Cargo.toml*ファイルで見かけるような`[package]`セクションやメタデータはありませんが、
+このファイルには、他の*Cargo.toml*ファイルで見かけるような`[package]`セクションやメタデータはありません。
 代わりにバイナリクレートへのパスを指定することでワークスペースにメンバを追加させてくれる`[workspace]`セクションから開始します;
 今回の場合、そのパスは*adder*です:
 
@@ -402,10 +406,10 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
 <!-- The first section of the output shows that the `it_works` test in the `add-one` -->
-<!-- crate passed. The next section shows that 0 tests were found in the `adder` -->
-<!-- crate, and then the last section shows 0 documentation tests were found in the -->
-<!-- `add-one` crate. Running `cargo test` in a workspace structured like this one -->
-<!-- will run the tests for all the crates in the workspace. -->
+<!-- crate passed. The next section shows that zero tests were found in the `adder` -->
+<!-- crate, and then the last section shows zero documentation tests were found in -->
+<!-- the `add-one` crate. Running `cargo test` in a workspace structured like this -->
+<!-- one will run the tests for all the crates in the workspace. -->
 
 出力の最初の区域が、`add-one`クレートの`it_works`テストが通ったことを示しています。
 次の区域には、`adder`クレートにはテストが見つなかったことが示され、
@@ -447,7 +451,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- in the workspace will need to be published separately. The `cargo publish` -->
 <!-- command does not have an `--all` flag or a `-p` flag, so you must change to -->
 <!-- each crate’s directory and run `cargo publish` on each crate in the workspace -->
-<!-- to publish them. -->
+<!-- to publish the crates. -->
 
 ワークスペースのクレートを*https://crates.io/*に公開したら、ワークスペースのクレートは個別に公開される必要があります。
 `cargo publish`コマンドには`--all`フラグや`-p`フラグはないので、各クレートのディレクトリに移動して、
@@ -459,10 +463,10 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 鍛錬を積むために、`add-one`クレートと同様の方法でワークスペースに`add-two`クレートを追加してください！
 
 <!-- As your project grows, consider using a workspace: it’s easier to understand -->
-<!-- smaller, individual components than one big blob of code. Keeping the crates in -->
-<!-- a workspace can make coordination between them easier if they are often changed -->
-<!-- at the same time. -->
+<!-- smaller, individual components than one big blob of code. Furthermore, keeping -->
+<!-- the crates in a workspace can make coordination between them easier if they are -->
+<!-- often changed at the same time. -->
 
 プロジェクトが肥大化してきたら、ワークスペースの使用を考えてみてください: 大きな一つのコードの塊よりも、
-微細で個別のコンポーネントの方が理解しやすいです。ワークスペースにクレートを保持することは、
+微細で個別のコンポーネントの方が理解しやすいです。またワークスペースにクレートを保持することは、
 同時に変更されることが多いのなら、協調しやすくなることにも繋がります。

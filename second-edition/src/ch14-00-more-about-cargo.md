@@ -4,7 +4,7 @@
 
 <!-- So far we’ve used only the most basic features of Cargo to build, run, and test -->
 <!-- our code, but it can do a lot more. In this chapter, we’ll discuss some of its -->
-<!-- other, more advanced features to show you how to: -->
+<!-- other, more advanced features to show you how to do the following: -->
 
 今までCargoのビルド、実行、コードのテストを行うという最も基礎的な機能のみを使ってきましたが、
 他にもできることはたくさんあります。この章では、そのような他のより高度な機能の一部を議論し、

@@ -3,19 +3,19 @@
 ## Crates.ioにクレートを公開する
 
 <!-- We’ve used packages from [crates.io](https://crates.io) as -->
-<!-- dependencies of our project, but you can also share your code for other people -->
-<!-- to use by publishing your own packages. The crate registry at -->
+<!-- dependencies of our project, but you can also share your code with other people -->
+<!-- by publishing your own packages. The crate registry at -->
 <!-- [crates.io](https://crates.io) distributes the source code of -->
 <!-- your packages, so it primarily hosts code that is open source. -->
 
 プロジェクトの依存として[crates.io](https://crates.io)のパッケージを使用しましたが、
-自分のパッケージを公開することで他の人が使えるようにコードを共有することもできます。
+自分のパッケージを公開することで他の人とコードを共有することもできます。
 [crates.io](https://crates.io)のクレート登録所は、自分のパッケージのソースコードを配布するので、
 主にオープンソースのコードをホストします。
 
 <!-- Rust and Cargo have features that help make your published package easier for -->
 <!-- people to use and to find in the first place. We’ll talk about some of these -->
-<!-- features next, and then explain how to publish a package. -->
+<!-- features next and then explain how to publish a package. -->
 
 RustとCargoは、公開したパッケージを人が使用し、まず見つけやすくしてくれる機能を有しています。
 これらの機能の一部を次に語り、そして、パッケージの公開方法を説明します。
@@ -25,27 +25,27 @@ RustとCargoは、公開したパッケージを人が使用し、まず見つ�
 ### 役に立つドキュメンテーションコメントを行う
 
 <!-- Accurately documenting your packages will help other users know how and when to -->
-<!-- use them, so it’s worth spending time writing documentation. In Chapter 3, we -->
-<!-- discussed how to comment Rust code using `//`. Rust also has a particular kind -->
-<!-- of comment for documentation, which is known conveniently as *documentation -->
-<!-- comments*, that will generate HTML documentation. The HTML displays the -->
-<!-- contents of documentation comments for public API items intended for -->
-<!-- programmers interested in knowing how to *use* your crate as opposed to how -->
+<!-- use them, so it’s worth investing the time to write documentation. In Chapter -->
+<!-- 3, we discussed how to comment Rust code using two slashes, `//`. Rust also has -->
+<!-- a paticular kind of comment for documentation, known conveniently as -->
+<!-- a *documentation comment*, that will generate HTML documentation. The HTML -->
+<!-- displays the contents of documentation comments for public API items intended -->
+<!-- for programmers interested in knowing how to *use* your crate as opposed to how -->
 <!-- your crate is *implemented*. -->
 
 パッケージを正確にドキュメントすることで、他のユーザがパッケージを使用する方法や、いつ使用すべきかを理解する手助けをすることになるので、
-ドキュメンテーションを書くことに時間を費やす価値があります。第3章で、`//`でRustのコードにコメントをつける方法を議論しました。
-Rustには、ドキュメンテーション用のコメントも用意されていて、実質的に*ドキュメンテーションコメント*として知られ、
+ドキュメンテーションを書くことに時間を費やす価値があります。第3章で、2スラッシュ、`//`でRustのコードにコメントをつける方法を議論しました。
+Rustには、ドキュメンテーション用のコメントも用意されていて、都合のいいことに*ドキュメンテーションコメント*として知られ、
 HTMLドキュメントを生成します。クレートの*実装*法とは対照的にクレートの*使用*法を知ることに興味のあるプログラマ向けの、
 公開API用のドキュメンテーションコメントの中身をこのHTMLは表示します。
 
-<!-- Documentation comments use `///` instead of `//` and support Markdown notation -->
-<!-- for formatting the text if you want to use it. You place documentation comments -->
-<!-- just before the item they’re documenting. Listing 14-1 shows documentation -->
-<!-- comments for an `add_one` function in a crate named `my_crate`: -->
+<!-- Documentation comments use three slashes, `///`, instead of two and support -->
+<!-- Markdown notation for formatting the text. Place documentation comments just -->
+<!-- before the item they’re documenting. Listing 14-1 shows documentation comments -->
+<!-- for an `add_one` function in a crate named `my_crate`: -->
 
-ドキュメンテーションコメントは、`//`の代わりに`///`を使用し、使用する必要があれば、
-テキストを整形するMarkdown記法もサポートしています。ドキュメント対象の要素の直前にドキュメンテーションコメントを配置します。
+ドキュメンテーションコメントは、2つではなく、3スラッシュ、`///`を使用し、テキストを整形するMarkdown記法もサポートしています。
+ドキュメント対象の要素の直前にドキュメンテーションコメントを配置してください。
 リスト14-1は、`my_crate`という名のクレートの`add_one`関数用のドキュメンテーションコメントを示しています:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -110,15 +110,15 @@ HTMLドキュメントを生成することができます。このコマンド�
 #### よく使われるセクション
 
 <!-- We used the `# Examples` Markdown heading in Listing 14-1 to create a section -->
-<!-- in the HTML with the title “Examples.” Some other sections that crate authors -->
-<!-- commonly use in their documentation include: -->
+<!-- in the HTML with the title “Examples.” Here are some other sections that crate -->
+<!-- authors commonly use in their documentation: -->
 
 `# Examples`マークダウンのタイトルをリスト14-1で使用し、「例」というタイトルのセクションをHTMLに生成しました。
-これ以外にドキュメントでよくクレート筆者が使用するセクションは:
+こちらがこれ以外にドキュメントでよくクレート筆者が使用するセクションです:
 
 <!-- * **Panics**: The scenarios in which the function being documented could -->
-<!--   `panic!`. Callers of the function who don’t want their programs to panic -->
-<!--   should make sure they don’t call the function in these situations. -->
+<!--   `panic!`. Callers of the function who don’t want their programs to panic should -->
+<!--   make sure they don’t call the function in these situations. -->
 <!-- * **Errors**: If the function returns a `Result`, describing the kinds of -->
 <!--   errors that might occur and what conditions might cause those errors to be -->
 <!--   returned can be helpful to callers so they can write code to handle the -->
@@ -130,35 +130,34 @@ HTMLドキュメントを生成することができます。このコマンド�
 * **Panics**: ドキュメント対象の関数が`panic!`する可能性のある筋書きです。プログラムをパニックさせたくない関数の使用者は、
 これらの状況で関数が呼ばれないことを確かめる必要があります。
 * **Errors**: 関数が`Result`を返すなら、起きうるエラーの種類とどんな条件がそれらのエラーを引き起こす可能性があるのか解説すると、
-呼び出し側の役に立つので、いろんな方法で異なる種類のエラーを処理するコードを書くことができます。
+呼び出し側の役に立つので、エラーの種類によって処理するコードを変えて書くことができます。
 * **Safety**: 関数が呼び出すのに`unsafe`(unsafeについては第19章で議論します)なら、
 関数がunsafeな理由を説明し、関数が呼び出し元に保持していると期待する不変条件を講義するセクションがあるべきです。
 
-<!-- Most documentation comment sections don’t need all of these sections, but it’s -->
-<!-- a good list to check to remind you of the aspects of your code that people -->
-<!-- calling your code will be interested in knowing about. -->
+<!-- Most documentation comments don’t need all of these sections, but this is a -->
+<!-- good checklist to remind you of the aspects of your code that people calling -->
+<!-- your code will be interested in knowing about. -->
 
-多くのドキュメンテーションコメントのセクションでは、これら全てのセクションが必要になることはありませんが、
-自分のコードを呼び出している人が知りたいと思うコードの方向性を思い出すときにチェックすべきいいリストになります。
+多くのドキュメンテーションコメントでは、これら全てのセクションが必要になることはありませんが、
+これは自分のコードを呼び出している人が知りたいと思うコードの方向性を思い出させてくれるいいチェックリストになります。
 
 <!-- #### Documentation Comments as Tests -->
 
 #### テストとしてのドキュメンテーションコメント
 
-<!-- Adding examples in code blocks in your documentation comments can clearly -->
-<!-- demonstrate how to use your library, and doing so has an additional bonus: -->
-<!-- running `cargo test` will run the code examples in your documentation as -->
-<!-- tests! Nothing is better than documentation with examples. But nothing is worse -->
-<!-- than examples that don’t work because the code has changed since the -->
-<!-- documentation was written. Run `cargo test` with the documentation for the -->
-<!-- `add_one` function from Listing 14-1; you should see a section in the test -->
-<!-- results like this: -->
+<!-- Adding example code blocks in your documentation comments can help demonstrate -->
+<!-- how to use your library, and doing so has an additional bonus: running `cargo -->
+<!-- test` will run the code examples in your documentation as tests! Nothing is -->
+<!-- better than documentation with examples. But nothing is worse than examples -->
+<!-- that don’t work because the code has changed since the documentation was -->
+<!-- written. If we run `cargo test` with the documentation for the `add_one` -->
+<!-- function from Listing 14-1, we will see a section in the test results like this: -->
 
-ドキュメンテーションコメントのコードブロックに例を追加すると、ライブラリの使用方法がはっきりデモされ、
+ドキュメンテーションコメントに例のコードブロックを追加すると、ライブラリの使用方法のデモに役立ち、
 おまけもついてきます: `cargo test`を走らせると、ドキュメントのコード例をテストとして実行するのです！
 例付きのドキュメントに上回るものはありません。しかし、ドキュメントが書かれてからコードが変更されたがために、
 動かない例がついているよりも悪いものもありません。リスト14-1から`add_one`関数のドキュメンテーションとともに、
-`cargo test`を走らせてください; テスト結果に以下のような区域があるはずです:
+`cargo test`を走らせたら、テスト結果に以下のような区域が見られます:
 
 ```text
    Doc-tests my_crate
@@ -171,11 +170,11 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 <!-- 2行目最後、catch that S Vの用法は辞書に載っていなかった。Oxfordには載っているのかもしれません -->
 
-<!-- Now change either the function or the example so the `assert_eq!` in the -->
-<!-- example panics. Run `cargo test` again; you’ll see that the doc tests catch -->
+<!-- Now if we change either the function or the example so the `assert_eq!` in the -->
+<!-- example panics and run `cargo test` again, we’ll see that the doc tests catch -->
 <!-- that the example and the code are out of sync from one another! -->
 
-さて、例の`assert_eq!`がパニックするように、関数か例を変更してください。再度`cargo test`を実行してください;
+さて、例の`assert_eq!`がパニックするように、関数か例を変更し、再度`cargo test`を実行したら、
 docテストが、例とコードがお互いに同期されていないことを捕捉するところを目撃するでしょう！
 
 <!-- #### Commenting Contained Items -->
@@ -246,17 +245,17 @@ docコメントの別スタイル、`//!`は、コメントに続く要素にド
 
 <img alt="クレート全体のコメント付きの描画済みHTMLドキュメンテーション" src="img/trpl14-02.png" class="center" />
 
-<!-- <span class="caption">Figure 14-2: Rendered documentation for `my_crate` -->
+<!-- <span class="caption">Figure 14-2: Rendered documentation for `my_crate`, -->
 <!-- including the comment describing the crate as a whole</span> -->
 
 <span class="caption">図14-2: クレート全体を解説するコメントを含む`my_crate`の描画されたドキュメンテーション</span>
 
 <!-- Documentation comments within items are useful for describing crates and -->
-<!-- modules especially. Use them to explain the purpose of the container overall to -->
-<!-- help your crate users understand your organization. -->
+<!-- modules especially. Use them to explain the overall purpose of the container to -->
+<!-- help your crate users understand the crate's organization. -->
 
 要素内のドキュメンテーションコメントは、特にクレートやモジュールを解説するのに有用です。
-コンテナ全体の目的を説明し、クレートの使用者が体系を理解する手助けをするのに使用してください。
+コンテナの全体の目的を説明し、クレートの使用者がクレートの体系を理解する手助けをするのに使用してください。
 
 <!-- ### Exporting a Convenient Public API with `pub use` -->
 
@@ -267,17 +266,17 @@ docコメントの別スタイル、`//!`は、コメントに続く要素にド
 <!-- items into a scope with the `use` keyword. However, the structure that makes -->
 <!-- sense to you while you’re developing a crate might not be very convenient for -->
 <!-- your users. You might want to organize your structs in a hierarchy containing -->
-<!-- multiple levels, but people who want to use a type you’ve defined deep in the -->
-<!-- hierarchy might have trouble finding out that those types exist. They might -->
-<!-- also be annoyed at having to enter `use` -->
+<!-- multiple levels, but then people who want to use a type you’ve defined deep in -->
+<!-- the hierarchy might have trouble finding out that type exists. They might also -->
+<!-- be annoyed at having to enter `use` -->
 <!-- `my_crate::some_module::another_module::UsefulType;` rather than `use` -->
 <!-- `my_crate::UsefulType;`. -->
 
 第7章において、`mod`キーワードを使用してモジュールにコードを体系化する方法、`pub`キーワードで要素を公開にする方法、
 `use`キーワードで要素をスコープに導入する方法について講義しました。しかしながら、クレートの開発中に、
 自分にとって意味のある構造は、ユーザにはあまり便利ではない可能性があります。複数階層を含むヒエラルキーで、
-自分の構造体を体系化したくなるかもしれませんが、ヒエラルキーの深いところで定義した型を使用したい人は、
-それらの型が存在することを知るのに困難を伴う可能性もあります。また、そのような人は、
+自分の構造体を体系化したくなるかもしれませんが、それからヒエラルキーの深いところで定義した型を使用したい人は、
+型が存在することを見つけ出すのに困難を伴う可能性もあります。また、そのような人は、
 `use my_crate::UsefulType`の代わりに`use my_crate::some_module::another_module::UsefulType;`と入力するのを煩わしく感じる可能性もあります。
 
 <!-- The structure of your public API is a major consideration when publishing a -->
@@ -292,7 +291,7 @@ docコメントの別スタイル、`//!`は、コメントに続く要素にド
 <!-- from another library, you don’t have to rearrange your internal organization: -->
 <!-- instead, you can re-export items to make a public structure that’s different -->
 <!-- than your private structure by using `pub use`. Re-exporting takes a public -->
-<!-- item in one location and makes it public in another location, as if it was -->
+<!-- item in one location and makes it public in another location, as if it ware -->
 <!-- defined in the other location instead. -->
 
 嬉しいお知らせは、構造が他人が他のライブラリから使用するのに便利では*ない*場合、内部的な体系を再構築する必要はないということです:
@@ -301,7 +300,7 @@ docコメントの別スタイル、`//!`は、コメントに続く要素にド
 
 <!-- For example, say we made a library named `art` for modeling artistic concepts. -->
 <!-- Within this library are two modules: a `kinds` module containing two enums -->
-<!-- named `PrimaryColor` and `SecondaryColor`, and a `utils` module containing a -->
+<!-- named `PrimaryColor` and `SecondaryColor` and a `utils` module containing a -->
 <!-- function named `mix`, as shown in Listing 14-3: -->
 
 例えば、芸術的な概念をモデル化するために`art`という名のライブラリを作ったとしましょう。
@@ -377,11 +376,11 @@ pub mod utils {
 `kinds`と`utils`をクリックしなければ、参照することができません。
 
 <!-- Another crate that depends on this library would need `use` statements that -->
-<!-- import the items from `art`, including specifying the module structure that’s -->
-<!-- currently defined. Listing 14-4 shows an example of a crate that uses the -->
-<!-- `PrimaryColor` and `mix` items from the `art` crate: -->
+<!-- import the items from `art`, specifying the module structure that’s currently -->
+<!-- defined. Listing 14-4 shows an example of a crate that uses the `PrimaryColor` -->
+<!-- and `mix` items from the `art` crate: -->
 
-このライブラリに依存する別のクレートは、現在定義されているモジュール構造を指定することも含めて、
+このライブラリに依存する別のクレートは、現在定義されているモジュール構造を指定して、
 `art`の要素をインポートする`use`文が必要になるでしょう。リスト14-4は、
 `art`クレートから`PrimaryColor`と`mix`要素を使用するクレートの例を示しています:
 
@@ -411,7 +410,7 @@ fn main() {
 <!-- The author of the code in Listing 14-4, which uses the `art` crate, had to -->
 <!-- figure out that `PrimaryColor` is in the `kinds` module and `mix` is in the -->
 <!-- `utils` module. The module structure of the `art` crate is more relevant to -->
-<!-- developers working on the `art` crate than developers using the `art` crate. -->
+<!-- developers working on the `art` crate than to developers using the `art` crate. -->
 <!-- The internal structure that organizes parts of the crate into the `kinds` -->
 <!-- module and the `utils` module doesn’t contain any useful information for -->
 <!-- someone trying to understand how to use the `art` crate. Instead, the `art` -->
@@ -462,11 +461,11 @@ pub mod utils {
 <span class="caption">リスト14-5: `pub use`文を追加して要素を再エクスポートする</span>
 
 <!-- The API documentation that `cargo doc` generates for this crate will now list -->
-<!-- and link re-exports on the front page, as shown in Figure 14-4, which makes the -->
-<!-- `PrimaryColor` and `SecondaryColor` types and the `mix` function easier to find: -->
+<!-- and link re-exports on the front page, as shown in Figure 14-4, making the -->
+<!-- `PrimaryColor` and `SecondaryColor` types and the `mix` function easier to find. -->
 
 このクレートに対して`cargo doc`が生成するAPIドキュメンテーションは、これで図14-4のようにトップページに再エクスポートを列挙しリンクするので、
-`PrimaryColor`と`SecondaryColor`型と`mix`関数を見つけやすくしてくれます:
+`PrimaryColor`と`SecondaryColor`型と`mix`関数を見つけやすくします。
 
 <!-- <img alt="Rendered documentation for the `art` crate with the re-exports on the front page" src="img/trpl14-04.png" class="center" /> -->
 
@@ -514,13 +513,13 @@ fn main() {
 <!-- Creating a useful public API structure is more of an art than a science, and -->
 <!-- you can iterate to find the API that works best for your users. Choosing `pub -->
 <!-- use` gives you flexibility in how you structure your crate internally and -->
-<!-- decouples that internal structure with what you present to your users. Look at -->
+<!-- decouples that internal structure from what you present to your users. Look at -->
 <!-- some of the code of crates you’ve installed to see if their internal structure -->
 <!-- differs from their public API. -->
 
 役に立つAPI構造を作ることは、科学というよりも芸術の領域であり、ユーザにとって何が最善のAPIなのか、
 探求するために繰り返してみることができます。`pub use`は、内部的なクレート構造に柔軟性をもたらし、
-その内部構造とユーザに提示する構造を切り離してくれます。インストールしてある他のクレートを見て、
+その内部構造をユーザに提示する構造から切り離してくれます。インストールしてある他のクレートを見て、
 内部構造が公開APIと異なっているか確認してみてください。
 
 <!-- ### Setting Up a Crates.io Account -->
@@ -530,18 +529,18 @@ fn main() {
 <!-- Before you can publish any crates, you need to create an account on -->
 <!-- [crates.io](https://crates.io) and get an API token. To do so, -->
 <!-- visit the home page at [crates.io](https://crates.io) and log in -->
-<!-- via a GitHub account: the GitHub account is currently a requirement, but the -->
-<!-- site might support other ways of creating an account in the future. Once you’re -->
-<!-- logged in, visit your account settings at -->
+<!-- via a GitHub account. (The GitHub account is currently a requirement, but the -->
+<!-- site might support other ways of creating an account in the future.) Once -->
+<!-- you're logged in, visit your account settings at -->
 <!-- [https://crates.io/me/](https://crates.io/me/) and retrieve your -->
 <!-- API key. Then run the `cargo login` command with your API key, like this: -->
 
 クレートを公開する前に、[crates.io](https://crates.io)のアカウントを作成し、
 APIトークンを取得する必要があります。そうするには、[crates.io](https://crates.io)のホームページを訪れ、
-Githubアカウントでログインしてください: 現状は、Githubアカウントがなければなりませんが、
-いずれは他の方法でもアカウントを作成できるようになる可能性があります。ログインしたら、
+Githubアカウントでログインしてください。(現状は、Githubアカウントがなければなりませんが、
+いずれは他の方法でもアカウントを作成できるようになる可能性があります。)ログインしたら、
 [https://crates.io/me/](https://crates.io/me/)で自分のアカウントの設定に行き、
-APIキーを取り扱ってください。そして、`cargo` `login`コマンドをAPIキーとともに実行してください。
+APIキーを取り扱ってください。そして、`cargo login`コマンドをAPIキーとともに実行してください。
 以下のようにね:
 
 ```text
@@ -557,9 +556,9 @@ $ cargo login abcdefghijklmnopqrstuvwxyz012345
 このトークンは、*秘密*です: 他人とは共有しないでください。なんらかの理由で他人と共有してしまったら、
 古いものを破棄して[crates.io](https://crates.io)で新しいトークンを生成するべきです。
 
-<!-- ### Before Publishing a New Crate -->
+<!-- ### Adding Metadata to a New Crate -->
 
-### 新しいクレートを公開する前に
+### 新しいクレートにメタデータを追加する
 
 <!-- Now that you have an account, let’s say you have a crate you want to publish. -->
 <!-- Before publishing, you’ll need to add some metadata to your crate by adding it -->
@@ -572,9 +571,9 @@ $ cargo login abcdefghijklmnopqrstuvwxyz012345
 <!-- you can name a crate whatever you’d like. However, crate names on -->
 <!-- [crates.io](https://crates.io) are allocated on a first-come, -->
 <!-- first-served basis. Once a crate name is taken, no one else can publish a crate -->
-<!-- with that name. Search for the name you want to use on the site to find out if -->
-<!-- it has been used. If it hasn’t, edit the name in the *Cargo.toml* file under -->
-<!-- `[package]` to use the name for publishing, like so: -->
+<!-- with that name. Search for the name you want to use on the site to find out -->
+<!-- whether it has been used. If it hasn’t, edit the name in the *Cargo.toml* file -->
+<!-- under `[package]` to use the name for publishing, like so: -->
 
 クレートには、独自の名前が必要でしょう。クレートをローカルで作成している間、
 クレートの名前はなんでもいい状態でした。ところが、[crates.io](https://crates.io)のクレート名は、
@@ -618,20 +617,20 @@ error: api errors: missing or empty metadata fields: description, license.
 他の人が自分のクレートは何をし、どんな条件の元で使っていいのかを知るために必要なのです。
 このエラーを解消するには、*Cargo.toml*ファイルにこの情報を入れ込む必要があります。
 
-<!-- FIXME: URLのところがイタリックにならない。mdbookのバグ？ -->
-
 <!-- Add a description that is just a sentence or two, because it will appear with -->
 <!-- your crate in search results. For the `license` field, you need to give a -->
-<!-- *license identifier value*. The Linux Foundation’s Software Package Data -->
-<!-- Exchange (SPDX) at *http://spdx.org/licenses/* lists the identifiers you can -->
-<!-- use for this value. For example, to specify that you’ve licensed your crate -->
-<!-- using the MIT License, add the `MIT` identifier: -->
+<!-- *license identifier value*. The [Linux Foundation’s Software Package Data -->
+<!-- Exchange (SPDX)][spdx] lists the identifiers you can use for this value. For -->
+<!-- example, to specify that you’ve licensed your crate using the MIT License, add -->
+<!-- the `MIT` identifier: -->
 
 1文か2文程度の説明をつけてください。これは、検索結果に表示されますからね。
 `license`フィールドには、*ライセンス識別子*を与える必要があります。
-*http://spdx.org/licenses/*のLinux団体のSoftware Package Data Exchange(SPDX)に、
-この値に使用できる識別子が列挙されています。例えば、自分のクレートをMITライセンスでライセンスするためには、
+[Linux団体のSoftware Package Data Exchange(SPDX)][spdx]に、この値に使用できる識別子が列挙されています。
+例えば、自分のクレートをMITライセンスでライセンスするためには、
 `MIT`識別子を追加してください:
+
+[spdx]: http://spdx.org/licenses/
 
 <!-- <span class="filename">Filename: Cargo.toml</span> -->
 
@@ -654,13 +653,13 @@ SPDXに出現しないライセンスを使用したい場合、そのライセ�
 
 <!-- Guidance on which license is appropriate for your project is beyond the scope -->
 <!-- of this book. Many people in the Rust community license their projects in the -->
-<!-- same way as Rust by using a dual license of `MIT OR Apache-2.0`, which -->
+<!-- same way as Rust by using a dual license of `MIT OR Apache-2.0`. This practice -->
 <!-- demonstrates that you can also specify multiple license identifiers separated -->
 <!-- by `OR` to have multiple licenses for your project. -->
 
 どのライセンスが自分のプロジェクトに<ruby>相<rp>(</rp><rt>ふ</rt><rp>)</rp>応<rp>(</rp><rt>さわ</rt><rp>)</rp></ruby>しいというガイドは、
 この本の範疇を超えています。Rustコミュニティの多くの人間は、`MIT OR Apache-2.0`のデュアルライセンスを使用することで、
-Rust自体と同じようにプロジェクトをライセンスし、これは、`OR`で区切られる複数のライセンス識別子を指定して、
+Rust自体と同じようにプロジェクトをライセンスします。この実践は、`OR`で区切られる複数のライセンス識別子を指定して、
 プロジェクトに複数のライセンスを持たせることもできることを模擬しています。
 
 <!-- With a unique name, the version, the author details that `cargo new` added -->
@@ -688,7 +687,7 @@ license = "MIT OR Apache-2.0"
 
 <!-- [Cargo’s documentation](https://doc.rust-lang.org/cargo/) describes other -->
 <!-- metadata you can specify to ensure others can discover and use your crate more -->
-<!-- easily! -->
+<!-- easily. -->
 
 [Cargoのドキュメンテーション](https://doc.rust-lang.org/cargo)には、
 指定して他人が発見しより容易くクレートを使用できることを保証する他のメタデータが解説されています。
@@ -772,8 +771,6 @@ Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
 ある理由により、クレートバージョンが壊れている場合に有用です。そのような場面において、
 Cargoはクレートバージョンの*取り下げ*をサポートしています。
 
-<!-- 最後の行は、a yank meansがかかっているように訳したが、ちょっと微妙かもしれない -->
-
 <!-- Yanking a version prevents new projects from starting to depend on that version -->
 <!-- while allowing all existing projects that depend on it to continue to download -->
 <!-- and depend on that version. Essentially, a yank means that all projects with a -->
@@ -782,8 +779,8 @@ Cargoはクレートバージョンの*取り下げ*をサポートしていま�
 
 バージョンを取り下げると、他の既存のプロジェクトには、引き続きダウンロードし、そのバージョンに依存させ続けつつ、
 新規プロジェクトが新しくそのバージョンに依存しだすことを防ぎます。本質的に取り下げは、
-*Cargo.lock*が存在するプロジェクトは全て壊れず、将来的に*Cargo.lock*ファイルが生成されるものは、
-取り下げられたバージョンを使わないことを意味するのです。
+*Cargo.lock*が存在するプロジェクトは全て壊れないことを意味し、将来的に*Cargo.lock*ファイルが生成されるものは、
+取り下げられたバージョンを使わないのです。
 
 <!-- To yank a version of a crate, run `cargo yank` and specify which version you -->
 <!-- want to yank: -->
