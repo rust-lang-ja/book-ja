@@ -204,10 +204,15 @@
 
 ## 高度なトピック
 
-- [Patterns Match the Structure of Values](ch18-00-patterns.md)
-    - [All the Places Patterns May be Used](ch18-01-all-the-places-for-patterns.md)
-    - [Refutability: Whether a Pattern Might Fail to Match](ch18-02-refutability.md)
-    - [All the Pattern Syntax](ch18-03-pattern-syntax.md)
+<!-- - [Patterns Match the Structure of Values](ch18-00-patterns.md) -->
+<!--     - [All the Places Patterns May be Used](ch18-01-all-the-places-for-patterns.md) -->
+<!--     - [Refutability: Whether a Pattern Might Fail to Match](ch18-02-refutability.md) -->
+<!--     - [All the Pattern Syntax](ch18-03-pattern-syntax.md) -->
+
+- [パターンは値の構造に合致する](ch18-00-patterns.md)
+    - [パターンが使用されるかもしれない箇所全部](ch18-01-all-the-places-for-patterns.md)
+    - [論駁可能性: パターンが合致しないか](ch18-02-refutability.md)
+    - [パターン記法全部](ch18-03-pattern-syntax.md)
 
 - [Advanced Features](ch19-00-advanced-features.md)
     - [Unsafe Rust](ch19-01-unsafe-rust.md)
