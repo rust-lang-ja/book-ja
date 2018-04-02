@@ -2,9 +2,10 @@
 
 # Rustプログラミング言語
 
-[Foreword](foreword.md)
+<!-- [Foreword](foreword.md) -->
 <!-- [Introduction](ch00-00-introduction.md) -->
 
+[まえがき](foreword.md)
 [導入](ch00-00-introduction.md)
 
 <!-- ## Getting started -->
