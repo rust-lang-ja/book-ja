@@ -1,175 +1,309 @@
-# Introduction
+<!-- # Introduction -->
 
-Welcome to *The Rust Programming Language*, an introductory book about Rust.
+# 導入
 
-The Rust programming language helps you write faster, more reliable software.
-High-level ergonomics and low-level control are often at odds in programming
-language design; Rust challenges that conflict. Through balancing powerful
-technical capacity and a great developer experience, Rust gives you the option
-to control low-level details (such as memory usage) without all the hassle
-traditionally associated with such control.
+<!-- Welcome to *The Rust Programming Language*, an introductory book about Rust. -->
 
-## Who Rust Is For
+*The Rust Programming Language*へようこそ。Rustに関する入門書です。
 
-Rust is ideal for many people for a variety of reasons. Let’s look at a few of
-the most important groups.
+<!-- The Rust programming language helps you write faster, more reliable software. -->
+<!-- High-level ergonomics and low-level control are often at odds in programming -->
+<!-- language design; Rust challenges that conflict. Through balancing powerful -->
+<!-- technical capacity and a great developer experience, Rust gives you the option -->
+<!-- to control low-level details (such as memory usage) without all the hassle -->
+<!-- traditionally associated with such control. -->
 
-### Teams of Developers
+Rustプログラミング言語は、高速で信頼できるソフトウェアを書く手助けをしてくれます。
+高レベルのエルゴノミクス(`脚注`: ergonomicsとは、人間工学的という意味。砕いて言えば、人間に優しいということ)と低レベルの制御は、
+しばしばプログラミング言語の設計においてトレードオフの関係になります;
+Rustは、その衝突に挑戦しています。バランスのとれた強力な技術の許容量と素晴らしい開発者経験を通して、
+Rustは伝統的にそれらの制御と紐付いていた困難全てなしに低レベルの詳細(メモリ使用など)を制御する選択肢を与えてくれます。
 
-Rust is proving to be a productive tool for collaborating among large teams of
-developers with varying levels of systems programming knowledge. Low-level code
-is prone to a variety of subtle bugs, which in most other languages can only be
-caught through extensive testing and careful code review by experienced
-developers. In Rust, the compiler plays a gatekeeper role by refusing to
-compile code with these elusive bugs, including concurrency bugs. By working
-alongside the compiler, the team can spend more time focusing on the program’s
-logic rather than chasing down bugs.
+<!-- ## Who Rust Is For -->
 
-Rust also brings contemporary developer tools to the systems programming world:
+## Rustは誰のためのものなの
 
-* Cargo, the included dependency manager and build tool, makes adding,
-  compiling, and managing dependencies painless and consistent across the Rust
-  ecosystem.
-* Rustfmt ensures a consistent coding style across developers.
-* The Rust Language Server powers Integrated Development Environment (IDE)
-  integration for code completion and inline error messages.
+<!-- Rust is ideal for many people for a variety of reasons. Let’s look at a few of -->
+<!-- the most important groups. -->
 
-By using these and other tools in the Rust ecosystem, developers can be
-productive while writing systems-level code.
+Rustは、様々な理由により多くの人にとって理想的です。いくつか最も重要なグループを見ていきましょう。
 
-### Students
+<!-- ### Teams of Developers -->
 
-Rust is for students and those who are interested in learning about systems
-concepts. Using Rust, many people have learned about topics like operating
-systems development. The community is very welcoming and happy to answer
-student questions. Through efforts such as this book, the Rust teams want to
-make systems concepts more accessible to more people, especially those new to
-programming.
+### 開発者チーム
 
-### Companies
+<!-- Rust is proving to be a productive tool for collaborating among large teams of -->
+<!-- developers with varying levels of systems programming knowledge. Low-level code -->
+<!-- is prone to a variety of subtle bugs, which in most other languages can only be -->
+<!-- caught through extensive testing and careful code review by experienced -->
+<!-- developers. In Rust, the compiler plays a gatekeeper role by refusing to -->
+<!-- compile code with these elusive bugs, including concurrency bugs. By working -->
+<!-- alongside the compiler, the team can spend more time focusing on the program’s -->
+<!-- logic rather than chasing down bugs. -->
 
-Hundreds of companies, large and small, use Rust in production for a variety of
-tasks. Those tasks include command line tools, web services, DevOps tooling,
-embedded devices, audio and video analysis and transcoding, cryptocurrencies,
-bioinformatics, search engines, internet of things applications, machine
-learning, and even major parts of the Firefox web browser.
+Rustは、いろんなレベルのシステムプログラミングの知識を持つ開発者の巨大なチームとコラボレートするのに生産的なツールであると証明してきています。
+低レベルコードは様々な種類の微細なバグを抱える傾向があり、そのようなバグは他の言語だと広範なテストと、
+経験豊富な開発者による注意深いコードレビューによって捕捉されるだけのものです。Rustにおいては、
+コンパイラが非同期のバグも含めたこのようなとらえどころのないバグのあるコードをコンパイルするのを拒むことで、
+門番の役割を担います。コンパイラとともに取り組むことで、チームはバグを追いかけるよりもプログラムのロジックに集中することに、
+より時間を費やせるのです。
 
-### Open Source Developers
+<!-- Rust also brings contemporary developer tools to the systems programming world: -->
 
-Rust is for people who want to build the Rust programming language, community,
-developer tools, and libraries. We’d love to have you contribute to the Rust
-language.
+Rustはまた、現代的な開発ツールをシステムプログラミング世界に導入します。
 
-### People Who Value Speed and Stability
+<!-- * Cargo, the included dependency manager and build tool, makes adding, -->
+<!--   compiling, and managing dependencies painless and consistent across the Rust -->
+<!--   ecosystem. -->
+<!-- * Rustfmt ensures a consistent coding style across developers. -->
+<!-- * The Rust Language Server powers Integrated Development Environment (IDE) -->
+<!--   integration for code completion and inline error messages. -->
 
-Rust is for people who crave speed and stability in a language. By speed, we
-mean the speed of the programs that you can create with Rust and the speed at
-which Rust lets you write them. The Rust compiler’s checks ensure stability
-through feature additions and refactoring as opposed to brittle legacy code in
-languages without these checks that developers are afraid to modify. By
-striving for zero-cost abstractions, higher-level features that compile to
-lower-level code as fast as code written manually, Rust endeavors to make safe
-code be fast code as well.
+* Cargoは、付属の依存マネージャ兼ビルドツールで、依存を追加、コンパイル、管理することを楽かつ、
+  Rustエコシステムを通じて矛盾させません。
+* Rustfmtは開発者の間で矛盾のないコーディングスタイルを保証します。
+* Rust Language ServerはIDE(Intefrated Development Environment)にコード補完とインラインのエラーメッセージの統合の源となります。
 
-Although we’ve not provided a complete list of everyone the Rust language hopes
-to support, those we have mentioned are some of the biggest stakeholders.
-Overall, Rust’s greatest ambition is to eliminate the dichotomy of the
-trade-offs that programmers have accepted for decades: safety *and*
-productivity, speed *and* ergonomics. Give Rust a try, and see if its choices
-work for you.
+<!-- By using these and other tools in the Rust ecosystem, developers can be -->
+<!-- productive while writing systems-level code. -->
 
-## Who This Book Is For
+これらや他のツールをRustのエコシステムで使用することで、開発者はシステムレベルのコードを記述しつつ、
+生産的になれます。
 
-This book assumes that you’ve written code in another programming language but
-doesn’t make any assumptions about which one. We’ve tried to make the material
-broadly accessible to those from a wide variety of programming backgrounds. We
-don’t spend a lot of time talking about what programming *is* or how to think
-about it. If you’re entirely new to programming, you would be better served by
-reading a book that specifically provides an introduction to programming.
+<!-- ### Students -->
 
-## How to Use This Book
+### 学生
 
-In general, this book assumes that you’re reading it in sequence from front to
-back. Later chapters build on concepts in earlier chapters, and earlier
-chapters might not delve into details on a topic; we typically revisit the
-topic in a later chapter.
+<!-- Rust is for students and those who are interested in learning about systems -->
+<!-- concepts. Using Rust, many people have learned about topics like operating -->
+<!-- systems development. The community is very welcoming and happy to answer -->
+<!-- student questions. Through efforts such as this book, the Rust teams want to -->
+<!-- make systems concepts more accessible to more people, especially those new to -->
+<!-- programming. -->
 
-You’ll find two kinds of chapters in this book: concept chapters and project
-chapters. In concept chapters, you’ll learn about an aspect of Rust. In project
-chapters, we’ll build small programs together, applying what you’ve learned so
-far. Chapters 2, 12, and 20 are project chapters; the rest are concept chapters.
+Rustは、学生やシステムの概念を学ぶことに興味のある方向けです。Rustを使用して、
+多くの人がOS開発などの話題を学んできました。コミュニティはとても暖かく、喜んで学生の質問に答えてくれます。
+この本のような努力を通じて、Rustチームはシステムの概念を多くの人、特にプログラミング初心者にとってアクセス可能にしたいと考えています。
 
-Additionally, Chapter 2 is a hands-on introduction to the Rust language. We’ll
-cover concepts at a high level, and later chapters will provide additional
-detail. If you want to get your hands dirty right away, Chapter 2 is the one
-for that. At first, you might even want to skip Chapter 3, which covers Rust
-features similar to other programming language features, and head straight to
-Chapter 4 to learn about Rust’s ownership system. However, if you’re a
-particularly meticulous learner who prefers to learn every detail before moving
-onto the next, you might want to skip Chapter 2 and go straight to Chapter 3,
-returning to Chapter 2 when you’d like to work on a project applying those
-details.
+<!-- ### Companies -->
 
-Chapter 5 discusses structs and methods, and Chapter 6 covers enums, `match`
-expressions, and the `if let` control flow construct. You’ll use structs and
-enums to make custom types in Rust.
+### 企業
 
-In Chapter 7, you’ll learn about Rust’s module system and about privacy rules
-for organizing your code and its public Application Programming Interface
-(API). Chapter 8 discusses some common collection data structures that the
-standard library provides, such as vectors, strings, and hash maps. Chapter 9
-explores Rust’s error handling philosophy and techniques.
+<!-- Hundreds of companies, large and small, use Rust in production for a variety of -->
+<!-- tasks. Those tasks include command line tools, web services, DevOps tooling, -->
+<!-- embedded devices, audio and video analysis and transcoding, cryptocurrencies, -->
+<!-- bioinformatics, search engines, internet of things applications, machine -->
+<!-- learning, and even major parts of the Firefox web browser. -->
 
-Chapter 10 digs into generics, traits, and lifetimes, which give you the power
-to define code that applies to multiple types. Chapter 11 is all about testing,
-which is still necessary even with Rust’s safety guarantees to ensure your
-program’s logic is correct. In Chapter 12, we’ll build our own implementation
-of a subset of functionality from the `grep` command line tool that searches
-for text within files. For this, we’ll use many of the concepts we discussed in
-the previous chapters.
+数百の企業が、大企業、中小企業を問わず、様々なタスクにプロダクションでRustを使用しています。
+そのタスクには、コマンドラインツール、Webサービス、DevOpsツール、組み込みデバイス、
+オーディオとビデオの解析および変換、暗号通貨、生物情報学、サーチエンジン、IoTアプリケーション、
+機械学習、Firefoxウェブブラウザの主要部分さえ含まれます。
 
-Chapter 13 explores closures and iterators: features of Rust that come from
-functional programming languages. In Chapter 14, we’ll examine Cargo in more
-depth and talk about best practices for sharing your libraries with others.
-Chapter 15 discusses smart pointers that the standard library provides and the
-traits that enable their functionality.
+<!-- ### Open Source Developers -->
 
-In Chapter 16, we’ll walk through different models of concurrent programming
-and talk about how Rust helps you to program in multiple threads fearlessly.
-Chapter 17 looks at how Rust idioms compare to object oriented programming
-principles you might be familiar with.
+### オープンソース開発者
 
-Chapter 18 is a reference on patterns and pattern matching, which are powerful
-ways of expressing ideas throughout Rust programs. Chapter 19 contains a
-smorgasbord of advanced topics of interest, including unsafe Rust and more
-about lifetimes, traits, types, functions, and closures.
+<!-- Rust is for people who want to build the Rust programming language, community, -->
+<!-- developer tools, and libraries. We’d love to have you contribute to the Rust -->
+<!-- language. -->
 
-In Chapter 20, we’ll complete a project in which we’ll implement a low-level
-multithreaded web server!
+Rustは、Rustプログラミング言語やコミュニティ、開発者ツール、ライブラリを開発したい方向けです。
+あなたがRust言語に貢献されることを心よりお待ちしております。
 
-Finally, some appendixes contain useful information about the language in a
-more reference-like format. Appendix A covers Rust’s keywords. Appendix B
-covers Rust’s operators and symbols. Appendix C covers derivable traits
-provided by the standard library. Appendix D covers macros.
+<!-- ### People Who Value Speed and Stability -->
 
-There is no wrong way to read this book: if you want to skip ahead, go for it!
-You might have to jump back to earlier chapters if you experience any
-confusion. But do whatever works for you.
+### スピードと安定性に価値を見出す方
 
-An important part of the process of learning Rust is learning how to read the
-error messages the compiler displays: these will guide you toward working code.
-As such, we’ll provide many examples of code that don’t compile along with the
-error message the compiler will show you in each situation. Know that if you
-enter and run a random example, it may not compile! Make sure you read the
-surrounding text to see whether the example you’re trying to run is meant to
-error. In most situations, we’ll lead you to the correct version of any code
-that doesn’t compile.
+<!-- 最後から3行目、zero-cost abstractions, higher-level featuresの繋がりがよくわからない。とりあえず、andで繋いでいるように訳した -->
 
-## Contributing to the Book
+<!-- Rust is for people who crave speed and stability in a language. By speed, we -->
+<!-- mean the speed of the programs that you can create with Rust and the speed at -->
+<!-- which Rust lets you write them. The Rust compiler’s checks ensure stability -->
+<!-- through feature additions and refactoring as opposed to brittle legacy code in -->
+<!-- languages without these checks that developers are afraid to modify. By -->
+<!-- striving for zero-cost abstractions, higher-level features that compile to -->
+<!-- lower-level code as fast as code written manually, Rust endeavors to make safe -->
+<!-- code be fast code as well. -->
 
-This book is open source. If you find an error, please don’t hesitate to file
-an issue or send a pull request [on GitHub]. Please see [CONTRIBUTING.md] for
-more details.
+Rustは、スピードと安定性を言語に渇望する方向けです。ここでいうスピードとは、
+Rustで作れるプログラムのスピードとソースコードを書くスピードのことです。Rustコンパイラのチェックにより、
+このようなチェックがない言語において開発者が変更するのを恐れてしまう脆いレガシーコードとは対照的に、
+機能の追加とリファクタリングを通して安定性を保証してくれます。ゼロコスト抽象化と、
+手で書いたコードと同等の速度を誇る低レベルコードにコンパイルされる高レベル機能を努力することで、
+Rustは安全なコードを高速なコードにもしようと努力しています。
 
-[on GitHub]: https://github.com/rust-lang/book
+<!-- Although we’ve not provided a complete list of everyone the Rust language hopes -->
+<!-- to support, those we have mentioned are some of the biggest stakeholders. -->
+<!-- Overall, Rust’s greatest ambition is to eliminate the dichotomy of the -->
+<!-- trade-offs that programmers have accepted for decades: safety *and* -->
+<!-- productivity, speed *and* ergonomics. Give Rust a try, and see if its choices -->
+<!-- work for you. -->
+
+Rust言語がサポートを望んでいる方全員の完全なリストを提供はしていないものの、名前を出した方は、
+最大の出資者の一部です。総合すると、Rustの最大の野望は、プログラマが数十年間受け入れてきた代償の二分を排除することです:
+つまり、安全性*と*生産性、スピード*と*エルゴノミクスです。Rustを試してみて、その選択が自分に合っているか確かめてください。
+
+<!-- ## Who This Book Is For -->
+
+## この本は誰のためのものなの
+
+<!-- 最後から2行目、better servedをもっと上手く訳したい-->
+
+<!-- This book assumes that you’ve written code in another programming language but -->
+<!-- doesn’t make any assumptions about which one. We’ve tried to make the material -->
+<!-- broadly accessible to those from a wide variety of programming backgrounds. We -->
+<!-- don’t spend a lot of time talking about what programming *is* or how to think -->
+<!-- about it. If you’re entirely new to programming, you would be better served by -->
+<!-- reading a book that specifically provides an introduction to programming. -->
+
+この本は、あなたが他のプログラミング言語でコードを書いたことがあることを想定していますが、
+具体的にどの言語かという想定はしません。幅広い分野のプログラミング背景からの人にとってこの資料を広くアクセスできるようにしようとしてきました。
+プログラミングとはなん*なのか*やそれについて考える方法について多くを語るつもりはありません。
+もし、完全なプログラミング初心者であれば、プログラミング入門を特に行う本を読むことでよりよく提供されるでしょう。
+
+<!-- ## How to Use This Book -->
+
+## この本の使い方
+
+<!-- In general, this book assumes that you’re reading it in sequence from front to -->
+<!-- back. Later chapters build on concepts in earlier chapters, and earlier -->
+<!-- chapters might not delve into details on a topic; we typically revisit the -->
+<!-- topic in a later chapter. -->
+
+一般的に、この本は、順番に読み進めていくことを前提にしています。後の章は、前の章の概念の上に成り立ち、
+前の章では、ある話題にさほど深入りしない可能性があります; 典型的に後ほどの章で同じ話題を再度しています。
+
+<!-- You’ll find two kinds of chapters in this book: concept chapters and project -->
+<!-- chapters. In concept chapters, you’ll learn about an aspect of Rust. In project -->
+<!-- chapters, we’ll build small programs together, applying what you’ve learned so -->
+<!-- far. Chapters 2, 12, and 20 are project chapters; the rest are concept chapters. -->
+
+この本には2種類の章があるとわかるでしょう: 概念の章とプロジェクトの章です。概念の章では、
+Rustの一面を学ぶでしょう。プロジェクトの章では、それまでに学んだことを適用して一緒に小さなプログラムを構築します。
+2、12、20章がプロジェクトの章です。つまり、残りは概念の章です。
+
+<!-- Additionally, Chapter 2 is a hands-on introduction to the Rust language. We’ll -->
+<!-- cover concepts at a high level, and later chapters will provide additional -->
+<!-- detail. If you want to get your hands dirty right away, Chapter 2 is the one -->
+<!-- for that. At first, you might even want to skip Chapter 3, which covers Rust -->
+<!-- features similar to other programming language features, and head straight to -->
+<!-- Chapter 4 to learn about Rust’s ownership system. However, if you’re a -->
+<!-- particularly meticulous learner who prefers to learn every detail before moving -->
+<!-- onto the next, you might want to skip Chapter 2 and go straight to Chapter 3, -->
+<!-- returning to Chapter 2 when you’d like to work on a project applying those -->
+<!-- details. -->
+
+加えて第2章は、Rust言語への実践的な導入です。概念を高度に講義し、後ほどの章で追加の詳細を提供します。
+今すぐRustの世界に飛び込みたいなら、第2章こそがそのためのものです。第3章は他のプログラミング言語の機能に似たRustの機能を講義していますが、
+最初その3章すら飛ばして、まっすぐに第4章に向かい、Rustの所有権システムについて学びたくなる可能性があります。
+しかしながら、あなたが次に進む前に全ての詳細を学ぶことを好む特別に几帳面な学習者なら、
+第2章を飛ばして真っ先に第3章に行き、その詳細を適用するプロジェクトに取り組みたくなった時に第2章に戻りたくなる可能性があります。
+
+<!-- Chapter 5 discusses structs and methods, and Chapter 6 covers enums, `match` -->
+<!-- expressions, and the `if let` control flow construct. You’ll use structs and -->
+<!-- enums to make custom types in Rust. -->
+
+第5章は、構造体とメソッドについて議論し、第6章はenum、`match`式、`if let`フロー制御構文を講義します。
+構造体とenumを使用してRustにおいて独自の型を作成します。
+
+<!-- In Chapter 7, you’ll learn about Rust’s module system and about privacy rules -->
+<!-- for organizing your code and its public Application Programming Interface -->
+<!-- (API). Chapter 8 discusses some common collection data structures that the -->
+<!-- standard library provides, such as vectors, strings, and hash maps. Chapter 9 -->
+<!-- explores Rust’s error handling philosophy and techniques. -->
+
+第7章では、Rustのモジュールシステムと自分のコードとその公開されたAPI(Application Programming Interface)を体系化するプライバシー規則について学びます。
+第8章では、ベクタ、文字列、ハッシュマップなどの標準ライブラリが提供する一般的なコレクションデータ構造の一部を議論します。
+第9章では、Rustのエラー処理哲学とテクニックを探求します。
+
+<!-- Chapter 10 digs into generics, traits, and lifetimes, which give you the power -->
+<!-- to define code that applies to multiple types. Chapter 11 is all about testing, -->
+<!-- which is still necessary even with Rust’s safety guarantees to ensure your -->
+<!-- program’s logic is correct. In Chapter 12, we’ll build our own implementation -->
+<!-- of a subset of functionality from the `grep` command line tool that searches -->
+<!-- for text within files. For this, we’ll use many of the concepts we discussed in -->
+<!-- the previous chapters. -->
+
+第10章ではジェネリクス、トレイト、ライフタイムについて深入りし、これらは複数の型に適用されるコードを定義する力をくれます。
+第11章は、完全にテストに関してで、Rustのプログラムのロジックが正しいことを保証する安全性保証があってもなお、
+必要になります。第12章では、ファイル内のテキストを検索する`grep`コマンドラインツールの一部の機能を自身で構築します。
+このために、以前の章で議論した多くの概念を使用します。
+
+<!-- Chapter 13 explores closures and iterators: features of Rust that come from -->
+<!-- functional programming languages. In Chapter 14, we’ll examine Cargo in more -->
+<!-- depth and talk about best practices for sharing your libraries with others. -->
+<!-- Chapter 15 discusses smart pointers that the standard library provides and the -->
+<!-- traits that enable their functionality. -->
+
+第13章はクロージャとイテレータを探求します。これらは、関数型プログラミング言語由来のRustの機能です。
+第14章では、Cargoをより詳しく調査し、他人と自分のライブラリを共有する最善の策について語ります。
+第15章では、標準ライブラリが提供するスマートポインタとその機能を可能にするトレイトを議論します。
+
+<!-- In Chapter 16, we’ll walk through different models of concurrent programming -->
+<!-- and talk about how Rust helps you to program in multiple threads fearlessly. -->
+<!-- Chapter 17 looks at how Rust idioms compare to object oriented programming -->
+<!-- principles you might be familiar with. -->
+
+第16章では、非同期プログラミングの異なるモデルを見ていき、Rustが恐れなしに複数のスレッドでプログラムする手助けをする方法を語ります。
+第17章では、馴染み深い可能性のあるオブジェクト指向プログラミングの原則とRustのイディオムがどう比較されるかに目を向けます。
+
+<!-- Chapter 18 is a reference on patterns and pattern matching, which are powerful -->
+<!-- ways of expressing ideas throughout Rust programs. Chapter 19 contains a -->
+<!-- smorgasbord of advanced topics of interest, including unsafe Rust and more -->
+<!-- about lifetimes, traits, types, functions, and closures. -->
+
+第18章は、パターンとパターンマッチングのリファレンスであり、これらはRustプログラムを通して、
+考えを表現する強力な方法になります。第19章は、unsafe Rustやライフタイム、トレイト、型、関数、クロージャの詳細を含む、
+興味のある高度な話題のスモーガスボード(`脚注`: 日本でいうバイキングのこと)を含みます。
+
+<!-- In Chapter 20, we’ll complete a project in which we’ll implement a low-level -->
+<!-- multithreaded web server! -->
+
+第20章では、低レベルなマルチスレッドのWebサーバを実装するプロジェクトを完成させます！
+
+<!-- Finally, some appendixes contain useful information about the language in a -->
+<!-- more reference-like format. Appendix A covers Rust’s keywords. Appendix B -->
+<!-- covers Rust’s operators and symbols. Appendix C covers derivable traits -->
+<!-- provided by the standard library. Appendix D covers macros. -->
+
+最後に、言語についての有用な情報をよりリファレンスっぽい形式で含むおまけがあります。
+おまけAはRustのキーワードを講義します。おまけBは、Rustの演算子とシンボル、おまけCは、
+標準ライブラリが提供する継承可能なトレイト、おまけDはマクロを講義します。
+
+<!-- There is no wrong way to read this book: if you want to skip ahead, go for it! -->
+<!-- You might have to jump back to earlier chapters if you experience any -->
+<!-- confusion. But do whatever works for you. -->
+
+この本を読む間違った方法なんてありません: 飛ばしたければ、どうぞご自由に！
+混乱したら、前の章に戻らなければならない可能性もあります。ですが、自分に合った方法でどうぞ。
+
+<!-- An important part of the process of learning Rust is learning how to read the -->
+<!-- error messages the compiler displays: these will guide you toward working code. -->
+<!-- As such, we’ll provide many examples of code that don’t compile along with the -->
+<!-- error message the compiler will show you in each situation. Know that if you -->
+<!-- enter and run a random example, it may not compile! Make sure you read the -->
+<!-- surrounding text to see whether the example you’re trying to run is meant to -->
+<!-- error. In most situations, we’ll lead you to the correct version of any code -->
+<!-- that doesn’t compile. -->
+
+Rustを学ぶ過程で重要な部分は、コンパイラが表示するエラーメッセージを読む方法を学ぶことです:
+それは動くコードへと導いてくれます。そのため、各場面でコンパイラが表示するエラーメッセージとともに、
+コンパイルできないコードの例を多く提供します。適当に例を選んで走らせたら、コンパイルできないかもしれないことを知ってください！
+周りのテキストを読んで実行しようとしている例がエラーになることを意図しているのか確認することを確かめてください。
+ほとんどの場合、コンパイルできないあらゆるコードの正しいバージョンへと導きます。
+
+<!-- ## Contributing to the Book -->
+
+## 本に貢献する
+
+<!-- This book is open source. If you find an error, please don’t hesitate to file -->
+<!-- an issue or send a pull request [on GitHub]. Please see [CONTRIBUTING.md] for -->
+<!-- more details. -->
+
+この本はオープンソースです。間違いを見つけたら、[Githubで]issueを送ったり、
+プルリクエストを送ったりするのを<ruby>躊躇<rp>(</rp><rt>ためら</rt><rp>)</rp></ruby>わないでください。
+詳しくは、[CONTRIBUTING.md]をご参照ください
+
+[GitHubで]: https://github.com/rust-lang/book
 [CONTRIBUTING.md]: https://github.com/rust-lang/book/blob/master/CONTRIBUTING.md

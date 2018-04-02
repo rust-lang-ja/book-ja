@@ -3,7 +3,9 @@
 # Rustプログラミング言語
 
 [Foreword](foreword.md)
-[Introduction](ch00-00-introduction.md)
+<!-- [Introduction](ch00-00-introduction.md) -->
+
+[導入](ch00-00-introduction.md)
 
 <!-- ## Getting started -->
 
