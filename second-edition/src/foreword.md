@@ -69,4 +69,4 @@ Rustと作業をすることで1つの領域から他の領域へと移動する
 
 <!-- — Nicholas Matsakis and Aaron Turon -->
 
-ニコラス・マットサキス(Nicholas Matsakis)とアーロン・チューロン(Aaron Turon)
+- ニコラス・マットサキス(Nicholas Matsakis)とアーロン・チューロン(Aaron Turon)
