@@ -7,7 +7,7 @@
 <!-- abstract way. We can use trait bounds to specify that a generic can be any type -->
 <!-- that has certain behavior. -->
 
-*トレイト*により、Rustコンパイラに特定の型にあり、他の型と共有できる機能について知らせます。
+*トレイト*により、Rustコンパイラに特定の型に存在し、他の型と共有できる機能について知らせます。
 トレイトを使用して共通の振る舞いを抽象的に定義できます。トレイト境界を使用して、
 あるジェネリックが特定の振る舞いのあるあらゆる型になり得ることを指定できます。
 
@@ -34,7 +34,7 @@
 <!-- with metadata that indicates whether it was a new tweet, a retweet, or a reply -->
 <!-- to another tweet. -->
 
-例えば、いろんな種類や量のテキストを保持する複数の構造体があるとしましょう: 特定の場所で埋められる新しいニュースを保持する`NewsArticle`と、
+例えば、いろんな種類や量のテキストを保持する複数の構造体があるとしましょう: 特定の場所で送られる新しいニュースを保持する`NewsArticle`と、
 新規ツイートか、リツイートか、はたまた他のツイートへのリプライなのかを示すメタデータを伴う最大で280文字までの`Tweet`です。
 
 <!-- We want to make a media aggregator library that can display summaries of data -->
@@ -44,7 +44,7 @@
 <!-- `Summary` trait that expresses this behavior: -->
 
 `NewsArticle`や`Tweet`インスタンスに格納される可能性のあるデータの総括を表示するメディア総括ライブラリを作成したいです。
-このために、各型からまとめが必要でインスタンスに対して`summarize`メソッドを呼び出すことでそのまとめを要求する必要があります。
+このために、各型からまとめが必要で、インスタンスに対して`summarize`メソッドを呼び出すことでそのまとめを要求する必要があります。
 リスト10-12は、この振る舞いを表現する`Summary`トレイトの定義を表示しています:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -67,7 +67,7 @@ pub trait Summary {
 <!-- method signatures that describe the behaviors of the types that implement this -->
 <!-- trait, which in this case is `fn summarize(&self) -> String`. -->
 
-ここで、`trait`キーワード、それからトレイト名を使用してトレイトを定義していて、その名前は今回の場合、
+ここでは、`trait`キーワード、それからトレイト名を使用してトレイトを定義していて、その名前は今回の場合、
 `Summary`です。波括弧の中にこのトレイトを実装する型の振る舞いを記述するメソッドシグニチャを定義し、
 今回の場合は、`fn summarize(&self) -> String`です。
 
@@ -101,7 +101,7 @@ pub trait Summary {
 <!-- already limited to 280 characters. -->
 
 今や`Summary`トレイトで欲しい振る舞いを定義したので、メディア総括機で型に実装することができます。
-リスト10-13はヘッドライン、著者、場所を使用して`summarize`の戻り値を生成する`NewsArticle`構造体の`Summary`トレイト実装を示しています。
+リスト10-13は見出し、著者、場所を使用して`summarize`の戻り値を生成する`NewsArticle`構造体の`Summary`トレイト実装を示しています。
 `Tweet`構造体に関しては、ツイートの内容が既に280文字に限定されていることを想定して、
 `summarize`をユーザ名にツイート全体のテキストが続く形で定義します。
 
@@ -169,7 +169,7 @@ impl Summary for Tweet {
 ```rust,ignore
 let tweet = Tweet {
     username: String::from("horse_ebooks"),
-    // もちろん、ご存知かもしれないようにね
+    // もちろん、ご存知かもしれないようにね、みなさん
     content: String::from("of course, as you probably already know, people"),
     reply: false,
     retweet: false,
@@ -231,7 +231,7 @@ println!("1 new tweet: {}", tweet.summarize());
 `Display`と`Vec<T>`は標準ライブラリで定義され、`aggregator`クレートにローカルではないからです。
 この制限は、*コヒーレンス*(coherence)あるいは、具体的に*オーファンルール*(orphan rule)と呼ばれるプログラムの特性の一部で、
 親の型が存在しないためにそう命名されました。この規則により、他の人のコードが自分のコードを壊したり、
-その逆が起きないことを保証してくれます。規則がなければ、2つのクレートが同じ型に対して同じトレイトを実装できてしまい、
+その逆が起きないことを保証してくれます。この規則がなければ、2つのクレートが同じ型に対して同じトレイトを実装できてしまい、
 コンパイラはどちらの実装を使うべきかわからなくなってしまうでしょう。
 
 <!-- ### Default Implementations -->
@@ -325,7 +325,7 @@ println!("New article available! {}", article.summarize());
 <!-- `summarize_author` method: -->
 
 デフォルト実装は、他のデフォルト実装がないメソッドでも呼び出すことができます。
-このように、トレイトは多くの有用な機能を提供しつつ、実装者に僅かな部分だけ指定してもらう必要があります。
+このように、トレイトは多くの有用な機能を提供しつつ、実装者に僅かな部分だけ指定してもらう必要しかないのです。
 例えば、`Summary`トレイトを実装が必須の`summarize_author`メソッドを持つように定義し、
 それから`summarize_author`メソッドを呼び出すデフォルト実装のある`summarize`メソッドを定義することもできます:
 
@@ -406,7 +406,7 @@ println!("1 new tweet: {}", tweet.summarize());
 
 例として、リスト10-13で、`Summary`トレイトを型`NewsArticle`と`Tweet`に実装しました。
 引数`item`に対して`summarize`メソッドを呼び出す関数`notify`を定義でき、この引数はジェネリックな型`T`です。
-ジェネリックな型`T`がメソッド`summarize`を実装しないというエラーを出さずに`item`に`summarize`を呼び出せるためには、
+ジェネリックな型`T`がメソッド`summarize`を実装しないというエラーを出さずに`item`に`summarize`を呼び出せるために、
 `T`に対してトレイト境界を使用して`item`は、`Summary`トレイトを実装する型でなければならないと指定できます:
 
 ```rust,ignore
@@ -424,7 +424,7 @@ pub fn notify<T: Summary>(item: T) {
 
 トレイト境界をジェネリックな型引数宣言とともにコロンの後、山カッコ内に配置しています。`T`に対するトレイト境界のため、
 `notify`を呼び出して`NewsArticle`か`Tweet`のどんなインスタンスも渡すことができます。
-あらゆる他の型、`String`や`i32`などで関数を呼び出すコードは、型が`Summary`を実装しないので、
+あらゆる他の型、`String`や`i32`などでこの関数を呼び出すコードは、型が`Summary`を実装しないので、
 コンパイルできません。
 
 <!-- We can specify multiple trait bounds on a generic type using the `+` syntax. -->
@@ -501,7 +501,7 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
 
 `largest`の本体で、大なり演算子(`>`)を使用して型`T`の2つの値を比較したかったのです。その演算子は、
 標準ライブラリトレイトの`std::cmp::PartialOrd`でデフォルトメソッドとして定義されているので、
-`largest`関数が比較できるあらゆる型のスライスに対して動くように`T`のトレイト境界に`PartialOrd`を指定する必要があります。
+`largest`関数が、比較できるあらゆる型のスライスに対して動くように`T`のトレイト境界に`PartialOrd`を指定する必要があります。
 初期化処理に含まれているので、`PartialOrd`をスコープに導入する必要はありません。
 `largest`のシグニチャを以下のような見た目に変えてください:
 
@@ -548,7 +548,7 @@ error[E0507]: cannot move out of borrowed content
 <!-- resulting in this error. -->
 
 このエラーの鍵となる行は、`cannot move out of type [T], a non-copy slice`です。
-ジェネリックでないバージョンの`largest`関数があると、最大の`i32`か`char`を探そうとするだけでした。
+ジェネリックでないバージョンの`largest`関数では、最大の`i32`か`char`を探そうとするだけでした。
 第4章の「スタックだけのデータ: コピー」節で議論したように、`i32`や`char`のような既知のサイズの型は、
 スタックに格納できるので、`Copy`トレイトを実装しています。しかし、`largest`関数をジェネリックにすると、
 `list`引数が`Copy`トレイトを実装しない型を含む可能性も出てきたのです。結果として、
@@ -711,7 +711,7 @@ let s = 3.to_string();
 <!-- Blanket implementations appear in the documentation for the trait in the -->
 <!-- “Implementors” section. -->
 
-ブランケット実装は、「実装者」節のトレイトのドキュメンテーションに出現します。
+ブランケット実装は、「実装したもの」節のトレイトのドキュメンテーションに出現します。
 
 <!-- Traits and trait bounds let us write code that uses generic type parameters to -->
 <!-- reduce duplication but also specify to the compiler that we want the generic -->
@@ -739,5 +739,5 @@ let s = 3.to_string();
 <!-- lifetimes do that. -->
 
 もう使用したことのある別の種のジェネリクスは、ライフタイムと呼ばれます。
-型が欲しい振る舞いを保持していることを保証するのではなく、必要なだけ参照が有効であることをライフタイムは保証します。
+型が欲しい振る舞いを保持していることを保証するのではなく、必要な間だけ参照が有効であることをライフタイムは保証します。
 ライフタイムがどうやってそれを行うかを見ましょう。

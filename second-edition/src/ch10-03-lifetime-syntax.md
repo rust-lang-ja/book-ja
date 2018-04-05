@@ -17,7 +17,7 @@
 同様に、参照のライフタイムがいくつか異なる方法で関係することがある場合には注釈しなければなりません。
 コンパイラは、ジェネリックライフタイム引数を使用して関係を注釈し、実行時に実際の参照が確かに有効であることを保証することを要求するのです。
 
-<!-- 3行目最後、ways you might encouter...はways that you might encounterで訳している(つまり同格) -->
+<!-- 4行目頭、ways you might encouter...はways that you might encounterで訳している(つまり同格) -->
 
 <!-- The concept of lifetimes is somewhat different from tools in other programming -->
 <!-- languages, arguably making lifetimes Rust’s most distinctive feature. Although -->
@@ -40,7 +40,7 @@
 <!-- Consider the program in Listing 10-17, which has an outer scope and an inner -->
 <!-- scope: -->
 
-ライフタイムの主な目的は、ダングリング参照を回避することであり、これによりプログラムは、
+ライフタイムの主な目的は、ダングリング参照を回避することであり、ダングリング参照によりプログラムは、
 参照することを意図したデータ以外のデータを参照してしまいます。リスト10-17のプログラムを考えてください。
 これには、外側のスコープと内側のスコープが含まれています:
 
@@ -113,7 +113,7 @@ error[E0597]: `x` does not live long enough
 
 変数`x`の「生存期間が短すぎます。」原因は内側のスコープが7行目で終わった時点で`x`がスコープを抜けるからです。
 ですが、`r`はまだ、外側のスコープに対して有効です; スコープが大きいので、「長生きする」と言います。
-コンパイラが、このコードが動くことを許可していたら、`r`は`x`がスコープを抜けた時に解放されるメモリを参照していることになり、
+Rustで、このコードが動くことを許可していたら、`r`は`x`がスコープを抜けた時に解放されるメモリを参照していることになり、
 `r`で行おうとするいかなることもちゃんと動かないでしょう。では、どうやってコンパイラはこのコードが無効であると決定しているのでしょうか？
 借用精査機(borrow checker)を使用しています。
 
@@ -192,7 +192,7 @@ Rustコンパイラには、スコープを比較して全ての借用が有効�
 <!-- lifetimes of parameters and return values in the context of functions. -->
 
 今や、参照のライフタイムがどこにあり、コンパイラがライフタイムを解析して参照が常に有効であることを保証する仕組みがわかったので、
-ジェネリックな引数のライフタイムを探求し、関数の文脈で値を返しましょう。
+関数の文脈でジェネリックな引数と戻り値のライフタイムを探求しましょう。
 
 <!-- ### Generic Lifetimes in Functions -->
 
@@ -296,7 +296,7 @@ signature does not say whether it is borrowed from `x` or `y`
 助言テキストが戻り値の型はジェネリックなライフタイム引数である必要があると明かしています。
 というのも、返している参照が`x`か`y`を参照しているかコンパイラにはわからないからです。
 この関数の本体の`if`ブロックは`x`への参照を返し、`else`ブロックは`y`への参照を返すので、
-実際、どちらかわかりません！
+実際、どちらか私たちにもわかりません！
 
 <!-- When we’re defining this function, we don’t know the concrete values that will -->
 <!-- be passed into this function, so we don’t know whether the `if` case or the -->
@@ -310,7 +310,7 @@ signature does not say whether it is borrowed from `x` or `y`
 <!-- perform its analysis. -->
 
 この関数を定義する際、この関数に渡される具体的な値がわからないので、`if`ケースか、`else`ケースが実行されるか、わからないのです。
-また、渡される参照の具体的なライフタイムもわからないので、リスト10-18と10-19でして、
+また、渡される参照の具体的なライフタイムもわからないので、リスト10-18と10-19で、
 返す参照が常に有効であることを決定したようにスコープを見ることもできないのです。
 借用精査機もこれを決定することはできません。`x`と`y`のライフタイムがどう戻り値のライフタイムと関係するかわからないからです。
 このエラーを修正するには、借用精査機が解析を実行できるように、参照間の関係を定義するジェネリックなライフタイム引数を追加します。
@@ -326,7 +326,7 @@ signature does not say whether it is borrowed from `x` or `y`
 <!-- the lifetimes of multiple references to each other without affecting the -->
 <!-- lifetimes. -->
 
-ライフタイム注釈は、いかなる参照の生存期間を変えることはありません。シグニチャがジェネリックな型引数を指定している時に、
+ライフタイム注釈は、いかなる参照の生存期間も変えることはありません。シグニチャがジェネリックな型引数を指定している時に、
 関数があらゆる型を受け入れるのと全く同様に、ジェネリックなライフタイム引数を指定することで関数は、
 あらゆるライフタイムの参照を受け入れるのです。ライフタイム注釈は、ライフタイムに影響することなく、
 複数の参照のライフタイムのお互いの関係を記述します。
@@ -369,7 +369,7 @@ signature does not say whether it is borrowed from `x` or `y`
 1つのライフタイム注釈それだけでは、大して意味はありません。注釈は、複数の参照のジェネリックなライフタイム引数が、
 お互いにどう関係するかをコンパイラに指示することを意図しているからです。例えば、
 ライフタイム`'a`付きの`i32`への参照となる引数`first`のある関数があるとしましょう。
-この関数はさらに、`'a`のライフタイム付きの`i32`への別の参照となる`second`という別の引数も持っています。
+この関数にはさらに、`'a`のライフタイム付きの`i32`への別の参照となる`second`という別の引数もあります。
 ライフタイム注釈は、`first`と`second`の参照がどちらもジェネリックなライフタイムと同じだけ生きることを示唆します。
 
 <!-- ### Lifetime Annotations in Function Signatures -->
@@ -446,7 +446,7 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 関数でライフタイムを注釈する際、注釈は関数シグニチャに<ruby>嵌<rp>(</rp><rt>はま</rt><rp>)</rp></ruby>り、
 関数本体には嵌りません。コンパイラは、なんの助けもなく、関数内のコードを解析できます。しかしながら、
 関数に関数外やからの参照がある場合、コンパイラは引数や戻り値のライフタイムをそれだけではじき出すことはほとんど不可能になります。
-ライフタイムは、関数が呼び出されるたびに異なる可能性があります。このために、手動でライフタイムを注釈する必要があるのです。
+ライフタイムは、関数が呼び出される度に異なる可能性があります。このために、手動でライフタイムを注釈する必要があるのです。
 
 <!-- When we pass concrete references to `longest`, the concrete lifetime that is -->
 <!-- substituted for `'a` is the part of the scope of `x` that overlaps with the -->
@@ -565,7 +565,7 @@ error[E0597]: `string2` does not live long enough
 <!-- values using the same lifetime parameter `'a`. -->
 
 このエラーは、`result`が`println!`文に対して有効になるために、`string2`が外側のスコープの終わりまで有効である必要があることを示しています。
-コンパイラは、関数引数と戻り値のライフタイムを同じライフタイム引数`'a`で注釈したので、このことを知っています。
+関数引数と戻り値のライフタイムを同じライフタイム引数`'a`で注釈したので、コンパイラはこのことを知っています。
 
 <!-- As humans, we can look at this code and see that `string1` is longer than -->
 <!-- `string2`, and therefore `result` will contain a reference to `string1`. -->
@@ -695,7 +695,7 @@ function body at 1:1...
 <!-- would create dangling pointers or otherwise violate memory safety. -->
 
 究極的にライフタイム記法は、関数のいろんな引数と戻り値のライフタイムを接続することに関するのです。
-一旦、繋がりができたら、メモリ安全な処理を許可するのに十分な情報があり、
+一旦、繋がりができたら、メモリ安全な処理を許可するのに十分な情報がコンパイラにはあり、
 ダングリングポインタを生成するであろう処理を不認可し、さもなくばメモリ安全性を侵害するのです。
 
 <!-- ### Lifetime Annotations in Struct Definitions -->
@@ -742,7 +742,7 @@ fn main() {
 <!-- annotation means an instance of `ImportantExcerpt` can’t outlive the reference -->
 <!-- it holds in its `part` field. -->
 
-この構造体には1つのフィールド、`part`があり、文字列スライスを保持し、これは参照です。
+この構造体には文字列スライスを保持する1つのフィールド、`part`があり、これは参照です。
 ジェネリックなデータ型同様、構造体名の後、山カッコの中にジェネリックなライフタイム引数の名前を宣言するので、
 構造体定義の本体でライフタイム引数を使用できます。この注釈は、`ImportantExcerpt`のインスタンスが、
 `part`フィールドに保持している参照よりも長生きしないことを意味します。
@@ -769,8 +769,8 @@ fn main() {
 <!-- in Listing 10-26, that compiled without lifetime annotations: -->
 
 全参照にはライフタイムがあり、参照を使用する関数や構造体にはライフタイム引数を指定する必要があることを学びました。
-ですが、第4章の「文字列スライス」節である関数があり、リスト10-26に再度表示しましたが、
-ライフタイム注釈なしでコンパイルできました:
+ですが、第4章の「文字列スライス」節にある関数があり、リスト10-26に再度示しましたが、
+これは、ライフタイム注釈なしでコンパイルできました:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -826,7 +826,7 @@ fn first_word<'a>(s: &'a str) -> &'a str {
 <!-- deterministic patterns will emerge and be added to the compiler. In the future, -->
 <!-- even fewer lifetime annotations might be required. -->
 
-より決定的なパターンが出現し、コンパイラに追加されることもあり得るので、このRustの歴史は関係があります。
+他の決定的なパターンが出現し、コンパイラに追加されることもあり得るので、このRustの歴史は関係があります。
 将来的に、さらに少数のライフタイム注釈しか必要にならない可能性もあります。
 
 <!-- The patterns programmed into Rust’s analysis of references are called the -->
@@ -931,7 +931,7 @@ fn first_word<'a>(s: &'a str) -> &'a str {
 <!-- compiler can continue its analysis without needing the programmer to annotate -->
 <!-- the lifetimes in this function signature. -->
 
-もうこの関数シグニチャの全ての参照にライフタイムが付き、コンパイラは、
+もうこの関数シグニチャの全ての参照にライフタイムが付いたので、コンパイラは、
 プログラマにこの関数シグニチャのライフタムを注釈してもらう必要なく、解析を続行できます。
 
 <!-- Let’s look at another example, this time using the `longest` function that had -->
@@ -1085,7 +1085,7 @@ impl<'a> ImportantExcerpt<'a> {
 ですが、参照に対してライフタイムとして`'static`を指定する前に、今ある参照が本当にプログラムの全期間生きるかどうか考えてください。
 可能であっても、参照がそれだけの期間生きるかどうか考慮する可能性があります。
 ほとんどの場合、問題は、ダングリング参照を生成しようとしているか、利用可能なライフタイムの不一致が原因です。
-そのような場合、解決策はその問題を修正することであり、`'static`ライフタイムを指定することはありません。
+そのような場合、解決策はその問題を修正することであり、`'static`ライフタイムを指定することではありません。
 
 <!-- ## Generic Type Parameters, Trait Bounds, and Lifetimes Together -->
 
@@ -1121,7 +1121,7 @@ fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a st
 <!-- `T` go in the same list inside the angle brackets after the function name. -->
 
 これがリスト10-22からの2つの文字列のうち長い方を返す`longest`関数ですが、
-ジェネリックな型`T`の`ann`という追加の引数があり、これは`where`説で指定されているように、
+ジェネリックな型`T`の`ann`という追加の引数があり、これは`where`節で指定されているように、
 `Display`トレイトを実装するあらゆる型で埋めることができます。
 この追加の引数は、関数が文字列スライスの長さを比較する前に出力されるので、
 `Display`トレイト境界が必要なのです。ライフタイムは1種のジェネリックなので、
@@ -1142,7 +1142,7 @@ fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a st
 
 いろんなことをこの章では講義しましたね！今やジェネリックな型引数、トレイトとトレイト境界、そしてジェネリックなライフタイム引数を知ったので、
 多くの異なる場面で動くコードを繰り返しなく書く準備ができました。ジェネリックな型引数により、
-コードを異なる型に定義させてくれます。トレイトとトレイト境界は、型がジェネリックであっても、
+コードを異なる型に適用させてくれます。トレイトとトレイト境界は、型がジェネリックであっても、
 コードが必要とする振る舞いを持つことを保証します。ライフタイム注釈を活用して、
 この柔軟なコードにダングリング参照が存在しないことを保証する方法を学びました。
 さらにこの解析は全てコンパイル時に起こり、実行時のパフォーマンスには影響しません！

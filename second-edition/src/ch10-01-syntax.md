@@ -128,7 +128,7 @@ fn largest<T>(list: &[T]) -> T {
 <!-- with either a slice of `i32` values or `char` values. Note that this code won’t -->
 <!-- compile yet, but we’ll fix it later in this chapter. -->
 
-リスト10-5は、シグニチャにジェネリックなデータ型を使用した`largest`関数定義の組み合わせたものを示しています。
+リスト10-5は、シグニチャにジェネリックなデータ型を使用して`largest`関数定義を組み合わせたものを示しています。
 このリストはさらに、この関数を`i32`値か`char`値のどちらかで呼べる方法も表示しています。
 このコードはまだコンパイルできないことに注意してください。ですが、この章の後ほど修正します。
 
@@ -543,7 +543,7 @@ fn main() {
 `main`で、`x`(値は`5`)に`i32`、`y`(値は`10.4`)に`f64`を持つ`Point`を定義しました。`p2`変数は、
 `x`(値は`"Hello"`)に文字列スライス、`y`(値は`c`)に`char`を持つ`Point`構造体です。
 引数`p2`で`p1`に`mixup`を呼び出すと、`p3`が得られ、`x`は`i32`になります。`x`は`p1`由来だからです。
-`p3`変数は、`y`に`char`を持ちます。`y`は`p2`由来だからです。`println!`マクロの呼び出しは、
+`p3`変数は、`y`に`char`になります。`y`は`p2`由来だからです。`println!`マクロの呼び出しは、
 `p3.x = 5, p3.y = c`と出力するでしょう。
 
 <!-- The purpose of this example is to demonstrate a situation in which some generic -->
@@ -566,7 +566,7 @@ fn main() {
 <!-- with concrete types. -->
 
 ジェネリックな型引数を使用すると、実行時にコストが発生するかあなたは不思議に思っている可能性があります。
-コンパイラはジェネリクスを具体的な型がある時よりもジェネリックな型を使用したコードを実行するのが遅くならないように実装しているのは、
+コンパイラが、ジェネリクスを具体的な型がある時よりもジェネリックな型を使用したコードを実行するのが遅くならないように実装しているのは、
 嬉しいお知らせです。
 
 <!-- Rust accomplishes this by performing monomorphization of the code that is using -->
@@ -576,7 +576,7 @@ fn main() {
 
 コンパイラはこれをジェネリクスを使用しているコードの単相化をコンパイル時に行うことで達成しています。
 *単相化*(monomorphization)は、コンパイル時に使用されている具体的な型を入れることで、
-ジェネリックなコードを特定のコードに変換する家庭のことです。
+ジェネリックなコードを特定のコードに変換する過程のことです。
 
 <!-- In this process, the compiler does the opposite of the steps we used to create -->
 <!-- the generic function in Listing 10-5: the compiler looks at all the places -->
@@ -642,7 +642,7 @@ fn main() {
 <!-- process of monomorphization makes Rust’s generics extremely efficient at -->
 <!-- runtime. -->
 
-コンパイラは、ジェネリックなコードを各インスタンスで型を指定したコードにコンパイルするので、
+Rustでは、ジェネリックなコードを各インスタンスで型を指定したコードにコンパイルするので、
 ジェネリクスを使用することに対して実行時コストを払うことはありません。コードを実行すると、
 それぞれの定義を手作業で複製した時のように振る舞います。単相化の過程により、
 Rustのジェネリクスは実行時に究極的に効率的になるのです。
