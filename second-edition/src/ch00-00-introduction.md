@@ -293,17 +293,17 @@ Rustを学ぶ過程で重要な部分は、コンパイラが表示するエラ�
 周りのテキストを読んで実行しようとしている例がエラーになることを意図しているのか確認することを確かめてください。
 ほとんどの場合、コンパイルできないあらゆるコードの正しいバージョンへと導きます。
 
-<!-- ## Contributing to the Book -->
+<!-- ## Source code -->
 
-## 本に貢献する
+## ソースコード
 
-<!-- This book is open source. If you find an error, please don’t hesitate to file -->
-<!-- an issue or send a pull request [on GitHub]. Please see [CONTRIBUTING.md] for -->
-<!-- more details. -->
+<!-- The source files from which this book is generated can be found on -->
+<!-- [GitHub][book]. -->
+
+この本が生成されるソースファイルは、[GitHub][book]で見つかります。
 
 この本はオープンソースです。間違いを見つけたら、[Githubで]issueを送ったり、
 プルリクエストを送ったりするのを<ruby>躊躇<rp>(</rp><rt>ためら</rt><rp>)</rp></ruby>わないでください。
 詳しくは、[CONTRIBUTING.md]をご参照ください
 
-[GitHubで]: https://github.com/rust-lang/book
-[CONTRIBUTING.md]: https://github.com/rust-lang/book/blob/master/CONTRIBUTING.md
+[book]: https://github.com/rust-lang/book/tree/master/second-edition/src

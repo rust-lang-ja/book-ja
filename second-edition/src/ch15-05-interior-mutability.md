@@ -3,8 +3,8 @@
 ## `RefCell<T>`と内部可変性パターン
 
 <!-- *Interior mutability* is a design pattern in Rust that allows you to mutate -->
-<!-- data even when there are immutable references to that data: normally, this -->
-<!-- action is disallowed by the borrowing rules. To do so, the pattern uses -->
+<!-- data even when there are immutable references to that data; normally, this -->
+<!-- action is disallowed by the borrowing rules. To mutate data, the pattern uses -->
 <!-- `unsafe` code inside a data structure to bend Rust’s usual rules that govern -->
 <!-- mutation and borrowing. We haven’t yet covered unsafe code; we will in -->
 <!-- Chapter 19. We can use types that use the interior mutability pattern when we -->
@@ -13,7 +13,7 @@
 <!-- in a safe API, and the outer type is still immutable. -->
 
 内部可変性は、そのデータへの不変参照がある時でさえもデータを可変化できるRustでのデザインパターンです:
-普通、この行動は借用ルールにより許可されません。そうするために、このパターンは、データ構造内で`unsafe`コードを使用して、
+普通、この行動は借用ルールにより許可されません。データを可変化するために、このパターンは、データ構造内で`unsafe`コードを使用して、
 可変性と借用を支配するRustの通常のルールを捻じ曲げています。まだ、unsafeコードについては講義していません;
 第19章で行います。たとえ、コンパイラが保証できなくても、借用ルールに実行時に従うことが保証できる時、
 内部可変性パターンを使用した型を使用できます。関係する`unsafe`コードはそうしたら、安全なAPIにラップされ、
@@ -29,30 +29,27 @@
 ### `RefCell<T>`で実行時に借用ルールを強制する
 
 <!-- Unlike `Rc<T>`, the `RefCell<T>` type represents single ownership over the data -->
-<!-- it holds. So, what makes `RefCell<T>` different than a type like `Box<T>`? -->
+<!-- it holds. So, what makes `RefCell<T>` different from a type like `Box<T>`? -->
 <!-- Recall the borrowing rules you learned in Chapter 4: -->
 
 `Rc<T>`と異なり、`RefCell<T>`型は、保持するデータに対して単独の所有権を表します。では、
 どうして`RefCell<T>`が`Box<T>`のような型と異なるのでしょうか？第4章で学んだ借用ルールを思い出してください:
 
-<!-- 1. At any given time, you can have *either* but not both of the following: one -->
-<!--   * One mutable reference. -->
-<!--   * Any number of immutable references. -->
-<!-- 2. References must always be valid. -->
+<!-- * At any given time, you can have *either* (but not both of) one mutable -->
+<!-- reference or any number of immutable references. -->
+<!-- * References must always be valid. -->
 
-1. いかなる時も以下の両方ではなく、*どちらか*が可能になる:
-   * 1つの可変参照
-   * いくつもの不変参照
-2. 参照は常に有効でなければならない。
+* いかなる時も(以下の両方ではなく、)1つの可変参照かいくつもの不変参照の*どちらか*が可能になる
+* 参照は常に有効でなければならない。
 
 <!-- With references and `Box<T>`, the borrowing rules’ invariants are enforced at -->
 <!-- compile time. With `RefCell<T>`, these invariants are enforced *at runtime*. -->
 <!-- With references, if you break these rules, you’ll get a compiler error. With -->
-<!-- `RefCell<T>`, if you break these rules, your program will `panic!` and exit. -->
+<!-- `RefCell<T>`, if you break these rules, your program will panic and exit. -->
 
 参照と`Box<T>`では、借用ルールの不変条件は、コンパイル時に強制されています。`RefCell<T>`では、
 これらの不変条件は、*実行時に*強制されます。参照でこれらの規則を破ったら、コンパイルエラーになりました。
-`RefCell<T>`でこれらの規則を破ったら、プログラムは`panic!`し、終了します。
+`RefCell<T>`でこれらの規則を破ったら、プログラムはパニックし、終了します。
 
 <!-- 1行目、are that がどこまでかかるか不明だが、3行目最後、For those reasonsとあるので、最後までかかるように訳す -->
 
@@ -62,20 +59,20 @@
 <!-- reasons, checking the borrowing rules at compile time is the best choice in the -->
 <!-- majority of cases, which is why this is Rust’s default. -->
 
-コンパイル時に借用ルールを確認する利点は、エラーが開発過程の早い段階でキャッチされ、
-分析が予め全て終わるので、実行パフォーマンスに影響がないことです。そのような理由のため、
-コンパイル時に借用ルールを確認することが大多数の場合において最善の選択であり、
-そのためこれがRustの規定になっているのです。
-
-<!-- The advantages of checking the borrowing rules at compile time are that errors -->
-<!-- will be caught sooner in the development process, and there is no impact on -->
-<!-- runtime performance because all the analysis is completed beforehand. For those -->
-<!-- reasons, checking the borrowing rules at compile time is the best choice in the -->
-<!-- majority of cases, which is why this is Rust’s default. -->
-
-コンパイル時に借用ルールを精査することの利点は、エラーが開発家庭の早い段階で捕捉されることと、
+コンパイル時に借用ルールを精査することの利点は、エラーが開発過程の早い段階で捕捉されることと、
 あらかじめ全ての分析が終わるので、実行パフォーマンスへの影響がないことです。それらの理由により、
 多くの場合でコンパイル時に借用ルールを精査することが最善の選択肢であり、これがRustの規定になっているのです。
+
+<!-- The advantage of checking the borrowing rules at runtime instead is that -->
+<!-- certain memory-safe scenarios are then allowed, whereas they are disallowed by -->
+<!-- the compile-time checks. Static analysis, like the Rust compiler, is inherently -->
+<!-- conservative. Some properties of code are impossible to detect by analyzing the -->
+<!-- code: the most famous example is the Halting Problem, which is beyond the scope -->
+<!-- of this book but is an interesting topic to research. -->
+
+借用ルールを実行時に代わりに精査する利点は、コンパイル時の精査では許容されない特定のメモリ安全な筋書きが許容されることです。
+Rustコンパイラのような静的解析は、本質的に保守的です。コードの特性には、コードを解析するだけでは検知できないものもあります:
+最も有名な例は停止性問題であり、この本の範疇を超えていますが、調べると面白い話題です。
 
 <!-- Because some analysis is impossible, if the Rust compiler can’t be sure the -->
 <!-- code complies with the ownership rules, it might reject a correct program; in -->
@@ -83,7 +80,7 @@
 <!-- wouldn’t be able to trust in the guarantees Rust makes. However, if Rust -->
 <!-- rejects a correct program, the programmer will be inconvenienced, but nothing -->
 <!-- catastrophic can occur. The `RefCell<T>` type is useful when you’re sure your -->
-<!-- code follows the borrowing rules, but the compiler is unable to understand and -->
+<!-- code follows the borrowing rules but the compiler is unable to understand and -->
 <!-- guarantee that. -->
 
 不可能な分析もあるので、Rustのコンパイラが、コードが所有権ルールに応じていると確証を得られない場合、
@@ -94,7 +91,7 @@
 コンパイラはそれを理解し、保証できません。
 
 <!-- Similar to `Rc<T>`, `RefCell<T>` is only for use in single-threaded scenarios -->
-<!-- and will give you a compile time error if you try using it in a multithreaded -->
+<!-- and will give you a compile-time error if you try using it in a multithreaded -->
 <!-- context. We’ll talk about how to get the functionality of `RefCell<T>` in a -->
 <!-- multithreaded program in Chapter 16. -->
 
@@ -109,10 +106,11 @@
 <!-- * `Rc<T>` enables multiple owners of the same data; `Box<T>` and `RefCell<T>` -->
 <!--   have single owners. -->
 <!-- * `Box<T>` allows immutable or mutable borrows checked at compile time; `Rc<T>` -->
-<!--   only allows immutable borrows checked at compile time; `RefCell<T>` allows -->
+<!--   allows only immutable borrows checked at compile time; `RefCell<T>` allows -->
 <!--   immutable or mutable borrows checked at runtime. -->
-<!-- * Because `RefCell<T>` allows mutable borrows checked at runtime, we can mutate -->
-<!--   the value inside the `RefCell<T>` even when the `RefCell<T>` is immutable. -->
+<!-- * Because `RefCell<T>` allows mutable borrows checked at runtime, you can -->
+<!--   mutate the value inside the `RefCell<T>` even when the `RefCell<T>` is -->
+<!--   immutable. -->
 
 * `Rc<T>`は、同じデータに複数の所有者を持たせてくれる; `Box<T>`と`RefCell<T>`は単独の所有者。
 * `Box<T>`は、不変または可変借用をコンパイル時に精査してくれる; `Rc<T>`は不変借用のみをコンパイル時に精査してくれる;
@@ -131,8 +129,8 @@
 
 ### 内部可変性: 不変値への可変借用
 
-<!-- A consequence of the borrowing rules is that when we have an immutable value, -->
-<!-- we can’t borrow it mutably. For example, this code won’t compile: -->
+<!-- A consequence of the borrowing rules is that when you have an immutable value, -->
+<!-- you can’t borrow it mutably. For example, this code won’t compile: -->
 
 借用ルールの結果は、不変値がある時、可変で借用することはできないということです。
 例えば、このコードはコンパイルできません:
@@ -144,9 +142,9 @@ fn main() {
 }
 ```
 
-<!-- When we try to compile this code, we’ll get the following error: -->
+<!-- If you tried to compile this code, you'd get the following error: -->
 
-このコードをコンパイルしようとすると、以下のようなエラーが出ます:
+このコードをコンパイルしようとしたら、以下のようなエラーが出るでしょう:
 
 ```text
 error[E0596]: cannot borrow immutable local variable `x` as mutable
@@ -160,16 +158,16 @@ error[E0596]: cannot borrow immutable local variable `x` as mutable
 ```
 
 <!-- However, there are situations in which it would be useful for a value to mutate -->
-<!-- itself in its methods, but to other code, the value would appear immutable. -->
-<!-- Code outside the value’s methods would not be able to mutate the value. Using -->
-<!-- `RefCell<T>` is one way to get the ability to have interior mutability. But -->
-<!-- `RefCell<T>` doesn’t get around the borrowing rules completely: the borrow -->
-<!-- checker in the compiler allows this interior mutability, and the borrowing -->
-<!-- rules are checked at runtime instead. If we violate the rules, we’ll get a -->
-<!-- `panic!` instead of a compiler error. -->
+<!-- itself in its methods but appear immutable to other code. Code outside the -->
+<!-- value’s methods would not be able to mutate the value. Using `RefCell<T>` is -->
+<!-- one way to get the ability to have interior mutability. But `RefCell<T>` -->
+<!-- doesn’t get around the borrowing rules completely: the borrow checker in the -->
+<!-- compiler allows this interior mutability, and the borrowing rules are checked -->
+<!-- at runtime instead. If you violate the rules, you’ll get a `panic!` instead of -->
+<!-- a compiler error. -->
 
 ですが、メソッド内で値が自身を可変化するけれども、他のコードにとっては、
-その値は不変に見えることが有用な場面もあります。その値のメソッドの外のコードは、その値を可変化することはできないでしょう。
+不変に見えることが有用な場面もあります。その値のメソッドの外のコードは、その値を可変化することはできないでしょう。
 `RefCell<T>`を使うことは、内部可変性を取得する能力を得る1つの方法です。しかし、
 `RefCell<T>`は借用ルールを完全に回避するものではありません: コンパイラの借用精査機は、内部可変性を許可し、
 借用ルールは代わりに実行時に精査されます。この規則を侵害したら、コンパイルエラーではなく`panic!`になるでしょう。
@@ -185,7 +183,7 @@ error[E0596]: cannot borrow immutable local variable `x` as mutable
 
 <!-- A *test double* is the general programming concept for a type used in place of -->
 <!-- another type during testing. *Mock objects* are specific types of test doubles -->
-<!-- that record what happens during a test so we can assert that the correct -->
+<!-- that record what happens during a test so you can assert that the correct -->
 <!-- actions took place. -->
 
 *テストダブル*は、テスト中に別の型の代わりに使用される型の一般的なプログラミングの概念です。
@@ -196,7 +194,7 @@ error[E0596]: cannot borrow immutable local variable `x` as mutable
 
 <!-- Rust doesn’t have objects in the same sense as other languages have objects, -->
 <!-- and Rust doesn’t have mock object functionality built into the standard library -->
-<!-- like some other languages do. However, we can definitely create a struct that -->
+<!-- as some other languages do. However, you can definitely create a struct that -->
 <!-- will serve the same purposes as a mock object. -->
 
 Rustには、他の言語でいうオブジェクトは存在せず、また、他の言語のように標準ライブラリにモックオブジェクトの機能が組み込まれてもいません。
@@ -204,7 +202,7 @@ Rustには、他の言語でいうオブジェクトは存在せず、また、�
 
 <!-- Here’s the scenario we’ll test: we’ll create a library that tracks a value -->
 <!-- against a maximum value and sends messages based on how close to the maximum -->
-<!-- value the current value is. This library could be used for keeping track of a -->
+<!-- value the current value is. This library could be used to keep track of a -->
 <!-- user’s quota for the number of API calls they’re allowed to make, for example. -->
 
 以下が、テストを行う筋書きです: 値を最大値に対して追跡し、現在値が最大値に近い程度に基づいてメッセージを送信するライブラリを作成します。
@@ -268,13 +266,13 @@ impl<'a, T> LimitTracker<'a, T>
 }
 ```
 
-<!-- <span class="caption">Listing 15-20: A library to keep track of how close to a -->
-<!-- maximum value a value is and warn when the value is at certain levels</span> -->
+<!-- <span class="caption">Listing 15-20: A library to keep track of how close a -->
+<!-- value is to a maximum value and warn when the value is at certain levels</span> -->
 
 <span class="caption">リスト15-20: 値が最大値にどれくらい近いかを追跡し、任意のレベルの時に警告するライブラリ</span>
 
 <!-- One important part of this code is that the `Messenger` trait has one method -->
-<!-- called `send` that takes an immutable reference to `self` and text of the -->
+<!-- called `send` that takes an immutable reference to `self` and the text of the -->
 <!-- message. This is the interface our mock object needs to have. The other -->
 <!-- important part is that we want to test the behavior of the `set_value` method -->
 <!-- on the `LimitTracker`. We can change what we pass in for the `value` parameter, -->
@@ -290,18 +288,17 @@ impl<'a, T> LimitTracker<'a, T>
 `set_value`はアサートを行えるものは何も返してくれません。`LimitTracker`を`Messenger`トレイトを実装する何かと、
 `max`の特定の値で生成したら、`value`に異なる数値を渡した時にメッセンジャーは適切なメッセージを送ると指示されると言えるようになりたいです。
 
-<!-- We need a mock object that instead of sending an email or text message when we -->
-<!-- call `send` will only keep track of the messages it’s told to send. We can -->
+<!-- We need a mock object that, instead of sending an email or text message when we -->
+<!-- call `send`, will only keep track of the messages it’s told to send. We can -->
 <!-- create a new instance of the mock object, create a `LimitTracker` that uses the -->
 <!-- mock object, call the `set_value` method on `LimitTracker`, and then check that -->
-<!-- the mock object has the messages we expect. Listing 15-21 shows an attempt of -->
-<!-- implementing a mock object to do just that but that the borrow checker won’t -->
-<!-- allow: -->
+<!-- the mock object has the messages we expect. Listing 15-21 shows an attempt to -->
+<!-- implement a mock object to do just that, but the borrow checker won’t allow it: -->
 
 `send`を呼び出す時にメールやテキストメッセージを送る代わりに送ると指示されたメッセージを追跡するだけのモックオブジェクトが必要です。
 モックオブジェクトの新規インスタンスを生成し、モックオブジェクトを使用する`LimitTracker`を生成し、
 `LimitTracker`の`set_value`を呼び出し、それからモックオブジェクトに期待しているメッセージがあることを確認できます。
-リスト15-21は、それだけをするモックオブジェクトを実装するけど、借用精査機が許可してくれない試行を示しています:
+リスト15-21は、それだけをするモックオブジェクトを実装しようとするところを示しますが、借用精査機が許可してくません:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -389,9 +386,9 @@ error[E0596]: cannot borrow immutable field `self.sent_messages` as mutable
    |             ^^^^^^^^^^^^^^^^^^ cannot mutably borrow immutable field
 ```
 
-<!-- We can’t modify the `MockMessenger` to keep track of the messages because the -->
+<!-- We can’t modify the `MockMessenger` to keep track of the messages, because the -->
 <!-- `send` method takes an immutable reference to `self`. We also can’t take the -->
-<!-- suggestion from the error text to use `&mut self` instead because then the -->
+<!-- suggestion from the error text to use `&mut self` instead, because then the -->
 <!-- signature of `send` wouldn’t match the signature in the `Messenger` trait -->
 <!-- definition (feel free to try and see what error message you get). -->
 
@@ -481,16 +478,16 @@ mod tests {
 
 `RefCell<T>`の使用法を見かけたので、動作法を深掘りしましょう！
 
-<!-- #### `RefCell<T>` Keeps Track of Borrows at Runtime -->
+<!-- #### Keeping track of Borrows at Runtime with `RefCell<T>` -->
 
-#### `RefCell<T>`は実行時に借用を追いかける
+#### `RefCell<T>`で実行時に借用を追いかける
 
 <!-- When creating immutable and mutable references, we use the `&` and `&mut` -->
 <!-- syntax, respectively. With `RefCell<T>`, we use the `borrow` and `borrow_mut` -->
 <!-- methods, which are part of the safe API that belongs to `RefCell<T>`. The -->
 <!-- `borrow` method returns the smart pointer type `Ref<T>`, and `borrow_mut` -->
-<!-- returns the smart pointer type `RefMut<T>`. Both types implement `Deref` so -->
-<!-- we can treat them like regular references. -->
+<!-- returns the smart pointer type `RefMut<T>`. Both types implement `Deref`, so we -->
+<!-- can treat them like regular references. -->
 
 不変および可変参照を作成する時、それぞれ`&`と`&mut`記法を使用します。`RefCell<T>`では、
 `borrow`と`borrow_mut`メソッドを使用し、これらは`RefCell<T>`に所属する安全なAPIの一部です。
@@ -501,7 +498,7 @@ mod tests {
 <!-- pointers are currently active. Every time we call `borrow`, the `RefCell<T>` -->
 <!-- increases its count of how many immutable borrows are active. When a `Ref<T>` -->
 <!-- value goes out of scope, the count of immutable borrows goes down by one. Just -->
-<!-- like the compile time borrowing rules, `RefCell<T>` lets us have many immutable -->
+<!-- like the compile-time borrowing rules, `RefCell<T>` lets us have many immutable -->
 <!-- borrows or one mutable borrow at any point in time. -->
 
 `RefCell<T>`は、現在活動中の`Ref<T>`と`RefMut<T>`スマートポインタの数を追いかけます。
@@ -509,15 +506,15 @@ mod tests {
 不変参照の数は1下がります。コンパイル時の借用ルールと全く同じように、`RefCell<T>`はいかなる時も、
 複数の不変借用または1つの可変借用を持たせてくれるのです。
 
-<!-- If we try to violate these rules, rather than getting a compiler error like we -->
-<!-- would with references, the implementation of `RefCell<T>` will `panic!` at -->
+<!-- If we try to violate these rules, rather than getting a compiler error as we -->
+<!-- would with references, the implementation of `RefCell<T>` will panic at -->
 <!-- runtime. Listing 15-23 shows a modification of the implementation of `send` in -->
 <!-- Listing 15-22. We’re deliberately trying to create two mutable borrows active -->
 <!-- for the same scope to illustrate that `RefCell<T>` prevents us from doing this -->
-<!-- at runtime: -->
+<!-- at runtime. -->
 
 これらの規則を侵害しようとすれば、参照のようにコンパイルエラーになるのではなく、
-`RefCell<T>`の実装は実行時に`panic!`するでしょう。リスト15-23は、リスト15-22の`send`実装に対する変更を示しています。
+`RefCell<T>`の実装は実行時にパニックするでしょう。リスト15-23は、リスト15-22の`send`実装に対する変更を示しています。
 同じスコープで2つの可変借用が活動するようわざと生成し、`RefCell<T>`が実行時にこれをすることを阻止してくれるところを具体化しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -555,9 +552,9 @@ impl Messenger for MockMessenger {
 ```text
 ---- tests::it_sends_an_over_75_percent_warning_message stdout ----
 	thread 'tests::it_sends_an_over_75_percent_warning_message' panicked at
-    'already borrowed: BorrowMutError', src/libcore/result.rs:906:4
-    (スレッド'tests::it_sends_an_over_75_percent_warning_message'は、
-    'すでに借用されています: BorrowMutError', src/libcore/result.rs:906:4でパニックしました)
+'already borrowed: BorrowMutError', src/libcore/result.rs:906:4
+  (スレッド'tests::it_sends_an_over_75_percent_warning_message'は、
+'すでに借用されています: BorrowMutError', src/libcore/result.rs:906:4でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
@@ -568,18 +565,18 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 コードは、`already borrowed: BorrowMutError`というメッセージとともにパニックしたことに気付いてください。
 このようにして`RefCell<T>`は実行時に借用ルールの侵害を扱うのです。
 
-<!-- Catching borrowing errors at runtime rather than compile time means that we -->
-<!-- would find a mistake in our code later in the development process and possibly -->
-<!-- not even until our code was deployed to production. Also, our code will incur a -->
+<!-- Catching borrowing errors at runtime rather than compile time means that you -->
+<!-- would find a mistake in your code later in the development process and possibly -->
+<!-- not until our code was deployed to production. Also, your code will incur a -->
 <!-- small runtime performance penalty as a result of keeping track of the borrows -->
 <!-- at runtime rather than compile time. However, using `RefCell<T>` makes it -->
-<!-- possible for us to write a mock object that can modify itself to keep track of -->
-<!-- the messages it has seen while we’re using it in a context where only immutable -->
-<!-- values are allowed. We can use `RefCell<T>` despite its trade-offs to get more -->
-<!-- functionality than regular references give us. -->
+<!-- possible to write a mock object that can modify itself to keep track of the -->
+<!-- messages it has seen while you're using it in a context where only immutable -->
+<!-- values are allowed. You can use `RefCell<T>` despite its trade-offs to get more -->
+<!-- functionality than regular references provide. -->
 
 コンパイル時ではなく実行時に借用エラーをキャッチするということは、開発過程の遅い段階でコードのミスを発見し、
-コードをプロダクションにデプロイする時までさえ発見しないことを意味します。また、
+コードをプロダクションにデプロイする時まで発見しないことを意味します。また、
 コンパイル時ではなく、実行時に借用を追いかける結果として、少し実行時にパフォーマンスを犠牲にするでしょう。
 しかしながら、`RefCell<T>`を使うことで不変値のみが許可される文脈で使用しつつ、
 自身を変更して見かけたメッセージを追跡するモックオブジェクトを書くことを可能にしてくれます。
@@ -590,24 +587,24 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ### `Rc<T>`と`RefCell<T>`を組み合わせることで可変なデータに複数の所有者を持たせる
 
 <!-- A common way to use `RefCell<T>` is in combination with `Rc<T>`. Recall that -->
-<!-- `Rc<T>` lets us have multiple owners of some data, but it only gives us -->
-<!-- immutable access to that data. If we have an `Rc<T>` that holds a `RefCell<T>`, -->
-<!-- we can get a value that can have multiple owners *and* that we can mutate! -->
+<!-- `Rc<T>` lets you have multiple owners of some data, but it only gives immutable -->
+<!-- access to that data. If you have an `Rc<T>` that holds a `RefCell<T>`, you can -->
+<!-- get a value that can have multiple owners *and* that you can mutate! -->
 
 `RefCell<T>`の一般的な使用法は、`Rc<T>`と組み合わせることにあります。`Rc<T>`は何らかのデータに複数の所有者を持たせてくれるけれども、
 そのデータに不変のアクセスしかさせてくれないことを思い出してください。`RefCell<T>`を抱える`Rc<T>`があれば、
 複数の所有者を持ち*そして*、可変化できる値を得ることができるのです。
 
 <!-- For example, recall the cons list example in Listing 15-18 where we used -->
-<!-- `Rc<T>` to let us have multiple lists share ownership of another list. Because -->
-<!-- `Rc<T>` only holds immutable values, we can’t change any of the values in the -->
+<!-- `Rc<T>` to allow multiple lists to share ownership of another list. Because -->
+<!-- `Rc<T>` holds only immutable values, we can’t change any of the values in the -->
 <!-- list once we’ve created them. Let’s add in `RefCell<T>` to gain the ability to -->
 <!-- change the values in the lists. Listing 15-24 shows that by using a -->
 <!-- `RefCell<T>` in the `Cons` definition, we can modify the value stored in all -->
 <!-- the lists: -->
 
 例を挙げれば、`Rc<T>`を使用して複数のリストに別のリストの所有権を共有させたリスト15-18のコンスリストの例を思い出してください。
-`Rc<T>`は不変値を抱えるだけなので、一旦生成したら、リストの値はどれも変更できません。`RefCell<T>`を含めて、
+`Rc<T>`は不変値だけを抱えるので、一旦生成したら、リストの値はどれも変更できません。`RefCell<T>`を含めて、
 リストの値を変更する能力を得ましょう。`RefCell<T>`を`Cons`定義で使用することで、
 リスト全てに格納されている値を変更できることをリスト15-24は示しています:
 
@@ -647,7 +644,7 @@ fn main() {
 
 <span class="caption">リスト15-24: `Rc<RefCell<i32>>`で可変化できる`List`を生成する</span>
 
-<!-- We create a value that is an instance of `Rc<RefCell<i32>` and store it in a -->
+<!-- We create a value that is an instance of `Rc<RefCell<i32>>` and store it in a -->
 <!-- variable named `value` so we can access it directly later. Then we create a -->
 <!-- `List` in `a` with a `Cons` variant that holds `value`. We need to clone -->
 <!-- `value` so both `a` and `value` have ownership of the inner `5` value rather -->
@@ -689,13 +686,13 @@ c after = Cons(RefCell { value: 10 }, Cons(RefCell { value: 15 }, Nil))
 ```
 
 <!-- This technique is pretty neat! By using `RefCell<T>`, we have an outwardly -->
-<!-- immutable `List`. But we can use the methods on `RefCell<T>` that provide -->
+<!-- immutable `List` value. But we can use the methods on `RefCell<T>` that provide -->
 <!-- access to its interior mutability so we can modify our data when we need to. -->
 <!-- The runtime checks of the borrowing rules protect us from data races, and it’s -->
 <!-- sometimes worth trading a bit of speed for this flexibility in our data -->
 <!-- structures. -->
 
-このテクニックは非常に綺麗です！`RefCell<T>`を使用することで表面上は不変な`List`を持てます。
+このテクニックは非常に綺麗です！`RefCell<T>`を使用することで表面上は不変な`List`値を持てます。
 しかし、内部可変性へのアクセスを提供する`RefCell<T>`のメソッドを使用できるので、必要な時にはデータを変更できます。
 借用ルールを実行時に精査することでデータ競合を防ぎ、時としてデータ構造でちょっとのスピードを犠牲にこの柔軟性を得るのは価値があります。
 

@@ -2,31 +2,32 @@
 
 ## `Deref`トレイトでスマートポインタを普通の参照のように扱う
 
-<!-- Implementing the `Deref` trait allows us to customize the behavior of the -->
+<!-- Implementing the `Deref` trait allows you to customize the behavior of the -->
 <!-- *dereference operator*, `*` (as opposed to the multiplication or glob -->
 <!-- operator). By implementing `Deref` in such a way that a smart pointer can be -->
-<!-- treated like a regular reference, we can write code that operates on references -->
-<!-- and use that code with smart pointers too. -->
+<!-- treated like a regular reference, you can write code that operates on -->
+<!-- references and use that code with smart pointers too. -->
 
 `Deref`トレイトを実装することで*参照外し演算子*の`*`(掛け算やグロブ演算子とは対照的に)の振る舞いをカスタマイズすることができます。
 スマートポインタを普通の参照のように扱えるように`Deref`を実装することで、
 参照に対して処理を行うコードを書き、そのコードをスマートポインタとともに使用することもできます。
 
-<!-- Let’s first look at how `*` works with regular references, and then try to -->
-<!-- define our own type like `Box<T>` and see why `*` doesn’t work like a reference -->
-<!-- on our newly defined type. We’ll explore how implementing the `Deref` trait -->
-<!-- makes it possible for smart pointers to work in a similar way as references. -->
-<!-- Then we’ll look at Rust’s *deref coercion* feature and how it lets us work with -->
-<!-- either references or smart pointers. -->
+<!-- Let’s first look at how dereference operator works with regular references.-->
+<!-- Then we'll try to define a custom type that behaves like `Box<T>`, and see why -->
+<!-- the dereference operator doesn't work like a reference on our newly defined -->
+<!-- type. We’ll explore how implementing the `Deref` trait makes it possible for -->
+<!-- smart pointers to work in a similar way as references. Then we’ll look at -->
+<!-- Rust’s *deref coercion* feature and how it lets us work with either references -->
+<!-- or smart pointers. -->
 
-まずは、`*`が普通の参照に対して動作するところを見て、それから`Box<T>`のような独自の型を定義し、
-`*`が新しく定義した型に対して参照のように動作しない理由を確認しましょう。
+まずは、参照外し演算子が普通の参照に対して動作するところを見ましょう。それから`Box<T>`のように振る舞う独自の型を定義し、
+参照外し演算子が新しく定義した型に対して参照のように動作しない理由を確認しましょう。
 `Deref`トレイトを実装することでスマートポインタが参照と似た方法で動作するようにできる方法を探求します。
 そして、Rustの*参照外し型強制*機能と、それにより参照やスマートポインタに取り掛かる方法を見ます。
 
-<!-- ### Following the Pointer to the Value with `*` -->
+<!-- ### Following the Pointer to the Value with the Dereference Operator -->
 
-### `*`で値までポインタを追いかける
+### 参照外し演算子で値までポインタを追いかける
 
 <!-- A regular reference is a type of pointer, and one way to think of a pointer is -->
 <!-- as an arrow to a value stored somewhere else. In Listing 15-6, we create a -->
@@ -86,10 +87,10 @@ not satisfied
 ```
 
 <!-- Comparing a number and a reference to a number isn’t allowed because they’re -->
-<!-- different types. We must use `*` to follow the reference to the value it’s -->
-<!-- pointing to. -->
+<!-- different types. We must use the dereference operator to follow the reference -->
+<!-- to the value it's pointing to. -->
 
-参照と数値は異なる型なので、比較することは許可されていません。`*`を使用して、
+参照と数値は異なる型なので、比較することは許容されていません。参照外し演算子を使用して、
 参照を指している値まで追いかけなければならないのです。
 
 <!-- ### Using `Box<T>` Like a Reference -->
@@ -97,11 +98,10 @@ not satisfied
 ### `Box<T>`を参照のように使う
 
 <!-- We can rewrite the code in Listing 15-6 to use a `Box<T>` instead of a -->
-<!-- reference, and the dereference operator will work the same way as shown in -->
-<!-- Listing 15-7: -->
+<!-- reference; the dereference operator will work as shown in Listing 15-7: -->
 
-リスト15-6のコードを参照の代わりに`Box<T>`を使うように書き直すことができ、
-参照外し演算子は、リスト15-7に示したように同じように動くでしょう:
+リスト15-6のコードを参照の代わりに`Box<T>`を使うように書き直すことができます;
+参照外し演算子は、リスト15-7に示したように動くでしょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -139,19 +139,19 @@ fn main() {
 ### 独自のスマートポインタを定義する
 
 <!-- Let’s build a smart pointer similar to the `Box<T>` type provided by the -->
-<!-- standard library to experience how smart pointers behave differently to -->
+<!-- standard library to experience how smart pointers behave differently than -->
 <!-- references by default. Then we’ll look at how to add the ability to use the -->
 <!-- dereference operator. -->
 
 標準ライブラリが提供している`Box<T>`型に似たスマートポインタを構築して、スマートポインタは規定で、
-どう異なって参照に対して振る舞うのか経験しましょう。それから、参照外し演算子を使う能力を追加する方法に目を向けましょう。
+どう異なって参照に比べて振る舞うのか経験しましょう。それから、参照外し演算子を使う能力を追加する方法に目を向けましょう。
 
 <!-- The `Box<T>` type is ultimately defined as a tuple struct with one element, so -->
 <!-- Listing 15-8 defines a `MyBox<T>` type in the same way. We’ll also define a -->
-<!-- `new` function to match the `new` function defined on `Box<T>`: -->
+<!-- `new` function to match the `new` function defined on `Box<T>`. -->
 
 `Box<T>`型は究極的に1要素のタプル構造体として定義されているので、リスト15-8は、同じように`MyBox<T>`型を定義しています。
-また、`Box<T>`に定義された`new`関数と合致する`new`関数も定義しています:
+また、`Box<T>`に定義された`new`関数と合致する`new`関数も定義しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -183,10 +183,10 @@ impl<T> MyBox<T> {
 <!-- Let’s try adding the `main` function in Listing 15-7 to Listing 15-8 and -->
 <!-- changing it to use the `MyBox<T>` type we’ve defined instead of `Box<T>`. The -->
 <!-- code in Listing 15-9 won’t compile because Rust doesn’t know how to dereference -->
-<!-- `MyBox`: -->
+<!-- `MyBox`. -->
 
 試しにリスト15-7の`main`関数をリスト15-8に追加し、`Box<T>`の代わりに定義した`MyBox<T>`型を使うよう変更してみてください。
-コンパイラは`MyBox`を参照外しする方法がわからないので、リスト15-9のコードはコンパイルできません:
+コンパイラは`MyBox`を参照外しする方法がわからないので、リスト15-9のコードはコンパイルできません。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -273,7 +273,7 @@ impl<T> Deref for MyBox<T> {
 
 <!-- We fill in the body of the `deref` method with `&self.0` so `deref` returns a -->
 <!-- reference to the value we want to access with the `*` operator. The `main` -->
-<!-- function in Listing 15-9 that calls `*` on the `MyBox<T>` value now compiles -->
+<!-- function in Listing 15-9 that calls `*` on the `MyBox<T>` value now compiles, -->
 <!-- and the assertions pass! -->
 
 `deref`メソッドの本体を`&self.0`で埋めているので、`deref`は`*`演算子でアクセスしたい値への参照を返します。
@@ -299,35 +299,36 @@ impl<T> Deref for MyBox<T> {
 <!-- 最後の行は、これで合っているのか自信がない・・・ -->
 
 <!-- Rust substitutes the `*` operator with a call to the `deref` method and then a -->
-<!-- plain dereference so as programmers we don’t have to think about whether or not -->
-<!-- we need to call the `deref` method. This Rust feature lets us write code that -->
-<!-- functions identically whether we have a regular reference or a type that -->
-<!-- implements `Deref`. -->
+<!-- plain dereference so we don’t have to think about whether or not we need to -->
+<!-- call the `deref` method. This Rust feature lets us write code that functions -->
+<!-- identically whether we have a regular reference or a type that implements -->
+<!-- `Deref`. -->
 
 コンパイラは、`*`演算子を`deref`メソッド、それから何の変哲もない参照外しの呼び出しに置き換えるので、
-プログラマとして`deref`メソッドを呼び出す必要があるかどうかを考える必要はないわけです。このRustの機能により、
+`deref`メソッドを呼び出す必要があるかどうかを考える必要はないわけです。このRustの機能により、
 普通の参照か`Deref`を実装した型があるかどうかと等しく機能するコードを書くことができます。
 
 <!-- The reason the `deref` method returns a reference to a value and that the plain -->
-<!-- dereference outside the parentheses in `*(y.deref())` is still necessary is due -->
-<!-- to the ownership system. If the `deref` method returned the value directly -->
-<!-- instead of a reference to the value, the value would be moved out of `self`. We -->
-<!-- don’t want to take ownership of the inner value inside `MyBox<T>` in this case -->
-<!-- and in most cases where we use the dereference operator. -->
+<!-- dereference outside the parentheses in `*(y.deref())` is still necessary is the -->
+<!-- ownership system. If the `deref` method returned the value directly instead of -->
+<!-- a reference to the value, the value would be moved out of `self`. We don't want -->
+<!-- to take ownership of the inner value inside `MyBox<T>` in this case or in most -->
+<!-- cases where we use the dereference operator. -->
 
 `deref`メソッドが値への参照を返し、`*(y.deref())`のかっこの外の何の変哲もない参照外しがそれでも必要な理由は、
-所有権システムのためです。`deref`メソッドが値への参照ではなく、値を直接返したら、値は`self`から外にムーブされてしまいます。
+所有権システムです。`deref`メソッドが値への参照ではなく、値を直接返したら、値は`self`から外にムーブされてしまいます。
 今回の場合や、参照外し演算子を使用する多くの場合には`MyBox<T>`の中の値の所有権を奪いたくはありません。
 
 <!-- 1行目、just once, each timeのところがよくわからないが、おそらくこれで合っていると思われる-->
 
-<!-- Note that the `*` is replaced with a call to the `deref` method and then a call -->
-<!-- to `*` just once, each time we type a `*` in our code. Because the substitution -->
-<!-- of `*` does not recurse infinitely, we end up with data of type `i32`, which -->
-<!-- matches the `5` in `assert_eq!` in Listing 15-9. -->
+<!-- Note that the `*` operator is replaced with a call to the `deref` method and -->
+<!-- then a call to `*` operator just once, each time we type a `*` in our code. -->
+<!-- Because the substitution of the `*` operator does not recurse infinitely, we -->
+<!-- end up with data of type `i32`, which matches the `5` in `assert_eq!` in -->
+<!-- Listing 15-9. -->
 
-`*`は`deref`メソッドの呼び出し1回とコードで`*`打つたび、ただ1回の`*`の呼び出しに置き換えられることに注意してください。
-`*`の置き換えは、無限に繰り返されないので、型`i32`に行き着き、リスト15-9で`assert_eq!`の`5`と合致します。
+`*`演算子は`deref`メソッドの呼び出し1回とコードで`*`打つたび、ただ1回の`*`演算子の呼び出しに置き換えられることに注意してください。
+`*`演算子の置き換えは、無限に繰り返されないので、型`i32`に行き着き、リスト15-9で`assert_eq!`の`5`と合致します。
 
 <!-- ### Implicit Deref Coercions with Functions and Methods -->
 
@@ -430,8 +431,8 @@ fn main() {
 <!-- reference to a `MyBox<String>` value. Because we implemented the `Deref` trait -->
 <!-- on `MyBox<T>` in Listing 15-10, Rust can turn `&MyBox<String>` into `&String` -->
 <!-- by calling `deref`. The standard library provides an implementation of `Deref` -->
-<!-- on `String` that returns a string slice, which is in the API documentation for -->
-<!-- `Deref`. Rust calls `deref` again to turn the `&String` into `&str`, which -->
+<!-- on `String` that returns a string slice, and this is in the API documentation -->
+<!-- for `Deref`. Rust calls `deref` again to turn the `&String` into `&str`, which -->
 <!-- matches the `hello` function’s definition. -->
 
 ここで、`hello`関数を引数`&m`とともに呼び出しています。この引数は、`MyBox<String>`値への参照です。
@@ -442,10 +443,10 @@ fn main() {
 
 <!-- If Rust didn’t implement deref coercion, we would have to write the code in -->
 <!-- Listing 15-13 instead of the code in Listing 15-12 to call `hello` with a value -->
-<!-- of type `&MyBox<String>`: -->
+<!-- of type `&MyBox<String>`. -->
 
 Rustに参照外し型強制が実装されていなかったら、リスト15-12のコードの代わりにリスト15-13のコードを書き、
-型`&MyBox<String>`の値で`hello`を呼び出さなければならなかったでしょう:
+型`&MyBox<String>`の値で`hello`を呼び出さなければならなかったでしょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -510,12 +511,12 @@ fn main() {
 
 ### 参照外し型強制が可変性と相互作用する方法
 
-<!-- Similar to how we use the `Deref` trait to override `*` on immutable -->
-<!-- references, Rust provides a `DerefMut` trait for overriding `*` on mutable -->
-<!-- references. -->
+<!-- Similar to how we use the `Deref` trait to override `*` operator on -->
+<!-- immutable references, you can use the `DerefMut` trait to override the `*` -->
+<!-- operator on mutable references. -->
 
-`Deref`トレイトを使用して不変参照に対して`*`をオーバーライドするように、Rustには、
-可変参照の`*`をオーバーライドする`DerefMut`トレイトが用意されています。
+`Deref`トレイトを使用して不変参照に対して`*`をオーバーライドするように、R
+`DerefMut`トレイトを使用して可変参照の`*`演算子をオーバーライドできます。
 
 <!-- Rust does deref coercion when it finds types and trait implementations in three -->
 <!-- cases: -->

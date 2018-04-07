@@ -1,17 +1,17 @@
-<!-- ## What Does Object Oriented Mean? -->
+<!-- ## Characteristics of Object-Oriented Languages -->
 
-## オブジェクト指向って？
+## オブジェクト指向言語の特徴
 
 <!-- There is no consensus in the programming community about what features a -->
-<!-- language needs to be considered object oriented. Rust is influenced by many -->
-<!-- different programming paradigms, including OOP; for example, we explored the -->
-<!-- features that came from functional programming in Chapter 13. Arguably, OOP -->
-<!-- languages share certain common characteristics, namely objects, encapsulation, -->
-<!-- and inheritance. Let’s look at what each of those characteristics mean and -->
-<!-- whether Rust supports them. -->
+<!-- language must have to be considered object oriented. Rust is influenced by many -->
+<!-- programming paradigms, including OOP; for example, we explored the features -->
+<!-- that came from functional programming in Chapter 13. Arguably, OOP languages -->
+<!-- share certain common characteristics, namely objects, encapsulation, and -->
+<!-- inheritance. Let’s look at what each of those characteristics mean and whether -->
+<!-- Rust supports them. -->
 
-言語がオブジェクト指向と考えられるのに必要な機能について、プログラミングコミュニティ内での総意はありません。
-RustはOOPを含めた様々なプログラミングパラダイムに影響を受けています; 例えば、
+言語がオブジェクト指向と考えられるのになければならない機能について、プログラミングコミュニティ内での総意はありません。
+RustはOOPを含めた多くのプログラミングパラダイムに影響を受けています; 例えば、
 第13章で関数型プログラミングに由来する機能を探求しました。議論はあるかもしれないが、
 OOP言語は特定の一般的な特徴を共有しています。具体的には、オブジェクトやカプセル化、
 継承などです。それらの個々の特徴が意味するものとRustがサポートしているかを見ましょう。
@@ -20,11 +20,14 @@ OOP言語は特定の一般的な特徴を共有しています。具体的に�
 
 ### オブジェクトは、データと振る舞いを含む
 
-<!-- The book *Design Patterns: Elements of Reusable Object-Oriented Software*, -->
-<!-- colloquially referred to as *The Gang of Four book*, is a catalog of -->
-<!-- object-oriented design patterns. It defines OOP this way: -->
+<!-- The book *Design Patterns: Elements of Reusable Object-Oriented Software* by -->
+<!-- Enoch Gamma, Richard Helm, Ralph Johnson, and John Vlissides (Addison-Wasley -->
+<!-- Professional, 1994) colloquially referred to as *The Gang of Four book*, is a -->
+<!-- catlog of object-oriented design patterns. It defines OOP this way: -->
 
-*デザインパターン: 再利用可能なオブジェクト指向ソフトウェアの要素*という本は、
+エーリヒ・ガンマ(Enoch Gamma)、リチャード・ヘルム(Richard Helm)、ラルフ・ジョンソン(Ralph Johnson)、
+ジョン・ブリシディース(John Vlissides)(アディソン・ワズリー・プロ)により、
+1994に書かれた*デザインパターン: 再利用可能なオブジェクト指向ソフトウェアの要素*という本は、
 俗に*4人のギャングの本*(`脚注`: the Gang of Four book; GoFとよく略される)と呼ばれ、オブジェクト指向デザインパターンのカタログです。
 そこでは、OOPは以下のように定義されています:
 
@@ -70,7 +73,7 @@ OOPとよく紐づけられる別の側面は、カプセル化の思想です�
 <!-- can define a struct `AveragedCollection` that has a field containing a vector -->
 <!-- of `i32` values. The struct can also have a field that contains the average of -->
 <!-- the values in the vector, meaning the average doesn’t have to be computed -->
-<!-- on-demand whenever anyone needs it. In other words, `AveragedCollection` will -->
+<!-- on demand whenever anyone needs it. In other words, `AveragedCollection` will -->
 <!-- cache the calculated average for us. Listing 17-1 has the definition of the -->
 <!-- `AveragedCollection` struct: -->
 
@@ -172,18 +175,19 @@ impl AveragedCollection {
 `average`メソッドは`average`フィールドの値を返し、外部コードに`average`を読ませるものの、
 変更は許可しません。
 
-<!-- Because we’ve encapsulated the implementation details of `AveragedCollection`, -->
-<!-- we can easily change aspects, such as the data structure, in the future. For -->
-<!-- instance, we could use a `HashSet` instead of a `Vec` for the `list` field. As -->
-<!-- long as the signatures of the `add`, `remove`, and `average` public methods -->
-<!-- stay the same, code using `AveragedCollection` wouldn’t need to change. If we -->
-<!-- made `list` public instead, this wouldn’t necessarily be the case: `HashSet` -->
-<!-- and `Vec` have different methods for adding and removing items, so the external -->
-<!-- code would likely have to change if it was modifying `list` directly. -->
+<!-- Because we’ve encapsulated the implementation details of the struct -->
+<!-- `AveragedCollection`, we can easily change aspects, such as the data structure, -->
+<!-- in the future. For instance, we could use a `HashSet` instead of a `Vec` for -->
+<!-- the `list` field. As long as the signatures of the `add`, `remove`, and -->
+<!-- `average` public methods stay the same, code using `AveragedCollection` -->
+<!-- wouldn’t need to change. If we made `list` public instead, this wouldn’t -->
+<!-- necessarily be the case: `HashSet` and `Vec` have different methods for adding -->
+<!-- and removing items, so the external code would likely have to change if it were -->
+<!-- modifying `list` directly. -->
 
-`AveragedCollection`の実装詳細をカプセル化したので、データ構造などの側面を将来容易に変更することができます。
+構造体`AveragedCollection`の実装詳細をカプセル化したので、データ構造などの側面を将来容易に変更することができます。
 例を挙げれば、`list`フィールドに`Vec`ではなく`HashSet`を使うこともできます。
-`add`、`remove`、`average`公開メソッドのシグニチャが同じである限り、`AveragedCollection`を使用するコードは変更する必要がありません。
+`add`、`remove`、`average`公開メソッドのシグニチャが同じである限り、`AveragedCollection`を使用するコードは変更する必要がないでしょう。
 代わりに`list`を公開にしたら、必ずしもこうはならないでしょう: `HashSet`と`Vec`は、
 要素の追加と削除に異なるメソッドを持っているので、外部コードが直接`list`を変更しているなら、
 外部コードも変更しなければならない可能性が高いでしょう。
@@ -207,9 +211,9 @@ impl AveragedCollection {
 それ故に、再定義する必要なく、親オブジェクトのデータと振る舞いを得ます。
 
 <!-- If a language must have inheritance to be an object-oriented language, then -->
-<!-- Rust is not. There is no way to define a struct that inherits the parent -->
+<!-- Rust is not one. There is no way to define a struct that inherits the parent -->
 <!-- struct’s fields and method implementations. However, if you’re used to having -->
-<!-- inheritance in your programming toolbox, you can use other solutions in Rust -->
+<!-- inheritance in your programming toolbox, you can use other solutions in Rust, -->
 <!-- depending on your reason for reaching for inheritance in the first place. -->
 
 言語がオブジェクト指向言語であるために継承がなければならないのならば、Rustは違います。
@@ -267,17 +271,18 @@ Rustコードを共有でき、これは、リスト10-14で`Summary`トレイ�
 
 <!-- Inheritance has recently fallen out of favor as a programming design solution -->
 <!-- in many programming languages because it’s often at risk of sharing more code -->
-<!-- than needs be. Subclasses shouldn’t always share all characteristics of their -->
+<!-- than necessary. Subclasses shouldn’t always share all characteristics of their -->
 <!-- parent class but will do so with inheritance. This can make a program’s design -->
-<!-- less flexible and introduces the possibility of calling methods on subclasses -->
-<!-- that don’t make sense or that cause errors because the methods don’t apply to -->
-<!-- the subclass. Some languages will also only allow a subclass to inherit from -->
-<!-- one class, further restricting the flexibility of a program’s design. -->
+<!-- less flexible. It also introduces the possibility of calling methods on -->
+<!-- subclasses that don’t make sense or that cause errors because the methods don’t -->
+<!-- apply to the subclass. Some languages will also only allow a subclass -->
+<!-- to inherit from one class, further restricting the flexibility of a program’s -->
+<!-- design. -->
 
 継承は、最近、多くのプログラミング言語において、プログラムの設計解決策としては軽んじられています。
 というのも、しばしば必要以上にコードを共有してしまう危険性があるからです。サブクラスは、
 必ずしも親クラスの特徴を全て共有するべきではないのに、継承ではそうなってしまうのです。
-これにより、プログラムの設計の柔軟性がなくなり、道理に合わなかったり、メソッドがサブクラスには適用されないために、
+これにより、プログラムの設計の柔軟性がなくなります。また道理に合わなかったり、メソッドがサブクラスには適用されないために、
 エラーを発生させるサブクラスのメソッドの呼び出しを引き起こす可能性が出てくるのです。
 さらに、サブクラスに1つのクラスからだけ継承させる言語もあり、さらにプログラムの設計の柔軟性が制限されます。
 

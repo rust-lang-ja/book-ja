@@ -54,7 +54,7 @@
 
 <!-- Listing 17-11 shows this workflow in code form: this is an example usage of the -->
 <!-- API we’ll implement in a library crate named `blog`. This won’t compile yet -->
-<!-- because we haven’t implemented the `blog` crate yet: -->
+<!-- because we haven’t implemented the `blog` crate yet. -->
 
 リスト17-11は、このワークフローをコードの形で示しています: これは、
 `blog`というライブラリクレートに実装するAPIの使用例です。まだ`blog`クレートを実装していないので、
@@ -143,15 +143,6 @@ fn main() {
 また、非公開の`State`トレイトも作成します。それから、`Post`は`state`という非公開のフィールドに、
 `Option`で`Box<State>`のトレイトオブジェクトを保持します。`Option`が必要な理由はすぐわかります。
 
-<!-- The `State` trait defines the behavior shared by different post states, and the -->
-<!-- `Draft`, `PendingReview`, and `Published` states will all implement the `State` -->
-<!-- trait. For now, the trait doesn’t have any methods, and we’ll start by defining -->
-<!-- just the `Draft` state because that is the state we want a post to start in: -->
-
-`State`トレイトは、異なる記事の状態で共有される振る舞いを定義し、`Draft`、`PendingReview`、`Published`状態は全て、
-`State`トレイトを実装します。今は、トレイトにメソッドは何もなく、`Draft`が記事の初期状態にしたい状態なので、
-その状態だけを定義することから始めます:
-
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
 <span class="filename">ファイル名: src/lib.rs</span>
@@ -185,23 +176,32 @@ impl State for Draft {}
 <span class="caption">リスト17-12: `Post`構造体、新規`Post`インスタンスを生成する`new`関数、
 `State`トレイト、`Draft`構造体の定義</span>
 
+<!-- The `State` trait defines the behavior shared by different post states, and the -->
+<!-- `Draft`, `PendingReview`, and `Published` states will all implement the `State` -->
+<!-- trait. For now, the trait doesn’t have any methods, and we’ll start by defining -->
+<!-- just the `Draft` state because that is the state we want a post to start in. -->
+
+`State`トレイトは、異なる記事の状態で共有される振る舞いを定義し、`Draft`、`PendingReview`、`Published`状態は全て、
+`State`トレイトを実装します。今は、トレイトにメソッドは何もなく、`Draft`が記事の初期状態にしたい状態なので、
+その状態だけを定義することから始めます。
+
 <!-- When we create a new `Post`, we set its `state` field to a `Some` value that -->
 <!-- holds a `Box`. This `Box` points to a new instance of the `Draft` struct. This -->
 <!-- ensures whenever we create a new instance of `Post`, it will start out as a -->
 <!-- draft. Because the `state` field of `Post` is private, there is no way to -->
-<!-- create a `Post` in any other state! -->
+<!-- create a `Post` in any other state! In the `Post::new` function, we set the -->
+<!-- `content` field to a new, empty `String` -->
 
 新しい`Post`を作る時、`state`フィールドは、`Box`を保持する`Some`値にセットします。
 この`Box`が`Draft`構造体の新しいインスタンスを指します。これにより、
 新しい`Post`を作る度に、草稿から始まることが保証されます。`Post`の`state`フィールドは非公開なので、
-`Post`を他の状態で作成する方法はないのです！
+`Post`を他の状態で作成する方法はないのです！`Post::new`関数では、`content`フィールドを新しい空の`String`にセットしています。
 
 <!-- ### Storing the Text of the Post Content -->
 
 ### 記事の内容のテキストを格納する
 
-<!-- In the `Post::new` function, we set the `content` field to a new, empty -->
-<!-- `String`. Listing 17-11 showed that we want to be able to call a method named -->
+<!-- Listing 17-11 showed that we want to be able to call a method named -->
 <!-- `add_text` and pass it a `&str` that is then added to the text content of the -->
 <!-- blog post. We implement this as a method rather than exposing the `content` -->
 <!-- field as `pub`. This means we can implement a method later that will control -->
@@ -240,7 +240,7 @@ impl Post {
 <!-- The `add_text` method takes a mutable reference to `self`, because we’re -->
 <!-- changing the `Post` instance that we’re calling `add_text` on. We then call -->
 <!-- `push_str` on the `String` in `content` and pass the `text` argument to add to -->
-<!-- the saved `content`. This behavior doesn’t depend on the state the post is in -->
+<!-- the saved `content`. This behavior doesn’t depend on the state the post is in, -->
 <!-- so it’s not part of the state pattern. The `add_text` method doesn’t interact -->
 <!-- with the `state` field at all, but it is part of the behavior we want to -->
 <!-- support. -->
@@ -665,7 +665,7 @@ impl State for Published {
 <!-- We’ve shown that Rust is capable of implementing the object-oriented state -->
 <!-- pattern to encapsulate the different kinds of behavior a post should have in -->
 <!-- each state. The methods on `Post` know nothing about the various behaviors. The -->
-<!-- way we organized the code, we only have to look in one place to know the -->
+<!-- way we organized the code, we have to look in only one place to know the -->
 <!-- different ways a published post can behave: the implementation of the `State` -->
 <!-- trait on the `Published` struct. -->
 
@@ -678,23 +678,23 @@ Rustにあることを示しました。`Post`のメソッドは、種々の振�
 <!-- つまり、This would only increase, the more states we addedのように訳している -->
 
 <!-- If we were to create an alternative implementation that didn’t use the state -->
-<!-- pattern, we might instead use `match` statements in the methods on `Post` or -->
+<!-- pattern, we might instead use `match` expressions in the methods on `Post` or -->
 <!-- even in the `main` code that checks the state of the post and changes behavior -->
 <!-- in those places. That would mean we would have to look in several places to -->
 <!-- understand all the implications of a post being in the published state! This -->
-<!-- would only increase the more states we added: each of those `match` statements -->
+<!-- would only increase the more states we added: each of those `match` expressions -->
 <!-- would need another arm. -->
 
 ステートパターンを使用しない対立的な実装を作ることになったら、代わりに`Post`のメソッドか、
 あるいは記事の状態を確認し、それらの箇所(`編注`: `Post`のメソッドのことか)の振る舞いを変更する`main`コードでさえ、
-`match`文を使用したかもしれません。そうなると、複数個所を調べて記事が公開状態にあることの裏の意味全てを理解しなければならなくなります！
-これは、追加した状態が増えれば、さらに上がるだけでしょう: 各`match`文には、別のアームが必要になるのです。
+`match`式を使用したかもしれません。そうなると、複数個所を調べて記事が公開状態にあることの裏の意味全てを理解しなければならなくなります！
+これは、追加した状態が増えれば、さらに上がるだけでしょう: 各`match`式には、別のアームが必要になるのです。
 
 <!-- With the state pattern, the `Post` methods and the places we use `Post` don’t -->
-<!-- need `match` statements, and to add a new state, we would only need to add a -->
+<!-- need `match` expressions, and to add a new state, we would only need to add a -->
 <!-- new struct and implement the trait methods on that one struct. -->
 
-ステートパターンでは、`Post`のメソッドと`Post`を使用する箇所で、`match`文が必要になることはなく、
+ステートパターンでは、`Post`のメソッドと`Post`を使用する箇所で、`match`式が必要になることはなく、
 新しい状態を追加するのにも、新しい構造体を追加し、その1つの構造体にトレイトメソッドを実装するだけでいいわけです。
 
 <!-- The implementation using the state pattern is easy to extend to add more -->
@@ -709,7 +709,7 @@ Rustにあることを示しました。`Post`のメソッドは、種々の振�
 <!-- * Require two calls to `approve` before the state can be changed to `Published`. -->
 <!-- * Allow users to add text content only when a post is in the `Draft` state. -->
 <!--   Hint: have the state object responsible for what might change about the -->
-<!--   content, but not responsible for modifying the `Post`. -->
+<!--   content but not responsible for modifying the `Post`. -->
 
 * 記事の状態を`PendingReview`から`Draft`に戻す`reject`メソッドを追加する。
 * 状態が`Published`に変化させられる前に`approve`を2回呼び出す必要があるようにする。
@@ -748,19 +748,19 @@ Rustにあることを示しました。`Post`のメソッドは、種々の振�
 <!-- the same method on the value in the `state` field of `Option` and set the new -->
 <!-- value of the `state` field to the result. If we had a lot of methods on `Post` -->
 <!-- that followed this pattern, we might consider defining a macro to eliminate the -->
-<!-- repetition (see Appendix D, Macros). -->
+<!-- repetition (see Appendix D for more on Macros). -->
 
 他の重複には、`Post`の`request_review`と`approve`メソッドの実装が似ていることが含まれます。
 両メソッドは`Option`の`state`の値に対する同じメソッドの実装に委譲していて、`state`フィールドの新しい値を結果にセットします。
 このパターンに従う`Post`のメソッドが多くあれば、マクロを定義して繰り返しを排除することも考える可能性があります(マクロについては付録Dを参照)。
 
 <!-- By implementing the state pattern exactly as it’s defined for object-oriented -->
-<!-- languages, we’re not taking full advantage of Rust’s strengths as much as we -->
-<!-- could. Let’s look at some changes we can make to the `blog` crate that can make -->
+<!-- languages, we’re not taking as full advantage of Rust’s strengths as we could. -->
+<!-- Let’s look at some changes we can make to the `blog` crate that can make -->
 <!-- invalid states and transitions into compile time errors. -->
 
 オブジェクト指向言語で定義されている通り忠実にステートパターンを実装することで、
-Rustの強みを可能なほどには発揮できません。`blog`クレートに対して行える無効な状態と遷移をコンパイルエラーにできる変更に目を向けましょう。
+Rustの強みをできるだけ発揮していません。`blog`クレートに対して行える無効な状態と遷移をコンパイルエラーにできる変更に目を向けましょう。
 
 <!-- #### Encoding States and Behavior as Types -->
 
@@ -800,8 +800,8 @@ fn main() {
 <!-- a draft post’s content, we’ll get a compiler error telling us the method -->
 <!-- doesn’t exist. As a result, it will be impossible for us to accidentally -->
 <!-- display draft post content in production, because that code won’t even compile. -->
-<!-- Listing 17-19 shows the definition of a `Post` struct, a `DraftPost` struct, -->
-<!-- and methods on each: -->
+<!-- Listing 17-19 shows the definition of a `Post` struct and a `DraftPost` struct, -->
+<!-- as well as methods on each: -->
 
 それでも、`Post::new`で草稿状態の新しい記事を生成することと記事の内容にテキストを追加する能力は可能にします。
 しかし、空の文字列を返す草稿記事の`content`メソッドを保持する代わりに、草稿記事は、
@@ -809,7 +809,7 @@ fn main() {
 メソッドが存在しないというコンパイルエラーになるでしょう。その結果、
 誤ってプロダクションコードで草稿記事の内容を表示することが不可能になります。
 そのようなコードは、コンパイルさえできないからです。リスト17-19は`Post`構造体、`DraftPost`構造体、
-メソッドの定義を示しています:
+さらにメソッドの定義を示しています:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -859,18 +859,18 @@ impl DraftPost {
 `Post`は公開された記事を表し、`content`を返す`content`メソッドがあります。
 
 <!-- We still have a `Post::new` function, but instead of returning an instance of -->
-<!-- `Post`, it returns an instance of `DraftPost`. Because `content` is private, -->
+<!-- `Post`, it returns an instance of `DraftPost`. Because `content` is private -->
 <!-- and there aren’t any functions that return `Post`, it’s not possible to create -->
 <!-- an instance of `Post` right now. -->
 
 それでも`Post::new`関数はありますが、`Post`のインスタンスを返すのではなく、`DraftPost`のインスタンスを返します。
 `content`は非公開であり、`Post`を返す関数も存在しないので、現状`Post`のインスタンスを生成することは不可能です。
 
-<!-- The `DraftPost` struct has an `add_text` method so we can add text to `content` -->
-<!-- as before, but note that `DraftPost` does not have a `content` method defined! -->
-<!-- So now the program ensures all posts start as draft posts, and draft posts -->
-<!-- don’t have their content available for display. Any attempt to get around these -->
-<!-- constraints will result in a compiler error. -->
+<!-- The `DraftPost` struct has an `add_text` method, so we can add text to  -->
+<!-- `content` as before, but note that `DraftPost` does not have a `content` method -->
+<!-- defined! So now the program ensures all posts start as draft posts, and draft -->
+<!-- posts don’t have their content available for display. Any attempt to get around -->
+<!-- these constraints will result in a compiler error. -->
 
 `DraftPost`構造体には、以前のようにテキストを`content`に追加できるよう`add_text`メソッドがありますが、
 `DraftPost`には`content`メソッドが定義されていないことに注目してください！
@@ -1005,9 +1005,8 @@ fn main() {
 <!-- the transformations between the states are no longer encapsulated entirely -->
 <!-- within the `Post` implementation. However, our gain is that invalid states are -->
 <!-- now impossible because of the type system and the type checking that happens at -->
-<!-- compile time! This ensures that certain bugs, such as the content of an -->
-<!-- unpublished post being displayed, will be discovered before they make it to -->
-<!-- production. -->
+<!-- compile time! This ensures that certain bugs, such as display of the content of -->
+<!-- an unpublished post, will be discovered before they make it to production. -->
 
 `post`を再代入するために`main`に行う必要のあった変更は、この実装が最早、
 全くオブジェクト指向のステートパターンに沿っていないことを意味します: 
@@ -1021,7 +1020,7 @@ fn main() {
 <!-- Try the tasks suggested for additional requirements that we mentioned at the -->
 <!-- start of this section on the `blog` crate as it is after Listing 17-20 to see -->
 <!-- what you think about the design of this version of the code. Note that some of -->
-<!-- the tasks might be completed already in this design! -->
+<!-- the tasks might be completed already in this design. -->
 
 `blog`クレートに関してこの節の冒頭で触れた追加の要求に提言される作業をそのままリスト17-20の後に試してみて、
 このバージョンのコードについてどう思うか確かめてください。この設計では、

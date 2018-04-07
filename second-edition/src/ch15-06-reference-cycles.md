@@ -2,7 +2,7 @@
 
 ## 循環参照してメモリをリークすることもある
 
-<!-- Rust’s memory safety guarantees make it *difficult* but not impossible to -->
+<!-- Rust’s memory safety guarantees make it difficult, but not impossible, to -->
 <!-- accidentally create memory that is never cleaned up (known as a *memory leak*). -->
 <!-- Preventing memory leaks entirely is not one of Rust’s guarantees in the same -->
 <!-- way that disallowing data races at compile time is, meaning memory leaks are -->
@@ -11,7 +11,7 @@
 <!-- other in a cycle. This creates memory leaks because the reference count of each -->
 <!-- item in the cycle will never reach 0, and the values will never be dropped. -->
 
-Rustのメモリ安全保証により誤って絶対に片付けられることのないメモリ(*メモリリーク*として知られています)を生成してしまうことが*困難*にはなりますが、
+Rustのメモリ安全保証により誤って絶対に片付けられることのないメモリ(*メモリリーク*として知られています)を生成してしまうことが困難にはなりますが、
 不可能にはなりません。コンパイル時にデータ競合を防ぐのと同じようにメモリリークを完全に回避することは、
 Rustの保証の一つではなく、メモリリークはRustにおいてはメモリ安全であることを意味します。
 Rustでは、`Rc<T>`と`RefCell<T>`を使用してメモリリークを許可するとわかります:
@@ -64,23 +64,23 @@ impl List {
 
 <!-- We’re using another variation of the `List` definition in Listing 15-5. The -->
 <!-- second element in the `Cons` variant is now `RefCell<Rc<List>>`, meaning that -->
-<!-- instead of having the ability to modify the `i32` value like we did in Listing -->
-<!-- 15-24, we want to modify which `List` a `Cons` variant is pointing to. We’re -->
-<!-- also adding a `tail` method to make it convenient for us to access the second -->
-<!-- item if we have a `Cons` variant. -->
+<!-- instead of having the ability to modify the `i32` value as we did in Listing -->
+<!-- 15-24, we want to modify which `List` value a `Cons` variant is pointing to. -->
+<!-- We're also adding a `tail` method to make it convenient for us to access the -->
+<!-- second item if we have a `Cons` variant. -->
 
 リスト15-5の`List`定義の別バリエーションを使用しています。`Cons`列挙子の2番目の要素はこれで`RefCell<Rc<List>>`になり、
-リスト15-24のように`i32`値を変更する能力があるのではなく、`Cons`列挙子が指している`List`の先を変えたいということです。
+リスト15-24のように`i32`値を変更する能力があるのではなく、`Cons`列挙子が指している`List`値の先を変えたいということです。
 また、`tail`メソッドを追加して`Cons`列挙子があるときに2番目の要素にアクセスするのが便利になるようにしています。
 
 <!-- In Listing 15-26, we’re adding a `main` function that uses the definitions in -->
 <!-- Listing 15-25. This code creates a list in `a` and a list in `b` that points to -->
-<!-- the list in `a`, and then modifies the list in `a` to point to `b`, which -->
-<!-- creates a reference cycle. There are `println!` statements along the way to -->
-<!-- show what the reference counts are at various points in this process: -->
+<!-- the list in `a`. Then it modifies the list in `a` to point to `b`, creating a -->
+<!-- reference cycle. There are `println!` statements along the way to show what the -->
+<!-- reference counts are at various points in this process. -->
 
 リスト15-26でリスト15-25の定義を使用する`main`関数を追加しています。このコードは、`a`にリストを、
-`b`に`a`のリストを指すリストを作成し、それから`a`のリストを変更して`b`を指し、循環参照させます。
+`b`に`a`のリストを指すリストを作成します。それから`a`のリストを変更して`b`を指し、循環参照させます。
 その流れの中に過程のいろんな場所での参照カウントを示す`println!`文が存在しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -132,8 +132,8 @@ fn main() {
     // aを変更後のaの参照カウント = {}
     println!("a rc count after changing a = {}", Rc::strong_count(&a));
 
-    // Uncomment the next line to see that we have a cycle; it will
-    // overflow the stack
+    // Uncomment the next line to see that we have a cycle;
+    // it will overflow the stack
     // 次の行のコメントを外して循環していると確認してください; スタックオーバーフローします
     // println!("a next item = {:?}", a.tail());        // aの次の要素 = {:?}
 }
@@ -144,15 +144,17 @@ fn main() {
 
 <span class="caption">リスト15-26: 2つの`List`値がお互いを指して循環参照する</span>
 
+<!-- in the variable `a` | `b`がかかる先が不明瞭だが、コード例を見る限り、この訳が合っているようだ -->
+
 <!-- We create an `Rc<List>` instance holding a `List` value in the variable `a` -->
 <!-- with an initial list of `5, Nil`. We then create an `Rc<List>` instance -->
 <!-- holding another `List` value in the variable `b` that contains the value 10 and -->
-<!-- then points to the list in `a`. -->
+<!-- points to the list in `a`. -->
 
 最初のリストが`5, Nil`の`List`値を保持する`Rc<List>`インスタンスを変数`a`に生成します。
-そして、値10とそれから`a`のリストを指す別の`List`値を保持する`Rc<List>`インスタンスを変数`b`に生成します。
+そして、値10と`a`のリストを指す別の`List`値を保持する`Rc<List>`インスタンスを変数`b`に生成します。
 
-<!-- We modify `a` so it points to `b` instead of `Nil`, which creates a cycle. We -->
+<!-- We modify `a` so it points to `b` instead of `Nil`, creating a cycle. We -->
 <!-- do that by using the `tail` method to get a reference to the -->
 <!-- `RefCell<Rc<List>>` in `a`, which we put in the variable `link`. Then we use -->
 <!-- the `borrow_mut` method on the `RefCell<Rc<List>>` to change the value inside -->
@@ -181,16 +183,16 @@ a rc count after changing a = 2
 <!-- The reference count of the `Rc<List>` instances in both `a` and `b` are 2 -->
 <!-- after we change the list in `a` to point to `b`. At the end of `main`, Rust -->
 <!-- will try to drop `b` first, which will decrease the count in each of the -->
-<!-- `Rc<List>` instances in `a` and `b` by one. -->
+<!-- `Rc<List>` instances in `a` and `b` by 1. -->
 
 `a`のリストを`b`を指すように変更した後の`a`と`b`の`Rc<List>`インスタンスの参照カウントは2です。
 `main`の終端で、コンパイラはまず`b`をドロップしようとし、`a`と`b`の各`Rc<List>`インスタンスのカウントを1減らします。
 
-<!-- However, because `a` is still referencing the `Rc<List>` that was in `b`, -->
-<!-- that `Rc<List>` has a count of 1 rather than 0, so the memory the -->
-<!-- `Rc<List>` has on the heap won’t be dropped. The memory will just sit there -->
-<!-- with a count of one, forever. To visualize this reference cycle, we’ve created -->
-<!-- a diagram in Figure 15-4: -->
+<!-- However, because `a` is still referencing the `Rc<List>` that was in `b`, that -->
+<!-- `Rc<List>` has a count of 1 rather than 0, so the memory the `Rc<List>` has on -->
+<!-- the heap won’t be dropped. The memory will just sit there with a count of 1, -->
+<!-- forever. To visualize this reference cycle, we’ve created a diagram in Figure -->
+<!-- 15-4: -->
 
 しかしながら、それでも`a`は`b`にあった`Rc<List>`を参照しているので、その`Rc<List>`のカウントは0ではなく1になり、
 その`Rc<List>`がヒープに確保していたメモリはドロップされません。メモリはただ、カウント1のままそこに永遠に居座るのです。
@@ -213,12 +215,12 @@ a rc count after changing a = 2
 スタックがオーバーフローするまでコンパイラはこの循環を出力しようとするでしょう。
 
 <!-- In this case, right after we create the reference cycle, the program ends. The -->
-<!-- consequences of this cycle aren’t very dire. If a more complex program -->
-<!-- allocates lots of memory in a cycle and holds onto it for a long time, the -->
-<!-- program would use more memory than it needs and might overwhelm the system, -->
+<!-- consequences of this cycle aren’t very dire. However, if a more complex program -->
+<!-- allocated lots of memory in a cycle and held onto it for a long time, the -->
+<!-- program would use more memory than it needed and might overwhelm the system, -->
 <!-- causing it to run out of available memory. -->
 
-この場合、循環参照を作る直後にプログラムは終了します。この循環の結果は、それほど悲壮なものではありません。
+この場合、循環参照を作る直後にプログラムは終了します。この循環の結果は、それほど悲壮なものではありません。しかしながら、
 より複雑なプログラムが多くのメモリを循環で確保し長い間その状態を保ったら、プログラムは必要以上のメモリを使用し、
 使用可能なメモリを枯渇させてシステムを参らせてしまう可能性があります。
 
@@ -250,20 +252,20 @@ a rc count after changing a = 2
 リスト15-25では、常に`Cons`列挙子にリストを所有してほしいので、データ構造を再構成することはできません。
 親ノードと子ノードからなるグラフを使った例に目を向けて、どんな時に所有権のない関係が循環参照を回避するのに適切な方法になるか確認しましょう。
 
-<!-- ### Preventing Reference Cycles: Turn an `Rc<T>` into a `Weak<T>` -->
+<!-- ### Preventing Reference Cycles: Turning an `Rc<T>` into a `Weak<T>` -->
 
 ### 循環参照を回避する: `Rc<T>`を`Weak<T>`に変換する
 
 <!-- So far, we’ve demonstrated that calling `Rc::clone` increases the -->
-<!-- `strong_count` of an `Rc<T>` instance, and an `Rc<T>` instance is only -->
-<!-- cleaned up if its `strong_count` is 0. We can also create a *weak reference* to -->
-<!-- the value within an `Rc<T>` instance by calling `Rc::downgrade` and passing a -->
-<!-- reference to the `Rc<T>`. When we call `Rc::downgrade`, we get a smart -->
+<!-- `strong_count` of an `Rc<T>` instance, and an `Rc<T>` instance is only cleaned -->
+<!-- up if its `strong_count` is 0. You can also create a *weak reference* to the -->
+<!-- value within an `Rc<T>` instance by calling `Rc::downgrade` and passing a -->
+<!-- reference to the `Rc<T>`. When you call `Rc::downgrade`, you get a smart -->
 <!-- pointer of type `Weak<T>`. Instead of increasing the `strong_count` in the -->
-<!-- `Rc<T>` instance by one, calling `Rc::downgrade` increases the `weak_count` -->
-<!-- by one. The `Rc<T>` type uses `weak_count` to keep track of how many -->
-<!-- `Weak<T>` references exist, similar to `strong_count`. The difference is the -->
-<!-- `weak_count` doesn’t need to be 0 for the `Rc<T>` instance to be cleaned up. -->
+<!-- `Rc<T>` instance by 1, calling `Rc::downgrade` increases the `weak_count` by 1.-->
+<!-- The `Rc<T>` type uses `weak_count` to keep track of how many `Weak<T>` -->
+<!-- references exist, similar to `strong_count`. The difference is the `weak_count` -->
+<!-- doesn’t need to be 0 for the `Rc<T>` instance to be cleaned up. -->
 
 ここまで、`Rc::clone`を呼び出すと`Rc<T>`インスタンスの`strong_count`が増えることと、
 `strong_count`が0になった時に`Rc<T>`インスタンスは片付けられることをデモしてきました。
@@ -273,7 +275,7 @@ a rc count after changing a = 2
 `strong_count`同様、`Rc<T>`型は`weak_count`を使用して、幾つの`Weak<T>`参照が存在しているかを追跡します。
 違いは、`Rc<T>`が片付けられるのに、`weak_count`が0である必要はないということです。
 
-<!-- Strong references are how we can share ownership of an `Rc<T>` instance. Weak -->
+<!-- Strong references are how you can share ownership of an `Rc<T>` instance. Weak -->
 <!-- references don’t express an ownership relationship. They won’t cause a -->
 <!-- reference cycle because any cycle involving some weak references will be broken -->
 <!-- once the strong reference count of values involved is 0. -->
@@ -283,19 +285,19 @@ a rc count after changing a = 2
 循環参照にはなりません。
 
 <!-- Because the value that `Weak<T>` references might have been dropped, to do -->
-<!-- anything with the value that a `Weak<T>` is pointing to, we must make sure the -->
-<!-- value still exists. We do this by calling the `upgrade` method on a `Weak<T>` -->
-<!-- instance, which will return an `Option<Rc<T>>`. We’ll get a result of `Some` if -->
-<!-- the `Rc<T>` value has not been dropped yet and a result of `None` if the -->
+<!-- anything with the value that a `Weak<T>` is pointing to, you must make sure the -->
+<!-- value still exists. Do this by calling the `upgrade` method on a `Weak<T>` -->
+<!-- instance, which will return an `Option<Rc<T>>`. You’ll get a result of `Some` -->
+<!-- if the `Rc<T>` value has not been dropped yet and a result of `None` if the -->
 <!-- `Rc<T>` value has been dropped. Because `upgrade` returns an `Option<T>`, Rust -->
-<!-- will ensure that we handle the `Some` case and the `None` case, and there won’t -->
-<!-- be an invalid pointer. -->
+<!-- will ensure that the `Some` case and the `None` case are handled, and there -->
+<!-- won't be an invalid pointer. -->
 
 `Weak<T>`が参照する値はドロップされてしまう可能性があるので、`Weak<T>`が指す値に何かをするには、
-値がまだ存在することを確認しなければなりません。`Weak<T>`の`upgrade`メソッドを呼び出すことでこれをし、
+値がまだ存在することを確認しなければなりません。`Weak<T>`の`upgrade`メソッドを呼び出すことでこれをしてください。
 このメソッドは`Option<Rc<T>>`を返します。`Rc<T>`値がまだドロップされていなければ、`Some`の結果が、
 `Rc<T>`値がドロップ済みなら、`None`の結果が得られます。`upgrade`が`Option<T>`を返すので、
-コンパイラは、`Some`ケースと`None`ケースを扱っていることを確かめてくれ、無効なポインタは存在しません。
+コンパイラは、`Some`ケースと`None`ケースが扱われていることを確かめてくれ、無効なポインタは存在しません。
 
 <!-- As an example, rather than using a list whose items know only about the next -->
 <!-- item, we’ll create a tree whose items know about their children items *and* -->
@@ -396,7 +398,7 @@ fn main() {
 
 <!-- To make the child node aware of its parent, we need to add a `parent` field to -->
 <!-- our `Node` struct definition. The trouble is in deciding what the type of -->
-<!-- `parent` should be. We know it can’t contain an `Rc<T>` because that would -->
+<!-- `parent` should be. We know it can’t contain an `Rc<T>`, because that would -->
 <!-- create a reference cycle with `leaf.parent` pointing to `branch` and -->
 <!-- `branch.children` pointing to `leaf`, which would cause their `strong_count` -->
 <!-- values to never be 0. -->
@@ -438,11 +440,11 @@ struct Node {
 }
 ```
 
-<!-- Now a node will be able to refer to its parent node but doesn’t own its parent. -->
+<!-- A node will be able to refer to its parent node but doesn’t own its parent. -->
 <!-- In Listing 15-28, we update `main` to use this new definition so the `leaf` -->
 <!-- node will have a way to refer to its parent, `branch`: -->
 
-これで、ノードは親ノードを参照できるものの、所有はしないでしょう。リスト15-28で、
+ノードは親ノードを参照できるものの、所有はしないでしょう。リスト15-28で、
 `leaf`ノードが親の`branch`を参照できるよう、この新しい定義を使用するように`main`を更新します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -482,10 +484,10 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 15-28: A `leaf` node with a `Weak` reference to -->
-<!-- its parent node `branch`</span> -->
+<!-- <span class="caption">Listing 15-28: A `leaf` node with a weak reference to its -->
+<!-- parent node `branch`</span> -->
 
-<span class="caption">リスト15-28: 親ノードの`branch`への`Weak`参照のある`leaf`ノード</span>
+<span class="caption">リスト15-28: 親ノードの`branch`への弱い参照がある`leaf`ノード</span>
 
 <!-- Creating the `leaf` node looks similar to how creating the `leaf` node looked -->
 <!-- in Listing 15-27 with the exception of the `parent` field: `leaf` starts out -->
@@ -523,10 +525,10 @@ leaf parent = None
 <!-- When we print the parent of `leaf` again, this time we’ll get a `Some` variant -->
 <!-- holding `branch`: now `leaf` can access its parent! When we print `leaf`, we -->
 <!-- also avoid the cycle that eventually ended in a stack overflow like we had in -->
-<!-- Listing 15-26: the `Weak<Node>` references are printed as `(Weak)`: -->
+<!-- Listing 15-26; the `Weak<Node>` references are printed as `(Weak)`: -->
 
 再度`leaf`の親を出力すると、今度は`branch`を保持する`Some`列挙子が得られます: これで`leaf`が親にアクセスできるようになったのです！
-`leaf`を出力すると、リスト15-26で起こっていたような最終的にスタックオーバーフローに行き着く循環を避けることもできます:
+`leaf`を出力すると、リスト15-26で起こっていたような最終的にスタックオーバーフローに行き着く循環を避けることもできます;
 `Weak<Node>`参照は、`(Weak)`と出力されます:
 
 ```text
@@ -663,7 +665,7 @@ fn main() {
 <!-- All of the logic that manages the counts and value dropping is built into -->
 <!-- `Rc<T>` and `Weak<T>` and their implementations of the `Drop` trait. By -->
 <!-- specifying that the relationship from a child to its parent should be a -->
-<!-- `Weak<T>` reference in the definition of `Node`, we’re able to have parent -->
+<!-- `Weak<T>` reference in the definition of `Node`, you’re able to have parent -->
 <!-- nodes point to child nodes and vice versa without creating a reference cycle -->
 <!-- and memory leaks. -->
 
@@ -678,7 +680,7 @@ fn main() {
 <!-- This chapter covered how to use smart pointers to make different guarantees and -->
 <!-- trade-offs than those Rust makes by default with regular references. The -->
 <!-- `Box<T>` type has a known size and points to data allocated on the heap. The -->
-<!-- `Rc<T>` type keeps track of the number of references to data on the heap, so -->
+<!-- `Rc<T>` type keeps track of the number of references to data on the heap so -->
 <!-- that data can have multiple owners. The `RefCell<T>` type with its interior -->
 <!-- mutability gives us a type that we can use when we need an immutable type but -->
 <!-- need to change an inner value of that type; it also enforces the borrowing -->
@@ -689,21 +691,23 @@ fn main() {
 データは複数の所有者を保有できます。内部可変性のある`RefCell<T>`型は、不変型が必要だけれども、
 その型の中の値を変更する必要がある時に使用できる型を与えてくれます; また、コンパイル時ではなく実行時に借用ルールを強制します。
 
-<!-- Also discussed were the `Deref` and `Drop` traits that enable a lot of the -->
+<!-- Also discussed were the `Deref` and `Drop` traits, which enable a lot of the -->
 <!-- functionality of smart pointers. We explored reference cycles that can cause -->
 <!-- memory leaks and how to prevent them using `Weak<T>`. -->
 
-スマートポインタの多くの機能を可能にする`Deref`と`Drop`トレイトについても議論しましたね。
+`Deref`と`Drop`トレイトについても議論しましたね。これらは、スマートポインタの多くの機能を可能にしてくれます。
 メモリリークを引き起こす循環参照と`Weak<T>`でそれを回避する方法も探求しました。
 
 <!-- FIXME: URLがイタリックになっていない -->
 
 <!-- If this chapter has piqued your interest and you want to implement your own -->
-<!-- smart pointers, check out “The Rustonomicon” at -->
-<!-- *https://doc.rust-lang.org/stable/nomicon/* for more useful information. -->
+<!-- smart pointers, check out [“The Rustonomicon”][nomicon] for more useful -->
+<!-- information. -->
 
 この章で興味をそそられ、独自のスマートポインタを実装したくなったら、もっと役に立つ情報を求めて、
-*https://doc.rust-lang.org/stable/nomicon/*の"The Rustonomicon"をチェックしてください。
+[“The Rustonomicon”][nomicon]をチェックしてください。
+
+[nomicon]: https://doc.rust-lang.org/stable/nomicon/
 
 <!-- Next, we’ll talk about concurrency in Rust. You’ll even learn about a few new -->
 <!-- smart pointers. -->

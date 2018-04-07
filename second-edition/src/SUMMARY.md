@@ -193,15 +193,15 @@
     - [状態共有](ch16-03-shared-state.md)
     - [さらなる非同期処理: `Sync`と`Send`](ch16-04-extensible-concurrency-sync-and-send.md)
 
-<!-- - [Is Rust an Object-Oriented Programming Language?](ch17-00-oop.md) -->
-<!--     - [What Does Object-Oriented Mean?](ch17-01-what-is-oo.md) -->
-<!--     - [Trait Objects for Using Values of Different Types](ch17-02-trait-objects.md) -->
-<!--     - [Object-Oriented Design Pattern Implementations](ch17-03-oo-design-patterns.md) -->
+<!-- - [Object-Oriented Programming Features of Rust](ch17-00-oop.md) -->
+<!--     - [Characteristics of Object-Oriented Languages](ch17-01-what-is-oo.md) -->
+<!--     - [Using Trait Objects that Allow for Values of Different Types](ch17-02-trait-objects.md) -->
+<!--     - [Implementing an Object-Oriented Design Pattern](ch17-03-oo-design-patterns.md) -->
 
-- [Rustはオブジェクト指向プログラミング言語なの？](ch17-00-oop.md)
-    - [オブジェクト指向って？](ch17-01-what-is-oo.md)
-    - [トレイトオブジェクトで異なる型の値を使用する](ch17-02-trait-objects.md)
-    - [オブジェクト指向デザインパターンの実装](ch17-03-oo-design-patterns.md)
+- [Rustのオブジェクト指向プログラミング機能](ch17-00-oop.md)
+    - [オブジェクト指向言語の特徴](ch17-01-what-is-oo.md)
+    - [異なる型の値を許容するトレイトオブジェクトを使用する](ch17-02-trait-objects.md)
+    - [オブジェクト指向デザインパターンを実装する](ch17-03-oo-design-patterns.md)
 
 <!-- ## Advanced Topics -->
 

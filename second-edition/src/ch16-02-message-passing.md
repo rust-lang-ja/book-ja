@@ -1,41 +1,37 @@
-<!-- ## Message Passing to Transfer Data Between Threads -->
+<!-- ## Using Message Passing to Transfer Data Between Threads -->
 
-## スレッド間でデータを転送するメッセージ受け渡し
+## メッセージ受け渡しを使ってスレッド間でデータを転送する
 
 <!-- One increasingly popular approach to ensuring safe concurrency is *message -->
 <!-- passing*, where threads or actors communicate by sending each other messages -->
-<!-- containing data. Here’s the idea in a slogan from the Go language documentation: -->
+<!-- containing data. Here’s the idea in a slogan from [the Go language -->
+<!-- documentation](http://golang.org/doc/effective_go.html): "Do not communicate by -->
+<!-- sharing memory; instead, share memory by communicating." -->
 
 人気度を増してきている安全な非同期処理を保証する一つのアプローチが*メッセージ受け渡し*で、
 スレッドやアクターがデータを含むメッセージを相互に送り合うことでやり取りします。
-こちらが、Go言語のドキュメンテーションのスローガンにある考えです:
+こちらが、[Go言語のドキュメンテーション](http:golang.org/doc/effective_go.html)のスローガンにある考えです:
+メモリを共有することでやり取りするな; 代わりにやり取りすることでメモリを共有しろ。
 
-<!-- Do not communicate by sharing memory; instead, share memory by -->
-<!-- communicating. -->
-<!-- -->
-<!-- --[Effective Go](http://golang.org/doc/effective_go.html) -->
-
-> メモリを共有することでやり取りするな; 代わりにやり取りすることでメモリを共有しろ。
->
-> --[Effective Go](http://golang.org/doc/effective_go.html)
-
-<!-- One major tool Rust has for accomplishing message sending concurrency is the -->
+<!-- One major tool Rust has for accomplishing message-sending concurrency is the -->
 <!-- *channel*, a programming concept that Rust’s standard library provides an -->
-<!-- implementation of. You can imagine a channel in programming like a channel of -->
-<!-- water, such as a stream or a river. If you put something like a rubber duck or -->
-<!-- a boat into a stream, it will travel downstream to the end of the river. -->
+<!-- implementation of. You can imagine a channel in programming as being like a -->
+<!-- channel of water, such as a stream or a river. If you put something like a -->
+<!-- rubber duck or a boat into a stream, it will travel downstream to the end of the -->
+<!-- waterway. -->
 
 メッセージ送信非同期処理を達成するためにRustに存在する一つの主な道具は、*チャンネル*で、
 Rustの標準ライブラリが実装を提供しているプログラミング概念です。プログラミングのチャンネルは、
-水の流れのように考えることができます。小川とか川ですね。アヒルのおもちゃやボートみたいなものを小川に置いたら、
-川の終端まで下流に流れていきます。
+水の流れのように考えることができます。小川とか川ですね。アヒルのおもちゃやボートみたいなものを流れに置いたら、
+水路の終端まで下流に流れていきます。
 
 <!-- 5行目終わり、for arriving messagesは本来ならfor messages arrivingのような気がするが、その想定で訳してある -->
+<!-- これは自動詞を形容詞のように前からかけているだけと思われる -->
 
 <!-- A channel in programming has two halves: a transmitter and a receiver. The -->
-<!-- transmitter half is the upstream location where we put rubber ducks into the -->
+<!-- transmitter half is the upstream location where you put rubber ducks into the -->
 <!-- river, and the receiver half is where the rubber duck ends up downstream. One -->
-<!-- part of our code calls methods on the transmitter with the data we want to -->
+<!-- part of our code calls methods on the transmitter with the data you want to -->
 <!-- send, and another part checks the receiving end for arriving messages. A -->
 <!-- channel is said to be *closed* if either the transmitter or receiver half is -->
 <!-- dropped. -->
@@ -60,11 +56,11 @@ Rustの標準ライブラリが実装を提供しているプログラミング�
 
 <!-- First, in Listing 16-6, we’ll create a channel but not do anything with it. -->
 <!-- Note that this won’t compile yet because Rust can’t tell what type of values we -->
-<!-- want to send over the channel: -->
+<!-- want to send over the channel. -->
 
 まず、リスト16-6において、チャンネルを生成するものの、何もしません。
 チャンネル越しにどんな型の値を送りたいのかコンパイラがわからないため、
-これはまだコンパイルできないことに注意してください:
+これはまだコンパイルできないことに注意してください。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -88,15 +84,15 @@ fn main() {
 <!-- *multiple producer, single consumer*. In short, the way Rust’s standard library -->
 <!-- implements channels means a channel can have multiple *sending* ends that -->
 <!-- produce values but only one *receiving* end that consumes those values. Imagine -->
-<!-- multiple rivers and streams flowing together into one big river: everything -->
-<!-- sent down any of the streams will end up in one river at the end. We’ll start -->
-<!-- with a single producer for now, but we’ll add multiple producers when we get -->
-<!-- this example working. -->
+<!-- multiple streams flowing together into one big river: everything sent down any -->
+<!-- of the streams will end up in one river at the end. We’ll start with a single -->
+<!-- producer for now, but we’ll add multiple producers when we get this example -->
+<!-- working. -->
 
 `mpsc::channel`関数で新しいチャンネルを生成しています; `mpsc`は*multiple producer, single consumer*を表しています。
 簡潔に言えば、Rustの標準ライブラリがチャンネルを実装している方法は、1つのチャンネルが値を生成する複数の*送信*側と、
 その値を消費するたった1つの*受信*側を持つことができるということを意味します。
-複数の川と小川が互いに合わさって1つの大きな川になるところを想像してください: 
+複数の小川が互いに合わさって1つの大きな川になるところを想像してください: 
 どの川を通っても、送られたものは最終的に1つの川に行き着きます。今は、1つの生成器から始めますが、
 この例が動作するようになったら、複数の生成器を追加します。
 
@@ -120,11 +116,11 @@ fn main() {
 <!-- Let’s move the transmitting end into a spawned thread and have it send one -->
 <!-- string so the spawned thread is communicating with the main thread, as shown in -->
 <!-- Listing 16-7. This is like putting a rubber duck in the river upstream or -->
-<!-- sending a chat message from one thread to another: -->
+<!-- sending a chat message from one thread to another. -->
 
 立ち上げたスレッドがメインスレッドとやり取りするように、転送機を立ち上げたスレッドに移動し、
 1文字列を送らせましょう。リスト16-7のようにね。川の上流にアヒルのおもちゃを置いたり、
-チャットのメッセージをあるスレッドから別のスレッドに送るみたいですね:
+チャットのメッセージをあるスレッドから別のスレッドに送るみたいですね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -172,10 +168,10 @@ fn main() {
 
 <!-- In Listing 16-8, we’ll get the value from the receiving end of the channel in -->
 <!-- the main thread. This is like retrieving the rubber duck from the water at the -->
-<!-- end of the river or like getting a chat message: -->
+<!-- end of the river or like getting a chat message. -->
 
 リスト16-8において、メインスレッドのチャンネルの受信側から値を得ます。
-アヒルのおもちゃを川の終端で水から回収したり、チャットメッセージを取得するみたいですね:
+アヒルのおもちゃを川の終端で水から回収したり、チャットメッセージを取得するみたいですね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -254,18 +250,19 @@ Got: hi
 
 ### チャンネルと所有権の転送
 
-<!-- The ownership rules play a vital role in message sending because they help us -->
+<!-- The ownership rules play a vital role in message sending because they help you -->
 <!-- write safe, concurrent code. Preventing errors in concurrent programming is the -->
-<!-- advantage we get by making the trade-off of having to think about ownership -->
-<!-- throughout our Rust programs. Let’s do an experiment to show how channels and -->
-<!-- ownership work together to prevent problems: we’ll try to use a `val` value in -->
-<!-- the spawned thread *after* we’ve sent it down the channel. Try compiling the -->
-<!-- code in Listing 16-9: -->
+<!-- advantage of thinking about ownership throughout your Rust program. Let's do -->
+<!-- an experiment to show how channels and ownership work together to prevent -->
+<!-- problems: we’ll try to use a `val` value in the spawned thread *after* we’ve -->
+<!-- sent it down the channel. Try compiling the code in Listing 16-9 to see why -->
+<!-- this code isn't allowed: -->
 
 安全な非同期コードを書く手助けをしてくれるので、所有権ルールは、メッセージ送信で重要な役割を担っています。
-非同期プログラミングでエラーを回避することは、Rustプログラム全体で所有権について考えなければいけないという代償をすることで、
-得られる利点です。実験をしてチャンネルと所有権がともに動いてどう問題を回避するかをお見せしましょう:
-`val`値を立ち上げたスレッドで、チャンネルに送った*後*に使用を試みます。リスト16-9のコードのコンパイルを試みてください:
+非同期プログラミングでエラーを回避することは、Rustプログラム全体で所有権について考える利点です。
+実験をしてチャンネルと所有権がともに動いてどう問題を回避するかをお見せしましょう:
+`val`値を立ち上げたスレッドで、チャンネルに送った*後*に使用を試みます。
+リスト16-9のコードのコンパイルを試みてこのコードが許容されない理由を確認してください:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -338,11 +335,11 @@ not implement the `Copy` trait
 <!-- two separate threads were talking to each other over the channel. In Listing -->
 <!-- 16-10 we’ve made some modifications that will prove the code in Listing 16-8 is -->
 <!-- running concurrently: the spawned thread will now send multiple messages and -->
-<!-- pause for a second between each message: -->
+<!-- pause for a second between each message. -->
 
 リスト16-8のコードはコンパイルでき、動きましたが、2つの個別のスレッドがお互いにチャンネル越しに会話していることは、
 明瞭に示されませんでした。リスト16-10において、リスト16-8のコードが非同期で動いていることを証明する変更を行いました:
-立ち上げたスレッドは、複数のメッセージを送信し、各メッセージ間で、1秒待機します:
+立ち上げたスレッドは、複数のメッセージを送信し、各メッセージ間で、1秒待機します。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -378,14 +375,14 @@ fn main() {
 ```
 
 <!-- <span class="caption">Listing 16-10: Sending multiple messages and pausing -->
-<!-- between each one</span> -->
+<!-- between each</span> -->
 
 <span class="caption">リスト16-10: 複数のメッセージを送信し、メッセージ間で停止する</span>
 
 <!-- This time, the spawned thread has a vector of strings that we want to send to -->
 <!-- the main thread. We iterate over them, sending each individually, and pause -->
 <!-- between each by calling the `thread::sleep` function with a `Duration` value of -->
-<!-- one second. -->
+<!-- 1 second. -->
 
 今回は、メインスレッドに送信したい文字列のベクタを立ち上げたスレッドが持っています。
 それらをイテレートし、各々個別に送信し、`Duration`の値1秒とともに`thread::sleep`関数を呼び出すことで、
@@ -400,7 +397,7 @@ fn main() {
 チャンネルが閉じられると、繰り返しも終わります。
 
 <!-- When running the code in Listing 16-10, you should see the following output -->
-<!-- with a one second pause in between each line: -->
+<!-- with a 1-second pause in between each line: -->
 
 リスト16-10のコードを走らせると、各行の間に1秒の待機をしつつ、以下のような出力を目の当たりにするはずです:
 
@@ -422,12 +419,12 @@ Got: thread
 
 ### 転送機をクローンして複数の生成器を作成する
 
-<!-- Earlier we mentioned that `mpsc` was an acronym for *multiple* *producer, -->
+<!-- Earlier we mentioned that `mpsc` was an acronym for *multiple producer, -->
 <!-- single consumer*. Let’s put `mpsc` to use and expand the code in Listing 16-10 -->
 <!-- to create multiple threads that all send values to the same receiver. We can do -->
 <!-- so by cloning the transmitting half of the channel, as shown in Listing 16-11: -->
 
-`mpsc`は、*mutiple* *producer, single consumer*の頭字語であると前述しました。
+`mpsc`は、*mutiple producer, single consumer*の頭字語であると前述しました。
 `mpsc`を使用に移し、リスト16-10のコードを拡張して全てが値を同じ受信機に送信する複数のスレッドを生成しましょう。
 チャンネルの転送の片割れをクローンすることでそうすることができます。リスト16-11のようにね:
 
@@ -499,9 +496,9 @@ for received in rx {
 元のチャンネルの送信側は、2番目に立ち上げたスレッドに渡します。これにより2つスレッドが得られ、
 それぞれチャンネルの受信側に異なるメッセージを送信します。
 
-<!-- When you run the code, you’ll *probably* see output like this: -->
+<!-- When you run the code, your output output should look something like this: -->
 
-コードを実行すると、*恐らく*以下のような出力を目の当たりにするでしょう:
+コードを実行すると、出力は以下のようなものになるはずです:
 
 ```text
 Got: hi
@@ -517,7 +514,7 @@ Got: you
 <!-- You might see the values in another order; it depends on your system. This is -->
 <!-- what makes concurrency interesting as well as difficult. If you experiment with -->
 <!-- `thread::sleep`, giving it various values in the different threads, each run -->
-<!-- will be more non-deterministic and create different output each time. -->
+<!-- will be more nondeterministic and create different output each time. -->
 
 別の順番で値が出る可能性もあります; システム次第です。非同期処理が面白いと同時に難しい部分でもあります。
 異なるスレッドで色々な値を与えて`thread::sleep`で実験をしたら、走らせるたびにより非決定的になり、

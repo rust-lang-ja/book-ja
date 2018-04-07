@@ -22,8 +22,8 @@ Rustはこれを変えると期待されています。
 <!-- methods. Over time, the team discovered that the ownership and type systems are -->
 <!-- a powerful set of tools to help manage memory safety *and* concurrency -->
 <!-- problems! By leveraging ownership and type checking, many concurrency errors -->
-<!-- are *compile time* errors in Rust rather than runtime errors. Therefore, rather -->
-<!-- than you spending lots of time trying to reproduce the exact circumstances -->
+<!-- are compile-time errors in Rust rather than runtime errors. Therefore, rather -->
+<!-- than making you spend lots of time trying to reproduce the exact circumstances -->
 <!-- under which a runtime concurrency bug occurs, incorrect code will refuse to -->
 <!-- compile and present an error explaining the problem. As a result, you can fix -->
 <!-- your code while you’re working on it rather than potentially after it has been -->
@@ -34,34 +34,34 @@ Rustはこれを変えると期待されています。
 当初、Rustチームは、メモリ安全性を期することと、非同期処理問題を回避することは、
 異なる方法で解決すべき2つの個別の挑戦だと考えていました。時間とともに、チームは、所有権と型システムは、
 メモリ安全性*と*非同期処理問題を管理する役に立つ一連の強力な道具であることを発見しました。
-所有権と型チェックに影響させることで、多くの非同期処理エラーは、実行時エラーではなく*コンパイル*エラーになります。
-故に、実行時に非同期処理のバグが起きた状況と全く同じ状況を再現しようと時間を浪費するよりも、
+所有権と型チェックに影響させることで、多くの非同期処理エラーは、実行時エラーではなくコンパイルエラーになります。
+故に、実行時に非同期処理のバグが起きた状況と全く同じ状況を再現しようと時間を浪費させるよりも、
 不正なコードはコンパイルを拒み、問題を説明するエラーを提示するでしょう。結果として、
 プロダクトになってから可能性があるというよりも、コードに取り組んでいる間に修正できます。
 Rustのこの方向性を*恐れるな！非同期処理*とニックネーム付けしました。これにより、潜在的なバグがなく、
 新しいバグを導入することなく簡単にリファクタリングできるコードを書くことができます。
 
 <!-- Note: For simplicity’s sake, we’ll refer to many of the problems as -->
-<!-- concurrent rather than being more precise by saying concurrent and/or -->
-<!-- parallel. If this book was specifically about concurrency and/or parallelism, -->
-<!-- we’d be more. specific. For this chapter, please mentally substitute -->
-<!-- concurrent and/or parallel whenever we use concurrent. -->
+<!-- *concurrent* rather than being more precise by saying *concurrent and/or -->
+<!-- parallel*. If this book were about concurrency and/or parallelism, we'd be -->
+<!-- more specific. For this chapter, please mentally substitute *concurrent -->
+<!-- and/or parallel* whenever we use *concurrent*. -->
 
 > 注釈: 簡潔性のため、非同期または並行と述べることで正確を期するのではなく、
-> 多くの問題を非同期と割り切ってしまいます。この本がもし非同期あるいは並行性に特化した本ならば、
-> もっと特定していたでしょう。この章に対しては、非同期を使ったら、
-> 脳内で非同期または並行と置き換えてください。
+> 多くの問題を*非同期*と割り切ってしまいます。この本がもし*非同期あるいは並行性*に関した本ならば、
+> もっと特定していたでしょう。この章に対しては、*非同期*を使ったら、
+> 脳内で*非同期または並行性*と置き換えてください。
 
 <!-- Many languages are dogmatic about the solutions they offer for handling -->
-<!-- concurrent problems. For example, Erlang has elegant functionality for message -->
-<!-- passing concurrency but has only obscure ways to share state between threads. -->
-<!-- Supporting only a subset of possible solutions is a reasonable strategy for -->
-<!-- higher-level languages, because a higher-level language promises benefits from -->
-<!-- giving up some control to gain abstractions. However, lower-level languages are -->
-<!-- expected to provide the solution with the best performance in any given -->
-<!-- situation and have fewer abstractions over the hardware. Therefore, Rust offers -->
-<!-- a variety of tools for modeling problems in whatever way is appropriate for -->
-<!-- your situation and requirements. -->
+<!-- concurrent problems. For example, Erlang has elegant functionality for -->
+<!-- message-passing concurrency but has only obscure ways to share state between -->
+<!-- threads. Supporting only a subset of possible solutions is a reasonable -->
+<!-- strategy for higher-level languages, because a higher-level language promises -->
+<!-- benefits from giving up some control to gain abstractions. However, lower-level -->
+<!-- languages are expected to provide the solution with the best performance in any -->
+<!-- given situation and have fewer abstractions over the hardware. Therefore, Rust -->
+<!-- offers a variety of tools for modeling problems in whatever way is appropriate -->
+<!-- for your situation and requirements. -->
 
 多くの言語は、自分が提供する非同期処理問題を扱う解決策について独断的です。例えば、Erlangには、
 メッセージ受け渡しの非同期処理に関する素晴らしい機能がありますが、スレッド間で状態を共有することに関しては、
@@ -75,8 +75,8 @@ Rustのこの方向性を*恐れるな！非同期処理*とニックネーム�
 こちらが、この章で講義する話題です:
 
 <!-- * How to create threads to run multiple pieces of code at the same time -->
-<!-- * *Message passing* concurrency, where channels send messages between threads -->
-<!-- * *Shared state* concurrency, where multiple threads have access to some piece -->
+<!-- * *Message-passing* concurrency, where channels send messages between threads -->
+<!-- * *Shared-state* concurrency, where multiple threads have access to some piece -->
 <!--   of data -->
 <!-- * The `Sync` and `Send` traits, which extend Rust’s concurrency guarantees to -->
 <!--   user-defined types as well as types provided by the standard library -->

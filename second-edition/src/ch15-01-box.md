@@ -1,6 +1,6 @@
-<!-- ## `Box<T>` Points to Data on the Heap and Has a Known Size -->
+<!-- ## Using `Box<T>` to Point to Data on the Heap -->
 
-## `Box<T>`はヒープのデータを指し、既知のサイズである
+## ヒープのデータを指す`Box<T>`を使用する
 
 <!-- The most straightforward smart pointer is a *box*, whose type is written -->
 <!-- `Box<T>`. Boxes allow you to store data on the heap rather than the stack. What -->
@@ -18,34 +18,35 @@
 ボックスは、データをスタックの代わりにヒープに格納する以外は、パフォーマンスのオーバーヘッドはありません。
 しかし、多くのおまけの能力もありません。以下のような場面で最もよく使用するでしょう:
 
-<!-- * When you have a type whose size can’t be known at compile time, and you want -->
-<!--   to use a value of that type in a context that needs to know an exact size -->
+<!-- * When you have a type whose size can’t be known at compile time and you want -->
+<!--   to use a value of that type in a context that requires an exact size -->
 <!-- * When you have a large amount of data and you want to transfer ownership but -->
 <!--   ensure the data won’t be copied when you do so -->
-<!-- * When you want to own a value and only care that it’s a type that implements a -->
-<!--   particular trait rather than knowing the concrete type -->
+<!-- * When you want to own a value and you care only that it’s a type that -->
+<!--   implements a particular trait rather than being of a specific type -->
 
-* コンパイル時にはサイズを知ることができない型があり、正確なサイズを知る必要がある文脈でその型の値を使用する時
+* コンパイル時にはサイズを知ることができない型があり、正確なサイズを要求する文脈でその型の値を使用する時
 * 多くのデータがあり、所有権を転送したいが、そうする時にデータがコピーされないことを確認する時
-* 値を所有する必要があり、実際の型を知るのではなく特定のトレイトを実装する型であることのみ気にかけている時
+* 値を所有する必要があり、特定の型ではなく特定のトレイトを実装する型であることのみ気にかけている時
 
 <!-- 最後の行がよくわからない。what ... (that) you'll apply ... なのか？ -->
 
-<!-- We’ll demonstrate the first situation in this section. But before we do so, -->
-<!-- we’ll elaborate on the other two situations a bit more: in the second case, -->
-<!-- transferring ownership of a large amount of data can take a long time because -->
-<!-- the data is copied around on the stack. To improve performance in this -->
-<!-- situation, we can store the large amount of data on the heap in a box. Then, -->
-<!-- only the small amount of pointer data is copied around on the stack, and the -->
-<!-- data stays in one place on the heap. The third case is known as a *trait -->
-<!-- object*, and Chapter 17 devotes an entire section just to that topic. So what -->
-<!-- you learn here you’ll apply again in Chapter 17! -->
+<!-- We’ll demonstrate the first situation in the “Enabling Recursive Types with -->
+<!-- Boxes” section. In the second case, transferring ownership of a large amount of -->
+<!-- data can take a long time because the data is copied around on the stack. To -->
+<!-- improve performance in this situation, we can store the large amount of data on -->
+<!-- the heap in a box. Then, only the small amount of pointer data is copied around -->
+<!-- on the stack, while the data it references stays in one place on the heap. The -->
+<!-- third case is known as a *trait object*, and Chapter 17 devotes an entire -->
+<!-- section, “Using Trait Objects That Allow for Values of Different Types,” just -->
+<!-- to that topic. So what you learn here you’ll apply again in Chapter 17! -->
 
-この節では、最初の場面を模擬します。しかしそうする前に、それ以外の2つの場面をもうちょっと練ります:
+この節では、「ボックスで再帰的型を可能にする」節の最初の場面を模擬します。
 2番目の場合、多くのデータの所有権を転送するには、データがスタック上でコピーされるので、長い時間がかかり得ます。
 この場面でパフォーマンスを向上させるには、多くのデータをヒープ上にボックスとして格納することができます。
-そして、少量のポインタのデータのみをスタック上でコピーし、データはヒープ上の1箇所に留まるのです。
-3番目のケースは、*トレイトオブジェクト*として知られ、第17章は、その話題だけに1節全体を捧げています。
+そして、参照しているデータはヒープ上の1箇所に留まりつつ、少量のポインタのデータのみをスタック上でコピーするのです。
+3番目のケースは、*トレイトオブジェクト*として知られ、第17章は、
+その話題だけに「異なる型の値を許容するトレイトオブジェクトを使用する」1節全体を捧げています。
 従って、ここで学ぶことは、第17章でまた適用するでしょう！
 
 <!-- ### Using a `Box<T>` to Store Data on the Heap -->
@@ -79,9 +80,9 @@ fn main() {
 
 <!-- We define the variable `b` to have the value of a `Box` that points to the -->
 <!-- value `5`, which is allocated on the heap. This program will print `b = 5`; in -->
-<!-- this case, we can access the data in the box in a similar way as we would if -->
-<!-- this data was on the stack. Just like any owned value, when a box goes out of -->
-<!-- scope like `b` does at the end of `main`, it will be deallocated. The -->
+<!-- this case, we can access the data in the box similar to how we would if this -->
+<!-- data was on the stack. Just like any owned value, when a box goes out of -->
+<!-- scope, as `b` does at the end of `main`, it will be deallocated. The -->
 <!-- deallocation happens for the box (stored on the stack) and the data it points -->
 <!-- to (stored on the heap). -->
 
@@ -100,16 +101,16 @@ fn main() {
 単独の`i32`のような値を規定で格納される場所であるスタックに置くことが、大多数の場合にはより適切です。
 ボックスがなかったら定義することの叶わない型をボックスが定義させてくれる場合を見ましょう。
 
-<!-- ### Boxes Enable Recursive Types -->
+<!-- ### Enabling Recursive types with Boxes -->
 
-### ボックスは、再帰的な型を可能にする
+### ボックスで再帰的な型を可能にする
 
 <!-- At compile time, Rust needs to know how much space a type takes up. One type -->
 <!-- whose size can’t be known at compile time is a *recursive type*, where a value -->
 <!-- can have as part of itself another value of the same type. Because this nesting -->
 <!-- of values could theoretically continue infinitely, Rust doesn’t know how much -->
 <!-- space a value of a recursive type needs. However, boxes have a known size, so -->
-<!-- by inserting a box in a recursive type definition, we can have recursive types. -->
+<!-- by inserting a box in a recursive type definition, you can have recursive types. -->
 
 コンパイル時に、コンパイラは、ある型が取る領域を知る必要があります。コンパイル時にサイズがわからない型の1つは、
 *再帰的な型*であり、これは、型の一部として同じ型の他の値を持つものです。この値のネストは、
@@ -140,12 +141,12 @@ fn main() {
 この引数は通常、単独の値と別のペアからなります。これらのペアを含むペアがリストをなすのです。
 
 <!-- The cons function concept has made its way into more general functional -->
-<!-- programming jargon: “to cons x onto y” informally means to construct a new -->
-<!-- container instance by putting the element x at the start of this new container, -->
-<!-- followed by the container y. -->
+<!-- programming jargon: “to cons *x* onto *y*” informally means to construct a new -->
+<!-- container instance by putting the element *x* at the start of this new -->
+<!-- container, followed by the container *y*. -->
 
-cons関数の概念は、より一般的な関数型プログラミングのスラングにもなっています: "to cons x onto y"は、
-俗に要素xをこの新しいコンテナの初めに置き、コンテナyを従わせて新しいコンテナのインスタンスを生成することを意味します。
+cons関数の概念は、より一般的な関数型プログラミングのスラングにもなっています: "to cons *x* onto *y*"は、
+俗に要素*x*をこの新しいコンテナの初めに置き、コンテナ*y*を従わせて新しいコンテナのインスタンスを生成することを意味します。
 
 <!-- Each item in a cons list contains two elements: the value of the current item -->
 <!-- and the next item. The last item in the list contains only a value called `Nil` -->
@@ -159,12 +160,12 @@ cons関数の概念は、より一般的な関数型プログラミングのス�
 繰り返しの規範事例を意味する標準的な名前は、`Nil`です。これは第6章の"null"や"nil"の概念とは異なることに注意してください。
 "null"や"nil"は、無効だったり存在しない値です。
 
-<!-- Although functional programming languages use cons lists frequently, it isn’t a -->
-<!-- commonly used data structure in Rust. Most of the time when you have a list of -->
-<!-- items in Rust, `Vec<T>` is a better choice to use. Other, more complex -->
-<!-- recursive data types *are* useful in various situations, but by starting with -->
-<!-- the cons list, we can explore how boxes let us define a recursive data type -->
-<!-- without much distraction. -->
+<!-- Although functional programming languages use cons lists frequently, the cons -->
+<!-- list isn't a commonly used data structure in Rust. Most of the time when you -->
+<!-- have a list of items in Rust, `Vec<T>` is a better choice to use. Other, more -->
+<!-- complext recursive data types *are* useful in various situations, but by -->
+<!-- starting with the cons list, we can explore how boxes let us define a recursive -->
+<!-- data type without much distraction. -->
 
 関数型プログラミング言語は、頻繁にコンスリストを使用するものの、Rustではあまり使用されないデータ構造です。
 Rustで要素のリストがある場合はほとんどの場合、`Vec<T>`を使用するのがよりよい選択になります。
@@ -175,7 +176,7 @@ Rustで要素のリストがある場合はほとんどの場合、`Vec<T>`を�
 
 <!-- Listing 15-2 contains an enum definition for a cons list. Note that this code -->
 <!-- won’t compile yet because the `List` type doesn’t have a known size, which -->
-<!-- we’ll demonstrate: -->
+<!-- we’ll demonstrate. -->
 
 リスト15-2には、コンスリストのenum定義が含まれています。このコードは、
 `List`型が既知のサイズではないため、まだコンパイルできないことに注意してください。
@@ -197,12 +198,12 @@ enum List {
 
 <span class="caption">リスト15-2: `i32`値のコンスリストデータ構造を表すenumを定義する最初の試行</span>
 
-<!-- Note: We’re implementing a cons list that only holds `i32` values for the -->
+<!-- Note: We’re implementing a cons list that holds only `i32` values for the -->
 <!-- purposes of this example. We could have implemented it using generics, as we -->
 <!-- discussed in Chapter 10, to define a cons list type that could store values of -->
 <!-- any type. -->
 
-> 注釈: この例のためだけに`i32`値を保持するだけのコンスリストを実装します。第10章で議論したように、
+> 注釈: この例のためだけに`i32`値をだけを保持するコンスリストを実装します。第10章で議論したように、
 > ジェネリクスを使用してどんな型の値も格納できるコンスリストを定義して実装することもできました。
 
 <!-- Using the `List` type to store the list `1, 2, 3` would look like the code in -->
@@ -264,13 +265,13 @@ error[E0072]: recursive type `List` has infinite size
 <!-- The error shows this type “has infinite size.” The reason is that we’ve defined -->
 <!-- `List` with a variant that is recursive: it holds another value of itself -->
 <!-- directly. As a result, Rust can’t figure out how much space it needs to store a -->
-<!-- `List` value. Let’s break down why we get this error a bit: first, let’s look -->
+<!-- `List` value. Let’s break down why we get this error a bit. First, let’s look -->
 <!-- at how Rust decides how much space it needs to store a value of a non-recursive -->
 <!-- type. -->
 
 エラーは、この型は「無限のサイズである」と表示しています。理由は、再帰的な列挙子を含む`List`を定義したからです:
 自身の別の値を直接保持しているのです。結果として、コンパイラは、`List`値を格納するのに必要な領域が計算できないのです。
-このエラーが得られた理由を少し噛み砕きましょう: まず、非再帰的な型の値を格納するのに必要な領域をどうコンパイラが決定しているかを見ましょう。
+このエラーが得られた理由を少し噛み砕きましょう。まず、非再帰的な型の値を格納するのに必要な領域をどうコンパイラが決定しているかを見ましょう。
 
 <!-- #### Computing the Size of a Non-Recursive Type -->
 
@@ -303,20 +304,20 @@ enum Message {
 ただ1つの列挙子しか使用されないので、`Message`値一つが必要とする最大の領域は、
 最大の列挙子を格納するのに必要になる領域です。
 
-<!-- Contrast this to what happens when Rust tries to determine how much space a -->
+<!-- Contrast this with what happens when Rust tries to determine how much space a -->
 <!-- recursive type like the `List` enum in Listing 15-2 needs. The compiler starts -->
 <!-- by looking at the `Cons` variant, which holds a value of type `i32` and a value -->
 <!-- of type `List`. Therefore, `Cons` needs an amount of space equal to the size of -->
 <!-- an `i32` plus the size of a `List`. To figure out how much memory the `List` -->
 <!-- type needs, the compiler looks at the variants, starting with the `Cons` -->
 <!-- variant. The `Cons` variant holds a value of type `i32` and a value of type -->
-<!-- `List`, and this process continues infinitely, as shown in Figure 15-1: -->
+<!-- `List`, and this process continues infinitely, as shown in Figure 15-1. -->
 
 これをコンパイラがリスト15-2の`List`enumのような再帰的な型が必要とする領域を決定しようとする時に起こることと比較してください。
 コンパイラは、`Cons`列挙子を見ることから始め、この列挙子には、型`i32`値が一つと型`List`の値が一つ保持されます。
 故に、`Cons`は1つの`i32`と`List`のサイズに等しい領域を必要とします。`List`が必要とするメモリ量を計算するのに、
 コンパイラは`Cons`列挙子から列挙子を観察します。`Cons`列挙子は型`i32`を1つと型`List`の値1つを保持し、
-この過程は無限に続きます。図15-1のようにね:
+この過程は無限に続きます。図15-1のようにね。
 
 <!-- <img alt="An infinite Cons list" src="img/trpl15-01.svg" class="center" style="width: 50%;" /> -->
 
@@ -356,7 +357,7 @@ enum Message {
 <!-- of another `List` value directly. The `Box<T>` will point to the next `List` -->
 <!-- value that will be on the heap rather than inside the `Cons` variant. -->
 <!-- Conceptually, we still have a list, created with lists “holding” other lists, -->
-<!-- but this implementation is now more like the items being next to one another -->
+<!-- but this implementation is now more like placing the items next to one another -->
 <!-- rather than inside one another. -->
 
 `Box<T>`はポインタなので、コンパイラには`Box<T>`が必要とする領域が必ずわかります: ポインタのサイズは、
@@ -364,7 +365,7 @@ enum Message {
 `Cons`列挙子の中に`Box<T>`を配置することができます。`Box<T>`は、
 `Cons`列挙子の中ではなく、ヒープに置かれる次の`List`値を指します。概念的には、
 それでも他のリストを「保持する」リストとともに作られたリストがありますが、
-この実装は今では、要素はお互いの中にあるというよりも、隣り合って存在するような感じになります。
+この実装は今では、要素はお互いの中にあるというよりも、隣り合って配置するような感じになります。
 
 <!-- We can change the definition of the `List` enum in Listing 15-2 and the usage -->
 <!-- of the `List` in Listing 15-3 to the code in Listing 15-5, which will compile: -->
@@ -403,13 +404,13 @@ fn main() {
 <!-- size of an `i32` plus the size of a box’s pointer data. By using a box, we’ve -->
 <!-- broken the infinite, recursive chain, so the compiler can figure out the size -->
 <!-- it needs to store a `List` value. Figure 15-2 shows what the `Cons` variant -->
-<!-- looks like now: -->
+<!-- looks like now. -->
 
 `Cons`列挙子は、1つの`i32`のサイズプラスボックスのポインタデータを格納する領域を必要とするでしょう。
 `Nil`列挙子は、値を格納しないので、`Cons`列挙子よりも必要な領域は小さいです。これで、
 どんな`List`値も`i32`1つのサイズプラスボックスのポインタデータのサイズを必要とすることがわかりました。
 ボックスを使うことで、無限の再帰的な繰り返しを破壊したので、コンパイラは、`List`値を格納するのに必要なサイズを計算できます。
-図15-2は、`Cons`列挙子の今の見た目を示しています:
+図15-2は、`Cons`列挙子の今の見た目を示しています。
 
 <!-- <img alt="A finite Cons list" src="img/trpl15-02.svg" class="center" /> -->
 
@@ -420,14 +421,14 @@ fn main() {
 
 <span class="caption">図15-2: `Cons`が`Box`を保持しているので、無限にサイズがあるわけではない`List`</span>
 
-<!-- Boxes only provide the indirection and heap allocation; they don’t have any -->
+<!-- Boxes provide only the indirection and heap allocation; they don’t have any -->
 <!-- other special capabilities, like those we’ll see with the other smart pointer -->
 <!-- types. They also don’t have any performance overhead that these special -->
 <!-- capabilities incur, so they can be useful in cases like the cons list where the -->
 <!-- indirection is the only feature we need. We’ll look at more use cases for boxes -->
 <!-- in Chapter 17, too. -->
 
-ボックスは、間接参照とヒープメモリ確保を提供するだけです; 他のスマートポインタ型で目撃するような、
+ボックスは、間接参照とヒープメモリ確保だけを提供します; 他のスマートポインタ型で目撃するような、
 他の特別な能力は何もありません。これらの特別な能力が招くパフォーマンスのオーバーヘッドもないので、
 間接参照だけが必要になる唯一の機能であるコンスリストのような場合に有用になり得ます。
 より多くのボックスのユースケースは第17章でもお見かけするでしょう。
@@ -445,4 +446,3 @@ fn main() {
 `Drop`トレイト実装によりボックスが参照しているヒープデータも片付けられます。
 これら2つのトレイトをより詳しく探求しましょう。これら2つのトレイトは、
 この章の残りで議論する他のスマートポインタ型で提供される機能にとってさらに重要でしょう。
-

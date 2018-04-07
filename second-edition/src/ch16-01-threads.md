@@ -5,7 +5,7 @@
 <!-- In most current operating systems, an executed program’s code is run in a -->
 <!-- *process*, and the operating system manages multiple processes at once. Within -->
 <!-- your program, you can also have independent parts that run simultaneously. The -->
-<!-- feature that runs these independent parts is called *threads*. -->
+<!-- features that run these independent parts are called *threads*. -->
 
 多くの現代のOSでは、実行中のプログラムのコードは*プロセス*で走り、OSは同時に複数のプロセスを管理します。
 自分のプログラム内で、同時に実行する部分を作ることもできます。これらの個別の部分を走らせる機能を*スレッド*と呼びます。
@@ -24,24 +24,25 @@
 <!--   inconsistent order -->
 <!-- * Deadlocks, where two threads are waiting for each other to finish using a -->
 <!--   resource the other thread has, preventing both threads from continuing -->
-<!-- * Bugs that only happen in certain situations and are hard to reproduce and fix -->
+<!-- * Bugs that happen only in certain situations and are hard to reproduce and fix -->
 <!--   reliably -->
 
 * スレッドがデータやリソースに矛盾した順番でアクセスする競合状態
 * 2つのスレッドがお互いにもう一方が持っているリソースを使用し終わるのを待ち、両者が継続するのを防ぐデッドロック
 * 特定の状況でのみ起き、再現や信頼して修正が困難なバグ
 
-<!-- Rust attempts to mitigate the negative effects of using threads. Programming in -->
-<!-- a multithreaded context still takes careful thought and requires a code -->
-<!-- structure that is different from programs that run in a single thread. -->
+<!-- Rust attempts to mitigate the negative effects of using threads, but -->
+<!-- programming in a multithreaded context still takes careful thought and requires -->
+<!-- a code structure that is different from programs that run in a single -->
+<!-- thread. -->
 
-Rustは、スレッド使用のマイナスの効果を軽減しようとしています。それでも、マルチスレッドの文脈でのプログラミングは、
+Rustは、スレッド使用のマイナスの効果を軽減しようとしていますが、それでも、マルチスレッドの文脈でのプログラミングは、
 注意深い思考とシングルスレッドで走るプログラムとは異なるコード構造を必要とします。
 
 <!-- Programming languages implement threads in a few different ways. Many operating -->
 <!-- systems provide an API for creating new threads. This model where a language -->
 <!-- calls the operating system APIs to create threads is sometimes called *1:1*, -->
-<!-- one operating system thread per one language thread. -->
+<!-- meaning one operating system thread per one language thread. -->
 
 プログラミング言語によってスレッドはいくつかの方法で実装されています。多くのOSで、新規スレッドを生成するAPIが提供されています。
 言語がOSのAPIを呼び出してスレッドを生成するこのモデルを時に*1:1*と呼び、1つのOSスレッドに対して1つの言語スレッドを意味します。
@@ -49,21 +50,22 @@ Rustは、スレッド使用のマイナスの効果を軽減しようとして�
 <!-- Many programming languages provide their own special implementation of threads. -->
 <!-- Programming language-provided threads are known as *green* threads, and -->
 <!-- languages that use these green threads will execute them in the context of a -->
-<!-- different number of operating system threads. For this reason, the green -->
-<!-- threaded model is called the *M:N* model: `M` green threads per `N` operating -->
-<!-- system threads, where `M` and `N` are not necessarily the same number. -->
+<!-- different number of operating system threads. For this reason, the -->
+<!-- green-threaded model is called the *M:N* model: there are `M` green threads per -->
+<!-- `N` operating system threads, where `M` and `N` are not necessarily the same -->
+<!-- number. -->
 
 多くのプログラミング言語がスレッドの独自の特別な実装を提供しています。プログラミング言語が提供するスレッドは、
 *グリーン*スレッドとして知られ、このグリーンスレッドを使用する言語は、それを異なる数のOSスレッドの文脈で実行します。
 このため、グリーンスレッドのモデルは*M:N*モデルと呼ばれます: `M`個のグリーンスレッドに対して、
-`N`個のOSスレッドで、`M`と`N`は必ずしも同じ数字ではありません。
+`N`個のOSスレッドがあり、`M`と`N`は必ずしも同じ数字ではありません。
 
 <!-- Each model has its own advantages and trade-offs, and the trade-off most -->
-<!-- important to Rust is runtime support. Runtime is a confusing term and can have -->
-<!-- different meanings in different contexts. -->
+<!-- important to Rust is runtime support. *Runtime* is a confusing term and can -->
+<!-- have different meanings in different contexts. -->
 
 各モデルには、それだけの利点と妥協点があり、Rustにとって最も重要な妥協点は、ランタイムのサポートです。
-ランタイムは、混乱しやすい用語で文脈によって意味も変わります。
+*ランタイム*は、混乱しやすい用語で文脈によって意味も変わります。
 
 <!-- In this context, by *runtime* we mean code that is included by the language in -->
 <!-- every binary. This code can be large or small depending on the language, but -->
@@ -84,7 +86,7 @@ Rustは、スレッド使用のマイナスの効果を軽減しようとして�
 より多くの機能と引き換えにランタイムのサイズが膨れ上がるのは、受け入れられることですが、
 Rustにはほとんどゼロのランタイムが必要でパフォーマンスを維持するためにCコードを呼び出せることを妥協できないのです。
 
-<!-- The green threading M:N model requires a larger language runtime to manage -->
+<!-- The green-threading M:N model requires a larger language runtime to manage -->
 <!-- threads. As such, the Rust standard library only provides an implementation of -->
 <!-- 1:1 threading. Because Rust is such a low-level language, there are crates that -->
 <!-- implement M:N threading if you would rather trade overhead for aspects such as -->
@@ -165,8 +167,8 @@ hi number 5 from the spawned thread!
 ```
 
 <!-- The calls to `thread::sleep` force a thread to stop its execution for a short -->
-<!-- duration, which allows a different thread to run. The threads will probably -->
-<!-- take turns, but that isn’t guaranteed: it depends on how your operating system -->
+<!-- duration, allowing a different thread to run. The threads will probably take -->
+<!-- turns, but that isn’t guaranteed: it depends on how your operating system -->
 <!-- schedules the threads. In this run, the main thread printed first, even though -->
 <!-- the print statement from the spawned thread appears first in the code. And even -->
 <!-- though we told the spawned thread to print until `i` is 9, it only got to 5 -->
@@ -189,12 +191,12 @@ hi number 5 from the spawned thread!
 ### `join`ハンドルで全スレッドの終了を待つ
 
 <!-- The code in Listing 16-1 not only stops the spawned thread prematurely most of -->
-<!-- the time due to the main thread ending, but there is no guarantee that the -->
+<!-- the time due to the main thread ending, but also can't guarantee that the -->
 <!-- spawned thread will get to run at all. The reason is that there is no guarantee -->
 <!-- on the order in which threads run! -->
 
 リスト16-1のコードは、メインスレッドが終了するためにほとんどの場合、新規スレッドが未完で終わるだけでなく、
-新規スレッドが実行されるかどうかの保証もありません。原因は、スレッドの実行順に保証がないからです。
+新規スレッドが実行されるかどうかも保証できません。原因は、スレッドの実行順に保証がないからです。
 
 <!-- We can fix the problem of the spawned thread not getting to run, or not getting -->
 <!-- to run completely, by saving the return value of `thread::spawn` in a variable. -->
@@ -325,48 +327,44 @@ hi number 3 from the main thread!
 hi number 4 from the main thread!
 ```
 
-<!-- Thinking about such a small detail as where to call `join` can affect whether -->
-<!-- or not your threads run at the same time. -->
+<!-- Small details, such as where to call `join` is called, can affect whether or not your -->
+<!-- threads run at the same time. -->
 
-どこで`join`を呼ぶかのような小さな詳細について考慮することが、スレッドが同時に走るかどうかに影響するのです。
+どこで`join`を呼ぶかのような小さな詳細が、スレッドが同時に走るかどうかに影響することもあります。
 
 <!-- ### Using `move` Closures with Threads -->
 
 ### スレッドで`move`クロージャを使用する
 
-<!-- The `move` closure, which we mentioned briefly in Chapter 13, is often used -->
-<!-- alongside `thread::spawn` because it allows us to use data from one thread in -->
-<!-- another thread. -->
+<!-- The `move` closure is often used alongside `thread::spawn` because it allows -->
+<!-- you to use data from one thread in another thread. -->
 
-`move`クロージャについては、第13章でちらっとだけ触れましたが、`thread::spawn`とともによく使用されます。
+`move`クロージャは、`thread::spawn`とともによく使用されます。
 あるスレッドから別のスレッドにデータを使用させてくれるからです。
 
-<!-- In Chapter 13, we said that “If we want to force the closure to take ownership -->
-<!-- of the values it uses in the environment, we can use the `move` keyword before -->
-<!-- the parameter list. This technique is mostly useful when passing a closure to a -->
-<!-- new thread to move the data so it’s owned by the new thread.” -->
+<!-- In Chapter 13, we mentioned we can use the `move` keywrod before the parameter -->
+<!-- list of a closure to force the closure to take ownership of the values it uses -->
+<!-- in the environment. This technique is especially useful when creating new -->
+<!-- threads in order to transfer ownership of values from one thread to another. -->
 
-第13章で、「環境で使用している値の所有権を奪うことをクロージャに強制したいのなら、
-引数リストの前に`move`キーワードを使用でき、このテクニックは、クロージャを新しいスレッドに渡して、
-新しいスレッドが所有するようにデータをムーブするときにだいたい有用です」と述べました。
-
-<!-- Now that we’re creating new threads, we’ll talk about capturing values in -->
-<!-- closures. -->
+第13章で、クロージャの引数リストの前に`move`キーワードを使用して、
+クロージャに環境で使用している値の所有権を強制的に奪わせることができると述べました。
+このテクニックは、あるスレッドから別のスレッドに値の所有権を移すために新しいスレッドを生成する際に特に有用です。
 
 新規スレッドを立ち上げているので、クロージャに値をキャプチャすることについて語りましょう。
 
 <!-- Notice in Listing 16-1 that the closure we pass to `thread::spawn` takes no -->
 <!-- arguments: we’re not using any data from the main thread in the spawned -->
-<!-- thread’s code. To do so, the spawned thread’s closure must capture the values -->
-<!-- it needs. Listing 16-3 shows an attempt to create a vector in the main thread -->
-<!-- and use it in the spawned thread. However, this won’t yet work, as you’ll see -->
-<!-- in a moment: -->
+<!-- thread’s code. To use data from the main thread in the spawned thread, the -->
+<!-- spawned thread’s closure must capture the values it needs. Listing 16-3 shows -->
+<!-- an attempt to create a vector in the main thread and use it in the spawned -->
+<!-- thread. However, this won’t yet work, as you’ll see in a moment: -->
 
 リスト16-1において、`thread::spawn`に渡したクロージャには引数がなかったことに気付いてください:
-立ち上げたスレッドのコードでメインスレッドからのデータは何も使用していないのです。そうするには、
-立ち上げるスレッドのクロージャは、必要な値をキャプチャしなければなりません。
-リスト16-3は、メインスレッドでベクタを生成し、立ち上げたスレッドで使用する試みを示しています。
-しかしながら、すぐにわかるように、これはまだ動きません:
+立ち上げたスレッドのコードでメインスレッドからのデータは何も使用していないのです。
+立ち上げたスレッドでメインスレッドのデータを使用するには、立ち上げるスレッドのクロージャは、
+必要な値をキャプチャしなければなりません。リスト16-3は、メインスレッドでベクタを生成し、
+立ち上げたスレッドで使用する試みを示しています。しかしながら、すぐにわかるように、これはまだ動きません:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -463,7 +461,7 @@ fn main() {
 <span class="caption">リスト16-4: `v`をドロップするメインスレッドから`v`への参照をキャプチャしようとするクロージャとスレッド</span>
 
 <!-- If we were allowed to run this code, there’s a possibility the spawned thread -->
-<!-- will be immediately put in the background without running at all. The spawned -->
+<!-- would be immediately put in the background without running at all. The spawned -->
 <!-- thread has a reference to `v` inside, but the main thread immediately drops -->
 <!-- `v`, using the `drop` function we discussed in Chapter 15. Then, when the -->
 <!-- spawned thread starts to execute, `v` is no longer valid, so a reference to it -->
@@ -522,14 +520,14 @@ fn main() {
 <!-- What would happen to the code in Listing 16-4 where the main thread called -->
 <!-- `drop` if we use a `move` closure? Would `move` fix that case? Unfortunately, -->
 <!-- no; we would get a different error because what Listing 16-4 is trying to do -->
-<!-- isn’t allowed for a different reason. If we add `move` to the closure, we would -->
-<!-- move `v` into the closure’s environment, and we could no longer call `drop` on -->
-<!-- it in the main thread. We would get this compiler error instead: -->
+<!-- isn’t allowed for a different reason. If we added `move` to the closure, we -->
+<!-- would move `v` into the closure’s environment, and we could no longer call -->
+<!-- `drop` on it in the main thread. We would get this compiler error instead: -->
 
 `move`クロージャを使用していたら、メインスレッドが`drop`を呼び出すリスト16-4のコードはどうなるのでしょうか？
 `move`で解決するのでしょうか？残念ながら、違います; リスト16-4が試みていることは別の理由によりできないので、
-違うエラーが出ます。クロージャに`move`を付与すれば、`v`をクロージャの環境にムーブするので、
-メインスレッドで`drop`を呼び出すことは叶わなくなります。代わりにこのようなコンパイルエラーが出るでしょう:
+違うエラーが出ます。クロージャに`move`を付与したら、`v`をクロージャの環境にムーブするので、
+最早メインスレッドで`drop`を呼び出すことは叶わなくなるでしょう。代わりにこのようなコンパイルエラーが出るでしょう:
 
 ```text
 error[E0382]: use of moved value: `v`

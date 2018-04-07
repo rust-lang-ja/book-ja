@@ -2,15 +2,15 @@
 
 ## トレイトオブジェクトで異なる型の値を許可する
 
-<!-- In Chapter 8, we mentioned that one limitation of vectors is that they can only -->
-<!-- store elements of one type. We created a workaround in Listing 8-10 where we -->
-<!-- defined a `SpreadsheetCell` enum that had variants to hold integers, floats, -->
+<!-- In Chapter 8, we mentioned that one limitation of vectors is that they can -->
+<!-- store elements of only one type. We created a workaround in Listing 8-10 where -->
+<!-- we defined a `SpreadsheetCell` enum that had variants to hold integers, floats, -->
 <!-- and text. This meant we could store different types of data in each cell and -->
 <!-- still have a vector that represented a row of cells. This is a perfectly good -->
 <!-- solution when our interchangeable items are a fixed set of types that we know -->
 <!-- when our code is compiled. -->
 
-第8章で、ベクタの1つの制限は、1つの型の要素を保持することしかできないことだと述べました。
+第8章で、ベクタの1つの制限は、たった1つの型の要素を保持することしかできないことだと述べました。
 リスト8-10で整数、浮動小数点数、テキストを保持する列挙子のある`SpreadsheetCell`enumを定義して、
 これを回避しました。つまり、各セルに異なる型のデータを格納しつつ、1行のセルを表すベクタを保持するということです。
 コンパイル時にわかるある固定されたセットの型にしか取り替え可能な要素がならない場合には、
@@ -73,8 +73,8 @@ GUIライブラリの構造を含む`gui`と呼ばれるライブラリクレー
 <!-- takes a *trait object*. A trait object points to an instance of a type that -->
 <!-- implements the trait we specify. We create a trait object by specifying some -->
 <!-- sort of pointer, such as a `&` reference or a `Box<T>` smart pointer, and then -->
-<!-- specifying the relevant trait (we’ll talk about the reason trait objects must -->
-<!-- use a pointer in Chapter 19 in the section “Dynamically Sized Types & Sized”). -->
+<!-- specifying the relevant trait. (we’ll talk about the reason trait objects must -->
+<!-- use a pointer in Chapter 19 in the section “Dynamically Sized Types & Sized”.) -->
 <!-- We can use trait objects in place of a generic or concrete type. Wherever we -->
 <!-- use a trait object, Rust’s type system will ensure at compile time that any -->
 <!-- value used in that context will implement the trait object’s trait. -->
@@ -89,10 +89,10 @@ GUIライブラリの構造を含む`gui`と呼ばれるライブラリクレー
 Rustの型システムは、コンパイル時にその文脈で使用されているあらゆる値がそのトレイトオブジェクトのトレイトを実装していることを保証します。
 結果的にコンパイル時に可能性のある型を全て知る必要はなくなるのです。
 
-<!-- We’ve mentioned that in Rust we refrain from calling structs and enums -->
+<!-- We’ve mentioned that in Rust, we refrain from calling structs and enums -->
 <!-- “objects” to distinguish them from other languages’ objects. In a struct or -->
 <!-- enum, the data in the struct fields and the behavior in `impl` blocks are -->
-<!-- separated, whereas in other languages the data and behavior combined into one -->
+<!-- separated, whereas in other languages, the data and behavior combined into one -->
 <!-- concept is often labeled an object. However, trait objects *are* more like -->
 <!-- objects in other languages in the sense that they combine data and behavior. -->
 <!-- But trait objects differ from traditional objects in that we can’t add data to -->
@@ -130,12 +130,12 @@ pub trait Draw {
 <!-- This syntax should look familiar from our discussions on how to define traits -->
 <!-- in Chapter 10. Next comes some new syntax: Listing 17-4 defines a struct named -->
 <!-- `Screen` that holds a vector named `components`. This vector is of type -->
-<!-- `Box<Draw>`, which is a trait object: it’s a stand-in for any type inside a -->
+<!-- `Box<Draw>`, which is a trait object; it’s a stand-in for any type inside a -->
 <!-- `Box` that implements the `Draw` trait. -->
 
 この記法は、第10章のトレイトの定義方法に関する議論で馴染み深いはずです。その次は、新しい記法です:
 リスト17-4では、`components`というベクタを保持する`Screen`という名前の構造体を定義しています。
-このベクタの型は`Box<Draw>`で、これはトレイトオブジェクトです: `Draw`トレイトを実装する`Box`内部の任意の型に対する代役です。
+このベクタの型は`Box<Draw>`で、これはトレイトオブジェクトです; `Draw`トレイトを実装する`Box`内部の任意の型に対する代役です。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -186,10 +186,10 @@ impl Screen {
 }
 ```
 
-<!-- <span class="caption">Listing 17-5: Implementing a `run` method on `Screen` -->
-<!-- that calls the `draw` method on each component</span> -->
+<!-- <span class="caption">Listing 17-5: A `run` method on `Screen` that calls the -->
+<!-- `draw` method on each component</span> -->
 
-<span class="caption">リスト17-5: `Screen`に各コンポーネントに対して`draw`メソッドを呼び出す`run`メソッドを実装する</span>
+<span class="caption">リスト17-5: 各コンポーネントに対して`draw`メソッドを呼び出す`Screen`の`run`メソッド</span>
 
 <!-- This works differently than defining a struct that uses a generic type -->
 <!-- parameter with trait bounds. A generic type parameter can only be substituted -->
@@ -281,7 +281,7 @@ pub struct Button {
 
 impl Draw for Button {
     fn draw(&self) {
-        // Code to actually draw a button
+        // code to actually draw a button
         // 実際にボタンを描画するコード
     }
 }
@@ -296,9 +296,9 @@ impl Draw for Button {
 <!-- fields on other components, such as a `TextField` type, that might have those -->
 <!-- fields plus a `placeholder` field instead. Each of the types we want to draw on -->
 <!-- the screen will implement the `Draw` trait but will use different code in the -->
-<!-- `draw` method to define how to draw that particular type, like `Button` has -->
-<!-- here (without the actual GUI code that is beyond the scope of this chapter). -->
-<!-- `Button`, for instance, might have an additional `impl` block containing -->
+<!-- `draw` method to define how to draw that particular type, as `Button` has here -->
+<!-- (without the actual GUI code that is beyond the scope of this chapter). The -->
+<!-- `Button` type, for instance, might have an additional `impl` block containing -->
 <!-- methods related to what happens when a user clicks the button. These kinds of -->
 <!-- methods won’t apply to types like `TextField`. -->
 
@@ -332,7 +332,7 @@ struct SelectBox {
 
 impl Draw for SelectBox {
     fn draw(&self) {
-        // Code to actually draw a select box
+        // code to actually draw a select box
         //セレクトボックスを実際に描画するコード
     }
 }
@@ -422,13 +422,13 @@ fn main() {
 `draw`メソッドを呼び出せる値を必要とするように定義できたのです。
 
 <!-- The advantage of using trait objects and Rust’s type system to write code -->
-<!-- similar to code using duck typing is that we never have to check that a value -->
-<!-- implements a particular method at runtime or worry about getting errors if a -->
-<!-- value doesn’t implement a method, but we call it anyway. Rust won’t compile our -->
-<!-- code if the values don’t implement the traits that the trait objects need. -->
+<!-- similar to code using duck typing is that we never have to check whether a -->
+<!-- value implements a particular method at runtime or worry about getting errors -->
+<!-- if a value doesn’t implement a method but we call it anyway. Rust won’t compile -->
+<!-- our code if the values don’t implement the traits that the trait objects need. -->
 
 トレイトオブジェクトとRustの型システムを使用してダックタイピングを活用したコードに似たコードを書くことの利点は、
-実行時に値が特定のメソッドを実装していると確認したり、値がメソッドを実装していない時にエラーになることを心配したりする必要は絶対になく、
+実行時に値が特定のメソッドを実装しているか確認したり、値がメソッドを実装していない時にエラーになることを心配したりする必要は絶対になく、
 とにかく呼び出せることです。コンパイラは、値が、トレイトオブジェクトが必要としているトレイトを実装していなければ、
 コンパイルを通さないのです。
 
@@ -479,7 +479,7 @@ error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
 <!-- 2行目はandだが、順接の理由で訳している -->
 
 <!-- This error lets us know that either we’re passing something to `Screen` we -->
-<!-- didn’t mean to pass and we should pass a different type, or we should implement -->
+<!-- didn’t mean to pass and we should pass a different type or we should implement -->
 <!-- `Draw` on `String` so that `Screen` is able to call `draw` on it. -->
 
 このエラーは、渡すことを意図していないものを`Screen`に渡しているので、異なる型を渡すべきか、
@@ -491,12 +491,12 @@ error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
 
 <!-- Recall in the “Performance of Code Using Generics” section in Chapter 10 our -->
 <!-- discussion on the monomorphization process performed by the compiler when we -->
-<!-- use trait bounds on generics: the compiler generates non-generic -->
-<!-- implementations of functions and methods for each concrete type that we use in -->
-<!-- place of a generic type parameter. The code that results from monomorphization -->
-<!-- is doing *static dispatch*, which is when the compiler knows what method you’re -->
-<!-- calling at compile time. This is opposed to *dynamic dispatch*, which is when -->
-<!-- the compiler can’t tell at compile time which method you’re calling. In dynamic -->
+<!-- use trait bounds on generics: the compiler generates nongeneric implementations -->
+<!-- of functions and methods for each concrete type that we use in place of a -->
+<!-- generic type parameter. The code that results from monomorphization is doing -->
+<!-- *static dispatch*, which is when the compiler knows what method you’re calling -->
+<!-- at compile time. This is opposed to *dynamic dispatch*, which is when the -->
+<!-- compiler can’t tell at compile time which method you’re calling. In dynamic -->
 <!-- dispatch cases, the compiler emits code that at runtime will figure out which -->
 <!-- method to call. -->
 
@@ -511,9 +511,9 @@ error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
 <!-- know all the types that might be used with the code that is using trait -->
 <!-- objects, so it doesn’t know which method implemented on which type to call. -->
 <!-- Instead, at runtime, Rust uses the pointers inside the trait object to know -->
-<!-- which specific method to call. There is a runtime cost when this lookup happens -->
-<!-- that doesn’t occur with static dispatch. Dynamic dispatch also prevents the -->
-<!-- compiler from choosing to inline a method’s code, which in turn prevents some -->
+<!-- which method to call. There is a runtime cost when this lookup happens that -->
+<!-- doesn’t occur with static dispatch. Dynamic dispatch also prevents the compiler -->
+<!-- from choosing to inline a method’s code, which in turn prevents some -->
 <!-- optimizations. However, we did get extra flexibility in the code that we wrote -->
 <!-- in Listing 17-5 and were able to support in Listing 17-9, so it’s a trade-off -->
 <!-- to consider. -->
@@ -521,7 +521,7 @@ error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
 トレイトオブジェクトを使用すると、コンパイラはダイナミックディスパッチを使用しなければなりません。
 コンパイラは、トレイトオブジェクトを使用しているコードで使用される可能性のある型全てを把握しないので、
 どの型に実装されたどのメソッドを呼び出すかわからないのです。代わりに実行時に、トレイトオブジェクト内でポインタを使用して、
-コンパイラは、どの特定のメソッドを呼ぶか知ります。スタティックディスパッチでは行われないこの検索が起きる時には、
+コンパイラは、どのメソッドを呼ぶか知ります。スタティックディスパッチでは行われないこの検索が起きる時には、
 実行時コストがあります。また、ダイナミックディスパッチは、コンパイラがメソッドのコードをインライン化することも妨げ、
 そのためある種の最適化が不可能になります。ですが、リスト17-5で記述し、
 リスト17-9ではサポートできたコードで追加の柔軟性を確かに得られたので、考慮すべき代償です。
@@ -530,7 +530,7 @@ error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
 
 ### トレイトオブジェクトには、オブジェクト安全性が必要
 
-<!-- You can only make *object safe* traits into trait objects. Some complex rules -->
+<!-- You can only make *object-safe* traits into trait objects. Some complex rules -->
 <!-- govern all the properties that make a trait object safe, but in practice, only -->
 <!-- two rules are relevant. A trait is object safe if all the methods defined in -->
 <!-- the trait have the following properties: -->
@@ -589,7 +589,7 @@ pub trait Clone {
 それが、戻り値の型になるからです。
 
 <!-- The compiler will indicate when you’re trying to do something that violates the -->
-<!-- rules of object safety in regards to trait objects. For example, let’s say we -->
+<!-- rules of object safety in regard to trait objects. For example, let’s say we -->
 <!-- tried to implement the `Screen` struct in Listing 17-4 to hold types that -->
 <!-- implement the `Clone` trait instead of the `Draw` trait, like this: -->
 

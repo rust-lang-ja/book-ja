@@ -15,29 +15,29 @@ Rustにおいて、最もありふれた種類のポインタは、参照であ�
 `&`記号で示唆され、指している値を借用します。データを参照すること以外に特別な能力は何もありません。
 また、オーバーヘッドもなく、最も頻繁に使われる種類のポインタです。
 
-<!-- *Smart pointers*, on the other hand, are data structures that act like a -->
-<!-- pointer but also have additional metadata and capabilities. The concept of -->
+<!-- *Smart pointers*, on the other hand, are data structures that not only act like -->
+<!-- a pointer but also have additional metadata and capabilities. The concept of -->
 <!-- smart pointers isn’t unique to Rust: smart pointers originated in C++ and exist -->
 <!-- in other languages as well. In Rust, the different smart pointers defined in -->
-<!-- the standard library provide extra functionality beyond that provided by -->
-<!-- references. One example that we’ll explore in this chapter is the *reference -->
-<!-- counting* smart pointer type. This pointer enables you to have multiple owners -->
-<!-- of data by keeping track of the number of owners and, when no owners remain, -->
-<!-- taking care of cleaning up the data. -->
+<!-- the standard library provide functionality beyond that provided by references. -->
+<!-- One example that we’ll explore in this chapter is the *reference counting* -->
+<!-- smart pointer type. This pointer enables you to have multiple owners of data by -->
+<!-- keeping track of the number of owners and, when no owners remain, cleaning up -->
+<!-- cleaning up the data. -->
 
-一方、*スマートポインタ*は、ポインタのように振る舞うものの、追加のメタデータと能力があるデータ構造です。
+一方、*スマートポインタ*は、ポインタのように振る舞うだけでなく、追加のメタデータと能力があるデータ構造です。
 スマートポインタという概念は、Rustに固有のものではありません: スマートポインタは、C++に端を発し、
 他の言語にも存在しています。Rustでは、標準ライブラリに定義された色々なスマートポインタが、
-参照以上のおまけの機能を提供します。この章で探究する一つの例が、*参照カウント*方式のスマートポインタ型です。
+参照以上の機能を提供します。この章で探究する一つの例が、*参照カウント*方式のスマートポインタ型です。
 このポインタにより、所有者の数を追いかけることでデータに複数の所有者を持たせることができ、
 所有者がいなくなったら、データの片付けをしてくれます。
 
-<!-- In Rust, where we have the concept of ownership and borrowing, an additional -->
+<!-- In Rust, which uses the concept of ownership and borrowing, an additional -->
 <!-- difference between references and smart pointers is that references are -->
 <!-- pointers that only borrow data; in contrast, in many cases, smart pointers -->
 <!-- *own* the data they point to. -->
 
-所有権と借用の概念があるRustで、参照とスマートポインタの別の差異は、参照はデータを借用するだけのポインタであることです;
+所有権と借用の概念を使うRustで、参照とスマートポインタの別の差異は、参照はデータを借用するだけのポインタであることです;
 対照的に多くの場合、スマートポインタは指しているデータを*所有*します。
 
 <!-- We’ve already encountered a few smart pointers in this book, such as `String` -->
@@ -55,11 +55,11 @@ Rustにおいて、最もありふれた種類のポインタは、参照であ�
 <!-- Smart pointers are usually implemented using structs. The characteristic that -->
 <!-- distinguishes a smart pointer from an ordinary struct is that smart pointers -->
 <!-- implement the `Deref` and `Drop` traits. The `Deref` trait allows an instance -->
-<!-- of the smart pointer struct to behave like a reference so we can write code -->
-<!-- that works with either references or smart pointers. The `Drop` trait allows us -->
-<!-- to customize the code that is run when an instance of the smart pointer goes -->
-<!-- out of scope. In this chapter, we’ll discuss both traits and demonstrate why -->
-<!-- they’re important to smart pointers. -->
+<!-- of the smart pointer struct to behave like a reference so you can write code -->
+<!-- that works with either references or smart pointers. The `Drop` trait allows -->
+<!-- you to customize the code that is run when an instance of the smart pointer -->
+<!-- goes out of scope. In this chapter, we’ll discuss both traits and demonstrate -->
+<!-- why they’re important to smart pointers. -->
 
 スマートポインタは普通、構造体を使用して実装されています。スマートポインタを通常の構造体と区別する特徴は、
 スマートポインタは、`Deref`と`Drop`トレイトを実装していることです。`Deref`トレイトにより、スマートポインタ構造体のインスタンスは、
@@ -77,7 +77,7 @@ Rustにおいて、最もありふれた種類のポインタは、参照であ�
 標準ライブラリの最もありふれたスマートポインタを講義します:
 
 <!-- * `Box<T>` for allocating values on the heap -->
-<!-- * `Rc<T>`, a reference counted type that enables multiple ownership -->
+<!-- * `Rc<T>`, a reference counting type that enables multiple ownership -->
 <!-- * `Ref<T>` and `RefMut<T>`, accessed through `RefCell<T>`, a type that enforces -->
 <!--   the borrowing rules at runtime instead of compile time -->
 

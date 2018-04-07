@@ -4,9 +4,9 @@
 
 <!-- Interestingly, the Rust language has *very* few concurrency features. Almost -->
 <!-- every concurrency feature we’ve talked about so far in this chapter has been -->
-<!-- part of the standard library, not the language. Our options for handling -->
-<!-- concurrency are not limited to the language or the standard library; we can -->
-<!-- write our own concurrency features or use those written by others. -->
+<!-- part of the standard library, not the language. Your options for handling -->
+<!-- concurrency are not limited to the language or the standard library; you can -->
+<!-- write your own concurrency features or use those written by others. -->
 
 面白いことに、Rust言語には、*寡*少な非同期機能があります。この章でここまでに語った非同期処理のほとんどは、
 標準ライブラリの一部であり、言語ではありません。非同期を扱う選択肢は、言語や標準ライブラリに制限されません;
@@ -26,7 +26,7 @@
 <!-- The `Send` marker trait indicates that ownership of the type implementing -->
 <!-- `Send` can be transferred between threads. Almost every Rust type is `Send`, -->
 <!-- but there are some exceptions, including `Rc<T>`: this cannot be `Send` because -->
-<!-- if we cloned an `Rc<T>` value and tried to transfer ownership of the clone to -->
+<!-- if you cloned an `Rc<T>` value and tried to transfer ownership of the clone to -->
 <!-- another thread, both threads might update the reference count at the same time. -->
 <!-- For this reason, `Rc<T>` is implemented for use in single-threaded situations -->
 <!-- where you don’t want to pay the thread-safe performance penalty. -->
@@ -37,7 +37,7 @@ Rustのほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外が
 `Send`になり得ません。このため、`Rc<T>`はスレッド安全性のためのパフォーマンスの犠牲を支払わなくても済む、
 シングルスレッド環境で使用するために実装されているわけです。
 
-<!-- Therefore, Rust’s type system and trait bounds ensure that we can never -->
+<!-- Therefore, Rust’s type system and trait bounds ensure that you can never -->
 <!-- accidentally send an `Rc<T>` value across threads unsafely. When we tried to do -->
 <!-- this in Listing 16-14, we got the error `the trait Send is not implemented for -->
 <!-- Rc<Mutex<i32>>`. When we switched to `Arc<T>`, which is `Send`, the code -->
@@ -61,7 +61,7 @@ Rustのほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外が
 <!-- The `Sync` marker trait indicates that it is safe for the type implementing -->
 <!-- `Sync` to be referenced from multiple threads. In other words, any type `T` is -->
 <!-- `Sync` if `&T` (a reference to `T`) is `Send`, meaning the reference can be -->
-<!-- sent safely to another thread. Similar to `Send`, primitive types are `Sync` -->
+<!-- sent safely to another thread. Similar to `Send`, primitive types are `Sync`, -->
 <!-- and types composed entirely of types that are `Sync` are also `Sync`. -->
 
 `Sync`マーカートレイトは、`Sync`を実装した型は、複数のスレッドから参照されても安全であることを示唆します。
@@ -73,7 +73,7 @@ Rustのほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外が
 <!-- family of related `Cell<T>` types are not `Sync`. The implementation of borrow -->
 <!-- checking that `RefCell<T>` does at runtime is not thread-safe. The smart -->
 <!-- pointer `Mutex<T>` is `Sync` and can be used to share access with multiple -->
-<!-- threads, as you saw in the “Sharing a `Mutex<T>` Between Multiple Threads” -->
+<!-- threads as you saw in the “Sharing a `Mutex<T>` Between Multiple Threads” -->
 <!-- section. -->
 
 `Send`ではなかったのと同じ理由で、スマートポインタの`Rc<T>`もまた`Sync`ではありません。
@@ -115,11 +115,11 @@ unsafeなRustコードを使用することについては第19章で語りま�
 ## まとめ
 
 <!-- This isn’t the last you’ll see of concurrency in this book: the project in -->
-<!-- Chapter 20 will use the concepts examined in this chapter in a more realistic -->
-<!-- situation than the smaller examples discussed here. -->
+<!-- Chapter 20 will use the concepts in this chapter in a more realistic situation -->
+<!-- than the smaller examples discussed here. -->
 
 この本において非同期処理を見かけるのは、これで最後ではありません: 第20章のプロジェクトでは、
-この章で調査した概念をここで議論した微小な例よりもより現実的な場面で使用するでしょう。
+この章の概念をここで議論した微小な例よりもより現実的な場面で使用するでしょう。
 
 <!-- 最後はmutithreaded situationsとなっているが、situationを環境と訳した方が自然なので、そうしている -->
 
@@ -137,8 +137,8 @@ unsafeなRustコードを使用することについては第19章で語りま�
 <!-- pointer types, such as `Mutex<T>` and `Arc<T>`, that are safe to use in -->
 <!-- concurrent contexts. The type system and the borrow checker ensure that the -->
 <!-- code using these solutions won’t end up with data races or invalid references. -->
-<!-- Once we get our code to compile, we can rest assured that it will happily run -->
-<!-- on multiple threads without the kinds of hard-to-track-down bugs common in -->
+<!-- Once you get our code to compile, you can rest assured that it will happily -->
+<!-- run on multiple threads without the kinds of hard-to-track-down bugs common in -->
 <!-- other languages. Concurrent programming is no longer a concept to be afraid of: -->
 <!-- go forth and make your programs concurrent, fearlessly! -->
 

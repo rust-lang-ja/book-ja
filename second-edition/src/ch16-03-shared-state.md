@@ -1,4 +1,4 @@
-<!-- ## Shared State Concurrency -->
+<!-- ## Shared-State Concurrency -->
 
 ## 状態共有非同期処理
 
@@ -11,7 +11,7 @@ Go言語ドキュメンテーションのスローガンのこの部分を再び
 「メモリを共有することでやり取りする。」
 
 <!-- What would communicating by sharing memory look like? In addition, why would -->
-<!-- message passing enthusiasts not use it and do the opposite instead? -->
+<!-- message-passing enthusiasts not use it and do the opposite instead? -->
 
 メモリを共有することでやり取りするとはどんな感じなのでしょうか？さらに、
 なぜメッセージ受け渡しに熱狂的な人は、それを使わず、代わりに全く反対のことをするのでしょうか？
@@ -19,12 +19,12 @@ Go言語ドキュメンテーションのスローガンのこの部分を再び
 <!-- In a way, channels in any programming language are similar to single ownership, -->
 <!-- because once you transfer a value down a channel, you should no longer use that -->
 <!-- value. Shared memory concurrency is like multiple ownership: multiple threads -->
-<!-- can access the same memory location at the same time. As you saw in Chapter 15 -->
+<!-- can access the same memory location at the same time. As you saw in Chapter 15, -->
 <!-- where smart pointers made multiple ownership possible, multiple ownership can -->
-<!-- add additional complexity because these different owners need managing. Rust’s -->
-<!-- type system and ownership rules greatly assist in getting this management -->
-<!-- correct. For an example, let’s look at mutexes, one of the more common -->
-<!-- concurrency primitives for shared memory. -->
+<!-- add complexity because these different owners need managing. Rust’s type system -->
+<!-- and ownership rules greatly assist in getting this management correct. For an -->
+<!-- example, let’s look at mutexes, one of the more common concurrency primitives -->
+<!-- for shared memory. -->
 
 ある意味では、どんなプログラミング言語のチャンネルも単独の所有権に類似しています。
 一旦チャンネルに値を転送したら、その値は最早使用することがないからです。
@@ -34,46 +34,46 @@ Go言語ドキュメンテーションのスローガンのこの部分を再び
 Rustの型システムと所有権ルールにより、この管理を正当に行う大きな助けになります。
 例を挙げれば、メモリ共有を行うより一般的な非同期処理の基本型の一つであるミューテックスを見ましょう。
 
-<!-- ### Mutexes Allow Access to Data from One Thread at a Time -->
+<!-- ### Using Mutexes to Allow Access to Data from One Thread at a Time -->
 
-### ミューテックスは、一度に1つのスレッドからデータにアクセスすることを許可する
+### ミューテックスを使用して一度に1つのスレッドからデータにアクセスすることを許可する
 
 <!-- 1行目、as in,が肝だが、inの後は普通名詞に相当するものが来るはずだが、文になっている -->
 
-<!-- A *mutex* is an abbreviation for “mutual exclusion,” as in, it only allows one -->
-<!-- thread to access some data at any given time. To access the data in a mutex, a -->
-<!-- thread must first signal that it wants access by asking to acquire the mutex’s -->
-<!-- *lock*. The lock is a data structure that is part of the mutex that keeps track -->
-<!-- of who currently has exclusive access to the data. Therefore, we describe the -->
-<!-- mutex as *guarding* the data it holds via the locking system. -->
+<!-- *Mutex* is an abbreviation for “mutual exclusion,” as in, a mutex allows only -->
+<!-- one thread to access some data at any given time. To access the data in a -->
+<!-- mutex, a thread must first signal that it wants access by asking to acquire the -->
+<!-- mutex's *lock*. The lock is a data structure that is part of the mutex that -->
+<!-- keeps track of who currently has exclusive access to the data. Therefore, the -->
+<!-- mutex is described as *guarding* the data it holds via the locking system. -->
 
 ミューテックスは、どんな時も1つのスレッドにしかなんらかのデータへのアクセスを許可しないというように、
 "mutual exclusion"(相互排他)の省略形です。ミューテックスにあるデータにアクセスするには、
 ミューテックスのロックを所望することでアクセスしたいことをまず、スレッドは通知しなければなりません。
 ロックとは、現在誰がデータへの排他的アクセスを行なっているかを追跡するミューテックの一部をなすデータ構造です。
-故に、ミューテックスをロックシステム経由で保持しているデータを*死守する*(guarding)と解説します。
+故に、ミューテックスはロックシステム経由で保持しているデータを*死守する*(guarding)と解説されます。
 
 <!-- Mutexes have a reputation for being difficult to use because you have to -->
 <!-- remember two rules: -->
 
 ミューテックスは、2つの規則を覚えておく必要があるため、難しいという評判があります:
 
-<!-- 1. You must attempt to acquire the lock before using the data. -->
-<!-- 2. When you’re done with the data that the mutex guards, you must unlock the -->
-<!--    data so other threads can acquire the lock. -->
+<!-- * You must attempt to acquire the lock before using the data. -->
+<!-- * When you’re done with the data that the mutex guards, you must unlock the -->
+<!--   data so other threads can acquire the lock. -->
 
-1. データを使用する前にロックの獲得を試みなければならない。
-2. ミューテックスが死守しているデータの使用が終わったら、他のスレッドがロックを獲得できるように、
-   データをアンロックしなければならない。
+* データを使用する前にロックの獲得を試みなければならない。
+* ミューテックスが死守しているデータの使用が終わったら、他のスレッドがロックを獲得できるように、
+  データをアンロックしなければならない。
 
-<!-- For a real-world metaphor of a mutex, imagine a panel discussion at a -->
+<!-- For a real-world metaphor for a mutex, imagine a panel discussion at a -->
 <!-- conference with only one microphone. Before a panelist can speak, they have to -->
 <!-- ask or signal that they want to use the microphone. When they get the -->
 <!-- microphone, they can talk for as long as they want to and then hand the -->
 <!-- microphone to the next panelist who requests to speak. If a panelist forgets to -->
 <!-- hand the microphone off when they’re finished with it, no one else is able to -->
-<!-- speak. If management of the shared microphone goes wrong, the panel wouldn’t -->
-<!-- work as planned! -->
+<!-- speak. If management of the shared microphone goes wrong, the panel won’t work -->
+<!-- as planned! -->
 
 ミューテックスを現実世界の物で例えるなら、マイクが1つしかない会議のパネルディスカッションを思い浮かべてください。
 パネリストが発言できる前に、マイクを使用したいと申し出たり、通知しなければなりません。マイクを受け取ったら、
@@ -83,7 +83,7 @@ Rustの型システムと所有権ルールにより、この管理を正当に�
 
 <!-- Management of mutexes can be incredibly tricky to get right, which is why so -->
 <!-- many people are enthusiastic about channels. However, thanks to Rust’s type -->
-<!-- system and ownership rules, we can’t get locking and unlocking wrong. -->
+<!-- system and ownership rules, you can’t get locking and unlocking wrong. -->
 
 ミューテックスの管理は、正しく行うのに著しく巧妙なことがあるので、多くの人がチャンネルに熱狂的になるわけです。
 しかしながら、Rustの型システムと所有権ルールのおかげで、ロックとアンロックを間違えることはありません。
@@ -221,8 +221,8 @@ fn main() {
 
 <span class="caption">リスト16-13: `Mutex<T>`により死守されているカウンタを10個のスレッドがそれぞれインクリメントする</span>
 
-<!-- We’re creating a `counter` variable to hold an `i32` inside a `Mutex<T>`, as we -->
-<!-- did in Listing 16-12. Next, we’re creating 10 threads by mapping over a range -->
+<!-- We create a `counter` variable to hold an `i32` inside a `Mutex<T>`, as we -->
+<!-- did in Listing 16-12. Next, we create 10 threads by mapping over a range -->
 <!-- of numbers. We use `thread::spawn` and give all the threads the same closure, -->
 <!-- one that moves the counter into the thread, acquires a lock on the `Mutex<T>` -->
 <!-- by calling the `lock` method, and then adds 1 to the value in the mutex. When a -->
@@ -236,17 +236,17 @@ fn main() {
 スレッドがクロージャを実行し終わったら、`num`はスコープ外に出てロックを解除するので、
 他のスレッドが獲得できるわけです。
 
-<!-- In the main thread, we collect all the join handles, as we did in Listing 16-2, -->
-<!-- and then call `join` on each to make sure all the threads finish. At that -->
-<!-- point, the main thread will acquire the lock and print the result of this -->
+<!-- In the main thread, we collect all the join handles. Then, as we did in Listing -->
+<!-- 16-2, we call `join` on each to make sure all the threads finish. At -->
+<!-- that point, the main thread will acquire the lock and print the result of this -->
 <!-- program. -->
 
-メインスレッドでリスト16-2のように全てのjoinハンドルを収集し、それから各々に対して`join`を呼び出し、
+メインスレッドで全てのjoinハンドルを収集します。それからリスト16-2のように、各々に対して`join`を呼び出し、
 全スレッドが終了するのを確かめています。その時点で、メインスレッドはロックを獲得し、このプログラムの結果を出力します。
 
-<!-- We hinted that this example won’t compile, now let’s find out why! -->
+<!-- We hinted that this example wouldn’t compile. Now let’s find out why! -->
 
-この例はコンパイルできないと仄めかしたので、では、理由を探りましょう！
+この例はコンパイルできないでしょうと仄めかしました。では、理由を探りましょう！
 
 ```text
 error[E0382]: capture of moved value: `counter`
@@ -278,8 +278,8 @@ error: aborting due to 2 previous errors
 ```
 
 <!-- The error message states that the `counter` value is moved into the closure and -->
-<!-- then is captured when we call `lock`. That description sounds like what we -->
-<!-- wanted, but it’s not allowed! -->
+<!-- then captured when we call `lock`. That description sounds like what we wanted, -->
+<!-- but it’s not allowed! -->
 
 エラーメッセージは、`counter`値はクロージャにムーブされ、それから`lock`を呼び出したときにキャプチャされていると述べています。
 その説明は、所望した動作のように聞こえますが、許可されていないのです！
@@ -293,19 +293,33 @@ error: aborting due to 2 previous errors
 リスト16-13の最初の`for`ループを代わりにこのコードと置き換えてください:
 
 ```rust,ignore
-let handle = thread::spawn(move || {
-    let mut num = counter.lock().unwrap();
+use std::sync::Mutex;
+use std::thread;
 
-    *num += 1;
-});
-handles.push(handle);
+fn main() {
+    let counter = Mutex::new(0);
+    let mut handles = vec![];
 
-let handle2 = thread::spawn(move || {
-    let mut num2 = counter.lock().unwrap();
+    let handle = thread::spawn(move || {
+        let mut num = counter.lock().unwrap();
 
-    *num2 += 1;
-});
-handles.push(handle2);
+        *num += 1;
+    });
+    handles.push(handle);
+
+    let handle2 = thread::spawn(move || {
+        let mut num2 = counter.lock().unwrap();
+
+        *num2 += 1;
+    });
+    handles.push(handle2);
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!("Result: {}", *counter.lock().unwrap());
+}
 ```
 
 <!-- We make two threads and change the variable names used with the second thread -->
@@ -364,16 +378,16 @@ error: aborting due to 2 previous errors
 #### 複数のスレッドで複数の所有権
 
 <!-- In Chapter 15, we gave a value multiple owners by using the smart pointer -->
-<!-- `Rc<T>` to create a reference-counted value. Let’s do the same here and see -->
+<!-- `Rc<T>` to create a reference counted value. Let’s do the same here and see -->
 <!-- what happens. We’ll wrap the `Mutex<T>` in `Rc<T>` in Listing 16-14 and clone -->
 <!-- the `Rc<T>` before moving ownership to the thread. Now that we’ve seen the -->
 <!-- errors, we’ll also switch back to using the `for` loop, and we’ll keep the -->
-<!-- `move` keyword with the closure: -->
+<!-- `move` keyword with the closure. -->
 
 第15章で、スマートポインタの`Rc<T>`を使用して参照カウントの値を作ることで、1つの値に複数の所有者を与えました。
 同じことをここでもして、どうなるか見ましょう。リスト16-14で`Rc<T>`に`Mutex<T>`を包含し、
 所有権をスレッドに移す前に`Rc<T>`をクローンします。今やエラーを確認したので、
-`for`ループの使用に立ち戻り、クロージャに`move`キーワードを使用し続けます:
+`for`ループの使用に立ち戻り、クロージャに`move`キーワードを使用し続けます。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -419,15 +433,10 @@ fn main() {
 ```text
 error[E0277]: the trait bound `std::rc::Rc<std::sync::Mutex<i32>>:
 std::marker::Send` is not satisfied in `[closure@src/main.rs:11:36:
-<<<<<<< HEAD
-15:10
-counter:std::rc::Rc<std::sync::Mutex<i32>>]`
+15:10 counter:std::rc::Rc<std::sync::Mutex<i32>>]`
 (エラー: トレイト境界`std::rc::Rc<std::sync::Mutex<i32>>:
 std::marker::Send`は`[closure@src/main.rs:11:36:15:10
 counter:std::rc::Rc<std::sync::Mutex<i32>>]`で満たされていません)
-=======
-15:10 counter:std::rc::Rc<std::sync::Mutex<i32>>]`
->>>>>>> fork_master_master
   --> src/main.rs:11:22
    |
 11 |         let handle = thread::spawn(move || {
@@ -442,14 +451,9 @@ not implemented for `std::rc::Rc<std::sync::Mutex<i32>>`
      counter:std::rc::Rc<std::sync::Mutex<i32>>]`内でトレイト`std::marker::Send`は、
      `std::rc::Rc<std::sync::Mutex<i32>>`に対して実装されていません)
    = note: required because it appears within the type
-<<<<<<< HEAD
-`[closure@src/main.rs:11:36: 15:10
-counter:std::rc::Rc<std::sync::Mutex<i32>>]`
+`[closure@src/main.rs:11:36: 15:10 counter:std::rc::Rc<std::sync::Mutex<i32>>]`
      (注釈: 型`[closure@src/main.rs:11:36 15:10
      counter:std::rc::Rc<std::sync::Mutex<i32>>]`内に出現するので必要です)
-=======
-`[closure@src/main.rs:11:36: 15:10 counter:std::rc::Rc<std::sync::Mutex<i32>>]`
->>>>>>> fork_master_master
    = note: required by `std::thread::spawn`
      (注釈: `std::thread::spawn`により必要とされています)
 ```
@@ -489,7 +493,7 @@ between threads safely``と述べています。この理由は、次に注目�
 #### `Arc<T>`で原子的な参照カウント
 
 <!-- Fortunately, `Arc<T>` *is* a type like `Rc<T>` that is safe to use in -->
-<!-- concurrent situations. The ‘a’ stands for *atomic*, meaning it’s an *atomically -->
+<!-- concurrent situations. The *a* stands for *atomic*, meaning it’s an *atomically -->
 <!-- reference counted* type. Atomics are an additional kind of concurrency -->
 <!-- primitive that we won’t cover in detail here: see the standard library -->
 <!-- documentation for `std::sync::atomic` for more details. At this point, you just -->
@@ -497,7 +501,7 @@ between threads safely``と述べています。この理由は、次に注目�
 <!-- across threads. -->
 
 幸いなことに、`Arc<T>`は`Rc<T>`のような非同期処理の状況で安全に使用できる型*です*。
-'a'は*atomic*を表し、原子的に参照カウントする型を意味します。アトミックは、
+*a*は*atomic*を表し、原子的に参照カウントする型を意味します。アトミックは、
 ここでは詳しく講義しない非同期処理の別の基本型です: 詳細は、
 `std::sync::atomic`の標準ライブラリドキュメンテーションを参照されたし。現時点では、
 アトミックは、基本型のように動くけれども、スレッド間で共有しても安全なことだけ知っていればいいです。
@@ -567,7 +571,7 @@ Result: 10
 <!-- did teach us a lot about `Mutex<T>` and thread safety. You could also use this -->
 <!-- program’s structure to do more complicated operations than just incrementing a -->
 <!-- counter. Using this strategy, you can divide a calculation into independent -->
-<!-- parts, split those parts across threads, then use a `Mutex<T>` to have each -->
+<!-- parts, split those parts across threads, and then use a `Mutex<T>` to have each -->
 <!-- thread update the final result with its part. -->
 
 やりました！0から10まで数え上げました。これは、あまり印象的ではないように思えるかもしれませんが、
@@ -580,19 +584,19 @@ Result: 10
 
 ### `RefCell<T>`/`Rc<T>`と`Mutex<T>`/`Arc<T>`の類似性
 
-<!-- You might have noticed that `counter` is immutable, but we could get a mutable -->
+<!-- You might have noticed that `counter` is immutable but we could get a mutable -->
 <!-- reference to the value inside it; this means `Mutex<T>` provides interior -->
-<!-- mutability, like the `Cell` family does. In the same way we used `RefCell<T>` -->
-<!-- in Chapter 15 to allow us to mutate contents inside an `Rc<T>`, we use -->
-<!-- `Mutex<T>` to mutate contents inside an `Arc<T>`. -->
+<!-- mutability, as the `Cell` family does. In the same way we used `RefCell<T>` in -->
+<!-- Chapter 15 to allow us to mutate contents inside an `Rc<T>`, we use `Mutex<T>` -->
+<!-- to mutate contents inside an `Arc<T>`. -->
 
 `counter`は不変なのに、その内部にある値への可変参照を得ることができたことに気付いたでしょうか;
 つまり、`Mutex<T>`は、`Cell`系のように内部可変性(interior mutability)を提供するわけです。
 第15章で`RefCell<T>`を使用して`Rc<T>`の内容を可変化できるようにしたのと同様に、
 `Mutex<T>`を使用して`Arc<T>`の内容を可変化しているのです。
 
-<!-- Another detail to note is that Rust can’t protect us from all kinds of logic -->
-<!-- errors when we use `Mutex<T>`. Recall in Chapter 15 that using `Rc<T>` came -->
+<!-- Another detail to note is that Rust can’t protect you from all kinds of logic -->
+<!-- errors when you use `Mutex<T>`. Recall in Chapter 15 that using `Rc<T>` came -->
 <!-- with the risk of creating reference cycles, where two `Rc<T>` values refer to -->
 <!-- each other, causing memory leaks. Similarly, `Mutex<T>` comes with the risk of -->
 <!-- creating *deadlocks*. These occur when an operation needs to lock two resources -->
@@ -613,7 +617,7 @@ Result: 10
 Rustでそれを実装してみてください。`Mutex<T>`と`MutexGuard`に関する標準ライブラリのAPIドキュメンテーションは、
 役に立つ情報を提供してくれます。
 
-<!-- We’ll round out this chapter by talking about the `Send` and `Sync` traits, and -->
+<!-- We’ll round out this chapter by talking about the `Send` and `Sync` traits and -->
 <!-- how we can use them with custom types. -->
 
 `Send`と`Sync`トレイトと、それらを独自の型で使用する方法について語って、この章を締めくくります。
