@@ -6,7 +6,7 @@
 <!-- without realizing it! This section provides you with a reference to all the -->
 <!-- places where patterns are valid. -->
 
-Rustにおいて、パターンはいろんな箇所に出現し、そうと気づかないうちに色々使用してきました！
+Rustにおいて、パターンはいろんな箇所に出現し、そうと気づかないうちにたくさん使用してきました！
 この節は、パターンが合法な箇所全部の参照になります。
 
 <!-- ### `match` Arms -->
@@ -38,7 +38,7 @@ match VALUE {
 
 `match`式の必須事項の1つは、`match`式の値の可能性全てが考慮されなければならないという意味で*網羅的*である必要があることです。
 全可能性をカバーしていると保証する1つの手段は、最後のアームに包括的なパターンを入れることです:
-例えば、どんな値にも合致する変数名は失敗することがあり得ないので、ゆえに残りの全ケースをカバーできます。
+例えば、どんな値にも合致する変数名は失敗することがあり得ないので、故に残りの全ケースをカバーできます。
 
 <!-- A particular pattern `_` will match anything, but it never binds to a variable, -->
 <!-- so it’s often used in the last match arm. The `_` pattern can be useful when -->
@@ -78,7 +78,7 @@ match VALUE {
 <!-- from user input. -->
 
 リスト18-1のコードは、背景色が何になるべきかを決定するいくつかの異なる条件を連なって確認するところを示しています。
-この例には、実際のプログラムではユーザ入力を受け付ける可能性のあるハードコードされた値で変数を生成しています。
+この例には、実際のプログラムではユーザ入力を受け付ける可能性のある変数をハードコードされた値で生成しています。
 
 <!-- If the user specifies a favorite color, that color is the background color. If -->
 <!-- today is Tuesday, the background color will be green. If the user specifies -->
@@ -153,7 +153,7 @@ fn main() {
 <!-- not alert us to the possible logic bug. -->
 
 `if let`式を使うことの欠点は、コンパイラが網羅性を確認してくれないことです。一方で`match`式ではしてくれます。
-最後の`else`ブロックを省略して故に、扱い忘れた場合があっても、コンパイラは、ロジックバグの可能性を指摘してくれないでしょう。
+最後の`else`ブロックを省略して故に、扱い忘れたケースがあっても、コンパイラは、ロジックバグの可能性を指摘してくれないでしょう。
 
 <!-- ### `while let` Conditional Loops -->
 
@@ -164,7 +164,7 @@ fn main() {
 <!-- Listing 18-2 shows a `while let` loop that uses a vector as a stack and prints -->
 <!-- out the values in the vector in the opposite order in which they were pushed: -->
 
-`if let`の構成に似て、`while let`条件分岐ループは、パターンが合致し続ける限り、`while`ループを走らせます。
+`if let`と構成が似て、`while let`条件分岐ループは、パターンが合致し続ける限り、`while`ループを走らせます。
 リスト18-2の例は、ベクタをスタックとして使用する`while let`ループを示し、
 ベクタの値をプッシュしたのとは逆順に出力します:
 
@@ -359,8 +359,8 @@ error[E0308]: mismatched types
 <!-- declares a function named `foo` that takes one parameter named `x` of type -->
 <!-- `i32`, should by now look familiar: -->
 
-関数の引数もパターンになれます。リスト18-6のコードは、型`i32`の`x`という引数1つを取る`foo`という関数を宣言していますが、
-これまでに馴染み深いはずです:
+関数の引数もパターンにできます。リスト18-6のコードは、型`i32`の`x`という引数1つを取る`foo`という関数を宣言していますが、
+これまでに馴染み深くなっているはずです:
 
 ```rust
 fn foo(x: i32) {

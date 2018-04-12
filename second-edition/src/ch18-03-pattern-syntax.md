@@ -113,7 +113,7 @@ fn main() {
 
 `x`が`Some(5)`ではなく`None`値だったなら、最初の2つのアームのパターンはマッチしなかったので、
 値はアンダースコアに合致したでしょう。アンダースコアのアームのパターンでは`x`変数を導入しなかったので、
-その式の`x`は、それでもシャドウイングされない外側の`x`のままです。この架空の場合、
+その式の`x`は、まだシャドウイングされない外側の`x`のままです。この架空の場合、
 `match`は`Default case, x = None`と出力するでしょう。
 
 <!-- When the `match` expression is done, its scope ends, and so does the scope of -->
@@ -239,7 +239,7 @@ match x {
 <!-- Listing 18-12 shows a `Point` struct with two fields, `x` and `y`, that we can -->
 <!-- break apart using a pattern with a `let` statement: -->
 
-リスト18-12は、`let`文でパターンを使用して分解できる2つのフィールド`x`と`y`のある`Point`構造体を示しています:
+リスト18-12は、`let`文でパターンを使用して分離できる2つのフィールド`x`と`y`のある`Point`構造体を示しています:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -367,7 +367,7 @@ fn main() {
 <!-- the `y` field matches if its value matches the literal `0`. The pattern still -->
 <!-- creates an `x` variable that we can use in the code for this arm. -->
 
-最初のアームは、`y`フィールドの値がリテラル`0`と一致するなら、マッチすると指定することで`x`軸上にあるどんな点とも一致します。
+最初のアームは、`y`フィールドの値がリテラル`0`と一致するならマッチすると指定することで、`x`軸上にあるどんな点とも一致します。
 このパターンはそれでも、このアームのコードで使用できる`x`変数を生成します。
 
 <!-- Similarly, the second arm matches any point on the `y` axis by specifying that -->
@@ -450,7 +450,7 @@ fn main() {
 <!-- This code will print `Change the color to red 0, green 160, and blue 255`. Try -->
 <!-- changing the value of `msg` to see the code from the other arms run. -->
 
-このコードは、`Change the color to red 0, green 100, blue 255`と出力します。
+このコードは、`Change the color to red 0, green 160, blue 255`と出力します。
 試しに`msg`の値を変更して、他のアームのコードが走るところを確認してください。
 
 <!-- For enum variants without any data, like `Message::Quit`, we can’t destructure -->
@@ -467,7 +467,7 @@ fn main() {
 <!-- we did in Listing 18-13. -->
 
 `Message::Move`のような構造体に似たenumの列挙子については、構造体と一致させるために指定するパターンと似たパターンを使用できます。
-列挙子の名前の後に波括弧を配置し、それから変数とともにフィールドを列挙するので、部品を分解してこのアームのコードで使用します。
+列挙子の名前の後に波括弧を配置し、それから変数とともにフィールドを列挙するので、部品を分離してこのアームのコードで使用します。
 ここでは、リスト18-13のように省略形態を使用しています。
 
 <!-- For tuple-like enum variants, like `Message::Write` that holds a tuple with one -->
@@ -495,7 +495,7 @@ fn main() {
 パターンとマッチさせている値に参照が含まれる場合、値から参照を分解する必要があり、
 パターンに`&`を指定することでそうすることができます。そうすることで参照を保持する変数を得るのではなく、
 参照が指している値を保持する変数が得られます。このテクニックは特に、参照を走査するイテレータがあるけれども、
-参照ではなく、クロージャで値を使用したいクロージャで役に立ちます。
+参照ではなく、クロージャで値を使用したいクロージャで特に役に立ちます。
 
 <!-- The example in Listing 18-16 iterates over references to `Point` instances in a -->
 <!-- vector, and destructures the reference and the struct so we can perform -->
@@ -532,7 +532,7 @@ let sum_of_squares: i32 = points
 <!-- together, and then adding the result for each `Point` in the `points` vector to -->
 <!-- get one number. -->
 
-このコードは、値135を保持する変数`sum_of_squares`を与え、これは、`x`値と`y`値を2乗し、足し合わせ、
+このコードは、値135を保持する変数`sum_of_squares`を返してきて、これは、`x`値と`y`値を2乗し、足し合わせ、
 `points`ベクタの`Point`それぞれの結果を足して1つの数値にした結果です。
 
 <!-- If we had not included the `&` in `&Point { x, y }` we’d get a type mismatch -->
@@ -602,7 +602,7 @@ let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
 <!-- parts of a value. Let’s explore how and why to use each of these patterns. -->
 
 `match`の最後のアームのように、パターンの値を無視して実際には何もしないけれども、
-残りの全ての値の可能性を考慮する包括的なものを得ることは時として有用であると認識しました。
+残りの全ての値の可能性を考慮する包括的なものを得ることは時として有用であると認識しましたね。
 値全体やパターンの一部の値を無視する方法はいくつかあります: `_`パターンを使用すること(もう見かけました)、
 他のパターン内で`_`パターンを使用すること、アンダースコアで始まる名前を使用すること、`..`を使用して値の残りの部分を無視することです。
 これらのパターンそれぞれを使用する方法と理由を探求しましょう。
@@ -707,9 +707,9 @@ println!("setting is {:?}", setting_value);
 <!-- changed. -->
 
 このコードは、`Can't overwrite an existing customized value`、そして`setting is Some(5)`と出力するでしょう。
-最初のマッチアームで、どちらの`Some`列挙子内部の値にも合致したり、使用する必要はありませんが、
+最初のマッチアームで、どちらの`Some`列挙子内部の値にも合致させたり、使用する必要はありませんが、
 `setting_value`と`new_setting_value`が`Some`列挙子の場合を確かに確認する必要があります。
-その場合、何故`setting_value`を変更しないかを出力し、変更されません。
+その場合、何故`setting_value`を変更しないかを出力し、変更しません。
 
 <!-- In all other cases (if either `setting_value` or `new_setting_value` are -->
 <!-- `None`) expressed by the `_` pattern in the second arm, we want to allow -->
@@ -761,7 +761,7 @@ match numbers {
 しかし時として、まだ使用しない変数を作るのが有用なこともあります。プロトタイプを開発したり、
 プロジェクトを始めた直後だったりなどです。このような場面では、変数名をアンダースコアで始めることで、
 コンパイラに未使用変数について警告しないよう指示することができます。リスト18-20で2つの未使用変数を生成していますが、
-このコードを実行すると、そのうちの1つのにしか警告が出ないはずです。
+このコードを実行すると、そのうちの1つにしか警告が出ないはずです。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -777,7 +777,7 @@ fn main() {
 <!-- <span class="caption">Listing 18-20: Starting a variable name with an -->
 <!-- underscore to avoid getting unused variable warnings</span> -->
 
-<span class="caption">リスト18-20: アンダースコアで変数名を始めて未使用変数警告を得るのを回避する</span>
+<span class="caption">リスト18-20: アンダースコアで変数名を始めて未使用変数警告が出るのを回避する</span>
 
 <!-- Here we get a warning about not using the variable `y`, but we don’t get a -->
 <!-- warning about not using the variable preceded by the underscore. -->
@@ -816,7 +816,7 @@ println!("{:?}", s);
 <!-- doesn’t ever bind to the value. Listing 18-22 will compile without any errors -->
 <!-- because `s` doesn’t get moved into `_`: -->
 
-`s`値は`_s`にムーブされ、再度`s`を使用できなくするので、エラーを受け取るでしょう。ですが、
+それでも`s`値は`_s`にムーブされ、再度`s`を使用できなくするので、エラーを受け取るでしょう。ですが、
 アンダースコアを単独で使用すれば、値を束縛することは全くありません。
 `s`が`_`にムーブされないので、リスト18-22はエラーなくコンパイルできます:
 
@@ -989,7 +989,7 @@ error: `..` can only be used once per tuple or tuple struct pattern
 通常、パターンにマッチさせると、パターンで導入された変数は値に束縛されます。Rustの所有権規則は、
 その値が`match`などパターンを使用しているあらゆる場所にムーブされることを意味します。
 リスト18-26は、変数があるパターンとそれから`match`の後に値全体を`println!`文で後ほど使用する`match`の例を示しています。
-このコードはコンパイルに失敗します。`robot_name`値の部分の所有権が、
+このコードはコンパイルに失敗します。`robot_name`値の一部の所有権が、
 最初の`match`アームのパターンの`name`変数に移るからです。
 
 ```rust,ignore
@@ -1024,7 +1024,7 @@ println!("robot_name is: {:?}", robot_name);
 
 このコードを修正するために、`Some(name)`パターンに所有権を奪わせるのではなく、
 `robot_name`のその部分を借用させたいです。パターンの外なら、値を借用する手段は、
-`&`で参照を生成することだと既にご認識でしょうから、解決策は`Some(name)`を`Some(&name)`に変えることだと考える可能性があります。
+`&`で参照を生成することだと既にご認識でしょうから、解決策は`Some(name)`を`Some(&name)`に変えることだとお考えかもしれませんね。
 
 <!-- However, as you saw in the “Destructuring to Break Apart Values” section, the -->
 <!-- syntax `&` in patterns does not *create* a reference but *matches* an existing -->
@@ -1108,13 +1108,13 @@ println!("robot_name is: {:?}", robot_name);
 
 *マッチガード*は、`match`アームのパターンの後に指定されるパターンマッチングとともに、
 そのアームが選択されるのにマッチしなければならない追加の`if`条件です。マッチガードは、
-1つのパターン単独でできるよりも複雑な思考を表現するのに役に立ちます。
+1つのパターン単独でできるよりも複雑な考えを表現するのに役に立ちます。
 
 <!-- The condition can use variables created in the pattern. Listing 18-29 shows a -->
 <!-- `match` where the first arm has the pattern `Some(x)` and also has a match -->
 <!-- guard of `if x < 5`: -->
 
-その条件は、パターンで生成された変数を使用できます。リスト18-29は、
+この条件は、パターンで生成された変数を使用できます。リスト18-29は、
 最初のアームにパターン`Some(x)`と`if x < 5`というマッチガードもある`match`を示しています:
 
 ```rust
@@ -1147,7 +1147,7 @@ match num {
 <!-- therefore matches any `Some` variant. -->
 
 代わりに`num`が`Some(10)`だったなら、最初のアームのマッチガードは偽になったでしょう。
-10は5未満ではないからです。言語はそうしたら2番目のアームに移動し、マッチするでしょう。
+10は5未満ではないからです。Rustはそうしたら2番目のアームに移動し、マッチするでしょう。
 2番目のアームにはマッチガードがなく、それ故にあらゆる`Some`列挙子に一致するからです。
 
 <!-- There is no way to express the `if x < 5` condition within a pattern, so the -->
@@ -1211,7 +1211,7 @@ fn main() {
 
 マッチガードの`if n == y`はパターンではなく、故に新しい変数を導入しません。この`y`は、
 新しいシャドウイングされた`y`ではなく、外側の`y`*であり*、`n`と`y`を比較することで、
-外側の`y`と同じ値の値を探すことができます。
+外側の`y`と同じ値を探すことができます。
 
 <!-- You can also use the *or* operator `|` in a match guard to specify multiple -->
 <!-- patterns; the match guard condition will apply to all the patterns. Listing -->
@@ -1336,7 +1336,7 @@ match msg {
 <!-- isn’t able to use the value from the `id` field, because we haven’t saved the -->
 <!-- `id` value in a variable. -->
 
-パターンで範囲しか指定していない2番目のアームでは、アームに紐付いたコードには`id`フィールドの実際の値を含む変数はありません。
+パターンで範囲しか指定していない2番目のアームでは、アームに紐付いたコードに`id`フィールドの実際の値を含む変数はありません。
 `id`フィールドの値は10、11、12だった可能性もありますが、そのパターンに当てはまるコードは、
 どれなのかわかりません。パターンのコードは`id`フィールドの値を使用することは叶いません。
 `id`の値を変数に保存していないからです。
