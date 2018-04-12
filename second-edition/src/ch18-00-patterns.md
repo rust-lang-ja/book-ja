@@ -46,7 +46,7 @@
 <!-- might see. By the end of the chapter, you’ll know how to use patterns to -->
 <!-- express many concepts in a clear way. -->
 
-この章は、パターンに関連するあらゆるものの参考文献です。パターンを使用するのが合法な箇所、
+この章は、パターンに関連するあらゆるものの参照です。パターンを使用するのが合法な箇所、
 *<ruby>論駁<rp>(</rp><rt>ろんばく</rt><rp>)</rp></ruby>可能*と*論駁不可能*なパターンの違い、
 目撃する可能性のある異なる種類のパターン記法を講義します。章の終わりまでに、
 パターンを使用して多くの概念をはっきり表現する方法を知るでしょう。
