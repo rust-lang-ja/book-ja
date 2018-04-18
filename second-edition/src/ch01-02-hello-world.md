@@ -290,6 +290,8 @@ $ ./main # or .\main.exe on Windows
 
 *main.rs*が"Hello, world!"プログラムなら、この行は`Hello, world!`と端末に出力するでしょう。
 
+<!-- *.rb*がなぜかイタリックにならない -->
+
 <!-- If you’re more familiar with a dynamic language, such as Ruby, Python, or -->
 <!-- JavaScript, you might not be used to compiling and running a program as -->
 <!-- separate steps. Rust is an *ahead-of-time compiled* language, meaning you can -->
