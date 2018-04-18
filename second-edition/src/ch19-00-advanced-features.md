@@ -1,22 +1,39 @@
-# Advanced Features
+<!-- # Advanced Features -->
 
-By now, you’ve learned the most commonly used parts of the Rust programming
-language. Before we do one more project in Chapter 20, we’ll look at a few
-aspects of the language you might run into every once in a while. You can use
-this chapter as a reference for when you encounter any unknowns when using
-Rust. The features you’ll learn to use in this chapter are useful in very
-specific situations. Although you might not reach for them often, we want to
-make sure you have a grasp of all the features Rust has to offer.
+# 高度な機能
 
-In this chapter, we’ll cover:
+<!-- By now, you’ve learned the most commonly used parts of the Rust programming -->
+<!-- language. Before we do one more project in Chapter 20, we’ll look at a few -->
+<!-- aspects of the language you might run into every once in a while. You can use -->
+<!-- this chapter as a reference for when you encounter any unknowns when using -->
+<!-- Rust. The features you’ll learn to use in this chapter are useful in very -->
+<!-- specific situations. Although you might not reach for them often, we want to -->
+<!-- make sure you have a grasp of all the features Rust has to offer. -->
 
-* Unsafe Rust: How to opt out of some of Rust’s guarantees and take
-  responsibility for manually upholding those guarantees
-* Advanced lifetimes: Syntax for complex lifetime situations
-* Advanced traits: Associated types, default type parameters, fully qualified
-  syntax, supertraits, and the newtype pattern in relation to traits
-* Advanced types: More about the newtype pattern, type aliases, the *never*
-  type, and dynamically sized types
-* Advanced functions and closures: Function pointers and returning closures
+今まで、Rustプログラミング言語の最もよく使われる部分を学んできました。第20章でもう1つ別のプロジェクトを行う前に、
+時折遭遇する言語の側面をいくつか見ましょう。この章は、Rustを使用する際に知らないことに遭遇した時に参考にすることができます。
+この章で使用することを学ぶ機能は、かなり限定的な場面でしか役に立ちません。あまり頻繁には手を伸ばすことはない可能性はありますが、
+Rustが提供しなければならない機能全ての概要を確かに把握してほしいのです。
 
-It’s a panoply of Rust features with something for everyone! Let’s dive in!
+<!-- In this chapter, we’ll cover: -->
+
+この章で講義するのは:
+
+<!-- * Unsafe Rust: How to opt out of some of Rust’s guarantees and take -->
+<!--   responsibility for manually upholding those guarantees -->
+<!-- * Advanced lifetimes: Syntax for complex lifetime situations -->
+<!-- * Advanced traits: Associated types, default type parameters, fully qualified -->
+<!--   syntax, supertraits, and the newtype pattern in relation to traits -->
+<!-- * Advanced types: More about the newtype pattern, type aliases, the *never* -->
+<!--   type, and dynamically sized types -->
+<!-- * Advanced functions and closures: Function pointers and returning closures -->
+
+* Unsafe Rust: Rustの保証の一部を抜けてその保証を手動で保持する責任を負う方法
+* 高度なライフタイム: 複雑なライフタイムの記法
+* 高度なトレイト: 関連型、デフォルト型引数、フルパス記法、スーパートレイト、トレイトに関連するニュータイプパターン
+* 高度な型: ニュータイプパターンについてもっと、型エイリアス、*never*型、動的サイズ型
+* 高度な関数とクロージャ: 関数ポインタとクロージャの返却
+
+<!-- It’s a panoply of Rust features with something for everyone! Let’s dive in! -->
+
+皆さんのための何かがあるRustの機能の盛大な儀式です！さあ、飛び込みましょう！

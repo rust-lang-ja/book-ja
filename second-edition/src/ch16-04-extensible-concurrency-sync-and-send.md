@@ -1,6 +1,6 @@
 <!-- ## Extensible Concurrency with the `Sync` and `Send` Traits -->
 
-## `Sync`と`Send`トレイトで拡張可能な非同期処理
+## `Sync`と`Send`トレイトで拡張可能な非同期
 
 <!-- Interestingly, the Rust language has *very* few concurrency features. Almost -->
 <!-- every concurrency feature we’ve talked about so far in this chapter has been -->

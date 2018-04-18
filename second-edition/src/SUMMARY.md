@@ -196,7 +196,7 @@
     - [スレッド](ch16-01-threads.md)
     - [メッセージ受け渡し](ch16-02-message-passing.md)
     - [状態共有](ch16-03-shared-state.md)
-    - [さらなる非同期処理: `Sync`と`Send`](ch16-04-extensible-concurrency-sync-and-send.md)
+    - [拡張可能な非同期: `Sync`と`Send`](ch16-04-extensible-concurrency-sync-and-send.md)
 
 <!-- - [Object-Oriented Programming Features of Rust](ch17-00-oop.md) -->
 <!--     - [Characteristics of Object-Oriented Languages](ch17-01-what-is-oo.md) -->
@@ -222,12 +222,19 @@
     - [論駁可能性: パターンが合致しないか](ch18-02-refutability.md)
     - [パターン記法全部](ch18-03-pattern-syntax.md)
 
-- [Advanced Features](ch19-00-advanced-features.md)
+<!-- - [Advanced Features](ch19-00-advanced-features.md) -->
+<!--     - [Unsafe Rust](ch19-01-unsafe-rust.md) -->
+<!--     - [Advanced Lifetimes](ch19-02-advanced-lifetimes.md) -->
+<!--     - [Advanced Traits](ch19-03-advanced-traits.md) -->
+<!--     - [Advanced Types](ch19-04-advanced-types.md) -->
+<!--     - [Advanced Functions & Closures](ch19-05-advanced-functions-and-closures.md) -->
+
+- [高度な機能](ch19-00-advanced-features.md)
     - [Unsafe Rust](ch19-01-unsafe-rust.md)
-    - [Advanced Lifetimes](ch19-02-advanced-lifetimes.md)
-    - [Advanced Traits](ch19-03-advanced-traits.md)
-    - [Advanced Types](ch19-04-advanced-types.md)
-    - [Advanced Functions & Closures](ch19-05-advanced-functions-and-closures.md)
+    - [高度なライフタイム](ch19-02-advanced-lifetimes.md)
+    - [高度なトレイト](ch19-03-advanced-traits.md)
+    - [高度な型](ch19-04-advanced-types.md)
+    - [高度な関数とクロージャ](ch19-05-advanced-functions-and-closures.md)
 
 - [Final Project: Building a Multithreaded Web Server](ch20-00-final-project-a-web-server.md)
     - [A Single Threaded Web Server](ch20-01-single-threaded.md)
