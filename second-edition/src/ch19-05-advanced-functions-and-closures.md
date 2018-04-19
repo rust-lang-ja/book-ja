@@ -1,20 +1,34 @@
-## Advanced Functions and Closures
+<!-- ## Advanced Functions and Closures -->
 
-Finally, we’ll explore some advanced features related to functions and
-closures, which include function pointers and returning closures.
+## 高度な関数とクロージャ
 
-### Function Pointers
+<!-- Finally, we’ll explore some advanced features related to functions and -->
+<!-- closures, which include function pointers and returning closures. -->
 
-We’ve talked about how to pass closures to functions; you can also pass regular
-functions to functions! This technique is useful when we want to pass a
-function we’ve already defined rather than defining a new closure. We do this
-using function pointers to allow us to use functions as arguments to other
-functions. Functions coerce to the type `fn` (with a lowercase f), not to be
-confused with the `Fn` closure trait. The `fn` type is called a function
-pointer. The syntax for specifying that a parameter is a function pointer is
-similar to that of closures, as shown in Listing 19-35.
+最後に関数とクロージャに関連する高度な機能の一部を探求し、これには関数ポインタとクロージャの返却が含まれます。
 
-<span class="filename">Filename: src/main.rs</span>
+<!-- ### Function Pointers -->
+
+### 関数ポインタ
+
+<!-- We’ve talked about how to pass closures to functions; you can also pass regular -->
+<!-- functions to functions! This technique is useful when we want to pass a -->
+<!-- function we’ve already defined rather than defining a new closure. We do this -->
+<!-- using function pointers to allow us to use functions as arguments to other -->
+<!-- functions. Functions coerce to the type `fn` (with a lowercase f), not to be -->
+<!-- confused with the `Fn` closure trait. The `fn` type is called a function -->
+<!-- pointer. The syntax for specifying that a parameter is a function pointer is -->
+<!-- similar to that of closures, as shown in Listing 19-35. -->
+
+クロージャを関数に渡す方法について語りました; 普通の関数を関数に渡すこともできるのです！
+新しいクロージャを定義するのではなく、既に定義した関数を渡したい時にこのテクニックは有用です。
+関数ポインタを使用して関数を引数として他の関数に渡してこれを行います。関数は、型`fn`(小文字のfです)に型強制されます。
+`Fn`クロージャトレイトと混同すべきではありません。`fn`型は、関数ポインタと呼ばれます。
+引数が関数ポインタであると指定する記法は、クロージャのものと似ています。リスト19-35のように。
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 fn add_one(x: i32) -> i32 {
@@ -28,35 +42,55 @@ fn do_twice(f: fn(i32) -> i32, arg: i32) -> i32 {
 fn main() {
     let answer = do_twice(add_one, 5);
 
+    // 答えは{}
     println!("The answer is: {}", answer);
 }
 ```
 
-<span class="caption">Listing 19-35: Using the `fn` type to accept a function
-pointer as an argument</span>
+<!-- <span class="caption">Listing 19-35: Using the `fn` type to accept a function -->
+<!-- pointer as an argument</span> -->
 
-This code prints `The answer is: 12`. We specify that the parameter `f` in
-`do_twice` is an `fn` that takes one parameter of type `i32` and returns an
-`i32`. We can then call `f` in the body of `do_twice`. In `main`, we can pass
-the function name `add_one` as the first argument to `do_twice`.
+<span class="caption">リスト19-35: `fn`型を使用して引数として関数ポインタを受け入れる</span>
 
-Unlike closures, `fn` is a type rather than a trait, so we specify `fn` as the
-parameter type directly rather than declaring a generic type parameter with one
-of the `Fn` traits as a trait bound.
+<!-- This code prints `The answer is: 12`. We specify that the parameter `f` in -->
+<!-- `do_twice` is an `fn` that takes one parameter of type `i32` and returns an -->
+<!-- `i32`. We can then call `f` in the body of `do_twice`. In `main`, we can pass -->
+<!-- the function name `add_one` as the first argument to `do_twice`. -->
 
-Function pointers implement all three of the closure traits (`Fn`, `FnMut`, and
-`FnOnce`), so we can always pass a function pointer as an argument for a
-function that expects a closure. It’s best to write functions using a generic
-type and one of the closure traits so your functions can accept either
-functions or closures.
+このコードは、`The answer is: 12`と出力します。`do_twice`の引数`f`は、型`i32`の1つの引数を取り、
+`i32`を返す`fn`と指定しています。それから、`do_twice`の本体で`f`を呼び出すことができます。
+`main`では、関数名の`add_one`を最初の引数として`do_twice`に渡せます。
 
-An example of where you would want to only accept `fn` and not closures is when
-interfacing with external code that doesn’t have closures: C functions can
-accept functions as arguments, but C doesn’t have closures.
+<!-- Unlike closures, `fn` is a type rather than a trait, so we specify `fn` as the -->
+<!-- parameter type directly rather than declaring a generic type parameter with one -->
+<!-- of the `Fn` traits as a trait bound. -->
 
-As an example of where we can use either a closure defined inline or a named
-function, let’s look at a use of `map`. To use the `map` function to turn a
-vector of numbers into a vector of strings, we could use a closure, like this:
+クロージャと異なり、`fn`はトレイトではなく型なので、トレイト境界として`Fn`トレイトの1つでジェネリックな型引数を宣言するのではなく、
+直接`fn`を引数の型として指定します。
+
+<!-- Function pointers implement all three of the closure traits (`Fn`, `FnMut`, and -->
+<!-- `FnOnce`), so we can always pass a function pointer as an argument for a -->
+<!-- function that expects a closure. It’s best to write functions using a generic -->
+<!-- type and one of the closure traits so your functions can accept either -->
+<!-- functions or closures. -->
+
+関数ポインタは、クロージャトレイト3つ全て(`Fn`、`FnMut`、`FnOnce`)を実装するので、常に関数ポインタを引数として、
+クロージャを期待する関数に渡すことができます。関数が関数とクロージャどちらも受け入れられるように、
+ジェネリックな型とクロージャトレイトの1つを使用して関数を書くのが最善です。
+
+<!-- An example of where you would want to only accept `fn` and not closures is when -->
+<!-- interfacing with external code that doesn’t have closures: C functions can -->
+<!-- accept functions as arguments, but C doesn’t have closures. -->
+
+クロージャではなく`fn`だけを受け入れたくなる箇所の一例は、クロージャのない外部コードとのインターフェイスです:
+C関数は引数として関数を受け入れられますが、Cにはクロージャがありません。
+
+<!-- As an example of where we can use either a closure defined inline or a named -->
+<!-- function, let’s look at a use of `map`. To use the `map` function to turn a -->
+<!-- vector of numbers into a vector of strings, we could use a closure, like this: -->
+
+インラインでクロージャが定義されるか、名前付きの関数を使用する箇所の例として、`map`の使用を目撃しましょう。
+`map`関数を使用して数字のベクタを文字列のベクタに変換するには、このようにクロージャを使用できます:
 
 ```rust
 let list_of_numbers = vec![1, 2, 3];
@@ -66,8 +100,10 @@ let list_of_strings: Vec<String> = list_of_numbers
     .collect();
 ```
 
-Or we could name a function as the argument to `map` instead of the closure,
-like this:
+<!-- Or we could name a function as the argument to `map` instead of the closure, -->
+<!-- like this: -->
+
+あるいは、このようにクロージャの代わりに`map`に引数として関数に名前を付けられます:
 
 ```rust
 let list_of_numbers = vec![1, 2, 3];
@@ -77,25 +113,42 @@ let list_of_strings: Vec<String> = list_of_numbers
     .collect();
 ```
 
-Note that we must use the fully qualified syntax that we talked about earlier
-in the “Advanced Traits” section because there are multiple functions available
-named `to_string`. Here, we’re using the `to_string` function defined in the
-`ToString` trait, which the standard library has implemented for any type that
-implements `Display`.
+<!-- Note that we must use the fully qualified syntax that we talked about earlier -->
+<!-- in the “Advanced Traits” section because there are multiple functions available -->
+<!-- named `to_string`. Here, we’re using the `to_string` function defined in the -->
+<!-- `ToString` trait, which the standard library has implemented for any type that -->
+<!-- implements `Display`. -->
 
-Some people prefer this style, and some people prefer to use closures. They end
-up compiling to the same code, so use whichever style is clearer to you.
+先ほど「高度なトレイト」節で語ったフルパス記法を使わなければならないことに注意してください。
+というのも、`to_string`という利用可能な関数は複数あるからです。ここでは、
+`ToString`トレイトで定義された`to_string`関数を使用していて、このトレイトは標準ライブラリが、
+`Display`を実装するあらゆる型に実装しています。
 
-### Returning Closures
+<!-- Some people prefer this style, and some people prefer to use closures. They end -->
+<!-- up compiling to the same code, so use whichever style is clearer to you. -->
 
-Closures are represented by traits, which means we can’t return closures
-directly. In most cases where we might want to return a trait, we can instead
-use the concrete type that implements the trait as the return value of the
-function. But we can’t do that with closures because they don’t have a concrete
-type that is returnable; we’re not allowed to use the function pointer `fn` as
-a return type, for example.
+このスタイルを好む方もいますし、クロージャを使うのを好む方もいます。どちらも結果的に同じコードにコンパイルされるので、
+どちらでも、自分にとって明確な方を使用してください。
 
-The following code tries to return a closure directly, but it won’t compile:
+<!-- ### Returning Closures -->
+
+### クロージャを返却する
+
+<!-- Closures are represented by traits, which means we can’t return closures -->
+<!-- directly. In most cases where we might want to return a trait, we can instead -->
+<!-- use the concrete type that implements the trait as the return value of the -->
+<!-- function. But we can’t do that with closures because they don’t have a concrete -->
+<!-- type that is returnable; we’re not allowed to use the function pointer `fn` as -->
+<!-- a return type, for example. -->
+
+クロージャはトレイトによって表現されます。つまり、クロージャを直接は返却できないのです。
+トレイトを返却したい可能性のあるほとんどの場合、代わりにトレイトを実装する具体的な型を関数の戻り値として使用できます。
+ですが、クロージャではそれはできません。返却可能な具体的な型がないからです; 例えば、
+関数ポインタの`fn`を戻り値の型として使うことは許容されていません。
+
+<!-- The following code tries to return a closure directly, but it won’t compile: -->
+
+以下のコードは、クロージャを直接返そうとしていますが、コンパイルできません:
 
 ```rust,ignore
 fn returns_closure() -> Fn(i32) -> i32 {
@@ -103,7 +156,9 @@ fn returns_closure() -> Fn(i32) -> i32 {
 }
 ```
 
-The compiler error is as follows:
+<!-- The compiler error is as follows: -->
+
+コンパイルエラーは以下の通りです:
 
 ```text
 error[E0277]: the trait bound `std::ops::Fn(i32) -> i32 + 'static:
@@ -119,9 +174,12 @@ std::marker::Sized` is not satisfied
   = note: the return type of a function must have a statically known size
 ```
 
-The error references the `Sized` trait again! Rust doesn’t know how much space
-it will need to store the closure. We saw a solution to this problem earlier.
-We can use a trait object:
+<!-- The error references the `Sized` trait again! Rust doesn’t know how much space -->
+<!-- it will need to store the closure. We saw a solution to this problem earlier. -->
+<!-- We can use a trait object: -->
+
+エラーは、再度`Sized`トレイトを参照しています！コンパイラには、クロージャを格納するのに必要なスペースがどれくらいかわからないのです。
+この問題の解決策は先ほど見かけました。トレイトオブジェクトを使えます:
 
 ```rust
 fn returns_closure() -> Box<Fn(i32) -> i32> {
@@ -129,18 +187,29 @@ fn returns_closure() -> Box<Fn(i32) -> i32> {
 }
 ```
 
-This code will compile just fine. For more about trait objects, refer to the
-“Using Trait Objects That Allow for Values of Different Types” section in
-Chapter 17.
+<!-- This code will compile just fine. For more about trait objects, refer to the -->
+<!-- “Using Trait Objects That Allow for Values of Different Types” section in -->
+<!-- Chapter 17. -->
 
-## Summary
+このコードは、問題なくコンパイルできます。トレイトオブジェクトについて詳しくは、
+第17章の「トレイトオブジェクトで異なる型の値を許容する」節を参照してください。
 
-Whew! Now you have some features of Rust in your toolbox that you won’t use
-often, but you’ll know they’re available in very particular circumstances.
-We’ve introduced several complex topics so that when you encounter them in
-error message suggestions or in other peoples’ code, you’ll be able to
-recognize these concepts and syntax. Use this chapter as a reference to guide
-you to solutions.
+<!-- ## Summary -->
 
-Next, we’ll put everything we’ve discussed throughout the book into practice
-and do one more project!
+## まとめ
+
+<!-- Whew! Now you have some features of Rust in your toolbox that you won’t use -->
+<!-- often, but you’ll know they’re available in very particular circumstances. -->
+<!-- We’ve introduced several complex topics so that when you encounter them in -->
+<!-- error message suggestions or in other peoples’ code, you’ll be able to -->
+<!-- recognize these concepts and syntax. Use this chapter as a reference to guide -->
+<!-- you to solutions. -->
+
+ふう！もう道具箱に頻繁には使用しないRustの機能の一部がありますが、非常に限定された状況で利用可能だと知るでしょう。
+エラーメッセージや他の方のコードで遭遇した際に、これらの概念や記法を認識できるように、
+複雑な話題をいくつか導入しました。この章は、解決策へガイドする参考としてご活用ください。
+
+<!-- Next, we’ll put everything we’ve discussed throughout the book into practice -->
+<!-- and do one more project! -->
+
+次は、本を通して議論してきた全てを実践に配備し、もう1つプロジェクトを<ruby>熟<rp>(</rp><rt>こな</rt><rp>)</rp></ruby>します！
