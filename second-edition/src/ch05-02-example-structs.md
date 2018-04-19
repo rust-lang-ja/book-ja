@@ -374,11 +374,10 @@ rect1 is Rectangle {
 }
 ```
 
-<<<<<<< HEAD
 <!-- Rust has provided a number of traits for us to use with the `derive` annotation -->
 <!-- that can add useful behavior to our custom types. Those traits and their -->
 <!-- behaviors are listed in Appendix C, “Derivable Traits.” We’ll cover how to -->
-<!-- implement these traints with custom behavior as well as how to create your own -->
+<!-- implement these traits with custom behavior as well as how to create your own -->
 <!-- traits in Chapter 10 -->
 
 Rustには、`derive`注釈で使えるトレイトが多く提供されており、独自の型に有用な振る舞いを追加することができます。
@@ -395,16 +394,3 @@ Rustには、`derive`注釈で使えるトレイトが多く提供されてお�
 役に立つでしょう。なぜなら、他のどんな型でもうまく動作しなくなるからです。
 `area`関数を`Rectangle`型に定義された`area`*メソッド*に変形することで、
 このコードをリファクタリングし続けられる方法について見ていきましょう。
-=======
-Rust has provided a number of traits for us to use with the `derive` annotation
-that can add useful behavior to our custom types. Those traits and their
-behaviors are listed in Appendix C, “Derivable Traits.” We’ll cover how to
-implement these traits with custom behavior as well as how to create your own
-traits in Chapter 10.
-
-Our `area` function is very specific: it only computes the area of rectangles.
-It would be helpful to tie this behavior more closely to our `Rectangle`
-struct, because it won’t work with any other type. Let’s look at how we can
-continue to refactor this code by turning the `area` function into an `area`
-*method* defined on our `Rectangle` type.
->>>>>>> fork_master_master
