@@ -317,11 +317,11 @@ fn main() {
 }
 ```
 
-<!-- When we try to run this code, we’ll get an error. The `if` and `else` arms have -->
+<!-- When we try to compile this code, we’ll get an error. The `if` and `else` arms have -->
 <!-- value types that are incompatible, and Rust indicates exactly where to find the -->
 <!-- problem in the program: -->
 
-このコードを走らせようとすると、エラーになります。`if`と`else`アームは互換性のない値の型になり、
+このコードをコンパイルしようとすると、エラーになります。`if`と`else`アームは互換性のない値の型になり、
 コンパイラがプログラム内で問題の見つかった箇所をスバリ指摘してくれます:
 
 ```text
