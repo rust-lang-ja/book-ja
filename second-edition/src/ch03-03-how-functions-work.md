@@ -197,13 +197,13 @@ The value of y is: 6
 `x`に対して値`5`、`y`に対して値`6`を渡して関数を呼び出したので、この二つの文字列は、
 この値で出力されました。
 
-<!-- ### Function Bodies -->
+<!-- ### Function Bodies Contain Statements and Expressions -->
 
-### 関数本体
+### 関数本体は、文と式を含む
 
 <!-- Function bodies are made up of a series of statements optionally ending in an -->
 <!-- expression. So far, we’ve only covered functions without an ending expression, -->
-<!-- but we have seen an expression as part of statements. Because Rust is an -->
+<!-- but we have seen an expression as part of a statement. Because Rust is an -->
 <!-- expression-based language, this is an important distinction to understand. -->
 <!-- Other languages don’t have the same distinctions, so let’s look at what -->
 <!-- statements and expressions are and how their differences affect the bodies of -->
@@ -214,10 +214,6 @@ The value of y is: 6
 これは理解しておくべき重要な差異になります。他の言語にこの差異はありませんので、文と式がなんなのかと、
 その違いが関数本体にどんな影響を与えるかを見ていきましょう。
 
-<!-- ### Statements and Expressions -->
-
-### 文と式
-
 <!-- We’ve actually already used statements and expressions. *Statements* are -->
 <!-- instructions that perform some action and do not return a value. *Expressions* -->
 <!-- evaluate to a resulting value. Let’s look at some examples. -->
@@ -226,10 +222,10 @@ The value of y is: 6
 *式*は結果値に評価されます。ちょっと例を眺めてみましょう。
 
 <!-- Creating a variable and assigning a value to it with the `let` keyword is a -->
-<!-- statement. In Listing 3-1, `let y = 6;` is a statement: -->
+<!-- statement. In Listing 3-1, `let y = 6;` is a statement. -->
 
 `let`キーワードを使用して変数を生成し、値を代入することは文になります。
-リスト3-1で`let y = 6;`は文です:
+リスト3-1で`let y = 6;`は文です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

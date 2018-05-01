@@ -16,7 +16,7 @@
 こちらが単純なコメントです:
 
 ```rust
-// Hello, world.
+// hello, world
 ```
 
 <!-- In Rust, comments must start with two slashes and continue until the end of the -->
@@ -42,7 +42,7 @@ Rustでは、コメントは2連スラッシュで始め、行の終わりまで
 
 ```rust
 fn main() {
-    let lucky_number = 7; // I’m feeling lucky today.(今日はラッキーな気がするよ)
+    let lucky_number = 7; // I’m feeling lucky today(今日はラッキーな気がするよ)
 }
 ```
 
@@ -55,7 +55,7 @@ fn main() {
 
 ```rust
 fn main() {
-    // I’m feeling lucky today.
+    // I’m feeling lucky today
     // 今日はラッキーな気がするよ
     let lucky_number = 7;
 }

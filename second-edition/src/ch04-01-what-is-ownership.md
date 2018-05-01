@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- ## What Is Ownership? -->
 
 ## 所有権とは？
@@ -165,17 +164,23 @@ Rustと所有権システムの規則と経験を積むにつれて、自然に�
 まず、所有権のルールについて見ていきましょう。この規則を具体化する例を
 扱っていく間もこれらのルールを肝に命じておいてください:
 
-<!-- 1. Each value in Rust has a variable that’s called its *owner*. -->
-<!-- 2. There can only be one owner at a time. -->
-<!-- 3. When the owner goes out of scope, the value will be dropped. -->
+<!-- * Each value in Rust has a variable that’s called its *owner*. -->
+<!-- * There can only be one owner at a time. -->
+<!-- * When the owner goes out of scope, the value will be dropped. -->
 
-> 1. Rustの各値は、*所有者*と呼ばれる変数と対応している。
-> 2. いかなる時も所有者は一つである。
-> 3. 所有者がスコープから外れたら、値は破棄される。
+* Rustの各値は、*所有者*と呼ばれる変数と対応している。
+* いかなる時も所有者は一つである。
+* 所有者がスコープから外れたら、値は破棄される。
 
 <!-- ### Variable Scope -->
 
+<<<<<<< HEAD
 ### 変数スコープ
+=======
+* Each value in Rust has a variable that’s called its *owner*.
+* There can only be one owner at a time.
+* When the owner goes out of scope, the value will be dropped.
+>>>>>>> fork_master_master
 
 <!-- We’ve walked through an example of a Rust program already in Chapter 2. Now -->
 <!-- that we’re past basic syntax, we won’t include all the `fn main() {` code in -->
@@ -203,11 +208,11 @@ let s = "hello";
 <!-- The variable `s` refers to a string literal, where the value of the string is -->
 <!-- hardcoded into the text of our program. The variable is valid from the point at -->
 <!-- which it’s declared until the end of the current *scope*. Listing 4-1 has -->
-<!-- comments annotating where the variable `s` is valid: -->
+<!-- comments annotating where the variable `s` is valid. -->
 
 変数`s`は、文字列リテラルを参照し、ここでは、文字列の値はプログラムのテキストとしてハードコードされています。
 この変数は、宣言された地点から、現在の*スコープ*の終わりまで有効になります。リスト4-1には、
-変数`s`が有効な場所に関する注釈がコメントで付記されています:
+変数`s`が有効な場所に関する注釈がコメントで付記されています。
 
 <!-- ```rust -->
 <!-- {                      // s is not valid here, it’s not yet declared -->
@@ -415,11 +420,11 @@ Rustは、異なる道を歩んでいます: ひとたび、メモリを所有�
 <!-- to the operating system: when `s` goes out of scope. When a variable goes out -->
 <!-- of scope, Rust calls a special function for us. This function is called `drop`, -->
 <!-- and it’s where the author of `String` can put the code to return the memory. -->
-<!-- Rust calls `drop` automatically at the closing `}`. -->
+<!-- Rust calls `drop` automatically at the closing curly bracket. -->
 
 `String`型が必要とするメモリをOSに返還することが自然な地点があります: `s`変数がスコープを抜ける時です。
 変数がスコープを抜ける時、Rustは特別な関数を呼んでくれます。この関数は、`drop`と呼ばれ、
-ここに`String`型の書き手はメモリ返還するコードを配置することができます。Rustは、閉じ`}`で自動的に`drop`関数を呼び出します。
+ここに`String`型の書き手はメモリ返還するコードを配置することができます。Rustは、閉じ波括弧で自動的に`drop`関数を呼び出します。
 
 <!-- Note: In C++, this pattern of deallocating resources at the end of an item's -->
 <!-- lifetime is sometimes called *Resource Acquisition Is Initialization (RAII)*. -->
@@ -444,10 +449,10 @@ Rustは、異なる道を歩んでいます: ひとたび、メモリを所有�
 #### 変数とデータの相互作用法: ムーブ
 
 <!-- Multiple variables can interact with the same data in different ways in Rust. -->
-<!-- Let’s look at an example using an integer in Listing 4-2: -->
+<!-- Let’s look at an example using an integer in Listing 4-2. -->
 
 Rustにおいては、複数の変数が同じデータに対して異なる手段で相互作用することができます。
-整数を使用したリスト4-2の例を見てみましょう:
+整数を使用したリスト4-2の例を見てみましょう。
 
 ```rust
 let x = 5;
@@ -614,13 +619,13 @@ error[E0382]: use of moved value: `s1`
 <!-- other languages, the concept of copying the pointer, length, and capacity -->
 <!-- without copying the data probably sounds like a shallow copy. But -->
 <!-- because Rust also invalidates the first variable, instead of being called a -->
-<!-- shallow copy, it’s known as a *move*. Here we would read this by saying that -->
-<!-- `s1` was *moved* into `s2`. So what actually happens is shown in Figure 4-4. -->
+<!-- shallow copy, it’s known as a *move*. In this example, we would say that `s1` -->
+<!-- was *moved* into `s2`. So what actually happens is shown in Figure 4-4. -->
 
 他の言語を触っている間に"shallow copy"と"deep copy"という用語を耳にしたことがあるなら、
 データのコピーなしにポインタと長さ、許容量をコピーするという概念は、shallow copyのように思えるかもしれません。
 ですが、コンパイラは最初の変数をも無効化するので、shallow copyと呼ばれる代わりに、
-ムーブとして知られているわけです。ここでは、`s1`は`s2`に*ムーブ*されたと解読します。
+ムーブとして知られているわけです。この例では、`s1`は`s2`に*ムーブ*されたと表現するでしょう。
 以上より、実際に起きることを図4-4に示してみました。
 
 <!-- <img alt="s1 moved to s2" src="img/trpl04-04.svg" class="center" style="width: 50%;" /> -->
@@ -688,10 +693,10 @@ println!("s1 = {}, s2 = {}", s1, s2);
 #### スタックのみのデータ: コピー
 
 <!-- There’s another wrinkle we haven’t talked about yet. This code using integers, -->
-<!-- part of which was shown earlier in Listing 4-2, works and is valid: -->
+<!-- part of which was shown in Listing 4-2, works and is valid: -->
 
 まだ話題にしていない別のしわ(`脚注`: 「気になるもの」程度の意味と思われる)の話があります。
-この整数を使用したコードは、一部を先ほどリスト4-2で示しましたが、うまく動作し、有効です:
+この整数を使用したコードは、一部をリスト4-2で示しましたが、うまく動作し、有効です:
 
 ```rust
 let x = 5;
@@ -725,7 +730,7 @@ println!("x = {}, y = {}", x, y);
 <!-- usable after assignment. Rust won’t let us annotate a type with the `Copy` -->
 <!-- trait if the type, or any of its parts, has implemented the `Drop` trait. If -->
 <!-- the type needs something special to happen when the value goes out of scope and -->
-<!-- we add the `Copy` annotation to that type, we’ll get a compile time error. To -->
+<!-- we add the `Copy` annotation to that type, we’ll get a compile-time error. To -->
 <!-- learn about how to add the `Copy` annotation to your type, see "Derivable -->
 <!-- Traits" in Appendix C. -->
 
@@ -766,11 +771,11 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
 <!-- The semantics for passing a value to a function are similar to those for -->
 <!-- assigning a value to a variable. Passing a variable to a function will move or -->
 <!-- copy, just as assignment does. Listing 4-3 has an example with some annotations -->
-<!-- showing where variables go into and out of scope: -->
+<!-- showing where variables go into and out of scope. -->
 
 意味論的に、関数に値を渡すことと、値を変数に代入することは似ています。関数に変数を渡すと、
 代入のようにムーブやコピーされます。リスト4-7は変数がスコープに入ったり、
-抜けたりする地点について注釈してある例です:
+抜けたりする地点について注釈してある例です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -834,7 +839,7 @@ annotated</span> -->
 <span class="caption">リスト4-3: 所有権とスコープが注釈された関数群</span>
 
 <!-- If we tried to use `s` after the call to `takes_ownership`, Rust would throw a -->
-<!-- compile time error. These static checks protect us from mistakes. Try adding -->
+<!-- compile-time error. These static checks protect us from mistakes. Try adding -->
 <!-- code to `main` that uses `s` and `x` to see where you can use them and where -->
 <!-- the ownership rules prevent you from doing so. -->
 
@@ -847,9 +852,9 @@ annotated</span> -->
 ### 戻り値とスコープ
 
 <!-- Returning values can also transfer ownership. Listing 4-4 is an example with -->
-<!-- similar annotations to those in Listing 4-3: -->
+<!-- similar annotations to those in Listing 4-3. -->
 
-値を返すことでも、所有権は移動します。リスト4-4は、リスト4-3と似た注釈のついた例です:
+値を返すことでも、所有権は移動します。リスト4-4は、リスト4-3と似た注釈のついた例です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -876,12 +881,12 @@ annotated</span> -->
 
 <!--    some_string                              // some_string is returned and -->
 <!--                                             // moves out to the calling -->
-<!--                                             // function. -->
+<!--                                             // function -->
 <!-- } -->
 
 <!-- // takes_and_gives_back will take a String and return one. -->
 <!-- fn takes_and_gives_back(a_string: String) -> String { // a_string comes into -->
-<!--                                                      // scope -->
+<!--                                                       // scope -->
 
 <!--    a_string  // a_string is returned and moves out to the calling function -->
 <!-- } -->
@@ -905,7 +910,7 @@ fn gives_ownership() -> String {             // gives_ownershipは、戻り値�
     let some_string = String::from("hello"); // some_stringがスコープに入る
 
     some_string                              // some_stringが返され、呼び出し元関数に
-                                             // ムーブされる。
+                                             // ムーブされる
 }
 
 // takes_and_gives_backは、Stringを一つ受け取り、返す。
@@ -940,9 +945,9 @@ fn takes_and_gives_back(a_string: String) -> String { // a_stringがスコープ
 返したいと思うかもしれない関数本体で発生したあらゆるデータとともに再利用したかったら、渡されたものをまた返さなきゃいけないのは、
 非常に煩わしいことです。
 
-<!-- It’s possible to return multiple values using a tuple, as shown in Listing 4-5: -->
+<!-- It’s possible to return multiple values using a tuple, as shown in Listing 4-5. -->
 
-タプルで、複数の値を返すことは可能です。リスト4-5のようにね:
+タプルで、複数の値を返すことは可能です。リスト4-5のようにね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

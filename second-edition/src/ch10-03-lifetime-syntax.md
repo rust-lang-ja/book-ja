@@ -4,8 +4,8 @@
 
 <!-- One detail we didn’t discuss in the “References and Borrowing” section in -->
 <!-- Chapter 4 is that every reference in Rust has a *lifetime*, which is the scope -->
-<!-- for which that reference is valid. Most of the time lifetimes are implicit and -->
-<!-- inferred, just like most of the time types are inferred. We must annotate types -->
+<!-- for which that reference is valid. Most of the time, lifetimes are implicit and -->
+<!-- inferred, just like most of the time, types are inferred. We must annotate types -->
 <!-- when multiple types are possible. In a similar way, we must annotate lifetimes -->
 <!-- when the lifetimes of references could be related in a few different ways. Rust -->
 <!-- requires us to annotate the relationships using generic lifetime parameters to -->
@@ -31,18 +31,18 @@
 ライフタイム記法と遭遇する可能性のある一般的な手段を議論するので、概念に馴染めます。
 もっと詳しく知るには、第19章の「高度なライフタイム」節を参照されたし。
 
-<!-- ### Lifetimes Prevent Dangling References -->
+<!-- ### Preventing Dangling References with Lifetimes -->
 
-### ライフタイムはダングリング参照を回避する
+### ライフタイムでダングリング参照を回避する
 
 <!-- The main aim of lifetimes is to prevent dangling references, which cause a -->
 <!-- program to reference data other than the data it’s intended to reference. -->
 <!-- Consider the program in Listing 10-17, which has an outer scope and an inner -->
-<!-- scope: -->
+<!-- scope. -->
 
 ライフタイムの主な目的は、ダングリング参照を回避することであり、ダングリング参照によりプログラムは、
 参照することを意図したデータ以外のデータを参照してしまいます。リスト10-17のプログラムを考えてください。
-これには、外側のスコープと内側のスコープが含まれています:
+これには、外側のスコープと内側のスコープが含まれています。
 
 ```rust,ignore
 {
@@ -62,14 +62,14 @@
 
 <span class="caption">リスト10-17: 値がスコープを抜けてしまった参照を使用しようとする</span>
 
-<!-- > Note: The example in Listing 10-17 and the next few examples declare -->
-<!-- > variables without giving them an initial value, so the variable name exists -->
-<!-- > in the outer scope. At first glance, this might appear to be in conflict with -->
-<!-- > Rust having no null values. However, if we try to use a variable before -->
-<!-- > giving it a value, we’ll get a compile time error, which shows that Rust -->
-<!-- > indeed does not allow null values. -->
+<!-- > Note: The example in Listing 10-17, 10-18, and 10-24 declare variables -->
+<!-- > without giving them an initial value, so the variable name exists in the -->
+<!-- > outer scope. At first glance, this might appear to be in conflict with Rust's -->
+<!-- > having no null values. However, if we try to use a variable before giving it -->
+<!-- > a value, we’ll get a compile time error, which shows that Rust indeed does -->
+<!-- > not allow null values. -->
 
-> 注釈: リスト10-17や今後数例では、変数に初期値を与えずに宣言しているので、変数名は外側のスコープに存在します。
+> 注釈: リスト10-17や10-18、10-24では、変数に初期値を与えずに宣言しているので、変数名は外側のスコープに存在します。
 > 初見では、これはRustにはnull値が存在しないということと衝突しているように見える可能性があります。
 > しかしながら、値を与える前に変数を使用しようとすれば、コンパイルエラーになり、
 > 確かにRustではnull値は許可されないことを示します。
@@ -121,11 +121,11 @@ Rustで、このコードが動くことを許可していたら、`r`は`x`が�
 
 ### 借用精査機
 
-<!-- The Rust compiler has a *borrow checker* that compares scopes to determine that -->
-<!-- all borrows are valid. Listing 10-18 shows the same code as Listing 10-17 but -->
-<!-- with annotations showing the lifetimes of the variables: -->
+<!-- The Rust compiler has a *borrow checker* that compares scopes to determine -->
+<!-- whether all borrows are valid. Listing 10-18 shows the same code as Listing -->
+<!-- 10-17 but with annotations showing the lifetimes of the variables: -->
 
-Rustコンパイラには、スコープを比較して全ての借用が有効であることを決定する*借用精査機*があります。
+Rustコンパイラには、スコープを比較して全ての借用が有効であるかを決定する*借用精査機*があります。
 リスト10-18は、リスト10-17と同じコードを示していますが、変数のライフタイムを表示する注釈が付いています:
 
 ```rust,ignore
@@ -160,9 +160,9 @@ Rustコンパイラには、スコープを比較して全ての借用が有効�
 参照の被写体が参照ほど長生きしないのです。
 
 <!-- Listing 10-19 fixes the code so it doesn’t have a dangling reference and -->
-<!-- compiles without any errors: -->
+<!-- compiles without any errors. -->
 
-リスト10-19でコードを修正したので、ダングリング参照はなくなり、エラーなくコンパイルできます:
+リスト10-19でコードを修正したので、ダングリング参照はなくなり、エラーなくコンパイルできます。
 
 ```rust
 {
@@ -201,11 +201,11 @@ Rustコンパイラには、スコープを比較して全ての借用が有効�
 <!-- Let’s write a function that returns the longer of two string slices. This -->
 <!-- function will take two string slices and return a string slice. After we’ve -->
 <!-- implemented the `longest` function, the code in Listing 10-20 should print `The -->
-<!-- longest string is abcd`: -->
+<!-- longest string is abcd`. -->
 
 2つの文字列スライスのうち、長い方を返す関数を書きましょう。この関数は、
 2つの文字列スライスを取り、1つの文字列スライスを返します。`longest`関数の実装完了後、
-リスト10-20のコードは、`The logest string is abcd`と出力するはずです:
+リスト10-20のコードは、`The logest string is abcd`と出力するはずです。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -223,7 +223,7 @@ fn main() {
 ```
 
 <!-- <span class="caption">Listing 10-20: A `main` function that calls the `longest` -->
-<!-- function to find the longest of two string slices</span> -->
+<!-- function to find the longer of two string slices</span> -->
 
 <span class="caption">リスト10-20: `longest`関数を呼び出して2つの文字列スライスのうち長い方を探す`main`関数</span>
 
@@ -245,9 +245,9 @@ fn main() {
 第4章の「引数としての文字列スライス」節をご参照ください。
 
 <!-- If we try to implement the `longest` function as shown in Listing 10-21, it -->
-<!-- won’t compile: -->
+<!-- won’t compile. -->
 
-リスト10-21に示したように`longetst`関数を実装しようとしたら、コンパイルできないでしょう:
+リスト10-21に示したように`longetst`関数を実装しようとしたら、コンパイルできないでしょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -301,8 +301,8 @@ signature does not say whether it is borrowed from `x` or `y`
 <!-- When we’re defining this function, we don’t know the concrete values that will -->
 <!-- be passed into this function, so we don’t know whether the `if` case or the -->
 <!-- `else` case will execute. We also don’t know the concrete lifetimes of the -->
-<!-- references that will be passed in, so we can’t look at the scopes like we did -->
-<!-- in Listings 10-18 and 10-19 to determine that the reference we return will -->
+<!-- references that will be passed in, so we can’t look at the scopes as we did in -->
+<!-- Listings 10-18 and 10-19 to determine whether the reference we return will -->
 <!-- always be valid. The borrow checker can’t determine this either, because it -->
 <!-- doesn’t know how the lifetimes of `x` and `y` relate to the lifetime of the -->
 <!-- return value. To fix this error, we’ll add generic lifetime parameters that -->
@@ -311,7 +311,7 @@ signature does not say whether it is borrowed from `x` or `y`
 
 この関数を定義する際、この関数に渡される具体的な値がわからないので、`if`ケースか、`else`ケースが実行されるか、わからないのです。
 また、渡される参照の具体的なライフタイムもわからないので、リスト10-18と10-19で、
-返す参照が常に有効であることを決定したようにスコープを見ることもできないのです。
+返す参照が常に有効であるかを決定したようにスコープを見ることもできないのです。
 借用精査機もこれを決定することはできません。`x`と`y`のライフタイムがどう戻り値のライフタイムと関係するかわからないからです。
 このエラーを修正するには、借用精査機が解析を実行できるように、参照間の関係を定義するジェネリックなライフタイム引数を追加します。
 
@@ -320,7 +320,7 @@ signature does not say whether it is borrowed from `x` or `y`
 ### ライフタイム注釈記法
 
 <!-- Lifetime annotations don’t change how long any of the references live. Just -->
-<!-- like functions can accept any type when the signature specifies a generic type -->
+<!-- as functions can accept any type when the signature specifies a generic type -->
 <!-- parameter, functions can accept references with any lifetime by specifying a -->
 <!-- generic lifetime parameter. Lifetime annotations describe the relationships of -->
 <!-- the lifetimes of multiple references to each other without affecting the -->
@@ -332,12 +332,12 @@ signature does not say whether it is borrowed from `x` or `y`
 複数の参照のライフタイムのお互いの関係を記述します。
 
 <!-- Lifetime annotations have a slightly unusual syntax: the names of lifetime -->
-<!-- parameters must start with an apostrophe `'` and are usually all lowercase and -->
+<!-- parameters must start with an apostrophe (`'`) and are usually all lowercase and -->
 <!-- very short, like generic types. Most people use the name `'a`. We place -->
 <!-- lifetime parameter annotations after the `&` of a reference, using a space to -->
 <!-- separate the annotation from the reference’s type. -->
 
-ライフタイム注釈は、少しだけ不自然な記法です: ライフタイム引数の名前はアポストロフィー`'`で始まらなければならず、
+ライフタイム注釈は、少しだけ不自然な記法です: ライフタイム引数の名前はアポストロフィー(`'`)で始まらなければならず、
 通常全部小文字で、ジェネリック型のようにとても短いです。多くの人は、`'a`という名前を使います。
 ライフタイム引数注釈は、参照の`&`の後に配置し、注釈と参照の型を区別するために空白を1つ使用します。
 
@@ -357,7 +357,7 @@ signature does not say whether it is borrowed from `x` or `y`
 &'a mut i32 // a mutable reference with an explicit lifetime
 ```
 
-<!-- One lifetime annotation by itself doesn’t have much meaning because the -->
+<!-- One lifetime annotation by itself doesn’t have much meaning, because the -->
 <!-- annotations are meant to tell Rust how generic lifetime parameters of multiple -->
 <!-- references relate to each other. For example, let’s say we have a function with -->
 <!-- the parameter `first` that is a reference to an `i32` with lifetime `'a`. The -->
@@ -381,13 +381,13 @@ signature does not say whether it is borrowed from `x` or `y`
 <!-- parameters inside angle brackets between the function name and the parameter -->
 <!-- list. The constraint we want to express in this signature is that all the -->
 <!-- references in the parameters and the return value must have the same lifetime. -->
-<!-- We’ll name the lifetime `'a`, and then add it to each reference, as shown in -->
-<!-- Listing 10-22: -->
+<!-- We’ll name the lifetime `'a` and then add it to each reference, as shown in -->
+<!-- Listing 10-22. -->
 
 さて、`longest`関数の文脈でライフタイム注釈を調査しましょう。ジェネリックな型引数同様、
 関数名と引数リストの間、山カッコの中にジェネリックなライフタイム引数を宣言する必要があります。
 このシグニチャで表現したい制約は、引数の全参照と戻り値が同じライフタイムになることです。
-ライフタイムを`'a`と名付け、それから各参照に追記します。リスト10-22に示したように:
+ライフタイムを`'a`と名付け、それから各参照に追記します。リスト10-22に示したように。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -462,10 +462,10 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 
 <!-- Let’s look at how the lifetime annotations restrict the `longest` function by -->
 <!-- passing in references that have different concrete lifetimes. Listing 10-23 is -->
-<!-- a straightforward example: -->
+<!-- a straightforward example. -->
 
 ライフタイム注釈が異なる具体的なライフタイムになる参照を渡すことで`longest`関数を制限する方法を見ましょう。
-リスト10-23は、率直な例です:
+リスト10-23は、率直な例です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -514,12 +514,12 @@ fn main() {
 <!-- assignment of the value to the `result` variable inside the scope with -->
 <!-- `string2`. Then we’ll move the `println!` that uses `result` outside the inner -->
 <!-- scope, after the inner scope has ended. The code in Listing 10-24 will not -->
-<!-- compile: -->
+<!-- compile. -->
 
 次に、`result`の参照のライフタイムが2つの引数の小さい方のライフタイムになることを示す例を試しましょう。
 `result`変数の宣言を内側のスコープの外に移すものの、`result`変数への代入は`string2`のスコープ内に残したままにします。
 それから`result`を使用する`println!`を内側のスコープの外、内側のスコープが終わった後に移動します。
-リスト10-24のコードはコンパイルできません:
+リスト10-24のコードはコンパイルできません。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -538,9 +538,9 @@ fn main() {
 ```
 
 <!-- <span class="caption">Listing 10-24: Attempting to use `result` after `string2` -->
-<!-- has gone out of scope; the code won’t compile</span> -->
+<!-- has gone out of scope</span> -->
 
-<span class="caption">リスト10-24: `string2`がスコープを抜けてから`result`を使用しようとする; このコードはコンパイルできない</span>
+<span class="caption">リスト10-24: `string2`がスコープを抜けてから`result`を使用しようとする</span>
 
 <!-- When we try to compile this code, we’ll get this error: -->
 
@@ -568,7 +568,7 @@ error[E0597]: `string2` does not live long enough
 関数引数と戻り値のライフタイムを同じライフタイム引数`'a`で注釈したので、コンパイラはこのことを知っています。
 
 <!-- As humans, we can look at this code and see that `string1` is longer than -->
-<!-- `string2`, and therefore `result` will contain a reference to `string1`. -->
+<!-- `string2` and therefore `result` will contain a reference to `string1`. -->
 <!-- Because `string1` has not gone out of scope yet, a reference to `string1` will -->
 <!-- still be valid for the `println!` statement. However, the compiler can’t see -->
 <!-- that the reference is valid in this case. We’ve told Rust that the lifetime of -->
@@ -705,11 +705,11 @@ function body at 1:1...
 <!-- So far, we’ve only defined structs to hold owned types. It’s possible for -->
 <!-- structs to hold references, but in that case we would need to add a lifetime -->
 <!-- annotation on every reference in the struct’s definition. Listing 10-25 has a -->
-<!-- struct named `ImportantExcerpt` that holds a string slice: -->
+<!-- struct named `ImportantExcerpt` that holds a string slice. -->
 
 ここまで、所有された型を保持する構造体だけを定義してきました。構造体に参照を保持させることもできますが、
 その場合、構造体定義の全参照にライフタイム注釈を付け加える必要があるでしょう。
-リスト10-25には、文字列スライスを保持する`ImportantExcerpt`という構造体があります:
+リスト10-25には、文字列スライスを保持する`ImportantExcerpt`という構造体があります。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -766,11 +766,11 @@ fn main() {
 <!-- You’ve learned that every reference has a lifetime and that you need to specify -->
 <!-- lifetime parameters for functions or structs that use references. However, in -->
 <!-- Chapter 4 we had a function in the “String Slices” section, which is shown again -->
-<!-- in Listing 10-26, that compiled without lifetime annotations: -->
+<!-- in Listing 10-26, that compiled without lifetime annotations. -->
 
 全参照にはライフタイムがあり、参照を使用する関数や構造体にはライフタイム引数を指定する必要があることを学びました。
 ですが、第4章の「文字列スライス」節にある関数があり、リスト10-26に再度示しましたが、
-これは、ライフタイム注釈なしでコンパイルできました:
+これは、ライフタイム注釈なしでコンパイルできました。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -790,12 +790,12 @@ fn first_word(s: &str) -> &str {
 }
 ```
 
-<!-- <span class="caption">Listing 10-26: A function we defined in Chapter 4 that -->
+<!-- <span class="caption">Listing 10-26: A function we defined in Listing 4-9 that -->
 <!-- compiled without lifetime annotations, even though the parameter and return -->
 <!-- type are references</span> -->
 
 <span class="caption">リスト10-26: 引数と戻り値型が参照であるにも関わらず、ライフタイム注釈なしでコンパイルできた
-第4章で定義した関数</span>
+リスト4-9で定義した関数</span>
 
 <!-- The reason this function compiles without lifetime annotations is historical: -->
 <!-- in early versions (pre-1.0) of Rust, this code wouldn’t have compiled because -->
@@ -814,8 +814,8 @@ fn first_word<'a>(s: &'a str) -> &'a str {
 <!-- were entering the same lifetime annotations over and over in particular -->
 <!-- situations. These situations were predictable and followed a few deterministic -->
 <!-- patterns. The developers programmed these patterns into the compiler’s code so -->
-<!-- the borrow checker could infer the lifetimes in these situations and not need -->
-<!-- explicit annotations. -->
+<!-- the borrow checker could infer the lifetimes in these situations and wouldn't -->
+<!-- need explicit annotations. -->
 
 多くのRustコードを書いた後、Rustチームは、Rustプログラマが特定の場面では、
 何度も何度も同じライフタイム注釈に入ることを発見しました。これらの場面は予測可能で、
@@ -1059,12 +1059,14 @@ impl<'a> ImportantExcerpt<'a> {
 
 <!-- One special lifetime we need to discuss is `'static`, which denotes the entire -->
 <!-- duration of the program. All string literals have the `'static` lifetime, which -->
-<!-- we can annotate as follows: `let s: &'static str = "I have a static -->
-<!-- lifetime.";`. -->
+<!-- we can annotate as follows: -->
+
+```rust
+let s: &'static str = "I have a static lifetime.";
+```
 
 議論する必要のある1種の特殊なライフタイムが、`'static`であり、これはプログラム全体の期間を示します。
 文字列リテラルは全て`'static`ライフタイムになり、次のように注釈できます:
-`let s: &'static str = "I have a static lifetime."; //静的なライフタイムだよ`。
 
 <!-- The text of this string is stored directly in the binary of your program, which -->
 <!-- is always available. Therefore, the lifetime of all string literals is -->
@@ -1150,11 +1152,10 @@ fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a st
 <!-- Believe it or not, there is much more to learn on the topics we discussed in -->
 <!-- this chapter: Chapter 17 discusses trait objects, which are another way to use -->
 <!-- traits. Chapter 19 covers more complex scenarios involving lifetime annotations -->
-<!-- as well as some advanced type system features. But in the next chapter, you’ll -->
-<!-- learn how to write tests in Rust so you can make sure your code is working the -->
-<!-- way it should. -->
+<!-- as well as some advanced type system features. But next, you’ll learn how to -->
+<!-- write tests in Rust so you can make sure your code is working the way it should. -->
 
 信じるかどうかは自由ですが、この章で議論した話題にはもっともっと学ぶべきことがあります:
 第17章ではトレイトオブジェクトを議論し、これはトレイトを使用する別の手段です。
 第19章では、ライフタイム注釈が関わるもっと複雑な筋書きと何か高度な型システムの機能を講義します。
-ですが次の章では、Rustでテストを書く方法を学ぶので、コードがあるべき通りに動いていることを確かめられます。
+ですが次は、Rustでテストを書く方法を学ぶので、コードがあるべき通りに動いていることを確かめられます。

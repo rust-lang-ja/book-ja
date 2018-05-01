@@ -5,8 +5,8 @@
 <!-- Let’s jump into Rust by working through a hands-on project together! This -->
 <!-- chapter introduces you to a few common Rust concepts by showing you how to use -->
 <!-- them in a real program. You’ll learn about `let`, `match`, methods, associated -->
-<!-- functions, using external crates, and more! The following chapters will explore -->
-<!-- these ideas in more detail. In this chapter, you’ll practice the fundamentals. -->
+<!-- functions, external crates, and more! The following chapters will explore these -->
+<!-- ideas in more detail. In this chapter, you’ll practice the fundamentals. -->
 
 実物のプロジェクトに一緒に取り組むことで、Rustの世界へ飛び込みましょう！
 この章では、実際のプログラム内で使用しながらいくつかの一般的なRustの概念に触れます。
@@ -235,8 +235,8 @@ let mut guess = String::new();
 let foo = bar;
 ```
 
-<!-- This line will create a new variable named `foo` and bind it to the value `bar`. In-->
-<!-- Rust, variables are immutable by default. We'll be discussing this concept in -->
+<!-- This line will create a new variable named `foo` and binds it to the value `bar`. -->
+<!-- In Rust, variables are immutable by default. We'll discuss this concept in -->
 <!-- detail in the "Variables and Mutability" section in Chapter 3. The following -->
 <!-- example shows how to use `mut` before the variable name to make a variable -->
 <!-- mutable: -->
@@ -259,12 +259,12 @@ let mut bar = 5; // mutable
 > 注釈: `//`という記法は、行末まで続くコメントを記述します。
 > コンパイラは、コメントを一切無視し、これについても第3章で詳しく議論します。
 
-<!-- Now you know that `let mut guess` will introduce a mutable variable named -->
-<!-- `guess`. On the other side of the equal sign (`=`) is the value that `guess` is -->
-<!-- bound to, which is the result of calling `String::new`, a function that returns -->
-<!-- a new instance of a `String`. [`String`][string] is a string -->
-<!-- type provided by the standard library that is a growable, UTF-8 encoded bit of -->
-<!-- text. -->
+<!-- Let's return to the guessing game program. You now know that `let mut guess` -->
+<!-- will introduce a mutable variable named `guess`. On the other side of the equal -->
+<!-- sign (`=`) is the value that `guess` is bound to, which is the result of -->
+<!-- calling `String::new`, a function that returns a new instance of a `String`. -->
+<!-- [`String`][string] is a string type provided by the standard -->
+<!-- library that is a growable, UTF-8 encoded bit of text. -->
 
 さあ、`let mut guess`が`guess`という名前の可変変数を導入するとわかりましたね。
 イコール記号(`=`)の逆側には、変数`guess`が束縛される値があります。この値は、
@@ -327,7 +327,6 @@ io::stdin().read_line(&mut guess)
 その次のコード破片、`.read_line(&mut guess)`は、標準入力ハンドルの[`read_line`][read_line]<!-- ignore -->
 メソッドを呼び出して、ユーザから入力を受け付けます。また、`read_line`メソッドに対して、`&mut guess`という引数を一つ渡していますね.
 
-<<<<<<< HEAD
 [read_line]: ../../std/io/struct.Stdin.html#method.read_line
 
 <!-- The job of `read_line` is to take whatever the user types into standard input -->
@@ -426,7 +425,7 @@ enumについては、第6章で詳しく解説します。
 理由などの情報を保有します。
 
 <!-- The purpose of these `Result` types is to encode error handling information. -->
-<!-- Values of the `Result` type, like any type, have methods defined on them. An -->
+<!-- Values of the `Result` type, like values of any type, have methods defined on them. An -->
 <!-- instance of `io::Result` has an [`expect` method][expect] that -->
 <!-- you can call. If this instance of `io::Result` is an `Err` value, `expect` will -->
 <!-- cause the program to crash and display the message that you passed as an -->
@@ -472,7 +471,7 @@ warning: unused `std::result::Result` which must be used
 これは、プログラムがエラーの可能性に対処していないことを示します。
 
 <!-- The right way to suppress the warning is to actually write error handling, but -->
-<!-- since you just want to crash this program when a problem occurs, you can use -->
+<!-- because you just want to crash this program when a problem occurs, you can use -->
 <!-- `expect`. You'll learn about recovering from errors in Chapter 9. -->
 
 警告を抑制する正しい手段は、実際にエラー対処コードを書くことですが、今は、
@@ -613,9 +612,9 @@ rand = "0.3.14"
 [semver]: http://semver.org
 
 <!-- Now, without changing any of the code, let’s build the project, as shown in -->
-<!-- Listing 2-2: -->
+<!-- Listing 2-2. -->
 
-さて、コードは一切変えずに、リスト2-2のようにプロジェクトをビルドしましょう:
+さて、コードは一切変えずに、リスト2-2のようにプロジェクトをビルドしましょう。
 
 ```text
 $ cargo build
@@ -701,13 +700,12 @@ $ cargo build
 <!-- Cargo has a mechanism that ensures you can rebuild the same artifact every time -->
 <!-- you or anyone else builds your code: Cargo will use only the versions of the -->
 <!-- dependencies you specified until you indicate otherwise. For example, what -->
-<!-- happens if next week version `v0.3.15` of the `rand` crate comes out and -->
-<!-- contains an important bug fix but also contains a regression that will break -->
-<!-- your code? -->
+<!-- happens if next week version 0.3.15 of the `rand` crate comes out and contains -->
+<!-- an important bug fix but also contains a regression that will break your code? -->
 
 Cargoは、プログラマが自分のコードを更新するたびに同じ生成物を再構成することを保証してくれるメカニズムを
 備えています: Cargoは、プログラマが明示するまで、指定したバージョンの依存のみを使用します。
-例として、`rand`クレートの次週のバージョン`v0.3.15`が登場し、重要なバグ修正がなされているけれども、
+例として、`rand`クレートの次週のバージョン0.3.15が登場し、重要なバグ修正がなされているけれども、
 自分のコードを破壊してしまう互換性破壊があった場合はどうなるでしょう？
 
 <!-- The answer to this problem is the *Cargo.lock* file, which was created the -->
@@ -804,10 +802,10 @@ Cargoのおかげでライブラリはとても簡単に再利用ができるの
 ### 乱数を生成する
 
 <!-- Now that you've added the `rand` crate to *Cargo.toml*, let's start using -->
-<!-- `rand`. The next step is to update *src/main.rs*, as shown in Listing 2-3: -->
+<!-- `rand`. The next step is to update *src/main.rs*, as shown in Listing 2-3. -->
 
 *Cargo.toml*に`rand`クレートを追加したので、`rand`クレートを*使用*開始しましょう。
-次のステップは、リスト2-3のように*src/main.rs*ファイルを更新することです:
+次のステップは、リスト2-3のように*src/main.rs*ファイルを更新することです。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -949,6 +947,7 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
+
     // ---snip---
 
     println!("You guessed: {}", guess);
@@ -976,10 +975,6 @@ fn main() {
 スコープに導入しています。`Result`と同じく`Ordering`もenumです。ただ、`Ordering`の列挙子は、
 `Less`、`Greater`そして、`Equal`です。これらは、2値比較した時に発生しうる3種類の結果です。
 
-<!-- Then we add five new lines at the bottom that use the `Ordering` type. -->
-
-それから、一番下に5行追加して`Ordering`型を使用しています。
-
 ```rust,ignore
 match guess.cmp(&secret_number) {
     Ordering::Less => println!("Too small!"),
@@ -988,7 +983,8 @@ match guess.cmp(&secret_number) {
 }
 ```
 
-<!-- The `cmp` method compares two values and can be called on anything that can be -->
+<!-- Then we add five new lines at the bottom that use the `Ordering` type. The -->
+<!-- `cmp` method compares two values and can be called on anything that can be -->
 <!-- compared. It takes a reference to whatever you want to compare with: here it’s -->
 <!-- comparing the `guess` to the `secret_number`. Then it returns a variant of the -->
 <!-- `Ordering` enum we brought into scope with the `use` statement. We use a -->
@@ -996,7 +992,8 @@ match guess.cmp(&secret_number) {
 <!-- which variant of `Ordering` was returned from the call to `cmp` with the values -->
 <!-- in `guess` and `secret_number`. -->
 
-`cmp`メソッドは、2値を比較し、比較できるものに対してならなんに対しても呼び出せます。このメソッドは、
+それから、一番下に新しく5行追加して`Ordering`型を使用しています。`cmp`メソッドは、
+2値を比較し、比較できるものに対してならなんに対しても呼び出せます。このメソッドは、
 比較したいものへの参照を取ります: ここでは、`guess`変数と`secret_number`変数を比較しています。
 それからこのメソッドは`use`文でスコープに導入した`Ordering`列挙型の値を返します。 
 [`match`][match]<!-- ignore -->式を使用して、`guess`変数と`secret_number`を`cmp`に渡して返ってきた`Ordering`の列挙子に基づき、
@@ -1030,18 +1027,6 @@ match guess.cmp(&secret_number) {
 <!-- `Ordering::Greater`, *does* match `Ordering::Greater`! The associated code in -->
 <!-- that arm will execute and print `Too big!` to the screen. The `match` -->
 <!-- expression ends because it has no need to look at the last arm in this scenario. -->
-
-Let’s walk through an example of what would happen with the `match` expression
-used here. Say that the user has guessed 50 and the randomly generated secret
-number this time is 38. When the code compares 50 to 38, the `cmp` method will
-return `Ordering::Greater`, because 50 is greater than 38. The `match`
-expression gets the `Ordering::Greater` value and starts checking each arm’s
-pattern. It looks at the first arm’s pattern, `Ordering::Less`, and sees that
-the value `Ordering::Greater` does not match `Ordering::Less`, so it ignores
-the code in that arm and moves to the next arm. The next arm’s pattern,
-`Ordering::Greater`, *does* match `Ordering::Greater`! The associated code in
-that arm will execute and print `Too big!` to the screen. The `match`
-expression ends because it has no need to look at the last arm in this scenario.
 
 ここで使われている`match`式でどんなことが起こるかの例をじっくり観察してみましょう！例えば、
 ユーザは50と予想し、ランダム生成された秘密の数字は今回、38だったとしましょう。コードが50と38を比較すると、
@@ -1139,7 +1124,7 @@ let guess: u32 = guess.trim().parse()
 <!-- value of `guess` with a new one. This feature is often used in sutuations in -->
 <!-- in which you want to convert a value from one type to another type. Shadowing lets -->
 <!-- us reuse the `guess` variable name rather than forcing us to create two unique -->
-<!-- variables, like `guess_str` and `guess` for example. (Chapter 3 covers -->
+<!-- variables, such as `guess_str` and `guess` for example. (Chapter 3 covers -->
 <!-- shadowing in more detail.) -->
 
 `guess`という名前の変数を生成しています。あれ、でも待って。もうプログラムには`guess`という名前の変数が
@@ -1220,7 +1205,7 @@ Rustには、組み込みの数値型がいくつかあります; ここの`u32`
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 0.43 secs
-     Running `target/guessing_game`
+     Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 58
 Please input your guess.
@@ -1303,7 +1288,7 @@ Too big!
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 1.50 secs
-     Running `target/guessing_game`
+     Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 59
 Please input your guess.
@@ -1377,18 +1362,36 @@ error: Process didn't exit successfully: `target/debug/guess` (exit code: 101)
 <!-- To further refine the game’s behavior, rather than crashing the program when -->
 <!-- the user inputs a non-number, let’s make the game ignore a non-number so the -->
 <!-- user can continue guessing. We can do that by altering the line where `guess` -->
-<!-- is converted from a `String` to a `u32`: -->
+<!-- is converted from a `String` to a `u32`, as showin in Listing 2-5. -->
 
 さらにゲームの振る舞いを改善するために、ユーザが数値以外を入力した時にプログラムをクラッシュさせるのではなく、
 非数値を無視してユーザが数当てを続けられるようにしましょう！これは、
-`guess`が`String`型から`u32`型に変換される行を改変することで達成できます:
+`guess`が`String`型から`u32`型に変換される行を改変することで達成できます。リスト2-5のようにね。
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
+// --snip--
+
+io::stdin().read_line(&mut guess)
+    .expect("Failed to read line");
+
 let guess: u32 = match guess.trim().parse() {
     Ok(num) => num,
     Err(_) => continue,
 };
+
+println!("You guessed: {}", guess);
+
+// --snip--
 ```
+
+<!-- <span class="caption">Listing 2-5: Ignoring a non-number guess and asking for -->
+<!-- another guess instead of crashing the program</span> -->
+
+<span class="caption">リスト2-5: 非数値の予想を無視し、プログラムをクラッシュさせるのではなく、もう1回予想してもらう</span>
 
 <!-- Switching from an `expect` call to a `match` expression is how you generally -->
 <!-- move from crash on an error to handling the error. Remember that `parse` -->
@@ -1417,16 +1420,16 @@ let guess: u32 = match guess.trim().parse() {
 <!-- the `Err(_)` pattern in the second arm. The underscore, `_`, is a -->
 <!-- catchall value; in this example, we’re saying we want to match all `Err` -->
 <!-- values, no matter what information they have inside them. So the program will -->
-<!-- execute the second arm's code, `continue`, which means to go to the next -->
-<!-- iteration of the `loop` and ask for another guess. So effectively, the program -->
-<!-- ignores all errors that `parse` might encounter! -->
+<!-- execute the second arm's code, `continue`, which tells the program to go to the -->
+<!-- next iteration of the `loop` and ask for another guess. So effectively, the -->
+<!-- program ignores all errors that `parse` might encounter! -->
 
 `parse`メソッドは、文字列から数値への変換に*失敗*したら、エラーに関する情報を多く含む`Err`値を返します。
 この`Err`値は、最初の`match`アームの`Ok(num)`というパターンにはマッチしないものの、
 2番目のアームの`Err(_)`というパターンにはマッチするわけです。この`_`は、包括値です; この例では、
 保持している情報がどんなものでもいいから全ての`Err`値にマッチさせたいと宣言しています。
 従って、プログラムは2番目のアームのコードを実行し(`continue`ですね)、これは、`loop`の
-次の段階に移り、再度予想入力を求めることを意味します。故に実質的には、プログラムは`parse`メソッドが
+次の段階に移り、再度予想入力を求めるようプログラムに指示します。故に実質的には、プログラムは`parse`メソッドが
 遭遇しうる全てのエラーを無視するようになります！
 
 <!-- Now everything in the program should work as expected. Let’s try it: -->
@@ -1436,7 +1439,7 @@ let guess: u32 = match guess.trim().parse() {
 ```text
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-     Running `target/guessing_game`
+     Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 61
 Please input your guess.
@@ -1458,7 +1461,7 @@ You win!
 <!-- Awesome! With one tiny final tweak, we will finish the guessing game. Recall -->
 <!-- that the program is still printing the secret number. That worked well for -->
 <!-- testing, but it ruins the game. Let’s delete the `println!` that outputs the -->
-<!-- secret number. Listing 2-5 shows the final code: -->
+<!-- secret number. Listing 2-6 shows the final code: -->
 
 素晴らしい！最後にひとつまみ変更を加えて、数当てゲームを完了にしましょう。
 プログラムが未だに秘密の数字を出力していることを思い出してください。テスト中はうまく動くけど、
@@ -1508,22 +1511,22 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 2-5: Complete guessing game code</span> -->
+<!-- <span class="caption">Listing 2-6: Complete guessing game code</span> -->
 
-<span class="caption">リスト2-5: 数当てゲームの完全なコード</span>
+<span class="caption">リスト2-6: 数当てゲームの完全なコード</span>
 
 <!-- ## Summary -->
 
 ## まとめ
 
-<!-- At this point, you’ve successfully built the guessing game! Congratulations! -->
+<!-- At this point, you’ve successfully built the guessing game. Congratulations! -->
 
-ここまでで、数当てゲームの作成に成功しました！おめでとうございます！
+ここまでで、数当てゲームの作成に成功しました。おめでとうございます！
 
 <!-- This project was a hands-on way to introduce you to many new Rust concepts: -->
-<!-- `let`, `match`, methods, associated functions, the use of external crates, and -->
-<!-- more. In the next few chapters, you’ll learn about these concepts in more -->
-<!-- detail. Chapter 3 covers concepts that most programming languages have, such as -->
+<!-- `let`, `match`, methods, associated functions, external crates, and more. In-->
+<!-- the next few chapters, you’ll learn about these concepts in more detail. -->
+<!-- Chapter 3 covers concepts that most programming languages have, such as -->
 <!-- variables, data types, and functions, and shows how to use them in Rust. -->
 <!-- Chapter 4 explores ownership, a feature that makes Rust different from other -->
 <!-- languages. Chapter 5 discusses structs and method syntax, and Chapter 6 -->

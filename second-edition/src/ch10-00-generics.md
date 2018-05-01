@@ -26,7 +26,7 @@
 
 <!-- First, we’ll review how to extract a function to reduce code duplication. Next, -->
 <!-- we’ll use the same technique to make a generic function from two functions that -->
-<!-- only differ in the types of their parameters. We’ll also explain how to use -->
+<!-- differ only in the types of their parameters. We’ll also explain how to use -->
 <!-- generic types in struct and enum definitions. -->
 
 まず、関数を抽出して、コードの重複を減らす方法を確認しましょう。次に同じテクニックを活用して、
@@ -34,10 +34,10 @@
 ジェネリックな型を構造体やenum定義で使用する方法も説明します。
 
 <!-- Then you’ll learn how to use *traits* to define behavior in a generic way. You -->
-<!-- can then combine traits with generic types to constrain a generic type to only -->
+<!-- can combine traits with generic types to constrain a generic type to only -->
 <!-- those types that have a particular behavior, as opposed to just any type. -->
 
-それから、トレイトを使用して、ジェネリックな方法で振る舞いを定義する方法を学びます。すると、
+それから、トレイトを使用して、ジェネリックな方法で振る舞いを定義する方法を学びます。
 ジェネリックな型のあるトレイトを組み合わせてただ単にどんな型に対してもとは対照的に、
 ジェネリックな型を特定の振る舞いのある型のみに制限することができます。
 
@@ -64,9 +64,9 @@
 ジェネリクスを使用できる重複コードも認識し始めるでしょう。
 
 <!-- Consider a short program that finds the largest number in a list, as shown in -->
-<!-- Listing 10-1: -->
+<!-- Listing 10-1. -->
 
-リスト10-1に示したように、リスト内の最大値を求める短いプログラムを考えてください:
+リスト10-1に示したように、リスト内の最大値を求める短いプログラムを考えてください。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -112,10 +112,10 @@ fn main() {
 
 <!-- To find the largest number in two different lists of numbers, we can duplicate -->
 <!-- the code in Listing 10-1 and use the same logic at two different places in the -->
-<!-- program, as shown in Listing 10-2: -->
+<!-- program, as shown in Listing 10-2. -->
 
 2つの異なる数値のリストから最大値を発見するには、リスト10-1のコードを複製し、
-プログラムの異なる2箇所で同じロジックを使用できます。リスト10-2のようにね:
+プログラムの異なる2箇所で同じロジックを使用できます。リスト10-2のようにね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -155,10 +155,10 @@ fn main() {
 <span class="caption">リスト10-2: *2*つの数値のリストから最大値を探すコード</span>
 
 <!-- Although this code works, duplicating code is tedious and error prone. We also -->
-<!-- have to update the code in multiple places to change it. -->
+<!-- have to update the code in multiple places whe we want to change it. -->
 
 このコードは動くものの、コードを複製することは退屈ですし、間違いも起きやすいです。また、
-複数箇所のコードを更新しないと変更できません。
+複数箇所のコードを変更したい時に更新しなければなりません。
 
 <!-- To eliminate this duplication, we can create an abstraction by defining a -->
 <!-- function that operates on any list of integers given to it in a parameter. This -->
@@ -171,10 +171,10 @@ fn main() {
 <!-- In Listing 10-3, we extracted the code that finds the largest number into a -->
 <!-- function named `largest`. Unlike the code in Listing 10-1, which can find the -->
 <!-- largest number in only one particular list, this program can find the largest -->
-<!-- number in two different lists: -->
+<!-- number in two different lists. -->
 
 リスト10-3では、最大値を探すコードを`largest`という関数に抽出しました。リスト10-1のコードは、
-たった1つの特定のリストからだけ最大値を探せますが、それとは異なり、このプログラムは2つの異なるリストから最大値を探せます:
+たった1つの特定のリストからだけ最大値を探せますが、それとは異なり、このプログラムは2つの異なるリストから最大値を探せます。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

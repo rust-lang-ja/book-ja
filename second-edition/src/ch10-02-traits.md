@@ -41,11 +41,11 @@
 <!-- that might be stored in a `NewsArticle` or `Tweet` instance. To do this, we -->
 <!-- need a summary from each type, and we need to request that summary by calling a -->
 <!-- `summarize` method on an instance. Listing 10-12 shows the definition of a -->
-<!-- `Summary` trait that expresses this behavior: -->
+<!-- `Summary` trait that expresses this behavior. -->
 
 `NewsArticle`や`Tweet`インスタンスに格納される可能性のあるデータの総括を表示するメディア総括ライブラリを作成したいです。
 このために、各型からまとめが必要で、インスタンスに対して`summarize`メソッドを呼び出すことでそのまとめを要求する必要があります。
-リスト10-12は、この振る舞いを表現する`Summary`トレイトの定義を表示しています:
+リスト10-12は、この振る舞いを表現する`Summary`トレイトの定義を表示しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -63,7 +63,7 @@ pub trait Summary {
 <span class="caption">リスト10-12: `summarize`メソッドで提供される振る舞いからなる`Summary`トレイト</span>
 
 <!-- Here, we declare a trait using the `trait` keyword and then the trait’s name, -->
-<!-- which is `Summary` in this case. Inside the curly brackets we declare the -->
+<!-- which is `Summary` in this case. Inside the curly brackets, we declare the -->
 <!-- method signatures that describe the behaviors of the types that implement this -->
 <!-- trait, which in this case is `fn summarize(&self) -> String`. -->
 
@@ -185,20 +185,20 @@ println!("1 new tweet: {}", tweet.summarize());
 
 <!-- Note that because we defined the `Summary` trait and the `NewsArticle` and -->
 <!-- `Tweet` types in the same *lib.rs* in Listing 10-13, they’re all in the same -->
-<!-- scope. Let’s say this *lib.rs* is for a crate we’ve called `aggregator`, and -->
+<!-- scope. Let’s say this *lib.rs* is for a crate we’ve called `aggregator` and -->
 <!-- someone else wants to use our crate’s functionality to implement the `Summary` -->
 <!-- trait on a struct defined within their library’s scope. They would need to -->
 <!-- import the trait into their scope first. They would do so by specifying `use -->
-<!-- aggregator::Summary;`, which then enables them to implement `Summary` for their -->
-<!-- type. The `Summary` trait would also need to be a public trait for another -->
-<!-- crate to implement it, which it is because we put the `pub` keyword before -->
-<!-- `trait` in Listing 10-12. -->
+<!-- aggregator::Summary;`, which then would enable them to implement `Summary` for -->
+<!-- their type. The `Summary` trait would also need to be a public trait for -->
+<!-- another crate to implement it, which it is because we put the `pub` keyword -->
+<!-- before `trait` in Listing 10-12. -->
 
 リスト10-13で`Summary`トレイトと`NewArticle`、`Tweet`型を同じ*lib.rs*に定義したので、
 全部同じスコープにあることに注目してください。この*lib.rs*を`aggregator`と呼ばれるクレート専用にして、
 誰か他の人が私たちのクレートの機能を活用して自分のライブラリのスコープに定義された構造体に`Summary`トレイトを実装したいとしましょう。
 まず、トレイトをスコープにインポートする必要があるでしょう。`use aggregator::Summary;`と指定してそれを行い、
-これにより、自分の型に`Summary`を実装することが可能になります。`Summary`トレイトは、
+これにより、自分の型に`Summary`を実装することが可能になるでしょう。`Summary`トレイトは、
 他のクレートが実装するためには、公開トレイトである必要があり、ここでは、リスト10-12の`trait`の前に、
 `pub`キーワードを置いたのでそうなっています。
 
@@ -247,8 +247,8 @@ println!("1 new tweet: {}", tweet.summarize());
 そうすれば、特定の型にトレイトを実装する際、各メソッドのデフォルト実装を保持するかオーバーライドできるわけです。
 
 <!-- Listing 10-14 shows how to specify a default string for the `summarize` method -->
-<!-- of the `Summary` trait instead of only defining the method signature, like we -->
-<!-- did in Listing 10-12: -->
+<!-- of the `Summary` trait instead of only defining the method signature, as we did -->
+<!-- in Listing 10-12: -->
 
 リスト10-14は、リスト10-12のように、メソッドシグニチャだけを定義するのではなく、
 `Summary`トレイトの`summarize`メソッドにデフォルトの文字列を指定する方法を示しています:
@@ -436,14 +436,14 @@ pub fn notify<T: Summary>(item: T) {
 `summarize`メソッドを使用するには、`T: Summary + Display`を使用して、`T`は`Summary`と`Display`を実装するどんな型にもなると宣言できます。
 
 <!-- However, there are downsides to using too many trait bounds. Each generic has -->
-<!-- its own trait bounds; so functions with multiple generic type parameters can -->
+<!-- its own trait bounds, so functions with multiple generic type parameters can -->
 <!-- have lots of trait bound information between a function’s name and its -->
 <!-- parameter list, making the function signature hard to read. For this reason, -->
 <!-- Rust has alternate syntax for specifying trait bounds inside a `where` clause -->
 <!-- after the function signature. So instead of writing this: -->
 
-しかしながら、トレイト境界が多すぎると欠点もあります。各ジェネリックには、特有のトレイト境界があります;
-故に、複数のジェネリックな型引数がある関数には、関数名と引数リストの間に多くのトレイト境界の情報が付くこともあり、
+しかしながら、トレイト境界が多すぎると欠点もあります。各ジェネリックには、特有のトレイト境界があるので、
+複数のジェネリックな型引数がある関数には、関数名と引数リストの間に多くのトレイト境界の情報が付くこともあり、
 関数シグニチャが読みづらくなる原因になります。このため、Rustには関数シグニチャの後、
 `where`節内にトレイト境界を指定する対立的な記法があります。従って、こう書く代わりに:
 
@@ -558,11 +558,11 @@ error[E0507]: cannot move out of borrowed content
 <!-- add `Copy` to the trait bounds of `T`! Listing 10-15 shows the complete code of -->
 <!-- a generic `largest` function that will compile as long as the types of the -->
 <!-- values in the slice that we pass into the function implement the `PartialOrd` -->
-<!-- *and* `Copy` traits, like `i32` and `char` do: -->
+<!-- *and* `Copy` traits, like `i32` and `char` do. -->
 
 このコードを`Copy`トレイトを実装する型とだけで呼び出すには、`T`のトレイト境界に`Copy`を追加できます！
 リスト10-15は、関数に渡したスライスの値の型が`i32`や`char`などのように、`PartialOrd`*と*`Copy`を実装する限り、
-コンパイルできるジェネリックな`largest`関数の完全なコードを示しています:
+コンパイルできるジェネリックな`largest`関数の完全なコードを示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -635,13 +635,13 @@ Tが`Clone`というトレイト境界を含むと指定することもできま
 <!-- traits. For example, the type `Pair<T>` in Listing 10-16 always implements the -->
 <!-- `new` function. But `Pair<T>` only implements the `cmp_display` method if its -->
 <!-- inner type `T` implements the `PartialOrd` trait that enables comparison *and* -->
-<!-- the `Display` trait that enables printing: -->
+<!-- the `Display` trait that enables printing. -->
 
 `impl`ブロックでジェネリックな型引数を使用するトレイト境界を活用することで、
 特定のトレイトを実装する型に対するメソッド実装を条件分けできます。例えば、
 リスト10-16の型`Pair<T>`は、常に`new`関数を実装します。しかし、`Pair<T>`は、
 内部の型`T`が比較を可能にする`PartialOrd`トレイト*と*出力を可能にする`Display`トレイトを実装している時のみ、
-`cmp_display`メソッドを実装します:
+`cmp_display`メソッドを実装します。
 
 ```rust
 use std::fmt::Display;

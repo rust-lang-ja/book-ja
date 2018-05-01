@@ -25,9 +25,9 @@
 そうすることでコードがより柔軟になり、コードの重複を阻止しつつ、関数の呼び出し元により多くの機能を提供します。
 
 <!-- Continuing with our `largest` function, Listing 10-4 shows two functions that -->
-<!-- both find the largest value in a slice: -->
+<!-- both find the largest value in a slice. -->
 
-`largest`関数を続けます。リスト10-4はどちらもスライスから最大値を探す2つの関数を示しています:
+`largest`関数を続けます。リスト10-4はどちらもスライスから最大値を探す2つの関数を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -88,10 +88,10 @@ fn main() {
 単独の関数にジェネリックな型引数を導入してこの重複を排除しましょう。
 
 <!-- To parameterize the types in the new function we’ll define, we need to name the -->
-<!-- type parameter, just like we do for the value parameters to a function. You can -->
+<!-- type parameter, just as we do for the value parameters to a function. You can -->
 <!-- use any identifier as a type parameter name. But we’ll use `T` because, by -->
 <!-- convention, parameter names in Rust are short, often just a letter, and Rust’s -->
-<!-- type naming convention is CamelCase. Short for “type,” `T` is the default -->
+<!-- type-naming convention is CamelCase. Short for “type,” `T` is the default -->
 <!-- choice of most Rust programmers. -->
 
 これから定義する新しい関数の型を引数にするには、ちょうど関数の値引数のように型引数に名前をつける必要があります。
@@ -100,10 +100,10 @@ Rustの引数名は短く(しばしばたった1文字になります)、Rustの
 "type"の省略形なので、`T`が多くのRustプログラマの規定の選択なのです。
 
 <!-- When we use a parameter in the body of the function, we have to declare the -->
-<!-- parameter name in the signature so that the compiler knows what that name -->
-<!-- means. Similarly, when we use a type parameter name in a function signature, we -->
-<!-- have to declare the type parameter name before we use it. To define the generic -->
-<!-- `largest` function, place type name declarations inside angle brackets (`<>`) -->
+<!-- parameter name in the signature so the compiler knows what that name means. -->
+<!-- Similarly, when we use a type parameter name in a function signature, we have -->
+<!-- to declare the type parameter name before we use it. To define the generic -->
+<!-- `largest` function, place type name declarations inside angle brackets, `<>`, -->
 <!-- between the name of the function and the parameter list, like this: -->
 
 関数の本体で引数を使用すると、コンパイラがその名前の意味を知れるようにシグニチャでその引数名を宣言しなければなりません。
@@ -188,15 +188,15 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
 <!-- `largest` won’t work for all possible types that `T` could be. Because we want -->
 <!-- to compare values of type `T` in the body, we can only use types whose values -->
 <!-- can be ordered. To enable comparisons, the standard library has the -->
-<!-- `std::cmp::PartialOrd` trait that you can implement on types (see Appendix C, -->
-<!-- “Derivable Traits,” for more on this trait). You’ll learn how to specify that a -->
-<!-- generic type has a particular trait in the “Trait Bounds” section, but let’s -->
-<!-- first explore other ways of using generic type parameters. -->
+<!-- `std::cmp::PartialOrd` trait that you can implement on types (see Appendix C -->
+<!-- for more on this trait). You’ll learn how to specify that a generic type has a -->
+<!-- particular trait in the “Trait Bounds” section, but let’s first explore other -->
+<!-- ways of using generic type parameters. -->
 
 注釈が`std::cmp::PartialOrd`に触れていて、これは、*トレイト*です。トレイトについては、次の節で語ります。
 とりあえず、このエラーは、`largest`の本体は、`T`がなりうる全ての可能性のある型に対して動作しないと述べています。
 本体で型`T`の値を比較したいので、値が順序付け可能な型のみしか使用できないのです。比較を可能にするために、
-標準ライブラリには型に実装できる`std::cmp::PartialOrd`トレイトがあります(このトレイトについて詳しくはおまけC「継承可能トレイト」を参照されたし)。
+標準ライブラリには型に実装できる`std::cmp::PartialOrd`トレイトがあります(このトレイトについて詳しくはおまけCを参照されたし)。
 ジェネリックな型が特定のトレイトを持つと指定する方法は「トレイト境界」節で習うでしょうが、
 先にジェネリックな型引数を使用する他の方法を探求しましょう。
 
@@ -206,10 +206,10 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
 
 <!-- We can also define structs to use a generic type parameter in one or more -->
 <!-- fields using the `<>` syntax. Listing 10-6 shows how to define a `Point<T>` -->
-<!-- struct to hold `x` and `y` coordinate values of any type: -->
+<!-- struct to hold `x` and `y` coordinate values of any type. -->
 
 また、構造体を定義して`<>`記法で1つ以上のフィールドにジェネリックな型引数を使用することもできます。
-リスト10-6は、`Point<T>`構造体を定義してあらゆる型の`x`と`y`座標を保持する方法を示しています:
+リスト10-6は、`Point<T>`構造体を定義してあらゆる型の`x`と`y`座標を保持する方法を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -241,15 +241,15 @@ fn main() {
 構造体定義でジェネリクスを使用する記法は、関数定義のものと似ています。まず、山カッコ内に型引数の名前を構造体名の直後に宣言します。
 そして、そうしていなければ具体的なデータ型を記述する構造体定義の箇所にジェネリックな型を使用できます。
 
-<!-- Note that because we’ve only used one generic type to define `Point<T>`, this -->
+<!-- Note that because we’ve used only one generic type to define `Point<T>`, this -->
 <!-- definition says that the `Point<T>` struct is generic over some type `T`, and -->
 <!-- the fields `x` and `y` are *both* that same type, whatever that type may be. If -->
 <!-- we create an instance of a `Point<T>` that has values of different types, as in -->
-<!-- Listing 10-7, our code won’t compile: -->
+<!-- Listing 10-7, our code won’t compile. -->
 
-1つのジェネリックな型を使用して`Point<T>`を定義したので、この定義は、`Point<T>`構造体がなんらかの型`T`に関して、
+1つのジェネリックな型だけを使用して`Point<T>`を定義したので、この定義は、`Point<T>`構造体がなんらかの型`T`に関して、
 ジェネリックであると述べていてその型がなんであれ、`x`と`y`のフィールドは*両方*その同じ型になっていることに注意してください。
-リスト10-7のように、異なる型の値のある`Point<T>`のインスタンスを生成すれば、コードはコンパイルできません:
+リスト10-7のように、異なる型の値のある`Point<T>`のインスタンスを生成すれば、コードはコンパイルできません。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -294,11 +294,11 @@ floating-point variable
 <!-- To define a `Point` struct where `x` and `y` are both generics but could have -->
 <!-- different types, we can use multiple generic type parameters. For example, in -->
 <!-- Listing 10-8, we can change the definition of `Point` to be generic over types -->
-<!-- `T` and `U` where `x` is of type `T` and `y` is of type `U`: -->
+<!-- `T` and `U` where `x` is of type `T` and `y` is of type `U`. -->
 
 `x`と`y`が両方ジェネリックだけれども、異なる型になり得る`Point`構造体を定義するには、
 複数のジェネリックな型引数を使用できます。例えば、リスト10-8では、`Point`の定義を変更して、
-型`T`と`U`に関してジェネリックにし、`x`が型`T`で、`y`が型`U`になります:
+型`T`と`U`に関してジェネリックにし、`x`が型`T`で、`y`が型`U`になります。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -337,10 +337,10 @@ fn main() {
 
 <!-- As we did with structs, we can define enums to hold generic data types in their -->
 <!-- variants. Let’s take another look at the `Option<T>` enum that the standard -->
-<!-- library provides that we used in Chapter 6: -->
+<!-- library provides, which we used in Chapter 6: -->
 
 構造体のように、列挙子にジェネリックなデータ型を保持するenumを定義することができます。
-標準ライブラリが提供し、第6章で使用した`Option<T>`enumに別の見方をしましょう:
+標準ライブラリが提供している`Option<T>`enumに別の見方をしましょう。このenumは第6章で使用しました:
 
 ```rust
 enum Option<T> {
@@ -378,7 +378,7 @@ enum Result<T, E> {
 <!-- `E`. This definition makes it convenient to use the `Result` enum anywhere we -->
 <!-- have an operation that might succeed (return a value of some type `T`) or fail -->
 <!-- (return an error of some type `E`). In fact, this is what we used to open a -->
-<!-- file in Listing 9-3 where `T` was filled in with the type `std::fs::File` when -->
+<!-- file in Listing 9-3, where `T` was filled in with the type `std::fs::File` when -->
 <!-- the file was opened successfully and `E` was filled in with the type -->
 <!-- `std::io::Error` when there were problems opening the file. -->
 
@@ -399,12 +399,12 @@ enum Result<T, E> {
 
 ### メソッド定義では
 
-<!-- As we did in Chapter 5, we can implement methods on structs and enums that have -->
-<!-- generic types in their definitions. Listing 10-9 shows the `Point<T>` struct we -->
-<!-- defined in Listing 10-6 with a method named `x` implemented on it: -->
+<!-- We can implement methods on structs and enums (as we did in Chapter 5) and use -->
+<!-- generic types in their definitions too. Listing 10-9 shows the `Point<T>` -->
+<!-- struct we defined in Listing 10-6 with a method named `x` implemented on it. -->
 
-第5章のように、定義にジェネリックな型を含むメソッドを構造体やenumに実装できます。リスト10-9は、
-リスト10-6で定義した`Point<T>`構造体に`x`というメソッドを実装したものを示しています:
+(第5章のように、)定義にジェネリックな型を使うメソッドを構造体やenumに実装することもできます。リスト10-9は、
+リスト10-6で定義した`Point<T>`構造体に`x`というメソッドを実装したものを示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -451,10 +451,10 @@ fn main() {
 
 <!-- We could, for example, implement methods only on `Point<f32>` instances rather -->
 <!-- than on `Point<T>` instances with any generic type. In Listing 10-10 we use the -->
-<!-- concrete type `f32`, meaning we don’t declare any types after `impl`: -->
+<!-- concrete type `f32`, meaning we don’t declare any types after `impl`. -->
 
 例えば、あらゆるジェネリックな型とともに`Point<T>`インスタンスではなく、`Point<f32>`だけにメソッドを実装することもできるでしょう。
-リスト10-10では、具体的な型`f32`を使用しています。つまり、`impl`の後に型を宣言しません:
+リスト10-10では、具体的な型`f32`を使用しています。つまり、`impl`の後に型を宣言しません。
 
 ```rust
 # struct Point<T> {
@@ -478,7 +478,7 @@ impl Point<f32> {
 <!-- `distance_from_origin`, and other instances of `Point<T>` where `T` is not of -->
 <!-- type `f32` will not have this method defined. The method measures how far our -->
 <!-- point is from the point at coordinates (0.0, 0.0) and uses mathematical -->
-<!-- operations that are only available for floating point types. -->
+<!-- operations that are vailable only for floating point types. -->
 
 このコードは、`Point<f32>`には`distance_from_origin`というメソッドが存在するが、
 `T`が`f32`ではない`Point<T>`の他のインスタンスにはこのメソッドが定義されないことを意味します。
@@ -598,8 +598,8 @@ let float = Some(5.0);
 ```
 
 <!-- When Rust compiles this code, it performs monomorphization. During that -->
-<!-- process, the compiler reads the values that have been used in the instances of -->
-<!-- `Option<T>` and identifies two kinds of `Option<T>`: one is `i32` and the other -->
+<!-- process, the compiler reads the values that have been used in `Option<T>` -->
+<!-- instances and identifies two kinds of `Option<T>`: one is `i32` and the other -->
 <!-- is `f64`. As such, it expands the generic definition of `Option<T>` into -->
 <!-- `Option_i32` and `Option_f64`, thereby replacing the generic definition with -->
 <!-- the specific ones. -->
@@ -638,7 +638,7 @@ fn main() {
 
 <!-- Because Rust compiles generic code into code that specifies the type in each -->
 <!-- instance, we pay no runtime cost for using generics. When the code runs, it -->
-<!-- performs just like it would if we had duplicated each definition by hand. The -->
+<!-- performs just as it would if we had duplicated each definition by hand. The -->
 <!-- process of monomorphization makes Rust’s generics extremely efficient at -->
 <!-- runtime. -->
 

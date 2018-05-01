@@ -106,10 +106,11 @@ condition was false
 ```
 
 <!-- It’s also worth noting that the condition in this code *must* be a `bool`. If -->
-<!-- the condition isn’t a `bool`, we’ll get an error. For example: -->
+<!-- the condition isn’t a `bool`, we’ll get an error. For example, try running the -->
+<!-- following code: -->
 
 このコード内の条件式は、`bool`型で*なければならない*ことにも触れる価値があります。
-条件式が、`bool`型でない時は、エラーになります。例です:
+条件式が、`bool`型でない時は、エラーになります。例えば、試しに以下のコードを実行してみてください:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -245,9 +246,9 @@ number is divisible by 3
 #### `let`文内で`if`式を使う
 
 <!-- Because `if` is an expression, we can use it on the right side of a `let` -->
-<!-- statement, as in Listing 3-2: -->
+<!-- statement, as in Listing 3-2. -->
 
-`if`は式なので、`let`文の右辺に持ってくることができます。リスト3-2のようにね:
+`if`は式なので、`let`文の右辺に持ってくることができます。リスト3-2のようにね。
 
 <!--<span class="filename">Filename: src/main.rs</span> -->
 
@@ -317,9 +318,9 @@ fn main() {
 }
 ```
 
-<!-- When we try to compile this code, we’ll get an error. The `if` and `else` arms have -->
-<!-- value types that are incompatible, and Rust indicates exactly where to find the -->
-<!-- problem in the program: -->
+<!-- When we try to compile this code, we’ll get an error. The `if` and `else` arms -->
+<!-- have value types that are incompatible, and Rust indicates exactly where to -->
+<!-- find the problem in the program: -->
 
 このコードをコンパイルしようとすると、エラーになります。`if`と`else`アームは互換性のない値の型になり、
 コンパイラがプログラム内で問題の見つかった箇所をスバリ指摘してくれます:
@@ -433,8 +434,8 @@ again!
 <!-- Fortunately, Rust provides another, more reliable way to break out of a loop. -->
 <!-- You can place the `break` keyword within the loop to tell the program when to -->
 <!-- stop executing the loop. Recall that we did this in the guessing game in the -->
-<!-- “Quitting After a Correct Guess” section of Chapter 2 to exit the -->
-<!-- program when the user won the game by guessing the correct number. -->
+<!-- “Quitting After a Correct Guess” section of Chapter 2 to exit the program when -->
+<!-- the user won the game by guessing the correct number. -->
 
 幸いなことに、Rustにはループを抜け出す別のより信頼できる手段があります。
 ループ内に`break`キーワードを配置することでプログラムに実行を終了すべきタイミングを教えることができます。
@@ -501,9 +502,9 @@ fn main() {
 #### `for`でコレクションを覗き見る
 
 <!-- You could use the `while` construct to loop over the elements of a collection, -->
-<!-- such as an array. For example, let's look at Listing 3-4: -->
+<!-- such as an array. For example, let's look at Listing 3-4. -->
 
-`while`要素を使って配列などのコレクションの要素を覗き見ることができます。例えば、リスト3-4を見ましょう:
+`while`要素を使って配列などのコレクションの要素を覗き見ることができます。例えば、リスト3-4を見ましょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -566,10 +567,10 @@ the value is: 50
 コンパイラが実行時にループの各回ごとに境界値チェックを行うようなコードを追加するからです。
 
 <!-- As a more efficient alternative, you can use a `for` loop and execute some code -->
-<!-- for each item in a collection. A `for` loop looks like this code in Listing 3-5: -->
+<!-- for each item in a collection. A `for` loop looks like this code in Listing 3-5. -->
 
 より効率的な対立案として、`for`ループを使ってコレクションの各アイテムに対してコードを実行することができます。
-`for`ループはリスト3-5のこんな見た目です:
+`for`ループはリスト3-5のこんな見た目です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -660,12 +661,12 @@ fn main() {
 <!-- * Convert temperatures between Fahrenheit and Celsius. -->
 <!-- * Generate the nth Fibonacci number. -->
 <!-- * Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” -->
-<!-- taking advantage of the repetition in the song. -->
+<!--   taking advantage of the repetition in the song. -->
 
 * 温度を華氏と摂氏で変換する。
 * フィボナッチ数列のn番目を生成する。
 * クリスマスキャロルの定番、"The Twelve Days of Christmas"の歌詞を、
-曲の反復性を利用して出力する。
+  曲の反復性を利用して出力する。
 
 <!-- When you’re ready to move on, we’ll talk about a concept in Rust that *doesn’t* -->
 <!-- commonly exist in other programming languages: ownership. -->

@@ -28,11 +28,11 @@ fn first_word(s: &String) -> ?
 <!-- This function, `first_word`, has a `&String` as a parameter. We don’t want -->
 <!-- ownership, so this is fine. But what should we return? We don’t really have a -->
 <!-- way to talk about *part* of a string. However, we could return the index of the -->
-<!-- end of the word. Let’s try that as shown in Listing 4-7: -->
+<!-- end of the word. Let’s try that as shown in Listing 4-7. -->
 
 この関数、`first_word`は引数に`&String`をとります。所有権はいらないので、これで十分です。
 ですが、何を返すべきでしょうか？文字列の*一部*について語る方法が全くありません。しかし、
-単語の終端の番号を返すことができますね。リスト4-7に示したように、その方法を試してみましょう:
+単語の終端の番号を返すことができますね。リスト4-7に示したように、その方法を試してみましょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -110,6 +110,7 @@ for (i, &item) in bytes.iter().enumerate() {
         return i;
     }
 }
+
 s.len()
 ```
 
@@ -118,12 +119,12 @@ s.len()
 <!-- only a meaningful number in the context of the `&String`. In other words, -->
 <!-- because it’s a separate value from the `String`, there’s no guarantee that it -->
 <!-- will still be valid in the future. Consider the program in Listing 4-8 that -->
-<!-- uses the `first_word` function from Listing 4-7: -->
+<!-- uses the `first_word` function from Listing 4-7. -->
 
 さて、文字列内の最初の単語の終端の番号を見つけ出せるようになりましたが、問題があります。
 `usize`型を単独で返していますが、これは`&String`の文脈でのみ意味を持つ数値です。
 言い換えると、`String`から切り離された値なので、将来的にも有効である保証がないのです。
-リスト4-7の`first_word`関数を使用するリスト4-8のプログラムを考えてください:
+リスト4-7の`first_word`関数を使用するリスト4-8のプログラムを考えてください。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -145,9 +146,9 @@ s.len()
 <!-- fn main() { -->
 <!--     let mut s = String::from("hello world"); -->
 
-<!--     let word = first_word(&s); // word will get the value 5. -->
+<!--     let word = first_word(&s); // word will get the value 5 -->
 
-<!--     s.clear(); // This empties the String, making it equal to "". -->
+<!--     s.clear(); // This empties the String, making it equal to "" -->
 
 <!--     // word still has the value 5 here, but there's no more string that -->
 <!--     // we could meaningfully use the value 5 with. word is now totally invalid! -->
@@ -170,15 +171,9 @@ s.len()
 fn main() {
     let mut s = String::from("hello world");
 
-<<<<<<< HEAD
-    let word = first_word(&s); // wordの中身は、値5になる。
+    let word = first_word(&s); // wordの中身は、値5になる
 
-    s.clear(); // Stringを空にする。つまり、""と等しくする。
-=======
-    let word = first_word(&s); // word will get the value 5
-
-    s.clear(); // This empties the String, making it equal to ""
->>>>>>> fork_master_master
+    s.clear(); // Stringを空にする。つまり、""と等しくする
 
     // wordはまだ値5を保持しているが、もうこの値を有効に使用できる文字列は存在しない。
     // wordは完全に無効なのだ！
@@ -255,7 +250,7 @@ let world = &s[6..11];
 <!-- slice. Internally, the slice data structure stores the starting position and -->
 <!-- the length of the slice, which corresponds to `ending_index` minus -->
 <!-- `starting_index`. So in the case of `let world = &s[6..11];`, `world` would be -->
-<!-- a slice that contains a pointer to the 6th byte of `s` and a length value of 5. -->
+<!-- a slice that contains a pointer to the 6th byte of `s` with a length value of 5. -->
 
 `[starting_index..ending_index]`と指定することで、角かっこに範囲を使い、スライスを生成できます。
 ここで、`starting_index`はスライスの最初の位置、`ending_index`はスライスの終端位置よりも、
@@ -322,13 +317,13 @@ let slice = &s[..];
 <!-- boundaries. If you attempt to create a string slice in the middle of a -->
 <!-- multibyte character, your program will exit with an error. For the purposes -->
 <!-- of introducing string slices, we are assuming ASCII only in this section; a -->
-<!-- more thorough discussion of UTF-8 handling is in the “Strings” section of -->
-<!-- Chapter 8. -->
+<!-- more thorough discussion of UTF-8 handling is in the “Storing UTF-8 Encoded -->
+<!-- Text with Strings” section of Chapter 8. -->
 
 > 注釈: 文字列スライスの範囲インデックスは、有効なUTF-8文字境界に置かなければなりません。
 > マルチバイト文字の真ん中で文字列スライスを生成しようとしたら、エラーでプログラムは落ちるでしょう。
 > 文字列スライスを導入する目的で、この節ではASCIIのみを想定しています; UTF-8に関する
-> より徹底した議論は、第8章の「文字列」節で行います。
+> より徹底した議論は、第8章の「文字列でUTF-8エンコードされたテキストを格納する」節で行います。
 
 <!-- With all this information in mind, let’s rewrite `first_word` to return a -->
 <!-- slice. The type that signifies “string slice” is written as `&str`: -->
@@ -385,7 +380,7 @@ fn second_word(s: &String) -> &str {
 <!-- show up later if we kept trying to use the first word index with an emptied -->
 <!-- string. Slices make this bug impossible and let us know we have a problem with -->
 <!-- our code much sooner. Using the slice version of `first_word` will throw a -->
-<!-- compile time error: -->
+<!-- compile-time error: -->
 
 これで、ずっと混乱しにくい素直なAPIになりました。なぜなら、`String`への参照が有効なままであることをコンパイラが、
 保証してくれるからです。最初の単語の終端番号を得た時に、
@@ -405,7 +400,7 @@ fn main() {
 
     let word = first_word(&s);
 
-    s.clear(); // Error!
+    s.clear(); // error!    (エラー！)
 }
 ```
 
@@ -421,7 +416,7 @@ error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immuta
 4 |     let word = first_word(&s);
   |                            - immutable borrow occurs here (不変借用はここで起きています)
 5 |
-6 |     s.clear(); // Error!
+6 |     s.clear(); // error!        (エラー！)
   |     ^ mutable borrow occurs here (可変借用はここで起きています)
 7 | }
   | - immutable borrow ends here (不変借用はここで終わっています)
@@ -462,25 +457,31 @@ let s = "Hello, world!";
 
 #### 引数としての文字列スライス
 
-<!-- Knowing that you can take slices of literals and `String`s leads us to one more -->
-<!-- improvement on `first_word`, and that’s its signature: -->
+<!-- Knowing that you can take slices of literals and `String` values leads us to -->
+<!-- one more improvement on `first_word`, and that’s its signature: -->
 
-リテラルや`String`のスライスを得ることができると知ると、`first_word`に対して、もう一つ改善点を見出すことができます。
+リテラルや`String`値のスライスを得ることができると知ると、`first_word`に対して、もう一つ改善点を見出すことができます。
 シグニチャです:
 
 ```rust,ignore
 fn first_word(s: &String) -> &str {
 ```
 
-<!-- A more experienced Rustacean would write the following line instead because it -->
-<!-- allows us to use the same function on both `String`s and `&str`s: -->
+<!-- A more experienced Rustacean would write the signature shown in Listing 4-9 -->
+<!-- instead because it allows us to use the same function on both `String` values -->
+<!-- and `&str` values. -->
 
-もっと経験を積んだRust市民なら、代わりに以下のように書くでしょう。というのも、こうすると、
-同じ関数を`String`と`&str`両方に使えるようになるからです:
+もっと経験を積んだRustaceanなら、代わりにリスト4-9のようなシグニチャを書くでしょう。というのも、こうすると、
+同じ関数を`String`値と`&str`値両方に使えるようになるからです。
 
 ```rust,ignore
 fn first_word(s: &str) -> &str {
 ```
+
+<!-- <span class="caption">Listing 4-9: Improving the `first_word` function by using -->
+<!-- a string slice for the type of the `s` parameter</span> -->
+
+<span class="caption">リスト4-9: `s`引数の型に文字列スライスを使用して`first_word`関数を改善する</span>
 
 <!-- If we have a string slice, we can pass that directly. If we have a `String`, we -->
 <!-- can pass a slice of the entire `String`. Defining a function to take a string -->

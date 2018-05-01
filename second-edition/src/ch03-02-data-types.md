@@ -300,11 +300,11 @@ fn main() {
 }
 ```
 
-<!-- The main way to consume Boolean values is through conditionals, such as an `if` -->
+<!-- The main way to use Boolean values is through conditionals, such as an `if` -->
 <!-- expression. We’ll cover how `if` expressions work in Rust in the “Control Flow” -->
 <!-- section. -->
 
-論理値を消費する主な手段は、条件式です。例えば、`if`式などですね。`if`式のRustでの動作方法については、
+論理値を使う主な手段は、条件式です。例えば、`if`式などですね。`if`式のRustでの動作方法については、
 「フロー制御」節で解説します。
 
 <!-- #### The Character Type -->
@@ -475,7 +475,7 @@ fn main() {
 ```
 
 <!-- Arrays are useful when you want your data allocated on the stack rather than -->
-<!-- the heap (we will discuss the stack and the heap more in Chapter 4), or when -->
+<!-- the heap (we will discuss the stack and the heap more in Chapter 4) or when -->
 <!-- you want to ensure you always have a fixed number of elements. An array isn't -->
 <!-- as flexible as the vector type, though. A vector is a similar collection type -->
 <!-- provided by the standard library that *is* allowed to grow or shrink in size. -->

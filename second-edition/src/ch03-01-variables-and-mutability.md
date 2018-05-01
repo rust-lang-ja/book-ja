@@ -69,9 +69,9 @@ error[E0384]: cannot assgin twice immutable variable `x`
 エラーが出るからといって、あなたがいいプログラマではないという意味では*ありません*！
 経験豊富なRust市民でも、コンパイルエラーを出すことはあります。
 
-<!-- The error indicates that the cause of the error is that you `cannot assign twice -->
-<!-- to immutable variable x`, because you tried to assign a second value to the -->
-<!-- immutable `x` variable. -->
+<!-- The error message indicates that the cause of the error is that you `cannot -->
+<!-- assign twice to immutable variable x`, because you tried to assign a second -->
+<!-- value to the immutable `x` variable. -->
 
 このエラーは、エラーの原因が`不変変数xに2回代入できない`であると示しています。不変な`x`という変数に第2段階の値を代入しようとしたからです。
 
@@ -199,8 +199,8 @@ The value of x is: 6
 最後の違いは、定数は定数式にしかセットすることが叶わないことです。関数呼び出し結果や、実行時に評価される値にはセットできません。
 
 <!-- Here's an example of a constant declaration where the constant's name is -->
-<!-- `MAX_POINTS` and its value is set to 100,000. (Rust constant naming -->
-<!-- convention is to use all upper case with underscores between words): -->
+<!-- `MAX_POINTS` and its value is set to 100,000. (Rust naming convention for -->
+<!-- constants is to use all upper case with underscores between words): -->
 
 定数の名前が`MAX_POINTS`で、値が100,000にセットされた定数定義の例をご覧ください。(Rustの定数の命名規則は、
 全て大文字でアンダースコアで単語区切りすることです):
@@ -230,17 +230,17 @@ const MAX_POINTS: u32 = 100_000;
 
 <!-- ### Shadowing -->
 
-### (変数の)多重定義(shadowing)
+### (変数を)覆い隠す(shadowing)
 
-<!-- As you saw in the “Comparing the Guess to the Secret Number” section in Chapter -->
-<!-- 2, you can declare a new variable with the same name as a previous variable, -->
-<!-- and the new variable shadows the previous variable. Rustaceans say that the -->
-<!-- first variable is *shadowed* by the second, which means that the second -->
-<!-- variable’s value is what appears when the variable is used. We can shadow a -->
-<!-- variable by using the same variable’s name and repeating the use of the `let` -->
-<!-- keyword as follows: -->
+<!-- As you saw in the guessing game tutorial in the “Comparing the Guess to the -->
+<!-- Secret Number” section in Chapter 2, you can declare a new variable with the -->
+<!-- same name as a previous variable, and the new variable shadows the previous -->
+<!-- variable. Rustaceans say that the first variable is *shadowed* by the second, -->
+<!-- which means that the second variable’s value is what appears when the variable -->
+<!-- is used. We can shadow a variable by using the same variable’s name and -->
+<!-- repeating the use of the `let` keyword as follows: -->
 
-第2章の「秘密の数字と予想を比較する」節で見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
+第2章の数当てゲームのチュートリアル、「秘密の数字と予想を比較する」節で見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
 新しい変数は、前の変数を上書き(shadow)します。Rust市民はこれを最初の変数は、
 2番目の変数に*上書き*されたと言い、この変数を使用した際に、2番目の変数の値が現れるということです。
 以下のようにして、同じ変数名を用いて変数を上書きし、`let`キーワードの使用を繰り返します:

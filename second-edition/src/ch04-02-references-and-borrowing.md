@@ -201,7 +201,7 @@ fn change(some_string: &mut String) {
 始めに、`s`を`mut`に変えなければなりませんでした。そして、`&mut s`で可変な参照を生成し、
 `some_string: &mut String`で可変な参照を受け入れなければなりませんでした。
 
-<!-- But mutable references have one big restriction: you can only have one mutable -->
+<!-- But mutable references have one big restriction: you can have only one mutable -->
 <!-- reference to a particular piece of data in a particular scope. This code will -->
 <!-- fail: -->
 
@@ -399,7 +399,7 @@ fn dangle() -> &String {
 ```text
 error[E0106]: missing lifetime specifier
 (エラー: ライフタイム指定子がありません)
- --> dangle.rs:5:16
+ --> main.rs:5:16
   |
 5 | fn dangle() -> &String {
   |                ^ expected lifetime parameter
@@ -411,14 +411,13 @@ error[E0106]: missing lifetime specifier
   ('staticライフタイムを与えることを考慮してみてください)
 ```
 
-<!-- This error message refers to a feature we haven’t covered yet: *lifetimes*. -->
-<!-- We’ll discuss lifetimes in detail in Chapter 10. But, if you disregard the -->
-<!-- parts about lifetimes, the message does contain the key to why this code is a -->
-<!-- problem: -->
+<!-- This error message refers to a feature we haven’t covered yet: *lifetimes*. We'll -->
+<!-- discuss lifetimes in detail in Chapter 10. But, if you disregard the parts -->
+<!-- parts about lifetimes, the message does contain the key to why this code is a problem: -->
 
 このエラーメッセージは、まだ解説していない機能について触れています: *ライフタイム*です。
 ライフタイムについては第10章で詳しく議論しますが、ライフタイムに関する部分を無視すれば、
-このメッセージは、このコードが問題になる理由に関する鍵を握っています。
+このメッセージは、このコードが問題になる理由に関する鍵を握っています:
 
 ```text
 this function's return type contains a borrowed value, but there is no value
@@ -439,6 +438,10 @@ for it to be borrowed from.
 <!-- } // Here, s goes out of scope, and is dropped. Its memory goes away. -->
 <!--   // Danger! -->
 <!-- ``` -->
+
+<!-- <span class="filename">Filename: src/main.rs</span> -->
+
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
 fn dangle() -> &String { // dangleはStringへの参照を返す
@@ -484,12 +487,12 @@ fn no_dangle() -> String {
 
 参照について議論したことを再確認しましょう:
 
-<!-- * At any given time, you can have *either* (but not both of) one mutable -->
-<!--   reference or any number of immutable references. -->
+<!-- * At any given time, you can have *either* one mutable reference *or* any -->
+<!--   number of immutable references. -->
 <!-- * References must always be valid. -->
 
-* 任意のタイミングで、一つの可変参照か不変な参照いくつでものどちらかを行える
-* 参照は常に有効でなければならない
+* 任意のタイミングで、一つの可変参照*か*不変な参照いくつでもの*どちらか*を行える。
+* 参照は常に有効でなければならない。
 
 <!-- Next, we’ll look at a different kind of reference: slices. -->
 
