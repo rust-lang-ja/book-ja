@@ -9,7 +9,7 @@
 <!-- UTF-8. These factors combine in a way that can seem difficult when you’re -->
 <!-- coming from other programming languages. -->
 
-第4章で文字列について語りましたが、今度はより掘り下げていきましょう。新参者のRust市民は、
+第4章で文字列について語りましたが、今度はより掘り下げていきましょう。新参者のRustaceanは、
 3つの概念の組み合わせにより、文字列でよく行き詰まります: Rustのありうるエラーを晒す性質、
 多くのプログラマが思っている以上に文字列が複雑なデータ構造であること、そしてUTF-8です。
 これらの要因が、他のプログラミング言語から移ってきた場合、一見困難に見えるように絡み合うわけです。
@@ -52,7 +52,7 @@
 <!-- Rust's standard library, and both `String` and string slices are UTF-8 encoded. -->
 
 `String`型は、言語の核として組み込まれるのではなく、Rustの標準ライブラリで提供されますが、伸長可能、
-可変、所有権のあるUTF-8エンコードされた文字列型です。Rust市民がRustにおいて「文字列」を指したら、
+可変、所有権のあるUTF-8エンコードされた文字列型です。RustaceanがRustにおいて「文字列」を指したら、
 どちらかではなく、`String`と文字列スライスの`&str`のことを通常意味します。この節は、大方、
 `String`についてですが、どちらの型もRustの標準ライブラリで重宝されており、
 どちらもUTF-8エンコードされています。

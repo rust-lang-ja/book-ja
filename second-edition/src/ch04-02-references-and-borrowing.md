@@ -243,7 +243,7 @@ error[E0499]: cannot borrow `s` as mutable more than once at a time
 <!-- something that new Rustaceans struggle with, because most languages let you -->
 <!-- mutate whenever you’d like. -->
 
-この制約は、可変化を許可するものの、それを非常に統制の取れた形で行えます。これは、新たなRust市民にとっては、
+この制約は、可変化を許可するものの、それを非常に統制の取れた形で行えます。これは、新たなRustaceanにとっては、
 壁です。なぜなら、多くの言語では、いつでも好きな時に可変化できるからです。
 
 <!-- The benefit of having this restriction is that Rust can prevent data races at -->

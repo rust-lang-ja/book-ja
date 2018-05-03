@@ -67,7 +67,7 @@ error[E0384]: cannot assgin twice immutable variable `x`
 この例では、コンパイラがプログラムに潜むエラーを見つけ出す手助けをしてくれることが示されています。
 コンパイルエラーは、イライラすることもあるものですが、まだプログラムにしてほしいことを安全に行えていないだけということなのです;
 エラーが出るからといって、あなたがいいプログラマではないという意味では*ありません*！
-経験豊富なRust市民でも、コンパイルエラーを出すことはあります。
+経験豊富なRustaceanでも、コンパイルエラーを出すことはあります。
 
 <!-- The error message indicates that the cause of the error is that you `cannot -->
 <!-- assign twice to immutable variable x`, because you tried to assign a second -->
@@ -241,7 +241,7 @@ const MAX_POINTS: u32 = 100_000;
 <!-- repeating the use of the `let` keyword as follows: -->
 
 第2章の数当てゲームのチュートリアル、「秘密の数字と予想を比較する」節で見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
-新しい変数は、前の変数を上書き(shadow)します。Rust市民はこれを最初の変数は、
+新しい変数は、前の変数を上書き(shadow)します。Rustaceanはこれを最初の変数は、
 2番目の変数に*上書き*されたと言い、この変数を使用した際に、2番目の変数の値が現れるということです。
 以下のようにして、同じ変数名を用いて変数を上書きし、`let`キーワードの使用を繰り返します:
 
