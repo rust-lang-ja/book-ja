@@ -112,7 +112,7 @@ authors = ["Your Name <you@example.com>"]
 <!-- This file is in the [*TOML*][toml] (Tom’s Obvious, Minimal -->
 <!-- Language) format, which is Cargo’s configuration format. -->
 
-このファイルは[TOML][toml](Tom's Obvious, Minimal Language)フォーマットで、
+このファイルは[TOML][toml](Tom's Obvious, Minimal Language; `直訳`: トムの明確な最小限の言語)フォーマットで、
 Cargoの設定フォーマットです。
 
 [toml]: https://github.com/toml-lang/toml
@@ -173,7 +173,7 @@ fn main() {
 
 Cargoは、ソースファイルが*src*ディレクトリにあることを期待します。プロジェクトの最上位のディレクトリは、
 READMEファイル、ライセンス情報、設定ファイル、あるいは、他のコードに関連しないもののためのものです。
-Cargoを使用すると、プロジェクトを体系化する手助けをしてくれます。全てのものには収まるべき場所があり、
+Cargoを使用すると、プロジェクトを体系化する手助けをしてくれます。適材適所であり、
 全てがその場所にあるのです。
 
 <!-- If you started a project that doesn’t use Cargo, as we did with the Hello, -->
@@ -223,7 +223,7 @@ Hello, world!
 <!-- manages its contents for you. -->
 
 全てがうまくいけば、`Hello, world!`が端末に出力されるはずです。初めて`cargo build`を実行すると、
-Cargoが最上位に新しいファイルも作成します: *Cargo.lock*です。このファイルは、自分のプロジェクトの正確な依存のバージョンを追いかけます。
+Cargoが最上位に新しいファイルも作成します: *Cargo.lock*です。このファイルは、自分のプロジェクトの依存の正確なバージョンを追いかけます。
 このプロジェクトには依存がないので、ファイルはやや空っぽです。絶対にこのファイルを手動で変更する必要はないでしょう;
 Cargoが中身を管理してくれるのです。
 
