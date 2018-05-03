@@ -53,7 +53,6 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
 <!-- <span class="caption">Listing 5-13: Defining an `area` method on the -->
 <!-- `Rectangle` struct</span> -->
 

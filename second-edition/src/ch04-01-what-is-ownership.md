@@ -174,13 +174,7 @@ Rustと所有権システムの規則と経験を積むにつれて、自然に�
 
 <!-- ### Variable Scope -->
 
-<<<<<<< HEAD
 ### 変数スコープ
-=======
-* Each value in Rust has a variable that’s called its *owner*.
-* There can only be one owner at a time.
-* When the owner goes out of scope, the value will be dropped.
->>>>>>> fork_master_master
 
 <!-- We’ve walked through an example of a Rust program already in Chapter 2. Now -->
 <!-- that we’re past basic syntax, we won’t include all the `fn main() {` code in -->

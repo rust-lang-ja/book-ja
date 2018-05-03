@@ -982,12 +982,7 @@ thread 'call_with_different_values' panicked at 'assertion failed: `(left == rig
 
 <!-- ### Capturing the Environment with Closures -->
 
-<<<<<<< HEAD
 ### クロージャで環境をキャプチャする
-=======
-Listing 13-12 has an example of a closure stored in the `equal_to_x` variable
-that uses the `x` variable from the closure’s surrounding environment:
->>>>>>> fork_master_master
 
 <!-- In the workout generator example, we only used closures as inline anonymous -->
 <!-- functions. However, closures have an additional capability that functions don’t -->

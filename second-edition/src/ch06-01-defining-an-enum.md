@@ -233,19 +233,11 @@ let loopback = IpAddr::V6(String::from("::1"));
 
 ```rust
 struct Ipv4Addr {
-<<<<<<< HEAD
     // 省略
 }
 
 struct Ipv6Addr {
     // 省略
-=======
-    // --snip--
-}
-
-struct Ipv6Addr {
-    // --snip--
->>>>>>> fork_master_master
 }
 
 enum IpAddr {
