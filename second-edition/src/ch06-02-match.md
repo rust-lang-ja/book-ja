@@ -322,7 +322,7 @@ Some(i) => Some(i + 1),
 <!-- Now let’s consider the second call of `plus_one` in Listing 6-5, where `x` is -->
 <!-- `None`. We enter the `match` and compare to the first arm. -->
 
-さて、`x`が`None`になるリスト6-5の2回目の`plus_pne`の呼び出しを考えましょう。`match`に入り、
+さて、`x`が`None`になるリスト6-5の2回目の`plus_one`の呼び出しを考えましょう。`match`に入り、
 最初のアームと比較します。
 
 ```rust,ignore
