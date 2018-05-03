@@ -1,6 +1,6 @@
 <!-- ## Refutability: Whether a Pattern Might Fail to Match -->
 
-## 論駁可能性: パターンが合致しないか
+## 論<ruby>駁<rp>(</rp><rt>ばく</rt><rp>)</rp></ruby>可能性: パターンが合致しないか
 
 <!-- Patterns come in two forms: refutable and irrefutable. Patterns that will match -->
 <!-- for any possible value passed are *irrefutable*. An example would be `x` in the -->
@@ -11,8 +11,7 @@
 <!-- `Some(x)` pattern would not match. -->
 
 パターンには2つの形態があります: 論駁可能なものと論駁不可能なものです。渡される可能性のあるあらゆる値に合致するパターンは、
-*論<ruby>駁<rp>(</rp><rt>ばく</rt><rp>)</rp></ruby>不可能*なものです。`x`は何にでも合致し、
-故に合致に失敗することがあり得ないので、文`let x = 5;`の`x`は一例です。
+*論駁不可能*なものです。`x`は何にでも合致し、故に合致に失敗することがあり得ないので、文`let x = 5;`の`x`は一例です。
 なんらかの可能性のある値に対して合致しないことがあるパターンは、*論駁可能*なものです。
 一例は、式`if let Some(x) = a_value`の`Some(x)`になるでしょう; `a_value`変数の値が`Some`ではなく、
 `None`なら、`Some(x)`パターンは合致しないでしょう。
