@@ -1,12 +1,12 @@
-<!-- ## All the Pattern Syntax -->
+<!-- ## Pattern Syntax -->
 
-## パターン記法全部
+## パターン記法
 
-<!-- Throughout the book, you’ve seen examples of many different kinds of patterns. -->
-<!-- In this section, we gather all the syntax valid in patterns and discuss why you -->
-<!-- might want to use each of them. -->
+<!-- Throughout the book, you’ve seen examples of many kinds of patterns. In this -->
+<!-- section, we gather all the syntax valid in patterns and discuss why you might -->
+<!-- want to use each of them. -->
 
-本全体で、多くの異なる種類のパターンの例を見かけてきました。この節では、パターンで合法な記法全てを集め、
+本全体で、多くの種類のパターンの例を見かけてきました。この節では、パターンで合法な記法全てを集め、
 それぞれを使用したくなる可能性がある理由について議論します。
 
 <!-- ### Matching Literals -->
@@ -48,13 +48,13 @@ match x {
 <!-- value `Some(5)` and a variable `y` with the value `10`. We then create a -->
 <!-- `match` expression on the value `x`. Look at the patterns in the match arms and -->
 <!-- `println!` at the end, and try to figure out what the code will print before -->
-<!-- running this code or reading further: -->
+<!-- running this code or reading further. -->
 
 名前付き変数はどんな値にも合致する論駁不可能なパターンであり、この本の中で何度も使用してきました。
 ですが、名前付き変数を`match`式で使うと、厄介な問題があります。`match`は新しいスコープを開始するので、
 `match`式内のパターンの一部として宣言された変数は、あらゆる変数同様に`match`構文外部の同じ名前の変数を覆い隠します。
 リスト18-11で、値`Some(5)`の`x`という変数と値`10`の変数`y`を宣言しています。それから値`x`に対して`match`式を生成します。
-マッチアームのパターンと最後の`println!`を見て、このコードを実行したり、先まで読み進める前にこのコードが何を出力するか推測してみてください:
+マッチアームのパターンと最後の`println!`を見て、このコードを実行したり、先まで読み進める前にこのコードが何を出力するか推測してみてください。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -237,9 +237,9 @@ match x {
 #### 構造体を分解する
 
 <!-- Listing 18-12 shows a `Point` struct with two fields, `x` and `y`, that we can -->
-<!-- break apart using a pattern with a `let` statement: -->
+<!-- break apart using a pattern with a `let` statement. -->
 
-リスト18-12は、`let`文でパターンを使用して分離できる2つのフィールド`x`と`y`のある`Point`構造体を示しています:
+リスト18-12は、`let`文でパターンを使用して分離できる2つのフィールド`x`と`y`のある`Point`構造体を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -281,12 +281,12 @@ fn main() {
 <!-- of the struct field, and the variables created from the pattern will have the -->
 <!-- same names. Listing 18-13 shows code that behaves in the same way as the code -->
 <!-- in Listing 18-12, but the variables created in the `let` pattern are `x` and -->
-<!-- `y` instead of `a` and `b`: -->
+<!-- `y` instead of `a` and `b`. -->
 
 変数名をフィールドに一致させることは一般的であり、`let Point{ x: x, y: y } = p;`と書くことは多くの重複を含むので、
 構造体のフィールドと一致するパターンには省略法があります: 構造体のフィールドの名前を列挙するだけで、
 パターンから生成される変数は同じ名前になるのです。リスト18-13は、リスト18-12と同じ振る舞いをするコードを表示していますが、
-`let`パターンで生成される変数は`a`と`b`ではなく、`x`と`y`です:
+`let`パターンで生成される変数は`a`と`b`ではなく、`x`と`y`です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -329,10 +329,10 @@ fn main() {
 
 <!-- Listing 18-14 shows a `match` expression that separates `Point` values into -->
 <!-- three cases: points that lie directly on the `x` axis (which is true when `y = -->
-<!-- 0`), on the `y` axis (`x = 0`), or neither: -->
+<!-- 0`), on the `y` axis (`x = 0`), or neither. -->
 
 リスト18-14は、`Point`値を3つの場合に区別する`match`式を表示しています: `x`軸上の点(`y = 0`ならそうなる)、
-`y`軸上の点(`x = 0`)、あるいはどちらでもないです:
+`y`軸上の点(`x = 0`)、あるいはどちらでもありません。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -393,11 +393,11 @@ fn main() {
 <!-- mentioned explicitly is that the pattern to destructure an enum should -->
 <!-- correspond to the way the data stored within the enum is defined. As an -->
 <!-- example, in Listing 18-15 we use the `Message` enum from Listing 6-2 and write -->
-<!-- a `match` with patterns that will destructure each inner value: -->
+<!-- a `match` with patterns that will destructure each inner value. -->
 
 例えば、第6章のリスト6-5で`Option<i32>`を分解するなどこの本の前半でenumを分解しました。
 明示的に触れなかった詳細の1つは、enumを分解するパターンは、enum内に格納されているデータが定義されている手段に対応すべきということです。
-例として、リスト18-15では、リスト6-2から`Message`enumを使用し、内部の値それぞれを分解するパターンを伴う`match`を書いています:
+例として、リスト18-15では、リスト6-2から`Message`enumを使用し、内部の値それぞれを分解するパターンを伴う`match`を書いています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -498,11 +498,11 @@ fn main() {
 参照ではなく、クロージャで値を使用したいクロージャで特に役に立ちます。
 
 <!-- The example in Listing 18-16 iterates over references to `Point` instances in a -->
-<!-- vector, and destructures the reference and the struct so we can perform -->
-<!-- calculations on the `x` and `y` values easily: -->
+<!-- vector, destructuring the reference and the struct so we can perform -->
+<!-- calculations on the `x` and `y` values easily. -->
 
 リスト18-16の例は、ベクタの`Point`インスタンスへの参照を走査し、`x`と`y`値に簡単に計算を行えるように、
-参照と構造体を分解します:
+参照と構造体を分解します。
 
 ```rust
 # struct Point {
@@ -535,7 +535,7 @@ let sum_of_squares: i32 = points
 このコードは、値135を保持する変数`sum_of_squares`を返してきて、これは、`x`値と`y`値を2乗し、足し合わせ、
 `points`ベクタの`Point`それぞれの結果を足して1つの数値にした結果です。
 
-<!-- If we had not included the `&` in `&Point { x, y }` we’d get a type mismatch -->
+<!-- If we had not included the `&` in `&Point { x, y }`, we’d get a type mismatch -->
 <!-- error, because `iter` would then iterate over references to the items in the -->
 <!-- vector rather than the actual values. The error would look like this: -->
 
@@ -565,7 +565,7 @@ error[E0308]: mismatched types
 
 <!-- We can mix, match, and nest destructuring patterns in even more complex ways. -->
 <!-- The following example shows a complicated destructure where we nest structs and -->
-<!-- tuples inside a tuple, and destructure all the primitive values out: -->
+<!-- tuples inside a tuple and destructure all the primitive values out: -->
 
 分解パターンをさらに複雑な方法で混ぜて一致させ、ネストすることができます。以下の例は、
 構造体とタプルをタプルにネストし、全ての基本的な値を取り出している複雑な分解を表示しています:
@@ -611,14 +611,14 @@ let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
 
 #### `_`で値全体を無視する
 
-<!-- We’ve used the underscore `_` as a wildcard pattern that will match any value -->
+<!-- We’ve used the underscore (`_`) as a wildcard pattern that will match any value -->
 <!-- but not bind to the value. Although the underscore `_` pattern is especially -->
 <!-- useful as the last arm in a `match` expression, we can use it in any pattern, -->
-<!-- including function parameters, as shown in Listing 18-17: -->
+<!-- including function parameters, as shown in Listing 18-17. -->
 
 どんな値にも一致するけれども、値を束縛しないワイルドカードパターンとしてアンダースコア、`_`を使用しました。
 アンダースコア、`_`パターンは特に`match`式の最後のアームとして役に立ちますが、
-関数の引数も含めてあらゆるパターンで使えます。リスト18-17に示したようにね:
+関数の引数も含めてあらゆるパターンで使えます。リスト18-17に示したようにね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -646,14 +646,14 @@ fn main() {
 
 <!-- In most cases when you no longer need a particular function parameter, you -->
 <!-- would change the signature so it doesn’t include the unused parameter. Ignoring -->
-<!-- a function parameter can be especially useful in some cases: for example, when -->
+<!-- a function parameter can be especially useful in some cases, for example, when -->
 <!-- implementing a trait when you need a certain type signature but the function -->
 <!-- body in your implementation doesn’t need one of the parameters. The compiler -->
 <!-- will then not warn about unused function parameters, as it would if you used a -->
 <!-- name instead. -->
 
 特定の関数の引数が最早必要ないほとんどの場合、未使用の引数が含まれないようにシグニチャを変更するでしょう。
-関数の引数を無視することが特に有用なケースもあります: 例えば、トレイトを実装する際、
+関数の引数を無視することが特に有用なケースもあり、例えば、トレイトを実装する際、
 特定の型シグニチャが必要だけれども、自分の実装の関数本体では引数の1つが必要ない時などです。
 そうすれば、代わりに名前を使った場合のようには、未使用関数引数についてコンパイラが警告することはないでしょう。
 
@@ -661,16 +661,16 @@ fn main() {
 
 #### ネストされた`_`で値の一部を無視する
 
-<!-- We can also use `_` inside another pattern to ignore just part of a value: for -->
-<!-- example, when we only want to test for part of a value but have no use for the -->
+<!-- We can also use `_` inside another pattern to ignore just part of a value, for -->
+<!-- example, when we want to test for only part of a value but have no use for the -->
 <!-- other parts in the corresponding code we want to run. Listing 18-18 shows code -->
 <!-- responsible for managing a setting’s value. The business requirements are that -->
 <!-- the user should not be allowed to overwrite an existing customization of a -->
 <!-- setting but can unset the setting and can give the setting a value if it is -->
 <!-- currently unset. -->
 
-また、他のパターンの内部で`_`を使用して、値の一部だけを無視することもできます: 例えば、
-値の一部を確認したいけれども、走らせたい対応するコードでは他の部分を使用することがない時などです。
+また、他のパターンの内部で`_`を使用して、値の一部だけを無視することもでき、例えば、
+値の一部だけを確認したいけれども、走らせたい対応するコードでは他の部分を使用することがない時などです。
 リスト18-18は、設定の値を管理する責任を負ったコードを示しています。業務要件は、
 ユーザが既存の設定の変更を上書きすることはできないべきだけれども、設定をリセットし、
 現在設定がされてなければ設定に値を与えられるというものです。
@@ -720,10 +720,10 @@ println!("setting is {:?}", setting_value);
 
 <!-- We can also use underscores in multiple places within one pattern to ignore -->
 <!-- particular values. Listing 18-19 shows an example of ignoring the second and -->
-<!-- fourth values in a tuple of five items: -->
+<!-- fourth values in a tuple of five items. -->
 
 また、1つのパターンの複数箇所でアンダースコアを使用して特定の値を無視することもできます。
-リスト18-19は、5要素のタプルで2番目と4番目の値を無視する例です:
+リスト18-19は、5要素のタプルで2番目と4番目の値を無視する例です。
 
 ```rust
 let numbers = (2, 4, 8, 16, 32);
@@ -745,9 +745,9 @@ match numbers {
 
 このコードは、`Some numbers: 2, 8, 32`と出力し、値4と16は無視されます。
 
-<!-- #### Ignoring an Unused Variable by Starting Its Name with an Underscore -->
+<!-- #### Ignoring an Unused Variable by Starting Its Name with `_` -->
 
-#### 名前をアンダースコアで始めて未使用の変数を無視する
+#### 名前を`_`で始めて未使用の変数を無視する
 
 <!-- If you create a variable but don’t use it anywhere, Rust will usually issue a -->
 <!-- warning because that could be a bug. But sometimes it’s useful to create a -->
@@ -788,11 +788,11 @@ fn main() {
 <!-- Note that there is a subtle difference between using only `_` and using a name -->
 <!-- that starts with an underscore. The syntax `_x` still binds the value to the -->
 <!-- variable, whereas `_` doesn’t bind at all. To show a case where this -->
-<!-- distinction matters, Listing 18-21 will provide us with an error: -->
+<!-- distinction matters, Listing 18-21 will provide us with an error. -->
 
 `_`だけを使うのとアンダースコアで始まる名前を使うことには微妙な違いがあることに注意してください。
 `_x`記法はそれでも、値を変数に束縛する一方で、`_`は全く束縛しません。この差異が問題になる場合を示すために、
-リスト18-21はエラーを提示するでしょう:
+リスト18-21はエラーを提示するでしょう。
 
 ```rust,ignore
 // やあ！
@@ -814,11 +814,11 @@ println!("{:?}", s);
 <!-- We’ll receive an error because the `s` value will still be moved into `_s`, -->
 <!-- which prevents us from using `s` again. However, using the underscore by itself -->
 <!-- doesn’t ever bind to the value. Listing 18-22 will compile without any errors -->
-<!-- because `s` doesn’t get moved into `_`: -->
+<!-- because `s` doesn’t get moved into `_`. -->
 
 それでも`s`値は`_s`にムーブされ、再度`s`を使用できなくするので、エラーを受け取るでしょう。ですが、
 アンダースコアを単独で使用すれば、値を束縛することは全くありません。
-`s`が`_`にムーブされないので、リスト18-22はエラーなくコンパイルできます:
+`s`が`_`にムーブされないので、リスト18-22はエラーなくコンパイルできます。
 
 ```rust
 let s = Some(String::from("Hello!"));
@@ -844,18 +844,18 @@ println!("{:?}", s);
 #### `..`で値の残りの部分を無視する
 
 <!-- With values that have many parts, we can use the `..` syntax to use only a few -->
-<!-- parts and ignore the rest, and avoid having to list underscores for each -->
+<!-- parts and ignore the rest, avoiding the need to list underscores for each -->
 <!-- ignored value. The `..` pattern ignores any parts of a value that we haven’t -->
 <!-- explicitly matched in the rest of the pattern. In Listing 18-23, we have a -->
 <!-- `Point` struct that holds a coordinate in three-dimensional space. In the -->
 <!-- `match` expression, we want to operate only on the `x` coordinate and ignore -->
-<!-- the values in the `y` and `z` fields: -->
+<!-- the values in the `y` and `z` fields. -->
 
 多くの部分がある値では、`..`記法を使用していくつかの部分だけを使用して残りを無視し、
 無視する値それぞれにアンダースコアを列挙する必要性を回避できます。`..`パターンは、
 パターンの残りで明示的にマッチさせていない値のどんな部分も無視します。リスト18-23では、
 3次元空間で座標を保持する`Point`構造体があります。`match`式で`x`座標のみ処理し、
-`y`と`z`フィールドの値は無視したいです:
+`y`と`z`フィールドの値は無視したいです。
 
 ```rust
 struct Point {
@@ -876,7 +876,7 @@ match origin {
 
 <span class="caption">リスト18-23: `..`で`x`以外の`Point`のフィールド全てを無視する</span>
 
-<!-- We list the `x` value, and then just include the `..` pattern. This is quicker -->
+<!-- We list the `x` value and then just include the `..` pattern. This is quicker -->
 <!-- than having to list `y: _` and `z: _`, particularly when we’re working with -->
 <!-- structs that have lots of fields in situations where only one or two fields are -->
 <!-- relevant. -->
@@ -885,9 +885,9 @@ match origin {
 手っ取り早いです。特に1つや2つのフィールドのみが関連する場面で多くのフィールドがある構造体に取り掛かっている時には。
 
 <!-- The syntax `..` will expand to as many values as it needs to be. Listing 18-24 -->
-<!-- shows how to use `..` with a tuple: -->
+<!-- shows how to use `..` with a tuple. -->
 
-`..`記法は、必要な数だけ値に展開されます。リスト18-24は、タプルで`..`を使用する方法を表示しています:
+`..`記法は、必要な数だけ値に展開されます。リスト18-24は、タプルで`..`を使用する方法を表示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -917,11 +917,12 @@ fn main() {
 途中のもの全部に合致し、無視します。
 
 <!-- However, using `..` must be unambiguous. If it is unclear which values are -->
-<!-- intended for matching and which should be ignored, Rust will error. Listing -->
-<!-- 18-25 shows an example of using `..` ambiguously, so it will not compile: -->
+<!-- intended for matching and which should be ignored, Rust will give us an error. -->
+<!-- Listing 18-25 shows an example of using `..` ambiguously, so it will not -->
+<!-- compile. -->
 
 しかしながら、`..`を使うのは明確でなければなりません。どの値がマッチしてどの値が無視されるべきかが不明瞭なら、
-コンパイラはエラーを出します。リスト18-25は、`..`を曖昧に使用する例なので、コンパイルできません:
+コンパイラはエラーを出します。リスト18-25は、`..`を曖昧に使用する例なので、コンパイルできません。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -958,7 +959,7 @@ error: `..` can only be used once per tuple or tuple struct pattern
 ```
 
 <!-- It’s impossible for Rust to determine how many values in the tuple to ignore -->
-<!-- before matching a value with `second`, and then how many further values to -->
+<!-- before matching a value with `second` and then how many further values to -->
 <!-- ignore thereafter. This code could mean that we want to ignore `2`, bind -->
 <!-- `second` to `4`, and then ignore `8`, `16`, and `32`; or that we want to ignore -->
 <!-- `2` and `4`, bind `second` to `8`, and then ignore `16` and `32`; and so forth. -->
@@ -971,9 +972,9 @@ error: `..` can only be used once per tuple or tuple struct pattern
 変数名の`second`は、コンパイラにとってなんの特別な意味もないため、このように2箇所で`..`を使うのは曖昧なので、
 コンパイルエラーになります。
 
-<!-- ### `ref` and `ref mut` to Create References in Patterns -->
+<!-- ### Creating References in Patterns with `ref` and `ref mut`-->
 
-### パターンで参照を生成する`ref`と`ref mut`
+### `ref`と`ref mut`でパターンで参照を生成する
 
 <!-- Let’s look at using `ref` to make references so ownership of the values isn’t -->
 <!-- moved to variables in the pattern. Usually, when you match against a pattern, -->
@@ -983,7 +984,7 @@ error: `..` can only be used once per tuple or tuple struct pattern
 <!-- with a variable and then usage of the entire value in the `println!` statement -->
 <!-- later, after the `match`. This code will fail to compile because ownership of -->
 <!-- part of the `robot_name` value is transferred to the `name` variable in the -->
-<!-- pattern of the first `match` arm: -->
+<!-- pattern of the first `match` arm. -->
 
 `ref`を使用して値の所有権がパターンの変数にムーブされないように、参照を生成することに目を向けましょう。
 通常、パターンにマッチさせると、パターンで導入された変数は値に束縛されます。Rustの所有権規則は、
@@ -1036,9 +1037,9 @@ println!("robot_name is: {:?}", robot_name);
 `&`を使用してパターンで参照を生成することはできません。
 
 <!-- Instead, to create a reference in a pattern, we use the `ref` keyword before -->
-<!-- the new variable, as shown in Listing 18-27: -->
+<!-- the new variable, as shown in Listing 18-27. -->
 
-その代わりに、パターンで参照を生成するには、リスト18-27のように、新しい変数の前に`ref`キーワードを使用します:
+その代わりに、パターンで参照を生成するには、リスト18-27のように、新しい変数の前に`ref`キーワードを使用します。
 
 ```rust
 let robot_name = Some(String::from("Bors"));
@@ -1067,11 +1068,11 @@ println!("robot_name is: {:?}", robot_name);
 <!-- pattern, we use `ref mut` instead of `&mut`. The reason is, again, that in -->
 <!-- patterns, the latter is for matching existing mutable references, not creating -->
 <!-- new ones. Listing 18-28 shows an example of a pattern creating a mutable -->
-<!-- reference: -->
+<!-- reference. -->
 
 パターンで合致した値を可変化できるように可変参照を生成するには、`&mut`の代わりに`ref mut`を使用します。
 理由は今度も、パターンにおいて、前者は既存の可変参照にマッチするためにあり、新しい参照を生成しないからです。
-リスト18-28は、可変参照を生成するパターンの例です:
+リスト18-28は、可変参照を生成するパターンの例です。
 
 ```rust
 let mut robot_name = Some(String::from("Bors"));
@@ -1112,10 +1113,10 @@ println!("robot_name is: {:?}", robot_name);
 
 <!-- The condition can use variables created in the pattern. Listing 18-29 shows a -->
 <!-- `match` where the first arm has the pattern `Some(x)` and also has a match -->
-<!-- guard of `if x < 5`: -->
+<!-- guard of `if x < 5`. -->
 
 この条件は、パターンで生成された変数を使用できます。リスト18-29は、
-最初のアームにパターン`Some(x)`と`if x < 5`というマッチガードもある`match`を示しています:
+最初のアームにパターン`Some(x)`と`if x < 5`というマッチガードもある`match`を示しています。
 
 ```rust
 let num = Some(4);
@@ -1157,16 +1158,16 @@ match num {
 この論理を表現する能力が得られるのです。
 
 <!-- In Listing 18-11, we mentioned that we could use match guards to solve our -->
-<!-- pattern shadowing problem. Recall that a new variable was created inside the -->
+<!-- pattern-shadowing problem. Recall that a new variable was created inside the -->
 <!-- pattern in the `match` expression instead of using the variable outside the -->
 <!-- `match`. That new variable meant we couldn’t test against the value of the -->
 <!-- outer variable. Listing 18-30 shows how we can use a match guard to fix this -->
-<!-- problem: -->
+<!-- problem. -->
 
 リスト18-11において、マッチガードを使用すれば、パターンがシャドウイングする問題を解決できると述べました。
 `match`の外側の変数を使用するのではなく、`match`式のパターン内部では新しい変数が作られることを思い出してください。
 その新しい変数は、外側の変数の値と比較することができないことを意味しました。リスト18-30は、
-マッチガードを使ってこの問題を修正する方法を表示しています:
+マッチガードを使ってこの問題を修正する方法を表示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -1218,12 +1219,12 @@ fn main() {
 <!-- 18-31 shows the precedence of combining a match guard with a pattern that uses -->
 <!-- `|`. The important part of this example is that the `if y` match guard applies -->
 <!-- to `4`, `5`, *and* `6`, even though it might look like `if y` only applies to -->
-<!-- `6`: -->
+<!-- `6`. -->
 
 また、マッチガードで*or*演算子の`|`を使用して複数のパターンを指定することもできます;
 マッチガードの条件は全てのパターンに適用されます。リスト18-31は、
 `|`を使用するパターンとマッチガードを組み合わせる優先度を示しています。この例で重要な部分は、
-`if y`は`6`にしか適用されないように見えるのに、`if y`マッチガードが`4`、`5`、*そして*`6`に適用されることです:
+`if y`は`6`にしか適用されないように見えるのに、`if y`マッチガードが`4`、`5`、*そして*`6`に適用されることです。
 
 ```rust
 let x = 4;
@@ -1270,7 +1271,7 @@ match x {
 ```
 
 <!-- After running the code, the precedence behavior is evident: if the match guard -->
-<!-- was only applied to the final value in the list of values specified using the -->
+<!-- ware applied only to the final value in the list of values specified using the -->
 <!-- `|` operator, the arm would have matched and the program would have printed -->
 <!-- `yes`. -->
 
@@ -1281,18 +1282,18 @@ match x {
 
 ### `@`束縛
 
-<!-- The *at* operator `@` lets us create a variable that holds a value at the same -->
-<!-- time we’re testing that value to see whether it matches a pattern. Listing -->
+<!-- The *at* operator (`@`) lets us create a variable that holds a value at the -->
+<!-- same time we’re testing that value to see whether it matches a pattern. Listing -->
 <!-- 18-32 shows an example where we want to test that a `Message::Hello` `id` field -->
 <!-- is within the range `3...7`. But we also want to bind the value to the variable -->
 <!-- `id_variable` so we can use it in the code associated with the arm. We could -->
 <!-- name this variable `id`, the same as the field, but for this example we’ll use -->
-<!-- a different name: -->
+<!-- a different name. -->
 
-*at*演算子`@`により、値を保持する変数を生成するのと同時にその値がパターンに一致するかを調べることができます。
+*at*演算子(`@`)により、値を保持する変数を生成するのと同時にその値がパターンに一致するかを調べることができます。
 リスト18-32は、`Message::Hello`の`id`フィールドが範囲`3...7`にあるかを確かめたいという例です。
 しかし、アームに紐付いたコードで使用できるように変数`id_variable`に値を束縛もしたいです。この変数をフィールドと同じ、
-`id`と名付けることもできますが、この例では異なる名前にします:
+`id`と名付けることもできますが、この例では異なる名前にします。
 
 ```rust
 enum Message {
@@ -1329,7 +1330,7 @@ match msg {
 この例は、`Found an id in range: 5`と出力します。範囲`3...7`の前に`id_variable @`と指定することで、
 値が範囲パターンに一致することを確認しつつ、範囲にマッチしたどんな値も捕捉しています。
 
-<!-- In the second arm where we only have a range specified in the pattern, the code -->
+<!-- In the second arm, where we only have a range specified in the pattern, the code -->
 <!-- associated with the arm doesn’t have a variable that contains the actual value -->
 <!-- of the `id` field. The `id` field’s value could have been 10, 11, or 12, but -->
 <!-- the code that goes with that pattern doesn’t know which it is. The pattern code -->
@@ -1341,11 +1342,11 @@ match msg {
 どれなのかわかりません。パターンのコードは`id`フィールドの値を使用することは叶いません。
 `id`の値を変数に保存していないからです。
 
-<!-- In the last arm where we’ve specified a variable without a range, we do have -->
+<!-- In the last arm, where we’ve specified a variable without a range, we do have -->
 <!-- the value available to use in the arm’s code in a variable named `id`. The -->
 <!-- reason is that we’ve used the struct field shorthand syntax. But we haven’t -->
-<!-- applied any test to the value in the `id` field in this arm, like we did with -->
-<!-- the first two arms: any value would match this pattern. -->
+<!-- applied any test to the value in the `id` field in this arm, as we did with the -->
+<!-- first two arms: any value would match this pattern. -->
 
 範囲なしに変数を指定している最後のアームでは、確かにアームのコードで使用可能な値が`id`という変数にあります。
 理由は、構造体フィールド省略記法を使ったからです。しかし、このアームで`id`フィールドの値に対して、

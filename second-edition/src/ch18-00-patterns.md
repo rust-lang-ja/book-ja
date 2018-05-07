@@ -31,7 +31,7 @@
 
 <!-- To use a pattern, we compare it to some value. If the pattern matches the -->
 <!-- value, we use the value parts in our code. Recall the `match` expressions in -->
-<!-- Chapter 6 that used patterns, such as the coin sorting machine example. If the -->
+<!-- Chapter 6 that used patterns, such as the coin-sorting machine example. If the -->
 <!-- value fits the shape of the pattern, we can use the named pieces. If it -->
 <!-- doesn’t, the code associated with the pattern won’t run. -->
 
@@ -41,12 +41,12 @@
 パターンに紐付いたコードは実行されません。
 
 <!-- This chapter is a reference on all things related to patterns. We’ll cover the -->
-<!-- valid places to use patterns, the difference between *refutable* and -->
-<!-- *irrefutable* patterns, and the different kinds of pattern syntax that you -->
-<!-- might see. By the end of the chapter, you’ll know how to use patterns to -->
-<!-- express many concepts in a clear way. -->
+<!-- valid places to use patterns, the difference between refutable and irrefutable -->
+<!-- patterns, and the different kinds of pattern syntax that you might see. By the -->
+<!-- end of the chapter, you’ll know how to use patterns to express many concepts in -->
+<!-- a clear way. -->
 
 この章は、パターンに関連するあらゆるものの参照です。パターンを使用するのが合法な箇所、
-*<ruby>論駁<rp>(</rp><rt>ろんばく</rt><rp>)</rp></ruby>可能*と*論駁不可能*なパターンの違い、
+<ruby>論駁<rp>(</rp><rt>ろんばく</rt><rp>)</rp></ruby>可能と論駁不可能なパターンの違い、
 目撃する可能性のある色々な種類のパターン記法を講義します。章の終わりまでに、
 パターンを使用して多くの概念をはっきり表現する方法を知るでしょう。

@@ -3,11 +3,11 @@
 ## パターンが使用されることのある箇所全部
 
 <!-- Patterns pop up in a number of places in Rust, and you’ve been using them a lot -->
-<!-- without realizing it! This section provides you with a reference to all the -->
-<!-- places where patterns are valid. -->
+<!-- without realizing it! This section dicusses all the places where patterns are -->
+<!-- valid. -->
 
 Rustにおいて、パターンはいろんな箇所に出現し、そうと気づかないうちにたくさん使用してきました！
-この節は、パターンが合法な箇所全部の参照になります。
+この節は、パターンが合法な箇所全部を議論します。
 
 <!-- ### `match` Arms -->
 
@@ -72,23 +72,13 @@ match VALUE {
 そうすると、パターンと1つの値しか比較することを表現できない`match`式よりも柔軟性が高くなります。
 また、一連の`if let`、`else if`、`else if let`アームの条件は、お互いに関連している必要はありません。
 
-<!-- The code in Listing 18-1 shows a series of checks for several different -->
-<!-- conditions that decide what the background color should be. For this example, -->
-<!-- we’ve created variables with hardcoded values that a real program might receive -->
-<!-- from user input. -->
+<!-- The code in Listing 18-1 shows a series of checks for several conditions that -->
+<!-- decide what the background color should be. For this example, we've created -->
+<!-- variables with hardcoded values that a real program might receive from user -->
+<!-- input. -->
 
 リスト18-1のコードは、背景色が何になるべきかを決定するいくつかの異なる条件を連なって確認するところを示しています。
 この例には、実際のプログラムではユーザ入力を受け付ける可能性のある変数をハードコードされた値で生成しています。
-
-<!-- If the user specifies a favorite color, that color is the background color. If -->
-<!-- today is Tuesday, the background color will be green. If the user specifies -->
-<!-- their age as a string and we can parse it as a number successfully, the color -->
-<!-- is either purple or orange depending on the value of the number. If none of -->
-<!-- these conditions apply, the background color will be blue: -->
-
-ユーザがお気に入りの色を指定したら、その色が背景色になります。今日が火曜日なら、背景色は緑です。
-ユーザが年齢を文字列で指定し、数値として解析することができたら、背景色は、その数値の値によって紫かオレンジになります。
-どの条件も適用できなければ、背景色は青になります:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -126,6 +116,16 @@ fn main() {
 
 <span class="caption">リスト18-1: `if let`、`else if`、`else if let`、`else`を混ぜる</span>
 
+<!-- If the user specifies a favorite color, that color is the background color. If -->
+<!-- today is Tuesday, the background color is green. If the user specifies -->
+<!-- their age as a string and we can parse it as a number successfully, the color -->
+<!-- is either purple or orange depending on the value of the number. If none of -->
+<!-- these conditions apply, the background color is blue: -->
+
+ユーザがお気に入りの色を指定したら、その色が背景色になります。今日が火曜日なら、背景色は緑です。
+ユーザが年齢を文字列で指定し、数値として解析することができたら、背景色は、その数値の値によって紫かオレンジになります。
+どの条件も適用できなければ、背景色は青になります:
+
 <!-- This conditional structure lets us support complex requirements. With the -->
 <!-- hardcoded values we have here, this example will print `Using purple as the -->
 <!-- background color`. -->
@@ -162,7 +162,7 @@ fn main() {
 <!-- Similar in construction to `if let`, the `while let` conditional loop allows a -->
 <!-- `while` loop to run for as long as a pattern continues to match. The example in -->
 <!-- Listing 18-2 shows a `while let` loop that uses a vector as a stack and prints -->
-<!-- out the values in the vector in the opposite order in which they were pushed: -->
+<!-- the values in the vector in the opposite order in which they were pushed: -->
 
 `if let`と構成が似て、`while let`条件分岐ループは、パターンが合致し続ける限り、`while`ループを走らせます。
 リスト18-2の例は、ベクタをスタックとして使用する`while let`ループを示し、
@@ -180,8 +180,8 @@ while let Some(top) = stack.pop() {
 }
 ```
 
-<!-- <span class="caption">Listing 18-2: Using a `while let` loop to print out -->
-<!-- values for as long as `stack.pop()` returns `Some`</span> -->
+<!-- <span class="caption">Listing 18-2: Using a `while let` loop to print values -->
+<!-- for as long as `stack.pop()` returns `Some`</span> -->
 
 <span class="caption">リスト18-2: `while let`ループを使って`stack.pop()`が`Some`を返す限り値を出力する</span>
 
@@ -199,7 +199,7 @@ while let Some(top) = stack.pop() {
 
 ### `for`ループ
 
-<!-- In Chapter 3 we mentioned that the `for` loop is the most common loop -->
+<!-- In Chapter 3, we mentioned that the `for` loop is the most common loop -->
 <!-- construction in Rust code, but we haven’t yet discussed the pattern that `for` -->
 <!-- takes. In a `for` loop, the pattern is the value that directly follows the -->
 <!-- keyword `for`, so in `for x in y` the `x` is the pattern. -->
@@ -209,9 +209,9 @@ while let Some(top) = stack.pop() {
 直接キーワード`for`に続く値がパターンなので、`for x in y`では、`x`がパターンになります。
 
 <!-- Listing 18-3 demonstrates how to use a pattern in a `for` loop to destructure, -->
-<!-- or break apart, a tuple as part of the `for` loop: -->
+<!-- or break apart, a tuple as part of the `for` loop. -->
 
-リスト18-3は`for`ループでパターンを使用して`for`ループの一部としてタプルを分解あるいは、分離する方法をデモしています:
+リスト18-3は`for`ループでパターンを使用して`for`ループの一部としてタプルを分解あるいは、分離する方法をデモしています。
 
 ```rust
 let v = vec!['a', 'b', 'c'];
@@ -286,10 +286,10 @@ Rustは式をパターンと比較し、見つかったあらゆる名前を代�
 名前`x`がパターンの全容なので、このパターンは実質的に「値が何であれ、全てを変数`x`に束縛しろ」を意味します。
 
 <!-- To see the pattern matching aspect of `let` more clearly, consider Listing -->
-<!-- 18-4, which uses a pattern with `let` to destructure a tuple: -->
+<!-- 18-4, which uses a pattern with `let` to destructure a tuple. -->
 
 `let`のパターンマッチングの観点をよりはっきり確認するためにリスト18-4を考えてください。
-これは`let`でパターンを使用し、タプルを分解します:
+これは`let`でパターンを使用し、タプルを分解します。
 
 ```rust
 let (x, y, z) = (1, 2, 3);
@@ -312,10 +312,10 @@ let (x, y, z) = (1, 2, 3);
 <!-- If the number of elements in the pattern doesn’t match the number of elements -->
 <!-- in the tuple, the overall type won’t match and we’ll get a compiler error. For -->
 <!-- example, Listing 18-5 shows an attempt to destructure a tuple with three -->
-<!-- elements into two variables, which won’t work: -->
+<!-- elements into two variables, which won’t work. -->
 
 パターンの要素数がタプルの要素数と一致しない場合、全体の型が一致せず、コンパイルエラーになるでしょう。
-例えば、リスト18-5は、3要素のタプルを2つの変数に分解しようとしているところを表示していて、動きません:
+例えば、リスト18-5は、3要素のタプルを2つの変数に分解しようとしているところを表示していて、動きません。
 
 ```rust,ignore
 let (x, y) = (1, 2, 3);
@@ -342,7 +342,7 @@ error[E0308]: mismatched types
 ```
 
 <!-- If we wanted to ignore one or more of the values in the tuple, we could use `_` -->
-<!-- or `..` as you’ll see in the “Ignoring Values in a Pattern” section. If the -->
+<!-- or `..`, as you’ll see in the “Ignoring Values in a Pattern” section. If the -->
 <!-- problem is that we have too many variables in the pattern, the solution is to -->
 <!-- make the types match by removing variables so the number of variables equals -->
 <!-- the number of elements in the tuple. -->
@@ -357,10 +357,10 @@ error[E0308]: mismatched types
 
 <!-- Function parameters can also be patterns. The code in Listing 18-6, which -->
 <!-- declares a function named `foo` that takes one parameter named `x` of type -->
-<!-- `i32`, should by now look familiar: -->
+<!-- `i32`, should by now look familiar. -->
 
 関数の引数もパターンにできます。リスト18-6のコードは、型`i32`の`x`という引数1つを取る`foo`という関数を宣言していますが、
-これまでに馴染み深くなっているはずです:
+これまでに馴染み深くなっているはずです。
 
 ```rust
 fn foo(x: i32) {
@@ -376,10 +376,10 @@ fn foo(x: i32) {
 
 <!-- The `x` part is a pattern! As we did with `let`, we could match a tuple in a -->
 <!-- function’s arguments to the pattern. Listing 18-7 splits the values in a tuple -->
-<!-- as we pass it to a function: -->
+<!-- as we pass it to a function. -->
 
 `x`の部分がパターンです！`let`のように、関数の引数でパターンにタプルを合致させられるでしょう。
-リスト18-7では、タプルを関数に渡したのでその中の値を分離しています:
+リスト18-7では、タプルを関数に渡したのでその中の値を分離しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -417,9 +417,8 @@ fn main() {
 
 <!-- At this point, you’ve seen several ways of using patterns, but patterns don’t -->
 <!-- work the same in every place we can use them. In some places, the patterns must -->
-<!-- be *irrefutable*, meaning they must match any value provided. In other -->
-<!-- circumstances, they can be refutable. Let’s discuss these two concepts next. -->
+<!-- be irrefutable; In other circumstances, they can be refutable. We'll discuss -->
+<!-- these two concepts next. -->
 
 この時点で、パターンを使用する方法をいくつか見てきましたが、パターンを使用できる箇所全部で同じ動作をするわけではありません。
-パターンが*論駁不可能*でなければならない箇所もあり、つまり、パターンが与えられたあらゆる値に合致しなければならないということです。
-他の状況では、論駁可能にもなり得ます。この2つの概念を次に議論しましょう。
+パターンが論駁不可能でなければならない箇所もあります。他の状況では、論駁可能にもなり得ます。この2つの概念を次に議論します。

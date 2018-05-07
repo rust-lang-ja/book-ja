@@ -1,20 +1,20 @@
 <!-- ## Refutability: Whether a Pattern Might Fail to Match -->
 
-## 論<ruby>駁<rp>(</rp><rt>ばく</rt><rp>)</rp></ruby>可能性: パターンが合致しないか
+## 論駁可能性: パターンが合致しないか
 
 <!-- Patterns come in two forms: refutable and irrefutable. Patterns that will match -->
 <!-- for any possible value passed are *irrefutable*. An example would be `x` in the -->
 <!-- statement `let x = 5;` because `x` matches anything and therefore cannot fail -->
 <!-- to match. Patterns that can fail to match for some possible value are -->
 <!-- *refutable*. An example would be `Some(x)` in the expression `if let Some(x) = -->
-<!-- a_value`; if the value in `a_value` variable is `None` rather than `Some`, the -->
-<!-- `Some(x)` pattern would not match. -->
+<!-- a_value`; because if the value in `a_value` variable is `None` rather than -->
+<!-- `Some`, the `Some(x)` pattern will not match. -->
 
 パターンには2つの形態があります: 論駁可能なものと論駁不可能なものです。渡される可能性のあるあらゆる値に合致するパターンは、
 *論駁不可能*なものです。`x`は何にでも合致し、故に合致に失敗することがあり得ないので、文`let x = 5;`の`x`は一例です。
 なんらかの可能性のある値に対して合致しないことがあるパターンは、*論駁可能*なものです。
 一例は、式`if let Some(x) = a_value`の`Some(x)`になるでしょう; `a_value`変数の値が`Some`ではなく、
-`None`なら、`Some(x)`パターンは合致しないでしょう。
+`None`なら、`Some(x)`パターンは合致しないでしょうから。
 
 <!-- Function parameters, `let` statements, and `for` loops can only accept -->
 <!-- irrefutable patterns, because the program cannot do anything meaningful when -->
@@ -40,11 +40,11 @@
 <!-- Let’s look at an example of what happens when we try to use a refutable pattern -->
 <!-- where Rust requires an irrefutable pattern and vice versa. Listing 18-8 shows a -->
 <!-- `let` statement, but for the pattern we’ve specified `Some(x)`, a refutable -->
-<!-- pattern. As you might expect, this code will error: -->
+<!-- pattern. As you might expect, this code will not compile. -->
 
 コンパイラが論駁不可能なパターンを必要とする箇所で論駁可能なパターンを使用しようとしたら、何が起きるかとその逆の例を見ましょう。
 リスト18-8は`let`文を示していますが、パターンには`Some(x)`と指定し、論駁可能なパターンです。
-予想しているかもしれませんが、このコードはエラーになります:
+予想しているかもしれませんが、このコードはコンパイルできません。
 
 ```rust,ignore
 let Some(x) = some_option_value;
@@ -84,11 +84,11 @@ error[E0005]: refutable pattern in local binding: `None` not covered
 <!-- pattern is needed, we can change the code that uses the pattern: instead of -->
 <!-- using `let`, we can use `if let`. Then if the pattern doesn’t match, the code -->
 <!-- will just skip the code in the curly brackets, giving it a way to continue -->
-<!-- validly. Listing 18-9 shows how to fix the code in Listing 18-8: -->
+<!-- validly. Listing 18-9 shows how to fix the code in Listing 18-8. -->
 
 論駁不可能なパターンが必要な箇所に論駁可能なパターンがある問題を修正するには、パターンを使用するコードを変えればいいのです:
 `let`の代わりに`if let`を使用できます。そして、パターンが合致しなかったら、コードは合法に継続する手段を残して、
-波括弧内のコードを飛ばすだけでしょう。リスト18-9は、リスト18-8のコードの修正方法を示しています:
+波括弧内のコードを飛ばすだけでしょう。リスト18-9は、リスト18-8のコードの修正方法を示しています。
 
 ```rust
 # let some_option_value: Option<i32> = None;
@@ -105,10 +105,10 @@ if let Some(x) = some_option_value {
 <!-- We’ve given the code an out! This code is perfectly valid, although it means we -->
 <!-- cannot use an irrefutable pattern without receiving an error. If we give `if -->
 <!-- let` a pattern that will always match, such as `x`, as shown in Listing 18-10, -->
-<!-- it will error: -->
+<!-- it will not compile. -->
 
 コードに逃げ道を与えました！このコードは完全に合法ですが、エラーを受け取らないで論駁不可能なパターンを使用することはできないことを意味します。
-リスト18-10のように、`x`のような常にマッチするパターンを`if let`に与えたら、エラーになるでしょう:
+リスト18-10のように、`x`のような常にマッチするパターンを`if let`に与えたら、コンパイルできないでしょう。
 
 ```rust,ignore
 if let x = 5 {
