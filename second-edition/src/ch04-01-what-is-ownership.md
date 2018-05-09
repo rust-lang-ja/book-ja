@@ -523,7 +523,7 @@ holding the value `"hello"` bound to `s1`</span> -->
 
 `s1`を`s2`に代入すると、`String`型のデータがコピーされます。つまり、スタックにあるポインタ、長さ、
 許容量をコピーするということです。ポインタが指すヒープ上のデータはコピーしません。言い換えると、
-メモリ上のデータ表現は図4-4のようになるということです。
+メモリ上のデータ表現は図4-2のようになるということです。
 
 <!-- <img alt="s1 and s2 pointing to the same value" src="img/trpl04-02.svg" class="center" style="width: 50%;" /> -->
 
@@ -539,7 +539,7 @@ that has a copy of the pointer, length, and capacity of `s1`</span> -->
 <!-- operation `s2 = s1` could be very expensive in terms of runtime performance if -->
 <!-- the data on the heap ware large. -->
 
-メモリ上の表現は、図4-5のようにはなり*ません*。これは、
+メモリ上の表現は、図4-3のようにはなり*ません*。これは、
 Rustが代わりにヒープデータもコピーするという選択をしていた場合のメモリ表現ですね。Rustがこれをしていたら、
 ヒープ上のデータが大きい時に`s2 = s1`という処理の実行時性能がとても悪くなっていた可能性があるでしょう。
 
