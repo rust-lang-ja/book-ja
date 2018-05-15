@@ -10,23 +10,24 @@
 <!-- out. -->
 
 第2章で触れた通り、変数は標準で不変になります。これは、
-Rustが提供する安全性や簡潔な並列プログラミングの利点を享受する形でコードを書くために与えられた一押しです。
-ところが、まだ変数を可変にするという選択肢も残されています。不変性を好むようコンパイラが推奨する手段と理由および、
-それと違う道を選びたくなる理由を見ていきましょう。
+Rustが提供する安全性や簡潔な並列プログラミングの利点を享受する形でコードを書くための選択の1つです。
+ところが、まだ変数を可変にするという選択肢も残されています。
+どのように、そしてなぜRustは不変性を推奨するのか、そしてなぜそれとは違う道を選びたくなることがあるのか見ていきましょう。
+
 
 <!-- When a variable is immutable, once a value is bound to a name, you can't change-->
 <!-- that value. To illustrate this, let’s generate a new project called *variables* -->
 <!-- in your *projects* directory by using `cargo new --bin variables`. -->
 
 変数が不変であると、値が一旦名前に束縛されたら、その値を変えることができません。
-これを具体化するために、*projects*ディレクトリに`cargo new --bin variables`コマンドを使って、
+これを具体的に説明するために、*projects*ディレクトリに`cargo new --bin variables`コマンドを使って、
 *variables*という名前のプロジェクトを生成しましょう。
 
 <!-- Then, in your new *variables* directory, open *src/main.rs* and replace its -->
 <!-- code with the following code that won't compile just yet: -->
 
 それから、新規作成した*variables*ディレクトリで、*src/main.rs*ファイルを開き、
-まだコンパイルできないけれど、その中身を以下のコードに置き換えましょう:
+その中身を以下のコードに置き換えましょう。このコードはコンパイルできません:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -88,7 +89,7 @@ error[E0384]: cannot assgin twice immutable variable `x`
 値が変わることはないという前提のもとに処理を行い、別の部分がその値を変更していたら、
 最初の部分が目論見通りに動いていない可能性があるのです。このようなバグの発生は、
 事実(`脚注`:実際にプログラムを走らせた結果のことと思われる)の後には追いかけづらいものです。
-特に第2のコード破片が、値を*時々*しか変えない場合尚更です。
+特に第2のコード片が、値を*時々*しか変えない場合尚更です。
 
 <!-- In Rust the compiler guarantees that when you state that a value won’t change, -->
 <!-- it really won’t change. That means that when you’re reading and writing code, -->
@@ -97,7 +98,7 @@ error[E0384]: cannot assgin twice immutable variable `x`
 
 Rustでは、値が不変であると宣言したら、本当に変わらないことをコンパイラが担保してくれます。
 つまり、コードを読み書きする際に、どこでどうやって値が変化しているかを追いかける必要がなくなります。
-故にコードを通して推測することが簡単になるのです。
+故にコードを通して正しいことを確認するのが簡単になるのです。
 
 <!-- But mutability can be very useful. Variables are immutable only by default; as -->
 <!-- you did in Chapter 2, you can make them mutable by adding `mut` in front of the -->
@@ -153,7 +154,7 @@ The value of x is: 6
 <!-- a more functional programming style may be easier to think through, so lower -->
 <!-- performance might be a worthwhile penalty for gaining that clarity. -->
 
-考えるべきトレードオフはバグの阻止以外にも、いくつかあります。例えば、大きなデータ構造を使う場合などです。
+考えるべきトレードオフはバグの予防以外にも、いくつかあります。例えば、大きなデータ構造を使う場合などです。
 インスタンスを可変にして変更できるようにする方が、いちいちインスタンスをコピーして新しくメモリ割り当てされたインスタンスを返すよりも速くなります。
 小規模なデータ構造なら、新規インスタンスを生成して、もっと関数型っぽいコードを書く方が通して考えやすくなるため、
 低パフォーマンスは、その簡潔性を得るのに足りうるペナルティになるかもしれません。
@@ -169,7 +170,7 @@ The value of x is: 6
 <!-- variables. -->
 
 変数の値を変更できないようにするといえば、他の多くの言語も持っている別のプログラミング概念を思い浮かべるかもしれません:
-*定数*です。不変変数のように、定数は名前に紐付き、変更することが叶わない値のことですが、
+*定数*です。不変変数のように、定数は名前に束縛され、変更することが叶わない値のことですが、
 定数と変数の間にはいくつかの違いがあります。
 
 <!-- First, we aren’t allowed to use `mut` with constants. Constants aren't just -->
@@ -189,14 +190,14 @@ The value of x is: 6
 <!-- Constants can be declared in any scope, including the global scope, which makes -->
 <!-- them useful for values that many parts of code need to know about. -->
 
-定数はどんなスコープでも定義できます。グローバルスコープも含めてね。なので、
+定数はどんなスコープでも定義できます。グローバルスコープも含めてです。なので、
 いろんなところで使用される可能性のある値を定義するのに役に立ちます。
 
 <!-- The last difference is that constants may be set only to a constant expression, -->
 <!-- not the result of a function call or any other value that could only be -->
 <!-- computed at runtime. -->
 
-最後の違いは、定数は定数式にしかセットすることが叶わないことです。関数呼び出し結果や、実行時に評価される値にはセットできません。
+最後の違いは、定数は定数式にしかセットできないことです。関数呼び出し結果や、実行時に評価される値にはセットできません。
 
 <!-- Here's an example of a constant declaration where the constant's name is -->
 <!-- `MAX_POINTS` and its value is set to 100,000. (Rust naming convention for -->
@@ -230,7 +231,7 @@ const MAX_POINTS: u32 = 100_000;
 
 <!-- ### Shadowing -->
 
-### (変数を)覆い隠す(shadowing)
+### シャドーイング
 
 <!-- As you saw in the guessing game tutorial in the “Comparing the Guess to the -->
 <!-- Secret Number” section in Chapter 2, you can declare a new variable with the -->
@@ -241,9 +242,9 @@ const MAX_POINTS: u32 = 100_000;
 <!-- repeating the use of the `let` keyword as follows: -->
 
 第2章の数当てゲームのチュートリアル、「秘密の数字と予想を比較する」節で見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
-新しい変数は、前の変数を上書き(shadow)します。Rustaceanはこれを最初の変数は、
-2番目の変数に*上書き*されたと言い、この変数を使用した際に、2番目の変数の値が現れるということです。
-以下のようにして、同じ変数名を用いて変数を上書きし、`let`キーワードの使用を繰り返します:
+新しい変数は、前の変数を覆い隠し(shadow)ます。Rustaceanはこれを最初の変数は、
+2番目の変数に*シャドー*されたと言い、この変数を使用した際に、2番目の変数の値が現れるということです。
+以下のようにして、同じ変数名を用いて変数を覆い隠し、`let`キーワードの使用を繰り返します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -267,9 +268,9 @@ fn main() {
 <!-- previous value by `2` to give `x` a final value of `12`. Wehn we run this -->
 <!-- program, it will output the following: -->
 
-このプログラムはまず、`x`を`5`という値に束縛します。それから`let x =`を繰り返すことで`x`を上書きし、
+このプログラムはまず、`x`を`5`という値に束縛します。それから`let x =`を繰り返すことで`x`を覆い隠し、
 元の値に`1`を加えることになるので、`x`の値は、`6`になります。
-3番目の`let`文も`x`を上書きし、以前の値に`2`をかけることになるので、`x`の最終的な値は`12`になります。
+3番目の`let`文も`x`を覆い隠し、以前の値に`2`をかけることになるので、`x`の最終的な値は`12`になります。
 このプログラムを走らせたら、以下のように出力するでしょう:
 
 ```text
@@ -314,7 +315,7 @@ let spaces = spaces.len();
 <!-- try to use `mut` for this, as shown here, we'll get a compile-time error: -->
 
 この文法要素は、容認されます。というのも、最初の`spaces`変数は文字列型であり、2番目の`spaces`変数は、
-たまたま最初の変数と同じ名前になったまっさらな変数のわけですが、数値型になるからです。故に、上書きのおかげで、
+たまたま最初の変数と同じ名前になったまっさらな変数のわけですが、数値型になるからです。故に、シャドーイングのおかげで、
 異なる名前を思いつく必要がなくなるわけです。`spaces_str`と`spaces_num`などですね; 代わりに、
 よりシンプルな`spaces`という名前を再利用できるわけです。一方で、この場合に`mut`を使おうとすると、
 以下に示した通りですが、コンパイルエラーになるわけです:
