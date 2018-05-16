@@ -65,6 +65,8 @@ pub trait Iterator {
 `Iterator`トレイトを実装するものは、`Item`の具体的な型を指定し、`next`メソッドは、
 その具体的な型の値を含む`Option`を返します。
 
+<!-- ジェネリクスはこうという話をしているのに、似ていると言っているのがどうも引っかかる -->
+
 <!-- Associated types might seem like a similar concept to generics, in that the -->
 <!-- latter allow us to define a function without specifying what types it can -->
 <!-- handle. So why use associated types? -->
@@ -119,7 +121,7 @@ pub trait Iterator<T> {
 
 差異は、リスト19-21のようにジェネリクスを使用すると、各実装で型を注釈しなければならないことです;
 `Iterator<String> for Counter`や他のどんな型にも実装することができるので、
-`Counter`の`Iterator`の実装が複数になるからです。換言すれば、トレイトにジェネリックな引数があると、
+`Counter`の`Iterator`の実装が複数できるでしょう。換言すれば、トレイトにジェネリックな引数があると、
 毎回ジェネリックな型引数の具体的な型を変更してある型に対して複数回実装できるということです。
 `Counter`に対して`next`メソッドを使用する際に、どの`Iterator`の実装を使用したいか型注釈をつけなければならないでしょう。
 
@@ -146,14 +148,14 @@ pub trait Iterator<T> {
 <!-- declaring the generic type. -->
 
 ジェネリックな型引数を使用する際、ジェネリックな型に対して規定の具体的な型を指定できます。これにより、
-規定の型が動くのなら、トレイトを実装するものが具体的な型を指定する必要を排除します。ジェネリックな型に規定の型を指定する記法は、
+規定の型が動くのなら、トレイトを実装する側が具体的な型を指定する必要を排除します。ジェネリックな型に規定の型を指定する記法は、
 ジェネリックな型を宣言する際に`<PlaceholderType=ConcreteType>`です。
 
 <!-- A great example of a situation where this technique is useful is with operator -->
 <!-- overloading. *Operator overloading* is customizing the behavior of an operator -->
 <!-- (such as `+`) in particular situations. -->
 
-このテクニックが有用な場面のいい例が、演算子オーバーロードです。*演算子オーバーロード*とは、
+このテクニックが有用になる場面のいい例が、演算子オーバーロードです。*演算子オーバーロード*とは、
 特定の状況で演算子(`+`など)の振る舞いをカスタマイズすることです。
 
 <!-- Rust doesn’t allow you to create your own operators or overload arbitrary -->
@@ -201,7 +203,7 @@ fn main() {
 <!-- <span class="caption">Listing 19-22: Implementing the `Add` trait to overload -->
 <!-- the `+` operator for `Point` instances</span> -->
 
-<span class="caption">リスト19-22: `Add`トレイトを実装して`Point`インスタンスように`+`演算子をオーバーロードする</span>
+<span class="caption">リスト19-22: `Add`トレイトを実装して`Point`インスタンス用に`+`演算子をオーバーロードする</span>
 
 <!-- The `add` method adds the `x` values of two `Point` instances and the `y` -->
 <!-- values of two `Point` instances to create a new `Point`. The `Add` trait has an -->
@@ -303,7 +305,7 @@ impl Add<Meters> for Millimeters {
 <!-- it easier to use the trait. -->
 
 標準ライブラリの`Add`トレイトは、2番目の目的の例です: 通常、2つの似た型を足しますが、
-`Add`トレイトはそれ以上にカスタマイズする能力を提供しています。`Add`トレイト定義でデフォルト型引数を使用することは、
+`Add`トレイトはそれ以上にカスタマイズする能力を提供します。`Add`トレイト定義でデフォルト型引数を使用することは、
 ほとんどの場合、追加の引数を指定しなくてもよいことを意味します。つまり、トレイトを使いやすくして、
 ちょっとだけ実装の定型コードが必要なくなるのです。
 
@@ -386,7 +388,7 @@ impl Human {
 <!-- the method that is directly implemented on the type, as shown in Listing 19-25. -->
 
 `Human`のインスタンスに対して`fly`を呼び出すと、コンパイラは型に直接実装されたメソッドを標準で呼び出します。
-リスト19-25のようにね:
+リスト19-25のようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -711,7 +713,7 @@ A baby dog is called a puppy
 
 <!-- ### Using Supertraits to Require One Trait’s Functionality Within Another Trait -->
 
-### スーパートレイトを使用して別のトレイト内であるトレイトの機能を必要とする
+### スーパートレイトを使用して別のトレイト内で、あるトレイトの機能を必要とする
 
 <!-- Sometimes, you might need one trait to use another trait’s functionality. In -->
 <!-- this case, you need to rely on the dependent trait's also being implemented. -->

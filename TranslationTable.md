@@ -87,6 +87,7 @@
 | foreign                        | 他言語
 | free                           | 解放する
 | free-standing function         | フリースタンディングな関数
+| fully qualified (syntax)       | フルパス(記法)
 | garbage collector              | ガベージコレクタ
 | generic parameter              | ジェネリックパラメータ
 | generics                       | ジェネリクス
@@ -161,6 +162,7 @@
 | regression                     | リグレッション
 | release                        | リリース
 | (lockの) release               | 解放
+| to reason                      | 正しいと確認すること
 | return                         | 返す
 | return type                    | リターン型
 | return value                   | 戻り値
