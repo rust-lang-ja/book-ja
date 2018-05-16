@@ -18,13 +18,13 @@
 <!-- * Inference of trait object lifetimes: allows the compiler to infer trait -->
 <!--   object lifetimes and when they need to be specified -->
 
-* ライフタイム・サブタイプ: あるライフタイムが他のライフタイムより長生きすることを保証する
+* ライフタイム・サブタイピング: あるライフタイムが他のライフタイムより長生きすることを保証する
 * ライフタイム境界: ジェネリックな型への参照のライフタイムを指定する
 * トレイトオブジェクトのライフタイムの推論: コンパイラにトレイトオブジェクトのライフタイムを推論させることと指定する必要があるタイミング
 
 <!-- ### Ensuring One Lifetime Outlives Another with Lifetime Subtyping -->
 
-### ライフタイム・サブタイプであるライフタイムが他よりも長生きすることを保証する
+### ライフタイム・サブタイピングによりあるライフタイムが他よりも長生きすることを保証する
 
 <!-- *Lifetime subtyping* specifies that one lifetime should outlive another -->
 <!-- lifetime. To explore lifetime subtyping, imagine we want to write a parser. -->
@@ -34,8 +34,9 @@
 <!-- parsing. Listing 19-12 implements this parser code, except the code doesn’t -->
 <!-- have the required lifetime annotations, so it won’t compile. -->
 
-*ライフタイム・サブタイプ*(lifetime subtyping)は、あるライフタイムが他のライフタイムよりも長生きすべきであることを指定します。
-ライフタイム・サブタイプを探求するために、パーサを書きたいところを想像してください。
+*ライフタイム・サブタイピング*(lifetime subtyping; `脚注`: あえて訳すなら、ライフタイムの継承)は、
+あるライフタイムが他のライフタイムよりも長生きすべきであることを指定します。
+ライフタイム・サブタイピングを探求するために、パーサを書きたいところを想像してください。
 パース(`脚注`: parse; 構文解析)中の文字列への参照を保持する`Context`と呼ばれる構造を使用します。この文字列をパースし、
 成功か失敗を返すパーサを書きます。パーサは構文解析を行うために`Context`を借用する必要があるでしょう。
 リスト19-12はコードに必要なライフタイム注釈がないことを除いてこのパーサのコードを実装しているので、コンパイルはできません。
@@ -91,7 +92,7 @@ impl Parser {
 <!-- lifetimes involved. -->
 
 このコードを単純に保つため、構文解析のロジックは何も書きません。ですが、構文解析ロジックのどこかで、
-無効な入力の一部を参照するエラーを返すことで無効な入力を扱う可能性が非常に高いでしょう; この参照により、
+非合法な入力の一部を参照するエラーを返すことで非合法な入力を扱う可能性が非常に高いでしょう; この参照が、
 ライフタイムに関連してこのコード例を面白くしてくれます。パーサのロジックが、最初のバイトの後で入力が不正だった振りをしましょう。
 最初のバイトが有効な文字境界になければ、このコードはパニックする可能性があることに注意してください;
 ここでも、例を簡略化して関連するライフタイムに集中しています。
@@ -306,7 +307,7 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 <!-- completely fix the problem, but it’s a start. We’ll look at why this fix isn’t -->
 <!-- sufficient when we try to compile. -->
 
-まず、試しに`Parser`と`Context`に異なるライフタイム引数を与えてみましょう。リスト19-15のようにね。
+まず、試しに`Parser`と`Context`に異なるライフタイム引数を与えてみましょう。リスト19-15のようにですね。
 ライフタイム引数の名前として`'s`と`'c`を使用してどのライフタイムが`Context`の文字列スライスに当てはまり、
 どれが`Parser`の`Context`への参照に当てはまるかを明確化します。この解決策は、完全に問題を修正しませんが、
 スタート地点です。コンパイルしようとする時にこの修正で十分でない理由に目を向けます。
@@ -384,9 +385,9 @@ note: but the referenced data is only valid for the lifetime 's as defined on th
 <!-- guarantee that it lives longer than the reference with lifetime `'c`. If `'s` -->
 <!-- is not longer than `'c`, the reference to `Context` might not be valid. -->
 
-コンパイラは、`'c`と`'s`の間になんの関連性も知りません。有効であるために、`Context`でライフタイム`'c`の参照されたデータは、
+コンパイラは、`'c`と`'s`の間になんの関連性も知りません。合法であるために、`Context`でライフタイム`'c`と参照されたデータは、
 制限され、ライフタイム`'c`の参照よりも長生きすることを保証する必要があります。`'s`が`'c`より長くないと、
-`Context`への参照は有効ではない可能性があるのです。
+`Context`への参照は合法ではない可能性があるのです。
 
 <!-- Now we get to the point of this section: the Rust feature *lifetime -->
 <!-- subtyping* specifies that one lifetime parameter lives at least as long as -->
@@ -394,7 +395,7 @@ note: but the referenced data is only valid for the lifetime 's as defined on th
 <!-- declare a lifetime `'a` as usual and declare a lifetime `'b` that lives at -->
 <!-- least as long as `'a` by declaring `'b` using the syntax `'b: 'a`. -->
 
-さて、この節の要点に到達しました: Rustの機能、ライフタイム・サブタイプは、あるライフタイム引数が、
+さて、この節の要点に到達しました: Rustの機能、*ライフタイム・サブタイピング*は、あるライフタイム引数が、
 少なくとも他のライフタイムと同じだけ生きることを指定します。ライフタイム引数を宣言する山カッコ内で、
 通常通りライフタイム`'a`を宣言し、`'b`を`'b: 'a`記法を使用して宣言することで、
 `'a`と少なくとも同じ期間生きるライフタイム`'b`を宣言できます。
@@ -504,7 +505,7 @@ note: ...so that the reference type `&'a T` does not outlive the data it points 
 <!-- Fortunately, the error provides helpful advice on how to specify the lifetime -->
 <!-- bound in this case: -->
 
-幸運なことに、この場合、ライフタイム境界を指定する方法について役に立つアドバイスをくれています:
+幸運なことに、この場合、エラーがライフタイム境界を指定する方法について役に立つアドバイスをくれています:
 
 ```text
 consider adding an explicit lifetime bound `T: 'a` so that the reference type
@@ -538,7 +539,7 @@ struct Ref<'a, T: 'a>(&'a T);
 <!-- `T`. This means if `T` contains any references, they must have the `'static` -->
 <!-- lifetime. -->
 
-この問題をリスト19-18の`StaticRef`構造体の定義で示したように、`T`に`'static`ライフタイム境界を追加することで、異なる方法で解決することもできます。
+この問題をリスト19-18の`StaticRef`構造体の定義で示したように、`T`に`'static`ライフタイム境界を追加し、異なる方法で解決することもできます。
 これは、`T`に何か参照が含まれるなら、`'static`ライフタイムでなければならないことを意味します。
 
 ```rust
@@ -578,7 +579,7 @@ struct StaticRef<T: 'static>(&'static T);
 <!-- trait object `Box<Red>`. -->
 
 第17章の「異なる型の値を許容するトレイトオブジェクトを使用する」節で、参照の背後のトレイトから構成され、
-ダイナミック・ディスパッチを使用させてくれるトレイトオブジェクトを議論しました。まだ、トレイトオブジェクトのトレイトを実装する型が、
+ダイナミック・ディスパッチを使用できるトレイトオブジェクトを議論しました。まだ、トレイトオブジェクトのトレイトを実装する型が、
 独自のライフタイムだった時に何が起きるか議論していません。トレイト`Red`と構造体`Ball`があるリスト19-19を考えてください。
 `Ball`構造体は参照を保持し(故にライフタイム引数があり)、トレイト`Red`を実装もしています。
 `Ball`のインスタンスを`Box<Red>`として使用したいです。
@@ -613,7 +614,7 @@ fn main() {
 <!-- rules for working with lifetimes and trait objects: -->
 
 明示的に`obj`に関連するライフタイムを注釈していないものの、このコードはエラーなくコンパイルできます。
-ライフタイムとトレイトオブジェクトにとりかかる規則があるので、このコードは動くのです:
+ライフタイムとトレイトオブジェクトと共に動く規則があるので、このコードは動くのです:
 
 <!-- * The default lifetime of a trait object is `'static`. -->
 <!-- * With `&'a Trait` or `&'a mut Trait`, the default lifetime of the trait object -->
@@ -635,7 +636,7 @@ fn main() {
 <!-- `Red` trait that has references inside the type must have the same lifetime -->
 <!-- specified in the trait object bounds as those references. -->
 
-明示しなければならない時、`Box<Red>`のようなトレイトオブジェクトに対して、参照がプログラム全体に生きるかどうかにより、
+明示しなければならない時、`Box<Red>`のようなトレイトオブジェクトに対して、参照がプログラム全体で生きるかどうかにより、
 記法`Box<Red + 'static>`か`Box<Red + 'a>`を使用してライフタイム境界を追加できます。他の境界同様、
 ライフタイム境界を追記する記法は、型の内部に参照がある`Red`トレイトを実装しているものは全て、
 トレイト境界に指定されるライフタイムがそれらの参照と同じにならなければなりません。
