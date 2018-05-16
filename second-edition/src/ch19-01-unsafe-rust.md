@@ -20,7 +20,7 @@ Rustには、これらのメモリ安全保証を強制しない第2の言語が
 <!-- risk: if you use unsafe code incorrectly, problems due to memory unsafety, such -->
 <!-- as null pointer dereferencing, can occur. -->
 
-静的解析は原理的に保守的なので、unsafe Rustが存在します。コードが保証を保持しているかコンパイラが決定しようとすると、
+静的解析は原理的に保守的なので、unsafe Rustが存在します。コードが保証を保持しているかコンパイラが決定しようとする際、
 なんらかの不正なプログラムを受け入れるよりも有効なプログラムを拒否したほうがいいのです。コードは大丈夫かもしれないけれど、
 コンパイラにわかる範囲ではダメなのです！このような場合、unsafeコードを使用してコンパイラに「信じて！何をしているかわかってるよ」と教えられます。
 欠点は、自らのリスクで使用することです: unsafeコードを誤って使用したら、
@@ -78,7 +78,7 @@ unsafeコードで参照を使用しても、チェックはされます。`unsa
 <!-- access memory in a valid way. -->
 
 また、unsafeは、そのブロックが必ずしも危険だったり、絶対メモリ安全上の問題を抱えていることを意味するものではありません:
-意図は、プログラマとして`unsafe`ブロック内のコードがメモリに合法的にアクセスすることを保証することです。
+その意図は、プログラマとして`unsafe`ブロック内のコードがメモリに合法的にアクセスすることを保証することです。
 
 <!-- People are fallible, and mistakes will happen, but by requiring these four -->
 <!-- unsafe operations to be inside blocks annotated with `unsafe` you’ll know that -->
@@ -208,7 +208,7 @@ let r = address as *const i32;
 <!-- raw pointers and read the data being pointed to. In Listing 19-3, we use the -->
 <!-- dereference operator `*` on a raw pointer that requires an `unsafe` block. -->
 
-safeコードで生ポインタを生成できるけれども、生ポインタを参照外しして指しているデータを読むことはできないことを思い出してください。
+safeコードで生ポインタを生成できるけれども、生ポインタを*参照外し*して指しているデータを読むことはできないことを思い出してください。
 リスト19-3では、`unsafe`ブロックが必要になる参照外し演算子の`*`を生ポインタに使っています。
 
 ```rust
@@ -543,7 +543,7 @@ let slice = unsafe {
 
 時として、自分のRustコードが他の言語で書かれたコードと相互作用する必要が出てくる可能性があります。このために、
 Rustには`extern`というキーワードがあり、これは、
-*FFI*(Foreign Function Interface: 外部関数インターフェイスといったところか)の生成と使用を容易にします。
+*FFI*(Foreign Function Interface: 外部関数インターフェイス)の生成と使用を容易にします。
 FFIは、あるプログラミング言語に関数を定義させ、異なる(外部の)プログラミング言語にそれらの関数を呼び出すことを可能にする方法です
 
 <!-- Listing 19-8 demonstrates how to set up an integration with the `abs` function -->
@@ -691,7 +691,7 @@ fn main() {
 
 定数と不変で静的な変数は、類似して見える可能性がありますが、微妙な差異は、
 静的変数の値は固定されたメモリアドレスになることです。値を使用すると、常に同じデータにアクセスします。
-一方、定数は使用される度にデータを重複させることができます。
+一方、定数は使用される度にデータを複製させることができます。
 
 <!-- Another difference between constants and static variables is that static -->
 <!-- variables can be mutable. Accessing and modifying mutable static variables is -->
@@ -745,8 +745,8 @@ fn main() {
 <!-- that data accessed from different threads is done safely. -->
 
 グローバルにアクセス可能な可変なデータがあると、データ競合がないことを保証するのは難しくなり、そのため、
-Rustは可変で静的な変数をunsafeと考えるのです。可能なら、第16章で議論した非同期テクニックとスレッド安全なスマートポインタを使用するのが望ましいので、
-コンパイラは異なるスレッドからアクセスされるデータが安全に行われているかを確認します。
+Rustは可変で静的な変数をunsafeと考えるのです。可能なら、コンパイラが異なるスレッドからアクセスされるデータが安全に行われているかを確認するように、
+第16章で議論した非同期テクニックとスレッド安全なスマートポインタを使用するのが望ましいです。
 
 <!-- ### Implementing an Unsafe Trait -->
 
@@ -758,9 +758,9 @@ Rustは可変で静的な変数をunsafeと考えるのです。可能なら、�
 <!-- `unsafe` keyword before `trait` and marking the implementation of the trait as -->
 <!-- `unsafe` too, as shown in Listing 19-11. -->
 
-`unsafe`でのみ動く最後の行動は、unsafeなトレイトを実装することです。少なくとも、1つのメソッドにコンパイラが確かめられない何らかの不変条件があると、
+`unsafe`でのみ動く最後の動作は、unsafeなトレイトを実装することです。少なくとも、1つのメソッドにコンパイラが確かめられない何らかの不変条件があると、
 トレイトはunsafeになります。`trait`の前に`unsafe`キーワードを追加し、トレイトの実装も`unsafe`でマークすることで、
-トレイトが`unsafe`であると宣言できます。リスト19-11のようにね。
+トレイトが`unsafe`であると宣言できます。リスト19-11のようにですね。
 
 ```rust
 unsafe trait Foo {
@@ -814,4 +814,4 @@ unsafe impl Foo for i32 {
 `unsafe`を使って議論したばかりの4つの行動(superpower)のうちの1つを行うのは間違っていたり、認められもしないものではありません。
 ですが、`unsafe`コードを正しくするのは、より巧妙なことでしょう。コンパイラがメモリ安全性を保持する手助けをできないからです。
 `unsafe`コードを使用する理由があるなら、そうすることができ、明示的に`unsafe`注釈をすることで問題が起きたら、
-その原因を追求するのが楽になります。
+その原因を追求するのが容易になります。

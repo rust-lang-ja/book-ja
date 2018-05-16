@@ -246,11 +246,20 @@
     - [シングルスレッドのサーバをマルチスレッド化する](ch20-02-multithreaded.md)
     - [優美なシャットダウンとお片付け](ch20-03-graceful-shutdown-and-cleanup.md)
 
-- [Appendix](appendix-00.md)
-    - [A - Keywords](appendix-01-keywords.md)
-    - [B - Operators and Symbols](appendix-02-operators.md)
-    - [C - Derivable Traits](appendix-03-derivable-traits.md)
-    - [D - Macros](appendix-04-macros.md)
-    - [E - Translations](appendix-05-translation.md)
-    - [F - Newest Features](appendix-06-newest-features.md)
-    - [G - How Rust is Made and “Nightly Rust”](appendix-07-nightly-rust.md)
+<!-- - [Appendix](appendix-00.md) -->
+<!--     - [A - Keywords](appendix-01-keywords.md) -->
+<!--     - [B - Operators and Symbols](appendix-02-operators.md) -->
+<!--     - [C - Derivable Traits](appendix-03-derivable-traits.md) -->
+<!--     - [D - Macros](appendix-04-macros.md) -->
+<!--     - [E - Translations](appendix-05-translation.md) -->
+<!--     - [F - Newest Features](appendix-06-newest-features.md) -->
+<!--     - [G - How Rust is Made and “Nightly Rust”](appendix-07-nightly-rust.md) -->
+
+- [付録](appendix-00.md)
+    - [A - キーワード](appendix-01-keywords.md)
+    - [B - 演算子とシンボル](appendix-02-operators.md)
+    - [C - 継承可能なトレイト](appendix-03-derivable-traits.md)
+    - [D - マクロ](appendix-04-macros.md)
+    - [E - 翻訳](appendix-05-translation.md)
+    - [F - 最新の機能](appendix-06-newest-features.md)
+    - [G - Rustが“Nightly Rust”になる方法](appendix-07-nightly-rust.md)
