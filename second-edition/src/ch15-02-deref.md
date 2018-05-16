@@ -387,7 +387,7 @@ fn hello(name: &str) {
 <!-- with a reference to a value of type `MyBox<String>`, as shown in Listing 15-12: -->
 
 `hello`関数は、文字列スライスを引数として呼び出すことができます。例えば、`hello("Rust")`などです。
-参照外し型強制により、`hello`を型`MyBox<String>`の値への参照とともに呼び出すことができます。リスト15-12のようにね:
+参照外し型強制により、`hello`を型`MyBox<String>`の値への参照とともに呼び出すことができます。リスト15-12のようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

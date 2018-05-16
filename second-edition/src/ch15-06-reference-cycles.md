@@ -346,7 +346,7 @@ struct Node {
 
 次にこの構造体定義を使って値3と子供なしの`leaf`という1つの`Node`インスタンスと、
 値5と`leaf`を子要素の一つとして持つ`branch`という別のインスタンスを作成します。
-リスト15-27のようにね:
+リスト15-27のようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

@@ -110,7 +110,7 @@ pub struct AveragedCollection {
 
 構造体は、他のコードが使用できるように`pub`で印づけされていますが、構造体のフィールドは非公開のままです。
 値が追加されたりリストから削除される度に、平均も更新されることを保証したいので、今回の場合重要です。
-`add`や`remove`、`average`メソッドを構造体に実装することでこれをします。リスト17-2のようにね:
+`add`や`remove`、`average`メソッドを構造体に実装することでこれをします。リスト17-2のようにですね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

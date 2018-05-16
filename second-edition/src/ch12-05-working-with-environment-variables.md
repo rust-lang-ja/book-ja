@@ -28,7 +28,7 @@
 環境変数がオンの場合に呼び出す`search_case_insensitive`関数を新しく追加したいです。テスト駆動開発の過程に従い続けるので、
 最初の手順は、今回も失敗するテストを書くことです。新しい`search``_case_insensitive`関数用の新規テストを追加し、
 古いテストを`one_result`から`case_sensitive`に名前変更して、二つのテストの差異を明確化します。
-リスト12-20に示したようにね:
+リスト12-20に示したようにですね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -216,7 +216,7 @@ pub struct Config {
 
 論理値を持つ`case_sensitive`フィールドを追加したことに注意してください。次に、`run`関数に、
 `case_sensitive`フィールドの値を確認し、`search`関数か`search_case_insensitive`関数を呼ぶかを決定するのに使ってもらう必要があります。
-リスト12-22のようにね。それでも、これはまだコンパイルできないことに注意してください:
+リスト12-22のようにですね。それでも、これはまだコンパイルできないことに注意してください:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -276,7 +276,7 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
 最後に、環境変数を確認する必要があります。環境変数を扱う関数は、標準ライブラリの`env`モジュールにあるので、
 `use std::env;`行で*src/lib.rs*の冒頭でそのモジュールをスコープに持ってくる必要があります。そして、
 `env`モジュールから`var`関数を使用して`CASE_INSENSITIVE`という環境変数のチェックを行います。
-リスト12-23のようにね:
+リスト12-23のようにですね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

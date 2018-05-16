@@ -248,7 +248,7 @@ number is divisible by 3
 <!-- Because `if` is an expression, we can use it on the right side of a `let` -->
 <!-- statement, as in Listing 3-2. -->
 
-`if`は式なので、`let`文の右辺に持ってくることができます。リスト3-2のようにね。
+`if`は式なので、`let`文の右辺に持ってくることができます。リスト3-2のようにですね。
 
 <!--<span class="filename">Filename: src/main.rs</span> -->
 

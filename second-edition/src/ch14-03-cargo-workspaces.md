@@ -203,7 +203,7 @@ Cargoはワークスペースのクレートが、お互いに依存している
 
 次に、`adder`クレートの`add-one`クレートから`add_one`関数を使用しましょう。*adder/src/main.rs*ファイルを開き、
 冒頭に`extern crate`行を追加して新しい`add-one`ライブラリクレートをスコープに導入してください。
-それから`main`関数を変更し、`add_one`関数を呼び出します。リスト14-7のようにね:
+それから`main`関数を変更し、`add_one`関数を呼び出します。リスト14-7のようにですね:
 
 <!-- <span class="filename">Filename: adder/src/main.rs</span> -->
 

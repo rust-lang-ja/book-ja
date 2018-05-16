@@ -974,7 +974,7 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
 <!-- binary crate in *src/main.rs*, as shown in Listing 12-14: -->
 
 さて、*src/lib.rs*に移動したコードを*src/main.rs*のバイナリクレートのスコープに持っていく必要があります。
-リスト12-14に示したようにね:
+リスト12-14に示したようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

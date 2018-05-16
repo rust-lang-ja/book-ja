@@ -96,7 +96,7 @@ Rustの型システムと所有権ルールにより、この管理を正当に�
 <!-- single-threaded context, as shown in Listing 16-12: -->
 
 ミューテックスの使用方法の例として、ミューテックスをシングルスレッドの文脈で使うことから始めましょう。
-リスト16-12のようにね:
+リスト16-12のようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

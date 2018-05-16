@@ -948,7 +948,7 @@ impl Worker {
 <!-- doesn’t hold anything for now but will be the type of item we’re sending down -->
 <!-- the channel. -->
 
-`ThreadPool::new`内でチャンネルを生成し、`ThreadPool`インスタンスに送信側を保持することから始めましょう。リスト20-16のようにね。
+`ThreadPool::new`内でチャンネルを生成し、`ThreadPool`インスタンスに送信側を保持することから始めましょう。リスト20-16のようにですね。
 今の所、`Job`構造体は何も保持しませんが、チャンネルに送信する種類の要素になります。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->

@@ -119,7 +119,7 @@ mod tests {
 <!-- The `cargo test` command runs all tests in our project, as shown in Listing -->
 <!-- 11-2: -->
 
-`cargo test`コマンドでプロジェクトにあるテストが全て実行されます。リスト11-2に示したようにね:
+`cargo test`コマンドでプロジェクトにあるテストが全て実行されます。リスト11-2に示したようにですね:
 
 ```text
 $ cargo test

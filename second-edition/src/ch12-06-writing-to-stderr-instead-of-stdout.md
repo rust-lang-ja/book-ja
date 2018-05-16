@@ -137,7 +137,7 @@ Problem parsing arguments: not enough arguments
 <!-- Let’s run the program again with arguments that don’t cause an error but still -->
 <!-- redirect standard output to a file, like so: -->
 
-再度、エラーは起こさずに標準出力をファイルにリダイレクトする引数でプログラムを走らせましょう。以下のようにね:
+再度、エラーは起こさずに標準出力をファイルにリダイレクトする引数でプログラムを走らせましょう。以下のようにですね:
 
 ```text
 $ cargo run to poem.txt > output.txt

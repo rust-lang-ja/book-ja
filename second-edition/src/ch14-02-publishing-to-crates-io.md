@@ -198,7 +198,7 @@ docコメントの別スタイル、`//!`は、コメントに続く要素にド
 
 例えば、`add_one`関数を含む`my_crate`クレートの目的を解説するドキュメンテーションを追加したいのなら、
 `//!`で始まるドキュメンテーションコメントを*src/lib.rs*ファイルの先頭につけることができます。
-リスト14-2に示したようにね:
+リスト14-2に示したようにですね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -239,7 +239,7 @@ docコメントの別スタイル、`//!`は、コメントに続く要素にド
 <!-- crate, as shown in Figure 14-2: -->
 
 `cargo doc --open`を実行すると、これらのコメントは、`my_crate`のドキュメントの最初のページ、
-クレートの公開要素のリストの上部に表示されます。図14-2のようにね:
+クレートの公開要素のリストの上部に表示されます。図14-2のようにですね:
 
 <!-- <img alt="Rendered HTML documentation with a comment for the crate as a whole" src="img/trpl14-02.png" class="center" /> -->
 
@@ -305,7 +305,7 @@ docコメントの別スタイル、`//!`は、コメントに続く要素にド
 
 例えば、芸術的な概念をモデル化するために`art`という名のライブラリを作ったとしましょう。
 このライブラリ内には、2つのモジュールがあります: `PrimaryColor`と`SecondaryColor`という名前の2つのeunmを含む、
-`kinds`モジュールと`mix`という関数を含む`utils`モジュールです。リスト14-3のようにね:
+`kinds`モジュールと`mix`という関数を含む`utils`モジュールです。リスト14-3のようにですね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -481,7 +481,7 @@ pub mod utils {
 <!-- structure in Listing 14-5, as shown in Listing 14-6: -->
 
 `art`クレートのユーザは、それでも、リスト14-4にデモされているように、リスト14-3の内部構造を見て使用することもできますし、
-リスト14-5のより便利な構造を使用することもできます。リスト14-6に示したようにね:
+リスト14-5のより便利な構造を使用することもできます。リスト14-6に示したようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -541,7 +541,7 @@ Githubアカウントでログインしてください。(現状は、Githubア�
 いずれは他の方法でもアカウントを作成できるようになる可能性があります。)ログインしたら、
 [https://crates.io/me/](https://crates.io/me/)で自分のアカウントの設定に行き、
 APIキーを取り扱ってください。そして、`cargo login`コマンドをAPIキーとともに実行してください。
-以下のようにね:
+以下のようにですね:
 
 ```text
 $ cargo login abcdefghijklmnopqrstuvwxyz012345

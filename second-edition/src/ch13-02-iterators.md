@@ -503,7 +503,7 @@ impl Counter {
 <!-- iterator is used, as shown in Listing 13-21: -->
 
 次に、`next`メソッドの本体をこのイテレータが使用された際に起きてほしいことを指定するように定義して、
-`Counter`型に対して`Iterator`トレイトを実装します。リスト13-21のようにね:
+`Counter`型に対して`Iterator`トレイトを実装します。リスト13-21のようにですね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

@@ -941,7 +941,7 @@ fn takes_and_gives_back(a_string: String) -> String { // a_stringがスコープ
 
 <!-- It’s possible to return multiple values using a tuple, as shown in Listing 4-5. -->
 
-タプルで、複数の値を返すことは可能です。リスト4-5のようにね。
+タプルで、複数の値を返すことは可能です。リスト4-5のようにですね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

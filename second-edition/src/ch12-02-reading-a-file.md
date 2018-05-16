@@ -51,7 +51,7 @@ To an admiring bog!
 <!-- shown in Listing 12-4: -->
 
 テキストを適当な場所に置いて、*src/main.rs*を編集し、ファイルを開くコードを追加してください。
-リスト12-4に示したようにね:
+リスト12-4に示したようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

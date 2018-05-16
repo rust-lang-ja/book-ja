@@ -146,7 +146,7 @@ Dropping CustomSmartPointer with data `my stuff`!
 <!-- compiler error: -->
 
 リスト15-14の`main`関数を変更して手動で`Drop`トレイトの`drop`メソッドを呼び出そうとしたら、
-コンパイルエラーになるでしょう。リスト15-15のようにね:
+コンパイルエラーになるでしょう。リスト15-15のようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -214,7 +214,7 @@ error[E0040]: explicit use of destructor method
 
 `std::mem::drop`関数は、`Drop`トレイトの`drop`メソッドとは異なります。
 早期に強制的にドロップさせたい値を引数で渡すことで呼びます。この関数は初期化処理に含まれているので、
-リスト15-14の`main`を変更して`drop`関数を呼び出せます。リスト15-16のようにね:
+リスト15-14の`main`を変更して`drop`関数を呼び出せます。リスト15-16のようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

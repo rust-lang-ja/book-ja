@@ -162,7 +162,7 @@ pub struct Screen {
 <!-- `draw` method on each of its `components`, as shown in Listing 17-5: -->
 
 `Screen`構造体に、`components`の各要素に対して`draw`メソッドを呼び出す`run`というメソッドを定義します。
-リスト17-5のようにね:
+リスト17-5のようにですね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -262,7 +262,7 @@ impl<T> Screen<T>
 さて、`Draw`トレイトを実装する型を追加しましょう。`Button`型を提供します。ここも、実際にGUIライブラリを実装することは、
 この本の範疇を超えているので、`draw`メソッドの本体は、何も有用な実装はしません。実装がどんな感じになるか想像するために、
 `Button`構造体は、`width`、`height`、`label`フィールドを持っている可能性があります。
-リスト17-7に示したようにね:
+リスト17-7に示したようにですね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -314,7 +314,7 @@ impl Draw for Button {
 <!-- `SelectBox` type as well, as shown in Listing 17-8: -->
 
 ライブラリの使用者が、`width`、`height`、`options`フィールドのある`SelectBox`構造体を実装しようと決めたら、
-`SelectBox`型に`Draw`トレイトも実装します。リスト17-8のようにね:
+`SelectBox`型に`Draw`トレイトも実装します。リスト17-8のようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

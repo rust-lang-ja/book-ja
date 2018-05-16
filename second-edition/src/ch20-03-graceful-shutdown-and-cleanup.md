@@ -253,7 +253,7 @@ enum Message {
 <!-- We need to adjust the channel to use values of type `Message` rather than type -->
 <!-- `Job`, as shown in Listing 20-24. -->
 
-チャンネルを調整し、型`Job`ではなく、型`Message`を使用するようにする必要があります。リスト20-24のようにね。
+チャンネルを調整し、型`Job`ではなく、型`Message`を使用するようにする必要があります。リスト20-24のようにですね。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -414,7 +414,7 @@ impl Drop for ThreadPool {
 <!-- before gracefully shutting down the server, as shown in Listing 20-26. -->
 
 このコードが動いているところを確認するために、`main`を変更してサーバを優美に閉じる前に2つしかリクエストを受け付けないようにしましょう。
-リスト20-26のようにね。
+リスト20-26のようにですね。
 
 <!-- <span class="filename">Filename: src/bin/main.rs</span> -->
 

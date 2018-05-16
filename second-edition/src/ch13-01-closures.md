@@ -321,7 +321,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- the closure we’re introducing here: -->
 
 `if`ブロックの前にいつも`simulated_expensive_calculation`関数を呼び出す代わりに、
-クロージャを定義し、関数呼び出しの結果を保存するのではなく、その*クロージャ*を変数に保存できます。リスト13-5のようにね。
+クロージャを定義し、関数呼び出しの結果を保存するのではなく、その*クロージャ*を変数に保存できます。リスト13-5のようにですね。
 `simulated_expensive_calculation`の本体全体を実際に、ここで導入しているクロージャ内に移すことができます:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -390,7 +390,7 @@ let expensive_closure = |num| {
 
 クロージャが定義されたので、`if`ブロックのコードを変更して、そのコードを実行するクロージャを呼び出し、結果値を得ることができます。
 クロージャは、関数のように呼び出せます: クロージャ定義を含む変数名を指定し、使用したい引数値を含むかっこを続けます。
-リスト13-6に示したようにね:
+リスト13-6に示したようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
