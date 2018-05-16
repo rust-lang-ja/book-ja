@@ -22,7 +22,7 @@
 
 クロージャを関数に渡す方法について語りました; 普通の関数を関数に渡すこともできるのです！
 新しいクロージャを定義するのではなく、既に定義した関数を渡したい時にこのテクニックは有用です。
-これを関数ポインタで行うと、関数を引数として他の関数に渡して使用します。関数は、型`fn`(小文字のfです)に型強制されます。
+これを関数ポインタで行うと、関数を引数として他の関数に渡して使用できます。関数は、型`fn`(小文字のfです)に型強制されます。
 `Fn`クロージャトレイトと混同すべきではありません。`fn`型は、*関数ポインタ*と呼ばれます。
 引数が関数ポインタであると指定する記法は、クロージャのものと似ています。リスト19-35のように。
 
@@ -85,12 +85,14 @@ fn main() {
 クロージャではなく`fn`だけを受け入れたくなる箇所の一例は、クロージャのない外部コードとのインターフェイスです:
 C関数は引数として関数を受け入れられますが、Cにはクロージャがありません。
 
+<!-- couldだが、でしょうでは文を続けられないので、できるかもしれないと弱めている -->
+
 <!-- As an example of where you could use either a closure defined inline or a named -->
 <!-- function, let’s look at a use of `map`. To use the `map` function to turn a -->
 <!-- vector of numbers into a vector of strings, we could use a closure, like this: -->
 
 インラインでクロージャが定義されるか、名前付きの関数を使用できるかもしれない箇所の例として、`map`の使用に目を向けましょう。
-`map`関数を使用して数字のベクタを文字列のベクタに変換するには、このようにクロージャを使用できます:
+`map`関数を使用して数字のベクタを文字列のベクタに変換するには、このようにクロージャを使用できるでしょう:
 
 ```rust
 let list_of_numbers = vec![1, 2, 3];
@@ -103,7 +105,7 @@ let list_of_strings: Vec<String> = list_of_numbers
 <!-- Or we could name a function as the argument to `map` instead of the closure, -->
 <!-- like this: -->
 
-あるいは、このようにクロージャの代わりに`map`に引数として関数に名前を付けられます:
+あるいは、このようにクロージャの代わりに`map`に引数として関数に名前を付けられるでしょう:
 
 ```rust
 let list_of_numbers = vec![1, 2, 3];
@@ -205,9 +207,9 @@ fn returns_closure() -> Box<Fn(i32) -> i32> {
 <!-- recognize these concepts and syntax. Use this chapter as a reference to guide -->
 <!-- you to solutions. -->
 
-ふう！もう道具箱に頻繁には使用しないRustの機能の一部がありますが、非常に限定された状況で利用可能だと知るでしょう。
+ふう！もう道具箱に頻繁には使用しないRustの機能が何かありますが、非常に限定された状況で利用可能だと知るでしょう。
 エラーメッセージや他の方のコードで遭遇した際に、これらの概念や記法を認識できるように、
-複雑な話題をいくつか導入しました。この章は、解決策へガイドする参考としてご活用ください。
+複雑な話題をいくつか紹介しました。この章は、解決策へ導く参考としてご活用ください。
 
 <!-- Next, we’ll put everything we’ve discussed throughout the book into practice -->
 <!-- and do one more project! -->
