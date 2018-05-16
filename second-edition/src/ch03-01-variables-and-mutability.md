@@ -98,8 +98,7 @@ error[E0384]: cannot assgin twice immutable variable `x`
 
 Rustでは、値が不変であると宣言したら、本当に変わらないことをコンパイラが担保してくれます。
 つまり、コードを読み書きする際に、どこでどうやって値が変化しているかを追いかける必要がなくなります。
-<!-- TODO: 故にコードを通して正しいことを確認するのが簡単になるのです。-->
-故にコードを通して推論することが簡単になるのです。
+故にコードを通して正しいことを確認するのが簡単になるのです。
 
 <!-- But mutability can be very useful. Variables are immutable only by default; as -->
 <!-- you did in Chapter 2, you can make them mutable by adding `mut` in front of the -->
