@@ -431,7 +431,7 @@ fn main() {
 <!-- items at the top level, as shown in Listing 14-5: -->
 
 公開APIから内部体系を除去するために、リスト14-3の`art`クレートコードを変更し、`pub use`文を追加して、
-最上位で要素を再エクスポートすることができます。リスト14-5みたいにね:
+最上位で要素を再エクスポートすることができます。リスト14-5みたいにですね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

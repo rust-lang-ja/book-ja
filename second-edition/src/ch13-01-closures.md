@@ -129,7 +129,7 @@ fn main() {
 
 簡潔性のために、変数`simulated_user_specified_value`は10と、変数`simulated_random_number`は7とハードコードしました;
 実際のプログラムにおいては、強弱値はアプリのフロントエンドから取得し、乱数の生成には、`rand`クレートを使用します。
-第2章の数当てゲームの例みたいにね。`main`関数は、シミュレートされた入力値とともに`generate_workout`関数を呼び出します。
+第2章の数当てゲームの例みたいにですね。`main`関数は、シミュレートされた入力値とともに`generate_workout`関数を呼び出します。
 
 <!-- Now that we have the context, let’s get to the algorithm. The -->
 <!-- `generate_workout` function in Listing 13-3 contains the business logic of the -->
