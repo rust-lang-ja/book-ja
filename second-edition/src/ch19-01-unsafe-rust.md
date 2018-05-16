@@ -13,11 +13,11 @@ Rustには、これらのメモリ安全保証を強制しない第2の言語が
 
 <!-- Unsafe Rust exists because, by nature, static analysis is conservative. When -->
 <!-- the compiler tries to determine whether or not code upholds the guarantees, -->
-<!-- it’s better for it to reject some valid programs rather than accepting some -->
+<!-- it’s better for it to reject some valid programs rather than accept some -->
 <!-- invalid programs. Although the code might be okay, as far as Rust is able to -->
-<!-- tell, it’s not! In these cases, we can use unsafe code to tell the compiler, -->
-<!-- “trust me, I know what I’m doing.” The downside is that we use it at our own -->
-<!-- risk: if we use unsafe code incorrectly, problems due to memory unsafety, such -->
+<!-- tell, it’s not! In these cases, you can use unsafe code to tell the compiler, -->
+<!-- “Trust me, I know what I’m doing.” The downside is that you use it at our own -->
+<!-- risk: if you use unsafe code incorrectly, problems due to memory unsafety, such -->
 <!-- as null pointer dereferencing, can occur. -->
 
 静的解析は原理的に保守的なので、unsafe Rustが存在します。コードが保証を保持しているかコンパイラが決定しようとすると、
@@ -27,12 +27,12 @@ Rustには、これらのメモリ安全保証を強制しない第2の言語が
 nullポインタ参照外しなどのメモリ非安全に起因する問題が起こることもあるのです。
 
 <!-- Another reason Rust has an unsafe alter ego is that the underlying computer -->
-<!-- hardware is inherently unsafe. If Rust didn’t let us do unsafe operations, we -->
-<!-- couldn’t do certain tasks. Rust needs to allow us to do low-level systems -->
+<!-- hardware is inherently unsafe. If Rust didn’t let you do unsafe operations, you -->
+<!-- couldn’t do certain tasks. Rust needs to allow you to do low-level systems -->
 <!-- programming, such as directly interacting with the operating system or even -->
-<!-- writing our own operating system. Working with low-level systems programming is -->
-<!-- one of the goals of the language. Let’s explore what we can do with unsafe Rust -->
-<!-- and how to do it. -->
+<!-- writing your own operating system. Working with low-level systems programming -->
+<!-- is one of the goals of the language. Let’s explore what we can do with unsafe -->
+<!-- Rust and how to do it. -->
 
 Rustにunsafeな分身がある別の理由は、根本にあるコンピュータのハードウェアが本質的にunsafeだからです。
 Rustがunsafeな処理を行わせてくれなかったら、特定の仕事を行えないでしょう。Rustは、低レベルなシステムプログラミングを許可する必要があります。
@@ -43,13 +43,13 @@ Rustがunsafeな処理を行わせてくれなかったら、特定の仕事を�
 
 ### unsafeの強大な力
 
-<!-- To switch to unsafe Rust, we use the `unsafe` keyword, and then start a new -->
-<!-- block that holds the unsafe code. We can take four actions in unsafe Rust, -->
-<!-- which we call *unsafe superpowers*, that we can’t in safe Rust. Those -->
-<!-- superpowers include the ability to: -->
+<!-- To switch to unsafe Rust, use the `unsafe` keyword and then start a new block -->
+<!-- that holds the unsafe code. You can take four actions in unsafe Rust, called -->
+<!-- *unsafe superpowers*, that you can’t in safe Rust. Those superpowers include -->
+<!-- the ability to: -->
 
-unsafe Rustに切り替えるには、`unsafe`キーワードを使用し、それからunsafeコードを保持する新しいブロックを開始します。
-safe Rustでは行えない4つの行動をunsafe Rustでは行え、これを*unsafe superpowers*と呼んでいます。
+unsafe Rustに切り替えるには、`unsafe`キーワードを使用し、それからunsafeコードを保持する新しいブロックを開始してください。
+safe Rustでは行えない4つの行動をunsafe Rustでは行え、これは*unsafe superpowers*と呼ばれます。
 そのsuperpowerには、以下の能力が含まれています:
 
 <!-- * Dereference a raw pointer -->
@@ -64,9 +64,9 @@ safe Rustでは行えない4つの行動をunsafe Rustでは行え、これを*u
 
 <!-- It’s important to understand that `unsafe` doesn’t turn off the borrow checker -->
 <!-- or disable any other of Rust’s safety checks: if you use a reference in unsafe -->
-<!-- code, it will still be checked. The `unsafe` keyword only gives us access to -->
+<!-- code, it will still be checked. The `unsafe` keyword only gives you access to -->
 <!-- these four features that are then not checked by the compiler for memory -->
-<!-- safety. We still get some degree of safety inside of an unsafe block. -->
+<!-- safety. You'll still get some degree of safety inside of an unsafe block. -->
 
 `unsafe`は、借用精査機や他のRustの安全性チェックを無効にしないことを理解するのは重要なことです:
 unsafeコードで参照を使用しても、チェックはされます。`unsafe`キーワードにより、これら4つの機能にアクセスできるようになり、
@@ -74,14 +74,14 @@ unsafeコードで参照を使用しても、チェックはされます。`unsa
 
 <!-- In addition, `unsafe` does not mean the code inside the block is necessarily -->
 <!-- dangerous or that it will definitely have memory safety problems: the intent is -->
-<!-- that as the programmer, we’ll ensure the code inside an `unsafe` block will -->
+<!-- that as the programmer, you’ll ensure the code inside an `unsafe` block will -->
 <!-- access memory in a valid way. -->
 
 また、unsafeは、そのブロックが必ずしも危険だったり、絶対メモリ安全上の問題を抱えていることを意味するものではありません:
 意図は、プログラマとして`unsafe`ブロック内のコードがメモリに合法的にアクセスすることを保証することです。
 
 <!-- People are fallible, and mistakes will happen, but by requiring these four -->
-<!-- unsafe operations to be inside blocks annotated with `unsafe` we’ll know that -->
+<!-- unsafe operations to be inside blocks annotated with `unsafe` you’ll know that -->
 <!-- any errors related to memory safety must be within an `unsafe` block. Keep -->
 <!-- `unsafe` blocks small; you’ll be thankful later when you investigate memory -->
 <!-- bugs. -->
@@ -105,10 +105,10 @@ unsafeなコードをできるだけ分離するために、unsafeなコード�
 `unsafe`があなたやあなたのユーザが`unsafe`コードで実装された機能を使いたがる可能性のある箇所全部に漏れ出ることを防ぎます。
 安全な抽象を使用することは、安全だからです。
 
-<!-- Let’s look at each of the four unsafe superpowers in turn: we’ll also look at -->
+<!-- Let’s look at each of the four unsafe superpowers in turn. We’ll also look at -->
 <!-- some abstractions that provide a safe interface to unsafe code. -->
 
-4つのunsafeなsuperpowerを順に見ていきましょう: unsafeなコードへの安全なインターフェイスを提供する一部の抽象化にも目を向けます。
+4つのunsafeなsuperpowerを順に見ていきましょう。unsafeなコードへの安全なインターフェイスを提供する一部の抽象化にも目を向けます。
 
 <!-- ### Dereferencing a Raw Pointer -->
 
@@ -119,17 +119,17 @@ unsafeなコードをできるだけ分離するために、unsafeなコード�
 <!-- called *raw pointers* that are similar to references. As with references, raw -->
 <!-- pointers can be immutable or mutable and are written as `*const T` and `*mut -->
 <!-- T`, respectively. The asterisk isn’t the dereference operator; it’s part of the -->
-<!-- type name. In the context of raw pointers, “immutable” means that the pointer -->
+<!-- type name. In the context of raw pointers, *immutable* means that the pointer -->
 <!-- can’t be directly assigned to after being dereferenced. -->
 
 第4章の「ダングリング参照」節で、コンパイラは、参照が常に有効であることを保証することに触れました。
 unsafe Rustには参照に類似した*生ポインタ*と呼ばれる2つの新しい型があります。参照同様、
 生ポインタも不変や可変になり得て、それぞれ`*const T`と`*mut T`と表記されます。このアスタリスクは、参照外し演算子ではありません;
-型名の一部です。生ポインタの文脈では、「不変」は、参照外し後に直接ポインタに代入できないことを意味します。
+型名の一部です。生ポインタの文脈では、*不変*は、参照外し後に直接ポインタに代入できないことを意味します。
 
-<!-- Different from references and smart pointers, keep in mind that raw pointers: -->
+<!-- Different from references and smart pointers, raw pointers: -->
 
-参照やスマートポインタと異なり、生ポインタは以下のようであることに留意してください:
+参照やスマートポインタと異なり、生ポインタは:
 
 <!-- * Are allowed to ignore the borrowing rules by having both immutable and -->
 <!--   mutable pointers or multiple mutable pointers to the same location -->
@@ -142,12 +142,12 @@ unsafe Rustには参照に類似した*生ポインタ*と呼ばれる2つの新
 * nullの可能性がある
 * 自動的な片付けは実装されていない
 
-<!-- By opting out of having Rust enforce these guarantees, we can make the -->
-<!-- trade-off of giving up guaranteed safety to gain performance or the ability to -->
+<!-- By opting out of having Rust enforce these guarantees, you can give up -->
+<!-- the guaranteed safety in exchange ofor greater performance or the ability to -->
 <!-- interface with another language or hardware where Rust’s guarantees don’t apply. -->
 
 これらの保証をコンパイラに強制させることから抜けることで、保証された安全性を諦めてパフォーマンスを向上させたり、
-Rustの保証が適用されない他の言語やハードウェアとのインターフェイスの能力を得る代償を行うことができます。
+Rustの保証が適用されない他の言語やハードウェアとのインターフェイスの能力を得ることができます。
 
 <!-- Listing 19-1 shows how to create an immutable and a mutable raw pointer from -->
 <!-- references. -->
@@ -187,12 +187,12 @@ let r2 = &mut num as *mut i32;
 <!-- memory. Trying to use arbitrary memory is undefined: there might be data at -->
 <!-- that address or there might not, the compiler might optimize the code so there -->
 <!-- is no memory access, or the program might error with a segmentation fault. -->
-<!-- Usually, there is no good reason to write code like this, but it is possible: -->
+<!-- Usually, there is no good reason to write code like this, but it is possible. -->
 
 次に、有効であることが確信できない生ポインタを生成します。リスト19-2は、メモリの任意の箇所を指す生ポインタの生成法を示しています。
 任意のメモリを使用しようとすることは未定義です: そのアドレスにデータがある可能性もあるし、ない可能性もあり、
 コンパイラがコードを最適化してメモリアクセスがなくなる可能性もあるし、プログラムがセグメンテーションフォールトでエラーになる可能性もあります。
-通常、このようなコードを書くいい理由はありませんが、可能ではあります:
+通常、このようなコードを書くいい理由はありませんが、可能ではあります。
 
 ```rust
 let address = 0x012345usize;
@@ -233,14 +233,14 @@ unsafe {
 
 ポインタの生成は害を及ぼしません; 無効な値を扱うことに落ち着く可能性のあるポインタが指している値にアクセスしようとする時のみです。
 
-<!-- Note also that in Listing 19-1 and 19-3 we created `*const i32` and `*mut i32` -->
+<!-- Note also that in Listing 19-1 and 19-3, we created `*const i32` and `*mut i32` -->
 <!-- raw pointers that both pointed to the same memory location, where `num` is -->
 <!-- stored. If we instead tried to create an immutable and a mutable reference to -->
 <!-- `num`, the code would not have compiled because Rust’s ownership rules don’t -->
 <!-- allow a mutable reference at the same time as any immutable references. With -->
 <!-- raw pointers, we can create a mutable pointer and an immutable pointer to the -->
-<!-- same location, and change data through the mutable pointer, potentially -->
-<!-- creating a data race. Be careful! -->
+<!-- same location and change data through the mutable pointer, potentially creating -->
+<!-- a data race. Be careful! -->
 
 また、リスト19-1とリスト19-3では、
 `num`が格納されている同じメモリ上の場所を両方とも指す`*const i32`と`*mut i32`の生ポインタを生成したことに注目してください。
@@ -249,7 +249,7 @@ Rustの所有権規則により、不変参照と可変参照を同時に存在�
 同じ場所への可変なポインタと不変なポインタを生成でき、可変なポインタを通してデータを変更し、データ競合を引き起こす可能性があります。
 気を付けてください！
 
-<!-- With all of these dangers, why would we ever use raw pointers? One major use -->
+<!-- With all of these dangers, why would you ever use raw pointers? One major use -->
 <!-- case is when interfacing with C code, as you’ll see in the next section, -->
 <!-- “Calling an Unsafe Function or Method.” Another case is when building up safe -->
 <!-- abstractions that the borrow checker doesn’t understand. We’ll introduce unsafe -->
@@ -380,13 +380,13 @@ fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
 
 <span class="caption">リスト19-5: safe Rustだけを使用した`split_at_mut`の未遂の実装</span>
 
-<!-- This function first gets the total length of the slice, then it asserts that -->
-<!-- the index given as a parameter is within the slice by checking that it’s less -->
-<!-- than or equal to the length. The assertion means that if we pass an index that -->
-<!-- is greater than the index to split the slice at, the function will panic before -->
-<!-- it attempts to use that index. -->
+<!-- This function first gets the total length of the slice. Then it asserts that -->
+<!-- the index given as a parameter is within the slice by checking whether it’s -->
+<!-- less than or equal to the length. The assertion means that if we pass an index -->
+<!-- that is greater than the index to split the slice at, the function will panic -->
+<!-- before it attempts to use that index. -->
 
-この関数はまず、スライスの全体の長さを得て、それから引数で与えられた添え字が長さ以下であることを確認してスライス内にあることをアサートします。
+この関数はまず、スライスの全体の長さを得ます。それから引数で与えられた添え字が長さ以下であるかを確認してスライス内にあることをアサートします。
 このアサートは、スライスを分割する添字よりも大きい添字を渡したら、その添字を使用しようとする前に関数がパニックすることを意味します。
 
 <!-- Then we return two mutable slices in a tuple: one from the start of the -->
@@ -396,9 +396,9 @@ fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
 そして、2つの可変なスライスをタプルで返します: 1つは元のスライスの最初から`mid`添字まで、
 もう一方は、`mid`からスライスの終わりまでです。
 
-<!-- When we try to compile the code in Listing 19-5, we’ll get an error: -->
+<!-- When we try to compile the code in Listing 19-5, we’ll get an error. -->
 
-リスト19-5のコードのコンパイルを試みると、エラーになるでしょう:
+リスト19-5のコードのコンパイルを試みると、エラーになるでしょう。
 
 ```text
 error[E0499]: cannot borrow `*slice` as mutable more than once at a time
@@ -463,11 +463,11 @@ fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
 
 <!-- We keep the assertion that the `mid` index is within the slice. Then we get to -->
 <!-- the unsafe code: the `slice::from_raw_parts_mut` function takes a raw pointer -->
-<!-- and a length, and creates a slice. We use this function to create a slice that -->
-<!-- starts from `ptr` and is `mid` items long. Then we call the `offset` method on -->
-<!-- `ptr` with `mid` as an argument to get a raw pointer that starts at `mid`, and -->
-<!-- we create a slice using that pointer and the remaining number of items after -->
-<!-- `mid` as the length. -->
+<!-- and a length, and it creates a slice. We use this function to create a slice -->
+<!-- that starts from `ptr` and is `mid` items long. Then we call the `offset` -->
+<!-- method on `ptr` with `mid` as an argument to get a raw pointer that starts at -->
+<!-- `mid`, and we create a slice using that pointer and the remaining number of -->
+<!-- items after `mid` as the length. -->
 
 `mid`添字がスライス内にあるかというアサートを残しています。そして、unsafeコードに到達します:
 `slice::from_raw_parts_mut`関数は、生ポインタと長さを取り、スライスを生成します。この関数を使って、
@@ -503,10 +503,10 @@ fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
 
 <!-- In contrast, the use of `slice::from_raw_parts_mut` in Listing 19-7 would -->
 <!-- likely crash when the slice is used. This code takes an arbitrary memory -->
-<!-- location and creates a slice ten thousand items long: -->
+<!-- location and creates a slice 10,000 items long: -->
 
 対照的に、リスト19-7の`slice::from_raw_parts_mut`の使用は、スライスが使用されるとクラッシュする可能性が高いでしょう。
-このコードは任意のメモリアドレスを取り、1000要素の長さのスライスを生成します:
+このコードは任意のメモリアドレスを取り、10,000要素の長さのスライスを生成します:
 
 ```rust
 use std::slice;
@@ -741,7 +741,7 @@ fn main() {
 <!-- With mutable data that is globally accessible, it’s difficult to ensure there -->
 <!-- are no data races, which is why Rust considers mutable static variables to be -->
 <!-- unsafe. Where possible, it’s preferable to use the concurrency techniques and -->
-<!-- thread-safe smart pointers we discussed in Chapter 16, so the compiler checks -->
+<!-- thread-safe smart pointers we discussed in Chapter 16 so the compiler checks -->
 <!-- that data accessed from different threads is done safely. -->
 
 グローバルにアクセス可能な可変なデータがあると、データ競合がないことを保証するのは難しくなり、そのため、
@@ -752,16 +752,15 @@ Rustは可変で静的な変数をunsafeと考えるのです。可能なら、�
 
 ### unsafeなトレイトを実装する
 
-<!-- The final action that only works with `unsafe` is implementing an unsafe trait. -->
+<!-- The final action that works only with `unsafe` is implementing an unsafe trait. -->
 <!-- A trait is unsafe when at least one of its methods has some invariant that the -->
 <!-- compiler can’t verify. We can declare that a trait is `unsafe` by adding the -->
-<!-- `unsafe` keyword before `trait`; then implementation of the trait must be -->
-<!-- marked as `unsafe` too, as shown in Listing 19-11. -->
+<!-- `unsafe` keyword before `trait` and marking the implementation of the trait as -->
+<!-- `unsafe` too, as shown in Listing 19-11. -->
 
 `unsafe`でのみ動く最後の行動は、unsafeなトレイトを実装することです。少なくとも、1つのメソッドにコンパイラが確かめられない何らかの不変条件があると、
-トレイトはunsafeになります。`trait`の前に`unsafe`キーワードを追加することで、
-トレイトが`unsafe`であると宣言できます; そして、トレイトの実装も`unsafe`でマークしなければなりません。
-リスト19-11のようにね。
+トレイトはunsafeになります。`trait`の前に`unsafe`キーワードを追加し、トレイトの実装も`unsafe`でマークすることで、
+トレイトが`unsafe`であると宣言できます。リスト19-11のようにね。
 
 ```rust
 unsafe trait Foo {

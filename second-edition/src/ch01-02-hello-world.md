@@ -4,10 +4,10 @@
 
 <!-- Now that you’ve installed Rust, let’s write your first Rust program. It’s -->
 <!-- traditional when learning a new language to write a little program that prints -->
-<!-- the text “Hello, world!” to the screen, so we’ll do the same here! -->
+<!-- the text `Hello, world!` to the screen, so we’ll do the same here! -->
 
 Rustをインストールしたので、最初のRustプログラムを書きましょう。新しい言語を学ぶ際に、
-"Hello, world!"というテキストを画面に出力する小さなプログラムを書くことは伝統的なことなので、
+`Hello, world!`というテキストを画面に出力する小さなプログラムを書くことは伝統的なことなので、
 ここでも同じようにしましょう！
 
 <!-- > Note: This book assumes basic familiarity with the command line. Rust makes -->
@@ -102,11 +102,11 @@ fn main() {
 }
 ```
 
-<!-- <span class="caption">Listing 1-1: A program that prints “Hello, world!”</span> -->
+<!-- <span class="caption">Listing 1-1: A program that prints `Hello, world!`</span> -->
 
-<span class="caption">リスト1-1: "Hello, world!"と出力するプログラム</span>
+<span class="caption">リスト1-1: `Hello, world!`と出力するプログラム</span>
 
-<!-- Save the file, and go back to your terminal window. On Linux or macOS, enter -->
+<!-- Save the file and go back to your terminal window. On Linux or macOS, enter -->
 <!-- the following commands to compile and run the file: -->
 
 ファイルを保存し、端末ウィンドウに戻ってください。LinuxかmacOSなら、以下のコマンドを打ってファイルをコンパイルし、
@@ -118,9 +118,9 @@ $ ./main
 Hello, world!
 ```
 
-<!-- On Windows, enter the command `.\main.exe` instead of `./main`. -->
+<!-- On Windows, enter the command `.\main.exe` instead of `./main`: -->
 
-Windowsなら、`./main`の代わりに`.\main.exe`と打ちます。
+Windowsなら、`./main`の代わりに`.\main.exe`と打ちます:
 
 ```powershell
 > rustc main.rs
@@ -136,7 +136,7 @@ OSに関わらず、`Hello, world!`という文字列が端末に出力される
 「トラブルシューティング」節に立ち戻って、助けを得る方法を参照してください。
 
 <!-- If `Hello, world!` did print, congratulations! You’ve officially written a Rust -->
-<!-- program. That makes you a Rust programmer! Welcome! -->
+<!-- program. That makes you a Rust programmer-welcome! -->
 
 `Hello, world!`が確かに出力されたら、おめでとうございます！正式にRustプログラムを書きました。
 Rustプログラマになったのです！ようこそ！
@@ -145,10 +145,10 @@ Rustプログラマになったのです！ようこそ！
 
 ### Rustプログラムの解剖
 
-<!-- Let’s review in detail what just happened in your “Hello, world!” program. -->
+<!-- Let’s review in detail what just happened in your Hello, world! program. -->
 <!-- Here’s the first piece of the puzzle: -->
 
-"Hello, world!"プログラムでちょうど何が起こったのか詳しく確認しましょう。
+Hello, world!プログラムでちょうど何が起こったのか詳しく確認しましょう。
 こちらがパズルの最初のピースです:
 
 ```rust
@@ -157,19 +157,19 @@ fn main() {
 }
 ```
 
-<!-- These lines define a *function* in Rust. The `main` function is special: it is -->
+<!-- These lines define a function in Rust. The `main` function is special: it is -->
 <!-- always the first code that runs in every executable Rust program. The first -->
 <!-- line declares a function named `main` that has no parameters and returns -->
-<!-- nothing. If there were parameters, they would go inside the parentheses, `(` -->
+<!-- nothing. If there were parameters, they would go inside the parentheses, `()`. -->
 <!-- and `)`. -->
 
-これらの行でRustで*関数*を定義しています。`main`関数は特別です: 常に全ての実行可能なRustプログラムで走る最初のコードになります。
-1行目は、引数がなく、何も返さない`main`という関数を宣言しています。引数があるなら、かっこ(`(`と`)`)の内部に入ります。
+これらの行でRustで関数を定義しています。`main`関数は特別です: 常に全ての実行可能なRustプログラムで走る最初のコードになります。
+1行目は、引数がなく、何も返さない`main`という関数を宣言しています。引数があるなら、かっこ(`()`)の内部に入ります。
 
-<!-- Also, note that the function body is wrapped in curly brackets, `{` and `}`. -->
-<!-- Rust requires these around all function bodies. It’s good style to place the -->
-<!-- opening curly bracket on the same line as the function declaration, adding one -->
-<!-- space in between. -->
+<!-- Also, note that the function body is wrapped in curly brackets, `{}`. Rust -->
+<!-- requires these around all function bodies. It’s good style to place the opening -->
+<!-- curly bracket on the same line as the function declaration, adding one space in -->
+<!-- between. -->
 
 また、関数の本体が波括弧(`{`と`}`)に包まれていることにも注目してください。Rustでは、全ての関数本体の周りにこれらが必要になります。
 スペースを1つあけて、開き波括弧を関数宣言と同じ行に配置するのがいいスタイルです。
@@ -177,13 +177,13 @@ fn main() {
 <!-- At the time of this writing, an automatic formatter tool called `rustfmt` is -->
 <!-- under development. If you want to stick to a standard style across Rust -->
 <!-- projects, `rustfmt` will format your code in a particular style. The Rust team -->
-<!-- plans to eventually include it with the standard Rust distribution, like -->
+<!-- plans to eventually include this tool with the standard Rust distribution, like -->
 <!-- `rustc`. So depending on when you read this book, it might already be installed -->
 <!-- on your computer! Check the online documentation for more details. -->
 
 これを執筆している時点では、`rustfmt`と呼ばれる自動整形ツールは開発中です。複数のRustプロジェクトに渡って、
 標準的なスタイルに固執したいなら、`rustfmt`は特定のスタイルにコードを整形してくれます。Rustチームは、
-最終的に`rustc`のように標準的なRustの配布に含むことを計画しています。従って、この本を読んだ時期によっては、
+最終的に`rustc`のように標準的なRustの配布にこのツールを含むことを計画しています。従って、この本を読んだ時期によっては、
 既にコンピュータにインストールされている可能性もあります！詳細は、オンラインのドキュメンテーションを確認してください。
 
 <!-- Inside the `main` function is the following code: -->
@@ -201,26 +201,26 @@ fn main() {
 この行が、この小さなプログラムの全作業をしています: テキストを画面に出力するのです。
 ここで気付くべき重要な詳細が4つあります。まず、Rustのスタイルは、タブではなく、4スペースでインデントするということです。
 
-<!-- Second, `println!` calls a Rust *macro*. If it called a function instead, it -->
+<!-- Second, `println!` calls a Rust macro. If it called a function instead, it -->
 <!-- would be entered as `println` (without the `!`). We’ll discuss Rust macros in -->
 <!-- more detail in Appendix D. For now, you just need to know that using a `!` -->
 <!-- means that you’re calling a macro instead of a normal function. -->
 
-2番目に`println!`はRustの*マクロ*を呼び出すということです。代わりに関数を呼んでいたら、
+2番目に`println!`はRustのマクロを呼び出すということです。代わりに関数を呼んでいたら、
 `println`(`!`なし)と入力されているでしょう。Rustのマクロについて詳しくは、おまけDで議論します。
 とりあえず、`!`を使用すると、普通の関数ではなくマクロを呼んでいるのだということを知っておくだけでいいでしょう。
 
-<!-- Third, you see the `"Hello, world!"` *string*. We pass this string as an -->
-<!-- argument to `println!`, and the string is printed to the screen. -->
+<!-- Third, you see the `"Hello, world!"` string. We pass this string as an argument -->
+<!-- to `println!`, and the string is printed to the screen. -->
 
-3番目に、`"Hello, world!"`*文字列*が見えます。この文字列を引数として`println!`に渡し、
+3番目に、`"Hello, world!"`文字列が見えます。この文字列を引数として`println!`に渡し、
 この文字列が画面に表示されているのです。
 
-<!-- Fourth, we end the line with a semicolon `;`, which indicates that this -->
+<!-- Fourth, we end the line with a semicolon (`;`), which indicates that this -->
 <!-- expression is over and the next one is ready to begin. Most lines of Rust code -->
 <!-- end with a semicolon. -->
 
-4番目にこの行をセミコロン、`;`で終え、この式が終わり、次の式の準備ができていると示唆していることです。
+4番目にこの行をセミコロン(`;`)で終え、この式が終わり、次の式の準備ができていると示唆していることです。
 Rustコードのほとんどの行は、セミコロンで終わります。
 
 <!-- ### Compiling and Running Are Separate Steps -->
@@ -285,17 +285,17 @@ $ ./main # or .\main.exe on Windows
          # または、Widnowsなら.\main.exe
 ```
 
-<!-- If *main.rs* was your “Hello, world!” program, this line would print `Hello, -->
+<!-- If *main.rs* was your Hello, world! program, this line would print `Hello, -->
 <!-- world!` to your terminal. -->
 
-*main.rs*が"Hello, world!"プログラムなら、この行は`Hello, world!`と端末に出力するでしょう。
+*main.rs*がHello, world!プログラムなら、この行は`Hello, world!`と端末に出力するでしょう。
 
 <!-- *.rb*がなぜかイタリックにならない -->
 
 <!-- If you’re more familiar with a dynamic language, such as Ruby, Python, or -->
 <!-- JavaScript, you might not be used to compiling and running a program as -->
 <!-- separate steps. Rust is an *ahead-of-time compiled* language, meaning you can -->
-<!-- compile a program, give the executable to someone else, and they can run it -->
+<!-- compile a program and give the executable to someone else, and they can run it -->
 <!-- even without having Rust installed. If you give someone a *.rb*, *.py*, or -->
 <!-- *.js* file, they need to have a Ruby, Python, or JavaScript implementation -->
 <!-- installed (respectively). But in those languages, you only need one command to -->

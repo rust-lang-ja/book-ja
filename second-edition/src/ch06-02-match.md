@@ -28,10 +28,10 @@ Rustには、一連のパターンに対して値を比較し、マッチした�
 <!-- Because we just mentioned coins, let’s use them as an example using `match`! We -->
 <!-- can write a function that can take an unknown United States coin and, in a -->
 <!-- similar way as the counting machine, determine which coin it is and return its -->
-<!-- value in cents, as shown here in Listing 6-3: -->
+<!-- value in cents, as shown here in Listing 6-3. -->
 
 コインについて話したので、それを`match`を使用する例にとってみましょう！数え上げ装置と同じ要領で未知のアメリカコインを一枚取り、
-どの種類のコインなのか決定し、その価値をセントで返す関数をリスト6-3で示したように記述することができます:
+どの種類のコインなのか決定し、その価値をセントで返す関数をリスト6-3で示したように記述することができます。
 
 ```rust
 enum Coin {
@@ -141,16 +141,16 @@ enumの列挙子から値を取り出すことができます。
 <!-- designs for each of the 50 states on one side. No other coins got state -->
 <!-- designs, so only quarters have this extra value. We can add this information to -->
 <!-- our `enum` by changing the `Quarter` variant to include a `UsState` value stored -->
-<!-- inside it, which we've done here in Listing 6-4: -->
+<!-- inside it, which we've done here in Listing 6-4. -->
 
 例として、enumの列挙子の一つを中にデータを保持するように変えましょう。1999年から2008年まで、
 アメリカは、片側に50の州それぞれで異なるデザインをしたクォーターコインを鋳造していました。
 他のコインは州のデザインがなされることはなかったので、クォーターだけがこのおまけの値を保持します。
 `Quarter`列挙子を変更して、`UsState`値が中に保持されるようにすることで`enum`にこの情報を追加でき、
-それをしたのがリスト6-4のコードになります:
+それをしたのがリスト6-4のコードになります。
 
 <!-- ```rust -->
-<!-- #[derive(Debug)] // So we can inspect the state in a minute -->
+<!-- #[derive(Debug)] // so we can inspect the state in a minute -->
 <!-- enum UsState { -->
 <!--     Alabama, -->
 <!--     Alaska, -->
@@ -268,9 +268,9 @@ fn value_in_cents(coin: Coin) -> u32 {
 中に値がなければ、関数は`None`値を返し、何も処理を試みるべきではありません。
 
 <!-- This function is very easy to write, thanks to `match`, and will look like -->
-<!-- Listing 6-5: -->
+<!-- Listing 6-5. -->
 
-`match`のおかげで、この関数は大変書きやすく、リスト6-5のような見た目になります:
+`match`のおかげで、この関数は大変書きやすく、リスト6-5のような見た目になります。
 
 ```rust
 fn plus_one(x: Option<i32>) -> Option<i32> {
@@ -431,7 +431,7 @@ match some_u8_value {
 何もしたくないと言えるわけです。
 
 <!-- However, the `match` expression can be a bit wordy in a situation in which we -->
-<!-- only care about *one* of the cases. For this situation, Rust provides `if let`. -->
+<!-- care about only *one* of the cases. For this situation, Rust provides `if let`. -->
 
 ですが、*一つ*のケースにしか興味がないような場面では、`match`式はちょっと長ったらしすぎます。
 このような場面用に、Rustには、`if let`が用意されています。

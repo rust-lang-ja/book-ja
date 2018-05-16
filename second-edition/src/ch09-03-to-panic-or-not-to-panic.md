@@ -278,12 +278,12 @@ loop {
 <!-- way, it’s safe for functions to use the new type in their signatures and -->
 <!-- confidently use the values they receive. Listing 9-9 shows one way to define a -->
 <!-- `Guess` type that will only create an instance of `Guess` if the `new` function -->
-<!-- receives a value between 1 and 100: -->
+<!-- receives a value between 1 and 100. -->
 
 代わりに、新しい型を作ってバリデーションを関数内に閉じ込め、バリデーションを全箇所で繰り返すのではなく、
 その型のインスタンスを生成することができます。そうすれば、関数がその新しい型をシグニチャに用い、
 受け取った値を自信を持って使用することは安全になります。リスト9-9に、`new`関数が1から100までの値を受け取った時のみ、
-`Guess`のインスタンスを生成する`Guess`型を定義する一つの方法を示しました:
+`Guess`のインスタンスを生成する`Guess`型を定義する一つの方法を示しました。
 
 ```rust
 pub struct Guess {
@@ -393,4 +393,3 @@ Rustのエラー処理機能は、プログラマがより頑健なコードを�
 
 今や、標準ライブラリが`Option`や`Result`enumなどでジェネリクスを有効活用するところを目の当たりにしたので、
 ジェネリクスの動作法と自分のコードでの使用方法について語りましょう。
-

@@ -5,9 +5,9 @@
 <!-- We resolved the error messages shown in Listing 7-5 by moving the `network` and -->
 <!-- `network::server` code into the *src/network/mod.rs* and -->
 <!-- *src/network/server.rs* files, respectively. At that point, `cargo build` was -->
-<!-- able to build our project, but we still get warning messages about the -->
+<!-- able to build our project, but we still get warning messages saying that the -->
 <!-- `client::connect`, `network::connect`, and `network::server::connect` functions -->
-<!-- not being used: -->
+<!-- are not being used: -->
 
 リスト7-5に示したエラーメッセージを`network`と`network::server`のコードを、
 *src/network/mod.rs*と*src/network/server.rs*ファイルにそれぞれ移動することで解決しました。
@@ -52,11 +52,11 @@ warning: function is never used: `connect`
 これらの関数を生成することの要点は、自分ではなく、他のプロジェクトで使用することにあるのです。
 
 <!-- To understand why this program invokes these warnings, let’s try using the -->
-<!-- `connect` library from another project, calling it externally. To do that, -->
+<!-- `communicator` library from another project, calling it externally. To do that, -->
 <!-- we’ll create a binary crate in the same directory as our library crate by -->
 <!-- making a *src/main.rs* file containing this code: -->
 
-このプログラムがこのような警告を引き起こす理由を理解するために、外部から`connect`ライブラリを呼び出して、
+このプログラムがこのような警告を引き起こす理由を理解するために、外部から`communicator`ライブラリを呼び出して、
 他のプロジェクトからこれを使用してみましょう。そうするには、以下のようなコードを含む*src/main.rs*を作成して、
 ライブラリクレートと同じディレクトリにバイナリクレートを作成します。
 
@@ -344,10 +344,10 @@ warning: function is never used: `connect`
 
 <!-- Let’s look at a few more privacy examples to get some practice. Create a new -->
 <!-- library project and enter the code in Listing 7-6 into your new project’s -->
-<!-- *src/lib.rs*: -->
+<!-- *src/lib.rs*. -->
 
 もうちょっと鍛錬を得るために、もういくつかプライバシー例を見てみましょう。新しいライブラリプロジェクトを作成し、
-リスト7-5のコードを新規プロジェクトの*src/lib.rs*に入力してください:
+リスト7-5のコードを新規プロジェクトの*src/lib.rs*に入力してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -401,12 +401,11 @@ fn try_me() {
 
 <!-- The call to `outermost::middle_function` will work because `middle_function` is -->
 <!-- public and `try_me` is accessing `middle_function` through its parent module -->
-<!-- `outermost`. We determined in the previous paragraph that this module is -->
-<!-- accessible. -->
+<!-- `outermost`. We already determined that this module is accessible. -->
 
 `middle_function`は公開なので、`outermost::middle_function`という呼び出しも動作し、
 `try_me`は`middle_function`にその親モジュールの`outermost`を通してアクセスしています。
-前の段落でこのモジュールは、アクセス可能と決定しました。
+このモジュールは、アクセス可能と既に決定しました。
 
 <!-- The call to `outermost::middle_secret_function` will cause a compilation error. -->
 <!-- Because `middle_secret_function` is private, the second rule applies. The root -->

@@ -3,7 +3,7 @@
 ## 文字列でUTF-8でエンコードされたテキストを保持する
 
 <!-- We talked about strings in Chapter 4, but we’ll look at them in more depth now. -->
-<!-- New Rustaceans commonly get stuck on strings due to a combination of three -->
+<!-- New Rustaceans commonly get stuck on strings for a combination of three -->
 <!-- concepts: Rust’s propensity for exposing possible errors, strings being a more -->
 <!-- complicated data structure than many programmers give them credit for, and -->
 <!-- UTF-8. These factors combine in a way that can seem difficult when you’re -->
@@ -79,10 +79,10 @@
 
 <!-- Many of the same operations available with `Vec<T>` are available with `String` -->
 <!-- as well, starting with the `new` function to create a string, shown in Listing -->
-<!-- 8-11: -->
+<!-- 8-11. -->
 
 `Vec<T>`で使用可能な処理の多くが`String`でも使用できます。文字列を生成する`new`関数から始めましょうか。
-リスト8-11に示したようにね:
+リスト8-11に示したようにね。
 
 ```rust
 let mut s = String::new();
@@ -96,12 +96,12 @@ let mut s = String::new();
 <!-- into. Often, we’ll have some initial data that we want to start the string -->
 <!-- with. For that, we use the `to_string` method, which is available on any type -->
 <!-- that implements the `Display` trait, as string literals do. Listing 8-12 shows -->
-<!-- two examples: -->
+<!-- two examples. -->
 
 この行は、新しい空の`s`という文字列を生成しています。それからここにデータを読み込むことができるわけです。
 だいたい、文字列の初期値を決めるデータがあるでしょう。そのために、`to_string`メソッドを使用します。
 このメソッドは、文字列リテラルがしているように、`Display`トレイトを実装する型ならなんでも使用できます。
-リスト8-12に2例、示しています:
+リスト8-12に2例、示しています。
 
 ```rust
 let data = "initial contents";
@@ -123,10 +123,10 @@ let s = "initial contents".to_string();
 
 <!-- We can also use the function `String::from` to create a `String` from a string -->
 <!-- literal. The code in Listing 8-13 is equivalent to the code from Listing 8-12 -->
-<!-- that uses `to_string`: -->
+<!-- that uses `to_string`. -->
 
 さらに、`String::from`関数を使っても、文字列リテラルから`String`を生成することができます。
-リスト8-11のコードは、`to_string`を使用するリスト8-10のコードと等価です:
+リスト8-11のコードは、`to_string`を使用するリスト8-10のコードと等価です。
 
 ```rust
 let s = String::from("initial contents");
@@ -147,10 +147,10 @@ let s = String::from("initial contents");
 従って、どちらを選ぶかは、スタイル次第です。
 
 <!-- Remember that strings are UTF-8 encoded, so we can include any properly encoded -->
-<!-- data in them, as shown in Listing 8-14: -->
+<!-- data in them, as shown in Listing 8-14. -->
 
 文字列はUTF-8エンコードされていることを覚えていますか？要するに文字列には、適切にエンコードされていればどんなものでも含めます。
-リスト8-14に示したように:
+リスト8-14に示したように。
 
 ```rust
 let hello = String::from("السلام عليكم");
@@ -191,10 +191,10 @@ let hello = String::from("Hola");
 #### `push_str`と`push`で文字列に追加する
 
 <!-- We can grow a `String` by using the `push_str` method to append a string slice, -->
-<!-- as shown in Listing 8-15: -->
+<!-- as shown in Listing 8-15. -->
 
 `push_str`メソッドで文字列スライスを追記することで、`String`を伸ばすことができます。
-リスト8-15の通りです:
+リスト8-15の通りです。
 
 ```rust
 let mut s = String::from("foo");
@@ -209,11 +209,11 @@ s.push_str("bar");
 <!-- After these two lines, `s` will contain `foobar`. The `push_str` method takes a -->
 <!-- string slice because we don’t necessarily want to take ownership of the -->
 <!-- parameter. For example, the code in Listing 8-16 shows that it would be -->
-<!-- unfortunate if we weren’t able to use `s2` after appending its contents to `s1`: -->
+<!-- unfortunate if we weren’t able to use `s2` after appending its contents to `s1`. -->
 
 この2行の後、`s`は`foobar`を含むことになります。`push_str`メソッドは、必ずしも引数の所有権を得なくていいので、
 文字列スライスを取ります。例えば、リスト8-16のコードは、中身を`s1`に追加した後、
-`s2`を使えなかったら不幸だということを示しています:
+`s2`を使えなかったら不幸だということを示しています。
 
 ```rust
 let mut s1 = String::from("foo");
@@ -234,11 +234,11 @@ println!("s2 is {}", s2);
 ところが、このコードは予想通りに動きます！
 
 <!-- The `push` method takes a single character as a parameter and adds it to the -->
-<!-- `String`. Listing 8-17 shows code that adds the letter l to a `String` using -->
-<!-- the `push` method: -->
+<!-- `String`. Listing 8-17 shows code that adds the letter *l* to a `String` using -->
+<!-- the `push` method. -->
 
 `push`メソッドは、1文字を引数として取り、`String`に追加します。リスト8-15は、
-`push`メソッドでlを`String`に追加するコードを呈示しています。
+`push`メソッドで*l*を`String`に追加するコードを呈示しています。
 
 ```rust
 let mut s = String::from("lo");
@@ -262,15 +262,15 @@ s.push('l');
 #### `+`演算子、または`format!`マクロで連結
 
 <!-- Often, you’ll want to combine two existing strings. One way is to use the `+` -->
-<!-- operator, as shown in Listing 8-18: -->
+<!-- operator, as shown in Listing 8-18. -->
 
 2つのすでにある文字列を組み合わせたくなることがよくあります。リスト8-18に示したように、
-一つ目の方法は、`+`演算子を使用することです:
+一つ目の方法は、`+`演算子を使用することです。
 
 <!-- ```rust -->
 <!-- let s1 = String::from("Hello, "); -->
 <!-- let s2 = String::from("world!"); -->
-<!-- let s3 = s1 + &s2; // Note that s1 has been moved here and can no longer be used -->
+<!-- let s3 = s1 + &s2; // note that s1 has been moved here and can no longer be used -->
 <!-- ``` -->
 
 ```rust
@@ -393,11 +393,11 @@ let s = format!("{}-{}-{}", s1, s2, s3);
 <!-- In many other programming languages, accessing individual characters in a -->
 <!-- string by referencing them by index is a valid and common operation. However, -->
 <!-- if you try to access parts of a `String` using indexing syntax in Rust, you’ll -->
-<!-- get an error. Consider the invalid code in Listing 8-19: -->
+<!-- get an error. Consider the invalid code in Listing 8-19. -->
 
 他の多くのプログラミング言語では、文字列中の文字に、番号で参照してアクセスすることは、有効なコードであり、
 一般的な処理です。しかしながら、Rustにおいて、添え字記法で`String`の一部にアクセスしようとすると、
-エラーが発生するでしょう。リスト8-19の無効なコードを考えてください:
+エラーが発生するでしょう。リスト8-19の非合法なコードを考えてください。
 
 ```rust,ignore
 let s1 = String::from("hello");
@@ -447,12 +447,12 @@ let len = String::from("Hola").len();
 
 <!-- In this case, `len` will be 4, which means the vector storing the string “Hola” -->
 <!-- is 4 bytes long. Each of these letters takes 1 byte when encoded in UTF-8. But -->
-<!-- what about the following line? (Note that this line begins with the capital -->
+<!-- what about the following line? (Note that this string begins with the capital -->
 <!-- Cyrillic letter Ze, not the Arabic number 3.) -->
 
 この場合、`len`は4になり、これは、文字列"Hola"を保持するベクタの長さが4バイトであることを意味します。
 これらの各文字は、UTF-8でエンコードすると、1バイトになるのです。しかし、以下の行ではどうでしょうか？
-(この行は大文字のキリル文字Zeで始まり、アラビア数字の3では始まっていないことに注意してください)
+(この文字列は大文字のキリル文字Zeで始まり、アラビア数字の3では始まっていないことに注意してください)
 
 ```rust
 let len = String::from("Здравствуйте").len();
@@ -616,7 +616,7 @@ thread 'main' panicked at 'byte index 1 is not a char boundary; it is inside 'З
 <!-- If you need to perform operations on individual Unicode scalar values, the best -->
 <!-- way to do so is to use the `chars` method. Calling `chars` on “नमस्ते” separates -->
 <!-- out and returns six values of type `char`, and you can iterate over the result -->
-<!-- in order to access each element: -->
+<!-- to access each element: -->
 
 もし、個々のUnicodeスカラー値に対して処理を行う必要があったら、最適な方法は`chars`メソッドを使用するものです。
 “नमस्ते”に対して`chars`を呼び出したら、分解して6つの`char`型の値を返すので、各要素にアクセスするには、

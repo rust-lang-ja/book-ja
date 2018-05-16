@@ -13,18 +13,18 @@
 ほとんどの場合、コンパイラがライフタイムを省略させてくれることも見ました。ここでは、
 まだ講義していないライフタイムの高度な機能を3つ見ていきます:
 
-<!-- * Lifetime subtyping: Ensures that one lifetime outlives another lifetime -->
-<!-- * Lifetime bounds: Specifies a lifetime for a reference to a generic type -->
-<!-- * Inference of trait object lifetimes: How the compiler infers trait object -->
-<!--   lifetimes and when they need to be specified -->
+<!-- * Lifetime subtyping: ensures that one lifetime outlives another lifetime -->
+<!-- * Lifetime bounds: specifies a lifetime for a reference to a generic type -->
+<!-- * Inference of trait object lifetimes: allows the compiler to infer trait -->
+<!--   object lifetimes and when they need to be specified -->
 
 * ライフタイム・サブタイプ: あるライフタイムが他のライフタイムより長生きすることを保証する
 * ライフタイム境界: ジェネリックな型への参照のライフタイムを指定する
-* トレイトオブジェクトのライフタイムの推論: コンパイラがどうトレイトオブジェクトのライフタイムを推論するかと指定する必要がある時
+* トレイトオブジェクトのライフタイムの推論: コンパイラにトレイトオブジェクトのライフタイムを推論させることと指定する必要があるタイミング
 
-<!-- ### Lifetime Subtyping Ensures One Lifetime Outlives Another -->
+<!-- ### Ensuring One Lifetime Outlives Another with Lifetime Subtyping -->
 
-### ライフタイム・サブタイプは、あるライフタイムが他よりも長生きすることを保証する
+### ライフタイム・サブタイプであるライフタイムが他よりも長生きすることを保証する
 
 <!-- *Lifetime subtyping* specifies that one lifetime should outlive another -->
 <!-- lifetime. To explore lifetime subtyping, imagine we want to write a parser. -->
@@ -70,7 +70,7 @@ impl Parser {
 このコードをコンパイルすると、エラーに落ち着きます。
 
 <!-- For simplicity’s sake, the `parse` function returns `Result<(), &str>`. That -->
-<!-- is, the function will do nothing on success, and on failure will return the -->
+<!-- is, the function will do nothing on success and, on failure, will return the -->
 <!-- part of the string slice that didn’t parse correctly. A real implementation -->
 <!-- would provide more error information and would return a structured data type -->
 <!-- when parsing succeeds. We won’t be discussing those details because they aren’t -->
@@ -135,7 +135,7 @@ impl<'a> Parser<'a> {
 <span class="caption">リスト19-13: `Context`と`Parser`の全参照をライフタイム引数で注釈する</span>
 
 <!-- This code compiles just fine. It tells Rust that a `Parser` holds a reference -->
-<!-- to a `Context` with lifetime `'a`, and that `Context` holds a string slice that -->
+<!-- to a `Context` with lifetime `'a` and that `Context` holds a string slice that -->
 <!-- also lives as long as the reference to the `Context` in `Parser`. Rust’s -->
 <!-- compiler error message stated that lifetime parameters were required for these -->
 <!-- references, and we’ve now added lifetime parameters. -->
@@ -147,10 +147,10 @@ Rustコンパイラのエラーメッセージは、これらの参照にライ�
 
 <!-- Next, in Listing 19-14, we’ll add a function that takes an instance of -->
 <!-- `Context`, uses a `Parser` to parse that context, and returns what `parse` -->
-<!-- returns. This code doesn’t quite work: -->
+<!-- returns. This code doesn’t quite work. -->
 
 次にリスト19-14では、`Context`のインスタンスを1つ取り、`Parser`を使ってその文脈をパースし、
-`parse`が返すものを返す関数を追加します。このコードは完璧には動きません:
+`parse`が返すものを返す関数を追加します。このコードは完璧には動きません。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -278,7 +278,7 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 `Parser`が保持する`Context`への参照のライフタイムと一致すると指示しました。
 
 <!-- The `parse_context` function can’t see that within the `parse` function, the -->
-<!-- string slice returned will outlive `Context` and `Parser`, and that the -->
+<!-- string slice returned will outlive `Context` and `Parser` and that the -->
 <!-- reference `parse_context` returns refers to the string slice, not to `Context` -->
 <!-- or `Parser`. -->
 
@@ -286,16 +286,16 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 `parse_context`が返す参照が`Context`や`Parser`ではなく、文字列スライスを参照することはわかりません。
 
 <!-- By knowing what the implementation of `parse` does, we know that the only -->
-<!-- reason the return value of `parse` is tied to the `Parser` is because it’s -->
-<!-- referencing the `Parser`’s `Context`, which is referencing the string slice. -->
-<!-- So, it’s really the lifetime of the string slice that `parse_context` needs to -->
-<!-- care about. We need a way to tell Rust that the string slice in `Context` and -->
-<!-- the reference to the `Context` in `Parser` have different lifetimes and that -->
-<!-- the return value of `parse_context` is tied to the lifetime of the string slice -->
-<!-- in `Context`. -->
+<!-- reason the return value of `parse` is tied to the `Parser` instance is that -->
+<!-- it’s referencing the `Parser` instance’s `Context`, which is referencing the -->
+<!-- string slice. So, it’s really the lifetime of the string slice that -->
+<!-- `parse_context` needs to care about. We need a way to tell Rust that the string -->
+<!-- slice in `Context` and the reference to the `Context` in `Parser` have -->
+<!-- different lifetimes and that the return value of `parse_context` is tied to the -->
+<!-- lifetime of the string slice in `Context`. -->
 
-`parse`の実装が何をするか知ることで、`parse`の戻り値が`Parser`に紐付く唯一の理由が、`Parser`の`Context`、
-引いては文字列スライスを参照することであることを把握します。従って、`parse_context`が気にする必要があるのは、
+`parse`の実装が何をするか知ることで、`parse`の戻り値が`Parser`インスタンスに紐付く唯一の理由が、`Parser`インスタンスの`Context`、
+引いては文字列スライスを参照していることであることを把握します。従って、`parse_context`が気にする必要があるのは、
 本当は文字列スライスのライフタイムなのです。`Context`の文字列スライスと`Parser`の`Context`への参照が異なるライフタイムになり、
 `parse_context`の戻り値が`Context`の文字列スライスのライフタイムに紐付くことをコンパイラに教える方法が必要です。
 
@@ -428,10 +428,10 @@ struct Parser<'c, 's: 'c> {
 <!-- That was a very long-winded example, but as we mentioned at the start of this -->
 <!-- chapter, Rust’s advanced features are very specific. You won’t often need the -->
 <!-- syntax we described in this example, but in such situations, you’ll know how to -->
-<!-- refer to something you have a reference to. -->
+<!-- refer to something and give it the necessary lifetime. -->
 
 非常に長くぐにゃぐにゃした例でしたが、この章の冒頭で触れたように、Rustの高度な機能は、非常に限定的です。
-この例で解説した記法は、あまり必要になりませんが、そのような場面では、参照がある何かを参照する方法を知っているでしょう。
+この例で解説した記法は、あまり必要になりませんが、そのような場面では、何かを参照し、それに必要なライフタイムを与える方法を知っているでしょう。
 
 <!-- ### Lifetime Bounds on References to Generic Types -->
 
@@ -451,7 +451,7 @@ struct Parser<'c, 's: 'c> {
 <!-- section in Chapter 15: its `borrow` and `borrow_mut` methods return the types -->
 <!-- `Ref` and `RefMut`, respectively. These types are wrappers over references that -->
 <!-- keep track of the borrowing rules at runtime. The definition of the `Ref` -->
-<!-- struct is shown in Listing 19-16, without lifetime bounds for now: -->
+<!-- struct is shown in Listing 19-16, without lifetime bounds for now. -->
 
 例として、参照のラッパーの型を考えてください。第15章の「`RefCell<T>`と内部可変性パターン」節から`RefCell<T>`型を思い出してください:
 `borrow`と`borrow_mut`メソッドがそれぞれ、`Ref`と`RefMut`を返します。これらの型は、
@@ -466,9 +466,9 @@ struct Ref<'a, T>(&'a T);
 ```
 
 <!-- <span class="caption">Listing 19-16: Defining a struct to wrap a reference to a -->
-<!-- generic type, without lifetime bounds to start</span> -->
+<!-- generic type, without lifetime bounds</span> -->
 
-<span class="caption">リスト19-16: 開始時はライフタイム境界なしでジェネリックな型への参照をラップする構造体を定義する</span>
+<span class="caption">リスト19-16: ライフタイム境界なしでジェネリックな型への参照をラップする構造体を定義する</span>
 
 <!-- Without explicitly constraining the lifetime `'a` in relation to the generic -->
 <!-- parameter `T`, Rust will error because it doesn’t know how long the generic -->
@@ -512,10 +512,10 @@ consider adding an explicit lifetime bound `T: 'a` so that the reference type
 ```
 
 <!-- Listing 19-17 shows how to apply this advice by specifying the lifetime bound -->
-<!-- when we declare the generic type `T`: -->
+<!-- when we declare the generic type `T`. -->
 
 リスト19-17は、ジェネリックな型`T`を宣言する時にライフタイム境界を指定することで、
-このアドバイスを適用する方法を示しています:
+このアドバイスを適用する方法を示しています。
 
 ```rust
 struct Ref<'a, T: 'a>(&'a T);
@@ -575,13 +575,13 @@ struct StaticRef<T: 'static>(&'static T);
 <!-- of its own. Consider Listing 19-19 where we have a trait `Red` and a struct -->
 <!-- `Ball`. The `Ball` struct holds a reference (and thus has a lifetime parameter) -->
 <!-- and also implements trait `Red`. We want to use an instance of `Ball` as the -->
-<!-- trait object `Box<Red>`: -->
+<!-- trait object `Box<Red>`. -->
 
 第17章の「異なる型の値を許容するトレイトオブジェクトを使用する」節で、参照の背後のトレイトから構成され、
 ダイナミック・ディスパッチを使用させてくれるトレイトオブジェクトを議論しました。まだ、トレイトオブジェクトのトレイトを実装する型が、
 独自のライフタイムだった時に何が起きるか議論していません。トレイト`Red`と構造体`Ball`があるリスト19-19を考えてください。
 `Ball`構造体は参照を保持し(故にライフタイム引数があり)、トレイト`Red`を実装もしています。
-`Ball`のインスタンスを`Box<Red>`として使用したいです:
+`Ball`のインスタンスを`Box<Red>`として使用したいです。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -620,13 +620,13 @@ fn main() {
 <!--   is `'a`. -->
 <!-- * With a single `T: 'a` clause, the default lifetime of the trait object is -->
 <!--   `'a`. -->
-<!-- * With multiple `T: 'a`-like clauses, there is no default lifetime; we must be -->
+<!-- * With multiple clauses like `T: 'a`, there is no default lifetime; we must be -->
 <!--   explicit. -->
 
 * トレイトオブジェクトのデフォルトのライフタイムは、`'static`。
 * `&'a Trait`や`&'a mut Trait`に関して、トレイトオブジェクトのデフォルトのライフタイムは、`'a`。
 * 単独の`T: 'a`節について、トレイトオブジェクトのデフォルトのライフタイムは、`'a`。
-* 複数の`T: 'a`様の節について、デフォルトのライフタイムはない; 明示しなければならない。
+* 複数の`T: 'a`のような節について、デフォルトのライフタイムはない; 明示しなければならない。
 
 <!-- When we must be explicit, we can add a lifetime bound on a trait object like -->
 <!-- `Box<Red>` using the syntax `Box<Red + 'static>` or `Box<Red + 'a>`, depending -->

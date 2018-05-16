@@ -12,11 +12,11 @@
 <!-- Let’s make a new binary project with Cargo called *rectangles* that will take -->
 <!-- the width and height of a rectangle specified in pixels and will calculate the area -->
 <!-- of the rectangle. Listing 5-8 shows a short program with one way of doing -->
-<!-- exactly that in our project’s *src/main.rs*: -->
+<!-- exactly that in our project’s *src/main.rs*. -->
 
 Cargoで*rectangles*という新規バイナリプロジェクトを作成しましょう。このプロジェクトは、
 四角形の幅と高さをピクセルで指定し、その面積を求めます。リスト5-8に、プロジェクトの*src/main.rs*で、
-正にそうする一例を短いプログラムとして示しました:
+正にそうする一例を短いプログラムとして示しました。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -88,9 +88,9 @@ fn area(width: u32, height: u32) -> u32 {
 
 ### タプルでリファクタリングする
 
-<!-- Listing 5-9 shows another version of our program that uses tuples: -->
+<!-- Listing 5-9 shows another version of our program that uses tuples. -->
 
-リスト5-9は、タプルを使う別バージョンのプログラムを示しています: 
+リスト5-9は、タプルを使う別バージョンのプログラムを示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -145,10 +145,10 @@ fn area(dimensions: (u32, u32)) -> u32 {
 
 <!-- We use structs to add meaning by labeling the data. We can transform the tuple -->
 <!-- we’re using into a data type with a name for the whole as well as names for the -->
-<!-- parts, as shown in Listing 5-10: -->
+<!-- parts, as shown in Listing 5-10. -->
 
 データにラベル付けをして意味付けを行い、構造体を使います。現在使用しているタプルを全体と一部に名前のあるデータ型に、
-変形することができます。そう、リスト5-10に示したように:
+変形することができます。そう、リスト5-10に示したように。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -217,10 +217,10 @@ fn area(rectangle: &Rectangle) -> u32 {
 <!-- It’d be nice to be able to print an instance of `Rectangle` while we’re -->
 <!-- debugging our program and see the values for all its fields. Listing 5-11 tries -->
 <!-- using the `println!` macro as we have used it in previous chapters. This won't -->
-<!-- work, however: -->
+<!-- work, however. -->
 
 プログラムのデバッグをし、フィールドの値を調べている間に`Rectangle`のインスタンスを出力できると、
-素晴らしいわけです。リスト5-11では、以前の章のように、`println!`マクロを試しに使用しようとしていますが、動きません:
+素晴らしいわけです。リスト5-11では、以前の章のように、`println!`マクロを試しに使用しようとしていますが、動きません。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -254,7 +254,7 @@ error[E0277]: the trait bound `Rectangle: std::fmt::Display` is not satisfied
 (エラー: トレイト境界`Rectangle: std::fmt::Display`が満たされていません)
 ```
 
-<!-- The `println!` macro can do many kinds of formatting, and by default, curly -->
+<!-- The `println!` macro can do many kinds of formatting, and by default, the curly -->
 <!-- brackets tell `println!` to use formatting known as `Display`: output intended -->
 <!-- for direct end user consumption. The primitive types we’ve seen so far -->
 <!-- implement `Display` by default, because there’s only one way you’d want to show -->
@@ -285,13 +285,13 @@ Rustは必要なものを推測しようとせず、構造体には`Display`実�
 
 <!-- Let’s try it! The `println!` macro call will now look like `println!("rect1 is -->
 <!-- {:?}", rect1);`. Putting the specifier `:?` inside the curly brackets tells -->
-<!-- `println!` we want to use an output format called `Debug`. `Debug` is a trait -->
-<!-- that enables us to print our struct in a way that is useful for developers so -->
-<!-- we can see its value while we’re debugging our code. -->
+<!-- `println!` we want to use an output format called `Debug`. The `Debug` trait -->
+<!-- enables us to print our struct in a way that is useful for developers so we can -->
+<!-- see its value while we’re debugging our code. -->
 
 試してみましょう！`pritnln!`マクロ呼び出しは、`println!("rect1 is {:?}", rect1);`という見た目になるでしょう。
 波括弧内に`:?`という指定子を書くと、`println!`に`Debug`と呼ばれる出力整形を使いたいと指示するのです。
-`Debug`とは、開発者にとって有用な方法で構造体を出力させてくれるトレイトなので、
+`Debug`トレイトは、開発者にとって有用な方法で構造体を出力させてくれるので、
 コードをデバッグしている最中に、値を確認することができます。
 
 <!-- Run the code with this change. Drat! We still get an error: -->
@@ -317,11 +317,11 @@ crate, add `#[derive(Debug)]` or manually implement it
 <!-- Rust *does* include functionality to print out debugging information, but we -->
 <!-- have to explicitly opt in to make that functionality available for our struct. -->
 <!-- To do that, we add the annotation `#[derive(Debug)]` just before the struct -->
-<!-- definition, as shown in Listing 5-12: -->
+<!-- definition, as shown in Listing 5-12. -->
 
 *確かに*Rustにはデバッグ用の情報を出力する機能が備わっていますが、この機能を構造体で使えるようにするには、
 明示的な選択をしなければならないのです。そうするには、構造体定義の直前に`#[derive(Debug)]`という注釈を追加します。
-そう、リスト5-12で示されている通りです:
+そう、リスト5-12で示されている通りです。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -376,12 +376,11 @@ rect1 is Rectangle {
 
 <!-- Rust has provided a number of traits for us to use with the `derive` annotation -->
 <!-- that can add useful behavior to our custom types. Those traits and their -->
-<!-- behaviors are listed in Appendix C, “Derivable Traits.” We’ll cover how to -->
-<!-- implement these traits with custom behavior as well as how to create your own -->
-<!-- traits in Chapter 10 -->
+<!-- behaviors are listed in Appendix C. We’ll cover how to implement these traits -->
+<!-- with custom behavior as well as how to create your own traits in Chapter 10. -->
 
 Rustには、`derive`注釈で使えるトレイトが多く提供されており、独自の型に有用な振る舞いを追加することができます。
-そのようなトレイトとその振る舞いは、おまけC、「継承可能トレイト」で一覧になっています。
+そのようなトレイトとその振る舞いは、おまけCで一覧になっています。
 これらのトレイトを独自の動作とともに実装する方法だけでなく、独自のトレイトを生成する方法については、第10章で解説します。
 
 <!-- Our `area` function is very specific: it only computes the area of rectangles. -->

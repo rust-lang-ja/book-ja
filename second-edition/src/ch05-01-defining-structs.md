@@ -17,12 +17,12 @@
 <!-- struct’s name should describe the significance of the pieces of data being -->
 <!-- grouped together. Then, inside curly brackets, we define the names and types of -->
 <!-- the pieces of data, which we call *fields*. For example, Listing 5-1 shows a -->
-<!-- struct to store information about a user account: -->
+<!-- struct that stores information about a user account. -->
 
 構造体の定義は、`struct`キーワードを入れ、構造体全体に名前を付けます。構造体名は、
 一つにグループ化されるデータ片の意義を表すものであるべきです。そして、波かっこ内に、
 データ片の名前と型を定義し、これは*フィールド*と呼ばれます。例えば、リスト5-1では、
-ユーザアカウントに関する情報を保持する構造体を示しています:
+ユーザアカウントに関する情報を保持する構造体を示しています。
 
 ```rust
 struct User {
@@ -45,7 +45,7 @@ struct User {
 <!-- the same order in which we declared them in the struct. In other words, the -->
 <!-- struct definition is like a general template for the type, and instances fill -->
 <!-- in that template with particular data to create values of the type. For -->
-<!-- example, we can declare a particular user as shown in Listing 5-2: -->
+<!-- example, we can declare a particular user as shown in Listing 5-2. -->
 
 構造体を定義した後に使用するには、各フィールドに対して具体的な値を指定して構造体の*インスタンス*を生成します。
 インスタンスは、構造体名を記述し、`key: value`ペアを含む波かっこを付け加えることで生成します。
@@ -79,12 +79,12 @@ let user1 = User {
 <!-- just this user’s email address, we can use `user1.email` wherever we wanted -->
 <!-- to use this value. If the instance is mutable, we can change a value by using -->
 <!-- the dot notation and assigning into a particular field. Listing 5-3 shows how -->
-<!-- to change the value in the `email` field of a mutable `User` instance: -->
+<!-- to change the value in the `email` field of a mutable `User` instance. -->
 
 構造体から特定の値を得るには、ドット記法が使えます。このユーザのEメールアドレスだけが欲しいなら、
 この値を使いたかった場所全部で`user1.email`が使えます。インスタンスが可変であれば、
 ドット記法を使い特定のフィールドに代入することで値を変更できます。リスト5-3では、
-可変な`User`インスタンスの`email`フィールド値を変更する方法を示しています:
+可変な`User`インスタンスの`email`フィールド値を変更する方法を示しています。
 
 ```rust
 # struct User {
@@ -110,19 +110,18 @@ user1.email = String::from("anotheremail@example.com");
 <span class="caption">リスト5-3: ある`User`インスタンスの`email`フィールド値を変更する</span>
 
 <!-- Note that the entire instance must be mutable; Rust doesn’t allow us to mark -->
-<!-- only certain fields as mutable. -->
+<!-- only certain fields as mutable. As with any expression, we can construct a new -->
+<!-- instance of the struct as the last expression in the function body to -->
+<!-- implicitly return that new instance. -->
 
 インスタンス全体が可変でなければならないことに注意してください; Rustでは、一部のフィールドのみを可変にすることはできないのです。
+また、あらゆる式同様、構造体の新規インスタンスを関数本体の最後の式として生成して、
+そのインスタンスを返すことを暗示できます。
 
-
-<!-- As with any expression, we can construct a new instance of the struct as the -->
-<!-- last expression in the function body to implicitly return that new instance. -->
 <!-- Listing 5-4 shows a `build_user` function that returns a `User` instance with -->
 <!-- the given email and username. The `active` field gets the value of `true`, and -->
 <!-- the `sign_in_count` gets a value of `1`. -->
 
-また、あらゆる式同様、構造体の新規インスタンスを関数本体の最後の式として生成して、
-そのインスタンスを返すことを暗示できます。
 リスト5-4は、与えられたemailとusernameで`User`インスタンスを生成する`build_user`関数を示しています。
 `active`フィールドには`true`値が入り、`sign_in_count`には値`1`が入ります。
 
@@ -166,7 +165,7 @@ fn build_user(email: String, username: String) -> User {
 <!-- Because the parameter names and the struct field names are exactly the same in -->
 <!-- Listing 5-4, we can use the *field init shorthand* syntax to rewrite -->
 <!-- `build_user` so that it behaves exactly the same but doesn’t have the -->
-<!-- repetition of `email` and `username` as shown in Listing 5-5. -->
+<!-- repetition of `email` and `username`, as shown in Listing 5-5. -->
 
 仮引数名と構造体のフィールド名がリスト5-4では、全く一緒なので、*フィールド初期化省略*記法を使って`build_user`を書き換えても、
 振る舞いは全く同じにしつつ、リスト5-5に示したように`email`と`username`を繰り返さなくてもよくなります。
@@ -219,10 +218,10 @@ fn build_user(email: String, username: String) -> User {
 
 <!-- First, Listing 5-6 shows how we create a new `User` instance in `user2` without -->
 <!-- the update syntax. We set new values for `email` and `username`, but otherwise -->
-<!-- use the same values from `user1` that we created in Listing 5-2: -->
+<!-- use the same values from `user1` that we created in Listing 5-2. -->
 
 まず、リスト5-6では、更新記法なしで`user2`に新しい`User`インスタンスを生成する方法を示しています。
-`email`と`username`には新しい値をセットしていますが、それ以外にはリスト5-2で生成した`user1`の値を使用しています:
+`email`と`username`には新しい値をセットしていますが、それ以外にはリスト5-2で生成した`user1`の値を使用しています。
 
 ```rust
 # struct User {
@@ -295,10 +294,9 @@ let user2 = User {
 リスト5-7のコードも、`email`と`username`については異なる値、`active`と`sign_in_count`フィールドについては、
 `user1`と同じ値になるインスタンスを`user2`に生成します。
 
-<!-- ### Tuple Structs without Named Fields to Create Different Types -->
+<!-- ### Using Tuple Structs without Named Fields to Create Different Types -->
 
-### 異なる型を生成する名前付きフィールドのないタプル構造体
-
+### 異なる型を生成する名前付きフィールドのないタプル構造体を使用する
 
 <!-- We can also define structs that look similar to tuples, called *tuple-->
 <!-- structs*. Tuple structs have the added meaning the struct name provides but -->
@@ -313,7 +311,7 @@ let user2 = User {
 そのタプルを他のタプルとは異なる型にしたい場合に有用ですが、普通の構造体のように各フィールド名を与えるのは、
 冗長、または余計になるでしょう。
 
-<!-- To define a tuple struct you start with the `struct` keyword and the struct name -->
+<!-- To define a tuple struct, you start with the `struct` keyword and the struct name -->
 <!-- followed by the types in the tuple. For example, here are definitions and -->
 <!-- usages of two tuple structs named `Color` and `Point`: -->
 

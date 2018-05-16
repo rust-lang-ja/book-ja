@@ -102,7 +102,7 @@ route(IpAddrKind::V6);
 <!-- Using enums has even more advantages. Thinking more about our IP address type, -->
 <!-- at the moment we don’t have a way to store the actual IP address *data*; we -->
 <!-- only know what *kind* it is. Given that you just learned about structs in -->
-<!-- Chapter 5, you might tackle this problem as shown in Listing 6-1: -->
+<!-- Chapter 5, you might tackle this problem as shown in Listing 6-1. -->
 
 enumの利用には、さらなる利点さえもあります。このIPアドレス型についてもっと考えてみると、現状では、
 実際のIPアドレスの*データ*を保持する方法がありません。つまり、どんな*種類*であるかを知っているだけです。
@@ -265,9 +265,9 @@ enum IpAddr {
 第7章でもっと詳しく言及します。
 
 <!-- Let’s look at another example of an enum in Listing 6-2: this one has a wide -->
-<!-- variety of types embedded in its variants: -->
+<!-- variety of types embedded in its variants. -->
 
-リスト6-2でenumの別の例を見てみましょう: 今回のコードは、幅広い種類の型が列挙子に埋め込まれています:
+リスト6-2でenumの別の例を見てみましょう: 今回のコードは、幅広い種類の型が列挙子に埋め込まれています。
 
 ```rust
 enum Message {
@@ -297,7 +297,7 @@ enum Message {
 * `Write`は、単独の`String`オブジェクトを含む。
 * `ChangeColor`は、3つの`i32`値を含む。
 
-<!-- Defining an enum with variants like the ones in Listing 6-2 is similar to -->
+<!-- Defining an enum with variants such as the ones in Listing 6-2 is similar to -->
 <!-- defining different kinds of struct definitions, except the enum doesn’t use the -->
 <!-- `struct` keyword and all the variants are grouped together under the `Message` -->
 <!-- type. The following structs could hold the same data that the preceding enum -->
@@ -595,15 +595,6 @@ Rustの旅が極めて有益になるでしょう。
 <!-- just this when used with enums: it will run different code depending on which -->
 <!-- variant of the enum it has, and that code can use the data inside the matching -->
 <!-- value. -->
-
-In general, in order to use an `Option<T>` value, you want to have code that
-will handle each variant. You want some code that will run only when you have a
-`Some(T)` value, and this code is allowed to use the inner `T`. You want some
-other code to run if you have a `None` value, and that code doesn’t have a `T`
-value available. The `match` expression is a control flow construct that does
-just this when used with enums: it will run different code depending on which
-variant of the enum it has, and that code can use the data inside the matching
-value.
 
 一般的に、`Option<T>`値を使うには、各列挙子を処理するコードが欲しくなります。
 `Some(T)`値がある時だけ走る何らかのコードが欲しくなり、このコードが内部の`T`を使用できます。

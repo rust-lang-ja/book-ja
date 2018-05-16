@@ -9,6 +9,12 @@
 最初の手順は、Rustをインストールすることです。Rustは、`rustup`というRustのバージョンと関連するツールを管理するコマンドラインツールを使用して、
 ダウンロードします。ダウンロードするには、インターネット接続が必要でしょう。
 
+<!--> Note: If you prefer not to use `rustup` for some reason, please see [the Rust -->
+<!--> installation page](https://www.rust-lang.org/install.html) for other options. -->
+
+> 注釈: なんらかの理由で`rustup`を使用しないことを好むのなら、[Rustインストールページ](https://www.rust-lang.org/install.html)で、
+> 他の選択肢をご覧になってください。
+
 <!-- The following steps install the latest stable version of the Rust compiler. All -->
 <!-- the examples and output in this book use stable Rust 1.21.0. Rust’s stability -->
 <!-- guarantees ensure that all the examples in the book that compile will continue -->
@@ -28,21 +34,19 @@ Rustの安定性保証により、現在この本の例でコンパイルでき�
 <!-- > In this chapter and throughout the book, we’ll show some commands used in the -->
 <!-- > terminal. Lines that you should enter in a terminal all start with `$`. You -->
 <!-- > don’t need to type in the `$` character; it indicates the start of each -->
-<!-- > command. Many tutorials use the convention `$` for commands you run as a -->
-<!-- > regular user and `#` for commands you run as an administrator. Lines that -->
-<!-- > don’t start with `$` typically show the output of the previous command. -->
-<!-- > Additionally, PowerShell specific examples will use `>` rather than `$`. -->
+<!-- > command. Lines that don't start with `$` typically show the output of the -->
+<!-- > previous command. Additionally, PowerShell specific examples will use `>` -->
+<!-- > rather than `$`. -->
 
 > ### コマンドライン表記
 > この章及び、本を通して、端末で使用するなんらかのコマンドを示すことがあります。読者が入力するべき行は、
 > 全て`$`で始まります。`$`文字を入れる必要はありません; 各コマンドの開始を示しているだけです。
-> 多くのチュートリアルで普通のユーザとして実行するコマンドには`$`、管理者として実行するコマンドには`#`を使用するという習慣を用います。
 > `$`で始まらない行は、典型的には直前のコマンドの出力を示します。また、PowerShell限定の例は、
 > `$`ではなく、`>`を使用します。
 
-<!-- ### Installing Rustup on Linux or macOS -->
+<!-- ### Installing `rustup` on Linux or macOS -->
 
-### LinuxとmacOSにRustupをインストールする
+### LinuxとmacOSに`rustup`をインストールする
 
 <!-- If you’re using Linux or macOS, open a terminal and enter the following command: -->
 
@@ -63,11 +67,10 @@ $ curl https://sh.rustup.rs -sSf | sh
 Rust is installed now. Great!
 ```
 
-<!-- Of course, if you distrust using `curl URL | sh` to install software, you can -->
-<!-- download, inspect, and run the script however you like. -->
+<!-- If you prefer, feel free to download the script and inspect it before running -->
+<!-- it. -->
 
-もちろん、`curl URL | sh`を使用してソフトをインストールすることを信用できないのなら、
-お好きなようにスクリプトをダウンロードし、調べ、走らせることができます。
+お好みでご自由にスクリプトをダウンロードし、実行前に調査することもできます。
 
 <!-- The installation script automatically adds Rust to your system PATH after your -->
 <!-- next login. If you want to start using Rust right away instead of restarting -->
@@ -89,38 +92,39 @@ $ source $HOME/.cargo/env
 $ export PATH="$HOME/.cargo/bin:$PATH"
 ```
 
-<!-- Additionally, you’ll need a linker of some kind. It’s likely one is already -->
+<!-- Additionally, you’ll need a linker of some kind. It's likely one is already -->
 <!-- installed, but when you try to compile a Rust program and get errors indicating -->
-<!-- that a linker could not execute, you’ll need to install one. You can install a -->
-<!-- C compiler, because that will usually come with the correct linker. Check your -->
-<!-- platform’s documentation for how to install a C compiler. Some common Rust -->
-<!-- packages depend on C code and will need a C compiler too, so it might be worth -->
-<!-- installing one now regardless. -->
+<!-- that a linker could not execute, that means a linker isn't installed on your -->
+<!-- system and you'll need to install one manually. C compilers usually come with -->
+<!-- the correct linker. Check your platform’s documentation for how to install a C -->
+<!-- compiler. Also, some common Rust packages depend on C code and will need a C -->
+<!-- compiler. Therefore, it might be worth installing one now. -->
 
 さらに、なんらかの類のリンカーが必要になるでしょう。既にインストールされている可能性が高いものの、
-Rustプログラムのコンパイルを試みて、リンカーが実行できないというエラーが出たら、インストールする必要があるでしょう。
-Cコンパイラをインストールすれば、正しいリンカーを普通インストールすることができるでしょう。
+Rustプログラムのコンパイルを試みて、リンカーが実行できないというエラーが出たら、
+システムにリンカーがインストールされていないということなので、手動でインストールする必要があるでしょう。
+Cコンパイラは通常正しいリンカーとセットになっています。
 自分のプラットフォームのドキュメンテーションを見てCコンパイラのインストール方法を確認してください。
-一般的なRustパッケージの中には、Cコードに依存し、Cコンパイラが必要になるものもあるので、
-いずれにせよ今インストールする価値はあるかもしれません。
+一般的なRustパッケージの中には、Cコードに依存し、Cコンパイラが必要になるものもあります。
+故に今インストールする価値はあるかもしれません。
 
-<!-- ### Installing Rustup on Windows -->
+<!-- ### Installing `rustup` on Windows -->
 
-### WindowsでRustupをインストールする
+### Windowsで`rustup`をインストールする
 
-<!-- On Windows, go to [https://www.rust-lang.org/en-US/install.html][install] and -->
-<!-- follow the instructions for installing Rust. At some point in the installation, -->
-<!-- you’ll receive a message explaining that you’ll also need the C++ build tools -->
-<!-- for Visual Studio 2013 or later. The easiest way to acquire the build tools is -->
-<!-- to install [Build Tools for Visual Studio 2017][visualstudio]. The tools are in -->
+<!-- On Windows, go to [https://www.rust-lang.org/install.html][install] and follow -->
+<!-- the instructions for installing Rust. At some point in the installation, you’ll -->
+<!-- receive a message explaining that you’ll also need the C++ build tools for -->
+<!-- Visual Studio 2013 or later. The easiest way to acquire the build tools is to -->
+<!-- install [Build Tools for Visual Studio 2017][visualstudio]. The tools are in -->
 <!-- the Other Tools and Frameworks section. -->
 
-Windowsでは、[https://www.rust-lang.org/en-US/install.html][install]に行き、手順に従ってRustをインストールしてください。
+Windowsでは、[https://www.rust-lang.org/install.html][install]に行き、手順に従ってRustをインストールしてください。
 インストールの途中で、Visual Studio2013以降用のC++ビルドツールも必要になるという旨のメッセージが出るでしょう。
 ビルドツールを取得する最も簡単な方法は、[Visual Studio 2017用のビルドツール][visualstudio]をインストールすることです。
 ツールは、他のツール及びフレームワークのセクションにあります。
 
-[install]: https://www.rust-lang.org/en-US/install.html
+[install]: https://www.rust-lang.org/install.html
 [visualstudio]: https://www.visualstudio.com/downloads/
 
 <!-- The rest of this book uses commands that work in both *cmd.exe* and PowerShell. -->
@@ -128,16 +132,6 @@ Windowsでは、[https://www.rust-lang.org/en-US/install.html][install]に行き
 
 これ以降、*cmd.exe*とPowerShellの両方で動くコマンドを使用します。
 特定の違いがあったら、どちらを使用すべきか説明します。
-
-<!-- ### Custom Installations Without Rustup -->
-
-### Rustupなしでカスタムインストール
-
-<!-- If you prefer not to use `rustup` for some reason, please see [the Rust -->
-<!-- installation page](https://www.rust-lang.org/install.html) for other options. -->
-
-なんらかの理由で`rustup`を使用しないことを好むのなら、他の選択肢を求めて、
-[Rustのインストールページ](https://www.rust-lang.org/install.html)をご覧ください。
 
 <!-- ### Updating and Uninstalling -->
 

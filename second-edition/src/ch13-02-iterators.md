@@ -94,7 +94,7 @@ for val in v1_iter {
 このトレイトの定義は、以下のようになっています:
 
 ```rust
-trait Iterator {
+pub trait Iterator {
     type Item;
 
     fn next(&mut self) -> Option<Self::Item>;

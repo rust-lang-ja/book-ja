@@ -21,10 +21,10 @@
 
 <!-- Let’s change the `area` function that has a `Rectangle` instance as a parameter -->
 <!-- and instead make an `area` method defined on the `Rectangle` struct, as shown -->
-<!-- in Listing 5-13: -->
+<!-- in Listing 5-13. -->
 
 `Rectangle`インスタンスを引数に取る`area`関数を変え、代わりに`Rectangle`構造体上に`area`メソッドを作りましょう。
-リスト5-13に示した通りですね:
+リスト5-13に示した通りですね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -209,12 +209,12 @@ fn main() {
 <!-- of `Rectangle` and return `true` if the second `Rectangle` can fit completely -->
 <!-- within `self`; otherwise it should return `false`. That is, we want to be able -->
 <!-- to write the program shown in Listing 5-14, once we’ve defined the `can_hold` -->
-<!-- method: -->
+<!-- method. -->
 
 `Rectangle`構造体に2番目のメソッドを実装して、メソッドを使う鍛錬をしましょう。今回は、`Rectangle`のインスタンスに、
 別の`Rectangle`のインスタンスを取らせ、2番目の`Rectangle`が`self`に完全にはめ込まれたら、`true`を返すようにしたいのです;
 そうでなければ、`false`を返すべきです。つまり、一旦`can_hold`メソッドを定義したら、
-リスト5-14のようなプログラムを書けるようになりたいのです:
+リスト5-14のようなプログラムを書けるようになりたいのです。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -261,7 +261,7 @@ Can rect1 hold rect3? false
 <!-- Boolean, and the implementation will check whether the width and height of -->
 <!-- `self` are both greater than the width and height of the other `Rectangle`, -->
 <!-- respectively. Let’s add the new `can_hold` method to the `impl` block from -->
-<!-- Listing 5-13, shown in Listing 5-15: -->
+<!-- Listing 5-13, shown in Listing 5-15. -->
 
 メソッドを定義したいことはわかっているので、`impl Rectangle`ブロック内での話になります。
 メソッド名は、`can_hold`になり、引数として別の`Rectangle`を不変借用で取るでしょう。
@@ -271,7 +271,7 @@ Can rect1 hold rect3? false
 `can_hold`メソッドを呼び出した後にも`rect2`が使えるよう、所有権を`main`に残したままにしたいからです。
 `can_hold`の返り値は、論理型になり、メソッドの中身は、`self`の幅と高さがもう一つの`Rectangle`の幅と高さよりも、
 それぞれ大きいことを確認します。リスト5-13の`impl`ブロックに新しい`can_hold`メソッドを追記しましょう。
-リスト5-15に示した通りです:
+リスト5-15に示した通りです。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -368,10 +368,10 @@ impl Rectangle {
 
 <!-- Each struct is allowed to have multiple `impl` blocks. For example, Listing -->
 <!-- 5-15 is equivalent to the code shown in Listing 5-16, which has each method -->
-<!-- in its own `impl` block: -->
+<!-- in its own `impl` block. -->
 
 各構造体には、複数の`impl`ブロックを存在させることができます。例えば、リスト5-15はリスト5-16に示したコードと等価で、
-リスト5-16では、各メソッドごとに`impl`ブロックを用意しています:
+リスト5-16では、各メソッドごとに`impl`ブロックを用意しています。
 
 ```rust
 # #[derive(Debug)]
@@ -400,7 +400,7 @@ impl Rectangle {
 
 <!-- There’s no reason to separate these methods into multiple `impl` blocks here, -->
 <!-- but this is valid syntax. We'll see a case in which multiple `impl` blocks are -->
-<!-- useful in Chapter 10 where we discuss generic types and traits. -->
+<!-- useful in Chapter 10, where we discuss generic types and traits. -->
 
 ここでこれらのメソッドを個々の`impl`ブロックに分ける理由はないのですが、有効な書き方です。
 複数の`impl`ブロックが有用になるケースは第10章で見ますが、そこではジェネリクスのある型と、トレイトについて議論します。

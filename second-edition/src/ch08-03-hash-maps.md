@@ -39,10 +39,10 @@
 <!-- You can create an empty hash map with `new` and add elements with `insert`. In -->
 <!-- Listing 8-20, we’re keeping track of the scores of two teams whose names are -->
 <!-- Blue and Yellow. The Blue team starts with 10 points, and the Yellow team -->
-<!-- starts with 50: -->
+<!-- starts with 50. -->
 
 空のハッシュマップを`new`で作り、要素を`insert`で追加することができます。リスト8-20では、
-名前がブルーとイエローの2チームのスコアを追いかけています。ブルーチームは10点から、イエローチームは50点から始まります:
+名前がブルーとイエローの2チームのスコアを追いかけています。ブルーチームは10点から、イエローチームは50点から始まります。
 
 ```rust
 use std::collections::HashMap;
@@ -83,13 +83,13 @@ scores.insert(String::from("Yellow"), 50);
 <!-- `HashMap`. For example, if we had the team names and initial scores in two -->
 <!-- separate vectors, we can use the `zip` method to create a vector of tuples -->
 <!-- where “Blue” is paired with 10, and so forth. Then we can use the `collect` -->
-<!-- method to turn that vector of tuples into a hash map, as shown in Listing 8-21: -->
+<!-- method to turn that vector of tuples into a hash map, as shown in Listing 8-21. -->
 
 ハッシュマップを生成する別の方法は、タプルのベクタに対して`collect`メソッドを使用するものです。
 ここで、各タプルは、キーと値から構成されています。`collect`メソッドはいろんなコレクション型にデータをまとめ上げ、
 そこには`HashMap`も含まれています。例として、チーム名と初期スコアが別々のベクタに含まれていたら、
 `zip`メソッドを使ってタプルのベクタを作り上げることができ、そこでは「ブルー」は10とペアになるなどします。
-リスト8-21に示したように、それから`collect`メソッドを使って、そのタプルのベクタをハッシュマップに変換することができるわけです:
+リスト8-21に示したように、それから`collect`メソッドを使って、そのタプルのベクタをハッシュマップに変換することができるわけです。
 
 ```rust
 use std::collections::HashMap;
@@ -121,11 +121,11 @@ let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
 
 <!-- For types that implement the `Copy` trait, like `i32`, the values are copied -->
 <!-- into the hash map. For owned values like `String`, the values will be moved and -->
-<!-- the hash map will be the owner of those values, as demonstrated in Listing 8-22: -->
+<!-- the hash map will be the owner of those values, as demonstrated in Listing 8-22. -->
 
 `i32`のような`Copy`トレイトを実装する型について、値はハッシュマップにコピーされます。
 `String`のような所有権のある値なら、値はムーブされ、リスト8-22でデモされているように、
-ハッシュマップはそれらの値の所有者になるでしょう:
+ハッシュマップはそれらの値の所有者になるでしょう。
 
 ```rust
 use std::collections::HashMap;
@@ -166,9 +166,9 @@ map.insert(field_name, field_value);
 ### ハッシュマップの値にアクセスする
 
 <!-- We can get a value out of the hash map by providing its key to the `get` -->
-<!-- method, as shown in Listing 8-23: -->
+<!-- method, as shown in Listing 8-23. -->
 
-リスト8-23に示したように、キーを`get`メソッドに提供することで、ハッシュマップから値を取り出すことができます:
+リスト8-23に示したように、キーを`get`メソッドに提供することで、ハッシュマップから値を取り出すことができます。
 
 ```rust
 use std::collections::HashMap;
@@ -251,11 +251,11 @@ Blue: 10
 <!-- with a different value, the value associated with that key will be replaced. -->
 <!-- Even though the code in Listing 8-24 calls `insert` twice, the hash map will -->
 <!-- only contain one key/value pair because we’re inserting the value for the Blue -->
-<!-- team’s key both times: -->
+<!-- team’s key both times. -->
 
 キーと値をハッシュマップに挿入し、同じキーを異なる値で挿入したら、そのキーに紐づけられている値は置換されます。
 リスト8-24のコードは、`insert`を二度呼んでいるものの、ハッシュマップには一つのキーと値の組しか含まれません。
-なぜなら、ブルーチームキーに対する値を2回とも挿入しているからです:
+なぜなら、ブルーチームキーに対する値を2回とも挿入しているからです。
 
 ```rust
 use std::collections::HashMap;
@@ -285,17 +285,17 @@ println!("{:?}", scores);
 <!-- It’s common to check whether a particular key has a value andaaaaAaaaaaa if it doesn’t, -->
 <!-- insert a value for it. Hash maps have a special API for this called `entry` -->
 <!-- that takes the key we want to check as a parameter. The return value of the -->
-<!-- `entry` function is an enum called `Entry` that represents a value that might -->
-<!-- or might not exist. Let’s say we want to check whether the key for the Yellow -->
-<!-- team has a value associated with it. If it doesn’t, we want to insert the value -->
-<!-- 50, and the same for the Blue team. Using the `entry` API, the code looks like -->
-<!-- Listing 8-25: -->
+<!-- `entry` method is an enum called `Entry` that represents a value that might or -->
+<!-- might not exist. Let’s say we want to check whether the key for the Yellow team -->
+<!-- has a value associated with it. If it doesn’t, we want to insert the value 50, -->
+<!-- and the same for the Blue team. Using the `entry` API, the code looks like -->
+<!-- Listing 8-25. -->
 
 特定のキーに値があるか確認することは一般的であり、存在しない時に値を挿入することも一般的です。
 ハッシュマップには、これを行う`entry`と呼ばれる特別なAPIがあり、これは、引数としてチェックしたいキーを取ります。
-この`entry`関数の戻り値は、`Entry`と呼ばれるenumであり、これは存在したりしなかったりするかもしれない値を表します。
+この`entry`メソッドの戻り値は、`Entry`と呼ばれるenumであり、これは存在したりしなかったりするかもしれない値を表します。
 イエローチームに対するキーに値が紐づけられているか否か確認したくなったとしましょう。存在しなかったら、
-50という値を挿入したく、ブルーチームに対しても同様です。`entry`APIを使用すれば、コードはリスト8-25のようになります:
+50という値を挿入したく、ブルーチームに対しても同様です。`entry`APIを使用すれば、コードはリスト8-25のようになります。
 
 ```rust
 use std::collections::HashMap;
@@ -326,13 +326,13 @@ println!("{:?}", scores);
 
 <!-- Running the code in Listing 8-25 will print `{"Yellow": 50, "Blue": 10}`. The -->
 <!-- first call to `entry` will insert the key for the Yellow team with the value -->
-<!-- `50` because the Yellow team doesn’t have a value already. The second call to -->
+<!-- 50 because the Yellow team doesn’t have a value already. The second call to -->
 <!-- `entry` will not change the hash map because the Blue team already has the -->
-<!-- value `10`. -->
+<!-- value 10. -->
 
 リスト8-25のコードを実行すると、`{"Yellow": 50, "Blue": 10}`と出力するでしょう。
-最初の`entry`呼び出しは、まだイエローチームに対する値がないので、値`50`でイエローチームのキーを挿入します。
-`entry`の2回目の呼び出しはハッシュマップを変更しません。なぜなら、ブルーチームにはすでに`10`という値があるからです。
+最初の`entry`呼び出しは、まだイエローチームに対する値がないので、値50でイエローチームのキーを挿入します。
+`entry`の2回目の呼び出しはハッシュマップを変更しません。なぜなら、ブルーチームにはすでに10という値があるからです。
 
 <!-- #### Updating a Value Based on the Old Value -->
 
@@ -343,12 +343,12 @@ println!("{:?}", scores);
 <!-- counts how many times each word appears in some text. We use a hash map with -->
 <!-- the words as keys and increment the value to keep track of how many times we’ve -->
 <!-- seen that word. If it’s the first time we’ve seen a word, we’ll first insert -->
-<!-- the value `0`: -->
+<!-- the value 0 -->
 
 ハッシュマップの別の一般的なユースケースは、キーの値を探し、古い値に基づいてそれを更新することです。
 例えば、リスト8-26は、各単語があるテキストに何回出現するかを数え上げるコードを示しています。
 キーに単語を入れたハッシュマップを使用し、その単語を何回見かけたか追いかけるために値を増やします。
-ある単語を見かけたのが最初だったら、まず`0`という値を挿入します:
+ある単語を見かけたのが最初だったら、まず0という値を挿入します。
 
 ```rust
 use std::collections::HashMap;

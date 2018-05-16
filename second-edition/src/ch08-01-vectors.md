@@ -18,7 +18,7 @@
 ### 新しいベクタを生成する
 
 <!-- To create a new, empty vector, we can call the `Vec::new` function, as shown in -->
-<!-- Listing 8-1: -->
+<!-- Listing 8-1. -->
 
 新しい空のベクタを作るには、リスト8-1に示されたように、`Vec::new`関数を呼ぶことができます。
 
@@ -52,12 +52,12 @@ let v: Vec<i32> = Vec::new();
 <!-- It's more common to create a `Vec<T>` that has initial values, and Rust -->
 <!-- provides the `vec!` macro for convenience. The macro will create a new vector -->
 <!-- that holds the values we give it. Listing 8-2 creates a new `Vec<i32>` that -->
-<!-- holds the values `1`, `2`, and `3`: -->
+<!-- holds the values `1`, `2`, and `3`. -->
 
 より現実的なコードでは、一旦値を挿入したら、コンパイラは保持させたい値の型をしばしば推論できるので、
 この型注釈をすることは滅多にありません。初期値のある`Vec<T>`を生成する方が一般的ですし、
 Rustには、利便性のために`vec!`というマクロも用意されています。このマクロは、
-与えた値を保持する新しいベクタ型を生成します。リスト8-2では、`1`、`2`、`3`という値を持つ新しい`Vec<i32>`を生成しています:
+与えた値を保持する新しいベクタ型を生成します。リスト8-2では、`1`、`2`、`3`という値を持つ新しい`Vec<i32>`を生成しています。
 
 ```rust
 let v = vec![1, 2, 3];
@@ -80,7 +80,7 @@ let v = vec![1, 2, 3];
 ### ベクタを更新する
 
 <!-- To create a vector and then add elements to it, we can use the `push` method, -->
-<!-- as shown in Listing 8-3: -->
+<!-- as shown in Listing 8-3. -->
 
 ベクタを生成し、それから要素を追加するには、リスト8-3に示したように、`push`メソッドを使用できます。
 
@@ -112,9 +112,9 @@ v.push(8);
 ### ベクタをドロップすれば、要素もドロップする
 
 <!-- Like any other `struct`, a vector is freed when it goes out of scope, as -->
-<!-- annotated in Listing 8-4: -->
+<!-- annotated in Listing 8-4. -->
 
-他のあらゆる`構造体`同様、ベクタもスコープを抜ければ、解放されます。リスト8-4に注釈したようにね:
+他のあらゆる`構造体`同様、ベクタもスコープを抜ければ、解放されます。リスト8-4に注釈したようにね。
 
 <!-- ```rust -->
 <!-- { -->
@@ -162,9 +162,9 @@ v.push(8);
 これらの関数から返る値の型を注釈しました。
 
 <!-- Listing 8-5 shows both methods of accessing a value in a vector, either with -->
-<!-- indexing syntax or the `get` method: -->
+<!-- indexing syntax or the `get` method. -->
 
-リスト8-5に示したのは、両メソッドがベクタの値に対して、添字記法と`get`メソッドによりアクセスするところです:
+リスト8-5に示したのは、両メソッドがベクタの値に対して、添字記法と`get`メソッドによりアクセスするところです。
 
 ```rust
 let v = vec![1, 2, 3, 4, 5];
@@ -192,11 +192,11 @@ let third: Option<&i32> = v.get(2);
 <!-- behaves when you try to use an index value that the vector doesn’t have an -->
 <!-- element for. As an example, let’s see what a program will do if it has a vector -->
 <!-- that holds five elements and then tries to access an element at index 100, as -->
-<!-- shown in Listing 8-6: -->
+<!-- shown in Listing 8-6. -->
 
 Rustには要素を参照する方法が2通りあるので、ベクタに要素が含まれない番号の値を使用しようとした時に、
 プログラムの振る舞いを選択できます。例として、ベクタに5つ要素があり、番号100の要素にアクセスを試みた場合、
-プログラムがすることを確認しましょう。リスト8-6に示したようにね:
+プログラムがすることを確認しましょう。リスト8-6に示したようにね。
 
 ```rust,should_panic
 let v = vec![1, 2, 3, 4, 5];
@@ -242,13 +242,13 @@ let does_not_exist = v.get(100);
 <!-- rule that states we can’t have mutable and immutable references in the same -->
 <!-- scope. That rule applies in Listing 8-7, where we hold an immutable reference to -->
 <!-- the first element in a vector and try to add an element to the end, which won't -->
-<!-- work: -->
+<!-- work. -->
 
 プログラムに有効な参照がある場合、borrow checker(借用精査機)は(第4章で解説しましたが)、
 所有権と借用規則を強制し、ベクタ型の中身へのこの参照や他のいかなる参照も有効であり続けることを保証してくれます。
 同一スコープ上では、可変と不変な参照を同時には存在させられないというルールを思い出してください。
 このルールはリスト8-7にも適用され、リスト8-7ではベクタの最初の要素への不変参照を保持し、
-終端に要素を追加しようとしていますが、動きません:
+終端に要素を追加しようとしていますが、動きません。
 
 ```rust,ignore
 let mut v = vec![1, 2, 3, 4, 5];
@@ -312,10 +312,10 @@ error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immuta
 <!-- If we want to access each element in a vector in turn, we can iterate through -->
 <!-- all of the elements rather than use indexes to access one at a time. Listing -->
 <!-- 8-8 shows how to use a `for` loop to get immutable references to each element -->
-<!-- in a vector of `i32` values and print them: -->
+<!-- in a vector of `i32` values and print them. -->
 
 ベクタの要素に順番にアクセスしたいなら、添え字で1回に1要素にアクセスするのではなく、全要素を走査することができます。
-リスト8-8で`for`ループを使い、`i32`のベクタの各要素に対する不変な参照を得て、それらを出力する方法を示しています:
+リスト8-8で`for`ループを使い、`i32`のベクタの各要素に対する不変な参照を得て、それらを出力する方法を示しています。
 
 ```rust
 let v = vec![100, 32, 57];
@@ -331,10 +331,10 @@ for i in &v {
 
 <!-- We can also iterate over mutable references to each element in a mutable vector -->
 <!-- in order to make changes to all the elements. The `for` loop in Listing 8-9 -->
-<!-- will add `50` to each element: -->
+<!-- will add `50` to each element. -->
 
 全要素に変更を加える目的で、可変なベクタの各要素への可変な参照を走査することもできます。
-リスト8-9の`for`ループでは、各要素に`50`を足しています:
+リスト8-9の`for`ループでは、各要素に`50`を足しています。
 
 ```rust
 let mut v = vec![100, 32, 57];
@@ -375,7 +375,7 @@ enumを定義して使用することができます！
 <!-- and some strings. We can define an enum whose variants will hold the different -->
 <!-- value types, and then all the enum variants will be considered the same type: -->
 <!-- that of the enum. Then we can create a vector that holds that enum and so, -->
-<!-- ultimately, holds different types. We’ve demonstrated this in Listing 8-10: -->
+<!-- ultimately, holds different types. We’ve demonstrated this in Listing 8-10. -->
 
 例えば、スプレッドシートの行から値を得たくなったとしましょう。ここで行の列には、整数を含むものや、
 浮動小数点数を含むもの、文字列を含むものがあります。列挙子が異なる値の型を保持するenumを定義できます。

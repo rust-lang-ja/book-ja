@@ -10,10 +10,10 @@
 長い旅でしたが、本の末端に到達しました。この章では、共にもう一つプロジェクトを構築して最後の章で講義した概念の一部をデモしつつ、
 前のレッスンを思い出してもらいます。
 
-<!-- For our final project, we’ll make a web server that only says “hello” and looks -->
-<!-- like Figure 20-1 in a web browser. -->
+<!-- For our final project, we’ll make a web server that says “hello” and looks like -->
+<!-- Figure 20-1 in a web browser. -->
 
-最後のプロジェクトでは、`hello`と言うだけのWebサーバを作り、Webブラウザで図20-1のような見た目になります。
+最後のプロジェクトでは、`hello`と言うのWebサーバを作り、Webブラウザで図20-1のような見た目になります。
 
 ![hello from rust](img/trpl20-01.png)
 
@@ -25,17 +25,17 @@
 
 こちらがWebサーバを構築するプランです:
 
-<!-- 1. Learn a bit about TCP and HTTP -->
-<!-- 2. Listen for TCP connections on a socket -->
-<!-- 3. Parse a small number of HTTP requests -->
-<!-- 4. Create a proper HTTP response -->
-<!-- 5. Improve the throughput of our server with a thread pool -->
+<!-- 1. Learn a bit about TCP and HTTP. -->
+<!-- 2. Listen for TCP connections on a socket. -->
+<!-- 3. Parse a small number of HTTP requests. -->
+<!-- 4. Create a proper HTTP response. -->
+<!-- 5. Improve the throughput of our server with a thread pool. -->
 
-1. TCPとHTTPについて少し学ぶ
-2. ソケットでTCP接続をリッスンする
-3. 少量のHTTPリクエストを構文解析する
-4. 適切なHTTPレスポンスを生成する
-5. スレッドプールでサーバのスループットを強化する
+1. TCPとHTTPについて少し学ぶ。
+2. ソケットでTCP接続をリッスンする。
+3. 少量のHTTPリクエストを構文解析する。
+4. 適切なHTTPレスポンスを生成する。
+5. スレッドプールでサーバのスループットを強化する。
 
 <!-- But before we get started, we should mention one detail: the method we’ll use -->
 <!-- won’t be the best way to build a web server with Rust. A number of -->

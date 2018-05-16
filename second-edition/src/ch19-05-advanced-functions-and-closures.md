@@ -12,18 +12,18 @@
 ### 関数ポインタ
 
 <!-- We’ve talked about how to pass closures to functions; you can also pass regular -->
-<!-- functions to functions! This technique is useful when we want to pass a -->
-<!-- function we’ve already defined rather than defining a new closure. We do this -->
-<!-- using function pointers to allow us to use functions as arguments to other -->
+<!-- functions to functions! This technique is useful when you want to pass a -->
+<!-- function you’ve already defined rather than defining a new closure. Doing this -->
+<!-- with function pointers will allow you to use functions as arguments to other -->
 <!-- functions. Functions coerce to the type `fn` (with a lowercase f), not to be -->
-<!-- confused with the `Fn` closure trait. The `fn` type is called a function -->
-<!-- pointer. The syntax for specifying that a parameter is a function pointer is -->
+<!-- confused with the `Fn` closure trait. The `fn` type is called a *function -->
+<!-- pointer*. The syntax for specifying that a parameter is a function pointer is -->
 <!-- similar to that of closures, as shown in Listing 19-35. -->
 
 クロージャを関数に渡す方法について語りました; 普通の関数を関数に渡すこともできるのです！
 新しいクロージャを定義するのではなく、既に定義した関数を渡したい時にこのテクニックは有用です。
-関数ポインタを使用して関数を引数として他の関数に渡してこれを行います。関数は、型`fn`(小文字のfです)に型強制されます。
-`Fn`クロージャトレイトと混同すべきではありません。`fn`型は、関数ポインタと呼ばれます。
+これを関数ポインタで行うと、関数を引数として他の関数に渡して使用します。関数は、型`fn`(小文字のfです)に型強制されます。
+`Fn`クロージャトレイトと混同すべきではありません。`fn`型は、*関数ポインタ*と呼ばれます。
 引数が関数ポインタであると指定する記法は、クロージャのものと似ています。リスト19-35のように。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -69,7 +69,7 @@ fn main() {
 直接`fn`を引数の型として指定します。
 
 <!-- Function pointers implement all three of the closure traits (`Fn`, `FnMut`, and -->
-<!-- `FnOnce`), so we can always pass a function pointer as an argument for a -->
+<!-- `FnOnce`), so you can always pass a function pointer as an argument for a -->
 <!-- function that expects a closure. It’s best to write functions using a generic -->
 <!-- type and one of the closure traits so your functions can accept either -->
 <!-- functions or closures. -->
@@ -85,11 +85,11 @@ fn main() {
 クロージャではなく`fn`だけを受け入れたくなる箇所の一例は、クロージャのない外部コードとのインターフェイスです:
 C関数は引数として関数を受け入れられますが、Cにはクロージャがありません。
 
-<!-- As an example of where we can use either a closure defined inline or a named -->
+<!-- As an example of where you could use either a closure defined inline or a named -->
 <!-- function, let’s look at a use of `map`. To use the `map` function to turn a -->
 <!-- vector of numbers into a vector of strings, we could use a closure, like this: -->
 
-インラインでクロージャが定義されるか、名前付きの関数を使用する箇所の例として、`map`の使用を目撃しましょう。
+インラインでクロージャが定義されるか、名前付きの関数を使用できるかもしれない箇所の例として、`map`の使用に目を向けましょう。
 `map`関数を使用して数字のベクタを文字列のベクタに変換するには、このようにクロージャを使用できます:
 
 ```rust
@@ -134,12 +134,12 @@ let list_of_strings: Vec<String> = list_of_numbers
 
 ### クロージャを返却する
 
-<!-- Closures are represented by traits, which means we can’t return closures -->
-<!-- directly. In most cases where we might want to return a trait, we can instead -->
+<!-- Closures are represented by traits, which means you can’t return closures -->
+<!-- directly. In most cases where you might want to return a trait, you can instead -->
 <!-- use the concrete type that implements the trait as the return value of the -->
-<!-- function. But we can’t do that with closures because they don’t have a concrete -->
-<!-- type that is returnable; we’re not allowed to use the function pointer `fn` as -->
-<!-- a return type, for example. -->
+<!-- function. But you can’t do that with closures because they don’t have a -->
+<!-- concrete type that is returnable; you’re not allowed to use the function -->
+<!-- pointer `fn` as a return type, for example. -->
 
 クロージャはトレイトによって表現されます。つまり、クロージャを直接は返却できないのです。
 トレイトを返却したい可能性のあるほとんどの場合、代わりにトレイトを実装する具体的な型を関数の戻り値として使用できます。

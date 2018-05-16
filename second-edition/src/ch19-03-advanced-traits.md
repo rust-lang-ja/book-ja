@@ -9,9 +9,9 @@
 最初にトレイトについて講義したのは、第10章の「トレイト: 共通の振る舞いを定義する」節でしたが、
 ライフタイム同様、より高度な詳細は議論しませんでした。今や、Rustに詳しくなったので、核心に迫れるでしょう。
 
-<!-- ### Associated Types Specify Placeholder Types in Trait Definitions -->
+<!-- ### Specifying Placeholder Types in Trait Definitions with Associated Types -->
 
-### 関連型は、トレイト定義でプレースホルダーの型を指定する
+### 関連型でトレイト定義においてプレースホルダーの型を指定する
 
 <!-- *Associated types* connect a type placeholder with a trait such that the trait -->
 <!-- method definitions can use these placeholder types in their signatures. The -->
@@ -26,7 +26,7 @@
 
 <!-- We’ve described most of the advanced features in this chapter as being rarely -->
 <!-- needed. Associated types are somewhere in the middle: they’re used more rarely -->
-<!-- than features explained in the rest of the book, but more commonly than many of -->
+<!-- than features explained in the rest of the book but more commonly than many of -->
 <!-- the other features discussed in this chapter. -->
 
 この章のほとんどの高度な機能は、稀にしか必要にならないと解説しました。関連型はその中間にあります:
@@ -46,6 +46,7 @@
 ```rust
 pub trait Iterator {
     type Item;
+
     fn next(&mut self) -> Option<Self::Item>;
 }
 ```
@@ -64,15 +65,11 @@ pub trait Iterator {
 `Iterator`トレイトを実装するものは、`Item`の具体的な型を指定し、`next`メソッドは、
 その具体的な型の値を含む`Option`を返します。
 
-<!-- #### Associated Types vs. Generics -->
+<!-- Associated types might seem like a similar concept to generics, in that the -->
+<!-- latter allow us to define a function without specifying what types it can -->
+<!-- handle. So why use associated types? -->
 
-#### 関連型 vs. ジェネリクス
-
-<!-- Associated types might seem like a similar concept to generics, in that they -->
-<!-- allow us to define a function without specifying what types it can handle. So -->
-<!-- why use associated types? -->
-
-関連型は、それのおかげで扱う型を指定せずに関数を定義できるという点でジェネリクスに似た概念のように思える可能性があります。
+関連型は、ジェネリクスにより扱う型を指定せずに関数を定義できるという点でジェネリクスに似た概念のように思える可能性があります。
 では、何故関連型を使用するのでしょうか？
 
 <!-- Let’s examine the difference between the two concepts with an example from -->
@@ -94,8 +91,8 @@ impl Iterator for Counter {
         // --snip--
 ```
 
-<!-- This syntax seems comparable to generics. So why not just define the `Iterator` -->
-<!-- trait with generics, as shown in Listing 19-21? -->
+<!-- This syntax seems comparable to that of generics. So why not just define the -->
+<!-- `Iterator` trait with generics, as shown in Listing 19-21? -->
 
 この記法は、ジェネリクスと比較可能に思えます。では、何故単純にリスト19-21のように、
 `Iterator`トレイトをジェネリクスで定義しないのでしょうか？
@@ -112,17 +109,17 @@ pub trait Iterator<T> {
 <span class="caption">ジェネリクスを使用した架空の`Iterator`トレイトの定義</span>
 
 <!-- The difference is that when using generics, as in Listing 19-21, we must -->
-<!-- annotate the types in each implementation. The reason is that we can also -->
-<!-- implement `Iterator<String> for Counter` or any other type, which would give us -->
-<!-- multiple implementations of `Iterator` for `Counter`. In other words, when a -->
-<!-- trait has a generic parameter, it can be implemented for a type multiple times, -->
-<!-- changing the concrete types of the generic type parameters each time. When we -->
-<!-- use the `next` method on `Counter`, we would have to provide type annotations -->
-<!-- to indicate which implementation of `Iterator` we want to use. -->
+<!-- annotate the types in each implementation; because we can also implement -->
+<!-- `Iterator<String> for Counter` or any other type, we could have multiple -->
+<!-- implementations of `Iterator` for `Counter`. In other words, when a trait has a -->
+<!-- generic parameter, it can be implemented for a type multiple times, changing -->
+<!-- the concrete types of the generic type parameters each time. When we use the -->
+<!-- `next` method on `Counter`, we would have to provide type annotations to -->
+<!-- indicate which implementation of `Iterator` we want to use. -->
 
-差異は、リスト19-21のようにジェネリクスを使用すると、各実装で型を注釈しなければならないことです。
-その理由は、`Iterator<String> for Counter`や他のどんな型も実装することができ、
-そうすると`Counter`の`Iterator`の実装が複数になるからです。換言すれば、トレイトにジェネリックな引数があると、
+差異は、リスト19-21のようにジェネリクスを使用すると、各実装で型を注釈しなければならないことです;
+`Iterator<String> for Counter`や他のどんな型にも実装することができるので、
+`Counter`の`Iterator`の実装が複数になるからです。換言すれば、トレイトにジェネリックな引数があると、
 毎回ジェネリックな型引数の具体的な型を変更してある型に対して複数回実装できるということです。
 `Counter`に対して`next`メソッドを使用する際に、どの`Iterator`の実装を使用したいか型注釈をつけなければならないでしょう。
 
@@ -228,15 +225,15 @@ trait Add<RHS=Self> {
 ```
 
 <!-- This code should look generally familiar: a trait with one method and an -->
-<!-- associated type. The new part is `RHS=Self` in the angle brackets: this syntax -->
-<!-- is called *default type parameters*. The `RHS` generic type parameter (short -->
-<!-- for “right hand side”) defines the type of the `rhs` parameter in the `add` -->
-<!-- method. If we don’t specify a concrete type for `RHS` when we implement the -->
-<!-- `Add` trait, the type of `RHS` will default to `Self`, which will be the type -->
-<!-- we’re implementing `Add` on. -->
+<!-- associated type. The new part is `RHS=Self`: this syntax is called *default -->
+<!-- type parameters*. The `RHS` generic type parameter (short for “right hand -->
+<!-- side”) defines the type of the `rhs` parameter in the `add` method. If we don’t -->
+<!-- specify a concrete type for `RHS` when we implement the `Add` trait, the type -->
+<!-- of `RHS` will default to `Self`, which will be the type we’re implementing -->
+<!-- `Add` on. -->
 
 このコードは一般的に馴染みがあるはずです: 1つのメソッドと関連型が1つあるトレイトです。
-新しい部分は、山カッコ内の`RHS=Self`です: この記法は、*デフォルト型引数*と呼ばれます。
+新しい部分は、`RHS=Self`です: この記法は、*デフォルト型引数*と呼ばれます。
 RHSというジェネリックな型引数("right hand side": 右辺の省略形)が、`add`メソッドの`rhs`引数の型を定義しています。
 `Add`トレイトを実装する際に`RHS`の具体的な型を指定しなければ、`RHS`の型は標準で`Self`になり、
 これは`Add`を実装している型になります。
@@ -249,12 +246,12 @@ RHSというジェネリックな型引数("right hand side": 右辺の省略形
 `Point`に`Add`を実装する際、2つの`Point`インスタンスを足したかったので、`RHS`の規定を使用しました。
 規定を使用するのではなく、`RHS`の型をカスタマイズしたくなる`Add`トレイトの実装例に目を向けましょう。
 
-<!-- We have two structs holding values in different units, `Millimeters` and -->
-<!-- `Meters`. We want to add values in millimeters to values in meters and have the -->
+<!-- We have two structs `Millimeters` and `Meters`, holding values in different -->
+<!-- units. We want to add values in millimeters to values in meters and have the -->
 <!-- implementation of `Add` do the conversion correctly. We can implement `Add` for -->
 <!-- `Millimeters` with `Meters` as the `RHS`, as shown in Listing 19-23. -->
 
-異なる単位で値を保持する構造体が2つあります。`Millimeters`と`Meters`(それぞれ`ミリメートル`と`メートル`)です。
+異なる単位で値を保持する構造体、`Millimeters`と`Meters`(それぞれ`ミリメートル`と`メートル`)が2つあります。
 ミリメートルの値をメートルの値に足し、`Add`の実装に変換を正しくしてほしいです。
 `Add`を`RHS`に`Meters`のある`Millimeters`に実装することができます。リスト19-23のように:
 
@@ -288,7 +285,7 @@ impl Add<Meters> for Millimeters {
 `Millimeters`を`Meters`に足すため、`Self`という規定を使う代わりに`impl Add<Meters>`を指定して、
 `RHS`型引数の値をセットしています。
 
-<!-- We use default type parameters in two main ways: -->
+<!-- You'll use default type parameters in two main ways: -->
 
 主に2通りの方法でデフォルト型引数を使用します:
 
@@ -299,8 +296,8 @@ impl Add<Meters> for Millimeters {
 * ほとんどのユーザは必要としない特定の場合でカスタマイズを可能にする
 
 <!-- The standard library’s `Add` trait is an example of the second purpose: -->
-<!-- usually, you’ll add two like types, but the `Add` trait provides the ability -->
-<!-- for customizing beyond that. Using a default type parameter in the `Add` trait -->
+<!-- usually, you’ll add two like types, but the `Add` trait provides the ability to -->
+<!-- customize beyond that. Using a default type parameter in the `Add` trait -->
 <!-- definition means you don’t have to specify the extra parameter most of the -->
 <!-- time. In other words, a bit of implementation boilerplate isn’t needed, making -->
 <!-- it easier to use the trait. -->
@@ -310,33 +307,33 @@ impl Add<Meters> for Millimeters {
 ほとんどの場合、追加の引数を指定しなくてもよいことを意味します。つまり、トレイトを使いやすくして、
 ちょっとだけ実装の定型コードが必要なくなるのです。
 
-<!-- The first purpose is similar to the second but in reverse: if we want to add a -->
-<!-- type parameter to an existing trait, we can give it a default to let us extend -->
-<!-- the functionality of the trait without breaking the existing implementation -->
-<!-- code. -->
+<!-- The first purpose is similar to the second but in reverse: if you want to add a -->
+<!-- type parameter to an existing trait, you can give it a default to allow -->
+<!-- extension of the functionality of the trait without breaking the existing -->
+<!-- implementation code. -->
 
 最初の目的は2番目に似ていますが、逆です: 既存のトレイトに型引数を追加したいなら、規定を与えて、
-既存の実装コードを破壊せずにトレイトの機能を拡張させてくれるのです。
+既存の実装コードを破壊せずにトレイトの機能を拡張できるのです。
 
 <!-- ### Fully Qualified Syntax for Disambiguation: Calling Methods with the Same Name -->
 
 ### 明確化のためのフルパス記法: 同じ名前のメソッドを呼ぶ
 
 <!-- Nothing in Rust prevents a trait from having a method with the same name as -->
-<!-- another trait’s method, nor does Rust prevent us from implementing both traits -->
+<!-- another trait’s method, nor does Rust prevent you from implementing both traits -->
 <!-- on one type. It’s also possible to implement a method directly on the type with -->
 <!-- the same name as methods from traits. -->
 
 Rustにおいて、別のトレイトのメソッドと同じ名前のメソッドがトレイトにあったり、両方のトレイトを1つの型に実装することを妨げるものは何もありません。
 トレイトのメソッドと同じ名前のメソッドを直接型に実装することも可能です。
 
-<!-- When calling methods with the same name, we need to tell Rust which one we want -->
-<!-- to use. Consider the code in Listing 19-24 where we’ve defined two traits, -->
+<!-- When calling methods with the same name, you'll need to tell Rust which one you -->
+<!-- want to use. Consider the code in Listing 19-24 where we’ve defined two traits, -->
 <!-- `Pilot` and `Wizard`, that both have a method called `fly`. We then implement -->
 <!-- both traits on a type `Human` that already has a method named `fly` implemented -->
 <!-- on it. Each `fly` method does something different. -->
 
-同じ名前のメソッドを呼ぶ際、コンパイラにどれを使用したいのか教える必要があります。両方とも`fly`というメソッドがある2つのトレイト、
+同じ名前のメソッドを呼ぶ際、コンパイラにどれを使用したいのか教える必要があるでしょう。両方とも`fly`というメソッドがある2つのトレイト、
 `Pilot`と`Wizard`(`脚注`: パイロットと魔法使い)を定義したリスト19-24のコードを考えてください。
 それから両方のトレイトを既に`fly`というメソッドが実装されている型`Human`に実装します。
 各`fly`メソッドは異なることをします。
@@ -378,12 +375,12 @@ impl Human {
 }
 ```
 
-<!-- <span class="caption">Listing 19-24: Two traits defined to have a `fly` method -->
-<!-- and implementations of those traits on the `Human` type in addition to a `fly` -->
-<!-- method on `Human` directly</span> -->
+<!-- <span class="caption">Listing 19-24: Two traits are defined to have a `fly` -->
+<!-- method and are implemented on the `Human` type, and a `fly` method is -->
+<!-- implemented on `Human` directly</span> -->
 
-<span class="caption">リスト19-24: `fly`があるように定義された2つのトレイトと、`Human`に直接ある`fly`メソッドに加えて、
-それらのトレイトを`Human`型に実装する</span>
+<span class="caption">リスト19-24: 2つのトレイトに`fly`があるように定義され、`Human`に実装されつつ、
+    `fly`メソッドは`Human`に直接実装されている</span>
 
 <!-- When we call `fly` on an instance of `Human`, the compiler defaults to calling -->
 <!-- the method that is directly implemented on the type, as shown in Listing 19-25. -->
@@ -435,7 +432,7 @@ fn main() {
 
 <span class="caption">リスト19-25: `Human`のインスタンスに対して`fly`を呼び出す</span>
 
-<!-- Running this code will print `*waving arms furiously*`, which shows that Rust -->
+<!-- Running this code will print `*waving arms furiously*`, showing that Rust -->
 <!-- called the `fly` method implemented on `Human` directly. -->
 
 このコードを実行すると、`*waving arms furiously*`と出力され、コンパイラが`Human`に直接実装された`fly`メソッドを呼んでいることを示しています。
@@ -496,12 +493,13 @@ fn main() {
 
 <!-- Specifying the trait name before the method name clarifies to Rust which -->
 <!-- implementation of `fly` we want to call. We could also write -->
-<!-- `Human::fly(&person)`, which is equivalent to `person.fly()` that we used in -->
-<!-- Listing 19-26 but is a bit longer to write if we don’t need to disambiguate. -->
+<!-- `Human::fly(&person)`, which is equivalent to the `person.fly()` that we used -->
+<!-- in Listing 19-26, but this is a bit longer to write if we don’t need to -->
+<!-- disambiguate. -->
 
 メソッド名の前にトレイト名を指定すると、コンパイラにどの`fly`の実装を呼び出したいか明確化できます。
 また、`Human::fly(&person)`と書くこともでき、リスト19-26で使用した`person.fly()`と等価ですが、
-明確化する必要がないなら、ちょっと記述量が増えます。
+こちらの方が明確化する必要がないなら、ちょっと記述量が増えます。
 
 <!-- Running this code prints the following: -->
 
@@ -514,15 +512,15 @@ Up!
 ```
 
 <!-- Because the `fly` method takes a `self` parameter, if we had two *types* that -->
-<!-- both implement one *trait*, Rust can figure out which implementation of a trait -->
-<!-- to use based on the type of `self`. -->
+<!-- both implement one *trait*, Rust could figure out which implementation of a -->
+<!-- trait to use based on the type of `self`. -->
 
 `fly`メソッドは`self`引数を取るので、1つの*トレイト*を両方実装する*型*が2つあれば、
-コンパイラには、`self`の型に基づいてどのトレイトの実装を使うべきかわかります。
+コンパイラには、`self`の型に基づいてどのトレイトの実装を使うべきかわかるでしょう。
 
 <!-- However, associated functions that are part of traits don’t have a `self` -->
 <!-- parameter. When two types in the same scope implement that trait, Rust can’t -->
-<!-- figure out which type we mean unless we use *fully qualified syntax*. For -->
+<!-- figure out which type you mean unless you use *fully qualified syntax*. For -->
 <!-- example, the `Animal` trait in Listing 19-27 has the associated function -->
 <!-- `baby_name`, the implementation of `Animal` for the struct `Dog`, and the -->
 <!-- associated function `baby_name` defined on `Dog` directly. -->
@@ -564,8 +562,8 @@ fn main() {
 ```
 
 <!-- <span class="caption">Listing 19-27: A trait with an associated function and a -->
-<!-- type that has an associated function with the same name that also implements -->
-<!-- the trait</span> -->
+<!-- type with an associated function of the same name that also implements the -->
+<!-- trait</span> -->
 
 <span class="caption">リスト19-27: 関連関数のあるトレイトとそのトレイトも実装し、同じ名前の関連関数がある型</span>
 
@@ -637,12 +635,11 @@ error[E0283]: type annotations required: cannot resolve `_: Animal`
 ```
 
 <!-- To disambiguate and tell Rust that we want to use the implementation of -->
-<!-- `Animal` for `Dog`, we need to use *fully qualified syntax*, which is the most -->
-<!-- specific we can be when calling a function. Listing 19-29 demonstrates how to -->
-<!-- use fully qualified syntax. -->
+<!-- `Animal` for `Dog`, we need to use fully qualified syntax. Listing 19-29 -->
+<!-- demonstrates how to use fully qualified syntax. -->
 
-`Dog`に対して`Animal`実装を使用したいと明確化し、コンパイラに指示するには、*フルパス記法*を使う必要があり、
-関数を呼ぶ際にでき得る最も特定したものです。リスト19-29は、フルパス記法を使用する方法をデモしています。
+`Dog`に対して`Animal`実装を使用したいと明確化し、コンパイラに指示するには、フルパス記法を使う必要があります。
+リスト19-29は、フルパス記法を使用する方法をデモしています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -701,12 +698,12 @@ A baby dog is called a puppy
 ```
 
 <!-- For associated functions, there would not be a `receiver`: there would only be -->
-<!-- the list of other arguments. We could use fully qualified syntax everywhere -->
-<!-- that we call functions or methods. However, we’re allowed to omit any part of -->
-<!-- this syntax that Rust can figure out from other information in the program. We -->
+<!-- the list of other arguments. You could use fully qualified syntax everywhere -->
+<!-- that you call functions or methods. However, you’re allowed to omit any part of -->
+<!-- this syntax that Rust can figure out from other information in the program. You -->
 <!-- only need to use this more verbose syntax in cases where there are multiple -->
 <!-- implementations that use the same name and Rust needs help to identify which -->
-<!-- implementation we want to call. -->
+<!-- implementation you want to call. -->
 
 関連関数では、`receiver`がないでしょう: 他の引数のリストがあるだけでしょう。関数やメソッドを呼び出す箇所全部で、
 フルパス記法を使用することもできるでしょうが、プログラムの他の情報からコンパイラが推論できるこの記法のどの部分も省略することが許容されています。
@@ -716,9 +713,9 @@ A baby dog is called a puppy
 
 ### スーパートレイトを使用して別のトレイト内であるトレイトの機能を必要とする
 
-<!-- Sometimes, we might need one trait to use another trait’s functionality. In -->
-<!-- this case, we need to rely on the dependent trait also being implemented. The -->
-<!-- trait we’re relying on is a *supertrait* of the trait we’re implementing. -->
+<!-- Sometimes, you might need one trait to use another trait’s functionality. In -->
+<!-- this case, you need to rely on the dependent trait's also being implemented. -->
+<!-- The trait you rely on is a *supertrait* of the trait you’re implementing. -->
 
 時として、あるトレイトに別のトレイトの機能を使用させる必要がある可能性があります。この場合、
 依存するトレイトも実装されることを信用する必要があります。信用するトレイトは、実装しているトレイトの*スーパートレイト*です。
@@ -743,15 +740,15 @@ A baby dog is called a puppy
 
 <!-- In the implementation of `outline_print`, we want to use the `Display` trait’s -->
 <!-- functionality. Therefore, we need to specify that the `OutlinePrint` trait will -->
-<!-- only work for types that also implement `Display` and provide the functionality -->
+<!-- work only for types that also implement `Display` and provide the functionality -->
 <!-- that `OutlinePrint` needs. We can do that in the trait definition by specifying -->
 <!-- `OutlinePrint: Display`. This technique is similar to adding a trait bound to -->
-<!-- the trait. Listing 19-30 shows an implementation of the `OutlinePrint` trait: -->
+<!-- the trait. Listing 19-30 shows an implementation of the `OutlinePrint` trait. -->
 
 `outline_print`の実装では、`Display`トレイトの機能を使用したいです。故に、`Display`も実装する型に対してだけ`OutlinePrint`が動くと指定し、
 `OutlinePrint`が必要とする機能を提供する必要があるわけです。トレイト定義で`OutlinePrint: Display`と指定することで、
 そうすることができます。このテクニックは、トレイトにトレイト境界を追加することに似ています。
-リスト19-30は、`OutlinePrint`トレイトの実装を示しています:
+リスト19-30は、`OutlinePrint`トレイトの実装を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -780,12 +777,13 @@ trait OutlinePrint: fmt::Display {
 
 <!-- Because we’ve specified that `OutlinePrint` requires the `Display` trait, we -->
 <!-- can use the `to_string` function that is automatically implemented for any type -->
-<!-- that implements `Display`. If we tried to use `to_string` without adding `: -->
-<!-- Display` after the trait name, we’d get an error saying that no method named -->
-<!-- `to_string` was found for the type `&Self` in the current scope. -->
+<!-- that implements `Display`. If we tried to use `to_string` without adding a -->
+<!-- colon and specifying `Display` trait after the trait name, we’d get an -->
+<!-- error saying that no method named `to_string` was found for the type `&Self` in -->
+<!-- the current scope. -->
 
 `OutlinePrint`は`Display`トレイトを必要とすると指定したので、`Display`を実装するどんな型にも自動的に実装される`to_string`関数を使えます。
-トレイト名の後に`: Display`を追加せずに`to_string`を使おうとしたら、
+トレイト名の後にコロンと`Display`トレイトを追加せずに`to_string`を使おうとしたら、
 現在のスコープで型`&Self`に`to_string`というメソッドは存在しないというエラーが出るでしょう。
 
 <!-- Let’s see what happens when we try to implement `OutlinePrint` on a type that -->
@@ -854,39 +852,39 @@ impl fmt::Display for Point {
 そうすれば、`Point`に`OutlinePrint`トレイトを実装してもコンパイルは成功し、
 `Point`インスタンスに対して`outline_print`を呼び出し、アスタリスクのふちの中に表示することができます。
 
-<!-- ### The Newtype Pattern to Implement External Traits on External Types -->
+<!-- ### Using the Newtype Pattern to Implement External Traits on External Types -->
 
-### 外部の型に外部のトレイトを実装するニュータイプパターン
+### ニュータイプパターンを使用して外部の型に外部のトレイトを実装する
 
 <!-- In Chapter 10 in the “Implementing a Trait on a Type” section, we mentioned the -->
 <!-- orphan rule that states we’re allowed to implement a trait on a type as long as -->
 <!-- either the trait or the type are local to our crate. It’s possible to get -->
 <!-- around this restriction using the *newtype pattern*, which involves creating a -->
-<!-- new type in a tuple struct. (We covered tuple structs in the “Tuple Structs -->
-<!-- without Named Fields to Create Different Types” section of Chapter 5.) The -->
-<!-- tuple struct will have one field and be a thin wrapper around the type we want -->
-<!-- to implement a trait for. Then the wrapper type is local to our crate, and we -->
-<!-- can implement the trait on the wrapper. *Newtype* is a term that originates -->
+<!-- new type in a tuple struct. (We covered tuple structs in the “Using Tuple -->
+<!-- Structs without Named Fields to Create Different Types” section of Chapter 5.) -->
+<!-- The tuple struct will have one field and be a thin wrapper around the type we -->
+<!-- want to implement a trait for. Then the wrapper type is local to our crate, and -->
+<!-- we can implement the trait on the wrapper. *Newtype* is a term that originates -->
 <!-- from the Haskell programming language. There is no runtime performance penalty -->
 <!-- for using this pattern, and the wrapper type is elided at compile time. -->
 
 第10章の「型にトレイトを実装する」節で、トレイトか型がクレートにローカルな限り、型にトレイトを実装できると述べるオーファンルールについて触れました。
 *ニュータイプパターン*を使用してこの制限を回避することができ、タプル構造体に新しい型を作成することに関連します。
-(タプル構造体については、第5章の「異なる型を生成する名前付きフィールドのないタプル構造体」節で講義しました。)
+(タプル構造体については、第5章の「異なる型を生成する名前付きフィールドのないタプル構造体を使用する」節で講義しました。)
 タプル構造体は1つのフィールドを持ち、トレイトを実装したい型の薄いラッパーになるでしょう。そして、
 ラッパーの型はクレートにローカルなので、トレイトをラッパーに実装できます。*ニュータイプ*という用語は、
 Haskellプログラミング言語に端を発しています。このパターンを使用するのに実行時のパフォーマンスを犠牲にすることはなく、
 ラッパー型はコンパイル時に省かれます。
 
-<!-- As an example, let’s say we want to implement `Display` on `Vec`, which the -->
+<!-- As an example, let’s say we want to implement `Display` on `Vec<T>`, which the -->
 <!-- orphan rule prevents us from doing directly because the `Display` trait and the -->
-<!-- `Vec` type are defined outside our crate. We can make a `Wrapper` struct that -->
-<!-- holds an instance of `Vec`; then we can implement `Display` on `Wrapper` and -->
-<!-- use the `Vec` value, as shown in Listing 19-31. -->
+<!-- `Vec<T>` type are defined outside our crate. We can make a `Wrapper` struct -->
+<!-- that holds an instance of `Vec<T>`; then we can implement `Display` on -->
+<!-- `Wrapper` and use the `Vec<T>` value, as shown in Listing 19-31. -->
 
-例として、`Vec`に`Display`を実装したいとしましょう。これは、`Display`トレイトも`Vec`型もクレートの外で定義されているので、
-直接行うことをオーファンルールにより妨げられます。`Vec`のインスタンスを保持する`Wrapper`構造体を作成できます;
-そして、`Wrapper`に`Display`を実装し、`Vec`値を使用できます。リスト19-31のように。
+例として、`Vec<T>`に`Display`を実装したいとしましょう。これは、`Display`トレイトも`Vec<T>`型もクレートの外で定義されているので、
+直接行うことをオーファンルールにより妨げられます。`Vec<T>`のインスタンスを保持する`Wrapper`構造体を作成できます;
+そして、`Wrapper`に`Display`を実装し、`Vec<T>`値を使用できます。リスト19-31のように。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -914,30 +912,30 @@ fn main() {
 
 <span class="caption">リスト19-31: `Vec<String>`の周りに`Wrapper`を作成して`Display`を実装する</span>
 
-<!-- The implementation of `Display` uses `self.0` to access the inner `Vec`, -->
-<!-- because `Wrapper` is a tuple struct and `Vec` is the item at index 0 in the -->
+<!-- The implementation of `Display` uses `self.0` to access the inner `Vec<T>`, -->
+<!-- because `Wrapper` is a tuple struct and `Vec<T>` is the item at index 0 in the -->
 <!-- tuple. Then we can use the functionality of the `Display` type on `Wrapper`. -->
 
-`Display`の実装は、`self.0`で中身の`Vec`にアクセスしています。`Wrapper`はタプル構造体で、
-`Vec`がタプルの番号0の要素だからです。それから、`Wrapper`に対して`Display`型の機能を使用できます。
+`Display`の実装は、`self.0`で中身の`Vec<T>`にアクセスしています。`Wrapper`はタプル構造体で、
+`Vec<T>`がタプルの番号0の要素だからです。それから、`Wrapper`に対して`Display`型の機能を使用できます。
 
 <!-- The downside of using this technique is that `Wrapper` is a new type, so it -->
 <!-- doesn’t have the methods of the value it’s holding. We would have to implement -->
-<!-- all the methods of `Vec` directly on `Wrapper` so it can delegate to `self.0`, -->
-<!-- allowing us to treat `Wrapper` exactly like a `Vec`. If we wanted the new type -->
-<!-- to have every method the inner type has, implementing the `Deref` trait -->
-<!-- (discussed in Chapter 15 in the “Treating Smart Pointers like Regular -->
-<!-- References with the `Deref` Trait” section) on the `Wrapper` to return the -->
-<!-- inner type would be a solution. If we don’t want the `Wrapper` type to have all -->
-<!-- the methods of the inner type, in order to restrict the `Wrapper` type’s -->
-<!-- behavior for example, we would have to implement just the methods we do want -->
-<!-- manually. -->
+<!-- all the methods of `Vec<T>` directly on `Wrapper` such that the methods -->
+<!-- delegate to `self.0`, which would allow us to treat `Wrapper` exactly like a -->
+<!-- `Vec<T>`. If we wanted the new type to have every method the inner type has, -->
+<!-- implementing the `Deref` trait (discussed in Chapter 15 in the “Treating Smart -->
+<!-- Pointers like Regular References with the `Deref` Trait” section) on the -->
+<!-- `Wrapper` to return the inner type would be a solution. If we don’t want the -->
+<!-- `Wrapper` type to have all the methods of the inner type—for example, to -->
+<!-- restrict the `Wrapper` type’s behavior—we would have to implement just the -->
+<!-- methods we do want manually. -->
 
 このテクニックを使用する欠点は、`Wrapper`が新しい型なので、保持している値のメソッドがないことです。
-`self.0`に委譲して、`Wrapper`を`Vec`と全く同様に扱えるように、`Wrapper`に直接`Vec`の全てのメソッドを実装しなければならないでしょう。
+`self.0`に委譲して、`Wrapper`を`Vec<T>`と全く同様に扱えるように、`Wrapper`に直接`Vec<T>`の全てのメソッドを実装しなければならないでしょう。
 内部の型が持つ全てのメソッドを新しい型に持たせたいなら、
 `Deref`トレイト(第15章の「`Deref`トレイトでスマートポインタを普通の参照のように扱う」節で議論しました)を`Wrapper`に実装して、
-内部の型を返すことは解決策の1つでしょう。例えば、`Wrapper`型の機能を制限するなどの目的で内部の型のメソッド全部を`Wrapper`型に持たせたくないなら、
+内部の型を返すことは解決策の1つでしょう。内部の型のメソッド全部を`Wrapper`型に持たせたくない(例えば、`Wrapper`型の機能を制限するなど)なら、
 本当に欲しいメソッドだけを手動で実装しなければならないでしょう。
 
 <!-- Now you know how the newtype pattern is used in relation to traits; it’s also a -->

@@ -21,14 +21,13 @@ Rustの型システムには、この本で触れたけれども、まだ議論�
 
 ### 型安全性と抽象化を求めてニュータイプパターンを使用する
 
-<!-- The newtype pattern is useful for other tasks beyond what we’ve discussed so -->
-<!-- far, including statically enforcing that values are never confused and as an -->
-<!-- indication of the units of a value. You saw an example of using newtypes to -->
-<!-- indicate units in Listing 19-23: recall that the `Millimeters` and `Meters` -->
-<!-- structs wrapped `u32` values in a newtype. If we wrote a function with a -->
-<!-- parameter of type `Millimeters`, we couldn’t compile a program that -->
-<!-- accidentally tried to call that function with a value of type `Meters` or a -->
-<!-- plain `u32`. -->
+<!-- The newtype pattern is useful for tasks beyond those we’ve discussed so far, -->
+<!-- including statically enforcing that values are never confused and indicating -->
+<!-- the units of a value. You saw an example of using newtypes to indicate units in -->
+<!-- Listing 19-23: recall that the `Millimeters` and `Meters` structs wrapped `u32` -->
+<!-- values in a newtype. If we wrote a function with a parameter of type -->
+<!-- `Millimeters`, we couldn’t compile a program that accidentally tried to call -->
+<!-- that function with a value of type `Meters` or a plain `u32`. -->
 
 ここまでに議論した以上の作業についてもニュータイプパターンは有用で、静的に絶対に値を混同しないことを強制したり、
 値の単位を示すことを含みます。ニュータイプを使用して単位を示す例をリスト19-23で見かけました:
@@ -59,9 +58,9 @@ Rustの型システムには、この本で触れたけれども、まだ議論�
 ニュータイプパターンは、カプセル化を実現して実装の詳細を隠匿する軽い方法であり、
 第17章の「カプセル化は実装詳細を隠蔽する」節で議論しましたね。
 
-<!-- ### Type Aliases Create Type Synonyms -->
+<!-- ### Creating Type Synonyms with Type Aliases -->
 
-### 型エイリアスは、型同義語を生成する
+### 型エイリアスで型同義語を生成する
 
 <!-- Along with the newtype pattern, Rust provides the ability to declare a *type -->
 <!-- alias* to give an existing type another name. For this we use the `type` -->
@@ -204,11 +203,11 @@ type Result<T> = Result<T, std::io::Error>;
 ```
 
 <!-- Because this declaration is in the `std::io` module, we can use the fully -->
-<!-- qualified alias `std::io::Result<T>`; that is, a `Result<T, E>` with the `E` -->
+<!-- qualified alias `std::io::Result<T>`-that is, a `Result<T, E>` with the `E` -->
 <!-- filled in as `std::io::Error`. The `Write` trait function signatures end up -->
 <!-- looking like this: -->
 
-この宣言は`std::io`モジュール内にあるので、フルパスエイリアスの`std::io::Result<T>`を使用できます;
+この宣言は`std::io`モジュール内にあるので、フルパスエイリアスの`std::io::Result<T>`を使用できます。
 つまり、`E`が`std::io::Error`で埋められた`Result<T, E>`です。その結果、`Write`トレイトの関数シグニチャは、
 以下のような見た目になります:
 
@@ -225,15 +224,15 @@ pub trait Write {
 <!-- The type alias helps in two ways: it makes code easier to write *and* it gives -->
 <!-- us a consistent interface across all of `std::io`. Because it’s an alias, it’s -->
 <!-- just another `Result<T, E>`, which means we can use any methods that work on -->
-<!-- `Result<T, E>` with it, as well as special syntax like `?`. -->
+<!-- `Result<T, E>` with it, as well as special syntax like the `?` operator. -->
 
 型エイリアスは、2通りの方法で役に立っています: コードを書きやすくすること*と*`std::io`を通して首尾一貫したインターフェイスを与えてくれることです。
 別名なので、ただの`Result<T, E>`であり、要するに`Result<T, E>`に対して動くメソッドはなんでも使えるし、
-`?`のような特殊な記法も使えます。
+`?`演算子のような特殊な記法も使えます。
 
-<!-- ### The `!` Never Type that Never Returns -->
+<!-- ### The Never Type that Never Returns -->
 
-### `!`never型は絶対に返さない
+### never型は絶対に返らない
 
 <!-- Rust has a special type named `!` that’s known in type theory lingo as the -->
 <!-- *empty type* because it has no values. We prefer to call it the *never type* -->
@@ -258,10 +257,10 @@ fn bar() -> ! {
 型`!`の値は生成できないので、`bar`が返ることは絶対にあり得ません。
 
 <!-- But what use is a type you can never create values for? Recall the code from -->
-<!-- Listing 2-5; we’ve reproduced it here in Listing 19-34. -->
+<!-- Listing 2-5; we’ve reproduced part of it here in Listing 19-34. -->
 
 ですが、値を絶対に生成できない型をどう使用するのでしょうか？リスト2-5のコードを思い出してください;
-リスト19-34に再掲しました。
+リスト19-34に一部を再現しました。
 
 ```rust
 # let guess = "3";
@@ -294,11 +293,11 @@ let guess = match guess.trim().parse() {
 ```
 
 <!-- The type of `guess` in this code would have to be an integer *and* a string, -->
-<!-- and Rust requires that `guess` can only have one type. So what does `continue` -->
+<!-- and Rust requires that `guess` have only one type. So what does `continue` -->
 <!-- return? How were we allowed to return a `u32` from one arm and have another arm -->
 <!-- that ends with `continue` in Listing 19-34? -->
 
-このコードの`guess`は整数*かつ*文字列にならなければならないでしょうが、Rustでは、`guess`は1つの型にしかなり得ません。
+このコードの`guess`は整数*かつ*文字列にならなければならないでしょうが、Rustでは、`guess`は1つの型にしかなりません。
 では、`continue`は何を返すのでしょうか？どうやってリスト19-34で1つのアームからは`u32`を返し、別のアームでは、
 `continue`で終わっていたのでしょうか？
 
@@ -340,15 +339,15 @@ impl<T> Option<T> {
 ```
 
 <!-- In this code, the same thing happens as in the `match` in Listing 19-34: Rust -->
-<!-- sees that `val` has the type `T` and `panic!` has the type `!` so the result of -->
-<!-- the overall `match` expression is `T`. This code works because `panic!` doesn’t -->
-<!-- produce a value; it ends the program. In the `None` case, we won’t be returning -->
-<!-- a value from `unwrap`, so this code is valid. -->
+<!-- sees that `val` has the type `T` and `panic!` has the type `!`, so the result -->
+<!-- of the overall `match` expression is `T`. This code works because `panic!` -->
+<!-- doesn't produce a value; it ends the program. In the `None` case, we won’t be -->
+<!-- returning a value from `unwrap`, so this code is valid. -->
 
 このコードにおいて、リスト19-34の`match`と同じことが起きています: コンパイラは、`val`の型はTで、
 `panic!`の型は`!`なので、`match`式全体の結果は`T`と確認します。`panic!`は値を生成しないので、
 このコードは動きます。つまり、プログラムを終了するのです。`None`の場合、`unwrap`から値は返さないでしょうから、
-このコードは有効なのです。
+このコードは合法なのです。
 
 <!-- One final expression that has the type `!` is a `loop`: -->
 
@@ -369,15 +368,15 @@ loop {
 ここで、ループは終わりませんので、`!`が式の値です。ところが、`break`を含んでいたら、これは真にはならないでしょう。
 `break`に到達した際にループが終了してしまうからです。
 
-<!-- ### Dynamically Sized Types and `Sized` -->
+<!-- ### Dynamically Sized Types and the `Sized` Trait -->
 
-### 動的サイズ付け型と`Sized`
+### 動的サイズ付け型と`Sized`トレイト
 
 <!-- Due to Rust’s need to know certain details, such as how much space to allocate -->
 <!-- for a value of a particular type, there is a corner of its type system that can -->
 <!-- be confusing: the concept of *dynamically sized types*. Sometimes referred to -->
 <!-- as *DSTs* or *unsized types*, these types let us write code using values whose -->
-<!-- size we can only know at runtime. -->
+<!-- size we can know only at runtime. -->
 
 コンパイラが特定の型の値1つにどれくらいのスペースのメモリを確保するのかなどの特定の詳細を知る必要があるために、
 型システムには混乱することもある秘密の場所があります: 動的サイズ付け型の概念です。時として*DST*や*サイズなし型*とも参照され、
@@ -413,7 +412,7 @@ Rustでこのコードを書くことが許容されたら、これら2つの`st
 
 <!-- So what do we do? In this case, you already know the answer: we make the types -->
 <!-- of `s1` and `s2` a `&str` rather than a `str`. Recall that in the “String -->
-<!-- Slices” section of Chapter 4 we said the slice data structure stores the -->
+<!-- Slices” section of Chapter 4, we said the slice data structure stores the -->
 <!-- starting position and the length of the slice. -->
 
 では、どうすればいいのでしょうか？この場合、もう答えはご存知です: `s1`と`s2`の型を`str`ではなく、
@@ -423,12 +422,12 @@ Rustでこのコードを書くことが許容されたら、これら2つの`st
 <!-- So although a `&T` is a single value that stores the memory address of where -->
 <!-- the `T` is located, a `&str` is *two* values: the address of the `str` and its -->
 <!-- length. As such, we can know the size of a `&str` value at compile time: it’s -->
-<!-- two times the size of a `usize` in length. That is, we always know the size of -->
-<!-- a `&str`, no matter how long the string it refers to is. In general, this is -->
-<!-- the way in which dynamically sized types are used in Rust: they have an extra -->
-<!-- bit of metadata that stores the size of the dynamic information. The golden -->
-<!-- rule of dynamically sized types is that we must always put values of -->
-<!-- dynamically sized types behind a pointer of some kind. -->
+<!-- twice the length of a `usize`. That is, we always know the size of a `&str`, no -->
+<!-- matter how long the string it refers to is. In general, this is the way in -->
+<!-- which dynamically sized types are used in Rust: they have an extra bit of -->
+<!-- metadata that stores the size of the dynamic information. The golden rule of -->
+<!-- dynamically sized types is that we must always put values of dynamically sized -->
+<!-- types behind a pointer of some kind. -->
 
 従って、`&T`は、`T`がどこにあるかのメモリアドレスを格納する単独の値だけれども、`&str`は*2つ*の値なのです:
 `str`のアドレスとその長さです。そのため、コンパイル時に`&str`のサイズを知ることができます:
@@ -476,7 +475,7 @@ fn generic<T: Sized>(t: T) {
 }
 ```
 
-<!-- By default, generic functions will only work on types that have a known size at -->
+<!-- By default, generic functions will work only on types that have a known size at -->
 <!-- compile time. However, you can use the following special syntax to relax this -->
 <!-- restriction: -->
 

@@ -12,12 +12,12 @@ Rustプロジェクトの管理をしています。Cargoは、コードのビ�
 それらのライブラリのビルド(コードが必要とするライブラリを我々は、*依存*と呼んでいます)などの多くの仕事を扱ってくれるからです。
 
 <!-- The simplest Rust programs, like the one we’ve written so far, don’t have any -->
-<!-- dependencies. So if we had built the “Hello, world!” project with Cargo, it -->
-<!-- would only use the part of Cargo that handles building your code. As you write -->
-<!-- more complex Rust programs, you’ll add dependencies, and if you start a project -->
+<!-- dependencies. So if we had built the Hello, world! project with Cargo, it would -->
+<!-- only use the part of Cargo that handles building your code. As you write more -->
+<!-- complex Rust programs, you’ll add dependencies, and if you start a project -->
 <!-- using Cargo, adding dependencies will be much easier to do. -->
 
-今までに書いたような最も単純なRustプログラムは、依存がありません。従って、"Hello, world!"プロジェクトをCargoを使ってビルドしても、
+今までに書いたような最も単純なRustプログラムは、依存がありません。従って、Hello, world!プロジェクトをCargoを使ってビルドしても、
 Cargoのコードをビルドする部分しか使用しないでしょう。より複雑なRustプログラムを書くにつれて、
 依存を追加し、Cargoでプロジェクトを開始したら、依存の追加は、遥かに簡単になるのです。
 
@@ -47,11 +47,11 @@ $ cargo --version
 ### Cargoでプロジェクトを作成する
 
 <!-- Let’s create a new project using Cargo and look at how it differs from our -->
-<!-- original “Hello, world!” project. Navigate back to your *projects* directory -->
-<!-- (or wherever you decided to store your code). Then, on any operating system, -->
-<!-- run the following: -->
+<!-- original Hello, world! project. Navigate back to your *projects* directory (or -->
+<!-- wherever you decided to store your code). Then, on any operating system, run -->
+<!-- the following: -->
 
-Cargoを使用して新しいプロジェクトを作成し、元の"Hello, world!"プロジェクトとどう違うかを見ましょう。
+Cargoを使用して新しいプロジェクトを作成し、元のHello, world!プロジェクトとどう違うかを見ましょう。
 *projects*ディレクトリ(あるいはコードを格納すると決めた場所)に戻ってください。それから、
 OSに関わらず、以下を実行してください:
 
@@ -109,10 +109,10 @@ authors = ["Your Name <you@example.com>"]
 
 <span class="caption">リスト1-2: `cargo new`で生成される*Cargo.toml*の中身</span>
 
-<!-- This file is in the [*TOML*][toml] (Tom’s Obvious, Minimal -->
-<!-- Language) format, which is Cargo’s configuration format. -->
+<!-- This file is in the [*TOML*][toml] (*Tom’s Obvious, Minimal -->
+<!-- Language*) format, which is Cargo’s configuration format. -->
 
-このファイルは[TOML][toml](Tom's Obvious, Minimal Language; `直訳`: トムの明確な最小限の言語)フォーマットで、
+このファイルは[TOML][toml](*Tom's Obvious, Minimal Language*; `直訳`: トムの明確な最小限の言語)フォーマットで、
 Cargoの設定フォーマットです。
 
 [toml]: https://github.com/toml-lang/toml
@@ -156,12 +156,12 @@ fn main() {
 }
 ```
 
-<!-- Cargo has generated a “Hello, world!” program for you, just like the one we -->
-<!-- wrote in Listing 1-1! So far, the differences between our previous project and -->
-<!-- the project Cargo generates are that Cargo placed the code in the *src* -->
-<!-- directory, and we have a *Cargo.toml* configuration file in the top directory. -->
+<!-- Cargo has generated a Hello, world! program for you, just like the one we wrote -->
+<!-- in Listing 1-1! So far, the differences between our previous project and the -->
+<!-- project Cargo generates are that Cargo placed the code in the *src* directory, -->
+<!-- and we have a *Cargo.toml* configuration file in the top directory. -->
 
-ちょうどリスト1-1で書いたように、Cargoは"Hello, world!"プログラムを生成してくれています。ここまでで、
+ちょうどリスト1-1で書いたように、CargoはHello, world!プログラムを生成してくれています。ここまでで、
 前のプロジェクトとCargoが生成したプロジェクトの違いは、Cargoが*src*ディレクトリにコードを配置し、
 最上位のディレクトリに*Cargo.toml*設定ファイルがあることです。
 
@@ -189,11 +189,11 @@ Hello, world!プロジェクトのように、Cargoを使用しないプロジ�
 
 ### Cargoプロジェクトをビルドし、実行する
 
-<!-- Now let’s look at the difference when we build and run the “Hello, world!” -->
-<!-- program with Cargo! From your *hello_cargo* directory, build your project by -->
-<!-- entering the following command: -->
+<!-- Now let’s look what's different when we build and run the Hello, world! program -->
+<!-- with Cargo! From your *hello_cargo* directory, build your project by entering -->
+<!-- the following command: -->
 
-さて、Cargoで"Hello, world!"プログラムをビルドし、実行する時の違いに目を向けましょう！*hello_cargo*ディレクトリから、
+さて、CargoでHello, world!プログラムをビルドし、実行する時の違いに目を向けましょう！*hello_cargo*ディレクトリから、
 以下のコマンドを入力してプロジェクトをビルドしてください:
 
 ```text
@@ -283,14 +283,14 @@ $ cargo check
 プログラムを書く際にコンパイルできるか確かめるために定期的に`cargo check`を実行します。
 そして、実行可能ファイルを使用できる状態になったら、`cargo build`を走らせるのです。
 
-<!-- To recap what we’ve learned so far about Cargo: -->
+<!-- Let's recap what we’ve learned so far about Cargo: -->
 
-ここまでにCargoについて学んだことをおさらいします:
+ここまでにCargoについて学んだことをおさらいしましょう:
 
 <!-- * We can build a project using `cargo build` or `cargo check`. -->
 <!-- * We can build and run a project in one step using `cargo run`. -->
 <!-- * Instead of the result of the build being saved in the same directory as our -->
-<!-- code, Cargo stores it in the *target/debug* directory. -->
+<!--   code, Cargo stores it in the *target/debug* directory. -->
 
 * `cargo build`か`cargo check`でプロジェクトをビルドできる。
 * プロジェクトのビルドと実行を1ステップで`cargo run`でできる。
@@ -312,7 +312,7 @@ Cargoを使用する追加の利点は、使用しているOSに関わらず、�
 <!-- executable in *target/release* instead of *target/debug*. The optimizations -->
 <!-- make your Rust code run faster, but turning them on lengthens the time it takes -->
 <!-- for your program to compile. This is why there are two different profiles: one -->
-<!-- for development when you want to rebuild quickly and often, and another for -->
+<!-- for development, when you want to rebuild quickly and often, and another for -->
 <!-- building the final program you’ll give to a user that won’t be rebuilt -->
 <!-- repeatedly and that will run as fast as possible. If you’re benchmarking your -->
 <!-- code’s running time, be sure to run `cargo build --release` and benchmark with -->
@@ -370,20 +370,20 @@ Cargoについてより詳しく知るには、[ドキュメンテーション]�
 <!-- * Install the latest stable version of Rust using `rustup` -->
 <!-- * Update to a newer Rust version -->
 <!-- * Open locally installed documentation -->
-<!-- * Write and run a “Hello, world!” program using `rustc` directly -->
+<!-- * Write and run a Hello, world! program using `rustc` directly -->
 <!-- * Create and run a new project using the conventions of Cargo -->
 
 * `rustup`で最新の安定版のRustをインストールする方法
 * 新しいRustのバージョンに更新する方法
 * ローカルにインストールされたドキュメンテーションを開く方法
-* 直接`rustc`を使用して"Hello, world!"プログラムを書き、実行する方法
+* 直接`rustc`を使用してHello, world!プログラムを書き、実行する方法
 * Cargoの慣習を使用して新しいプロジェクトを作成し、実行する方法
 
 <!-- This is a great time to build a more substantial program to get used to reading -->
-<!-- and writing Rust code. So, in the next chapter, we’ll build a guessing game -->
-<!-- program. If you would rather start by learning how common programming concepts -->
-<!-- work in Rust, see Chapter 3, and then return to Chapter 2. -->
+<!-- and writing Rust code. So, in Chapter 2, we’ll build a guessing game program. -->
+<!-- If you would rather start by learning how common programming concepts work in -->
+<!-- Rust, see Chapter 3 and then return to Chapter 2. -->
 
-より中身のあるプログラムをビルドし、Rustコードの読み書きに慣れるいいタイミングです。故に、次の章では、
+より中身のあるプログラムをビルドし、Rustコードの読み書きに慣れるいいタイミングです。故に、第2章では、
 数当てゲームを構築します。むしろ一般的なプログラミングの概念がRustでどう動くのか学ぶことから始めたいのであれば、
 第3章を見て、それから第2章に戻ってください。

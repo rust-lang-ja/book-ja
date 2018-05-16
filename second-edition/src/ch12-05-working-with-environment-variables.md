@@ -269,13 +269,13 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
 <!-- Finally, we need to check for the environment variable. The functions for -->
 <!-- working with environment variables are in the `env` module in the standard -->
 <!-- library, so we want to bring that module into scope with a `use std::env;` line -->
-<!-- at the top of *src/lib.rs*. Then we’ll use the `var` method from the `env` -->
+<!-- at the top of *src/lib.rs*. Then we’ll use the `var` function from the `env` -->
 <!-- module to check for an environment variable named `CASE_INSENSITIVE`, as shown -->
 <!-- in Listing 12-23: -->
 
 最後に、環境変数を確認する必要があります。環境変数を扱う関数は、標準ライブラリの`env`モジュールにあるので、
 `use std::env;`行で*src/lib.rs*の冒頭でそのモジュールをスコープに持ってくる必要があります。そして、
-`env`モジュールから`var`メソッドを使用して`CASE_INSENSITIVE`という環境変数のチェックを行います。
+`env`モジュールから`var`関数を使用して`CASE_INSENSITIVE`という環境変数のチェックを行います。
 リスト12-23のようにね:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -315,13 +315,13 @@ impl Config {
 
 <!-- Here, we create a new variable `case_sensitive`. To set its value, we call the -->
 <!-- `env::var` function and pass it the name of the `CASE_INSENSITIVE` environment -->
-<!-- variable. The `env::var` method returns a `Result` that will be the successful -->
+<!-- variable. The `env::var` function returns a `Result` that will be the successful -->
 <!-- `Ok` variant that contains the value of the environment variable if the -->
 <!-- environment variable is set. It will return the `Err` variant if the -->
 <!-- environment variable is not set. -->
 
 ここで、`case_sensitive`という新しい変数を生成しています。その値をセットするために、
-`env::var`関数を呼び出し、`CASE_INSENSITIVE`環境変数の名前を渡しています。`env::var`メソッドは、
+`env::var`関数を呼び出し、`CASE_INSENSITIVE`環境変数の名前を渡しています。`env::var`関数は、
 環境変数がセットされていたら、環境変数の値を含む`Ok`バリアントの成功値になる`Result`を返します。
 環境変数がセットされていなければ、`Err`バリアントを返すでしょう。
 

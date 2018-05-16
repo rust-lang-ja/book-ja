@@ -109,10 +109,10 @@ mod network {
 
 <!-- We can also have multiple modules, side by side, in the same *src/lib.rs* file. -->
 <!-- For example, to also have a `client` module that has a function named -->
-<!-- `connect`, we can add it as shown in Listing 7-1: -->
+<!-- `connect`, we can add it as shown in Listing 7-1. -->
 
 同じ*src/lib.rs*ファイル内に複数のモジュールを並べることもできます。例として、
-`connect`という関数を含む`client`モジュールも用意するには、リスト7-1に示したように追記すればいいわけです:
+`connect`という関数を含む`client`モジュールも用意するには、リスト7-1に示したように追記すればいいわけです。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -152,7 +152,7 @@ mod client {
 <!-- way you choose to organize your code depends on how you think about the -->
 <!-- relationship between the parts of your code. For instance, the `client` code -->
 <!-- and its `connect` function might make more sense to users of our library if -->
-<!-- they were inside the `network` namespace instead, as in Listing 7-2: -->
+<!-- they were inside the `network` namespace instead, as in Listing 7-2. -->
 
 今回の場合、ライブラリを構成しているので、ライブラリビルド時にエントリーポイントとなるファイルは、
 *src/lib.rs*になります。しかし、モジュールを作成するという点に関しては、*src/lib.rs*には何も特別なことはありません。
@@ -241,12 +241,12 @@ communicator
 <!-- that you’re used to: filesystems! We can use Rust’s module system along with -->
 <!-- multiple files to split up Rust projects so not everything lives in -->
 <!-- *src/lib.rs* or *src/main.rs*. For this example, let’s start with the code in -->
-<!-- Listing 7-3: -->
+<!-- Listing 7-3. -->
 
 モジュールは階層構造をなす……コンピュータにおいて、もっと見慣れた構造に似ていませんか: そう、ファイルシステムです！
 Rustのモジュールシステムを複数のファイルで使用して、プロジェクトを分割するので、
 全部が*src/lib.rs*や*src/main.rs*に存在することにはならなくなります。これの例として、
-リスト7-3のようなコードから始めましょう:
+リスト7-3のようなコードから始めましょう。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -299,10 +299,10 @@ communicator
 単独のファイルに配置するには十分でしょう。
 
 <!-- First, let's replace the `client` module code with only the declaration of the -->
-<!-- `client` module so that your *src/lib.rs* looks like code shown in Listing 7-4: -->
+<!-- `client` module so that your *src/lib.rs* looks like code shown in Listing 7-4. -->
 
 最初に、`client`モジュールのコードを`client`モジュールの宣言だけに置き換えましょう。
-すると、*src/lib.rs*はリスト7-4のコードのようになります:
+すると、*src/lib.rs*はリスト7-4のコードのようになります。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -502,9 +502,9 @@ fn connect() {
 }
 ```
 
-<!-- When we try to `cargo build`, we’ll get the error shown in Listing 7-5: -->
+<!-- When we try to run `cargo build`, we’ll get the error shown in Listing 7-5: -->
 
-`cargo build`を試すと、リスト7-4に示したようなエラーが出ます:
+`cargo build`を実行しようとすると、リスト7-4に示したようなエラーが出ます:
 
 ```text
 $ cargo build
@@ -578,7 +578,7 @@ $ mv src/server.rs src/network
 ```
 
 <!-- Now when we try to run `cargo build`, compilation will work (we’ll still have -->
-<!-- warnings though). Our module layout still looks exactly the same as it did when -->
+<!-- warnings, though). Our module layout still looks exactly the same as it did when -->
 <!-- we had all the code in *src/lib.rs* in Listing 7-3: -->
 
 `cargo build`を走らせたら、ようやくコンパイルは通ります(まだ警告はありますけどね)。

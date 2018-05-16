@@ -19,7 +19,7 @@
 <!-- the pool so they can finish the requests they’re working on before closing. -->
 <!-- Then we’ll implement a way to tell the threads they should stop accepting new -->
 <!-- requests and shut down. To see this code in action, we’ll modify our server to -->
-<!-- only accept two requests before gracefully shutting down its thread pool. -->
+<!-- accept only two requests before gracefully shutting down its thread pool. -->
 
 では、閉じる前に取り掛かっているリクエストを完了できるように、プールの各スレッドに対して`join`を呼び出す`Drop`トレイトを実装します。
 そして、スレッドに新しいリクエストの受付を停止し、終了するように教える方法を実装します。
@@ -30,7 +30,7 @@
 ### `ThreadPool`に`Drop`トレイトを実装する
 
 <!-- Let’s start with implementing `Drop` on our thread pool. When the pool is -->
-<!-- dropped, our threads should all join on to make sure they finish their work. -->
+<!-- dropped, our threads should all join to make sure they finish their work. -->
 <!-- Listing 20-23 shows a first attempt at a `Drop` implementation; this code won’t -->
 <!-- quite work yet. -->
 
@@ -85,20 +85,21 @@ error[E0507]: cannot move out of borrowed content
 ```
 
 <!-- The error tells us we can’t call `join` because we only have a mutable borrow -->
-<!-- of each `worker`, and `join` takes ownership of its argument. To solve this -->
+<!-- of each `worker` and `join` takes ownership of its argument. To solve this -->
 <!-- issue, we need to move the thread out of the `Worker` instance that owns -->
 <!-- `thread` so `join` can consume the thread. We did this in Listing 17-15: if -->
 <!-- `Worker` holds an `Option<thread::JoinHandle<()>` instead, we can call the -->
 <!-- `take` method on the `Option` to move the value out of the `Some` variant and -->
 <!-- leave a `None` variant in its place. In other words, a `Worker` that is running -->
-<!-- will have a `Some` variant in `thread`, and when we want to clean up a worker, -->
-<!-- we’ll replace `Some` with `None` so the worker doesn’t have a thread to run. -->
+<!-- will have a `Some` variant in `thread`, and when we want to clean up a -->
+<!-- `Worker` we’ll replace `Some` with `None` so the worker doesn’t have a -->
+<!-- thread to run. -->
 
 各`worker`の可変参照しかなく、`join`は引数の所有権を奪うためにこのエラーは`join`を呼び出せないと教えてくれています。
 この問題を解決するには、`join`がスレッドを消費できるように、`thread`を所有する`Worker`インスタンスからスレッドをムーブする必要があります。
 これをリスト17-15では行いました: `Worker`が代わりに`Option<thread::JoinHandle<()>`を保持していれば、
 `Option`に対して`take`メソッドを呼び出し、`Some`列挙子から値をムーブし、その場所に`None`列挙子を残すことができます。
-言い換えれば、実行中の`Worker`には`thread`に`Some`列挙子があり、ワーカーを片付けたい時には、
+言い換えれば、実行中の`Worker`には`thread`に`Some`列挙子があり、`Worker`を片付けたい時には、
 ワーカーが実行するスレッドがないように`Some`を`None`で置き換えるのです。
 
 <!-- So we know we want to update the definition of `Worker` like this: -->
@@ -212,7 +213,7 @@ impl Drop for ThreadPool {
 <!-- With all the changes we’ve made, our code compiles without any warnings. But -->
 <!-- the bad news is this code doesn’t function the way we want it to yet. The key -->
 <!-- is the logic in the closures run by the threads of the `Worker` instances: at -->
-<!-- the moment we call `join`, but that won’t shut down the threads because they -->
+<!-- the moment, we call `join`, but that won’t shut down the threads because they -->
 <!-- `loop` forever looking for jobs. If we try to drop our `ThreadPool` with our -->
 <!-- current implementation of `drop`, the main thread will block forever waiting -->
 <!-- for the first thread to finish. -->
@@ -225,10 +226,10 @@ impl Drop for ThreadPool {
 <!-- To fix this problem, we’ll modify the threads so they listen for either a `Job` -->
 <!-- to run or a signal that they should stop listening and exit the infinite loop. -->
 <!-- Instead of `Job` instances, our channel will send one of these two enum -->
-<!-- variants: -->
+<!-- variants. -->
 
 この問題を修正するには、スレッドが実行する`Job`か、リッスンをやめて無限ループを抜ける通知をリッスンするように、
-変更します。`Job`インスタンスの代わりに、チャンネルはこれら2つのenum列挙子の一方を送信します:
+変更します。`Job`インスタンスの代わりに、チャンネルはこれら2つのenum列挙子の一方を送信します。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -409,7 +410,7 @@ impl Drop for ThreadPool {
 故に、存在するワーカーと同じ数だけ停止メッセージを送れば、`join`がスレッドに対して呼び出される前に、
 停止メッセージを各ワーカーが受け取ると確信できるわけです。
 
-<!-- To see this code in action, let’s modify `main` to only accept two requests -->
+<!-- To see this code in action, let’s modify `main` to accept only two requests -->
 <!-- before gracefully shutting down the server, as shown in Listing 20-26. -->
 
 このコードが動いているところを確認するために、`main`を変更してサーバを優美に閉じる前に2つしかリクエストを受け付けないようにしましょう。
@@ -482,8 +483,8 @@ Shutting down worker 3
 ```
 
 <!-- You might see a different ordering of workers and messages printed. We can see -->
-<!-- how this code works from the messages: workers zero and three got the first two -->
-<!-- requests, and then on the third request the server stopped accepting -->
+<!-- how this code works from the messages: workers 0 and 3 got the first two -->
+<!-- requests, and then on the third request, the server stopped accepting -->
 <!-- connections. When the `ThreadPool` goes out of scope at the end of `main`, its -->
 <!-- `Drop` implementation kicks in, and the pool tells all workers to terminate. -->
 <!-- The workers each print a message when they see the terminate message, and then -->

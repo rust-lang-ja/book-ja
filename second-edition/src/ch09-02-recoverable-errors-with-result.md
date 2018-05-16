@@ -43,10 +43,10 @@ enum Result<T, E> {
 標準ライブラリ上に定義されている`Result`型や関数などを、成功した時とエラーの値が異なるような様々な場面で使用できるのです。
 
 <!-- Let’s call a function that returns a `Result` value because the function could -->
-<!-- fail. In Listing 9-3 we try to open a file: -->
+<!-- fail. In Listing 9-3 we try to open a file. -->
 
 関数が失敗する可能性があるために`Result`値を返す関数を呼び出しましょう: リスト9-3では、
-ファイルを開こうとしています:
+ファイルを開こうとしています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -210,13 +210,13 @@ Os { code: 2, message: "そのような名前のファイルまたはディレ�
 <!-- file and return the handle to the new file. If `File::open` failed for any -->
 <!-- other reason-for example, because we didn’t have permission to open the file-we-->
 <!-- still want the code to `panic!` in the same way as it did in Listing 9-4. Look -->
-<!-- at Listing 9-5, which adds another arm to the `match`: -->
+<!-- at Listing 9-5, which adds another arm to the `match`. -->
 
 リスト9-4のコードは、`File::open`が失敗した理由にかかわらず`panic!`します。代わりにしたいことは、
 失敗理由によって動作を変えることです: ファイルが存在しないために`File::open`が失敗したら、
 ファイルを作成し、その新しいファイルへのハンドルを返したいです。他の理由(例えばファイルを開く権限がなかったなど)で、
 `File::open`が失敗したら、リスト9-4のようにコードには`panic!`してほしいのです。
-リスト9-5を眺めてください。ここでは`match`に別のアームを追加しています:
+リスト9-5を眺めてください。ここでは`match`に別のアームを追加しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -415,10 +415,10 @@ thread 'main' panicked at 'Failed to open hello.txt: Error { repr: Os { code:
 
 <!-- For example, Listing 9-6 shows a function that reads a username from a file. If -->
 <!-- the file doesn’t exist or can’t be read, this function will return those errors -->
-<!-- to the code that called this function: -->
+<!-- to the code that called this function. -->
 
 例えば、リスト9-6の関数は、ファイルからユーザ名を読み取ります。ファイルが存在しなかったり、読み込みできなければ、
-この関数はそのようなエラーを呼び出し元のコードに返します:
+この関数はそのようなエラーを呼び出し元のコードに返します。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -451,27 +451,27 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 <span class="caption">リスト9-6: `match`でエラーを呼び出し元のコードに返す関数</span>
 
-<!-- Let’s look at the return type of the function first: `Result<String, -->
-<!-- io::Error>`. This means the function is returning a value of the type -->
-<!-- `Result<T, E>` where the generic parameter `T` has been filled in with the -->
-<!-- concrete type `String`, and the generic type `E` has been filled in with the -->
-<!-- concrete type `io::Error`. If this function succeeds without any problems, the -->
-<!-- code that calls this function will receive an `Ok` value that holds a -->
-<!-- `String`—the username that this function read from the file. If this function -->
-<!-- encounters any problems, the code that calls this function will receive an -->
-<!-- `Err` value that holds an instance of `io::Error` that contains more -->
-<!-- information about what the problems were. We chose `io::Error` as the return -->
-<!-- type of this function because that happens to be the type of the error value -->
-<!-- returned from both of the operations we’re calling in this function’s body that -->
-<!-- might fail: the `File::open` function and the `read_to_string` method. -->
+<!-- Look at the return type of the function first: `Result<String, io::Error>`. -->
+<!-- This means the function is returning a value of the type `Result<T, E>` where -->
+<!-- the generic parameter `T` has been filled in with the concrete type `String` -->
+<!-- and the generic type `E` has been filled in with the concrete type `io::Error`. -->
+<!-- If this function succeeds without any problems, the code that calls this -->
+<!-- function will receive an `Ok` value that holds a `String`—the username that -->
+<!-- this function read from the file. If this function encounters any problems, the -->
+<!-- code that calls this function will receive an `Err` value that holds an -->
+<!-- instance of `io::Error` that contains more information about what the problems -->
+<!-- were. We chose `io::Error` as the return type of this function because that -->
+<!-- happens to be the type of the error value returned from both of the operations -->
+<!-- we’re calling in this function’s body that might fail: the `File::open` -->
+<!-- function and the `read_to_string` method. -->
 
-まずは、関数の戻り値型に注目しましょう: `Result<String, io::Error>`です。つまり、この関数は、
+まずは、関数の戻り値型に注目してください: `Result<String, io::Error>`です。つまり、この関数は、
 `Result<T, E>`型の値を返しているということです。ここでジェネリック引数の`T`は、具体型`String`で埋められ、
 ジェネリック引数の`E`は具体型`io::Error`で埋められています。この関数が何の問題もなく成功すれば、
 この関数を呼び出したコードは、`String`(関数がファイルから読み取ったユーザ名)を保持する`Ok`値を受け取ります。
 この関数が何か問題に行き当たったら、呼び出し元のコードは`io::Error`のインスタンスを保持する`Err`値を受け取り、
 この`io::Error`は問題の内容に関する情報をより多く含んでいます。関数の戻り値の型に`io::Error`を選んだのは、
-この関数本体で呼び出している失敗する可能性のある処理が両方ともたまたまこの型をエラー値として返すからです:
+この関数本体で呼び出している失敗する可能性のある処理が両方とも偶然この型をエラー値として返すからです:
 `File::open`関数と`read_to_string`メソッドです。
 
 <!-- The body of the function starts by calling the `File::open` function. Then we -->
@@ -530,10 +530,10 @@ Rustにおいて、この種のエラー委譲は非常に一般的なので、R
 
 <!-- Listing 9-7 shows an implementation of `read_username_from_file` that has the -->
 <!-- same functionality as it had in Listing 9-6, but this implementation uses the -->
-<!-- question mark operator: -->
+<!-- `?` operator: -->
 
 リスト9-7もリスト9-6と同じ機能を有する`read_username_from_file`の実装ですが、
-こちらははてなマーク演算子を使用しています:
+こちらは`?`演算子を使用しています:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -553,9 +553,9 @@ fn read_username_from_file() -> Result<String, io::Error> {
 ```
 
 <!-- <span class="caption">Listing 9-7: A function that returns errors to the -->
-<!-- calling code using `?`</span> -->
+<!-- calling code using the `?` operator</span> -->
 
-<span class="caption">リスト9-7: `?`でエラーを呼び出し元に返す関数</span>
+<span class="caption">リスト9-7: `?`演算子でエラーを呼び出し元に返す関数</span>
 
 <!-- The `?` placed after a `Result` value is defined to work in almost the same way -->
 <!-- as the `match` expressions we defined to handle the `Result` values in Listing -->
@@ -571,39 +571,39 @@ fn read_username_from_file() -> Result<String, io::Error> {
 エラー値は呼び出し元のコードに委譲されます。
 
 <!-- There is a difference between what the `match` expression from Listing 9-6 and -->
-<!-- `?` do: error values used with `?` go through the `from` function, defined in -->
-<!-- the `From` trait in the standard library, which is used to convert errors from -->
-<!-- one type into another. When `?` calls the `from` function, the error type -->
-<!-- received is converted into the error type defined in the return type of the -->
-<!-- current function. This is useful when a function returns one error type to -->
-<!-- represent all the ways a function might fail, even if parts might fail for many -->
-<!-- different reasons. As long as each error type implements the `from` function to -->
-<!-- define how to convert itself to the returned error type, `?` takes care of the -->
-<!-- conversion automatically. -->
+<!-- the `?` operator do: error values used with `?` go through the `from` function, -->
+<!-- defined in the `From` trait in the standard library, which is used to convert -->
+<!-- errors from one type into another. When the `?` operator calls the `from` -->
+<!-- function, the error type received is converted into the error type defined in -->
+<!-- the return type of the current function. This is useful when a function returns -->
+<!-- one error type to represent all the ways a function might fail, even if parts -->
+<!-- might fail for many different reasons. As long as each error type implements -->
+<!-- the `from` function to define how to convert itself to the returned error type, -->
+<!-- the `?` operator takes care of the conversion automatically. -->
 
-リスト9-6の`match`式と`?`には違いがあります: `?`を使ったエラー値は、
+リスト9-6の`match`式と`?`演算子には違いがあります: `?`を使ったエラー値は、
 標準ライブラリの`From`トレイトで定義され、エラーの型を別のものに変換する`from`関数を通ることです。
-`?`が`from`関数を呼び出すと、受け取ったエラー型が現在の関数の戻り値型で定義されているエラー型に変換されます。これは、
+`?`演算子が`from`関数を呼び出すと、受け取ったエラー型が現在の関数の戻り値型で定義されているエラー型に変換されます。これは、
 個々がいろんな理由で失敗する可能性があるのにも関わらず、関数が失敗する可能性を全て一つのエラー型で表現して返す時に有用です。
 各エラー型が`from`関数を実装して返り値のエラー型への変換を定義している限り、
-`?`が変換の面倒を自動的に見てくれます。
+`?`演算子が変換の面倒を自動的に見てくれます。
 
 <!-- In the context of Listing 9-7, the `?` at the end of the `File::open` call will -->
-<!-- return the value inside an `Ok` to the variable `f`. If an error occurs, `?` -->
-<!-- will return early out of the whole function and give any `Err` value to the -->
-<!-- calling code. The same thing applies to the `?` at the end of the -->
+<!-- return the value inside an `Ok` to the variable `f`. If an error occurs, the -->
+<!-- `?` operator will return early out of the whole function and give any `Err` -->
+<!-- value to the calling code. The same thing applies to the `?` at the end of the -->
 <!-- `read_to_string` call. -->
 
 リスト9-7の文脈では、`File::open`呼び出し末尾の`?`は`Ok`の中身を変数`f`に返します。
-エラーが発生したら、`?`により関数全体から早期リターンし、あらゆる`Err`値を呼び出し元に与えます。
+エラーが発生したら、`?`演算子により関数全体から早期リターンし、あらゆる`Err`値を呼び出し元に与えます。
 同じ法則が`read_to_string`呼び出し末尾の`?`にも適用されます。
 
 <!-- The `?` operator eliminates a lot of boilerplate and makes this function’s -->
 <!-- implementation simpler. We could even shorten this code further by chaining -->
-<!-- method calls immediately after the `?`, as shown in Listing 9-8: -->
+<!-- method calls immediately after the `?`, as shown in Listing 9-8. -->
 
 `?`演算子により定型コードの多くが排除され、この関数の実装を単純にしてくれます。
-リスト9-8で示したように、`?`の直後のメソッド呼び出しを連結することでさらにこのコードを短くすることさえもできます:
+リスト9-8で示したように、`?`の直後のメソッド呼び出しを連結することでさらにこのコードを短くすることさえもできます。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -623,9 +623,10 @@ fn read_username_from_file() -> Result<String, io::Error> {
 }
 ```
 
-<!-- <span class="caption">Listing 9-8: Chaining method calls after `?`</span> -->
+<!-- <span class="caption">Listing 9-8: Chaining method calls after the `?` -->
+<!-- operator</span> -->
 
-<span class="caption">リスト9-8: `?`の後のメソッド呼び出しを連結する</span>
+<span class="caption">リスト9-8: `?`演算子の後のメソッド呼び出しを連結する</span>
 
 <!-- We’ve moved the creation of the new `String` in `s` to the beginning of the -->
 <!-- function; that part hasn’t changed. Instead of creating a variable `f`, we’ve -->
@@ -656,10 +657,10 @@ fn read_username_from_file() -> Result<String, io::Error> {
 定義されているからです。`Result`の戻り値型を要求する`match`の部品は、`return Err(e)`なので、
 関数の戻り値はこの`return`と互換性を保つために`Result`でなければならないのです。
 
-<!-- Let’s look at what happens if we use `?` in the `main` function, which you’ll -->
-<!-- recall has a return type of `()`: -->
+<!-- Let’s look at what happens if we use the `?` operator in the `main` function, -->
+<!-- which you’ll recall has a return type of `()`: -->
 
-`main`関数で`?`を使用したらどうなるか見てみましょう。`main`関数は、戻り値が`()`でしたね:
+`main`関数で`?`演算子を使用したらどうなるか見てみましょう。`main`関数は、戻り値が`()`でしたね:
 
 ```rust,ignore
 use std::fs::File;
@@ -692,15 +693,15 @@ error[E0277]: the trait bound `(): std::ops::Try` is not satisfied
   (注釈: `std::ops::Try::from_error`で要求されています)
 ```
 
-<!-- This error points out that we’re only allowed to use `?` in a function that -->
-<!-- returns `Result`. In functions that don’t return `Result`, when you call other -->
-<!-- functions that return `Result`, you’ll need to use a `match` or one of the -->
-<!-- `Result` methods to handle it instead of using `?` to potentially -->
-<!-- propagate the error to the calling code. -->
+<!-- This error points out that we’re only allowed to use the `?` operator in a -->
+<!-- function that returns `Result`. In functions that don’t return `Result`, when -->
+<!-- you call other functions that return `Result`, you’ll need to use a `match` or -->
+<!-- one of the `Result` methods to handle the `Result` instead of using the `?` -->
+<!-- operator to potentially propagate the error to the calling code. -->
 
-このエラーは、`?`は`Result`を返す関数でしか使用が許可されないと指摘しています。
+このエラーは、`?`演算子は`Result`を返す関数でしか使用が許可されないと指摘しています。
 `Result`を返さない関数では、`Result`を返す別の関数を呼び出した時、
-`?`を使用してエラーを呼び出し元に委譲する可能性を生み出す代わりに、`match`か`Result`のメソッドのどれかを使う必要があるでしょう。
+`?`演算子を使用してエラーを呼び出し元に委譲する可能性を生み出す代わりに、`match`か`Result`のメソッドのどれかを使う必要があるでしょう。
 
 <!-- Now that we’ve discussed the details of calling `panic!` or returning `Result`, -->
 <!-- let’s return to the topic of how to decide which is appropriate to use in which -->

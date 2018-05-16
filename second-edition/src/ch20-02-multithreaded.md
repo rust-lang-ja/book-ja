@@ -1,4 +1,4 @@
-<!-- ## Turning Our Single Threaded Server into a Multithreaded Server -->
+<!-- ## Turning Our Single-Threaded Server into a Multithreaded Server -->
 
 ## シングルスレッドサーバをマルチスレッド化する
 
@@ -22,11 +22,11 @@
 
 <!-- We’ll look at how a slow-processing request can affect other requests made to -->
 <!-- our current server implementation. Listing 20-10 implements handling a request -->
-<!-- to `/sleep` with a simulated slow response that will cause the server to sleep -->
-<!-- for five seconds before responding. -->
+<!-- to */sleep* with a simulated slow response that will cause the server to sleep -->
+<!-- for 5 seconds before responding. -->
 
 処理が遅いリクエストが現在のサーバ実装に対して行われる他のリクエストにどう影響するかに目を向けます。
-リスト20-10は、応答する前に5秒サーバをスリープさせる遅いレスポンスをシミュレーションした`/sleep`へのリクエストを扱う実装です。
+リスト20-10は、応答する前に5秒サーバをスリープさせる遅いレスポンスをシミュレーションした*/sleep*へのリクエストを扱う実装です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -62,18 +62,18 @@ fn handle_connection(mut stream: TcpStream) {
 ```
 
 <!-- <span class="caption">Listing 20-10: Simulating a slow request by recognizing -->
-<!-- `/sleep` and sleeping for five seconds</span> -->
+<!-- */sleep* and sleeping for 5 seconds</span> -->
 
-<span class="caption">リスト20-10: `/sleep`を認識して5秒間スリープすることで遅いリクエストをシミュレーションする</span>
+<span class="caption">リスト20-10: */sleep*を認識して5秒間スリープすることで遅いリクエストをシミュレーションする</span>
 
 <!-- This code is a bit messy, but it’s good enough for simulation purposes. We -->
 <!-- created a second request `sleep`, whose data our server recognizes. We added an -->
-<!-- `else if` after the `if` block to check for the request to `/sleep`. When that -->
-<!-- request is received, the server will sleep for five seconds before rendering -->
-<!-- the successful HTML page. -->
+<!-- `else if` after the `if` block to check for the request to */sleep*. When that -->
+<!-- request is received, the server will sleep for 5 seconds before rendering the -->
+<!-- successful HTML page. -->
 
 このコードはちょっと汚いですが、シミュレーション目的には十分です。2番目のリクエスト`sleep`を作成し、
-そのデータをサーバは認識します。`if`ブロックの後に　`else if`を追加し、`/sleep`へのリクエストを確認しています。
+そのデータをサーバは認識します。`if`ブロックの後に　`else if`を追加し、*/sleep*へのリクエストを確認しています。
 そのリクエストが受け付けられると、サーバは成功のHTMLページを描画する前に5秒間スリープします。
 
 <!-- You can see how primitive our server is: real libraries would handle the -->
@@ -81,22 +81,22 @@ fn handle_connection(mut stream: TcpStream) {
 
 我々のサーバがどれだけ基礎的かわかります: 本物のライブラリは、もっと冗長でない方法で複数のリクエストの認識を扱うでしょう！
 
-<!-- Start the server using `cargo run`, and then open two browser windows: one for -->
-<!-- `http://localhost:7878/` and the other for `http://localhost:7878/sleep`. If -->
-<!-- you enter the `/` URI a few times, as before, you’ll see it respond quickly. -->
-<!-- But if you enter `/sleep`, and then load `/`, you’ll see that `/` waits until -->
-<!-- `sleep` has slept for its full five seconds before loading. -->
+<!-- Start the server using `cargo run`. Then open two browser windows: one for -->
+<!-- *http://localhost:7878/* and the other for *http://localhost:7878/sleep*. If -->
+<!-- you enter the */* URI a few times, as before, you’ll see it respond quickly. -->
+<!-- But if you enter */sleep*, and then load */*, you’ll see that */* waits until -->
+<!-- `sleep` has slept for its full 5 seconds before loading. -->
 
-`cargo run`でサーバを開始し、それから2つブラウザのウインドウを開いてください: 1つは、
-`http://localhost:7878/`用、そしてもう1つは`http://localhost:7878/sleep`用です。
-以前のように`/`URIを数回入力したら、素早く応答するでしょう。しかし、`/sleep`を入力し、それから`/`をロードしたら、
-`sleep`がロードする前にきっかり5秒スリープし終わるまで、`/`は待機するのを目撃するでしょう。
+`cargo run`でサーバを開始してください。それから2つブラウザのウインドウを開いてください: 1つは、
+*http://localhost:7878/*用、そしてもう1つは*http://localhost:7878/sleep*用です。
+以前のように*/*URIを数回入力したら、素早く応答するでしょう。しかし、*/sleep*を入力し、それから*/*をロードしたら、
+`sleep`がロードする前にきっかり5秒スリープし終わるまで、*/*は待機するのを目撃するでしょう。
 
 <!-- There are multiple ways we could change how our web server works to avoid -->
-<!-- having all requests back up behind a slow request; the one we’ll implement is a -->
-<!-- thread pool. -->
+<!-- having more requests back up behind a slow request; the one we’ll implement is -->
+<!-- a thread pool. -->
 
-全てのリクエストが遅いリクエストの背後に回ってしまうのを回避するようWebサーバが動く方法を変える方法は複数あります;
+より多くのリクエストが遅いリクエストの背後に回ってしまうのを回避するようWebサーバが動く方法を変える方法は複数あります;
 これから実装するのは、スレッドプールです。
 
 <!-- ### Improving Throughput with a Thread Pool -->
@@ -108,9 +108,9 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- threads in the pool to the task, and that thread will process the task. The -->
 <!-- remaining threads in the pool are available to handle any other tasks that come -->
 <!-- in while the first thread is processing. When the first thread is done -->
-<!-- processing its task, it’s returned to the pool of idle threads ready to handle -->
-<!-- a new task. A thread pool will allow us to process connections concurrently, -->
-<!-- increasing the throughput of our server. -->
+<!-- processing its task, it’s returned to the pool of idle threads, ready to handle -->
+<!-- a new task. A thread pool allows you to process connections concurrently, -->
+<!-- increasing the throughput of your server. -->
 
 *スレッドプール*は、待機し、タスクを処理する準備のできた一塊りの立ち上げられたスレッドです。
 プログラムが新しいタスクを受け取ったら、プールのスレッドのどれかをタスクに<ruby>宛行<rp>(</rp><rt>あてが</rt><rp>)</rp></ruby>い、
@@ -121,12 +121,12 @@ fn handle_connection(mut stream: TcpStream) {
 
 <!-- We’ll limit the number of threads in the pool to a small number to protect us -->
 <!-- from Denial of Service (DoS) attacks; if we had our program create a new thread -->
-<!-- for each request as it comes in, someone making ten million requests to our -->
+<!-- for each request as it came in, someone making 10 million requests to our -->
 <!-- server could create havoc by using up all our server’s resources and grinding -->
-<!-- the processing of all requests to a halt. -->
+<!-- the processing of requests to a halt. -->
 
-プール内のスレッド数は、小さい数字に制限し、DoS攻撃から保護します; リクエストが来る度に新しいスレッドをプログラムが生成したら、
-1000万リクエストをサーバに行う誰かが、サーバのリソースを使い尽くし、全リクエストの処理を停止に追い込むことで、
+プール内のスレッド数は、小さい数字に制限し、DoS攻撃から保護します; リクエストが来た度に新しいスレッドをプログラムが生成したら、
+1000万リクエストをサーバに行う誰かが、サーバのリソースを使い尽くし、リクエストの処理を停止に追い込むことで、
 大混乱を招くことができてしまうでしょう。
 
 <!-- Rather than spawning unlimited threads, we’ll have a fixed number of threads -->
@@ -137,19 +137,19 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- `N` requests concurrently, where `N` is the number of threads. If each thread -->
 <!-- is responding to a long-running request, subsequent requests can still back up -->
 <!-- in the queue, but we’ve increased the number of long-running requests we can -->
-<!-- handle before that point. -->
+<!-- handle before reaching that point. -->
 
 無制限にスレッドを立ち上げるのではなく、プールに固定された数のスレッドを待機させます。リクエストが来る度に、
 処理するためにプールに送られます。プールは、やって来るリクエストのキューを管理します。
 プールの各スレッドがこのキューからリクエストを取り出し、リクエストを処理し、そして、別のリクエストをキューに要求します。
 この設計により、`N`リクエストを平行して処理でき、ここで`N`はスレッド数です。各スレッドが実行に時間のかかるリクエストに応答したら、
-続くリクエストはそれでも、キュー内で待機させられてしまいますが、その地点の前に扱える時間のかかるリクエスト数を増加させました。
+続くリクエストはそれでも、キュー内で待機させられてしまいますが、その地点の到達する前に扱える時間のかかるリクエスト数を増加させました。
 
-<!-- This technique is just one of many ways to improve the throughput of our web -->
-<!-- server. Other options you might explore are the fork/join model and the single -->
-<!-- threaded async I/O model. If you’re interested in this topic, you can read more -->
-<!-- about other solutions and try to implement them in Rust; with a low-level -->
-<!-- language like Rust, all of these options are possible. -->
+<!-- This technique is just one of many ways to improve the throughput of a web -->
+<!-- server. Other options you might explore are the fork/join model and the -->
+<!-- single-threaded async I/O model. If you’re interested in this topic, you can -->
+<!-- read more about other solutions and try to implement them in Rust; with a -->
+<!-- low-level language like Rust, all of these options are possible. -->
 
 このテクニックは、Webサーバのスループットを向上させる多くの方法の1つに過ぎません。探求する可能性のある他の選択肢は、
 fork/joinモデルと、シングルスレッドの非同期I/Oモデルです。この話題にご興味があれば、他の解決策についてもっと読み、
@@ -158,16 +158,16 @@ Rustで実装を試みることができます; Rustのような低レベル言�
 <!-- Before we begin implementing a thread pool, let’s talk about what using the -->
 <!-- pool should look like. When you’re trying to design code, writing the client -->
 <!-- interface first can help guide your design. Write the API of the code so it’s -->
-<!-- structured in the way you want to call it, and then implement the functionality -->
+<!-- structured in the way you want to call it; then implement the functionality -->
 <!-- within that structure rather than implementing the functionality and then -->
 <!-- designing the public API. -->
 
 スレッドプールを実装し始める前に、プールを使うのはどんな感じなのかについて語りましょう。コードの設計を試みる際、
 クライアントのインターフェイスをまず書くことは、設計を導く手助けになることがあります。呼び出したいように構成されるよう、
-コードのAPIを記述して、機能を実装してから公開APIの設計をするのではなく、その構造内で機能を実装してください。
+コードのAPIを記述してください; そして、機能を実装してから公開APIの設計をするのではなく、その構造内で機能を実装してください。
 
-<!-- Similar to how we used Test Driven Development in the project in Chapter 12, -->
-<!-- we’ll use Compiler Driven Development here. We’ll write the code that calls the -->
+<!-- Similar to how we used test-driven development in the project in Chapter 12, -->
+<!-- we’ll use compiler-driven development here. We’ll write the code that calls the -->
 <!-- functions we want, and then we’ll look at errors from the compiler to determine -->
 <!-- what we should change next to get the code to work. -->
 
@@ -219,15 +219,15 @@ fn main() {
 
 <!-- As you learned in Chapter 16, `thread::spawn` will create a new thread and then -->
 <!-- run the code in the closure in the new thread. If you run this code and load -->
-<!-- `/sleep` in your browser, then `/` in two more browser tabs, you’ll indeed see -->
-<!-- that the requests to `/` don’t have to wait for `/sleep` to finish. But as we -->
-<!-- mentioned, this will eventually overwhelm the system because we’re making new -->
-<!-- threads without any limit. -->
+<!-- */sleep* in your browser, then */* in two more browser tabs, you’ll indeed see -->
+<!-- that the requests to */* don’t have to wait for */sleep* to finish. But as we -->
+<!-- mentioned, this will eventually overwhelm the system because you'd making -->
+<!-- new threads without any limit. -->
 
 第16章で学んだように、`thread::spawn`は新しいスレッドを生成し、それからクロージャ内のコードを新しいスレッドで実行します。
-このコードを実行してブラウザで`/sleep`をロードし、それからもう2つのブラウザのタブで`/`をロードしたら、
-確かに`/`へのリクエストは、`/sleep`が完了するのを待機しなくても済むことがわかるでしょう。
-ですが、前述したように、無制限にスレッドを生成しているので、これは最終的にシステムを参らせてしまうでしょう。
+このコードを実行してブラウザで*/sleep*をロードし、それからもう2つのブラウザのタブで*/*をロードしたら、
+確かに*/*へのリクエストは、*/sleep*が完了するのを待機しなくても済むことがわかるでしょう。
+ですが、前述したように、無制限にスレッドを生成することになるので、これは最終的にシステムを参らせてしまうでしょう。
 
 <!-- #### Creating a Similar Interface for a Finite Number of Threads -->
 
@@ -315,7 +315,7 @@ error[E0433]: failed to resolve. Use of undeclared type or module `ThreadPool`
 error: aborting due to previous error
 ```
 
-<!-- Great, this error tells us we need a `ThreadPool` type or module, so we’ll -->
+<!-- Great! This error tells us we need a `ThreadPool` type or module, so we’ll -->
 <!-- build one now. Our `ThreadPool` implementation will be independent of the kind -->
 <!-- of work our web server is doing. So, let’s switch the `hello` crate from a -->
 <!-- binary crate to a library crate to hold our `ThreadPool` implementation. After -->
@@ -323,7 +323,7 @@ error: aborting due to previous error
 <!-- library for any work we want to do using a thread pool, not just for serving -->
 <!-- web requests. -->
 
-よろしい、このエラーは`ThreadPool`型かモジュールが必要なことを教えてくれているので、今構築します。
+よろしい!このエラーは`ThreadPool`型かモジュールが必要なことを教えてくれているので、今構築します。
 `ThreadPool`の実装は、Webサーバが行う仕事の種類とは独立しています。従って、`hello`クレートをバイナリクレートからライブラリクレートに切り替え、
 `ThreadPool`の実装を保持させましょう。ライブラリクレートに変更後、
 個別のスレッドプールライブラリをWebリクエストを提供するためだけではなく、スレッドプールでしたいあらゆる作業にも使用できます。
@@ -472,7 +472,7 @@ pub fn spawn<F, T>(f: F) -> JoinHandle<T>
 ```
 
 <!-- The `F` type parameter is the one we’re concerned with here; the `T` type -->
-<!-- parameter is related to the return value and we’re not concerned with that. We -->
+<!-- parameter is related to the return value, and we’re not concerned with that. We -->
 <!-- can see that `spawn` uses `FnOnce` as the trait bound on `F`. This is probably -->
 <!-- what we want as well, because we’ll eventually pass the argument we get in -->
 <!-- `execute` to `spawn`. We can be further confident that `FnOnce` is the trait we -->
@@ -758,7 +758,7 @@ impl ThreadPool {
 <!-- threads. Here, we’ll look at how we actually create threads. The standard -->
 <!-- library provides `thread::spawn` as a way to create threads, and -->
 <!-- `thread::spawn` expects to get some code the thread should run as soon as the -->
-<!-- thread is created. However, in our case we want to create the threads and have -->
+<!-- thread is created. However, in our case, we want to create the threads and have -->
 <!-- them *wait* for code that we’ll send later. The standard library’s -->
 <!-- implementation of threads doesn’t include any way to do that; we have to -->
 <!-- implement it manually. -->
@@ -1017,9 +1017,9 @@ impl ThreadPool {
 まだ警告があります。
 
 <!-- Let’s try passing a receiving end of the channel into each worker as the thread -->
-<!-- pool creates them. We know we want to use the receiving end in the thread that -->
-<!-- the workers spawn, so we’ll reference the `receiver` parameter in the closure. -->
-<!-- The code in Listing 20-17 won’t quite compile yet. -->
+<!-- pool creates them. We know we want to use the receiving end in the -->
+<!-- thread that the workers spawn, so we’ll reference the `receiver` parameter in -->
+<!-- the closure. The code in Listing 20-17 won’t quite compile yet. -->
 
 スレッドプールがワーカーを生成する際に各ワーカーにチャンネルの受信側を試しに渡してみましょう。
 受信側はワーカーが立ち上げるスレッド内で使用したいことがわかっているので、クロージャ内で`receiver`引数を参照します。
@@ -1100,8 +1100,7 @@ error[E0382]: use of moved value: `receiver`
 <!-- Rust provides is multiple *producer*, single *consumer*. This means we can’t -->
 <!-- just clone the consuming end of the channel to fix this code. Even if we could, -->
 <!-- that is not the technique we would want to use; instead, we want to distribute -->
-<!-- the jobs across threads by sharing the single `receiver` between all the -->
-<!-- workers. -->
+<!-- the jobs across threads by sharing the single `receiver` among all the workers. -->
 
 このコードは、`receiver`を複数の`Worker`インスタンスに渡そうとしています。第16章を思い出すように、これは動作しません:
 Rustが提供するチャンネル実装は、複数の*生成者*、単独の*消費者*です。要するに、
@@ -1190,7 +1189,7 @@ impl Worker {
 ```
 
 <!-- <span class="caption">Listing 20-18: Sharing the receiving end of the channel -->
-<!-- between the workers using `Arc` and `Mutex`</span> -->
+<!-- among the workers using `Arc` and `Mutex`</span> -->
 
 <span class="caption">リスト20-18: `Arc`と`Mutex`を使用してワーカー間でチャンネルの受信側を共有する</span>
 
@@ -1211,13 +1210,13 @@ impl Worker {
 
 <!-- Let’s finally implement the `execute` method on `ThreadPool`. We’ll also change -->
 <!-- `Job` from a struct to a type alias for a trait object that holds the type of -->
-<!-- closure that `execute` receives. As discussed the “Type Aliases Create Type -->
-<!-- Synonyms” section of Chapter 19, type aliases allow us to make long types -->
-<!-- shorter. Look at Listing 20-19. -->
+<!-- closure that `execute` receives. As discussed in the “Creating Type Synonyms -->
+<!-- with Type Aliases” section of Chapter 19, type aliases allow us to make long -->
+<!-- types shorter. Look at Listing 20-19. -->
 
 最後に`ThreadPool`に`execute`メソッドを実装しましょう。
 `Job`も構造体から`execute`が受け取るクロージャの型を保持するトレイトオブジェクトの型エイリアスに変更します。
-第19章の「型エイリアスは型同義語を生成する」節で議論したように、型エイリアスにより長い型を短くできます。
+第19章の「型エイリアスで型同義語を生成する」節で議論したように、型エイリアスにより長い型を短くできます。
 リスト20-19をご覧ください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -1258,7 +1257,7 @@ impl ThreadPool {
 
 <!-- After creating a new `Job` instance using the closure we get in `execute`, we -->
 <!-- send that job down the sending end of the channel. We’re calling `unwrap` on -->
-<!-- `send` for the case that sending fails, which might happen if, for example, we -->
+<!-- `send` for the case that sending fails. This might happen if, for example, we -->
 <!-- stop all our threads from executing, meaning the receiving end has stopped -->
 <!-- receiving new messages. At the moment, we can’t stop our threads from -->
 <!-- executing: our threads continue executing as long as the pool exists. The -->
@@ -1266,7 +1265,7 @@ impl ThreadPool {
 <!-- compiler doesn’t know that. -->
 
 `execute`で得たクロージャを使用して新しい`Job`インスタンスを生成した後、その仕事をチャンネルの送信側に送信しています。
-送信が失敗した時のために`send`に対して`unwrap`を呼び出していて、これは例えば、全スレッドの実行を停止させるなど、
+送信が失敗した時のために`send`に対して`unwrap`を呼び出しています。これは例えば、全スレッドの実行を停止させるなど、
 受信側が新しいメッセージを受け取るのをやめてしまったときなどに起こる可能性があります。現時点では、
 スレッドの実行を止めることはできません: スレッドは、プールが存在する限り実行し続けます。
 `unwrap`を使用している理由は、失敗する場合が起こらないとわかっているからですが、コンパイラにはわかりません。
@@ -1315,7 +1314,7 @@ impl Worker {
 
 <span class="caption">リスト20-20: ワーカーのスレッドで仕事を受け取り、実行する</span>
 
-<!-- Here, we first call `lock` on the `receiver` to acquire the mutex, and then -->
+<!-- Here, we first call `lock` on the `receiver` to acquire the mutex, and then we -->
 <!-- call `unwrap` to panic on any errors. Acquiring a lock might fail if the mutex -->
 <!-- is in a *poisoned* state, which can happen if some other thread panicked while -->
 <!-- holding the lock rather than releasing the lock. In this situation, calling -->
@@ -1501,10 +1500,10 @@ impl Worker {
 このトリックは非常にこそこそしていて複雑です。完璧に筋が通らなくても心配しないでください;
 いつの日か、完全に不要になるでしょう。
 
-<!-- By implementing this trick, our thread pool is in a working state! Give it a -->
-<!-- `cargo run`, and make some requests: -->
+<!-- With the implementation of this trick, our thread pool is in a working state! -->
+<!-- Give it a `cargo run`, and make some requests: -->
 
-このトリックを実装することで、スレッドプールは動く状態になります！`cargo run`を実行し、
+このトリックの実装で、スレッドプールは動く状態になります！`cargo run`を実行し、
 リクエストを行なってください:
 
 ```text
@@ -1551,11 +1550,11 @@ Worker 2 got a job; executing.
 <!-- Success! We now have a thread pool that executes connections asynchronously. -->
 <!-- There are never more than four threads created, so our system won’t get -->
 <!-- overloaded if the server receives a lot of requests. If we make a request to -->
-<!-- `/sleep`, the server will be able to serve other requests by having another -->
+<!-- */sleep*, the server will be able to serve other requests by having another -->
 <!-- thread run them. -->
 
 成功！もう非同期に接続を実行するスレッドプールができました。絶対に4つ以上のスレッドが生成されないので、
-サーバが多くのリクエストを受け取っても、システムは過負荷にならないでしょう。`/sleep`にリクエストを行なっても、
+サーバが多くのリクエストを受け取っても、システムは過負荷にならないでしょう。*/sleep*にリクエストを行なっても、
 サーバは他のスレッドに実行させることで他のリクエストを提供できるでしょう。
 
 <!-- After learning about the `while let` loop in Chapter 18, you might be wondering -->
