@@ -96,7 +96,7 @@ println!("x + y = {}", x + y);
 <!-- that we get from the newtype pattern discussed earlier. -->
 
 `Kilometers`と`i32`が同じ型なので、両方の型を足し合わせたり、`Kilometers`の値を`i32`引数を取る関数に渡せたりします。
-ですが、このメソッドを使用すると、先ほど議論したニュータイプパターンで得られる型チェックの利便性は得られません。
+ですが、この方策を使用すると、先ほど議論したニュータイプパターンで得られる型チェックの利便性は得られません。
 
 <!-- The main use case for type synonyms is to reduce repetition. For example, we -->
 <!-- might have a lengthy type like this: -->
@@ -196,7 +196,7 @@ pub trait Write {
 <!-- The `Result<..., Error>` is repeated a lot. As such, `std::io` has this type of -->
 <!-- alias declaration: -->
 
-`Result<..., Error>`がなんども繰り返されてます。そんな状態なので、`std::io`にはこんな種類のエイリアス宣言があります:
+`Result<..., Error>`がなんども繰り返されてます。そんな状態なので、`std::io`にはこんな類のエイリアス宣言があります:
 
 ```rust,ignore
 type Result<T> = Result<T, std::io::Error>;
@@ -233,6 +233,8 @@ pub trait Write {
 <!-- ### The Never Type that Never Returns -->
 
 ### never型は絶対に返らない
+
+<!-- to stand inで「代役を務める」という意味だが、ここではあえて直訳にした -->
 
 <!-- Rust has a special type named `!` that’s known in type theory lingo as the -->
 <!-- *empty type* because it has no values. We prefer to call it the *never type* -->
@@ -276,7 +278,7 @@ let guess: u32 = match guess.trim().parse() {
 <!-- <span class="caption">Listing 19-34: A `match` with an arm that ends in -->
 <!-- `continue`</span> -->
 
-<span class="caption">リスト19-34: `continue`に落ち着くアームがある`match`</span>
+<span class="caption">リスト19-34: `continue`になるアームがある`match`</span>
 
 <!-- At the time, we skipped over some details in this code. In Chapter 6 in “The -->
 <!-- `match` Control Flow Operator” section, we discussed that `match` arms must all -->
@@ -306,8 +308,8 @@ let guess = match guess.trim().parse() {
 <!-- value of `u32` and the latter with a `!` value. Because `!` can never have a -->
 <!-- value, Rust decides that the type of `guess` is `u32`. -->
 
-もうお気づきかもしれませんが、`continue`は`!`値です。つまり、コンパイラが`guess`の型を計算する時、
-両方のmatchアームを見て、前者は`u32`の値、後者は`!`値です。`!`は値を持ち得ないので、
+もうお気付きかもしれませんが、`continue`は`!`値です。つまり、コンパイラが`guess`の型を計算する時、
+両方のmatchアームを見て、前者は`u32`の値、後者は`!`値です。`!`は絶対に値を持ち得ないので、
 コンパイラは、`guess`の型は`u32`と決定するのです。
 
 <!-- The formal way of describing this behavior is that expressions of type `!` can -->
@@ -316,7 +318,7 @@ let guess = match guess.trim().parse() {
 <!-- back to the top of the loop, so in the `Err` case, we never assign a value to -->
 <!-- `guess`. -->
 
-この振る舞いを解説する公式の方法は、型`!`の式は、ほかのどんな型にも型強制され得るということです。
+この振る舞いを解説する公式の方法は、型`!`の式は、他のどんな型にも型強制され得るということです。
 この`match`アームを`continue`で終えることができます。何故なら、`continue`は値を返さないからです;
 その代わりに制御をループの冒頭に戻すので、`Err`の場合、`guess`には絶対に値を代入しないのです。
 

@@ -14,8 +14,8 @@
 | (lockの) acquire               | 獲得
 | aggregate type                 | 合成型
 | alignment                      | アラインメント
-| allocate                       | アロケートする
-| allocation                     | アロケーション
+| allocate                       | メモリを確保する(アロケートする)
+| allocation                     | メモリを確保すること(アロケーション)
 | allocator                      | アロケータ
 | antipattern                    | アンチパターン
 | application                    | アプリケーション
