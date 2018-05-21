@@ -6,7 +6,7 @@
 <!-- data is being specified so it knows how to work with that data. We'll look at -->
 <!-- two data type subsets: scalar and compound. -->
 
-Rustにおける値は全て、何らかの*型*になり、コンパイラがどんなデータが指定されているか知れるので、
+Rustにおける値は全て、何らかの*データ型*になり、コンパイラがどんなデータが指定されているか知れるので、
 そのデータの取り扱い方も把握できるというわけです。2種のデータ型のサブセットを見ましょう: スカラー型と複合型です。
 
 <!-- Keep in mind that Rust is a *statically typed* language, which means that it -->
@@ -16,9 +16,9 @@ Rustにおける値は全て、何らかの*型*になり、コンパイラが�
 <!-- type using `parse` in the “Comparing the Guess to the Secret Number” section in -->
 <!-- Chapter 2, we must add a type annotation, like this: -->
 
-Rustは*静的型付け*言語であることを弁えておいてください。つまり、
+Rustは*静的型付き*言語であることを弁えておいてください。つまり、
 コンパイル時に全ての変数の型が判明している必要があるということです。コンパイラは通常、値と使用方法に基づいて、
-使用したい型を推論してくれます。複数の型が推論される可能性がある場合、そう例えば、
+使用したい型を推論してくれます。複数の型が推論される可能性がある場合、例えば、
 第2章の「秘密の数字と予想を比較する」節で`parse`メソッドを使って`String`型を数値型に変換した時のような場合には、
 型注釈をつけなければいけません。以下のようにですね:
 
@@ -48,7 +48,7 @@ error[E0282]: type annotations needed
 
 <!-- You’ll see different type annotations for other data types. -->
 
-他のデータ型についても、様々な型注釈を目撃することになるでしょう。
+他のデータ型についても、様々な型注釈を目にすることになるでしょう。
 
 <!-- ### Scalar Types -->
 
@@ -124,25 +124,25 @@ Rustでの動作方法に飛び込みましょう。
 <!-- -128 to 127. Unsigned variants can store numbers from 0 to 2<sup>n</sup> - 1, -->
 <!-- so a `u8` can store numbers from 0 to 2<sup>8</sup> - 1, which equals 0 to 255. -->
 
-各符号付きバリアントは、-(2<sup>n - 1</sup>)から2<sup>n - 1</sup> - 1までの数値を保持でき、
+各符号付きバリアントは、-(2<sup>n - 1</sup>)以上2<sup>n - 1</sup> - 1以下の数値を保持でき、
 ここで*n*はこのバリアントが使用するビット数です。以上から、`i8`型は-(2<sup>7</sup>)から2<sup>7</sup> - 1まで、
-つまり、-128から127までを保持できます。符号なしバリアントは、0から2<sup>n</sup> - 1までを保持できるので、
+つまり、-128から127までを保持できます。符号なしバリアントは、0以上2<sup>n</sup> - 1以下を保持できるので、
 `u8`型は、0から2<sup>8</sup> - 1までの値、つまり、0から255までを保持できることになります。
 
 <!-- Additionally, the `isize` and `usize` types depend on the kind of computer your -->
 <!-- program is running on: 64-bits if you’re on a 64-bit architecture and 32-bits -->
 <!-- if you’re on a 32-bit architecture. -->
 
-加えて、`isize`と`usize`型は、プログラムが動作しているコンピュータの種類に依存します: 
+加えて、`isize`と`usize`型は、プログラムが動作しているコンピュータの種類に依存します:
 64ビットアーキテクチャなら、64ビットですし、32ビットアーキテクチャなら、32ビットになります。
 
 <!-- You can write integer literals in any of the forms shown in Table 3-2. Note -->
 <!-- that all number literals except the byte literal allow a type suffix, such as -->
 <!-- `57u8`, and `_` as a visual separator, such as `1_000`. -->
 
-整数リテラル(`脚注`: リテラルとは、見たまんまの値ということ)は、表3-2に示すどの形態でも記述することができます。
+整数リテラル(`脚注`: リテラルとは、見たまんまの値ということ)は、表3-2に示すどの形式でも記述することができます。
 バイトリテラルを除く数値リテラルは全て、
-型接尾辞を付加すること(例えば、`57u8`)と`_`を見た目の区切り記号(例えば、`1_000`)にできます。
+型接尾辞(例えば、`57u8`)と`_`を見た目の区切り記号(例えば、`1_000`)を付加することができます。
 
 <!-- <span class="caption">Table 3-2: Integer Literals in Rust</span> -->
 
@@ -183,7 +183,7 @@ Rustの基準型は一般的にいい選択肢になります。整数型の基�
 <!-- because on modern CPUs it’s roughly the same speed as `f32` but is capable of -->
 <!-- more precision. -->
 
-Rustにはさらに、*浮動小数点数*に対しても、2種類の基本型があり、浮動小数点数とは10進小数のことです。
+Rustにはさらに、*浮動小数点数*に対しても、2種類の基本型があり、浮動小数点数とは数値に小数点がついたもののことです。
 Rustの浮動小数点型は、`f32`と`f64`で、それぞれ32ビットと64ビットサイズです。基準型は`f64`です。
 なぜなら、現代のCPUでは、`f32`とほぼ同スピードにもかかわらず、より精度が高くなるからです。
 
@@ -305,7 +305,7 @@ fn main() {
 <!-- section. -->
 
 論理値を使う主な手段は、条件式です。例えば、`if`式などですね。`if`式のRustでの動作方法については、
-「フロー制御」節で解説します。
+「制御フロー」節で解説します。
 
 <!-- #### The Character Type -->
 
@@ -341,11 +341,11 @@ fn main() {
 <!-- `char` is in Rust. We’ll discuss this topic in detail in the “Strings” in Chapter 8. -->
 
 Rustの`char`型は、ユニコードのスカラー値を表します。これはつまり、アスキーよりもずっとたくさんのものを表せるということです。
-アクセント文字; 中国語、日本語、韓国語文字(`脚注`: 漢字のことだと思われる);
+アクセント文字; 中国語、日本語、韓国語文字;
 絵文字; ゼロ幅スペースは、全てRustでは、有効な`char`型になります。ユニコードスカラー値は、
 `U+0000`から`U+D7FF`までと`U+E0000`から`U+10FFFF`までの範囲になります。
 ところが、「文字」は実はユニコードの概念ではないので、文字とは何かという人間としての直観は、
-Rustにおける`char`型が何かとは合致しない可能性があります。この話題については、第8章の「文字列」で詳しく議論しましょう。
+Rustにおける`char`値が何かとは合致しない可能性があります。この話題については、第8章の「文字列」で詳しく議論しましょう。
 
 <!-- ### Compound Types -->
 
@@ -371,8 +371,8 @@ Rustにおける`char`型が何かとは合致しない可能性があります�
 <!-- different values in the tuple don’t have to be the same. We’ve added optional -->
 <!-- type annotations in this example: -->
 
-タプルは、丸かっこの中にカンマ区切りの値リストを書くことで生成します。タプルの各位置には型が紐付けられ、
-タプルの値は全てが同じ型である必要はありません。今回の例では、型注釈をあえて追加してみました:
+タプルは、丸かっこの中にカンマ区切りの値リストを書くことで生成します。タプルの位置ごとに型があり、
+タプル内のそれぞれ値は全てが同じ型である必要はありません。今回の例では、型注釈をあえて追加してみました:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -413,14 +413,14 @@ fn main() {
 
 このプログラムは、まずタプルを生成し、それを変数`tup`に束縛しています。
 それから`let`文とパターンを使って`tup`変数の中身を3つの個別の変数(`x`、`y`、`z`ですね)に変換しています。
-この過程は、*分解*と呼ばれます。単独のタプルを破壊して三分割しているからです。最後に、
+この過程は、*分配*と呼ばれます。単独のタプルを破壊して三分割しているからです。最後に、
 プログラムは`y`変数の値を出力し、`6.4`と表示されます。
 
 <!-- In addition to destructuring through pattern matching, we can also access a tuple -->
 <!-- element directly by using a period (`.`) followed by the index of the value we -->
 <!-- want to access. For example: -->
 
-パターンマッチングを通しての分解の他にも、アクセスしたい値の番号をピリオド(`.`)に続けて書くことで、
+パターンマッチングを通しての分配の他にも、アクセスしたい値の番号をピリオド(`.`)に続けて書くことで、
 タプルの要素に直接アクセスすることもできます。例です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -483,7 +483,7 @@ fn main() {
 <!-- vector. Chapter 8 discusses vectors in more detail. -->
 
 配列は、ヒープよりもスタック(スタックとヒープについては第4章で<ruby>詳<rp>(</rp><rt>つまび</rt><rp>)</rp></ruby>らかに議論します)にデータのメモリを確保したい時、または、常に固定長の要素があることを確認したい時に有効です。
-ただ、配列は、ベクタ型ほど柔軟ではありません。ベクタも、標準ライブラリによって提供されている似たようなコレクション型で、
+ただ、配列は、ベクタ型ほど柔軟ではありません。ベクタは、標準ライブラリによって提供されている配列と似たようなコレクション型で、
 こちらは、サイズを伸縮させることが*できます*。配列とベクタ型、どちらを使うべきか確信が持てない時は、
 おそらくベクタ型を使うべきです。第8章でベクタについて詳細に議論します。
 
@@ -493,7 +493,7 @@ fn main() {
 <!-- an array because you know it will always contain 12 items: -->
 
 ベクタ型よりも配列を使いたくなるかもしれない例は、1年の月の名前を扱うプログラムです。そのようなプログラムで、
-月を追加したり削除したりすることはほぼ稀なので、配列を使用できます。常に12個要素があることもわかってますしね:
+月を追加したり削除したりすることまずないので、配列を使用できます。常に12個要素があることもわかってますしね:
 
 ```rust
 let months = ["January", "February", "March", "April", "May", "June", "July",
@@ -508,7 +508,7 @@ let months = ["January", "February", "March", "April", "May", "June", "July",
 <!-- elements of an array using indexing, like this: -->
 
 配列は、スタック上に確保される一塊のメモリです。添え字によって、
-配列の要素にアクセスすることができます。こんな感じ:
+配列の要素にこのようにアクセスすることができます:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
