@@ -19,7 +19,7 @@
 
 主に2つのプロトコルがWebサーバに関係し、*Hypertext Transfer Protocol* *(HTTP)*(`注釈`: ハイパーテキスト転送プロトコル)と、
 *Transmission Control Protocol* *(TCP)*(`注釈`: 伝送制御プロトコル)です。
-両者のプロトコルは、*リクエストーレスポンス*プロトコルであり、つまり、*クライアント*がリクエストを初期化し、
+両者のプロトコルは、*リクエスト・レスポンス*プロトコルであり、つまり、*クライアント*がリクエストを初期化し、
 *サーバ*はリクエストをリッスンし、クライアントにレスポンスを提供するということです。
 それらのリクエストとレスポンスの中身は、プロトコルで規定されています。
 
@@ -94,7 +94,7 @@ fn main() {
 `TcpListener`により、アドレス`127.0.0.1:7878`でTCP接続をリッスンできます。アドレス内で、
 コロンの前の区域は、自分のコンピュータを表すIPアドレスで(これはどんなコンピュータでも同じで、
 特に著者のコンピュータを表すわけではありません)、`7878`はポートです。このポートを選択した理由は2つあります:
-HTTPは通常このポートで受け付けられることと、7878は電話でrustと入力されるからです。
+HTTPは通常このポートで受け付けられることと、7878は電話で“rust”と入力されるからです。
 
 <!-- The `bind` function in this scenario works like the `new` function in that it -->
 <!-- will return a new `TcpListener` instance. The reason the function is called -->
@@ -153,7 +153,7 @@ HTTPは通常このポートで受け付けられることと、7878は電話で
 エラーがなければ、プログラムはメッセージを出力します。次のリストで成功した時にさらに多くの機能を追加します。
 クライアントがサーバに接続する際に`incoming`メソッドからエラーを受け取る可能性がある理由は、
 実際には接続を走査していないからです。代わりに*接続の試行*を走査しています。接続は多くの理由で失敗する可能性があり、
-そのうちの多くは、OS特有です。例を挙げれば、多くのOSには、サポートできる同時に開く接続数に上限があります;
+そのうちの多くは、OS特有です。例を挙げれば、多くのOSには、サポートできる同時に開いた接続数に上限があります;
 開かれた接続の一部が閉じられるまでその数字を超えた接続の試行はエラーになります。
 
 <!-- Let’s try running this code! Invoke `cargo run` in the terminal and then load -->
@@ -380,7 +380,7 @@ URIとURLの違いは、この章の目的には重要ではありませんが�
 <!-- Note that when the CRLF is printed, we see a new line start rather than `\r\n`. -->
 
 最後の部分は、クライアントが使用しているHTTPのバージョンで、それからリクエスト行は*CRLF*で終了します。
-(CRLFは*carriage return*と*line feed*(無理に日本語でいえば、キャリッジ(紙を固定するシリンダー)が戻ることと行を(餌として)与えること)を表していて、
+(CRLFは*carriage return*と*line feed*(無理に日本語でいえば、キャリッジ(紙を固定するシリンダー)が戻ることと行を(コンピュータに)与えること)を表していて、
 これはタイプライター時代からの用語です！)CRLFは`\r\n`とも表記され、`\r`がキャリッジ・リターンで`\n`がライン・フィードです。
 CRLFにより、リクエスト行がリクエストデータの残りと区別されています。CRLFを出力すると、
 `\r\n`ではなく、新しい行が開始されることに注意してください。
@@ -502,7 +502,7 @@ fn handle_connection(mut stream: TcpStream) {
 
 これらの変更とともに、コードを実行し、リクエストをしましょう。最早、端末にどんなデータも出力していないので、
 Cargoからの出力以外には何も出力はありません。Webブラウザで*127.0.0.1:7878*をロードすると、
-エラーではなく空っぽのページが得られるはずです。HTTPリクエストとレスポンスを手で実装したばっかりなのです！
+エラーではなく空っぽのページが得られるはずです。HTTPリクエストとレスポンスを手で実装したばかりなのです！
 
 <!-- ### Returning Real HTML -->
 
@@ -515,7 +515,7 @@ Cargoからの出力以外には何も出力はありません。Webブラウザ
 
 空っぽのページ以上のものを返す機能を実装しましょう。新しいファイル*hello.html*を*src*ディレクトリではなく、
 プロジェクトのルートディレクトリに作成してください。お好きなようにHTMLを書いてください;
-リスト20-4は、ある可能性を示しています。
+リスト20-4は、一つの可能性を示しています。
 
 <!-- <span class="filename">Filename: hello.html</span> -->
 
@@ -547,7 +547,7 @@ Cargoからの出力以外には何も出力はありません。Webブラウザ
 <!-- shown in Listing 20-5 to read the HTML file, add it to the response as a body, -->
 <!-- and send it. -->
 
-こちらは、ヘッドとテキストのある最低限のHTML5ドキュメントです。リクエストを受け付けた際にこれをサーバから返すには、
+これは、ヘッドとテキストのある最低限のHTML5ドキュメントです。リクエストを受け付けた際にこれをサーバから返すには、
 リスト20-5のように`handle_connection`を変更してHTMLファイルを読み込み、本体としてレスポンスに追加して送ります。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -686,7 +686,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- to all other requests. -->
 
 `buffer`が`get`のバイトで始まら*ない*のなら、何か他のリクエストを受け取ったことになります。
-この後、`else`ブロックに他のリクエストに対応するコードを追加します。
+この後すぐ、`else`ブロックに他のリクエストに対応するコードを追加します。
 
 <!-- Run this code now and request *127.0.0.1:7878*; you should get the HTML in -->
 <!-- *hello.html*. If you make any other request, such as -->
@@ -770,7 +770,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- <span class="caption">Listing 20-8: Sample content for the page to send back -->
 <!-- with any 404 response</span> -->
 
-<span class="caption">リスト20-8: あらゆる404レスポンスでページが送り返すサンプルの中身</span>
+<span class="caption">リスト20-8: あらゆる404レスポンスでページが送り返す中身のサンプル</span>
 
 <!-- With these changes, run your server again. Requesting *127.0.0.1:7878* -->
 <!-- should return the contents of *hello.html*, and any other request, like -->
@@ -843,7 +843,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- statement, as discussed in Chapter 18. -->
 
 これで、`if`と`else`ブロックは、タプルにステータス行とファイル名の適切な値を返すだけになりました; 
-それから、分解を使用してこれら2つの値を第18章で議論したように`let`文のパターンで`status_line`と`filename`に代入しています。
+それから、分配を使用してこれら2つの値を第18章で議論したように`let`文のパターンで`status_line`と`filename`に代入しています。
 
 <!-- The previously duplicated code is now outside the `if` and `else` blocks and -->
 <!-- uses the `status_line` and `filename` variables. This makes it easier to see -->

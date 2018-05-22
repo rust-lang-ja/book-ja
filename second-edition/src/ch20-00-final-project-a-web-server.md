@@ -7,7 +7,7 @@
 <!-- concepts we covered in the final chapters, as well as recap some earlier -->
 <!-- lessons. -->
 
-長い旅でしたが、本の末端に到達しました。この章では、共にもう一つプロジェクトを構築して最後の章で講義した概念の一部をデモしつつ、
+長い旅でしたが、本の末端に到達しました。この章では、共にもう一つプロジェクトを構築して最後の方の章で講義した概念の一部をデモしつつ、
 前のレッスンを思い出してもらいます。
 
 <!-- For our final project, we’ll make a web server that says “hello” and looks like -->
