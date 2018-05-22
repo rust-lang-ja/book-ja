@@ -278,9 +278,9 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 <!-- covers Rust’s operators and symbols, Appendix C covers derivable traits -->
 <!-- provided by the standard library, Appendix D covers macros. -->
 
-最後に、言語についての有用な情報をよりリファレンスっぽい形式で含むおまけがあります。
-おまけAはRustのキーワードを講義し、おまけBは、Rustの演算子とシンボル、おまけCは、
-標準ライブラリが提供する継承可能なトレイト、おまけDはマクロを講義します。
+最後に、言語についての有用な情報をよりリファレンスっぽい形式で含む付録があります。
+付録AはRustのキーワードを講義し、付録Bは、Rustの演算子とシンボル、付録Cは、
+標準ライブラリが提供する継承可能なトレイト、付録Dはマクロを講義します。
 
 <!-- There is no wrong way to read this book: if you want to skip ahead, go for it! -->
 <!-- You might have to jump back to earlier chapters if you experience any -->

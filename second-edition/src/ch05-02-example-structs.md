@@ -380,7 +380,7 @@ rect1 is Rectangle {
 <!-- with custom behavior as well as how to create your own traits in Chapter 10. -->
 
 Rustには、`derive`注釈で使えるトレイトが多く提供されており、独自の型に有用な振る舞いを追加することができます。
-そのようなトレイトとその振る舞いは、おまけCで一覧になっています。
+そのようなトレイトとその振る舞いは、付録Cで一覧になっています。
 これらのトレイトを独自の動作とともに実装する方法だけでなく、独自のトレイトを生成する方法については、第10章で解説します。
 
 <!-- Our `area` function is very specific: it only computes the area of rectangles. -->

@@ -207,7 +207,7 @@ fn main() {
 <!-- means that you’re calling a macro instead of a normal function. -->
 
 2番目に`println!`はRustのマクロを呼び出すということです。代わりに関数を呼んでいたら、
-`println`(`!`なし)と入力されているでしょう。Rustのマクロについて詳しくは、おまけDで議論します。
+`println`(`!`なし)と入力されているでしょう。Rustのマクロについて詳しくは、付録Dで議論します。
 とりあえず、`!`を使用すると、普通の関数ではなくマクロを呼んでいるのだということを知っておくだけでいいでしょう。
 
 <!-- Third, you see the `"Hello, world!"` string. We pass this string as an argument -->
