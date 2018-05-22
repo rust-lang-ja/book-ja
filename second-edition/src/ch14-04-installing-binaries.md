@@ -22,13 +22,13 @@ Rustの開発者が、他人が[crates.io](https://crates.io)に共有したツ�
 通常、クレートには、*README*ファイルに、クレートがライブラリかバイナリターゲットか、両方をもつかという情報があります。
 
 <!-- All binaries installed with `cargo install` are stored in the installation -->
-<!-- root’s *bin* folder. If you installed Rust using *rustup.rs* and don’t have any -->
+<!-- root’s *bin* folder. If you installed Rust using `rustup` and don’t have any -->
 <!-- custom configurations, this directory will be *$HOME/.cargo/bin*. Ensure that -->
 <!-- directory is in your `$PATH` to be able to run programs you’ve installed with -->
 <!-- `cargo install`. -->
 
 `cargo install`でインストールされるバイナリは全て、インストールのルートの*bin*フォルダに保持されます。
-Rustを*rustup.rs*を使用し、独自の設定を何も行なっていなければ、このディレクトは、*$HOME/.cargo/bin*になります。
+Rustを`rustup`を使用し、独自の設定を何も行なっていなければ、このディレクトは、*$HOME/.cargo/bin*になります。
 `cargo install`でインストールしたプログラムを実行できるようにするためには、そのディレクトリが`$PATH`に含まれていることを確かめてください。
 
 <!-- For example, in Chapter 12 we mentioned that there’s a Rust implementation of -->

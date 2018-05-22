@@ -66,7 +66,7 @@
 <!-- > without giving them an initial value, so the variable name exists in the -->
 <!-- > outer scope. At first glance, this might appear to be in conflict with Rust's -->
 <!-- > having no null values. However, if we try to use a variable before giving it -->
-<!-- > a value, we’ll get a compile time error, which shows that Rust indeed does -->
+<!-- > a value, we’ll get a compile-time error, which shows that Rust indeed does -->
 <!-- > not allow null values. -->
 
 > 注釈: リスト10-17や10-18、10-24では、変数に初期値を与えずに宣言しているので、変数名は外側のスコープに存在します。
@@ -75,13 +75,13 @@
 > 確かにRustではnull値は許可されないことを示します。
 
 <!-- The outer scope declares a variable named `r` with no initial value, and the -->
-<!-- inner scope declares a variable named `x` with the initial value of `5`. Inside -->
+<!-- inner scope declares a variable named `x` with the initial value of 5. Inside -->
 <!-- the inner scope, we attempt to set the value of `r` as a reference to `x`. Then -->
 <!-- the inner scope ends, and we attempt to print the value in `r`. This code won’t -->
 <!-- compile because the value `r` is referring to has gone out of scope before we -->
 <!-- try to use it. Here is the error message: -->
 
-外側のスコープで初期値なしの`r`という変数を宣言し、内側のスコープで初期値`5`の`x`という変数を宣言しています。
+外側のスコープで初期値なしの`r`という変数を宣言し、内側のスコープで初期値5の`x`という変数を宣言しています。
 内側のスコープ内で、`r`の値を`x`への参照にセットしようとしています。それから内側のスコープが終わり、
 `r`の値を出力しようとしています。`r`が参照している値が使おうとする前にスコープを抜けるので、
 このコードはコンパイルできません。こちらがエラーメッセージです:
@@ -765,11 +765,11 @@ fn main() {
 
 <!-- You’ve learned that every reference has a lifetime and that you need to specify -->
 <!-- lifetime parameters for functions or structs that use references. However, in -->
-<!-- Chapter 4 we had a function in the “String Slices” section, which is shown again -->
-<!-- in Listing 10-26, that compiled without lifetime annotations. -->
+<!-- Chapter 4 we had a function in Listing 4-9, which is shown again in Listing -->
+<!-- 10-26, that compiled without lifetime annotations. -->
 
 全参照にはライフタイムがあり、参照を使用する関数や構造体にはライフタイム引数を指定する必要があることを学びました。
-ですが、第4章の「文字列スライス」節にある関数があり、リスト10-26に再度示しましたが、
+ですが、リスト4-9にとある関数があり、リスト10-26に再度示しましたが、
 これは、ライフタイム注釈なしでコンパイルできました。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -907,7 +907,8 @@ fn first_word(s: &str) -> &str {
 ```
 
 <!-- Then the compiler applies the first rule, which specifies that each parameter -->
-<!-- gets its own lifetime. We’ll call it `'a` as usual, so now the signature is: -->
+<!-- gets its own lifetime. We’ll call it `'a` as usual, so now the signature is -->
+<!-- this: -->
 
 そうして、コンパイラは最初の規則を適用し、各引数が独自のライフタイムを得ると指定します。
 それを通常通り`'a`と呼ぶので、シグニチャはこうなります:

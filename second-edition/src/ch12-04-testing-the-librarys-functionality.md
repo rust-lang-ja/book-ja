@@ -58,12 +58,12 @@
 <!-- did in Chapter 11. The test function specifies the behavior we want the -->
 <!-- `search` function to have: it will take a query and the text to search for the -->
 <!-- query in, and will return only the lines from the text that contain the -->
-<!-- query. Listing 12-15 shows this test, which won't compile yet: -->
+<!-- query. Listing 12-15 shows this test, which won't compile yet. -->
 
 もう必要ないので、プログラムの振る舞いを確認していた`println!`文を*src/lib.rs*と*src/main.rs*から削除しましょう。
 それから*src/lib.rs*で、テスト関数のある`test`モジュールを追加します。第11章のようにですね。
 このテスト関数が`search`関数に欲しい振る舞いを指定します: クエリとそれを検索するテキストを受け取り、
-クエリを含む行だけをテキストから返します。リスト12-15にこのテストを示していますが、まだコンパイルは通りません:
+クエリを含む行だけをテキストから返します。リスト12-15にこのテストを示していますが、まだコンパイルは通りません。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -194,11 +194,11 @@ parameter
 `contents`がライフタイム記法で戻り値に関連づくはずの引数であることをプログラマは知っています。
 
 <!-- Other programming languages don’t require you to connect arguments to return -->
-<!-- values in the signature. So although this might seem strange, it will get -->
-<!-- easier over time. You might want to compare this example with “Validating -->
+<!-- values in the signature. Although this might seem strange, it will get easier -->
+<!-- over time. You might want to compare this example with “Validating -->
 <!-- References with Lifetimes” section in Chapter 10.-->
 
-他のプログラミング言語では、シグニチャで引数と戻り値を関連づける必要はありません。従って、これは奇妙に思えるかもしれませんが、
+他のプログラミング言語では、シグニチャで引数と戻り値を関連づける必要はありません。これは奇妙に思えるかもしれませんが、
 時間とともに楽になっていきます。この例を第10章、「ライフタイムで参照を有効化する」節と比較したくなるかもしれません。
 
 <!-- Now let’s run the test: -->
@@ -269,10 +269,10 @@ error: test failed, to rerun pass '--lib'
 
 <!-- Rust has a helpful method to handle line-by-line iteration of strings, -->
 <!-- conveniently named `lines`, that works as shown in Listing 12-17. Note this -->
-<!-- won’t compile yet: -->
+<!-- won’t compile yet. -->
 
 Rustには、文字列を行ごとに繰り返す役立つメソッドがあり、利便性のために`lines`と名付けられ、
-リスト12-17のように動作します。まだこれはコンパイルできないことに注意してください:
+リスト12-17のように動作します。まだ、これはコンパイルできないことに注意してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -308,12 +308,12 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 <!-- Next, we’ll check whether the current line contains our query string. -->
 <!-- Fortunately, strings have a helpful method named `contains` that does this for -->
 <!-- us! Add a call to the `contains` method in the `search` function, as shown in -->
-<!-- Listing 12-18. Note this still won’t compile yet: -->
+<!-- Listing 12-18. Note this still won’t compile yet. -->
 
 次に現在の行がクエリ文字列を含むか確認します。幸運なことに、
 文字列にはこれを行ってくれる`contains`という役に立つメソッドがあります！`search`関数に、
 `contains`メソッドの呼び出しを追加してください。リスト12-18のようにですね。
-これもまだコンパイルできないことに注意してください:
+これもまだコンパイルできないことに注意してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -341,11 +341,11 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 <!-- We also need a way to store the lines that contain our query string. For that, -->
 <!-- we can make a mutable vector before the `for` loop and call the `push` method -->
 <!-- to store a `line` in the vector. After the `for` loop, we return the vector, as -->
-<!-- shown in Listing 12-19: -->
+<!-- shown in Listing 12-19. -->
 
 また、クエリ文字列を含む行を保存する方法が必要です。そのために、`for`ループの前に可変なベクタを生成し、
 `push`メソッドを呼び出して`line`をベクタに保存することができます。`for`ループの後でベクタを返却します。
-リスト12-19のようにですね:
+リスト12-19のようにですね。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

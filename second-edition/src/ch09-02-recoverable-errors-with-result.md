@@ -256,6 +256,7 @@ fn main() {
 }
 ```
 
+<<<<<<< HEAD
 <!-- <span class="caption">Listing 9-5: Handling different kinds of errors in -->
 <!-- different ways</span> -->
 
@@ -296,14 +297,14 @@ fn main() {
 <!-- The condition we want to check in the match guard is whether the value returned -->
 <!-- by `error.kind()` is the `NotFound` variant of the `ErrorKind` enum. If it is, -->
 <!-- we try to create the file with `File::create`. However, because `File::create` -->
-<!-- could also fail, we need to add an inner `match` statement as well. When the -->
+<!-- could also fail, we need to add an inner `match` expression as well. When the -->
 <!-- file can’t be opened, a different error message will be printed. The last arm -->
 <!-- of the outer `match` stays the same so the program panics on any error besides -->
 <!-- the missing file error. -->
 
 マッチガードで精査したい条件は、`error.kind()`により返る値が、`ErrorKind`enumの`NotFound`列挙子であるかということです。
 もしそうなら、`File::create`でファイル作成を試みます。ところが、`File::create`も失敗する可能性があるので、
-内部にも`match`文を追加する必要があるのです。ファイルが開けないなら、異なるエラーメッセージが出力されるでしょう。
+内部にも`match`式を追加する必要があるのです。ファイルが開けないなら、異なるエラーメッセージが出力されるでしょう。
 外側の`match`の最後のアームは同じままなので、ファイルが行方不明のエラー以外ならプログラムはパニックします。
 
 <!-- ### Shortcuts for Panic on Error: `unwrap` and `expect` -->
@@ -313,20 +314,62 @@ fn main() {
 <!-- Using `match` works well enough, but it can be a bit verbose and doesn’t always -->
 <!-- communicate intent well. The `Result<T, E>` type has many helper methods -->
 <!-- defined on it to do various tasks. One of those methods, called `unwrap`, is a -->
-<!-- shortcut method that is implemented just like the `match` statement we wrote in -->
-<!-- Listing 9-4. If the `Result` value is the `Ok` variant, `unwrap` will return -->
+<!-- shortcut method that is implemented just like the `match` expression we wrote -->
+<!-- in Listing 9-4. If the `Result` value is the `Ok` variant, `unwrap` will return -->
 <!-- the value inside the `Ok`. If the `Result` is the `Err` variant, `unwrap` will -->
 <!-- call the `panic!` macro for us. Here is an example of `unwrap` in action: -->
 
 `match`の使用は、十分に仕事をしてくれますが、いささか冗長になり得る上、必ずしも意図をよく伝えるとは限りません。
 `Result<T, E>`型には、色々な作業をするヘルパーメソッドが多く定義されています。それらの関数の一つは、
-`unwrap`と呼ばれますが、リスト9-4で書いた`match`文と同じように実装された短絡メソッドです。
+`unwrap`と呼ばれますが、リスト9-4で書いた`match`式と同じように実装された短絡メソッドです。
 `Result`値が`Ok`列挙子なら、`unwrap`は`Ok`の中身を返します。`Result`が`Err`列挙子なら、
 `unwrap`は`panic!`マクロを呼んでくれます。こちらが実際に動作している`unwrap`の例です:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
 <span class="filename">ファイル名: src/main.rs</span>
+=======
+<span class="caption">Listing 9-5: Handling different kinds of errors in
+different ways</span>
+
+The type of the value that `File::open` returns inside the `Err` variant is
+`io::Error`, which is a struct provided by the standard library. This struct
+has a method `kind` that we can call to get an `io::ErrorKind` value. The enum
+`io::ErrorKind` is provided by the standard library and has variants
+representing the different kinds of errors that might result from an `io`
+operation. The variant we want to use is `ErrorKind::NotFound`, which indicates
+the file we’re trying to open doesn’t exist yet.
+
+The condition `if error.kind() == ErrorKind::NotFound` is called a *match
+guard*: it’s an extra condition on a `match` arm that further refines the arm’s
+pattern. This condition must be true for that arm’s code to be run; otherwise,
+the pattern matching will move on to consider the next arm in the `match`. The
+`ref` in the pattern is needed so `error` is not moved into the guard condition
+but is merely referenced by it. The reason you use `ref` to create a reference
+in a pattern instead of `&` will be covered in detail in Chapter 18. In short,
+in the context of a pattern, `&` matches a reference and gives you its value,
+but `ref` matches a value and gives you a reference to it.
+
+The condition we want to check in the match guard is whether the value returned
+by `error.kind()` is the `NotFound` variant of the `ErrorKind` enum. If it is,
+we try to create the file with `File::create`. However, because `File::create`
+could also fail, we need to add an inner `match` expression as well. When the
+file can’t be opened, a different error message will be printed. The last arm
+of the outer `match` stays the same so the program panics on any error besides
+the missing file error.
+
+### Shortcuts for Panic on Error: `unwrap` and `expect`
+
+Using `match` works well enough, but it can be a bit verbose and doesn’t always
+communicate intent well. The `Result<T, E>` type has many helper methods
+defined on it to do various tasks. One of those methods, called `unwrap`, is a
+shortcut method that is implemented just like the `match` expression we wrote
+in Listing 9-4. If the `Result` value is the `Ok` variant, `unwrap` will return
+the value inside the `Ok`. If the `Result` is the `Err` variant, `unwrap` will
+call the `panic!` macro for us. Here is an example of `unwrap` in action:
+
+<span class="filename">Filename: src/main.rs</span>
+>>>>>>> fork_master_master
 
 ```rust,should_panic
 use std::fs::File;

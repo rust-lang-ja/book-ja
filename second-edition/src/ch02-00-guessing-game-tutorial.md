@@ -259,7 +259,7 @@ let mut bar = 5; // mutable
 > 注釈: `//`という記法は、行末まで続くコメントを記述します。
 > コンパイラは、コメントを一切無視し、これについても第3章で詳しく議論します。
 
-<!-- Let's return to the guessing game program. You now know that `let mut guess` -->
+<!-- Let’s return to the guessing game program. You now know that `let mut guess` -->
 <!-- will introduce a mutable variable named `guess`. On the other side of the equal -->
 <!-- sign (`=`) is the value that `guess` is bound to, which is the result of -->
 <!-- calling `String::new`, a function that returns a new instance of a `String`. -->

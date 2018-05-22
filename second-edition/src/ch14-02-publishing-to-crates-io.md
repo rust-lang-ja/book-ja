@@ -252,7 +252,7 @@ docコメントの別スタイル、`//!`は、コメントに続く要素にド
 
 <!-- Documentation comments within items are useful for describing crates and -->
 <!-- modules especially. Use them to explain the overall purpose of the container to -->
-<!-- help your crate users understand the crate's organization. -->
+<!-- help your crate users understand the crate’s organization. -->
 
 要素内のドキュメンテーションコメントは、特にクレートやモジュールを解説するのに有用です。
 コンテナの全体の目的を説明し、クレートの使用者がクレートの体系を理解する手助けをするのに使用してください。

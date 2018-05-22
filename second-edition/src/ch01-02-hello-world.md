@@ -11,7 +11,7 @@ Rustをインストールしたので、最初のRustプログラムを書きま
 ここでも同じようにしましょう！
 
 <!-- > Note: This book assumes basic familiarity with the command line. Rust makes -->
-<!-- > no specific demands about your editing, tooling, or where your code lives, so -->
+<!-- > no specific demands about your editing or tooling or where your code lives, so -->
 <!-- > if you prefer to use an integrated development environment (IDE) instead of -->
 <!-- > the command line, feel free to use your favorite IDE. Many IDEs now have some -->
 <!-- > degree of Rust support; check the IDE’s documentation for details. Recently, -->
@@ -37,10 +37,10 @@ Rustコードを格納するディレクトリを作ることから始めまし�
 この本の練習とプロジェクトのために、ホームディレクトリに*projects*ディレクトリを作成してプロジェクトを全てそこに保管することを推奨します。
 
 <!-- Open a terminal and enter the following commands to make a *projects* directory -->
-<!-- and a directory for the “Hello, world!” project within the *projects* directory. -->
+<!-- and a directory for the Hello, world! project within the *projects* directory. -->
 
 端末を開いて以下のコマンドを入力し、*projects*ディレクトリと*projects*ディレクトリ内に、
-"Hello, world!"プロジェクトのディレクトリを作成してください。
+Hello, world!プロジェクトのディレクトリを作成してください。
 
 <!-- For Linux and macOS, enter this: -->
 
@@ -88,7 +88,7 @@ WindowsのPowerShellなら、こう:
 ファイル名に2単語以上使っているなら、アンダースコアで区切ってください。例えば、*helloworld.rs*ではなく、
 *hello_world.rs*を使用してください。
 
-<!-- Now open the *main.rs* file you just created, and enter the code in Listing 1-1. -->
+<!-- Now open the *main.rs* file you just created and enter the code in Listing 1-1. -->
 
 さて、作ったばかりの*main.rs*ファイルを開き、リスト1-1のコードを入力してください。
 

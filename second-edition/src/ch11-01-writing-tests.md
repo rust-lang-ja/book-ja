@@ -72,9 +72,9 @@ $ cd adder
 ```
 
 <!-- The contents of the *src/lib.rs* file in your `adder` library should look like -->
-<!-- Listing 11-1: -->
+<!-- Listing 11-1. -->
 
-`adder`ライブラリの*src/lib.rs*ファイルの中身はリスト11-1のような見た目のはずです:
+`adder`ライブラリの*src/lib.rs*ファイルの中身はリスト11-1のような見た目のはずです。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -117,9 +117,9 @@ mod tests {
 このアサーションは、典型的なテストのフォーマット例をなしているわけです。走らせてこのテストが通ることを確かめましょう。
 
 <!-- The `cargo test` command runs all tests in our project, as shown in Listing -->
-<!-- 11-2: -->
+<!-- 11-2. -->
 
-`cargo test`コマンドでプロジェクトにあるテストが全て実行されます。リスト11-2に示したようにですね:
+`cargo test`コマンドでプロジェクトにあるテストが全て実行されます。リスト11-2に示したようにですね。
 
 ```text
 $ cargo test
@@ -179,13 +179,13 @@ Cargoがテストをコンパイルし、走らせました。`Compiling`, `Fini
 <!-- the results of any documentation tests. We don’t have any documentation tests -->
 <!-- yet, but Rust can compile any code examples that appear in our API -->
 <!-- documentation. This feature helps us keep our docs and our code in sync! We’ll -->
-<!-- discuss how to write documentation tests in the “Documentation Comments” -->
-<!-- section of Chapter 14. For now, we’ll ignore the `Doc-tests` output. -->
+<!-- discuss how to write documentation tests in the “Documentation Comments As -->
+<!-- Tests” section of Chapter 14. For now, we’ll ignore the `Doc-tests` output. -->
 
 テスト出力の次の部分、つまり`Doc-tests adder`で始まる部分は、ドキュメンテーションテストの結果用のものです。
 まだドキュメンテーションテストは何もないものの、コンパイラは、APIドキュメントに現れたどんなコード例もコンパイルできます。
 この機能により、ドキュメントとコードを同期することができるわけです。ドキュメンテーションテストの書き方については、
-第14章の「ドキュメンテーションコメント」節で議論しましょう。今は、`Doc-tests`出力は無視します。
+第14章の「テストとしてのドキュメンテーションコメント」節で議論しましょう。今は、`Doc-tests`出力は無視します。
 
 <!-- Let’s change the name of our test to see how that changes the test output. -->
 <!-- Change the `it_works` function to a different name, such as `exploration`, like -->
@@ -226,13 +226,13 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- and when the main thread sees that a test thread has died, the test is marked -->
 <!-- as failed. We talked about the simplest way to cause a panic in Chapter 9, -->
 <!-- which is to call the `panic!` macro. Enter the new test, `another`, so your -->
-<!-- *src/lib.rs* file looks like Listing 11-3: -->
+<!-- *src/lib.rs* file looks like Listing 11-3. -->
 
 別のテストを追加しますが、今回は失敗するテストにしましょう！テスト関数内の何かがパニックすると、
 テストは失敗します。各テストは、新規スレッドで実行され、メインスレッドが、テストスレッドが死んだと確認した時、
 テストは失敗と印づけられます。第9章でパニックを引き起こす最も単純な方法について語りました。
 要するに、`panic!`マクロを呼び出すことです。*src/lib.rs*ファイルがリスト11-3のような見た目になるよう、
-新しいテスト`another`を入力してください:
+新しいテスト`another`を入力してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -261,10 +261,10 @@ mod tests {
 <span class="caption">リスト11-3: `panic!`マクロを呼び出したために失敗する2番目のテストを追加する</span>
 
 <!-- Run the tests again using `cargo test`. The output should look like Listing -->
-<!-- 11-4, which shows that our `exploration` test passed and `another` failed: -->
+<!-- 11-4, which shows that our `exploration` test passed and `another` failed. -->
 
 `cargo test`で再度テストを走らせてください。出力はリスト11-4のようになるはずであり、
-`exploration`テストは通り、`another`は失敗したと表示されます:
+`exploration`テストは通り、`another`は失敗したと表示されます。
 
 ```text
 running 2 tests
@@ -371,11 +371,11 @@ impl Rectangle {
 <!-- for the `assert!` macro. In Listing 11-6, we write a test that exercises the -->
 <!-- `can_hold` method by creating a `Rectangle` instance that has a length of 8 and -->
 <!-- a width of 7 and asserting that it can hold another `Rectangle` instance that -->
-<!-- has a length of 5 and a width of 1: -->
+<!-- has a length of 5 and a width of 1. -->
 
 `can_hold`メソッドは論理値を返すので、`assert!`マクロの完璧なユースケースになるわけです。
 リスト11-6で、長さが8、幅が7の`Rectangle`インスタンスを生成し、これが長さ5、
-幅1の別の`Rectangle`インスタンスを保持できるとアサーションすることで`can_hold`を用いるテストを書きます:
+幅1の別の`Rectangle`インスタンスを保持できるとアサーションすることで`can_hold`を用いるテストを書きます。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -477,7 +477,7 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 <!-- Two tests that pass! Now let’s see what happens to our test results when we -->
 <!-- introduce a bug in our code. Let’s change the implementation of the `can_hold` -->
-<!-- method by replacing the greater-than sign with a less-than sign when it -->
+<!-- method by replacing the greater than sign with a less than sign when it -->
 <!-- compares the lengths: -->
 
 通るテストが2つ！さて、コードにバグを導入したらテスト結果がどうなるか確認してみましょう。
@@ -687,8 +687,8 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- out the values when the assertion fails. Because both traits are derivable traits, -->
 <!-- as mentioned in Listing 5-12 in Chapter 5, this is usually as straightforward -->
 <!-- as adding the `#[derive(PartialEq, Debug)]` annotation to your struct or enum -->
-<!-- definition. See Appendix C, “Derivable Traits,” for more details about these -->
-<!-- and other derivable traits. -->
+<!-- definition. See Appendix C for more details about these and other derivable -->
+<!-- traits. -->
 
 表面下では、`assert_eq!`と`assert_ne!`マクロはそれぞれ、`==`と`!=`演算子を使用しています。
 アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用して出力するので、
@@ -699,7 +699,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 アサーションが失敗した時に値を出力する必要もあるでしょう。
 第5章のリスト5-12で触れたように、どちらのトレイトも継承可能トレイトなので、
 これは通常、構造体やenum定義に`#[derive(PartialEq, Debug)]`というアノテーションを追加するくらい率直になります。
-これらや他の継承可能トレイトに関する詳細については、おまけC、「継承可能トレイト」をご覧ください。
+これらや他の継承可能トレイトに関する詳細については、付録Cをご覧ください。
 
 <!-- ### Adding Custom Failure Messages -->
 
@@ -858,9 +858,9 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 関数内のコードがパニックしなかったら、テストは失敗するわけです。
 
 <!-- Listing 11-8 shows a test that checks that the error conditions of `Guess::new` -->
-<!-- happen when we expect them to: -->
+<!-- happen when we expect them to. -->
 
-リスト11-8は、想定した時に`Guess::new`のエラー状態が発生していることを確認するテストを示しています:
+リスト11-8は、想定した時に`Guess::new`のエラー状態が発生していることを確認するテストを示しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -973,7 +973,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- parameter to the `should_panic` attribute. The test harness will make sure that -->
 <!-- the failure message contains the provided text. For example, consider the -->
 <!-- modified code for `Guess` in Listing 11-9 where the `new` function panics with -->
-<!-- different messages depending on whether the value is too small or too large: -->
+<!-- different messages depending on whether the value is too small or too large. -->
 
 `should_panic`を使用するテストは不正確なこともあります。なぜなら、コードが何らかのパニックを起こしたことしか示さないからです。
 `should_panic`のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。

@@ -14,11 +14,11 @@
 <!-- In Rust, iterators are *lazy*, meaning they have no effect until you call -->
 <!-- methods that consume the iterator to use it up. For example, the code in -->
 <!-- Listing 13-13 creates an iterator over the items in the vector `v1` by calling -->
-<!-- the `iter` method defined on `Vec`. This code by itself doesn’t do anything -->
+<!-- the `iter` method defined on `Vec<T>`. This code by itself doesn’t do anything -->
 <!-- useful. -->
 
 Rustにおいて、イテレータは*怠惰*です。つまり、イテレータを使い込んで消費するメソッドを呼ぶまで何の効果もないということです。
-例えば、リスト13-13のコードは、`Vec`に定義された`iter`メソッドを呼ぶことで`v1`ベクタの要素に対するイテレータを生成しています。
+例えば、リスト13-13のコードは、`Vec<T>`に定義された`iter`メソッドを呼ぶことで`v1`ベクタの要素に対するイテレータを生成しています。
 このコード単独では、何も有用なことはしません。
 
 ```rust
@@ -127,10 +127,10 @@ pub trait Iterator {
 
 <!-- We can call the `next` method on iterators directly; Listing 13-15 demonstrates -->
 <!-- what values are returned from repeated calls to `next` on the iterator created -->
-<!-- from the vector: -->
+<!-- from the vector. -->
 
 イテレータに対して直接`next`メソッドを呼び出すこともできます; リスト13-15は、
-ベクタから生成されたイテレータの`next`を繰り返し呼び出した時にどんな値が返るかを模擬しています:
+ベクタから生成されたイテレータの`next`を繰り返し呼び出した時にどんな値が返るかを模擬しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

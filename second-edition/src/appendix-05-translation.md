@@ -16,7 +16,7 @@
 - [简体中文](http://www.broadview.com.cn/article/144), [alternate](https://github.com/KaiserY/trpl-zh-cn)
 - [Українська](https://github.com/pavloslav/rust-book-uk-ua)
 - [Español](https://github.com/thecodix/book)
-- [Italiano](https://github.com/CodelessFuture/trpl2-it)
+- [Italiano](https://github.com/AgeOfWar/rust-book-it)
 - [Русский](https://github.com/iDeBugger/rust-book-ru)
 - [한국어](https://github.com/rinthel/rust-lang-book-ko)
 - [日本語](https://github.com/hazama-yuinyan/book)

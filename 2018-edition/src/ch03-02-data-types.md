@@ -50,13 +50,14 @@ value.
 
 <span class="caption">Table 3-1: Integer Types in Rust</span>
 
-| Length | Signed  | Unsigned |
-|--------|---------|----------|
-| 8-bit  | `i8`    | `u8`     |
-| 16-bit | `i16`   | `u16`    |
-| 32-bit | `i32`   | `u32`    |
-| 64-bit | `i64`   | `u64`    |
-| arch   | `isize` | `usize`  |
+| Length  | Signed  | Unsigned |
+|---------|---------|----------|
+| 8-bit   | `i8`    | `u8`     |
+| 16-bit  | `i16`   | `u16`    |
+| 32-bit  | `i32`   | `u32`    |
+| 64-bit  | `i64`   | `u64`    |
+| 128-bit | `i128`  | `u128`   |
+| arch    | `isize` | `usize`  |
 
 Each variant can be either signed or unsigned and has an explicit size.
 *Signed* and *unsigned* refer to whether it’s possible for the number to be
@@ -176,8 +177,8 @@ section.
 
 So far we’ve worked only with numbers, but Rust supports letters too. Rust’s
 `char` type is the language’s most primitive alphabetic type, and the following
-code shows one way to use it. (Note that the `char` type is specified with
-single quotes, as opposed to strings, which use double quotes.)
+code shows one way to use it. (Note that the `char` literal is specified with
+single quotes, as opposed to string literals, which use double quotes.)
 
 <span class="filename">Filename: src/main.rs</span>
 

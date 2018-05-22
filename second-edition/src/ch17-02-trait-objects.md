@@ -241,12 +241,12 @@ impl<T> Screen<T>
 定義がコンパイル時に具体的な型を使用するように単相化されるので、望ましいです。
 
 <!-- On the other hand, with the method using trait objects, one `Screen` instance -->
-<!-- can hold a `Vec` that contains a `Box<Button>` as well as a `Box<TextField>`. -->
-<!-- Let’s look at how this works, and then we’ll talk about the runtime performance -->
-<!-- implications. -->
+<!-- can hold a `Vec<T>` that contains a `Box<Button>` as well as a -->
+<!-- `Box<TextField>`. Let’s look at how this works, and then we’ll talk about the -->
+<!-- runtime performance implications. -->
 
 一方で、メソッドがトレイトオブジェクトを使用すると、1つの`Screen`インスタンスが、
-`Box<Button>`と`Box<TextField>`を含む`Vec`を保持できます。
+`Box<Button>`と`Box<TextField>`を含む`Vec<T>`を保持できます。
 この動作方法を見、それから実行時性能の裏の意味について語りましょう。
 
 <!-- ### Implementing the Trait -->
@@ -579,9 +579,9 @@ pub trait Clone {
 
 <!-- The `String` type implements the `Clone` trait, and when we call the `clone` -->
 <!-- method on an instance of `String` we get back an instance of `String`. -->
-<!-- Similarly, if we call `clone` on an instance of `Vec`, we get back an instance -->
-<!-- of `Vec`. The signature of `clone` needs to know what type will stand in for -->
-<!-- `Self`, because that’s the return type. -->
+<!-- Similarly, if we call `clone` on an instance of `Vec<T>`, we get back an -->
+<!-- instance of `Vec<T>`. The signature of `clone` needs to know what type will -->
+<!-- stand in for `Self`, because that’s the return type. -->
 
 `String`型は`Clone`トレイトを実装していて、`String`のインスタンスに対して`clone`メソッドを呼び出すと、
 `String`のインスタンスが返ってきます。同様に、`Vec`のインスタンスに対して`clone`を呼び出すと、

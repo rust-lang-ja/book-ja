@@ -58,10 +58,10 @@ $ cargo run searchstring example-filename.txt
 イテレータが生成する要素全部を含むベクタ型などのコレクションに変えられることです。
 
 <!-- Use the code in Listing 12-1 to allow your `minigrep` program to read any -->
-<!-- command line arguments passed to it and then collect the values into a vector: -->
+<!-- command line arguments passed to it and then collect the values into a vector. -->
 
 リスト12-1のコードを使用して`minigrep`プログラムに渡されたあらゆるコマンドライン引数を読み取れるようにし、
-それからその値をベクタ型として集結させてください:
+それからその値をベクタ型として集結させてください。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -167,11 +167,11 @@ $ cargo run needle haystack
 <!-- Printing the value of the vector of arguments illustrated that the program is -->
 <!-- able to access the values specified as command line arguments. Now we need to -->
 <!-- save the values of the two arguments in variables so we can use the values -->
-<!-- throughout the rest of the program. We do that in Listing 12-2: -->
+<!-- throughout the rest of the program. We do that in Listing 12-2. -->
 
 引数のベクタの値を出力すると、プログラムはコマンドライン引数として指定された値にアクセスできることが具現化されました。
 さて、プログラムの残りを通して使用できるように、二つの引数の値を変数に保存する必要があります。
-それをしているのがリスト12-2です:
+それをしているのがリスト12-2です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

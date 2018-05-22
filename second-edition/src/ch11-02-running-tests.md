@@ -231,10 +231,10 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 実行するテストを選ぶことができます。
 
 <!-- To demonstrate how to run a subset of tests, we’ll create three tests for our -->
-<!-- `add_two` function, as shown in Listing 11-11, and choose which ones to run: -->
+<!-- `add_two` function, as shown in Listing 11-11, and choose which ones to run. -->
 
 テストの一部を走らせる方法を模擬するために、リスト11-11に示したように、
-`add_two`関数用に3つテストを作成し、走らせるテストを選択します:
+`add_two`関数用に3つテストを作成し、走らせるテストを選択します。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

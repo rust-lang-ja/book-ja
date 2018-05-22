@@ -21,10 +21,10 @@
 <span class="filename">ファイル名: poem.txt</span>
 
 ```text
-I’m nobody! Who are you?
+I'm nobody! Who are you?
 Are you nobody, too?
-Then there’s a pair of us — don’t tell!
-They’d banish us, you know.
+Then there's a pair of us - don't tell!
+They'd banish us, you know.
 
 How dreary to be somebody!
 How public, like a frog
@@ -48,10 +48,10 @@ To an admiring bog!
 <span class="caption">リスト12-3: エミリー・ディキンソンの詩は、いいテストケースになる</span>
 
 <!-- With the text in place, edit *src/main.rs* and add code to open the file, as -->
-<!-- shown in Listing 12-4: -->
+<!-- shown in Listing 12-4. -->
 
 テキストを適当な場所に置いて、*src/main.rs*を編集し、ファイルを開くコードを追加してください。
-リスト12-4に示したようにですね:
+リスト12-4に示したようにですね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -140,10 +140,10 @@ $ cargo run the poem.txt
 Searching for the
 In file poem.txt
 With text:
-I’m nobody! Who are you?
+I'm nobody! Who are you?
 Are you nobody, too?
-Then there’s a pair of us — don’t tell!
-They’d banish us, you know.
+Then there's a pair of us - don't tell!
+They'd banish us, you know.
 
 How dreary to be somebody!
 How public, like a frog

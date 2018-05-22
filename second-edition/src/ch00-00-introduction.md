@@ -48,7 +48,7 @@ Rustは、様々な理由により多くの人にとって理想的です。い�
 <!-- caught only through extensive testing and careful code review by experienced -->
 <!-- developers. In Rust, the compiler plays a gatekeeper role by refusing to -->
 <!-- compile code with these elusive bugs, including concurrency bugs. By working -->
-<!-- alongside the compiler, the team can spend more time focusing on the program’s -->
+<!-- alongside the compiler, the team can spend their time focusing on the program’s -->
 <!-- logic rather than chasing down bugs. -->
 
 Rustは、いろんなレベルのシステムプログラミングの知識を持つ開発者の巨大なチームとコラボレートするのに生産的なツールであると証明してきています。
@@ -56,7 +56,7 @@ Rustは、いろんなレベルのシステムプログラミングの知識を�
 経験豊富な開発者による注意深いコードレビューによってのみ捕捉されるものです。Rustにおいては、
 コンパイラが非同期のバグも含めたこのようなとらえどころのないバグのあるコードをコンパイルするのを拒むことで、
 門番の役割を担います。コンパイラとともに取り組むことで、チームはバグを追いかけるよりもプログラムのロジックに集中することに、
-より時間を費やせるのです。
+時間を費やせるのです。
 
 <!-- Rust also brings contemporary developer tools to the systems programming world: -->
 
@@ -192,19 +192,19 @@ Rust言語は他の多くのユーザのサポートも望んでいます; こ�
 Rustの一面を学ぶでしょう。プロジェクトの章では、それまでに学んだことを適用して一緒に小さなプログラムを構築します。
 2、12、20章がプロジェクトの章です。つまり、残りは概念の章です。
 
-<!-- Chapter 1 explains how to install Rust, how to write a "Hello, world!" program, -->
-<!-- and how to use Cargo, Rust's package manager and build tool. Chapter 2 is a -->
+<!-- Chapter 1 explains how to install Rust, how to write a Hello, world! program, -->
+<!-- and how to use Cargo, Rust’s package manager and build tool. Chapter 2 is a -->
 <!-- hands-on introduction to the Rust language. We’ll cover concepts at a high -->
 <!-- level, and later chapters will provide additional detail. If you want to get -->
 <!--  your hands dirty right away, Chapter 2 is the one for that. At first, you -->
-<!-- might even want to skip Chapter 3, which covers Rust features similar to other -->
-<!-- programming language features, and head straight to Chapter 4 to learn about -->
+<!-- might even want to skip Chapter 3, which covers Rust features similar to those -->
+<!-- of other programming language, and head straight to Chapter 4 to learn about -->
 <!-- Rust’s ownership system. However, if you’re a particularly meticulous learner -->
 <!-- who prefers to learn every detail before moving onto the next, you might want -->
 <!-- to skip Chapter 2 and go straight to Chapter 3, returning to Chapter 2 when -->
-<!-- you’d like to work on a project applying the details you've learned. -->
+<!-- you’d like to work on a project applying the details you’ve learned. -->
 
-第1章はRustのインストール方法、"Hello, world!"プログラムの書き方、Rustのパッケージマネージャ兼、
+第1章はRustのインストール方法、Hello, world!プログラムの書き方、Rustのパッケージマネージャ兼、
 ビルドツールのCargoの使用方法を説明します。第2章は、Rust言語への実践的な導入です。概念を高度に講義し、後ほどの章で追加の詳細を提供します。
 今すぐRustの世界に飛び込みたいなら、第2章こそがそのためのものです。第3章は他のプログラミング言語の機能に似たRustの機能を講義していますが、
 最初その3章すら飛ばして、まっすぐに第4章に向かい、Rustの所有権システムについて学びたくなる可能性があります。
@@ -291,9 +291,9 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 
 <!-- An important part of the process of learning Rust is learning how to read the -->
 <!-- error messages the compiler displays: these will guide you toward working code. -->
-<!-- As such, we’ll provide many examples of code that don’t compile along with the -->
-<!-- error message the compiler will show you in each situation. Know that if you -->
-<!-- enter and run a random example, it may not compile! Make sure you read the -->
+<!-- As such, we’ll provide many examples of code that doesn’t compile along with -->
+<!-- the error message the compiler will show you in each situation. Know that if -->
+<!-- you enter and run a random example, it may not compile! Make sure you read the -->
 <!-- surrounding text to see whether the example you’re trying to run is meant to -->
 <!-- error. In most situations, we’ll lead you to the correct version of any code -->
 <!-- that doesn’t compile. -->

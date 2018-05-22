@@ -250,13 +250,13 @@ let world = &s[6..11];
 <!-- slice. Internally, the slice data structure stores the starting position and -->
 <!-- the length of the slice, which corresponds to `ending_index` minus -->
 <!-- `starting_index`. So in the case of `let world = &s[6..11];`, `world` would be -->
-<!-- a slice that contains a pointer to the 6th byte of `s` with a length value of 5. -->
+<!-- a slice that contains a pointer to the 7th byte of `s` with a length value of 5. -->
 
 `[starting_index..ending_index]`と指定することで、角かっこに範囲を使い、スライスを生成できます。
 ここで、`starting_index`はスライスの最初の位置、`ending_index`はスライスの終端位置よりも、
 1大きくなります。内部的には、スライスデータ構造は、開始地点とスライスの長さを保持しており、
 スライスの長さは`ending_index`から`starting_index`を引いたものに対応します。以上より、
-`let world = &s[6..11];`の場合には、`world`は`s`の6バイト目へのポインタと5という長さを保持するスライスになるでしょう。
+`let world = &s[6..11];`の場合には、`world`は`s`の7バイト目へのポインタと5という長さを保持するスライスになるでしょう。
 
 <!-- Figure 4-6 shows this in a diagram. -->
 

@@ -16,7 +16,7 @@ Rustの*クロージャ*は、変数に保存したり、引数として他の�
 
 <!-- ### Creating an Abstraction of Behavior with Closures -->
 
-### クロージャで動作の抽象化を生成する
+### クロージャで動作の抽象化を行う
 
 <!-- Let’s work on an example of a situation in which it’s useful to store a closure -->
 <!-- to be executed later. Along the way, we’ll talk about the syntax of closures, -->
@@ -43,10 +43,10 @@ BMI、運動の好み、最近のトレーニング、指定された強弱値�
 <!-- We’ll simulate calling this hypothetical algorithm with the -->
 <!-- `simulated_expensive_calculation` shown in Listing 13-1, which will print -->
 <!-- `calculating slowly...`, wait for two seconds, and then return whatever number -->
-<!-- we passed in: -->
+<!-- we passed in. -->
 
 リスト13-1に示した`simulated_expensive_calculation`関数でこの仮定のアルゴリズムを呼び出すことをシミュレートし、
-この関数は`calculating slowly`と出力し、2秒待ってから、渡した数値をなんでも返します:
+この関数は`calculating slowly`と出力し、2秒待ってから、渡した数値をなんでも返します。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -94,9 +94,9 @@ fn simulated_expensive_calculation(intensity: u32) -> u32 {
 * 乱数、これはトレーニングプランにバリエーションを起こします。
 
 <!-- The output will be the recommended workout plan. Listing 13-2 shows the `main` -->
-<!-- function we’ll use: -->
+<!-- function we’ll use. -->
 
-出力は、推奨されるトレーニングプランになります。リスト13-2は使用する`main`関数を示しています:
+出力は、推奨されるトレーニングプランになります。リスト13-2は使用する`main`関数を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -242,10 +242,10 @@ fn generate_workout(intensity: u32, random_number: u32) {
 
 <!-- We could restructure the workout program in many ways. First, we’ll try -->
 <!-- extracting the duplicated call to the `expensive_expensive_calculation` -->
-<!-- function into a variable, as shown in Listing 13-4: -->
+<!-- function into a variable, as shown in Listing 13-4. -->
 
 多くの方法でトレーニングプログラムを再構築することもできます。
-1番目に`expensive_expensive_calculation`関数への重複した呼び出しを変数に抽出しようとしましょう。リスト13-4に示したように:
+1番目に`expensive_expensive_calculation`関数への重複した呼び出しを変数に抽出しようとしましょう。リスト13-4に示したように。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -318,11 +318,11 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- the `if` blocks, we can define a closure and store the *closure* in a variable -->
 <!-- rather than storing the result of the function call, as shown in Listing 13-5. -->
 <!-- We can actually move the whole body of `simulated_expensive_calculation` within -->
-<!-- the closure we’re introducing here: -->
+<!-- the closure we’re introducing here. -->
 
 `if`ブロックの前にいつも`simulated_expensive_calculation`関数を呼び出す代わりに、
 クロージャを定義し、関数呼び出しの結果を保存するのではなく、その*クロージャ*を変数に保存できます。リスト13-5のようにですね。
-`simulated_expensive_calculation`の本体全体を実際に、ここで導入しているクロージャ内に移すことができます:
+`simulated_expensive_calculation`の本体全体を実際に、ここで導入しているクロージャ内に移すことができます。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -362,7 +362,7 @@ let expensive_closure = |num| {
 <!-- of the closure, after the curly brackets, needs a semicolon to complete the -->
 <!-- `let` statement. The value returned from the last line in the closure body -->
 <!-- (`num`) will be the value returned from the closure when it’s called, because -->
-<!-- that line doesn’t end in a semicolon; just like in function bodies. -->
+<!-- that line doesn’t end in a semicolon; just as in function bodies. -->
 
 引数の後に、クロージャの本体を保持する波括弧を配置します(これはクロージャ本体が式一つなら省略可能です)。
 波括弧の後、クロージャのお尻には、セミコロンが必要で、`let`文を完成させます。クロージャ本体の最後の行から返る値(`num`)が、
@@ -386,11 +386,11 @@ let expensive_closure = |num| {
 <!-- closure to execute the code and get the resulting value. We call a closure like -->
 <!-- we do a function: we specify the variable name that holds the closure -->
 <!-- definition and follow it with parentheses containing the argument values we -->
-<!-- want to use, as shown in Listing 13-6: -->
+<!-- want to use, as shown in Listing 13-6. -->
 
 クロージャが定義されたので、`if`ブロックのコードを変更して、そのコードを実行するクロージャを呼び出し、結果値を得ることができます。
 クロージャは、関数のように呼び出せます: クロージャ定義を含む変数名を指定し、使用したい引数値を含むかっこを続けます。
-リスト13-6に示したようにですね:
+リスト13-6に示したようにですね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -494,10 +494,10 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- As with variables, we can add type annotations if we want to increase -->
 <!-- explicitness and clarity at the cost of being more verbose than is strictly -->
 <!-- necessary. Annotating the types for the closure we defined in Listing 13-5 -->
-<!-- would look like the definition shown in Listing 13-7: -->
+<!-- would look like the definition shown in Listing 13-7. -->
 
 変数のように、厳格に必要な以上に冗長になることと引き換えに、明示性と明瞭性を向上させたいなら、型注釈を加えることができます;
-リスト13-4で定義したクロージャに型を注釈するなら、リスト13-7に示した定義のようになるでしょう:
+リスト13-4で定義したクロージャに型を注釈するなら、リスト13-7に示した定義のようになるでしょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -666,9 +666,9 @@ error[E0308]: mismatched types
 今回の場合、クロージャは、引数の型が`u32`で、`u32`を返すので、指定するトレイト境界は、`Fn(u32) => u32`です。
 
 <!-- Listing 13-9 shows the definition of the `Cacher` struct that holds a closure -->
-<!-- and an optional result value: -->
+<!-- and an optional result value. -->
 
-リスト13-9は、クロージャとオプションの結果値を保持する`Cacher`構造体の定義を示しています:
+リスト13-9は、クロージャとオプションの結果値を保持する`Cacher`構造体の定義を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -719,9 +719,9 @@ struct Cacher<T>
 クロージャを再実行するのではなく、`Cacher`は`Some`バリアントに保持された結果を返すでしょう。
 
 <!-- The logic around the `value` field we’ve just described is defined in Listing -->
-<!-- 13-10: -->
+<!-- 13-10. -->
 
-たった今説明した`value`フィールド周りのロジックは、リスト13-10で定義されています:
+たった今説明した`value`フィールド周りのロジックは、リスト13-10で定義されています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -798,9 +798,9 @@ impl<T> Cacher<T>
 結果を将来使えるように`self.value`に保存し、その値を返しもします。
 
 <!-- Listing 13-11 shows how we can use this `Cacher` struct in the function -->
-<!-- `generate_workout` from Listing 13-6: -->
+<!-- `generate_workout` from Listing 13-6. -->
 
-リスト13-11は、リスト13-6の関数`generate_workout`でこの`Cacher`構造体を使用する方法を示しています:
+リスト13-11は、リスト13-6の関数`generate_workout`でこの`Cacher`構造体を使用する方法を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -931,11 +931,11 @@ fn call_with_different_values() {
 <!-- This test creates a new `Cacher` instance with a closure that returns the value -->
 <!-- passed into it. We call the `value` method on this `Cacher` instance with an -->
 <!-- `arg` value of 1 and then an `arg` value of 2, and we expect the call to -->
-<!-- `value` with the `arg` value of 2 should return 2. -->
+<!-- `value` with the `arg` value of 2 to return 2. -->
 
 このテストは、渡された値を返すクロージャを伴う`Cacher`インスタンスを新しく生成しています。
 この`Cacher`インスタンスに対して1という`arg`値で呼び出し、それから2という`arg`値で呼び出し、
-2という`arg`値の`value`呼び出しには2が返るはずと期待しています。
+2という`arg`値の`value`呼び出しは2を返すべきと期待しています。
 
 <!-- Run this test with the `Cacher` implementation in Listing 13-9 and Listing -->
 <!-- 13-10, and the test will fail on the `assert_eq!` with this message: -->
@@ -994,9 +994,9 @@ thread 'call_with_different_values' panicked at 'assertion failed: `(left == rig
 自分が定義されたスコープの変数にアクセスできるのです。
 
 <!-- Listing 13-12 has an example of a closure stored in the `equal_to_x` variable -->
-<!-- that uses the `x` variable from the closure’s surrounding environment: -->
+<!-- that uses the `x` variable from the closure’s surrounding environment. -->
 
-リスト13-12は、`equal_to_x`変数に保持されたクロージャを囲む環境から`x`変数を使用するクロージャの例です:
+リスト13-12は、`equal_to_x`変数に保持されたクロージャを囲む環境から`x`変数を使用するクロージャの例です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

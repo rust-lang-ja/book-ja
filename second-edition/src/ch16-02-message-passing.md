@@ -5,13 +5,13 @@
 <!-- One increasingly popular approach to ensuring safe concurrency is *message -->
 <!-- passing*, where threads or actors communicate by sending each other messages -->
 <!-- containing data. Here’s the idea in a slogan from [the Go language -->
-<!-- documentation](http://golang.org/doc/effective_go.html): "Do not communicate by -->
-<!-- sharing memory; instead, share memory by communicating." -->
+<!-- documentation](http://golang.org/doc/effective_go.html): “Do not communicate by -->
+<!-- sharing memory; instead, share memory by communicating.” -->
 
 人気度を増してきている安全な非同期処理を保証する一つのアプローチが*メッセージ受け渡し*で、
 スレッドやアクターがデータを含むメッセージを相互に送り合うことでやり取りします。
 こちらが、[Go言語のドキュメンテーション](http:golang.org/doc/effective_go.html)のスローガンにある考えです:
-メモリを共有することでやり取りするな; 代わりにやり取りすることでメモリを共有しろ。
+「メモリを共有することでやり取りするな; 代わりにやり取りすることでメモリを共有しろ」
 
 <!-- One major tool Rust has for accomplishing message-sending concurrency is the -->
 <!-- *channel*, a programming concept that Rust’s standard library provides an -->
@@ -256,7 +256,7 @@ Got: hi
 <!-- an experiment to show how channels and ownership work together to prevent -->
 <!-- problems: we’ll try to use a `val` value in the spawned thread *after* we’ve -->
 <!-- sent it down the channel. Try compiling the code in Listing 16-9 to see why -->
-<!-- this code isn't allowed: -->
+<!-- this code isn’t allowed: -->
 
 安全な非同期コードを書く手助けをしてくれるので、所有権ルールは、メッセージ送信で重要な役割を担っています。
 非同期プログラミングでエラーを回避することは、Rustプログラム全体で所有権について考える利点です。

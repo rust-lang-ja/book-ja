@@ -267,17 +267,17 @@ fn main() {
 ```
 
 <!-- <span class="caption">Listing 10-7: The fields `x` and `y` must be the same -->
-<!-- type because both have the same generic data type `T`</span> -->
+<!-- type because both have the same generic data type `T`.</span> -->
 
 <span class="caption">リスト10-7: どちらも同じジェネリックなデータ型`T`なので、`x`と`y`というフィールドは同じ型でなければならない</span>
 
-<!-- In this example, when we assign the integer value `5` to `x`, we let the -->
+<!-- In this example, when we assign the integer value 5 to `x`, we let the -->
 <!-- compiler know that the generic type `T` will be an integer for this instance of -->
-<!-- `Point<T>`. Then when we specify `4.0` for `y`, which we’ve defined to have the -->
+<!-- `Point<T>`. Then when we specify 4.0 for `y`, which we’ve defined to have the -->
 <!-- same type as `x`, we’ll get a type mismatch error like this: -->
 
-この例で、`x`に整数値`5`を代入すると、この`Point<T>`のインスタンスに対するジェネリックな型`T`は整数になるとコンパイラに知らせます。
-それから`y`に`4.0`を指定する時に、このフィールドは`x`と同じ型と定義したはずなので、このように型不一致エラーが出ます:
+この例で、`x`に整数値5を代入すると、この`Point<T>`のインスタンスに対するジェネリックな型`T`は整数になるとコンパイラに知らせます。
+それから`y`に4.0を指定する時に、このフィールドは`x`と同じ型と定義したはずなので、このように型不一致エラーが出ます:
 
 ```text
 error[E0308]: mismatched types
@@ -400,7 +400,7 @@ enum Result<T, E> {
 ### メソッド定義では
 
 <!-- We can implement methods on structs and enums (as we did in Chapter 5) and use -->
-<!-- generic types in their definitions too. Listing 10-9 shows the `Point<T>` -->
+<!-- generic types in their definitions, too. Listing 10-9 shows the `Point<T>` -->
 <!-- struct we defined in Listing 10-6 with a method named `x` implemented on it. -->
 
 (第5章のように、)定義にジェネリックな型を使うメソッドを構造体やenumに実装することもできます。リスト10-9は、
@@ -475,7 +475,7 @@ impl Point<f32> {
 <span class="caption">リスト10-10: ジェネリックな型引数`T`に対して特定の具体的な型がある構造体にのみ適用される`impl`ブロック</span>
 
 <!-- This code means the type `Point<f32>` will have a method named -->
-<!-- `distance_from_origin`, and other instances of `Point<T>` where `T` is not of -->
+<!-- `distance_from_origin` and other instances of `Point<T>` where `T` is not of -->
 <!-- type `f32` will not have this method defined. The method measures how far our -->
 <!-- point is from the point at coordinates (0.0, 0.0) and uses mathematical -->
 <!-- operations that are vailable only for floating point types. -->
@@ -491,12 +491,12 @@ impl Point<f32> {
 <!-- takes another `Point` as a parameter, which might have different types than the -->
 <!-- `self` `Point` we’re calling `mixup` on. The method creates a new `Point` -->
 <!-- instance with the `x` value from the `self` `Point` (of type `T`) and the `y` -->
-<!-- value from the passed-in `Point` (of type `W`): -->
+<!-- value from the passed-in `Point` (of type `W`). -->
 
 構造体定義のジェネリックな型引数は、必ずしもその構造体のメソッドシグニチャで使用するものと同じにはなりません。
 例を挙げれば、リスト10-11は、リスト10-8の`Point<T, U>`にメソッド`mixup`を定義しています。
 このメソッドは、他の`Point`を引数として取り、この引数は`mixup`を呼び出している`self`の`Point`とは異なる型の可能性があります。
-このメソッドは、(型`T`の)`self`の`Point`の`x`値と渡した(型`W`の)`Point`の`y`値から新しい`Point`インスタンスを生成します:
+このメソッドは、(型`T`の)`self`の`Point`の`x`値と渡した(型`W`の)`Point`の`y`値から新しい`Point`インスタンスを生成します。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

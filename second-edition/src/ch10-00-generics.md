@@ -100,7 +100,7 @@ fn main() {
 <!-- through all the numbers in the list, and if the current number is greater than -->
 <!-- the number stored in `largest`, it replaces the number in that variable. -->
 <!-- However, if the current number is less than the largest number seen so far, the -->
-<!-- variable doesn’t change and the code moves on to the next number in the list. -->
+<!-- variable doesn’t change, and the code moves on to the next number in the list. -->
 <!-- After considering all the numbers in the list, `largest` should hold the -->
 <!-- largest number, which in this case is 100. -->
 
@@ -227,7 +227,7 @@ fn main() {
 まとめとして、こちらがリスト10-2のコードからリスト10-3に変更するのに要したステップです:
 
 <!-- 1. Identify duplicate code. -->
-<!-- 2. Extract the duplicate code into the body of the function, and specify the -->
+<!-- 2. Extract the duplicate code into the body of the function and specify the -->
 <!--    inputs and return values of that code in the function signature. -->
 <!-- 3. Update the two instances of duplicated code to call the function instead. -->
 

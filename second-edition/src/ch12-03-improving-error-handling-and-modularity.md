@@ -87,23 +87,25 @@
 <!--   *main.rs*. -->
 <!-- * When the command line parsing logic starts getting complicated, extract it -->
 <!--   from *main.rs* and move it to *lib.rs*. -->
-<!-- * The responsibilities that remain in the `main` function after this process -->
-<!--   should be limited to the following: -->
-<!-- -->
-<!--   * Calling the command line parsing logic with the argument values -->
-<!--   * Setting up any other configuration -->
-<!--   * Calling a `run` function in *lib.rs* -->
-<!--   * Handling the error if `run` returns an error -->
 
 * プログラムを*main.rs*と*lib.rs*に分け、ロジックを*lib.rs*に移動する。
 * コマンドライン引数の解析ロジックが小規模な限り、*main.rs*に置いても良い。
 * コマンドライン引数の解析ロジックが複雑化の様相を呈し始めたら、*main.rs*から抽出して*lib.rs*に移動する。
-* この工程の後に`main`関数に残る責任は以下に限定される:
 
-  * 引数の値でコマンドライン引数の解析ロジックを呼び出す
-  * 他のあらゆる設定を行う
-  * *lib.rs*の`run`関数を呼び出す
-  * `run`がエラーを返した時に処理する
+<!-- The responsibilities that remain in the `main` function after this process -->
+<!-- should be limited to the following: -->
+
+この工程の後に`main`関数に残る責任は以下に限定される:
+
+<!-- * Calling the command line parsing logic with the argument values -->
+<!-- * Setting up any other configuration -->
+<!-- * Calling a `run` function in *lib.rs* -->
+<!-- * Handling the error if `run` returns an error -->
+
+* 引数の値でコマンドライン引数の解析ロジックを呼び出す
+* 他のあらゆる設定を行う
+* *lib.rs*の`run`関数を呼び出す
+* `run`がエラーを返した時に処理する
 
 <!-- This pattern is about separating concerns: *main.rs* handles running the -->
 <!-- program, and *lib.rs* handles all the logic of the task at hand. Because we -->
@@ -158,8 +160,8 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 <span class="caption">リスト12-5: `main`から`parse_config`関数を抽出する</span>
 
 <!-- We’re still collecting the command line arguments into a vector, but instead of -->
-<!-- assigning the argument value at index `1` to the variable `query` and the -->
-<!-- argument value at index `2` to the variable `filename` within the `main` -->
+<!-- assigning the argument value at index 1 to the variable `query` and the -->
+<!-- argument value at index 2 to the variable `filename` within the `main` -->
 <!-- function, we pass the whole vector to the `parse_config` function. The -->
 <!-- `parse_config` function then holds the logic that determines which argument -->
 <!-- goes in which variable and passes the values back to `main`. We still create -->
@@ -167,8 +169,8 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 <!-- responsibility of determining how the command line arguments and variables -->
 <!-- correspond. -->
 
-それでもまだ、コマンドライン引数をベクタ型に集結させていますが、`main`関数内で引数の値の添字`1`を変数`query`に、
-添字`2`を変数`filename`に代入する代わりに、ベクタ全体を`parse_config`関数に渡しています。
+それでもまだ、コマンドライン引数をベクタ型に集結させていますが、`main`関数内で引数の値のインデックス1を変数`query`に、
+インデックス2を変数`filename`に代入する代わりに、ベクタ全体を`parse_config`関数に渡しています。
 そして、`parse_config`関数にはどの引数がどの変数に入り、それらの値を`main`に返すというロジックが存在します。
 まだ`main`内で`query`と`filename`という変数を生成していますが、もう`main`は、
 コマンドライン引数と変数がどう対応するかを決定する責任は持ちません。
@@ -220,14 +222,9 @@ often, to help identify the cause of problems when they occur.
 > 注釈: この複雑型(complex type)がより適切な時に組み込みの値を使うアンチパターンを、
 > *primitive obsession*(`脚注`: 初めて聞いた表現。*組み込み型強迫観念*といったところだろうか)と呼ぶ人もいます。
 
-<!-- Listing 12-6 shows the addition of a struct named `Config` defined to have -->
-<!-- fields named `query` and `filename`. We’ve also changed the `parse_config` -->
-<!-- function to return an instance of the `Config` struct and updated `main` to use -->
-<!-- the struct fields rather than having separate variables: -->
+<!-- Listing 12-6 shows the improvements to the `parse_config` function. -->
 
-リスト12-6は、`Config`という名前の構造体が`query`と`filename`というフィールドを持つよう定義された追加分を示しています。
-また、`parse_config`関数を`Config`構造体のインスタンを返すように変え、
-`main`も個別の変数ではなく構造体のフィールドを使うように更新しました。
+リスト12-6は、`parse_config`関数の改善を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -268,14 +265,16 @@ fn parse_config(args: &[String]) -> Config {
 
 <span class="caption">リスト12-6: `parse_config`をリファクタリングして`Config`構造体のインスタンスを返すようにした</span>
 
-<!-- The signature of `parse_config` now indicates that it returns a `Config` value. -->
-<!-- In the body of `parse_config`, where we used to return string slices that -->
-<!-- reference `String` values in `args`, we now define `Config` to contain owned -->
-<!-- `String` values. The `args` variable in `main` is the owner of the argument -->
-<!-- values and is only letting the `parse_config` function borrow them, which means -->
-<!-- we’d violate Rust’s borrowing rules if `Config` tried to take ownership of the -->
-<!-- values in `args`. -->
+<!-- We’ve added a struct named `Config` defined to have fields named `query` and -->
+<!-- `filename`. The signature of `parse_config` now indicates that it returns a -->
+<!-- `Config` value. In the body of `parse_config`, where we used to return string -->
+<!-- slices that reference `String` values in `args`, we now define `Config` to -->
+<!-- contain owned `String` values. The `args` variable in `main` is the owner of -->
+<!-- the argument values and is only letting the `parse_config` function borrow -->
+<!-- them, which means we’d violate Rust’s borrowing rules if `Config` tried to take -->
+<!-- ownership of the values in `args`. -->
 
+`query`と`filenmae`というフィールドを持つよう定義された`Config`という構造体を追加しました。
 `parse_config`のシグニチャは、これで`Config`値を返すと示すようになりました。`parse_config`の本体では、
 以前は`args`の`String`値を参照する文字列スライスを返していましたが、
 今では所有する`String`値を含むように`Config`を定義しています。`main`の`args`変数は引数値の所有者であり、
@@ -357,14 +356,14 @@ Rustの借用規則に違反してしまうことを意味します。
 <!-- standard library, such as `String`, by calling `String::new`. Similarly, by -->
 <!-- changing `parse_config` into a `new` function associated with `Config`, we’ll -->
 <!-- be able to create instances of `Config` by calling `Config::new`. Listing 12-7 -->
-<!-- shows the changes we need to make: -->
+<!-- shows the changes we need to make. -->
 
 したがって、今や`parse_config`関数の目的は`Config`インスタンスを生成することになったので、
 `parse_config`をただの関数から`Config`構造体に紐付く`new`という関数に変えることができます。
 この変更を行うことで、コードがより慣用的になります。`String`などの標準ライブラリの型のインスタンスを、
 `String::new`を呼び出すことで生成できます。同様に、`parse_config`を`Config`に紐付く`new`関数に変えれば、
 `Config::new`を呼び出すことで`Config`のインスタンスを生成できるようになります。リスト12-7が、
-行う必要のある変更を示しています:
+行う必要のある変更を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -417,11 +416,11 @@ impl Config {
 ### エラー処理を修正する
 
 <!-- Now we’ll work on fixing our error handling. Recall that attempting to access -->
-<!-- the values in the `args` vector at index `1` or index `2` will cause the -->
-<!-- program to panic if the vector contains fewer than three items. Try running the -->
-<!-- program without any arguments; it will look like this: -->
+<!-- the values in the `args` vector at index 1 or index 2 will cause the program to -->
+<!-- panic if the vector contains fewer than three items. Try running the program -->
+<!-- without any arguments; it will look like this: -->
 
-さて、エラー処理の修正に取り掛かりましょう。ベクタが2個以下の要素しか含んでいないときに`args`ベクタの添字`1`か`2`にアクセスしようとすると、
+さて、エラー処理の修正に取り掛かりましょう。ベクタが2個以下の要素しか含んでいないときに`args`ベクタのインデックス1か2にアクセスしようとすると、
 プログラムがパニックすることを思い出してください。試しに引数なしでプログラムを実行してください。すると、こんな感じになります:
 
 ```text
@@ -431,7 +430,7 @@ $ cargo run
      Running `target/debug/minigrep`
 thread 'main' panicked at 'index out of bounds: the len is 1
 but the index is 1', src/main.rs:29:21
-(スレッド'main'は、「境界外アクセス: 長さは1なのに添字も1です」でパニックしました)
+(スレッド'main'は、「境界外アクセス: 長さは1なのにインデックスも1です」でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
@@ -439,7 +438,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- message intended for programmers. It won’t help our end users understand what -->
 <!-- happened and what they should do instead. Let’s fix that now. -->
 
-`境界外アクセス: 長さは1なのに添字も1です`という行は、プログラマ向けのエラーメッセージです。
+`境界外アクセス: 長さは1なのにインデックスも1です`という行は、プログラマ向けのエラーメッセージです。
 エンドユーザが起きたことと代わりにすべきことを理解する手助けにはならないでしょう。これを今修正しましょう。
 
 <!-- #### Improving the Error Message -->
@@ -447,12 +446,12 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 #### エラーメッセージを改善する
 
 <!-- In Listing 12-8, we add a check in the `new` function that will verify that the -->
-<!-- slice is long enough before accessing index `1` and `2`. If the slice isn’t -->
-<!-- long enough, the program panics and displays a better error message than the -->
-<!-- `index out of bounds` message. -->
+<!-- slice is long enough before accessing index 1 and 2. If the slice isn’t long -->
+<!-- enough, the program panics and displays a better error message than the `index -->
+<!-- out of bounds` message. -->
 
-リスト12-8で、`new`関数に添字`1`と`2`にアクセスする前にスライスが十分長いことを実証するチェックを追加しています。
-スライスの長さが十分でなければ、プログラムはパニックし、`境界外アクセス`よりもいいエラーメッセージを表示します。
+リスト12-8で、`new`関数にインデックス1と2にアクセスする前にスライスが十分長いことを実証するチェックを追加しています。
+スライスの長さが十分でなければ、プログラムはパニックし、`境界外インデックス`よりもいいエラーメッセージを表示します。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -473,17 +472,17 @@ fn new(args: &[String]) -> Config {
 
 <span class="caption">リスト12-8: 引数の数のチェックを追加する</span>
 
-<!-- This code is similar to the `Guess::new` function we wrote in Listing 9-9, where -->
-<!-- we called `panic!` when the `value` argument was out of the range of valid -->
-<!-- values. Instead of checking for a range of values here, we’re checking that the -->
-<!-- length of `args` is at least `3` and the rest of the function can operate under -->
-<!-- the assumption that this condition has been met. If `args` has fewer than three -->
-<!-- items, this condition will be true, and we call the `panic!` macro to end the -->
-<!-- program immediately. -->
+<!-- This code is similar to the `Guess::new` function we wrote in Listing 9-9, -->
+<!-- where we called `panic!` when the `value` argument was out of the range of -->
+<!-- valid values. Instead of checking for a range of values here, we’re checking -->
+<!-- that the length of `args` is at least 3 and the rest of the function can -->
+<!-- operate under the assumption that this condition has been met. If `args` has -->
+<!-- fewer than three items, this condition will be true, and we call the `panic!` -->
+<!-- macro to end the program immediately. -->
 
 このコードは、リスト9-9で記述した`value`引数が正常な値の範囲外だった時に`panic!`を呼び出した`Guess::new`関数と似ています。
-ここでは、値の範囲を確かめる代わりに、`args`の長さが少なくとも`3`であることを確かめていて、
-関数の残りの部分は、この条件が満たされているという仮定のもとで処理を行うことができます。
+ここでは、値の範囲を確かめる代わりに、`args`の長さが少なくとも3であることを確かめていて、
+関数の残りの部分は、この条件が満たされているという前提のもとで処理を行うことができます。
 `args`に2要素以下しかなければ、この条件は真になり、`panic!`マクロを呼び出して、即座にプログラムを終了させます。
 
 <!-- With these extra few lines of code in `new`, let’s run the program without any -->
@@ -504,10 +503,10 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- This output is better: we now have a reasonable error message. However, we also -->
 <!-- have extraneous information we don’t want to give to our users. Perhaps using -->
 <!-- the technique we used in Listing 9-9 isn’t the best to use here: a call to -->
-<!-- `panic!` is more appropriate for a programming problem rather than a usage -->
-<!-- problem, as discussed in Chapter 9. Instead, we can use the other technique you -->
-<!-- learned about in Chapter 9—returning a `Result` that indicates either success -->
-<!-- or an error. -->
+<!-- `panic!` is more appropriate for a programming problem than a usage problem, as -->
+<!-- discussed in Chapter 9. Instead, we can use the other technique you learned -->
+<!-- about in Chapter 9—returning a `Result` that indicates either success or an -->
+<!-- error. -->
 
 この出力の方がマシです: これでエラーメッセージが合理的になりました。ですが、
 ユーザに与えたくない追加の情報も含まれてしまっています。おそらく、
@@ -753,13 +752,13 @@ fn run(config: Config) {
 <!-- function will return a `Result<T, E>` when something goes wrong. This will let -->
 <!-- us further consolidate into `main` the logic around handling errors in a -->
 <!-- user-friendly way. Listing 12-12 shows the changes we need to make to the -->
-<!-- signature and body of `run`: -->
+<!-- signature and body of `run`. -->
 
 残りのプログラムロジックが`run`関数に隔離されたので、リスト12-9の`Config::new`のように、
 エラー処理を改善することができます。`expect`を呼び出してプログラムにパニックさせる代わりに、
 `run`関数は、何か問題が起きた時に`Result<T, E>`を返します。これにより、
 さらにエラー処理周りのロジックをユーザに優しい形で`main`に統合することができます。
-リスト12-12にシグニチャと`run`本体に必要な変更を示しています:
+リスト12-12にシグニチャと`run`本体に必要な変更を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -809,12 +808,12 @@ fn run(config: Config) -> Result<(), Box<Error>> {
 戻り値の型を具体的に指定しなくても良いことを知っておいてください。これにより、
 エラーケースによって異なる型のエラー値を返す柔軟性を得ます。
 
-<!-- Second, we’ve removed the calls to `expect` in favor of `?`, as we talked about -->
-<!-- in Chapter 9. Rather than `panic!` on an error, `?` will return the error value -->
-<!-- from the current function for the caller to handle. -->
+<!-- Second, we’ve removed the calls to `expect` in favor of the `?` operator, as we -->
+<!-- talked about in Chapter 9. Rather than `panic!` on an error, the `?` operator -->
+<!-- will return the error value from the current function for the caller to handle. -->
 
-2番目に、`expect`の呼び出しよりも`?`を選択して取り除きました。第9章で語りましたね。
-エラーでパニックするのではなく、`?`は呼び出し元が処理できるように、現在の関数からエラー値を返します。
+2番目に、`expect`の呼び出しよりも`?`演算子を選択して取り除きました。第9章で語りましたね。
+エラーでパニックするのではなく、`?`演算子は呼び出し元が処理できるように、現在の関数からエラー値を返します。
 
 <!-- Third, the `run` function now returns an `Ok` value in the success case. We’ve -->
 <!-- declared the `run` function’s success type as `()` in the signature, which -->
@@ -842,12 +841,12 @@ warning: unused `std::result::Result` which must be used
 = note: #[warn(unused_must_use)] on by default
 ```
 
-<!-- 3行目中盤、andだが、逆接のように訳しています。andはフローが流れていることを表すだけなので、こうなっている模様 -->
+<!-- 3行目中盤、andだが、逆接のように訳している。andはフローが流れていることを表すだけなので、こうなっている模様 -->
 
 <!-- Rust tells us that our code ignored the `Result` value and the `Result` value -->
 <!-- might indicate that an error occurred. But we’re not checking to see whether or -->
 <!-- not there was an error, and the compiler reminds us that we probably meant to -->
-<!-- have some error handling code here! Let’s rectify that problem now. -->
+<!-- have some error-handling code here! Let’s rectify that problem now. -->
 
 コンパイラは、コードが`Result`値を無視していると教えてくれて、この`Result`値は、
 エラーが発生したと示唆しているかもしれません。しかし、エラーがあったか確認するつもりはありませんが、
@@ -928,10 +927,10 @@ fn main() {
 
 <!-- The contents of *src/lib.rs* should have the signatures shown in Listing 12-13 -->
 <!-- (we’ve omitted the bodies of the functions for brevity). Note that this won't -->
-<!-- compile until we modify *src/main.rs* in the listing after this one. -->
+<!-- compile until we modify *src/main.rs* in Listing 12-14. -->
 
 *src/lib.rs*の中身にはリスト12-13に示したようなシグニチャがあるはずです(関数の本体は簡潔性のために省略しました)。
-この後に*src/main.rs*に変更を加えるまでこのコードはコンパイルできないことに注意してください。
+リスト12-14で*src/main.rs*に変更を加えるまでこのコードはコンパイルできないことに注意してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -971,10 +970,10 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
 これでテスト可能な公開APIのあるライブラリクレートができました！
 
 <!-- Now we need to bring the code we moved to *src/lib.rs* into the scope of the -->
-<!-- binary crate in *src/main.rs*, as shown in Listing 12-14: -->
+<!-- binary crate in *src/main.rs*, as shown in Listing 12-14. -->
 
 さて、*src/lib.rs*に移動したコードを*src/main.rs*のバイナリクレートのスコープに持っていく必要があります。
-リスト12-14に示したようにですね:
+リスト12-14に示したようにですね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

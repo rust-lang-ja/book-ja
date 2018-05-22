@@ -189,9 +189,9 @@ Hello, world!プロジェクトのように、Cargoを使用しないプロジ�
 
 ### Cargoプロジェクトをビルドし、実行する
 
-<!-- Now let’s look what's different when we build and run the Hello, world! program -->
-<!-- with Cargo! From your *hello_cargo* directory, build your project by entering -->
-<!-- the following command: -->
+<!-- Now let’s look what's different when we build and run the Hello, world! -->
+<!-- program with Cargo! From your *hello_cargo* directory, build your project by -->
+<!-- entering the following command: -->
 
 さて、CargoでHello, world!プログラムをビルドし、実行する時の違いに目を向けましょう！*hello_cargo*ディレクトリから、
 以下のコマンドを入力してプロジェクトをビルドしてください:
@@ -283,14 +283,14 @@ $ cargo check
 プログラムを書く際にコンパイルできるか確かめるために定期的に`cargo check`を実行します。
 そして、実行可能ファイルを使用できる状態になったら、`cargo build`を走らせるのです。
 
-<!-- Let's recap what we’ve learned so far about Cargo: -->
+<!-- Let’s recap what we’ve learned so far about Cargo: -->
 
 ここまでにCargoについて学んだことをおさらいしましょう:
 
 <!-- * We can build a project using `cargo build` or `cargo check`. -->
 <!-- * We can build and run a project in one step using `cargo run`. -->
-<!-- * Instead of the result of the build being saved in the same directory as our -->
-<!--   code, Cargo stores it in the *target/debug* directory. -->
+<!-- * Instead of saving the result of the build in the same directory as our code, -->
+<!--   Cargo stores it in the *target/debug* directory. -->
 
 * `cargo build`か`cargo check`でプロジェクトをビルドできる。
 * プロジェクトのビルドと実行を1ステップで`cargo run`でできる。

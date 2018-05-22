@@ -18,7 +18,7 @@ Rustのコミュニティでは、テストを2つの大きなカテゴリで捉
 1テストにつき複数のモジュールを用いることもあります。
 
 <!-- Writing both kinds of tests is important to ensure that the pieces of your -->
-<!-- library are doing what you expect them to separately and together. -->
+<!-- library are doing what you expect them to, separately and together. -->
 
 どちらのテストを書くのも、ライブラリの一部が個別かつ共同でしてほしいことをしていることを確認するのに重要なのです。
 
@@ -101,12 +101,12 @@ Cargoがテストコードをコンパイルします。これには、このモ
 <!-- functions should be tested directly, and other languages make it difficult or -->
 <!-- impossible to test private functions. Regardless of which testing ideology you -->
 <!-- adhere to, Rust’s privacy rules do allow you to test private functions. -->
-<!-- Consider the code in Listing 11-12 with the private function `internal_adder`: -->
+<!-- Consider the code in Listing 11-12 with the private function `internal_adder`. -->
 
 テストコミュニティ内で非公開関数を直接テストするべきかについては議論があり、
 他の言語では非公開関数をテストするのは困難だったり、不可能だったりします。
 あなたがどちらのテストイデオロギーを支持しているかに関わらず、Rustの公開性規則により、
-非公開関数をテストすることが確かに可能です。リスト11-12の非公開関数`internal_adder`を含むコードを考えてください:
+非公開関数をテストすることが確かに可能です。リスト11-12の非公開関数`internal_adder`を含むコードを考えてください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -181,11 +181,11 @@ Cargoはそれぞれのファイルを個別のクレートとしてコンパイ
 
 <!-- Let’s create an integration test. With the code in Listing 11-12 still in the -->
 <!-- *src/lib.rs* file, make a *tests* directory, create a new file named -->
-<!-- *tests/integration_test.rs*, and enter the code in Listing 11-13: -->
+<!-- *tests/integration_test.rs*, and enter the code in Listing 11-13. -->
 
 結合テストを作成しましょう。リスト11-12のコードが*src/lib.rs*ファイルにあるまま、
 *tests*ディレクトリを作成し、*tests/integration_test.rs*という名前の新しいファイルを生成し、
-リスト11-13のコードを入力してください:
+リスト11-13のコードを入力してください。
 
 <!-- <span class="filename">Filename: tests/integration_test.rs</span> -->
 

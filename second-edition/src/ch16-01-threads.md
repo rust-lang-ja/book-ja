@@ -191,7 +191,7 @@ hi number 5 from the spawned thread!
 ### `join`ハンドルで全スレッドの終了を待つ
 
 <!-- The code in Listing 16-1 not only stops the spawned thread prematurely most of -->
-<!-- the time due to the main thread ending, but also can't guarantee that the -->
+<!-- the time due to the main thread ending, but also can’t guarantee that the -->
 <!-- spawned thread will get to run at all. The reason is that there is no guarantee -->
 <!-- on the order in which threads run! -->
 

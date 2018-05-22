@@ -23,12 +23,12 @@
 <!-- the first step is again to write a failing test. We’ll add a new test for the -->
 <!-- new `search_case_insensitive` function and rename our old test from -->
 <!-- `one_result` to `case_sensitive` to clarify the differences between the two -->
-<!-- tests, as shown in Listing 12-20: -->
+<!-- tests, as shown in Listing 12-20. -->
 
 環境変数がオンの場合に呼び出す`search_case_insensitive`関数を新しく追加したいです。テスト駆動開発の過程に従い続けるので、
 最初の手順は、今回も失敗するテストを書くことです。新しい`search``_case_insensitive`関数用の新規テストを追加し、
 古いテストを`one_result`から`case_sensitive`に名前変更して、二つのテストの差異を明確化します。
-リスト12-20に示したようにですね:
+リスト12-20に示したようにですね。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -78,13 +78,13 @@ Trust me.";
 
 <!-- Note that we’ve edited the old test’s `contents` too. We’ve added a new line -->
 <!-- with the text `“Duct tape”` using a capital D that shouldn’t match the query -->
-<!-- “duct” when we’re searching in a case-sensitive manner. Changing the old test -->
+<!-- `“duct”` when we’re searching in a case-sensitive manner. Changing the old test -->
 <!-- in this way helps ensure that we don’t accidentally break the case-sensitive -->
 <!-- search functionality that we’ve already implemented. This test should pass now -->
 <!-- and should continue to pass as we work on the case-insensitive search. -->
 
 古いテストの`contents`も変更していることに注意してください。大文字小文字を区別する検索を行う際に、
-"duct"というクエリに合致しないはずの大文字Dを使用した`"Duct tape"`という新しい行を追加しました。
+`"duct"`というクエリに合致しないはずの大文字Dを使用した`"Duct tape"`という新しい行を追加しました。
 このように古いテストを変更することで、すでに実装済みの大文字小文字を区別する検索機能を誤って壊してしまわないことを保証する助けになります。
 このテストはもう通り、大文字小文字を区別しない検索に取り掛かっても通り続けるはずです。
 
@@ -122,7 +122,7 @@ Trust me.";
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     let query = query.to_lowercase();
     let mut results = Vec::new();
 
@@ -189,8 +189,8 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- Great! They passed. Now, let’s call the new `search_case_insensitive` function -->
 <!-- from the `run` function. First, we’ll add a configuration option to the -->
 <!-- `Config` struct to switch between case-sensitive and case-insensitive search. -->
-<!-- Adding this field will cause compiler errors since we aren’t initializing this -->
-<!-- field anywhere yet: -->
+<!-- Adding this field will cause compiler errors because we aren’t initializing -->
+<!-- this field anywhere yet: -->
 
 素晴らしい！通りました。では、`run`関数から新しい`search_case_insensitive`関数を呼び出しましょう。
 1番目に大文字小文字の区別を切り替えられるよう、`Config`構造体に設定オプションを追加します。
@@ -212,11 +212,11 @@ pub struct Config {
 <!-- need the `run` function to check the `case_sensitive` field’s value and use -->
 <!-- that to decide whether to call the `search` function or the -->
 <!-- `search_case_insensitive` function, as shown in Listing 12-22. Note this still -->
-<!-- won’t compile yet: -->
+<!-- won’t compile yet. -->
 
 論理値を持つ`case_sensitive`フィールドを追加したことに注意してください。次に、`run`関数に、
 `case_sensitive`フィールドの値を確認し、`search`関数か`search_case_insensitive`関数を呼ぶかを決定するのに使ってもらう必要があります。
-リスト12-22のようにですね。それでも、これはまだコンパイルできないことに注意してください:
+リスト12-22のようにですね。それでも、これはまだコンパイルできないことに注意してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -231,7 +231,7 @@ pub struct Config {
 #      vec![]
 # }
 #
-# fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+# pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 #      vec![]
 # }
 #
@@ -271,12 +271,12 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
 <!-- library, so we want to bring that module into scope with a `use std::env;` line -->
 <!-- at the top of *src/lib.rs*. Then we’ll use the `var` function from the `env` -->
 <!-- module to check for an environment variable named `CASE_INSENSITIVE`, as shown -->
-<!-- in Listing 12-23: -->
+<!-- in Listing 12-23. -->
 
 最後に、環境変数を確認する必要があります。環境変数を扱う関数は、標準ライブラリの`env`モジュールにあるので、
 `use std::env;`行で*src/lib.rs*の冒頭でそのモジュールをスコープに持ってくる必要があります。そして、
 `env`モジュールから`var`関数を使用して`CASE_INSENSITIVE`という環境変数のチェックを行います。
-リスト12-23のようにですね:
+リスト12-23のようにですね。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
