@@ -112,12 +112,12 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- a new task. A thread pool allows you to process connections concurrently, -->
 <!-- increasing the throughput of your server. -->
 
-*スレッドプール*は、待機し、タスクを処理する準備のできた一塊りの立ち上げられたスレッドです。
+*スレッドプール*は、待機し、タスクを処理する準備のできた一塊りの大量に生成されたスレッドです。
 プログラムが新しいタスクを受け取ったら、プールのスレッドのどれかをタスクに<ruby>宛行<rp>(</rp><rt>あてが</rt><rp>)</rp></ruby>い、
 そのスレッドがそのタスクを処理します。
 プールの残りのスレッドは、最初のスレッドが処理中にやってくる他のあらゆるタスクを扱うために利用可能です。
 最初のスレッドがタスクの処理を完了したら、新しいタスクを処理する準備のできたアイドル状態のスレッドプールに戻ります。
-スレッドプールにより、平行で接続を処理でき、サーバのスループットを向上させます。
+スレッドプールにより、並行で接続を処理でき、サーバのスループットを向上させます。
 
 <!-- We’ll limit the number of threads in the pool to a small number to protect us -->
 <!-- from Denial of Service (DoS) attacks; if we had our program create a new thread -->
@@ -139,11 +139,11 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- in the queue, but we’ve increased the number of long-running requests we can -->
 <!-- handle before reaching that point. -->
 
-無制限にスレッドを立ち上げるのではなく、プールに固定された数のスレッドを待機させます。リクエストが来る度に、
+無制限にスレッドを大量生産するのではなく、プールに固定された数のスレッドを待機させます。リクエストが来る度に、
 処理するためにプールに送られます。プールは、やって来るリクエストのキューを管理します。
 プールの各スレッドがこのキューからリクエストを取り出し、リクエストを処理し、そして、別のリクエストをキューに要求します。
-この設計により、`N`リクエストを平行して処理でき、ここで`N`はスレッド数です。各スレッドが実行に時間のかかるリクエストに応答したら、
-続くリクエストはそれでも、キュー内で待機させられてしまいますが、その地点の到達する前に扱える時間のかかるリクエスト数を増加させました。
+この設計により、`N`リクエストを並行して処理でき、ここで`N`はスレッド数です。各スレッドが実行に時間のかかるリクエストに応答したら、
+続くリクエストはそれでも、キュー内で待機させられてしまいますが、その地点に到達する前に扱える時間のかかるリクエスト数を増加させました。
 
 <!-- This technique is just one of many ways to improve the throughput of a web -->
 <!-- server. Other options you might explore are the fork/join model and the -->
@@ -162,7 +162,7 @@ Rustで実装を試みることができます; Rustのような低レベル言�
 <!-- within that structure rather than implementing the functionality and then -->
 <!-- designing the public API. -->
 
-スレッドプールを実装し始める前に、プールを使うのはどんな感じなのかについて語りましょう。コードの設計を試みる際、
+スレッドプールを実装し始める前に、プールを使うのはどんな感じになるはずなのかについて語りましょう。コードの設計を試みる際、
 クライアントのインターフェイスをまず書くことは、設計を導く手助けになることがあります。呼び出したいように構成されるよう、
 コードのAPIを記述してください; そして、機能を実装してから公開APIの設計をするのではなく、その構造内で機能を実装してください。
 
@@ -184,8 +184,8 @@ Rustで実装を試みることができます; Rustのような低レベル言�
 <!-- starting point. Listing 20-11 shows the changes to make to `main` to spawn a -->
 <!-- new thread to handle each stream within the `for` loop. -->
 
-まず、全接続に対して新しいスレッドを生成した場合にコードがどんな見た目になるかを探求しましょう。
-先ほど述べたように、無制限にスレッドを立ち上げる可能性があるという問題のため、これは最終的な計画ではありませんが、
+まず、全接続に対して新しいスレッドを確かに生成した場合にコードがどんな見た目になるかを探求しましょう。
+先ほど述べたように、無制限にスレッドを大量生産する可能性があるという問題のため、これは最終的な計画ではありませんが、
 開始点です。リスト20-11は、新しいスレッドを立ち上げて`for`ループ内で各ストリームを扱うために`main`に行う変更を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -231,7 +231,7 @@ fn main() {
 
 <!-- #### Creating a Similar Interface for a Finite Number of Threads -->
 
-#### 有限数のスレッドを求めて似たインターフェイスを作成する
+#### 有限数のスレッド用に似たインターフェイスを作成する
 
 <!-- We want our thread pool to work in a similar, familiar way so switching from -->
 <!-- threads to a thread pool doesn’t require large changes to the code that uses -->
@@ -331,7 +331,7 @@ error: aborting due to previous error
 <!-- Create a *src/lib.rs* that contains the following, which is the simplest -->
 <!-- definition of a `ThreadPool` struct that we can have for now: -->
 
-以下を含む*src/lib.rs*生成してください。これは、現状存在できる最も単純な`ThreadPool`の定義です:
+以下を含む*src/lib.rs*を生成してください。これは、現状存在できる最も単純な`ThreadPool`の定義です:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -444,9 +444,9 @@ error[E0599]: no method named `execute` found for type `hello::ThreadPool` in th
 <!-- it’s given and gives it to an idle thread in the pool to run. -->
 
 今度は、警告とエラーが出ました。一時的に警告は無視して、`ThreadPool`に`execute`メソッドがないためにエラーが発生しました。
-「有限数のスレッドを求めて似たインターフェイスを作成する」節で我々のスレッドプールは、
+「有限数のスレッド用に似たインターフェイスを作成する」節で我々のスレッドプールは、
 `thread::spawn`と似たインターフェイスにするべきと決定したことを思い出してください。
-さらに、`execute`関数を実装するので、与えられたクロージャを取り、実行するようにプールのアイドルスレッドに渡します。
+さらに、`execute`関数を実装するので、与えられたクロージャを取り、実行するようにプールの待機中のスレッドに渡します。
 
 <!-- We’ll define the `execute` method on `ThreadPool` to take a closure as a -->
 <!-- parameter. Recall from the “Storing Closures Using Generic Parameters and the -->
@@ -624,15 +624,17 @@ impl ThreadPool {
 
 <span class="caption">リスト20-13: `ThreadPool::new`を実装して`size`が0ならパニックする</span>
 
+<!-- 2行目後半、calls outを声高に叫ぶとした。叫ぶだけでは何か物足りない気がするので -->
+
 <!-- We’ve added some documentation for our `ThreadPool` with doc comments. Note -->
 <!-- that we followed good documentation practices by adding a section that calls -->
 <!-- out the situations in which our function can panic, as discussed in Chapter 14. -->
 <!-- Try running `cargo doc --open` and clicking the `ThreadPool` struct to see what -->
 <!-- the generated docs for `new` look like! -->
 
-ドック・コメントで`ThreadPool`にドキュメンテーションを追加しました。第14章で議論したように、
-関数がパニックする場面を叫ぶセクションを追加することで、いいドキュメンテーションの実践に倣っていることに注意してください。
-試しに`cargo doc --open`を実行し、`ThreadPool`構造体をクリックして、`new`の生成されるドックがどんな感じが確かめてください！
+doc commentで`ThreadPool`にドキュメンテーションを追加しました。第14章で議論したように、
+関数がパニックする場面を声高に叫ぶセクションを追加することで、いいドキュメンテーションの実践に倣っていることに注意してください。
+試しに`cargo doc --open`を実行し、`ThreadPool`構造体をクリックして、`new`の生成されるドキュメンテーションがどんな感じが確かめてください！
 
 <!-- Instead of adding the `assert!` macro as we’ve done here, we could make `new` -->
 <!-- return a `Result` like we did with `Config::new` in the I/O project in Listing -->
@@ -683,7 +685,7 @@ pub fn spawn<F, T>(f: F) -> JoinHandle<T>
 <!-- `size`, set up a `for` loop that will run some code to create the threads, and -->
 <!-- returned a `ThreadPool` instance containing them. -->
 
-リスト20-14のコードはコンパイルできますが、まだスレッドは生成しません。`ThreadPool`の定義を変更して、
+リスト20-14のコードはコンパイルできますが、まだスレッドは何も生成しません。`ThreadPool`の定義を変更して、
 `thread::JoinHandle<()>`インスタンスのベクタを保持し、`size`キャパシティのベクタを初期化し、
 スレッドを生成する何らかのコードを実行する`for`ループを設定し、それらを含む`ThreadPool`インスタンスを返します。
 
@@ -743,7 +745,7 @@ impl ThreadPool {
 この本ではまだ、`with_capacity`関数を使用したことがありませんが、これは`Vec::new`と同じ作業をしつつ、
 重要な違いがあります: ベクタに予めスペースを確保しておくのです。ベクタに`size`個の要素を格納する必要があることはわかっているので、
 このメモリ確保を前もってしておくと、`Vec::new`よりも少しだけ効率的になります。`Vec::new`は、
-要素が挿入される度に、自身のサイズを変更します。
+要素が挿入されるにつれて、自身のサイズを変更します。
 
 <!-- When you run `cargo check` again, you’ll get a few more warnings, but it should -->
 <!-- succeed. -->
@@ -776,7 +778,7 @@ impl ThreadPool {
 <!-- workers wait until orders come in from customers, and then they’re responsible -->
 <!-- for taking those orders and filling them. -->
 
-この新しい振る舞いを管理するスレッドと`ThreadPool`間で新しいデータ構造を導入することでこの振る舞いを実装します。
+この新しい振る舞いを管理するスレッドと`ThreadPool`間に新しいデータ構造を導入することでこの振る舞いを実装します。
 このデータ構造を`Worker`と呼び、プール実装では一般的な用語です。レストランのキッチンで働く人々を思い浮かべてください:
 労働者は、お客さんからオーダーが来るまで待機し、それからそれらのオーダーを取り、満たすことに責任を負います。
 
@@ -819,7 +821,7 @@ impl ThreadPool {
 
 <!-- Ready? Here is Listing 20-15 with one way to make the preceding modifications. -->
 
-いいですか？こちらが先ほどの変更を行う1つの方法のあるリスト20-15です。
+いいですか？こちらが先ほどの変更を行う1つの方法を行ったリスト20-15です。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -908,7 +910,7 @@ impl Worker {
 <!-- create each `Worker` during the creation of the `ThreadPool`. -->
 
 さて、`thread::spawn`に与えられたクロージャが確かに何もしない問題に取り組みましょう。現在、
-`execute`メソッドで実行したいクロージャを得ています。ですが、`ThreadPool`の生成中に`Worker`それぞれを生成する際に、
+`execute`メソッドで実行したいクロージャを得ています。ですが、`ThreadPool`の生成中、`Worker`それぞれを生成する際に、
 実行するクロージャを`thread::spawn`に与える必要があります。
 
 <!-- We want the `Worker` structs that we just created to fetch code to run from a -->
@@ -1198,7 +1200,7 @@ impl Worker {
 <!-- the workers can share ownership of the receiving end. -->
 
 `ThreadPool::new`で、チャンネルの受信側を`Arc`と`Mutex`に置いています。新しいワーカーそれぞれに対して、
-`Arc`をクローンして参照カウントにドンとぶつかっているので、ワーカーは受信側の所有権を共有することができます。
+`Arc`をクローンして参照カウントを跳ね上げているので、ワーカーは受信側の所有権を共有することができます。
 
 <!-- With these changes, the code compiles! We’re getting there! -->
 
@@ -1328,15 +1330,13 @@ impl Worker {
 この場面では、`unwrap`を呼び出してこのスレッドをパニックさせるのは、取るべき正当な行動です。
 この`unwrap`をあなたにとって意味のあるエラーメッセージを伴う`expect`に変更することは、ご自由に行なってください。
 
-<!-- 2行目、A final `unwrap` moves past ...のところをもっとうまく訳したい -->
-
 <!-- If we get the lock on the mutex, we call `recv` to receive a `Job` from the -->
 <!-- channel. A final `unwrap` moves past any errors here as well, which might occur -->
 <!-- if the thread holding the sending side of the channel has shut down, similar to -->
 <!-- how the `send` method returns `Err` if the receiving side shuts down. -->
 
 ミューテックスのロックを獲得できたら、`recv`を呼び出してチャンネルから`Job`を受け取ります。
-最後の`unwrap`もここであらゆるエラーを超えて移動し、これはチャンネルの送信側を保持するスレッドが閉じた場合に発生する可能性があり、
+最後の`unwrap`もここであらゆるエラーを超えていき、これはチャンネルの送信側を保持するスレッドが閉じた場合に発生する可能性があり、
 受信側が閉じた場合に`send`メソッドが`Err`を返すのと似ています。
 
 <!-- The call to `recv` blocks, so if there is no job yet, the current thread will -->
@@ -1373,8 +1373,8 @@ std::ops::FnOnce() + std::marker::Sendのサイズを静的に決定できませ
 <!-- `Box<T>` precisely because we had something of an unknown size that we wanted -->
 <!-- to store in a `Box<T>` to get a value of a known size. -->
 
-問題が非常に謎めいているので、エラーも非常に謎めいています。`Box<T>`に格納された`FnOnce`クロージャを呼び出すためには
-(`Job`型エイリアスがそう)、呼び出す際にクロージャが`self`の所有権を奪うので、
+問題が非常に謎めいているので、エラーも非常に謎めいています。`Box<T>`に格納された`FnOnce`クロージャを呼び出すためには(`Job`型エイリアスがそう)、
+呼び出す際にクロージャが`self`の所有権を奪うので、
 クロージャは自身を`Box<T>`*から*ムーブする必要があります。一般的に、Rustは`Box<T>`から値をムーブすることを許可しません。
 コンパイラには、`Box<T>`の内側の値がどれほどの大きさなのか見当がつかないからです: 
 第15章で`Box<T>`に格納して既知のサイズの値を得たい未知のサイズの何かがあるために`Box<T>`を正確に使用したことを思い出してください。
@@ -1389,7 +1389,7 @@ std::ops::FnOnce() + std::marker::Sendのサイズを静的に決定できませ
 
 リスト17-15で見かけたように、記法`self: Box<Self>`を使用するメソッドを書くことができ、
 これにより、メソッドは`Box<T>`に格納された`Self`値の所有権を奪うことができます。
-それが正しくここで行いたいことですが、残念ながらコンパイラはさせてくれません:
+それがまさしくここで行いたいことですが、残念ながらコンパイラはさせてくれません:
 クロージャが呼び出された際に振る舞いを実装するRustの一部は、`self: Box<Self>`を使用して実装されていないのです。
 故に、コンパイラはまだこの場面において`self: Box<Self>`を使用してクロージャの所有権を奪い、
 クロージャを`Box<T>`からムーブできることを理解していないのです。
@@ -1400,7 +1400,7 @@ std::ops::FnOnce() + std::marker::Sendのサイズを静的に決定できませ
 <!-- finished this book, we would love for you to join in. -->
 
 Rustは、コンパイラが改善できる箇所ではまだ、発展途上にありますが、将来的にリスト20-20のコードは、
-ただ単純に動くはずです。あなたのような方がこれや他の問題を修正するのに取り掛かっています！この本を完了したら、
+ただ単純にうまく動くはずです。あなたのような方がこれや他の問題を修正するのに取り掛かっています！この本を完了したら、
 是非ともあなたにも参加していただきたいです。
 
 <!-- But for now, let’s work around this problem using a handy trick. We can tell -->
@@ -1560,8 +1560,8 @@ Worker 2 got a job; executing.
 <!-- After learning about the `while let` loop in Chapter 18, you might be wondering -->
 <!-- why we didn’t write the worker thread code as shown in Listing 20-22. -->
 
-第18章で`while let`ループを学んだ後でリスト20-22に示したように、
-ワーカースレッドのコードを記述しなかったのか不思議に思っている可能性があります。
+第18章で`while let`ループを学んだ後でなぜリスト20-22に示したようにワーカースレッドのコードを記述しなかったのか、
+不思議に思っている可能性があります。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -1609,8 +1609,8 @@ impl Worker {
 このコードはコンパイルでき、動きますが、望み通りのスレッドの振る舞いにはなりません:
 遅いリクエストがそれでも、他のリクエストが処理されるのを待機させてしまうのです。理由はどこか捉えがたいものです:
 `Mutex`構造体には公開の`unlock`メソッドがありません。ロックの所有権が、
-`lock`メソッドが返す`LockResult<MutexGuard<T>>`内の`MutexGuard<T>`のライフタイムに基付くからです。
-コンパイル時には、ロックを保持していない限り、借用精査機はそうしたら、`Mutex`に保護されるリソースはアクセスできないという規則を強制できます。
+`lock`メソッドが返す`LockResult<MutexGuard<T>>`内の`MutexGuard<T>`のライフタイムに基づくからです。
+コンパイル時には、ロックを保持していない限り、借用精査機はそうしたら、`Mutex`に保護されるリソースにはアクセスできないという規則を強制できます。
 しかし、この実装は、`MutexGuard<T>`のライフタイムについて熟考しなければ、
 意図したよりもロックが長い間保持される結果になり得ます。`while`式の値がブロックの間中スコープに残り続けるので、
 ロックは`job.call_box`の呼び出し中保持されたままになり、他のワーカーが仕事を受け取れなくなるのです。
@@ -1624,4 +1624,4 @@ impl Worker {
 代わりに`loop`を使用し、ロックと仕事をブロックの外ではなく、内側で獲得することで、
 `lock`メソッドが返す`MutexGuard`は`let job`文が終わると同時にドロップされます。
 これにより、ロックは`recv`の呼び出しの間は保持されるけれども、`job.call_box`の呼び出しの前には解放され、
-複数のリクエストを平行で提供できることを保証します。
+複数のリクエストを並行で提供できることを保証します。
