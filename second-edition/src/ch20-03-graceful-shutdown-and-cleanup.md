@@ -10,7 +10,7 @@
 <!-- threads are stopped immediately as well, even if they’re in the middle of -->
 <!-- serving a request. -->
 
-リスト20-21のコードは、意図した通り、スレッドプールの使用を通してリクエストに並行して応答できます。
+リスト20-21のコードは、意図した通り、スレッドプールの使用を通してリクエストに非同期に応答できます。
 何も片付けを行なっていないと思い出せてくれる、直接使用していない`workers`、`id`、`thread`フィールドについて警告が出ます。
 優美さに欠ける<span class="keystroke">ctrl-c</span>を使用してメインスレッドを停止させる方法を使用すると、
 リクエストの処理中であっても、他のスレッドも停止します。
@@ -97,7 +97,7 @@ error[E0507]: cannot move out of borrowed content
 
 各`worker`の可変参照しかなく、`join`は引数の所有権を奪うためにこのエラーは`join`を呼び出せないと教えてくれています。
 この問題を解決するには、`join`がスレッドを消費できるように、`thread`を所有する`Worker`インスタンスからスレッドをムーブする必要があります。
-これをリスト17-15では行いました: `Worker`が代わりに`Option<thread::JoinHandle<()>`を保持していれば、
+これをリスト17-15では行いました: `Worker`が代わりに`Option<thread::JoinHandle<()>>`を保持していれば、
 `Option`に対して`take`メソッドを呼び出し、`Some`列挙子から値をムーブし、その場所に`None`列挙子を残すことができます。
 言い換えれば、実行中の`Worker`には`thread`に`Some`列挙子があり、`Worker`を片付けたい時には、
 ワーカーが実行するスレッドがないように`Some`を`None`で置き換えるのです。
@@ -175,7 +175,7 @@ impl Worker {
 <!-- The following changes will do so: -->
 
 最初のエラーは`Drop`実装内にあります。先ほど、`Option`値に対して`take`を呼び出し、
-`thread`を`worker`からムーブする意図があると触れました。以下の変更がそれを行います:
+`thread`を`worker`からムーブする意図があることに触れました。以下の変更がそれを行います:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -202,7 +202,7 @@ impl Drop for ThreadPool {
 <!-- cleaned up, so nothing happens in that case. -->
 
 第17章で議論したように、`Option`の`take`メソッドは、`Some`列挙子を取り出し、その箇所に`None`を残します。
-`if let`を使用して`Some`を分解し、スレッドを得ています; そして、スレッドに対して`join`を呼び出します。
+`if let`を使用して`Some`を分配し、スレッドを得ています; そして、スレッドに対して`join`を呼び出します。
 ワーカーのスレッドが既に`None`なら、ワーカーはスレッドを既に片付け済みであることがわかるので、
 その場合には何も起きません。
 
@@ -218,7 +218,7 @@ impl Drop for ThreadPool {
 <!-- current implementation of `drop`, the main thread will block forever waiting -->
 <!-- for the first thread to finish. -->
 
-行なった変更と共に、コードは警告なしでコンパイルできます。ですが悪い知らせは、このコードが欲しいようにはまだ機能しないことです。
+行なった変更と共に、コードは警告なしでコンパイルできます。ですが悪い知らせは、このコードが期待したようにはまだ機能しないことです。
 鍵は、`Worker`インスタンスのスレッドで実行されるクロージャのロジックです: 現時点で`join`を呼び出していますが、
 仕事を求めて永遠に`loop`するので、スレッドを終了しません。現在の`drop`の実装で`ThreadPool`をドロップしようとしたら、
 最初のスレッドが完了するのを永遠に待機してメインスレッドはブロックされるでしょう。
@@ -228,7 +228,7 @@ impl Drop for ThreadPool {
 <!-- Instead of `Job` instances, our channel will send one of these two enum -->
 <!-- variants. -->
 
-この問題を修正するには、スレッドが実行する`Job`か、リッスンをやめて無限ループを抜ける通知をリッスンするように、
+この問題を修正するには、スレッドが、実行すべき`Job`か、リッスンをやめて無限ループを抜ける通知をリッスンするように、
 変更します。`Job`インスタンスの代わりに、チャンネルはこれら2つのenum列挙子の一方を送信します。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -328,8 +328,9 @@ impl Worker {
 <!-- is received. -->
 
 `Message`enumを具体化するために、2箇所で`Job`を`Message`に変更する必要があります:
-`ThreadPool`の定義と`Worker::new`のシグニチャです。`ThreadPool`の`execute`メソッドは、仕事を`Message::NewJob`に包んで送信する必要があります。
-それから、`Message`がチャンネルから受け取られる`Worker::new`で、`NewJob`列挙子が受け取られたら、
+`ThreadPool`の定義と`Worker::new`のシグニチャです。`ThreadPool`の`execute`メソッドは、
+仕事を`Message::NewJob`に包んで送信する必要があります。それから、
+`Message`がチャンネルから受け取られる`Worker::new`で、`NewJob`列挙子が受け取られたら、
 仕事が処理され、`Terminate`列挙子が受け取られたら、スレッドはループを抜けます。
 
 <!-- With these changes, the code will compile and continue to function in the same -->
@@ -337,7 +338,8 @@ impl Worker {
 <!-- creating any messages of the `Terminate` variety. Let’s fix this warning by -->
 <!-- changing our `Drop` implementation to look like Listing 20-25. -->
 
-これらの変更と共に、コードはコンパイルでき、リスト20-21の後と同じように機能し続けます。ですが、`Terminate`のメッセージを何も生成していないので、
+これらの変更と共に、コードはコンパイルでき、リスト20-21の後と同じように機能し続けます。ですが、
+`Terminate`のメッセージを何も生成していないので、
 警告が出るでしょう。`Drop`実装をリスト20-25のような見た目に変更してこの警告を修正しましょう。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -381,7 +383,7 @@ impl Drop for ThreadPool {
 
 今では、ワーカーを2回走査しています: 各ワーカーに`Terminate`メッセージを送信するために1回と、
 各ワーカースレッドに`join`を呼び出すために1回です。メッセージ送信と`join`を同じループで即座に行おうとすると、
-現在のイテレーションのワーカーがチャンネルからメッセージを受け取っているものであるか保証できなくなってしまいます。
+現在の繰り返しのワーカーがチャンネルからメッセージを受け取っているものであるか保証できなくなってしまいます。
 
 <!-- To better understand why we need two separate loops, imagine a scenario with -->
 <!-- two workers. If we used a single loop to iterate through each worker, on the -->
@@ -447,7 +449,7 @@ fn main() {
 <!-- in working order. -->
 
 現実世界のWebサーバには、たった2つしかリクエストを受け付けた後に閉じてほしくはないでしょう。
-このコードは、単に優美なシャットダウンと片付けが動く順番であることをデモするだけです。
+このコードは、単に優美なシャットダウンと片付けが機能する状態にあることをデモするだけです。
 
 <!-- The `take` method is defined in the `Iterator` trait and limits the iteration -->
 <!-- to the first two items at most. The `ThreadPool` will go out of scope at the -->
