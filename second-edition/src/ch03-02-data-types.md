@@ -217,7 +217,7 @@ fn main() {
 <!-- number types: addition, subtraction, multiplication, division, and remainder. -->
 <!-- The following code shows how you’d use each one in a `let` statement: -->
 
-Rustにも期待されうる標準的な数学演算が全数値型に対して用意されています: 足し算、引き算、掛け算、割り算、余りです。
+Rustにも全数値型に期待されうる標準的な数学演算が用意されています: 足し算、引き算、掛け算、割り算、余りです。
 以下の例では、`let`文での各演算の使用方法をご覧になれます:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
