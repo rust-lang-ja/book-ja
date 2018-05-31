@@ -17,7 +17,7 @@
 <!-- This allows a compact syntax for initialization, with less duplication: -->
 
 `fieldname`を`fieldname: fieldname`の省略として記述することでデータ構造(構造体、enum、ユニオン)を名前付きのフィールドで、
-初期化することができます。これにより、重複を減らし、初期化のコンパクトな記法が許容されます。
+初期化することができます。これにより、重複を減らし、コンパクトな記法の初期化が許容されます。
 
 ```rust
 #[derive(Debug)]
@@ -55,7 +55,7 @@ fn main() {
 <!-- result of that operation to the rest of your code. If you add it to the `break` -->
 <!-- expression you use to stop the loop, it will be returned by the broken loop: -->
 
-`loop`の1つの使用法は、スレッドが仕事を終えたか確認するなど、失敗する可能性のある処理を再試行することです。
+`loop`の1つの使用法は、スレッドが仕事を終えたか確認するなど、失敗する可能性のあることを知っている処理を再試行することです。
 ですが、その処理の結果を残りのコードに渡す必要がある可能性があります。それをループを停止させるために使用する`break`式に追加したら、
 breakしたループから返ってきます。
 
