@@ -586,7 +586,7 @@ impl Post {
 さらに`unwrap`メソッドを呼び出し、これは絶対にパニックしないことがわかっています。何故なら、
 `Post`のメソッドが、それらのメソッドが完了した際に`state`は常に`Some`値を含んでいることを保証するからです。
 これは、コンパイラには理解不能であるものの、
-`None`値が絶対にあり得ないとわかる第9章の「コンパイラよりも情報を握っている場合」節で語った1例です。
+`None`値が絶対にあり得ないとわかる第9章の「コンパイラよりも情報を握っている場合」節で語った一例です。
 
 <!-- At this point, when we call `content` on the `&Box<State>`, deref coercion will -->
 <!-- take effect on the `&` and the `Box` so the `content` method will ultimately be -->

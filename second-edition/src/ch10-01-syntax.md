@@ -364,7 +364,7 @@ enum Option<T> {
 <!-- Enums can use multiple generic types as well. The definition of the `Result` -->
 <!-- enum that we used in Chapter 9 is one example: -->
 
-enumも複数のジェネリックな型を使用できます。第9章で使用した`Result`enumの定義が1例です:
+enumも複数のジェネリックな型を使用できます。第9章で使用した`Result`enumの定義が一例です:
 
 ```rust
 enum Result<T, E> {
