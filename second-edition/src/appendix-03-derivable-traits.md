@@ -124,7 +124,7 @@
 `Eq`トレイトにはメソッドはありません。その目的は、注釈された型の全値に対して、値が自身と等しいことを通知することです。
 `Eq`トレイトは、`PartialEq`を実装する全ての型が`Eq`を実装できるわけではないものの、
 `PartialEq`も実装する型に対してのみ適用できます。これの一例は、浮動小数点数型です: 
-浮動小数点数の実装は、非数字(`NaN`)値の2つのインスタンスはお互いに等価ではないことを述べます。
+浮動小数点数の実装により、非数字(`NaN`)値の2つのインスタンスはお互いに等価ではないことが宣言されます。
 
 <!-- An example of when `Eq` is required is for keys in a `HashMap<K, V>` so the -->
 <!-- `HashMap<K, V>` can tell whether two keys are the same. -->
@@ -167,7 +167,7 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 <!-- from the `rand` crate that generates a random value in the range specified by a -->
 <!-- low value and a high value. -->
 
-`PartialOrd`トレイトは例えば、低い値と高い値で指定される範囲の乱数を生成する`rand`クレートの`gen_range`メソッドが挙げられます。
+`PartialOrd`トレイトが必要になる例には、低い値と高い値で指定される範囲の乱数を生成する`rand`クレートの`gen_range`メソッドが挙げられます。
 
 <!-- The `Ord` trait allows you to know that for any two values of the annotated -->
 <!-- type, a valid ordering will exist. The `Ord` trait implements the `cmp` method, -->
@@ -240,7 +240,8 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 <!-- performs the same task as `Copy`. -->
 
 部品すべてが`Copy`を実装する任意の型に対して`Copy`を継承することができます。`Clone`も実装する型に対してのみ、
-`Copy`トレイトを適用することができます。何故なら、`Copy`を実装する型には、`Copy`と同じ作業を行う`Clone`の瑣末な実装があるからです。
+`Copy`トレイトを適用することができます。何故なら、`Copy`を実装する型には、
+`Copy`と同じ作業を行う`Clone`の<ruby>瑣末<rp>(</rp><rt>さまつ</rt><rp>)</rp></ruby>な実装があるからです。
 
 <!-- The `Copy` trait is rarely required; types that implement `Copy` have -->
 <!-- optimizations available, meaning you don’t have to call `clone`, which makes -->
