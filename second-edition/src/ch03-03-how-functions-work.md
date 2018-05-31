@@ -8,14 +8,14 @@
 <!-- declare new functions. -->
 
 関数は、Rustのコードにおいてよく見かける存在です。すでに、言語において最も重要な関数のうちの一つを目撃していますね:
-そう、`main`関数です。これは、多くのプログラムのエントリーポイント(`脚注`: プログラム実行時に最初に走る関数のこと)になります。
+そう、`main`関数です。これは、多くのプログラムのエントリーポイント(`訳注`: プログラム実行時に最初に走る関数のこと)になります。
 `fn`キーワードもすでに見かけましたね。これによって新しい関数を宣言することができます。
 
 <!-- Rust code uses *snake case* as the conventional style for function and variable -->
 <!-- names. In snake case, all letters are lowercase and underscores separate words. -->
 <!-- Here’s a program that contains an example function definition: -->
 
-Rustの関数と変数の命名規則は、*スネークケース*(`脚注`: some_variableのような命名規則)です。
+Rustの関数と変数の命名規則は、*スネークケース*(`訳注`: some_variableのような命名規則)を使うのが慣例です。
 スネークケースとは、全文字を小文字にし、単語区切りにアンダースコアを使うことです。
 以下のプログラムで、サンプルの関数定義をご覧ください:
 
@@ -40,7 +40,7 @@ fn another_function() {
 <!-- body begins and ends. -->
 
 Rustにおいて関数定義は、`fn`キーワードで始まり、関数名の後に丸かっこの組が続きます。
-波かっこの位置が、コンパイラが関数本体の位置と判断する場所です。
+波かっこが、コンパイラに関数本体の開始と終了の位置を伝えます。
 
 <!-- We can call any function we’ve defined by entering its name followed by a set -->
 <!-- of parentheses. Because `another_function` is defined in the program, it can be -->
@@ -76,7 +76,7 @@ Another function.
 <!-- First, the “Hello, world!” message prints, and then `another_function` is -->
 <!-- called and its message is printed. -->
 
-行出力は、`main`関数内に書かれた順序で実行されています。最初に、"Hello, world"メッセージが出、
+行出力は、`main`関数内に書かれた順序で実行されています。最初に"Hello, world"メッセージが出て、
 それから`another_function`が呼ばれて、こちらのメッセージが出力されています。
 
 <!-- ### Function Parameters -->
@@ -94,12 +94,12 @@ Another function.
 関数は、引数を持つようにも定義できます。引数とは、関数シグニチャの一部になる特別な変数のことです。
 関数に引数があると、引数の位置に実際の値を与えることができます。技術的にはこの実際の値は
 *実引数*と呼ばれますが、普段の会話では、仮引数("parameter")と実引数("argument")を関数定義の変数と関数呼び出し時に渡す実際の値、
-両方の意味に区別なく使います(`脚注`: 日本語では、どちらも単に引数と呼ぶことが多いでしょう)。
+両方の意味に区別なく使います(`訳注`: 日本語では、どちらも単に引数と呼ぶことが多いでしょう)。
 
 <!-- The following rewritten version of `another_function` shows what parameters -->
 <!-- look like in Rust: -->
 
-以下の書き直した`another_function`では、Rustの仮引数がどんな見た目なのかを示しています:
+以下の書き直した`another_function`では、Rustの仮引数がどのようなものかを示しています:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -250,7 +250,7 @@ fn main() {
 <!-- to another variable, as the following code tries to do; you'll get an error: -->
 
 文は値を返しません。故に、`let`文を他の変数に代入することはできません。
-以下のコードでは試みてますけどね; エラーになります:
+以下のコードではそれを試みていますが、エラーになります:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -286,7 +286,7 @@ error: expected expression, found statement (`let`)
 <!-- languages, you can write `x = y = 6` and have both `x` and `y` have the value -->
 <!-- `6`; that is not the case in Rust. -->
 
-この`let y = 6`という文は値を返さないので、`x`を束縛する相手がないわけです。これは、
+この`let y = 6`という文は値を返さないので、`x`に束縛するものがないわけです。これは、
 CやRubyなどの言語とは異なる動作です。CやRubyでは、代入は代入値を返します。これらの言語では、
 `x = y = 6`と書いて、`x`も`y`も値6になるようにできるのですが、Rustにおいては、
 そうは問屋が卸さないわけです。
@@ -323,7 +323,7 @@ fn main() {
 
 <!-- This expression: -->
 
-以下の式は:
+以下の式:
 
 ```rust,ignore
 {
@@ -339,7 +339,7 @@ fn main() {
 <!-- expression, you turn it into a statement, which will then not return a value. -->
 <!-- Keep this in mind as you explore function return values and expressions next. -->
 
-今回の場合、`4`に評価されるブロックです。その値が、`let`文の一部として`y`に束縛されます。
+は今回の場合、`4`に評価されるブロックです。その値が、`let`文の一部として`y`に束縛されます。
 今まで見かけてきた行と異なり、文末にセミコロンがついていない`x + 1`の行に気をつけてください。
 式は終端にセミコロンを含みません。式の終端にセミコロンを付けたら、文に変えてしまいます。そして、文は値を返しません。
 次に関数の戻り値や式を見ていく際にこのことを肝に命じておいてください。
@@ -356,7 +356,7 @@ fn main() {
 <!-- the last expression implicitly. Here’s an example of a function that -->
 <!-- returns a value: -->
 
-関数は、それを呼び出したコードに値を返すことができます。戻り値に名前付けはできませんが、
+関数は、それを呼び出したコードに値を返すことができます。戻り値に名前を付けはしませんが、
 矢印(`->`)の後に型を書いて宣言します。Rustでは、関数の戻り値は、関数本体ブロックの最後の式の値と同義です。
 `return`キーワードで関数から早期リターンし、値を指定することもできますが、多くの関数は最後の式を暗黙的に返します。
 こちらが、値を返す関数の例です:
