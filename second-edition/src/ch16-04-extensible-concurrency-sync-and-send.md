@@ -104,7 +104,7 @@ Rustのほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外が
 
 これらのトレイトを手動で実装すると、unsafeなRustコードを実装することが関わってきます。
 unsafeなRustコードを使用することについては第19章で語ります; とりあえず、重要な情報は、
-`Send`と`Sync`ではない部品からなる新しい並列な型を構成するには、安全性保証を保持するために、
+`Send`と`Sync`ではない部品からなる新しい並行な型を構成するには、安全性保証を保持するために、
 注意深い思考が必要になるということです。[The Rustonomicon]には、
 これらの保証とそれを保持する方法についての情報がより多くあります。
 
@@ -142,12 +142,12 @@ unsafeなRustコードを使用することについては第19章で語りま�
 <!-- other languages. Concurrent programming is no longer a concept to be afraid of: -->
 <!-- go forth and make your programs concurrent, fearlessly! -->
 
-Rustの標準ライブラリは、メッセージ受け渡しにチャンネルを、並列の文脈で安全に使用できる、
+Rustの標準ライブラリは、メッセージ受け渡しにチャンネルを、並行の文脈で安全に使用できる、
 `Mutex<T>`や`Arc<T>`などのスマートポインタ型を提供しています。型システムと借用精査機により、
 これらの解決策を使用するコードがデータ競合や無効な参照に行き着かないことを保証してくれます。
 一旦コードをコンパイルすることができたら、他の言語ではありふれている追跡困難なバグなしに、
-複数のスレッドでも喜んで動くので安心できます。並列プログラミングは、もはや恐れるべき概念ではありません:
-進んでプログラムを並列にして恐れないでください！
+複数のスレッドでも喜んで動くので安心できます。並行プログラミングは、もはや恐れるべき概念ではありません:
+進んでプログラムを並行にして恐れないでください！
 
 <!-- Next, we’ll talk about idiomatic ways to model problems and structure solutions -->
 <!-- as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idioms -->

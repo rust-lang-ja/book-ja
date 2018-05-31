@@ -471,7 +471,7 @@ not implemented for `std::rc::Rc<std::sync::Mutex<i32>>`
 between threads safely``と述べています。この理由は、次に注目すべき重要な部分、エラーメッセージにあります。
 蒸留されたエラーメッセージは、`` the trait bound `Send` is not satisfied``と述べています。
 `Send`については、次の節で語ります:
-スレッドとともに使用している型が並列な場面で使われることを意図したものであることを保証するトレイトの1つです。
+スレッドとともに使用している型が並行な場面で使われることを意図したものであることを保証するトレイトの1つです。
 
 <!-- Unfortunately, `Rc<T>` is not safe to share across threads. When `Rc<T>` -->
 <!-- manages the reference count, it adds to the count for each call to `clone` and -->
@@ -500,7 +500,7 @@ between threads safely``と述べています。この理由は、次に注目�
 <!-- need to know that atomics work like primitive types but are safe to share -->
 <!-- across threads. -->
 
-幸いなことに、`Arc<T>`は`Rc<T>`のような並列な状況で安全に使用できる型*です*。
+幸いなことに、`Arc<T>`は`Rc<T>`のような並行な状況で安全に使用できる型*です*。
 *a*は*atomic*を表し、原子的に参照カウントする型を意味します。アトミックは、
 ここでは詳しく講義しない非同期処理の別の基本型です: 詳細は、
 `std::sync::atomic`の標準ライブラリドキュメンテーションを参照されたし。現時点では、

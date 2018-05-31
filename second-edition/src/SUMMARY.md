@@ -192,11 +192,11 @@
 <!--     - [Shared State](ch16-03-shared-state.md) -->
 <!--     - [Extensible Concurrency: `Sync` and `Send`](ch16-04-extensible-concurrency-sync-and-send.md) -->
 
-- [恐れるな！非同期処理](ch16-00-concurrency.md)
+- [恐れるな！並行性](ch16-00-concurrency.md)
     - [スレッド](ch16-01-threads.md)
     - [メッセージ受け渡し](ch16-02-message-passing.md)
     - [状態共有](ch16-03-shared-state.md)
-    - [拡張可能な非同期: `Sync`と`Send`](ch16-04-extensible-concurrency-sync-and-send.md)
+    - [拡張可能な並行性: `Sync`と`Send`](ch16-04-extensible-concurrency-sync-and-send.md)
 
 <!-- - [Object-Oriented Programming Features of Rust](ch17-00-oop.md) -->
 <!--     - [Characteristics of Object-Oriented Languages](ch17-01-what-is-oo.md) -->
