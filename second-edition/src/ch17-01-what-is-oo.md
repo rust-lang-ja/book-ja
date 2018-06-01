@@ -28,7 +28,7 @@ OOP言語は特定の一般的な特徴を共有しています。具体的に�
 エーリヒ・ガンマ(Enoch Gamma)、リチャード・ヘルム(Richard Helm)、ラルフ・ジョンソン(Ralph Johnson)、
 ジョン・ブリシディース(John Vlissides)(アディソン・ワズリー・プロ)により、
 1994に書かれた*デザインパターン: 再利用可能なオブジェクト指向ソフトウェアの要素*という本は、
-俗に*4人のギャングの本*(`脚注`: the Gang of Four book; GoFとよく略される)と呼ばれ、オブジェクト指向デザインパターンのカタログです。
+俗に*4人のギャングの本*(`訳注`: the Gang of Four book; GoFとよく略される)と呼ばれ、オブジェクト指向デザインパターンのカタログです。
 そこでは、OOPは以下のように定義されています:
 
 <!-- > Object-oriented programs are made up of objects. An *object* packages both -->

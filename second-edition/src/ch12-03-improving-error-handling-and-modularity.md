@@ -220,7 +220,7 @@ often, to help identify the cause of problems when they occur.
 <!--  complex type would be more appropriate *primitive obsession*. -->
 
 > 注釈: この複雑型(complex type)がより適切な時に組み込みの値を使うアンチパターンを、
-> *primitive obsession*(`脚注`: 初めて聞いた表現。*組み込み型強迫観念*といったところだろうか)と呼ぶ人もいます。
+> *primitive obsession*(`訳注`: 初めて聞いた表現。*組み込み型強迫観念*といったところだろうか)と呼ぶ人もいます。
 
 <!-- Listing 12-6 shows the improvements to the `parse_config` function. -->
 

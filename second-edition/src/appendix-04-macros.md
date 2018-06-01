@@ -298,7 +298,7 @@ temp_vec
 <!-- procedural macros to allow your traits to be implemented on a type by -->
 <!-- specifying the trait name in a `derive` annotation. -->
 
-2番目の形態のマクロは、より関数(1種の手続きです)に似ているので、*プロシージャル・マクロ*(procedural macro; `脚注`:
+2番目の形態のマクロは、より関数(1種の手続きです)に似ているので、*プロシージャル・マクロ*(procedural macro; `訳注`:
 手続きマクロ)と呼ばれます。プロシージャルマクロは、宣言的マクロのようにパターンにマッチさせ、
 そのコードを他のコードと置き換えるのではなく、入力として何らかのRustコードを受け付け、そのコードを処理し、
 出力として何らかのRustコードを生成します。これを執筆している時点では、`derive`注釈にトレイト名を指定することで、
