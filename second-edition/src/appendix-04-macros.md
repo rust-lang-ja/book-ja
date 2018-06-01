@@ -30,7 +30,7 @@
 近い将来、Rust1.0からの言語の他の機能や標準ライブラリに比べて速いスピードで変化するので、
 この節は、本の残りの部分よりも時代遅れになる可能性が高いです。Rustの安定性保証により、
 ここで示したコードは、将来のバージョンでも動き続けますが、この本の出版時点では利用可能ではないマクロを書くための追加の能力や、
-より簡単な方法があるかもしれません。この付録から実装しようとする場合には、そのことを肝に銘じておいてください。
+より簡単な方法があるかもしれません。この付録から何かを実装しようとする場合には、そのことを肝に銘じておいてください。
 
 <!-- ### The Difference Between Macros and Functions -->
 
@@ -63,8 +63,8 @@
 <!-- called at runtime and a trait needs to be implemented at compile time. -->
 
 関数シグニチャは、関数の引数の数と型を宣言しなければなりません。一方、マクロは可変長の引数を取れます:
-`println!("hello")`のように1引数で呼んだり、`println!("hello {}", name)`のように2引数で呼んだりできます。
-また、マクロは、コンパイラがコードの意味を解釈する前に展開されるので、例えばマクロは、
+`println!("hello")`のように1引数で呼んだり、`println!("hello {}", name)`のように2引数で呼んだりできるのです。
+また、マクロは、コンパイラがコードの意味を解釈する前に展開されるので、例えば、
 与えられた型にトレイトを実装できます。関数ではできません。何故なら、関数は実行時に呼ばれ、
 トレイトはコンパイル時に実装される必要があるからです。
 
@@ -132,8 +132,8 @@ Rustにおいて、最もよく使用される形態のマクロは、*宣言的
 核となるのは、宣言的マクロは、Rustの`match`式に似た何かを書けるということです。第6章で議論したように、
 `match`式は、式を取り、式の結果の値をパターンと比較し、それからマッチしたパターンに紐付いたコードを実行する制御構造です。
 マクロも自身に紐付いたコードがあるパターンと値を比較します; この場面で値とは、
-マクロに渡されたRustのソースコードそのもの、パターンは、そのソースコードの構造と比較され、
-各パターンに紐付いたコードは、 マクロに渡されたコードを置き換えるコードです。これは全て、コンパイル時に起きます。  
+マクロに渡されたリテラルのRustのソースコードそのもの、パターンは、そのソースコードの構造と比較され、
+各パターンに紐付いたコードは、マクロに渡されたコードを置き換えるコードです。これは全て、コンパイル時に起きます。  
 
 <!-- To define a macro, you use the `macro_rules!` construct. Let’s explore how to -->
 <!-- use `macro_rules!` by looking at how the `vec!` macro is defined. Chapter 8 -->
@@ -202,7 +202,7 @@ macro_rules! vec {
 <!-- `vec`, is followed by curly brackets denoting the body of the macro definition. -->
 
 それから、`macro_rules!`でマクロ定義と定義しているマクロの名前をビックリマーク*なしで*始めています。
-名前はこの場合`vec`ですが、マクロ定義の本体を意味する波括弧が続いています。
+名前はこの場合`vec`であり、マクロ定義の本体を意味する波括弧が続いています。
 
 <!-- The structure in the `vec!` body is similar to the structure of a `match` -->
 <!-- expression. Here we have one arm with the pattern `( $( $x:expr ),* )`, -->
@@ -280,7 +280,7 @@ temp_vec
 <!-- macros, consult the online documentation or other resources, such as [“The -->
 <!-- Little Book of Rust Macros”][tlborm]. -->
 
-多くのRustプログラマは、マクロを*書く*よりも*使う*方が多いことを踏まえると、これ以上`macro_rules!`を議論しません。
+多くのRustプログラマは、マクロを*書く*よりも*使う*方が多いことを踏まえて、これ以上`macro_rules!`を議論しません。
 マクロの書き方をもっと学ぶには、オンラインドキュメンテーションか他のリソース、
 [“The Little Book of Rust Macros][tlborm]などを調べてください。
 
@@ -409,9 +409,9 @@ fn main() {
 Rustにはリフレクションの能力がないので、型の名前を実行時に検索することができないのです。
 コンパイル時にコード生成するマクロが必要です。
 
-> 注釈: 必要かわかりませんが、一応解説しておくと、リフレクションとは、実行時に型名や関数の中身などを取得する機能のことです。
-> 言語によって提供されていたりいなかったりしますが、RustやC++のようなアセンブリコードに翻訳される高級言語では、
-> 提供されないのが一般的と思われます。
+> 注釈: リフレクションとは、実行時に型名や関数の中身などを取得する機能のことです。
+> 言語によって提供されていたりいなかったりしますが、実行時にメタデータがないと取得できないので、
+> RustやC++のようなアセンブリコードに翻訳され、パフォーマンスを要求される高級言語では、提供されないのが一般的と思われます。
 
 <!-- The next step is to define the procedural macro. At the time of this writing, -->
 <!-- procedural macros need to be in their own crate. Eventually, this restriction -->
@@ -536,7 +536,7 @@ D-3での関数の分け方に気付いてください; これは、目撃ある
 3つの新しいクレートを導入しました: `proc_macro`、[`syn`]、[`quote`]です。`proc_macro`クレートは、
 Rustに付随してくるので、*Cargo.toml*の依存に追加する必要はありませんでした。`proc_macro`クレートにより、
 RustコードをRustコードを含む文字列に変換できます。`syn`クレートは、文字列からRustコードを構文解析し、
-処理を行えるデータ構造にします。`quote`クレートは`syn`データ構造を取り、Rustコードに変換し直します。
+処理を行えるデータ構造にします。`quote`クレートは、`syn`データ構造を取り、Rustコードに変換し直します。
 これらのクレートにより、扱いたい可能性のあるあらゆる種類のRustコードを構文解析するのがはるかに単純になります:
 Rustコードの完全なパーサを書くのは、単純な作業ではないのです。
 
@@ -551,7 +551,7 @@ Rustコードの完全なパーサを書くのは、単純な作業ではない�
 
 `hello_macro_derive`関数は、ライブラリの使用者が型に`#[derive(HelloMacro)]`を指定した時に呼び出されます。
 その理由は、ここで`hello_macro_derive`関数を`proc_macro_derive`で注釈し、トレイト名に一致する`HelloMacro`を指定したからです;
-これがほとんどのプロシージャルマクロが倣う慣習です。
+これがほとんどのプロシージャルマクロが<ruby>倣<rp>(</rp><rt>なら</rt><rp>)</rp></ruby>う慣習です。
 
 <!-- This function first converts the `input` from a `TokenStream` to a `String` by -->
 <!-- calling `to_string`. This `String` is a string representation of the Rust code -->
@@ -577,7 +577,7 @@ Rustコードの完全なパーサを書くのは、単純な作業ではない�
 <!-- shows the relevant parts of the `DeriveInput` struct we get from parsing the -->
 <!-- string `struct Pancakes;`: -->
 
-では、Rustコードの`String`をそれから解釈して処理を実行できるデータ構造に構文解析する必要があります。
+さて、Rustコードの`String`をそれから解釈して処理を実行できるデータ構造に構文解析する必要があります。
 ここで`syn`が登場します。`syn`の`parse_derive_input`関数は、`String`を取り、
 構文解析されたRustコードを表す`DeriveInput`構造体を返します。以下のコードは、
 文字列`struct Pancakes;`を構文解析して得られる`DeriveInput`構造体の関係のある部分を表示しています:
@@ -614,7 +614,7 @@ DeriveInput {
 <!-- code that our crate users write, so when they compile their crate, they’ll get -->
 <!-- extra functionality that we provide. -->
 
-この時点では、`impl_hello_macro`関数を定義していません。これは、含みたい新しいRustコードを構築する箇所です。
+この時点では、含みたい新しいRustコードを構築する`impl_hello_macro`関数を定義していません。
 でもその前に、この`hello_macro_derive`関数の最後の部分で`quote`クレートの`parse`関数を使用して、
 `impl_hello_macro`関数の出力を`TokenStream`に変換し直していることに注目してください。
 返された`TokenStream`をクレートの使用者が書いたコードに追加しているので、クレートをコンパイルすると、
@@ -747,4 +747,4 @@ hello_macro_derive = { path = "../hello_macro/hello_macro_derive" }
 
 将来的にRustは、宣言的マクロとプロシージャルマクロを拡張するでしょう。`macro`キーワードでより良い宣言的マクロシステムを使用し、
 `derive`だけよりもよりパワフルな作業のより多くの種類のプロシージャルマクロを追加するでしょう。
-この本の出版時点ではこれらのシステムはまだ開発中です; 最新の情報は、オンラインのRustドキュメンテーションでお調べください。
+この本の出版時点ではこれらのシステムはまだ開発中です; 最新の情報は、オンラインのRustドキュメンテーションをお調べください。
