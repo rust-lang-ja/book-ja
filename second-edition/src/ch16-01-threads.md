@@ -8,7 +8,7 @@
 <!-- features that run these independent parts are called *threads*. -->
 
 多くの現代のOSでは、実行中のプログラムのコードは*プロセス*で走り、OSは同時に複数のプロセスを管理します。
-自分のプログラム内で、同時に実行する部分を作ることもできます。これらの個別の部分を走らせる機能を*スレッド*と呼びます。
+自分のプログラム内で、独立した部分を同時に実行できます。これらの独立した部分を走らせる機能を*スレッド*と呼びます。
 
 <!-- Splitting the computation in your program into multiple threads can improve -->
 <!-- performance because the program does multiple tasks at the same time, but it -->
@@ -29,15 +29,15 @@
 
 * スレッドがデータやリソースに矛盾した順番でアクセスする競合状態
 * 2つのスレッドがお互いにもう一方が持っているリソースを使用し終わるのを待ち、両者が継続するのを防ぐデッドロック
-* 特定の状況でのみ起き、再現や信頼して修正が困難なバグ
+* 特定の状況でのみ起き、確実な再現や修正が困難なバグ
 
 <!-- Rust attempts to mitigate the negative effects of using threads, but -->
 <!-- programming in a multithreaded context still takes careful thought and requires -->
 <!-- a code structure that is different from programs that run in a single -->
 <!-- thread. -->
 
-Rustは、スレッド使用のマイナスの効果を軽減しようとしていますが、それでも、マルチスレッドの文脈でのプログラミングは、
-注意深い思考とシングルスレッドで走るプログラムとは異なるコード構造を必要とします。
+Rustは、スレッドを使用する際のマイナスの影響を軽減しようとしていますが、それでも、マルチスレッドの文脈でのプログラミングでは、
+注意深い思考とシングルスレッドで走るプログラムとは異なるコード構造が必要です。
 
 <!-- Programming languages implement threads in a few different ways. Many operating -->
 <!-- systems provide an API for creating new threads. This model where a language -->
@@ -78,11 +78,11 @@ Rustは、スレッド使用のマイナスの効果を軽減しようとして�
 <!-- to have nearly no runtime and cannot compromise on being able to call into C to -->
 <!-- maintain performance. -->
 
-この文脈では、ランタイムとは、言語によって全てのバイナリに含まれるコードのことを意味します。
+この文脈での*ランタイム*とは、言語によって全てのバイナリに含まれるコードのことを意味します。
 言語によってこのコードの大小は決まりますが、非アセンブリ言語は全てある量の実行時コードを含みます。
 そのため、口語的に誰かが「ノーランタイム」と言ったら、「小さいランタイム」のことを意味することがしばしばあります。
 ランタイムが小さいと機能も少ないですが、バイナリのサイズも小さくなるという利点があり、
-その言語を他の言語とより多くの文脈で混ぜることが容易になります。多くの言語では、
+その言語を他の言語とより多くの文脈で組み合わせることが容易になります。多くの言語では、
 より多くの機能と引き換えにランタイムのサイズが膨れ上がるのは、受け入れられることですが、
 Rustにはほとんどゼロのランタイムが必要でパフォーマンスを維持するためにCコードを呼び出せることを妥協できないのです。
 
@@ -95,7 +95,7 @@ Rustにはほとんどゼロのランタイムが必要でパフォーマンス�
 
 M:Nのグリーンスレッドモデルは、スレッドを管理するのにより大きな言語ランタイムが必要です。よって、
 Rustの標準ライブラリは、1:1スレッドの実装のみを提供しています。Rustはそのような低級言語なので、
-例えば、どのスレッドがいつ走るか制御する方向性や、文脈切り替えの低コストを求めるオーバーヘッドと引き換えるなら、
+例えば、どのスレッドがいつ走るかのより詳細な制御や、文脈切り替えの低コストなどの面でオーバーヘッドと引き換えるなら、
 M:Nスレッドの実装をしたクレートもあります。
 
 <!-- Now that we’ve defined threads in Rust, let’s explore how to use the -->
@@ -151,7 +151,7 @@ fn main() {
 <!-- program might be a little different every time, but it will look similar to the -->
 <!-- following: -->
 
-この関数では、実行が終わったかどうかにかかわらず、新しいスレッドは、メインスレッドが終了したら停止することに注意してください。
+この関数では、新しいスレッドは、実行が終わったかどうかにかかわらず、メインスレッドが終了したら停止することに注意してください。
 このプログラムからの出力は毎回少々異なる可能性がありますが、だいたい以下のような感じでしょう:
 
 ```text
@@ -175,8 +175,8 @@ hi number 5 from the spawned thread!
 <!-- before the main thread shut down. -->
 
 `thread::sleep`を呼び出すと、少々の間、スレッドの実行を止め、違うスレッドを走らせることができます。
-スレッドは順番待ちをしますが、保証はありません: OSがスレッドのスケジュールを行う方法によります。
-この実行では、立ち上げられたスレッドのprint文がコードでは先に出現しているのに、メインスレッドがまず出力しています。また、
+スレッドはおそらく切り替わるでしょうが、保証はありません: OSがスレッドのスケジュールを行う方法によります。
+この実行では、コード上では立ち上げられたスレッドのprint文が先に現れているのに、メインスレッドが先に出力しています。また、
 立ち上げたスレッドには`i`が9になるまで出力するよう指示しているのに、メインスレッドが終了する前の5までしか到達していません。
 
 <!-- If you run this code and only see output from the main thread, or don’t see any -->
@@ -195,8 +195,8 @@ hi number 5 from the spawned thread!
 <!-- spawned thread will get to run at all. The reason is that there is no guarantee -->
 <!-- on the order in which threads run! -->
 
-リスト16-1のコードは、メインスレッドが終了するためにほとんどの場合、新規スレッドが未完で終わるだけでなく、
-新規スレッドが実行されるかどうかも保証できません。原因は、スレッドの実行順に保証がないからです。
+リスト16-1のコードは、メインスレッドが終了するためにほとんどの場合、立ち上げたスレッドがすべて実行されないだけでなく、
+立ち上げたスレッドが実行されるかどうかも保証できません。原因は、スレッドの実行順に保証がないからです。
 
 <!-- We can fix the problem of the spawned thread not getting to run, or not getting -->
 <!-- to run completely, by saving the return value of `thread::spawn` in a variable. -->
@@ -207,10 +207,10 @@ hi number 5 from the spawned thread!
 <!-- `main` exits: -->
 
 `thread::spawn`の戻り値を変数に保存することで、立ち上げたスレッドが実行されなかったり、
-完全に実行されなかったりする問題を修正することができます。`thread:spawn`の戻り値の型は`JoinHandle`です。
+完全には実行されなかったりする問題を修正することができます。`thread:spawn`の戻り値の型は`JoinHandle`です。
 `JoinHandle`は、`join`メソッドを呼び出したときにスレッドの終了を待つ所有された値です。
 リスト16-2は、リスト16-1で生成したスレッドの`JoinHandle`を使用し、`join`を呼び出して、
-立ち上げたスレッドが、`main`が終了する前に完了することを確認する方法を示しています:
+`main`が終了する前に、立ち上げたスレッドが確実に完了する方法を示しています:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -248,10 +248,10 @@ fn main() {
 <!-- to `join` after the main thread’s `for` loop, running Listing 16-2 should -->
 <!-- produce output similar to this: -->
 
-ハンドルに対して`join`を呼び出すと、現在実行中のスレッドをハンドルが表すスレッドが停止するまでブロックします。
-スレッドを*ブロック*するとは、そのスレッドが作業をしたり、終了することを防ぐことです。
+ハンドルに対して`join`を呼び出すと、ハンドルが表すスレッドが終了するまで現在実行中のスレッドをブロックします。
+スレッドを*ブロック*するとは、そのスレッドが動いたり、終了したりすることを防ぐことです。
 `join`の呼び出しをメインスレッドの`for`ループの後に配置したので、リスト16-2を実行すると、
-以下のような出力が出るはずです:
+以下のように出力されるはずです:
 
 ```text
 hi number 1 from the main thread!
@@ -308,8 +308,8 @@ fn main() {
 <!-- The main thread will wait for the spawned thread to finish and then run its -->
 <!-- `for` loop, so the output won’t be interleaved anymore, as shown here: -->
 
-メインスレッドが、立ち上げたスレッドが終了するまで待ち、それから`for`ループを実行するので、
-以下のように出力はもう混じりません:
+メインスレッドは、立ち上げたスレッドが終了するまで待ち、それから`for`ループを実行するので、
+以下のように出力はもう混ざらないでしょう:
 
 ```text
 hi number 1 from the spawned thread!
@@ -330,7 +330,7 @@ hi number 4 from the main thread!
 <!-- Small details, such as where to call `join` is called, can affect whether or not your -->
 <!-- threads run at the same time. -->
 
-どこで`join`を呼ぶかのような小さな詳細が、スレッドが同時に走るかどうかに影響することもあります。
+どこで`join`を呼ぶかといったほんの些細なことが、スレッドが同時に走るかどうかに影響することもあります。
 
 <!-- ### Using `move` Closures with Threads -->
 
@@ -340,7 +340,7 @@ hi number 4 from the main thread!
 <!-- you to use data from one thread in another thread. -->
 
 `move`クロージャは、`thread::spawn`とともによく使用されます。
-あるスレッドから別のスレッドにデータを使用させてくれるからです。
+あるスレッドのデータを別のスレッドで使用できるようになるからです。
 
 <!-- In Chapter 13, we mentioned we can use the `move` keywrod before the parameter -->
 <!-- list of a closure to force the closure to take ownership of the values it uses -->
@@ -360,7 +360,7 @@ hi number 4 from the main thread!
 <!-- an attempt to create a vector in the main thread and use it in the spawned -->
 <!-- thread. However, this won’t yet work, as you’ll see in a moment: -->
 
-リスト16-1において、`thread::spawn`に渡したクロージャには引数がなかったことに気付いてください:
+リスト16-1において、`thread::spawn`に渡したクロージャには引数がなかったことに注目してください:
 立ち上げたスレッドのコードでメインスレッドからのデータは何も使用していないのです。
 立ち上げたスレッドでメインスレッドのデータを使用するには、立ち上げるスレッドのクロージャは、
 必要な値をキャプチャしなければなりません。リスト16-3は、メインスレッドでベクタを生成し、
@@ -395,7 +395,7 @@ fn main() {
 <!-- should be able to access `v` inside that new thread. But when we compile this -->
 <!-- example, we get the following error: -->
 
-クロージャは`v`を使用しているので、`v`をキャプチャし、環境の一部にしています。
+クロージャは`v`を使用しているので、`v`をキャプチャし、クロージャの環境の一部にしています。
 `thread::spawn`はこのクロージャを新しいスレッドで走らせるので、
 その新しいスレッド内で`v`にアクセスできるはずです。しかし、このコードをコンパイルすると、
 以下のようなエラーが出ます:
@@ -467,7 +467,7 @@ fn main() {
 <!-- spawned thread starts to execute, `v` is no longer valid, so a reference to it -->
 <!-- is also invalid. Oh no! -->
 
-このコードを実行することが叶うのなら、立ち上げたスレッドが実行されることなく即座にバックグラウンドに置かれる可能性があります。
+このコードを実行できてしまうなら、立ち上げたスレッドはまったく実行されることなく即座にバックグラウンドに置かれる可能性があります。
 立ち上げたスレッドは内部に`v`への参照を保持していますが、メインスレッドは、第15章で議論した`drop`関数を使用して、
 即座に`v`をドロップしています。そして、立ち上げたスレッドが実行を開始する時には、`v`はもう有効ではなく、
 参照も不正になるのです。あちゃー！
@@ -560,11 +560,9 @@ error[E0382]: use of moved value: `v`
 これは、メインスレッドは理論上、立ち上げたスレッドの参照を不正化する可能性があることを意味します。
 `v`の所有権を立ち上げたスレッドに移動するとコンパイラに指示することで、
 メインスレッドはもう`v`を使用しないとコンパイラに保証しているのです。リスト16-4も同様に変更したら、
-メインスレッドで`v`を使用しようとする際に所有権ルールを侵害することになります。
-`move`キーワードにより、デフォルトで借用するというRustの保守性が上書きされるのです; 
-所有権ルールを侵害させてはくれないのです。
-
-<!-- with ...だが、「〜ので」と訳した。やはりやりすぎか？ -->
+メインスレッドで`v`を使用しようとする際に所有権のルールを違反することになります。
+`move`キーワードにより、Rustの保守的な借用のデフォルトが上書きされるのです; 
+所有権のルールを違反させないのです。
 
 <!-- With a basic understanding of threads and the thread API, let’s look at what we -->
 <!-- can *do* with threads. -->
