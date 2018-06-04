@@ -18,13 +18,12 @@ To set up a new project, go to the *projects* directory that you created in
 Chapter 1 and make a new project using Cargo, like so:
 
 ```text
-$ cargo new guessing_game --bin
+$ cargo new guessing_game
 $ cd guessing_game
 ```
 
 The first command, `cargo new`, takes the name of the project (`guessing_game`)
-as the first argument. The `--bin` flag tells Cargo to make a binary project,
-like the one in Chapter 1. The second command changes to the new project’s
+as the first argument. The second command changes to the new project’s
 directory.
 
 Look at the generated *Cargo.toml* file:
@@ -685,8 +684,8 @@ Could not compile `guessing_game`.
 
 The core of the error states that there are *mismatched types*. Rust has a
 strong, static type system. However, it also has type inference. When we wrote
-`let guess = String::new()`, Rust was able to infer that `guess` should be a
-`String` and didn’t make us write the type. The `secret_number`, on the other
+`let mut guess = String::new();`, Rust was able to infer that `guess` should be
+a `String` and didn’t make us write the type. The `secret_number`, on the other
 hand, is a number type. A few number types can have a value between 1 and 100:
 `i32`, a 32-bit number; `u32`, an unsigned 32-bit number; `i64`, a 64-bit
 number; as well as others. Rust defaults to an `i32`, which is the type of

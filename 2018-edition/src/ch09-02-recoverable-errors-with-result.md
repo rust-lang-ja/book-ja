@@ -307,19 +307,22 @@ fn read_username_from_file() -> Result<String, io::Error> {
 <span class="caption">Listing 9-6: A function that returns errors to the
 calling code using `match`</span>
 
-Let’s look at the return type of the function first: `Result<String,
-io::Error>`. This means the function is returning a value of the type
-`Result<T, E>` where the generic parameter `T` has been filled in with the
-concrete type `String`, and the generic type `E` has been filled in with the
-concrete type `io::Error`. If this function succeeds without any problems, the
-code that calls this function will receive an `Ok` value that holds a
-`String`—the username that this function read from the file. If this function
-encounters any problems, the code that calls this function will receive an
-`Err` value that holds an instance of `io::Error` that contains more
-information about what the problems were. We chose `io::Error` as the return
-type of this function because that happens to be the type of the error value
-returned from both of the operations we’re calling in this function’s body that
-might fail: the `File::open` function and the `read_to_string` method.
+This function can be written in a much shorter way, but we're going to start by
+doing a lot of it manually in order to explore error handling; at the end,
+we'll show the easy way. Let’s look at the return type of the function first:
+`Result<String, io::Error>`. This means the function is returning a value of
+the type `Result<T, E>` where the generic parameter `T` has been filled in
+with the concrete type `String`, and the generic type `E` has been filled in
+with the concrete type `io::Error`. If this function succeeds without any
+problems, the code that calls this function will receive an `Ok` value that
+holds a `String`—the username that this function read from the file. If this
+function encounters any problems, the code that calls this function will
+receive an `Err` value that holds an instance of `io::Error` that contains
+more information about what the problems were. We chose `io::Error` as the
+return type of this function because that happens to be the type of the error
+value returned from both of the operations we’re calling in this function’s
+body that might fail: the `File::open` function and the `read_to_string`
+method.
 
 The body of the function starts by calling the `File::open` function. Then we
 handle the `Result` value returned with a `match` similar to the `match` in
@@ -379,12 +382,12 @@ The `?` placed after a `Result` value is defined to work in almost the same way
 as the `match` expressions we defined to handle the `Result` values in Listing
 9-6. If the value of the `Result` is an `Ok`, the value inside the `Ok` will
 get returned from this expression, and the program will continue. If the value
-is an `Err`, the value inside the `Err` will be returned from the whole
-function as if we had used the `return` keyword so the error value gets
-propagated to the calling code.
+is an `Err`, the `Err` will be returned from the whole function as if we had
+used the `return` keyword so the error value gets propagated to the calling
+code.
 
 There is a difference between what the `match` expression from Listing 9-6 and
-`?` do: error values used with `?` go through the `from` function, defined in
+`?` do: error values taken by `?` go through the `from` function, defined in
 the `From` trait in the standard library, which is used to convert errors from
 one type into another. When `?` calls the `from` function, the error type
 received is converted into the error type defined in the return type of the
@@ -430,6 +433,30 @@ chained the call to `read_to_string` directly onto the result of
 username in `s` when both `File::open` and `read_to_string` succeed rather than
 returning errors. The functionality is again the same as in Listing 9-6 and
 Listing 9-7; this is just a different, more ergonomic way to write it.
+
+Speaking of different ways to write this function, there's a way to make this even
+shorter:
+
+<span class="filename">Filename: src/main.rs</span>
+
+```rust
+use std::io;
+use std::io::Read;
+use std::fs;
+
+fn read_username_from_file() -> Result<String, io::Error> {
+    fs::read_to_string("hello.txt")
+}
+```
+
+<span class="caption">Listing 9-9: Using `fs::read_to_string`</span>
+
+Reading a file into a string is a fairly common operation, and so Rust
+provides a convenience function called `fs::read_to_string` that will
+open the file, create a new `String`, read the contents of the file,
+and put the contents into that `String`, and then return it. Of course,
+this doesn't give us the opportunity to show off all of this error handling,
+so we did it the hard way at first.
 
 #### The `?` Operator Can Only Be Used in Functions That Return `Result`
 

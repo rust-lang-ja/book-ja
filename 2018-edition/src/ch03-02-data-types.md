@@ -173,6 +173,8 @@ The main way to consume Boolean values is through conditionals, such as an `if`
 expression. We’ll cover how `if` expressions work in Rust in the “Control Flow”
 section.
 
+Booleans are one byte in size.
+
 #### The Character Type
 
 So far we’ve worked only with numbers, but Rust supports letters too. Rust’s
@@ -205,8 +207,9 @@ primitive compound types: tuples and arrays.
 
 #### The Tuple Type
 
-A tuple is a general way of grouping together some number of other values with
-a variety of types into one compound type.
+A tuple is a general way of grouping together some number of other values
+with a variety of types into one compound type. Tuples have a fixed length:
+once declared, they cannot grow or shrink in size.
 
 We create a tuple by writing a comma-separated list of values inside
 parentheses. Each position in the tuple has a type, and the types of the
@@ -270,7 +273,7 @@ index in a tuple is 0.
 Another way to have a collection of multiple values is with an *array*. Unlike
 a tuple, every element of an array must have the same type. Arrays in Rust are
 different from arrays in some other languages because arrays in Rust have a
-fixed length: once declared, they cannot grow or shrink in size.
+fixed length, like tuples.
 
 In Rust, the values going into an array are written as a comma-separated list
 inside square brackets:
@@ -300,6 +303,21 @@ an array because you know it will always contain 12 items:
 let months = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"];
 ```
+
+Arrays have an interesting type; it looks like this: `[type; number]`. For
+example:
+
+```rust
+let a: [i32; 5] = [1, 2, 3, 4, 5];
+```
+
+First, there's square brackets; they look like the syntax for creating an
+array. Inside, there's two pieces of information, separated by a semicolon.
+The first is the type of each element of the array. Since all elements have
+the same type, we only need to list it once. After the semicolon, there's
+a number that indicates the length of the array. Since an array has a fixed size,
+this number is always the same, even if the array's elements are modified, it
+cannot grow or shrink.
 
 ##### Accessing Array Elements
 

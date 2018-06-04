@@ -130,7 +130,7 @@ $ cargo install mdbook --vers [version-num]
 
 ## Building
 
-To build the book, first `cd` into one of the directory of the edition of the
+To build the book, first `cd` into the directory of the edition of the
 book you'd like to build. For example, the `first-edition` or
 `second-edition` directory. Then type:
 

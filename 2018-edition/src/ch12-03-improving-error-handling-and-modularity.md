@@ -136,7 +136,7 @@ the struct fields rather than having separate variables:
 
 ```rust,should_panic
 # use std::env;
-# use std::fs::File;
+# use std::fs;
 #
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -146,7 +146,8 @@ fn main() {
     println!("Searching for {}", config.query);
     println!("In file {}", config.filename);
 
-    let mut f = File::open(config.filename).expect("file not found");
+    let contents = fs::read_to_string(config.filename)
+        .expect("Something went wrong reading the file");
 
     // --snip--
 }
@@ -466,10 +467,7 @@ fn main() {
 }
 
 fn run(config: Config) {
-    let mut f = File::open(config.filename).expect("file not found");
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)
+    let contents = fs::read_to_string(config.filename)
         .expect("something went wrong reading the file");
 
     println!("With text:\n{}", contents);
@@ -502,11 +500,8 @@ use std::error::Error;
 
 // --snip--
 
-fn run(config: Config) -> Result<(), Box<Error>> {
-    let mut f = File::open(config.filename)?;
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)?;
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let contents = fs::read_to_string(config.filename)?;
 
     println!("With text:\n{}", contents);
 
@@ -518,19 +513,20 @@ fn run(config: Config) -> Result<(), Box<Error>> {
 `Result`</span>
 
 We’ve made three significant changes here. First, we changed the return type of
-the `run` function to `Result<(), Box<Error>>`. This function previously
+the `run` function to `Result<(), Box<dyn Error>>`. This function previously
 returned the unit type, `()`, and we keep that as the value returned in the
 `Ok` case.
 
-For the error type, we used the *trait object* `Box<Error>` (and we’ve brought
-`std::error::Error` into scope with a `use` statement at the top). We’ll cover
-trait objects in Chapter 17. For now, just know that `Box<Error>` means the
-function will return a type that implements the `Error` trait, but we don’t
-have to specify what particular type the return value will be. This gives us
-flexibility to return error values that may be of different types in different
-error cases.
+For the error type, we used the *trait object* `Box<dyn Error>` (and we’ve
+brought `std::error::Error` into scope with a `use` statement at the top).
+We’ll cover trait objects in Chapter 17. For now, just know that `Box<dyn
+Error>` means the function will return a type that implements the `Error`
+trait, but we don’t have to specify what particular type the return value
+will be. This gives us flexibility to return error values that may be of
+different types in different error cases. This is what the `dyn` means, it's
+short for "dynamic."
 
-Second, we’ve removed the calls to `expect` in favor of `?`, as we talked about
+Second, we’ve removed the call to `expect` in favor of `?`, as we talked about
 in Chapter 9. Rather than `panic!` on an error, `?` will return the error value
 from the current function for the caller to handle.
 
@@ -625,7 +621,7 @@ impl Config {
     }
 }
 
-pub fn run(config: Config) -> Result<(), Box<Error>> {
+pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // --snip--
 }
 ```
