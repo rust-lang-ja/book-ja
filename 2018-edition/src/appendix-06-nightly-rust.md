@@ -1,4 +1,4 @@
-# Appendix G - How Rust is Made and “Nightly Rust”
+# Appendix F - How Rust is Made and “Nightly Rust”
 
 This appendix is about how Rust is made and how that affects you as a Rust
 developer.
@@ -164,7 +164,7 @@ nightly toolchain as the one `rustup` should use when you’re in that directory
 
 ```text
 $ cd ~/projects/needs-nightly
-$ rustup override add nightly
+$ rustup override set nightly
 ```
 
 Now, every time you call `rustc` or `cargo` inside of
