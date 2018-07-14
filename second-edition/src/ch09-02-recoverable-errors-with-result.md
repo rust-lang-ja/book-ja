@@ -256,7 +256,6 @@ fn main() {
 }
 ```
 
-<<<<<<< HEAD
 <!-- <span class="caption">Listing 9-5: Handling different kinds of errors in -->
 <!-- different ways</span> -->
 
@@ -282,7 +281,7 @@ fn main() {
 <!-- `ref` in the pattern is needed so `error` is not moved into the guard condition -->
 <!-- but is merely referenced by it. The reason you use `ref` to create a reference -->
 <!-- in a pattern instead of `&` will be covered in detail in Chapter 18. In short, -->
-<!-- in the context of a pattern, `&` matches a reference and gives us its value, -->
+<!-- in the context of a pattern, `&` matches a reference and gives you its value, -->
 <!-- but `ref` matches a value and gives you a reference to it. -->
 
 `if error.kind() == ErrorKind::Notfound`という条件式は、*マッチガード*と呼ばれます:
@@ -328,48 +327,6 @@ fn main() {
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
 <span class="filename">ファイル名: src/main.rs</span>
-=======
-<span class="caption">Listing 9-5: Handling different kinds of errors in
-different ways</span>
-
-The type of the value that `File::open` returns inside the `Err` variant is
-`io::Error`, which is a struct provided by the standard library. This struct
-has a method `kind` that we can call to get an `io::ErrorKind` value. The enum
-`io::ErrorKind` is provided by the standard library and has variants
-representing the different kinds of errors that might result from an `io`
-operation. The variant we want to use is `ErrorKind::NotFound`, which indicates
-the file we’re trying to open doesn’t exist yet.
-
-The condition `if error.kind() == ErrorKind::NotFound` is called a *match
-guard*: it’s an extra condition on a `match` arm that further refines the arm’s
-pattern. This condition must be true for that arm’s code to be run; otherwise,
-the pattern matching will move on to consider the next arm in the `match`. The
-`ref` in the pattern is needed so `error` is not moved into the guard condition
-but is merely referenced by it. The reason you use `ref` to create a reference
-in a pattern instead of `&` will be covered in detail in Chapter 18. In short,
-in the context of a pattern, `&` matches a reference and gives you its value,
-but `ref` matches a value and gives you a reference to it.
-
-The condition we want to check in the match guard is whether the value returned
-by `error.kind()` is the `NotFound` variant of the `ErrorKind` enum. If it is,
-we try to create the file with `File::create`. However, because `File::create`
-could also fail, we need to add an inner `match` expression as well. When the
-file can’t be opened, a different error message will be printed. The last arm
-of the outer `match` stays the same so the program panics on any error besides
-the missing file error.
-
-### Shortcuts for Panic on Error: `unwrap` and `expect`
-
-Using `match` works well enough, but it can be a bit verbose and doesn’t always
-communicate intent well. The `Result<T, E>` type has many helper methods
-defined on it to do various tasks. One of those methods, called `unwrap`, is a
-shortcut method that is implemented just like the `match` expression we wrote
-in Listing 9-4. If the `Result` value is the `Ok` variant, `unwrap` will return
-the value inside the `Ok`. If the `Result` is the `Err` variant, `unwrap` will
-call the `panic!` macro for us. Here is an example of `unwrap` in action:
-
-<span class="filename">Filename: src/main.rs</span>
->>>>>>> fork_master_master
 
 ```rust,should_panic
 use std::fs::File;

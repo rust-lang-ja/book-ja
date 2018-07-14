@@ -149,7 +149,6 @@ impl AveragedCollection {
 }
 ```
 
-<<<<<<< HEAD
 <!-- <span class="caption">Listing 17-2: Implementations of the public methods -->
 <!-- `add`, `remove`, and `average` on `AveragedCollection`</span> -->
 
@@ -208,7 +207,7 @@ impl AveragedCollection {
 <!-- object’s definition, thus gaining the parent object’s data and behavior without -->
 <!-- you having to define them again. -->
 
-継承は、それによってオブジェクトが他のオブジェクトの定義から受け継ぐことができる機構であり、
+*継承*は、それによってオブジェクトが他のオブジェクトの定義から受け継ぐことができる機構であり、
 それ故に、再定義する必要なく、親オブジェクトのデータと振る舞いを得ます。
 
 <!-- If a language must have inheritance to be an object-oriented language, then -->
@@ -263,68 +262,6 @@ Rustコードを共有でき、これは、リスト10-14で`Summary`トレイ�
 <!-- > sometimes called *bounded parametric polymorphism*. -->
 
 > ### 多相性
-=======
-<span class="caption">Listing 17-2: Implementations of the public methods
-`add`, `remove`, and `average` on `AveragedCollection`</span>
-
-The public methods `add`, `remove`, and `average` are the only ways to modify
-an instance of `AveragedCollection`. When an item is added to `list` using the
-`add` method or removed using the `remove` method, the implementations of each
-call the private `update_average` method that handles updating the `average`
-field as well.
-
-We leave the `list` and `average` fields private so there is no way for
-external code to add or remove items to the `list` field directly; otherwise,
-the `average` field might become out of sync when the `list` changes. The
-`average` method returns the value in the `average` field, allowing external
-code to read the `average` but not modify it.
-
-Because we’ve encapsulated the implementation details of the struct
-`AveragedCollection`, we can easily change aspects, such as the data structure,
-in the future. For instance, we could use a `HashSet<i32>` instead of a
-`Vec<i32>` for the `list` field. As long as the signatures of the `add`,
-`remove`, and `average` public methods stay the same, code using
-`AveragedCollection` wouldn’t need to change. If we made `list` public instead,
-this wouldn’t necessarily be the case: `HashSet<i32>` and `Vec<i32>` have
-different methods for adding and removing items, so the external code would
-likely have to change if it were modifying `list` directly.
-
-If encapsulation is a required aspect for a language to be considered object
-oriented, then Rust meets that requirement. The option to use `pub` or not for
-different parts of code enables encapsulation of implementation details.
-
-### Inheritance as a Type System and as Code Sharing
-
-*Inheritance* is a mechanism whereby an object can inherit from another
-object’s definition, thus gaining the parent object’s data and behavior without
-you having to define them again.
-
-If a language must have inheritance to be an object-oriented language, then
-Rust is not one. There is no way to define a struct that inherits the parent
-struct’s fields and method implementations. However, if you’re used to having
-inheritance in your programming toolbox, you can use other solutions in Rust,
-depending on your reason for reaching for inheritance in the first place.
-
-You choose inheritance for two main reasons. One is for reuse of code: you can
-implement particular behavior for one type, and inheritance enables you to
-reuse that implementation for a different type. You can share Rust code using
-default trait method implementations instead, which you saw in Listing 10-14
-when we added a default implementation of the `summarize` method on the
-`Summary` trait. Any type implementing the `Summary` trait would have the
-`summarize` method available on it without any further code. This is similar to
-a parent class having an implementation of a method and an inheriting child
-class also having the implementation of the method. We can also override the
-default implementation of the `summarize` method when we implement the
-`Summary` trait, which is similar to a child class overriding the
-implementation of a method inherited from a parent class.
-
-The other reason to use inheritance relates to the type system: to enable a
-child type to be used in the same places as the parent type. This is also
-called *polymorphism*, which means that you can substitute multiple objects for
-each other at runtime if they share certain characteristics.
-
-> ### Polymorphism
->>>>>>> fork_master_master
 >
 > 多くの人にとって、多相性は、継承の同義語です。ですが、実際には複数の型のデータを取り扱えるコードを指すより一般的な概念です。
 > 継承について言えば、それらの型は一般的にはサブクラスです。
