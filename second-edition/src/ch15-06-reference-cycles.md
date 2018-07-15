@@ -26,7 +26,7 @@ Rustでは、`Rc<T>`と`RefCell<T>`を使用してメモリリークを許可す
 <!-- starting with the definition of the `List` enum and a `tail` method in Listing -->
 <!-- 15-25: -->
 
-リスト15-25の`List`enumの定義と`tail`メソッドから始めて、循環参照が起こる可能性のある方法とその回避策を見ましょう:
+リスト15-25の`List` enumの定義と`tail`メソッドから始めて、循環参照が起こる可能性のある方法とその回避策を見ましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 

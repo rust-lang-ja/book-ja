@@ -16,7 +16,7 @@
 <!-- Type][handle_failure]” in Chapter2 that the `Result` enum is -->
 <!-- defined as having two variants, `Ok` and `Err`, as follows: -->
 
-第2章の[「`Result`型で失敗する可能性に対処する」][handle_failure]で`Result`enumが以下のように、
+第2章の[「`Result`型で失敗する可能性に対処する」][handle_failure]で`Result` enumが以下のように、
 `Ok`と`Err`の2値からなるよう定義されていることを思い出してください:
 
 [handle_failure]: ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-the-result-type
@@ -121,7 +121,7 @@ error[E0308]: mismatched types
 この戻り値型は、`File::open`の呼び出しが成功し、読み込みと書き込みを行えるファイルハンドルを返す可能性があることを意味します。
 また、関数呼び出しは失敗もする可能性があります: 例えば、ファイルが存在しない可能性、ファイルへのアクセス権限がない可能性です。
 `File::open`には成功したか失敗したかを知らせる方法とファイルハンドルまたは、エラー情報を与える方法が必要なのです。
-この情報こそが`Result`enumが伝達するものなのです。
+この情報こそが`Result` enumが伝達するものなのです。
 
 <!-- In the case where `File::open` succeeds, the value in the variable `f` will be-->
 <!-- an instance of `Ok` that contains a file handle. In the case where it fails, -->
@@ -168,7 +168,7 @@ fn main() {
 <!-- imported in the prelude, so we don’t need to specify `Result::` before the `Ok` -->
 <!-- and `Err` variants in the `match` arms. -->
 
-`Option`enumのように、`Result`enumとそのバリアントは、初期化処理でインポートされているので、
+`Option` enumのように、`Result` enumとそのバリアントは、初期化処理でインポートされているので、
 `match`アーム内で`Ok`と`Err`バリアントの前に`Result::`を指定する必要がないことに注目してください。
 
 <!-- Here we tell Rust that when the result is `Ok`, return the inner `file` value -->
@@ -301,7 +301,7 @@ fn main() {
 <!-- of the outer `match` stays the same so the program panics on any error besides -->
 <!-- the missing file error. -->
 
-マッチガードで精査したい条件は、`error.kind()`により返る値が、`ErrorKind`enumの`NotFound`列挙子であるかということです。
+マッチガードで精査したい条件は、`error.kind()`により返る値が、`ErrorKind` enumの`NotFound`列挙子であるかということです。
 もしそうなら、`File::create`でファイル作成を試みます。ところが、`File::create`も失敗する可能性があるので、
 内部にも`match`式を追加する必要があるのです。ファイルが開けないなら、異なるエラーメッセージが出力されるでしょう。
 外側の`match`の最後のアームは同じままなので、ファイルが行方不明のエラー以外ならプログラムはパニックします。

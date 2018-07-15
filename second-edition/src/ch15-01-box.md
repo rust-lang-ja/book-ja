@@ -226,7 +226,7 @@ fn main() {
 <!-- <span class="caption">Listing 15-3: Using the `List` enum to store the list `1, -->
 <!-- 2, 3`</span> -->
 
-<span class="caption">リスト15-3: `List`enumを使用してリスト`1, 2, 3`を格納する</span>
+<span class="caption">リスト15-3: `List` enumを使用してリスト`1, 2, 3`を格納する</span>
 
 <!-- The first `Cons` value holds `1` and another `List` value. This `List` value is -->
 <!-- another `Cons` value that holds `2` and another `List` value. This `List` value -->
@@ -280,7 +280,7 @@ error[E0072]: recursive type `List` has infinite size
 <!-- Recall the `Message` enum we defined in Listing 6-2 when we discussed enum -->
 <!-- definitions in Chapter 6: -->
 
-第6章でenum定義を議論した時にリスト6-2で定義した`Message`enumを思い出してください:
+第6章でenum定義を議論した時にリスト6-2で定義した`Message` enumを思い出してください:
 
 ```rust
 enum Message {
@@ -313,7 +313,7 @@ enum Message {
 <!-- variant. The `Cons` variant holds a value of type `i32` and a value of type -->
 <!-- `List`, and this process continues infinitely, as shown in Figure 15-1. -->
 
-これをコンパイラがリスト15-2の`List`enumのような再帰的な型が必要とする領域を決定しようとする時に起こることと比較してください。
+これをコンパイラがリスト15-2の`List` enumのような再帰的な型が必要とする領域を決定しようとする時に起こることと比較してください。
 コンパイラは、`Cons`列挙子を見ることから始め、この列挙子には、型`i32`値が一つと型`List`の値が一つ保持されます。
 故に、`Cons`は1つの`i32`と`List`のサイズに等しい領域を必要とします。`List`が必要とするメモリ量を計算するのに、
 コンパイラは`Cons`列挙子から列挙子を観察します。`Cons`列挙子は型`i32`を1つと型`List`の値1つを保持し、
@@ -370,7 +370,7 @@ enum Message {
 <!-- We can change the definition of the `List` enum in Listing 15-2 and the usage -->
 <!-- of the `List` in Listing 15-3 to the code in Listing 15-5, which will compile: -->
 
-リスト15-2の`List`enumの定義とリスト15-3の`List`の使用をリスト15-5のコードに変更することができ、
+リスト15-2の`List` enumの定義とリスト15-3の`List`の使用をリスト15-5のコードに変更することができ、
 これはコンパイルが通ります:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->

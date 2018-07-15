@@ -247,7 +247,7 @@ enum Message {
 <!-- thread should run, or it will be a `Terminate` variant that will cause the -->
 <!-- thread to exit its loop and stop. -->
 
-この`Message`enumはスレッドが実行すべき`Job`を保持する`NewJob`列挙子か、スレッドをループから抜けさせ、
+この`Message` enumはスレッドが実行すべき`Job`を保持する`NewJob`列挙子か、スレッドをループから抜けさせ、
 停止させる`Terminate`列挙子のどちらかになります。
 
 <!-- We need to adjust the channel to use values of type `Message` rather than type -->
@@ -327,7 +327,7 @@ impl Worker {
 <!-- received, and the thread will break out of the loop if the `Terminate` variant -->
 <!-- is received. -->
 
-`Message`enumを具体化するために、2箇所で`Job`を`Message`に変更する必要があります:
+`Message` enumを具体化するために、2箇所で`Job`を`Message`に変更する必要があります:
 `ThreadPool`の定義と`Worker::new`のシグニチャです。`ThreadPool`の`execute`メソッドは、
 仕事を`Message::NewJob`に包んで送信する必要があります。それから、
 `Message`がチャンネルから受け取られる`Worker::new`で、`NewJob`列挙子が受け取られたら、

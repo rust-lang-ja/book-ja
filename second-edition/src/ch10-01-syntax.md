@@ -340,7 +340,7 @@ fn main() {
 <!-- library provides, which we used in Chapter 6: -->
 
 構造体のように、列挙子にジェネリックなデータ型を保持するenumを定義することができます。
-標準ライブラリが提供している`Option<T>`enumに別の見方をしましょう。このenumは第6章で使用しました:
+標準ライブラリが提供している`Option<T>` enumに別の見方をしましょう。このenumは第6章で使用しました:
 
 ```rust
 enum Option<T> {
@@ -358,13 +358,13 @@ enum Option<T> {
 
 この定義はもう、あなたにとって道理が通っているはずです。ご覧の通り、`Option<T>`は、
 型`T`に関してジェネリックで2つの列挙子を持つenumです: その列挙子は、型`T`の値を保持する`Some`と、
-値を何も保持しない`None`です。`Option<T>`enumを使用することで、オプショナルな値があるという抽象的な概念を表現でき、
+値を何も保持しない`None`です。`Option<T>` enumを使用することで、オプショナルな値があるという抽象的な概念を表現でき、
 `Option<T>`はジェネリックなので、オプショナルな値の型に関わらず、この抽象を使用できます。
 
 <!-- Enums can use multiple generic types as well. The definition of the `Result` -->
 <!-- enum that we used in Chapter 9 is one example: -->
 
-enumも複数のジェネリックな型を使用できます。第9章で使用した`Result`enumの定義が一例です:
+enumも複数のジェネリックな型を使用できます。第9章で使用した`Result` enumの定義が一例です:
 
 ```rust
 enum Result<T, E> {
@@ -382,8 +382,8 @@ enum Result<T, E> {
 <!-- the file was opened successfully and `E` was filled in with the type -->
 <!-- `std::io::Error` when there were problems opening the file. -->
 
-`Result`enumは2つの型`T`、`E`に関してジェネリックで、2つの列挙子があります: 型`T`の値を保持する`Ok`と、
-型`E`の値を保持する`Err`です。この定義により、`Result`enumを成功する(なんらかの型`T`の値を返す)か、
+`Result` enumは2つの型`T`、`E`に関してジェネリックで、2つの列挙子があります: 型`T`の値を保持する`Ok`と、
+型`E`の値を保持する`Err`です。この定義により、`Result` enumを成功する(なんらかの型`T`の値を返す)か、
 失敗する(なんらかの型`E`のエラーを返す)可能性のある処理があるあらゆる箇所に使用するのが便利になります。
 事実、ファイルを開くのに成功した時に`T`に型`std::fs::File`が入り、ファイルを開く際に問題があった時に`E`に型`std::io::Error`が入ったものが、
 リスト9-3でファイルを開くのに使用したものです。
@@ -590,7 +590,7 @@ fn main() {
 <!-- Let’s look at how this works with an example that uses the standard library’s -->
 <!-- `Option<T>` enum: -->
 
-標準ライブラリの`Option<T>`enumを使用する例でこれが動作する方法を見ましょう:
+標準ライブラリの`Option<T>` enumを使用する例でこれが動作する方法を見ましょう:
 
 ```rust
 let integer = Some(5);
