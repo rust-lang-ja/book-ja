@@ -279,7 +279,7 @@ let mut bar = 5; // mutable
 <!-- in this case `String`, rather than on a particular instance of a `String`. Some -->
 <!-- languages call this a *static method*. -->
 
-`::new`行にある`::`という記法は、`new`が`String`型の*関連付け関数*であることを表しています。
+`::new`行にある`::`という記法は、`new`が`String`型の*関連関数*であることを表しています。
 関連関数とは、`String`型の特定のオブジェクトよりも型(この場合は`String`)に対して
 実装された関数のことであり、*静的メソッド*と呼ばれる言語もあります。
 
