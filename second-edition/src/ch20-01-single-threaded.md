@@ -330,8 +330,8 @@ Upgrade-Insecure-Requests: 1
 
 ブラウザによって、少し異なる出力になる可能性があります。今やリクエストデータを出力しているので、
 `Request: GET`の後のパスを見ることで1回のブラウザリクエストから複数の接続が得られる理由が確認できます。
-繰り返される接続が全て*/*を要求しているなら、ブラウザは、我々のプログラムからレスポンスが得られないので、
-繰り返し*/*をフェッチしようとしていることがわかります。
+繰り返される接続が全て */* を要求しているなら、ブラウザは、我々のプログラムからレスポンスが得られないので、
+繰り返し */* をフェッチしようとしていることがわかります。
 
 <!-- Let’s break down this request data to understand what the browser is asking of -->
 <!-- our program. -->
@@ -367,7 +367,7 @@ message-body
 <!-- and URLs isn’t important for our purposes in this chapter, but the HTTP spec -->
 <!-- uses the term URI, so we can just mentally substitute URL for URI here. -->
 
-リクエスト行の次の部分は*/*で、これはクライアントが要求している*Uniform Resource Identifier* *(URI)*(`注釈`: 統一資源識別子)を示します:
+リクエスト行の次の部分は */* で、これはクライアントが要求している*Uniform Resource Identifier* *(URI)*(`注釈`: 統一資源識別子)を示します:
 URIはほぼ、ですがかなりではなく、*Uniform Resource Locator* *(URL)*(`注釈`: 統一資源位置指定子)と同じです。
 URIとURLの違いは、この章の目的には重要ではありませんが、HTTPの規格はURIという用語を使用しているので、
 ここでは脳内でURIをURLと読み替えられます。
@@ -389,7 +389,7 @@ CRLFにより、リクエスト行がリクエストデータの残りと区別�
 <!-- we see that `GET` is the method, */* is the request URI, and `HTTP/1.1` is the -->
 <!-- version. -->
 
-ここまでプログラムを実行して受け取ったリクエスト行のデータをみると、`GET`がメソッド、*/*が要求URI、
+ここまでプログラムを実行して受け取ったリクエスト行のデータをみると、`GET`がメソッド、*/* が要求URI、
 `HTTP/1.1`がバージョンであることが確認できます。
 
 <!-- After the request line, the remaining lines starting from `Host:` onward are -->
@@ -610,7 +610,7 @@ HTMLが描画されるのが確認できるはずです！
 現時点では、`buffer`内のリクエストデータは無視し、無条件でHTMLファイルの中身を送り返しているだけです。
 これはつまり、ブラウザで*127.0.0.1:7878/something-else*をリクエストしても、
 この同じHTMLレスポンスが得られるということです。我々のサーバはかなり限定的で、多くのWebサーバとは異なっています。
-リクエストに基づいてレスポンスをカスタマイズし、*/*への合法なリクエストに対してのみHTMLファイルを送り返したいです。
+リクエストに基づいてレスポンスをカスタマイズし、*/* への合法なリクエストに対してのみHTMLファイルを送り返したいです。
 
 <!-- ### Validating the Request and Selectively Responding -->
 
@@ -624,10 +624,10 @@ HTMLが描画されるのが確認できるはずです！
 <!-- received against what we know a request for */* looks like and adds `if` and -->
 <!-- `else` blocks to treat requests differently. -->
 
-現状、このWebサーバはクライアントが何を要求しても、ファイルのHTMLを返します。HTMLファイルを返却する前にブラウザが*/*をリクエストしているか確認し、
+現状、このWebサーバはクライアントが何を要求しても、ファイルのHTMLを返します。HTMLファイルを返却する前にブラウザが */* をリクエストしているか確認し、
 ブラウザが他のものを要求していたらエラーを返す機能を追加しましょう。このために、
 `handle_connection`をリスト20-6のように変更する必要があります。この新しいコードは、
-*/*への要求がどんな見た目になるのか知っていることに対して受け取ったリクエストの中身を精査し、`if`と`else`ブロックを追加して、
+*/* への要求がどんな見た目になるのか知っていることに対して受け取ったリクエストの中身を精査し、`if`と`else`ブロックを追加して、
 要求を異なる形で扱います。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -666,7 +666,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- <span class="caption">Listing 20-6: Matching the request and handling requests -->
 <!-- to */* differently than other requests</span> -->
 
-<span class="caption">リスト20-6: リクエストとマッチさせ、*/*へのリクエストを他のリクエストとは異なる形で扱う</span>
+<span class="caption">リスト20-6: リクエストとマッチさせ、*/* へのリクエストを他のリクエストとは異なる形で扱う</span>
 
 <!-- First, we hardcode the data corresponding to the */* request into the `get` -->
 <!-- variable. Because we’re reading raw bytes into the buffer, we transform `get` -->
@@ -676,9 +676,9 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- success case we’ll handle in the `if` block that returns the contents of our -->
 <!-- HTML file. -->
 
-まず、*/*リクエストに対応するデータを`get`変数にハードコードしています。生のバイトをバッファーに読み込んでいるので、
+まず、*/* リクエストに対応するデータを`get`変数にハードコードしています。生のバイトをバッファーに読み込んでいるので、
 `b""`バイト文字列記法を中身のデータの先頭に追記することで、`get`をバイト文字列に変換しています。
-そして、`buffer`が`get`のバイトから始まっているか確認します。もしそうなら、*/*への合法なリクエストを受け取ったことを意味し、
+そして、`buffer`が`get`のバイトから始まっているか確認します。もしそうなら、*/* への合法なリクエストを受け取ったことを意味し、
 これが、HTMLファイルの中身を返す`if`ブロックで扱う成功した場合になります。
 
 <!-- If `buffer` does *not* start with the bytes in `get`, it means we’ve received -->
@@ -735,7 +735,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- <span class="caption">Listing 20-7: Responding with status code 404 and an -->
 <!-- error page if anything other than */* was requested</span> -->
 
-<span class="caption">リスト20-7: */*以外の何かが要求されたら、ステータスコード404とエラーページで応答する</span>
+<span class="caption">リスト20-7: */* 以外の何かが要求されたら、ステータスコード404とエラーページで応答する</span>
 
 <!-- Here, our response has a status line with status code 404 and the reason -->
 <!-- phrase `NOT FOUND`. We’re still not returning headers, and the body of the -->

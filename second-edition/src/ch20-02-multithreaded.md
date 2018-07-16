@@ -26,7 +26,7 @@
 <!-- for 5 seconds before responding. -->
 
 処理が遅いリクエストが現在のサーバ実装に対して行われる他のリクエストにどう影響するかに目を向けます。
-リスト20-10は、応答する前に5秒サーバをスリープさせる遅いレスポンスをシミュレーションした*/sleep*へのリクエストを扱う実装です。
+リスト20-10は、応答する前に5秒サーバをスリープさせる遅いレスポンスをシミュレーションした */sleep*へのリクエストを扱う実装です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -88,9 +88,9 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- `sleep` has slept for its full 5 seconds before loading. -->
 
 `cargo run`でサーバを開始してください。それから2つブラウザのウインドウを開いてください: 1つは、
-*http://localhost:7878/*用、そしてもう1つは*http://localhost:7878/sleep*用です。
-以前のように*/*URIを数回入力したら、素早く応答するでしょう。しかし、*/sleep*を入力し、それから*/*をロードしたら、
-`sleep`がロードする前にきっかり5秒スリープし終わるまで、*/*は待機するのを目撃するでしょう。
+*http://localhost:7878/* 用、そしてもう1つは*http://localhost:7878/sleep* 用です。
+以前のように */* URIを数回入力したら、素早く応答するでしょう。しかし、*/sleep*を入力し、それから */* をロードしたら、
+`sleep`がロードする前にきっかり5秒スリープし終わるまで、*/* は待機するのを目撃するでしょう。
 
 <!-- There are multiple ways we could change how our web server works to avoid -->
 <!-- having more requests back up behind a slow request; the one we’ll implement is -->
@@ -225,8 +225,8 @@ fn main() {
 <!-- new threads without any limit. -->
 
 第16章で学んだように、`thread::spawn`は新しいスレッドを生成し、それからクロージャ内のコードを新しいスレッドで実行します。
-このコードを実行してブラウザで*/sleep*をロードし、それからもう2つのブラウザのタブで*/*をロードしたら、
-確かに*/*へのリクエストは、*/sleep*が完了するのを待機しなくても済むことがわかるでしょう。
+このコードを実行してブラウザで */sleep*をロードし、それからもう2つのブラウザのタブで */* をロードしたら、
+確かに */* へのリクエストは、*/sleep*が完了するのを待機しなくても済むことがわかるでしょう。
 ですが、前述したように、無制限にスレッドを生成することになるので、これは最終的にシステムを参らせてしまうでしょう。
 
 <!-- #### Creating a Similar Interface for a Finite Number of Threads -->

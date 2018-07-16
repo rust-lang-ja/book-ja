@@ -86,7 +86,7 @@ $ source $HOME/.cargo/env
 
 <!-- Alternatively, you can add the following line to your *~/.bash_profile*: -->
 
-また、以下の行を*~/.bash_profile*に追加することもできます:
+また、以下の行を *~/.bash_profile*に追加することもできます:
 
 ```text
 $ export PATH="$HOME/.cargo/bin:$PATH"

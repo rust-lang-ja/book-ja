@@ -716,7 +716,7 @@ fn impl_hello_macro(ast: &syn::DeriveInput) -> quote::Tokens {
 これらのクレートをリストD-2のコードにフックして、プロシージャルマクロが動くところを確認しましょう！
 `cargo new --bin pancakes`で*projects*ディレクトリに新しいバイナリプロジェクトを作成してください。
 `hello_macro`と`hello_macro_derive`を依存として`pancakes`クレートの*Cargo.toml*に追加する必要があります。
-自分のバージョンの`hello_macro`と`hello_macro_derive`を*https://crates.io/*に発行するつもりなら、
+自分のバージョンの`hello_macro`と`hello_macro_derive`を*https://crates.io/* に発行するつもりなら、
 普通の依存になるでしょう; そうでなければ、以下のように`path`依存として指定できます:
 
 ```toml
