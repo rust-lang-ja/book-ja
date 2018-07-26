@@ -321,7 +321,7 @@ println!("{:?}", scores);
 <!-- logic ourselves, and in addition, plays more nicely with the borrow checker. -->
 
 `Entry`上の`or_insert`メソッドは、対応する`Entry`キーが存在した時にそのキーに対する値への可変参照を返すために定義されており、
-もしなかったら、引数をこのキーの新しい値として挿入し、新しい値への可変参照をを返します。このテクニックの方が、
+もしなかったら、引数をこのキーの新しい値として挿入し、新しい値への可変参照を返します。このテクニックの方が、
 そのロジックを自分で書くよりもはるかに綺麗な上に、borrow checkerとも親和性が高くなります。
 
 <!-- Running the code in Listing 8-25 will print `{"Yellow": 50, "Blue": 10}`. The -->
