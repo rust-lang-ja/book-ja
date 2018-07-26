@@ -83,6 +83,9 @@ some of the peopleも(一部の人々)などと訳し、[`いくつか`]は`a fe
 ### PRのマージについて
 * PRをマージする際にレビューしていただいた部分について、議論が必要そうと感じた部分については、「TODO:」コメントを付します。これを目安に議論する際には、検索をかけてください
 
+### mdbookについて
+* HTML自動生成のツールとして使用されているmdbookは、正式版が出ているはずですが、正式版に移行する際に仕様が変わった部分があり、そこが解決できていないため、原語版のリポジトリでも、正式版以前のものを使用しているようです。最新版を入れてしまうと意図した通りのレンダリングができないのでご注意ください。
+
 [translation-table]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/TranslationTable.md
 [contributing]: https://github.com/rust-lang-ja/the-rust-programming-language-ja/blob/master/CONTRIBUTING.md
 
