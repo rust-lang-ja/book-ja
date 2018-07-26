@@ -9,8 +9,8 @@
 最初の手順は、Rustをインストールすることです。Rustは、`rustup`というRustのバージョンと関連するツールを管理するコマンドラインツールを使用して、
 ダウンロードします。ダウンロードするには、インターネット接続が必要でしょう。
 
-<!--> Note: If you prefer not to use `rustup` for some reason, please see [the Rust -->
-<!--> installation page](https://www.rust-lang.org/install.html) for other options. -->
+<!-- > Note: If you prefer not to use `rustup` for some reason, please see [the Rust -->
+<!-- > installation page](https://www.rust-lang.org/install.html) for other options. -->
 
 > 注釈: なんらかの理由で`rustup`を使用しないことを好むのなら、[Rustインストールページ](https://www.rust-lang.org/install.html)で、
 > 他の選択肢をご覧になってください。
@@ -86,7 +86,7 @@ $ source $HOME/.cargo/env
 
 <!-- Alternatively, you can add the following line to your *~/.bash_profile*: -->
 
-また、以下の行を*~/.bash_profile*に追加することもできます:
+また、以下の行を *~/.bash_profile*に追加することもできます:
 
 ```text
 $ export PATH="$HOME/.cargo/bin:$PATH"

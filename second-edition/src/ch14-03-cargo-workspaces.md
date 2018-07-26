@@ -453,7 +453,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- each crate’s directory and run `cargo publish` on each crate in the workspace -->
 <!-- to publish the crates. -->
 
-ワークスペースのクレートを*https://crates.io/*に公開したら、ワークスペースのクレートは個別に公開される必要があります。
+ワークスペースのクレートを *https://crates.io/* に公開したら、ワークスペースのクレートは個別に公開される必要があります。
 `cargo publish`コマンドには`--all`フラグや`-p`フラグはないので、各クレートのディレクトリに移動して、
 ワークスペースの各クレートを`cargo publish`して、公開しなければなりません。
 

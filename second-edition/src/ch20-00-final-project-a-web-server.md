@@ -44,7 +44,7 @@
 
 ですが、取り掛かる前に、ある詳細に触れるべきです: 使用する方法は、RustでWebサーバを構築する最善の方法ではないのです。
 これから構築するよりもより完全なWebサーバとスレッドプールの実装を提供する製品利用可能な多くのクレートが、
-*https://crates.io/*で利用可能なのです。
+*https://crates.io/* で利用可能なのです。
 
 <!-- However, our intention in this chapter is to help you learn, not to take the -->
 <!-- easy route. Because Rust is a systems programming language, we can choose the -->

@@ -281,7 +281,7 @@ enum Message {
 <!-- <span class="caption">Listing 6-2: A `Message` enum whose variants each store -->
 <!-- different amounts and types of values</span> -->
 
-<span class="caption">リスト6-2: 列挙子各々が異なる型と量の値を格納する`Message`enum</span>
+<span class="caption">リスト6-2: 列挙子各々が異なる型と量の値を格納する`Message` enum</span>
 
 <!-- This enum has four variants with different types: -->
 
@@ -333,7 +333,7 @@ struct ChangeColorMessage(i32, i32, i32); // タプル構造体
 
 <!-- ちょっと文意を適切に表せているか怪しいかも -->
 
-ですが、異なる構造体を使っていたら、各々、それ自身の型があるので、単独の型になるリスト6-2で定義した`Message`enumほど、
+ですが、異なる構造体を使っていたら、各々、それ自身の型があるので、単独の型になるリスト6-2で定義した`Message` enumほど、
 これらの種のメッセージいずれもとる関数を簡単に定義することはできないでしょう。
 
 <!-- There is one more similarity between enums and structs: just as we’re able to -->
@@ -341,7 +341,7 @@ struct ChangeColorMessage(i32, i32, i32); // タプル構造体
 <!-- enums. Here’s a method named `call` that we could define on our `Message` enum: -->
 
 enumと構造体にはもう1点似通っているところがあります: `impl`を使って構造体にメソッドを定義できるのと全く同様に、
-enumにもメソッドを定義することができるのです。こちらは、`Message`enum上に定義できる`call`という名前のメソッドです:
+enumにもメソッドを定義することができるのです。こちらは、`Message` enum上に定義できる`call`という名前のメソッドです:
 
 ```rust
 # enum Message {
@@ -378,7 +378,7 @@ m.call();
 
 <!-- ### The `Option` Enum and Its Advantages Over Null Values -->
 
-### `Option`enumとNull値に勝る利点
+### `Option` enumとNull値に勝る利点
 
 <!-- In the previous section, we looked at how the `IpAddr` enum let us use Rust’s -->
 <!-- type system to encode more information than just the data into our program. -->
@@ -390,7 +390,7 @@ m.call();
 <!-- this functionality can prevent bugs that are extremely common in other -->
 <!-- programming languages. -->
 
-前節で、`IpAddr`enumがRustの型システムを使用して、プログラムにデータ以上の情報をコード化できる方法を目撃しました。
+前節で、`IpAddr` enumがRustの型システムを使用して、プログラムにデータ以上の情報をコード化できる方法を目撃しました。
 この節では、`Option`のケーススタディを掘り下げていきます。この型も標準ライブラリにより定義されているenumです。
 この`Option`型はいろんな箇所で使用されます。なぜなら、値が何かかそうでないかという非常に一般的な筋書きをコード化するからです。
 この概念を型システムの観点で表現することは、コンパイラが、プログラマが処理すべき場面全てを処理していることをチェックできることを意味します;
@@ -476,7 +476,7 @@ enum Option<T> {
 <!-- using `Option` values to hold number types and string types: -->
 
 `<T>`という記法は、まだ語っていないRustの機能です。これは、ジェネリック型引数であり、ジェネリクスについて詳しくは、
-第10章で解説します。とりあえず、知っておく必要があることは、`<T>`は、`Option`enumの`Some`列挙子が、
+第10章で解説します。とりあえず、知っておく必要があることは、`<T>`は、`Option` enumの`Some`列挙子が、
 あらゆる型のデータを1つだけ持つことができることを意味していることだけです。こちらは、
 `Option`値を使って、数値型や文字列型を保持する例です。
 

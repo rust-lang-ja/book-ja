@@ -66,7 +66,7 @@ fn value_in_cents(coin: Coin) -> u32 {
 `value_in_cents`関数内の`match`を噛み砕きましょう。まず、`match`キーワードに続けて式を並べています。
 この式は今回の場合、値`coin`です。`if`で使用した式と非常に酷似しているみたいですね。しかし、大きな違いがあります:
 `if`では、式は論理値を返す必要がありますが、ここでは、どんな型でも構いません。この例における`coin`の型は、
-1行目で定義した`Coin`enumです。
+1行目で定義した`Coin` enumです。
 
 <!-- Next are the `match` arms. An arm has two parts: a pattern and some code. The -->
 <!-- first arm here has a pattern that is the value `Coin::Penny` and then the `=>` -->
@@ -184,7 +184,7 @@ enum Coin {
 <!-- <span class="caption">Listing 6-4: A `Coin` enum in which the `Quarter` variant -->
 <!-- also holds a `UsState` value</span> -->
 
-<span class="caption">リスト6-4: `Quarter`列挙子が`UsState`の値も保持する`Coin`enum</span>
+<span class="caption">リスト6-4: `Quarter`列挙子が`UsState`の値も保持する`Coin` enum</span>
 
 <!-- Let’s imagine that a friend of ours is trying to collect all 50 state quarters. -->
 <!-- While we sort our loose change by coin type, we’ll also call out the name of -->
@@ -243,7 +243,7 @@ fn value_in_cents(coin: Coin) -> u32 {
 `Coin::Quarter(UsState::Alaska)`になります。その値をmatchの各アームと比較すると、
 `Coin::Quater(state)`に到達するまで、どれにもマッチしません。その時に、`state`に束縛されるのは、
 `UsState::Alaska`という値です。そして、`println!`式でその束縛を使用することができ、
-そのため、`Coin`enumの列挙子から`Quarter`に対する中身のstateの値を取得できたわけです。
+そのため、`Coin` enumの列挙子から`Quarter`に対する中身のstateの値を取得できたわけです。
 
 <!-- ### Matching with `Option<T>` -->
 
@@ -256,7 +256,7 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- the same. -->
 
 前節では、`Option<T>`を使用する際に、`Some`ケースから中身の`T`の値を取得したくなりました。要するに、
-`Coin`enumに対して行ったように、`match`を使って`Option<T>`を扱うこともできるというわけです！
+`Coin` enumに対して行ったように、`match`を使って`Option<T>`を扱うこともできるというわけです！
 コインを比較する代わりに、`Option<T>`の列挙子を比較するのですが、`match`式の動作の仕方は同じままです。
 
 <!-- Let’s say we want to write a function that takes an `Option<i32>` and, if -->
