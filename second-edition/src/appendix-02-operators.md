@@ -131,12 +131,12 @@
 | `@`               | `ident @ pat`                                    | パターン束縛              ||
 | `^`               | `expr ^ expr`                                    | ビットXOR                | `BitXor` |
 | `^=`              | `var ^= expr`                                    | ビットXOR後に代入         | `BitXorAssign` |
-| <code>\|</code>   | (<code>pat \| pat</code>)                        | パターンOR               ||
-| <code>\|</code>   | (<code>\|…\| expr</code>)                        | クロージャ               ||
-| <code>\|</code>   | (<code>expr \| expr</code>)                      | ビットOR                 | `BitOr` |
-| <code>\|=</code>  | (<code>var \|= expr</code>)                      | ビットOR後に代入          | `BitOrAssign`|
-| <code>\|\|</code> | (<code>expr \|\| expr</code>)                    | 論理OR                   ||
-| `?`               | (`expr?`)                                        | エラー委譲                ||
+| <code>\|</code>   | <code>pat \| pat</code>                          | パターンOR               ||
+| <code>\|</code>   | <code>\|…\| expr</code>                          | クロージャ               ||
+| <code>\|</code>   | <code>expr \| expr</code>                        | ビットOR                 | `BitOr` |
+| <code>\|=</code>  | <code>var \|= expr</code>                        | ビットOR後に代入          | `BitOrAssign`|
+| <code>\|\|</code> | <code>expr \|\| expr</code>                      | 論理OR                   ||
+| `?`               | `expr?`                                          | エラー委譲                ||
 
 <!-- ### Non-operator Symbols -->
 
