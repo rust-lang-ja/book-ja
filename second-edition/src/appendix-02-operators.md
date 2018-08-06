@@ -131,12 +131,12 @@
 | `@`               | `ident @ pat`                                    | パターン束縛              ||
 | `^`               | `expr ^ expr`                                    | ビットXOR                | `BitXor` |
 | `^=`              | `var ^= expr`                                    | ビットXOR後に代入         | `BitXorAssign` |
-| <code>\|</code>   | (<code>pat \| pat</code>)                        | パターンOR               ||
-| <code>\|</code>   | (<code>\|…\| expr</code>)                        | クロージャ               ||
-| <code>\|</code>   | (<code>expr \| expr</code>)                      | ビットOR                 | `BitOr` |
-| <code>\|=</code>  | (<code>var \|= expr</code>)                      | ビットOR後に代入          | `BitOrAssign`|
-| <code>\|\|</code> | (<code>expr \|\| expr</code>)                    | 論理OR                   ||
-| `?`               | (`expr?`)                                        | エラー委譲                ||
+| <code>\|</code>   | <code>pat \| pat</code>                          | パターンOR               ||
+| <code>\|</code>   | <code>\|…\| expr</code>                          | クロージャ               ||
+| <code>\|</code>   | <code>expr \| expr</code>                        | ビットOR                 | `BitOr` |
+| <code>\|=</code>  | <code>var \|= expr</code>                        | ビットOR後に代入          | `BitOrAssign`|
+| <code>\|\|</code> | <code>expr \|\| expr</code>                      | 論理OR                   ||
+| `?`               | `expr?`                                          | エラー委譲                ||
 
 <!-- ### Non-operator Symbols -->
 
@@ -270,8 +270,7 @@
 | シンボル                       | 説明 |
 |-------------------------------|-----|
 | `T: U`                        | `U`を実装する型に制約されるジェネリック引数`T` |
-| `T: 'a`                       | ライフタイム`'a`よりも長生きしなければならないジェネリック型`T` 
-(型がライフタイムより長生きするとは、`'a`よりも短いライフタイムの参照を何も遷移的に含めないことを意味する)|
+| `T: 'a`                       | ライフタイム`'a`よりも長生きしなければならないジェネリック型`T`(型がライフタイムより長生きするとは、`'a`よりも短いライフタイムの参照を何も遷移的に含めないことを意味する)|
 | `T : 'static`                 | ジェネリック型`T`が`'static`なもの以外の借用された参照を何も含まない |
 | `'b: 'a`                      | ジェネリックなライフタイム`'b`がライフタイム`'a`より長生きしなければならない |
 | `T: ?Sized`                   | ジェネリック型引数が動的サイズ付け型であることを許容する |
