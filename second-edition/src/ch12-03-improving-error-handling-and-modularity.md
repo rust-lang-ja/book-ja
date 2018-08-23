@@ -180,11 +180,6 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 <!-- verify that the argument parsing still works. It’s good to check your progress -->
 <!-- often, to help you identify the cause of problems when they occur. -->
 
-This rework may seem like overkill for our small program, but we’re refactoring
-in small, incremental steps. After making this change, run the program again to
-verify that the argument parsing still works. It’s good to check your progress
-often, to help identify the cause of problems when they occur.
-
 このやり直しは、私たちの小規模なプログラムにはやりすぎに思えるかもしれませんが、
 少しずつ段階的にリファクタリングしているのです。この変更後、プログラムを再度実行して、
 引数解析がまだ動作していることを実証してください。問題が発生した時に原因を特定する助けにするために頻繁に進捗を確認するのはいいことです。
