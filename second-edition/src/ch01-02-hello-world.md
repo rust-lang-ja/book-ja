@@ -39,8 +39,8 @@ Rustコードを格納するディレクトリを作ることから始めまし�
 <!-- Open a terminal and enter the following commands to make a *projects* directory -->
 <!-- and a directory for the Hello, world! project within the *projects* directory. -->
 
-端末を開いて以下のコマンドを入力し、*projects*ディレクトリと*projects*ディレクトリ内に、
-Hello, world!プロジェクトのディレクトリを作成してください。
+端末を開いて以下のコマンドを入力し、*projects*ディレクトリと、
+*projects*ディレクトリ内に、Hello, world!プロジェクトのディレクトリを作成してください。
 
 <!-- For Linux and macOS, enter this: -->
 
