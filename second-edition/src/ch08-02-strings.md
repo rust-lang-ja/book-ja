@@ -126,7 +126,7 @@ let s = "initial contents".to_string();
 <!-- that uses `to_string`. -->
 
 さらに、`String::from`関数を使っても、文字列リテラルから`String`を生成することができます。
-リスト8-11のコードは、`to_string`を使用するリスト8-10のコードと等価です。
+リスト8-13のコードは、`to_string`を使用するリスト8-12のコードと等価です。
 
 ```rust
 let s = String::from("initial contents");
