@@ -515,7 +515,7 @@ fn main() {
 <!-- immutable references, you can use the `DerefMut` trait to override the `*` -->
 <!-- operator on mutable references. -->
 
-`Deref`トレイトを使用して不変参照に対して`*`をオーバーライドするように、R
+`Deref`トレイトを使用して不変参照に対して`*`をオーバーライドするように、
 `DerefMut`トレイトを使用して可変参照の`*`演算子をオーバーライドできます。
 
 <!-- Rust does deref coercion when it finds types and trait implementations in three -->
