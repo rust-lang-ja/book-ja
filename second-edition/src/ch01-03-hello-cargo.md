@@ -121,7 +121,7 @@ Cargoの設定フォーマットです。
 <!-- following statements are configuring a package. As we add more information to -->
 <!-- this file, we’ll add other sections. -->
 
-最初の行の`[package]`は、後の文がパッケージを設定していることを示すセクションヘッダーです。もっと情報を追加すれば、
+最初の行の`[package]`は、後の文がパッケージを設定していることを示すセクションヘッダーです。もっと情報を追加するにつれて、
 別のセクションも追加するでしょう。
 
 <!-- The next three lines set the configuration information Cargo needs to compile -->
@@ -189,7 +189,7 @@ Hello, world!プロジェクトのように、Cargoを使用しないプロジ�
 
 ### Cargoプロジェクトをビルドし、実行する
 
-<!-- Now let’s look what's different when we build and run the Hello, world! -->
+<!-- Now let’s look at what's different when we build and run the Hello, world! -->
 <!-- program with Cargo! From your *hello_cargo* directory, build your project by -->
 <!-- entering the following command: -->
 
@@ -207,7 +207,7 @@ $ cargo build
 <!-- directory. You can run the executable with this command: -->
 
 このコマンドは、カレントディレクトリではなく、*target/debug/hello_cargo*(あるいはWindowsなら、
-*target/debug/hello_cargo.exe*)の実行可能ファイルを作成します。以下のコマンドで実行可能ファイルを実行できます:
+*target/debug/hello_cargo.exe*)に実行可能ファイルを作成します。以下のコマンドで実行可能ファイルを実行できます:
 
 ```text
 $ ./target/debug/hello_cargo # or .\target\debug\hello_cargo.exe on Windows
@@ -247,7 +247,7 @@ Hello, world!
 <!-- project before running it, and you would have seen this output: -->
 
 今回は、Cargoが`hello_cargo`をコンパイルしていることを示唆する出力がないことに気付いてください。
-Cargoはファイルが変更されていないことを推論したので、単純にバイナリを実行したのです。
+Cargoはファイルが変更されていないことを推察したので、単純にバイナリを実行したのです。
 ソースコードを変更していたら、Cargoは実行前にプロジェクトを再ビルドし、こんな出力を目の当たりにしたでしょう:
 
 ```text
@@ -293,7 +293,7 @@ $ cargo check
 <!--   Cargo stores it in the *target/debug* directory. -->
 
 * `cargo build`か`cargo check`でプロジェクトをビルドできる。
-* プロジェクトのビルドと実行を1ステップで`cargo run`でできる。
+* プロジェクトのビルドと実行を1ステップ、`cargo run`でできる。
 * ビルドの結果をコードと同じディレクトリに保存するのではなく、Cargoは*target/debug*ディレクトリに格納する。
 
 <!-- An additional advantage of using Cargo is that the commands are the same no -->
@@ -322,7 +322,7 @@ Cargoを使用する追加の利点は、使用しているOSに関わらず、�
 最適化を行なってコンパイルすることができます。このコマンドは、*target/debug*ではなく、
 *target/release*に実行可能ファイルを作成します。最適化は、Rustコードの実行を速くしてくれますが、
 オンにするとプログラムをコンパイルする時間が延びます。このため、2つの異なるプロファイルがあるのです:
-頻繁に再ビルドをかけたい開発用と、繰り返し再ビルドすることはなく、できるだけ高速に動いてユーザにあげる最終的なプログラムをビルドする用のです。
+頻繁に再ビルドをかけたい開発用と、繰り返し再ビルドすることはなく、できるだけ高速に動いてユーザにあげる最終的なプログラムをビルドする用です。
 コードの実行時間をベンチマークするなら、`cargo build --release`を確実に実行し、*target/release*の実行可能ファイルでベンチマークしてください。
 
 <!-- ### Cargo as Convention -->

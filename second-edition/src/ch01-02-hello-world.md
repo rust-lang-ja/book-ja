@@ -18,7 +18,7 @@ Rustをインストールしたので、最初のRustプログラムを書きま
 <!-- > the Rust team has been focusing on enabling great IDE support, and progress -->
 <!-- > has been made rapidly on that front! -->
 
-> 注釈: この本は、コマンドラインに基本的な馴染みがあることを前提にしています。Rustは、編集やツール、
+> 注釈: この本は、コマンドラインに基礎的な馴染みがあることを前提にしています。Rustは、編集やツール、
 > どこにコードがあるかについて特定の要求をしないので、コマンドラインではなくIDEを使用することを好むのなら、
 > どうぞご自由にお気に入りのIDEを使用してください。今では、多くのIDEがなんらかの形でRustをサポートしています;
 > 詳しくは、IDEのドキュメンテーションをご覧ください。最近、Rustチームは優れたIDEサポートを有効にすることに注力し、
@@ -98,6 +98,7 @@ WindowsのPowerShellなら、こう:
 
 ```rust
 fn main() {
+	// 世界よ、こんにちは
     println!("Hello, world!");
 }
 ```
@@ -161,7 +162,6 @@ fn main() {
 <!-- always the first code that runs in every executable Rust program. The first -->
 <!-- line declares a function named `main` that has no parameters and returns -->
 <!-- nothing. If there were parameters, they would go inside the parentheses, `()`. -->
-<!-- and `)`. -->
 
 これらの行でRustで関数を定義しています。`main`関数は特別です: 常に全ての実行可能なRustプログラムで走る最初のコードになります。
 1行目は、引数がなく、何も返さない`main`という関数を宣言しています。引数があるなら、かっこ(`()`)の内部に入ります。
@@ -171,7 +171,7 @@ fn main() {
 <!-- curly bracket on the same line as the function declaration, adding one space in -->
 <!-- between. -->
 
-また、関数の本体が波括弧(`{`と`}`)に包まれていることにも注目してください。Rustでは、全ての関数本体の周りにこれらが必要になります。
+また、関数の本体が波括弧(`{}`)に包まれていることにも注目してください。Rustでは、全ての関数本体の周りにこれらが必要になります。
 スペースを1つあけて、開き波括弧を関数宣言と同じ行に配置するのがいいスタイルです。
 
 <!-- At the time of this writing, an automatic formatter tool called `rustfmt` is -->
@@ -303,7 +303,7 @@ $ ./main # or .\main.exe on Windows
 
 RubyやPython、JavaScriptなどの動的言語により造詣が深いなら、プログラムのコンパイルと実行を個別の手順で行うことに慣れていない可能性があります。
 Rustは*AOTコンパイル*(ahead-of-time; `訳注`: 予め)言語です。つまり、プログラムをコンパイルし、
-実行可能ファイルを誰かにあげ、あげた人がRustをインストールしなくても実行できるわけです。
+実行可能ファイルを誰かにあげ、あげた人がRustをインストールしていなくても実行できるわけです。
 誰かに *.rb*、*.py*、*.js*ファイルをあげたら、それぞれRuby、Python、JavaScriptの実装がインストールされている必要があります。
 ですが、そのような言語では、プログラムをコンパイルし実行するには、1コマンドしか必要ないのです。
 全ては言語設計においてトレードオフなのです。

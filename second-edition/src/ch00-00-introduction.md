@@ -48,10 +48,10 @@ Rustは、様々な理由により多くの人にとって理想的です。い�
 <!-- alongside the compiler, the team can spend their time focusing on the program’s -->
 <!-- logic rather than chasing down bugs. -->
 
-Rustは、いろんなレベルのシステムプログラミングの知識を持つ開発者の巨大なチームとコラボレートするのに生産的なツールであると証明してきています。
+Rustは、いろんなレベルのシステムプログラミングの知識を持つ開発者の巨大なチームとコラボするのに生産的なツールであると証明してきています。
 低レベルコードは様々な種類の微細なバグを抱える傾向があり、そのようなバグは他の言語だと広範なテストと、
 経験豊富な開発者による注意深いコードレビューによってのみ捕捉されるものです。Rustにおいては、
-コンパイラが非同期のバグも含めたこのようなとらえどころのないバグのあるコードをコンパイルするのを拒むことで、
+コンパイラが並行性のバグも含めたこのようなとらえどころのないバグのあるコードをコンパイルするのを拒むことで、
 門番の役割を担います。コンパイラとともに取り組むことで、チームはバグを追いかけるよりもプログラムのロジックに集中することに、
 時間を費やせるのです。
 
@@ -154,8 +154,6 @@ Rust言語は他の多くのユーザのサポートも望んでいます; こ�
 
 ## この本は誰のためのものなの
 
-<!-- 最後から2行目、better servedをもっと上手く訳したい-->
-
 <!-- This book assumes that you’ve written code in another programming language but -->
 <!-- doesn’t make any assumptions about which one. We’ve tried to make the material -->
 <!-- broadly accessible to those from a wide variety of programming backgrounds. We -->
@@ -164,9 +162,9 @@ Rust言語は他の多くのユーザのサポートも望んでいます; こ�
 <!-- reading a book that specifically provides an introduction to programming. -->
 
 この本は、あなたが他のプログラミング言語でコードを書いたことがあることを想定していますが、
-具体的にどの言語かという想定はしません。幅広い分野のプログラミング背景からの人にとってこの資料を広くアクセスできるようにしようとしてきました。
+具体的にどの言語かという想定はしません。私たちは、幅広い分野のプログラミング背景からの人にとってこの資料を広くアクセスできるようにしようとしてきました。
 プログラミングとはなん*なのか*やそれについて考える方法について多くを語るつもりはありません。
-もし、完全なプログラミング初心者であれば、プログラミング入門を特に行う本を読むことでよりよく提供されるでしょう。
+もし、完全なプログラミング初心者であれば、プログラミング入門を特に行う本を読むことでよりよく役に立つでしょう。
 
 <!-- ## How to Use This Book -->
 
@@ -193,7 +191,7 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 <!-- and how to use Cargo, Rust’s package manager and build tool. Chapter 2 is a -->
 <!-- hands-on introduction to the Rust language. We’ll cover concepts at a high -->
 <!-- level, and later chapters will provide additional detail. If you want to get -->
-<!--  your hands dirty right away, Chapter 2 is the one for that. At first, you -->
+<!-- your hands dirty right away, Chapter 2 is the one for that. At first, you -->
 <!-- might even want to skip Chapter 3, which covers Rust features similar to those -->
 <!-- of other programming language, and head straight to Chapter 4 to learn about -->
 <!-- Rust’s ownership system. However, if you’re a particularly meticulous learner -->
@@ -234,7 +232,7 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 <!-- previous chapters. -->
 
 第10章ではジェネリクス、トレイト、ライフタイムについて深入りし、これらは複数の型に適用されるコードを定義する力をくれます。
-第11章は、完全にテストに関してで、Rustのプログラムのロジックが正しいことを保証する安全性保証があってさえ、
+第11章は、完全にテストに関してで、Rustの安全性保証があってさえ、プログラムのロジックが正しいことを保証するために、
 必要になります。第12章では、ファイル内のテキストを検索する`grep`コマンドラインツールの一部の機能を自身で構築します。
 このために、以前の章で議論した多くの概念を使用します。
 
@@ -253,7 +251,7 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 <!-- Chapter 17 looks at how Rust idioms compare to object-oriented programming -->
 <!-- principles you might be familiar with. -->
 
-第16章では、非同期プログラミングの異なるモデルを見ていき、Rustが恐れなしに複数のスレッドでプログラムする手助けをする方法を語ります。
+第16章では、並行プログラミングの異なるモデルを見ていき、Rustが恐れなしに複数のスレッドでプログラムする手助けをする方法を語ります。
 第17章では、馴染み深い可能性のあるオブジェクト指向プログラミングの原則とRustのイディオムがどう比較されるかに目を向けます。
 
 <!-- Chapter 18 is a reference on patterns and pattern matching, which are powerful -->
@@ -275,7 +273,7 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 <!-- covers Rust’s operators and symbols, Appendix C covers derivable traits -->
 <!-- provided by the standard library, Appendix D covers macros. -->
 
-最後に、言語についての有用な情報をよりリファレンスっぽい形式で含む付録があります。
+最後に、言語についての有用な情報をよりリファレンスのような形式で含む付録があります。
 付録AはRustのキーワードを講義し、付録Bは、Rustの演算子とシンボル、付録Cは、
 標準ライブラリが提供する継承可能なトレイト、付録Dはマクロを講義します。
 
@@ -309,9 +307,5 @@ Rustを学ぶ過程で重要な部分は、コンパイラが表示するエラ�
 <!-- [GitHub][book]. -->
 
 この本が生成されるソースファイルは、[GitHub][book]で見つかります。
-
-この本はオープンソースです。間違いを見つけたら、[GitHub][book]でissueを送ったり、
-プルリクエストを送ったりするのを<ruby>躊躇<rp>(</rp><rt>ためら</rt><rp>)</rp></ruby>わないでください。
-詳しくは、[CONTRIBUTING.md]をご参照ください
 
 [book]: https://github.com/rust-lang/book/tree/master/second-edition/src
