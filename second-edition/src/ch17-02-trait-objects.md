@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- ## Using Trait Objects that Allow for Values of Different Types -->
 
 ## トレイトオブジェクトで異なる型の値を許可する
@@ -627,3 +628,15 @@ made into an object
 オブジェクト安全性についてより詳しく興味があるのなら、[Rust RFC 255]を参照されたし。
 
 [Rust RFC 255]: https://github.com/rust-lang/rfcs/blob/master/text/0255-object-safety.md
+=======
+## Using Trait Objects that Allow for Values of Different Types
+
+The second edition of the book is no longer distributed with Rust's documentation.
+
+If you came here via a link or web search, you may want to check out [the current
+version of the book](../index.html) instead.
+
+If you have an internet connection, you can [find a copy distributed with
+Rust
+1.30](https://doc.rust-lang.org/1.30.0/book/second-edition/ch17-02-trait-objects.html).
+>>>>>>> fork_master_master

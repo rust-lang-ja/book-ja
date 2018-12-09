@@ -9,9 +9,6 @@
 > 注釈: この本のこの版は、本として利用可能な[The Rust Programming Language][nsprust]と、
 > [No Starch Press][nsp]のebook形式と同じです。
 
-[nsprust]: https://nostarch.com/rust
-[nsp]: https://nostarch.com/
-
 <!-- Welcome to *The Rust Programming Language*, an introductory book about Rust. -->
 
 *The Rust Programming Language*へようこそ。Rustに関する入門書です。

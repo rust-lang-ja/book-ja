@@ -1,5 +1,6 @@
 <!-- ## Treating Smart Pointers Like Regular References with the `Deref` Trait -->
 
+<<<<<<< HEAD
 ## `Deref`トレイトでスマートポインタを普通の参照のように扱う
 
 <!-- Implementing the `Deref` trait allows you to customize the behavior of the -->
@@ -558,3 +559,13 @@ fn main() {
 1つの可変参照を1つの不変参照に変換することは、借用ルールを絶対に破壊しません。
 不変参照を可変参照にするには、そのデータへの不変参照がたった1つしかないことが必要ですが、
 借用ルールはそれを保証してくれません。故に、不変参照を可変参照に変換することが可能であるという前提を敷けません。
+=======
+The second edition of the book is no longer distributed with Rust's documentation.
+
+If you came here via a link or web search, you may want to check out [the current
+version of the book](../index.html) instead.
+
+If you have an internet connection, you can [find a copy distributed with
+Rust
+1.30](https://doc.rust-lang.org/1.30.0/book/second-edition/ch15-02-deref.html).
+>>>>>>> fork_master_master

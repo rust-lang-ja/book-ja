@@ -24,7 +24,7 @@
 
 <!-- ### Ensuring One Lifetime Outlives Another with Lifetime Subtyping -->
 
-### ライフタイム・サブタイピングによりあるライフタイムが他よりも長生きすることを保証する
+### ライフタイム・サブタイピングにより、あるライフタイムが他よりも長生きすることを保証する
 
 <!-- *Lifetime subtyping* specifies that one lifetime should outlive another -->
 <!-- lifetime. To explore lifetime subtyping, imagine we want to write a parser. -->

@@ -13,8 +13,6 @@
 ライブラリクレートの肥大化が続き、さらに複数のライブラリクレートにパッケージを分割したくなることでしょう。
 この場面において、Cargoは*ワークスペース*という協調して開発された関連のある複数のパッケージを管理するのに役立つ機能を提供しています。
 
-### Creating a Workspace
-
 ### ワークスペースを生成する
 
 <!-- A *workspace* is a set of packages that share the same *Cargo.lock* and output -->

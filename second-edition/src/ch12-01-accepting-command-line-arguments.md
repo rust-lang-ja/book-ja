@@ -9,12 +9,6 @@
 いつものように、`cargo new`で新しいプロジェクトを作りましょう。プロジェクトを`minigrep`と名付けて、
 既に自分のシステムに存在するかもしれない`grep`ツールと区別しましょう。
 
-```text
-$ cargo new --bin minigrep
-     Created binary (application) `minigrep` project
-$ cd minigrep
-```
-
 <!-- The first task is to make `minigrep` accept its two command line arguments: the -->
 <!-- filename and a string to search for. That is, we want to be able to run our -->
 <!-- program with `cargo run`, a string to search for, and a path to a file to -->

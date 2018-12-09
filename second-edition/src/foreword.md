@@ -42,7 +42,7 @@ Rustは、スピードとメモリ使用の観点で効率的な信頼性の高�
 <!-- that you won’t accidentally introduce crashes or exploits. -->
 
 既に低レベルコードに取り組んでいるプログラマは、Rustを使用してさらなる高みを目指せます。例えば、
-Rustで並行性を導入することは、比較的低リスクです: コンパイラが伝統的なミスを捕捉してくれるのです。
+Rustで並列性を導入することは、比較的低リスクです: コンパイラが伝統的なミスを捕捉してくれるのです。
 そして、クラッシュやクラッキングの糸口を誤って導入しないという自信を持ってコードの大胆な最適化に取り組めるのです。
 
 <!-- But Rust isn’t limited to low-level systems programming. It’s expressive and -->
@@ -63,7 +63,7 @@ Rustを使うことで1つの領域から他の領域へと使い回せる技術
 <!-- general. So dive in, get ready to learn—and welcome to the Rust community! -->
 
 この本は、ユーザに力を与え(empower)るRustのポテンシャルを全て含んでいます。あなたのRustの知識のみをレベルアップさせるだけでなく、
-プログラマとして全般的な能力や自信をもレベルアップさせる手助けを意図した親しみやすくわかりやすいテキストです。
+プログラマとしての全般的な能力や自信をもレベルアップさせる手助けを意図した親しみやすくわかりやすいテキストです。
 さあ、飛び込んで学ぶ準備をしてください。Rustコミュニティへようこそ！
 
 <!-- — Nicholas Matsakis and Aaron Turon -->
