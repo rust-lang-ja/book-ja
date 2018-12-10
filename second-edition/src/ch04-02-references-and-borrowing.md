@@ -57,7 +57,7 @@ fn calculate_length(s: &String) -> usize {
 <!-- <span class="caption">Figure 4-5: A diagram of `&String s` pointing at `String -->
 <!-- s1`</span> -->
 
-<span class="caption">図4-5: `String s1`を指す`&String`の図表</span>
+<span class="caption">図4-5: `String s1`を指す`&String s`の図表</span>
 
 <!-- Note: The opposite of referencing by using `&` is *dereferencing*, which is -->
 <!-- accomplished with the dereference operator, `*`. We’ll see some uses of the -->
@@ -205,7 +205,7 @@ fn change(some_string: &mut String) {
 <!-- reference to a particular piece of data in a particular scope. This code will -->
 <!-- fail: -->
 
-ところが、可変な参照には大きな制約が一つあります: 特定のスコープである特定のデータに対しては、
+ところが、可変な参照には大きな制約が一つあります: 特定のスコープで、ある特定のデータに対しては、
 一つしか可変な参照を持てないことです。こちらのコードは失敗します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -368,7 +368,7 @@ immutable
 ポインタのある言語では、誤ってダングリングポインタを生成してしまいやすいです。ダングリングポインタとは、
 他人に渡されてしまった可能性のあるメモリを指すポインタのことであり、その箇所へのポインタを保持している間に、
 メモリを解放してしまうことで発生します。対照的にRustでは、コンパイラが、
-参照がダングリング参照に絶対ならないよう保証してくれます:つまり、何らかのデータへの参照があったら、
+参照がダングリング参照に絶対ならないよう保証してくれます: つまり、何らかのデータへの参照があったら、
 コンパイラは参照がスコープを抜けるまで、データがスコープを抜けることがないよう確認してくれるわけです。
 
 <!-- Let’s try to create a dangling reference, which Rust will prevent with a -->
@@ -413,11 +413,11 @@ error[E0106]: missing lifetime specifier
 
 <!-- This error message refers to a feature we haven’t covered yet: *lifetimes*. We'll -->
 <!-- discuss lifetimes in detail in Chapter 10. But, if you disregard the parts -->
-<!-- parts about lifetimes, the message does contain the key to why this code is a problem: -->
+<!-- about lifetimes, the message does contain the key to why this code is a problem: -->
 
-このエラーメッセージは、まだ解説していない機能について触れています: *ライフタイム*です。
+このエラーメッセージは、まだ講義していない機能について触れています: *ライフタイム*です。
 ライフタイムについては第10章で詳しく議論しますが、ライフタイムに関する部分を無視すれば、
-このメッセージは、このコードが問題になる理由に関する鍵を握っています:
+このメッセージは、確かにこのコードが問題になる理由に関する鍵を握っています:
 
 ```text
 this function's return type contains a borrowed value, but there is no value
@@ -449,13 +449,13 @@ fn dangle() -> &String { // dangleはStringへの参照を返す
     let s = String::from("hello"); // sは新しいString
 
     &s // String sへの参照を返す
-} // ここで、sはスコープを抜け、ドロップされる。そのメモリは吹き飛ばされる。
+} // ここで、sはスコープを抜け、ドロップされる。そのメモリは消される。
   // 危険だ
 ```
 
 <!-- Because `s` is created inside `dangle`, when the code of `dangle` is finished, -->
 <!-- `s` will be deallocated. But we tried to return a reference to it. That means -->
-<!-- this reference would be pointing to an invalid `String` That’s no good! Rust -->
+<!-- this reference would be pointing to an invalid `String`. That’s no good! Rust -->
 <!-- won’t let us do this. -->
 
 `s`は、`dangle`内で生成されているので、`dangle`のコードが終わったら、`s`は解放されてしまいますが、

@@ -37,7 +37,7 @@ Rustと所有権システムの規則と経験を積むにつれて、自然に�
 <!-- strings. -->
 
 所有権を理解した時、Rustを際立たせる機能の理解に対する強固な礎を得ることになるでしょう。この章では、
-非常に一般的なデータ構造に着目した例を取り扱うことで所有権を学んでいくでしょう: 文字列です。
+非常に一般的なデータ構造に着目した例を取り扱うことで所有権を学んでいきます: 文字列です。
 
 <!-- PROD: START BOX -->
 
@@ -108,19 +108,19 @@ Rustと所有権システムの規則と経験を積むにつれて、自然に�
 > 多くのプログラミング言語において、スタックとヒープについて考える機会はそう多くないでしょう。
 > しかし、Rustのようなシステムプログラミング言語においては、値がスタックに載るかヒープに載るかは、
 > 言語の振る舞い方や、特定の決断を下す理由などに影響以上のものを与えるのです。
-> この章の後半でスタックとヒープを絡めて所有権に一部は解説されるので、ここでちょっと予行演習をしておきましょう。
+> この章の後半でスタックとヒープを絡めて所有権の一部は解説されるので、ここでちょっと予行演習をしておきましょう。
 >
 > スタックもヒープも、実行時にコードが使用できるメモリの一部になりますが、異なる手段で構成されています。
 > スタックは、得た順番に値を並べ、逆の順で値を取り除いていきます。これは、
 > *last in, first out*(`訳注`: あえて日本語にするなら、けつ入れ頭出しといったところでしょうか)と呼ばれます。
 > お皿の山を思い浮かべてください: お皿を追加する時には、山の一番上に置き、お皿が必要になったら、一番上から1枚を取り去りますよね。
-> 途中や一番下に追加したり、取り除いたりすることは同じようにはできません。データを追加することは、
+> 途中や一番下に追加したり、取り除いたりすることもできません。データを追加することは、
 > *スタックにpushする*といい、データを取り除くことは、*スタックからpopする*と表現します(`訳注`:
-> これらの動作に対する画一的な日本語訳を見かけたことはありません)。
+> 日本語では単純に英語をそのまま活用してプッシュ、ポップと表現するでしょう)。
 >
 > データへのアクセス方法のおかげで、スタックは高速です: 新データを置いたり、
-> データを取得する場所を探す必要が絶対にないわけです。というのも、その場所は常に一番上だからですね。スタックを高速にする特性は、
-> 他にもあり、それはスタック上のデータは全て既知の固定サイズにならなければならないということです。
+> データを取得する場所を探す必要が絶対にないわけです。というのも、その場所は常に一番上だからですね。
+> スタックを高速にする特性は他にもあり、それはスタック上のデータは全て既知の固定サイズにならなければならないということです。
 >
 > コンパイル時にサイズがわからなかったり、サイズが可変のデータについては、代わりにヒープに格納することができます。
 > ヒープは、もっとごちゃごちゃしています: ヒープにデータを置く時、あるサイズのスペースを求めます。
@@ -161,8 +161,8 @@ Rustと所有権システムの規則と経験を積むにつれて、自然に�
 <!-- First, let’s take a look at the ownership rules. Keep these rules in mind as we -->
 <!-- work through the examples that illustrate them: -->
 
-まず、所有権のルールについて見ていきましょう。この規則を具体化する例を
-扱っていく間もこれらのルールを肝に命じておいてください:
+まず、所有権のルールについて見ていきましょう。
+この規則を具体化する例を扱っていく間もこれらのルールを肝に命じておいてください:
 
 <!-- * Each value in Rust has a variable that’s called its *owner*. -->
 <!-- * There can only be one owner at a time. -->
@@ -236,8 +236,8 @@ valid</span> -->
 <!-- * When `s` comes *into scope*, it is valid. -->
 <!-- * It remains valid until it goes *out of scope*. -->
 
-1. `s`が*スコープに入る*と、有効になる
-1. *スコープを抜ける*まで、有効なまま
+* `s`が*スコープに入る*と、有効になる
+* *スコープを抜ける*まで、有効なまま
 
 <!-- At this point, the relationship between scopes and when variables are valid is -->
 <!-- similar to other programming languages. Now we’ll build on top of this -->
@@ -280,7 +280,7 @@ valid</span> -->
 <!-- unknown to us at compile time. You can create a `String` from a string literal -->
 <!-- using the `from` function, like so: -->
 
-すでに文字列リテラルは見かけましたね。文字列リテラルでは、文字列の値はプログラムにハードコードされます。
+既に文字列リテラルは見かけましたね。文字列リテラルでは、文字列の値はプログラムにハードコードされます。
 文字列リテラルは便利ですが、テキストを使いたいかもしれない場面全てに最適なわけではありません。一因は、
 文字列リテラルが不変であることに起因します。別の原因は、コードを書く際に、全ての文字列値が判明するわけではないからです:
 例えば、ユーザ入力を受け付け、それを保持したいとしたらどうでしょうか？このような場面用に、Rustには、
@@ -296,7 +296,7 @@ let s = String::from("hello");
 <!-- particular `from` function under the `String` type rather than using some sort -->
 <!-- of name like `string_from`. We’ll discuss this syntax more in the “Method -->
 <!-- Syntax” section of Chapter 5 and when we talk about namespacing with modules in -->
-<!-- "Module DEfinitions" in Chapter 7. -->
+<!-- "Module Definitions" in Chapter 7. -->
 
 この二重コロンは、`string_from`などの名前を使うのではなく、
 `String`型直下の`from`関数を特定する働きをする演算子です。この記法について詳しくは、
@@ -362,7 +362,7 @@ println!("{}", s); // これは`hello, world!`と出力する
 <!-- requests the memory it needs. This is pretty much universal in programming -->
 <!-- languages. -->
 
-この最初の部分は、すでにしています: `String::from`関数を呼んだら、その実装が必要なメモリを要求するのです。
+この最初の部分は、既にしています: `String::from`関数を呼んだら、その実装が必要なメモリを要求するのです。
 これは、プログラミング言語において、極めて普遍的です。
 
 <!-- However, the second part is different. In languages with a *garbage collector -->
@@ -397,7 +397,7 @@ Rustは、異なる道を歩んでいます: ひとたび、メモリを所有�
 <!--    let s = String::from("hello"); // s is valid from this point forward -->
 
 <!--    // do stuff with s -->
-<!--}                                  // this scope is now over, and s is no -->
+<!-- }                                 // this scope is now over, and s is no -->
 <!--                                   // longer valid -->
 <!-- ``` -->
 
@@ -537,7 +537,7 @@ that has a copy of the pointer, length, and capacity of `s1`</span> -->
 <!-- The representation does *not* look like Figure 4-3, which is what memory would -->
 <!-- look like if Rust instead copied the heap data as well. If Rust did this, the -->
 <!-- operation `s2 = s1` could be very expensive in terms of runtime performance if -->
-<!-- the data on the heap ware large. -->
+<!-- the data on the heap were large. -->
 
 メモリ上の表現は、図4-3のようにはなり*ません*。これは、
 Rustが代わりにヒープデータもコピーするという選択をしていた場合のメモリ表現ですね。Rustがこれをしていたら、
@@ -561,7 +561,7 @@ do if Rust copied the heap data as well</span> -->
 <!-- corruption, which can potentially lead to security vulnerabilities. -->
 
 先ほど、変数がスコープを抜けたら、Rustは自動的に`drop`関数を呼び出し、
-その変数が使っていたヒープメモリを片付けると述べました。しかし、図4-4は、
+その変数が使っていたヒープメモリを片付けると述べました。しかし、図4-2は、
 両方のデータポインタが同じ場所を指していることを示しています。これは問題です: `s2`と`s1`がスコープを抜けたら、
 両方とも同じメモリを解放しようとします。これは*二重解放*エラーとして知られ、以前触れたメモリ安全性上のバグの一つになります。
 メモリを2回解放することは、メモリの退廃につながり、さらにセキュリティ上の脆弱性を生む可能性があります。
@@ -574,7 +574,7 @@ do if Rust copied the heap data as well</span> -->
 
 <!-- この最初の文は、こなれた日本語にしにくい -->
 
-メモリ安全性を保証するために、Rustにおいてこの場面で知っておきたい起こる事の詳細がもう一つあります。
+メモリ安全性を保証するために、Rustにおいてこの場面で起こることの詳細がもう一つあります。
 確保されたメモリをコピーしようとする代わりに、コンパイラは、`s1`が最早有効ではないと考え、
 故に`s1`がスコープを抜けた際に何も解放する必要がなくなるわけです。`s2`の生成後に`s1`を使用しようとしたら、
 どうなるかを確認してみましょう。動かないでしょう:
@@ -619,7 +619,7 @@ error[E0382]: use of moved value: `s1`
 他の言語を触っている間に"shallow copy"と"deep copy"という用語を耳にしたことがあるなら、
 データのコピーなしにポインタと長さ、許容量をコピーするという概念は、shallow copyのように思えるかもしれません。
 ですが、コンパイラは最初の変数をも無効化するので、shallow copyと呼ばれる代わりに、
-ムーブとして知られているわけです。この例では、`s1`は`s2`に*ムーブ*されたと表現するでしょう。
+*ムーブ*として知られているわけです。この例では、`s1`は`s2`に*ムーブ*されたと表現するでしょう。
 以上より、実際に起きることを図4-4に示してみました。
 
 <!-- <img alt="s1 moved to s2" src="img/trpl04-04.svg" class="center" style="width: 50%;" /> -->
@@ -654,7 +654,7 @@ invalidated</span> -->
 <!-- syntax in Chapter 5, but because methods are a common feature in many -->
 <!-- programming languages, you’ve probably seen them before. -->
 
-仮に、スタック上のデータだけでなく、本当に`String`型のヒープデータのdeep copyが必要ならば、
+仮に、スタック上のデータだけでなく、*本当に*`String`型のヒープデータのdeep copyが必要ならば、
 `clone`と呼ばれるよくあるメソッドを使うことができます。メソッド記法については第5章で議論しますが、
 メソッドは多くのプログラミング言語に見られる機能なので、以前に見かけたこともあるんじゃないでしょうか。
 
@@ -742,7 +742,7 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
 
 では、どの型が`Copy`なのでしょうか？ある型について、ドキュメントをチェックすればいいのですが、
 一般規則として、単純なスカラー値の集合は何でも`Copy`であり、メモリ確保が必要だったり、
-何らかの形態のリソースだったりするものは`Copy`ではありません。ここに`Copy`の型を並べておきます。
+何らかの形態のリソースだったりするものは`Copy`ではありません。ここに`Copy`の型の一部を並べておきます。
 
 <!-- * All the integer types, like `u32`. -->
 <!-- * The Boolean type, `bool`, with values `true` and `false`. -->
@@ -768,7 +768,7 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
 <!-- showing where variables go into and out of scope. -->
 
 意味論的に、関数に値を渡すことと、値を変数に代入することは似ています。関数に変数を渡すと、
-代入のようにムーブやコピーされます。リスト4-7は変数がスコープに入ったり、
+代入のようにムーブやコピーされます。リスト4-3は変数がスコープに入ったり、
 抜けたりする地点について注釈してある例です。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -936,7 +936,7 @@ fn takes_and_gives_back(a_string: String) -> String { // a_stringがスコープ
 
 所有権を得ては返すを全ての関数でしていたら、ちょっとめんどくさいですね。関数に値を使わせたいけど、
 所有権は保持させたくない場合はどうすればいいのでしょうか？
-返したいと思うかもしれない関数本体で発生したあらゆるデータとともに再利用したかったら、渡されたものをまた返さなきゃいけないのは、
+返したいと思うかもしれない関数本体で発生したあらゆるデータとともに、再利用したかったら、渡されたものをまた返さなきゃいけないのは、
 非常に煩わしいことです。
 
 <!-- It’s possible to return multiple values using a tuple, as shown in Listing 4-5. -->

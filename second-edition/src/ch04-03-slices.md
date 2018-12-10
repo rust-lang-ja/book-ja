@@ -32,7 +32,7 @@ fn first_word(s: &String) -> ?
 
 この関数、`first_word`は引数に`&String`をとります。所有権はいらないので、これで十分です。
 ですが、何を返すべきでしょうか？文字列の*一部*について語る方法が全くありません。しかし、
-単語の終端の番号を返すことができますね。リスト4-7に示したように、その方法を試してみましょう。
+単語の終端の添え字を返すことができますね。リスト4-7に示したように、その方法を試してみましょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -55,7 +55,7 @@ fn first_word(s: &String) -> usize {
 <!-- <span class="caption">Listing 4-7: The `first_word` function that returns a -->
 <!-- byte index value into the `String` parameter</span> -->
 
-<span class="caption">リスト4-7: `String`引数へのバイト数で表された番号を返す`first_word`関数</span>
+<span class="caption">リスト4-7: `String`引数へのバイト数で表された添え字を返す`first_word`関数</span>
 
 <!-- Because we need to go through the `String` element by element and check whether -->
 <!-- a value is a space, we’ll convert our `String` to an array of bytes using the -->
@@ -85,8 +85,8 @@ for (i, &item) in bytes.iter().enumerate() {
 
 イテレータについて詳しくは、第13章で議論します。今は、`iter`は、コレクション内の各要素を返すメソッドであること、
 `enumerate`が`iter`の結果を包んで、代わりにタプルの一部として各要素を返すことを知っておいてください。
-`enumerate`から返ってくるタプルの第1要素は、番号であり、2番目の要素は、(コレクションの)要素への参照になります。
-これは、手動で番号を計算するよりも少しだけ便利です。
+`enumerate`から返ってくるタプルの第1要素は、添え字であり、2番目の要素は、(コレクションの)要素への参照になります。
+これは、手動で添え字を計算するよりも少しだけ便利です。
 
 <!-- Because the `enumerate` method returns a tuple, we can use patterns to -->
 <!-- destructure that tuple, just like everywhere else in Rust. So in the `for` -->
@@ -94,8 +94,8 @@ for (i, &item) in bytes.iter().enumerate() {
 <!-- for the single byte in the tuple. Because we get a reference to the element -->
 <!-- from `.iter().enumerate()`, we use `&` in the pattern. -->
 
-`enumerate`メソッドがタプルを返すので、Rustのあらゆる場所同様、パターンを使って、そのタプルを分解できます。
-従って、`for`ループ内で、タプルの番号に対する`i`とタプルの1バイトに対応する`&item`を含むパターンを指定しています。
+`enumerate`メソッドがタプルを返すので、Rustのあらゆる場所同様、パターンを使って、そのタプルを分配できます。
+従って、`for`ループ内で、タプルの添え字に対する`i`とタプルの1バイトに対応する`&item`を含むパターンを指定しています。
 `.iter().enumerate()`から要素への参照を取得するので、パターンに`&`を使っています。
 
 <!-- Inside the `for` loop, We search for the byte that represents the space by -->
@@ -121,7 +121,7 @@ s.len()
 <!-- will still be valid in the future. Consider the program in Listing 4-8 that -->
 <!-- uses the `first_word` function from Listing 4-7. -->
 
-さて、文字列内の最初の単語の終端の番号を見つけ出せるようになりましたが、問題があります。
+さて、文字列内の最初の単語の終端の添え字を見つけ出せるようになりましたが、問題があります。
 `usize`型を単独で返していますが、これは`&String`の文脈でのみ意味を持つ数値です。
 言い換えると、`String`から切り離された値なので、将来的にも有効である保証がないのです。
 リスト4-7の`first_word`関数を使用するリスト4-8のプログラムを考えてください。
@@ -200,8 +200,8 @@ fn main() {
 <!-- `s` is tedious and error prone! Managing these indices is even more brittle if -->
 <!-- we write a `second_word` function. Its signature would have to look like this: -->
 
-`word`内の番号が`s`に格納されたデータと同期されなくなるのを心配することは、面倒ですし間違いになりやすいです！
-これらの番号を管理するのは、`second_word`関数を書いたら、さらに脆くなります。
+`word`内の添え字が`s`に格納されたデータと同期されなくなるのを心配することは、面倒ですし間違いになりやすいです！
+これらの添え字を管理するのは、`second_word`関数を書いたら、さらに脆くなります。
 そのシグニチャは以下のようにならなければおかしいです:
 
 ```rust,ignore
@@ -213,7 +213,7 @@ fn second_word(s: &String) -> (usize, usize) {
 <!-- that state at all. We now have three unrelated variables floating around that -->
 <!-- need to be kept in sync. -->
 
-今、私たちは開始*と*終端の番号を追うようになりました。特定の状態のデータから計算されたけど、
+今、私たちは開始*と*終端の添え字を追うようになりました。特定の状態のデータから計算されたけど、
 その状態に全く紐付かない値が増えました。同期を取る必要のある宙に浮いた関連性のない変数が3つになってしまいました。
 
 <!-- Luckily, Rust has a solution to this problem: string slices. -->
@@ -320,10 +320,10 @@ let slice = &s[..];
 <!-- more thorough discussion of UTF-8 handling is in the “Storing UTF-8 Encoded -->
 <!-- Text with Strings” section of Chapter 8. -->
 
-> 注釈: 文字列スライスの範囲インデックスは、有効なUTF-8文字境界に置かなければなりません。
+> 注釈: 文字列スライスの範囲添え字は、有効なUTF-8文字境界に置かなければなりません。
 > マルチバイト文字の真ん中で文字列スライスを生成しようとしたら、エラーでプログラムは落ちるでしょう。
-> 文字列スライスを導入する目的で、この節ではASCIIのみを想定しています; UTF-8に関する
-> より徹底した議論は、第8章の「文字列でUTF-8エンコードされたテキストを格納する」節で行います。
+> 文字列スライスを導入する目的で、この節ではASCIIのみを想定しています; UTF-8に関するより徹底した議論は、
+> 第8章の「文字列でUTF-8エンコードされたテキストを格納する」節で行います。
 
 <!-- With all this information in mind, let’s rewrite `first_word` to return a -->
 <!-- slice. The type that signifies “string slice” is written as `&str`: -->
@@ -354,8 +354,8 @@ fn first_word(s: &String) -> &str {
 <!-- return a string slice using the start of the string and the index of the space -->
 <!-- as the starting and ending indices. -->
 
-リスト4-7で取った手段と同じ方法で単語の終端番号を取得しています。つまり、最初の空白を探すことです。
-空白を発見したら、文字列の最初と、空白の番号を開始、終了地点として使用して文字列スライスを返しています。
+リスト4-7で取った手段と同じ方法で単語の終端添え字を取得しています。つまり、最初の空白を探すことです。
+空白を発見したら、文字列の最初と、空白の添え字を開始、終了地点として使用して文字列スライスを返しています。
 
 <!-- Now when we call `first_word`, we get back a single value that is tied to the -->
 <!-- underlying data. The value is made up of a reference to the starting point of -->
@@ -383,10 +383,10 @@ fn second_word(s: &String) -> &str {
 <!-- compile-time error: -->
 
 これで、ずっと混乱しにくい素直なAPIになりました。なぜなら、`String`への参照が有効なままであることをコンパイラが、
-保証してくれるからです。最初の単語の終端番号を得た時に、
-文字列を空っぽにして先ほどの番号が無効になってしまったリスト4-8のプログラムのバグを覚えていますか？
+保証してくれるからです。最初の単語の終端添え字を得た時に、
+文字列を空っぽにして先ほどの添え字が無効になってしまったリスト4-8のプログラムのバグを覚えていますか？
 そのコードは、論理的に正しくないのですが、即座にエラーにはなりませんでした。問題は後になってから発生し、
-それは空の文字列に対して、最初の単語の番号を使用し続けようとした時でした。スライスならこんなバグはあり得ず、
+それは空の文字列に対して、最初の単語の添え字を使用し続けようとした時でした。スライスならこんなバグはあり得ず、
 コードに問題があるなら、もっと迅速に判明します。スライスバージョンの`first_word`を使用すると、
 コンパイルエラーが発生します:
 
@@ -429,7 +429,7 @@ error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immuta
 <!-- class of errors at compile time! -->
 
 借用規則から、何かへの不変な参照がある時、さらに可変な参照を得ることはできないことを思い出してください。
-`clear`が`String`を切り詰める必要があるので、可変な参照を得ようとして失敗しているわけです。
+`clear`は`String`を切り詰める必要があるので、可変な参照を得ようとして失敗しているわけです。
 RustのおかげでAPIが使いやすくなるだけでなく、ある種のエラー全てを完全にコンパイル時に排除してくれるのです！
 
 <!-- #### String Literals Are Slices -->
@@ -488,7 +488,7 @@ fn first_word(s: &str) -> &str {
 <!-- slice instead of a reference to a `String` makes our API more general and useful -->
 <!-- without losing any functionality: -->
 
-もし、文字列スライスがあるなら、それを直接渡せます。`String`オブジェクトがあるなら、
+もし、文字列スライスがあるなら、それを直接渡せます。`String`があるなら、
 その`String`全体のスライスを渡せます。`String`への参照の代わりに文字列スライスを取るよう関数を定義すると、
 何も機能を失うことなくAPIをより一般的で有益なものにできるのです。
 
@@ -559,7 +559,7 @@ fn main() {
 <!-- String slices, as you might imagine, are specific to strings. But there’s a -->
 <!-- more general slice type, too. Consider this array: -->
 
-文字列リテラルは、想像通り、文字列に特化したものです。ですが、もっと一般的なスライス型も存在します。
+文字列リテラルは、ご想像通り、文字列に特化したものです。ですが、もっと一般的なスライス型も存在します。
 この配列を考えてください:
 
 ```rust
@@ -586,7 +586,7 @@ let slice = &a[1..3];
 このスライスは、`&[i32]`という型になります。これも文字列スライスと全く同じように動作します。
 つまり、最初の要素への参照と長さを保持することです。他のすべての種類のコレクションに対して、
 この種のスライスは使用することができるでしょう。これらのコレクションについて詳しくは、
-第8章でベクタ型について話すときに議論します。
+第8章でベクタについて話すときに議論します。
 
 <!-- ## Summary -->
 

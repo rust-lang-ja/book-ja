@@ -293,6 +293,8 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 <!-- error. In most situations, we’ll lead you to the correct version of any code -->
 <!-- that doesn’t compile. -->
 
+<!-- NOTE: docs.rust-lang.orgにあるバージョンだとFerrisに関する追記があるが、2nd editionで必要なのか、確認が必要 -->
+
 Rustを学ぶ過程で重要な部分は、コンパイラが表示するエラーメッセージを読む方法を学ぶことです:
 それは動くコードへと導いてくれます。そのため、各場面でコンパイラが表示するエラーメッセージとともに、
 コンパイルできないコードの例を多く提供します。適当に例を選んで走らせたら、コンパイルできないかもしれないことを知ってください！
