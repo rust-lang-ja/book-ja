@@ -216,7 +216,7 @@
 | value constructor              | 値コンストラクタ
 | variable                       | 変数
 | variable binding               | 変数束縛
-| variant                        | バリアント
+| variant                        | 列挙子
 | vector                         | ベクタ
 | version                        | バージョン
 | warning                        | ウォーニング
