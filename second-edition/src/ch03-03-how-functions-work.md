@@ -7,7 +7,7 @@
 <!-- point of many programs. You’ve also seen the `fn` keyword, which allows you to -->
 <!-- declare new functions. -->
 
-関数は、Rustのコードにおいてよく見かける存在です。すでに、言語において最も重要な関数のうちの一つを目撃していますね:
+関数は、Rustのコードにおいてよく見かける存在です。既に、言語において最も重要な関数のうちの一つを目撃していますね:
 そう、`main`関数です。これは、多くのプログラムのエントリーポイント(`訳注`: プログラム実行時に最初に走る関数のこと)になります。
 `fn`キーワードもすでに見かけましたね。これによって新しい関数を宣言することができます。
 
@@ -94,7 +94,7 @@ Another function.
 関数は、引数を持つようにも定義できます。引数とは、関数シグニチャの一部になる特別な変数のことです。
 関数に引数があると、引数の位置に実際の値を与えることができます。技術的にはこの実際の値は
 *実引数*と呼ばれますが、普段の会話では、仮引数("parameter")と実引数("argument")を関数定義の変数と関数呼び出し時に渡す実際の値、
-両方の意味に区別なく使います(`訳注`: 日本語では、どちらも単に引数と呼ぶことが多いでしょう)。
+両方の意味に区別なく使います(`訳注`: 日本語では、仮引数を単に引数と呼び、実引数は実引数と呼ぶことが多いでしょう)。
 
 <!-- The following rewritten version of `another_function` shows what parameters -->
 <!-- look like in Rust: -->
@@ -134,7 +134,7 @@ The value of x is: 5
 
 `another_function`の宣言には、`x`という名前の仮引数があります。`x`の型は、
 `i32`と指定されています。値`5`が`another_function`に渡されると、`println!`マクロにより、
-フォーマット文字列中の1組の波かっこがある位置に値`5`が出力されます。
+フォーマット文字列中の1組の波かっこがあった位置に値`5`が出力されます。
 
 <!-- In function signatures, you *must* declare the type of each parameter. This is -->
 <!-- a deliberate decision in Rust’s design: requiring type annotations in function -->
@@ -143,12 +143,12 @@ The value of x is: 5
 
 関数シグニチャにおいて、各仮引数の型を宣言しなければ*なりません*。これは、Rustの設計において、
 意図的な判断です: 関数定義で型注釈が必要不可欠ということは、コンパイラがその意図するところを推し量るのに、
-コードの他の箇所で使用する必要がないということを意味します。
+プログラマがコードの他の箇所で使用する必要がないということを意味します。
 
 <!-- When you want a function to have multiple parameters, separate the parameter -->
 <!-- declarations with commas, like this: -->
 
-関数に複数の仮引数をもたせたいときは、仮引数定義をカンマで区切ってください。
+関数に複数の仮引数を持たせたいときは、仮引数定義をカンマで区切ってください。
 こんな感じです:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -191,11 +191,13 @@ The value of x is: 5
 The value of y is: 6
 ```
 
-<!-- Because we called the function with `5` as the value for  `x` and `6` is passed -->
+<!-- Because we called the function with `5` as the value for `x` and `6` is passed -->
 <!-- as the value for `y`, the two strings are printed with these values. -->
 
 `x`に対して値`5`、`y`に対して値`6`を渡して関数を呼び出したので、この二つの文字列は、
 この値で出力されました。
+
+<!-- NOTE: doc.rust-lang.orgのものではヘッダが変わっている -->
 
 <!-- ### Function Bodies Contain Statements and Expressions -->
 
@@ -245,6 +247,8 @@ fn main() {
 <!-- statement in itself. -->
 
 関数定義も文になります。つまり、先の例は全体としても文になるわけです。
+
+<!-- asは前の文にかかるべきだが、大して意味が変わらないので、語順をそのままにして後ろにかかるように訳した -->
 
 <!-- Statements do not return values. Therefore, you can’t assign a `let` statement -->
 <!-- to another variable, as the following code tries to do; you'll get an error: -->
@@ -357,7 +361,7 @@ fn main() {
 <!-- returns a value: -->
 
 関数は、それを呼び出したコードに値を返すことができます。戻り値に名前を付けはしませんが、
-矢印(`->`)の後に型を書いて宣言します。Rustでは、関数の戻り値は、関数本体ブロックの最後の式の値と同義です。
+矢印(`->`)の後に型を書いて確かに宣言します。Rustでは、関数の戻り値は、関数本体ブロックの最後の式の値と同義です。
 `return`キーワードで関数から早期リターンし、値を指定することもできますが、多くの関数は最後の式を暗黙的に返します。
 こちらが、値を返す関数の例です:
 

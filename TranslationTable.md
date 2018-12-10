@@ -100,6 +100,7 @@
 | immutable                      | 不変
 | immutability                   | 不変性
 | implement                      | 実装する
+| index(動詞)                    | 添え字アクセス
 | initialize                     | 初期化する
 | input lifetime                 | 入力ライフタイム
 | interior                       | 内側の

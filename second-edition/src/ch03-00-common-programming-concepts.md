@@ -8,7 +8,7 @@
 <!-- but we’ll discuss them in the context of Rust and explain the conventions -->
 <!-- around using these concepts. -->
 
-この章では、ほとんど全てのプログラミング言語で見られる概念を解説し、それらがRustにおいて、
+この章では、ほとんど全てのプログラミング言語で見られる概念を講義し、それらがRustにおいて、
 どう動作するかを見ていきます。多くのプログラミング言語は、その核心において、いろいろなものを共有しています。
 この章で提示する概念は、全てRustに固有のものではありませんが、Rustの文脈で議論し、
 これらの概念を使用することにまつわる仕様を説明します。
@@ -18,18 +18,17 @@
 <!-- them early will give you a strong core to start from. -->
 
 具体的には、変数、基本的な型、関数、コメント、そしてフロー制御について学びます。
-これらの基礎は全てのRustプログラムに存在するものであり、それらを早期に学ぶことは
-強力な基礎を築くことになるでしょう。
+これらの基礎は全てのRustプログラムに存在するものであり、それらを早期に学ぶことにより、強力な基礎を築くことになるでしょう。
 
-<!--  ### Keywords -->
-<!--  -->
-<!--  The Rust language has a set of *keywords* that have been reserved for use by -->
-<!--  the language only, much as in other languages. Keep in mind that you cannot -->
-<!--  use these words as names of variables or functions. Most of the keywords have -->
-<!--  special meanings, and you’ll be using them to do various tasks in your Rust -->
-<!--  programs; a few have no current functionality associated with them but have -->
-<!--  been reserved for functionality that might be added to Rust in the future. You -->
-<!--  can find a list of the keywords in Appendix A. -->
+<!-- > ### Keywords -->
+<!-- > -->
+<!-- > The Rust language has a set of *keywords* that have been reserved for use by -->
+<!-- > the language only, much as in other languages. Keep in mind that you cannot -->
+<!-- > use these words as names of variables or functions. Most of the keywords have -->
+<!-- > special meanings, and you’ll be using them to do various tasks in your Rust -->
+<!-- > programs; a few have no current functionality associated with them but have -->
+<!-- > been reserved for functionality that might be added to Rust in the future. You -->
+<!-- > can find a list of the keywords in Appendix A. -->
 
 > ### キーワード
 >

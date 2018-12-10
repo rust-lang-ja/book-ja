@@ -10,10 +10,9 @@
 <!-- out. -->
 
 第2章で触れた通り、変数は標準で不変になります。これは、
-Rustが提供する安全性や簡潔な並列プログラミングの利点を享受する形でコードを書くための選択の1つです。
+Rustが提供する安全性や簡便な並行性の利点を享受する形でコードを書くための選択の1つです。
 ところが、まだ変数を可変にするという選択肢も残されています。
-どのように、そしてなぜRustは不変性を推奨するのか、そしてなぜそれとは違う道を選びたくなることがあるのか見ていきましょう。
-
+どのように、そしてなぜRustは不変性を推奨するのか、さらには、なぜそれとは違う道を選びたくなることがあるのか見ていきましょう。
 
 <!-- When a variable is immutable, once a value is bound to a name, you can't change-->
 <!-- that value. To illustrate this, let’s generate a new project called *variables* -->
@@ -27,7 +26,7 @@ Rustが提供する安全性や簡潔な並列プログラミングの利点を�
 <!-- code with the following code that won't compile just yet: -->
 
 それから、新規作成した*variables*ディレクトリで、*src/main.rs*ファイルを開き、
-その中身を以下のコードに置き換えましょう。このコードはコンパイルできません:
+その中身を以下のコードに置き換えましょう。このコードはまだコンパイルできません:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -67,7 +66,7 @@ error[E0384]: cannot assgin twice immutable variable `x`
 
 この例では、コンパイラがプログラムに潜むエラーを見つけ出す手助けをしてくれることが示されています。
 コンパイルエラーは、イライラすることもあるものですが、まだプログラムにしてほしいことを安全に行えていないだけということなのです;
-エラーが出るからといって、あなたがいいプログラマではないという意味では*ありません*！
+エラーが出るからといって、あなたがいいプログラマではないという意味ではあり*ません*！
 経験豊富なRustaceanでも、コンパイルエラーを出すことはあります。
 
 <!-- The error message indicates that the cause of the error is that you `cannot -->
@@ -89,7 +88,7 @@ error[E0384]: cannot assgin twice immutable variable `x`
 値が変わることはないという前提のもとに処理を行い、別の部分がその値を変更していたら、
 最初の部分が目論見通りに動いていない可能性があるのです。このようなバグの発生は、
 事実(`訳注`:実際にプログラムを走らせた結果のことと思われる)の後には追いかけづらいものです。
-特に第2のコード片が、値を*時々*しか変えない場合尚更です。
+特に第2のコード片が、値を*時々*しか変えない場合、尚更です。
 
 <!-- In Rust the compiler guarantees that when you state that a value won’t change, -->
 <!-- it really won’t change. That means that when you’re reading and writing code, -->
@@ -144,7 +143,7 @@ The value of x is: 6
 <!-- is used. In some cases, you’ll want to make a variable mutable because it makes -->
 <!-- the code more convenient to write than if it had only immutable variables. -->
 
-`mut`キーワードを使われると、`x`が束縛している値を`5`から`6`に変更できます。
+`mut`キーワードが使われると、`x`が束縛している値を`5`から`6`に変更できます。
 変数を可変にする方が、不変変数だけがあるよりも書きやすくなるので、変数を可変にしたくなることもあるでしょう。
 
 <!-- There are multiple trade-offs to consider, in addition to the prevention of -->
@@ -184,7 +183,7 @@ The value of x is: 6
 <!-- details right now. Just know that we must always annotate the type. -->
 
 定数は`let`キーワードの代わりに、`const`キーワードで宣言し、値の型は*必ず*注釈しなければなりません。
-型と型注釈については次のセクション、「データ型」で解説する予定なので、その詳細については気にする必要はありません。
+型と型注釈については次のセクション、「データ型」で講義しますので、その詳細について気にする必要はありません。
 ただ単に型は常に注釈しなければならないのだと思っていてください。
 
 <!-- Constants can be declared in any scope, including the global scope, which makes -->
@@ -242,8 +241,8 @@ const MAX_POINTS: u32 = 100_000;
 <!-- repeating the use of the `let` keyword as follows: -->
 
 第2章の数当てゲームのチュートリアル、「秘密の数字と予想を比較する」節で見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
-新しい変数は、前の変数を覆い隠し(shadow)ます。Rustaceanはこれを最初の変数は、
-2番目の変数に*シャドー*されたと言い、この変数を使用した際に、2番目の変数の値が現れるということです。
+新しい変数は、前の変数を覆い隠します。Rustaceanはこれを最初の変数は、
+2番目の変数に*覆い隠さ*れたと言い、この変数を使用した際に、2番目の変数の値が現れるということです。
 以下のようにして、同じ変数名を用いて変数を覆い隠し、`let`キーワードの使用を繰り返します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -269,7 +268,7 @@ fn main() {
 <!-- program, it will output the following: -->
 
 このプログラムはまず、`x`を`5`という値に束縛します。それから`let x =`を繰り返すことで`x`を覆い隠し、
-元の値に`1`を加えることになるので、`x`の値は、`6`になります。
+元の値に`1`を加えることになるので、`x`の値は`6`になります。
 3番目の`let`文も`x`を覆い隠し、以前の値に`2`をかけることになるので、`x`の最終的な値は`12`になります。
 このプログラムを走らせたら、以下のように出力するでしょう:
 
@@ -289,7 +288,7 @@ The value of x is: 12
 
 シャドーイングは、変数を`mut`にするのとは違います。なぜなら、`let`キーワードを使わずに、
 誤ってこの変数に再代入を試みようものなら、コンパイルエラーが出るからです。`let`を使うことで、
-値にちょっとした加工は加えられますが、その加工が終わったら、変数は不変になるわけです。
+値にちょっとした加工は行えますが、その加工が終わったら、変数は不変になるわけです。
 
 <!-- The other difference between `mut` and shadowing is that because we’re -->
 <!-- effectively creating a new variable when we use the `let` keyword again, we can -->
@@ -299,7 +298,7 @@ The value of x is: 12
 
 `mut`と上書きのもう一つの違いは、再度`let`キーワードを使用したら、実効的には新しい変数を生成していることになるので、
 値の型を変えつつ、同じ変数名を使いまわせることです。例えば、
-プログラムがユーザに何らかのテキストに対して空白文字を入力することで何個分のスペースを表示したいかを尋ねるとします。
+プログラムがユーザに何らかのテキストに対して空白文字を入力することで何個分のスペースを表示したいかを尋ねますが、
 ただ、実際にはこの入力を数値として保持したいとしましょう:
 
 ```rust
