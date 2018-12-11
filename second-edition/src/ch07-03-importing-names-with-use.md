@@ -6,7 +6,7 @@
 <!-- name as part of the call, as in the call to the `nested_modules` function shown -->
 <!-- here in Listing 7-7. -->
 
-モジュール名を呼び出しの一部に使用して、モジュール内に定義された関数の呼び出し方法を解説しました。
+モジュール名を呼び出しの一部に使用して、モジュール内に定義された関数の呼び出し方法を講義しました。
 リスト7-7に示した`nested_modules`関数の呼び出しのような感じですね。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -113,7 +113,7 @@ fn main() {
 <!-- if you're bringing multiple items from one namespace into scope, you can list  -->
 <!-- them using curly brackets and commas in the last position, like so: -->
 
-enumもモジュールのようにある種の名前空間をなすので、enumのバリアントを`use`でスコープに導入することもできます。
+enumもモジュールのようにある種の名前空間をなすので、enumの列挙子を`use`でスコープに導入することもできます。
 どんな`use`文に関しても、一つの名前空間から複数の要素をスコープに導入する場合、波かっことお尻にカンマを使用することで列挙できます。
 こんな感じで:
 
@@ -226,7 +226,7 @@ communicator
 <!-- be checking any functionality right now. This won’t work yet: -->
 
 テストは、ライブラリ内でコードの準備運動を行うためのものなので、この`it_works`関数から`client::connect`関数を呼び出してみましょう。
-まあ、尤も今のところ、機能の検査は何もしないんですけどね。これはまだ動きません:
+まあ、<ruby>尤<rp>(</rp><rt>もっと</rt><rp>)</rp></ruby>も今のところ、機能の検査は何もしないんですけどね。これはまだ動きません:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -305,7 +305,7 @@ super::client::connect();
 常にルートから書き始めるのは、コードを冗長にする原因になります。そのような場合、
 `super`を使用して現在のモジュールから兄弟のモジュールに辿り着くのは、いいショートカットになります。
 さらに、コードのいろんなところでルートからパスを指定し、モジュール構造を変化させた場合、
-複数箇所でパスを更新する必要が陥り、面倒なことになるでしょう。
+複数箇所でパスを更新する必要に陥り、面倒なことになるでしょう。
 
 <!-- It would also be annoying to have to type `super::` in each test, but you’ve -->
 <!-- already seen the tool for that solution: `use`! The `super::` functionality -->

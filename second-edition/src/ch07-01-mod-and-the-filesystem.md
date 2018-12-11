@@ -47,7 +47,7 @@ mod tests {
 }
 ```
 
-<!-- Cargo creates an empty test to help us get our library started, rather than the -->
+<!-- Cargo creates an empty test to help us get our library started, rather than -->
 <!-- the “Hello, world!” binary that we get when we use the `--bin` option. We’ll -->
 <!-- look at the `#[]` and `mod tests` syntax in the “Using `super` to Access a -->
 <!-- Parent Module” section later in this chapter, but for now, leave this code at -->
@@ -156,10 +156,10 @@ mod client {
 
 今回の場合、ライブラリを構成しているので、ライブラリビルド時にエントリーポイントとなるファイルは、
 *src/lib.rs*になります。しかし、モジュールを作成するという点に関しては、*src/lib.rs*には何も特別なことはありません。
-ライブラリクレートに対して*src/lib.rs*にモジュールを生成するのと全く同様に、
+ライブラリクレートに対して*src/lib.rs*にモジュールを生成するのと同様に、
 バイナリクレートに対して*src/main.rs*にモジュールを生成することもできます。実は、モジュール内にモジュールを書くこともでき、
 モジュールが肥大化するにつれて、関連のある機能を一緒くたにし、機能を切り離すのに有用なのです。
-コードを体系化すると選択する方法は、コードの部分部分の関連性に対する考え方によって選択することになります。
+コードを体系化すると選択する方法は、コードの部分部分の関連性に対する考え方によります。
 例ですが、`client`コードとその`connect`関数は、リスト7-2のように、代わりに`network`名前空間内に存在したら、
 ライブラリの使用者にとって意味のあるものになるかもしれません。
 
@@ -221,7 +221,7 @@ communicator
 
 <!-- The hierarchy shows that in Listing 7-2, `client` is a child of the `network` -->
 <!-- module rather than a sibling. More complicated projects can have many modules, -->
-<!-- and they’ll need to be organized logically in order fro you to keep track of -->
+<!-- and they’ll need to be organized logically in order for you to keep track of -->
 <!-- them. What “logically” means in your project is up to you and depends on how -->
 <!-- you and your library’s users think about your project’s domain. Use the -->
 <!-- techniques shown here to create side-by-side modules and nested modules in -->
@@ -346,9 +346,7 @@ mod client {
 <!-- following, which is the `connect` function in the `client` module that we -->
 <!-- removed in the previous step: -->
 
-<!-- 何故か「*src/*ディレクトリ内に*client.rs*」までが斜体になってしまう。mdbookのバグ？ -->
-
-さて、このモジュール名の外部ファイルを作成する必要が出てきました。*src/*ディレクトリ内に*client.rs*ファイルを作成し、
+さて、このモジュール名の外部ファイルを作成する必要が出てきました。*src/* ディレクトリ内に*client.rs*ファイルを作成し、
 開いてください。それから以下のように入力してください。前段階で削除した`client`モジュールの`connect`関数です:
 
 <!-- <span class="filename">Filename: src/client.rs</span> -->
@@ -428,7 +426,7 @@ warning: function is never used: `connect`
 <!-- pattern. In *src/lib.rs*, delete the body of the `network` module and add a -->
 <!-- semicolon to the declaration, like so: -->
 
-次に、同様のパターンを使用して`network`モジュールも単独のファイルに抽出しましょう。
+次に、同様のパターンで`network`モジュールも単独のファイルに抽出しましょう。
 *src/lib.rs*で、`network`モジュールの本体を削除し、宣言にセミコロンを付加してください。こんな感じです:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -504,7 +502,7 @@ fn connect() {
 
 <!-- When we try to run `cargo build`, we’ll get the error shown in Listing 7-5: -->
 
-`cargo build`を実行しようとすると、リスト7-4に示したようなエラーが出ます:
+`cargo build`を実行しようとすると、リスト7-5に示したようなエラーが出ます:
 
 ```text
 $ cargo build
@@ -581,7 +579,7 @@ $ mv src/server.rs src/network
 <!-- warnings, though). Our module layout still looks exactly the same as it did when -->
 <!-- we had all the code in *src/lib.rs* in Listing 7-3: -->
 
-`cargo build`を走らせたら、ようやくコンパイルは通ります(まだ警告はありますけどね)。
+`cargo build`を走らせたら、コンパイルは通ります(まだ警告はありますけどね)。
 それでも、モジュールの配置は、リスト7-3で*src/lib.rs*に全てのコードを収めていたときと全く同じになります:
 
 ```text
@@ -641,7 +639,7 @@ communicator
 <!-- for `client` or for `network::client`. -->
 
 この例でも、モジュールは3つあります: `client`、`network`、`network::client`です。
-以前と同じ段階を経てモジュールをファイルに抽出すると、`client`モジュール用に*src/client.rs*を作成することになるでしょう。
+以前と同じ手順を経てモジュールをファイルに抽出すると、`client`モジュール用に*src/client.rs*を作成することになるでしょう。
 `network`モジュールに関しては、*src/network.rs*を作成します。しかし、
 `network::client`モジュールを*src/client.rs*ファイルに抽出することはできません。
 もうトップ階層の`client`モジュールとして存在するからです！
@@ -687,12 +685,16 @@ communicator
 これらのルールは再帰的に適用されるので、`foo`というモジュールに`bar`というサブモジュールがあり、
 `bar`にはサブモジュールがなければ、*src*ディレクトリには以下のようなファイルが存在するはずです:
 
+<!-- ```text -->
+<!-- ├── foo -->
+<!-- │   ├── bar.rs (contains the declarations in `foo::bar`) -->
+<!-- │   └── mod.rs (contains the declarations in `foo`, including `mod bar`) -->
+<!-- ``` -->
+
 ```text
 ├── foo
-│   ├── bar.rs (contains the declarations in `foo::bar`)
-│   │          (`foo::bar`内の定義を含む)
-│   └── mod.rs (contains the declarations in `foo`, including `mod bar`)
-               (`mod bar`を含む、`foo`内の定義を含む)
+│   ├── bar.rs (`foo::bar`内の定義を含む)
+│   └── mod.rs (`mod bar`を含む、`foo`内の定義を含む)
 ```
 
 <!-- The modules should be declared in their parent module’s file using the `mod` -->

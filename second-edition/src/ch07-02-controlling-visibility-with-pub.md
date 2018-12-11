@@ -92,8 +92,7 @@ fn main() {
 <!-- *root module*. -->
 
 `communicator`ライブラリの外部のクレートが検索するという観点から言えば、これまでに作ってきたモジュールは全て、
-`communicator`というクレートと同じ名前を持つモジュール内にあります。クレートのトップ階層のモジュールを、
-*ルートモジュール*と呼びます。
+`communicator`というクレートと同じ名前を持つモジュール内にあります。クレートのトップ階層のモジュールを*ルートモジュール*と呼びます。
 
 <!-- Also note that even if we’re using an external crate within a submodule of our -->
 <!-- project, the `extern crate` should go in our root module (so in *src/main.rs* -->
@@ -246,7 +245,7 @@ warning: function is never used: `connect`
 <!-- crate’s public API, so let’s mark them as `pub` as well to get rid of the -->
 <!-- remaining warnings. Modify *src/network/mod.rs* to look like the following: -->
 
-しかし今回は、本当に他の2つの関数もクレートの公開APIにしたいので、これも`pub`とマークして残りの警告を除去しましょう。
+しかし今回は、*本当に*他の2つの関数もクレートの公開APIにしたいので、これも`pub`とマークして残りの警告を除去しましょう。
 *src/network/mod.rs*を変更して以下のようにしてください:
 
 <!-- <span class="filename">Filename: src/network/mod.rs</span> -->
@@ -347,7 +346,7 @@ warning: function is never used: `connect`
 <!-- *src/lib.rs*. -->
 
 もうちょっと鍛錬を得るために、もういくつかプライバシー例を見てみましょう。新しいライブラリプロジェクトを作成し、
-リスト7-5のコードを新規プロジェクトの*src/lib.rs*に入力してください。
+リスト7-6のコードを新規プロジェクトの*src/lib.rs*に入力してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -396,7 +395,7 @@ fn try_me() {
 <!-- the current (root) module, as is `try_me`. -->
 
 `try_me`関数は、プロジェクトのルートモジュールに存在しています。`outermost`という名前のモジュールは非公開ですが、
-プライバシー規則の2番目にある通り、`try_me`そのままに、`outermost`は現在(ルート)のモジュールなので、
+プライバシー規則の2番目にある通り、`try_me`のように、`outermost`は現在(ルート)のモジュールなので、
 `try_me`関数は、`outermost`モジュールにアクセスすることを許可されるのです。
 
 <!-- The call to `outermost::middle_function` will work because `middle_function` is -->
