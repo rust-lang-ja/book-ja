@@ -203,7 +203,7 @@ fn build_user(email: String, username: String) -> User {
 
 ここで、`email`というフィールドを持つ`User`構造体の新規インスタンスを生成しています。
 `email`フィールドを`build_user`関数の`email`引数の値にセットしたいわけです。
-`email`フィールドと`email`引数は同じ名前なので、`email: email`と書くよりも、
+`email`フィールドと`email`引数は同じ名前なので、`email: email`と書くのではなく、
 `email`と書くだけで済むのです。
 
 <!-- ### Creating Instances From Other Instances With Struct Update Syntax -->
@@ -338,8 +338,8 @@ let origin = Point(0, 0, 0);
 `black`と`origin`の値は、違う型であることに注目してください。これらは、異なるタプル構造体のインスタンスだからですね。
 定義された各構造体は、構造体内のフィールドが同じ型であっても、それ自身が独自の型になります。
 例えば、`Color`型を引数に取る関数は、`Point`を引数に取ることはできません。たとえ、両者の型が、
-3つの`i32`値からできているにもかかわらずです。それ以外については、タプル構造体のインスタンスは、
-タプルと同じように振る舞います: 分解して個々の部品にしたり、`.`と番号を使用して個々の値にアクセスするなどです。
+3つの`i32`値からできていてもです。それ以外については、タプル構造体のインスタンスは、
+タプルと同じように振る舞います: 分配して個々の部品にしたり、`.`と添え字を使用して個々の値にアクセスするなどです。
 
 <!-- ### Unit-Like Structs without Any Fields -->
 
@@ -394,20 +394,20 @@ let origin = Point(0, 0, 0);
 <!--  ```text -->
 <!--  error[E0106]: missing lifetime specifier -->
 <!--   -->
-<!-- >   | -->
-<!-- > 2 |     username: &str, -->
-<!-- >   |               ^ expected lifetime parameter -->
-<!-- > -->
-<!-- > error[E0106]: missing lifetime specifier -->
-<!-- >  -->
-<!-- >   | -->
-<!-- > 3 |     email: &str, -->
-<!-- >   |            ^ expected lifetime parameter -->
-<!-- > ``` -->
-<!-- > -->
-<!-- > In Chapter 10, we’ll discuss how to fix these errors so you can store -->
-<!-- > references in structs, but for now, we’ll fix errors like these using owned -->
-<!-- > types like `String` instead of references like `&str`. -->
+<!--    | -->
+<!--  2 |     username: &str, -->
+<!--    |               ^ expected lifetime parameter -->
+<!--  -->
+<!--  error[E0106]: missing lifetime specifier -->
+<!--   -->
+<!--    | -->
+<!--  3 |     email: &str, -->
+<!--    |            ^ expected lifetime parameter -->
+<!--  ``` -->
+<!--  -->
+<!--  In Chapter 10, we’ll discuss how to fix these errors so you can store -->
+<!--  references in structs, but for now, we’ll fix errors like these using owned -->
+<!--  types like `String` instead of references like `&str`. -->
 
 > ### 構造体データの所有権
 >
@@ -441,6 +441,7 @@ let origin = Point(0, 0, 0);
 > ```
 >
 > コンパイラは、ライフタイム指定子が必要だと怒るでしょう:
+>
 > ```text
 > error[E0106]: missing lifetime specifier
 > (エラー: ライフタイム指定子がありません)
@@ -458,4 +459,4 @@ let origin = Point(0, 0, 0);
 > ```
 >
 > 第10章で、これらのエラーを解消して構造体に参照を保持する方法について議論しますが、
-> 当面、今回のようなエラーは、`&str`のような参照の代わりに、`String`のような所有された型を使うことで解消します。
+> 当面、今回のようなエラーは、`&str`のような参照の代わりに、`String`のような所有された型を使うことで修正します。

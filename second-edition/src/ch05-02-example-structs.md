@@ -27,8 +27,8 @@ fn main() {
     let width1 = 30;
     let height1 = 50;
 
-    // 四角形の面積は、{}平方ピクセルです
     println!(
+        // 四角形の面積は、{}平方ピクセルです
         "The area of the rectangle is {} square pixels.",
         area(width1, height1)
     );
