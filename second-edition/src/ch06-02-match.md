@@ -61,7 +61,7 @@ fn value_in_cents(coin: Coin) -> u32 {
 <!-- `coin`. This seems very similar to an expression used with `if`, but there’s a -->
 <!-- big difference: with `if`, the expression needs to return a Boolean value, but -->
 <!-- here, it can be any type. The type of `coin` in this example is the `Coin` enum -->
-<!-- that we defined on 1. -->
+<!-- that we defined on line 1. -->
 
 `value_in_cents`関数内の`match`を噛み砕きましょう。まず、`match`キーワードに続けて式を並べています。
 この式は今回の場合、値`coin`です。`if`で使用した式と非常に酷似しているみたいですね。しかし、大きな違いがあります:
@@ -191,10 +191,8 @@ enum Coin {
 <!-- the state associated with each quarter so if it’s one our friend doesn’t have, -->
 <!-- they can add it to their collection. -->
 
-<!-- この段落は、言いたいことがよくわからない -->
-
-友人の一人が50州全部のクォーターコインを収集しようとしているところを想像しましょう。コインの種類で並べ替えつつ、
-各クォーターに関連した州の名前を出力すると、友人が持っていない種類だったら、コレクションに追加することができます。
+友人の一人が50州全部のクォーターコインを収集しようとしているところを想像しましょう。コインの種類で小銭を並べ替えつつ、
+友人が持っていない種類だったら、コレクションに追加できるように、各クォーターに関連した州の名前を出力します。
 
 <!-- In the match expression for this code, we add a variable called `state` to the -->
 <!-- pattern that matches values of the variant `Coin::Quarter`. When a -->
@@ -315,7 +313,9 @@ Some(i) => Some(i + 1),
 <!-- code in the match arm is then executed, so we add one to the value of `i` and -->
 <!-- create a new `Some` value with our total `6` inside. -->
 
-`Some(5)`は`Some(i)`にマッチしますか？えっと、します！列挙子が同じです。`i`は`Some`に含まれる値に束縛されるので、
+<!-- Why yesが怪しい -->
+
+`Some(5)`は`Some(i)`にマッチしますか？なんと、します！列挙子が同じです。`i`は`Some`に含まれる値に束縛されるので、
 `i`は値`5`になります。それから、このマッチのアームのコードが実行されるので、`i`の値に1を足し、
 合計の`6`を中身にした新しい`Some`値を生成します。
 
@@ -355,7 +355,7 @@ enumに対し`match`し、内部のデータに変数を束縛させ、それに
 <!-- There’s one other aspect of `match` we need to discuss. Consider this version -->
 <!-- of our `plus_one` function that has a bug and won't compile: -->
 
-もう一つ議論する必要のある`match`の観点があります。1点バグがありコンパイルできないこんなバージョンの`plus_one`関数を考えてください:
+もう一つ議論する必要のある`match`の観点があります。一点バグがありコンパイルできないこんなバージョンの`plus_one`関数を考えてください:
 
 ```rust,ignore
 fn plus_one(x: Option<i32>) -> Option<i32> {

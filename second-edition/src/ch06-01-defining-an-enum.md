@@ -9,7 +9,7 @@
 <!-- address that our program will come across: we can *enumerate* all possible -->
 <!-- values, which is where enumeration gets its name. -->
 
-コードで表現したくなるかもしれない場面に目を向けて、enumが有効でこの場合、構造体よりも適切である理由を確認しましょう。
+コードで表現したくなるかもしれない場面に目を向けて、enumが有用でこの場合、構造体よりも適切である理由を確認しましょう。
 IPアドレスを扱う必要が出たとしましょう。現在、IPアドレスの規格は二つあります: バージョン4とバージョン6です。
 これらは、プログラムが遭遇するIPアドレスのすべての可能性です: 列挙型は、取りうる値をすべて*列挙*でき、
 これが列挙型の名前の由来です。
@@ -22,8 +22,8 @@ IPアドレスを扱う必要が出たとしましょう。現在、IPアドレ�
 <!-- situations that apply to any kind of IP address. -->
 
 どんなIPアドレスも、バージョン4かバージョン6のどちらかになりますが、同時に両方にはなり得ません。
-IPアドレスのその特性によりenumデータ構造が適切なものになります。というのも、
-enumの値は、そのバリアントのいずれか一つにしかなり得ないからです。バージョン4とバージョン6のアドレスは、
+IPアドレスのその特性により、enumデータ構造が適切なものになります。というのも、
+enumの値は、その列挙子のいずれか一つにしかなり得ないからです。バージョン4とバージョン6のアドレスは、
 どちらも根源的にはIPアドレスですから、コードがいかなる種類のIPアドレスにも適用される場面を扱う際には、
 同じ型として扱われるべきです。
 
@@ -51,7 +51,7 @@ enum IpAddrKind {
 
 <!-- We can create instances of each of the two variants of `IpAddrKind` like this: -->
 
-以下のようにして、`IpAddrKind`の各バリアントのインスタンスは生成できます:
+以下のようにして、`IpAddrKind`の各列挙子のインスタンスは生成できます:
 
 ```rust
 # enum IpAddrKind {
@@ -85,7 +85,7 @@ fn route(ip_type: IpAddrKind) { }
 
 <!-- And we can call this function with either variant: -->
 
-そして、この関数をどちらのバリアントに対しても呼び出せます:
+そして、この関数をどちらの列挙子に対しても呼び出せます:
 
 ```rust
 # enum IpAddrKind {
@@ -106,7 +106,7 @@ route(IpAddrKind::V6);
 
 enumの利用には、さらなる利点さえもあります。このIPアドレス型についてもっと考えてみると、現状では、
 実際のIPアドレスの*データ*を保持する方法がありません。つまり、どんな*種類*であるかを知っているだけです。
-構造体について第5章で学んだばっかりとすると、この問題に対しては、リスト6-1のように対処するかもしれません。
+構造体について第5章で学んだばっかりとすると、この問題に対して、あなたはリスト6-1のように対処するかもしれません。
 
 ```rust
 enum IpAddrKind {
@@ -133,7 +133,7 @@ let loopback = IpAddr {
 <!-- <span class="caption">Listing 6-1: Storing the data and `IpAddrKind` variant of -->
 <!-- an IP address using a `struct`</span> -->
 
-<span class="caption">リスト6-1: IPアドレスのデータと`IpAddrKind`のバリアントを`struct`を使って保持する</span>
+<span class="caption">リスト6-1: IPアドレスのデータと`IpAddrKind`の列挙子を`struct`を使って保持する</span>
 
 <!-- Here, we’ve defined a struct `IpAddr` that has two fields: a `kind` field that -->
 <!-- is of type `IpAddrKind` (the enum we defined previously) and an `address` field -->
@@ -184,8 +184,8 @@ enumの各列挙子にデータを直接添付できるので、余計な構造�
 <!-- a struct. Enums handle this case with ease: -->
 
 構造体よりもenumを使うことには、別の利点もあります: 各列挙子に紐付けるデータの型と量は、異なってもいいのです。
-バージョン4のIPアドレスには、常に0から255の値を持つ4つの数値があります。`V4`のアドレスは、4つの`u8`型の値として、
-格納するけれども、`V6`のアドレスは引き続き、単独の`String`型の値で格納したかったとしても、構造体では不可能です。
+バージョン4のIPアドレスには、常に0から255の値を持つ4つの数値があります。`V4`のアドレスは、4つの`u8`型の値として格納するけれども、
+`V6`のアドレスは引き続き、単独の`String`型の値で格納したかったとしても、構造体では不可能です。
 enumなら、こんな場合も容易に対応できます:
 
 ```rust
@@ -253,7 +253,7 @@ enum IpAddr {
 
 このコードは、enum列挙子内にいかなる種類のデータでも格納できることを描き出しています:
 例を挙げれば、文字列、数値型、構造体などです。他のenumを含むことさえできます！また、
-標準ライブラリの型は、あなたが思い付いたよりも複雑ではないことがしばしばあります。
+標準ライブラリの型は、あなたが思い付いた可能性のあるものよりも複雑ではないことがしばしばあります。
 
 <!-- Note that even though the standard library contains a definition for `IpAddr`, -->
 <!-- we can still create and use our own definition without conflict because we -->
@@ -410,7 +410,8 @@ m.call();
 <!-- In his 2009 presentation “Null References: The Billion Dollar Mistake,” Tony -->
 <!-- Hoare, the inventor of null, has this to say: -->
 
-nullの開発者であるTony Hoareの2009年のプレゼンテーション、"Null References: The Billion Dollar Mistake"では、こんなことが語られています。
+nullの開発者であるトニー・ホーア(Tony Hoare)の2009年のプレゼンテーション、
+"Null References: The Billion Dollar Mistake"(Null参照: 10億円の間違い)では、こんなことが語られています。
 
 <!-- > I call it my billion-dollar mistake. At that time, I was designing the first -->
 <!-- > comprehensive type system for references in an object-oriented language. My -->
@@ -547,7 +548,7 @@ not satisfied
 足し合わせる方法がコンパイラにはわからないことを意味します。Rustにおいて、`i8`のような型の値がある場合、
 コンパイラが常に有効な値であることを確認してくれます。この値を使う前にnullであることをチェックする必要なく、
 自信を持って先に進むことができるのです。`Option<i8>`がある時(あるいはどんな型を扱おうとしていても)のみ、
-値を保持していない可能性を心配する必要はないわけであり、
+値を保持していない可能性を心配する必要があるわけであり、
 コンパイラはプログラマが値を使用する前にそのような場面を扱っているか確かめてくれます。
 
 <!-- In other words, you have to convert an `Option<T>` to a `T` before you can -->

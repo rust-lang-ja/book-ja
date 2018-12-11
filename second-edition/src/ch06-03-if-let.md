@@ -36,7 +36,7 @@ match some_u8_value {
 <!-- code behaves the same as the `match` in Listing 6-6: -->
 
 その代わり、`if let`を使用してもっと短く書くことができます。以下のコードは、
-リスト6-6の`match`と全く同じように振る舞います:
+リスト6-6の`match`と同じように振る舞います:
 
 ```rust
 # let some_u8_value = Some(0u8);
@@ -146,7 +146,7 @@ if let Coin::Quarter(state) = coin {
 <!-- data inside them, you can use `match` or `if let` to extract and use those -->
 <!-- values, depending on how many cases you need to handle. -->
 
-これで、enumを使用してワンセットの列挙された値のどれかになりうる独自の型を生成する方法を解説しました。
+これで、enumを使用してワンセットの列挙された値のどれかになりうる独自の型を生成する方法を講義しました。
 標準ライブラリの`Option<T>`が型システムを使用して、エラーを回避する際に役立つ方法についても示しました。
 enumの値がデータを内部に含む場合、処理すべきケースの数に応じて、`match`か`if let`を使用して値を取り出し、
 使用できます。
