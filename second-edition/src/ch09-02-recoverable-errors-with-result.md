@@ -8,16 +8,16 @@
 <!-- operation fails because the file doesn’t exist, we might want to create the -->
 <!-- file instead of terminating the process. -->
 
-多くのエラーは、プログラムを完全にストップさせるほど深刻ではありません。時々、関数が失敗すると、
+多くのエラーは、プログラムを完全にストップさせるほど深刻ではありません。時々、関数が失敗した時に、
 容易に解釈し、対応できる理由によることがあります。例えば、ファイルを開こうとして、
-ファイルが存在しないために処理が失敗したら、プロセスを殺すのではなく、ファイルを作成したいことがあります。
+ファイルが存在しないために処理が失敗したら、プロセスを停止するのではなく、ファイルを作成したいことがあります。
 
 <!-- Recall from “[Handling Potential Failure with the `Result` -->
-<!-- Type][handle_failure]” in Chapter2 that the `Result` enum is -->
+<!-- Type][handle_failure]” in Chapter 2 that the `Result` enum is -->
 <!-- defined as having two variants, `Ok` and `Err`, as follows: -->
 
 第2章の[「`Result`型で失敗する可能性に対処する」][handle_failure]で`Result` enumが以下のように、
-`Ok`と`Err`の2値からなるよう定義されていることを思い出してください:
+`Ok`と`Err`の2列挙子からなるよう定義されていることを思い出してください:
 
 [handle_failure]: ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-the-result-type
 
@@ -38,9 +38,9 @@ enum Result<T, E> {
 <!-- value and error value we want to return may differ. -->
 
 `T`と`E`は、ジェネリックな型引数です: ジェネリクスについて詳しくは、第10章で議論します。
-たった今知っておく必要があることは、`T`が成功した時に`Ok`バリアントに含まれて返される値の型を表すことと、
-`E`が失敗した時に`Err`バリアントに含まれて返されるエラーの型を表すことです。`Result`はこのようなジェネリックな型引数を含むので、
-標準ライブラリ上に定義されている`Result`型や関数などを、成功した時とエラーの値が異なるような様々な場面で使用できるのです。
+たった今知っておく必要があることは、`T`が成功した時に`Ok`列挙子に含まれて返される値の型を表すことと、
+`E`が失敗した時に`Err`列挙子に含まれて返されるエラーの型を表すことです。`Result`はこのようなジェネリックな型引数を含むので、
+標準ライブラリ上に定義されている`Result`型や関数などを、成功した時とエラーの時に返したい値が異なるような様々な場面で使用できるのです。
 
 <!-- Let’s call a function that returns a `Result` value because the function could -->
 <!-- fail. In Listing 9-3 we try to open a file. -->
@@ -84,7 +84,7 @@ let f: u32 = File::open("hello.txt");
 
 <!-- Attempting to compile now gives us the following output: -->
 
-コンパイルしようとすると、以下のような出力が得られます:
+これでコンパイルしようとすると、以下のような出力が得られます:
 
 ```text
 error[E0308]: mismatched types
@@ -168,8 +168,8 @@ fn main() {
 <!-- imported in the prelude, so we don’t need to specify `Result::` before the `Ok` -->
 <!-- and `Err` variants in the `match` arms. -->
 
-`Option` enumのように、`Result` enumとそのバリアントは、初期化処理でインポートされているので、
-`match`アーム内で`Ok`と`Err`バリアントの前に`Result::`を指定する必要がないことに注目してください。
+`Option` enumのように、`Result` enumとその列挙子は、初期化処理でインポートされているので、
+`match`アーム内で`Ok`と`Err`列挙子の前に`Result::`を指定する必要がないことに注目してください。
 
 <!-- Here we tell Rust that when the result is `Ok`, return the inner `file` value -->
 <!-- out of the `Ok` variant, and we then assign that file handle value to the -->
@@ -238,8 +238,8 @@ fn main() {
             match File::create("hello.txt") {
                 Ok(fc) => fc,
                 Err(e) => {
-                    //ファイルを作成しようとしましたが、問題がありました
                     panic!(
+                        //ファイルを作成しようとしましたが、問題がありました
                         "Tried to create file but there was a problem: {:?}",
                         e
                     )
@@ -304,7 +304,7 @@ fn main() {
 マッチガードで精査したい条件は、`error.kind()`により返る値が、`ErrorKind` enumの`NotFound`列挙子であるかということです。
 もしそうなら、`File::create`でファイル作成を試みます。ところが、`File::create`も失敗する可能性があるので、
 内部にも`match`式を追加する必要があるのです。ファイルが開けないなら、異なるエラーメッセージが出力されるでしょう。
-外側の`match`の最後のアームは同じままなので、ファイルが行方不明のエラー以外ならプログラムはパニックします。
+外側の`match`の最後のアームは同じままなので、ファイルが欠けているエラー以外ならプログラムはパニックします。
 
 <!-- ### Shortcuts for Panic on Error: `unwrap` and `expect` -->
 
@@ -482,8 +482,8 @@ fn read_username_from_file() -> Result<String, io::Error> {
 <!-- the file handle in the variable `f` and continue. -->
 
 関数の本体は、`File::open`関数を呼び出すところから始まります。そして、リスト9-4の`match`に似た`match`で返ってくる`Result`値を扱い、
-`Err`ケースに`panic!`を呼び出す代わりだけですが、この関数から早期リターンしてこの関数のエラー値として、
-`File::open`から得たエラー値を呼び出し元に渡し返します。`File::open`が成功すれば、
+`Err`ケースに`panic!`を呼び出すだけの代わりに、この関数から早期リターンしてこの関数のエラー値として、
+`File::open`から得たエラー値を呼び出し元に渡し戻します。`File::open`が成功すれば、
 ファイルハンドルを変数`f`に保管して継続します。
 
 <!-- Then we create a new `String` in variable `s` and call the `read_to_string` -->
@@ -640,8 +640,8 @@ fn read_username_from_file() -> Result<String, io::Error> {
 `s`の新規`String`の生成を関数の冒頭に移動しました; その部分は変化していません。変数`f`を生成する代わりに、
 `read_to_string`の呼び出しを直接`File::open("hello.txt")?`の結果に連結させました。
 それでも、`read_to_string`呼び出しの末尾には`?`があり、`File::open`と`read_to_string`両方が成功したら、
-エラーを返すというよりもまだ`s`にユーザ名を含む`Ok`値を返します。機能もまたリスト9-6及び、9-7と同じです;
-ただ単に異なるバージョンのよりプログラマフレンドリーな書き方なのです。
+エラーを返すというよりもそれでも、`s`にユーザ名を含む`Ok`値を返します。機能もまたリスト9-6及び、9-7と同じです;
+ただ単に異なるバージョンのよりエルゴノミックな書き方なのです。
 
 <!-- #### `?` Operator Can Only Be Used in Functions That Return `Result` -->
 

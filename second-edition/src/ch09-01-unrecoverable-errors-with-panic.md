@@ -93,7 +93,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- backtrace is in more detail next. -->
 
 この場合、示唆される行は、自分のコードの一部で、その箇所を見に行けば、`panic!`マクロ呼び出しがあるわけです。
-`panic!`呼び出しが、自分のコードが呼び出しているコードの一部になっている可能性もあるわけです。
+それ以外では、`panic!`呼び出しが、自分のコードが呼び出しているコードの一部になっている可能性もあるわけです。
 エラーメッセージで報告されるファイル名と行番号が、結果的に`panic!`呼び出しに導いた自分のコードの行ではなく、
 `panic!`マクロが呼び出されている他人のコードになるでしょう。`panic!`呼び出しの発生元である関数のバックトレースを使用して、
 問題を起こしている自分のコードの箇所を割り出すことができます。バックトレースがどんなものか、次に議論しましょう。
@@ -109,7 +109,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 
 別の例を眺めて、自分のコードでマクロを直接呼び出す代わりに、コードに存在するバグにより、
 ライブラリで`panic!`呼び出しが発生するとどんな感じなのか確かめてみましょう。リスト9-1は、
-添え字でベクタの要素にアクセスを試みるあるコードです。
+添え字でベクタの要素にアクセスを試みる何らかのコードです。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -134,9 +134,9 @@ fn main() {
 <!-- you pass an invalid index, there’s no element that Rust could return here that -->
 <!-- would be correct. -->
 
-ここでは、ベクタの100番目の要素(添字は0始まりなので添字99)にアクセスを試みていますが、ベクタには3つしか要素がありません。
+ここでは、ベクタの100番目の要素(添え字は0始まりなので添え字99)にアクセスを試みていますが、ベクタには3つしか要素がありません。
 この場面では、Rustはパニックします。`[]`の使用は、要素を返すと想定されるものの、
-無効な番号を渡せば、ここでRustが返せて正しいと思われる要素は何もないわけです。
+無効な添え字を渡せば、ここでRustが返せて正しいと思われる要素は何もないわけです。
 
 <!-- Other languages, like C, will attempt to give you exactly what you asked for in -->
 <!-- this situation, even though it isn’t what you want: you’ll get whatever is at -->
@@ -148,7 +148,7 @@ fn main() {
 
 他の言語(Cなど)では、この場面で欲しいものではないにもかかわらず、まさしく要求したものを返そうとしてきます:
 メモリがベクタに属していないにもかかわらず、ベクタ内のその要素に対応するメモリ上の箇所にあるものを何か返してくるのです。
-これは、*バッファー外読み出し*(buffer overread; `訳注`: 初めて見かけた表現。バッファー読みすぎとも解釈できるか)と呼ばれ、
+これは、*バッファー外読み出し*(buffer overread; `訳注`: バッファー読みすぎとも解釈できるか)と呼ばれ、
 攻撃者が、配列の後に格納された読めるべきでないデータを読み出せるように添え字を操作できたら、
 セキュリティ脆弱性につながる可能性があります。
 
@@ -156,7 +156,7 @@ fn main() {
 <!-- element at an index that doesn’t exist, Rust will stop execution and refuse to -->
 <!-- continue. Let’s try it and see: -->
 
-この種の脆弱性からプログラムを保護するために、存在しない番号の要素を読もうとしたら、
+この種の脆弱性からプログラムを保護するために、存在しない添え字の要素を読もうとしたら、
 Rustは実行を中止し、継続を拒みます。試して確認してみましょう:
 
 ```text
@@ -269,13 +269,13 @@ stack backtrace:
 <!-- backtraces, the way to fix the panic is to not request an element at index 99 -->
 <!-- from a vector that only contains 3 items. When your code panics in the future, -->
 <!-- you’ll need to figure out what action the code is taking with what values to -->
-<!-- tcause the panic and what the code should do instead. -->
+<!-- cause the panic and what the code should do instead. -->
 
 リスト9-2の出力で、バックトレースの11行目が問題発生箇所を指し示しています: *src/main.rs*の4行目です。
 プログラムにパニックしてほしくなければ、自分のファイルについて言及している最初の行で示されている箇所が、
 どのようにパニックを引き起こす値でこの箇所にたどり着いたか割り出すために調査を開始すべき箇所になります。
 バックトレースの使用法を模擬するためにわざとパニックするコードを書いたリスト9-1において、
-パニックを解消する方法は、3つしか要素のないベクタの添字99の要素を要求しないことです。
+パニックを解消する方法は、3つしか要素のないベクタの添え字99の要素を要求しないことです。
 将来コードがパニックしたら、パニックを引き起こすどんな値でコードがどんな動作をしているのかと、
 代わりにコードは何をすべきなのかを算出する必要があるでしょう。
 
@@ -284,5 +284,5 @@ stack backtrace:
 <!-- in this chapter. Next, we’ll look at how to recover from an error using -->
 <!-- `Result`. -->
 
-また、この章の後ほど、「`panic!`するか`panic!`するまいか」節で`panic!`とエラー状態を扱うのに`panic!`を使うべき時と使わぬべき時に戻ってきます。
+この章の後ほど、「`panic!`するか`panic!`するまいか」節で`panic!`とエラー状態を扱うのに`panic!`を使うべき時と使わぬべき時に戻ってきます。
 次は、`Result`を使用してエラーから回復する方法を見ましょう。

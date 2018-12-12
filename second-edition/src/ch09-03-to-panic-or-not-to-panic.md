@@ -20,10 +20,10 @@
 `Result`値を返す決定をすると、決断を下すのではなく、呼び出し側に選択肢を与えることになります。
 呼び出し側は、場面に合わせて回復を試みることを決定したり、この場合の`Err`値は回復不能と断定して、
 `panic!`を呼び出し、回復可能だったエラーを回復不能に変換することもできます。故に、`Result`を返却することは、
-失敗する可能性のある関数を定義する際には、いい第1選択肢になります。
+失敗する可能性のある関数を定義する際には、いい第一選択肢になります。
 
 <!-- In rare situations, it’s more appropriate to write code that panics instead of -->
-<!-- returning a `Result` Let’s explore why it’s appropriate to panic in examples, -->
+<!-- returning a `Result`. Let’s explore why it’s appropriate to panic in examples, -->
 <!-- prototype code, and tests. Then we'll discuss situations in which the compiler -->
 <!-- can’t tell that failure is impossible, but you as a human can. The chpater will -->
 <!-- conclude with some general guidelines on how to decide whether to panic in -->
@@ -101,13 +101,13 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 <!-- we’d definitely want to handle the `Result` in a more robust way instead. -->
 
 ハードコードされた文字列を構文解析することで`IpAddr`インスタンスを生成しています。
-プログラマには`127.0.0.1`が有効なIPアドレスであることがわかるので、ここで`unwrap`を使用することは、
-受容可能なことです。しかしながら、ハードコードされた有効な文字列が存在することは、
+プログラマには`127.0.0.1`が合法なIPアドレスであることがわかるので、ここで`unwrap`を使用することは、
+受容可能なことです。しかしながら、ハードコードされた合法な文字列が存在することは、
 `parse`メソッドの戻り値型を変えることにはなりません: それでも得られるのは、`Result`値であり、
 コンパイラはまだ`Err`列挙子になる可能性があるかのように`Result`を処理することを強制してきます。
-コンパイラは、この文字列が常に有効なIPアドレスであると把握できるほど利口ではないからです。
+コンパイラは、この文字列が常に合法なIPアドレスであると把握できるほど利口ではないからです。
 プログラムにハードコードされるのではなく、IPアドレス文字列がユーザ起源でそれ故に*確かに*失敗する可能性がある場合、
-絶対に`Result`をもっと頑健な方法で代わりに処理する必要があるでしょう。
+絶対に`Result`をもっと頑健な方法で代わりに処理したくなるでしょう。
 
 <!-- ### Guidelines for Error Handling -->
 
@@ -119,7 +119,7 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 <!-- invalid values, contradictory values, or missing values are passed to your -->
 <!-- code—plus one or more of the following: -->
 
-コードが悪い状態に陥る可能性があるときにパニックさせるのは、アドバイスされることです。この文脈において、
+コードが悪い状態に陥る可能性があるときにパニックさせるのは、推奨されることです。この文脈において、
 *悪い状態*とは、何らかの前提、保証、契約、不変性が破られたことを言い、例を挙げれば、無効な値、
 矛盾する値、行方不明な値がコードに渡されることと、さらに以下のいずれか一つ以上の状態であります:
 
@@ -151,10 +151,10 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 <!-- to handle these cases. -->
 
 悪い状態に達すると、どんなにコードをうまく書いても起こると予想されるが、`panic!`呼び出しをするよりもまだ、
-`Result`を返すほうがより適切です。例には、不正なデータを渡されたパーサーとか、
+`Result`を返すほうがより適切です。例には、不正なデータを渡されたパーサとか、
 訪問制限に引っかかったことを示唆するステータスを返すHTTPリクエストなどが挙げられます。
 このような場合には、呼び出し側が問題の処理方法を決定できるように`Result`を返してこの悪い状態を委譲して、
-失敗が予想される可能性であることを示唆するべきです。`panic!`呼び出すことは、
+失敗が予想される可能性であることを示唆するべきです。`panic!`を呼び出すことは、
 これらのケースでは最善策ではないでしょう。
 
 <!-- When your code performs operations on values, your code should verify the -->
@@ -172,8 +172,8 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 <!-- especially when a violation will cause a panic, should be explained in the API -->
 <!-- documentation for the function. -->
 
-コードが値に対して処理を行う場合、コードはまず値が有効であることを確認し、
-値が有効でなければパニックするべきです。これはほぼ安全性上の理由によるものです: 不正なデータの処理を試みると、
+コードが値に対して処理を行う場合、コードはまず値が合法であることを確認し、
+値が合法でなければパニックするべきです。これはほぼ安全性上の理由によるものです: 不正なデータの処理を試みると、
 コードを脆弱性に晒す可能性があります。これが、境界外へのメモリアクセスを試みたときに標準ライブラリが`panic!`を呼び出す主な理由です:
 現在のデータ構造に属しないメモリにアクセスを試みることは、ありふれたセキュリティ問題なのです。
 関数にはしばしば*契約*が伴います: 入力が特定の条件を満たすときのみ、振る舞いが保証されるのです。
@@ -196,18 +196,18 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 <!-- the parameter is never negative. -->
 
 ですが、全ての関数でたくさんのエラーチェックを行うことは冗長で煩わしいことでしょう。幸運にも、
-Rustの型システム(故にコンパイラが行う型精査)を使用して多くの精査を行ってもらうことができます。
-関数の引数に特定の型があるなら、有効な値があるとコンパイラがすでに確認していることを把握して、
+Rustの型システム(故にコンパイラが行う型精査)を使用して多くの検査を行ってもらうことができます。
+関数の引数に特定の型があるなら、合法な値があるとコンパイラがすでに確認していることを把握して、
 コードのロジックに進むことができます。例えば、`Option`以外の型がある場合、プログラムは、
 *何もない*ではなく*何かある*と想定します。そうしたらコードは、
 `Some`と`None`列挙子の2つの場合を処理する必要がなくなるわけです:
 確実に値があるという可能性しかありません。関数に何もないことを渡そうとしてくるコードは、
-コンパイルが通りもしませんので、その場合を実行時に精査する必要はないわけです。
+コンパイルが通りもしませんので、その場合を実行時に検査する必要はないわけです。
 別の例は、`u32`のような符号なし整数を使うことであり、この場合、引数は負には絶対にならないことが確認されます。
 
 <!-- ### Creating Custom Types for Validation -->
 
-### 有効化のために独自の型を作る
+### 検証のために独自の型を作る
 
 <!-- Let’s take the idea of using Rust’s type system to ensure we have a valid value -->
 <!-- one step further and look at creating a custom type for validation. Recall the -->
@@ -220,12 +220,12 @@ Rustの型システム(故にコンパイラが行う型精査)を使用して�
 <!-- behavior when a user guesses a number that’s out of range versus when a user -->
 <!-- types, for example, letters instead. -->
 
-Rustの型システムを使用して有効な値があると確認するというアイディアを一歩先に進め、
-有効化のために独自の型を作ることに目を向けましょう。第2章の数当てゲームで、
+Rustの型システムを使用して合法な値があると確認するというアイディアを一歩先に進め、
+検証のために独自の型を作ることに目を向けましょう。第2章の数当てゲームで、
 コードがユーザに1から100までの数字を推測するよう求めたことを思い出してください。
 秘密の数字と照合する前にユーザの推測がそれらの値の範囲にあることを全く確認しませんでした;
 推測が正であることしか確認しませんでした。この場合、結果はそれほど悲惨なものではありませんでした:
-「大きすぎ」、「小さすぎ」という出力は、それでも正しかったでしょう。ユーザを有効な推測に導き、
+「大きすぎ」、「小さすぎ」という出力は、それでも正しかったでしょう。ユーザを合法な推測に導き、
 ユーザが範囲外の数字を推測したり、例えばユーザが文字を代わりに入力したりしたときに別の挙動をするようにしたら、
 有益な改善になるでしょう。
 
@@ -280,7 +280,7 @@ loop {
 <!-- `Guess` type that will only create an instance of `Guess` if the `new` function -->
 <!-- receives a value between 1 and 100. -->
 
-代わりに、新しい型を作ってバリデーションを関数内に閉じ込め、バリデーションを全箇所で繰り返すのではなく、
+代わりに、新しい型を作って検証を関数内に閉じ込め、検証を全箇所で繰り返すのではなく、
 その型のインスタンスを生成することができます。そうすれば、関数がその新しい型をシグニチャに用い、
 受け取った値を自信を持って使用することは安全になります。リスト9-9に、`new`関数が1から100までの値を受け取った時のみ、
 `Guess`のインスタンスを生成する`Guess`型を定義する一つの方法を示しました。
@@ -293,6 +293,7 @@ pub struct Guess {
 impl Guess {
     pub fn new(value: u32) -> Guess {
         if value < 1 || value > 100 {
+            // 予想の値は1から100の範囲でなければなりませんが、{}でした
             panic!("Guess value must be between 1 and 100, got {}.", value);
         }
 
@@ -339,7 +340,7 @@ impl Guess {
 修正すべきバグがあると警告します。というのも、この範囲外の`value`で`Guess`を生成することは、
 `Guess::new`が頼りにしている契約を侵害するからです。`Guess::new`がパニックするかもしれない条件は、
 公開されているAPIドキュメントで議論されるべきでしょう; あなたが作成するAPIドキュメントで`panic!`の可能性を示唆する、
-ドキュメントの規約は、第14章で解説します。`value`が確かにふるいを通ったら、
+ドキュメントの規約は、第14章で講義します。`value`が確かにふるいを通ったら、
 `value`フィールドが`value`引数にセットされた新しい`Guess`を作成して返します。
 
 <!-- Next, we implement a method named `value` that borrows `self`, doesn’t have any -->
