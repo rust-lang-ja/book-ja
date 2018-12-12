@@ -20,7 +20,7 @@
 <!-- each key is a team’s name and the values are each team’s score. Given a team -->
 <!-- name, you can retrieve its score. -->
 
-ハッシュマップは、ベクタで可能なように番号ではなく、どんな型にもなりうるキーを使ってデータを参照したいときに有用です。
+ハッシュマップは、ベクタのように番号ではなく、どんな型にもなりうるキーを使ってデータを参照したいときに有用です。
 例えば、ゲームにおいて、各チームのスコアをハッシュマップで追いかけることができます。ここで、各キーはチーム名、
 値が各チームのスコアになります。チーム名が与えられれば、スコアを扱うことができるわけです。
 
@@ -28,7 +28,7 @@
 <!-- are hiding in the functions defined on `HashMap<K, V>` by the standard library. -->
 <!-- As always, check the standard library documentation for more information. -->
 
-この節でマッシュマップの基礎的なAPIを見ていきますが、より多くのグッズが標準ライブラリにより、
+この節でハッシュマップの基礎的なAPIを見ていきますが、より多くのグッズが標準ライブラリにより、
 `HashMap<K, V>`上に定義された関数に隠されています。いつものように、
 もっと情報が欲しければ、標準ライブラリのドキュメントをチェックしてください。
 
@@ -62,7 +62,7 @@ scores.insert(String::from("Yellow"), 50);
 <!-- the standard library. Of our three common collections, this one is the least -->
 <!-- often used, so it’s not included in the features brought into scope -->
 <!-- automatically in the prelude. Hash maps also have less support from the -->
-<!-- the standard library; there's no built-in macro to construct them, for example. -->
+<!-- standard library; there's no built-in macro to construct them, for example. -->
 
 最初に標準ライブラリのコレクション部分から`HashMap`を`use`する必要があることに注意してください。
 今までの3つの一般的なコレクションの内、これが最も使用頻度が低いので、初期化処理で自動的にスコープに導入される機能には含まれていません。
@@ -112,7 +112,7 @@ let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
 <!-- contains based on the types of the data in the vectors. -->
 
 ここでは、`HashMap<_, _>`という型注釈が必要になります。なぜなら、いろんなデータ構造に`まとめ上げる`ことができ、
-コンパイラは指定しない限り、どれがいるのかわからないからです。ところが、キーと値の型引数については、
+コンパイラは指定しない限り、どれを所望なのかわからないからです。ところが、キーと値の型引数については、
 アンダースコアを使用しており、コンパイラはベクタのデータ型に基づいてハッシュマップが含む型を推論することができるのです。
 
 <!-- ### Hash Maps and Ownership -->
@@ -195,7 +195,7 @@ let score = scores.get(&team_name);
 
 ここで、`score`はブルーチームに紐づけられた値になり、結果は`Some(&10)`となるでしょう。
 結果は`Some`に包まれます。というのも、`get`は`Option<&V>`を返すからです; キーに対応する値がハッシュマップになかったら、
-`get`は`None`を返すでしょう。プログラムは、この`Option`を第6章で解説した方法のどれかで扱う必要があるでしょう。
+`get`は`None`を返すでしょう。プログラムは、この`Option`を第6章で講義した方法のどれかで扱う必要があるでしょう。
 
 <!-- We can iterate over each key/value pair in a hash map in a similar manner as we -->
 <!-- do with vectors, using a `for` loop: -->
@@ -282,7 +282,7 @@ println!("{:?}", scores);
 
 #### キーに値がなかった時のみ値を挿入する
 
-<!-- It’s common to check whether a particular key has a value andaaaaAaaaaaa if it doesn’t, -->
+<!-- It’s common to check whether a particular key has a value and if it doesn’t, -->
 <!-- insert a value for it. Hash maps have a special API for this called `entry` -->
 <!-- that takes the key we want to check as a parameter. The return value of the -->
 <!-- `entry` method is an enum called `Entry` that represents a value that might or -->
@@ -293,7 +293,7 @@ println!("{:?}", scores);
 
 特定のキーに値があるか確認することは一般的であり、存在しない時に値を挿入することも一般的です。
 ハッシュマップには、これを行う`entry`と呼ばれる特別なAPIがあり、これは、引数としてチェックしたいキーを取ります。
-この`entry`メソッドの戻り値は、`Entry`と呼ばれるenumであり、これは存在したりしなかったりするかもしれない値を表します。
+この`entry`メソッドの戻り値は、`Entry`と呼ばれるenumであり、これは存在したりしなかったりする可能性のある値を表します。
 イエローチームに対するキーに値が紐づけられているか否か確認したくなったとしましょう。存在しなかったら、
 50という値を挿入したく、ブルーチームに対しても同様です。`entry`APIを使用すれば、コードはリスト8-25のようになります。
 
@@ -332,7 +332,7 @@ println!("{:?}", scores);
 
 リスト8-25のコードを実行すると、`{"Yellow": 50, "Blue": 10}`と出力するでしょう。
 最初の`entry`呼び出しは、まだイエローチームに対する値がないので、値50でイエローチームのキーを挿入します。
-`entry`の2回目の呼び出しはハッシュマップを変更しません。なぜなら、ブルーチームにはすでに10という値があるからです。
+`entry`の2回目の呼び出しはハッシュマップを変更しません。なぜなら、ブルーチームには既に10という値があるからです。
 
 <!-- #### Updating a Value Based on the Old Value -->
 
@@ -343,12 +343,12 @@ println!("{:?}", scores);
 <!-- counts how many times each word appears in some text. We use a hash map with -->
 <!-- the words as keys and increment the value to keep track of how many times we’ve -->
 <!-- seen that word. If it’s the first time we’ve seen a word, we’ll first insert -->
-<!-- the value 0 -->
+<!-- the value 0: -->
 
 ハッシュマップの別の一般的なユースケースは、キーの値を探し、古い値に基づいてそれを更新することです。
 例えば、リスト8-26は、各単語があるテキストに何回出現するかを数え上げるコードを示しています。
 キーに単語を入れたハッシュマップを使用し、その単語を何回見かけたか追いかけるために値を増やします。
-ある単語を見かけたのが最初だったら、まず0という値を挿入します。
+ある単語を見かけたのが最初だったら、まず0という値を挿入します:
 
 ```rust
 use std::collections::HashMap;
@@ -439,8 +439,7 @@ println!("{:?}", map);
   UTF-8エンコードに関する詳細を心に留めておいてください！
 * ハッシュマップとベクタを使用して、ユーザに会社の部署に雇用者の名前を追加させられるテキストインターフェイスを作ってください。
   例えば、"Add Sally to Engineering"(開発部門にサリーを追加)や"Add Amir to Sales"(販売部門にアミールを追加)などです。
-  それからユーザにある部署にいる人間の一覧や部署ごとにアルファベット順で並べ替えられた会社の全人間の一覧を、
-  扱わせてあげてください。
+  それからユーザに、ある部署にいる人間の一覧や部署ごとにアルファベット順で並べ替えられた会社の全人間の一覧を扱わせてあげてください。
 
 <!-- The standard library API documentation describes methods that vectors, strings, -->
 <!-- and hash maps have that will be helpful for these exercises! -->

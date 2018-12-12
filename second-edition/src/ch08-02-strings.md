@@ -100,7 +100,7 @@ let mut s = String::new();
 
 この行は、新しい空の`s`という文字列を生成しています。それからここにデータを読み込むことができるわけです。
 だいたい、文字列の初期値を決めるデータがあるでしょう。そのために、`to_string`メソッドを使用します。
-このメソッドは、文字列リテラルがしているように、`Display`トレイトを実装する型ならなんでも使用できます。
+このメソッドは、文字列リテラルのように、`Display`トレイトを実装する型ならなんでも使用できます。
 リスト8-12に2例、示しています。
 
 ```rust
@@ -183,7 +183,7 @@ let hello = String::from("Hola");
 <!-- of a `Vec<T>`, if you push more data into it. In addition, we can conveniently -->
 <!-- use the `+` operator or the `format!` macro to concatenate `String` values. -->
 
-`String`は、サイズを伸ばすことができ、中身も変化します。追加のデータをプッシュすれば、`Vec<T>`の中身のようですね。
+`String`は、サイズを伸ばすことができ、`Vec<T>`の中身のように、追加のデータをプッシュすれば、中身も変化します。
 付け加えると、`String`値を連結する`+`演算子や、`format!`マクロを便利に使用することができます。
 
 <!-- #### Appending to a String with `push_str` and `push` -->
@@ -395,7 +395,7 @@ let s = format!("{}-{}-{}", s1, s2, s3);
 <!-- if you try to access parts of a `String` using indexing syntax in Rust, you’ll -->
 <!-- get an error. Consider the invalid code in Listing 8-19. -->
 
-他の多くのプログラミング言語では、文字列中の文字に、番号で参照してアクセスすることは、有効なコードであり、
+他の多くのプログラミング言語では、文字列中の文字に、添え字で参照してアクセスすることは、有効なコードであり、
 一般的な処理です。しかしながら、Rustにおいて、添え字記法で`String`の一部にアクセスしようとすると、
 エラーが発生するでしょう。リスト8-19の非合法なコードを考えてください。
 
@@ -461,13 +461,13 @@ let len = String::from("Здравствуйте").len();
 <!-- Asked how long the string is, you might say 12. However, Rust’s answer is 24: -->
 <!-- that’s the number of bytes it takes to encode “Здравствуйте” in UTF-8, because -->
 <!-- each Unicode scalar value takes two bytes of storage. Therefore, an index into -->
-<!--  the string’s bytes will not always correlate to a valid Unicode scalar value. -->
+<!-- the string’s bytes will not always correlate to a valid Unicode scalar value. -->
 <!-- To demonstrate, consider this invalid Rust code: -->
 
 文字列の長さはと問われたら、あなたは12と答えるかもしれません。ところが、Rustの答えは、24です:
 “Здравствуйте”をUTF-8でエンコードすると、この長さになります。各Unicodeスカラー値は、2バイトの領域を取るからです。
-それ故に、文字列のバイト番号は、必ずしも有効なUnicodeのスカラー値とは相互に関係しないのです。
-デモ用に、こんな無効なRustコードを考えてください:
+それ故に、文字列のバイトの添え字は、必ずしも有効なUnicodeのスカラー値とは相互に関係しないのです。
+デモ用に、こんな非合法なRustコードを考えてください:
 
 ```rust,ignore
 let hello = "Здравствуйте";
@@ -489,7 +489,7 @@ let answer = &hello[0];
 `answer`の値は何になるべきでしょうか？最初の文字の`З`になるべきでしょうか？UTF-8エンコードされた時、
 `З`の最初のバイトは`208`、2番目は`151`になるので、`answer`は実際、`208`になるべきですが、
 `208`は単独では有効な文字ではありません。この文字列の最初の文字を求めている場合、`208`を返すことは、
-ユーザの望んでいるものではないでしょう; しかしながら、Rustには、番号0の位置には、そのデータしかないのです。
+ユーザの望んでいるものではないでしょう; しかしながら、Rustには、バイト添え字0の位置には、そのデータしかないのです。
 文字列がラテン文字のみを含む場合でも、ユーザは一般的にバイト値が返ることを望みません:
 `&"hello"[0]`がバイト値を返す有効なコードだったら、`h`ではなく、`104`を返すでしょう。
 予期しない値を返し、すぐには判明しないバグを引き起こさないために、Rustはこのコードを全くコンパイルせず、
@@ -556,7 +556,7 @@ Rustには、データが表す自然言語に関わらず、各プログラム�
 Rustで文字を得るのに`String`に添え字アクセスすることが許されない最後の理由は、
 添え字アクセスという処理が常に定数時間(O(1))になると期待されるからです。
 しかし、`String`でそのパフォーマンスを保証することはできません。というのも、
-有効な文字がいくつあるか決定するのに、最初から番号まで中身を走査する必要があるからです。
+合法な文字がいくつあるか決定するのに、最初から添え字まで中身を走査する必要があるからです。
 
 <!-- ### Slicing Strings -->
 
@@ -592,12 +592,12 @@ let s = &hello[0..4];
 <!-- What would happen if we used `&hello[0..1]`? The answer: Rust would panic at -->
 <!-- runtime in the same way as if an invalid index were accessed in a vector: -->
 
-`&hello[0..1]`と使用したら、何が起きるでしょうか？答え: Rustはベクタの無効な番号にアクセスしたかのように、
+`&hello[0..1]`と使用したら、何が起きるでしょうか？答え: Rustはベクタの非合法な添え字にアクセスしたかのように、
 実行時にパニックするでしょう:
 
 ```text
 thread 'main' panicked at 'byte index 1 is not a char boundary; it is inside 'З' (bytes 0..2) of `Здравствуйте`', src/libcore/str/mod.rs:2188:4
-('main'スレッドは「バイト番号1は文字の境界ではありません; `Здравствуйте`の'З'(バイト番号0から2)の中です」でパニックしました)
+('main'スレッドは「バイト添え字1は文字の境界ではありません; `Здравствуйте`の'З'(バイト番号0から2)の中です」でパニックしました)
 ```
 
 <!-- You should use ranges to create string slices with caution, because doing so -->
@@ -667,7 +667,7 @@ for b in "नमस्ते".bytes() {
 <!-- But be sure to remember that valid Unicode scalar values may be made up of more -->
 <!-- than 1 byte. -->
 
-ですが、有効なUnicodeスカラー値は、2バイト以上からなる場合もあることは心得ておいてください。
+ですが、合法なUnicodeスカラー値は、2バイト以上からなる場合もあることは心得ておいてください。
 
 <!-- Getting grapheme clusters from strings is complex, so this functionality is not -->
 <!-- provided by the standard library. Crates are available on -->

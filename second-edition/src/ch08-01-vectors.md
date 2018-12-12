@@ -195,7 +195,7 @@ let third: Option<&i32> = v.get(2);
 <!-- shown in Listing 8-6. -->
 
 Rustには要素を参照する方法が2通りあるので、ベクタに要素が含まれない番号の値を使用しようとした時に、
-プログラムの振る舞いを選択できます。例として、ベクタに5つ要素があり、番号100の要素にアクセスを試みた場合、
+プログラムの振る舞いを選択できます。例として、ベクタに5つ要素があり、添え字100の要素にアクセスを試みた場合、
 プログラムがすることを確認しましょう。リスト8-6に示したようにですね。
 
 ```rust,should_panic
@@ -208,7 +208,7 @@ let does_not_exist = v.get(100);
 <!-- <span class="caption">Listing 8-6: Attempting to access the element at index -->
 <!-- 100 in a vector containing five elements</span> -->
 
-<span class="caption">リスト8-6: 5つの要素を含むベクタの100番目の要素にアクセスしようとする</span>
+<span class="caption">リスト8-6: 5つの要素を含むベクタの添え字100の要素にアクセスしようとする</span>
 
 <!-- When we run this code, the first `[]` method will cause the program to panic -->
 <!-- because it references a nonexistent element. This method is best used when you -->
@@ -228,10 +228,10 @@ let does_not_exist = v.get(100);
 <!-- items are in the current vector and give them another chance to enter a valid -->
 <!-- value. That would be more user-friendly than crashing the program due to a typo! -->
 
-`get`メソッドがベクタ外の番号を渡されると、パニックすることなく`None`を返します。
+`get`メソッドがベクタ外の添え字を渡されると、パニックすることなく`None`を返します。
 普通の状態でも、ベクタの範囲外にアクセスする可能性がある場合に、このメソッドを使用することになるでしょう。
 そうしたら、コードには`Some(&element)`か`None`を扱うロジックが存在することになります。そう、
-第6章で議論したように。例えば、番号は人間に数値を入力してもらうことで得ることもできます。
+第6章で議論したように。例えば、添え字は人間に数値を入力してもらうことで得ることもできます。
 もし大きすぎる値を誤って入力し、プログラムが`None`値を得てしまったら、現在ベクタに幾つ要素があるかをユーザに教え、
 再度正しい値を入力してもらうことができるでしょう。その方が、タイプミスでプログラムをクラッシュさせるより、
 ユーザに優しくなるでしょう。
@@ -245,7 +245,7 @@ let does_not_exist = v.get(100);
 <!-- work. -->
 
 プログラムに有効な参照がある場合、borrow checker(借用精査機)は(第4章で解説しましたが)、
-所有権と借用規則を強制し、ベクタ型の中身へのこの参照や他のいかなる参照も有効であり続けることを保証してくれます。
+所有権と借用規則を強制し、ベクタの中身へのこの参照や他のいかなる参照も有効であり続けることを保証してくれます。
 同一スコープ上では、可変と不変な参照を同時には存在させられないというルールを思い出してください。
 このルールはリスト8-7にも適用され、リスト8-7ではベクタの最初の要素への不変参照を保持し、
 終端に要素を追加しようとしていますが、動きません。
@@ -365,7 +365,7 @@ for i in &mut v {
 <!-- variants of an enum are defined under the same enum type, so when we need to -->
 <!-- store elements of a different type in a vector, we can define and use an enum! -->
 
-この章の冒頭で、ベクタは同じ型の値しか保持できないと述べました。これは不便に考えられることもあります;
+この章の冒頭で、ベクタは同じ型の値しか保持できないと述べました。これは不便なこともあります;
 異なる型の要素を保持する必要性が出てくるユースケースも確かにあるわけです。幸運なことに、
 enumの列挙子は、同じenumの型の元に定義されるので、ベクタに異なる型の要素を保持する必要が出たら、
 enumを定義して使用することができます！
