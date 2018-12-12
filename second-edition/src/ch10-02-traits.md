@@ -44,7 +44,7 @@
 <!-- `Summary` trait that expresses this behavior. -->
 
 `NewsArticle`や`Tweet`インスタンスに格納される可能性のあるデータの総括を表示するメディア総括ライブラリを作成したいです。
-このために、各型からまとめが必要で、インスタンスに対して`summarize`メソッドを呼び出すことでそのまとめを要求する必要があります。
+このために、各型から総括が必要で、インスタンスに対して`summarize`メソッドを呼び出すことでその総括を要求する必要があります。
 リスト10-12は、この振る舞いを表現する`Summary`トレイトの定義を表示しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -163,7 +163,7 @@ impl Summary for Tweet {
 <!-- After implementing the trait, we can call the methods on instances of -->
 <!-- `NewsArticle` and `Tweet` in the same way we call regular methods, like this: -->
 
-トレイトを実装後、普通の関数同様に`NewsArticle`や`Tweet`のインスタンスに対してメソッドを呼び出せます。
+トレイトを実装後、普通のメソッド同様に`NewsArticle`や`Tweet`のインスタンスに対してこのメソッドを呼び出せます。
 こんな感じで:
 
 ```rust,ignore
@@ -210,11 +210,11 @@ println!("1 new tweet: {}", tweet.summarize());
 <!-- implement `Summary` on `Vec<T>` in our `aggregator` crate, because the -->
 <!-- trait `Summary` is local to our `aggregator` crate. -->
 
-トレイト実装で注意すべき制限の1つは、トレイトか対象の型が自分のクレートにローカルである時のみ、
+トレイト実装で注意すべき制限の1つは、トレイトか対象の型が自分のクレートに固有(local)である時のみ、
 型に対してトレイトを実装できるということです。例えば、`Display`のような標準ライブラリのトレイトを`aggregator`クレートの機能の一部として、
-`Tweet`のような独自の型に実装できます。型`Tweet`が`aggregator`クレートにローカルだからです。
+`Tweet`のような独自の型に実装できます。型`Tweet`が`aggregator`クレートに固有だからです。
 また、`Summary`を`aggregator`クレートで`Vec<T>`に対して実装することもできます。
-トレイト`Summary`は、`aggregator`クレートにローカルだからです。
+トレイト`Summary`は、`aggregator`クレートに固有だからです。
 
 <!-- But we can’t implement external traits on external types. For example, we can’t -->
 <!-- implement the `Display` trait on `Vec<T>` within our `aggregator` crate, -->
@@ -228,7 +228,7 @@ println!("1 new tweet: {}", tweet.summarize());
 
 しかし、外部のトレイトを外部の型に対して実装することはできません。例として、
 `aggregator`クレート内で`Vec<T>`に対して`Display`トレイトを実装することはできません。
-`Display`と`Vec<T>`は標準ライブラリで定義され、`aggregator`クレートにローカルではないからです。
+`Display`と`Vec<T>`は標準ライブラリで定義され、`aggregator`クレートに固有ではないからです。
 この制限は、*コヒーレンス*(coherence)あるいは、具体的に*オーファンルール*(orphan rule)と呼ばれるプログラムの特性の一部で、
 親の型が存在しないためにそう命名されました。この規則により、他の人のコードが自分のコードを壊したり、
 その逆が起きないことを保証してくれます。この規則がなければ、2つのクレートが同じ型に対して同じトレイトを実装できてしまい、
@@ -275,7 +275,7 @@ pub trait Summary {
 <!-- of defining a custom implementation, we specify an empty `impl` block with -->
 <!-- `impl Summary for NewsArticle {}`. -->
 
-デフォルト実装を使用して独自の実装を定義するのではなく、`NewsArticle`のインスタンスをまとめるには、
+独自の実装を定義するのではなく、デフォルト実装を使用して`NewsArticle`のインスタンスをまとめるには、
 `impl Summary for NewsArticle {}`と空の`impl`ブロックを指定します。
 
 <!-- Even though we’re no longer defining the `summarize` method on `NewsArticle` -->
@@ -292,9 +292,11 @@ pub trait Summary {
 let article = NewsArticle {
     // ペンギンチームがスタンレーカップチャンピオンシップを勝ち取る！
     headline: String::from("Penguins win the Stanley Cup Championship!"),
+    // ピッツバーグ、ペンシルベニア州、アメリカ
     location: String::from("Pittsburgh, PA, USA"),
+    // アイスバーグ
     author: String::from("Iceburgh"),
-    // ピッツバーグ・ペンギンが再度NHLで最強のホッケーチームになった
+    // ピッツバーグ・ペンギンが再度NHL(National Hockey League)で最強のホッケーチームになった
     content: String::from("The Pittsburgh Penguins once again are the best
     hockey team in the NHL."),
 };
@@ -313,7 +315,7 @@ println!("New article available! {}", article.summarize());
 <!-- as the syntax for implementing a trait method that doesn’t have a default -->
 <!-- implementation. -->
 
-`summarize`にデフォルト実装を作っても、リスト10-13の`Tweet`の`Summary`実装を変える必要はありません。
+`summarize`にデフォルト実装を用意しても、リスト10-13の`Tweet`の`Summary`実装を変える必要はありません。
 理由は、デフォルト実装をオーバーライドする記法がデフォルト実装のないトレイトメソッドを実装する記法と同じだからです。
 
 <!-- Default implementations can call other methods in the same trait, even if those -->
@@ -343,7 +345,7 @@ pub trait Summary {
 <!-- To use this version of `Summary`, we only need to define `summarize_author` -->
 <!-- when we implement the trait on a type: -->
 
-このバージョンの`Summary`を使用するには、型にトレイトを実装する際に`summarize_author`を定義する必要だけあります:
+このバージョンの`Summary`を使用するには、型にトレイトを実装する際に`summarize_author`を定義する必要しかありません:
 
 ```rust,ignore
 impl Summary for Tweet {
@@ -411,7 +413,7 @@ println!("1 new tweet: {}", tweet.summarize());
 
 ```rust,ignore
 pub fn notify<T: Summary>(item: T) {
-    // 衝撃的なニュース！ {}
+    // 新ニュース！ {}
     println!("Breaking news! {}", item.summarize());
 }
 ```
@@ -501,7 +503,7 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
 
 `largest`の本体で、大なり演算子(`>`)を使用して型`T`の2つの値を比較したかったのです。その演算子は、
 標準ライブラリトレイトの`std::cmp::PartialOrd`でデフォルトメソッドとして定義されているので、
-`largest`関数が、比較できるあらゆる型のスライスに対して動くように`T`のトレイト境界に`PartialOrd`を指定する必要があります。
+`largest`関数が、比較できるあらゆる型のスライスに対して動くように、`T`のトレイト境界に`PartialOrd`を指定する必要があります。
 初期化処理に含まれているので、`PartialOrd`をスコープに導入する必要はありません。
 `largest`のシグニチャを以下のような見た目に変えてください:
 
@@ -552,7 +554,7 @@ error[E0507]: cannot move out of borrowed content
 第4章の「スタックだけのデータ: コピー」節で議論したように、`i32`や`char`のような既知のサイズの型は、
 スタックに格納できるので、`Copy`トレイトを実装しています。しかし、`largest`関数をジェネリックにすると、
 `list`引数が`Copy`トレイトを実装しない型を含む可能性も出てきたのです。結果として、
-`list[0]`から値をムーブできず、`largest`にムーブできず、このエラーに落ち着いたのです。
+`list[0]`から値を`largest`にムーブできず、このエラーに落ち着いたのです。
 
 <!-- To call this code with only those types that implement the `Copy` trait, we can -->
 <!-- add `Copy` to the trait bounds of `T`! Listing 10-15 shows the complete code of -->
@@ -610,7 +612,7 @@ fn main() {
 <!-- large amounts of data. -->
 
 もし`largest`関数を`Copy`を実装する型だけに制限したくなかったら、`Copy`ではなく、
-Tが`Clone`というトレイト境界を含むと指定することもできます。そうしたら、
+`T`が`Clone`というトレイト境界を含むと指定することもできます。そうしたら、
 `largest`関数に所有権が欲しい時にスライスの各値をクローンできます。`clone`関数を使用するということは、
 `String`のようなヒープデータを所有する型の場合にもっとヒープ確保が発生する可能性があることを意味し、
 大きなデータを取り扱っていたら、ヒープ確保は遅いこともあります。
@@ -730,7 +732,7 @@ let s = 3.to_string();
 それからコンパイラは、トレイト境界の情報を活用してコードに使用された具体的な型が正しい振る舞いを提供しているか確認できます。
 動的型付け言語では、型が実装しない型のメソッドを呼び出せば、実行時にエラーが出るでしょう。
 しかし、Rustはこの種のエラーをコンパイル時に移したので、コードが動かせるようにさえなる以前に問題を修正することを強制されるのです。
-加えて、コンパイル時に既に確認したので、実行時に振る舞いがあるかどう確認するコードを書かなくても済みます。
+加えて、コンパイル時に既に確認したので、実行時に振る舞いがあるかどうか確認するコードを書かなくても済みます。
 そうすることでジェネリクスの柔軟性を諦める必要なく、パフォーマンスを向上させます。
 
 <!-- Another kind of generic that we’ve already been using is called *lifetimes*. -->

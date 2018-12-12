@@ -47,7 +47,7 @@
 <!-- check that the references are valid. -->
 
 最後に、ライフタイムを議論します。ライフタイムとは、コンパイラに参照がお互いにどう関係しているかの情報を与える1種のジェネリクスです。
-ライフタイムのおかげでコンパイラに参照が有効であることを確認してもらうことを可能にしつつ、多くの場面で値を借用できます。
+ライフタイムのおかげでコンパイラに参照が合法であることを確認してもらうことを可能にしつつ、多くの場面で値を借用できます。
 
 <!-- ## Removing Duplication by Extracting a Function -->
 
@@ -152,10 +152,10 @@ fn main() {
 <!-- <span class="caption">Listing 10-2: Code to find the largest number in *two* -->
 <!-- lists of numbers</span> -->
 
-<span class="caption">リスト10-2: *2*つの数値のリストから最大値を探すコード</span>
+<span class="caption">リスト10-2: *2つ*の数値のリストから最大値を探すコード</span>
 
 <!-- Although this code works, duplicating code is tedious and error prone. We also -->
-<!-- have to update the code in multiple places whe we want to change it. -->
+<!-- have to update the code in multiple places when we want to change it. -->
 
 このコードは動くものの、コードを複製することは退屈ですし、間違いも起きやすいです。また、
 複数箇所のコードを変更したい時に更新しなければなりません。

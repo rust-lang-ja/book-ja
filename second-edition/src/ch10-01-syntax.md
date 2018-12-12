@@ -180,7 +180,7 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
   |            ^^^^^^^^^^^^^^
   |
   = note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
-  (注釈: `std::cmp""PartialOrd`の実装が`T`に対して不足しています)
+  (注釈: `std::cmp::PartialOrd`の実装が`T`に対して不足しています)
 ```
 
 <!-- The note mentions `std::cmp::PartialOrd`, which is a *trait*. We’ll talk about -->
@@ -248,7 +248,7 @@ fn main() {
 <!-- Listing 10-7, our code won’t compile. -->
 
 1つのジェネリックな型だけを使用して`Point<T>`を定義したので、この定義は、`Point<T>`構造体がなんらかの型`T`に関して、
-ジェネリックであると述べていてその型がなんであれ、`x`と`y`のフィールドは*両方*その同じ型になっていることに注意してください。
+ジェネリックであると述べていて、その型がなんであれ、`x`と`y`のフィールドは*両方*その同じ型になっていることに注意してください。
 リスト10-7のように、異なる型の値のある`Point<T>`のインスタンスを生成すれば、コードはコンパイルできません。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -356,8 +356,8 @@ enum Option<T> {
 <!-- optional value, and because `Option<T>` is generic, we can use this abstraction -->
 <!-- no matter what the type of the optional value is. -->
 
-この定義はもう、あなたにとって道理が通っているはずです。ご覧の通り、`Option<T>`は、
-型`T`に関してジェネリックで2つの列挙子を持つenumです: その列挙子は、型`T`の値を保持する`Some`と、
+この定義はもう、あなたにとってより道理が通っているはずです。ご覧の通り、`Option<T>`は、
+型`T`に関してジェネリックで2つの列挙子のあるenumです: その列挙子は、型`T`の値を保持する`Some`と、
 値を何も保持しない`None`です。`Option<T>` enumを使用することで、オプショナルな値があるという抽象的な概念を表現でき、
 `Option<T>`はジェネリックなので、オプショナルな値の型に関わらず、この抽象を使用できます。
 
@@ -392,7 +392,7 @@ enum Result<T, E> {
 <!-- definitions that differ only in the types of the values they hold, you can -->
 <!-- avoid duplication by using generic types instead. -->
 
-自分のコード内で保持している値の型のみが異なる構造体やenum定義の場面を認識したら、
+自分のコード内で、保持している値の型のみが異なる構造体やenum定義の場面を認識したら、
 代わりにジェネリックな型を使用することで重複を避けることができます。
 
 <!-- ### In Method Definitions -->
@@ -441,7 +441,7 @@ fn main() {
 ここで、フィールド`x`のデータへの参照を返す`x`というメソッドを`Point<T>`に定義しました。
 
 <!-- Note that we have to declare `T` just after `impl` so we can use it to specify -->
-<!-- that we’re implementing methods on the type `Point<T>`.  By declaring `T` as a -->
+<!-- that we’re implementing methods on the type `Point<T>`. By declaring `T` as a -->
 <!-- generic type after `impl`, Rust can identify that the type in the angle -->
 <!-- brackets in `Point` is a generic type rather than a concrete type. -->
 
@@ -478,7 +478,7 @@ impl Point<f32> {
 <!-- `distance_from_origin` and other instances of `Point<T>` where `T` is not of -->
 <!-- type `f32` will not have this method defined. The method measures how far our -->
 <!-- point is from the point at coordinates (0.0, 0.0) and uses mathematical -->
-<!-- operations that are vailable only for floating point types. -->
+<!-- operations that are available only for floating point types. -->
 
 このコードは、`Point<f32>`には`distance_from_origin`というメソッドが存在するが、
 `T`が`f32`ではない`Point<T>`の他のインスタンスにはこのメソッドが定義されないことを意味します。
@@ -543,7 +543,7 @@ fn main() {
 `main`で、`x`(値は`5`)に`i32`、`y`(値は`10.4`)に`f64`を持つ`Point`を定義しました。`p2`変数は、
 `x`(値は`"Hello"`)に文字列スライス、`y`(値は`c`)に`char`を持つ`Point`構造体です。
 引数`p2`で`p1`に`mixup`を呼び出すと、`p3`が得られ、`x`は`i32`になります。`x`は`p1`由来だからです。
-`p3`変数は、`y`に`char`になります。`y`は`p2`由来だからです。`println!`マクロの呼び出しは、
+`p3`変数の`y`は、`char`になります。`y`は`p2`由来だからです。`println!`マクロの呼び出しは、
 `p3.x = 5, p3.y = c`と出力するでしょう。
 
 <!-- The purpose of this example is to demonstrate a situation in which some generic -->
