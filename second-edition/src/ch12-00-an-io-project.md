@@ -35,8 +35,8 @@ and **p**rint: 正規表現をグローバルで検索し表示する)を作成�
 
 その過程で、多くのコマンドラインツールが使用している端末の機能を使用させる方法を示します。
 環境変数の値を読み取ってユーザがこのツールの振る舞いを設定できるようにします。また、
-標準出力(`stdout`)の代わりに、標準エラー出力(`stderr`)するので、例えば、
-ユーザはエラーメッセージはスクリーン上で確認しつつ、成功した出力はファイルにリダイレクトできます。
+標準出力(`stdout`)の代わりに、標準エラーに出力(`stderr`)するので、例えば、
+ユーザはエラーメッセージは画面上で確認しつつ、成功した出力はファイルにリダイレクトできます。
 
 <!-- One Rust community member, Andrew Gallant, has already created a fully -->
 <!-- featured, very fast version of `grep`, called `ripgrep`. By comparison, our -->
@@ -44,7 +44,7 @@ and **p**rint: 正規表現をグローバルで検索し表示する)を作成�
 <!-- the background knowledge you need to understand a real-world project like -->
 <!-- `ripgrep`. -->
 
-あるRustコミュニティのメンバであるアンドリュー・ガラント(Andrew Gallant)が既に全機能装備の非常に高速な`grep`、
+Rustコミュニティのあるメンバであるアンドリュー・ガラント(Andrew Gallant)が既に全機能装備の非常に高速な`grep`、
 `ripgrep`と呼ばれるものを作成しました。比較対象として、我々の`grep`はとても単純ですが、
 この章により、`ripgrep`のような現実世界のプロジェクトを理解するのに必要な背景知識の一部を身に付けられるでしょう。
 
@@ -59,7 +59,7 @@ and **p**rint: 正規表現をグローバルで検索し表示する)を作成�
 <!-- * Writing tests (Chapter 11) -->
 
 * コードを体系化する(モジュール、第7章で学んだことを使用)
-* ベクタ型と文字列を使用する(コレクション、第8章)
+* ベクタと文字列を使用する(コレクション、第8章)
 * エラーを処理する(第9章)
 * 適切な箇所でトレイトとライフタイムを使用する(第10章)
 * テストを記述する(第11章)
@@ -67,4 +67,4 @@ and **p**rint: 正規表現をグローバルで検索し表示する)を作成�
 <!-- We’ll also briefly introduce closures, iterators, and trait objects, which -->
 <!-- Chapters 13 and 17 will cover in detail. -->
 
-さらに、クロージャ、イテレータ、トレイトオブジェクトなど、第13章、17章で詳しく解説するものもちょっとだけ紹介します。
+さらに、クロージャ、イテレータ、トレイトオブジェクトなど、第13章、17章で詳しく講義するものもちょっとだけ紹介します。

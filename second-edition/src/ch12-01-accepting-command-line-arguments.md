@@ -28,8 +28,8 @@ $ cargo run searchstring example-filename.txt
 <!-- just learning this concept, let’s implement this capability ourselves. -->
 
 今現在は、`cargo new`で生成されたプログラムは、与えた引数を処理できません。
-[Crates.io](https://crates.io/)に存在するある既存のライブラリは、
-コマンドライン引数を受け付けるプログラムを書く手助けをしてくれますが、ちょうどこの概念を学んでいる最中なので、
+[Crates.io](https://crates.io/)に存在する既存のライブラリには、
+コマンドライン引数を受け付けるプログラムを書く手助けをしてくれるものもありますが、ちょうどこの概念を学んでいる最中なので、
 この能力を自分で実装しましょう。
 
 <!-- ### Reading the Argument Values -->
@@ -47,15 +47,15 @@ $ cargo run searchstring example-filename.txt
 
 `minigrep`が渡したコマンドライン引数の値を読み取れるようにするために、Rustの標準ライブラリで提供されている関数が必要になり、
 それは、`std::env::args`です。この関数は、`minigrep`に与えられたコマンドライン引数の*イテレータ*を返します。
-イテレータについてはまだ議論していません(完全には第13章で解説します)が、とりあえずイテレータに関しては、
+イテレータについてはまだ議論していません(完全には第13章で講義します)が、とりあえずイテレータに関しては、
 2つの詳細のみ知っていればいいです: イテレータは一連の値を生成することと、イテレータに対して`collect`関数を呼び出し、
-イテレータが生成する要素全部を含むベクタ型などのコレクションに変えられることです。
+イテレータが生成する要素全部を含むベクタなどのコレクションに変えられることです。
 
 <!-- Use the code in Listing 12-1 to allow your `minigrep` program to read any -->
 <!-- command line arguments passed to it and then collect the values into a vector. -->
 
 リスト12-1のコードを使用して`minigrep`プログラムに渡されたあらゆるコマンドライン引数を読み取れるようにし、
-それからその値をベクタ型として集結させてください。
+それからその値をベクタとして集結させてください。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -73,7 +73,7 @@ fn main() {
 <!-- <span class="caption">Listing 12-1: Collecting the command line arguments into -->
 <!-- a vector and printing them</span> -->
 
-<span class="caption">リスト12-1: コマンドライン引数をベクタ型に集結させ、出力する</span>
+<span class="caption">リスト12-1: コマンドライン引数をベクタに集結させ、出力する</span>
 
 <!-- First, we bring the `std::env` module into scope with a `use` statement so we -->
 <!-- can use its `args` function. Notice that the `std::env::args` function is -->
@@ -98,7 +98,7 @@ fn main() {
 <!-- > Note that `std::env::args` will panic if any argument contains invalid -->
 <!-- > Unicode. If your program needs to accept arguments containing invalid -->
 <!-- > Unicode, use `std::env::args_os` instead. That function returns an iterator -->
-<!-- > that produces `OsString` values instead of `String` values. We’ve chosen -->
+<!-- > that produces `OsString` values instead of `String` values. We’ve chosen to -->
 <!-- > use `std::env::args` here for simplicity because `OsString` values differ -->
 <!-- > per platform and are more complex to work with than `String` values. -->
 
@@ -119,7 +119,7 @@ fn main() {
 <!-- isn’t able to infer the kind of collection you want. -->
 
 `main`の最初の行で`env::args`を呼び出し、そして即座に`collect`を使用して、
-イテレータをイテレータが生成する値全てを含むベクタ型に変換しています。
+イテレータをイテレータが生成する値全てを含むベクタに変換しています。
 `collect`関数を使用して多くの種類のコレクションを生成することができるので、
 `args`の型を明示的に注釈して文字列のベクタが欲しいのだと指定しています。Rustにおいて、
 型を注釈しなければならない頻度は非常に少ないのですが、`collect`はよく確かに注釈が必要になる一つの関数なのです。
@@ -163,7 +163,7 @@ $ cargo run needle haystack
 <!-- save the values of the two arguments in variables so we can use the values -->
 <!-- throughout the rest of the program. We do that in Listing 12-2. -->
 
-引数のベクタの値を出力すると、プログラムはコマンドライン引数として指定された値にアクセスできることが具現化されました。
+引数のベクタの値を出力すると、プログラムはコマンドライン引数として指定された値にアクセスできることが説明されました。
 さて、プログラムの残りを通して使用できるように、二つの引数の値を変数に保存する必要があります。
 それをしているのがリスト12-2です。
 
@@ -200,7 +200,7 @@ fn main() {
 <!-- variable `filename`. -->
 
 ベクタを出力した時に確認したように、プログラム名がベクタの最初の値、`args[0]`を占めているので、
-添字`1`から始めます。`minigrep`が取る最初の引数は、検索する文字列なので、
+添え字`1`から始めます。`minigrep`が取る最初の引数は、検索する文字列なので、
 最初の引数への参照を変数`query`に置きました。2番目の引数はファイル名でしょうから、
 2番目の引数への参照は変数`filename`に置きました。
 
@@ -208,7 +208,7 @@ fn main() {
 <!-- working as we intend. Let’s run this program again with the arguments `test` -->
 <!-- and `sample.txt`: -->
 
-一時的にこれら変数の値を出力して、コードが意図通りに動いていることを証明しています。
+一時的にこれらの変数の値を出力して、コードが意図通りに動いていることを証明しています。
 再度このプログラムを`test`と`sample.txt`という引数で実行しましょう:
 
 ```text
@@ -227,5 +227,5 @@ In file sample.txt
 <!-- capabilities instead. -->
 
 素晴らしい、プログラムは動作しています！必要な引数の値が、正しい変数に保存されています。後ほど、
-何らかのエラー処理を加えて、特定の可能性のあるエラー状況に対処します。ユーザが引数を提供しなかった場合などです;
+何らかのエラー処理を加えて、ユーザが引数を提供しなかった場合など、可能性のある特定のエラー状況に対処します;
 今は、そのような状況はないものとし、代わりにファイル読み取り能力を追加することに取り組みます。

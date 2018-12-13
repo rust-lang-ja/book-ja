@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- # Functional Language Features: Iterators and Closures -->
 
 # 関数型言語の機能: イテレータとクロージャ
@@ -43,15 +42,3 @@ Rustの設計は、多くの既存の言語やテクニックにインスピレ�
 パターンマッチングやenumなど、他のRustの機能も関数型に影響されていますが、他の章で講義します。
 クロージャとイテレータをマスターすることは、慣用的で速いRustコードを書く重要な部分なので、
 この章を丸ごと捧げます。
-=======
-# Functional Language Features: Iterators and Closures
-
-The second edition of the book is no longer distributed with Rust's documentation.
-
-If you came here via a link or web search, you may want to check out [the current
-version of the book](../index.html) instead.
-
-If you have an internet connection, you can [find a copy distributed with
-Rust
-1.30](https://doc.rust-lang.org/1.30.0/book/second-edition/ch13-00-functional-features.html).
->>>>>>> fork_master_master

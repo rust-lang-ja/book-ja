@@ -11,7 +11,7 @@
 <!-- Who are you?” -->
 
 では、`filename`コマンドライン引数で指定されたファイルを読み込む機能を追加しましょう。
-まず、テスト実行するためのサンプルファイルが必要ですね: `minigrep`が動作していることを確かめるために使用すべき好適なファイルは、
+まず、テスト実行するためのサンプルファイルが必要ですね: `minigrep`が動作していることを確かめるために使用するのに最適なファイルは、
 複数行にわたって同じ単語の繰り返しのある少量のテキストです。リスト12-3は、
 うまくいくであろうエミリー・ディキンソン(Emily Dickinson)の詩です！
 プロジェクトのルート階層に*poem.txt*というファイルを作成し、この詩「私は誰でもない！あなたは誰？」を入力してください。
@@ -76,8 +76,8 @@ fn main() {
     let mut f = File::open(filename).expect("file not found");
 
     let mut contents = String::new();
-    // ファイルの読み込み中に問題がありました
     f.read_to_string(&mut contents)
+        // ファイルの読み込み中に問題がありました
         .expect("something went wrong reading the file");
 
     // テキストは\n{}です
@@ -113,7 +113,7 @@ fn main() {
 <!-- read it in. Third, we call `read_to_string` on our file handle and pass a -->
 <!-- mutable reference to `contents` as an argument. -->
 
-`main`で3文を追記しました: 一つ目が、`File::open`関数を呼んで`filename`変数の値に渡して、
+`main`に3文を追記しました: 一つ目が、`File::open`関数を呼んで`filename`変数の値に渡して、
 ファイルへの可変なハンドルを得る処理です。二つ目が、`contents`という名の変数を生成して、
 可変で空の`String`を割り当てる処理です。この変数が、ファイル読み込み後に中身を保持します。
 三つ目が、ファイルハンドルに対して`read_to_string`を呼び出し、引数として`contents`への可変参照を渡す処理です。
@@ -122,7 +122,7 @@ fn main() {
 <!-- prints the value of `contents` after the file is read, so we can check that the -->
 <!-- program is working so far. -->
 
-それらの処理の後に、今回もファイル読み込み後に`contents`の値を出力する一時的な`println!`文を追記したので、
+それらの行の後に、今回もファイル読み込み後に`contents`の値を出力する一時的な`println!`文を追記したので、
 ここまでプログラムがきちんと動作していることを確認できます。
 
 <!-- Let’s run this code with any string as the first command line argument (because -->
@@ -151,7 +151,7 @@ To tell your name the livelong day
 To an admiring bog!
 ```
 
-<!-- 2行目最後の行は、末端のone ideaをあえて訳していない。こちらの方が日本語としては自然と思われる -->
+<!-- 4行目の冒頭は、末端のone ideaをあえて訳していない。こちらの方が日本語としては自然と思われる -->
 
 <!-- Great! The code read and then printed the content of the file. But the code -->
 <!-- has a few flaws. The `main` function has multiple responsibilities: generally, -->
@@ -167,4 +167,4 @@ To an admiring bog!
 関数は明確に管理しやすくなります。もう一つの問題点は、できうる限りのエラー処理を怠っていることです。
 まだプログラムが小規模なので、これらの欠陥は大きな問題にはなりませんが、プログラムが大規模になるにつれ、
 それを綺麗に解消するのは困難になっていきます。プログラムを開発する際に早い段階でリファクタングを行うのは、
-良い傾向です。リファクタリングするコードの量が少なければ、簡単になりますからね。次は、それを行いましょう。
+良い戦術です。リファクタリングするコードの量が少なければ、はるかに簡単になりますからね。次は、それを行いましょう。

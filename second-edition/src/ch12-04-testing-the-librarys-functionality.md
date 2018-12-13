@@ -12,13 +12,13 @@
 今や、ロジックを*src/lib.rs*に抜き出し、引数集めとエラー処理を*src/main.rs*に残したので、
 コードの核となる機能のテストを書くのが非常に容易になりました。いろんな引数で関数を直接呼び出し、
 コマンドラインからバイナリを呼び出す必要なく戻り値を確認できます。ご自由に`Config::new`や`run`関数の機能のテストは、
-自身でお書きください。
+ご自身でお書きください。
 
 <!-- In this section, we’ll add the searching logic to the `minigrep` program by -->
 <!-- using the Test Driven Development (TDD) process. This software development -->
 <!-- technique follows these steps: -->
 
-この節では、テスト駆動開発(TDD)過程を使用して`minigrep`プログラムに検索ロジックを追加します。
+この節では、テスト駆動開発(TDD)過程を活用して`minigrep`プログラムに検索ロジックを追加します。
 このソフトウェア開発テクニックは、以下の手順に従います:
 
 <!-- 1. Write a test that fails, and run it to make sure it fails for the reason you -->
@@ -244,7 +244,7 @@ error: test failed, to rerun pass '--lib'
 <!-- Currently, our test is failing because we always return an empty vector. To fix -->
 <!-- that and implement `search`, our program needs to follow these steps: -->
 
-空のベクタを常に返しているために、現状テストは失敗しています。それを解消し、`search`を実装するには、
+空のベクタを常に返しているために、現状テストは失敗しています。それを修正し、`search`を実装するには、
 プログラムは以下の手順に従う必要があります:
 
 <!-- * Iterate through each line of the contents. -->
@@ -313,7 +313,7 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 次に現在の行がクエリ文字列を含むか確認します。幸運なことに、
 文字列にはこれを行ってくれる`contains`という役に立つメソッドがあります！`search`関数に、
 `contains`メソッドの呼び出しを追加してください。リスト12-18のようにですね。
-これもまだコンパイルできないことに注意してください。
+それでもまだコンパイルできないことに注意してください。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -397,8 +397,8 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- and look at how to improve it. -->
 
 ここで、テストが通過するよう保ったまま、同じ機能を保持しながら、検索関数の実装をリファクタリングする機会を考えることもできます。
-検索関数のコードは悪すぎるわけではありませんが、イテレータの有効な機能の一部を活用していません。
-この例には第13章で再度触れ、そこでは、イテレータをより深く探求しますが、さらに改善する方法に目を向けます。
+検索関数のコードは悪すぎるわけではありませんが、イテレータの有用な機能の一部を活用していません。
+この例には第13章で再度触れ、そこでは、イテレータをより深く探求し、さらに改善する方法に目を向けます。
 
 <!-- #### Using the `search` Function in the `run` Function -->
 

@@ -9,7 +9,7 @@
 <!-- successful output of a program to a file but still print error messages to the -->
 <!-- screen. -->
 
-現時点では、すべての出力を`println!`関数を使用してターミナルに書き込んでいます。多くのターミナルは、
+現時点では、すべての出力を`println!`関数を使用して端末に書き込んでいます。多くの端末は、
 2種類の出力を提供します: 普通の情報用の*標準出力*(`stdout`)とエラーメッセージ用の*標準エラー出力*(`stderr`)です。
 この差異のおかげで、ユーザは、エラーメッセージを画面に表示しつつ、
 プログラムの成功した出力をファイルにリダイレクトすることを選択できます。
@@ -50,7 +50,7 @@
 <!-- We won’t pass any arguments, which should cause an error: -->
 
 この動作をデモする方法は、`>`と標準出力ストリームをリダイレクトする先のファイル名、*output.txt*でプログラムを走らせることによります。
-引数は何も渡しませんが、そうするとエラーが起きるはずです:
+引数は何も渡さず、そうするとエラーが起きるはずです:
 
 ```text
 $ cargo run > output.txt
@@ -137,7 +137,7 @@ Problem parsing arguments: not enough arguments
 <!-- Let’s run the program again with arguments that don’t cause an error but still -->
 <!-- redirect standard output to a file, like so: -->
 
-再度、エラーは起こさずに標準出力をファイルにリダイレクトする引数でプログラムを走らせましょう。以下のようにですね:
+再度、標準出力をファイルにリダイレクトしてエラーは起こさない引数でプログラムを走らせましょう。以下のようにですね:
 
 ```text
 $ cargo run to poem.txt > output.txt
@@ -160,7 +160,7 @@ How dreary to be somebody!
 <!-- This demonstrates that we’re now using standard output for successful output -->
 <!-- and standard error for error output as appropriate. -->
 
-これは、今や成功した出力には標準出力を、エラー出力には標準エラーを適切に使用していることをデモしています。
+これは、もう成功した出力には標準出力を、エラー出力には標準エラーを適切に使用していることをデモしています。
 
 <!-- ## Summary -->
 
@@ -172,7 +172,7 @@ How dreary to be somebody!
 <!-- errors, you’re now prepared to write command line applications. By using the -->
 <!-- concepts in previous chapters, your code will be well organized, store data -->
 <!-- effectively in the appropriate data structures, handle errors nicely, and be -->
-<!-- be well tested. -->
+<!-- well tested. -->
 
 この章では、ここまでに学んできた主要な概念の一部を想起させ、Rustで入出力処理を行う方法を講義しました。
 コマンドライン引数、ファイル、環境変数、そしてエラー出力に`eprintln!`マクロを使用することで、

@@ -26,7 +26,7 @@
 <!-- tests, as shown in Listing 12-20. -->
 
 環境変数がオンの場合に呼び出す`search_case_insensitive`関数を新しく追加したいです。テスト駆動開発の過程に従い続けるので、
-最初の手順は、今回も失敗するテストを書くことです。新しい`search``_case_insensitive`関数用の新規テストを追加し、
+最初の手順は、今回も失敗するテストを書くことです。新しい`search_case_insensitive`関数用の新規テストを追加し、
 古いテストを`one_result`から`case_sensitive`に名前変更して、二つのテストの差異を明確化します。
 リスト12-20に示したようにですね。
 
@@ -42,6 +42,10 @@ mod test {
     #[test]
     fn case_sensitive() {
         let query = "duct";
+// Rust
+// 安全かつ高速で生産的
+// 三つを選んで
+// ガムテープ
         let contents = "\
 Rust:
 safe, fast, productive.
@@ -57,6 +61,8 @@ Duct tape.";
     #[test]
     fn case_insensitive() {
         let query = "rUsT";
+// (最後の行のみ)
+// 私を信じて
         let contents = "\
 Rust:
 safe, fast, productive.
@@ -84,8 +90,8 @@ Trust me.";
 <!-- and should continue to pass as we work on the case-insensitive search. -->
 
 古いテストの`contents`も変更していることに注意してください。大文字小文字を区別する検索を行う際に、
-`"duct"`というクエリに合致しないはずの大文字Dを使用した`"Duct tape"`という新しい行を追加しました。
-このように古いテストを変更することで、すでに実装済みの大文字小文字を区別する検索機能を誤って壊してしまわないことを保証する助けになります。
+`"duct"`というクエリに合致しないはずの大文字Dを使用した`"Duct tape"`(ガムテープ)という新しい行を追加しました。
+このように古いテストを変更することで、既に実装済みの大文字小文字を区別する検索機能を誤って壊してしまわないことを保証する助けになります。
 このテストはもう通り、大文字小文字を区別しない検索に取り掛かっても通り続けるはずです。
 
 <!-- The new test for the case-*insensitive* search uses “rUsT” as its query. In the -->
@@ -146,7 +152,7 @@ pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a st
 <!-- whether the user’s query is `“rust”`, `“RUST”`, `“Rust”`, or `“rUsT”`, we’ll treat the -->
 <!-- query as if it was `“rust”` and be insensitive to the case. -->
 
-まず、`query`文字列を小文字化し、同じ名前の上書きされた変数に保存します。ユーザのクエリが`"rust"`や`"RUST"`、
+まず、`query`文字列を小文字化し、同じ名前の覆い隠された変数に保存します。ユーザのクエリが`"rust"`や`"RUST"`、
 `"Rust"`、`"rUsT"`などだったりしても、`"rust"`であり、大文字小文字を区別しないかのようにクエリを扱えるように、
 `to_lowercase`をクエリに対して呼び出すことは必須です。
 
@@ -160,7 +166,7 @@ pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a st
 
 `query`は最早、文字列スライスではなく`String`であることに注意してください。というのも、
 `to_lowercase`を呼び出すと、既存のデータを参照するというよりも、新しいデータを作成するからです。
-例として、クエリは`"rUsT"`としましょう: その文字列スライスは、小文字の`u`や`t`を使えるように含んでいないので、
+例として、クエリは`"rUsT"`だとしましょう: その文字列スライスは、小文字の`u`や`t`を使えるように含んでいないので、
 `"rust"`を含む新しい`String`のメモリを確保しなければならないのです。今、`contains`メソッドに引数として`query`を渡すと、
 アンド記号を追加する必要があります。`contains`のシグニチャは、文字列スライスを取るよう定義されているからです。
 
@@ -192,9 +198,9 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- Adding this field will cause compiler errors because we aren’t initializing -->
 <!-- this field anywhere yet: -->
 
-素晴らしい！通りました。では、`run`関数から新しい`search_case_insensitive`関数を呼び出しましょう。
+素晴らしい！どちらも通りました。では、`run`関数から新しい`search_case_insensitive`関数を呼び出しましょう。
 1番目に大文字小文字の区別を切り替えられるよう、`Config`構造体に設定オプションを追加します。
-まだどこでも、このフィールドの初期化をしていないので、追加するとコンパイラエラーが起きます:
+まだどこでも、このフィールドの初期化をしていないので、追加するとコンパイルエラーが起きます:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -322,8 +328,8 @@ impl Config {
 
 ここで、`case_sensitive`という新しい変数を生成しています。その値をセットするために、
 `env::var`関数を呼び出し、`CASE_INSENSITIVE`環境変数の名前を渡しています。`env::var`関数は、
-環境変数がセットされていたら、環境変数の値を含む`Ok`バリアントの成功値になる`Result`を返します。
-環境変数がセットされていなければ、`Err`バリアントを返すでしょう。
+環境変数がセットされていたら、環境変数の値を含む`Ok`列挙子の成功値になる`Result`を返します。
+環境変数がセットされていなければ、`Err`列挙子を返すでしょう。
 
 <!-- We’re using the `is_err` method on the `Result` to check whether it’s an error -->
 <!-- and therefore unset, which means it *should* do a case-sensitive search. If the -->
@@ -335,7 +341,7 @@ impl Config {
 
 `Result`の`is_err`メソッドを使用して、エラーでありゆえに、セットされていないことを確認しています。
 これは大文字小文字を区別する検索をす*べき*ことを意味します。`CASE_INSENSITIVE`環境変数が何かにセットされていれば、
-`is_err`はfalseを返し、プログラムは大文字小文字を区別しない検索を実行するでしょう。環境変数の値はどうでもよく、
+`is_err`はfalseを返し、プログラムは大文字小文字を区別しない検索を実行するでしょう。環境変数の*値*はどうでもよく、
 セットされているかどうかだけ気にするので、`unwrap`や`expect`あるいは、他のここまで見かけた`Result`のメソッドではなく、
 `is_err`をチェックしています。
 
@@ -350,7 +356,7 @@ impl Config {
 <!-- variable set and with the query `to`, which should match any line that contains -->
 <!-- the word “to” in all lowercase: -->
 
-試行してみましょう！まず、環境変数をセットせずにクエリは、`to`でプログラムを実行し、
+試行してみましょう！まず、環境変数をセットせずにクエリは`to`でプログラムを実行し、
 この時は全て小文字で"to"という言葉を含むあらゆる行が合致するはずです。
 
 ```text
@@ -409,7 +415,7 @@ To an admiring bog!
 <!-- one set to case insensitive. -->
 
 引数*と*環境変数で同じ設定を行うことができるプログラムもあります。そのような場合、
-プログラムはどちらが優先されるか決定します。自身の別の練習として、コマンドライン引数か、
+プログラムはどちらが優先されるか決定します。自身の別の鍛錬として、コマンドライン引数か、
 環境変数で大文字小文字の区別を制御できるようにしてみてください。
 片方は大文字小文字を区別するようにセットされ、もう片方は区別しないようにセットしてプログラムが実行された時に、
 コマンドライン引数と環境変数のどちらの優先度が高くなるかを決めてください。
@@ -418,4 +424,4 @@ To an admiring bog!
 <!-- environment variables: check out its documentation to see what is available. -->
 
 `std::env`モジュールは、環境変数を扱うもっと多くの有用な機能を有しています:
-ドキュメントを確認して、何が利用可能か確かめてください。
+ドキュメンテーションを確認して、何が利用可能か確かめてください。
