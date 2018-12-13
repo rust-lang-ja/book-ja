@@ -7,7 +7,7 @@
 <!-- it is hopelessly inadequate for showing their absence.” That doesn’t mean we -->
 <!-- shouldn’t try to test as much as we can! -->
 
-1972年のエッセイ「謙虚なプログラマ」でエドガー・W・ダイクストラは以下のように述べている。
+1972年のエッセイ「謙虚なプログラマ」でエドガー・W・ダイクストラは以下のように述べています。
 「プログラムのテストは、バグの存在を示すには非常に効率的な手法であるが、
 バグの不在を示すには望み薄く不適切である」と。これは、できるだけテストを試みるべきではないということではありません。
 
@@ -56,6 +56,6 @@ Rustは、プログラムの正当性に重きを置いて設計されていま�
 <!-- writing your tests, the default behavior and options provided for running your -->
 <!-- tests, and how to organize tests into unit tests and integration tests. -->
 
-テストは、煩雑なスキルです: いいテストの書き方をあらゆる方面から解説することは1章だけではできないのですが、
+テストは、複雑なスキルです: いいテストの書き方をあらゆる方面から講義することは1章だけではできないのですが、
 Rustのテスト機構のメカニズムについて議論します。テストを書く際に利用可能になるアノテーションとマクロについて、
 テストを実行するのに提供されているオプションと標準の動作、さらにテストをユニットテストや統合テストに体系化する方法について語ります。

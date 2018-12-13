@@ -13,7 +13,7 @@
 
 章の初めで触れたように、テストは複雑な鍛錬であり、人によって専門用語や体系化が異なります。
 Rustのコミュニティでは、テストを2つの大きなカテゴリで捉えています: *単体テスト*と*結合テスト*です。
-単体テストは小規模でより集中していて、個別に1回に1モジュールをテストし、非公開のインターフェイスもテストする可能性があります。
+単体テストは小規模でより集中していて、個別に1回に1モジュールをテストし、非公開のインターフェイスもテストすることがあります。
 結合テストは、完全にライブラリ外になり、他の外部コード同様に自分のコードを使用し、公開インターフェイスのみ使用し、
 1テストにつき複数のモジュールを用いることもあります。
 
@@ -34,7 +34,7 @@ Rustのコミュニティでは、テストを2つの大きなカテゴリで捉
 <!-- `cfg(test)`. -->
 
 単体テストの目的は、残りのコードから切り離して各単位のコードをテストし、
-コードが想定通り、動いたり動いていなかったりする箇所を急速に特定することです。
+コードが想定通り、動いたり動いていなかったりする箇所を迅速に特定することです。
 単体テストは、テスト対象となるコードと共に、*src*ディレクトリの各ファイルに置きます。
 慣習は、各ファイルに`tests`という名前のモジュールを作り、テスト関数を含ませ、
 そのモジュールを`cfg(test)`で注釈することです。
@@ -53,7 +53,7 @@ Rustのコミュニティでは、テストを2つの大きなカテゴリで捉
 <!-- included in the compiled result. -->
 
 testsモジュールの`#[cfg(test)]`という注釈は、コンパイラに`cargo build`を走らせた時ではなく、`cargo test`を走らせた時にだけ、
-テストコードをコンパイルし走らせるよう指示します。これにより、ライブラリをビルドしたいだけの時にコンパイルタイムを節約し、
+テストコードをコンパイルし走らせるよう指示します。これにより、ライブラリをビルドしたいだけの時にはコンパイルタイムを節約し、
 テストが含まれないので、コンパイル後の成果物のサイズも節約します。結合テストは別のディレクトリに存在することになるので、
 `#[cfg(test)]`注釈は必要ないとわかるでしょう。しかしながら、単体テストはコードと同じファイルに存在するので、
 `#[cfg(test)]`を使用してコンパイル結果に含まれないよう指定するのです。
@@ -86,10 +86,10 @@ mod tests {
 <!-- functions that might be within this module, in addition to the functions -->
 <!-- annotated with `#[test]`. -->
 
-このコードが自動生成されたテストモジュールです。`cfg`というアトリビュートは、*configuration*を表していて、
+このコードが自動生成されたテストモジュールです。`cfg`という属性は、*configuration*を表していて、
 コンパイラに続く要素が、ある特定の設定オプションを与えて含まれるように指示します。
 今回の場合、設定オプションは、`test`であり、言語によって提供されているテストをコンパイルし、
-走らせるためのものです。`cfg`アトリビュートを使用することで、`cargo test`で積極的にテストを実行した場合のみ、
+走らせるためのものです。`cfg`属性を使用することで、`cargo test`で積極的にテストを実行した場合のみ、
 Cargoがテストコードをコンパイルします。これには、このモジュールに含まれるかもしれないヘルパー関数全ても含まれ、
 `#[test]`で注釈された関数だけにはなりません。
 
@@ -158,7 +158,7 @@ mod tests {
 <!-- coverage of the integrated code is important as well. To create integration -->
 <!-- tests, you first need a *tests* directory. -->
 
-Rustにおいて、結合テストは完全にライブラリ外のものです。他のコードがするのと全く同様にあなたのライブラリを使用するので、
+Rustにおいて、結合テストは完全にライブラリ外のものです。他のコードと全く同様にあなたのライブラリを使用するので、
 ライブラリの公開APIの一部である関数しか呼び出すことはできません。その目的は、
 ライブラリのいろんな部分が共同で正常に動作しているかをテストすることです。
 単体では正常に動くコードも、結合した状態だと問題を孕む可能性もあるので、
@@ -262,7 +262,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- test just before the `Doc-tests adder` section starts. -->
 
 結合テストの区域は、
-`Running target/debug/deps/integration-test-ce99bcc2479f4607`という行で始まっています(最後のハッシュは違うでしょう)。
+`Running target/debug/deps/integration-test-ce99bcc2479f4607`という行で始まっています(最後のハッシュはあなたの出力とは違うでしょう)。
 次に、この結合テストの各テスト関数用の行があり、`Doc-tests adder`区域が始まる直前に、
 結合テストの結果用の総括行があります。
 
@@ -311,7 +311,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- file in the *tests* directory is compiled as its own separate crate. -->
 
 結合テストを追加するにつれて、*tests*ディレクトリに2つ以上のファイルを作成して体系化したくなるかもしれません;
-例えば、テスト対象となる機能でテスト関数をグループ化することができます。前記したように、
+例えば、テスト対象となる機能でテスト関数をグループ化することができます。前述したように、
 *tests*ディレクトリの各ファイルは、個別のクレートとしてコンパイルされます。
 
 <!-- Treating each integration test file as its own crate is useful to create -->
@@ -321,7 +321,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- separate code into modules and files. -->
 
 各結合テストファイルをそれ自身のクレートとして扱うと、
-エンドユーザが読者のクレートを使用するかのような個別のスコープを生成するのに役立ちます。
+エンドユーザがあなたのクレートを使用するかのように個別のスコープを生成するのに役立ちます。
 ですが、これは*tests*ディレクトリのファイルが、コードをモジュールとファイルに分ける方法に関して第7章で学んだように、
 *src*のファイルとは同じ振る舞いを共有しないことを意味します。
 
@@ -413,7 +413,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- integration test files as a module. Here’s an example of calling the `setup` -->
 <!-- function from the `it_adds_two` test in *tests/integration_test.rs*: -->
 
-*tests/common.mod.rs*を作成した後、それをどの結合テストファイルからもモジュールとして使用することができます。
+*tests/common/mod.rs*を作成した後、それをどの結合テストファイルからもモジュールとして使用することができます。
 こちらは、*tests/integration_test.rs*内の`it_adds_two`テストから`setup`関数を呼び出す例です:
 
 <!-- <span class="filename">Filename: tests/integration_test.rs</span> -->
@@ -452,8 +452,8 @@ fn it_adds_two() {
 もしもプロジェクトが*src/main.rs*ファイルのみを含み、*src/lib.rs*ファイルを持たないバイナリクレートだったら、
 *tests*ディレクトリに結合テストを作成し、
 `extern crate`を使用して*src/main.rs*ファイルに定義された関数をインポートすることはできません。
-ライブラリクレートのみが、他のクレートが呼び出して使用できる関数を晒け出せるのです; 
-バイナリクレートはそれ単体で実行するという意味を持っています。
+ライブラリクレートのみが、他のクレートが呼び出して使用できる関数を晒せるのです; 
+バイナリクレートはそれ単体で実行することを意味しています。
 
 <!-- This is one of the reasons Rust projects that provide a binary have a -->
 <!-- straightforward *src/main.rs* file that calls logic that lives in the -->
@@ -486,7 +486,7 @@ Rustのテスト機能は、変更を加えた後でさえ想定通りにコー�
 非公開の実装詳細をテストすることができます。結合テストは、ライブラリのいろんな部分が共同で正常に動作することを確認し、
 ライブラリの公開APIを使用して外部コードが使用するのと同じ方法でコードをテストします。
 Rustの型システムと所有権ルールにより防がれるバグの種類もあるものの、それでもテストは、
-コードの振る舞い方に関するロジックのバグを減らすのに重要なのです。
+コードが振る舞うと予想される方法に関するロジックのバグを減らすのに重要なのです。
 
 <!-- Let’s combine the knowledge you learned in this chapter and in previous -->
 <!-- chapters and work on a project! -->

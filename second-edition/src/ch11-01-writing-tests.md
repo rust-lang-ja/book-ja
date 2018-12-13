@@ -22,7 +22,7 @@
 <!-- `should_panic` attribute. -->
 
 Rustが、特にこれらの動作を行うテストを書くために用意している機能を見ていきましょう。
-これには、`test`アトリビュート、いくつかのマクロ、`should_panic`アトリビュートが含まれます。
+これには、`test`属性、いくつかのマクロ、`should_panic`属性が含まれます。
 
 <!-- ### The Anatomy of a Test Function -->
 
@@ -36,10 +36,10 @@ Rustが、特にこれらの動作を行うテストを書くために用意し�
 <!-- the functions annotated with the `test` attribute and reports on whether each -->
 <!-- test function passes or fails. -->
 
-最も単純には、Rustにおけるテストは`test`アトリビュートで注釈された関数のことです。アトリビュートとは、
-Rustコードの欠片に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した`derive`アトリビュートです。
+最も単純には、Rustにおけるテストは`test`属性で注釈された関数のことです。属性とは、
+Rustコードの欠片に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した`derive`属性です。
 関数をテスト関数に変えるには、`fn`の前に`#[test]`を付け加えるのです。
-`cargo test`コマンドでテストを実行したら、コンパイラは`test`アトリビュートで注釈された関数を走らせるテスト用バイナリをビルドし、
+`cargo test`コマンドでテストを実行したら、コンパイラは`test`属性で注釈された関数を走らせるテスト用バイナリをビルドし、
 各テスト関数が通過したか失敗したかを報告します。
 
 <!-- In Chapter 7, we saw that when we make a new library project with Cargo, a test -->
@@ -51,7 +51,7 @@ Rustコードの欠片に関するメタデータです; 一例を挙げれば�
 
 第7章で、Cargoで新規ライブラリプロジェクトを作成した時に、テスト関数が含まれるテストモジュールが自動で生成されたことを見かけました。
 このモジュールのおかげでテストを書き始めることができるので、新しいプロジェクトを立ち上げる度に、
-テスト関数の正確な構造と記法を調べる必要がなくなるわけです。必要なだけテスト関数とテストモジュールは追加することができます。
+テスト関数の正確な構造と記法を調べる必要がなくなるわけです。必要なだけ追加のテスト関数とテストモジュールは追加することができます。
 
 <!-- We’ll explore some aspects of how tests work by experimenting with the template -->
 <!-- test generated for us without actually testing any code. Then we’ll write some -->
@@ -74,7 +74,7 @@ $ cd adder
 <!-- The contents of the *src/lib.rs* file in your `adder` library should look like -->
 <!-- Listing 11-1. -->
 
-`adder`ライブラリの*src/lib.rs*ファイルの中身はリスト11-1のような見た目のはずです。
+`adder`ライブラリの*src/lib.rs*ファイルの中身は、リスト11-1のような見た目のはずです。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -104,10 +104,10 @@ mod tests {
 <!-- indicate which functions are tests by using the `#[test]` attribute. -->
 
 とりあえず、最初の2行は無視し、関数に集中してその動作法を見ましょう。
-`fn`行の`#[test]`アノテーションに注目してください: このアトリビュートは、これがテスト関数であることを示唆しますので、
+`fn`行の`#[test]`注釈に注目してください: この属性は、これがテスト関数であることを示唆しますので、
 テスト実行機はこの関数をテストとして扱うとわかるのです。さらに、`tests`モジュール内には非テスト関数を入れ込み、
 一般的なシナリオをセットアップしたり、共通の処理を行う手助けをしたりもできるので、
-`#[test]`アトリビュートでどの関数がテストかを示唆する必要があるのです。
+`#[test]`属性でどの関数がテストかを示唆する必要があるのです。
 
 <!-- The function body uses the `assert_eq!` macro to assert that 2 + 2 equals 4. -->
 <!-- This assertion serves as an example of the format for a typical test. Let’s run -->
@@ -170,7 +170,7 @@ Cargoがテストをコンパイルし、走らせました。`Compiling`, `Fini
 <!-- [the documentation about benchmark tests][bench] to learn more. -->
 
 `0 measured`という統計は、パフォーマンスを測定するベンチマークテスト用です。
-ベンチマークテストは、本書記述の時点では、ナイトリー版のRustでのみ利用可能です。
+ベンチマークテストは、本書記述の時点では、ナイトリ版のRustでのみ利用可能です。
 詳しくは、[ベンチマークテストのドキュメンテーション][bench]を参照されたし。
 
 [bench]: ../../unstable-book/library-features/test.html
@@ -288,7 +288,7 @@ error: test failed
 <!-- <span class="caption">Listing 11-4: Test results when one test passes and one -->
 <!-- test fails</span> -->
 
-<span class="caption">リスト11-4: 1つのテストが通り、失敗するときのテスト結果</span>
+<span class="caption">リスト11-4: 一つのテストが通り、一つが失敗するときのテスト結果</span>
 
 <!-- Instead of `ok`, the line `test tests::another` shows `FAILED`. Two new -->
 <!-- sections appear between the individual results and the summary: the first -->
@@ -303,10 +303,10 @@ error: test failed
 `ok`の代わりに`test test::another`の行は、`FAILED`を表示しています。個々の結果とまとめの間に、
 2つ新たな区域ができました: 最初の区域は、失敗したテスト各々の具体的な理由を表示しています。
 今回の場合、`another`は`'Make this test fail'でパニックした`ために失敗し、
-これは、*src/lib.rs*ファイルの10行で起きました。次の区域は失敗したテストの名前だけを列挙し、
-テストがたくさんあり、失敗したテストの詳細がたくさん表示されるときに有用になります。
+これは、*src/lib.rs*ファイルの10行で起きました。次の区域は失敗したテストの名前だけを列挙しています。
+これは、テストがたくさんあり、失敗したテストの詳細がたくさん表示されるときに有用になります。
 失敗したテストの名前を使用してそのテストだけを実行し、より簡単にデバッグすることができます。
-ただし、テストの実行方法については、「テストの実行され方を制御する」節でもっと語りましょう。
+テストの実行方法については、「テストの実行され方を制御する」節でもっと語りましょう。
 
 <!-- The summary line displays at the end: overall, our test result is `FAILED`. -->
 <!-- We had one test pass and one test fail. -->
@@ -317,7 +317,7 @@ error: test failed
 <!-- Now that you’ve seen what the test results look like in different scenarios, -->
 <!-- let’s look at some macros other than `panic!` that are useful in tests. -->
 
-異なるシナリオでのテスト結果がどんな風になるか見てきたので、テストを行う際に有用になる`panic!`以外のマクロに目を向けましょう。
+異なる筋書きでのテスト結果がどんな風になるか見てきたので、テストを行う際に有用になる`panic!`以外のマクロに目を向けましょう。
 
 <!-- ### Checking Results with the `assert!` Macro -->
 
@@ -410,7 +410,7 @@ mod tests {
 <!-- define in the outer module is available to this `tests` module. -->
 
 `tests`モジュール内に新しい行を加えたことに注目してください: `use super::*`です。
-`tests`モジュールは、第7章の「プライバシー規則」節で解説した通常の公開ルールに従う普通のモジュールです。
+`tests`モジュールは、第7章の「プライバシー規則」節で講義した通常の公開ルールに従う普通のモジュールです。
 `tests`モジュールは、内部モジュールなので、外部モジュール内のテスト配下にあるコードを内部モジュールのスコープに持っていく必要があります。
 ここではglobを使用して、外部モジュールで定義したもの全てがこの`tests`モジュールでも使用可能になるようにしています。
 
@@ -513,6 +513,8 @@ failures:
 ---- tests::larger_can_hold_smaller stdout ----
     thread 'tests::larger_can_hold_smaller' panicked at 'assertion failed:
     larger.can_hold(&smaller)', src/lib.rs:22:8
+    (スレッド'tests::larger_can_hold_smallerはsrc/lib.rs:22:8の'assertion failed: larger.can_hold(&smaller)'
+    でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 
 failures:
@@ -660,7 +662,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 `expected`と`actual`と呼ばれ、引数を指定する順序が問題になることに注意してください。
 ですがRustでは、`left`と`right`と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は、
 問題になりません。`assert_eq!(add_two(2), 4)`と今回のテストのアサーションを書くこともでき、
-そうすると失敗メッセージは、`` assertion failed: `(left == right)` ``と、
+そうすると失敗メッセージは、`` assertion failed: `(left == right)` ``となり、
 `left`が`5`で`right`が`4`と表示されるわけです。
 
 <!-- The `assert_ne!` macro will pass if the two values we give it are not equal and -->
@@ -673,7 +675,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 
 `assert_ne!`マクロは、与えた2つの値が等しくなければ通り、等しければ失敗します。
 このマクロは、値が何になる*だろう*か確信が持てないけれども、コードが意図した通りに動いていれば、
-確実にこの値にはならない*だろう*とわかっているような場合に最も有用になります。例えば、
+確実にこの値にはなら*ないだろう*とわかっているような場合に最も有用になります。例えば、
 入力を何らかの手段で変えることが保障されているけれども、入力が変更される方法がテストを実行する曜日に依存する関数をテストしているなら、
 アサーションすべき最善の事柄は、関数の出力が入力と等しくないことかもしれません。
 
@@ -735,6 +737,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 ```rust
 # fn main() {}
 pub fn greeting(name: &str) -> String {
+    // こんにちは、{}さん！
     format!("Hello {}!", name)
 }
 
@@ -757,7 +760,7 @@ mod tests {
 <!-- `greeting` function, we’ll just assert that the output contains the text of the -->
 <!-- input parameter. -->
 
-このプログラムの必要事項はまだ合意が得られておらず、挨拶の先頭の`Hello`というテキストは変わるだろうということは確かです。
+このプログラムの必要事項はまだ合意が得られておらず、挨拶の先頭の`Hello`というテキストは変わるだろうということは極めて確かです。
 要件が変わった時にテストを更新しなくてもよいようにしたいと決定したので、
 `greeting`関数から返る値と正確な等値性を確認するのではなく、出力が入力引数のテキストを含むことをアサーションするだけにします。
 
@@ -807,9 +810,9 @@ failures:
 #[test]
 fn greeting_contains_name() {
     let result = greeting("Carol");
-    //挨拶は名前を含んでいません。値は`{}`でした
     assert!(
         result.contains("Carol"),
+        //挨拶は名前を含んでいません。値は`{}`でした
         "Greeting did not contain name, value was `{}`", result
     );
 }
@@ -853,14 +856,14 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- This attribute makes a test pass if the code inside the function panics; the -->
 <!-- test will fail if the code inside the function doesn’t panic. -->
 
-これは、テスト関数に`should_panic`という別のアトリビュートを追加することで達成できます。
-このアトリビュートは、関数内のコードがパニックしたら、テストを通過させます。つまり、
+これは、テスト関数に`should_panic`という別の属性を追加することで達成できます。
+この属性は、関数内のコードがパニックしたら、テストを通過させます。つまり、
 関数内のコードがパニックしなかったら、テストは失敗するわけです。
 
 <!-- Listing 11-8 shows a test that checks that the error conditions of `Guess::new` -->
 <!-- happen when we expect them to. -->
 
-リスト11-8は、想定した時に`Guess::new`のエラー状態が発生していることを確認するテストを示しています。
+リスト11-8は、想定した時に`Guess::new`のエラー条件が発生していることを確認するテストを示しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -906,7 +909,7 @@ mod tests {
 <!-- before the test function it applies to. Let’s look at the result when this test -->
 <!-- passes: -->
 
-`#[test]`アトリビュートの後、適用するテスト関数の前に`#[should_panic]`アトリビュートを配置しています。
+`#[test]`属性の後、適用するテスト関数の前に`#[should_panic]`属性を配置しています。
 このテストが通るときの結果を見ましょう:
 
 ```text
@@ -977,7 +980,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 
 `should_panic`を使用するテストは不正確なこともあります。なぜなら、コードが何らかのパニックを起こしたことしか示さないからです。
 `should_panic`のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。
-`should_panic`のテストの正確を期すために、`should_panic`アトリビュートの省略可能な`expected`引数を追加できます。
+`should_panic`のテストの正確を期すために、`should_panic`属性の省略可能な`expected`引数を追加できます。
 このテストの拘束具が、失敗メッセージに与えられたテキストが含まれていることを確かめてくれるでしょう。
 例えば、リスト11-9の`Guess`の変更されたコードを考えてください。ここでは、
 `new`関数は、値の大小によって異なるメッセージでパニックします。
@@ -997,11 +1000,11 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 impl Guess {
     pub fn new(value: u32) -> Guess {
         if value < 1 {
-            //予想値は、1以上でなければなりません
+            //予想値は、1以上でなければなりませんが、{}でした
             panic!("Guess value must be greater than or equal to 1, got {}.",
                    value);
         } else if value > 100 {
-            //予想値は100以下でなければなりません
+            //予想値は100以下でなければなりませんが、{}でした
             panic!("Guess value must be less than or equal to 100, got {}.",
                    value);
         }
@@ -1040,8 +1043,8 @@ mod tests {
 <!-- panic message is enough to ensure that the code in the test function executes -->
 <!-- the `else if value > 100` case. -->
 
-`should_panic`アトリビュートの`expected`引数に置いた値が`Guess::new`関数がパニックしたメッセージの一部になっているので、
-このテストは通ります。予想されるパニックメッセージ全体を指定することもでき、そうすれば今回の場合、
+`should_panic`属性の`expected`引数に置いた値が`Guess::new`関数がパニックしたメッセージの一部になっているので、
+このテストは通ります。予想されるパニックメッセージ全体を指定することもでき、今回の場合、
 `Guess value must be less than or equal to 100, got 200.`となります。
 `should_panic`の予想される引数に指定すると決めたものは、パニックメッセージの固有性や活動性、
 テストの正確性によります。今回の場合、パニックメッセージの一部でも、テスト関数内のコードが、
@@ -1078,6 +1081,7 @@ greater than or equal to 1, got 200.', src/lib.rs:11:12
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 note: Panic did not include expected string 'Guess value must be less than or
 equal to 100'
+(注釈: パニックには'Guess value must be less than or equal to 100'という予想される文字列が含まれませんでした)
 
 failures:
     tests::greater_than_100
@@ -1101,4 +1105,4 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- test`. -->
 
 今やテスト記法を複数知ったので、テストを走らせる際に起きていることに目を向け、
-`cargo test`で使用できる色んなオプションを探求しましょう。
+`cargo test`で使用できるいろんなオプションを探求しましょう。

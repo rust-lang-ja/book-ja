@@ -97,8 +97,8 @@ $ cargo test -- --test-threads=1
 <!-- printed to standard output with the rest of the failure message. -->
 
 標準では、テストが通ると、Rustのテストライブラリは標準出力に出力されたものを全てキャプチャします。例えば、
-テストで`println!`を呼び出してテストが通ると、`println!`の出力は、ターミナルに表示されません;
-テストが通ったことを示す行しか見れないでしょう。テストが失敗すれば、
+テストで`println!`を呼び出してテストが通ると、`println!`の出力は、端末に表示されません;
+テストが通ったことを示す行しか見られないでしょう。テストが失敗すれば、
 残りの失敗メッセージと共に、標準出力に出力されたものが全て見えるでしょう。
 
 <!-- As an example, Listing 11-10 has a silly function that prints the value of its -->
@@ -215,7 +215,7 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 テスト用の出力とテスト結果の出力がまぜこぜになっていることに注意してください;
 その理由は、前節で語ったようにテストが並行に実行されているからです。
 `-test-threads=1`オプションと`--nocapture`フラグを使ってみて、
-出力がどうなるか確かめてください！
+その時、出力がどうなるか確かめてください！
 
 <!-- ### Running a Subset of Tests by Name -->
 
@@ -269,7 +269,7 @@ mod tests {
 <!-- <span class="caption">Listing 11-11: Three tests with three different -->
 <!-- names</span> -->
 
-<span class="caption">リスト11-11: 3つの異なる名前の3つのテスト</span>
+<span class="caption">リスト11-11: 異なる名前の3つのテスト</span>
 
 <!-- If we run the tests without passing any arguments, as we saw earlier, all the -->
 <!-- tests will run in parallel: -->
@@ -351,7 +351,7 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out
 
 <!-- ### Ignoring Some Tests Unless Specifically Requested -->
 
-### 特に希望のない限りテストを無視する
+### 特に要望のない限りテストを無視する
 
 <!-- Sometimes a few specific tests can be very time-consuming to execute, so you -->
 <!-- might want to exclude them during most runs of `cargo test`. Rather than -->

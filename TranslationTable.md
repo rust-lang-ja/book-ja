@@ -144,6 +144,7 @@
 | owner                          | 所有者
 | ownership                      | 所有権
 | panic                          | パニック
+| parallel                       | 並行に
 | parameter                      | パラメータ
 | parametric polymorphism        | パラメトリック多相
 | parse                          | パース、パースする
