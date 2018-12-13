@@ -7,7 +7,7 @@
 <!-- convenient way for Rust developers to install tools that others have shared on -->
 <!-- [crates.io](https://crates.io). Note that you can only install -->
 <!-- packages that have binary targets. A binary target is the runnable program -->
-<!-- tht is created if the crate has a *src/main.rs* file or another file specified -->
+<!-- that is created if the crate has a *src/main.rs* file or another file specified -->
 <!-- as a binary, as opposed to a library target that isn’t runnable on its own but -->
 <!-- is suitable for including within other programs. Usually, crates have -->
 <!-- information in the *README* file about whether a crate is a library, has a -->
@@ -28,7 +28,7 @@ Rustの開発者が、他人が[crates.io](https://crates.io)に共有したツ�
 <!-- `cargo install`. -->
 
 `cargo install`でインストールされるバイナリは全て、インストールのルートの*bin*フォルダに保持されます。
-Rustを`rustup`を使用し、独自の設定を何も行なっていなければ、このディレクトは、*$HOME/.cargo/bin*になります。
+Rustを`rustup`を使用し、独自の設定を何も行なっていなければ、このディレクトリは、*$HOME/.cargo/bin*になります。
 `cargo install`でインストールしたプログラムを実行できるようにするためには、そのディレクトリが`$PATH`に含まれていることを確かめてください。
 
 <!-- For example, in Chapter 12 we mentioned that there’s a Rust implementation of -->

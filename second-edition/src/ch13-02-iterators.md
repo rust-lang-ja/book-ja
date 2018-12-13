@@ -70,8 +70,8 @@ for val in v1_iter {
 <!-- incrementing the variable value in a loop until it reached the total number of -->
 <!-- item in the vector. -->
 
-標準ライブラリにより提供されるイテレータが存在しない言語では、変数を添字0から始め、
-その変数でベクタを覗き見て値を得て、ベクタの総要素数に到達するまでループでその変数の値をインクリメントすることで、
+標準ライブラリにより提供されるイテレータが存在しない言語では、変数を添え字0から始め、
+その変数でベクタに添え字アクセスして値を得て、ベクタの総要素数に到達するまでループでその変数の値をインクリメントすることで、
 この同じ機能を書く可能性が高いでしょう。
 
 <!-- Iterators handle all that logic for you, cutting down on repetitive code you -->
@@ -80,7 +80,7 @@ for val in v1_iter {
 <!-- index into, like vectors. Let’s examine how iterators do that. -->
 
 イテレータはそのロジック全てを処理してくれるので、めちゃくちゃにしてしまう可能性のあるコードの繰り返しを減らしてくれます。
-イテレータにより、添字を使えるデータ構造、ベクタなどだけではなく、多くの異なるシーケンスに対して同じロジックを使う柔軟性も得られます。
+イテレータにより、添え字を使えるデータ構造、ベクタなどだけではなく、多くの異なるシーケンスに対して同じロジックを使う柔軟性も得られます。
 イテレータがそれをする方法を調査しましょう。
 
 <!-- ### The `Iterator` Trait and the `next` Method -->
@@ -115,7 +115,7 @@ pub trait Iterator {
 この定義は、何か新しい記法を使用していることに気付いてください: `type Item`と`Self::Item`で、
 これらはこのトレイトとの*関連型*(associated type)を定義しています。関連型についての詳細は、第19章で語ります。
 とりあえず、知っておく必要があることは、このコードが`Iterator`トレイトを実装するには、`Item`型も定義する必要があり、
-そしてこの`Item`型が`next`メソッドの戻り値の型に使われていると述べていることです。換言すれば、
+そして、この`Item`型が`next`メソッドの戻り値の型に使われていると述べていることです。換言すれば、
 `Item`型がイテレータから返ってくる型になるだろうということです。
 
 <!-- The `Iterator` trait only requires implementors to define one method: the -->
@@ -207,7 +207,7 @@ fn iterator_demonstration() {
 `next`を呼び出すメソッドは、*消費アダプタ*(consuming adaptors)と呼ばれます。呼び出しがイテレータの使い込みになるからです。
 一例は、`sum`メソッドで、これはイテレータの所有権を奪い、`next`を繰り返し呼び出すことで要素を繰り返し、
 故にイテレータを消費するのです。繰り返しが進むごとに、各要素を一時的な合計に追加し、
-繰り返しが完了したら、その合計を返します。リスト13-16は、`sum`の使用を具体化したテストです:
+繰り返しが完了したら、その合計を返します。リスト13-16は、`sum`の使用を説明したテストです:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -296,14 +296,14 @@ and do nothing unless consumed
 <!-- never gets called. The warning reminds us why: iterator adaptors are lazy, and -->
 <!-- we need to consume the iterator here. -->
 
-リスト13-17のコードは何もしません; 指定したクロージャは、決して呼ばれないのです。警告が理由に触れています:
+リスト13-17のコードは何もしません; 指定したクロージャは、決して呼ばれないのです。警告が理由を思い出させてくれています:
 イテレータアダプタは怠惰で、ここでイテレータを消費する必要があるのです。
 
 <!-- To fix this and consume the iterator, we’ll use the `collect` method, which we -->
 <!-- used in Chapter 12 with `env::args` in Listing 12-1. This method consumes the -->
 <!-- iterator and collects the resulting values into a collection data type. -->
 
-これを解消し、イテレータを消費するには、`collect`メソッドを使用しますが、これは第12章のリスト12-1で`env::args`とともに使用しました。
+これを修正し、イテレータを消費するには、`collect`メソッドを使用しますが、これは第12章のリスト12-1で`env::args`とともに使用しました。
 このメソッドはイテレータを消費し、結果の値をコレクションデータ型に集結させます。
 
 <!-- In Listing 13-18, we collect the results of iterating over the iterator that’s -->
@@ -404,7 +404,7 @@ fn filters_by_size() {
 <!-- <span class="caption">Listing 13-19: Using the `filter` method with a closure -->
 <!-- that captures `shoe_size`</span> -->
 
-<span class="caption">リスト13-19: `shoe_size`をキャプチャするクロージャで`fileter`メソッドを使用する</span>
+<span class="caption">リスト13-19: `shoe_size`をキャプチャするクロージャで`filter`メソッドを使用する</span>
 
 <!-- The `shoes_in_my_size` function takes ownership of a vector of shoes and a shoe -->
 <!-- size as parameters. It returns a vector containing only shoes of the specified -->
@@ -458,7 +458,7 @@ fn filters_by_size() {
 <!-- into an iterator by implementing the `Iterator` trait and use the values in -->
 <!-- that implementation. -->
 
-デモ用に、1から5を絶対にカウントするだけのイテレータを作成しましょう。まず、値を保持する構造体を生成し、
+デモ用に、絶対に1から5をカウントするだけのイテレータを作成しましょう。まず、値を保持する構造体を生成し、
 `Iterator`トレイトを実装することでこの構造体をイテレータにし、その実装内の値を使用します。
 
 <!-- Listing 13-20 has the definition of the `Counter` struct and an associated -->
@@ -546,7 +546,7 @@ impl Iterator for Counter {
 <!-- will return the current value wrapped in `Some`, but if `count` is 6 or higher, -->
 <!-- our iterator will return `None`. -->
 
-イテレータに現在の状態に1を足してほしいので、まず1を返すように0に`count`を初期化しました。
+イテレータに現在の状態に1を足してほしいので、まず1を返すように`count`を0に初期化しました。
 `count`の値が5以下なら、`next`は`Some`に包まれた現在の値を返しますが、
 `count`が6以上なら、イテレータは`None`を返します。
 

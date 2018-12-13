@@ -9,7 +9,7 @@
 <!-- demonstrate how these closure features allow for code reuse and behavior -->
 <!-- customization. -->
 
-Rustの*クロージャ*は、変数に保存したり、引数として他の関数に渡すことのできる匿名関数です。
+Rustのクロージャは、変数に保存したり、引数として他の関数に渡すことのできる匿名関数です。
 ある場所でクロージャを生成し、それから別の文脈でクロージャを呼び出して評価することができます。
 関数と異なり、呼び出されたスコープの値をクロージャは、キャプチャすることができます。
 これらのクロージャの機能がコードの再利用や、動作のカスタマイズを行わせてくれる方法を模擬しましょう。
@@ -22,7 +22,7 @@ Rustの*クロージャ*は、変数に保存したり、引数として他の�
 <!-- to be executed later. Along the way, we’ll talk about the syntax of closures, -->
 <!-- type inference, and traits. -->
 
-クロージャを保存して後々使用できるようにするのが有効な場面の例に取り掛かりましょう。その過程で、
+クロージャを保存して後々使用できるようにするのが有用な場面の例に取り掛かりましょう。その過程で、
 クロージャの記法、型推論、トレイトについて語ります。
 
 <!-- Consider this hypothetical situation: we work at a startup that’s making an app -->
@@ -127,9 +127,9 @@ fn main() {
 <!-- example in Chapter 2. The `main` function calls a `generate_workout` function -->
 <!-- with the simulated input values. -->
 
-簡潔性のために、変数`simulated_user_specified_value`は10と、変数`simulated_random_number`は7とハードコードしました;
-実際のプログラムにおいては、強弱値はアプリのフロントエンドから取得し、乱数の生成には、`rand`クレートを使用します。
-第2章の数当てゲームの例みたいにですね。`main`関数は、シミュレートされた入力値とともに`generate_workout`関数を呼び出します。
+簡潔性のために、変数`simulated_user_specified_value`は10、変数`simulated_random_number`は7とハードコードしました;
+実際のプログラムにおいては、強弱値はアプリのフロントエンドから取得し、乱数の生成には、第2章の数当てゲームの例のように、`rand`クレートを使用するでしょう。
+`main`関数は、シミュレートされた入力値とともに`generate_workout`関数を呼び出します。
 
 <!-- Now that we have the context, let’s get to the algorithm. The -->
 <!-- `generate_workout` function in Listing 13-3 contains the business logic of the -->
@@ -156,13 +156,15 @@ fn main() {
 #
 fn generate_workout(intensity: u32, random_number: u32) {
     if intensity < 25 {
-        // 今日は{}回腕立て伏せをしてください！
+        
         println!(
+            // 今日は{}回腕立て伏せをしてください！
             "Today, do {} pushups!",
             simulated_expensive_calculation(intensity)
         );
-        // 次に、{}回腹筋をしてください！
+        
         println!(
+            // 次に、{}回腹筋をしてください！
             "Next, do {} situps!",
             simulated_expensive_calculation(intensity)
         );
@@ -171,8 +173,8 @@ fn generate_workout(intensity: u32, random_number: u32) {
             // 今日は休憩してください！水分補給を忘れずに！
             println!("Take a break today! Remember to stay hydrated!");
         } else {
-            // 今日は、{}分間走ってください！
             println!(
+                // 今日は、{}分間走ってください！
                 "Today, run for {} minutes!",
                 simulated_expensive_calculation(intensity)
             );
@@ -209,7 +211,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- Low-intensity workout plans will recommend a number of push-ups and sit-ups -->
 <!-- based on the complex algorithm we’re simulating. -->
 
-低強度のトレーニングプランは、シミュレーションしようとしている複雑なアルゴリズムに基づいて、
+低強度のトレーニングプランは、シミュレーションしている複雑なアルゴリズムに基づいて、
 多くの腕立て伏せや腹筋運動を推奨してきます。
 
 <!-- If the user wants a high-intensity workout, there’s some additional logic: if -->
@@ -223,7 +225,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- This code works the way the business wants it to now, but let's say the data -->
 <!-- science team decides that we need to make some changes to the way we call the -->
 <!-- `simulated_expensive_calculation` function in the future. To simplify the -->
-<!-- the update when those changes happen, we want to refactor this code so it calls the -->
+<!-- update when those changes happen, we want to refactor this code so it calls the -->
 <!-- `simulated_expensive_calculation` function only once. We also want to cut the -->
 <!-- place where we’re currently unnecessarily calling the function twice without -->
 <!-- adding any other calls to that function in the process. That is, we don’t want -->
@@ -232,7 +234,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 このコードは、ビジネスのほしいままに動くでしょうが、データサイエンスチームが、
 `simulated_expensive_calculation`関数を呼び出す方法に何らかの変更を加える必要があると決定したとしましょう。
 そのような変更が起きた時に更新を簡略化するため、`simulated_expensive_calculation`関数を1回だけ呼び出すように、
-このコードをリファクタリングしたいです。また、過程でその関数への呼び出しを増やすことなく無駄に2回、
+このコードをリファクタリングしたいです。また、その過程でその関数への呼び出しを増やすことなく無駄に2回、
 この関数を現時点で呼んでいるところを切り捨てたくもあります。要するに、結果が必要なければ関数を呼び出したくなく、
 それでも1回だけ呼び出したいのです。
 
@@ -241,11 +243,11 @@ fn generate_workout(intensity: u32, random_number: u32) {
 #### 関数でリファクタリング
 
 <!-- We could restructure the workout program in many ways. First, we’ll try -->
-<!-- extracting the duplicated call to the `expensive_expensive_calculation` -->
+<!-- extracting the duplicated call to the `simulated_expensive_calculation` -->
 <!-- function into a variable, as shown in Listing 13-4. -->
 
 多くの方法でトレーニングプログラムを再構築することもできます。
-1番目に`expensive_expensive_calculation`関数への重複した呼び出しを変数に抽出しようとしましょう。リスト13-4に示したように。
+1番目に`simulated_expensive_calculation`関数への重複した呼び出しを変数に抽出しようとしましょう。リスト13-4に示したように。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -301,7 +303,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- result value at all. -->
 
 この変更により`simulated_expensive_calculation`の呼び出しが単一化され、
-最初の`if`ブロックが無駄に関数を2回呼んでいた問題を解消します。不幸なことに、これでは、
+最初の`if`ブロックが無駄に関数を2回呼んでいた問題を解決します。不幸なことに、これでは、
 あらゆる場合にこの関数を呼び出し、その結果を待つことになり、結果値を全く使用しない内側の`if`ブロックでもそうしてしまいます。
 
 <!-- We want to define code in one place in our program, but only *execute* that -->
@@ -367,7 +369,7 @@ let expensive_closure = |num| {
 引数の後に、クロージャの本体を保持する波括弧を配置します(これはクロージャ本体が式一つなら省略可能です)。
 波括弧の後、クロージャのお尻には、セミコロンが必要で、`let`文を完成させます。クロージャ本体の最後の行から返る値(`num`)が、
 呼び出された時にクロージャから返る値になります。その行がセミコロンで終わっていないからです;
-関数の本体みたいですね。
+ちょうど関数の本体みたいですね。
 
 <!-- Note that this `let` statement means `expensive_closure` contains the -->
 <!-- *definition* of an anonymous function, not the *resulting value* of calling the -->
@@ -434,12 +436,12 @@ fn generate_workout(intensity: u32, random_number: u32) {
 
 <span class="caption">リスト13-6: 定義した`expensive_closure`を呼び出す</span>
 
-<!-- 2行目最後は、今の通りにもwhereがcodeにかかるようにも取れるが、どちらが最適か考慮し直す必要があるか -->
+<!-- 2行目最後は、今の通りにも(at) whereのようにも取れるか？ -->
 
 <!-- Now the expensive calculation is called in only one place, and we’re only -->
 <!-- executing that code where we need the results. -->
 
-今では、重い計算はたった1箇所でのみ呼び出され、結果が必要なところでそのコードを実行するだけになりました。
+今では、重い計算はたった1箇所でのみ呼び出され、その結果が必要なコードを実行するだけになりました。
 
 <!-- However, we’ve reintroduced one of the problems from Listing 13-3: we’re still -->
 <!-- calling the closure twice in the first `if` block, which will call the -->
@@ -453,8 +455,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 ところが、リスト13-3の問題の一つを再浮上させてしまいました: それでも、最初の`if`ブロックでクロージャを2回呼んでいて、
 そうすると、重いコードを2回呼び出し、必要な分の2倍ユーザを待たせてしまいます。その`if`ブロックのみに属する変数を生成して、
 クロージャの呼び出し結果を保持するその`if`ブロックに固有の変数を生成することでこの問題を解消することもできますが、
-クロージャは他の解決法も用意してくれます。
-その解決策については、もう少し先で語りましょう。でもまずは、
+クロージャは他の解決法も用意してくれます。その解決策については、もう少し先で語りましょう。でもまずは、
 クロージャ定義に型注釈がない理由とクロージャに関わるトレイトについて話しましょう。
 
 <!-- ### Closure Type Inference and Annotation -->
@@ -480,7 +481,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- reliably able to infer the types of the parameters and the return type, similar -->
 <!-- to how it’s able to infer the types of most variables. -->
 
-クロージャは通常短く、あらゆる任意のシナリオではなく、狭い文脈でのみ関係します。
+クロージャは通常短く、あらゆる任意の筋書きではなく、狭い文脈でのみ関係します。
 このような限定された文脈内では、コンパイラは、多くの変数の型を推論できるのに似て、
 引数や戻り値の型を頼もしく推論することができます。
 
@@ -497,7 +498,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- would look like the definition shown in Listing 13-7. -->
 
 変数のように、厳格に必要な以上に冗長になることと引き換えに、明示性と明瞭性を向上させたいなら、型注釈を加えることができます;
-リスト13-4で定義したクロージャに型を注釈するなら、リスト13-7に示した定義のようになるでしょう。
+リスト13-5で定義したクロージャに型を注釈するなら、リスト13-7に示した定義のようになるでしょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -526,10 +527,10 @@ let expensive_closure = |num: u32| -> u32 {
 <!-- This illustrates how closure syntax is similar to function syntax except for -->
 <!-- the use of pipes and the amount of syntax that is optional: -->
 
-クロージャと記法は、型注釈があると関数の記法に酷似して見えます。以下が、引数に1を加える関数の定義と、
+型注釈を付け加えると、クロージャの記法は、関数の記法により酷似して見えます。以下が、引数に1を加える関数の定義と、
 同じ振る舞いをするクロージャの定義の記法を縦に比べたものです。
 空白を追加して、関連のある部分を並べています。これにより、縦棒の使用と省略可能な記法の量を除いて、
-クロージャ記法が関数記法に似ているところを具体化しています。
+クロージャ記法が関数記法に似ているところを説明しています。
 
 ```rust,ignore
 fn  add_one_v1   (x: u32) -> u32 { x + 1 }
@@ -547,7 +548,7 @@ let add_one_v4 = |x|               x + 1  ;
 1行目が関数定義を示し、2行目がフルに注釈したクロージャ定義を示しています。
 3行目は、クロージャ定義から型注釈を取り除き、4行目は、かっこを取り除いていて、
 これはクロージャの本体がただ1つの式からなるので、省略可能です。これらは全て、
-呼び出された時に同じ振る舞いになる有効な定義です。
+呼び出された時に同じ振る舞いになる合法な定義です。
 
 <!-- Closure definitions will have one concrete type inferred for each of their -->
 <!-- parameters and for their return value. For instance, Listing 13-8 shows the -->
@@ -629,7 +630,7 @@ error[E0308]: mismatched types
 運のいいことに、別の解決策もあります。クロージャやクロージャの呼び出し結果の値を保持する構造体を作れるのです。
 結果の値が必要な場合のみにその構造体はクロージャを実行し、その結果の値をキャッシュするので、残りのコードは、
 結果を保存し、再利用する責任を負わなくて済むのです。このパターンは、*メモ化*(memoization)または、
-*遅延実行*(lazy evaluation)として知っているかもしれません。
+*遅延評価*(lazy evaluation)として知っているかもしれません。
 
 <!-- 5行目、structs, enumsにthatがかかるか曖昧だが、この訳の方が自然と思われる -->
 
@@ -642,12 +643,12 @@ error[E0308]: mismatched types
 
 クロージャを保持する構造体を作成するために、クロージャの型を指定する必要があります。
 構造体定義は、各フィールドの型を把握しておく必要がありますからね。各クロージャインスタンスには、
-独自の匿名の型があります: つまり、2つのクロージャが全く同じシグニチャでも、その型はそれでも違うものと考えられるということです。
+独自の匿名の型があります: つまり、たとえ2つのクロージャが全く同じシグニチャでも、その型はそれでも違うものと考えられるということです。
 クロージャを使用する構造体、enum、関数引数を定義するには、第10章で議論したように、
 ジェネリクスとトレイト境界を使用します。
 
 <!-- The `Fn` traits are provided by the standard library. All closures implement -->
-<!-- one of the traits: `Fn`, `FnMut`, or `FnOnce`. We’ll discuss the difference -->
+<!-- one of the traits: `Fn`, `FnMut`, or `FnOnce`. We’ll discuss the -->
 <!-- difference between these traits in the "Capturing the Environment with -->
 <!-- Closures" section; in this example, we can use the `Fn` trait. -->
 
@@ -715,13 +716,13 @@ struct Cacher<T>
 
 `value`フィールドの型は、`Option<u32>`です。クロージャを実行する前に、`value`は`None`になるでしょう。
 `Cacher`を使用するコードがクロージャの*結果*を求めてきたら、その時点で`Cacher`はクロージャを実行し、
-その結果を`value`フィールドの`Some`バリアントに保存します。それから、コードが再度クロージャの結果を求めたら、
-クロージャを再実行するのではなく、`Cacher`は`Some`バリアントに保持された結果を返すでしょう。
+その結果を`value`フィールドの`Some`列挙子に保存します。それから、コードが再度クロージャの結果を求めたら、
+クロージャを再実行するのではなく、`Cacher`は`Some`列挙子に保持された結果を返すでしょう。
 
 <!-- The logic around the `value` field we’ve just described is defined in Listing -->
 <!-- 13-10. -->
 
-たった今説明した`value`フィールド周りのロジックは、リスト13-10で定義されています。
+たった今解説した`value`フィールド周りのロジックは、リスト13-10で定義されています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -787,12 +788,12 @@ impl<T> Cacher<T>
 <!-- again. -->
 
 呼び出し元のコードがクロージャの評価結果を必要としたら、クロージャを直接呼ぶ代わりに、`value`メソッドを呼びます。
-このメソッドは、結果の値が`self.value`の`Some`にすでにあるかどうか確認します; そうなら、
+このメソッドは、結果の値が`self.value`の`Some`に既にあるかどうか確認します; そうなら、
 クロージャを再度実行することなく`Some`内の値を返します。
 
 <!-- If `self.value` is `None`, the code calls the closure stored in -->
-<!-- `self.calculation`, savea the result in `self.value` for future use, and -->
-<!-- return the value as well. -->
+<!-- `self.calculation`, saves the result in `self.value` for future use, and -->
+<!-- returns the value as well. -->
 
 `self.value`が`None`なら、コードは`self.calculation`に保存されたクロージャを呼び出し、
 結果を将来使えるように`self.value`に保存し、その値を返しもします。
@@ -906,7 +907,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- problems with the current implementation of `Cacher` that would make reusing it -->
 <!-- in different contexts difficult. -->
 
-値をキャッシュすることは、コードの他の部分でも異なるクロージャで行いたくなるかもしれない一般的に有用な振る舞いです。
+値をキャッシュすることは、コードの他の部分でも異なるクロージャで行いたくなる可能性のある一般的に有用な振る舞いです。
 しかし、現在の`Cacher`の実装には、他の文脈で再利用することを困難にしてしまう問題が2つあります。
 
 <!-- The first problem is that a `Cacher` instance assumes it will always get the -->
@@ -978,7 +979,7 @@ thread 'call_with_different_values' panicked at 'assertion failed: `(left == rig
 
 現在の`Cacher`実装の2番目の問題は、引数の型に`u32`を一つ取り、`u32`を返すクロージャしか受け付けないことです。
 例えば、文字列スライスを取り、`usize`を返すクロージャの結果をキャッシュしたくなるかもしれません。
-この問題を解決するには、`Cacher`機能の柔軟性を向上させるためによりジェネリックな引数を導入してみてください。
+この問題を修正するには、`Cacher`機能の柔軟性を向上させるためによりジェネリックな引数を導入してみてください。
 
 <!-- ### Capturing the Environment with Closures -->
 
@@ -1064,7 +1065,7 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 
 <!-- The compiler even reminds us that this only works with closures! -->
 
-コンパイラは、この形式はクロージャでのみ動作することにも触れています！
+コンパイラは、この形式はクロージャでのみ動作することも思い出させてくれています！
 
 <!-- When a closure captures a value from its environment, it uses memory to store -->
 <!-- the values for use in the closure body. This use of memory is overhead that we -->
@@ -1193,4 +1194,4 @@ error[E0382]: use of moved value: `x`
 <!-- To illustrate situations where closures that can capture their environment are -->
 <!-- useful as function parameters, let’s move on to our next topic: iterators. -->
 
-環境をキャプチャできるクロージャが関数の引数として有用な場面を具体化するために、次のトピックに移りましょう: イテレータです。
+環境をキャプチャできるクロージャが関数の引数として有用な場面を説明するために、次のトピックに移りましょう: イテレータです。

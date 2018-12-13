@@ -39,6 +39,6 @@ Rustの設計は、多くの既存の言語やテクニックにインスピレ�
 <!-- closures and iterators is an important part of writing idiomatic, fast Rust -->
 <!-- code, so we’ll devote this entire chapter to them. -->
 
-パターンマッチングやenumなど、他のRustの機能も関数型に影響されていますが、他の章で講義します。
+パターンマッチングやenumなど、他のRustの機能も関数型に影響されていますが、他の章で講義してきました。
 クロージャとイテレータをマスターすることは、慣用的で速いRustコードを書く重要な部分なので、
 この章を丸ごと捧げます。

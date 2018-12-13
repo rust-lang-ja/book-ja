@@ -10,8 +10,10 @@
 <!-- in tandem. -->
 
 第12章で、バイナリクレートとライブラリクレートを含むパッケージを構築しました。プロジェクトの開発が進むにつれて、
-ライブラリクレートの肥大化が続き、さらに複数のライブラリクレートにパッケージを分割したくなることでしょう。
+ライブラリクレートの肥大化が続き、その上で複数のライブラリクレートにパッケージを分割したくなることでしょう。
 この場面において、Cargoは*ワークスペース*という協調して開発された関連のある複数のパッケージを管理するのに役立つ機能を提供しています。
+
+<!-- ### Creating a Workspace -->
 
 ### ワークスペースを生成する
 
@@ -39,7 +41,7 @@ $ cd add
 
 <!-- Next, in the *add* directory, we create the *Cargo.toml* file that will -->
 <!-- configure the entire workspace. This file won't have a `[package]` section or-->
-<!-- the metadata we’ve seen in other *Cargo.toml* files. Instead,  it will start -->
+<!-- the metadata we’ve seen in other *Cargo.toml* files. Instead, it will start -->
 <!-- with a `[workspace]` section that will allow us to add members to the workspace -->
 <!-- by specifying the path to our binary crate; in this case, that path is *adder*: -->
 
@@ -97,13 +99,13 @@ $ cargo new --bin adder
 <!-- its own *target* directory. By sharing one *target* directory, the crates can -->
 <!-- avoid unnecessary rebuilding. -->
 
-ワークスペースには、コンパイルした生成物を置けるように最上位に*ターゲット*のディレクトリがあります;
-`adder`クレートには*ターゲット*ディレクトリはありません。
+ワークスペースには、コンパイルした生成物を置けるように最上位に*target*のディレクトリがあります;
+`adder`クレートには*target*ディレクトリはありません。
 *adder*ディレクトリ内部から`cargo build`を走らせることになっていたとしても、コンパイルされる生成物は、
 *add/adder/target*ではなく、*add/target*に落ち着くでしょう。ワークスペースのクレートは、
-お互いに依存しあうことを意味するので、Cargoはワークスペースの*ターゲット*ディレクトリをこのように構成します。
-各クレートが*ターゲット*ディレクトリを持っていたら、各クレートがワークスペースの他のクレートを再コンパイルし、
-*ターゲット*ディレクトリに生成物がある状態にしなければならないでしょう。一つの*ターゲット*ディレクトリを共有することで、
+お互いに依存しあうことを意味するので、Cargoはワークスペースの*target*ディレクトリをこのように構成します。
+各クレートが*target*ディレクトリを持っていたら、各クレートがワークスペースの他のクレートを再コンパイルし、
+*target*ディレクトリに生成物がある状態にしなければならないでしょう。一つの*target*ディレクトリを共有することで、
 クレートは不必要な再ビルドを回避できるのです。
 
 <!-- ### Creating the Second Crate in the Workspace -->
@@ -442,8 +444,6 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- didn’t run the `adder` crate tests. -->
 
 この出力は、`cargo test`が`add-one`クレートのテストのみを実行し、`adder`クレートのテストは実行しなかったことを示しています。
-
-<!-- FIXME: やはり、URLがイタリックにならない -->
 
 <!-- If you publish the crates in the workspace to *https://crates.io/*, each crate -->
 <!-- in the workspace will need to be published separately. The `cargo publish` -->

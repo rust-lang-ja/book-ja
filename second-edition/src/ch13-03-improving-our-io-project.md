@@ -23,9 +23,9 @@
 <!-- we’ve reproduced the implementation of the `Config::new` function as it was in -->
 <!-- Listing 12-23: -->
 
-リスト12-6において、スライスに添字アクセスして値をクローンすることで、`Config`構造体に値を所有させながら、
+リスト12-6において、スライスに添え字アクセスして値をクローンすることで、`Config`構造体に値を所有させながら、
 `String`値のスライスを取り、`Config`構造体のインスタンスを作るコードを追記しました。リスト13-24では、
-リスト12-23のような`Config::new`の実装を再現しました。
+リスト12-23のような`Config::new`の実装を再現しました:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -78,14 +78,14 @@ impl Config {
 
 イテレータについての新しい知識があれば、`new`関数をスライスを借用する代わりに、
 引数としてイテレータの所有権を奪うように変更することができます。スライスの長さを確認し、
-特定の場所に添字アクセスするコードの代わりにイテレータの機能を使います。これにより、
+特定の場所に添え字アクセスするコードの代わりにイテレータの機能を使います。これにより、
 イテレータは値にアクセスするので、`Config::new`関数がすることが明確化します。
 
 <!-- Once `Config::new` takes ownership of the iterator and stops using indexing -->
 <!-- operations that borrow, we can move the `String` values from the iterator into -->
 <!-- `Config` rather than calling `clone` and making a new allocation. -->
 
-ひとたび、`Config::new`がイテレータの所有権を奪い、借用する添字アクセス処理をやめたら、
+ひとたび、`Config::new`がイテレータの所有権を奪い、借用する添え字アクセス処理をやめたら、
 `clone`を呼び出して新しくメモリ確保するのではなく、イテレータからの`String`値を`Config`にムーブできます。
 
 <!-- #### Using the Returned Iterator Directly -->
@@ -113,7 +113,7 @@ fn main() {
 }
 ```
 
-<!-- 1行目最後のatは消し忘れ？ -->
+<!-- 1行目最後のatは消し忘れ？thatをat whichに書き換えられなさそうだし、よくわからない。at whichへの書き換えなら、we had (the) codeになるのでは？ -->
 
 <!-- We’ll change the start of the `main` function that we had in Listing 12-24 at -->
 <!-- to the code in Listing 13-25. This won’t compile until we update `Config::new` -->
@@ -188,7 +188,7 @@ impl Config {
 
 <!-- #### Using `Iterator` Trait Methods Instead of Indexing -->
 
-#### 添字の代わりに`Iterator`トレイトのメソッドを使用する
+#### 添え字の代わりに`Iterator`トレイトのメソッドを使用する
 
 <!-- Next, we’ll fix the body of `Config::new`. The standard library documentation -->
 <!-- also mentions that `std::env::Args` implements the `Iterator` trait, so we know -->
@@ -198,7 +198,7 @@ impl Config {
 次に、`Config::new`の本体を修正しましょう。標準ライブラリのドキュメントは、
 `std::env::Args`が`Iterator`トレイトを実装していることにも言及しているので、
 それに対して`next`メソッドを呼び出せることがわかります！リスト13-27は、
-リスト13-23のコードを`next`メソッドを使用するように更新したものです:
+リスト12-23のコードを`next`メソッドを使用するように更新したものです:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -347,7 +347,7 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 
 次の論理的な疑問は、自身のコードでどちらのスタイルを選ぶかと理由です: リスト13-28の元の実装とリスト13-29のイテレータを使用するバージョンです。
 多くのRustプログラマは、イテレータスタイルを好みます。とっかかりが少し困難ですが、
-いろんなイテレータアダプタとそれがすることの感覚を一度掴めれば、イテレータの方が理解しやすいこともあるでしょう。
+いろんなイテレータアダプタとそれがすることの感覚を一度掴めれば、イテレータの方が理解しやすいこともあります。
 いろんなループを少しずつもてあそんだり、新しいベクタを構築する代わりに、コードは、ループの高難度の目的に集中できるのです。
 これは、ありふれたコードの一部を抽象化するので、イテレータの各要素が通過しなければならないふるい条件など、
 このコードに独特の概念を理解しやすくなります。

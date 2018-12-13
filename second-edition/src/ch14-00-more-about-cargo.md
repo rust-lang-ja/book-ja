@@ -1,6 +1,5 @@
 <!-- # More About Cargo and Crates.io -->
 
-<<<<<<< HEAD
 # CargoとCrates.ioについてより詳しく
 
 <!-- So far we’ve used only the most basic features of Cargo to build, run, and test -->
@@ -29,13 +28,3 @@
 
 また、Cargoはこの章で講義する以上のこともできるので、機能の全解説を見るには、
 [ドキュメンテーション](https://doc.rust-lang.org/cargo/)を参照されたし。
-=======
-The second edition of the book is no longer distributed with Rust's documentation.
-
-If you came here via a link or web search, you may want to check out [the current
-version of the book](../index.html) instead.
-
-If you have an internet connection, you can [find a copy distributed with
-Rust
-1.30](https://doc.rust-lang.org/1.30.0/book/second-edition/ch14-00-more-about-cargo.html).
->>>>>>> fork_master_master

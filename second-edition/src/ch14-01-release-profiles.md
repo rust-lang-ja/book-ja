@@ -7,8 +7,8 @@
 <!-- various options for compiling code. Each profile is configured independently of -->
 <!-- the others. -->
 
-Rustにおいて、*リリースプロファイル*とは、プログラマがコードのコンパイルオプションについて制御可能な異なる設定を持つ、
-定義済みのカスタマイズ可能なプロファイルです。各プロファイルは、それぞれ個別で設定されます。
+Rustにおいて、*リリースプロファイル*とは、プログラマがコードのコンパイルオプションについてより制御可能にしてくれる、
+定義済みのカスタマイズ可能なプロファイルです。各プロファイルは、それぞれ独立して設定されます。
 
 <!-- Cargo has two main profiles: the `dev` profile Cargo uses when you run `cargo -->
 <!-- build` and the `release` profile Cargo uses when you run `cargo build -->
@@ -22,7 +22,7 @@ Cargoには2つの主なプロファイルが存在します: `dev`プロファ�
 
 <!-- These profile names might be familiar from the output of your builds: -->
 
-これらのプロファイル名は、ビルドの出力で馴染みのあるものかもしれません:
+これらのプロファイル名は、ビルドの出力で馴染みのある可能性があります:
 
 ```text
 $ cargo build
@@ -58,7 +58,7 @@ opt-level = 0
 opt-level = 3
 ```
 
-<!-- 4行目、最後、唯一の理由と言っているのは、the reasonになっているから -->
+<!-- 4行目最後、唯一の理由と言っているのは、the reasonになっているから -->
 
 <!-- The `opt-level` setting controls the number of optimizations Rust will apply to -->
 <!-- your code with a range of 0 to 3. Applying more optimizations extends -->
@@ -77,7 +77,7 @@ opt-level = 3
 コードのリリース準備ができたら、より長い時間をコンパイルにかけるのが最善の策です。
 リリースモードでコンパイルするのはたった1回ですが、コンパイル結果のプログラムは何度も実行するので、
 リリースモードでは、長いコンパイル時間と引き換えに、生成したコードが速く動作します。
-これが`release`の`opt-level`のデフォルト設定が`3`になっている唯一の理由です。
+そのため、`release`の`opt-level`のデフォルト設定が`3`になっているのです。
 
 <!-- You can override any default setting by adding a different value for it in -->
 <!-- *Cargo.toml*. For example, if we want to use optimization level 1 in the -->
