@@ -1,6 +1,6 @@
 <!-- ## Extensible Concurrency with the `Sync` and `Send` Traits -->
 
-## `Sync`と`Send`トレイトで拡張可能な非同期
+## `Sync`と`Send`トレイトで拡張可能な並行性
 
 <!-- Interestingly, the Rust language has *very* few concurrency features. Almost -->
 <!-- every concurrency feature we’ve talked about so far in this chapter has been -->
@@ -8,14 +8,14 @@
 <!-- concurrency are not limited to the language or the standard library; you can -->
 <!-- write your own concurrency features or use those written by others. -->
 
-面白いことに、Rust言語には、*寡*少な非同期機能があります。この章でここまでに語った非同期処理のほとんどは、
-標準ライブラリの一部であり、言語ではありません。非同期を扱う選択肢は、言語や標準ライブラリに制限されません;
-独自の非同期処理機能を書いたり、他人が書いたものを利用したりできるのです。
+面白いことに、Rust言語には、*寡*少な並行性機能があります。この章でここまでに語った並行性機能のほとんどは、
+標準ライブラリの一部であり、言語ではありません。並行性を扱う選択肢は、言語や標準ライブラリに制限されません;
+独自の並行性機能を書いたり、他人が書いたものを利用したりできるのです。
 
 <!-- However, two concurrency concepts are embedded in the language: the -->
 <!-- `std::marker` traits `Sync` and `Send`. -->
 
-ですが、2つの非同期処理概念が言語に埋め込まれています: `std::marker`トレイトの`Sync`と`Send`です。
+ですが、2つの並行性概念が言語に埋め込まれています: `std::marker`トレイトの`Sync`と`Send`です。
 
 <!-- ### Allowing Transference of Ownership Between Threads with `Send` -->
 
@@ -93,7 +93,7 @@ Rustのほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外が
 
 `Send`と`Sync`トレイトから構成される型は自動的に`Send`と`Sync`にもなるので、
 それらのトレイトを手動で実装する必要はありません。マーカートレイトとして、
-実装すべきメソッドさえも何もありません。非同期処理に関連する不変条件を強制することに有効なだけなのです。
+実装すべきメソッドさえも何もありません。並行性に関連する不変条件を強制することに役立つだけなのです。
 
 <!-- Manually implementing these traits involves implementing unsafe Rust code. -->
 <!-- We’ll talk about using unsafe Rust code in Chapter 19; for now, the important -->
@@ -118,7 +118,7 @@ unsafeなRustコードを使用することについては第19章で語りま�
 <!-- Chapter 20 will use the concepts in this chapter in a more realistic situation -->
 <!-- than the smaller examples discussed here. -->
 
-この本において非同期処理を見かけるのは、これで最後ではありません: 第20章のプロジェクトでは、
+この本において並行性を見かけるのは、これで最後ではありません: 第20章のプロジェクトでは、
 この章の概念をここで議論した微小な例よりもより現実的な場面で使用するでしょう。
 
 <!-- 最後はmutithreaded situationsとなっているが、situationを環境と訳した方が自然なので、そうしている -->
@@ -129,9 +129,9 @@ unsafeなRustコードを使用することについては第19章で語りま�
 <!-- online for the current, state-of-the-art crates to use in multithreaded -->
 <!-- situations. -->
 
-前述のように、Rustが非同期処理を扱うごく一部が言語の一部なので、多くの非同期処理解決策は、
+前述のように、Rustが並行性を扱うごく一部が言語の一部なので、多くの並行性解決策は、
 クレートとして実装されています。これらは標準ライブラリよりも迅速に進化するので、
-確実にオンラインでマルチスレッド環境で使用する現在の最先端のクレートを検索してください。
+確実にオンラインでマルチスレッド環境で使用すべき現在の最先端のクレートを検索してください。
 
 <!-- The Rust standard library provides channels for message passing and smart -->
 <!-- pointer types, such as `Mutex<T>` and `Arc<T>`, that are safe to use in -->
@@ -147,7 +147,7 @@ Rustの標準ライブラリは、メッセージ受け渡しにチャンネル�
 これらの解決策を使用するコードがデータ競合や無効な参照に行き着かないことを保証してくれます。
 一旦コードをコンパイルすることができたら、他の言語ではありふれている追跡困難なバグなしに、
 複数のスレッドでも喜んで動くので安心できます。並行プログラミングは、もはや恐れるべき概念ではありません:
-進んでプログラムを並行にして恐れないでください！
+進んでそして、恐れずにプログラムを並行にしてください！
 
 <!-- Next, we’ll talk about idiomatic ways to model problems and structure solutions -->
 <!-- as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idioms -->

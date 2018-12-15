@@ -8,7 +8,7 @@
 <!-- documentation](http://golang.org/doc/effective_go.html): “Do not communicate by -->
 <!-- sharing memory; instead, share memory by communicating.” -->
 
-人気度を増してきている安全な非同期処理を保証する一つのアプローチが*メッセージ受け渡し*で、
+人気度を増してきている安全な並行性を保証する一つのアプローチが*メッセージ受け渡し*で、
 スレッドやアクターがデータを含むメッセージを相互に送り合うことでやり取りします。
 こちらが、[Go言語のドキュメンテーション](http:golang.org/doc/effective_go.html)のスローガンにある考えです:
 「メモリを共有することでやり取りするな; 代わりにやり取りすることでメモリを共有しろ」
@@ -20,7 +20,7 @@
 <!-- rubber duck or a boat into a stream, it will travel downstream to the end of the -->
 <!-- waterway. -->
 
-メッセージ送信非同期処理を達成するためにRustに存在する一つの主な道具は、*チャンネル*で、
+メッセージ送信並行性を達成するためにRustに存在する一つの主な道具は、*チャンネル*で、
 Rustの標準ライブラリが実装を提供しているプログラミング概念です。プログラミングのチャンネルは、
 水の流れのように考えることができます。小川とか川ですね。アヒルのおもちゃやボートみたいなものを流れに置いたら、
 水路の終端まで下流に流れていきます。
@@ -51,7 +51,7 @@ Rustの標準ライブラリが実装を提供しているプログラミング�
 
 ここで、1つのスレッドが値を生成し、それをチャンネルに送信し、別のスレッドがその値を受け取り、
 出力するプログラムに取り掛かります。チャンネルを使用してスレッド間に単純な値を送り、
-機能の具体化を行います。一旦、そのテクニックに慣れてしまえば、チャンネルを使用してチャットシステムや、
+機能の説明を行います。一旦、そのテクニックに慣れてしまえば、チャンネルを使用してチャットシステムや、
 多くのスレッドが計算の一部を担い、結果をまとめる1つのスレッドにその部分を送るようなシステムを実装できるでしょう。
 
 <!-- First, in Listing 16-6, we’ll create a channel but not do anything with it. -->
@@ -93,7 +93,7 @@ fn main() {
 簡潔に言えば、Rustの標準ライブラリがチャンネルを実装している方法は、1つのチャンネルが値を生成する複数の*送信*側と、
 その値を消費するたった1つの*受信*側を持つことができるということを意味します。
 複数の小川が互いに合わさって1つの大きな川になるところを想像してください: 
-どの川を通っても、送られたものは最終的に1つの川に行き着きます。今は、1つの生成器から始めますが、
+どの小川を通っても、送られたものは最終的に1つの川に行き着きます。今は、1つの生成器から始めますが、
 この例が動作するようになったら、複数の生成器を追加します。
 
 <!-- NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199 -->
@@ -109,8 +109,8 @@ fn main() {
 
 `mpsc::channel`関数はタプルを返し、1つ目の要素は、送信側、2つ目の要素は受信側になります。
 `tx`と`rx`という略称は、多くの分野で伝統的に*転送機*と*受信機*にそれぞれ使用されているので、
-変数をそのように名付けて、各終端を示します。タプルを分解するパターンを伴う`let`文を使用しています;
-`let`文でパターンを使用することと分解については、第18章で議論しましょう。このように`let`文を使うと、
+変数をそのように名付けて、各終端を示します。タプルを分配するパターンを伴う`let`文を使用しています;
+`let`文でパターンを使用することと分配については、第18章で議論しましょう。このように`let`文を使うと、
 `mpsc::channel`で返ってくるタプルの部品を抽出するのが便利になります。
 
 <!-- Let’s move the transmitting end into a spawned thread and have it send one -->
@@ -152,7 +152,7 @@ fn main() {
 
 今回も、`thread::spawn`を使用して新しいスレッドを生成し、それから`move`を使用して、
 立ち上げたスレッドが`tx`を所有するようにクロージャに`tx`をムーブしています。立ち上げたスレッドは、
-メッセージをチャンネルを通して送信できるようにチャンネルの送信側を所有する必要があります。
+メッセージをチャンネルを通して送信できるように、チャンネルの送信側を所有する必要があります。
 
 <!-- The transmitting end has a `send` method that takes the value we want to send. -->
 <!-- The `send` method returns a `Result<T, E>` type, so if the receiving end has -->
@@ -162,7 +162,7 @@ fn main() {
 <!-- Chapter 9 to review strategies for proper error handling. -->
 
 転送側には、送信したい値を取る`send`メソッドがあります。`send`メソッドは`Result<T, E>`型を返すので、
-すでに受信側がドロップされ、値を送信する場所がなければ、送信処理はエラーを返します。
+既に受信側がドロップされ、値を送信する場所がなければ、送信処理はエラーを返します。
 この例では、エラーの場合には、パニックするように`unwrap`を呼び出しています。ですが、実際のアプリケーションでは、
 ちゃんと扱うでしょう: 第9章に戻ってちゃんとしたエラー処理の方法を再確認してください。
 
@@ -208,7 +208,7 @@ fn main() {
 <!-- be coming. -->
 
 チャンネルの受信側には有用なメソッドが2つあります: `recv`と`try_recv`です。
-*receive*の省略形である`recv`を使っていて、これは、メインスレッドの実行をブロックし、
+*receive*の省略形である`recv`を使っています。これは、メインスレッドの実行をブロックし、
 値がチャンネルを流れてくるまで待機します。一旦値が送信されたら、`recv`はそれを`Result<T, E>`に含んで返します。
 チャンネルの送信側が閉じたら、`recv`はエラーを返し、もう値は来ないと通知します。
 
@@ -224,7 +224,7 @@ fn main() {
 メッセージがあったら、それを含む`Ok`値、今回は何もメッセージがなければ、`Err`値です。
 メッセージを待つ間にこのスレッドにすることが他にあれば、`try_recv`は有用です:
 `try_recv`を頻繁に呼び出し、メッセージがあったら処理し、それ以外の場合は、
-再度チェックするまでちょっとの間他の作業をするループを書くことができるでしょう。
+再度チェックするまでちょっとの間、他の作業をするループを書くことができるでしょう。
 
 <!-- We’ve used `recv` in this example for simplicity; we don’t have any other work -->
 <!-- for the main thread to do other than wait for messages, so blocking the main -->
@@ -236,7 +236,7 @@ fn main() {
 <!-- When we run the code in Listing 16-8, we’ll see the value printed from the main -->
 <!-- thread: -->
 
-リスト16-8のコードを実行したら、メインスレッドから値が出力されます:
+リスト16-8のコードを実行したら、メインスレッドから値が出力されるところを目撃するでしょう:
 
 ```text
 Got: hi
@@ -258,11 +258,11 @@ Got: hi
 <!-- sent it down the channel. Try compiling the code in Listing 16-9 to see why -->
 <!-- this code isn’t allowed: -->
 
-安全な並行コードを書く手助けをしてくれるので、所有権ルールは、メッセージ送信で重要な役割を担っています。
+安全な並行コードを書く手助けをしてくれるので、所有権規則は、メッセージ送信で重要な役割を担っています。
 並行プログラミングでエラーを回避することは、Rustプログラム全体で所有権について考える利点です。
-実験をしてチャンネルと所有権がともに動いてどう問題を回避するかをお見せしましょう:
+実験をしてチャンネルと所有権がともに動いて、どう問題を回避するかをお見せしましょう:
 `val`値を立ち上げたスレッドで、チャンネルに送った*後*に使用を試みます。
-リスト16-9のコードのコンパイルを試みてこのコードが許容されない理由を確認してください:
+リスト16-9のコードのコンパイルを試みて、このコードが許容されない理由を確認してください:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -323,7 +323,7 @@ not implement the `Copy` trait
 <!-- takes ownership of it. This stops us from accidentally using the value again -->
 <!-- after sending it; the ownership system checks that everything is okay. -->
 
-非同期処理のミスがコンパイルエラーを招きました。`send`関数は引数の所有権を奪い、
+並行性のミスがコンパイルエラーを招きました。`send`関数は引数の所有権を奪い、
 値がムーブされると、受信側が所有権を得るのです。これにより、送信後に誤って再度値を使用するのを防いでくれます;
 所有権システムが、万事問題ないことを確認してくれます。
 
@@ -385,7 +385,7 @@ fn main() {
 <!-- 1 second. -->
 
 今回は、メインスレッドに送信したい文字列のベクタを立ち上げたスレッドが持っています。
-それらをイテレートし、各々個別に送信し、`Duration`の値1秒とともに`thread::sleep`関数を呼び出すことで、
+それらを繰り返し、各々個別に送信し、`Duration`の値1秒とともに`thread::sleep`関数を呼び出すことで、
 メッセージ間で停止します。
 
 <!-- In the main thread, we’re not calling the `recv` function explicitly anymore: -->
@@ -496,7 +496,7 @@ for received in rx {
 元のチャンネルの送信側は、2番目に立ち上げたスレッドに渡します。これにより2つスレッドが得られ、
 それぞれチャンネルの受信側に異なるメッセージを送信します。
 
-<!-- When you run the code, your output output should look something like this: -->
+<!-- When you run the code, your output should look something like this: -->
 
 コードを実行すると、出力は以下のようなものになるはずです:
 
@@ -516,11 +516,11 @@ Got: you
 <!-- `thread::sleep`, giving it various values in the different threads, each run -->
 <!-- will be more nondeterministic and create different output each time. -->
 
-別の順番で値が出る可能性もあります; システム次第です。非同期処理が面白いと同時に難しい部分でもあります。
+別の順番で値が出る可能性もあります; システム次第です。並行性が面白いと同時に難しい部分でもあります。
 異なるスレッドで色々な値を与えて`thread::sleep`で実験をしたら、走らせるたびにより非決定的になり、
 毎回異なる出力をするでしょう。
 
 <!-- Now that we’ve looked at how channels work, let’s look at a different method of -->
 <!-- concurrency. -->
 
-チャンネルの動作方法を見たので、他の非同期処理に目を向けましょう。
+チャンネルの動作方法を見たので、他の並行性に目を向けましょう。

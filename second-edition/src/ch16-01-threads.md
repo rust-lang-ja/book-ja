@@ -64,7 +64,7 @@ Rustは、スレッドを使用する際のマイナスの影響を軽減しよ�
 <!-- important to Rust is runtime support. *Runtime* is a confusing term and can -->
 <!-- have different meanings in different contexts. -->
 
-各モデルには、それだけの利点と妥協点があり、Rustにとって最も重要な妥協点は、ランタイムのサポートです。
+各モデルには、それだけの利点と代償があり、Rustにとって最も重要な代償は、ランタイムのサポートです。
 *ランタイム*は、混乱しやすい用語で文脈によって意味も変わります。
 
 <!-- In this context, by *runtime* we mean code that is included by the language in -->
@@ -95,7 +95,7 @@ Rustにはほとんどゼロのランタイムが必要でパフォーマンス�
 
 M:Nのグリーンスレッドモデルは、スレッドを管理するのにより大きな言語ランタイムが必要です。よって、
 Rustの標準ライブラリは、1:1スレッドの実装のみを提供しています。Rustはそのような低級言語なので、
-例えば、どのスレッドがいつ走るかのより詳細な制御や、文脈切り替えの低コストなどの面でオーバーヘッドと引き換えるなら、
+例えば、どのスレッドがいつ走るかのより詳細な制御や、文脈切り替えのより低コストなどの一面をオーバーヘッドと引き換えるなら、
 M:Nスレッドの実装をしたクレートもあります。
 
 <!-- Now that we’ve defined threads in Rust, let’s explore how to use the -->
@@ -208,7 +208,7 @@ hi number 5 from the spawned thread!
 
 `thread::spawn`の戻り値を変数に保存することで、立ち上げたスレッドが実行されなかったり、
 完全には実行されなかったりする問題を修正することができます。`thread:spawn`の戻り値の型は`JoinHandle`です。
-`JoinHandle`は、`join`メソッドを呼び出したときにスレッドの終了を待つ所有された値です。
+`JoinHandle`は、その`join`メソッドを呼び出したときにスレッドの終了を待つ所有された値です。
 リスト16-2は、リスト16-1で生成したスレッドの`JoinHandle`を使用し、`join`を呼び出して、
 `main`が終了する前に、立ち上げたスレッドが確実に完了する方法を示しています:
 
@@ -351,8 +351,6 @@ hi number 4 from the main thread!
 クロージャに環境で使用している値の所有権を強制的に奪わせることができると述べました。
 このテクニックは、あるスレッドから別のスレッドに値の所有権を移すために新しいスレッドを生成する際に特に有用です。
 
-新規スレッドを立ち上げているので、クロージャに値をキャプチャすることについて語りましょう。
-
 <!-- Notice in Listing 16-1 that the closure we pass to `thread::spawn` takes no -->
 <!-- arguments: we’re not using any data from the main thread in the spawned -->
 <!-- thread’s code. To use data from the main thread in the spawned thread, the -->
@@ -458,7 +456,7 @@ fn main() {
 <!-- <span class="caption">Listing 16-4: A thread with a closure that attempts to -->
 <!-- capture a reference to `v` from a main thread that drops `v`</span> -->
 
-<span class="caption">リスト16-4: `v`をドロップするメインスレッドから`v`への参照をキャプチャしようとするクロージャとスレッド</span>
+<span class="caption">リスト16-4: `v`をドロップするメインスレッドから`v`への参照をキャプチャしようとするクロージャがあるスレッド</span>
 
 <!-- If we were allowed to run this code, there’s a possibility the spawned thread -->
 <!-- would be immediately put in the background without running at all. The spawned -->
@@ -555,14 +553,14 @@ error[E0382]: use of moved value: `v`
 <!-- Rust’s conservative default of borrowing; it doesn’t let us violate the -->
 <!-- ownership rules. -->
 
-再三Rustの所有権ルールが救ってくれました！リスト16-3のコードはエラーになりました。
+再三Rustの所有権規則が救ってくれました！リスト16-3のコードはエラーになりました。
 コンパイラが一時的に保守的になり、スレッドに対して`v`を借用しただけだったからで、
 これは、メインスレッドは理論上、立ち上げたスレッドの参照を不正化する可能性があることを意味します。
 `v`の所有権を立ち上げたスレッドに移動するとコンパイラに指示することで、
 メインスレッドはもう`v`を使用しないとコンパイラに保証しているのです。リスト16-4も同様に変更したら、
-メインスレッドで`v`を使用しようとする際に所有権のルールを違反することになります。
+メインスレッドで`v`を使用しようとする際に所有権の規則に違反することになります。
 `move`キーワードにより、Rustの保守的な借用のデフォルトが上書きされるのです; 
-所有権のルールを違反させないのです。
+所有権の規則を侵害させないのです。
 
 <!-- With a basic understanding of threads and the thread API, let’s look at what we -->
 <!-- can *do* with threads. -->

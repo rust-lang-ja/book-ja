@@ -10,10 +10,10 @@
 <!-- programming in these contexts has been difficult and error prone: Rust hopes to -->
 <!-- change that. -->
 
-並行性を安全かつ効率的に扱うことは、Rustの別の主な目標です。*並行プログラミング*は、プログラムの異なる部分が個別に実行することであり、
+並行性を安全かつ効率的に扱うことは、Rustの別の主な目標です。*並行プログラミング*は、プログラムの異なる部分が独立して実行することであり、
 *並列プログラミング*はプログラムの異なる部分が同時に実行することですが、多くのコンピュータが複数のプロセッサの利点を生かすようになるにつれ、
 重要度を増しています。歴史的に、これらの文脈で行うプログラミングは困難で、エラーが起きやすいものでした:
-Rustはこれを変えると期待されています。
+Rustはこれを変えると願っています。
 
 <!-- Initially, the Rust team thought that ensuring memory safety and preventing -->
 <!-- concurrency problems were two separate challenges to be solved with different -->
@@ -36,7 +36,7 @@ Rustはこれを変えると期待されています。
 故に、実行時に並行性のバグが起きた状況と全く同じ状況を再現しようと時間を浪費させるよりも、
 不正なコードはコンパイルを拒み、問題を説明するエラーを提示するでしょう。結果として、
 プロダクトになった後でなく、作業中にコードを修正できます。
-Rustのこの方向性を*恐れるな！並行性*とニックネーム付けしました。これにより、潜在的なバグがなく、
+Rustのこの方向性を*恐れるな！並行性*とニックネーム付けしました。これにより、潜在的なバグがなく、かつ、
 新しいバグを導入することなく簡単にリファクタリングできるコードを書くことができます。
 
 <!-- Note: For simplicity’s sake, we’ll refer to many of the problems as -->
@@ -48,7 +48,7 @@ Rustのこの方向性を*恐れるな！並行性*とニックネーム付け�
 > 注釈: 簡潔性のため、並行または並列と述べることで正確を期するのではなく、
 > 多くの問題を*並行*と割り切ってしまいます。この本がもし*並行性あるいは並列性*に関した本ならば、
 > 詳述していたでしょう。この章に対しては、*並行*を使ったら、
-> 脳内で*並行性または並列性*と置き換えてください。
+> 脳内で*並行または並列*と置き換えてください。
 
 <!-- Many languages are dogmatic about the solutions they offer for handling -->
 <!-- concurrent problems. For example, Erlang has elegant functionality for -->
