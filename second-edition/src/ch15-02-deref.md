@@ -1,6 +1,5 @@
 <!-- ## Treating Smart Pointers Like Regular References with the `Deref` Trait -->
 
-<<<<<<< HEAD
 ## `Deref`トレイトでスマートポインタを普通の参照のように扱う
 
 <!-- Implementing the `Deref` trait allows you to customize the behavior of the -->
@@ -11,7 +10,7 @@
 
 `Deref`トレイトを実装することで*参照外し演算子*の`*`(掛け算やグロブ演算子とは対照的に)の振る舞いをカスタマイズすることができます。
 スマートポインタを普通の参照のように扱えるように`Deref`を実装することで、
-参照に対して処理を行うコードを書き、そのコードをスマートポインタとともに使用することもできます。
+参照に対して処理を行うコードを書き、そのコードをスマートポインタとともにも使用できます。
 
 <!-- Let’s first look at how dereference operator works with regular references.-->
 <!-- Then we'll try to define a custom type that behaves like `Box<T>`, and see why -->
@@ -24,7 +23,7 @@
 まずは、参照外し演算子が普通の参照に対して動作するところを見ましょう。それから`Box<T>`のように振る舞う独自の型を定義し、
 参照外し演算子が新しく定義した型に対して参照のように動作しない理由を確認しましょう。
 `Deref`トレイトを実装することでスマートポインタが参照と似た方法で動作するようにできる方法を探求します。
-そして、Rustの*参照外し型強制*機能と、それにより参照やスマートポインタに取り掛かる方法を見ます。
+そして、Rustの*参照外し型強制*機能と、それにより参照やスマートポインタと協調できる方法を見ます。
 
 <!-- ### Following the Pointer to the Value with the Dereference Operator -->
 
@@ -145,7 +144,7 @@ fn main() {
 <!-- dereference operator. -->
 
 標準ライブラリが提供している`Box<T>`型に似たスマートポインタを構築して、スマートポインタは規定で、
-どう異なって参照に比べて振る舞うのか経験しましょう。それから、参照外し演算子を使う能力を追加する方法に目を向けましょう。
+参照に比べてどう異なって振る舞うのか経験しましょう。それから、参照外し演算子を使う能力を追加する方法に目を向けましょう。
 
 <!-- The `Box<T>` type is ultimately defined as a tuple struct with one element, so -->
 <!-- Listing 15-8 defines a `MyBox<T>` type in the same way. We’ll also define a -->
@@ -320,7 +319,7 @@ impl<T> Deref for MyBox<T> {
 所有権システムです。`deref`メソッドが値への参照ではなく、値を直接返したら、値は`self`から外にムーブされてしまいます。
 今回の場合や、参照外し演算子を使用する多くの場合には`MyBox<T>`の中の値の所有権を奪いたくはありません。
 
-<!-- 1行目、just once, each timeのところがよくわからないが、おそらくこれで合っていると思われる-->
+<!-- 2行目、... just once, [each time ...]という構造と思われる -->
 
 <!-- Note that the `*` operator is replaced with a call to the `deref` method and -->
 <!-- then a call to `*` operator just once, each time we type a `*` in our code. -->
@@ -328,7 +327,7 @@ impl<T> Deref for MyBox<T> {
 <!-- end up with data of type `i32`, which matches the `5` in `assert_eq!` in -->
 <!-- Listing 15-9. -->
 
-`*`演算子は`deref`メソッドの呼び出し1回とコードで`*`打つたび、ただ1回の`*`演算子の呼び出しに置き換えられることに注意してください。
+`*`演算子は、コードで`*`を打つたびに、ただ1回、`deref`メソッドの呼び出し、そして`*`演算子の呼び出しに置き換えられることに注意してください。
 `*`演算子の置き換えは、無限に繰り返されないので、型`i32`に行き着き、リスト15-9で`assert_eq!`の`5`と合致します。
 
 <!-- ### Implicit Deref Coercions with Functions and Methods -->
@@ -349,14 +348,14 @@ impl<T> Deref for MyBox<T> {
 特定の型の値への参照を関数やメソッド定義の引数型と一致しない引数として関数やメソッドに渡すときに自動的に発生します。
 一連の`deref`メソッドの呼び出しが、提供した型を引数が必要とする型に変換します。
 
-<!-- 2行目、add as many ...がよくわからない-->
+<!-- 2行目、add as many ... asのようにも見えるが、add [as many ...]ということと思われる-->
 
 <!-- Deref coercion was added to Rust so that programmers writing function and -->
 <!-- method calls don’t need to add as many explicit references and dereferences -->
 <!-- with `&` and `*`. The deref coercion feature also lets us write more code that -->
 <!-- can work for either references or smart pointers. -->
 
-参照外し型強制は、関数やメソッド呼び出しを書くプログラマが`&`や`*`で多くの明示的な参照や参照外しとして追加する必要がないように、
+参照外し型強制は、関数やメソッド呼び出しを書くプログラマが`&`や`*`で多くの明示的な参照や参照外しとして追記する必要がないように、
 Rustに追加されました。また、参照外し型強制のおかげで参照あるいはスマートポインタのどちらかで動くコードをもっと書くことができます。
 
 <!-- To see deref coercion in action, let’s use the `MyBox<T>` type we defined in -->
@@ -559,13 +558,3 @@ fn main() {
 1つの可変参照を1つの不変参照に変換することは、借用ルールを絶対に破壊しません。
 不変参照を可変参照にするには、そのデータへの不変参照がたった1つしかないことが必要ですが、
 借用ルールはそれを保証してくれません。故に、不変参照を可変参照に変換することが可能であるという前提を敷けません。
-=======
-The second edition of the book is no longer distributed with Rust's documentation.
-
-If you came here via a link or web search, you may want to check out [the current
-version of the book](../index.html) instead.
-
-If you have an internet connection, you can [find a copy distributed with
-Rust
-1.30](https://doc.rust-lang.org/1.30.0/book/second-edition/ch15-02-deref.html).
->>>>>>> fork_master_master

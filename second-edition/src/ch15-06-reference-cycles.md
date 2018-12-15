@@ -144,7 +144,7 @@ fn main() {
 
 <span class="caption">リスト15-26: 2つの`List`値がお互いを指して循環参照する</span>
 
-<!-- in the variable `a` | `b`がかかる先が不明瞭だが、コード例を見る限り、この訳が合っているようだ -->
+<!-- in the variable `a` or `b`がかかる先が不明瞭だが、コード例を見る限り、この訳が合っているようだ -->
 
 <!-- We create an `Rc<List>` instance holding a `List` value in the variable `a` -->
 <!-- with an initial list of `5, Nil`. We then create an `Rc<List>` instance -->
@@ -248,7 +248,7 @@ a rc count after changing a = 2
 <!-- reference cycles. -->
 
 循環参照を回避する別の解決策は、ある参照は所有権を表現して他の参照はしないというようにデータ構造を再構成することです。
-結果として所有権のある関係と所有権のない関係からなる循環ができ、所有権のある関係だけが値がドロップされうるかどうかに影響します。
+結果として、所有権のある関係と所有権のない関係からなる循環ができ、所有権のある関係だけが値がドロップされうるかどうかに影響します。
 リスト15-25では、常に`Cons`列挙子にリストを所有してほしいので、データ構造を再構成することはできません。
 親ノードと子ノードからなるグラフを使った例に目を向けて、どんな時に所有権のない関係が循環参照を回避するのに適切な方法になるか確認しましょう。
 
@@ -493,7 +493,7 @@ fn main() {
 <!-- in Listing 15-27 with the exception of the `parent` field: `leaf` starts out -->
 <!-- without a parent, so we create a new, empty `Weak<Node>` reference instance. -->
 
-`leaf`ノードを作成することは、`parent`フィールドの例外を除いてリスト15-27での`leaf`ノードの作成法に似ています:
+`leaf`ノードを作成することは、`parent`フィールドの例外を除いてリスト15-27での`leaf`ノードの作成法の見た目に似ています:
 `leaf`は親なしで始まるので、新しく空の`Weak<Node>`参照インスタンスを作ります。
 
 <!-- At this point, when we try to get a reference to the parent of `leaf` by using -->
@@ -581,8 +581,8 @@ fn main() {
         children: RefCell::new(vec![]),
     });
 
-    // leafのstrong_count = {}, weak_count = {}
     println!(
+        // leafのstrong_count = {}, weak_count = {}
         "leaf strong = {}, weak = {}",
         Rc::strong_count(&leaf),
         Rc::weak_count(&leaf),
@@ -597,8 +597,8 @@ fn main() {
 
         *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
 
-        // branchのstrong_count = {}, weak_count = {}
         println!(
+            // branchのstrong_count = {}, weak_count = {}
             "branch strong = {}, weak = {}",
             Rc::strong_count(&branch),
             Rc::weak_count(&branch),
@@ -626,7 +626,7 @@ fn main() {
 <span class="caption">リスト15-29: 内側のスコープで`branch`を作成し、強弱参照カウントを調査する</span>
 
 <!-- 4行目後半、カッコ内、forは接続詞の用法かと思ったが、文ではなかった。for S to Vのように訳した -->
-<!-- 通常forの後は、現在分詞が来るため、そう書いているだけだろうか -->
+<!-- 通常forの後は、名詞が来るため、そう書いているだけだろうか -->
 
 <!-- After `leaf` is created, its `Rc<Node>` has a strong count of 1 and a weak -->
 <!-- count of 0. In the inner scope, we create `branch` and associate it with -->
@@ -689,7 +689,7 @@ fn main() {
 この章は、スマートポインタを使用してRustが規定で普通の参照に対して行うのと異なる保証や代償を行う方法を講義しました。
 `Box<T>`型は、既知のサイズで、ヒープに確保されたデータを指します。`Rc<T>`型は、ヒープのデータへの参照の数を追跡するので、
 データは複数の所有者を保有できます。内部可変性のある`RefCell<T>`型は、不変型が必要だけれども、
-その型の中の値を変更する必要がある時に使用できる型を与えてくれます; また、コンパイル時ではなく実行時に借用ルールを強制します。
+その型の中の値を変更する必要がある時に使用できる型を与えてくれます; また、コンパイル時ではなく実行時に借用規則を強制します。
 
 <!-- Also discussed were the `Deref` and `Drop` traits, which enable a lot of the -->
 <!-- functionality of smart pointers. We explored reference cycles that can cause -->
@@ -697,8 +697,6 @@ fn main() {
 
 `Deref`と`Drop`トレイトについても議論しましたね。これらは、スマートポインタの多くの機能を可能にしてくれます。
 メモリリークを引き起こす循環参照と`Weak<T>`でそれを回避する方法も探求しました。
-
-<!-- FIXME: URLがイタリックになっていない -->
 
 <!-- If this chapter has piqued your interest and you want to implement your own -->
 <!-- smart pointers, check out [“The Rustonomicon”][nomicon] for more useful -->
@@ -712,4 +710,4 @@ fn main() {
 <!-- Next, we’ll talk about concurrency in Rust. You’ll even learn about a few new -->
 <!-- smart pointers. -->
 
-次は、Rustでの非同期処理について語ります。もういくつか新しいスマートポインタについてさえも学ぶでしょう。
+次は、Rustでの並行性について語ります。もういくつか新しいスマートポインタについてさえも学ぶでしょう。

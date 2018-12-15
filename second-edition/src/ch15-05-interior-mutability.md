@@ -13,9 +13,9 @@
 <!-- in a safe API, and the outer type is still immutable. -->
 
 内部可変性は、そのデータへの不変参照がある時でさえもデータを可変化できるRustでのデザインパターンです:
-普通、この行動は借用ルールにより許可されません。データを可変化するために、このパターンは、データ構造内で`unsafe`コードを使用して、
-可変性と借用を支配するRustの通常のルールを捻じ曲げています。まだ、unsafeコードについては講義していません;
-第19章で行います。たとえ、コンパイラが保証できなくても、借用ルールに実行時に従うことが保証できる時、
+普通、この行動は借用規則により許可されません。データを可変化するために、このパターンは、データ構造内で`unsafe`コードを使用して、
+可変性と借用を支配するRustの通常の規則を捻じ曲げています。まだ、unsafeコードについては講義していません;
+第19章で行います。たとえ、コンパイラが保証できなくても、借用規則に実行時に従うことが保証できる時、
 内部可変性パターンを使用した型を使用できます。関係する`unsafe`コードはそうしたら、安全なAPIにラップされ、
 外側の型は、不変です。
 
@@ -26,14 +26,14 @@
 
 <!-- ### Enforcing Borrowing Rules at Runtime with `RefCell<T>` -->
 
-### `RefCell<T>`で実行時に借用ルールを強制する
+### `RefCell<T>`で実行時に借用規則を強制する
 
 <!-- Unlike `Rc<T>`, the `RefCell<T>` type represents single ownership over the data -->
 <!-- it holds. So, what makes `RefCell<T>` different from a type like `Box<T>`? -->
 <!-- Recall the borrowing rules you learned in Chapter 4: -->
 
 `Rc<T>`と異なり、`RefCell<T>`型は、保持するデータに対して単独の所有権を表します。では、
-どうして`RefCell<T>`が`Box<T>`のような型と異なるのでしょうか？第4章で学んだ借用ルールを思い出してください:
+どうして`RefCell<T>`が`Box<T>`のような型と異なるのでしょうか？第4章で学んだ借用規則を思い出してください:
 
 <!-- * At any given time, you can have *either* (but not both of) one mutable -->
 <!-- reference or any number of immutable references. -->
@@ -47,7 +47,7 @@
 <!-- With references, if you break these rules, you’ll get a compiler error. With -->
 <!-- `RefCell<T>`, if you break these rules, your program will panic and exit. -->
 
-参照と`Box<T>`では、借用ルールの不変条件は、コンパイル時に強制されています。`RefCell<T>`では、
+参照と`Box<T>`では、借用規則の不変条件は、コンパイル時に強制されています。`RefCell<T>`では、
 これらの不変条件は、*実行時に*強制されます。参照でこれらの規則を破ったら、コンパイルエラーになりました。
 `RefCell<T>`でこれらの規則を破ったら、プログラムはパニックし、終了します。
 
@@ -59,9 +59,9 @@
 <!-- reasons, checking the borrowing rules at compile time is the best choice in the -->
 <!-- majority of cases, which is why this is Rust’s default. -->
 
-コンパイル時に借用ルールを精査することの利点は、エラーが開発過程の早い段階で捕捉されることと、
+コンパイル時に借用規則を精査することの利点は、エラーが開発過程の早い段階で捕捉されることと、
 あらかじめ全ての分析が終わるので、実行パフォーマンスへの影響がないことです。それらの理由により、
-多くの場合でコンパイル時に借用ルールを精査することが最善の選択肢であり、これがRustの規定になっているのです。
+多くの場合でコンパイル時に借用規則を精査することが最善の選択肢であり、これがRustの規定になっているのです。
 
 <!-- The advantage of checking the borrowing rules at runtime instead is that -->
 <!-- certain memory-safe scenarios are then allowed, whereas they are disallowed by -->
@@ -70,7 +70,7 @@
 <!-- code: the most famous example is the Halting Problem, which is beyond the scope -->
 <!-- of this book but is an interesting topic to research. -->
 
-借用ルールを実行時に代わりに精査する利点は、コンパイル時の精査では許容されない特定のメモリ安全な筋書きが許容されることです。
+借用規則を実行時に代わりに精査する利点は、コンパイル時の精査では許容されない特定のメモリ安全な筋書きが許容されることです。
 Rustコンパイラのような静的解析は、本質的に保守的です。コードの特性には、コードを解析するだけでは検知できないものもあります:
 最も有名な例は停止性問題であり、この本の範疇を超えていますが、調べると面白い話題です。
 
@@ -83,11 +83,11 @@ Rustコンパイラのような静的解析は、本質的に保守的です。�
 <!-- code follows the borrowing rules but the compiler is unable to understand and -->
 <!-- guarantee that. -->
 
-不可能な分析もあるので、Rustのコンパイラが、コードが所有権ルールに応じていると確証を得られない場合、
+不可能な分析もあるので、Rustのコンパイラが、コードが所有権規則に応じていると確証を得られない場合、
 正しいプログラムを拒否する可能性があります; このように、保守的なのです。コンパイラが不正なプログラムを受け入れたら、
 ユーザは、コンパイラが行う保証を信じることはできなくなるでしょう。しかしながら、
 コンパイラが正当なプログラムを拒否するのなら、プログラマは不便に思うでしょうが、悲劇的なことは何も起こり得ません。
-コードが借用ルールに従っていると確証を得られる時に`RefCell<T>`型は有用ですが、
+コードが借用規則に従っていると確証を得られる時に`RefCell<T>`型は有用ですが、
 コンパイラはそれを理解し、保証できません。
 
 <!-- Similar to `Rc<T>`, `RefCell<T>` is only for use in single-threaded scenarios -->
@@ -95,7 +95,7 @@ Rustコンパイラのような静的解析は、本質的に保守的です。�
 <!-- context. We’ll talk about how to get the functionality of `RefCell<T>` in a -->
 <!-- multithreaded program in Chapter 16. -->
 
-`Rc<T>`と類似して、`RefCell<T>`もシングルスレッドシナリオで使用するためのものであり、
+`Rc<T>`と類似して、`RefCell<T>`もシングルスレッドの筋書きで使用するためのものであり、
 試しにマルチスレッドの文脈で使ってみようとすると、コンパイルエラーを出します。
 `RefCell<T>`の機能をマルチスレッドのプログラムで得る方法については、第16章で語ります。
 
@@ -132,7 +132,7 @@ Rustコンパイラのような静的解析は、本質的に保守的です。�
 <!-- A consequence of the borrowing rules is that when you have an immutable value, -->
 <!-- you can’t borrow it mutably. For example, this code won’t compile: -->
 
-借用ルールの結果は、不変値がある時、可変で借用することはできないということです。
+借用規則の結果は、不変値がある時、可変で借用することはできないということです。
 例えば、このコードはコンパイルできません:
 
 ```rust,ignore
@@ -148,7 +148,7 @@ fn main() {
 
 ```text
 error[E0596]: cannot borrow immutable local variable `x` as mutable
-(エラー: ローカル変数`x`を可変で借用することはできません)
+(エラー: 不変なローカル変数`x`を可変で借用することはできません)
  --> src/main.rs:3:18
   |
 2 |     let x = 5;
@@ -169,8 +169,8 @@ error[E0596]: cannot borrow immutable local variable `x` as mutable
 ですが、メソッド内で値が自身を可変化するけれども、他のコードにとっては、
 不変に見えることが有用な場面もあります。その値のメソッドの外のコードは、その値を可変化することはできないでしょう。
 `RefCell<T>`を使うことは、内部可変性を取得する能力を得る1つの方法です。しかし、
-`RefCell<T>`は借用ルールを完全に回避するものではありません: コンパイラの借用精査機は、内部可変性を許可し、
-借用ルールは代わりに実行時に精査されます。この規則を侵害したら、コンパイルエラーではなく`panic!`になるでしょう。
+`RefCell<T>`は借用規則を完全に回避するものではありません: コンパイラの借用精査機は、内部可変性を許可し、
+借用規則は代わりに実行時に精査されます。この規則を侵害したら、コンパイルエラーではなく`panic!`になるでしょう。
 
 <!-- Let’s work through a practical example where we can use `RefCell<T>` to mutate -->
 <!-- an immutable value and see why that is useful. -->
@@ -190,7 +190,7 @@ error[E0596]: cannot borrow immutable local variable `x` as mutable
 *モックオブジェクト*は、テスト中に起きることを記録するテストダブルの特定の型なので、
 正しい動作が起きたことをアサートできます。
 
-> `編注`: テストダブルとは、ソフトウェアテストにおいて、テスト対象が依存しているコンポーネントを置き換える代用品のこと
+> `編注`: テストダブルとは、ソフトウェアテストにおいて、テスト対象が依存しているコンポーネントを置き換える代用品のこと。
 
 <!-- Rust doesn’t have objects in the same sense as other languages have objects, -->
 <!-- and Rust doesn’t have mock object functionality built into the standard library -->
@@ -198,14 +198,14 @@ error[E0596]: cannot borrow immutable local variable `x` as mutable
 <!-- will serve the same purposes as a mock object. -->
 
 Rustには、他の言語でいうオブジェクトは存在せず、また、他の言語のように標準ライブラリにモックオブジェクトの機能が組み込まれてもいません。
-ですが、同じ目的をモックオブジェクトとして提供する構造体を作成することは確かにできます。
+ですが、同じ目的をモックオブジェクトとして提供する構造体を作成することは確実にできます。
 
 <!-- Here’s the scenario we’ll test: we’ll create a library that tracks a value -->
 <!-- against a maximum value and sends messages based on how close to the maximum -->
 <!-- value the current value is. This library could be used to keep track of a -->
 <!-- user’s quota for the number of API calls they’re allowed to make, for example. -->
 
-以下が、テストを行う筋書きです: 値を最大値に対して追跡し、現在値が最大値に近い程度に基づいてメッセージを送信するライブラリを作成します。
+以下が、テストを行う筋書きです: 値を最大値に対して追跡し、現在値がどれくらい最大値に近いかに基づいてメッセージを送信するライブラリを作成します。
 このライブラリは、ユーザが行うことのできるAPIコールの数の割り当てを追跡するのに使用することができるでしょう。
 
 <!-- Our library will only provide the functionality of tracking how close to the -->
@@ -269,7 +269,7 @@ impl<'a, T> LimitTracker<'a, T>
 <!-- <span class="caption">Listing 15-20: A library to keep track of how close a -->
 <!-- value is to a maximum value and warn when the value is at certain levels</span> -->
 
-<span class="caption">リスト15-20: 値が最大値にどれくらい近いかを追跡し、任意のレベルの時に警告するライブラリ</span>
+<span class="caption">リスト15-20: 値が最大値にどれくらい近いかを追跡し、特定のレベルの時に警告するライブラリ</span>
 
 <!-- One important part of this code is that the `Messenger` trait has one method -->
 <!-- called `send` that takes an immutable reference to `self` and the text of the -->
@@ -369,7 +369,7 @@ mod tests {
 まず、新しい`MockMessenger`を生成し、空のメッセージリストから始まります。そして、
 新しい`LimitTracker`を生成し、新しい`MockMessenger`の参照と100という`max`値を与えます。
 `LimitTracker`の`set_value`メソッドは80という値で呼び出し、これは100の75%を上回っています。
-そして、`MockMessenger`が追いかけているメッセージのリストが今は1つのメッセージを含んでいるはずとアサートします。
+そして、`MockMessenger`が追いかけているメッセージのリストが、今は1つのメッセージを含んでいるはずとアサートします。
 
 <!-- However, there’s one problem with this test, as shown here: -->
 
@@ -503,7 +503,7 @@ mod tests {
 
 `RefCell<T>`は、現在活動中の`Ref<T>`と`RefMut<T>`スマートポインタの数を追いかけます。
 `borrow`を呼び出す度に、`RefCell<T>`は活動中の不変参照の数を増やします。`Ref<T>`の値がスコープを抜けたら、
-不変参照の数は1下がります。コンパイル時の借用ルールと全く同じように、`RefCell<T>`はいかなる時も、
+不変参照の数は1下がります。コンパイル時の借用規則と全く同じように、`RefCell<T>`はいかなる時も、
 複数の不変借用または1つの可変借用を持たせてくれるのです。
 
 <!-- If we try to violate these rules, rather than getting a compiler error as we -->
@@ -515,7 +515,7 @@ mod tests {
 
 これらの規則を侵害しようとすれば、参照のようにコンパイルエラーになるのではなく、
 `RefCell<T>`の実装は実行時にパニックするでしょう。リスト15-23は、リスト15-22の`send`実装に対する変更を示しています。
-同じスコープで2つの可変借用が活動するようわざと生成し、`RefCell<T>`が実行時にこれをすることを阻止してくれるところを具体化しています。
+同じスコープで2つの可変借用が活動するようわざと生成し、`RefCell<T>`が実行時にこれをすることを阻止してくれるところを説明しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -563,7 +563,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- rules at runtime. -->
 
 コードは、`already borrowed: BorrowMutError`というメッセージとともにパニックしたことに気付いてください。
-このようにして`RefCell<T>`は実行時に借用ルールの侵害を扱うのです。
+このようにして`RefCell<T>`は実行時に借用規則の侵害を扱うのです。
 
 <!-- Catching borrowing errors at runtime rather than compile time means that you -->
 <!-- would find a mistake in your code later in the development process and possibly -->
@@ -576,11 +576,11 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- functionality than regular references provide. -->
 
 コンパイル時ではなく実行時に借用エラーをキャッチするということは、開発過程の遅い段階でコードのミスを発見し、
-コードをプロダクションにデプロイする時まで発見しないことを意味します。また、
+コードをプロダクションにデプロイする時まで発見しない可能性もあることを意味します。また、
 コンパイル時ではなく、実行時に借用を追いかける結果として、少し実行時にパフォーマンスを犠牲にするでしょう。
 しかしながら、`RefCell<T>`を使うことで不変値のみが許可される文脈で使用しつつ、
 自身を変更して見かけたメッセージを追跡するモックオブジェクトを書くことを可能にしてくれます。
-代償にも関わらず`RefCell<T>`を使用して、普通の参照よりも多くの機能を得ることができるわけです。
+その代償にも関わらず`RefCell<T>`を使用して、普通の参照よりも多くの機能を得ることができるわけです。
 
 <!-- ### Having Multiple Owners of Mutable Data by Combining `Rc<T>` and `RefCell<T>` -->
 
@@ -694,7 +694,7 @@ c after = Cons(RefCell { value: 10 }, Cons(RefCell { value: 15 }, Nil))
 
 このテクニックは非常に綺麗です！`RefCell<T>`を使用することで表面上は不変な`List`値を持てます。
 しかし、内部可変性へのアクセスを提供する`RefCell<T>`のメソッドを使用できるので、必要な時にはデータを変更できます。
-借用ルールを実行時に精査することでデータ競合を防ぎ、時としてデータ構造でちょっとのスピードを犠牲にこの柔軟性を得るのは価値があります。
+借用規則を実行時に精査することでデータ競合を防ぎ、時としてデータ構造でちょっとのスピードを犠牲にこの柔軟性を得るのは価値があります。
 
 <!-- The standard library has other types that provide interior mutability, such as -->
 <!-- `Cell<T>`, which is similar except that instead of giving references to the -->

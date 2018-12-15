@@ -41,7 +41,7 @@
 <!-- section, “Using Trait Objects That Allow for Values of Different Types,” just -->
 <!-- to that topic. So what you learn here you’ll apply again in Chapter 17! -->
 
-この節では、「ボックスで再帰的型を可能にする」節の最初の場面を模擬します。
+「ボックスで再帰的型を可能にする」節の最初の場面を模擬します。
 2番目の場合、多くのデータの所有権を転送するには、データがスタック上でコピーされるので、長い時間がかかり得ます。
 この場面でパフォーマンスを向上させるには、多くのデータをヒープ上にボックスとして格納することができます。
 そして、参照しているデータはヒープ上の1箇所に留まりつつ、少量のポインタのデータのみをスタック上でコピーするのです。
@@ -86,7 +86,7 @@ fn main() {
 <!-- deallocation happens for the box (stored on the stack) and the data it points -->
 <!-- to (stored on the heap). -->
 
-変数`b`を定義して値`5`を指す`Box`の値を持っていて、この値はヒープに確保されています。このプログラムは、
+変数`b`を定義して値`5`を指す`Box`の値があって、この値はヒープに確保されています。このプログラムは、
 `b = 5`と出力するでしょう; この場合、このデータがスタックにあるのと同じような方法でボックスのデータにアクセスできます。
 あらゆる所有された値同様、`b`が`main`の終わりでするようにボックスがスコープを抜けたら、
 メモリから解放されます。メモリの解放は(スタックに格納されている)ボックスと(ヒープに格納されている)指しているデータに対して起きます。
@@ -101,7 +101,7 @@ fn main() {
 単独の`i32`のような値を規定で格納される場所であるスタックに置くことが、大多数の場合にはより適切です。
 ボックスがなかったら定義することの叶わない型をボックスが定義させてくれる場合を見ましょう。
 
-<!-- ### Enabling Recursive types with Boxes -->
+<!-- ### Enabling Recursive Types with Boxes -->
 
 ### ボックスで再帰的な型を可能にする
 
@@ -145,8 +145,8 @@ fn main() {
 <!-- container instance by putting the element *x* at the start of this new -->
 <!-- container, followed by the container *y*. -->
 
-cons関数の概念は、より一般的な関数型プログラミングのスラングにもなっています: "to cons *x* onto *y*"は、
-俗に要素*x*をこの新しいコンテナの初めに置き、コンテナ*y*を従わせて新しいコンテナのインスタンスを生成することを意味します。
+cons関数の概念は、より一般的な関数型プログラミングの俗語にもなっています: "to cons *x* onto *y*"は、
+俗に要素*x*をこの新しいコンテナの初めに置き、コンテナ*y*を続けて新しいコンテナのインスタンスを生成することを意味します。
 
 <!-- Each item in a cons list contains two elements: the value of the current item -->
 <!-- and the next item. The last item in the list contains only a value called `Nil` -->
@@ -203,8 +203,8 @@ enum List {
 <!-- discussed in Chapter 10, to define a cons list type that could store values of -->
 <!-- any type. -->
 
-> 注釈: この例のためだけに`i32`値をだけを保持するコンスリストを実装します。第10章で議論したように、
-> ジェネリクスを使用してどんな型の値も格納できるコンスリストを定義して実装することもできました。
+> 注釈: この例のためだけに`i32`値だけを保持するコンスリストを実装します。第10章で議論したように、
+> ジェネリクスを使用してどんな型の値も格納できるコンスリストを定義して実装することもできたでしょう。
 
 <!-- Using the `List` type to store the list `1, 2, 3` would look like the code in -->
 <!-- Listing 15-3: -->
@@ -235,7 +235,7 @@ fn main() {
 
 最初の`Cons`値は、`1`と別の`List`値を保持しています。この`List`値は、
 `2`とまた別の`List`値を保持する別の`Cons`値です。この`List`値は、
-`3`と、ついにリストの終端を通知する非再帰的なバリアントの`Nil`になる`List`値を保持するまたまた別の`Cons`値です。
+`3`と、ついにリストの終端を通知する非再帰的な列挙子の`Nil`になる`List`値を保持するまたまた別の`Cons`値です。
 
 <!-- If we try to compile the code in Listing 15-3, we get the error shown in -->
 <!-- Listing 15-4: -->
@@ -396,7 +396,7 @@ fn main() {
 <!-- <span class="caption">Listing 15-5: Definition of `List` that uses `Box<T>` in -->
 <!-- order to have a known size</span> -->
 
-<span class="caption">リスト15-5: 既知のサイズを得るために`Box<T>`を使用する`List`の定義</span>
+<span class="caption">リスト15-5: 既知のサイズにするために`Box<T>`を使用する`List`の定義</span>
 
 <!-- The `Cons` variant will need the size of an `i32` plus the space to store the -->
 <!-- box’s pointer data. The `Nil` variant stores no values, so it needs less space -->

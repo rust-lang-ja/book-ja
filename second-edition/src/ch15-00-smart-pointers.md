@@ -23,10 +23,10 @@ Rustにおいて、最もありふれた種類のポインタは、参照であ�
 <!-- One example that we’ll explore in this chapter is the *reference counting* -->
 <!-- smart pointer type. This pointer enables you to have multiple owners of data by -->
 <!-- keeping track of the number of owners and, when no owners remain, cleaning up -->
-<!-- cleaning up the data. -->
+<!-- the data. -->
 
 一方、*スマートポインタ*は、ポインタのように振る舞うだけでなく、追加のメタデータと能力があるデータ構造です。
-スマートポインタという概念は、Rustに固有のものではありません: スマートポインタは、C++に端を発し、
+スマートポインタという概念は、Rustに特有のものではありません: スマートポインタは、C++に端を発し、
 他の言語にも存在しています。Rustでは、標準ライブラリに定義された色々なスマートポインタが、
 参照以上の機能を提供します。この章で探究する一つの例が、*参照カウント*方式のスマートポインタ型です。
 このポインタにより、所有者の数を追いかけることでデータに複数の所有者を持たせることができ、
@@ -47,7 +47,7 @@ Rustにおいて、最もありふれた種類のポインタは、参照であ�
 <!-- and extra capabilities or guarantees (such as with `String` ensuring its data -->
 <!-- will always be valid UTF-8). -->
 
-当時は、スマートポインタとは呼ばなかったものの、第8章の`String`や`Vec<T>`のように、
+その時は、スマートポインタとは呼ばなかったものの、第8章の`String`や`Vec<T>`のように、
 この本の中でいくつかのスマートポインタに遭遇してきました。これらの型はどちらも、
 あるメモリを所有し、それを弄ることができるので、スマートポインタに数えられます。また、
 メタデータ(キャパシティなど)や追加の能力、あるいは保証(`String`ならデータが常に有効なUTF-8であると保証することなど)もあります。
@@ -63,9 +63,9 @@ Rustにおいて、最もありふれた種類のポインタは、参照であ�
 
 スマートポインタは普通、構造体を使用して実装されています。スマートポインタを通常の構造体と区別する特徴は、
 スマートポインタは、`Deref`と`Drop`トレイトを実装していることです。`Deref`トレイトにより、スマートポインタ構造体のインスタンスは、
-参照のように振る舞うことができるので、参照あるいはスマートポインタのどちらとも動作するコードを書くことができるのです。
+参照のように振る舞うことができるので、参照あるいはスマートポインタのどちらとも動作するコードを書くことができます。
 `Drop`トレイトにより、スマートポインタのインスタンスがスコープを外れた時に走るコードをカスタマイズすることができます。
-この章では、どちらのトレイトについても議論し、これらのトレイトがスマートポインタにとって重要な理由をデモします。
+この章では、どちらのトレイトについても議論し、これらのトレイトがスマートポインタにとって重要な理由を説明します。
 
 <!-- Given that the smart pointer pattern is a general design pattern used -->
 <!-- frequently in Rust, this chapter won’t cover every existing smart pointer. Many -->

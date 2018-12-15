@@ -139,7 +139,7 @@ Dropping CustomSmartPointer with data `my stuff`!
 一例は、ロックを管理するスマートポインタを使用する時です: 同じスコープの他のコードがロックを獲得できるように、
 ロックを解放する`drop`メソッドを強制的に走らせたくなる可能性があります。Rustは、
 `Drop`トレイトの`drop`メソッドを手動で呼ばせてくれません; スコープが終わる前に値を強制的にドロップさせたいなら、
-標準ライブラリが提供する`std::mem:drop`関数を呼ばなければなりません。
+代わりに標準ライブラリが提供する`std::mem:drop`関数を呼ばなければなりません。
 
 <!-- If we try to call the `Drop` trait's `drop` method manually by modifying the -->
 <!-- `main` function in Listing 15-14, as shown in Listing 15-15, we'll get a -->
@@ -214,7 +214,7 @@ error[E0040]: explicit use of destructor method
 
 `std::mem::drop`関数は、`Drop`トレイトの`drop`メソッドとは異なります。
 早期に強制的にドロップさせたい値を引数で渡すことで呼びます。この関数は初期化処理に含まれているので、
-リスト15-14の`main`を変更して`drop`関数を呼び出せます。リスト15-16のようにですね:
+リスト15-15の`main`を変更して`drop`関数を呼び出せます。リスト15-16のようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -261,7 +261,7 @@ CustomSmartPointer dropped before the end of main.
 <!-- drop `c` at that point. -->
 
 ```Dropping CustomSmartPointer with data `some data`!```というテキストが、
-`CustomSmartPointer created.`と`CustomSmartPointer dropped before the end of main`テキストの間に出力されるので、
+`CustomSmartPointer created.`と`CustomSmartPointer dropped before the end of main.`テキストの間に出力されるので、
 `drop`メソッドのコードがその時点で呼び出されて`c`をドロップしたことを示しています。
 
 <!-- 3行目のwithを...があれば、と訳している。多分辞書にも載っている -->
@@ -272,7 +272,7 @@ CustomSmartPointer dropped before the end of main.
 <!-- don't have to remember to clean up because Rust does it automatically. -->
 
 `Drop`トレイト実装で指定されたコードをいろんな方法で使用し、片付けを便利で安全にすることができます:
-例を挙げれば、これを使用して独自のメモリアロケータを作ることもできるでしょう。`Drop`トレイトとRustの所有権システムがあれば、
+例を挙げれば、これを使用して独自のメモリアロケータを作ることもできるでしょう！`Drop`トレイトとRustの所有権システムがあれば、
 コンパイラが自動的に行うので、片付けを覚えておく必要はなくなります。
 
 <!-- You also don’t have to worry about problems resulting from accidentally -->
@@ -280,7 +280,7 @@ CustomSmartPointer dropped before the end of main.
 <!-- references are always valid also ensures that `drop` gets called only once when -->
 <!-- the value is no longer being used. -->
 
-まだ使用中の値を間違って片付けてしまうことに起因する問題を心配もしなくて済みます:
+まだ使用中の値を間違って片付けてしまうことに起因する問題を心配する必要もなくて済みます:
 参照が常に有効であると確認してくれる所有権システムが、値が最早使用されなくなった時に`drop`が1回だけ呼ばれることを保証してくれるのです。
 
 <!-- Now that we’ve examined `Box<T>` and some of the characteristics of smart -->
