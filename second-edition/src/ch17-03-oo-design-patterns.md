@@ -662,8 +662,7 @@ impl State for Published {
 
 ### ステートパターンの代償
 
-<!-- FIX: 3行目末尾、The wayと次の文、we have toの繋がりがよく分からない。とりあえずandで繋いでるような感じで訳している -->
-<!-- 今の訳だとなぜ、The wayが文頭に来ているのかがわからない -->
+<!-- The wayで「・・・の仕方によれば」という意味になるらしい -->
 
 <!-- We’ve shown that Rust is capable of implementing the object-oriented state -->
 <!-- pattern to encapsulate the different kinds of behavior a post should have in -->
@@ -674,7 +673,7 @@ impl State for Published {
 
 オブジェクト指向のステートパターンを実装して各状態の時に記事がなり得る異なる種類の振る舞いをカプセル化する能力が、
 Rustにあることを示してきました。`Post`のメソッドは、種々の振る舞いについては何も知りません。
-コードを体系化した方法、公開された記事が振る舞うことのある様々な方法を知るには、1箇所のみを調べればいいのです:
+コードを体系化の仕方によれば、公開された記事が振る舞うことのある様々な方法を知るには、1箇所のみを調べればいいのです:
 `Published`構造体の`State`トレイトの実装です。
 
 <!-- FIX: 5行目末尾がよくわからない。The more ..., the more ...のような感じで訳し文脈には合ってそうだが、合ってる自信がない -->

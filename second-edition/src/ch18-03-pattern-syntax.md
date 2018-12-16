@@ -82,7 +82,7 @@ fn main() {
 <!-- <span class="caption">Listing 18-11: A `match` expression with an arm that -->
 <!-- introduces a shadowed variable `y`</span> -->
 
-<span class="caption">リスト18-11: シャドウイングされた変数`y`を導入するアームのある`match`式</span>
+<span class="caption">リスト18-11: シャドーイングされた変数`y`を導入するアームのある`match`式</span>
 
 <!-- Let’s walk through what happens when the `match` expression runs. The pattern -->
 <!-- in the first match arm doesn’t match the defined value of `x`, so the code -->
@@ -113,7 +113,7 @@ fn main() {
 
 `x`が`Some(5)`ではなく`None`値だったなら、最初の2つのアームのパターンはマッチしなかったので、
 値はアンダースコアに合致したでしょう。アンダースコアのアームのパターンでは`x`変数を導入しなかったので、
-その式の`x`は、まだシャドウイングされない外側の`x`のままです。この架空の場合、
+その式の`x`は、まだシャドーイングされない外側の`x`のままです。この架空の場合、
 `match`は`Default case, x = None`と出力するでしょう。
 
 <!-- When the `match` expression is done, its scope ends, and so does the scope of -->
@@ -127,7 +127,7 @@ fn main() {
 <!-- guard conditional instead. We’ll talk about match guards later in the “Extra -->
 <!-- Conditionals with Match Guards” section. -->
 
-シャドウイングされた変数を導入するのではなく、外側の`x`と`y`の値を比較する`match`式を生成するには、
+シャドーイングされた変数を導入するのではなく、外側の`x`と`y`の値を比較する`match`式を生成するには、
 代わりにマッチガード条件式を使用する必要があるでしょう。マッチガードについては、後ほど、
 「マッチガードで追加の条件式」節で語ります。
 
@@ -224,22 +224,22 @@ match x {
 
 <!-- ### Destructuring to Break Apart Values -->
 
-### 分解して値を分離する
+### 分配して値を分解する
 
 <!-- We can also use patterns to destructure structs, enums, tuples, and references -->
 <!-- to use different parts of these values. Let’s walk through each value. -->
 
-またパターンを使用して構造体、enum、タプル、参照を分解しこれらの値の異なる部分を使用することもできます。
+またパターンを使用して構造体、enum、タプル、参照を分配し、これらの値の異なる部分を使用することもできます。
 各値を見ていきましょう。
 
 <!-- #### Destructuring Structs -->
 
-#### 構造体を分解する
+#### 構造体を分配する
 
 <!-- Listing 18-12 shows a `Point` struct with two fields, `x` and `y`, that we can -->
 <!-- break apart using a pattern with a `let` statement. -->
 
-リスト18-12は、`let`文でパターンを使用して分離できる2つのフィールド`x`と`y`のある`Point`構造体を示しています。
+リスト18-12は、`let`文でパターンを使用して分解できる2つのフィールド`x`と`y`のある`Point`構造体を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -263,7 +263,7 @@ fn main() {
 <!-- <span class="caption">Listing 18-12: Destructuring a struct’s fields into -->
 <!-- separate variables</span> -->
 
-<span class="caption">リスト18-12: 構造体のフィールドを個別の変数に分解する</span>
+<span class="caption">リスト18-12: 構造体のフィールドを個別の変数に分配する</span>
 
 <!-- This code creates the variables `a` and `b` that match the values of the `x` -->
 <!-- and `y` fields of the `p` variable. This example shows that the names of the -->
@@ -310,7 +310,7 @@ fn main() {
 <!-- <span class="caption">Listing 18-13: Destructuring struct fields using struct -->
 <!-- field shorthand</span> -->
 
-<span class="caption">リスト18-13: 構造体フィールド省略法で構造体のフィールドを分解する</span>
+<span class="caption">リスト18-13: 構造体フィールド省略法で構造体のフィールドを分配する</span>
 
 <!-- This code creates the variables `x` and `y` that match the `x` and `y` fields -->
 <!-- of the `p` variable. The outcome is that the variables `x` and `y` contain the -->
@@ -324,8 +324,8 @@ fn main() {
 <!-- some of the fields for particular values while creating variables to -->
 <!-- destructure the other fields. -->
 
-また全フィールドに対して変数を生成するのではなく、リテラル値を構造体パターンの一部にして分解することもできます。
-そうすることで他のフィールドは分解して変数を生成しつつ、一部のフィールドは特定の値と一致するか確認できます。
+また、全フィールドに対して変数を生成するのではなく、リテラル値を構造体パターンの一部にして分配することもできます。
+そうすることで他のフィールドは分配して変数を生成しつつ、一部のフィールドは特定の値と一致するか確認できます。
 
 <!-- Listing 18-14 shows a `match` expression that separates `Point` values into -->
 <!-- three cases: points that lie directly on the `x` axis (which is true when `y = -->
@@ -361,7 +361,7 @@ fn main() {
 <!-- <span class="caption">Listing 18-14: Destructuring and matching literal values -->
 <!-- in one pattern</span> -->
 
-<span class="caption">リスト18-14: 分解とリテラル値との一致を1つのパターンで</span>
+<span class="caption">リスト18-14: 分配とリテラル値との一致を1つのパターンで</span>
 
 <!-- The first arm will match any point that lies on the `x` axis by specifying that -->
 <!-- the `y` field matches if its value matches the literal `0`. The pattern still -->
@@ -386,7 +386,7 @@ fn main() {
 
 <!-- #### Destructuring Enums -->
 
-#### enumを分解する
+#### enumを分配する
 
 <!-- We’ve destructured enums earlier in this book, for example, when we -->
 <!-- destructured `Option<i32>` in Listing 6-5 in Chapter 6. One detail we haven’t -->
@@ -395,9 +395,9 @@ fn main() {
 <!-- example, in Listing 18-15 we use the `Message` enum from Listing 6-2 and write -->
 <!-- a `match` with patterns that will destructure each inner value. -->
 
-例えば、第6章のリスト6-5で`Option<i32>`を分解するなどこの本の前半でenumを分解しました。
-明示的に触れなかった詳細の1つは、enumを分解するパターンは、enum内に格納されているデータが定義されている手段に対応すべきということです。
-例として、リスト18-15では、リスト6-2から`Message` enumを使用し、内部の値それぞれを分解するパターンを伴う`match`を書いています。
+例えば、第6章のリスト6-5で`Option<i32>`を分配するなどこの本の前半でenumを分配しました。
+明示的に触れなかった詳細の1つは、enumを分配するパターンは、enum内に格納されているデータが定義されている手段に対応すべきということです。
+例として、リスト18-15では、リスト6-2から`Message` enumを使用し、内部の値それぞれを分配するパターンを伴う`match`を書いています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -416,7 +416,7 @@ fn main() {
 
     match msg {
         Message::Quit => {
-            // Quit列挙子には分解すべきデータがない
+            // Quit列挙子には分配すべきデータがない
             println!("The Quit variant has no data to destructure.")
         },
         Message::Move { x, y } => {
@@ -445,7 +445,7 @@ fn main() {
 <!-- <span class="caption">Listing 18-15: Destructuring enum variants that hold -->
 <!-- different kinds of values</span> -->
 
-<span class="caption">リスト18-15: 異なる種類の値を保持するenumの列挙子を分解する</span>
+<span class="caption">リスト18-15: 異なる種類の値を保持するenumの列挙子を分配する</span>
 
 <!-- This code will print `Change the color to red 0, green 160, and blue 255`. Try -->
 <!-- changing the value of `msg` to see the code from the other arms run. -->
@@ -457,7 +457,7 @@ fn main() {
 <!-- the value any further. We can only match on the literal `Message::Quit` value, -->
 <!-- and no variables are in that pattern. -->
 
-`Message::Quit`のようなデータのないenum列挙子については、それ以上値を分解することができません。
+`Message::Quit`のようなデータのないenum列挙子については、それ以上値を分配することができません。
 リテラル`Message::Quit`値にマッチするだけで、変数はそのパターンに存在しません。
 
 <!-- For struct-like enum variants, such as `Message::Move`, we can use a pattern -->
@@ -467,7 +467,7 @@ fn main() {
 <!-- we did in Listing 18-13. -->
 
 `Message::Move`のような構造体に似たenumの列挙子については、構造体と一致させるために指定するパターンと似たパターンを使用できます。
-列挙子の名前の後に波括弧を配置し、それから変数とともにフィールドを列挙するので、部品を分離してこのアームのコードで使用します。
+列挙子の名前の後に波括弧を配置し、それから変数とともにフィールドを列挙するので、部品を分解してこのアームのコードで使用します。
 ここでは、リスト18-13のように省略形態を使用しています。
 
 <!-- For tuple-like enum variants, like `Message::Write` that holds a tuple with one -->
@@ -482,7 +482,7 @@ fn main() {
 
 <!-- #### Destructuring References -->
 
-#### 参照を分解する
+#### 参照を分配する
 
 <!-- When the value we’re matching to our pattern contains a reference, we need to -->
 <!-- destructure the reference from the value, which we can do by specifying a `&` -->
@@ -492,7 +492,7 @@ fn main() {
 <!-- iterate over references, but we want to use the values in the closure rather -->
 <!-- than the references. -->
 
-パターンとマッチさせている値に参照が含まれる場合、値から参照を分解する必要があり、
+パターンとマッチさせている値に参照が含まれる場合、値から参照を分配する必要があり、
 パターンに`&`を指定することでそうすることができます。そうすることで参照を保持する変数を得るのではなく、
 参照が指している値を保持する変数が得られます。このテクニックは特に、参照を走査するイテレータがあるけれども、
 参照ではなく、クロージャで値を使用したいクロージャで特に役に立ちます。
@@ -502,7 +502,7 @@ fn main() {
 <!-- calculations on the `x` and `y` values easily. -->
 
 リスト18-16の例は、ベクタの`Point`インスタンスへの参照を走査し、`x`と`y`値に簡単に計算を行えるように、
-参照と構造体を分解します。
+参照と構造体を分配します。
 
 ```rust
 # struct Point {
@@ -525,7 +525,7 @@ let sum_of_squares: i32 = points
 <!-- <span class="caption">Listing 18-16: Destructuring a reference to a struct into -->
 <!-- the struct field values</span> -->
 
-<span class="caption">リスト18-16: 構造体への参照を構造体のフィールド値に分解する</span>
+<span class="caption">リスト18-16: 構造体への参照を構造体のフィールド値に分配する</span>
 
 <!-- This code gives us the variable `sum_of_squares` holding the value 135, which -->
 <!-- is the result of squaring the `x` value and the `y` value, adding those -->
@@ -540,7 +540,7 @@ let sum_of_squares: i32 = points
 <!-- vector rather than the actual values. The error would look like this: -->
 
 `&Point { x, y }`に`&`が含まれていなかったら、型不一致エラーが発生していたでしょう。
-`iter`はそうして、実際の値ではなく、ベクタの要素への参照を走査するからです。そのエラーはこんな見た目でしょう:
+`iter`はそうすると、実際の値ではなく、ベクタの要素への参照を走査するからです。そのエラーはこんな見た目でしょう:
 
 ```text
 error[E0308]: mismatched types
@@ -561,14 +561,14 @@ error[E0308]: mismatched types
 
 <!-- #### Destructuring Structs and Tuples -->
 
-#### 構造体とタプルを分解する
+#### 構造体とタプルを分配する
 
 <!-- We can mix, match, and nest destructuring patterns in even more complex ways. -->
 <!-- The following example shows a complicated destructure where we nest structs and -->
 <!-- tuples inside a tuple and destructure all the primitive values out: -->
 
-分解パターンをさらに複雑な方法で混ぜて一致させ、ネストすることができます。以下の例は、
-構造体とタプルをタプルにネストし、全ての基本的な値を取り出している複雑な分解を表示しています:
+分配パターンをさらに複雑な方法で混ぜてマッチさせ、ネストすることができます。以下の例は、
+構造体とタプルをタプルにネストし、全ての基本的な値を取り出している複雑な分配を表示しています:
 
 ```rust
 # struct Point {
@@ -582,12 +582,12 @@ let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
 <!-- This code lets us break complex types into their component parts so we can use -->
 <!-- the values we’re interested in separately. -->
 
-このコードは、複雑な型を構成する部品に分解させてくれるので、興味のある値を個別に使用できます。
+このコードは、複雑な型を構成する部品に分配させてくれるので、興味のある値を個別に使用できます。
 
 <!-- Destructuring with patterns is a convenient way to use pieces of values, such -->
 <!-- as the value from each field in a struct, separately from each other. -->
 
-パターンで分解することは、構造体の各フィールドからの値のように、一部の値を他と区別して使用する便利な方法です。
+パターンで分配することは、構造体の各フィールドからの値のように、一部の値を他と区別して使用する便利な方法です。
 
 <!-- ### Ignoring Values in a Pattern -->
 
@@ -616,7 +616,7 @@ let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
 <!-- useful as the last arm in a `match` expression, we can use it in any pattern, -->
 <!-- including function parameters, as shown in Listing 18-17. -->
 
-どんな値にも一致するけれども、値を束縛しないワイルドカードパターンとしてアンダースコア、`_`を使用しました。
+どんな値にも一致するけれども、値を束縛しないワイルドカードパターンとしてアンダースコア、`_`を使用してきました。
 アンダースコア、`_`パターンは特に`match`式の最後のアームとして役に立ちますが、
 関数の引数も含めてあらゆるパターンで使えます。リスト18-17に示したようにですね。
 
@@ -969,7 +969,7 @@ error: `..` can only be used once per tuple or tuple struct pattern
 コンパイラが、`second`の値に合致する前にタプルの幾つの値を無視し、それからそれによってさらに幾つの値を無視するかを決めることは不可能です。
 このコードは、`2`を無視し、`second`に`4`を束縛し、それから`8`、`16`、`32`を無視したり、
 `2`と`4`を無視して`second`に`8`を束縛し、それから`16`と`32`を無視するなどを意味することもあるでしょう。
-変数名の`second`は、コンパイラにとってなんの特別な意味もないため、このように2箇所で`..`を使うのは曖昧なので、
+変数名の`second`は、コンパイラにとってなんの特別な意味もなく、このように2箇所で`..`を使うのは曖昧なので、
 コンパイルエラーになります。
 
 <!-- ### Creating References in Patterns with `ref` and `ref mut`-->
@@ -1032,7 +1032,7 @@ println!("robot_name is: {:?}", robot_name);
 <!-- reference in the value. Because `&` already has that meaning in patterns, we -->
 <!-- can’t use `&` to create a reference in a pattern. -->
 
-しかしながら、「分解して値を分離する」節で見かけたように、パターンにおける`&`記法は参照を*生成*せず、
+しかしながら、「分配して値を分解する」節で見かけたように、パターンにおける`&`記法は参照を*生成*せず、
 値の既存の参照に*マッチ*します。パターンにおいて`&`には既にその意味があるので、
 `&`を使用してパターンで参照を生成することはできません。
 
@@ -1089,7 +1089,7 @@ println!("robot_name is: {:?}", robot_name);
 <!-- <span class="caption">Listing 18-28: Creating a mutable reference to a value as -->
 <!-- part of a pattern using `ref mut`</span> -->
 
-<span class="caption">リスト18-28: `ref mut`を使用してパターンの一部として値への可変参照を生成する</span>
+<span class="caption">リスト18-28: `ref mut`を使用して、パターンの一部として値への可変参照を生成する</span>
 
 <!-- This example will compile and print `robot_name is: Some("Another name")`. -->
 <!-- Because `name` is a mutable reference, we need to dereference within the match -->
@@ -1164,7 +1164,7 @@ match num {
 <!-- outer variable. Listing 18-30 shows how we can use a match guard to fix this -->
 <!-- problem. -->
 
-リスト18-11において、マッチガードを使用すれば、パターンがシャドウイングする問題を解決できると述べました。
+リスト18-11において、マッチガードを使用すれば、パターンがシャドーイングする問題を解決できると述べました。
 `match`の外側の変数を使用するのではなく、`match`式のパターン内部では新しい変数が作られることを思い出してください。
 その新しい変数は、外側の変数の値と比較することができないことを意味しました。リスト18-30は、
 マッチガードを使ってこの問題を修正する方法を表示しています。
@@ -1211,7 +1211,7 @@ fn main() {
 <!-- `n` to `y`. -->
 
 マッチガードの`if n == y`はパターンではなく、故に新しい変数を導入しません。この`y`は、
-新しいシャドウイングされた`y`ではなく、外側の`y`*であり*、`n`と`y`を比較することで、
+新しいシャドーイングされた`y`ではなく、外側の`y`*であり*、`n`と`y`を比較することで、
 外側の`y`と同じ値を探すことができます。
 
 <!-- You can also use the *or* operator `|` in a match guard to specify multiple -->
@@ -1254,7 +1254,7 @@ match x {
 
 マッチの条件は、`x`の値が`4`、`5`、`6`に等しく*かつ*`y`が`true`の場合だけにアームがマッチすると宣言しています。
 このコードが走ると、最初のアームのパターンは`x`が`4`なので、合致しますが、マッチガード`if y`は偽なので、
-最初のアームは選ばれません。コードは2番目のアームに移動し、これがマッチし、このプログラムは`no`と出力します。
+最初のアームは選ばれません。コードは2番目のアームに移動して、これがマッチし、このプログラムは`no`と出力します。
 理由は、`if`条件が最後の値の`6`だけでなく、パターン全体`4 | 5 | 6`に適用されるからです。
 言い換えると、パターンと関わるマッチガードの優先度は、以下のように振る舞います:
 
@@ -1271,7 +1271,7 @@ match x {
 ```
 
 <!-- After running the code, the precedence behavior is evident: if the match guard -->
-<!-- ware applied only to the final value in the list of values specified using the -->
+<!-- were applied only to the final value in the list of values specified using the -->
 <!-- `|` operator, the arm would have matched and the program would have printed -->
 <!-- `yes`. -->
 
@@ -1292,7 +1292,7 @@ match x {
 
 *at*演算子(`@`)により、値を保持する変数を生成するのと同時にその値がパターンに一致するかを調べることができます。
 リスト18-32は、`Message::Hello`の`id`フィールドが範囲`3...7`にあるかを確かめたいという例です。
-しかし、アームに紐付いたコードで使用できるように変数`id_variable`に値を束縛もしたいです。この変数をフィールドと同じ、
+しかし、アームに紐づいたコードで使用できるように変数`id_variable`に値を束縛もしたいです。この変数をフィールドと同じ、
 `id`と名付けることもできますが、この例では異なる名前にします。
 
 ```rust
@@ -1321,7 +1321,7 @@ match msg {
 <!-- <span class="caption">Listing 18-32: Using `@` to bind to a value in a pattern -->
 <!-- while also testing it</span> -->
 
-<span class="caption">`@`を使用してテストしつつパターンの値に束縛する</span>
+<span class="caption">`@`を使用してテストしつつ、パターンの値に束縛する</span>
 
 <!-- This example will print `Found an id in range: 5`. By specifying `id_variable -->
 <!-- @` before the range `3...7`, we’re capturing whatever value matched the range -->
@@ -1337,8 +1337,8 @@ match msg {
 <!-- isn’t able to use the value from the `id` field, because we haven’t saved the -->
 <!-- `id` value in a variable. -->
 
-パターンで範囲しか指定していない2番目のアームでは、アームに紐付いたコードに`id`フィールドの実際の値を含む変数はありません。
-`id`フィールドの値は10、11、12だった可能性もありますが、そのパターンに当てはまるコードは、
+パターンで範囲しか指定していない2番目のアームでは、アームに紐づいたコードに`id`フィールドの実際の値を含む変数はありません。
+`id`フィールドの値は10、11、12だった可能性もありますが、そのパターンに来るコードは、
 どれなのかわかりません。パターンのコードは`id`フィールドの値を使用することは叶いません。
 `id`の値を変数に保存していないからです。
 
@@ -1369,8 +1369,8 @@ match msg {
 
 Rustのパターンは、異なる種類のデータを区別するのに役立つという点でとても有用です。`match`式で使用されると、
 コンパイラはパターンが全ての可能性を網羅しているか保証し、そうでなければプログラムはコンパイルできません。
-`let`文や関数の引数のパターンは、その構文をより有用にし、値を分解して小さな部品にすると同時に変数に代入できるようにしてくれます。
-単純だったり複雑だったするパターンを生成してニーズに合わせることができます。
+`let`文や関数の引数のパターンは、その構文をより有用にし、値を分配して小さな部品にすると同時に変数に代入できるようにしてくれます。
+単純だったり複雑だったりするパターンを生成してニーズに合わせることができます。
 
 <!-- Next, for the penultimate chapter of the book, we’ll look at some advanced -->
 <!-- aspects of a variety of Rust’s features. -->

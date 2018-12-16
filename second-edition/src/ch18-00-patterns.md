@@ -17,7 +17,7 @@
 <!-- * Placeholders -->
 
 * リテラル
-* 分解された配列、enum、構造体、タプル
+* 分配された配列、enum、構造体、タプル
 * 変数
 * ワイルドカード
 * プレースホルダー
@@ -38,7 +38,7 @@
 パターンを使用するには、なんらかの値と比較します。パターンが値に合致したら、コードで値の部分を使用します。
 コイン並び替えマシンの例のような第6章でパターンを使用した`match`式を思い出してください。
 値がパターンの形に当てはまったら、名前のある部品を使用できます。当てはまらなければ、
-パターンに紐付いたコードは実行されません。
+パターンに紐づいたコードは実行されません。
 
 <!-- This chapter is a reference on all things related to patterns. We’ll cover the -->
 <!-- valid places to use patterns, the difference between refutable and irrefutable -->
@@ -46,7 +46,7 @@
 <!-- end of the chapter, you’ll know how to use patterns to express many concepts in -->
 <!-- a clear way. -->
 
-この章は、パターンに関連するあらゆるものの参照です。パターンを使用するのが合法な箇所、
+この章は、パターンに関連するあらゆるものの参考文献です。パターンを使用するのが合法な箇所、
 <ruby>論駁<rp>(</rp><rt>ろんばく</rt><rp>)</rp></ruby>可能と論駁不可能なパターンの違い、
 目撃する可能性のある色々な種類のパターン記法を講義します。章の終わりまでに、
 パターンを使用して多くの概念をはっきり表現する方法を知るでしょう。

@@ -68,7 +68,7 @@ match VALUE {
 <!-- patterns. Also, the conditions in a series of `if let`, `else if`, `else if -->
 <!-- let` arms aren’t required to relate to each other. -->
 
-リスト18-1は、`if let`、`else if`、`else if let`式を混ぜて合致させることもできることを示しています。
+リスト18-1は、`if let`、`else if`、`else if let`式を混ぜてマッチさせることもできることを示しています。
 そうすると、パターンと1つの値しか比較することを表現できない`match`式よりも柔軟性が高くなります。
 また、一連の`if let`、`else if`、`else if let`アームの条件は、お互いに関連している必要はありません。
 
@@ -78,7 +78,7 @@ match VALUE {
 <!-- input. -->
 
 リスト18-1のコードは、背景色が何になるべきかを決定するいくつかの異なる条件を連なって確認するところを示しています。
-この例には、実際のプログラムではユーザ入力を受け付ける可能性のある変数をハードコードされた値で生成しています。
+この例では、実際のプログラムではユーザ入力を受け付ける可能性のある変数をハードコードされた値で生成しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -141,10 +141,10 @@ fn main() {
 <!-- shadowed `age` we want to compare to 30 isn’t valid until the new scope starts -->
 <!-- with the curly bracket. -->
 
-`match`アームのように`if let`もシャドウイングされた変数を導入できることがわかります:
-`if let Ok(age) = age`の行は、`Ok`列挙子の中の値を含むシャドウイングされた新しい`age`変数を導入します。
+`match`アームのように`if let`もシャドーイングされた変数を導入できることがわかります:
+`if let Ok(age) = age`の行は、`Ok`列挙子の中の値を含むシャドーイングされた新しい`age`変数を導入します。
 つまり、`if age > 30`という条件は、そのブロック内に配置する必要があります: これら2つの条件を組み合わせて、
-`if let Ok(age) = age && age > 30`とすることはできません。30と比較したいシャドウイングされた`age`は、
+`if let Ok(age) = age && age > 30`とすることはできません。30と比較したいシャドーイングされた`age`は、
 波括弧で新しいスコープが始まるまで有効にならないのです。
 
 <!-- The downside of using `if let` expressions is that the compiler doesn’t check -->
@@ -204,14 +204,14 @@ while let Some(top) = stack.pop() {
 <!-- takes. In a `for` loop, the pattern is the value that directly follows the -->
 <!-- keyword `for`, so in `for x in y` the `x` is the pattern. -->
 
-第3章で、Rustコードにおいては、`for`ループが最もよく使われるループ構造だと述べましたが、
-`for`が取るパターンについてはまだ議論してませんでした。`for`ループにおいて、
+第3章で、Rustコードにおいては、`for`ループが最もありふれたループ構造だと述べましたが、
+`for`が取るパターンについてはまだ議論していませんでした。`for`ループにおいて、
 直接キーワード`for`に続く値がパターンなので、`for x in y`では、`x`がパターンになります。
 
 <!-- Listing 18-3 demonstrates how to use a pattern in a `for` loop to destructure, -->
 <!-- or break apart, a tuple as part of the `for` loop. -->
 
-リスト18-3は`for`ループでパターンを使用して`for`ループの一部としてタプルを分解あるいは、分離する方法をデモしています。
+リスト18-3は`for`ループでパターンを使用して`for`ループの一部としてタプルを分配あるいは、分解する方法をデモしています。
 
 ```rust
 let v = vec!['a', 'b', 'c'];
@@ -224,7 +224,7 @@ for (index, value) in v.iter().enumerate() {
 <!-- <span class="caption">Listing 18-3: Using a pattern in a `for` loop to -->
 <!-- destructure a tuple</span> -->
 
-<span class="caption">リスト18-3: `for`ループでパターンを使用してタプルを分解する</span>
+<span class="caption">リスト18-3: `for`ループでパターンを使用してタプルを分配する</span>
 
 <!-- The code in Listing 18-3 will print the following: -->
 
@@ -242,7 +242,7 @@ c is at index 2
 <!-- pattern `(index, value)`, `index` will be `0` and `value` will be `'a'`, -->
 <!-- printing the first line of the output. -->
 
-`enumerate`メソッドを使用してイテレータを改造し、値とその値のイテレータでの番号をタプルに配置して生成しています。
+`enumerate`メソッドを使用してイテレータを改造し、値とその値のイテレータでの添え字をタプルに配置して生成しています。
 `enumerate`の最初の呼び出しは、タプル`(0, 'a')`を生成します。この値がパターン`(index, value)`とマッチさせられると、
 `index`は`0`、`value`は`'a'`になり、出力の最初の行を出力するのです。
 
@@ -289,7 +289,7 @@ Rustは式をパターンと比較し、見つかったあらゆる名前を代�
 <!-- 18-4, which uses a pattern with `let` to destructure a tuple. -->
 
 `let`のパターンマッチングの観点をよりはっきり確認するためにリスト18-4を考えてください。
-これは`let`でパターンを使用し、タプルを分解します。
+これは`let`でパターンを使用し、タプルを分配します。
 
 ```rust
 let (x, y, z) = (1, 2, 3);
@@ -298,7 +298,7 @@ let (x, y, z) = (1, 2, 3);
 <!-- <span class="caption">Listing 18-4: Using a pattern to destructure a tuple and -->
 <!-- create three variables at once</span> -->
 
-<span class="caption">リスト18-4: パターンを使用してタプルを分解し、3つの変数を一度に生成する</span>
+<span class="caption">リスト18-4: パターンを使用してタプルを分配し、3つの変数を一度に生成する</span>
 
 <!-- Here, we match a tuple against a pattern. Rust compares the value `(1, 2, 3)` -->
 <!-- to the pattern `(x, y, z)` and sees that the value matches the pattern, so Rust -->
@@ -315,7 +315,7 @@ let (x, y, z) = (1, 2, 3);
 <!-- elements into two variables, which won’t work. -->
 
 パターンの要素数がタプルの要素数と一致しない場合、全体の型が一致せず、コンパイルエラーになるでしょう。
-例えば、リスト18-5は、3要素のタプルを2つの変数に分解しようとしているところを表示していて、動きません。
+例えば、リスト18-5は、3要素のタプルを2つの変数に分配しようとしているところを表示していて、動きません。
 
 ```rust,ignore
 let (x, y) = (1, 2, 3);
@@ -336,6 +336,7 @@ error[E0308]: mismatched types
   |
 2 |     let (x, y) = (1, 2, 3);
   |         ^^^^^^ expected a tuple with 3 elements, found one with 2 elements
+  |                (3要素のタプルを予期したのに、2要素のタプルが見つかりました)
   |
   = note: expected type `({integer}, {integer}, {integer})`
              found type `(_, _)`
@@ -400,7 +401,7 @@ fn main() {
 <!-- <span class="caption">Listing 18-7: A function with parameters that destructure -->
 <!-- a tuple</span> -->
 
-<span class="caption">リスト18-7: タプルを分解する引数を伴う関数</span>
+<span class="caption">リスト18-7: タプルを分配する引数を伴う関数</span>
 
 <!-- This code prints `Current location: (3, 5)`. The values `&(3, 5)` match the -->
 <!-- pattern `&(x, y)`, so `x` is the value `3` and `y` is the value `5`. -->

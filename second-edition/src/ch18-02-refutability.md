@@ -1,6 +1,6 @@
 <!-- ## Refutability: Whether a Pattern Might Fail to Match -->
 
-## 論駁可能性: パターンが合致しないか
+## 論駁可能性: パターンが合致しないかどうか
 
 <!-- Patterns come in two forms: refutable and irrefutable. Patterns that will match -->
 <!-- for any possible value passed are *irrefutable*. An example would be `x` in the -->
@@ -44,7 +44,7 @@
 
 コンパイラが論駁不可能なパターンを必要とする箇所で論駁可能なパターンを使用しようとしたら、何が起きるかとその逆の例を見ましょう。
 リスト18-8は`let`文を示していますが、パターンには`Some(x)`と指定し、論駁可能なパターンです。
-予想しているかもしれませんが、このコードはコンパイルできません。
+ご想像通りかもしれませんが、このコードはコンパイルできません。
 
 ```rust,ignore
 let Some(x) = some_option_value;
