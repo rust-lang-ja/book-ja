@@ -98,7 +98,7 @@ fn main() {
 
 ユーザが`Post::new`で新しいブログ記事の草稿を作成できるようにしたいです。それから、
 草稿状態の間にブログ記事にテキストを追加できるようにしたいです。承認前に記事の内容を即座に得ようとしたら、
-記事はまだ草稿なので、何も起きるべきではありません。デモするためにコードに`assert_eq!`を追加しました。
+記事はまだ草稿なので、何も起きるべきではありません。デモ目的でコードに`assert_eq!`を追加しました。
 これに対する素晴らしい単体テストは、ブログ記事の草稿が`content`メソッドから空の文字列を返すことをアサートすることでしょうが、
 この例に対してテストを書くつもりはありません。
 
@@ -209,7 +209,6 @@ impl State for Draft {}
 <!-- straightforward, so let’s add the implementation in Listing 17-13 to the `impl -->
 <!-- Post` block: -->
 
-`Post::new`関数では、`content`フィールドを新しい空の`String`にセットしています。
 リスト17-11は、`add_text`というメソッドを呼び出し、ブログ記事のテキスト内容に追加される`&str`を渡せるようになりたいことを示しました。
 これを`content`フィールドを`pub`にして晒すのではなく、メソッドとして実装しています。
 これは、後ほど`content`フィールドデータの読まれ方を制御するメソッドを実装できることを意味しています。
@@ -297,6 +296,9 @@ impl Post {
 
 この追加された`content`メソッドとともに、リスト17-11の8行目までのコードは、想定通り動きます。
 
+<!-- [Requesting a Review of the Post] Changes ... ともRequesting that [a Review ...]とも読める。どちらがふさわしいだろうか -->
+<!-- 次の1行目にrequest a review of a post, whichとあるので、前者で訳しておく。 -->
+
 <!-- ### Requesting a Review of the Post Changes Its State -->
 
 ### 記事の査読を要求すると、状態が変化する
@@ -355,7 +357,7 @@ impl State for PendingReview {
 <!-- We give `Post` a public method named `request_review` that will take a mutable -->
 <!-- reference to `self`. Then we call an internal `request_review` method on the -->
 <!-- current state of `Post`, and this second `request_review` method consumes the -->
-<!-- current state and return a new state. -->
+<!-- current state and returns a new state. -->
 
 `Post`に`self`への可変参照を取る`request_review`という公開メソッドを与えます。それから、
 `Post`の現在の状態に対して内部の`request_review`メソッドを呼び出し、
@@ -371,8 +373,8 @@ impl State for PendingReview {
 
 `State`トレイトに`request_review`メソッドを追加しました; このトレイトを実装する型は全て、
 これで`request_review`メソッドを実装する必要があります。メソッドの第1引数に`self`、`&self`、`&mut self`ではなく、
-`self: Box<Self>`としていることに注意してください。この記法は、型を保持する`Box`に対して呼ばれた時、
-このメソッドが有効のみになることを意味しています。この記法は、`Box<Self>`の所有権を奪い、古い状態を無効化するので、
+`self: Box<Self>`としていることに注意してください。この記法は、型を保持する`Box`に対して呼ばれた時のみ、
+このメソッドが合法になることを意味しています。この記法は、`Box<Self>`の所有権を奪い、古い状態を無効化するので、
 `Post`の状態値は、新しい状態に変形できます。
 
 <!-- To consume the old state, the `request_review` method needs to take ownership -->
@@ -422,7 +424,7 @@ impl State for PendingReview {
 <!-- `Draft` state, but we want the same behavior in the `PendingReview` state. -->
 <!-- Listing 17-11 now works up to line 11! -->
 
-`Post`の`content`メソッドを空の文字列スライスを返すというようにそのままにします。
+`Post`の`content`メソッドを空の文字列スライスを返してそのままにします。
 これで`Post`は`PendingReview`と`Draft`状態になり得ますが、`PendingReview`状態でも、
 同じ振る舞いが欲しいです。もうリスト17-11は11行目まで動くようになりました！
 
@@ -521,7 +523,7 @@ impl State for Published {
 何も効果はありません。`PendingReview`に対して`approve`を呼び出すと、
 `Published`構造体の新しいボックス化されたインスタンスを返します。`Published`構造体は`State`トレイトを実装し、
 `request_review`メソッドと`approve`メソッド両方に対して、自身を返します。
-そのような場合には記事は、`Published`状態に留まるべきだからです。
+そのような場合に記事は、`Published`状態に留まるべきだからです。
 
 <!-- Now we need to update the `content` method on `Post`: if the state is -->
 <!-- `Published`, we want to return the value in the post’s `content` field; -->
@@ -660,7 +662,8 @@ impl State for Published {
 
 ### ステートパターンの代償
 
-<!-- 3行目末尾、The wayと次の文、we onlyの繋がりがよく分からない。とりあえずandで繋いでるような感じで訳している -->
+<!-- FIX: 3行目末尾、The wayと次の文、we have toの繋がりがよく分からない。とりあえずandで繋いでるような感じで訳している -->
+<!-- 今の訳だとなぜ、The wayが文頭に来ているのかがわからない -->
 
 <!-- We’ve shown that Rust is capable of implementing the object-oriented state -->
 <!-- pattern to encapsulate the different kinds of behavior a post should have in -->
@@ -670,11 +673,11 @@ impl State for Published {
 <!-- trait on the `Published` struct. -->
 
 オブジェクト指向のステートパターンを実装して各状態の時に記事がなり得る異なる種類の振る舞いをカプセル化する能力が、
-Rustにあることを示しました。`Post`のメソッドは、種々の振る舞いについては何も知りません。
+Rustにあることを示してきました。`Post`のメソッドは、種々の振る舞いについては何も知りません。
 コードを体系化した方法、公開された記事が振る舞うことのある様々な方法を知るには、1箇所のみを調べればいいのです:
 `Published`構造体の`State`トレイトの実装です。
 
-<!-- 5行目末尾がよくわからない。The more ..., the more ...のような感じで訳し文脈には合ってそうだが、合ってる自信がない -->
+<!-- FIX: 5行目末尾がよくわからない。The more ..., the more ...のような感じで訳し文脈には合ってそうだが、合ってる自信がない -->
 <!-- つまり、This would only increase, the more states we addedのように訳している -->
 
 <!-- If we were to create an alternative implementation that didn’t use the state -->
@@ -729,7 +732,7 @@ Rustにあることを示しました。`Post`のメソッドは、種々の振�
 `PendingReview`と`Published`の間に、`Scheduled`のような別の状態を追加したら、
 代わりに`PendingReview`のコードを`Scheduled`に遷移するように変更しなければならないでしょう。
 状態が追加されても`PendingReview`を変更する必要がなければ、作業が減りますが、
-そうすれば別のデザインパターンに切り替えることになります。
+そうすれば別のデザインパターンに切り替えることになるでしょう。
 
 <!-- Another downside is that we’ve duplicated some logic. To eliminate some of the -->
 <!-- duplication, we might try to make default implementations for the -->
@@ -752,7 +755,7 @@ Rustにあることを示しました。`Post`のメソッドは、種々の振�
 
 他の重複には、`Post`の`request_review`と`approve`メソッドの実装が似ていることが含まれます。
 両メソッドは`Option`の`state`の値に対する同じメソッドの実装に委譲していて、`state`フィールドの新しい値を結果にセットします。
-このパターンに従う`Post`のメソッドが多くあれば、マクロを定義して繰り返しを排除することも考える可能性があります(マクロについては付録Dを参照)。
+このパターンに従う`Post`のメソッドが多くあれば、マクロを定義して繰り返しを排除することも考慮する可能性があります(マクロについては付録Dを参照)。
 
 <!-- By implementing the state pattern exactly as it’s defined for object-oriented -->
 <!-- languages, we’re not taking as full advantage of Rust’s strengths as we could. -->
@@ -969,7 +972,7 @@ impl PendingReviewPost {
 <!-- The updated code in `main` is shown in Listing 17-21: -->
 
 ですが、さらに`main`にも多少小さな変更を行わなければなりません。`request_review`と`approve`メソッドは、
-呼ばれた構造体を変更するのではなく、新しいインスタンスを返すので、`let post =`という上書き代入をもっと追加し、
+呼ばれた構造体を変更するのではなく、新しいインスタンスを返すので、`let post =`というシャドーイング代入をもっと追加し、
 返却されたインスタンスを保存する必要があります。また、草稿と査読待ち記事の内容を空の文字列でアサートすることも、
 する必要もありません: 最早、その状態にある記事の内容を使用しようとするコードはコンパイル不可能だからです。
 `main`の更新されたコードは、リスト17-21に示されています:
@@ -1008,7 +1011,7 @@ fn main() {
 <!-- compile time! This ensures that certain bugs, such as display of the content of -->
 <!-- an unpublished post, will be discovered before they make it to production. -->
 
-`post`を再代入するために`main`に行う必要のあった変更は、この実装が最早、
+`post`を再代入するために`main`に行う必要のあった変更は、この実装がもう、
 全くオブジェクト指向のステートパターンに沿っていないことを意味します: 
 状態間の変形は最早、`Post`実装内に完全にカプセル化されていません。
 ですが、型システムとコンパイル時に起きる型チェックのおかげでもう無効な状態があり得なくなりました。
@@ -1037,7 +1040,7 @@ fn main() {
 
 Rustは、オブジェクト指向のデザインパターンを実装する能力があるものの、状態を型システムにコード化するなどの他のパターンも、
 Rustでは利用可能なことを確かめました。これらのパターンには、異なる代償があります。
-オブジェクト指向のパターンには馴染み深い可能性があるものの、問題を再考してRustの機能の強みを活かすと、
+あなたはオブジェクト指向のパターンには非常に馴染み深い可能性があるものの、問題を再考してRustの機能の強みを活かすと、
 コンパイル時に一部のバグを回避できるなどの利益が得られることもあります。オブジェクト指向のパターンは、
 オブジェクト指向言語にはない所有権などの特定の機能によりRustでは、必ずしも最善の解決策ではないでしょう。
 
