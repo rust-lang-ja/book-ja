@@ -241,7 +241,7 @@ pub struct Config {
 #      vec![]
 # }
 #
-# struct Config {
+# pub struct Config {
 #     query: String,
 #     filename: String,
 #     case_sensitive: bool,
