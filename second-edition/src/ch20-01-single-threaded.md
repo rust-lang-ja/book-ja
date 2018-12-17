@@ -30,10 +30,10 @@
 <!-- the vast majority of cases, HTTP sends its data over TCP. We’ll work with the -->
 <!-- raw bytes of TCP and HTTP requests and responses. -->
 
-TCPは、情報があるサーバから別のサーバへどう到達するかの詳細を記述するものの、その情報がなんなのかは指定しない、
-より低レベルのプロトコルです。HTTPはリクエストとレスポンスの中身を定義することでTCPの元に成り立っています。
+TCPは、情報がとあるサーバから別のサーバへどう到達するかの詳細を記述するものの、その情報がなんなのかは指定しない、
+より低レベルのプロトコルです。HTTPはリクエストとレスポンスの中身を定義することでTCPの上に成り立っています。
 技術的にはHTTPを他のプロトコルとともに使用することができますが、過半数の場合、HTTPはTCPの上にデータを送信します。
-TCPとHTTPのリクエストとレスポンスの生のバイトを処理します。
+TCPとHTTPのリクエストとレスポンスの生のバイトを取り扱います。
 
 <!-- ### Listening to the TCP Connection -->
 
@@ -189,9 +189,9 @@ Connection established!
 <!-- connections by retrying, because the problem might be temporary. The important -->
 <!-- factor is that we’ve successfully gotten a handle to a TCP connection! -->
 
-サーバが何もデータを送り返してこないので、ブラウザがサーバに何度も接続を試みているという可能性もあります。
+サーバが何もデータを送り返してこないので、ブラウザがサーバに何度も接続を試みているということである可能性もあるでしょう。
 `stream`がスコープを抜け、ループの最後でドロップされると、接続は`drop`実装の一部として閉じられます。
-ブラウザは、再試行することで閉じられた接続を扱うことがあります。問題が一時的なものかもしれないからです。
+ブラウザは、再試行することで閉じられた接続を扱うことがあります。問題が一時的なものである可能性があるからです。
 重要な要素は、TCP接続へのハンドルを得ることに成功したということです！
 
 <!-- Remember to stop the program by pressing <span class="keystroke">ctrl-c</span> -->
@@ -256,7 +256,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- instead of printing a message that says we made a connection, we now call the -->
 <!-- new `handle_connection` function and pass the `stream` to it. -->
 
-`std::io::prelude`をスコープに導入してストリームから読み書きさせてくれる特定のトレイトにアクセスできるようにしています。
+`std::io::prelude`をスコープに導入して、ストリームから読み書きさせてくれる特定のトレイトにアクセスできるようにしています。
 `main`関数内の`for`ループで、接続を確立したというメッセージを出力する代わりに、今では、
 新しい`handle_connection`関数を呼び出し、`stream`を渡しています。
 
@@ -336,7 +336,7 @@ Upgrade-Insecure-Requests: 1
 <!-- Let’s break down this request data to understand what the browser is asking of -->
 <!-- our program. -->
 
-このリクエストデータを噛み砕いてブラウザが我々のプログラムに何を要求しているかを理解しましょう。
+このリクエストデータを噛み砕いて、ブラウザが我々のプログラムに何を要求しているかを理解しましょう。
 
 <!-- ### A Closer Look at an HTTP Request -->
 
@@ -368,7 +368,7 @@ message-body
 <!-- uses the term URI, so we can just mentally substitute URL for URI here. -->
 
 リクエスト行の次の部分は */* で、これはクライアントが要求している*Uniform Resource Identifier* *(URI)*(`注釈`: 統一資源識別子)を示します:
-URIはほぼ、ですがかなりではなく、*Uniform Resource Locator* *(URL)*(`注釈`: 統一資源位置指定子)と同じです。
+URIはほぼ、ですが完全ではなく、*Uniform Resource Locator* *(URL)*(`注釈`: 統一資源位置指定子)と同じです。
 URIとURLの違いは、この章の目的には重要ではありませんが、HTTPの規格はURIという用語を使用しているので、
 ここでは脳内でURIをURLと読み替えられます。
 
@@ -395,7 +395,7 @@ CRLFにより、リクエスト行がリクエストデータの残りと区別�
 <!-- After the request line, the remaining lines starting from `Host:` onward are -->
 <!-- headers. `GET` requests have no body. -->
 
-リクエスト行の後に、`Host:`以下から始まる残りの行は、ヘッダーです。`GET`リクエストには、本体がありません。
+リクエスト行の後に、`Host:`以下から始まる残りの行は、ヘッダです。`GET`リクエストには、本体がありません。
 
 <!-- Try making a request from a different browser or asking for a different -->
 <!-- address, such as *127.0.0.1:7878/test*, to see how the request data changes. -->
@@ -428,13 +428,13 @@ message-body
 <!-- response. -->
 
 1行目は、*ステータス行*で、レスポンスで使用されるHTTPバージョン、リクエストの結果を総括する数値のステータスコード、
-ステータスコードをテキストで表現する理由フレーズを含みます。CRLFの後には、あらゆるヘッダー、別のCRLF、
+ステータスコードをテキストで表現する理由フレーズを含みます。CRLFの後には、あらゆるヘッダ、別のCRLF、
 レスポンスの本体があります。
 
 <!-- Here is an example response that uses HTTP version 1.1, has a status code of -->
 <!-- 200, an OK reason phrase, no headers, and no body: -->
 
-こちらがHTTPバージョン1.1を使用し、ステータスコードが200で、OKフレーズ、ヘッダーと本体なしの例のレスポンスです:
+こちらがHTTPバージョン1.1を使用し、ステータスコードが200で、OKフレーズ、ヘッダと本体なしの例のレスポンスです:
 
 ```text
 HTTP/1.1 200 OK\r\n\r\n
@@ -502,7 +502,7 @@ fn handle_connection(mut stream: TcpStream) {
 
 これらの変更とともに、コードを実行し、リクエストをしましょう。最早、端末にどんなデータも出力していないので、
 Cargoからの出力以外には何も出力はありません。Webブラウザで*127.0.0.1:7878*をロードすると、
-エラーではなく空っぽのページが得られるはずです。HTTPリクエストとレスポンスを手で実装したばかりなのです！
+エラーではなく空のページが得られるはずです。HTTPリクエストとレスポンスを手で実装したばかりなのです！
 
 <!-- ### Returning Real HTML -->
 
@@ -513,7 +513,7 @@ Cargoからの出力以外には何も出力はありません。Webブラウザ
 <!-- *src* directory. You can input any HTML you want; Listing 20-4 shows one -->
 <!-- possibility. -->
 
-空っぽのページ以上のものを返す機能を実装しましょう。新しいファイル*hello.html*を*src*ディレクトリではなく、
+空のページ以上のものを返す機能を実装しましょう。新しいファイル*hello.html*を*src*ディレクトリではなく、
 プロジェクトのルートディレクトリに作成してください。お好きなようにHTMLを書いてください;
 リスト20-4は、一つの可能性を示しています。
 
@@ -587,7 +587,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- I/O project in Listing 12-4. -->
 
 先頭に行を追加して標準ライブラリの`File`をスコープに導入しました。ファイルを開き、中身を読み込むコードは、
-馴染みがあるはずです; リスト12-4でI/Oプロジェクト用にファイルの中身を読み込んだ時に第12章で使用したからです。
+馴染みがあるはずです; リスト12-4でI/Oプロジェクト用にファイルの中身を読み込んだ時に第12章で使用しましたね。
 
 <!-- Next, we use `format!` to add the file’s contents as the body of the success -->
 <!-- response. -->
@@ -701,7 +701,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- not found. We’ll also return some HTML for a page to render in the browser -->
 <!-- indicating the response to the end user. -->
 
-では、`else`ブロックにリスト20-7のコードを追記してステータスコード404のレスポンスを返しましょう。
+では、`else`ブロックにリスト20-7のコードを追記して、ステータスコード404のレスポンスを返しましょう。
 これは、リクエストの中身が見つからなかったことを通知します。エンドユーザにレスポンスを示唆するページをブラウザに描画するよう、
 何かHTMLも返します。
 
@@ -744,7 +744,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- any HTML you want or use the example HTML in Listing 20-8. -->
 
 ここでは、レスポンスにはステータスコード404と理由フレーズ`NOT FOUND`のステータス行があります。
-それでもヘッダーは返さず、レスポンスの本体は、ファイル*404.html*のHTMLになります。エラーページのために、
+それでもヘッダは返さず、レスポンスの本体は、ファイル*404.html*のHTMLになります。エラーページのために、
 *hello.html*の隣に*404.html*ファイルを作成する必要があります; 今回も、ご自由にお好きなHTMLにしたり、
 リスト20-8の例のHTMLを使用したりしてください。
 
@@ -760,6 +760,7 @@ fn handle_connection(mut stream: TcpStream) {
     <title>Hello!</title>
   </head>
   <body>
+    <!-- ああ！ -->
     <h1>Oops!</h1>
     <!-- すいません。要求しているものが理解できません -->
     <p>Sorry, I don't know what you're asking for.</p>
@@ -792,8 +793,8 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- and write the response. Listing 20-9 shows the resulting code after replacing -->
 <!-- the large `if` and `else` blocks. -->
 
-現在、`if`と`else`ブロックには多くの重複があります: どちらもファイルを読み、ファイルの中身をストリームに書き込んでいます。
-唯一の違いは、ステータス行とファイル名だけです。それらの差異をステータス行とファイル名の値を変数に代入する個別の`if`と`else`行に引っ張り出して、
+現在、`if`と`else`ブロックには多くの繰り返しがあります: どちらもファイルを読み、ファイルの中身をストリームに書き込んでいます。
+唯一の違いは、ステータス行とファイル名だけです。それらの差異を、ステータス行とファイル名の値を変数に代入する個別の`if`と`else`行に引っ張り出して、
 コードをより簡潔にしましょう; そうしたら、それらの変数を無条件にコードで使用し、ファイルを読んでレスポンスを書き込めます。
 リスト20-9は、大きな`if`と`else`ブロックを置き換えた後の結果のコードを示しています。
 
@@ -835,7 +836,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- <span class="caption">Listing 20-9: Refactoring the `if` and `else` blocks to -->
 <!-- contain only the code that differs between the two cases</span> -->
 
-<span class="caption">リスト20-9: 2つの場合で異なるコードだけを含むように`if`と`else`ブロックをリファクタリングする</span>
+<span class="caption">リスト20-9: 2つの場合で異なるコードだけを含むように、`if`と`else`ブロックをリファクタリングする</span>
 
 <!-- Now the `if` and `else` blocks only return the appropriate values for the -->
 <!-- status line and filename in a tuple; we then use destructuring to assign these -->
@@ -843,7 +844,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- statement, as discussed in Chapter 18. -->
 
 これで、`if`と`else`ブロックは、タプルにステータス行とファイル名の適切な値を返すだけになりました; 
-それから、分配を使用してこれら2つの値を第18章で議論したように`let`文のパターンで`status_line`と`filename`に代入しています。
+それから、分配を使用してこれら2つの値を第18章で議論したように、`let`文のパターンで`status_line`と`filename`に代入しています。
 
 <!-- The previously duplicated code is now outside the `if` and `else` blocks and -->
 <!-- uses the `status_line` and `filename` variables. This makes it easier to see -->
@@ -861,7 +862,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- that responds to one request with a page of content and responds to all other -->
 <!-- requests with a 404 response. -->
 
-素晴らしい！これで、およそ40行のRustコードで、あるリクエストにはページの中身で応答し、
+素晴らしい！もう、およそ40行のRustコードで、あるリクエストには中身のあるページで応答し、
 他のあらゆるリクエストには404レスポンスで応答する単純なWebサーバができました。
 
 <!-- Currently, our server runs in a single thread, meaning it can only serve one -->
@@ -870,5 +871,5 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- once. -->
 
 現状、このサーバは、シングルスレッドで実行されます。つまり、1回に1つのリクエストしか捌けないということです。
-何か遅いリクエストをシミュレーションすることでそれが問題になる可能性を調査しましょう。
+何か遅いリクエストをシミュレーションすることで、それが問題になる可能性を調査しましょう。
 それから1度にサーバが複数のリクエストを扱えるように修正します。

@@ -79,7 +79,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- You can see how primitive our server is: real libraries would handle the -->
 <!-- recognition of multiple requests in a much less verbose way! -->
 
-我々のサーバがどれだけ基礎的かわかります: 本物のライブラリは、もっと冗長でない方法で複数のリクエストの認識を扱うでしょう！
+我々のサーバがどれだけ基礎的か見て取れます: 本物のライブラリは、もっと冗長でない方法で複数のリクエストの認識を扱うでしょう！
 
 <!-- Start the server using `cargo run`. Then open two browser windows: one for -->
 <!-- *http://localhost:7878/* and the other for *http://localhost:7878/sleep*. If -->
@@ -113,7 +113,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- increasing the throughput of your server. -->
 
 *スレッドプール*は、待機し、タスクを処理する準備のできた一塊りの大量に生成されたスレッドです。
-プログラムが新しいタスクを受け取ったら、プールのスレッドのどれかをタスクに<ruby>宛行<rp>(</rp><rt>あてが</rt><rp>)</rp></ruby>い、
+プログラムが新しいタスクを受け取ったら、プールのスレッドのどれかをタスクにあてがい、
 そのスレッドがそのタスクを処理します。
 プールの残りのスレッドは、最初のスレッドが処理中にやってくる他のあらゆるタスクを扱うために利用可能です。
 最初のスレッドがタスクの処理を完了したら、新しいタスクを処理する準備のできたアイドル状態のスレッドプールに戻ります。
@@ -298,7 +298,7 @@ fn main() {
 <!-- compiler errors from `cargo check` to drive our development. Here is the first -->
 <!-- error we get: -->
 
-リスト20-12の変更を*src/main.rs*に行い、それから開発を駆動するために`cargo check`からのコンパイラエラーを使用しましょう。
+リスト20-12の変更を*src/main.rs*に行い、それから開発を駆動するために`cargo check`からのコンパイラエラーを活用しましょう。
 こちらが得られる最初のエラーです:
 
 ```text
@@ -524,7 +524,7 @@ impl ThreadPool {
 <!-- nothing, but we’re trying only to make our code compile. Let’s check it again: -->
 
 またもや、これが`execute`メソッドの最も単純な実装です: 何もしませんが、
-コードがコンパイルできるようにしているだけです。再確認しましょう:
+コードがコンパイルできるようにしようとしているだけです。再確認しましょう:
 
 ```text
 $ cargo check
@@ -564,9 +564,9 @@ warning: unused variable: `f`
 <!-- > want. -->
 
 > 注釈: HaskellやRustなどの厳密なコンパイラがある言語についての格言として「コードがコンパイルできたら、
-> 動作する」というものを聞いたことがあるかもしれません。ですが、この格言は普遍的に当てはまるものではありません。
+> 動作する」というものをお聴きになったことがある可能性があります。ですが、この格言は普遍的に当てはまるものではありません。
 > このプロジェクトはコンパイルできますが、全く何もしません！本物の完璧なプロジェクトを構築しようとしているのなら、
-> これがユニットテストを書き始めて、コードがコンパイルでき、*かつ*欲しい振る舞いを保持していることを確認するのに良い機会でしょう。
+> ここがユニットテストを書き始めて、コードがコンパイルでき、*かつ*欲しい振る舞いを保持していることを確認するのに良い機会でしょう。
 
 <!-- #### Validating the Number of Threads in `new` -->
 
@@ -602,6 +602,7 @@ impl ThreadPool {
     /// # パニック
     ///
     /// sizeが0なら、`new`関数はパニックします。
+    ///
     /// Create a new ThreadPool.
     ///
     /// The size is the number of threads in the pool.
@@ -633,7 +634,8 @@ impl ThreadPool {
 <!-- the generated docs for `new` look like! -->
 
 doc commentで`ThreadPool`にドキュメンテーションを追加しました。第14章で議論したように、
-関数がパニックする場面を声高に叫ぶセクションを追加することで、いいドキュメンテーションの実践に倣っていることに注意してください。
+関数がパニックする場面を声高に叫ぶセクションを追加することで、
+いいドキュメンテーションの実践に<ruby>倣<rp>(</rp><rt>なら</rt><rp>)</rp></ruby>っていることに注意してください。
 試しに`cargo doc --open`を実行し、`ThreadPool`構造体をクリックして、`new`の生成されるドキュメンテーションがどんな感じが確かめてください！
 
 <!-- Instead of adding the `assert!` macro as we’ve done here, we could make `new` -->
@@ -643,7 +645,7 @@ doc commentで`ThreadPool`にドキュメンテーションを追加しました
 <!-- ambitious, try to write a version of `new` with the following signature to -->
 <!-- compare both versions: -->
 
-ここでしたように`assert!`マクロを追加する代わりに、リスト12-9のI/Oプロジェクトの`Config::new`でしたように、
+ここでしたように`assert!`マクロを追加する代わりに、リスト12-9のI/Oプロジェクトの`Config::new`のように、
 `new`に`Result`を返させることもできるでしょう。しかし、今回の場合、スレッドなしでスレッドプールを作成しようとするのは、
 回復不能なエラーであるべきと決定しました。野心を感じるのなら、以下のシグニチャの`new`も書いてみて、両者を比較してみてください:
 
@@ -708,7 +710,7 @@ impl ThreadPool {
         let mut threads = Vec::with_capacity(size);
 
         for _ in 0..size {
-            // 実際にスレッドを生成してベクタに格納する
+            // スレッドを生成してベクタに格納する
             // create some threads and store them in the vector
         }
 
@@ -792,7 +794,7 @@ impl ThreadPool {
 スレッドプールに`JoinHanlde<()>`インスタンスのベクタを格納する代わりに、`Worker`構造体のインスタンスを格納します。
 各`Worker`が単独の`JoinHandle<()>`インスタンスを格納します。そして、`Worker`に実行するコードのクロージャを取り、
 既に走っているスレッドに実行してもらうために送信します。ログを取ったり、デバッグする際にプールの異なるワーカーを区別できるように、
-各ワーカに`id`も付与します。
+各ワーカーに`id`も付与します。
 
 <!-- Let’s make the following changes to what happens when we create a `ThreadPool`. -->
 <!-- We’ll implement the code that sends the closure to the thread after we have -->
@@ -811,7 +813,7 @@ impl ThreadPool {
 
 1. `id`と`JoinHandle<()>`を保持する`Worker`構造体を定義する。
 2. `ThreadPool`を変更し、`Worker`インスタンスのベクタを保持する。
-3. `id`番号を取り、`id`と空のクロージャで立ち上げられたスレッドを保持する`Worker`インスタンスを返す`Worker::new`関数を定義する。
+3. `id`番号を取り、`id`と空のクロージャで大量生産されるスレッドを保持する`Worker`インスタンスを返す`Worker::new`関数を定義する。
 4. `ThreadPool::new`で`for`ループカウンタを使用して`id`を生成し、その`id`で新しい`Worker`を生成し、ベクタにワーカーを格納する。
 
 <!-- If you’re up for a challenge, try implementing these changes on your own before -->
@@ -889,7 +891,7 @@ impl Worker {
 <!-- `Worker::new` function uses the `id` we give it and stores a `JoinHandle<()>` -->
 <!-- instance that is created by spawning a new thread using an empty closure. -->
 
-外部のコード(*src/bin/main.rs*のサーバなど)は`ThreadPool`内で`Worker`構造体を使用していることに関する実装の詳細を知る必要はないので、
+外部のコード(*src/bin/main.rs*のサーバなど)は、`ThreadPool`内で`Worker`構造体を使用していることに関する実装の詳細を知る必要はないので、
 `Worker`構造体とその`new`関数は非公開にしています。`Worker::new`関数は与えた`id`を使用し、
 空のクロージャを使って新しいスレッドを立ち上げることで生成される`JoinHandle<()>`インスタンスを格納します。
 
@@ -1024,8 +1026,8 @@ impl ThreadPool {
 <!-- the closure. The code in Listing 20-17 won’t quite compile yet. -->
 
 スレッドプールがワーカーを生成する際に各ワーカーにチャンネルの受信側を試しに渡してみましょう。
-受信側はワーカーが立ち上げるスレッド内で使用したいことがわかっているので、クロージャ内で`receiver`引数を参照します。
-リスト20-17のコードはまだ全くコンパイルできません。
+受信側はワーカーが大量生産するスレッド内で使用したいことがわかっているので、クロージャ内で`receiver`引数を参照します。
+リスト20-17のコードはまだ完璧にはコンパイルできません。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -1204,7 +1206,7 @@ impl Worker {
 
 <!-- With these changes, the code compiles! We’re getting there! -->
 
-これらの変更でコードはコンパイルできます！もうすぐそこです！
+これらの変更でコードはコンパイルできます！ゴールはもうすぐそこです！
 
 <!-- #### Implementing the `execute` Method -->
 
@@ -1560,7 +1562,7 @@ Worker 2 got a job; executing.
 <!-- After learning about the `while let` loop in Chapter 18, you might be wondering -->
 <!-- why we didn’t write the worker thread code as shown in Listing 20-22. -->
 
-第18章で`while let`ループを学んだ後でなぜリスト20-22に示したようにワーカースレッドのコードを記述しなかったのか、
+第18章で`while let`ループを学んだ後で、なぜリスト20-22に示したようにワーカースレッドのコードを記述しなかったのか、
 不思議に思っている可能性があります。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -1623,5 +1625,5 @@ impl Worker {
 
 代わりに`loop`を使用し、ロックと仕事をブロックの外ではなく、内側で獲得することで、
 `lock`メソッドが返す`MutexGuard`は`let job`文が終わると同時にドロップされます。
-これにより、ロックは`recv`の呼び出しの間は保持されるけれども、`job.call_box`の呼び出しの前には解放され、
-複数のリクエストを並行で提供できることを保証します。
+これにより、複数のリクエストを並行で提供し、ロックは`recv`の呼び出しの間は保持されるけれども、
+`job.call_box`の呼び出しの前には解放されることを保証します。

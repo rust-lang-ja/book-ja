@@ -67,7 +67,7 @@ impl Drop for ThreadPool {
 <!-- thread. If the call to `join` fails, we use `unwrap` to make Rust panic and go -->
 <!-- into an ungraceful shutdown. -->
 
-まず、スレッドプール`worker`それぞれを走査します。`self`は可変参照であり、`worker`を可変化できる必要もあるので、
+まず、スレッドプール`workers`それぞれを走査します。`self`は可変参照であり、`worker`を可変化できる必要もあるので、
 これには`&mut`を使用しています。ワーカーそれぞれに対して、特定のワーカーを終了する旨のメッセージを出力し、
 それから`join`をワーカースレッドに対して呼び出しています。`join`の呼び出しが失敗したら、
 `unwrap`を使用してRustをパニックさせ、優美でないシャットダウンに移行します。
@@ -329,7 +329,7 @@ impl Worker {
 
 `Message` enumを具体化するために、2箇所で`Job`を`Message`に変更する必要があります:
 `ThreadPool`の定義と`Worker::new`のシグニチャです。`ThreadPool`の`execute`メソッドは、
-仕事を`Message::NewJob`に包んで送信する必要があります。それから、
+仕事を`Message::NewJob`列挙子に包んで送信する必要があります。それから、
 `Message`がチャンネルから受け取られる`Worker::new`で、`NewJob`列挙子が受け取られたら、
 仕事が処理され、`Terminate`列挙子が受け取られたら、スレッドはループを抜けます。
 
@@ -339,8 +339,8 @@ impl Worker {
 <!-- changing our `Drop` implementation to look like Listing 20-25. -->
 
 これらの変更と共に、コードはコンパイルでき、リスト20-21の後と同じように機能し続けます。ですが、
-`Terminate`のメッセージを何も生成していないので、
-警告が出るでしょう。`Drop`実装をリスト20-25のような見た目に変更してこの警告を修正しましょう。
+`Terminate`のメッセージを何も生成していないので、警告が出るでしょう。
+`Drop`実装をリスト20-25のような見た目に変更してこの警告を修正しましょう。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -397,7 +397,7 @@ impl Drop for ThreadPool {
 2つの個別のループが必要な理由をよりよく理解するために、2つのワーカーがある筋書きを想像してください。
 単独のループで各ワーカーを走査すると、最初の繰り返しでチャンネルに停止メッセージが送信され、
 `join`が最初のワーカースレッドで呼び出されます。その最初のワーカーが現在、リクエストの処理で忙しければ、
-2番目のワーカーがチャンネルから停止メッセージを受け取り、閉じます。最初のワーカーの終了待ちをしていますが、
+2番目のワーカーがチャンネルから停止メッセージを受け取り、閉じます。最初のワーカーの終了待ちをしたままですが、
 2番目のスレッドが停止メッセージを拾ってしまったので、終了することは絶対にありません。デッドロックです！
 
 <!-- To prevent this scenario, we first put all of our `Terminate` messages on the -->
@@ -442,14 +442,14 @@ fn main() {
 <!-- <span class="caption">Listing 20-26: Shut down the server after serving two -->
 <!-- requests by exiting the loop</span> -->
 
-<span class="caption">リスト20-26: ループを抜けて2つのリクエストを処理した後にサーバを閉じる</span>
+<span class="caption">リスト20-26: ループを抜けることで、2つのリクエストを処理した後にサーバを閉じる</span>
 
 <!-- You wouldn’t want a real-world web server to shut down after serving only two -->
 <!-- requests. This code just demonstrates that the graceful shutdown and cleanup is -->
 <!-- in working order. -->
 
 現実世界のWebサーバには、たった2つしかリクエストを受け付けた後に閉じてほしくはないでしょう。
-このコードは、単に優美なシャットダウンと片付けが機能する状態にあることをデモするだけです。
+このコードは、単に優美なシャットダウンと片付けが機能する状態にあることを模擬するだけです。
 
 <!-- The `take` method is defined in the `Iterator` trait and limits the iteration -->
 <!-- to the first two items at most. The `ThreadPool` will go out of scope at the -->
@@ -724,7 +724,7 @@ impl Worker {
 * ライブラリの機能のテストを追加する。
 * `unwrap`の呼び出しをもっと頑健なエラー処理に変更する。
 * `ThreadPool`を使用してWebリクエスト以外のなんらかの作業を行う。
-* *https://crates.io*でスレッドプールのクレートを探してそのクレートを代わりに使用して似たWebサーバを実装する。
+* *https://crates.io* でスレッドプールのクレートを探して、そのクレートを代わりに使用して似たWebサーバを実装する。
   そして、APIと頑健性を我々が実装したものと比較する。
 
 <!-- ## Summary -->
@@ -739,4 +739,4 @@ impl Worker {
 
 よくやりました！本の最後に到達しました！Rustのツアーに参加していただき、感謝の辞を述べたいです。
 もう、ご自身のRustプロジェクトや他の方のプロジェクトのお手伝いをする準備ができています。
-あなたのRustの旅で遭遇するあらゆる挑戦の手助けを是非とも行いたい他のRustaceanの歓迎されるコミュニティがあることを肝に命じておいてください。
+あなたのRustの旅で遭遇するあらゆる挑戦の手助けを是非とも行いたい他のRustaceanの歓迎されるコミュニティがあることを心に留めておいてくださいね。
