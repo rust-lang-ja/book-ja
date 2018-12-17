@@ -361,7 +361,7 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out
 
 時として、いくつかの特定のテストが実行するのに非常に時間がかかることがあり、
 `cargo test`の実行のほとんどで除外したくなるかもしれません。引数として確かに実行したいテストを全て列挙するのではなく、
-ここに示したように代わりに時間のかかるテストを`ignore`アトリビュートで除外すると注釈することができます。
+ここに示したように代わりに時間のかかるテストを`ignore`属性で除外すると注釈することができます。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
