@@ -8,7 +8,7 @@
 <!-- feature similar to newtypes but with slightly different semantics. We’ll also -->
 <!-- discuss the `!` type and dynamically sized types. -->
 
-Rustの型システムには、この本で触れたけれども、まだ議論していない機能があります。ニュータイプが何故型として有用なのかを調査するにつれて、
+Rustの型システムには、この本で触れたけれども、まだ議論していない機能があります。ニュータイプが何故型として有用なのかを調査するため、
 一般化してニュータイプを議論することから始めます。そして、型エイリアスに移ります。ニュータイプに類似しているけれども、
 多少異なる意味を持つ機能です。また、`!`型と動的サイズ付け型も議論します。
 
@@ -51,12 +51,12 @@ Rustの型システムには、この本で触れたけれども、まだ議論�
 <!-- to hide implementation details, which we discussed in the “Encapsulation that -->
 <!-- Hides Implementation Details” section of Chapter 17. -->
 
-ニュータイプはまた、内部の実装を隠匿することもできます。例を挙げれば、`People`型を提供して、
-人のIDと名前を紐付けて格納する`HashMap<i32, String>`をラップすることができるでしょう。
+ニュータイプはまた、内部の実装を<ruby>隠匿<rp>(</rp><rt>いんとく</rt><rp>)</rp></ruby>することもできます。例を挙げれば、`People`型を提供して、
+人のIDと名前を紐づけて格納する`HashMap<i32, String>`をラップすることができるでしょう。
 `People`を使用するコードは、名前の文字列を`People`コレクションに追加するメソッドなど、
 提供している公開APIとだけ相互作用するでしょう; そのコードは、内部で`i32`IDを名前に代入していることを知る必要はないでしょう。
 ニュータイプパターンは、カプセル化を実現して実装の詳細を隠匿する軽い方法であり、
-第17章の「カプセル化は実装詳細を隠蔽する」節で議論しましたね。
+実装の詳細を隠匿することは、第17章の「カプセル化は実装詳細を隠蔽する」節で議論しましたね。
 
 <!-- ### Creating Type Synonyms with Type Aliases -->
 
@@ -111,8 +111,8 @@ Box<Fn() + Send + 'static>
 <!-- over the code can be tiresome and error prone. Imagine having a project full of -->
 <!-- code like that in Listing 19-32. -->
 
-この長ったらしい型を関数シグニチャや型注釈としてコードのあちこちで記述するのは、嫌なことで間違いも起きやすいです。
-リスト19-32のようなコードで溢れかえったプロジェクトがあることを想像してください。
+この長ったらしい型を関数シグニチャや型注釈としてコードのあちこちで記述するのは、面倒で間違いも起きやすいです。
+リスト19-32のそのようなコードで溢れかえったプロジェクトがあることを想像してください。
 
 ```rust
 let f: Box<Fn() + Send + 'static> = Box::new(|| println!("hi"));
@@ -196,7 +196,7 @@ pub trait Write {
 <!-- The `Result<..., Error>` is repeated a lot. As such, `std::io` has this type of -->
 <!-- alias declaration: -->
 
-`Result<..., Error>`がなんども繰り返されてます。そんな状態なので、`std::io`にはこんな類のエイリアス宣言があります:
+`Result<..., Error>`が何度も繰り返されてます。そんな状態なので、`std::io`にはこんな類のエイリアス宣言があります:
 
 ```rust,ignore
 type Result<T> = Result<T, std::io::Error>;
@@ -242,7 +242,7 @@ pub trait Write {
 <!-- return. Here is an example: -->
 
 Rustには、型理論用語で値がないため、空型として知られる`!`という特別な型があります。私たちは、
-関数が絶対に返らない時に戻り値の型の場所に立つので、*never type*(`訳注`: 日本語にはできないので、ネバー型と呼ぶしかないか)と呼ぶのが好きです。
+関数が絶対に返らない時に戻り値の型の場所に立つので、*never type*(`訳注`: 日本語にはできないので、never型と呼ぶしかないか)と呼ぶのが好きです。
 こちらが例です:
 
 ```rust,ignore
@@ -255,7 +255,7 @@ fn bar() -> ! {
 <!-- never are called *diverging functions*. We can’t create values of the type `!` -->
 <!-- so `bar` can never possibly return. -->
 
-このコードは、「関数`bar`はneverを返す」と解読します。neverを返す関数は、*発散関数*(diverging function)と呼ばれます。
+このコードは、「関数`bar`はneverを返す」と解読します。neverを返す関数は、*発散する関数*(diverging function)と呼ばれます。
 型`!`の値は生成できないので、`bar`が返ることは絶対にあり得ません。
 
 <!-- But what use is a type you can never create values for? Recall the code from -->
@@ -299,7 +299,7 @@ let guess = match guess.trim().parse() {
 <!-- return? How were we allowed to return a `u32` from one arm and have another arm -->
 <!-- that ends with `continue` in Listing 19-34? -->
 
-このコードの`guess`は整数*かつ*文字列にならなければならないでしょうが、Rustでは、`guess`は1つの型にしかなりません。
+このコードの`guess`は整数*かつ*文字列にならなければならないでしょうが、Rustでは、`guess`は1つの型にしかならないことを要求されます。
 では、`continue`は何を返すのでしょうか？どうやってリスト19-34で1つのアームからは`u32`を返し、別のアームでは、
 `continue`で終わっていたのでしょうか？
 
@@ -326,7 +326,7 @@ let guess = match guess.trim().parse() {
 <!-- function that we call on `Option<T>` values to produce a value or panic? Here -->
 <!-- is its definition: -->
 
-never型は、`panic!`マクロとも有用です。`Option<T>`値に対して呼び出して値かパニックを生成した`unwrap`関数を覚えていますか？
+never型は、`panic!`マクロとも有用です。`Option<T>`値に対して呼び出して、値かパニックを生成した`unwrap`関数を覚えていますか？
 こちらがその定義です:
 
 ```rust,ignore
@@ -356,9 +356,11 @@ impl<T> Option<T> {
 型が`!`の最後の式の1つは、`loop`です:
 
 ```rust,ignore
+// 永遠に
 print!("forever ");
 
 loop {
+    // さらに永遠に
     print!("and ever ");
 }
 ```
@@ -381,7 +383,7 @@ loop {
 <!-- size we can know only at runtime. -->
 
 コンパイラが特定の型の値1つにどれくらいのスペースのメモリを確保するのかなどの特定の詳細を知る必要があるために、
-型システムには混乱することもある秘密の場所があります: 動的サイズ付け型の概念です。時として*DST*や*サイズなし型*とも称され、
+型システムには混乱することもある秘密の場所があります: *動的サイズ付け型*の概念です。時として*DST*や*サイズなし型*とも称され、
 これらの型により、実行時にしかサイズを知ることのできない値を使用するコードを書かせてくれます。
 
 <!-- Let’s dig into the details of a dynamically sized type called `str`, which -->
@@ -396,7 +398,9 @@ loop {
 動かない以下のコードを考えてください:
 
 ```rust,ignore
+// こんにちは
 let s1: str = "Hello there!";
+// 調子はどう？
 let s2: str = "How's it going?";
 ```
 
@@ -458,7 +462,7 @@ Rustでこのコードを書くことが許容されたら、これら2つの`st
 <!-- That is, a generic function definition like this: -->
 
 DSTを扱うために、Rustには`Sized`トレイトと呼ばれる特定のトレイトがあり、型のサイズがコンパイル時にわかるかどうかを決定します。
-このトレイトは、コンパイル時にサイズの判明する全てに自動的に実装されます。加えて、
+このトレイトは、コンパイル時にサイズの判明する全てのものに自動的に実装されます。加えて、
 コンパイラは暗黙的に全てのジェネリックな関数に`Sized`の境界を追加します。つまり、こんな感じのジェネリック関数定義は:
 
 ```rust,ignore

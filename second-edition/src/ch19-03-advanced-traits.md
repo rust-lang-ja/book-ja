@@ -20,9 +20,11 @@
 <!-- uses some types without needing to know exactly what those types are until the -->
 <!-- trait is implemented. -->
 
-*関連型*は、トレイトのメソッド定義がシグニチャでプレースホルダーの型を使用できるように、トレイトとその型のプレースホルダーを結び付けます。
+*関連型*は、トレイトのメソッド定義がシグニチャでプレースホルダーの型を使用できるように、トレイトと型のプレースホルダーを結び付けます。
 トレイトを実装するものがこの特定の実装で型の位置に使用される具体的な型を指定します。そうすることで、
 なんらかの型を使用するトレイトをトレイトを実装するまでその型が一体なんであるかを知る必要なく定義できます。
+
+<!-- 3行目、the rest of the bookとあるが、これ以降の章という意味での残りではなく、ここまでに見かけてきた章のことと思われるため -->
 
 <!-- We’ve described most of the advanced features in this chapter as being rarely -->
 <!-- needed. Associated types are somewhere in the middle: they’re used more rarely -->
@@ -30,7 +32,7 @@
 <!-- the other features discussed in this chapter. -->
 
 この章のほとんどの高度な機能は、稀にしか必要にならないと解説しました。関連型はその中間にあります:
-本の残りで説明される機能よりは使用されるのが稀ですが、この章で議論される他の多くの機能よりは頻繁に使用されます。
+本の他の部分で説明される機能よりは使用されるのが稀ですが、この章で議論される他の多くの機能よりは頻繁に使用されます。
 
 <!-- One example of a trait with an associated type is the `Iterator` trait that the -->
 <!-- standard library provides. The associated type is named `Item` and stands in -->
@@ -66,6 +68,7 @@ pub trait Iterator {
 その具体的な型の値を含む`Option`を返します。
 
 <!-- ジェネリクスはこうという話をしているのに、似ていると言っているのがどうも引っかかる -->
+<!-- 1行目終わり、the latter allowsと思われるが、直っていない -->
 
 <!-- Associated types might seem like a similar concept to generics, in that the -->
 <!-- latter allow us to define a function without specifying what types it can -->
@@ -155,7 +158,7 @@ pub trait Iterator<T> {
 <!-- overloading. *Operator overloading* is customizing the behavior of an operator -->
 <!-- (such as `+`) in particular situations. -->
 
-このテクニックが有用になる場面のいい例が、演算子オーバーロードです。*演算子オーバーロード*とは、
+このテクニックが有用になる場面の好例が、演算子オーバーロードです。*演算子オーバーロード*とは、
 特定の状況で演算子(`+`など)の振る舞いをカスタマイズすることです。
 
 <!-- Rust doesn’t allow you to create your own operators or overload arbitrary -->
@@ -166,7 +169,7 @@ pub trait Iterator<T> {
 <!-- struct: -->
 
 Rustでは、独自の演算子を作ったり、任意の演算子をオーバーロードすることはできません。しかし、
-演算子に紐付いたトレイトを実装することで`std::ops`に列挙された処理と対応するトレイトをオーバーロードできます。
+演算子に紐づいたトレイトを実装することで`std::ops`に列挙された処理と対応するトレイトをオーバーロードできます。
 例えば、リスト19-22で`+`演算子をオーバーロードして2つの`Point`インスタンスを足し合わせています。
 `Point`構造体に`Add`トレイトを実装することでこれを行なっています。
 
@@ -337,7 +340,7 @@ Rustにおいて、別のトレイトのメソッドと同じ名前のメソッ�
 
 同じ名前のメソッドを呼ぶ際、コンパイラにどれを使用したいのか教える必要があるでしょう。両方とも`fly`というメソッドがある2つのトレイト、
 `Pilot`と`Wizard`(`訳注`: パイロットと魔法使い)を定義したリスト19-24のコードを考えてください。
-それから両方のトレイトを既に`fly`というメソッドが実装されている型`Human`に実装します。
+それから両方のトレイトを既に`fly`というメソッドが実装されている型`Human`(`訳注`: 人間)に実装します。
 各`fly`メソッドは異なることをします。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -382,7 +385,7 @@ impl Human {
 <!-- implemented on `Human` directly</span> -->
 
 <span class="caption">リスト19-24: 2つのトレイトに`fly`があるように定義され、`Human`に実装されつつ、
-    `fly`メソッドは`Human`に直接実装されている</span>
+    `fly`メソッドは`Human`に直接にも実装されている</span>
 
 <!-- When we call `fly` on an instance of `Human`, the compiler defaults to calling -->
 <!-- the method that is directly implemented on the type, as shown in Listing 19-25. -->
@@ -444,7 +447,7 @@ fn main() {
 <!-- Listing 19-26 demonstrates this syntax. -->
 
 `Pilot`トレイトか、`Wizard`トレイトの`fly`メソッドを呼ぶためには、
-より明示的な記法を使用してどの`fly`メソッドを意図しているか指定する必要があります。
+より明示的な記法を使用して、どの`fly`メソッドを意図しているか指定する必要があります。
 リスト19-26は、この記法をデモしています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -501,7 +504,7 @@ fn main() {
 
 メソッド名の前にトレイト名を指定すると、コンパイラにどの`fly`の実装を呼び出したいか明確化できます。
 また、`Human::fly(&person)`と書くこともでき、リスト19-26で使用した`person.fly()`と等価ですが、
-こちらの方が明確化する必要がないなら、ちょっと記述量が増えます。
+こちらの方は明確化する必要がないなら、ちょっと記述量が増えます。
 
 <!-- Running this code prints the following: -->
 
@@ -579,7 +582,7 @@ fn main() {
 このコードは、全ての子犬をスポットと名付けたいアニマル・シェルター(`訳注`: 身寄りのないペットを保護する保健所みたいなところ)用で、
 `Dog`に定義された`baby_name`関連関数で実装されています。`Dog`型は、トレイト`Animal`も実装し、
 このトレイトは全ての動物が持つ特徴を記述します。赤ちゃん犬は子犬と呼ばれ、
-それが`Dog`の`Animal`トレイトの実装の`Animal`トレイトと紐付いた`base_name`関数で表現されています。
+それが`Dog`の`Animal`トレイトの実装の`Animal`トレイトと紐づいた`base_name`関数で表現されています。
 
 <!-- In `main`, we call the `Dog::baby_name` function, which calls the associated -->
 <!-- function defined on `Dog` directly. This code prints the following: -->
@@ -683,7 +686,7 @@ fn main() {
 <!-- implemented on `Dog` by saying that we want to treat the `Dog` type as an -->
 <!-- `Animal` for this function call. This code will now print what we want: -->
 
-コンパイラに山カッコ内に型注釈を提供し、これは、この関数呼び出しでは`Dog`型を`Animal`として扱いたいと宣言することで、
+コンパイラに山カッコ内で型注釈を提供し、これは、この関数呼び出しでは`Dog`型を`Animal`として扱いたいと宣言することで、
 `Dog`に実装されたように、`Animal`トレイトの`baby_name`メソッドを呼び出したいと示唆しています。
 もうこのコードは、望み通りの出力をします:
 
@@ -730,7 +733,7 @@ A baby dog is called a puppy
 
 例えば、アスタリスクをフレームにする値を出力する`outline_print`メソッドがある`OutlinePrint`トレイトを作りたくなったとしましょう。
 つまり、`Display`を実装し、`(x, y)`という結果になる`Point`構造体が与えられて、
-`x`に`1`、`y`に`3`の`Point`インスタンスに対して`outline_print`を呼び出すと、以下のような出力をするはずです:
+`x`が`1`、`y`が`3`の`Point`インスタンスに対して`outline_print`を呼び出すと、以下のような出力をするはずです:
 
 ```text
 **********
@@ -873,10 +876,10 @@ impl fmt::Display for Point {
 第10章の「型にトレイトを実装する」節で、トレイトか型がクレートにローカルな限り、型にトレイトを実装できると述べるオーファンルールについて触れました。
 *ニュータイプパターン*を使用してこの制限を回避することができ、タプル構造体に新しい型を作成することに関連します。
 (タプル構造体については、第5章の「異なる型を生成する名前付きフィールドのないタプル構造体を使用する」節で講義しました。)
-タプル構造体は1つのフィールドを持ち、トレイトを実装したい型の薄いラッパーになるでしょう。そして、
-ラッパーの型はクレートにローカルなので、トレイトをラッパーに実装できます。*ニュータイプ*という用語は、
+タプル構造体は1つのフィールドを持ち、トレイトを実装したい型の薄いラッパになるでしょう。そして、
+ラッパの型はクレートにローカルなので、トレイトをラッパに実装できます。*ニュータイプ*という用語は、
 Haskellプログラミング言語に端を発しています。このパターンを使用するのに実行時のパフォーマンスを犠牲にすることはなく、
-ラッパー型はコンパイル時に省かれます。
+ラッパ型はコンパイル時に省かれます。
 
 <!-- As an example, let’s say we want to implement `Display` on `Vec<T>`, which the -->
 <!-- orphan rule prevents us from doing directly because the `Display` trait and the -->
@@ -884,7 +887,7 @@ Haskellプログラミング言語に端を発しています。このパター�
 <!-- that holds an instance of `Vec<T>`; then we can implement `Display` on -->
 <!-- `Wrapper` and use the `Vec<T>` value, as shown in Listing 19-31. -->
 
-例として、`Vec<T>`に`Display`を実装したいとしましょう。これは、`Display`トレイトも`Vec<T>`型もクレートの外で定義されているので、
+例として、`Vec<T>`に`Display`を実装したいとしましょう。`Display`トレイトも`Vec<T>`型もクレートの外で定義されているので、
 直接行うことをオーファンルールにより妨げられます。`Vec<T>`のインスタンスを保持する`Wrapper`構造体を作成できます;
 そして、`Wrapper`に`Display`を実装し、`Vec<T>`値を使用できます。リスト19-31のように。
 
@@ -919,7 +922,7 @@ fn main() {
 <!-- tuple. Then we can use the functionality of the `Display` type on `Wrapper`. -->
 
 `Display`の実装は、`self.0`で中身の`Vec<T>`にアクセスしています。`Wrapper`はタプル構造体で、
-`Vec<T>`がタプルの番号0の要素だからです。それから、`Wrapper`に対して`Display`型の機能を使用できます。
+`Vec<T>`がタプルの添え字0の要素だからです。それから、`Wrapper`に対して`Display`型の機能を使用できます。
 
 <!-- The downside of using this technique is that `Wrapper` is a new type, so it -->
 <!-- doesn’t have the methods of the value it’s holding. We would have to implement -->
@@ -945,4 +948,4 @@ fn main() {
 <!-- at some advanced ways to interact with Rust’s type system. -->
 
 もう、トレイトに関してニュータイプパターンが使用される方法を知りました; トレイトが関連しなくても、
-有用なパターンでもあります。焦点を変更して、Rustの型システムと相互作用する一部の高度な方法を見ましょう。
+有用なパターンでもあります。焦点を変更して、Rustの型システムと相互作用するなんらかの高度な方法を見ましょう。

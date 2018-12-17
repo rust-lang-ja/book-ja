@@ -39,7 +39,7 @@
 ライフタイム・サブタイピングを探求するために、パーサを書きたいところを想像してください。
 パース(`訳注`: parse; 構文解析)中の文字列への参照を保持する`Context`と呼ばれる構造を使用します。この文字列をパースし、
 成功か失敗を返すパーサを書きます。パーサは構文解析を行うために`Context`を借用する必要があるでしょう。
-リスト19-12はコードに必要なライフタイム注釈がないことを除いてこのパーサのコードを実装しているので、コンパイルはできません。
+リスト19-12は、コードに必要なライフタイム注釈がないことを除いてこのパーサのコードを実装しているので、コンパイルはできません。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -94,7 +94,7 @@ impl Parser {
 このコードを単純に保つため、構文解析のロジックは何も書きません。ですが、構文解析ロジックのどこかで、
 非合法な入力の一部を参照するエラーを返すことで非合法な入力を扱う可能性が非常に高いでしょう; この参照が、
 ライフタイムに関連してこのコード例を面白くしてくれます。パーサのロジックが、最初のバイトの後で入力が不正だった振りをしましょう。
-最初のバイトが有効な文字境界になければ、このコードはパニックする可能性があることに注意してください;
+最初のバイトが合法な文字境界になければ、このコードはパニックする可能性があることに注意してください;
 ここでも、例を簡略化して関連するライフタイムに集中しています。
 
 <!-- To get this code to compile, we need to fill in the lifetime parameters for the -->
@@ -222,14 +222,14 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 <!-- `context` parameter go out of scope at the end of the function, because -->
 <!-- `parse_context` takes ownership of `context`. -->
 
-言い換えると、`Parser`と`context`は関数全体より長生きし、このコードの全参照が常に有効であるためには、
+言い換えると、`Parser`と`context`は関数全体より*長生きし*、このコードの全参照が常に有効であるためには、
 関数が始まる前や、終わった後も有効である必要があります。生成している`Parser`と`context`引数は、
 関数の終わりでスコープを抜けます。`parse_context`が`context`の所有権を奪っているからです。
 
 <!-- To figure out why these errors occur, let’s look at the definitions in Listing -->
 <!-- 19-13 again, specifically the references in the signature of the `parse` method: -->
 
-これらのエラーが起こる理由を推論するため、再度リスト19-13の定義、特に`parse`メソッドのシグニチャの参照を観察しましょう:
+これらのエラーが起こる理由を理解するため、再度リスト19-13の定義、特に`parse`メソッドのシグニチャの参照を観察しましょう:
 
 ```rust,ignore
     fn parse(&self) -> Result<(), &str> {
@@ -252,7 +252,7 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 <!-- `Context` and the lifetime of the string slice that `Context` holds should be -->
 <!-- the same. -->
 
-要するに、`parse`の戻り値のエラー部分は、`Parser`インスタンスのライフタイムと紐付いたライフタイムになるのです
+要するに、`parse`の戻り値のエラー部分は、`Parser`インスタンスのライフタイムと紐づいたライフタイムになるのです
 (`parse`メソッドシグニチャの`&self`のライフタイム)。それは、理に適っています: 返却される文字列スライスは、
 `Parser`に保持された`Context`インスタンスの文字列スライスを参照していて、`Parser`構造体の定義は、
 `Context`への参照のライフタイムと`Context`が保持する文字列スライスのライフタイムは同じになるべきと指定しています。
@@ -265,7 +265,7 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 <!-- (`parse_context` takes ownership of it). -->
 
 問題は、`parse_context`関数は、`parse`から返却される値を返すので、`parse_context`の戻り値のライフタイムも、
-`Parser`のライフタイムに紐付くことです。しかし、`parse_context`関数で生成された`Parser`インスタンスは、
+`Parser`のライフタイムに紐づくことです。しかし、`parse_context`関数で生成された`Parser`インスタンスは、
 関数の終端を超えて生きることはなく(一時的なのです)、`context`も関数の終端でスコープを抜けるのです(`parse_context`が所有権を奪っています)。
 
 <!-- Rust thinks we’re trying to return a reference to a value that goes out of -->
@@ -295,10 +295,10 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 <!-- different lifetimes and that the return value of `parse_context` is tied to the -->
 <!-- lifetime of the string slice in `Context`. -->
 
-`parse`の実装が何をするか知ることで、`parse`の戻り値が`Parser`インスタンスに紐付く唯一の理由が、`Parser`インスタンスの`Context`、
+`parse`の実装が何をするか知ることで、`parse`の戻り値が`Parser`インスタンスに紐づく唯一の理由が、`Parser`インスタンスの`Context`、
 引いては文字列スライスを参照していることであることを把握します。従って、`parse_context`が気にする必要があるのは、
 本当は文字列スライスのライフタイムなのです。`Context`の文字列スライスと`Parser`の`Context`への参照が異なるライフタイムになり、
-`parse_context`の戻り値が`Context`の文字列スライスのライフタイムに紐付くことをコンパイラに教える方法が必要です。
+`parse_context`の戻り値が`Context`の文字列スライスのライフタイムに紐づくことをコンパイラに教える方法が必要です。
 
 <!-- First, we’ll try giving `Parser` and `Context` different lifetime parameters, -->
 <!-- as shown in Listing 19-15. We’ll use `'s` and `'c` as lifetime parameter names -->
@@ -308,7 +308,7 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 <!-- sufficient when we try to compile. -->
 
 まず、試しに`Parser`と`Context`に異なるライフタイム引数を与えてみましょう。リスト19-15のようにですね。
-ライフタイム引数の名前として`'s`と`'c`を使用してどのライフタイムが`Context`の文字列スライスに当てはまり、
+ライフタイム引数の名前として`'s`と`'c`を使用して、どのライフタイムが`Context`の文字列スライスに当てはまり、
 どれが`Parser`の`Context`への参照に当てはまるかを明確化します。この解決策は、完全に問題を修正しませんが、
 スタート地点です。コンパイルしようとする時にこの修正で十分でない理由に目を向けます。
 
@@ -454,9 +454,9 @@ struct Parser<'c, 's: 'c> {
 <!-- keep track of the borrowing rules at runtime. The definition of the `Ref` -->
 <!-- struct is shown in Listing 19-16, without lifetime bounds for now. -->
 
-例として、参照のラッパーの型を考えてください。第15章の「`RefCell<T>`と内部可変性パターン」節から`RefCell<T>`型を思い出してください:
+例として、参照のラッパの型を考えてください。第15章の「`RefCell<T>`と内部可変性パターン」節から`RefCell<T>`型を思い出してください:
 `borrow`と`borrow_mut`メソッドがそれぞれ、`Ref`と`RefMut`を返します。これらの型は、
-実行時に借用規則を追いかける参照に対するラッパーです。`Ref`構造体の定義をリスト19-16に今はライフタイム境界なしで示しました。
+実行時に借用規則を追いかける参照に対するラッパです。`Ref`構造体の定義をリスト19-16に今はライフタイム境界なしで示しました。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -639,7 +639,7 @@ fn main() {
 明示しなければならない時、`Box<Red>`のようなトレイトオブジェクトに対して、参照がプログラム全体で生きるかどうかにより、
 記法`Box<Red + 'static>`か`Box<Red + 'a>`を使用してライフタイム境界を追加できます。他の境界同様、
 ライフタイム境界を追記する記法は、型の内部に参照がある`Red`トレイトを実装しているものは全て、
-トレイト境界に指定されるライフタイムがそれらの参照と同じにならなければなりません。
+トレイト境界に指定されるライフタイムがそれらの参照と同じにならなければならないことを意味します。
 
 <!-- Next, let’s look at some other advanced features that manage traits. -->
 
