@@ -34,7 +34,7 @@
 
 この問題に対する我々の解決策は「停滞なしの安定性」と呼ばれるもので、ガイドの原則は以下の通りです:
 安定版Rustの新しいバージョンにアップグレードするのを恐れる必要は何もないはずです。各アップグレートは痛みのないもののはずですが、
-新しい機能、より少ないバグ、高速なコンパイル時間も<ruby>齎<rp>(</rp><rt>もたら</rt><rp>)</rp></ruby>すべきです。
+新しい機能、より少ないバグ、高速なコンパイル時間も齎すべきです。
 
 <!-- ### Choo, Choo! Release Channels and Riding the Trains -->
 
@@ -77,7 +77,7 @@ Rustには*リリースチャンネル*が3つあります:
 
 こちらが、開発とリリースプロセスの動き方の例です: RustチームがRust1.5のリリースに取り掛かっていると想定しましょう。
 そのリリースは、2015年の11月に発生しましたが、現実的なバージョンナンバーを与えてくれるでしょう。
-新しい機能がRustに追加されます: 新しいコミットが`master`ブランチに着地します。毎晩、新しいナイトリー版のRustが生成されます。
+新しい機能がRustに追加されます: 新しいコミットが`master`ブランチに着地します。毎晩、新しいナイトリ版のRustが生成されます。
 毎日がリリース日で、これらのリリースは、リリースインフラにより自動で作成されます。故に、
 時間が経てばリリースは、毎晩1回、以下のような見た目になります:
 
@@ -90,7 +90,7 @@ nightly: * - - * - - *
 <!-- there are two releases: -->
 
 6週間ごとに、新しいリリースを準備するタイミングになります！Rustリポジトリの`beta`ブランチが、
-ナイトリーで使用される`master`ブランチから枝分かれします。さて、リリースが二つになりました:
+ナイトリで使用される`master`ブランチから枝分かれします。さて、リリースが二つになりました:
 
 ```text
 nightly: * - - * - - *
@@ -103,7 +103,7 @@ beta:                *
 <!-- there’s still a nightly release every night: -->
 
 ほとんどのRustユーザはベータリリースを積極的には使用しませんが、自身のCIシステム内でベータに対してテストを行い、
-Rustが不具合の可能性を発見するのを手伝います。その間も、やはりナイトリーリリースは毎晩あります:
+Rustが不具合の可能性を発見するのを手伝います。その間も、やはりナイトリリリースは毎晩あります:
 
 > 注釈: CIはContinuous Integration(継続統合といったところか)のことと思われる。開発者のコードを1日に何度も、
 > メインのブランチに統合することらしい。
@@ -120,7 +120,7 @@ beta:                *
 <!-- `beta` branch, and a new release of beta is produced: -->
 
 不具合が見つかったとしましょう。よいことに、不具合が安定版のリリースにこっそり持ち込まれる前にベータリリースをテストする時間がありました！
-修正が`master`に適用されるので、ナイトリーは修正され、それから修正が`beta`ブランチにバックポートされ、
+修正が`master`に適用されるので、ナイトリは修正され、それから修正が`beta`ブランチにバックポートされ、
 ベータの新しいリリースが生成されます:
 
 ```text
@@ -178,15 +178,13 @@ Rustは6週間ごとに時計仕掛けのようにリリースされます。あ
 ある機能が偶然、特定のリリースを逃しても、心配する必要はありません: 別のリリースがすぐに起きます！
 これにより、リリースの締め切りが近い洗練されていない可能性のある機能をこっそり持ち込むプレッシャーが減る助けになるのです。
 
-<!-- 1~2行目がよくわからない -->
-
 <!-- Thanks to this process, you can always check out the next build of Rust and -->
 <!-- verify for yourself that it’s easy to upgrade to: if a beta release doesn’t -->
 <!-- work as expected, you can report it to the team and get it fixed before the -->
 <!-- next stable release happens! Breakage in a beta release is relatively rare, but -->
 <!-- `rustc` is still a piece of software, and bugs do exist. -->
 
-このプロセスのおかげで、Rustの次のビルドと常に一致し、アップグレードするのが容易であると自身に対して確かめることができます:
+このプロセスのおかげで、Rustの次のビルドを常に確認し、アップグレードするのが容易であると自身に対して確かめることができます:
 ベータリリースが予想した通りに動かなければ、チームに報告して、次の安定版のリリースが起きる前に直してもらうことができるのです！
 ベータリリースでの破損はどちらかといえば稀ですが、`rustc`もソフトウェアの一種であり、バグは確実に存在します。
 
@@ -205,7 +203,7 @@ Rustは6週間ごとに時計仕掛けのようにリリースされます。あ
 このリリースモデルにはもう一つ掴み所があります: 安定しない機能です。Rustは「機能フラグ」と呼ばれるテクニックを使用して、
 あるリリースで有効にする機能を決定します。新しい機能が活発に開発中なら、`master`に着地し、
 故にナイトリーでは*機能フラグ*の背後に存在します。ユーザとして、絶賛作業中の機能を試したいとお望みならば、
-可能ですが、ナイトリーリリースのRustを使用し、ソースコードに適切なフラグを注釈して同意しなければなりません。
+可能ですが、ナイトリリリースのRustを使用し、ソースコードに適切なフラグを注釈して同意しなければなりません。
 
 <!-- If you’re using a beta or stable release of Rust, you can’t use any feature -->
 <!-- flags. This is the key that allows us to get practical use with new features -->
@@ -223,19 +221,19 @@ Rustは6週間ごとに時計仕掛けのようにリリースされます。あ
 <!-- documentation for nightly-only features online. -->
 
 この本は安定な機能についての情報のみ含んでいます。現在進行形の機能は、変化中であり、
-確実にこの本が執筆された時と安定版ビルドで有効化された時で異なるからです。ナイトリー限定の機能についてのドキュメンテーションは、
+確実にこの本が執筆された時と安定版ビルドで有効化された時で異なるからです。ナイトリ限定の機能についてのドキュメンテーションは、
 オンラインで発見できます。
 
 <!-- ### Rustup and the Role of Rust Nightly -->
 
-### RustupとRustナイトリーの役目
+### RustupとRustナイトリの役目
 
 <!-- Rustup makes it easy to change between different release channels of Rust, on a -->
 <!-- global or per-project basis. By default, you’ll have stable Rust installed. To -->
 <!-- install nightly, for example: -->
 
 rustupは、グローバルかプロジェクトごとにRustのリリースチャンネルを変更しやすくしてくれます。
-標準では、安定版のRustがインストールされます。例えば、ナイトリーをインストールするには:
+標準では、安定版のRustがインストールされます。例えば、ナイトリをインストールするには:
 
 ```text
 $ rustup install nightly
@@ -262,9 +260,9 @@ nightly-x86_64-pc-windows-msvc
 <!-- nightly toolchain as the one `rustup` should use when you’re in that directory: -->
 
 おわかりのように、安定版のツールチェーンが標準です。ほとんどのRustユーザは、ほとんどの場合、安定版を使用します。
-あなたもほとんどの場合安定版を使用したい可能性がありますが、最前線の機能が気になるので、特定のプロジェクトではナイトリーを使用したいかもしれません。
+あなたもほとんどの場合安定版を使用したい可能性がありますが、最前線の機能が気になるので、特定のプロジェクトではナイトリを使用したいかもしれません。
 そうするためには、そのプロジェクトのディレクトリで`rustup override`を使用して、そのディレクトリにいる時に、
-`rustup`が使用するべきツールチェーンとしてナイトリー版のものをセットします。
+`rustup`が使用するべきツールチェーンとしてナイトリ版のものをセットします。
 
 ```text
 $ cd ~/projects/needs-nightly
@@ -277,7 +275,7 @@ $ rustup override add nightly
 <!-- have a lot of Rust projects! -->
 
 これで *~/projects/needs-nightly*内で`rustc`や`cargo`を呼び出す度に、`rustup`は規定の安定版のRustではなく、
-ナイトリーRustを使用していることを確かめます。Rustプロジェクトが大量にある時には、重宝します。
+ナイトリRustを使用していることを確かめます。Rustプロジェクトが大量にある時には、重宝します。
 
 <!-- ### The RFC Process and Teams -->
 
@@ -311,7 +309,8 @@ Rustに改善を行いたければ、RFCと呼ばれる提案を書き上げま�
 <!-- in the “Unstable Features” section. -->
 
 機能が受け入れられれば、Rustリポジトリでissueが開かれ、誰かがそれを実装します。うまく実装できる人は、
-最初にその機能を提案した人ではないかもしれません！実装の準備ができたら、「安定しない機能」節で議論したいように、機能ゲートの背後の`master`に着地します。
+そもそもその機能を提案した人ではないかもしれません！実装の準備ができたら、
+「安定しない機能」節で議論したいように、機能ゲートの背後の`master`に着地します。
 
 <!-- After some time, once Rust developers who use nightly releases have been able -->
 <!-- to try out the new feature, team members will discuss the feature, how it’s -->
@@ -320,7 +319,7 @@ Rustに改善を行いたければ、RFCと呼ばれる提案を書き上げま�
 <!-- feature is now considered stable! It rides the trains into a new stable release -->
 <!-- of Rust. -->
 
-時間経過後、一旦ナイトリーリリースを使用するRust開発者が新しい機能を試すことができたら、チームのメンバーがその機能と、
-ナイトリーでどう機能しているかについて議論し、安定版のRustに導入すべきかどうか決定します。
-決定が進行させることだったら、機能ゲートは取り除かれ、その機能はもう安定と考えられます！Rustの新しい安定版リリースまで、
-列車に乗っているのです。
+時間経過後、一旦ナイトリリリースを使用するRust開発者が新しい機能を試すことができたら、チームのメンバーがその機能と、
+ナイトリでどう機能しているかについて議論し、安定版のRustに導入すべきかどうか決定します。
+決定が進行させることだったら、機能ゲートは取り除かれ、その機能はもう安定と考えられます！
+Rustの新しい安定版リリースまで、列車に乗っているのです。

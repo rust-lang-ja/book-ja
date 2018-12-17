@@ -7,7 +7,6 @@
 
 この付録は、本の主な部分が完成してから安定版Rustに追加された機能をドキュメント化しています。
 
-
 <!-- ## Field init shorthand -->
 
 ## フィールド初期化省略
@@ -27,6 +26,7 @@ struct Person {
 }
 
 fn main() {
+    // ピーター
     let name = String::from("Peter");
     let age = 27;
 
@@ -34,6 +34,7 @@ fn main() {
     // Using full syntax:
     let peter = Person { name: name, age: age };
 
+    // ポーティア
     let name = String::from("Portia");
     let age = 27;
 
@@ -126,7 +127,7 @@ use foo::{
 <!-- inclusive ranges in both expression and range context: -->
 
 以前は、範囲を式として使用する際、`..`でなければならず、これは上限を含まない一方、パターンは`...`を使用しなければならず、
-これは、上限を含みます。現在では、`..=`が両方の式と範囲の文脈で上限を含む範囲の記法として受け付けられます。
+これは、上限を含みます。現在では、`..=`が式と範囲の文脈両方で上限を含む範囲の記法として受け付けられます。
 
 ```rust
 fn main() {
@@ -151,7 +152,7 @@ fn main() {
 
 <!-- Rust 1.26.0 added 128-bit integer primitives: -->
 
-Rust1.26.0で128ビットの整数が追加されました:
+Rust1.26.0で128ビットの整数基本型が追加されました:
 
 <!-- - `u128`: A 128-bit unsigned integer with range [0, 2^128 - 1] -->
 <!-- - `i128`: A 128-bit signed integer with range [-(2^127), 2^127 - 1] -->

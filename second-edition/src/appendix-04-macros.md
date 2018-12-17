@@ -43,7 +43,7 @@
 <!-- macros *expand* to produce more code than the code you’ve written manually. -->
 
 基本的に、マクロは、他のコードを記述するコードを書く術であり、これは*メタプログラミング*として知られています。
-付録Cで、`derive`アトリビュートを議論し、これは、色々なトレイトの実装を生成してくれるのでした。
+付録Cで、`derive`属性を議論し、これは、色々なトレイトの実装を生成してくれるのでした。
 また、本を通して`println!`や`vec!`マクロを使用してきました。これらのマクロは全て、*展開*され、
 手で書いたよりも多くのコードを生成します。
 
@@ -130,10 +130,10 @@ extern crate serde;
 Rustにおいて、最もよく使用される形態のマクロは、*宣言的マクロ*です。これらは時として、
 *例によるマクロ*、*`macro_rules!`マクロ*、あるいはただ単に*マクロ*とも称されます。
 核となるのは、宣言的マクロは、Rustの`match`式に似た何かを書けるということです。第6章で議論したように、
-`match`式は、式を取り、式の結果の値をパターンと比較し、それからマッチしたパターンに紐付いたコードを実行する制御構造です。
-マクロも自身に紐付いたコードがあるパターンと値を比較します; この場面で値とは、
+`match`式は、式を取り、式の結果の値をパターンと比較し、それからマッチしたパターンに紐づいたコードを実行する制御構造です。
+マクロも自身に紐づいたコードがあるパターンと値を比較します; この場面で値とは、
 マクロに渡されたリテラルのRustのソースコードそのもの、パターンは、そのソースコードの構造と比較され、
-各パターンに紐付いたコードは、マクロに渡されたコードを置き換えるコードです。これは全て、コンパイル時に起きます。  
+各パターンに紐づいたコードは、マクロに渡されたコードを置き換えるコードです。これは全て、コンパイル時に起きます。  
 
 <!-- To define a macro, you use the `macro_rules!` construct. Let’s explore how to -->
 <!-- use `macro_rules!` by looking at how the `vec!` macro is defined. Chapter 8 -->
@@ -212,7 +212,7 @@ macro_rules! vec {
 <!-- other will be an error. More complex macros will have more than one arm. -->
 
 `vec!`本体の構造は、`match`式の構造に類似しています。ここではパターン`( $( $x:expr ),* )`の1つのアーム、
-`=>`とこのパターンに紐付くコードのブロックが続きます。パターンが合致すれば、紐付いたコードのブロックが発されます。
+`=>`とこのパターンに紐づくコードのブロックが続きます。パターンが合致すれば、紐づいたコードのブロックが発されます。
 これがこのマクロの唯一のパターンであることを踏まえると、合致する合法的な方法は一つしかありません;
 それ以外は、全部エラーになるでしょう。より複雑なマクロには、2つ以上のアームがあるでしょう。
 
@@ -223,9 +223,9 @@ macro_rules! vec {
 
 マクロ定義で合法なパターン記法は、第18章で講義したパターン記法とは異なります。というのも、
 マクロのパターンは値ではなく、Rustコードの構造に対してマッチされるからです。リストD-1のパターンの部品がどんな意味か見ていきましょう;
-マクロパターン記法全ては[the reference]をご覧ください。
+マクロパターン記法全ては[参考文献]をご覧ください。
 
-[the reference]: ../../reference/macros.html
+[参考文献]: ../../reference/macros.html
 
 <!-- First, a set of parentheses encompasses the whole pattern. Next comes a dollar -->
 <!-- sign (`$`) followed by a set of parentheses, which captures values that match -->
@@ -242,7 +242,7 @@ macro_rules! vec {
 <!-- The `*` following the comma specifies that the pattern matches zero or more of -->
 <!-- whatever precedes the `*`. -->
 
-`$()`に続くカンマは、`$()`にキャプチャされるコードにマッチするコードの後に区別するカンマ文字が現れるという選択肢もあることを示唆しています。
+`$()`に続くカンマは、`$()`にキャプチャされるコードにマッチするコードの後に区別するリテラルのカンマ文字が現れるという選択肢もあることを示唆しています。
 カンマに続く`*`は、パターンが`*`の前にあるもの0個以上にマッチすることを指定しています。
 
 <!-- When we call this macro with `vec![1, 2, 3];`, the `$x` pattern matches three -->
@@ -257,10 +257,10 @@ macro_rules! vec {
 <!-- When we call this macro with `vec![1, 2, 3];`, the code generated that replaces -->
 <!-- this macro call will be the following: -->
 
-さて、このアームに紐付くコードの本体のパターンに目を向けましょう: `$()*`部分内部の`temp_vec.push()`コードは、
+さて、このアームに紐づくコードの本体のパターンに目を向けましょう: `$()*`部分内部の`temp_vec.push()`コードは、
 パターンがマッチした回数に応じて0回以上パターン内で`$()`にマッチする箇所ごとに生成されます。
 `$x`はマッチした式それぞれに置き換えられます。このマクロを`vec![1, 2, 3];`と呼び出すと、
-このマクロ呼び出しを置き換え生成されるコードは以下のようになるでしょう:
+このマクロ呼び出しを置き換え、生成されるコードは以下のようになるでしょう:
 
 ```rust,ignore
 let mut temp_vec = Vec::new();
@@ -282,7 +282,7 @@ temp_vec
 
 多くのRustプログラマは、マクロを*書く*よりも*使う*方が多いことを踏まえて、これ以上`macro_rules!`を議論しません。
 マクロの書き方をもっと学ぶには、オンラインドキュメンテーションか他のリソース、
-[“The Little Book of Rust Macros][tlborm]などを調べてください。
+[“The Little Book of Rust Macros][tlborm](`訳注`: Rustのマクロの小さな本)などを調べてください。
 
 [tlborm]: https://danielkeep.github.io/tlborm/book/index.html
 
@@ -317,7 +317,7 @@ temp_vec
 `hello_macro`という関連関数が1つある`HelloMacro`というトレイトを定義する`hello_macro`というクレートを作成します。
 クレートの使用者に使用者の型に`HelloMacro`トレイトを実装することを強制するのではなく、
 使用者が型を`#[derive(HelloMacro)]`で注釈して`hello_macro`関数の規定の実装を得られるように、
-プロシージャルマクロを提供します。規定の実装は、`Hello, Macro! My name is TypeName!`と出力し、
+プロシージャルマクロを提供します。規定の実装は、`Hello, Macro! My name is TypeName!`(`訳注`: こんにちは、マクロ！僕の名前はTypeNameだよ！)と出力し、
 ここで`TypeName`はこのトレイトが定義されている型の名前です。言い換えると、他のプログラマに我々のクレートを使用して、
 リストD-2のようなコードを書けるようにするクレートを記述します。
 
@@ -348,7 +348,7 @@ fn main() {
 <!-- This code will print `Hello, Macro! My name is Pancakes!` when we’re done. The -->
 <!-- first step is to make a new library crate, like this: -->
 
-このコードは完成したら、`Hello, Macro! My name is Pancakes!`と出力します。最初の手順は、
+このコードは完成したら、`Hello, Macro! My name is Pancakes!`(`Pancakes`: ホットケーキ)と出力します。最初の手順は、
 新しいライブラリクレートを作成することです。このように:
 
 ```text
@@ -357,7 +357,7 @@ $ cargo new hello_macro --lib
 
 <!-- Next, we’ll define the `HelloMacro` trait and its associated function: -->
 
-次に`HelloMacro`トレイトと関連関数を定義します。
+次に`HelloMacro`トレイトと関連関数を定義します:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -372,7 +372,7 @@ pub trait HelloMacro {
 <!-- We have a trait and its function. At this point, our crate user could implement -->
 <!-- the trait to achieve the desired functionality, like so: -->
 
-トレイトと関数があります。この時点で、クレートの使用者は、以下のように、
+トレイトと関数があります。この時点でクレートの使用者は、以下のように、
 このトレイトを実装して所望の機能を達成できるでしょう。
 
 ```rust,ignore
@@ -551,7 +551,7 @@ Rustコードの完全なパーサを書くのは、単純な作業ではない�
 
 `hello_macro_derive`関数は、ライブラリの使用者が型に`#[derive(HelloMacro)]`を指定した時に呼び出されます。
 その理由は、ここで`hello_macro_derive`関数を`proc_macro_derive`で注釈し、トレイト名に一致する`HelloMacro`を指定したからです;
-これがほとんどのプロシージャルマクロが<ruby>倣<rp>(</rp><rt>なら</rt><rp>)</rp></ruby>う慣習です。
+これがほとんどのプロシージャルマクロが倣う慣習です。
 
 <!-- This function first converts the `input` from a `TokenStream` to a `String` by -->
 <!-- calling `to_string`. This `String` is a string representation of the Rust code -->
@@ -687,7 +687,7 @@ fn impl_hello_macro(ast: &syn::DeriveInput) -> quote::Tokens {
 
 プロシージャルマクロに使用者が注釈した型に対して`HelloMacro`トレイトの実装を生成してほしく、
 これは`#name`を使用することで得られます。トレイトの実装には1つの関数`hello_macro`があり、
-この本体に提供したい機能が含まれています: `Hello, Macro! My name is`そして、注釈した型の名前を出力する機能です。
+この本体に提供したい機能が含まれています: `Hello, Macro! My name is`、そして、注釈した型の名前を出力する機能です。
 
 <!-- The `stringify!` macro used here is built into Rust. It takes a Rust -->
 <!-- expression, such as `1 + 2`, and at compile time turns the expression into a -->

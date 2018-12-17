@@ -7,8 +7,8 @@
 <!-- code that will implement a trait with its own default implementation on the -->
 <!-- type you’ve annotated with the `derive` syntax. -->
 
-本のいろんな箇所で`derive`アトリビュートについて議論しました。これは構造体や、enum定義に適用できます。
-`derive`アトリビュートは、`derive`記法で注釈した型に対して独自の規定の実装でトレイトを実装するコードを生成します。
+本のいろんな箇所で`derive`属性について議論しました。これは構造体や、enum定義に適用できます。
+`derive`属性は、`derive`記法で注釈した型に対して独自の規定の実装でトレイトを実装するコードを生成します。
 
 <!-- In this appendix, we provide a reference of all the traits in the standard -->
 <!-- library that you can use with `derive`. Each section covers: -->
@@ -31,7 +31,7 @@
 <!-- consult the standard library documentation for each trait for details on how to -->
 <!-- manually implement them. -->
 
-`derive`アトリビュートが提供する以外の異なる振る舞いが欲しいなら、それらを手動で実装する方法の詳細について、
+`derive`属性が提供する以外の異なる振る舞いが欲しいなら、それらを手動で実装する方法の詳細について、
 各トレイトの標準ライブラリのドキュメンテーションを調べてください。
 
 <!-- The rest of the traits defined in the standard library can’t be implemented on -->
@@ -50,7 +50,7 @@
 <!-- would be most relevant to them? The Rust compiler doesn’t have this insight, so -->
 <!-- it can’t provide appropriate default behavior for you. -->
 
-継承できないトレイトの例は`Display`で、これはエンドユーザ向けにフォーマットを扱います。常に、エンドユーザ向けに型を表示する適切な方法について、
+継承できないトレイトの例は`Display`で、これはエンドユーザ向けのフォーマットを扱います。常に、エンドユーザ向けに型を表示する適切な方法について、
 考慮すべきです。型のどの部分をエンドユーザは見ることができるべきでしょうか？どの部分を関係があると考えるでしょうか？
 どんな形式のデータがエンドユーザにとって最も関係があるでしょうか？Rustコンパイラには、
 この見識がないため、適切な規定動作を提供してくれないのです。
@@ -96,7 +96,7 @@
 <!-- The `PartialEq` trait allows you to compare instances of a type to check for -->
 <!-- equality and enables use of the `==` and `!=` operators. -->
 
-`PartialEq`トレイトにより、型のインスタンスを比較でき、等価性をチェックし、`==`と`!=`演算子の使用を可能にします。
+`PartialEq`トレイトにより、型のインスタンスを比較して、等価性をチェックでき、`==`と`!=`演算子の使用を可能にします。
 
 <!-- Deriving `PartialEq` implements the `eq` method. When `PartialEq` is derived on -->
 <!-- structs, two instances are equal only if *all* fields are equal, and the -->
@@ -112,7 +112,7 @@
 <!-- for equality. -->
 
 `PartialEq`トレイトは例えば、`assert_eq!`マクロを使用する際に必要になります。
-これは、等価性のために型の2つのインスタンスを比較できる必要があります。
+これは、等価性のためにとある型の2つのインスタンスを比較できる必要があります。
 
 <!-- The `Eq` trait has no methods. Its purpose is to signal that for every value of -->
 <!-- the annotated type, the value is equal to itself. The `Eq` trait can only be -->
@@ -129,7 +129,7 @@
 <!-- An example of when `Eq` is required is for keys in a `HashMap<K, V>` so the -->
 <!-- `HashMap<K, V>` can tell whether two keys are the same. -->
 
-`Eq`が必要になる一例が、`HashMap<K, V>`のキーで、`HashMap<K, V>`が、2つのキーが同じであることがわかります。
+`Eq`が必要になる一例が、`HashMap<K, V>`のキーで、`HashMap<K, V>`が、2つのキーが同じであると判定できます。
 
 <!-- ### `PartialOrd` and `Ord` for Ordering Comparisons -->
 
@@ -153,7 +153,7 @@
 
 `PartialOrd`を継承すると、`partial_cmp`メソッドを実装し、これは、与えられた値が順序付けられない時に`None`になる`Option<Ordering>`を返します。
 その型のほとんどの値は比較できるものの、順序付けできない値の例として、非数字(`NaN`)浮動小数点値が挙げられます。
-`partial_cmp`を浮動小数点数と`NaN`浮動小数点数で呼び出すと、`None`が返るでしょう。
+`partial_cmp`をあらゆる浮動小数点数と`NaN`浮動小数点数で呼び出すと、`None`が返るでしょう。
 
 <!-- When derived on structs, `PartialOrd` compares two instances by comparing the -->
 <!-- value in each field in the order in which the fields appear in the struct -->
@@ -223,7 +223,7 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 <!-- the stack; no arbitrary code is necessary. See the “Stack-Only Data: Copy” -->
 <!-- section in Chapter 4 for more information on `Copy`. -->
 
-`Copy`トレイトにより、スタックに格納された部分をコピーするだけで値を複製できます; 任意のコードは必要ありません。
+`Copy`トレイトにより、スタックに格納されたビットをコピーするだけで値を複製できます; 任意のコードは必要ありません。
 `Copy`について詳しくは、第4章の「スタックのみのデータ: Copy」を参照されたし。
 
 <!-- The `Copy` trait doesn’t define any methods to prevent programmers from -->
@@ -253,7 +253,7 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 <!-- Everything possible with `Copy` you can also accomplish with `Clone`, but the -->
 <!-- code might be slower or have to use `clone` in places. -->
 
-`Clone`で達成可能なこと全てが`Copy`でも可能ですが、コードがより遅い可能性や、
+`Copy`で可能なこと全てが`Copy`でも達成可能ですが、コードがより遅い可能性や、
 `clone`を使用しなければならない箇所があったりします。
 
 <!-- ### `Hash` for Mapping a Value to a Value of Fixed Size -->
