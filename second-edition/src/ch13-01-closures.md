@@ -664,7 +664,7 @@ error[E0308]: mismatched types
 <!-- trait bound we specify is `Fn(u32) -> u32`. -->
 
 `Fn`トレイト境界への型を追加して、クロージャがこのトレイト境界を合致させるために持っていなければならない引数と戻り値の型を表します。
-今回の場合、クロージャは、引数の型が`u32`で、`u32`を返すので、指定するトレイト境界は、`Fn(u32) => u32`です。
+今回の場合、クロージャは、引数の型が`u32`で、`u32`を返すので、指定するトレイト境界は、`Fn(u32) -> u32`です。
 
 <!-- Listing 13-9 shows the definition of the `Cacher` struct that holds a closure -->
 <!-- and an optional result value. -->
