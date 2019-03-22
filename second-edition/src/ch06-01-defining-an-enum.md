@@ -411,7 +411,7 @@ m.call();
 <!-- Hoare, the inventor of null, has this to say: -->
 
 nullの開発者であるトニー・ホーア(Tony Hoare)の2009年のプレゼンテーション、
-"Null References: The Billion Dollar Mistake"(Null参照: 10億円の間違い)では、こんなことが語られています。
+"Null References: The Billion Dollar Mistake"(Null参照: 10億ドルの間違い)では、こんなことが語られています。
 
 <!-- > I call it my billion-dollar mistake. At that time, I was designing the first -->
 <!-- > comprehensive type system for references in an object-oriented language. My -->

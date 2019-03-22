@@ -68,7 +68,7 @@ safe Rustでは行えない4つの行動をunsafe Rustでは行え、これは*u
 <!-- these four features that are then not checked by the compiler for memory -->
 <!-- safety. You'll still get some degree of safety inside of an unsafe block. -->
 
-`unsafe`は、借用精査機や他のRustの安全性チェックを無効にしないことを理解するのは重要なことです:
+`unsafe`は、借用チェッカーや他のRustの安全性チェックを無効にしないことを理解するのは重要なことです:
 unsafeコードで参照を使用しても、チェックはされます。`unsafe`キーワードにより、これら4つの機能にアクセスできるようになり、
 その場合、コンパイラによってこれらのメモリ安全性は確認されないのです。unsafeブロック内でも、ある程度の安全性は得られます。
 
@@ -257,7 +257,7 @@ Rustの所有権規則により、不変参照と可変参照を同時に存在�
 <!-- code. -->
 
 これらの危険がありながら、一体何故生ポインタを使うのでしょうか？主なユースケースの1つは、次の節「unsafeな関数やメソッドを呼ぶ」で見るように、
-Cコードとのインターフェイスです。別のユースケースは、借用精査機には理解できない安全な抽象を構成する時です。
+Cコードとのインターフェイスです。別のユースケースは、借用チェッカーには理解できない安全な抽象を構成する時です。
 unsafeな関数を導入し、それからunsafeコードを使用する安全な抽象の例に目を向けます。
 
 <!-- ### Calling an Unsafe Function or Method -->
@@ -419,7 +419,7 @@ error[E0499]: cannot borrow `*slice` as mutable more than once at a time
 <!-- slices aren’t overlapping, but Rust isn’t smart enough to know this. When we -->
 <!-- know code is okay, but Rust doesn’t, it’s time to reach for unsafe code. -->
 
-Rustの借用精査機には、スライスの異なる部分を借用していることが理解できないのです; 
+Rustの借用チェッカーには、スライスの異なる部分を借用していることが理解できないのです; 
 同じスライスから2回借用していることだけ知っています。2つのスライスが被らないので、
 スライスの異なる部分を借用することは、根本的に大丈夫なのですが、コンパイラはこれを知れるほど賢くありません。
 プログラマにはコードが大丈夫とわかるのに、コンパイラにはわからないのなら、unsafeコードに手を伸ばすタイミングです。

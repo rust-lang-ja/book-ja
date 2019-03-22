@@ -169,7 +169,7 @@ error[E0596]: cannot borrow immutable local variable `x` as mutable
 ですが、メソッド内で値が自身を可変化するけれども、他のコードにとっては、
 不変に見えることが有用な場面もあります。その値のメソッドの外のコードは、その値を可変化することはできないでしょう。
 `RefCell<T>`を使うことは、内部可変性を取得する能力を得る1つの方法です。しかし、
-`RefCell<T>`は借用規則を完全に回避するものではありません: コンパイラの借用精査機は、内部可変性を許可し、
+`RefCell<T>`は借用規則を完全に回避するものではありません: コンパイラの借用チェッカーは、内部可変性を許可し、
 借用規則は代わりに実行時に精査されます。この規則を侵害したら、コンパイルエラーではなく`panic!`になるでしょう。
 
 <!-- Let’s work through a practical example where we can use `RefCell<T>` to mutate -->
@@ -298,7 +298,7 @@ impl<'a, T> LimitTracker<'a, T>
 `send`を呼び出す時にメールやテキストメッセージを送る代わりに送ると指示されたメッセージを追跡するだけのモックオブジェクトが必要です。
 モックオブジェクトの新規インスタンスを生成し、モックオブジェクトを使用する`LimitTracker`を生成し、
 `LimitTracker`の`set_value`を呼び出し、それからモックオブジェクトに期待しているメッセージがあることを確認できます。
-リスト15-21は、それだけをするモックオブジェクトを実装しようとするところを示しますが、借用精査機が許可してくれません:
+リスト15-21は、それだけをするモックオブジェクトを実装しようとするところを示しますが、借用チェッカーが許可してくれません:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -340,7 +340,7 @@ mod tests {
 <!-- <span class="caption">Listing 15-21: An attempt to implement a `MockMessenger` -->
 <!-- that isn’t allowed by the borrow checker</span> -->
 
-<span class="caption">リスト15-21: 借用精査機が許可してくれない`MockMessanger`を実装しようとする</span>
+<span class="caption">リスト15-21: 借用チェッカーが許可してくれない`MockMessanger`を実装しようとする</span>
 
 <!-- This test code defines a `MockMessenger` struct that has a `sent_messages` -->
 <!-- field with a `Vec` of `String` values to keep track of the messages it’s told -->
