@@ -262,4 +262,4 @@
     - [D - マクロ](appendix-04-macros.md)
     - [E - 翻訳](appendix-05-translation.md)
     - [F - 最新の機能](appendix-06-newest-features.md)
-    - [G - Rustが“Nightly Rust”になる方法](appendix-07-nightly-rust.md)
+    - [G - Rustの作られ方と“Nightly Rust”](appendix-07-nightly-rust.md)
