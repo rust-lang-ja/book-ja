@@ -151,7 +151,7 @@ Rustコンパイラのエラーメッセージは、これらの参照にライ�
 <!-- returns. This code doesn’t quite work. -->
 
 次にリスト19-14では、`Context`のインスタンスを1つ取り、`Parser`を使ってその文脈をパースし、
-`parse`が返すものを返す関数を追加します。このコードは完璧には動きません。
+`parse`が返すものを返す関数を追加します。このコードはあまり動きません。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -309,7 +309,7 @@ note: borrowed value must be valid for the anonymous lifetime #1 defined on the 
 
 まず、試しに`Parser`と`Context`に異なるライフタイム引数を与えてみましょう。リスト19-15のようにですね。
 ライフタイム引数の名前として`'s`と`'c`を使用して、どのライフタイムが`Context`の文字列スライスに当てはまり、
-どれが`Parser`の`Context`への参照に当てはまるかを明確化します。この解決策は、完全に問題を修正しませんが、
+どれが`Parser`の`Context`への参照に当てはまるかを明確化します。この解決策は、完全には問題を修正しませんが、
 スタート地点です。コンパイルしようとする時にこの修正で十分でない理由に目を向けます。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -385,7 +385,7 @@ note: but the referenced data is only valid for the lifetime 's as defined on th
 <!-- guarantee that it lives longer than the reference with lifetime `'c`. If `'s` -->
 <!-- is not longer than `'c`, the reference to `Context` might not be valid. -->
 
-コンパイラは、`'c`と`'s`の間になんの関連性も知りません。合法であるために、`Context`でライフタイム`'c`と参照されたデータは、
+コンパイラは、`'c`と`'s`の間になんの関連性も知りません。合法であるために、`Context`でライフタイム`'s`と参照されたデータは、
 制限され、ライフタイム`'c`の参照よりも長生きすることを保証する必要があります。`'s`が`'c`より長くないと、
 `Context`への参照は合法ではない可能性があるのです。
 
@@ -480,6 +480,7 @@ struct Ref<'a, T>(&'a T);
 
 ```text
 error[E0309]: the parameter type `T` may not live long enough
+(エラー: パラメータ型の`T`は十分長生きしないかもしれません)
  --> src/lib.rs:1:19
   |
 1 | struct Ref<'a, T>(&'a T);
@@ -488,7 +489,7 @@ error[E0309]: the parameter type `T` may not live long enough
   = help: consider adding an explicit lifetime bound `T: 'a`...
   (助言: 明示的なライフタイム境界`T: 'a`を追加することを考慮してください)
 note: ...so that the reference type `&'a T` does not outlive the data it points at
-(注釈: そうすれば、参照型の`&'a T`が指しているデータよりも長生きしません)
+(注釈: そうすれば、参照型の`&'a T`が、指しているデータよりも長生きしません)
  --> src/lib.rs:1:19
   |
 1 | struct Ref<'a, T>(&'a T);
@@ -614,7 +615,7 @@ fn main() {
 <!-- rules for working with lifetimes and trait objects: -->
 
 明示的に`obj`に関連するライフタイムを注釈していないものの、このコードはエラーなくコンパイルできます。
-ライフタイムとトレイトオブジェクトと共に動く規則があるので、このコードは動くのです:
+ライフタイムとトレイトオブジェクトと共に働く規則があるので、このコードは動くのです:
 
 <!-- * The default lifetime of a trait object is `'static`. -->
 <!-- * With `&'a Trait` or `&'a mut Trait`, the default lifetime of the trait object -->

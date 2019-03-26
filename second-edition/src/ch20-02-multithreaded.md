@@ -349,7 +349,7 @@ pub struct ThreadPool;
 <!-- following code to the top of *src/bin/main.rs*: -->
 
 それから新しいディレクトリ、*src/bin*を作成し、*src/main.rs*に根付くバイナリクレートを*src/bin/main.rs*に移動してください。
-そうすると、ライブラリクレートが*hello*ディレクトリ内でプライマリクレートになります; それでも、
+そうすると、ライブラリクレートが*hello*ディレクトリ内で主要クレートになります; それでも、
 `cargo run`で*src/bin/main.rs*のバイナリを実行することはできます。*main.rs*ファイルを移動後、
 編集してライブラリクレートを持ち込み、以下のコードを*src/bin/main.rs*の先頭に追記して`ThreadPool`をスコープに導入してください:
 

@@ -95,7 +95,7 @@ println!("x + y = {}", x + y);
 <!-- parameters. However, using this method, we don’t get the type checking benefits -->
 <!-- that we get from the newtype pattern discussed earlier. -->
 
-`Kilometers`と`i32`が同じ型なので、両方の型を足し合わせたり、`Kilometers`の値を`i32`引数を取る関数に渡せたりします。
+`Kilometers`と`i32`が同じ型なので、両方の型の値を足し合わせたり、`Kilometers`の値を`i32`引数を取る関数に渡せたりします。
 ですが、この方策を使用すると、先ほど議論したニュータイプパターンで得られる型チェックの利便性は得られません。
 
 <!-- The main use case for type synonyms is to reduce repetition. For example, we -->
@@ -165,7 +165,7 @@ fn returns_long_type() -> Thunk {
 
 このコードの方が遥かに読み書きしやすいです！型エイリアスに意味のある名前を選択すると、
 意図を伝えるのにも役に立つことがあります(*thunk*は後ほど評価されるコードのための単語なので、
-格納されるクロージャには適切な名前です)。
+格納されるクロージャーには適切な名前です)。
 
 <!-- Type aliases are also commonly used with the `Result<T, E>` type for reducing -->
 <!-- repetition. Consider the `std::io` module in the standard library. I/O -->
@@ -309,7 +309,7 @@ let guess = match guess.trim().parse() {
 <!-- value, Rust decides that the type of `guess` is `u32`. -->
 
 もうお気付きかもしれませんが、`continue`は`!`値です。つまり、コンパイラが`guess`の型を計算する時、
-両方のmatchアームを見て、前者は`u32`の値、後者は`!`値です。`!`は絶対に値を持ち得ないので、
+両方のmatchアームを見て、前者は`u32`の値、後者は`!`値となります。`!`は絶対に値を持ち得ないので、
 コンパイラは、`guess`の型は`u32`と決定するのです。
 
 <!-- The formal way of describing this behavior is that expressions of type `!` can -->

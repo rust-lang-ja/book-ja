@@ -229,7 +229,7 @@ match x {
 <!-- We can also use patterns to destructure structs, enums, tuples, and references -->
 <!-- to use different parts of these values. Let’s walk through each value. -->
 
-またパターンを使用して構造体、enum、タプル、参照を分配し、これらの値の異なる部分を使用することもできます。
+また、パターンを使用して構造体、enum、タプル、参照を分配し、これらの値の異なる部分を使用することもできます。
 各値を見ていきましょう。
 
 <!-- #### Destructuring Structs -->
@@ -431,7 +431,7 @@ fn main() {
         Message::Write(text) => println!("Text message: {}", text),
         Message::ChangeColor(r, g, b) => {
             println!(
-                // 色を(R, G, B) = ({}, {}, {})に変更
+                // 色を赤{}, 緑{}, 青{}に変更
                 "Change the color to red {}, green {}, and blue {}",
                 r,
                 g,
@@ -494,8 +494,8 @@ fn main() {
 
 パターンとマッチさせている値に参照が含まれる場合、値から参照を分配する必要があり、
 パターンに`&`を指定することでそうすることができます。そうすることで参照を保持する変数を得るのではなく、
-参照が指している値を保持する変数が得られます。このテクニックは特に、参照を走査するイテレータがあるけれども、
-参照ではなく、クロージャで値を使用したいクロージャで特に役に立ちます。
+参照が指している値を保持する変数が得られます。このテクニックは、参照を走査するイテレータがあるクロージャで特に役に立ちますが、
+参照ではなく、そのクロージャで値を使用したいです。
 
 <!-- The example in Listing 18-16 iterates over references to `Point` instances in a -->
 <!-- vector, destructuring the reference and the struct so we can perform -->
@@ -602,7 +602,7 @@ let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
 <!-- parts of a value. Let’s explore how and why to use each of these patterns. -->
 
 `match`の最後のアームのように、パターンの値を無視して実際には何もしないけれども、
-残りの全ての値の可能性を考慮する包括的なものを得ることは時として有用であると認識しましたね。
+残りの全ての値の可能性を考慮する包括的なものを得ることは、時として有用であると認識しましたね。
 値全体やパターンの一部の値を無視する方法はいくつかあります: `_`パターンを使用すること(もう見かけました)、
 他のパターン内で`_`パターンを使用すること、アンダースコアで始まる名前を使用すること、`..`を使用して値の残りの部分を無視することです。
 これらのパターンそれぞれを使用する方法と理由を探求しましょう。
@@ -672,7 +672,7 @@ fn main() {
 また、他のパターンの内部で`_`を使用して、値の一部だけを無視することもでき、例えば、
 値の一部だけを確認したいけれども、走らせたい対応するコードでは他の部分を使用することがない時などです。
 リスト18-18は、設定の値を管理する責任を負ったコードを示しています。業務要件は、
-ユーザが既存の設定の変更を上書きすることはできないべきだけれども、設定をリセットし、
+ユーザが既存の設定の変更を上書きすることはできないべきだけれども、設定を解除し、
 現在設定がされてなければ設定に値を与えられるというものです。
 
 ```rust
@@ -716,7 +716,7 @@ println!("setting is {:?}", setting_value);
 <!-- `new_setting_value` to become `setting_value`. -->
 
 2番目のアームの`_`パターンで表現される他のあらゆる場合(`setting_value`と`new_setting_value`どちらかが`None`なら)には、
-`new_setting_value`には`setting_value`になってほしいです。
+`new_setting_value`に`setting_value`になってほしいです。
 
 <!-- We can also use underscores in multiple places within one pattern to ignore -->
 <!-- particular values. Listing 18-19 shows an example of ignoring the second and -->
@@ -1096,7 +1096,7 @@ println!("robot_name is: {:?}", robot_name);
 <!-- arm code using the `*` operator to mutate the value. -->
 
 この例はコンパイルが通り、`robot_name is: Some("Another name")`と出力するでしょう。
-`name`は可変参照なので、マッチアーム内で`*`演算子を使用して値を可変化するために参照外しする必要があります。
+`name`は可変参照なので、値を可変化するためにマッチアーム内で`*`演算子を使用して参照外しする必要があります。
 
 <!-- ### Extra Conditionals with Match Guards -->
 
@@ -1338,7 +1338,7 @@ match msg {
 <!-- `id` value in a variable. -->
 
 パターンで範囲しか指定していない2番目のアームでは、アームに紐づいたコードに`id`フィールドの実際の値を含む変数はありません。
-`id`フィールドの値は10、11、12だった可能性もありますが、そのパターンに来るコードは、
+`id`フィールドの値は10、11、12だった可能性があるでしょうが、そのパターンに来るコードは、
 どれなのかわかりません。パターンのコードは`id`フィールドの値を使用することは叶いません。
 `id`の値を変数に保存していないからです。
 
@@ -1354,7 +1354,7 @@ match msg {
 
 <!-- Using `@` lets us test a value and save it in a variable within one pattern. -->
 
-`@`を使用することで、値を調べつつ、1つのパターン内で変数に保存させてくれるのです。
+`@`を使用することで、値を検査しつつ、1つのパターン内で変数に保存させてくれるのです。
 
 <!-- ## Summary -->
 
@@ -1375,4 +1375,4 @@ Rustのパターンは、異なる種類のデータを区別するのに役立�
 <!-- Next, for the penultimate chapter of the book, we’ll look at some advanced -->
 <!-- aspects of a variety of Rust’s features. -->
 
-次の本の末尾から2番目の章では、Rustのいろんな機能の高度な視点に目を向けます。
+次の本書の末尾から2番目の章では、Rustの多彩な機能の高度な視点に目を向けます。

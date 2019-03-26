@@ -77,7 +77,7 @@ match VALUE {
 <!-- variables with hardcoded values that a real program might receive from user -->
 <!-- input. -->
 
-リスト18-1のコードは、背景色が何になるべきかを決定するいくつかの異なる条件を連なって確認するところを示しています。
+リスト18-1のコードは、背景色が何になるべきかを決定するいくつかの条件を連なって確認するところを示しています。
 この例では、実際のプログラムではユーザ入力を受け付ける可能性のある変数をハードコードされた値で生成しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->

@@ -313,7 +313,7 @@ error[E0133]: call to unsafe function requires unsafe function or block
 <!-- function. -->
 
 `dangerous`への呼び出しの周りに`unsafe`ブロックを挿入することで、コンパイラに関数のドキュメンテーションを読み、
-適切に使用する方法を理解し、関数の契約を満たしていると確認したことをアサートしています。
+適切に使用する方法を理解したことをアサートし、関数の契約を満たしていると実証しました。
 
 <!-- Bodies of unsafe functions are effectively `unsafe` blocks, so to perform other -->
 <!-- unsafe operations within an unsafe function, we don’t need to add another -->
@@ -747,7 +747,7 @@ fn main() {
 <!-- that data accessed from different threads is done safely. -->
 
 グローバルにアクセス可能な可変なデータがあると、データ競合がないことを保証するのは難しくなり、そのため、
-Rustは可変で静的な変数をunsafeと考えるのです。可能なら、コンパイラが異なるスレッドからアクセスされるデータが安全に行われているかを確認するように、
+Rustは可変で静的な変数をunsafeと考えるのです。可能なら、コンパイラが、データが異なるスレッドからアクセスされることが安全に行われているかを確認するように、
 第16章で議論した並行性テクニックとスレッド安全なスマートポインタを使用するのが望ましいです。
 
 <!-- ### Implementing an Unsafe Trait -->
@@ -760,7 +760,7 @@ Rustは可変で静的な変数をunsafeと考えるのです。可能なら、�
 <!-- `unsafe` keyword before `trait` and marking the implementation of the trait as -->
 <!-- `unsafe` too, as shown in Listing 19-11. -->
 
-`unsafe`でのみ動く最後の動作は、unsafeなトレイトを実装することです。少なくとも、1つのメソッドにコンパイラが確かめられないなんらかの不変条件があると、
+`unsafe`でのみ動く最後の行動は、unsafeなトレイトを実装することです。少なくとも、1つのメソッドにコンパイラが確かめられないなんらかの不変条件があると、
 トレイトはunsafeになります。`trait`の前に`unsafe`キーワードを追加し、トレイトの実装も`unsafe`でマークすることで、
 トレイトが`unsafe`であると宣言できます。リスト19-11のようにですね。
 
@@ -813,7 +813,7 @@ unsafe impl Foo for i32 {
 <!-- reason to use `unsafe` code, you can do so, and having the explicit `unsafe` -->
 <!-- annotation makes it easier to track down the source of problems if they occur. -->
 
-`unsafe`を使って議論したばかりの4つの行動(superpower)のうちの1つを行うのは間違っていたり、認められもしないものではありません。
+`unsafe`を使って議論したばかりの4つの行動(強大な力)のうちの1つを行うのは間違っていたり、認められもしないものではありません。
 ですが、`unsafe`コードを正しくするのは、より巧妙なことでしょう。コンパイラがメモリ安全性を保持する手助けをできないからです。
 `unsafe`コードを使用する理由があるなら、そうすることができ、明示的に`unsafe`注釈をすることで問題が起きたら、
 その原因を追求するのが容易になります。

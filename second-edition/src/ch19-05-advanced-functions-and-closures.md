@@ -105,7 +105,7 @@ let list_of_strings: Vec<String> = list_of_numbers
 <!-- Or we could name a function as the argument to `map` instead of the closure, -->
 <!-- like this: -->
 
-あるいは、このようにクロージャの代わりに`map`に引数として関数に名前を付けられるでしょう:
+あるいは、このようにクロージャの代わりに`map`に引数として関数を名指しできるでしょう:
 
 ```rust
 let list_of_numbers = vec![1, 2, 3];

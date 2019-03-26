@@ -7,8 +7,8 @@
 <!-- expressions and other constructs gives you more control over a program’s -->
 <!-- control flow. A pattern consists of some combination of the following: -->
 
-パターンは、Rustで複雑であれ、単純であれ、型の構造に一致する特別な記法です。`match`式や他の構文と組み合わせてパターンを使用すると、
-プログラムの制御フローをよりコントロールできます。パターンは、以下の組み合わせで構成されます:
+パターンは、複雑であれ、単純であれ、Rustで型の構造に一致する特別な記法です。`match`式や他の構文と組み合わせてパターンを使用すると、
+プログラムの制御フローをよりコントロールできます。パターンは、以下を組み合わせることで構成されます:
 
 <!-- * Literals -->
 <!-- * Destructured arrays, enums, structs, or tuples -->
