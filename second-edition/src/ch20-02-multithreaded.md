@@ -10,7 +10,7 @@
 <!-- finished, even if the new requests can be processed quickly. We’ll need to fix -->
 <!-- this, but first, we’ll look at the problem in action. -->
 
-現状、サーバはリクエストを順番に処理します。つまり、最初のが処理し終わるまで、2番目の接続は処理しないということです。
+現状、サーバはリクエストを順番に処理します。つまり、最初の接続が処理し終わるまで、2番目の接続は処理しないということです。
 サーバが受け付けるリクエストの量が増えるほど、この連続的な実行は、最適ではなくなるでしょう。
 サーバが処理するのに長い時間がかかるリクエストを受け付けたら、新しいリクエストは迅速に処理できても、
 続くリクエストは長いリクエストが完了するまで待たなければならなくなるでしょう。これを修正する必要がありますが、
@@ -116,7 +116,7 @@ fn handle_connection(mut stream: TcpStream) {
 プログラムが新しいタスクを受け取ったら、プールのスレッドのどれかをタスクにあてがい、
 そのスレッドがそのタスクを処理します。
 プールの残りのスレッドは、最初のスレッドが処理中にやってくる他のあらゆるタスクを扱うために利用可能です。
-最初のスレッドがタスクの処理を完了したら、新しいタスクを処理する準備のできたアイドル状態のスレッドプールに戻ります。
+最初のスレッドがタスクの処理を完了したら、アイドル状態のスレッドプールに戻り、新しいタスクを処理する準備ができます。
 スレッドプールにより、並行で接続を処理でき、サーバのスループットを向上させます。
 
 <!-- We’ll limit the number of threads in the pool to a small number to protect us -->
@@ -125,7 +125,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- server could create havoc by using up all our server’s resources and grinding -->
 <!-- the processing of requests to a halt. -->
 
-プール内のスレッド数は、小さい数字に制限し、DoS攻撃から保護します; リクエストが来た度に新しいスレッドをプログラムが生成したら、
+プール内のスレッド数は、小さい数字に制限し、DoS(Denial of Service; サービスの拒否)攻撃から保護します; リクエストが来た度に新しいスレッドをプログラムに生成させたら、
 1000万リクエストをサーバに行う誰かが、サーバのリソースを使い尽くし、リクエストの処理を停止に追い込むことで、
 大混乱を招くことができてしまうでしょう。
 
@@ -634,9 +634,9 @@ impl ThreadPool {
 <!-- the generated docs for `new` look like! -->
 
 doc commentで`ThreadPool`にドキュメンテーションを追加しました。第14章で議論したように、
-関数がパニックする場面を声高に叫ぶセクションを追加することで、
+関数がパニックすることもある場面を声高に叫ぶセクションを追加することで、
 いいドキュメンテーションの実践に<ruby>倣<rp>(</rp><rt>なら</rt><rp>)</rp></ruby>っていることに注意してください。
-試しに`cargo doc --open`を実行し、`ThreadPool`構造体をクリックして、`new`の生成されるドキュメンテーションがどんな感じが確かめてください！
+試しに`cargo doc --open`を実行し、`ThreadPool`構造体をクリックして、`new`の生成されるドキュメンテーションがどんな見た目か確かめてください！
 
 <!-- Instead of adding the `assert!` macro as we’ve done here, we could make `new` -->
 <!-- return a `Result` like we did with `Config::new` in the I/O project in Listing -->
@@ -793,7 +793,7 @@ impl ThreadPool {
 
 スレッドプールに`JoinHanlde<()>`インスタンスのベクタを格納する代わりに、`Worker`構造体のインスタンスを格納します。
 各`Worker`が単独の`JoinHandle<()>`インスタンスを格納します。そして、`Worker`に実行するコードのクロージャを取り、
-既に走っているスレッドに実行してもらうために送信します。ログを取ったり、デバッグする際にプールの異なるワーカーを区別できるように、
+既に走っているスレッドに実行してもらうために送信するメソッドを実装します。ログを取ったり、デバッグする際にプールの異なるワーカーを区別できるように、
 各ワーカーに`id`も付与します。
 
 <!-- Let’s make the following changes to what happens when we create a `ThreadPool`. -->
@@ -1280,7 +1280,7 @@ impl ThreadPool {
 <!-- channel for a job and running the job when it gets one. Let’s make the change -->
 <!-- shown in Listing 20-20 to `Worker::new`. -->
 
-ですが、まだ完全にやり終えたわけではありません！ワーカー内で`thread::spawn`に渡されているクロージャは、
+ですが、まだやり終えたわけではありませんよ！ワーカー内で`thread::spawn`に渡されているクロージャは、
 それでもチャンネルの受信側を*参照*しているだけです。その代わりに、クロージャには永遠にループし、
 チャンネルの受信側に仕事を要求し、仕事を得たらその仕事を実行してもらう必要があります。
 リスト20-20に示した変更を`Worker::new`に行いましょう。
@@ -1402,7 +1402,7 @@ std::ops::FnOnce() + std::marker::Sendのサイズを静的に決定できませ
 <!-- finished this book, we would love for you to join in. -->
 
 Rustは、コンパイラが改善できる箇所ではまだ、発展途上にありますが、将来的にリスト20-20のコードは、
-ただ単純にうまく動くはずです。あなたのような方がこれや他の問題を修正するのに取り掛かっています！この本を完了したら、
+ただ単純にうまく動くはずです。まさしくあなたのような方がこれや他の問題を修正するのに取り掛かっています！この本を完了したら、
 是非ともあなたにも参加していただきたいです。
 
 <!-- But for now, let’s work around this problem using a handy trick. We can tell -->

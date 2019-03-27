@@ -38,7 +38,7 @@
 
 <!-- ### Choo, Choo! Release Channels and Riding the Trains -->
 
-### シュポシュポ！リリースチャンネルと列車に乗る
+### シュポシュポ！リリースチャンネルと列車に乗ること
 
 <!-- Rust development operates on a *train schedule*. That is, all development is -->
 <!-- done on the `master` branch of the Rust repository. Releases follow a software -->
@@ -285,7 +285,7 @@ $ rustup override add nightly
 <!-- a *Request For Comments (RFC) process*. If you’d like an improvement in Rust, -->
 <!-- you can write up a proposal, called an RFC. -->
 
-では、これらの新しい機能をどう習うのでしょうか？Rustの開発モデルは、*Request For Comments (RFC)プロセス*に従っています。
+では、これらの新しい機能をどう習うのでしょうか？Rustの開発モデルは、*Request For Comments (RFC; コメントの要求)プロセス*に従っています。
 Rustに改善を行いたければ、RFCと呼ばれる提案を書き上げます。
 
 <!-- Anyone can write RFCs to improve Rust, and the proposals are reviewed and -->
@@ -310,7 +310,7 @@ Rustに改善を行いたければ、RFCと呼ばれる提案を書き上げま�
 
 機能が受け入れられれば、Rustリポジトリでissueが開かれ、誰かがそれを実装します。うまく実装できる人は、
 そもそもその機能を提案した人ではないかもしれません！実装の準備ができたら、
-「安定しない機能」節で議論したいように、機能ゲートの背後の`master`に着地します。
+「安定しない機能」節で議論したように、機能ゲートの背後の`master`に着地します。
 
 <!-- After some time, once Rust developers who use nightly releases have been able -->
 <!-- to try out the new feature, team members will discuss the feature, how it’s -->

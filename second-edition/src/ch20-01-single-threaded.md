@@ -624,11 +624,11 @@ HTMLが描画されるのが確認できるはずです！
 <!-- received against what we know a request for */* looks like and adds `if` and -->
 <!-- `else` blocks to treat requests differently. -->
 
-現状、このWebサーバはクライアントが何を要求しても、ファイルのHTMLを返します。HTMLファイルを返却する前にブラウザが */* をリクエストしているか確認し、
+現状、このWebサーバはクライアントが何を要求しても、このファイルのHTMLを返します。HTMLファイルを返却する前にブラウザが */* をリクエストしているか確認し、
 ブラウザが他のものを要求していたらエラーを返す機能を追加しましょう。このために、
 `handle_connection`をリスト20-6のように変更する必要があります。この新しいコードは、
-*/* への要求がどんな見た目になるのか知っていることに対して受け取ったリクエストの中身を精査し、`if`と`else`ブロックを追加して、
-要求を異なる形で扱います。
+*/* への要求がどんな見た目になるのか我々が知っていることに対して受け取ったリクエストの中身を検査し、`if`と`else`ブロックを追加して、
+リクエストを異なる形で扱います。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -666,7 +666,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- <span class="caption">Listing 20-6: Matching the request and handling requests -->
 <!-- to */* differently than other requests</span> -->
 
-<span class="caption">リスト20-6: リクエストとマッチさせ、*/* へのリクエストを他のリクエストとは異なる形で扱う</span>
+<span class="caption">リスト20-6: リクエストをマッチさせ、*/* へのリクエストを他のリクエストとは異なる形で扱う</span>
 
 <!-- First, we hardcode the data corresponding to the */* request into the `get` -->
 <!-- variable. Because we’re reading raw bytes into the buffer, we transform `get` -->
@@ -702,7 +702,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- indicating the response to the end user. -->
 
 では、`else`ブロックにリスト20-7のコードを追記して、ステータスコード404のレスポンスを返しましょう。
-これは、リクエストの中身が見つからなかったことを通知します。エンドユーザにレスポンスを示唆するページをブラウザに描画するよう、
+これは、リクエストの中身が見つからなかったことを通知します。エンドユーザへのレスポンスを示し、ページをブラウザに描画するよう、
 何かHTMLも返します。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->

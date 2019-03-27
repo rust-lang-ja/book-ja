@@ -162,7 +162,7 @@ Rustと所有権システムの規則と経験を積むにつれて、自然に�
 <!-- work through the examples that illustrate them: -->
 
 まず、所有権のルールについて見ていきましょう。
-この規則を具体化する例を扱っていく間もこれらのルールを肝に命じておいてください:
+この規則を具体化する例を扱っていく間もこれらのルールを肝に銘じておいてください:
 
 <!-- * Each value in Rust has a variable that’s called its *owner*. -->
 <!-- * There can only be one owner at a time. -->

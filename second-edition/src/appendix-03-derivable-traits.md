@@ -253,7 +253,7 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 <!-- Everything possible with `Copy` you can also accomplish with `Clone`, but the -->
 <!-- code might be slower or have to use `clone` in places. -->
 
-`Copy`で可能なこと全てが`Copy`でも達成可能ですが、コードがより遅い可能性や、
+`Copy`で可能なこと全てが`Clone`でも達成可能ですが、コードがより遅い可能性や、
 `clone`を使用しなければならない箇所があったりします。
 
 <!-- ### `Hash` for Mapping a Value to a Value of Fixed Size -->
