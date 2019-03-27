@@ -205,7 +205,7 @@
 
 - [Rustのオブジェクト指向プログラミング機能](ch17-00-oop.md)
     - [オブジェクト指向言語の特徴](ch17-01-what-is-oo.md)
-    - [異なる型の値を許容するトレイトオブジェクトを使用する](ch17-02-trait-objects.md)
+    - [トレイトオブジェクトで異なる型の値を許容する](ch17-02-trait-objects.md)
     - [オブジェクト指向デザインパターンを実装する](ch17-03-oo-design-patterns.md)
 
 <!-- ## Advanced Topics -->
