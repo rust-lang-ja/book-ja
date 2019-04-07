@@ -219,7 +219,7 @@ fn area(rectangle: &Rectangle) -> u32 {
 <!-- using the `println!` macro as we have used it in previous chapters. This won't -->
 <!-- work, however. -->
 
-プログラムのデバッグをし、フィールドの値を調べている間に`Rectangle`のインスタンスを出力できると、
+プログラムのデバッグをしている間に、`Rectangle`のインスタンスを出力し、フィールドの値を確認できると、
 素晴らしいわけです。リスト5-11では、以前の章のように、`println!`マクロを試しに使用しようとしていますが、動きません。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
