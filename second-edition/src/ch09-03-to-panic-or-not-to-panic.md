@@ -127,9 +127,9 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 <!-- * Your code after this point needs to rely on not being in this bad state. -->
 <!-- * There’s not a good way to encode this information in the types you use. -->
 
-* 悪い状態がときに起こるとは*想定*されないとき
-* この時点以降、この悪い状態にないことを頼りにコードが書かれている場合
-* 使用している型にこの情報をコード化するいい手段がないとき
+* 悪い状態がときに起こるとは*予想*されないとき。
+* この時点以降、この悪い状態にないことを頼りにコードが書かれているとき。
+* 使用している型にこの情報をコード化するいい手段がないとき。
 
 <!-- If someone calls your code and passes in values that don’t make sense, the best -->
 <!-- choice might be to `panic!` and alert the person using your library to the -->
@@ -150,7 +150,7 @@ let home: IpAddr = "127.0.0.1".parse().unwrap();
 <!-- can decide how to handle the problem. To call `panic!` wouldn’t be the best way -->
 <!-- to handle these cases. -->
 
-悪い状態に達すると、どんなにコードをうまく書いても起こると予想されるが、`panic!`呼び出しをするよりもまだ、
+しかし、どんなにコードをうまく書いても起こると予想されますが、悪い状態に達したとき、それでも`panic!`呼び出しをするよりも、
 `Result`を返すほうがより適切です。例には、不正なデータを渡されたパーサとか、
 訪問制限に引っかかったことを示唆するステータスを返すHTTPリクエストなどが挙げられます。
 このような場合には、呼び出し側が問題の処理方法を決定できるように`Result`を返してこの悪い状態を委譲して、

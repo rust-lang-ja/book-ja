@@ -422,13 +422,15 @@ enumに加えて`match`式を使うことは、第6章で議論した通り、�
 <!-- work. Instead, you can use a trait object, which we’ll cover in Chapter 17. -->
 
 プログラム記述時にプログラムがベクタに実行時に保持するありとあらゆる一連の型をプログラマが知らない場合、
-このenumテクニックはうまく動かないでしょう。代わりにトレイトオブジェクトを使用することができ、こちらは第17章で解説します。
+このenumテクニックはうまく動かないでしょう。代わりにトレイトオブジェクトを使用することができ、こちらは第17章で講義します。
 
 <!-- Now that we’ve discussed some of the most common ways to use vectors, be sure -->
 <!-- to review the API documentation for all the many useful methods defined on -->
 <!-- `Vec<T>` by the standard library. For example, in addition to `push`, a `pop` -->
 <!-- method removes and returns the last element. Let’s move on to the next -->
 <!-- collection type: `String`! -->
+
+<!-- 1行目、discussed some of を「について触れ、議論した」と訳した -->
 
 今や、ベクタを使用するべき最も一般的な方法について触れ、議論したので、標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについては、
 APIドキュメントを確認することを心得てください。例として、`push`に加えて、`pop`メソッドは最後の要素を削除して返します。
