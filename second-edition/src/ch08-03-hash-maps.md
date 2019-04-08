@@ -449,5 +449,5 @@ println!("{:?}", map);
 <!-- We’re getting into more complex programs in which operations can fail; so, it’s -->
 <!-- a perfect time to discuss error handling. We'll do that next! -->
 
-処理が失敗する可能性のあるような、より複雑なプログラムに入り込んできています; ということは、
-エラーの処理法について議論するのにぴったりということです。次にそれをします！
+処理が失敗することもあるような、より複雑なプログラムに入り込んできています; ということは、
+エラーの処理法について議論するのにぴったりということです。次はそれをします！

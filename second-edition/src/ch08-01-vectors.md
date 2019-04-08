@@ -20,7 +20,7 @@
 <!-- To create a new, empty vector, we can call the `Vec::new` function, as shown in -->
 <!-- Listing 8-1. -->
 
-新しい空のベクタを作るには、リスト8-1に示されたように、`Vec::new`関数を呼ぶことができます。
+新しい空のベクタを作るには、リスト8-1に示されたように、`Vec::new`関数を呼べばよいです。
 
 ```rust
 let v: Vec<i32> = Vec::new();
@@ -157,7 +157,7 @@ v.push(8);
 <!-- value stored in a vector. In the examples, we’ve annotated the types of the -->
 <!-- values that are returned from these functions for extra clarity. -->
 
-もうベクタを生成し、更新し、破壊する方法を知ったので、コンテンツを読む方法を知るのはいいステップアップです。
+もうベクタを生成し、更新し、破壊する方法を知ったので、中身を読む方法を知るのはいいステップアップです。
 ベクタに保持された値を参照する方法は2つあります。例では、さらなる明瞭性を求めて、
 これらの関数から返る値の型を注釈しました。
 
@@ -216,7 +216,7 @@ let does_not_exist = v.get(100);
 <!-- end of the vector. -->
 
 このコードを走らせると、最初の`[]`メソッドはプログラムをパニックさせます。存在しない要素を参照しているからです。
-このメソッドは、ベクタの終端を超えて要素にアクセスしようした時にプログラムをクラッシュさせたい場合に最適です。
+このメソッドは、ベクタの終端を超えて要素にアクセスしようとした時にプログラムをクラッシュさせたい場合に最適です。
 
 <!-- When the `get` method is passed an index that is outside the vector, it returns -->
 <!-- `None` without panicking. You would use this method if accessing an element -->
@@ -297,7 +297,7 @@ error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immuta
 新規要素をベクタの終端に追加すると、ベクタが現在存在する位置に隣り合って要素を入れるだけの領域がなかった場合に、
 メモリの新規確保をして古い要素を新しいスペースにコピーする必要があるかもしれないからです。
 その場合、最初の要素を指す参照は、解放されたメモリを指すことになるでしょう。借用規則により、
-そのような場面に落ち着かないよう回避されるのです。
+そのような場面に陥らないよう回避されるのです。
 
 <!-- > Note: For more on the implementation details of the `Vec<T>` type, see “The -->
 <!-- > Rustonomicon” at https://doc.rust-lang.org/stable/nomicon/vec.html. -->
@@ -410,12 +410,12 @@ let row = vec![
 <!-- that Rust will ensure at compile time that every possible case is handled, as -->
 <!-- discussed in Chapter 6. -->
 
-各要素を保持するのにヒープ上でズバリどれくらいのメモリが必要になるかをわかるように、
+各要素を格納するのにヒープ上でズバリどれくらいのメモリが必要になるかをわかるように、
 コンパイラがコンパイル時にベクタに入る型を知る必要があります。副次的な利点は、
 このベクタではどんな型が許容されるのか明示できることです。もしRustでベクタがどんな型でも保持できたら、
 ベクタの要素に対して行われる処理に対して一つ以上の型がエラーを引き起こす可能性があったでしょう。
 enumに加えて`match`式を使うことは、第6章で議論した通り、コンパイル時にありうる場合全てに対処していることをコンパイラが、
-確認できることを意味します。
+保証できることを意味します。
 
 <!-- When you're writing a program, if you don’t know the exhaustive set of types -->
 <!-- the program will get at runtime to store in a vector, the enum technique won’t -->
@@ -430,6 +430,6 @@ enumに加えて`match`式を使うことは、第6章で議論した通り、�
 <!-- method removes and returns the last element. Let’s move on to the next -->
 <!-- collection type: `String`! -->
 
-今や、ベクタを使用するべきありふれた方法について議論したので、標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについては、
+今や、ベクタを使用するべき最も一般的な方法について触れ、議論したので、標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについては、
 APIドキュメントを確認することを心得てください。例として、`push`に加えて、`pop`メソッドは最後の要素を削除して返します。
 次のコレクション型に移りましょう: `String`です！
