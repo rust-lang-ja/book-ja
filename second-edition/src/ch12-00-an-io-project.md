@@ -7,7 +7,7 @@
 <!-- tool that interacts with file and command line input/output to practice some of -->
 <!-- the Rust concepts you now have under your belt. -->
 
-この章は、ここまでに学んできた多くのスキルを思い出すきっかけであり、もういくつか標準ライブラリの機能も探求します。
+この章は、ここまでに学んできた多くのスキルを思い出すきっかけであり、もういくつか標準ライブラリの機能も探究します。
 ファイルやコマンドラインの入出力と相互作用するコマンドラインツールを構築し、
 今やあなたの支配下にあるRustの概念の一部を練習していきます。
 

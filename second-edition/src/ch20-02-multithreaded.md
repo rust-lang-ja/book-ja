@@ -151,7 +151,7 @@ fn handle_connection(mut stream: TcpStream) {
 <!-- read more about other solutions and try to implement them in Rust; with a -->
 <!-- low-level language like Rust, all of these options are possible. -->
 
-このテクニックは、Webサーバのスループットを向上させる多くの方法の1つに過ぎません。探求する可能性のある他の選択肢は、
+このテクニックは、Webサーバのスループットを向上させる多くの方法の1つに過ぎません。探究する可能性のある他の選択肢は、
 fork/joinモデルと、シングルスレッドの非同期I/Oモデルです。この話題にご興味があれば、他の解決策についてもっと読み、
 Rustで実装を試みることができます; Rustのような低レベル言語であれば、これらの選択肢全部が可能なのです。
 
@@ -184,7 +184,7 @@ Rustで実装を試みることができます; Rustのような低レベル言�
 <!-- starting point. Listing 20-11 shows the changes to make to `main` to spawn a -->
 <!-- new thread to handle each stream within the `for` loop. -->
 
-まず、全接続に対して新しいスレッドを確かに生成した場合にコードがどんな見た目になるかを探求しましょう。
+まず、全接続に対して新しいスレッドを確かに生成した場合にコードがどんな見た目になるかを探究しましょう。
 先ほど述べたように、無制限にスレッドを大量生産する可能性があるという問題のため、これは最終的な計画ではありませんが、
 開始点です。リスト20-11は、新しいスレッドを立ち上げて`for`ループ内で各ストリームを扱うために`main`に行う変更を示しています。
 

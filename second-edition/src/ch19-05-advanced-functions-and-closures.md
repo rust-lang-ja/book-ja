@@ -5,7 +5,7 @@
 <!-- Finally, we’ll explore some advanced features related to functions and -->
 <!-- closures, which include function pointers and returning closures. -->
 
-最後に関数とクロージャに関連する高度な機能の一部を探求し、これには関数ポインタとクロージャの返却が含まれます。
+最後に関数とクロージャに関連する高度な機能の一部を探究し、これには関数ポインタとクロージャの返却が含まれます。
 
 <!-- ### Function Pointers -->
 

@@ -40,7 +40,7 @@ Rustは、プログラムの正当性に重きを置いて設計されていま�
 例えば、`String`の値や無効な参照をこの関数に渡していないかなどを確かめるのです。
 ところが、コンパイラはプログラマがまさしく意図したことを関数が実行しているかどうかは確かめ*られません*。
 つまり、そうですね、引数に10を足したり、50を引いたりするのではなく、引数に2を足していることです。
-そんな時にテストは、必要になるのです。
+そんな時に、テストは必要になるのです。
 
 <!-- We can write tests that assert, for example, that when we pass `3` to the -->
 <!-- `add_two` function, the returned value is `5`. We can run these tests whenever -->

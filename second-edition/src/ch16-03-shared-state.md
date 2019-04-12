@@ -120,7 +120,7 @@ fn main() {
 <!-- <span class="caption">Listing 16-12: Exploring the API of `Mutex<T>` in a -->
 <!-- single-threaded context for simplicity</span> -->
 
-<span class="caption">リスト16-12: 簡潔性のために`Mutex<T>`のAPIをシングルスレッドの文脈で探求する</span>
+<span class="caption">リスト16-12: 簡潔性のために`Mutex<T>`のAPIをシングルスレッドの文脈で探究する</span>
 
 <!-- As with many types, we create a `Mutex<T>` using the associated function `new`. -->
 <!-- To access the data inside the mutex, we use the `lock` method to acquire the -->

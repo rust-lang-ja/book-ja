@@ -22,7 +22,7 @@
 <!-- Let’s explore this concept by looking at the `RefCell<T>` type that follows the -->
 <!-- interior mutability pattern. -->
 
-内部可変性パターンに従う`RefCell<T>`型を眺めてこの概念を探求しましょう。
+内部可変性パターンに従う`RefCell<T>`型を眺めてこの概念を探究しましょう。
 
 <!-- ### Enforcing Borrowing Rules at Runtime with `RefCell<T>` -->
 

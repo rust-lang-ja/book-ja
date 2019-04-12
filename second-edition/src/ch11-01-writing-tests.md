@@ -6,7 +6,7 @@
 <!-- the expected manner. The bodies of test functions typically perform these three -->
 <!-- actions: -->
 
-テストは、非テストコードが想定された手段で機能していることを実証するRustの関数です。
+テストは、非テストコードが想定された方法で機能していることを実証するRustの関数です。
 テスト関数の本体は、典型的には以下の3つの動作を行います:
 
 <!-- 1. Set up any needed data or state. -->
@@ -51,14 +51,14 @@ Rustコードの欠片に関するメタデータです; 一例を挙げれば�
 
 第7章で、Cargoで新規ライブラリプロジェクトを作成した時に、テスト関数が含まれるテストモジュールが自動で生成されたことを見かけました。
 このモジュールのおかげでテストを書き始めることができるので、新しいプロジェクトを立ち上げる度に、
-テスト関数の正確な構造と記法を調べる必要がなくなるわけです。必要なだけ追加のテスト関数とテストモジュールは追加することができます。
+テスト関数の正確な構造と記法を調べる必要がなくなるわけです。必要なだけ追加のテスト関数とテストモジュールは追記することができます。
 
 <!-- We’ll explore some aspects of how tests work by experimenting with the template -->
 <!-- test generated for us without actually testing any code. Then we’ll write some -->
 <!-- real-world tests that call some code that we’ve written and assert that its -->
 <!-- behavior is correct. -->
 
-実際にテストすることなしにテンプレートのテストが生成されるのを実験することでテストの動作法の一部を探求しましょう。
+実際にテストすることなしにテンプレートのテストが生成されるのを実験することでテストの動作法の一部の側面を探究しましょう。
 それから、自分で書いた何らかのコードを呼び出し、振る舞いが正しいかアサーションする現実世界のテストを書きましょう。
 
 <!-- Let’s create a new library project called `adder`: -->
@@ -433,7 +433,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- It does pass! Let’s add another test, this time asserting that a smaller -->
 <!-- rectangle cannot hold a larger rectangle: -->
 
-確かに！別のテストを追加しましょう。今回は、小さい四角形は、より大きな四角形を保持できないことをアサーションします。
+通ります！別のテストを追加しましょう。今回は、小さい四角形は、より大きな四角形を保持できないことをアサーションします。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -658,8 +658,8 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- would result in a failure message that displays `` assertion failed: `(left == -->
 <!-- right)` `` and that `left` was `5` and `right` was `4`. -->
 
-ある言語やテストフレームワークでは、二つの値が等しいとアサーションを行う関数の引数は、
-`expected`と`actual`と呼ばれ、引数を指定する順序が問題になることに注意してください。
+二つの値が等しいとアサーションを行う関数の引数は、
+`expected`と`actual`と呼ばれ、引数を指定する順序が問題になる言語やテストフレームワークもあることに注意してください。
 ですがRustでは、`left`と`right`と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は、
 問題になりません。`assert_eq!(add_two(2), 4)`と今回のテストのアサーションを書くこともでき、
 そうすると失敗メッセージは、`` assertion failed: `(left == right)` ``となり、
@@ -700,7 +700,7 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 その型の値が等しいか等しくないかアサーションする必要があるでしょう。`Debug`を実装して、
 アサーションが失敗した時に値を出力する必要もあるでしょう。
 第5章のリスト5-12で触れたように、どちらのトレイトも継承可能トレイトなので、
-これは通常、構造体やenum定義に`#[derive(PartialEq, Debug)]`というアノテーションを追加するくらい率直になります。
+これは通常、構造体やenum定義に`#[derive(PartialEq, Debug)]`という注釈を追加するくらい単純になります。
 これらや他の継承可能トレイトに関する詳細については、付録Cをご覧ください。
 
 <!-- ### Adding Custom Failure Messages -->
@@ -850,7 +850,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 期待する正しい値をコードが返すことを確認することに加えて、想定通りにコードがエラー状態を扱っていることを確認するのも重要です。
 例えば、第9章のリスト9-9で生成した`Guess`型を考えてください。`Guess`を使用する他のコードは、
 `Guess`のインスタンスは1から100の範囲の値しか含まないという保証に依存しています。
-その範囲外の値で`Guess`インスタンスを生成しようとするとパニックすることを保証するテストを書くことができます。
+その範囲外の値で`Guess`インスタンスを生成しようとするとパニックすることを確認するテストを書くことができます。
 
 <!-- We do this by adding another attribute, `should_panic`, to our test function. -->
 <!-- This attribute makes a test pass if the code inside the function panics; the -->
@@ -863,7 +863,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- Listing 11-8 shows a test that checks that the error conditions of `Guess::new` -->
 <!-- happen when we expect them to. -->
 
-リスト11-8は、想定した時に`Guess::new`のエラー条件が発生していることを確認するテストを示しています。
+リスト11-8は、予想した時に`Guess::new`のエラー条件が発生していることを確認するテストを示しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
@@ -1105,4 +1105,4 @@ test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- test`. -->
 
 今やテスト記法を複数知ったので、テストを走らせる際に起きていることに目を向け、
-`cargo test`で使用できるいろんなオプションを探求しましょう。
+`cargo test`で使用できるいろんなオプションを探究しましょう。

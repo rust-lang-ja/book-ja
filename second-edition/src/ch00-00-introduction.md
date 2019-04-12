@@ -224,7 +224,7 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 
 第7章では、Rustのモジュールシステムと自分のコードとその公開されたAPI(Application Programming Interface)を体系化するプライバシー規則について学びます。
 第8章では、ベクタ、文字列、ハッシュマップなどの標準ライブラリが提供する一般的なコレクションデータ構造の一部を議論します。
-第9章では、Rustのエラー処理哲学とテクニックを探求します。
+第9章では、Rustのエラー処理哲学とテクニックを探究します。
 
 <!-- Chapter 10 digs into generics, traits, and lifetimes, which give you the power -->
 <!-- to define code that applies to multiple types. Chapter 11 is all about testing, -->
@@ -245,7 +245,7 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 <!-- Chapter 15 discusses smart pointers that the standard library provides and the -->
 <!-- traits that enable their functionality. -->
 
-第13章はクロージャとイテレータを探求します。これらは、関数型プログラミング言語由来のRustの機能です。
+第13章はクロージャとイテレータを探究します。これらは、関数型プログラミング言語由来のRustの機能です。
 第14章では、Cargoをより詳しく調査し、他人と自分のライブラリを共有する最善の策について語ります。
 第15章では、標準ライブラリが提供するスマートポインタとその機能を可能にするトレイトを議論します。
 

@@ -40,7 +40,7 @@
 <!-- standard output stream to a file. Our program is not currently well-behaved: -->
 <!-- we’re about to see that it saves the error message output to a file instead! -->
 
-コマンドラインプログラムは、エラーメッセージを標準出力に送信していると期待されているので、
+コマンドラインプログラムは、エラーメッセージを標準エラー出力に送信していると期待されているので、
 標準出力ストリームをファイルにリダイレクトしても、画面にエラーメッセージが見られます。
 我々のプログラムは、現状、いい振る舞いをしていません: 代わりにファイルにエラーメッセージ出力を保存するところを、
 目撃するところです！
@@ -174,7 +174,7 @@ How dreary to be somebody!
 <!-- effectively in the appropriate data structures, handle errors nicely, and be -->
 <!-- well tested. -->
 
-この章では、ここまでに学んできた主要な概念の一部を想起させ、Rustで入出力処理を行う方法を講義しました。
+この章では、ここまでに学んできた主要な概念の一部を念押しし、Rustで入出力処理を行う方法を講義しました。
 コマンドライン引数、ファイル、環境変数、そしてエラー出力に`eprintln!`マクロを使用することで、
 もう、コマンドラインアプリケーションを書く準備ができています。以前の章の概念を使用することで、
 コードはうまく体系化され、適切なデータ構造に効率的にデータを保存し、エラーをうまく扱い、
@@ -183,4 +183,4 @@ How dreary to be somebody!
 <!-- Next, we’ll explore some Rust features that were influenced by functional -->
 <!-- languages: closures and iterators. -->
 
-次は、関数型言語に影響されたRust機能を一部探求します: クロージャとイテレータです。
+次は、関数型言語に影響されたRust機能を一部探究します: クロージャとイテレータです。

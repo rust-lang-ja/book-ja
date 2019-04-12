@@ -113,11 +113,9 @@ fn main() {
 }
 ```
 
-<!-- 1行目最後のatは消し忘れ？thatをat whichに書き換えられなさそうだし、よくわからない。at whichへの書き換えなら、we had (the) codeになるのでは？ -->
-
-<!-- We’ll change the start of the `main` function that we had in Listing 12-24 at -->
-<!-- to the code in Listing 13-25. This won’t compile until we update `Config::new` -->
-<!-- as well. -->
+<!-- We’ll change the start of the `main` function that we had in Listing 12-24 to -->
+<!-- the code in Listing 13-25. This won’t compile until we update `Config::new` as -->
+<!-- well. -->
 
 リスト12-24のような`main`関数の冒頭をリスト13-25のコードに変更します。
 これは、`Config::new`も更新するまでコンパイルできません。
@@ -184,7 +182,7 @@ impl Config {
 `env::args`関数の標準ライブラリドキュメントは、自身が返すイテレータの型は、`std::env::Args`であると表示しています。
 `Config::new`関数のシグニチャを更新したので、引数`args`の型は、`&[String]`ではなく、
 `std::env::Args`になりました。`args`の所有権を奪い、繰り返しを行うことで`args`を可変化する予定なので、
-`args`引数の仕様に`mut`キーワードを追記し、可変にできます。
+`args`引数の仕様に`mut`キーワードを追記でき、可変にします。
 
 <!-- #### Using `Iterator` Trait Methods Instead of Indexing -->
 
@@ -220,13 +218,13 @@ impl Config {
 
         let query = match args.next() {
             Some(arg) => arg,
-            // クエリ文字列を得られませんでした
+            // クエリ文字列を取得しませんでした
             None => return Err("Didn't get a query string"),
         };
 
         let filename = match args.next() {
             Some(arg) => arg,
-            // ファイル名を得られませんでした
+            // ファイル名を取得しませんでした
             None => return Err("Didn't get a file name"),
         };
 

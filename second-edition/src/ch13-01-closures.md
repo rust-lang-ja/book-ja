@@ -78,7 +78,7 @@ fn simulated_expensive_calculation(intensity: u32) -> u32 {
 次は、この例で重要なトレーニングアプリの部分を含む`main`関数です。この関数は、
 ユーザがトレーニングプランを要求した時にアプリが呼び出すコードを表します。
 アプリのフロントエンドと相互作用する部分は、クロージャの使用と関係ないので、プログラムへの入力を表す値をハードコードし、
-その出力を出力します。
+その出力を表示します。
 
 <!-- The required inputs are these: -->
 
@@ -231,7 +231,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- adding any other calls to that function in the process. That is, we don’t want -->
 <!-- to call it if the result isn’t needed, and we still want to call it only once. -->
 
-このコードは、ビジネスのほしいままに動くでしょうが、データサイエンスチームが、
+このコードは現在、ビジネスのほしいままに動くでしょうが、データサイエンスチームが、
 `simulated_expensive_calculation`関数を呼び出す方法に何らかの変更を加える必要があると決定したとしましょう。
 そのような変更が起きた時に更新を簡略化するため、`simulated_expensive_calculation`関数を1回だけ呼び出すように、
 このコードをリファクタリングしたいです。また、その過程でその関数への呼び出しを増やすことなく無駄に2回、
@@ -354,7 +354,7 @@ let expensive_closure = |num| {
 <!-- Ruby. This closure has one parameter named `num`: if we had more than one -->
 <!-- parameter, we would separate them with commas, like `|param1, param2|`. -->
 
-クロージャ定義が`=`に続き、変数`expensive_closure`に代入しています。クロージャを定義するには、
+クロージャ定義が`=`に続き、変数`expensive_closure`に代入されています。クロージャを定義するには、
 1組の縦棒から始め、その内部にクロージャの仮引数を指定します; この記法は、SmalltalkやRubyのクロージャ定義と類似していることから、
 選択されました。このクロージャには、`num`という引数が1つあります: 2つ以上引数があるなら、
 `|param1, param2|`のように、カンマで区切ります。
@@ -379,7 +379,7 @@ let expensive_closure = |num| {
 
 この`let`文は、`expensive_closure`が、匿名関数を呼び出した*結果の値*ではなく、
 匿名関数の*定義*を含むことを意味することに注意してください。コードを定義して、
-1箇所で呼び出し、そのコードを保存し、後々、それを呼び出したいためにクロージャを使用していることを思い出してください;
+1箇所で呼び出し、そのコードを保存し、後々、それを呼び出したいがためにクロージャを使用していることを思い出してください;
 呼び出したいコードは、現在、`expensive_closure`に保存されています。
 
 <!-- この冒頭のwithも順接の理由にしている。やはり強すぎるか？ -->
@@ -547,7 +547,7 @@ let add_one_v4 = |x|               x + 1  ;
 
 1行目が関数定義を示し、2行目がフルに注釈したクロージャ定義を示しています。
 3行目は、クロージャ定義から型注釈を取り除き、4行目は、かっこを取り除いていて、
-これはクロージャの本体がただ1つの式からなるので、省略可能です。これらは全て、
+かっこはクロージャの本体がただ1つの式からなるので、省略可能です。これらは全て、
 呼び出された時に同じ振る舞いになる合法な定義です。
 
 <!-- Closure definitions will have one concrete type inferred for each of their -->
@@ -942,7 +942,7 @@ fn call_with_different_values() {
 <!-- 13-10, and the test will fail on the `assert_eq!` with this message: -->
 
 このテストをリスト13-9とリスト13-10の`Cacher`実装で動かすと、`assert_eq`からこんなメッセージが出て、
-このテストは失敗します:
+テストは失敗します:
 
 ```text
 thread 'call_with_different_values' panicked at 'assertion failed: `(left == right)`
@@ -990,7 +990,7 @@ thread 'call_with_different_values' panicked at 'assertion failed: `(left == rig
 <!-- have: they can capture their environment and access variables from the scope in -->
 <!-- which they’re defined. -->
 
-トレーニング生成の例において、クロージャをインラインの匿名関数として使っただけでした。しかし、
+トレーニング生成の例においては、クロージャをインラインの匿名関数として使っただけでした。しかし、
 クロージャには、関数にはない追加の能力があります: 環境をキャプチャし、
 自分が定義されたスコープの変数にアクセスできるのです。
 
@@ -1065,7 +1065,7 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 
 <!-- The compiler even reminds us that this only works with closures! -->
 
-コンパイラは、この形式はクロージャでのみ動作することも思い出させてくれています！
+コンパイラは、この形式はクロージャでのみ動作することさえも思い出させてくれています！
 
 <!-- When a closure captures a value from its environment, it uses memory to store -->
 <!-- the values for use in the closure body. This use of memory is overhead that we -->
@@ -1181,7 +1181,7 @@ error[E0382]: use of moved value: `x`
 <!-- `println!` will fix this example. -->
 
 クロージャが定義された際に、クロージャに`x`の値はムーブされています。`move`キーワードを追加したからです。
-そして、クロージャは`x`の所有権を持ち、`main`は`println!`で`x`を使うことはもう叶わないのです。
+そして、クロージャは`x`の所有権を持ち、`main`が`println!`で`x`を使うことはもう叶わないのです。
 `println!`を取り除けば、この例は修正されます。
 
 <!-- Most of the time when specifying one of the `Fn` trait bounds, you can start -->

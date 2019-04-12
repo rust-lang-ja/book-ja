@@ -22,7 +22,7 @@
 関数が未知の値の引数を取り、同じコードを複数の具体的な値に対して走らせるように、
 `i32`や`String`などの具体的な型の代わりに何かジェネリックな型の引数を取ることができます。
 実際、第6章で`Option<T>`、第8章で`Vec<T>`と`HashMap<K, V>`、第9章で`Result<T, E>`を既に使用しました。
-この章では、独自の型、関数、メソッドをジェネリクスとともに定義する方法を探求します！
+この章では、独自の型、関数、メソッドをジェネリクスとともに定義する方法を探究します！
 
 <!-- First, we’ll review how to extract a function to reduce code duplication. Next, -->
 <!-- we’ll use the same technique to make a generic function from two functions that -->

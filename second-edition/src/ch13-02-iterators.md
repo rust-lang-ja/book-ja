@@ -697,4 +697,4 @@ fn using_other_iterator_trait_methods() {
 <!-- other methods that call `next`. -->
 
 `next`メソッドの動作方法を指定し、標準ライブラリが`next`を呼び出す他のメソッドにデフォルト実装を提供しているので、
-これらのメソッド呼び出しは全てあり得ます。
+これらのメソッド呼び出しは全て可能です。

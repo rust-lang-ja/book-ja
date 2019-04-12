@@ -336,7 +336,7 @@ pub trait Summary {
     fn summarize_author(&self) -> String;
 
     fn summarize(&self) -> String {
-        // {}からもっと読む
+        // {}さんからもっと読む
         format!("(Read more from {}...)", self.summarize_author())
     }
 }
@@ -395,7 +395,7 @@ println!("1 new tweet: {}", tweet.summarize());
 <!-- bounds* to constrain generic types to ensure the type will be limited to those -->
 <!-- that implement a particular trait and behavior. -->
 
-これでトレイトの定義とトレイトを型に実装する方法を知ったので、ジェネリックな型引数でトレイトを使用する方法を探求できます。
+これでトレイトの定義とトレイトを型に実装する方法を知ったので、ジェネリックな型引数でトレイトを使用する方法を探究できます。
 *トレイト境界*を使用してジェネリックな型を制限し、型が特定のトレイトや振る舞いを実装するものに制限されることを保証できます。
 
 <!-- For example, in Listing 10-13, we implemented the `Summary` trait on the types -->
@@ -554,7 +554,7 @@ error[E0507]: cannot move out of borrowed content
 第4章の「スタックだけのデータ: コピー」節で議論したように、`i32`や`char`のような既知のサイズの型は、
 スタックに格納できるので、`Copy`トレイトを実装しています。しかし、`largest`関数をジェネリックにすると、
 `list`引数が`Copy`トレイトを実装しない型を含む可能性も出てきたのです。結果として、
-`list[0]`から値を`largest`にムーブできず、このエラーに落ち着いたのです。
+`list[0]`から値を`largest`にムーブできず、このエラーに陥ったのです。
 
 <!-- To call this code with only those types that implement the `Copy` trait, we can -->
 <!-- add `Copy` to the trait bounds of `T`! Listing 10-15 shows the complete code of -->
@@ -740,6 +740,6 @@ let s = 3.to_string();
 <!-- that references are valid as long as we need them to be. Let’s look at how -->
 <!-- lifetimes do that. -->
 
-もう使用したことのある別の種のジェネリクスは、ライフタイムと呼ばれます。
+もう使用してきたことのある別の種のジェネリクスは、ライフタイムと呼ばれます。
 型が欲しい振る舞いを保持していることを保証するのではなく、必要な間だけ参照が有効であることをライフタイムは保証します。
 ライフタイムがどうやってそれを行うかを見ましょう。

@@ -1,6 +1,6 @@
 <!-- ## Reference Cycles Can Leak Memory -->
 
-## 循環参照してメモリをリークすることもある
+## 循環参照は、メモリをリークすることもある
 
 <!-- Rust’s memory safety guarantees make it difficult, but not impossible, to -->
 <!-- accidentally create memory that is never cleaned up (known as a *memory leak*). -->
@@ -696,7 +696,7 @@ fn main() {
 <!-- memory leaks and how to prevent them using `Weak<T>`. -->
 
 `Deref`と`Drop`トレイトについても議論しましたね。これらは、スマートポインタの多くの機能を可能にしてくれます。
-メモリリークを引き起こす循環参照と`Weak<T>`でそれを回避する方法も探求しました。
+メモリリークを引き起こす循環参照と`Weak<T>`でそれを回避する方法も探究しました。
 
 <!-- If this chapter has piqued your interest and you want to implement your own -->
 <!-- smart pointers, check out [“The Rustonomicon”][nomicon] for more useful -->

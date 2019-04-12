@@ -59,7 +59,7 @@ Rustにおいて関数定義は、`fn`キーワードで始まり、関数名の
 <!-- further. Place the `another_function` example in *src/main.rs* and run it. You -->
 <!-- should see the following output: -->
 
-*functions*という名前の新しいバイナリ生成プロジェクトを始めて、関数についてさらに深く探求していきましょう。
+*functions*という名前の新しいバイナリ生成プロジェクトを始めて、関数についてさらに深く探究していきましょう。
 `another_function`の例を*src/main.rs*ファイルに配置して、走らせてください。
 以下のような出力が得られるはずです:
 

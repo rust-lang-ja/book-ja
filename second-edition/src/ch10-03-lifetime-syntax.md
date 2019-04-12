@@ -26,7 +26,7 @@
 <!-- the concepts. See the “Advanced Lifetimes” section in Chapter 19 for more -->
 <!-- detailed information. -->
 
-ライフタイムの概念は、ほかのプログラミング言語の道具とはどこか異なり、議論はあるでしょうが、
+ライフタイムの概念は、他のプログラミング言語の道具とはどこか異なり、議論はあるでしょうが、
 ライフタイムがRustで一番際立った機能になっています。この章では、ライフタイムの全てを講義しないものの、
 ライフタイム記法と遭遇する可能性のある一般的な手段を議論するので、概念に馴染めます。
 もっと詳しく知るには、第19章の「高度なライフタイム」節を参照されたし。
@@ -192,7 +192,7 @@ Rustコンパイラには、スコープを比較して全ての借用が有効�
 <!-- lifetimes of parameters and return values in the context of functions. -->
 
 今や、参照のライフタイムがどこにあり、コンパイラがライフタイムを解析して参照が常に有効であることを保証する仕組みがわかったので、
-関数の文脈でジェネリックな引数と戻り値のライフタイムを探求しましょう。
+関数の文脈でジェネリックな引数と戻り値のライフタイムを探究しましょう。
 
 <!-- ### Generic Lifetimes in Functions -->
 
@@ -428,7 +428,7 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 <!-- that will satisfy this signature. -->
 
 これで関数シグニチャは、何らかのライフタイム`'a`に対して、関数は2つの引数を取り、
-どちらも少なくともライフタイム`'a`と同じだけ生きる文字列スライスであるとコンパイラに教えています。
+どちらも少なくともライフタイム`'a`と同じだけ生きる文字列スライスであるとコンパイラに教えるようになりました。
 また、この関数シグニチャは、関数から返る文字列スライスも少なくともライフタイム`'a`と同じだけ生きると、
 コンパイラに教えています。これらの制約は、コンパイラに強制してほしいものです。
 この関数シグニチャでライフタイム引数を指定する時、渡されたり、返したりしたいかなる値のライフタイムも変更していないことを思い出してください。
@@ -939,7 +939,7 @@ fn first_word<'a>(s: &'a str) -> &'a str {
 <!-- Let’s look at another example, this time using the `longest` function that had -->
 <!-- no lifetime parameters when we started working with it in Listing 10-21: -->
 
-別の例に目を向けましょう。今回は、リスト10-21で取り掛かったときにはライフタイム引数はなかった`longest`関数です:
+別の例に目を向けましょう。今回は、リスト10-21で取り掛かったときにはライフタイム引数がなかった`longest`関数です:
 
 ```rust,ignore
 fn longest(x: &str, y: &str) -> &str {
@@ -1021,11 +1021,9 @@ impl<'a> ImportantExcerpt<'a> {
 }
 ```
 
-<!-- 1行目、The lifetimeとuse after the type nameを並列しているように訳しているが、それならisではなくareになるはずでは・・・-->
-
-<!-- The lifetime parameter declaration after `impl` and use after the type name is -->
-<!-- required, but we’re not required to annotate the lifetime of the reference to -->
-<!-- `self` because of the first elision rule. -->
+<!-- The lifetime parameter declaration after `impl` and use after the type name -->
+<!-- are required, but we’re not required to annotate the lifetime of the reference -->
+<!-- to `self` because of the first elision rule. -->
 
 `impl`後のライフタイム引数宣言と型名の後に使用するのは必須ですが、最初の省略規則のため、
 `self`への参照のライフタイムを注釈する必要はありません。
@@ -1041,6 +1039,7 @@ impl<'a> ImportantExcerpt<'a> {
 #
 impl<'a> ImportantExcerpt<'a> {
     fn announce_and_return_part(&self, announcement: &str) -> &str {
+        // お知らせします
         println!("Attention please: {}", announcement);
         self.part
     }
@@ -1088,9 +1087,9 @@ let s: &'static str = "I have a static lifetime.";
 <!-- dangling reference or a mismatch of the available lifetimes. In such cases, the -->
 <!-- solution is fixing those problems, not specifying the `'static` lifetime. -->
 
-エラーメッセージで`'static`ライフタイムを使用することを勧められる可能性があります。
+エラーメッセージで`'static`ライフタイムを使用する提言を目撃する可能性があります。
 ですが、参照に対してライフタイムとして`'static`を指定する前に、今ある参照が本当にプログラムの全期間生きるかどうか考えてください。
-可能であっても、参照がそれだけの期間生きるかどうか考慮する可能性があります。
+可能であっても、参照がそれだけの期間生きてほしいかどうか考慮する可能性があります。
 ほとんどの場合、問題は、ダングリング参照を生成しようとしているか、利用可能なライフタイムの不一致が原因です。
 そのような場合、解決策はその問題を修正することであり、`'static`ライフタイムを指定することではありません。
 

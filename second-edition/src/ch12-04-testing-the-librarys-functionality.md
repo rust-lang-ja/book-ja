@@ -398,7 +398,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 ここで、テストが通過するよう保ったまま、同じ機能を保持しながら、検索関数の実装をリファクタリングする機会を考えることもできます。
 検索関数のコードは悪すぎるわけではありませんが、イテレータの有用な機能の一部を活用していません。
-この例には第13章で再度触れ、そこでは、イテレータをより深く探求し、さらに改善する方法に目を向けます。
+この例には第13章で再度触れ、そこでは、イテレータをより深く探究し、さらに改善する方法に目を向けます。
 
 <!-- #### Using the `search` Function in the `run` Function -->
 
@@ -409,7 +409,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- `contents` that `run` reads from the file to the `search` function. Then `run` -->
 <!-- will print each line returned from `search`: -->
 
-`search`関数が動きテストできたので、`run`関数から`search`を呼び出す必要があります。`condif.query`の値と、
+`search`関数が動きテストできたので、`run`関数から`search`を呼び出す必要があります。`config.query`の値と、
 ファイルから`run`が読み込む`contents`の値を`search`関数に渡す必要があります。
 それから`run`は、`search`から返ってきた各行を出力するでしょう:
 

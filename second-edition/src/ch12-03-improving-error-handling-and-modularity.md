@@ -289,7 +289,7 @@ Rustの借用規則に違反してしまうことを意味します。
 値に対して`clone`メソッドを呼び出すことです。これにより、`Config`インスタンスが所有するデータの総コピーが生成されるので、
 文字列データへの参照を保持するよりも時間とメモリを消費します。ですが、データをクローンすることで、
 コードがとても素直にもなります。というのも、参照のライフタイムを管理する必要がないからです。
-つまり、この場面において、少々のパフォーマンスを犠牲にして単純性を得るのは、価値のある交換です。
+つまり、この場面において、少々のパフォーマンスを犠牲にして単純性を得るのは、価値のある代償です。
 
 <!-- > ### The Trade-Offs of Using `clone` -->
 <!-- > -->
@@ -310,7 +310,7 @@ Rustの借用規則に違反してしまうことを意味します。
 > これらのコピーをするのは1回だけですし、ファイル名とクエリ文字列は非常に小さなものなので、
 > いくつかの文字列をコピーして進捗するのは良しとしましょう。最初の通り道でコードを究極的に効率化しようとするよりも、
 > ちょっと非効率的でも動くプログラムを用意する方がいいでしょう。もっとRustの経験を積めば、
-> 最も効率的な解決法から開始することも簡単になるでしょうが、今は、`clone`を呼び出すのは完璧に受け入れられることです。
+> 最も効率的な解決法から開始することも簡単になるでしょうが、今は、`clone`を呼び出すことは完璧に受け入れられることです。
 
 <!-- We’ve updated `main` so it places the instance of `Config` returned by -->
 <!-- `parse_config` into a variable named `config`, and we updated the code that -->
@@ -682,9 +682,9 @@ Problem parsing arguments: not enough arguments
 <!-- easy to verify by inspection, and we’ll be able to write tests for all the -->
 <!-- other logic. -->
 
-ようやく設定解析のリファクタリングが終了したので、プログラムのロジックに目を向けましょう。
+これで設定解析のリファクタリングが終了したので、プログラムのロジックに目を向けましょう。
 「バイナリプロジェクトの責任の分離」で述べたように、
-現在`main`関数に存在する設定セットやエラー処理に関わらない全てのロジックを保持することになる`run`という関数を抽出します。
+現在`main`関数に存在する設定のセットアップやエラー処理に関わらない全てのロジックを保持することになる`run`という関数を抽出します。
 やり終わったら、`main`は簡潔かつ視察で確かめやすくなり、他のロジック全部に対してテストを書くことができるでしょう。
 
 <!-- Listing 12-11 shows the extracted `run` function. For now, we’re just making -->
@@ -787,7 +787,7 @@ fn run(config: Config) -> Result<(), Box<Error>> {
 <!-- `Ok` case. -->
 
 ここでは、3つの大きな変更を行いました。まず、`run`関数の戻り値を`Result<(), Box<Error>>`に変えました。
-この関数は、前はユニット型、`()`を返していて、それを`Ok`の場合に返される値として残しました。
+この関数は、以前はユニット型、`()`を返していて、それを`Ok`の場合に返される値として残しました。
 
 <!-- For the error type, we used the *trait object* `Box<Error>` (and we’ve brought -->
 <!-- `std::error::Error` into scope with a `use` statement at the top). We’ll cover -->

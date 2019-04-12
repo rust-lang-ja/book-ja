@@ -106,7 +106,7 @@ Rustの引数名は短く(しばしばたった1文字になります)、Rustの
 <!-- `largest` function, place type name declarations inside angle brackets, `<>`, -->
 <!-- between the name of the function and the parameter list, like this: -->
 
-関数の本体で引数を使用すると、コンパイラがその名前の意味を知れるようにシグニチャでその引数名を宣言しなければなりません。
+関数の本体で引数を使用すると、コンパイラがその名前の意味を把握できるようにシグニチャでその引数名を宣言しなければなりません。
 同様に、型引数名を関数シグニチャで使用する際には、使用する前に型引数名を宣言しなければなりません。
 ジェネリックな`largest`関数を定義するために、型名宣言を山カッコ(`<>`)内、関数名と引数リストの間に配置してください。
 こんな感じに:
@@ -180,7 +180,7 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
   |            ^^^^^^^^^^^^^^
   |
   = note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
-  (注釈: `std::cmp::PartialOrd`の実装が`T`に対して不足しています)
+  (注釈: `std::cmp::PartialOrd`の実装が`T`に対して存在しない可能性があります)
 ```
 
 <!-- The note mentions `std::cmp::PartialOrd`, which is a *trait*. We’ll talk about -->
@@ -198,7 +198,7 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
 本体で型`T`の値を比較したいので、値が順序付け可能な型のみしか使用できないのです。比較を可能にするために、
 標準ライブラリには型に実装できる`std::cmp::PartialOrd`トレイトがあります(このトレイトについて詳しくは付録Cを参照されたし)。
 ジェネリックな型が特定のトレイトを持つと指定する方法は「トレイト境界」節で習うでしょうが、
-先にジェネリックな型引数を使用する他の方法を探求しましょう。
+先にジェネリックな型引数を使用する他の方法を探究しましょう。
 
 <!-- ### In Struct Definitions -->
 

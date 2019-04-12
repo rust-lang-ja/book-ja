@@ -101,7 +101,7 @@ M:Nスレッドの実装をしたクレートもあります。
 <!-- Now that we’ve defined threads in Rust, let’s explore how to use the -->
 <!-- thread-related API provided by the standard library. -->
 
-今やRustにおけるスレッドを定義したので、標準ライブラリで提供されているスレッド関連のAPIの使用法を探求しましょう。
+今やRustにおけるスレッドを定義したので、標準ライブラリで提供されているスレッド関連のAPIの使用法を探究しましょう。
 
 <!-- ### Creating a New Thread with `spawn` -->
 
