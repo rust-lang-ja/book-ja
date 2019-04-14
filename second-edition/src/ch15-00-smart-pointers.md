@@ -83,7 +83,7 @@ Rustにおいて、最もありふれた種類のポインタは、参照であ�
 
 * ヒープに値を確保する`Box<T>`
 * 複数の所有権を可能にする参照カウント型の`Rc<T>`
-* `RefCell<T>`を通してアクセスされ、コンパイル時ではなく実行時に借用ルールを強制する型の`Ref<T>`と`RefMut<T>`
+* `RefCell<T>`を通してアクセスされ、コンパイル時ではなく実行時に借用規則を強制する型の`Ref<T>`と`RefMut<T>`
 
 <!-- In addition, we’ll cover the *interior mutability* pattern where an immutable -->
 <!-- type exposes an API for mutating an interior value. We’ll also discuss -->

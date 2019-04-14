@@ -353,7 +353,7 @@ impl<T> Option<T> {
 
 <!-- One final expression that has the type `!` is a `loop`: -->
 
-型が`!`の最後の式の1つは、`loop`です:
+型が`!`の最後の式は、`loop`です:
 
 ```rust,ignore
 // 永遠に
@@ -369,7 +369,7 @@ loop {
 <!-- wouldn’t be true if we included a `break`, because the loop would terminate -->
 <!-- when it got to the `break`. -->
 
-ここで、ループは終わりませんので、`!`が式の値です。ところが、`break`を含んでいたら、これは真にはならないでしょう。
+ここで、ループは終わりませんので、`!`が式の値です。ところが、`break`を含んでいたら、これは真実にはならないでしょう。
 `break`に到達した際にループが終了してしまうからです。
 
 <!-- ### Dynamically Sized Types and the `Sized` Trait -->

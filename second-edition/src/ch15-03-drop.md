@@ -134,8 +134,8 @@ Dropping CustomSmartPointer with data `my stuff`!
 <!-- you have to call the `std::mem::drop` function provided by the standard library -->
 <!-- if you want to force a value to be dropped before the end of its scope. -->
 
-残念ながら、自動的な`drop`機能を無効化することは、素直ではありません。通常、`drop`を無効化する必要はありません;
-`Drop`トレイトの重要な目的は、自動的に考慮されることです。ですが、時として、値を早期に片付けたくなる可能性があります。
+残念ながら、自動的な`drop`機能を無効化することは、単純ではありません。通常、`drop`を無効化する必要はありません;
+`Drop`トレイトの最重要な要点は、自動的に考慮されることです。ですが、時として、値を早期に片付けたくなる可能性があります。
 一例は、ロックを管理するスマートポインタを使用する時です: 同じスコープの他のコードがロックを獲得できるように、
 ロックを解放する`drop`メソッドを強制的に走らせたくなる可能性があります。Rustは、
 `Drop`トレイトの`drop`メソッドを手動で呼ばせてくれません; スコープが終わる前に値を強制的にドロップさせたいなら、

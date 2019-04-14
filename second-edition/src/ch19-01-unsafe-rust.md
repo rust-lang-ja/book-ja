@@ -487,7 +487,7 @@ fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
 関数`slice::from_raw_parts_mut`は、unsafeです。何故なら、生ポインタを取り、このポインタが有効であることを信用しなければならないからです。
 生ポインタの`offset`メソッドもunsafeです。オフセット位置もまた有効なポインタであることを信用しなければならないからです。
 故に、`slice::from_raw_parts_mut`と`offset`を呼べるように、その呼び出しの周りに`unsafe`ブロックを置かなければならなかったのです。
-コードを観察して`mid`が`len`以下でなければならないとするアサートを追加することで、
+コードを眺めて`mid`が`len`以下でなければならないとするアサートを追加することで、
 `unsafe`ブロック内で使用されている生ポインタが全てスライス内のデータへの有効なポインタであることがわかります。
 これは、受け入れられ、適切な`unsafe`の使用法です。
 
@@ -529,7 +529,7 @@ let slice = unsafe {
 <!-- `slice` as though it’s a valid slice results in undefined behavior. -->
 
 この任意の場所のメモリは所有していなく、このコードが生成するスライスに有効な`i32`値が含まれる保証もありません。
-`slice`を有効なスライスであるかのように使用しようとすると、未定義動作に落ち着きます。
+`slice`を有効なスライスであるかのように使用しようとすると、未定義動作に陥ります。
 
 <!-- #### Using `extern` Functions to Call External Code -->
 
@@ -813,7 +813,7 @@ unsafe impl Foo for i32 {
 <!-- reason to use `unsafe` code, you can do so, and having the explicit `unsafe` -->
 <!-- annotation makes it easier to track down the source of problems if they occur. -->
 
-`unsafe`を使って議論したばかりの4つの行動(強大な力)のうちの1つを行うのは間違っていたり、認められもしないものではありません。
+`unsafe`を使って議論したばかりの4つの行動(強大な力)のうちの1つを行うのは間違っていたり、認められさえもしないものではありません。
 ですが、`unsafe`コードを正しくするのは、より巧妙なことでしょう。コンパイラがメモリ安全性を保持する手助けをできないからです。
 `unsafe`コードを使用する理由があるなら、そうすることができ、明示的に`unsafe`注釈をすることで問題が起きたら、
 その原因を追求するのが容易になります。

@@ -26,7 +26,7 @@ Rustでは、`Rc<T>`と`RefCell<T>`を使用してメモリリークを許可す
 <!-- starting with the definition of the `List` enum and a `tail` method in Listing -->
 <!-- 15-25: -->
 
-リスト15-25の`List` enumの定義と`tail`メソッドから始めて、循環参照が起こる可能性のある方法とその回避策を見ましょう:
+リスト15-25の`List` enumの定義と`tail`メソッドから始めて、どう循環参照が起こる可能性があるのかとその回避策を見ましょう:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
@@ -235,7 +235,7 @@ a rc count after changing a = 2
 循環参照は簡単にできることではありませんが、不可能というわけでもありません。
 `Rc<T>`値を含む`RefCell<T>`値があるなどの内部可変性と参照カウントのある型がネストして組み合わさっていたら、
 循環していないことを保証しなければなりません; コンパイラがそれを捕捉することを信頼できないのです。
-循環参照をするのは、自動化テストやコードレビューなどの他のソフトウェア開発手段を使用して最小化すべきプログラム上のロジックバグでしょう。
+循環参照をするのは、自動テストやコードレビューなどの他のソフトウェア開発手段を使用して最小化すべきプログラム上のロジックバグでしょう。
 
 <!-- Another solution for avoiding reference cycles is reorganizing your data -->
 <!-- structures so that some references express ownership and some references don’t. -->
@@ -248,7 +248,7 @@ a rc count after changing a = 2
 <!-- reference cycles. -->
 
 循環参照を回避する別の解決策は、ある参照は所有権を表現して他の参照はしないというようにデータ構造を再構成することです。
-結果として、所有権のある関係と所有権のない関係からなる循環ができ、所有権のある関係だけが値がドロップされうるかどうかに影響します。
+結果として、所有権のある関係と所有権のない関係からなる循環ができ、所有権のある関係だけが、値がドロップされうるかどうかに影響します。
 リスト15-25では、常に`Cons`列挙子にリストを所有してほしいので、データ構造を再構成することはできません。
 親ノードと子ノードからなるグラフを使った例に目を向けて、どんな時に所有権のない関係が循環参照を回避するのに適切な方法になるか確認しましょう。
 
@@ -293,7 +293,7 @@ a rc count after changing a = 2
 <!-- will ensure that the `Some` case and the `None` case are handled, and there -->
 <!-- won't be an invalid pointer. -->
 
-`Weak<T>`が参照する値はドロップされてしまう可能性があるので、`Weak<T>`が指す値に何かをするには、
+`Weak<T>`が参照する値はドロップされてしまっている可能性があるので、`Weak<T>`が指す値に何かをするには、
 値がまだ存在することを確認しなければなりません。`Weak<T>`の`upgrade`メソッドを呼び出すことでこれをしてください。
 このメソッドは`Option<Rc<T>>`を返します。`Rc<T>`値がまだドロップされていなければ、`Some`の結果が、
 `Rc<T>`値がドロップ済みなら、`None`の結果が得られます。`upgrade`が`Option<T>`を返すので、

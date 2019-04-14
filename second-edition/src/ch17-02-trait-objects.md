@@ -237,7 +237,7 @@ impl<T> Screen<T>
 <!-- definitions will be monomorphized at compile time to use the concrete types. -->
 
 こうすると、全てのコンポーネントの型が`Button`だったり、`TextField`だったりする`Screen`のインスタンスに制限されてしまいます。
-同種のコレクションしか持つ予定がないのなら、ジェネリクスとトレイト境界は、
+絶対に同種のコレクションしか持つ予定がないのなら、ジェネリクスとトレイト境界は、
 定義がコンパイル時に具体的な型を使用するように単相化されるので、望ましいです。
 
 <!-- On the other hand, with the method using trait objects, one `Screen` instance -->

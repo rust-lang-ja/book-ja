@@ -468,8 +468,8 @@ not implemented for `std::rc::Rc<std::sync::Mutex<i32>>`
 
 おお、このエラーメッセージはとても長ったらしいですね！こちらが、注目すべき重要な部分です:
 最初のインラインエラーは`` `std::rc::Rc<std::sync::Mutex<i32>>` cannot be sent
-between threads safely``と述べています。この理由は、次に注目すべき重要な部分、エラーメッセージにあります。
-蒸留されたエラーメッセージは、`` the trait bound `Send` is not satisfied``と述べています。
+between threads safely``と述べています。この理由は、エラーメッセージの次に注目すべき重要な部分にあります。
+洗練されたエラーメッセージは、`` the trait bound `Send` is not satisfied``と述べています。
 `Send`については、次の節で語ります:
 スレッドとともに使用している型が並行な場面で使われることを意図したものであることを保証するトレイトの1つです。
 
@@ -521,7 +521,7 @@ between threads safely``と述べています。この理由は、次に注目�
 <!-- our program by changing the `use` line, the call to `new`, and the call to -->
 <!-- `clone`. The code in Listing 16-15 will finally compile and run: -->
 
-例に回帰しましょう: `Arc<T>`と`Rc<T>`のAPIは同じなので、`use`行と`new`と`clone`の呼び出しを変更して、
+例に回帰しましょう: `Arc<T>`と`Rc<T>`のAPIは同じなので、`use`行と`new`の呼び出しと`clone`の呼び出しを変更して、
 プログラムを修正します。リスト16-15は、ようやくコンパイルでき、動作します:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -609,7 +609,7 @@ Result: 10
 
 気付いておくべき別の詳細は、`Mutex<T>`を使用する際にあらゆる種類のロジックエラーからは、
 コンパイラは保護してくれないということです。第15章で`Rc<T>`は、循環参照を生成してしまうリスクを伴い、
-2つの`Rc<T>`の値がお互いを参照し合い、メモリリークを引き起こしてしまうことを思い出してください。
+そうすると、2つの`Rc<T>`の値がお互いを参照し合い、メモリリークを引き起こしてしまうことを思い出してください。
 同様に、`Mutex<T>`は*デッドロック*を生成するリスクを伴っています。これは、処理が2つのリソースをロックする必要があり、
 2つのスレッドがそれぞれにロックを1つ獲得して永久にお互いを待ちあってしまうときに起こります。
 デッドロックに興味があるのなら、デッドロックのあるRustプログラムを組んでみてください;

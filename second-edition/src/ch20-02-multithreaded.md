@@ -142,8 +142,8 @@ fn handle_connection(mut stream: TcpStream) {
 無制限にスレッドを大量生産するのではなく、プールに固定された数のスレッドを待機させます。リクエストが来る度に、
 処理するためにプールに送られます。プールは、やって来るリクエストのキューを管理します。
 プールの各スレッドがこのキューからリクエストを取り出し、リクエストを処理し、そして、別のリクエストをキューに要求します。
-この設計により、`N`リクエストを並行して処理でき、ここで`N`はスレッド数です。各スレッドが実行に時間のかかるリクエストに応答したら、
-続くリクエストはそれでも、キュー内で待機させられてしまいますが、その地点に到達する前に扱える時間のかかるリクエスト数を増加させました。
+この設計により、`N`リクエストを並行して処理でき、ここで`N`はスレッド数です。各スレッドが実行に時間のかかるリクエストに応答していたら、
+続くリクエストはそれでも、キュー内で待機させられてしまうこともありますが、その地点に到達する前に扱える時間のかかるリクエスト数を増加させました。
 
 <!-- This technique is just one of many ways to improve the throughput of a web -->
 <!-- server. Other options you might explore are the fork/join model and the -->
@@ -287,7 +287,7 @@ fn main() {
 `ThreadPool::new`を使用して設定可能なスレッド数で新しいスレッドプールを作成し、今回の場合は4です。
 それから`for`ループ内で、`pool.execute`は、プールが各ストリームに対して実行すべきクロージャを受け取るという点で、
 `thread::spawn`と似たインターフェイスです。`pool.execute`を実装する必要があるので、
-クロージャを取り、実行するためにプール内のスレッドに与えます。このコードはまだコンパイルできませんが、
+これはクロージャを取り、実行するためにプール内のスレッドに与えます。このコードはまだコンパイルできませんが、
 コンパイラがどう修正したらいいかガイドできるように試してみます。
 
 <!-- #### Building the `ThreadPool` Struct Using Compiler Driven Development -->
@@ -566,7 +566,7 @@ warning: unused variable: `f`
 > 注釈: HaskellやRustなどの厳密なコンパイラがある言語についての格言として「コードがコンパイルできたら、
 > 動作する」というものをお聴きになったことがある可能性があります。ですが、この格言は普遍的に当てはまるものではありません。
 > このプロジェクトはコンパイルできますが、全く何もしません！本物の完璧なプロジェクトを構築しようとしているのなら、
-> ここがユニットテストを書き始めて、コードがコンパイルでき、*かつ*欲しい振る舞いを保持していることを確認するのに良い機会でしょう。
+> ここが単体テストを書き始めて、コードがコンパイルでき、*かつ*欲しい振る舞いを保持していることを確認するのに良い機会でしょう。
 
 <!-- #### Validating the Number of Threads in `new` -->
 
@@ -1079,7 +1079,7 @@ impl Worker {
 <!-- We’ve made some small and straightforward changes: we pass the receiving end of -->
 <!-- the channel into `Worker::new`, and then we use it inside the closure. -->
 
-多少些細で率直な変更を行いました: チャンネルの受信側を`Worker::new`に渡し、それからクロージャの内側で使用しています。
+多少些細で単純な変更を行いました: チャンネルの受信側を`Worker::new`に渡し、それからクロージャの内側で使用しています。
 
 <!-- When we try to check this code, we get this error: -->
 
@@ -1615,7 +1615,7 @@ impl Worker {
 コンパイル時には、ロックを保持していない限り、借用チェッカーはそうしたら、`Mutex`に保護されるリソースにはアクセスできないという規則を強制できます。
 しかし、この実装は、`MutexGuard<T>`のライフタイムについて熟考しなければ、
 意図したよりもロックが長い間保持される結果になり得ます。`while`式の値がブロックの間中スコープに残り続けるので、
-ロックは`job.call_box`の呼び出し中保持されたままになり、他のワーカーが仕事を受け取れなくなるのです。
+ロックは`job.call_box`の呼び出し中保持されたままになり、つまり、他のワーカーが仕事を受け取れなくなるのです。
 
 <!-- By using `loop` instead and acquiring the lock and a job within the block -->
 <!-- rather than outside it, the `MutexGuard` returned from the `lock` method is -->

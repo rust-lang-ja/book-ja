@@ -191,7 +191,7 @@ match x {
 
 `x`が1、2、3、4か5なら、最初のアームが合致します。この記法は、`|`演算子を使用して同じ考えを表現するより便利です;
 `1 ... 5`ではなく、`|`を使用したら、`1 | 2 | 3 | 4 | 5`と指定しなければならないでしょう。
-範囲を指定する方が遥かに短いです。特に1から1000までの値と合致させたいとかなら！
+範囲を指定する方が遥かに短いのです。特に1から1000までの値と合致させたいとかなら！
 
 <!-- Ranges are only allowed with numeric values or `char` values, because the -->
 <!-- compiler checks that the range isn’t empty at compile time. The only types for -->
@@ -495,7 +495,7 @@ fn main() {
 パターンとマッチさせている値に参照が含まれる場合、値から参照を分配する必要があり、
 パターンに`&`を指定することでそうすることができます。そうすることで参照を保持する変数を得るのではなく、
 参照が指している値を保持する変数が得られます。このテクニックは、参照を走査するイテレータがあるクロージャで特に役に立ちますが、
-参照ではなく、そのクロージャで値を使用したいです。
+そのクロージャで参照ではなく、値を使用したいです。
 
 <!-- The example in Listing 18-16 iterates over references to `Point` instances in a -->
 <!-- vector, destructuring the reference and the struct so we can perform -->
@@ -587,7 +587,7 @@ let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
 <!-- Destructuring with patterns is a convenient way to use pieces of values, such -->
 <!-- as the value from each field in a struct, separately from each other. -->
 
-パターンで分配することは、構造体の各フィールドからの値のように、一部の値を他と区別して使用する便利な方法です。
+パターンで分配することは、構造体の各フィールドからの値のように、複数の値をお互いに区別して使用する便利な方法です。
 
 <!-- ### Ignoring Values in a Pattern -->
 
@@ -673,7 +673,7 @@ fn main() {
 値の一部だけを確認したいけれども、走らせたい対応するコードでは他の部分を使用することがない時などです。
 リスト18-18は、設定の値を管理する責任を負ったコードを示しています。業務要件は、
 ユーザが既存の設定の変更を上書きすることはできないべきだけれども、設定を解除し、
-現在設定がされてなければ設定に値を与えられるというものです。
+現在設定がされていなければ設定に値を与えられるというものです。
 
 ```rust
 let mut setting_value = Some(5);
@@ -730,7 +730,7 @@ let numbers = (2, 4, 8, 16, 32);
 
 match numbers {
     (first, _, third, _, fifth) => {
-        // 何かの数値: {}, {}, {}
+        // 何らかの数値: {}, {}, {}
         println!("Some numbers: {}, {}, {}", first, third, fifth)
     },
 }
@@ -758,7 +758,7 @@ match numbers {
 <!-- only get a warning about one of them. -->
 
 変数を作っているのにどこでも使用していなければ、バグかもしれないのでコンパイラは通常、警告を発します。
-しかし時として、まだ使用しない変数を作るのが有用なこともあります。プロトタイプを開発したり、
+しかし時として、まだ使用しない変数を作るのが有用なこともあります。プロトタイプを開発していたり、
 プロジェクトを始めた直後だったりなどです。このような場面では、変数名をアンダースコアで始めることで、
 コンパイラに未使用変数について警告しないよう指示することができます。リスト18-20で2つの未使用変数を生成していますが、
 このコードを実行すると、そのうちの1つにしか警告が出ないはずです。
@@ -795,7 +795,7 @@ fn main() {
 リスト18-21はエラーを提示するでしょう。
 
 ```rust,ignore
-// やあ！
+// こんにちは！
 let s = Some(String::from("Hello!"));
 
 if let Some(_s) = s {
@@ -974,7 +974,7 @@ error: `..` can only be used once per tuple or tuple struct pattern
 
 <!-- ### Creating References in Patterns with `ref` and `ref mut`-->
 
-### `ref`と`ref mut`でパターンで参照を生成する
+### `ref`と`ref mut`でパターンに参照を生成する
 
 <!-- Let’s look at using `ref` to make references so ownership of the values isn’t -->
 <!-- moved to variables in the pattern. Usually, when you match against a pattern, -->

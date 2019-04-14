@@ -17,7 +17,7 @@
 可変性と借用を支配するRustの通常の規則を捻じ曲げています。まだ、unsafeコードについては講義していません;
 第19章で行います。たとえ、コンパイラが保証できなくても、借用規則に実行時に従うことが保証できる時、
 内部可変性パターンを使用した型を使用できます。関係する`unsafe`コードはそうしたら、安全なAPIにラップされ、
-外側の型は、不変です。
+外側の型は、それでも不変です。
 
 <!-- Let’s explore this concept by looking at the `RefCell<T>` type that follows the -->
 <!-- interior mutability pattern. -->
@@ -402,7 +402,7 @@ error[E0596]: cannot borrow immutable field `self.sent_messages` as mutable
 <!-- shows what that looks like: -->
 
 これは、内部可変性が役に立つ場面なのです！`sent_messages`を`RefCell<T>`内部に格納し、
-そして`send`メッセージは、`sent_messages`を変更して見かけたメッセージを格納できるようになるでしょう。
+そうしたら`send`メッセージは、`sent_messages`を変更して見かけたメッセージを格納できるようになるでしょう。
 リスト15-22は、それがどんな感じかを示しています:
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -476,7 +476,7 @@ mod tests {
 
 <!-- Now that you’ve seen how to use `RefCell<T>`, let’s dig into how it works! -->
 
-`RefCell<T>`の使用法を見かけたので、動作法を深掘りしましょう！
+`RefCell<T>`の使用法を見かけたので、動作の仕方を深掘りしましょう！
 
 <!-- #### Keeping track of Borrows at Runtime with `RefCell<T>` -->
 

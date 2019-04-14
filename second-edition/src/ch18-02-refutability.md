@@ -77,7 +77,7 @@ error[E0005]: refutable pattern in local binding: `None` not covered
 <!-- Because we didn’t cover (and couldn’t cover!) every valid value with the -->
 <!-- pattern `Some(x)`, Rust rightfully produces a compiler error. -->
 
-パターン`Some(x)`で全ての合法な値をカバーしなかった(できません！)ので、
+パターン`Some(x)`で全ての合法な値をカバーしなかった(できませんでした！)ので、
 コンパイラは当然、コンパイルエラーを生成します。
 
 <!-- To fix the problem where we have a refutable pattern where an irrefutable -->

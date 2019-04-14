@@ -19,8 +19,8 @@
 
 主に2つのプロトコルがWebサーバに関係し、*Hypertext Transfer Protocol* *(HTTP)*(`注釈`: ハイパーテキスト転送プロトコル)と、
 *Transmission Control Protocol* *(TCP)*(`注釈`: 伝送制御プロトコル)です。
-両者のプロトコルは、*リクエスト・レスポンス*プロトコルであり、つまり、*クライアント*がリクエストを初期化し、
-*サーバ*はリクエストをリッスンし、クライアントにレスポンスを提供するということです。
+両者のプロトコルは、*リクエスト・レスポンス*プロトコルであり、つまり、*クライアント*がリクエスト(要求)を初期化し、
+*サーバ*はリクエストをリッスンし、クライアントにレスポンス(応答)を提供するということです。
 それらのリクエストとレスポンスの中身は、プロトコルで規定されています。
 
 <!-- TCP is the lower-level protocol that describes the details of how information -->
@@ -491,7 +491,7 @@ fn handle_connection(mut stream: TcpStream) {
 
 `write`処理は失敗することもあるので、以前のようにエラーの結果には`unwrap`を使用します。
 今回も、実際のアプリでは、エラー処理をここに追加するでしょう。最後に`flush`は待機し、
-バイトが全て接続に書き込まれるまでプログラムが継続するのを防ぎます; `TcpStream`は内部のバッファーを保持して、
+バイトが全て接続に書き込まれるまでプログラムが継続するのを防ぎます; `TcpStream`は内部にバッファーを保持して、
 元となるOSへの呼び出しを最小化します。
 
 <!-- With these changes, let’s run our code and make a request. We’re no longer -->

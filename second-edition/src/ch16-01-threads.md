@@ -95,7 +95,7 @@ Rustにはほとんどゼロのランタイムが必要でパフォーマンス�
 
 M:Nのグリーンスレッドモデルは、スレッドを管理するのにより大きな言語ランタイムが必要です。よって、
 Rustの標準ライブラリは、1:1スレッドの実装のみを提供しています。Rustはそのような低級言語なので、
-例えば、どのスレッドがいつ走るかのより詳細な制御や、文脈切り替えのより低コストなどの一面をオーバーヘッドと引き換えるなら、
+例えば、むしろどのスレッドがいつ走るかのより詳細な制御や、より低コストの文脈切り替えなどの一面をオーバーヘッドと引き換えるなら、
 M:Nスレッドの実装をしたクレートもあります。
 
 <!-- Now that we’ve defined threads in Rust, let’s explore how to use the -->
@@ -327,7 +327,7 @@ hi number 3 from the main thread!
 hi number 4 from the main thread!
 ```
 
-<!-- Small details, such as where to call `join` is called, can affect whether or not your -->
+<!-- Small details, such as where `join` is called, can affect whether or not your -->
 <!-- threads run at the same time. -->
 
 どこで`join`を呼ぶかといったほんの些細なことが、スレッドが同時に走るかどうかに影響することもあります。
@@ -412,7 +412,7 @@ which is owned by the current function
   |
 help: to force the closure to take ownership of `v` (and any other referenced
 variables), use the `move` keyword
-(ヘルプ: `v`(や他の参照されている変数)の所有権をクロージャに奪わせるには、`move`キーワードを使用してください)
+(助言: `v`(や他の参照されている変数)の所有権をクロージャに奪わせるには、`move`キーワードを使用してください)
   |
 6 |     let handle = thread::spawn(move || {
   |                                ^^^^^^^
@@ -456,7 +456,7 @@ fn main() {
 <!-- <span class="caption">Listing 16-4: A thread with a closure that attempts to -->
 <!-- capture a reference to `v` from a main thread that drops `v`</span> -->
 
-<span class="caption">リスト16-4: `v`をドロップするメインスレッドから`v`への参照をキャプチャしようとするクロージャがあるスレッド</span>
+<span class="caption">リスト16-4: `v`をドロップするメインスレッドから`v`への参照をキャプチャしようとするクロージャを伴うスレッド</span>
 
 <!-- If we were allowed to run this code, there’s a possibility the spawned thread -->
 <!-- would be immediately put in the background without running at all. The spawned -->
@@ -560,9 +560,9 @@ error[E0382]: use of moved value: `v`
 メインスレッドはもう`v`を使用しないとコンパイラに保証しているのです。リスト16-4も同様に変更したら、
 メインスレッドで`v`を使用しようとする際に所有権の規則に違反することになります。
 `move`キーワードにより、Rustの保守的な借用のデフォルトが上書きされるのです; 
-所有権の規則を侵害させないのです。
+所有権の規則を侵害させてくれないのです。
 
 <!-- With a basic understanding of threads and the thread API, let’s look at what we -->
 <!-- can *do* with threads. -->
 
-スレッドとスレッドAPIの基礎知識が入ったので、スレッドで*できる*ことを見ていきましょう。
+スレッドとスレッドAPIの基礎知識を得たので、スレッドで*できる*ことを見ていきましょう。

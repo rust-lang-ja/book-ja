@@ -8,7 +8,7 @@
 <!-- lifetime, but most of the time, Rust will let you elide lifetimes. Now we’ll -->
 <!-- look at three advanced features of lifetimes that we haven’t covered yet: -->
 
-第10章の「ライフタイムで参照を有効化する」節で、参照をライフタイム引数で注釈し、
+第10章の「ライフタイムで参照を検証する」節で、参照をライフタイム引数で注釈し、
 コンパイラに異なる参照のライフタイムがどう関連しているかを指示する方法を学びました。全ての参照にはライフタイムがあるものの、
 ほとんどの場合、コンパイラがライフタイムを省略させてくれることも見ました。ここでは、
 まだ講義していないライフタイムの高度な機能を3つ見ていきます:
@@ -475,7 +475,7 @@ struct Ref<'a, T>(&'a T);
 <!-- parameter `T`, Rust will error because it doesn’t know how long the generic -->
 <!-- type `T` will live: -->
 
-明示的にジェネリック引数`T`と関連してライフタイム`'a`を制限することがないと、ジェネリックな型`T`がどれだけ生きるのかわからないので、
+明示的にジェネリック引数`T`と関連してライフタイム`'a`を制限しないと、ジェネリックな型`T`がどれだけ生きるのかわからないので、
 コンパイラはエラーにします:
 
 ```text
