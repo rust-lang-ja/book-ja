@@ -71,7 +71,7 @@
 <!-- The `Debug` trait enables debug formatting in format strings, which you -->
 <!-- indicate by adding `:?` within `{}` placeholders. -->
 
-`Debug`トレイトにより、フォーマット文字列でのデバッグ成形が可能になり、
+`Debug`トレイトにより、フォーマット文字列でのデバッグ整形が可能になり、
 `{}`プレースホルダー内に`:?`を追記することで表します。
 
 <!-- The `Debug` trait allows you to print instances of a type for debugging -->

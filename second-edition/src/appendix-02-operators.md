@@ -1,13 +1,13 @@
 <!-- ## Appendix B: Operators and Symbols -->
 
-## 付録B: 演算子とシンボル
+## 付録B: 演算子と記号
 
 <!-- This appendix contains a glossary of Rust’s syntax, including operators and -->
 <!-- other symbols that appear by themselves or in the context of paths, generics, -->
 <!-- trait bounds, macros, attributes, comments, tuples, and brackets. -->
 
 この付録は、演算子や、単独で現れたり、パス、ジェネリクス、トレイト境界、マクロ、属性、コメント、タプル、
-かっこの文脈で現れる他のシンボルを含むRustの記法の用語集を含んでいます。
+かっこの文脈で現れる他の記号を含むRustの記法の用語集を含んでいます。
 
 <!-- ### Operators -->
 
@@ -151,7 +151,7 @@
 <!-- Table B-2 shows symbols that appear on their own and are valid in a variety of -->
 <!-- locations. -->
 
-表B-2は、単独で出現し、いろんな箇所で合法になるシンボルを示しています。
+表B-2は、単独で出現し、いろんな箇所で合法になる記号を示しています。
 
 <!-- <span class="caption">Table B-2: Stand-Alone Syntax</span> -->
 
@@ -188,7 +188,7 @@
 <!-- Table B-3 shows symbols that appear in the context of a path through the module -->
 <!-- hierarchy to an item. -->
 
-表B-3は、要素へのモジュールヒエラルキーを通したパスの文脈で出現するシンボルを示しています。
+表B-3は、要素へのモジュール階層を通したパスの文脈で出現する記号を示しています。
 
 <!-- <span class="caption">Table B-3: Path-Related Syntax</span> -->
 
@@ -221,7 +221,7 @@
 <!-- Table B-4 shows symbols that appear in the context of using generic type -->
 <!-- parameters. -->
 
-表B-4は、ジェネリックな型引数の文脈で出現するシンボルを示しています。
+表B-4は、ジェネリックな型引数の文脈で出現する記号を示しています。
 
 <!-- <span class="caption">Table B-4: Generics</span> -->
 
@@ -252,7 +252,7 @@
 <!-- Table B-5 shows symbols that appear in the context of constraining generic type -->
 <!-- parameters with trait bounds. -->
 
-表B-5は、ジェネリック型引数をトレイト境界で制約する文脈で出現するシンボルを示しています。
+表B-5は、ジェネリック型引数をトレイト境界で制約する文脈で出現する記号を示しています。
 
 <!-- <span class="caption">Table B-5: Trait Bound Constraints</span> -->
 
@@ -279,7 +279,7 @@
 <!-- Table B-6 shows symbols that appear in the context of calling or defining -->
 <!-- macros and specifying attributes on an item. -->
 
-表B-6は、マクロの呼び出しや定義、要素に属性を指定する文脈で出現するシンボルを示しています。
+表B-6は、マクロの呼び出しや定義、要素に属性を指定する文脈で出現する記号を示しています。
 
 <!-- <span class="caption">Table B-6: Macros and Attributes</span> -->
 
@@ -303,7 +303,7 @@
 
 <!-- Table B-7 shows symbols that create comments. -->
 
-表B-7は、コメントを生成します。
+表B-7は、コメントを生成する記号を示しています。
 
 <!-- <span class="caption">Table B-7: Comments</span> -->
 
@@ -333,7 +333,7 @@
 
 <!-- Table B-8 shows symbols that appear in the context of using tuples. -->
 
-表B-8は、タプルの文脈で出現するシンボルを示しています。
+表B-8は、タプルの文脈で出現する記号を示しています。
 
 <!-- <span class="caption">Table B-8: Tuples</span> -->
 

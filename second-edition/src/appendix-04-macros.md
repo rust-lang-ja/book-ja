@@ -242,7 +242,7 @@ macro_rules! vec {
 <!-- The `*` following the comma specifies that the pattern matches zero or more of -->
 <!-- whatever precedes the `*`. -->
 
-`$()`に続くカンマは、`$()`にキャプチャされるコードにマッチするコードの後に区別するリテラルのカンマ文字が現れるという選択肢もあることを示唆しています。
+`$()`に続くカンマは、`$()`にキャプチャされるコードにマッチするコードの後に、区別を意味するリテラルのカンマ文字が現れるという選択肢もあることを示唆しています。
 カンマに続く`*`は、パターンが`*`の前にあるもの0個以上にマッチすることを指定しています。
 
 <!-- When we call this macro with `vec![1, 2, 3];`, the `$x` pattern matches three -->
@@ -443,10 +443,10 @@ $ cargo new hello_macro_derive --lib
 
 2つのクレートは緊密に関係しているので、`hello_macro`クレートのディレクトリ内にプロシージャルマクロクレートを作成しています。
 `hello_macro`のトレイト定義を変更したら、`hello_macro_derive`のプロシージャルマクロの実装も変更しなければならないでしょう。
-2つのクレートは個別に発行される必要があり、これらのクレートを使用するプログラマは、
+2つのクレートは個別に公開される必要があり、これらのクレートを使用するプログラマは、
 両方を依存に追加し、スコープに導入する必要があるでしょう。代わりに、`hello_macro`クレートに依存として、
 `hello_macro_derive`を使用させ、プロシージャルマクロのコードを再エクスポートすることもできるでしょう。
-プロジェクトの構造により、プログラマが`derive`機能を使用したくなくても、`hello_macro`を使用することが可能になります。
+プロジェクトの構造によっては、プログラマが`derive`機能を使用したくなくても、`hello_macro`を使用することが可能になります。
 
 <!-- We need to declare the `hello_macro_derive` crate as a procedural macro crate. -->
 <!-- We’ll also need functionality from the `syn` and `quote` crates, as you’ll see -->
@@ -551,7 +551,7 @@ Rustコードの完全なパーサを書くのは、単純な作業ではない�
 
 `hello_macro_derive`関数は、ライブラリの使用者が型に`#[derive(HelloMacro)]`を指定した時に呼び出されます。
 その理由は、ここで`hello_macro_derive`関数を`proc_macro_derive`で注釈し、トレイト名に一致する`HelloMacro`を指定したからです;
-これがほとんどのプロシージャルマクロが倣う慣習です。
+これは、ほとんどのプロシージャルマクロが倣う慣習です。
 
 <!-- This function first converts the `input` from a `TokenStream` to a `String` by -->
 <!-- calling `to_string`. This `String` is a string representation of the Rust code -->
@@ -716,7 +716,7 @@ fn impl_hello_macro(ast: &syn::DeriveInput) -> quote::Tokens {
 これらのクレートをリストD-2のコードにフックして、プロシージャルマクロが動くところを確認しましょう！
 `cargo new --bin pancakes`で*projects*ディレクトリに新しいバイナリプロジェクトを作成してください。
 `hello_macro`と`hello_macro_derive`を依存として`pancakes`クレートの*Cargo.toml*に追加する必要があります。
-自分のバージョンの`hello_macro`と`hello_macro_derive`を*https://crates.io/* に発行するつもりなら、
+自分のバージョンの`hello_macro`と`hello_macro_derive`を*https://crates.io/* に公開するつもりなら、
 普通の依存になるでしょう; そうでなければ、以下のように`path`依存として指定できます:
 
 ```toml

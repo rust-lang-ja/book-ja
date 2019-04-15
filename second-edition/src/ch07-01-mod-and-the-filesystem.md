@@ -419,7 +419,7 @@ warning: function is never used: `connect`
 <!-- warnings; our project built successfully! -->
 
 これらの警告は、全く使用されていない関数があると忠告してくれています。今は、警告を危惧する必要はありません;
-この章の後ほど、「`pub`で公開するか制御する」節で特定します。嬉しいことにただの警告です;
+この章の後ほど、「`pub`で公開するか制御する」節で扱います。嬉しいことにただの警告です;
 プロジェクトはビルドに成功しました！
 
 <!-- Next, let’s extract the `network` module into its own file using the same -->
