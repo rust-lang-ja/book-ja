@@ -277,7 +277,7 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 <!-- provided by the standard library, Appendix D covers macros. -->
 
 最後に、言語についての有用な情報をよりリファレンスのような形式で含む付録があります。
-付録AはRustのキーワードを講義し、付録Bは、Rustの演算子とシンボル、付録Cは、
+付録AはRustのキーワードを講義し、付録Bは、Rustの演算子と記号、付録Cは、
 標準ライブラリが提供する継承可能なトレイト、付録Dはマクロを講義します。
 
 <!-- There is no wrong way to read this book: if you want to skip ahead, go for it! -->
