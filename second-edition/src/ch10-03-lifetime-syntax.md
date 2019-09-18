@@ -247,7 +247,7 @@ fn main() {
 <!-- If we try to implement the `longest` function as shown in Listing 10-21, it -->
 <!-- won’t compile. -->
 
-リスト10-21に示したように`longetst`関数を実装しようとしたら、コンパイルできないでしょう。
+リスト10-21に示したように`longest`関数を実装しようとしたら、コンパイルできないでしょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
 
