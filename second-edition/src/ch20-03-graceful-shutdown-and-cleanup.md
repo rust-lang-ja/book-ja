@@ -729,7 +729,7 @@ impl Worker {
 
 <!-- ## Summary -->
 
-## 総括
+## まとめ
 
 <!-- Well done! You’ve made it to the end of the book! We want to thank you for -->
 <!-- joining us on this tour of Rust. You’re now ready to implement your own Rust -->

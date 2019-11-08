@@ -43,8 +43,8 @@
 <!-- `summarize` method on an instance. Listing 10-12 shows the definition of a -->
 <!-- `Summary` trait that expresses this behavior. -->
 
-`NewsArticle`や`Tweet`インスタンスに格納される可能性のあるデータの総括を表示するメディア総括ライブラリを作成したいです。
-このために、各型から総括が必要で、インスタンスに対して`summarize`メソッドを呼び出すことでその総括を要求する必要があります。
+`NewsArticle` または `Tweet` インスタンスに保存されているデータのサマリを表示できるメディア アグリゲータ ライブラリを作成します。
+これをするには、各型のサマリーが必要で、インスタンスで `summarize` メソッドを呼び出してサマリーを要求する必要があります。
 リスト10-12は、この振る舞いを表現する`Summary`トレイトの定義を表示しています。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
@@ -100,10 +100,9 @@ pub trait Summary {
 <!-- followed by the entire text of the tweet, assuming that tweet content is -->
 <!-- already limited to 280 characters. -->
 
-今や`Summary`トレイトで欲しい振る舞いを定義したので、メディア総括機で型に実装することができます。
-リスト10-13は見出し、著者、場所を使用して`summarize`の戻り値を生成する`NewsArticle`構造体の`Summary`トレイト実装を示しています。
-`Tweet`構造体に関しては、ツイートの内容が既に280文字に限定されていることを想定して、
-`summarize`をユーザ名にツイート全体のテキストが続く形で定義します。
+今や `Summary` トレイトを使用して目的の動作を定義できたので、メディア アグリゲータで型に実装できます。
+リスト10-13は、 `Summary` トレイトを `NewsArticle` 構造体上に実装したもので、ヘッドライン、著者、そして `Summarize` の戻り値を示しています。
+`Tweet` 構造体に関しては、ツイートの内容が既に280文字に制限されていると仮定して、ユーザー名の後にツイートのテキスト全体が続くものとして `Summarize` を定義します。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

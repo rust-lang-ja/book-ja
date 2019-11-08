@@ -169,10 +169,10 @@ test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- output from the test that failed, `I got the value 8`, appears in the section -->
 <!-- of the test summary output, which also shows the cause of the test failure. -->
 
-この出力のどこにも`I got the value 4`という出力が見られないことに注意してください。
-この出力は、通るテストが走る際に出力されるものです。この出力はキャプチャされてしまったのです。
-失敗したテストからの出力である`I got the value 8`はテスト総括出力の区域に出現し、
-ここには、テスト失敗の原因も表示されています。
+この出力のどこにも `I got the value 4` と表示されていないことに注意してください。
+これは、テストに合格した場合に出力されるものです。
+その出力はキャプチャされてしまいました。
+失敗したテストのからの出力 `I got the value 8` がテストサマリー出力のセクションに表示され、テストが失敗した原因も示されます。
 
 <!-- If we want to see printed values for passing tests as well, we can disable the -->
 <!-- output capture behavior by using the `--nocapture` flag: -->
