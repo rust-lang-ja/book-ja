@@ -1094,7 +1094,7 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 <!-- * `FnMut` can change the environment because it mutably borrows values. -->
 <!-- * `Fn` borrows values from the environment immutably. -->
 
-* `FnOnce`は内包されたスコープからキャプチャした変数を消費し、これがクロージャの*環境*として知られています。
+* `FnOnce`は、クロージャの*環境*として知られている内包されたスコープからキャプチャした変数を消費します。
 キャプチャした変数を消費するために、定義された際にクロージャはこれらの変数の所有権を奪い、
 自身にムーブするのです。名前のうち、`Once`の部分は、
 このクロージャは同じ変数の所有権を2回以上奪うことができないという事実を表しているので、1回しか呼ぶことができないのです。
