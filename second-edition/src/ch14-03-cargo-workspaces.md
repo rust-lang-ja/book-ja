@@ -412,7 +412,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- one will run the tests for all the crates in the workspace. -->
 
 出力の最初の区域が、`add-one`クレートの`it_works`テストが通ったことを示しています。
-次の区域には、`adder`クレートにはテストが見つなかったことが示され、
+次の区域には、`adder`クレートにはテストが見つからなかったことが示され、
 さらに最後の区域には、`add-one`クレートにドキュメンテーションテストは見つからなかったと表示されています。
 このような構造をしたワークスペースで`cargo test`を走らせると、ワークスペースの全クレートのテストを実行します。
 
