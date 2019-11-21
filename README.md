@@ -1,4 +1,19 @@
-# Rust言語
+# Rustプログラミング言語（Second Edition）
+
+## このブランチ（second-edition-ja）について
+
+このブランチ（second-edition-ja）の和訳は、[hazama-yuinyanさんのbookリポジトリ][hazama-yuinyan-book]の内容をベースにしています。
+
+* 取り込んだ内容：masterブランチの [最後のコミット #c29506d56a][hazama-yuinyan-book-commit]（2019年4月15日）
+* 取り込んだ日時：2019年11月21日
+* オープンソースライセンス：MITとApache-2.0のデュアルライセンス
+
+[hazama-yuinyan-book]: https://github.com/hazama-yuinyan/book
+[hazama-yuinyan-book-commit]: https://github.com/hazama-yuinyan/book/commit/c29506d56a778c85e5fd4375db42f881f886e1ba
+
+以下はhazama-yuinyan/bookリポジトリのREADME.mdに書かれていた内容です。
+
+## RUST言語
 
 このリポジトリには、Rust本第1版と第2版両方がありますが、今回は第2版のみの翻訳です。
 第1版以上に、量が多そうなので、大変そうですが、以下の2点を重視して翻訳していきます。
@@ -175,8 +190,8 @@ kinds of contributions we're looking for.
 
 ### 2018 Edition
 
-The "2018" Edition is in the process of being updated with the language changes 
-that will be available with the 2018 Edition of the Rust language. All new 
+The "2018" Edition is in the process of being updated with the language changes
+that will be available with the 2018 Edition of the Rust language. All new
 contributions should be to this edition.
 
 ### Second Edition
