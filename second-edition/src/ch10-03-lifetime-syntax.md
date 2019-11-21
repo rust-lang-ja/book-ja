@@ -1136,7 +1136,7 @@ fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a st
 
 <!-- ## Summary -->
 
-## 総括
+## まとめ
 
 <!-- We covered a lot in this chapter! Now that you know about generic type -->
 <!-- parameters, traits and trait bounds, and generic lifetime parameters, you’re -->

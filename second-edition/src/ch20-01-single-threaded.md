@@ -427,9 +427,8 @@ message-body
 <!-- CRLF sequence are any headers, another CRLF sequence, and the body of the -->
 <!-- response. -->
 
-1行目は、*ステータス行*で、レスポンスで使用されるHTTPバージョン、リクエストの結果を総括する数値のステータスコード、
-ステータスコードをテキストで表現する理由フレーズを含みます。CRLFの後には、あらゆるヘッダ、別のCRLF、
-レスポンスの本体があります。
+最初の行は、レスポンスで使用されるHTTPバージョン、リクエストの結果を要約する数値ステータス・コード、そしてステータス・コードのテキスト記述を提供する理由句を含む *ステータス行* です。
+CRLFシーケンスの後には、任意のヘッダ、別のCRLFシーケンス、そしてレスポンスの本体が続きます。
 
 <!-- Here is an example response that uses HTTP version 1.1, has a status code of -->
 <!-- 200, an OK reason phrase, no headers, and no body: -->

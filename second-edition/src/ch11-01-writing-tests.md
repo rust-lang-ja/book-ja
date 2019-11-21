@@ -311,7 +311,7 @@ error: test failed
 <!-- The summary line displays at the end: overall, our test result is `FAILED`. -->
 <!-- We had one test pass and one test fail. -->
 
-総括の行が最後に出力されています: 総合的に言うと、テスト結果は`失敗`でした。
+サマリー行が最後に出力されています: 総合的に言うと、テスト結果は`失敗`でした。
 一つのテストが通り、一つが失敗したわけです。
 
 <!-- Now that you’ve seen what the test results look like in different scenarios, -->

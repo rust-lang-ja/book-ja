@@ -1045,7 +1045,7 @@ Rustでは利用可能なことを確かめました。これらのパターン�
 
 <!-- ## Summary -->
 
-## 総括
+## まとめ
 
 <!-- No matter whether or not you think Rust is an object-oriented language after -->
 <!-- reading this chapter, you now know that you can use trait objects to get some -->

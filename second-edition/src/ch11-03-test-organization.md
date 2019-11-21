@@ -253,7 +253,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 3つの区域の出力が単体テスト、結合テスト、ドックテストを含んでいます。単体テスト用の最初の区域は、
 今まで見てきたものと同じです: 各単体テストに1行(リスト11-12で追加した`internal`という名前のもの)と、
-単体テストの総括行です。
+単体テストのサマリー行です。
 
 <!-- The integration tests section starts with the line `Running -->
 <!-- target/debug/deps/integration-test-ce99bcc2479f4607` (the hash at the end of -->
@@ -264,7 +264,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 結合テストの区域は、
 `Running target/debug/deps/integration-test-ce99bcc2479f4607`という行で始まっています(最後のハッシュはあなたの出力とは違うでしょう)。
 次に、この結合テストの各テスト関数用の行があり、`Doc-tests adder`区域が始まる直前に、
-結合テストの結果用の総括行があります。
+結合テストの結果用のサマリー行があります。
 
 <!-- Similarly to how adding more unit test functions adds more result lines to the -->
 <!-- unit tests section, adding more test functions to the integration test file -->
