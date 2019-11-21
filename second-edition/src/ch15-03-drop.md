@@ -139,7 +139,7 @@ Dropping CustomSmartPointer with data `my stuff`!
 一例は、ロックを管理するスマートポインタを使用する時です: 同じスコープの他のコードがロックを獲得できるように、
 ロックを解放する`drop`メソッドを強制的に走らせたくなる可能性があります。Rustは、
 `Drop`トレイトの`drop`メソッドを手動で呼ばせてくれません; スコープが終わる前に値を強制的にドロップさせたいなら、
-代わりに標準ライブラリが提供する`std::mem:drop`関数を呼ばなければなりません。
+代わりに標準ライブラリが提供する`std::mem::drop`関数を呼ばなければなりません。
 
 <!-- If we try to call the `Drop` trait's `drop` method manually by modifying the -->
 <!-- `main` function in Listing 15-14, as shown in Listing 15-15, we'll get a -->
