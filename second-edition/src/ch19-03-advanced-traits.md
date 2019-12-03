@@ -530,7 +530,7 @@ Up!
 <!-- `baby_name`, the implementation of `Animal` for the struct `Dog`, and the -->
 <!-- associated function `baby_name` defined on `Dog` directly. -->
 
-しかしながら、トレイトの一部になる関連型には`self`引数がありません。同じスコープの2つの型がそのトレイトを実装する場合、
+しかしながら、トレイトの一部になる関連関数には`self`引数がありません。同じスコープの2つの型がそのトレイトを実装する場合、
 *フルパス記法*(fully qualified syntax)を使用しない限り、どの型を意図しているかコンパイラは推論できません。例えば、
 リスト19-27の`Animal`トレイトには、関連関数`baby_name`、構造体`Dog`の`Animal`の実装、
 `Dog`に直接定義された関連関数`baby_name`があります。
