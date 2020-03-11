@@ -239,7 +239,7 @@ fn value_in_cents(coin: Coin) -> u32 {
 
 `value_in_cents(Coin::Quarter(UsState::Alaska))`と呼び出すつもりだったなら、`coin`は
 `Coin::Quarter(UsState::Alaska)`になります。その値をmatchの各アームと比較すると、
-`Coin::Quater(state)`に到達するまで、どれにもマッチしません。その時に、`state`に束縛されるのは、
+`Coin::Quarter(state)`に到達するまで、どれにもマッチしません。その時に、`state`に束縛されるのは、
 `UsState::Alaska`という値です。そして、`println!`式でその束縛を使用することができ、
 そのため、`Coin` enumの列挙子から`Quarter`に対する中身のstateの値を取得できたわけです。
 
