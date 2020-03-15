@@ -1,0 +1,18 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: cimg/base:stable
+    parallelism: 1
+    branches:
+      ignore:
+        - master
+        - second-edition-ja
+    steps:
+      - run:
+          name: Print error and exit
+          command: |
+            echo "ERROR: Wrong '.circleci/config' for $CIRCLE_BRANCH branch."
+            echo "       Please contact the developer (e.g. tatsuya6502) to fix."
+            exit 8
