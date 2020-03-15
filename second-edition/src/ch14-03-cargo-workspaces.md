@@ -137,7 +137,7 @@ members = [
 それから、`add-one`という名前のライブラリクレートを生成してください:
 
 ```text
-$ cargo new add-one
+$ cargo new add-one --lib
      Created library `add-one` project
 ```
 
