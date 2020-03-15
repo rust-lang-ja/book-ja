@@ -1,0 +1,30 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: quay.io/rust-lang-ja/circleci:rust-1.41.0-mdbook-0.3.5
+    parallelism: 1
+    steps:
+      - checkout
+      # Remove .gitconfig added by Circle CI as cargo doesn't support ssh authorization
+      - run: rm -f ~/.gitconfig
+      - run: rm -rf rust-toolchain docs
+      - run: rustc -V
+      - run: mdbook -V
+      - run: mdbook test
+      - run: mdbook build
+      - run: --bin lfp src
+      # TODO: Run link2print here. (See ci/build.sh on the master branch)
+      # - run: TODO
+      - store_artifacts:
+          path: docs
+      - run: git checkout rust-toolchain
+      # - deploy:
+      #     name: If master branch, publish to GitHub Page
+      #     command: |
+      #       if [ "x_${CIRCLE_BRANCH}" == "x_master" ]; then
+      #         git config user.name "bn-e (CircleCI)"
+      #         git config user.email "bn-e@hibaridb.org"
+      #         ./tools/circleci/push-to-master.sh
+      #       fi
