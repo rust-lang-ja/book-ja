@@ -14,7 +14,7 @@ jobs:
       - run: mdbook -V
       - run: mdbook test
       - run: mdbook build
-      - run: --bin lfp src
+      - run: cargo run --bin lfp src
       # TODO: Run link2print here. (See ci/build.sh on the master branch)
       # - run: TODO
       - store_artifacts:
