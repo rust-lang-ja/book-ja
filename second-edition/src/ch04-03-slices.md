@@ -201,8 +201,8 @@ fn main() {
 <!-- we write a `second_word` function. Its signature would have to look like this: -->
 
 `word`内の添え字が`s`に格納されたデータと同期されなくなるのを心配することは、面倒ですし間違いになりやすいです！
-これらの添え字を管理するのは、`second_word`関数を書いたら、さらに脆くなります。
-そのシグニチャは以下のようにならなければおかしいです:
+これらの添え字の管理は、`second_word`関数を書いたら、さらに難しくなります。
+そのシグニチャは以下のようになるはずです:
 
 ```rust,ignore
 fn second_word(s: &String) -> (usize, usize) {
