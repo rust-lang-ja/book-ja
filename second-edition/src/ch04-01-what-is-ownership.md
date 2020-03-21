@@ -673,7 +673,7 @@ println!("s1 = {}, s2 = {}", s1, s2);
 <!-- This works just fine and explicitly produces the behavior shown in Figure 4-3, -->
 <!-- where the heap data *does* get copied. -->
 
-これは単純にうまく動き、図4-3で示した動作を明示的に生み出します。ここでは、
+これは問題なく動作し、図4-3で示した動作を明示的に生み出します。ここでは、
 ヒープデータが*実際に*コピーされています。
 
 <!-- When you see a call to `clone`, you know that some arbitrary code is being -->
