@@ -355,7 +355,7 @@ fn first_word(s: &String) -> &str {
 <!-- as the starting and ending indices. -->
 
 リスト4-7で取った手段と同じ方法で単語の終端添え字を取得しています。つまり、最初の空白を探すことです。
-空白を発見したら、文字列の最初と、空白の添え字を開始、終了地点として使用して文字列スライスを返しています。
+空白を発見したら、文字列の最初を開始地点、空白の添え字を終了地点として使用して文字列スライスを返しています。
 
 <!-- Now when we call `first_word`, we get back a single value that is tied to the -->
 <!-- underlying data. The value is made up of a reference to the starting point of -->
