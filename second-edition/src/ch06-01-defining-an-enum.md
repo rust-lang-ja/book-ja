@@ -260,8 +260,8 @@ enum IpAddr {
 <!-- haven’t brought the standard library’s definition into our scope. We’ll talk -->
 <!-- more about bringing types into scope in Chapter 7. -->
 
-標準ライブラリに`IpAddr`に対する定義は含まれるものの、標準ライブラリの定義をスコープに導入していないので、
-まだ、干渉することなく自分自身の定義を生成して使用できることに注意してください。型をスコープに導入することについては、
+標準ライブラリに`IpAddr`に対する定義は含まれるものの、標準ライブラリの定義をまだ我々のスコープに導入していないので、
+干渉することなく自分自身の定義を生成して使用できることに注意してください。型をスコープに導入することについては、
 第7章でもっと詳しく言及します。
 
 <!-- Let’s look at another example of an enum in Listing 6-2: this one has a wide -->
