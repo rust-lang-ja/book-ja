@@ -253,7 +253,7 @@ enum IpAddr {
 
 このコードは、enum列挙子内にいかなる種類のデータでも格納できることを描き出しています:
 例を挙げれば、文字列、数値型、構造体などです。他のenumを含むことさえできます！また、
-標準ライブラリの型は、あなたが思い付いた可能性のあるものよりも複雑ではないことがしばしばあります。
+標準ライブラリの型は、あなたの想像するよりも複雑ではないことがしばしばあります。
 
 <!-- Note that even though the standard library contains a definition for `IpAddr`, -->
 <!-- we can still create and use our own definition without conflict because we -->
