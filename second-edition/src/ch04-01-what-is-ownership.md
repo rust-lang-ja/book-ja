@@ -564,7 +564,8 @@ do if Rust copied the heap data as well</span> -->
 その変数が使っていたヒープメモリを片付けると述べました。しかし、図4-2は、
 両方のデータポインタが同じ場所を指していることを示しています。これは問題です: `s2`と`s1`がスコープを抜けたら、
 両方とも同じメモリを解放しようとします。これは*二重解放*エラーとして知られ、以前触れたメモリ安全性上のバグの一つになります。
-メモリを2回解放することは、メモリの退廃につながり、さらにセキュリティ上の脆弱性を生む可能性があります。
+メモリを2回解放することは、memory corruption (`訳注`: メモリの崩壊。意図せぬメモリの書き換え) につながり、
+セキュリティ上の脆弱性を生む可能性があります。
 
 <!-- To ensure memory safety, there’s one more detail to what happens in this -->
 <!-- situation in Rust. Instead of trying to copy the allocated memory, Rust -->
