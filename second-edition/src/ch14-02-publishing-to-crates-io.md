@@ -775,10 +775,10 @@ Cargoはクレートバージョンの *取り下げ(yank)* をサポートし�
 <!-- *Cargo.lock* will not break, and any future *Cargo.lock* files generated will -->
 <!-- not use the yanked version. -->
 
-バージョンを取り下げると、他の既存のプロジェクトには、引き続きダウンロードし、そのバージョンに依存させ続けつつ、
-新規プロジェクトが新しくそのバージョンに依存しだすことを防ぎます。本質的に取り下げは、
-*Cargo.lock*が存在するプロジェクトは全て壊れないことを意味し、将来的に*Cargo.lock*ファイルが生成されるものは、
-取り下げられたバージョンを使わないのです。
+バージョンを取り下げると、既存のプロジェクトは、引き続きダウンロードしたりそのバージョンに依存したりしつづけられますが、
+新規プロジェクトが新しくそのバージョンに依存しだすことは防止されます。つまるところ、取り下げは、
+すでに*Cargo.lock*が存在するプロジェクトは壊さないが、将来的に生成された*Cargo.lock*ファイルは
+取り下げられたバージョンを使わない、ということを意味します。
 
 <!-- To yank a version of a crate, run `cargo yank` and specify which version you -->
 <!-- want to yank: -->
