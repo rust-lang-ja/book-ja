@@ -765,8 +765,8 @@ Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
 <!-- crate version is broken for one reason or another. In such situations, Cargo -->
 <!-- supports *yanking* a crate version. -->
 
-以前のバージョンのクレートを削除することはできないものの、新しい依存として将来的にプロジェクトに追加することを防ぐことはできます。
-ある理由により、クレートバージョンが壊れている場合に有用です。そのような場面において、
+以前のバージョンのクレートを削除することはできないものの、将来のプロジェクトがこれに新たに依存することを防ぐことはできます。
+これは、なんらかの理由により、クレートバージョンが壊れている場合に有用です。そのような場面において、
 Cargoはクレートバージョンの*取り下げ*をサポートしています。
 
 <!-- Yanking a version prevents new projects from starting to depend on that version -->
