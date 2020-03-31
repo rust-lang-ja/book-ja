@@ -767,7 +767,7 @@ Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
 
 以前のバージョンのクレートを削除することはできないものの、将来のプロジェクトがこれに新たに依存することを防ぐことはできます。
 これは、なんらかの理由により、クレートバージョンが壊れている場合に有用です。そのような場面において、
-Cargoはクレートバージョンの*取り下げ*をサポートしています。
+Cargoはクレートバージョンの *取り下げ(yank)* をサポートしています。
 
 <!-- Yanking a version prevents new projects from starting to depend on that version -->
 <!-- while allowing all existing projects that depend on it to continue to download -->
