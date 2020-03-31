@@ -57,7 +57,7 @@
 <!-- Before we discuss this use case for `Box<T>`, we’ll cover the syntax and how to -->
 <!-- interact with values stored within a `Box<T>`. -->
 
-`Box<T>`のこのユースケースを議論する前に、`Box<T>`の記法と、`Box<T>`内に格納された値と相互作用する方法について講義しましょう。
+`Box<T>`のこのユースケースを議論する前に、`Box<T>`の記法と、`Box<T>`内に格納された値を読み書きする方法について講義しましょう。
 
 <!-- Listing 15-1 shows how to use a box to store an `i32` value on the heap: -->
 
