@@ -482,22 +482,21 @@ fn generate_workout(intensity: u32, random_number: u32) {
 <!-- to how it’s able to infer the types of most variables. -->
 
 クロージャは通常短く、あらゆる任意の筋書きではなく、狭い文脈でのみ関係します。
-このような限定された文脈内では、コンパイラは、多くの変数の型を推論できるのに似て、
+このような限定された文脈内では、コンパイラは、多くの変数の型を推論できるのと似たように、
 引数や戻り値の型を頼もしく推論することができます。
 
 <!-- Making programmers annotate the types in these small, anonymous functions would -->
 <!-- be annoying and largely redundant with the information the compiler already has -->
 <!-- available. -->
 
-このような小さく、匿名の関数で型をプログラマに注釈させることは、煩わしくコンパイラがすでに利用可能な情報と、
-大筋で余分でしょう。
+このような小さく匿名の関数で型をプログラマに注釈させることは煩わしいし、コンパイラがすでに利用可能な情報と大きく被っています。
 
 <!-- As with variables, we can add type annotations if we want to increase -->
 <!-- explicitness and clarity at the cost of being more verbose than is strictly -->
 <!-- necessary. Annotating the types for the closure we defined in Listing 13-5 -->
 <!-- would look like the definition shown in Listing 13-7. -->
 
-変数のように、厳格に必要な以上に冗長になることと引き換えに、明示性と明瞭性を向上させたいなら、型注釈を加えることができます;
+本当に必要な以上に冗長になることと引き換えに、明示性と明瞭性を向上させたいなら、変数に型注釈を加えることもできます;
 リスト13-5で定義したクロージャに型を注釈するなら、リスト13-7に示した定義のようになるでしょう。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
