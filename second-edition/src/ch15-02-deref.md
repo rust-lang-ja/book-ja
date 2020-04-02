@@ -8,7 +8,7 @@
 <!-- treated like a regular reference, you can write code that operates on -->
 <!-- references and use that code with smart pointers too. -->
 
-`Deref`トレイトを実装することで*参照外し演算子*の`*`(掛け算やグロブ演算子とは対照的に)の振る舞いをカスタマイズすることができます。
+`Deref`トレイトを実装することで*参照外し演算子*の`*`(掛け算やグロブ演算子とは違います)の振る舞いをカスタマイズすることができます。
 スマートポインタを普通の参照のように扱えるように`Deref`を実装することで、
 参照に対して処理を行うコードを書き、そのコードをスマートポインタとともにも使用できます。
 
