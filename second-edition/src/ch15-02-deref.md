@@ -143,7 +143,7 @@ fn main() {
 <!-- references by default. Then we’ll look at how to add the ability to use the -->
 <!-- dereference operator. -->
 
-標準ライブラリが提供している`Box<T>`型に似たスマートポインタを構築して、スマートポインタは規定で、
+標準ライブラリが提供している`Box<T>`型に似たスマートポインタを構築して、スマートポインタは既定で
 参照に比べてどう異なって振る舞うのか経験しましょう。それから、参照外し演算子を使う能力を追加する方法に目を向けましょう。
 
 <!-- The `Box<T>` type is ultimately defined as a tuple struct with one element, so -->

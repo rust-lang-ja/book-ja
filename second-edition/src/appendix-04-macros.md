@@ -101,7 +101,7 @@ extern crate serde;
 <!-- to define macros with the same name. In practice, this conflict doesn’t occur -->
 <!-- often, but the more crates you use, the more likely it is. -->
 
-この明示的注釈なしに`extern crate`が規定でスコープにマクロを導入できたら、偶然同じ名前のマクロを定義している2つのクレートを使用できなくなるでしょう。
+この明示的注釈なしに`extern crate`が既定でスコープにマクロを導入できたら、偶然同じ名前のマクロを定義している2つのクレートを使用できなくなるでしょう。
 現実的には、この衝突はあまり起きませんが、使用するクレートが増えるほど、可能性は高まります。
 
 <!-- There is one last important difference between macros and functions: you must -->
@@ -316,8 +316,8 @@ temp_vec
 
 `hello_macro`という関連関数が1つある`HelloMacro`というトレイトを定義する`hello_macro`というクレートを作成します。
 クレートの使用者に使用者の型に`HelloMacro`トレイトを実装することを強制するのではなく、
-使用者が型を`#[derive(HelloMacro)]`で注釈して`hello_macro`関数の規定の実装を得られるように、
-プロシージャルマクロを提供します。規定の実装は、`Hello, Macro! My name is TypeName!`(`訳注`: こんにちは、マクロ！僕の名前はTypeNameだよ！)と出力し、
+使用者が型を`#[derive(HelloMacro)]`で注釈して`hello_macro`関数の既定の実装を得られるように、
+プロシージャルマクロを提供します。既定の実装は、`Hello, Macro! My name is TypeName!`(`訳注`: こんにちは、マクロ！僕の名前はTypeNameだよ！)と出力し、
 ここで`TypeName`はこのトレイトが定義されている型の名前です。言い換えると、他のプログラマに我々のクレートを使用して、
 リストD-2のようなコードを書けるようにするクレートを記述します。
 
@@ -405,7 +405,7 @@ fn main() {
 <!-- implemented on: Rust doesn’t have reflection capabilities, so it can’t look up -->
 <!-- the type’s name at runtime. We need a macro to generate code at compile time. -->
 
-さらに、まだトレイトが実装されている型の名前を出力する`hello_macro`関数に規定の実装を提供することはできません:
+さらに、まだトレイトが実装されている型の名前を出力する`hello_macro`関数に既定の実装を提供することはできません:
 Rustにはリフレクションの能力がないので、型の名前を実行時に検索することができないのです。
 コンパイル時にコード生成するマクロが必要です。
 

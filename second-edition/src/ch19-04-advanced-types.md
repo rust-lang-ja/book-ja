@@ -485,7 +485,7 @@ fn generic<T: Sized>(t: T) {
 <!-- compile time. However, you can use the following special syntax to relax this -->
 <!-- restriction: -->
 
-規定では、ジェネリック関数はコンパイル時に判明するサイズがある型に対してのみ動きます。
+既定では、ジェネリック関数はコンパイル時に判明するサイズがある型に対してのみ動きます。
 ですが、以下の特別な記法を用いてこの制限を緩めることができます:
 
 ```rust,ignore

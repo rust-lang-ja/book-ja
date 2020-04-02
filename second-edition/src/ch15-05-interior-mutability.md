@@ -61,7 +61,7 @@
 
 コンパイル時に借用規則を精査することの利点は、エラーが開発過程の早い段階で捕捉されることと、
 あらかじめ全ての分析が終わるので、実行パフォーマンスへの影響がないことです。それらの理由により、
-多くの場合でコンパイル時に借用規則を精査することが最善の選択肢であり、これがRustの規定になっているのです。
+多くの場合でコンパイル時に借用規則を精査することが最善の選択肢であり、これがRustの既定になっているのです。
 
 <!-- The advantage of checking the borrowing rules at runtime instead is that -->
 <!-- certain memory-safe scenarios are then allowed, whereas they are disallowed by -->
