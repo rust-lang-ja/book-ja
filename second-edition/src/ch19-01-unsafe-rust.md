@@ -169,7 +169,7 @@ let r2 = &mut num as *mut i32;
 <!-- raw pointers in safe code; we just can’t dereference raw pointers outside an -->
 <!-- unsafe block, as you’ll see in a bit. -->
 
-このコードには`unsafe`キーワードを含めていないことに気付いてください。safeコードで生ポインタを生成できます;
+このコードには`unsafe`キーワードを含めていないことに注意してください。safeコードで生ポインタを生成できます;
 もうすぐわかるように、unsafeブロックの外では、生ポインタを参照外しできないだけなのです。
 
 <!-- We’ve created raw pointers by using `as` to cast an immutable and a mutable -->
@@ -497,7 +497,7 @@ fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
 <!-- `unsafe` code in a safe way, because it creates only valid pointers from the -->
 <!-- data this function has access to. -->
 
-できあがった`split_at_mut`関数を`unsafe`でマークする必要はなく、この関数をsafe Rustから呼び出せることに注目してください。
+できあがった`split_at_mut`関数を`unsafe`でマークする必要はなく、この関数をsafe Rustから呼び出せることに注意してください。
 `unsafe`コードを安全に使用する関数の実装で、unsafeコードへの安全な抽象化を行いました。
 この関数がアクセスするデータからの有効なポインタだけを生成するからです。
 

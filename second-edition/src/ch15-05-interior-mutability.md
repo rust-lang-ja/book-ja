@@ -562,7 +562,7 @@ note: Run with `RUST_BACKTRACE=1` for a backtrace.
 <!-- BorrowMutError`. This is how `RefCell<T>` handles violations of the borrowing -->
 <!-- rules at runtime. -->
 
-コードは、`already borrowed: BorrowMutError`というメッセージとともにパニックしたことに気付いてください。
+コードは、`already borrowed: BorrowMutError`というメッセージとともにパニックしたことに注目してください。
 このようにして`RefCell<T>`は実行時に借用規則の侵害を扱うのです。
 
 <!-- Catching borrowing errors at runtime rather than compile time means that you -->

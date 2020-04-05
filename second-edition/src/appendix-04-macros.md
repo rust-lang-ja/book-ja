@@ -520,7 +520,7 @@ pub fn hello_macro_derive(input: TokenStream) -> TokenStream {
 <!-- the `impl_hello_macro` function is called will be different depending on your -->
 <!-- procedural macro’s purpose. -->
 
-D-3での関数の分け方に気付いてください; これは、目撃あるいは作成するほとんどのプロシージャルマクロクレートで同じになるでしょう。
+D-3での関数の分け方に注目してください; これは、目撃あるいは作成するほとんどのプロシージャルマクロクレートで同じになるでしょう。
 プロシージャルマクロを書くのが便利になるからです。`impl_hello_macro`関数が呼ばれる箇所で行うことを選ぶものは、
 プロシージャルマクロの目的によって異なるでしょう。
 
