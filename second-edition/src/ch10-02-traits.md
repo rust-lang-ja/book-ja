@@ -423,7 +423,7 @@ pub fn notify<T: Summary>(item: T) {
 <!-- calls the function with any other type, like a `String` or an `i32`, won’t -->
 <!-- compile, because those types don’t implement `Summary`. -->
 
-トレイト境界をジェネリックな型引数宣言とともにコロンの後、山カッコ内に配置しています。`T`に対するトレイト境界のため、
+トレイト境界をジェネリックな型引数宣言とともにコロンの後、山カッコ内に配置しています。`T`に付けられたトレイト境界のため、
 `notify`を呼び出して`NewsArticle`か`Tweet`のどんなインスタンスも渡すことができます。
 あらゆる他の型、`String`や`i32`などでこの関数を呼び出すコードは、型が`Summary`を実装しないので、
 コンパイルできません。
@@ -611,7 +611,7 @@ fn main() {
 <!-- large amounts of data. -->
 
 もし`largest`関数を`Copy`を実装する型だけに制限したくなかったら、`Copy`ではなく、
-`T`が`Clone`というトレイト境界を含むと指定することもできます。そうしたら、
+`T`が`Clone`というトレイト境界を持つと指定することもできます。そうしたら、
 `largest`関数に所有権が欲しい時にスライスの各値をクローンできます。`clone`関数を使用するということは、
 `String`のようなヒープデータを所有する型の場合にもっとヒープ確保が発生する可能性があることを意味し、
 大きなデータを取り扱っていたら、ヒープ確保は遅いこともあります。
