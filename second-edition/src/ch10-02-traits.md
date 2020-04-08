@@ -407,8 +407,8 @@ println!("1 new tweet: {}", tweet.summarize());
 
 例として、リスト10-13で、`Summary`トレイトを型`NewsArticle`と`Tweet`に実装しました。
 引数`item`に対して`summarize`メソッドを呼び出す関数`notify`を定義でき、この引数はジェネリックな型`T`です。
-ジェネリックな型`T`がメソッド`summarize`を実装しないというエラーを出さずに`item`に`summarize`を呼び出せるために、
-`T`に対してトレイト境界を使用して`item`は、`Summary`トレイトを実装する型でなければならないと指定できます:
+`item`の`summarize`を呼ぶときにジェネリックな型`T`がメソッド`summarize`を実装してないというエラーが出ないように、
+`T`のトレイト境界を使って`item`が`Summary`トレイトを実装する型でなければならないと指定できます。
 
 ```rust,ignore
 pub fn notify<T: Summary>(item: T) {
@@ -433,7 +433,7 @@ pub fn notify<T: Summary>(item: T) {
 <!-- the `summarize` method, we can use `T: Summary + Display` to say `T` can be any -->
 <!-- type that implements `Summary` and `Display`. -->
 
-`+`記法でジェネリックな型に対して複数のトレイト境界を指定できます。例えば、関数で`T`に対してフォーマット表示と、
+`+`記法でジェネリックな型に複数のトレイト境界を指定できます。例えば、関数で`T`に対してフォーマット表示と、
 `summarize`メソッドを使用するには、`T: Summary + Display`を使用して、`T`は`Summary`と`Display`を実装するどんな型にもなると宣言できます。
 
 <!-- However, there are downsides to using too many trait bounds. Each generic has -->
@@ -638,7 +638,7 @@ fn main() {
 <!-- inner type `T` implements the `PartialOrd` trait that enables comparison *and* -->
 <!-- the `Display` trait that enables printing. -->
 
-`impl`ブロックでジェネリックな型引数を使用するトレイト境界を活用することで、
+ジェネリックな型引数を持つ`impl`ブロックにトレイト境界を与えることで、
 特定のトレイトを実装する型に対するメソッド実装を条件分けできます。例えば、
 リスト10-16の型`Pair<T>`は、常に`new`関数を実装します。しかし、`Pair<T>`は、
 内部の型`T`が比較を可能にする`PartialOrd`トレイト*と*出力を可能にする`Display`トレイトを実装している時のみ、
