@@ -661,7 +661,7 @@ invalidated</span> -->
 
 <!-- Here’s an example of the `clone` method in action: -->
 
-こちらで、`clone`メソッドの稼働例をご覧ください:
+これは、`clone`メソッドの動作例です:
 
 ```rust
 let s1 = String::from("hello");
