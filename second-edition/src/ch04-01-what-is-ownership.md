@@ -259,7 +259,7 @@ valid</span> -->
 所有権の規則を具体化するには、第3章の「データ型」節で講義したものよりも、より複雑なデータ型が必要になります。
 以前講義した型は全てスタックに保管され、スコープが終わるとスタックから取り除かれますが、
 ヒープに確保されるデータ型を観察して、
-コンパイラがどうそのデータを掃除すべきタイミングを把握しているかを掘り下げていきたいです。
+コンパイラがどうそのデータを掃除すべきタイミングを把握しているかを掘り下げていきたいと思います。
 
 <!-- We’ll use `String` as the example here and concentrate on the parts of `String` -->
 <!-- that relate to ownership. These aspects also apply to other complex data types -->
