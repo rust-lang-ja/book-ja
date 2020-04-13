@@ -690,7 +690,7 @@ println!("s1 = {}, s2 = {}", s1, s2);
 <!-- There’s another wrinkle we haven’t talked about yet. This code using integers, -->
 <!-- part of which was shown in Listing 4-2, works and is valid: -->
 
-まだ話題にしていない別のしわ(`訳注`: 「気になるもの」程度の意味と思われる)の話があります。
+まだ話題にしていない別の問題があります。
 この整数を使用したコードは、一部をリスト4-2で示しましたが、うまく動作し、合法です:
 
 ```rust
