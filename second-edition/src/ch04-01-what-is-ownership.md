@@ -28,8 +28,8 @@ Rustの中心的な機能は、*所有権*です。この機能は、説明す�
 <!-- develop code that is safe and efficient. Keep at it!  -->
 
 所有権は多くのプログラマにとって新しい概念なので、慣れるまでに時間がかかります。
-Rustと所有権システムの規則と経験を積むにつれて、自然に安全かつ効率的なコードを構築できるようになることは、
-素晴らしいお知らせです。その調子でいきましょう！
+嬉しいことに、Rustと、所有権システムの規則の経験を積むと、より自然に安全かつ効率的なコードを構築できるようになります。
+その調子でいきましょう！
 
 <!-- When you understand ownership, you’ll have a solid foundation for understanding -->
 <!-- the features that make Rust unique. In this chapter, you’ll learn ownership by -->
