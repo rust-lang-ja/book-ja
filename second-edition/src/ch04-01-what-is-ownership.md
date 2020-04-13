@@ -418,7 +418,7 @@ Rustは、異なる道を歩んでいます: ひとたび、メモリを所有�
 
 `String`型が必要とするメモリをOSに返還することが自然な地点があります: `s`変数がスコープを抜ける時です。
 変数がスコープを抜ける時、Rustは特別な関数を呼んでくれます。この関数は、`drop`と呼ばれ、
-ここに`String`型の書き手はメモリ返還するコードを配置することができます。Rustは、閉じ波括弧で自動的に`drop`関数を呼び出します。
+ここに`String`型の書き手はメモリを返還するコードを配置することができます。Rustは、閉じ波括弧で自動的に`drop`関数を呼び出します。
 
 <!-- Note: In C++, this pattern of deallocating resources at the end of an item's -->
 <!-- lifetime is sometimes called *Resource Acquisition Is Initialization (RAII)*. -->
