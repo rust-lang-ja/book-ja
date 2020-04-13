@@ -5,7 +5,7 @@
 <!-- Rust’s central feature is *ownership*. Although the feature is straightforward -->
 <!-- to explain, it has deep implications for the rest of the language. -->
 
-Rustの中心的な機能は、*所有権*です。機能は説明するのに単純なのですが、言語の残りの機能全てにかかるほど
+Rustの中心的な機能は、*所有権*です。この機能は、説明するのは簡単なのですが、言語の残りの機能全てにかかるほど
 深い裏の意味を含んでいるのです。
 
 <!-- All programs have to manage the way they use a computer’s memory while running. -->
