@@ -159,7 +159,7 @@ fn main() {
 <!-- the mutex from being used by other threads because the lock release happens -->
 <!-- automatically. -->
 
-疑っている可能性がありますが、`Mutex<T>`はスマートポインタです。より正確を期すなら、
+お察しかもしれませんが、`Mutex<T>`はスマートポインタです。より正確を期すなら、
 `lock`の呼び出しが`MutexGuard`というスマートポインタを*返却*します。このスマートポインタが、
 内部のデータを指す`Deref`を実装しています; このスマートポインタはさらに`MutexGuard`がスコープを外れた時に、
 自動的にロックを解除する`Drop`実装もしていて、これがリスト16-12の内部スコープの終わりで発生します。
