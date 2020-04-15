@@ -85,7 +85,7 @@ Rustの型システムと所有権規則は、この管理を正しく行う大�
 <!-- many people are enthusiastic about channels. However, thanks to Rust’s type -->
 <!-- system and ownership rules, you can’t get locking and unlocking wrong. -->
 
-ミューテックスの管理は、正しく行うのに著しく巧妙なことがあるので、多くの人がチャンネルに熱狂的になるわけです。
+ミューテックスの管理は、正しく行うのに著しく技工を要することがあるので、多くの人がチャンネルに熱狂的になるわけです。
 しかしながら、Rustの型システムと所有権規則のおかげで、ロックとアンロックをおかしくすることはありません。
 
 <!-- #### The API of `Mutex<T>` -->
