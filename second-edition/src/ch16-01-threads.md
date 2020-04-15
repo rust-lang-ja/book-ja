@@ -18,7 +18,7 @@
 
 プログラム内の計算を複数のスレッドに分けると、パフォーマンスが改善します。プログラムが同時に複数の作業をするからですが、
 複雑度も増します。スレッドは同時に走らせることができるので、異なるスレッドのコードが走る順番に関して、
-本来の保証はありません。これは問題を招きます。例えば:
+本来的に保証はありません。これは例えば以下のような問題を招きます:
 
 <!-- * Race conditions, where threads are accessing data or resources in an -->
 <!--   inconsistent order -->
@@ -36,7 +36,7 @@
 <!-- a code structure that is different from programs that run in a single -->
 <!-- thread. -->
 
-Rustは、スレッドを使用する際のマイナスの影響を軽減しようとしていますが、それでも、マルチスレッドの文脈でのプログラミングでは、
+Rustは、スレッドを使用する際の悪影響を軽減しようとしていますが、それでも、マルチスレッドの文脈でのプログラミングでは、
 注意深い思考とシングルスレッドで走るプログラムとは異なるコード構造が必要です。
 
 <!-- Programming languages implement threads in a few different ways. Many operating -->

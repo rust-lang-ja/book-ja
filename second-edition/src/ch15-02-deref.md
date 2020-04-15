@@ -306,7 +306,7 @@ impl<T> Deref for MyBox<T> {
 
 コンパイラは、`*`演算子を`deref`メソッド、それから何の変哲もない参照外しの呼び出しに置き換えるので、
 `deref`メソッドを呼び出す必要があるかどうかを考える必要はないわけです。このRustの機能により、
-普通の参照か`Deref`を実装した型があるかどうかに関わらず、等しく機能するコードを書かせてくれます。
+普通の参照か`Deref`を実装した型であるかどうかに関わらず、等しく機能するコードを書かせてくれます。
 
 <!-- The reason the `deref` method returns a reference to a value and that the plain -->
 <!-- dereference outside the parentheses in `*(y.deref())` is still necessary is the -->
