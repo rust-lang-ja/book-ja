@@ -218,7 +218,7 @@ impl Drop for ThreadPool {
 <!-- current implementation of `drop`, the main thread will block forever waiting -->
 <!-- for the first thread to finish. -->
 
-行なった変更と共に、コードは警告なしでコンパイルできます。ですが悪い知らせは、このコードが期待したようにはまだ機能しないことです。
+これらの変更によって、コードは警告なしでコンパイルできます。ですが悪い知らせは、このコードが期待したようにはまだ機能しないことです。
 鍵は、`Worker`インスタンスのスレッドで実行されるクロージャのロジックです: 現時点で`join`を呼び出していますが、
 仕事を求めて永遠に`loop`するので、スレッドを終了しません。現在の`drop`の実装で`ThreadPool`をドロップしようとしたら、
 最初のスレッドが完了するのを永遠に待機してメインスレッドはブロックされるでしょう。
