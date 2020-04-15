@@ -395,7 +395,7 @@ CRLFにより、リクエスト行がリクエストデータの残りと区別�
 <!-- After the request line, the remaining lines starting from `Host:` onward are -->
 <!-- headers. `GET` requests have no body. -->
 
-リクエスト行の後に、`Host:`以下から始まる残りの行は、ヘッダです。`GET`リクエストには、本体がありません。
+リクエスト行の後に、`Host:`以下から始まる残りの行は、ヘッダです。`GET`リクエストには、本体（`訳注`:`message-body`のこと）がありません。
 
 <!-- Try making a request from a different browser or asking for a different -->
 <!-- address, such as *127.0.0.1:7878/test*, to see how the request data changes. -->
