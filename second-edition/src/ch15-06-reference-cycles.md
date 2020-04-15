@@ -11,7 +11,7 @@
 <!-- other in a cycle. This creates memory leaks because the reference count of each -->
 <!-- item in the cycle will never reach 0, and the values will never be dropped. -->
 
-Rustのメモリ安全保証により誤って絶対に片付けられることのないメモリ(*メモリリーク*として知られています)を生成してしまうことが困難にはなりますが、
+Rustのメモリ安全保証により誤って絶対に片付けられることのないメモリ(*メモリリーク*として知られています)を生成してしまいにくくなりますが、
 不可能にはなりません。コンパイル時にデータ競合を防ぐのと同じようにメモリリークを完全に回避することは、
 Rustの保証の一つではなく、メモリリークはRustにおいてはメモリ安全であることを意味します。
 Rustでは、`Rc<T>`と`RefCell<T>`を使用してメモリリークを許可するとわかります:
