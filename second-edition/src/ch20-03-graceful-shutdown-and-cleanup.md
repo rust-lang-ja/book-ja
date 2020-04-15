@@ -407,8 +407,8 @@ impl Drop for ThreadPool {
 <!-- messages as there are workers, each worker will receive a terminate message -->
 <!-- before `join` is called on its thread. -->
 
-この筋書きを回避するために、1つのループでまず、チャンネルに対して全ての`Terminate`メッセージを配置します;
-そして、別のループで全スレッドのjoinを待ちます。一旦停止メッセージを受け取ったら、各ワーカーはチャンネルでリクエストの受付をやめます。
+この筋書きを回避するために、1つのループでまず、チャンネルに対して全ての`Terminate`メッセージを送信します;
+そして、別のループで全スレッドのjoinを待ちます。一旦停止メッセージを受け取ったら、各ワーカーはチャンネルからのリクエストの受付をやめます。
 故に、存在するワーカーと同じ数だけ停止メッセージを送れば、`join`がスレッドに対して呼び出される前に、
 停止メッセージを各ワーカーが受け取ると確信できるわけです。
 
@@ -448,8 +448,8 @@ fn main() {
 <!-- requests. This code just demonstrates that the graceful shutdown and cleanup is -->
 <!-- in working order. -->
 
-現実世界のWebサーバには、たった2つしかリクエストを受け付けた後に閉じてほしくはないでしょう。
-このコードは、単に優美なシャットダウンと片付けが機能する状態にあることを模擬するだけです。
+現実世界のWebサーバには、たった2つリクエストを受け付けた後に閉じてほしくなどないでしょう。
+このコードは、単に優美なシャットダウンと片付けがちゃんと機能する状態にあることを示すだけです。
 
 <!-- The `take` method is defined in the `Iterator` trait and limits the iteration -->
 <!-- to the first two items at most. The `ThreadPool` will go out of scope at the -->
@@ -506,8 +506,8 @@ Shutting down worker 3
 <!-- finish. At that point, they had all received the termination message and were -->
 <!-- able to shut down. -->
 
-この特定の実行のある面白い側面に注目してください: `ThreadPool`はチャンネルに停止メッセージを送信し、
-あらゆるワーカーがそのメッセージを受け取る前に、ワーカー0のjoinを試みています。ワーカー0はまだ停止メッセージを受け取っていなかったので、
+この特定の実行のある面白い側面に注目してください: `ThreadPool`はチャンネルに停止メッセージを送信しますが、
+どのワーカーがそのメッセージを受け取るよりも前に、ワーカー0のjoinを試みています。ワーカー0はまだ停止メッセージを受け取っていなかったので、
 メインスレッドはワーカー0が完了するまで待機してブロックされます。その間に、各ワーカーは停止メッセージを受け取ります。
 ワーカー0が完了したら、メインスレッドは残りのワーカーが完了するのを待機します。その時点で全ワーカーは停止メッセージを受け取った後で、
 閉じることができたのです。
@@ -521,7 +521,7 @@ Shutting down worker 3
 
 <!-- Here’s the full code for reference: -->
 
-こちらが、参考になる全コードです:
+参考までに、こちらが全コードです:
 
 <!-- <span class="filename">Filename: src/bin/main.rs</span> -->
 
@@ -739,4 +739,4 @@ impl Worker {
 
 よくやりました！本の最後に到達しました！Rustのツアーに参加していただき、感謝の辞を述べたいです。
 もう、ご自身のRustプロジェクトや他の方のプロジェクトのお手伝いをする準備ができています。
-あなたのRustの旅で遭遇するあらゆる挑戦の手助けを是非とも行いたい他のRustaceanの歓迎されるコミュニティがあることを心に留めておいてくださいね。
+あなたがこれからのRustの旅で遭遇する、あらゆる困難の手助けを是非とも行いたいRustaceanたちの温かいコミュニティがあることを心に留めておいてくださいね。

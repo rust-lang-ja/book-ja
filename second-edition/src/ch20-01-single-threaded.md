@@ -368,7 +368,7 @@ message-body
 <!-- uses the term URI, so we can just mentally substitute URL for URI here. -->
 
 リクエスト行の次の部分は */* で、これはクライアントが要求している*Uniform Resource Identifier* *(URI)*(`注釈`: 統一資源識別子)を示します:
-URIはほぼ、ですが完全ではなく、*Uniform Resource Locator* *(URL)*(`注釈`: 統一資源位置指定子)と同じです。
+URIはほぼ*Uniform Resource Locator* *(URL)*(`注釈`: 統一資源位置指定子)と同じですが、完全に同じではありません。
 URIとURLの違いは、この章の目的には重要ではありませんが、HTTPの規格はURIという用語を使用しているので、
 ここでは脳内でURIをURLと読み替えられます。
 
