@@ -129,9 +129,9 @@ unsafeなRustコードを使用することについては第19章で語りま�
 <!-- online for the current, state-of-the-art crates to use in multithreaded -->
 <!-- situations. -->
 
-前述のように、Rustが並行性を扱うごく一部が言語の一部なので、多くの並行性解決策は、
+前述のように、Rustによる並行性の取扱いのごく一部のみが言語仕様なので、多くの並行性の解決策は
 クレートとして実装されています。これらは標準ライブラリよりも迅速に進化するので、
-確実にオンラインでマルチスレッド環境で使用すべき現在の最先端のクレートを検索してください。
+マルチスレッド環境で使用すべき現在の最先端のクレートを必ずネットで検索してください。
 
 <!-- The Rust standard library provides channels for message passing and smart -->
 <!-- pointer types, such as `Mutex<T>` and `Arc<T>`, that are safe to use in -->
@@ -147,11 +147,11 @@ Rustの標準ライブラリは、メッセージ受け渡しにチャンネル�
 これらの解決策を使用するコードがデータ競合や無効な参照に行き着かないことを保証してくれます。
 一旦コードをコンパイルすることができたら、他の言語ではありふれている追跡困難な類のバグなしに、
 複数のスレッドでも喜んで動くので安心できます。並行プログラミングは、もはや恐れるべき概念ではありません:
-進んでそして、恐れずにプログラムを並行にしてください！
+恐れることなく前進し、プログラムを並行にしてください！
 
 <!-- Next, we’ll talk about idiomatic ways to model problems and structure solutions -->
 <!-- as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idioms -->
 <!-- relate to those you might be familiar with from object oriented programming. -->
 
 次は、Rustプログラムが肥大化するにつれて問題をモデル化し、解決策を構造化する慣例的な方法について話します。
-さらに、Rustのイディオムがオブジェクト指向プログラミングで馴染み深いかもしれないイディオムに関連する方法についても議論します。
+さらに、Rustのイディオムがオブジェクト指向プログラミングで馴染み深いかもしれないイディオムにどのように関連しているかについても議論します。

@@ -8,7 +8,7 @@
 <!-- type you’ve annotated with the `derive` syntax. -->
 
 本のいろんな箇所で`derive`属性について議論しました。これは構造体や、enum定義に適用できます。
-`derive`属性は、`derive`記法で注釈した型に対して独自の規定の実装でトレイトを実装するコードを生成します。
+`derive`属性は、`derive`記法で注釈した型に対して独自の既定の実装でトレイトを実装するコードを生成します。
 
 <!-- In this appendix, we provide a reference of all the traits in the standard -->
 <!-- library that you can use with `derive`. Each section covers: -->
@@ -40,7 +40,7 @@
 <!-- trying to accomplish. -->
 
 標準ライブラリで定義されている残りのトレイトは、`derive`で自分の型に実装することはできません。
-これらのトレイトには知覚できるほどの規定の振る舞いはないので、自分が達成しようしていることに対して、
+これらのトレイトには知覚できるほどの既定の振る舞いはないので、自分が達成しようしていることに対して、
 道理が通る方法でそれらを実装するのはあなた次第です。
 
 <!-- An example of a trait that can’t be derived is `Display`, which handles -->
@@ -53,7 +53,7 @@
 継承できないトレイトの例は`Display`で、これはエンドユーザ向けのフォーマットを扱います。常に、エンドユーザ向けに型を表示する適切な方法について、
 考慮すべきです。型のどの部分をエンドユーザは見ることができるべきでしょうか？どの部分を関係があると考えるでしょうか？
 どんな形式のデータがエンドユーザにとって最も関係があるでしょうか？Rustコンパイラには、
-この見識がないため、適切な規定動作を提供してくれないのです。
+この見識がないため、適切な既定動作を提供してくれないのです。
 
 <!-- The list of derivable traits provided in this appendix is not comprehensive: -->
 <!-- libraries can implement `derive` for their own traits, making the list of -->

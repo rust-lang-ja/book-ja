@@ -460,7 +460,7 @@ mod server {
 <!-- Notice that we still have a `mod` declaration within this module file; this is -->
 <!-- because we still want `server` to be a submodule of `network`. -->
 
-このモジュールファイル内にもまだ`mod`宣言があることに気付いてください; 
+このモジュールファイル内にもまだ`mod`宣言があることに注意してください; 
 `server`はまだ`network`のサブモジュールにしたいからです。
 
 <!-- Run `cargo build` again. Success! We have one more module to extract: `server`. -->

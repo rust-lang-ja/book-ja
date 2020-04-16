@@ -97,7 +97,7 @@ fn main() {
 これから定義する新しい関数の型を引数にするには、ちょうど関数の値引数のように型引数に名前をつける必要があります。
 型引数の名前にはどんな識別子も使用できますが、`T`を使用します。というのも、慣習では、
 Rustの引数名は短く(しばしばたった1文字になります)、Rustの型の命名規則がキャメルケースだからです。
-"type"の省略形なので、`T`が多くのRustプログラマの規定の選択なのです。
+"type"の省略形なので、`T`が多くのRustプログラマの既定の選択なのです。
 
 <!-- When we use a parameter in the body of the function, we have to declare the -->
 <!-- parameter name in the signature so the compiler knows what that name means. -->

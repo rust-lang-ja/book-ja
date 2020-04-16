@@ -8,7 +8,7 @@
 <!-- treated like a regular reference, you can write code that operates on -->
 <!-- references and use that code with smart pointers too. -->
 
-`Deref`トレイトを実装することで*参照外し演算子*の`*`(掛け算やグロブ演算子とは対照的に)の振る舞いをカスタマイズすることができます。
+`Deref`トレイトを実装することで*参照外し演算子*の`*`(掛け算やグロブ演算子とは違います)の振る舞いをカスタマイズすることができます。
 スマートポインタを普通の参照のように扱えるように`Deref`を実装することで、
 参照に対して処理を行うコードを書き、そのコードをスマートポインタとともにも使用できます。
 
@@ -143,7 +143,7 @@ fn main() {
 <!-- references by default. Then we’ll look at how to add the ability to use the -->
 <!-- dereference operator. -->
 
-標準ライブラリが提供している`Box<T>`型に似たスマートポインタを構築して、スマートポインタは規定で、
+標準ライブラリが提供している`Box<T>`型に似たスマートポインタを構築して、スマートポインタは既定で
 参照に比べてどう異なって振る舞うのか経験しましょう。それから、参照外し演算子を使う能力を追加する方法に目を向けましょう。
 
 <!-- The `Box<T>` type is ultimately defined as a tuple struct with one element, so -->
@@ -306,7 +306,7 @@ impl<T> Deref for MyBox<T> {
 
 コンパイラは、`*`演算子を`deref`メソッド、それから何の変哲もない参照外しの呼び出しに置き換えるので、
 `deref`メソッドを呼び出す必要があるかどうかを考える必要はないわけです。このRustの機能により、
-普通の参照か`Deref`を実装した型があるかどうかに関わらず、等しく機能するコードを書かせてくれます。
+普通の参照か`Deref`を実装した型であるかどうかに関わらず、等しく機能するコードを書かせてくれます。
 
 <!-- The reason the `deref` method returns a reference to a value and that the plain -->
 <!-- dereference outside the parentheses in `*(y.deref())` is still necessary is the -->

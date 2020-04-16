@@ -8,7 +8,7 @@
 <!-- lessons. -->
 
 長い旅でしたが、本の末端に到達しました。この章では、共にもう一つプロジェクトを構築して最後の方の章で講義した概念の一部をデモしつつ、
-前のレッスンを思い出してもらいます。
+それより前の方で学習した内容を思い出してもらいます。
 
 <!-- For our final project, we’ll make a web server that says “hello” and looks like -->
 <!-- Figure 20-1 in a web browser. -->
@@ -42,7 +42,8 @@
 <!-- production-ready crates are available on *https://crates.io/* that provide more -->
 <!-- complete web server and thread pool implementations than we’ll build. -->
 
-ですが、取り掛かる前に、ある詳細に触れるべきです: 使用する方法は、RustでWebサーバを構築する最善の方法ではないのです。
+ですが、取り掛かる前に、ある小さな事実に触れなければなりません:
+わたしたちがこれから行うやり方は、RustでWebサーバを構築する最善の方法ではないだろうということです。
 これから構築するよりもより完全なWebサーバとスレッドプールの実装を提供する製品利用可能な多くのクレートが、
 *https://crates.io/* で利用可能なのです。
 
@@ -53,7 +54,7 @@
 <!-- thread pool manually so you can learn the general ideas and techniques behind -->
 <!-- the crates you might use in the future. -->
 
-しかしながら、この章での意図は、学習の手助けであり、簡単なルートを選ぶことではありません。
+しかしながら、この章での意図は、学習を手助けすることであり、簡単なやり方を選ぶことではありません。
 Rustはシステムプログラミング言語なので、取りかかる抽象度を選ぶことができ、
 他の言語で可能だったり実践的だったりするよりも低レベルまで行くことができます。一般的な考えと将来使う可能性のあるクレートの背後にある技術を学べるように、
 手動で基本的なHTTPサーバとスレッドプールを書きます。

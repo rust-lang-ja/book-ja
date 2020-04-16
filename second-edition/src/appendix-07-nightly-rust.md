@@ -274,7 +274,7 @@ $ rustup override add nightly
 <!-- Rust, rather than your default of stable Rust. This comes in handy when you -->
 <!-- have a lot of Rust projects! -->
 
-これで *~/projects/needs-nightly*内で`rustc`や`cargo`を呼び出す度に、`rustup`は規定の安定版のRustではなく、
+これで *~/projects/needs-nightly*内で`rustc`や`cargo`を呼び出す度に、`rustup`は既定の安定版のRustではなく、
 ナイトリRustを使用していることを確かめます。Rustプロジェクトが大量にある時には、重宝します。
 
 <!-- ### The RFC Process and Teams -->

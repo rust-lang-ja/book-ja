@@ -911,7 +911,7 @@ impl Worker {
 <!-- `execute` method. But we need to give `thread::spawn` a closure to run when we -->
 <!-- create each `Worker` during the creation of the `ThreadPool`. -->
 
-さて、`thread::spawn`に与えられたクロージャが確かに何もしない問題に取り組みましょう。現在、
+さて、`thread::spawn`に与えられたクロージャが全く何もしないという問題に取り組みましょう。現在、
 `execute`メソッドで実行したいクロージャを得ています。ですが、`ThreadPool`の生成中、`Worker`それぞれを生成する際に、
 実行するクロージャを`thread::spawn`に与える必要があります。
 

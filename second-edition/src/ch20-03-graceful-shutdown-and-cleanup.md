@@ -1,6 +1,6 @@
 <!-- ## Graceful Shutdown and Cleanup -->
 
-## 優美なシャットダウンと片付け
+## 正常なシャットダウンと片付け
 
 <!-- The code in Listing 20-21 is responding to requests asynchronously through the -->
 <!-- use of a thread pool, as we intended. We get some warnings about the `workers`, -->
@@ -11,7 +11,7 @@
 <!-- serving a request. -->
 
 リスト20-21のコードは、意図した通り、スレッドプールの使用を通してリクエストに非同期に応答できます。
-何も片付けを行なっていないと思い出せてくれる、直接使用していない`workers`、`id`、`thread`フィールドについて警告が出ます。
+直接使用していない`workers`、`id`、`thread`フィールドについて警告が出ます。この警告は、現在のコードは何も片付けていないことを思い出させてくれます。
 優美さに欠ける<span class="keystroke">ctrl-c</span>を使用してメインスレッドを停止させる方法を使用すると、
 リクエストの処理中であっても、他のスレッドも停止します。
 
@@ -23,7 +23,7 @@
 
 では、閉じる前に取り掛かっているリクエストを完了できるように、プールの各スレッドに対して`join`を呼び出す`Drop`トレイトを実装します。
 そして、スレッドに新しいリクエストの受付を停止し、終了するように教える方法を実装します。
-このコードが動いているのを確かめるために、サーバを変更して優美にスレッドプールを終了する前に2つしかリクエストを受け付けないようにします。
+このコードが動いているのを確かめるために、サーバを変更して正常にスレッドプールを終了する前に2つしかリクエストを受け付けないようにします。
 
 <!-- ### Implementing the `Drop` Trait on `ThreadPool` -->
 
@@ -70,7 +70,7 @@ impl Drop for ThreadPool {
 まず、スレッドプール`workers`それぞれを走査します。`self`は可変参照であり、`worker`を可変化できる必要もあるので、
 これには`&mut`を使用しています。ワーカーそれぞれに対して、特定のワーカーを終了する旨のメッセージを出力し、
 それから`join`をワーカースレッドに対して呼び出しています。`join`の呼び出しが失敗したら、
-`unwrap`を使用してRustをパニックさせ、優美でないシャットダウンに移行します。
+`unwrap`を使用してRustをパニックさせ、正常でないシャットダウンに移行します。
 
 <!-- Here is the error we get when we compile this code: -->
 
@@ -218,10 +218,10 @@ impl Drop for ThreadPool {
 <!-- current implementation of `drop`, the main thread will block forever waiting -->
 <!-- for the first thread to finish. -->
 
-行なった変更と共に、コードは警告なしでコンパイルできます。ですが悪い知らせは、このコードが期待したようにはまだ機能しないことです。
+これらの変更によって、コードは警告なしでコンパイルできます。ですが悪い知らせは、このコードが期待したようにはまだ機能しないことです。
 鍵は、`Worker`インスタンスのスレッドで実行されるクロージャのロジックです: 現時点で`join`を呼び出していますが、
 仕事を求めて永遠に`loop`するので、スレッドを終了しません。現在の`drop`の実装で`ThreadPool`をドロップしようとしたら、
-最初のスレッドが完了するのを永遠に待機してメインスレッドはブロックされるでしょう。
+最初のスレッドが完了するのを待機してメインスレッドは永遠にブロックされるでしょう。
 
 <!-- To fix this problem, we’ll modify the threads so they listen for either a `Job` -->
 <!-- to run or a signal that they should stop listening and exit the infinite loop. -->
@@ -407,15 +407,15 @@ impl Drop for ThreadPool {
 <!-- messages as there are workers, each worker will receive a terminate message -->
 <!-- before `join` is called on its thread. -->
 
-この筋書きを回避するために、1つのループでまず、チャンネルに対して全ての`Terminate`メッセージを配置します;
-そして、別のループで全スレッドのjoinを待ちます。一旦停止メッセージを受け取ったら、各ワーカーはチャンネルでリクエストの受付をやめます。
+この筋書きを回避するために、1つのループでまず、チャンネルに対して全ての`Terminate`メッセージを送信します;
+そして、別のループで全スレッドのjoinを待ちます。一旦停止メッセージを受け取ったら、各ワーカーはチャンネルからのリクエストの受付をやめます。
 故に、存在するワーカーと同じ数だけ停止メッセージを送れば、`join`がスレッドに対して呼び出される前に、
 停止メッセージを各ワーカーが受け取ると確信できるわけです。
 
 <!-- To see this code in action, let’s modify `main` to accept only two requests -->
 <!-- before gracefully shutting down the server, as shown in Listing 20-26. -->
 
-このコードが動いているところを確認するために、`main`を変更してサーバを優美に閉じる前に2つしかリクエストを受け付けないようにしましょう。
+このコードが動いているところを確認するために、`main`を変更してサーバを正常に閉じる前に2つしかリクエストを受け付けないようにしましょう。
 リスト20-26のようにですね。
 
 <!-- <span class="filename">Filename: src/bin/main.rs</span> -->
@@ -448,8 +448,8 @@ fn main() {
 <!-- requests. This code just demonstrates that the graceful shutdown and cleanup is -->
 <!-- in working order. -->
 
-現実世界のWebサーバには、たった2つしかリクエストを受け付けた後に閉じてほしくはないでしょう。
-このコードは、単に優美なシャットダウンと片付けが機能する状態にあることを模擬するだけです。
+現実世界のWebサーバには、たった2つリクエストを受け付けた後にシャットダウンしてほしくはないでしょう。
+このコードは、単に正常なシャットダウンとクリーンアップが正しく機能することを示すだけです。
 
 <!-- The `take` method is defined in the `Iterator` trait and limits the iteration -->
 <!-- to the first two items at most. The `ThreadPool` will go out of scope at the -->
@@ -506,8 +506,8 @@ Shutting down worker 3
 <!-- finish. At that point, they had all received the termination message and were -->
 <!-- able to shut down. -->
 
-この特定の実行のある面白い側面に気付いてください: `ThreadPool`はチャンネルに停止メッセージを送信し、
-あらゆるワーカーがそのメッセージを受け取る前に、ワーカー0のjoinを試みています。ワーカー0はまだ停止メッセージを受け取っていなかったので、
+この特定の実行のある面白い側面に注目してください: `ThreadPool`はチャンネルに停止メッセージを送信しますが、
+どのワーカーがそのメッセージを受け取るよりも前に、ワーカー0のjoinを試みています。ワーカー0はまだ停止メッセージを受け取っていなかったので、
 メインスレッドはワーカー0が完了するまで待機してブロックされます。その間に、各ワーカーは停止メッセージを受け取ります。
 ワーカー0が完了したら、メインスレッドは残りのワーカーが完了するのを待機します。その時点で全ワーカーは停止メッセージを受け取った後で、
 閉じることができたのです。
@@ -517,11 +517,11 @@ Shutting down worker 3
 <!-- shutdown of the server, which cleans up all the threads in the pool. -->
 
 おめでとうございます！プロジェクトを完成させました; スレッドプールを使用して非同期に応答する基本的なWebサーバができました。
-サーバの優美なシャットダウンを行うことができ、プールの全スレッドを片付けます。
+サーバの正常なシャットダウンを行うことができ、プールの全スレッドを片付けます。
 
 <!-- Here’s the full code for reference: -->
 
-こちらが、参考になる全コードです:
+参考までに、こちらが全コードです:
 
 <!-- <span class="filename">Filename: src/bin/main.rs</span> -->
 
@@ -739,4 +739,4 @@ impl Worker {
 
 よくやりました！本の最後に到達しました！Rustのツアーに参加していただき、感謝の辞を述べたいです。
 もう、ご自身のRustプロジェクトや他の方のプロジェクトのお手伝いをする準備ができています。
-あなたのRustの旅で遭遇するあらゆる挑戦の手助けを是非とも行いたい他のRustaceanの歓迎されるコミュニティがあることを心に留めておいてくださいね。
+あなたがこれからのRustの旅で遭遇する、あらゆる困難の手助けを是非とも行いたいRustaceanたちの温かいコミュニティがあることを心に留めておいてくださいね。

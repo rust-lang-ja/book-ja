@@ -31,9 +31,9 @@
 これをどう実現する可能性があるか示すために、各アイテムに`draw`メソッドを呼び出してスクリーンに描画するという、
 GUIツールで一般的なテクニックをしてあるリストの要素を走査する例のGUIツールを作ります。
 GUIライブラリの構造を含む`gui`と呼ばれるライブラリクレートを作成します。
-このクレートには、他人が使用できる`Button`や`TextField`などの型が包含される可能性があります。
+このクレートには、他人が使用できる`Button`や`TextField`などの型が包含されるかもしれません。
 さらに、`gui`の使用者は、描画可能な独自の型を作成したくなるでしょう: 例えば、
-ある人は`Image`を追加し、別の人は`SelectBox`を追加する可能性があります。
+ある人は`Image`を追加し、別の人は`SelectBox`を追加するかもしれません。
 
 <!-- We won’t implement a fully fledged GUI library for this example but will show -->
 <!-- how the pieces would fit together. At the time of writing the library, we can’t -->
@@ -44,7 +44,7 @@ GUIライブラリの構造を含む`gui`と呼ばれるライブラリクレー
 <!-- just that the value will have that method available for us to call. -->
 
 この例のために本格的なGUIライブラリは実装するつもりはありませんが、部品がどう組み合わさるかは示します。
-ライブラリの記述時点では、他のプログラマが作成したくなる可能性のある型全てを知る由も、定義することもできません。
+ライブラリの記述時点では、他のプログラマが作成したくなる可能性のある型全てを知る由もなければ、定義することもできません。
 しかし、`gui`は異なる型の多くの値を追いかけ、この異なる型の値に対して`draw`メソッドを呼び出す必要があることは、
 確かにわかっています。`draw`メソッドを呼び出した時に正確に何が起きるかを知っている必要はありません。
 値にそのメソッドが呼び出せるようあることだけわかっていればいいのです。
@@ -58,7 +58,7 @@ GUIライブラリの構造を含む`gui`と呼ばれるライブラリクレー
 <!-- doesn’t have inheritance, we need another way to structure the `gui` library to -->
 <!-- allow users to extend it with new types. -->
 
-継承のある言語でこれを行うには、`draw`という名前のメソッドがある`Component`というクラスを定義する可能性があります。
+継承のある言語でこれを行うには、`draw`という名前のメソッドがある`Component`というクラスを定義するかもしれません。
 `Button`、`Image`、`SelectBox`などの他のクラスは、`Component`を継承し、故に`draw`メソッドを継承します。
 個々に`draw`メソッドをオーバーライドして、独自の振る舞いを定義するものの、フレームワークは、
 `Component`インスタンスであるかのようにその型全部を扱い、この型に対して`draw`を呼び出します。
@@ -87,7 +87,7 @@ GUIライブラリの構造を含む`gui`と呼ばれるライブラリクレー
 第19章の「動的サイズ付け型とSizedトレイト」節で語ります)ことでトレイトオブジェクトを作成します。
 ジェネリックまたは具体的な型があるところにトレイトオブジェクトは使用できます。どこでトレイトオブジェクトを使用しようと、
 Rustの型システムは、コンパイル時にその文脈で使用されているあらゆる値がそのトレイトオブジェクトのトレイトを実装していることを保証します。
-結果的にコンパイル時に可能性のある型を全て知る必要はなくなるのです。
+結果としてコンパイル時に可能性のある型を全て知る必要はなくなるのです。
 
 <!-- We’ve mentioned that in Rust, we refrain from calling structs and enums -->
 <!-- “objects” to distinguish them from other languages’ objects. In a struct or -->

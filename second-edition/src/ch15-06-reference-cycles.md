@@ -11,7 +11,7 @@
 <!-- other in a cycle. This creates memory leaks because the reference count of each -->
 <!-- item in the cycle will never reach 0, and the values will never be dropped. -->
 
-Rustのメモリ安全保証により誤って絶対に片付けられることのないメモリ(*メモリリーク*として知られています)を生成してしまうことが困難にはなりますが、
+Rustのメモリ安全保証により誤って絶対に片付けられることのないメモリ(*メモリリーク*として知られています)を生成してしまいにくくなりますが、
 不可能にはなりません。コンパイル時にデータ競合を防ぐのと同じようにメモリリークを完全に回避することは、
 Rustの保証の一つではなく、メモリリークはRustにおいてはメモリ安全であることを意味します。
 Rustでは、`Rc<T>`と`RefCell<T>`を使用してメモリリークを許可するとわかります:
@@ -686,7 +686,7 @@ fn main() {
 <!-- need to change an inner value of that type; it also enforces the borrowing -->
 <!-- rules at runtime instead of at compile time. -->
 
-この章は、スマートポインタを使用してRustが規定で普通の参照に対して行うのと異なる保証や代償を行う方法を講義しました。
+この章は、スマートポインタを使用してRustが既定で普通の参照に対して行うのと異なる保証や代償を行う方法を講義しました。
 `Box<T>`型は、既知のサイズで、ヒープに確保されたデータを指します。`Rc<T>`型は、ヒープのデータへの参照の数を追跡するので、
 データは複数の所有者を保有できます。内部可変性のある`RefCell<T>`型は、不変型が必要だけれども、
 その型の中の値を変更する必要がある時に使用できる型を与えてくれます; また、コンパイル時ではなく実行時に借用規則を強制します。

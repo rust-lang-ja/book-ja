@@ -246,7 +246,7 @@ Hello, world!
 <!-- the binary. If you had modified your source code, Cargo would have rebuilt the -->
 <!-- project before running it, and you would have seen this output: -->
 
-今回は、Cargoが`hello_cargo`をコンパイルしていることを示唆する出力がないことに気付いてください。
+今回は、Cargoが`hello_cargo`をコンパイルしていることを示唆する出力がないことに注目してください。
 Cargoはファイルが変更されていないことを推察したので、単純にバイナリを実行したのです。
 ソースコードを変更していたら、Cargoは実行前にプロジェクトを再ビルドし、こんな出力を目の当たりにしたでしょう:
 

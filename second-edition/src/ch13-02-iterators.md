@@ -112,7 +112,7 @@ pub trait Iterator {
 <!-- method. In other words, the `Item` type will be the type returned from the -->
 <!-- iterator. -->
 
-この定義は、何か新しい記法を使用していることに気付いてください: `type Item`と`Self::Item`で、
+この定義は新しい記法を使用していることに注目してください: `type Item`と`Self::Item`で、
 これらはこのトレイトとの*関連型*(associated type)を定義しています。関連型についての詳細は、第19章で語ります。
 とりあえず、知っておく必要があることは、このコードが`Iterator`トレイトを実装するには、`Item`型も定義する必要があり、
 そして、この`Item`型が`next`メソッドの戻り値の型に使われていると述べていることです。換言すれば、

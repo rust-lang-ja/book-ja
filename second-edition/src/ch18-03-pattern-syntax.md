@@ -70,7 +70,7 @@ fn main() {
         Some(50) => println!("Got 50"),
         // マッチしたよ
         Some(y) => println!("Matched, y = {:?}", y),
-        // 規定のケース
+        // 既定のケース
         _ => println!("Default case, x = {:?}", x),
     }
 

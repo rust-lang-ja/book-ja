@@ -151,7 +151,7 @@ pub trait Iterator<T> {
 <!-- declaring the generic type. -->
 
 ジェネリックな型引数を使用する際、ジェネリックな型に対して規定の具体的な型を指定できます。これにより、
-規定の型が動くのなら、トレイトを実装する側が具体的な型を指定する必要を排除します。ジェネリックな型に規定の型を指定する記法は、
+既定の型が動くのなら、トレイトを実装する側が具体的な型を指定する必要を排除します。ジェネリックな型に既定の型を指定する記法は、
 ジェネリックな型を宣言する際に`<PlaceholderType=ConcreteType>`です。
 
 <!-- A great example of a situation where this technique is useful is with operator -->
@@ -219,7 +219,7 @@ fn main() {
 <!-- The default generic type in this code is within the `Add` trait. Here is its -->
 <!-- definition: -->
 
-このコードの規定のジェネリック型は、`Add`トレイト内にあります。こちらがその定義です:
+このコードの既定のジェネリック型は、`Add`トレイト内にあります。こちらがその定義です:
 
 ```rust
 trait Add<RHS=Self> {
@@ -249,7 +249,7 @@ RHSというジェネリックな型引数("right hand side": 右辺の省略形
 <!-- default. -->
 
 `Point`に`Add`を実装する際、2つの`Point`インスタンスを足したかったので、`RHS`の規定を使用しました。
-規定を使用するのではなく、`RHS`の型をカスタマイズしたくなる`Add`トレイトの実装例に目を向けましょう。
+既定を使用するのではなく、`RHS`の型をカスタマイズしたくなる`Add`トレイトの実装例に目を向けましょう。
 
 <!-- We have two structs `Millimeters` and `Meters`, holding values in different -->
 <!-- units. We want to add values in millimeters to values in meters and have the -->
@@ -287,7 +287,7 @@ impl Add<Meters> for Millimeters {
 <!-- To add `Millimeters` and `Meters`, we specify `impl Add<Meters>` to set the -->
 <!-- value of the `RHS` type parameter instead of using the default of `Self`. -->
 
-`Millimeters`を`Meters`に足すため、`Self`という規定を使う代わりに`impl Add<Meters>`を指定して、
+`Millimeters`を`Meters`に足すため、`Self`という既定を使う代わりに`impl Add<Meters>`を指定して、
 `RHS`型引数の値をセットしています。
 
 <!-- You'll use default type parameters in two main ways: -->
@@ -317,7 +317,7 @@ impl Add<Meters> for Millimeters {
 <!-- extension of the functionality of the trait without breaking the existing -->
 <!-- implementation code. -->
 
-最初の目的は2番目に似ていますが、逆です: 既存のトレイトに型引数を追加したいなら、規定を与えて、
+最初の目的は2番目に似ていますが、逆です: 既存のトレイトに型引数を追加したいなら、既定を与えて、
 既存の実装コードを破壊せずにトレイトの機能を拡張できるのです。
 
 <!-- ### Fully Qualified Syntax for Disambiguation: Calling Methods with the Same Name -->

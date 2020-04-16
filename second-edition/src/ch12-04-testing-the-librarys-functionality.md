@@ -146,7 +146,7 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 <!-- the returned vector should contain string slices that reference slices of the -->
 <!-- argument `contents` (rather than the argument `query`). -->
 
-明示的なライフタイムの`'a`が`search`のシグニチャで定義され、`contents`引数と戻り値で使用されていることに気付いてください。
+明示的なライフタイムの`'a`が`search`のシグニチャで定義され、`contents`引数と戻り値で使用されていることに注目してください。
 第10章からライフタイム仮引数は、どの実引数のライフタイムが戻り値のライフタイムに関連づけられているかを指定することを思い出してください。
 この場合、返却されるベクタは、
 (`query`引数ではなく)`contents`引数のスライスを参照する文字列スライスを含むべきと示唆しています。

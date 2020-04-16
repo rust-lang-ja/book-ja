@@ -368,7 +368,7 @@ message-body
 <!-- uses the term URI, so we can just mentally substitute URL for URI here. -->
 
 リクエスト行の次の部分は */* で、これはクライアントが要求している*Uniform Resource Identifier* *(URI)*(`注釈`: 統一資源識別子)を示します:
-URIはほぼ、ですが完全ではなく、*Uniform Resource Locator* *(URL)*(`注釈`: 統一資源位置指定子)と同じです。
+URIはほぼ*Uniform Resource Locator* *(URL)*(`注釈`: 統一資源位置指定子)と同じですが、完全に同じではありません。
 URIとURLの違いは、この章の目的には重要ではありませんが、HTTPの規格はURIという用語を使用しているので、
 ここでは脳内でURIをURLと読み替えられます。
 
@@ -395,7 +395,7 @@ CRLFにより、リクエスト行がリクエストデータの残りと区別�
 <!-- After the request line, the remaining lines starting from `Host:` onward are -->
 <!-- headers. `GET` requests have no body. -->
 
-リクエスト行の後に、`Host:`以下から始まる残りの行は、ヘッダです。`GET`リクエストには、本体がありません。
+リクエスト行の後に、`Host:`以下から始まる残りの行は、ヘッダです。`GET`リクエストには、本体（`訳注`:`message-body`のこと）がありません。
 
 <!-- Try making a request from a different browser or asking for a different -->
 <!-- address, such as *127.0.0.1:7878/test*, to see how the request data changes. -->
