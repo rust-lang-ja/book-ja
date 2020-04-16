@@ -147,7 +147,7 @@ Rustの標準ライブラリは、メッセージ受け渡しにチャンネル�
 これらの解決策を使用するコードがデータ競合や無効な参照に行き着かないことを保証してくれます。
 一旦コードをコンパイルすることができたら、他の言語ではありふれている追跡困難な類のバグなしに、
 複数のスレッドでも喜んで動くので安心できます。並行プログラミングは、もはや恐れるべき概念ではありません:
-進んで、そして、恐れずにプログラムを並行にしてください！
+恐れることなく前進し、プログラムを並行にしてください！
 
 <!-- Next, we’ll talk about idiomatic ways to model problems and structure solutions -->
 <!-- as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idioms -->

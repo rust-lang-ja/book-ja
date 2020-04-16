@@ -448,8 +448,8 @@ fn main() {
 <!-- requests. This code just demonstrates that the graceful shutdown and cleanup is -->
 <!-- in working order. -->
 
-現実世界のWebサーバには、たった2つリクエストを受け付けた後に閉じてほしくなどないでしょう。
-このコードは、単に優美なシャットダウンと片付けがちゃんと機能する状態にあることを示すだけです。
+現実世界のWebサーバには、たった2つリクエストを受け付けた後にシャットダウンしてほしくはないでしょう。
+このコードは、単に優美なシャットダウンとクリーンアップが正しく機能することを示すだけです。
 
 <!-- The `take` method is defined in the `Iterator` trait and limits the iteration -->
 <!-- to the first two items at most. The `ThreadPool` will go out of scope at the -->
