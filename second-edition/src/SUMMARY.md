@@ -244,7 +244,7 @@
 - [最後のプロジェクト: マルチスレッドのWebサーバを構築する](ch20-00-final-project-a-web-server.md)
     - [シングルスレッドのWebサーバ](ch20-01-single-threaded.md)
     - [シングルスレッドのサーバをマルチスレッド化する](ch20-02-multithreaded.md)
-    - [優美なシャットダウンとお片付け](ch20-03-graceful-shutdown-and-cleanup.md)
+    - [正常なシャットダウンとお片付け](ch20-03-graceful-shutdown-and-cleanup.md)
 
 <!-- - [Appendix](appendix-00.md) -->
 <!--     - [A - Keywords](appendix-01-keywords.md) -->

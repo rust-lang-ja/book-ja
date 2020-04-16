@@ -1,6 +1,6 @@
 <!-- ## Graceful Shutdown and Cleanup -->
 
-## 優美なシャットダウンと片付け
+## 正常なシャットダウンと片付け
 
 <!-- The code in Listing 20-21 is responding to requests asynchronously through the -->
 <!-- use of a thread pool, as we intended. We get some warnings about the `workers`, -->
@@ -23,7 +23,7 @@
 
 では、閉じる前に取り掛かっているリクエストを完了できるように、プールの各スレッドに対して`join`を呼び出す`Drop`トレイトを実装します。
 そして、スレッドに新しいリクエストの受付を停止し、終了するように教える方法を実装します。
-このコードが動いているのを確かめるために、サーバを変更して優美にスレッドプールを終了する前に2つしかリクエストを受け付けないようにします。
+このコードが動いているのを確かめるために、サーバを変更して正常にスレッドプールを終了する前に2つしかリクエストを受け付けないようにします。
 
 <!-- ### Implementing the `Drop` Trait on `ThreadPool` -->
 
@@ -70,7 +70,7 @@ impl Drop for ThreadPool {
 まず、スレッドプール`workers`それぞれを走査します。`self`は可変参照であり、`worker`を可変化できる必要もあるので、
 これには`&mut`を使用しています。ワーカーそれぞれに対して、特定のワーカーを終了する旨のメッセージを出力し、
 それから`join`をワーカースレッドに対して呼び出しています。`join`の呼び出しが失敗したら、
-`unwrap`を使用してRustをパニックさせ、優美でないシャットダウンに移行します。
+`unwrap`を使用してRustをパニックさせ、正常でないシャットダウンに移行します。
 
 <!-- Here is the error we get when we compile this code: -->
 
@@ -415,7 +415,7 @@ impl Drop for ThreadPool {
 <!-- To see this code in action, let’s modify `main` to accept only two requests -->
 <!-- before gracefully shutting down the server, as shown in Listing 20-26. -->
 
-このコードが動いているところを確認するために、`main`を変更してサーバを優美に閉じる前に2つしかリクエストを受け付けないようにしましょう。
+このコードが動いているところを確認するために、`main`を変更してサーバを正常に閉じる前に2つしかリクエストを受け付けないようにしましょう。
 リスト20-26のようにですね。
 
 <!-- <span class="filename">Filename: src/bin/main.rs</span> -->
@@ -449,7 +449,7 @@ fn main() {
 <!-- in working order. -->
 
 現実世界のWebサーバには、たった2つリクエストを受け付けた後にシャットダウンしてほしくはないでしょう。
-このコードは、単に優美なシャットダウンとクリーンアップが正しく機能することを示すだけです。
+このコードは、単に正常なシャットダウンとクリーンアップが正しく機能することを示すだけです。
 
 <!-- The `take` method is defined in the `Iterator` trait and limits the iteration -->
 <!-- to the first two items at most. The `ThreadPool` will go out of scope at the -->
@@ -517,7 +517,7 @@ Shutting down worker 3
 <!-- shutdown of the server, which cleans up all the threads in the pool. -->
 
 おめでとうございます！プロジェクトを完成させました; スレッドプールを使用して非同期に応答する基本的なWebサーバができました。
-サーバの優美なシャットダウンを行うことができ、プールの全スレッドを片付けます。
+サーバの正常なシャットダウンを行うことができ、プールの全スレッドを片付けます。
 
 <!-- Here’s the full code for reference: -->
 
