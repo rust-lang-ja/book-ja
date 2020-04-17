@@ -157,7 +157,7 @@ fn main() {
 <!-- have to update the code in multiple places when we want to change it. -->
 
 このコードは動くものの、コードを複製することは退屈ですし、間違いも起きやすいです。また、
-複数箇所のコードを変更したい時に更新しなければなりません。
+コードを変更したい時に複数箇所、更新しなければなりません。
 
 <!-- To eliminate this duplication, we can create an abstraction by defining a -->
 <!-- function that operates on any list of integers given to it in a parameter. This -->
