@@ -230,7 +230,7 @@ fn main() {
 <!--    inputs and return values of that code in the function signature. -->
 <!-- 3. Update the two instances of duplicated code to call the function instead. -->
 
-1. 重複したコードを認識する。
+1. 重複したコードを見分ける。
 2. 重複コードを関数本体に抽出し、コードの入力と戻り値を関数シグニチャで指定する。
 3. 重複したコードの2つの実体を代わりに関数を呼び出すように更新する。
 
