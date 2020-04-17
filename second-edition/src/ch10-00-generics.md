@@ -45,7 +45,7 @@
 <!-- us to borrow values in many situations while still enabling the compiler to -->
 <!-- check that the references are valid. -->
 
-最後に、ライフタイムを議論します。ライフタイムとは、コンパイラに参照がお互いにどう関係しているかの情報を与える1種のジェネリクスです。
+最後に、ライフタイムを議論します。ライフタイムとは、コンパイラに参照がお互いにどう関係しているかの情報を与える一種のジェネリクスです。
 ライフタイムのおかげでコンパイラに参照が有効であることを確認してもらうことを可能にしつつ、多くの場面で値を借用できます。
 
 <!-- ## Removing Duplication by Extracting a Function -->
