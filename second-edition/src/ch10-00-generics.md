@@ -217,7 +217,7 @@ fn main() {
 <!-- result, when we call the function, the code runs on the specific values that we -->
 <!-- pass in. -->
 
-`largest`関数には`list`と呼ばれる引数があり、これは、関数に渡す可能性のあるあらゆる`i32`値の具体的なスライスを示します。
+`largest`関数には`list`と呼ばれる引数があり、これは、関数に渡す可能性のある、あらゆる`i32`値の具体的なスライスを示します。
 結果的に、関数呼び出しの際、コードは渡した特定の値に対して走るのです。
 
 <!-- In sum, here are the steps we took to change the code from Listing 10-2 to -->
