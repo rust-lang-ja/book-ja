@@ -327,7 +327,7 @@ fn main() {
 <!-- your code hard to read. When you need lots of generic types in your code, it -->
 <!-- could indicate that your code needs restructuring into smaller pieces. -->
 
-もう、示された`Point`インスタンスは全部許可されます！所望の数だけ定義でジェネリックな型引数を使用できますが、
+これで、示された`Point`インスタンスは全部使用可能です！所望の数だけ定義でジェネリックな型引数を使用できますが、
 数個以上使用すると、コードが読みづらくなります。コードで多くのジェネリックな型が必要な時は、
 コードの小分けが必要なサインかもしれません。
 
