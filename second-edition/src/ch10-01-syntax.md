@@ -239,7 +239,7 @@ fn main() {
 <!-- types. -->
 
 構造体定義でジェネリクスを使用する記法は、関数定義のものと似ています。まず、山カッコ内に型引数の名前を構造体名の直後に宣言します。
-そして、そうしていなければ具体的なデータ型を記述する構造体定義の箇所にジェネリックな型を使用できます。
+そうすると、本来具体的なデータ型を記述する構造体定義の箇所に、ジェネリックな型を使用できます。
 
 <!-- Note that because we’ve used only one generic type to define `Point<T>`, this -->
 <!-- definition says that the `Point<T>` struct is generic over some type `T`, and -->
