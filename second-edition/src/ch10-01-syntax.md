@@ -340,7 +340,7 @@ fn main() {
 <!-- library provides, which we used in Chapter 6: -->
 
 構造体のように、列挙子にジェネリックなデータ型を保持するenumを定義することができます。
-標準ライブラリが提供している`Option<T>` enumに別の見方をしましょう。このenumは第6章で使用しました:
+標準ライブラリが提供している`Option<T>` enumをもう一度見ましょう。このenumは第6章で使用しました:
 
 ```rust
 enum Option<T> {
