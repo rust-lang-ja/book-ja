@@ -208,7 +208,7 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
 <!-- fields using the `<>` syntax. Listing 10-6 shows how to define a `Point<T>` -->
 <!-- struct to hold `x` and `y` coordinate values of any type. -->
 
-また、構造体を定義して`<>`記法で1つ以上のフィールドにジェネリックな型引数を使用することもできます。
+構造体を定義して`<>`記法で1つ以上のフィールドにジェネリックな型引数を使用することもできます。
 リスト10-6は、`Point<T>`構造体を定義してあらゆる型の`x`と`y`座標を保持する方法を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
