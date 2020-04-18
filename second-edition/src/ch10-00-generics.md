@@ -38,16 +38,15 @@
 <!-- those types that have a particular behavior, as opposed to just any type. -->
 
 それから、トレイトを使用して、ジェネリックな方法で振る舞いを定義する方法を学びます。
-ジェネリックな型のあるトレイトを組み合わせてただ単にどんな型に対してもとは対照的に、
-ジェネリックな型を特定の振る舞いのある型のみに制限することができます。
+ジェネリックな型にトレイトを組み合わせることで、ジェネリックな型を、単にあらゆる型に対してではなく、特定の振る舞いのある型のみに制限できます。
 
 <!-- Finally, we’ll discuss *lifetimes*, a variety of generics that give the -->
 <!-- compiler information about how references relate to each other. Lifetimes allow -->
 <!-- us to borrow values in many situations while still enabling the compiler to -->
 <!-- check that the references are valid. -->
 
-最後に、ライフタイムを議論します。ライフタイムとは、コンパイラに参照がお互いにどう関係しているかの情報を与える1種のジェネリクスです。
-ライフタイムのおかげでコンパイラに参照が合法であることを確認してもらうことを可能にしつつ、多くの場面で値を借用できます。
+最後に、ライフタイムを議論します。ライフタイムとは、コンパイラに参照がお互いにどう関係しているかの情報を与える一種のジェネリクスです。
+ライフタイムのおかげでコンパイラに参照が有効であることを確認してもらうことを可能にしつつ、多くの場面で値を借用できます。
 
 <!-- ## Removing Duplication by Extracting a Function -->
 
@@ -158,7 +157,7 @@ fn main() {
 <!-- have to update the code in multiple places when we want to change it. -->
 
 このコードは動くものの、コードを複製することは退屈ですし、間違いも起きやすいです。また、
-複数箇所のコードを変更したい時に更新しなければなりません。
+コードを変更したい時に複数箇所、更新しなければなりません。
 
 <!-- To eliminate this duplication, we can create an abstraction by defining a -->
 <!-- function that operates on any list of integers given to it in a parameter. This -->
@@ -218,7 +217,7 @@ fn main() {
 <!-- result, when we call the function, the code runs on the specific values that we -->
 <!-- pass in. -->
 
-`largest`関数には`list`と呼ばれる引数があり、これは、関数に渡す可能性のあるあらゆる`i32`値の具体的なスライスを示します。
+`largest`関数には`list`と呼ばれる引数があり、これは、関数に渡す可能性のある、あらゆる`i32`値の具体的なスライスを示します。
 結果的に、関数呼び出しの際、コードは渡した特定の値に対して走るのです。
 
 <!-- In sum, here are the steps we took to change the code from Listing 10-2 to -->
@@ -231,7 +230,7 @@ fn main() {
 <!--    inputs and return values of that code in the function signature. -->
 <!-- 3. Update the two instances of duplicated code to call the function instead. -->
 
-1. 重複したコードを認識する。
+1. 重複したコードを見分ける。
 2. 重複コードを関数本体に抽出し、コードの入力と戻り値を関数シグニチャで指定する。
 3. 重複したコードの2つの実体を代わりに関数を呼び出すように更新する。
 
