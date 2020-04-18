@@ -573,7 +573,7 @@ fn main() {
 <!-- code into specific code by filling in the concrete types that are used when -->
 <!-- compiled. -->
 
-コンパイラはこれをジェネリクスを使用しているコードの単相化をコンパイル時に行うことで達成しています。
+コンパイラはこれを、ジェネリクスを使用しているコードの単相化をコンパイル時に行うことで達成しています。
 *単相化*(monomorphization)は、コンパイル時に使用されている具体的な型を入れることで、
 ジェネリックなコードを特定のコードに変換する過程のことです。
 
