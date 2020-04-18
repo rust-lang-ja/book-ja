@@ -38,7 +38,7 @@
 <!-- those types that have a particular behavior, as opposed to just any type. -->
 
 それから、トレイトを使用して、ジェネリックな方法で振る舞いを定義する方法を学びます。
-ジェネリックな型のトレイトを組み合わせて、ジェネリックな型を、単にあらゆる型に対してではなく、特定の振る舞いのある型のみに制限することができます。
+ジェネリックな型にトレイトを組み合わせることで、ジェネリックな型を、単にあらゆる型に対してではなく、特定の振る舞いのある型のみに制限できます。
 
 <!-- Finally, we’ll discuss *lifetimes*, a variety of generics that give the -->
 <!-- compiler information about how references relate to each other. Lifetimes allow -->
