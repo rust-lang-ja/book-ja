@@ -193,7 +193,7 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
 <!-- particular trait in the “Trait Bounds” section, but let’s first explore other -->
 <!-- ways of using generic type parameters. -->
 
-注釈が`std::cmp::PartialOrd`に触れていて、これは、*トレイト*です。トレイトについては、次の節で語ります。
+注釈が`std::cmp::PartialOrd`に触れています。これは、*トレイト*です。トレイトについては、次の節で語ります。
 とりあえず、このエラーは、`largest`の本体は、`T`がなりうる全ての可能性のある型に対して動作しないと述べています。
 本体で型`T`の値を比較したいので、値が順序付け可能な型のみしか使用できないのです。比較を可能にするために、
 標準ライブラリには型に実装できる`std::cmp::PartialOrd`トレイトがあります(このトレイトについて詳しくは付録Cを参照されたし)。
