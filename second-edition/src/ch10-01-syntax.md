@@ -566,8 +566,7 @@ fn main() {
 <!-- with concrete types. -->
 
 ジェネリックな型引数を使用すると、実行時にコストが発生するのかな、と思うかもしれません。
-コンパイラが、ジェネリクスを具体的な型がある時よりもジェネリックな型を使用したコードを実行するのが遅くならないように実装しているのは、
-嬉しいお知らせです。
+嬉しいことにコンパイラは、ジェネリクスを、具体的な型がある時よりもジェネリックな型を使用したコードを実行するのが遅くならないように実装しています。
 
 <!-- Rust accomplishes this by performing monomorphization of the code that is using -->
 <!-- generics at compile time. *Monomorphization* is the process of turning generic -->
