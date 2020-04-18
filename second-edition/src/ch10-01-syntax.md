@@ -453,7 +453,7 @@ fn main() {
 <!-- than on `Point<T>` instances with any generic type. In Listing 10-10 we use the -->
 <!-- concrete type `f32`, meaning we don’t declare any types after `impl`. -->
 
-例えば、あらゆるジェネリックな型とともに`Point<T>`インスタンスではなく、`Point<f32>`だけにメソッドを実装することもできるでしょう。
+例えば、ジェネリックな型を持つ`Point<T>`インスタンスではなく、`Point<f32>`だけにメソッドを実装することもできるでしょう。
 リスト10-10では、具体的な型`f32`を使用しています。つまり、`impl`の後に型を宣言しません。
 
 ```rust
