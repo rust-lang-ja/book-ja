@@ -106,7 +106,7 @@ Rustの引数名は短く(しばしばたった1文字になります)、Rustの
 <!-- `largest` function, place type name declarations inside angle brackets, `<>`, -->
 <!-- between the name of the function and the parameter list, like this: -->
 
-関数の本体で引数を使用すると、コンパイラがその名前の意味を把握できるようにシグニチャでその引数名を宣言しなければなりません。
+関数の本体で引数を使用するとき、コンパイラがその名前の意味を把握できるようにシグニチャでその引数名を宣言しなければなりません。
 同様に、型引数名を関数シグニチャで使用する際には、使用する前に型引数名を宣言しなければなりません。
 ジェネリックな`largest`関数を定義するために、型名宣言を山カッコ(`<>`)内、関数名と引数リストの間に配置してください。
 こんな感じに:
@@ -193,7 +193,7 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
 <!-- particular trait in the “Trait Bounds” section, but let’s first explore other -->
 <!-- ways of using generic type parameters. -->
 
-注釈が`std::cmp::PartialOrd`に触れていて、これは、*トレイト*です。トレイトについては、次の節で語ります。
+注釈が`std::cmp::PartialOrd`に触れています。これは、*トレイト*です。トレイトについては、次の節で語ります。
 とりあえず、このエラーは、`largest`の本体は、`T`がなりうる全ての可能性のある型に対して動作しないと述べています。
 本体で型`T`の値を比較したいので、値が順序付け可能な型のみしか使用できないのです。比較を可能にするために、
 標準ライブラリには型に実装できる`std::cmp::PartialOrd`トレイトがあります(このトレイトについて詳しくは付録Cを参照されたし)。
@@ -208,7 +208,7 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
 <!-- fields using the `<>` syntax. Listing 10-6 shows how to define a `Point<T>` -->
 <!-- struct to hold `x` and `y` coordinate values of any type. -->
 
-また、構造体を定義して`<>`記法で1つ以上のフィールドにジェネリックな型引数を使用することもできます。
+構造体を定義して`<>`記法で1つ以上のフィールドにジェネリックな型引数を使用することもできます。
 リスト10-6は、`Point<T>`構造体を定義してあらゆる型の`x`と`y`座標を保持する方法を示しています。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -239,7 +239,7 @@ fn main() {
 <!-- types. -->
 
 構造体定義でジェネリクスを使用する記法は、関数定義のものと似ています。まず、山カッコ内に型引数の名前を構造体名の直後に宣言します。
-そして、そうしていなければ具体的なデータ型を記述する構造体定義の箇所にジェネリックな型を使用できます。
+そうすると、本来具体的なデータ型を記述する構造体定義の箇所に、ジェネリックな型を使用できます。
 
 <!-- Note that because we’ve used only one generic type to define `Point<T>`, this -->
 <!-- definition says that the `Point<T>` struct is generic over some type `T`, and -->
@@ -247,7 +247,7 @@ fn main() {
 <!-- we create an instance of a `Point<T>` that has values of different types, as in -->
 <!-- Listing 10-7, our code won’t compile. -->
 
-1つのジェネリックな型だけを使用して`Point<T>`を定義したので、この定義は、`Point<T>`構造体がなんらかの型`T`に関して、
+ジェネリックな型を1つだけ使用して`Point<T>`を定義したので、この定義は、`Point<T>`構造体がなんらかの型`T`に関して、
 ジェネリックであると述べていて、その型がなんであれ、`x`と`y`のフィールドは*両方*その同じ型になっていることに注意してください。
 リスト10-7のように、異なる型の値のある`Point<T>`のインスタンスを生成すれば、コードはコンパイルできません。
 
@@ -327,7 +327,7 @@ fn main() {
 <!-- your code hard to read. When you need lots of generic types in your code, it -->
 <!-- could indicate that your code needs restructuring into smaller pieces. -->
 
-もう、示された`Point`インスタンスは全部許可されます！所望の数だけ定義でジェネリックな型引数を使用できますが、
+これで、示された`Point`インスタンスは全部使用可能です！所望の数だけ定義でジェネリックな型引数を使用できますが、
 数個以上使用すると、コードが読みづらくなります。コードで多くのジェネリックな型が必要な時は、
 コードの小分けが必要なサインかもしれません。
 
@@ -340,7 +340,7 @@ fn main() {
 <!-- library provides, which we used in Chapter 6: -->
 
 構造体のように、列挙子にジェネリックなデータ型を保持するenumを定義することができます。
-標準ライブラリが提供している`Option<T>` enumに別の見方をしましょう。このenumは第6章で使用しました:
+標準ライブラリが提供している`Option<T>` enumをもう一度見ましょう。このenumは第6章で使用しました:
 
 ```rust
 enum Option<T> {
@@ -383,8 +383,8 @@ enum Result<T, E> {
 <!-- `std::io::Error` when there were problems opening the file. -->
 
 `Result` enumは2つの型`T`、`E`に関してジェネリックで、2つの列挙子があります: 型`T`の値を保持する`Ok`と、
-型`E`の値を保持する`Err`です。この定義により、`Result` enumを成功する(なんらかの型`T`の値を返す)か、
-失敗する(なんらかの型`E`のエラーを返す)可能性のある処理があるあらゆる箇所に使用するのが便利になります。
+型`E`の値を保持する`Err`です。この定義により、`Result` enumを、成功する(なんらかの型`T`の値を返す)か、
+失敗する(なんらかの型`E`のエラーを返す)可能性のある処理がある、あらゆる箇所に使用するのが便利になります。
 事実、ファイルを開くのに成功した時に`T`に型`std::fs::File`が入り、ファイルを開く際に問題があった時に`E`に型`std::io::Error`が入ったものが、
 リスト9-3でファイルを開くのに使用したものです。
 
@@ -445,7 +445,7 @@ fn main() {
 <!-- generic type after `impl`, Rust can identify that the type in the angle -->
 <!-- brackets in `Point` is a generic type rather than a concrete type. -->
 
-型`Point<T>`にメソッドを実装していると指定するために`T`を使用できるよう`impl`の直後に宣言しなければならないことに注意してください。
+`impl`の直後に`T`を宣言しなければならないことに注意してください。こうすることで、型`Point<T>`にメソッドを実装していることを指定するために、`T`を使用することができます。
 `impl`の後に`T`をジェネリックな型として宣言することで、コンパイラは、`Point`の山カッコ内の型が、
 具体的な型ではなくジェネリックな型であることを認識できるのです。
 
@@ -453,7 +453,7 @@ fn main() {
 <!-- than on `Point<T>` instances with any generic type. In Listing 10-10 we use the -->
 <!-- concrete type `f32`, meaning we don’t declare any types after `impl`. -->
 
-例えば、あらゆるジェネリックな型とともに`Point<T>`インスタンスではなく、`Point<f32>`だけにメソッドを実装することもできるでしょう。
+例えば、ジェネリックな型を持つ`Point<T>`インスタンスではなく、`Point<f32>`だけにメソッドを実装することもできるでしょう。
 リスト10-10では、具体的な型`f32`を使用しています。つまり、`impl`の後に型を宣言しません。
 
 ```rust
@@ -565,16 +565,15 @@ fn main() {
 <!-- a way that your code doesn’t run any slower using generic types than it would -->
 <!-- with concrete types. -->
 
-ジェネリックな型引数を使用すると、実行時にコストが発生するかあなたは不思議に思っている可能性があります。
-コンパイラが、ジェネリクスを具体的な型がある時よりもジェネリックな型を使用したコードを実行するのが遅くならないように実装しているのは、
-嬉しいお知らせです。
+ジェネリックな型引数を使用すると、実行時にコストが発生するのかな、と思うかもしれません。
+嬉しいことにRustでは、ジェネリクスを、具体的な型があるコードよりもジェネリックな型を使用したコードを実行するのが遅くならないように実装しています。
 
 <!-- Rust accomplishes this by performing monomorphization of the code that is using -->
 <!-- generics at compile time. *Monomorphization* is the process of turning generic -->
 <!-- code into specific code by filling in the concrete types that are used when -->
 <!-- compiled. -->
 
-コンパイラはこれをジェネリクスを使用しているコードの単相化をコンパイル時に行うことで達成しています。
+コンパイラはこれを、ジェネリクスを使用しているコードの単相化をコンパイル時に行うことで達成しています。
 *単相化*(monomorphization)は、コンパイル時に使用されている具体的な型を入れることで、
 ジェネリックなコードを特定のコードに変換する過程のことです。
 
