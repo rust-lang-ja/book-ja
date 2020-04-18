@@ -247,7 +247,7 @@ fn main() {
 <!-- we create an instance of a `Point<T>` that has values of different types, as in -->
 <!-- Listing 10-7, our code won’t compile. -->
 
-1つのジェネリックな型だけを使用して`Point<T>`を定義したので、この定義は、`Point<T>`構造体がなんらかの型`T`に関して、
+1つだけジェネリックな型を使用して`Point<T>`を定義したので、この定義は、`Point<T>`構造体がなんらかの型`T`に関して、
 ジェネリックであると述べていて、その型がなんであれ、`x`と`y`のフィールドは*両方*その同じ型になっていることに注意してください。
 リスト10-7のように、異なる型の値のある`Point<T>`のインスタンスを生成すれば、コードはコンパイルできません。
 
