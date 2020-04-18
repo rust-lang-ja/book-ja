@@ -445,7 +445,7 @@ fn main() {
 <!-- generic type after `impl`, Rust can identify that the type in the angle -->
 <!-- brackets in `Point` is a generic type rather than a concrete type. -->
 
-型`Point<T>`にメソッドを実装していると指定するために`T`を使用できるよう`impl`の直後に宣言しなければならないことに注意してください。
+`impl`の直後に`T`を宣言しなければならないことに注意してください。こうすることで、型`Point<T>`にメソッドを実装していることを指定するために、`T`を使用することができます。
 `impl`の後に`T`をジェネリックな型として宣言することで、コンパイラは、`Point`の山カッコ内の型が、
 具体的な型ではなくジェネリックな型であることを認識できるのです。
 
