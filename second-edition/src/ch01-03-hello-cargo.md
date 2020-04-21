@@ -40,7 +40,7 @@ $ cargo --version
 <!-- determine how to install Cargo separately. -->
 
 バージョンナンバーが見えたら、インストールされています！`command not found`などのエラーが見えたら、
-自分のインストール方法を求めてドキュメンテーションを見、Cargoを個別にインストールする方法を決定してください。
+自分のインストール方法をドキュメンテーションで確認して、Cargoを個別にインストールする方法を決定してください。
 
 <!-- ### Creating a Project with Cargo -->
 
