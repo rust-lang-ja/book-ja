@@ -935,7 +935,7 @@ fn takes_and_gives_back(a_string: String) -> String { // a_stringがスコープ
 <!-- want to use it again, in addition to any data resulting from the body of the -->
 <!-- function that we might want to return as well. -->
 
-所有権を得ては返すを全ての関数でしていたら、ちょっとめんどくさいですね。関数に値を使わせたいけど、
+所有権を保持するために戻り値を返すのを全ての関数でしていたら、ちょっとめんどくさいですね。関数に値を使わせたいけど、
 所有権は保持させたくない場合はどうすればいいのでしょうか？
 返したいと思うかもしれない関数本体で発生したあらゆるデータとともに、再利用したかったら、渡されたものをまた返さなきゃいけないのは、
 非常に煩わしいことです。
