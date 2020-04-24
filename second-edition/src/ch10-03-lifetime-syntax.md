@@ -589,7 +589,7 @@ error[E0597]: `string2` does not live long enough
 <!-- is used. Make hypotheses about whether or not your experiments will pass the -->
 <!-- borrow checker before you compile; then check to see if you’re right! -->
 
-試しに値や、`longest`関数に渡される参照のライフタイムや、返される参照の使用法が異なる実験をもっと企ててみてください。
+試しに値や、`longest`関数に渡される参照のライフタイムや、返される参照の使用法が異なる実験をもっとしてみてください。
 自分の実験がコンパイル前に借用チェッカーを通るかどうか仮説を立ててください; そして、正しいか確かめてください！
 
 <!-- ### Thinking in Terms of Lifetimes -->
