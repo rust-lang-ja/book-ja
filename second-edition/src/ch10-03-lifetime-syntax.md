@@ -338,7 +338,7 @@ signature does not say whether it is borrowed from `x` or `y`
 <!-- lifetime parameter annotations after the `&` of a reference, using a space to -->
 <!-- separate the annotation from the reference’s type. -->
 
-ライフタイム注釈は、少しだけ不自然な記法です: ライフタイム引数の名前はアポストロフィー(`'`)で始まらなければならず、
+ライフタイム注釈は、少し不自然な記法です: ライフタイム引数の名前はアポストロフィー(`'`)で始まらなければならず、
 通常全部小文字で、ジェネリック型のようにとても短いです。多くの人は、`'a`という名前を使います。
 ライフタイム引数注釈は、参照の`&`の後に配置し、注釈と参照の型を区別するために空白を1つ使用します。
 
