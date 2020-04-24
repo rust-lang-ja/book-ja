@@ -350,12 +350,12 @@ signature does not say whether it is borrowed from `x` or `y`
 そしてこれもライフタイム`'a`付きの`i32`への可変参照です。
 
 ```rust,ignore
-            // (ただの)参照
 &i32        // a reference
-            // 明示的なライフタイム付きの参照
+            // (ただの)参照
 &'a i32     // a reference with an explicit lifetime
-            // 明示的なライフタイム付きの可変参照
+            // 明示的なライフタイム付きの参照
 &'a mut i32 // a mutable reference with an explicit lifetime
+            // 明示的なライフタイム付きの可変参照
 ```
 
 <!-- One lifetime annotation by itself doesn’t have much meaning, because the -->
