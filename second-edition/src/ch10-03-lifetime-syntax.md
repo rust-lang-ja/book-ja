@@ -191,7 +191,7 @@ Rustコンパイラには、スコープを比較して全ての借用が有効�
 <!-- lifetimes to ensure references will always be valid, let’s explore generic -->
 <!-- lifetimes of parameters and return values in the context of functions. -->
 
-今や、参照のライフタイムがどこにあり、コンパイラがライフタイムを解析して参照が常に有効であることを保証する仕組みがわかったので、
+今や、参照のライフタイムがどれだけあり、コンパイラがライフタイムを解析して参照が常に有効であることを保証する仕組みがわかったので、
 関数の文脈でジェネリックな引数と戻り値のライフタイムを探究しましょう。
 
 <!-- ### Generic Lifetimes in Functions -->
