@@ -11,7 +11,7 @@
 <!-- requires us to annotate the relationships using generic lifetime parameters to -->
 <!-- ensure the actual references used at runtime will definitely be valid. -->
 
-第4章の「参照と借用」節で議論しなかった詳細の一つは、Rustにおいて参照は全てライフタイムを保持することであり、
+第4章の「参照と借用」節で議論しなかった詳細の一つに、Rustにおいて参照は全てライフタイムを保持するということがあります。
 ライフタイムとは、その参照が有効になるスコープのことです。多くの場合、型が推論されるように、
 多くの場合、ライフタイムも暗黙的に推論されます。複数の型の可能性があるときには、型を注釈しなければなりません。
 同様に、参照のライフタイムがいくつか異なる方法で関係することがある場合には注釈しなければなりません。
