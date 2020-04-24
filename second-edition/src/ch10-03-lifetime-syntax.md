@@ -72,7 +72,7 @@ Rustで一番際立った機能になっています。この章では、ライ�
 > 注釈: リスト10-17や10-18、10-24では、変数に初期値を与えずに宣言しているので、変数名は外側のスコープに存在します。
 > 初見では、これはRustにはnull値が存在しないということと衝突しているように見えるかもしれません。
 > しかしながら、値を与える前に変数を使用しようとすれば、コンパイルエラーになり、
-> 確かにRustではnull値は許可されないことを示します。
+> これは、確かにRustではnull値は許可されないことを示します。
 
 <!-- The outer scope declares a variable named `r` with no initial value, and the -->
 <!-- inner scope declares a variable named `x` with the initial value of 5. Inside -->
