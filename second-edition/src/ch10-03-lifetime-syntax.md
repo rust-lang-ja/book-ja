@@ -294,7 +294,7 @@ signature does not say whether it is borrowed from `x` or `y`
 <!-- of this function returns a reference to `x` and the `else` block returns a -->
 <!-- reference to `y`! -->
 
-助言テキストが戻り値の型はジェネリックなライフタイム引数である必要があると明かしています。
+助言テキストが、戻り値の型はジェネリックなライフタイム引数である必要があると明かしています。
 というのも、返している参照が`x`か`y`を参照しているかコンパイラにはわからないからです。
 この関数の本体の`if`ブロックは`x`への参照を返し、`else`ブロックは`y`への参照を返すので、
 実際、どちらか私たちにもわかりません！
