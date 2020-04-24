@@ -506,7 +506,7 @@ fn main() {
 
 この例において、`string1`は外側のスコープの終わりまで有効で、`string2`は内側のスコープの終わりまで有効、
 そして`result`は内側のスコープの終わりまで有効な何かを参照しています。このコードを実行すると、
-借用チェッカーがこのコードに賛成するのがわかるでしょう。要するに、コンパイルでき、
+借用チェッカーがこのコードを良しとするのがわかるでしょう。要するに、コンパイルでき、
 `The longest string is long string is long`と出力するのです。
 
 <!-- Next, let’s try an example that shows that the lifetime of the reference in -->
