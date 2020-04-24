@@ -1002,7 +1002,7 @@ fn longest<'a, 'b>(x: &'a str, y: &'b str) -> &str {
 
 `impl`ブロック内のメソッドシグニチャでは、参照は構造体のフィールドの参照のライフタイムに紐づくか、
 独立している可能性があります。加えて、ライフタイム省略規則により、メソッドシグニチャでライフタイム注釈が必要なくなることがよくあります。
-リスト10-25で定義した`ImportantExcerpt`という構造体を使用して、何か例を眺めましょう。
+リスト10-25で定義した`ImportantExcerpt`という構造体を使用して、何か例を見ましょう。
 
 <!-- First, we’ll use a method named `level` whose only parameter is a reference to -->
 <!-- `self` and whose return value is an `i32`, which is not a reference to anything: -->
