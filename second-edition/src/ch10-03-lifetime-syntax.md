@@ -241,7 +241,7 @@ fn main() {
 <!-- discussion about why the parameters we use in Listing 10-20 are the ones we -->
 <!-- want. -->
 
-リスト10-20で使用している引数が求めているものである理由についてもっと詳しい議論は、
+リスト10-20で使用している引数が、我々が必要としているものである理由についてもっと詳しい議論は、
 第4章の「引数としての文字列スライス」節をご参照ください。
 
 <!-- If we try to implement the `longest` function as shown in Listing 10-21, it -->
