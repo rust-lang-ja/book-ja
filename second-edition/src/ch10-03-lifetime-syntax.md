@@ -755,7 +755,7 @@ fn main() {
 <!-- the `ImportantExcerpt` goes out of scope, so the reference in the -->
 <!-- `ImportantExcerpt` instance is valid. -->
 
-ここの`main`関数は、変数`novel`に所有される`String`の最初の文への参照を保持する`ImportantExcerpt`インスタンスを生成しています。
+ここの`main`関数は、変数`novel`に所有される`String`の、最初の文への参照を保持する`ImportantExcerpt`インスタンスを生成しています。
 `novel`のデータは、`ImportantExcerpt`インスタンスが作られる前に存在しています。
 加えて、`ImportantExcerpt`がスコープを抜けるまで`novel`はスコープを抜けないので、
 `ImportantExcerpt`インスタンスの参照は有効なのです。
