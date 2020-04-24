@@ -347,7 +347,7 @@ signature does not say whether it is borrowed from `x` or `y`
 <!-- reference to an `i32` that also has the lifetime `'a`. -->
 
 例を挙げましょう: ライフタイム引数なしの`i32`への参照、`'a`というライフタイム引数付きの`i32`への参照、
-これもライフタイム`'a`付き`i32`への可変参照です。
+そしてこれもライフタイム`'a`付きの`i32`への可変参照です。
 
 ```rust,ignore
             // (ただの)参照
