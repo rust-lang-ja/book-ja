@@ -99,7 +99,7 @@ fn main() {
 ここで`&self`を選んでいるのは、関数バージョンで`&Rectangle`を使用していたのと同様の理由です:
 所有権はいらず、構造体のデータを読み込みたいだけで、書き込む必要はないわけです。
 メソッドの一部でメソッドを呼び出したインスタンスを変更したかったら、第1引数に`&mut self`を使用するでしょう。
-`self`だけを第1引数にしてインスタンスの所有権を奪うメソッドを定義することは稀です; このテクニックは通常、
+`self`だけを第1引数にしてインスタンスの所有権を奪うメソッドを定義することは稀です。 このテクニックは通常、
 メソッドが`self`を何か別のものに変形し、変形後に呼び出し元が元のインスタンスを使用できないようにしたい場合に使用されます。
 
 <!-- The main benefit of using methods instead of functions, in addition to using -->
@@ -357,7 +357,7 @@ impl Rectangle {
 <!-- the struct: the `::` syntax is used for both associated functions and -->
 <!-- namespaces created by modules. We’ll discuss modules in Chapter 7. -->
 
-この関連関数を呼び出すために、構造体名と一緒に`::`記法を使用します; 一例は`let sq = Rectangle::square(3);`です。
+この関連関数を呼び出すために、構造体名と一緒に`::`記法を使用します。 一例は`let sq = Rectangle::square(3);`です。
 この関数は、構造体によって名前空間分けされています: `::`という記法は、関連関数とモジュールによって作り出される名前空間両方に使用されます。
 モジュールについては第7章で議論します。
 
