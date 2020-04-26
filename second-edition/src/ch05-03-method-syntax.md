@@ -211,8 +211,7 @@ fn main() {
 <!-- to write the program shown in Listing 5-14, once we’ve defined the `can_hold` -->
 <!-- method. -->
 
-`Rectangle`構造体に2番目のメソッドを実装して、メソッドを使う鍛錬をしましょう。今回は、`Rectangle`のインスタンスに、
-別の`Rectangle`のインスタンスを取らせ、2番目の`Rectangle`が`self`に完全にはめ込まれたら、`true`を返すようにしたいのです;
+`Rectangle`構造体に2番目のメソッドを実装して、メソッドを使う鍛錬をしましょう。今回は、`Rectangle`のインスタンスに別の`Rectangle`のインスタンスを取らせ、2番目の`Rectangle`が`self`に完全にはめ込まれたら、`true`を返すようにしたいのです。
 そうでなければ、`false`を返すべきです。つまり、一旦`can_hold`メソッドを定義したら、
 リスト5-14のようなプログラムを書けるようになりたいのです。
 
