@@ -241,7 +241,7 @@ fn main() {
 <!-- `rect1`: -->
 
 そして、予期される出力は以下のようになります。なぜなら、`rect2`の各次元は`rect1`よりも小さいものの、
-`rect3`は`rect1`より幅が広いからです:
+`rect3`は`rect1`より幅が広いからです。
 
 ```text
 Can rect1 hold rect2? true
