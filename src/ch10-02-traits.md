@@ -222,7 +222,7 @@ syntax sugar for a longer form, which is called a *trait bound*; it looks like
 this:
 
 ```rust,ignore
-pub fn notify<T: Summary>(item: T) {
+pub fn notify<T: Summary>(item: &T) {
     println!("Breaking news! {}", item.summarize());
 }
 ```
@@ -237,7 +237,7 @@ example, we can have two parameters that implement `Summary`. Using the `impl
 Trait` syntax looks like this:
 
 ```rust,ignore
-pub fn notify(item1: impl Summary, item2: impl Summary) {
+pub fn notify(item1: &impl Summary, item2: &impl Summary) {
 ```
 
 If we wanted this function to allow `item1` and `item2` to have different
@@ -246,7 +246,7 @@ types, using `impl Trait` would be appropriate (as long as both types implement
 only possible to express using a trait bound, like this:
 
 ```rust,ignore
-pub fn notify<T: Summary>(item1: T, item2: T) {
+pub fn notify<T: Summary>(item1: &T, item2: &T) {
 ```
 
 The generic type `T` specified as the type of the `item1` and `item2`
@@ -261,13 +261,13 @@ the `notify` definition that `item` must implement both `Display` and
 `Summary`. We can do so using the `+` syntax:
 
 ```rust,ignore
-pub fn notify(item: impl Summary + Display) {
+pub fn notify(item: &(impl Summary + Display)) {
 ```
 
 The `+` syntax is also valid with trait bounds on generic types:
 
 ```rust,ignore
-pub fn notify<T: Summary + Display>(item: T) {
+pub fn notify<T: Summary + Display>(item: &T) {
 ```
 
 With the two trait bounds specified, the body of `notify` can call `summarize`
@@ -283,13 +283,13 @@ syntax for specifying trait bounds inside a `where` clause after the function
 signature. So instead of writing this:
 
 ```rust,ignore
-fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {
+fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
 ```
 
 we can use a `where` clause, like this:
 
 ```rust,ignore
-fn some_function<T, U>(t: T, u: U) -> i32
+fn some_function<T, U>(t: &T, u: &U) -> i32
     where T: Display + Clone,
           U: Clone + Debug
 {
@@ -453,12 +453,12 @@ reduce duplication but also specify to the compiler that we want the generic
 type to have particular behavior. The compiler can then use the trait bound
 information to check that all the concrete types used with our code provide the
 correct behavior. In dynamically typed languages, we would get an error at
-runtime if we called a method on a type which didn’t implement the type which
-defines the method. But Rust moves these errors to compile time so we’re forced
-to fix the problems before our code is even able to run. Additionally, we don’t
-have to write code that checks for behavior at runtime because we’ve already
-checked at compile time. Doing so improves performance without having to give
-up the flexibility of generics.
+runtime if we called a method on a type which didn’t define the method. But Rust
+moves these errors to compile time so we’re forced to fix the problems before
+our code is even able to run. Additionally, we don’t have to write code that
+checks for behavior at runtime because we’ve already checked at compile time.
+Doing so improves performance without having to give up the flexibility of
+generics.
 
 Another kind of generic that we’ve already been using is called *lifetimes*.
 Rather than ensuring that a type has the behavior we want, lifetimes ensure

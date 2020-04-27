@@ -181,7 +181,7 @@ pattern we forgot! Matches in Rust are *exhaustive*: we must exhaust every last
 possibility in order for the code to be valid. Especially in the case of
 `Option<T>`, when Rust prevents us from forgetting to explicitly handle the
 `None` case, it protects us from assuming that we have a value when we might
-have null, thus making the billion-dollar mistake discussed earlier.
+have null, thus making the billion-dollar mistake discussed earlier impossible.
 
 ### The `_` Placeholder
 
@@ -203,3 +203,8 @@ list before the `_` placeholder.
 
 However, the `match` expression can be a bit wordy in a situation in which we
 care about only *one* of the cases. For this situation, Rust provides `if let`.
+
+More about patterns, and matching can be found in [chapter 18][ch18-00-patterns].
+
+[ch18-00-patterns]:
+ch18-00-patterns.html
