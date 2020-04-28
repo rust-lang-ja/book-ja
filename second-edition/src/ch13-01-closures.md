@@ -156,13 +156,13 @@ fn main() {
 #
 fn generate_workout(intensity: u32, random_number: u32) {
     if intensity < 25 {
-        
+
         println!(
             // 今日は{}回腕立て伏せをしてください！
             "Today, do {} pushups!",
             simulated_expensive_calculation(intensity)
         );
-        
+
         println!(
             // 次に、{}回腹筋をしてください！
             "Next, do {} situps!",
@@ -655,15 +655,13 @@ error[E0308]: mismatched types
 `Fn`、`FnMut`または、`FnOnce`です。「クロージャで環境をキャプチャする」節で、これらのトレイト間の差異を議論します;
 この例では、`Fn`トレイトを使えます。
 
-<!-- 2行目中盤は一見、mustとhave toが重なっているように見えるが、must have [to ...]という構造と思われる -->
-
 <!-- We add types to the `Fn` trait bound to represent the types of the parameters -->
 <!-- and return values the closures must have to match this trait bound. In this -->
 <!-- case, our closure has a parameter of type `u32` and returns a `u32`, so the -->
 <!-- trait bound we specify is `Fn(u32) -> u32`. -->
 
-`Fn`トレイト境界への型を追加して、クロージャがこのトレイト境界を合致させるために持っていなければならない引数と戻り値の型を表します。
-今回の場合、クロージャは、引数の型が`u32`で、`u32`を返すので、指定するトレイト境界は、`Fn(u32) -> u32`です。
+`Fn`トレイト境界にいくつかの型を追加することで、このトレイト境界に合致するクロージャが持つべき引数と戻り値の型を示します。
+今回のクロージャは`u32`型の引数を一つ取り、`u32`を返すので、指定するトレイト境界は`Fn(u32) -> u32`になります。
 
 <!-- Listing 13-9 shows the definition of the `Cacher` struct that holds a closure -->
 <!-- and an optional result value. -->
@@ -694,7 +692,7 @@ struct Cacher<T>
 <!-- parameter (specified within the parentheses after `Fn`) and must return a -->
 <!-- `u32` (specified after the `->`). -->
 
-`Cacher`構造体には、ジェネリックな型`T`の`calculation`フィールドがあります。`T`に関するトレイト境界は、
+`Cacher`構造体は、ジェネリックな型`T`の`calculation`フィールドを持ちます。`T`のトレイト境界は、
 `Fn`トレイトを使うことでクロージャであると指定しています。`calculation`フィールドに保存したいクロージャは全て、
 1つの`u32`引数(`Fn`の後の括弧内で指定されている)を取り、`u32`(`->`の後に指定されている)を返さなければなりません。
 
@@ -775,7 +773,7 @@ impl<T> Cacher<T>
 <!-- `calculation` field and a `None` value in the `value` field, because we haven’t -->
 <!-- executed the closure yet. -->
 
-`Cacher::new`関数は、ジェネリックな引数の`T`を取り、これは、`Cacher`構造体と同じトレイト境界を持つと定義しました。
+`Cacher::new`関数はジェネリックな引数の`T`を取り、`Cacher`構造体と同じトレイト境界を持つよう定義しました。
 それから`calculation`フィールドに指定されたクロージャと、
 `value`フィールドに`None`値を保持する`Cacher`インスタンスを`Cacher::new`は返します。
 まだクロージャを実行していないからですね。
