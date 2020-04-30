@@ -300,7 +300,7 @@ Rustは必要なものを推測しようとせず、構造体には`Display`実�
 
 ```text
 error[E0277]: the trait bound `Rectangle: std::fmt::Debug` is not satisfied
-(エラー: トレイト境界`Rectangle: std::fmt::Debug`は満たされていません)
+(エラー: トレイト境界`Rectangle: std::fmt::Debug`が満たされていません)
 ```
 
 <!-- But again, the compiler gives us a helpful note: -->

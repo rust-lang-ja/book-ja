@@ -407,8 +407,8 @@ println!("1 new tweet: {}", tweet.summarize());
 
 例として、リスト10-13で、`Summary`トレイトを型`NewsArticle`と`Tweet`に実装しました。
 引数`item`に対して`summarize`メソッドを呼び出す関数`notify`を定義でき、この引数はジェネリックな型`T`です。
-ジェネリックな型`T`がメソッド`summarize`を実装しないというエラーを出さずに`item`に`summarize`を呼び出せるために、
-`T`に対してトレイト境界を使用して`item`は、`Summary`トレイトを実装する型でなければならないと指定できます:
+`item`の`summarize`を呼ぶときにジェネリックな型`T`がメソッド`summarize`を実装してないというエラーが出ないように、
+`T`のトレイト境界を使って`item`が`Summary`トレイトを実装する型でなければならないと指定できます。
 
 ```rust,ignore
 pub fn notify<T: Summary>(item: T) {
@@ -423,7 +423,7 @@ pub fn notify<T: Summary>(item: T) {
 <!-- calls the function with any other type, like a `String` or an `i32`, won’t -->
 <!-- compile, because those types don’t implement `Summary`. -->
 
-トレイト境界をジェネリックな型引数宣言とともにコロンの後、山カッコ内に配置しています。`T`に対するトレイト境界のため、
+トレイト境界をジェネリックな型引数宣言とともにコロンの後、山カッコ内に配置しています。`T`に付けられたトレイト境界のため、
 `notify`を呼び出して`NewsArticle`か`Tweet`のどんなインスタンスも渡すことができます。
 あらゆる他の型、`String`や`i32`などでこの関数を呼び出すコードは、型が`Summary`を実装しないので、
 コンパイルできません。
@@ -433,7 +433,7 @@ pub fn notify<T: Summary>(item: T) {
 <!-- the `summarize` method, we can use `T: Summary + Display` to say `T` can be any -->
 <!-- type that implements `Summary` and `Display`. -->
 
-`+`記法でジェネリックな型に対して複数のトレイト境界を指定できます。例えば、関数で`T`に対してフォーマット表示と、
+`+`記法でジェネリックな型に複数のトレイト境界を指定できます。例えば、関数で`T`に対してフォーマット表示と、
 `summarize`メソッドを使用するには、`T: Summary + Display`を使用して、`T`は`Summary`と`Display`を実装するどんな型にもなると宣言できます。
 
 <!-- However, there are downsides to using too many trait bounds. Each generic has -->
@@ -611,7 +611,7 @@ fn main() {
 <!-- large amounts of data. -->
 
 もし`largest`関数を`Copy`を実装する型だけに制限したくなかったら、`Copy`ではなく、
-`T`が`Clone`というトレイト境界を含むと指定することもできます。そうしたら、
+`T`が`Clone`というトレイト境界を持つと指定することもできます。そうしたら、
 `largest`関数に所有権が欲しい時にスライスの各値をクローンできます。`clone`関数を使用するということは、
 `String`のようなヒープデータを所有する型の場合にもっとヒープ確保が発生する可能性があることを意味し、
 大きなデータを取り扱っていたら、ヒープ確保は遅いこともあります。
@@ -638,7 +638,7 @@ fn main() {
 <!-- inner type `T` implements the `PartialOrd` trait that enables comparison *and* -->
 <!-- the `Display` trait that enables printing. -->
 
-`impl`ブロックでジェネリックな型引数を使用するトレイト境界を活用することで、
+ジェネリックな型引数を持つ`impl`ブロックにトレイト境界を与えることで、
 特定のトレイトを実装する型に対するメソッド実装を条件分けできます。例えば、
 リスト10-16の型`Pair<T>`は、常に`new`関数を実装します。しかし、`Pair<T>`は、
 内部の型`T`が比較を可能にする`PartialOrd`トレイト*と*出力を可能にする`Display`トレイトを実装している時のみ、
