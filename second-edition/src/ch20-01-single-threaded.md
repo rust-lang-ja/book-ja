@@ -57,7 +57,7 @@ $ cd hello
 <!-- an incoming stream, it will print `Connection established!`. -->
 
 さて、リスト20-1のコードを*src/main.rs*に入力して始めてください。このコードは、
-やってくるTCPストリームを求めて`127.0.0.1:7878`というアドレスをリッスンします。
+TCPストリームを受信するため`127.0.0.1:7878`というアドレスをリッスンします。
 入力ストリームを得ると、`Connection established!`と出力します。
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
@@ -296,7 +296,7 @@ fn handle_connection(mut stream: TcpStream) {
 2番目にバッファーのバイトを文字列に変換し、その文字列を出力します。`String::from_utf8_lossy`関数は、
 `&[u8]`を取り、`String`を生成します。名前の“lossy”の箇所は、無効なUTF-8シーケンスを目の当たりにした際のこの関数の振る舞いを示唆しています:
 無効なシーケンスを`�`、`U+FFFD REPLACEMENT CHARACTER`で置き換えます。
-置き換え文字をリクエストデータによって埋められたバッファーの文字の箇所に目撃する可能性があります。
+リクエストデータによって埋められなかったバッファーの部分(`訳注` バッファーとして512バイトの領域を用意しているが、リクエストデータは512バイト存在しないことがほとんどなので変数 `buffer` の後ろ部分が埋められないまま放置されることを意図していると思われる) が置き換え文字になって表示されるのをみるでしょう。
 
 <!-- Let’s try this code! Start the program and make a request in a web browser -->
 <!-- again. Note that we’ll still get an error page in the browser, but our -->
