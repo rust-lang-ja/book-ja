@@ -651,7 +651,7 @@ error[E0308]: mismatched types
 <!-- difference between these traits in the "Capturing the Environment with -->
 <!-- Closures" section; in this example, we can use the `Fn` trait. -->
 
-`Fn`トレイトは、標準ライブラリで用意されています。全てのクロージャは、そのトレイトのどれかを実装しています:
+`Fn`トレイトは、標準ライブラリで用意されています。全てのクロージャは、以下のいずれかのトレイトを実装しています:
 `Fn`、`FnMut`または、`FnOnce`です。「クロージャで環境をキャプチャする」節で、これらのトレイト間の差異を議論します;
 この例では、`Fn`トレイトを使えます。
 
@@ -701,7 +701,7 @@ struct Cacher<T>
 <!-- > function rather than a closure where we need something that implements an `Fn` -->
 <!-- > trait. -->
 
-> 注釈: 関数も3つの`Fn`トレイト全部を実装します。したいことに環境から値をキャプチャすることが必要ないなら、
+> 注釈: 関数も3つの`Fn`トレイト全部を実装します。もし環境から値をキャプチャする必要がなければ、
 > `Fn`トレイトを実装する何かが必要になるクロージャではなく、関数を使用できます。
 
 <!-- The `value` field is of type `Option<u32>`. Before we execute the closure, -->
