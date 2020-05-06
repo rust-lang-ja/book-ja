@@ -272,8 +272,8 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!-- integration test file has its own section, so if we add more files in the -->
 <!-- *tests* directory, there will be more integration test sections. -->
 
-単体テスト関数を追加すると、単体テスト区域のテスト結果の行が増えることに似て、
-作成した結合テストファイルにもっとテスト関数を追加すると、そのファイルの区域に行が増えることになります。
+単体テスト関数を追加することで単体テスト区域のテスト結果の行が増えたように、
+作成した結合テストファイルにテスト関数を追加することでそのファイルの区域に結果の行が増えることになります。
 結合テストファイルはそれぞれ独自の区域があるため、*tests*ディレクトリにさらにファイルを追加すれば、
 結合テストの区域が増えることになるでしょう。
 
