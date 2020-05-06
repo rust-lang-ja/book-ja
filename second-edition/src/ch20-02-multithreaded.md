@@ -1401,8 +1401,8 @@ std::ops::FnOnce() + std::marker::Sendのサイズを静的に決定できませ
 <!-- People just like you are working to fix this and other issues! After you’ve -->
 <!-- finished this book, we would love for you to join in. -->
 
-Rustは、コンパイラが改善できる箇所ではまだ、発展途上にありますが、将来的にリスト20-20のコードは、
-ただ単純にうまく動くはずです。まさしくあなたのような方がこれや他の問題を修正するのに取り掛かっています！この本を完了したら、
+Rustはまだコンパイラの改善途上にあり、リスト20-20のコードは、
+将来的にうまく動くようになるべきです。まさしくあなたのような方がこれや他の問題を修正しています！この本を完了したら、
 是非ともあなたにも参加していただきたいです。
 
 <!-- But for now, let’s work around this problem using a handy trick. We can tell -->
