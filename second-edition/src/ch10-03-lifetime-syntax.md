@@ -847,9 +847,9 @@ fn first_word<'a>(s: &'a str) -> &'a str {
 <!-- specify how the references relate to each other. -->
 
 省略規則は、完全な推論を提供しません。コンパイラが決定的に規則を適用できるけれども、
-参照が保持するライフタイムに関してそれでも曖昧性があるなら、コンパイラは、残りの参照がなるべきライフタイムを推論しません。
-この場合、推論ではなく、コンパイラは、参照がお互いにどう関係するかを指定するライフタイム注釈を追記することで、
-解決できるエラーを与えます。
+参照が保持するライフタイムに関してそれでも曖昧性があるなら、コンパイラは、残りの参照がなるべきライフタイムを推測しません。
+この場合コンパイラは、それらを推測するのではなくエラーを与えます。
+これらは、参照がお互いにどう関係するかを指定するライフタイム注釈を追記することで解決できます。
 
 <!-- Lifetimes on function or method parameters are called *input lifetimes*, and -->
 <!-- lifetimes on return values are called *output lifetimes*. -->
