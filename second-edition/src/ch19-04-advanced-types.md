@@ -241,8 +241,8 @@ pub trait Write {
 <!-- because it stands in the place of the return type when a function will never -->
 <!-- return. Here is an example: -->
 
-Rustには、型理論用語で値がないため、空型として知られる`!`という特別な型があります。私たちは、
-関数が絶対に返らない時に戻り値の型の場所に立つので、*never type*(`訳注`: 日本語にはできないので、never型と呼ぶしかないか)と呼ぶのが好きです。
+Rustには、`!`という名前の特別な型があります。それは型理論の専門用語では *Empty型* と呼ばれ値なしを表します。私たちは、
+関数が値を返すことが決して (never) ない時に戻り値の型を記す場所に使われるので、*never type*(`訳注`: 日本語にはできないので、never型と呼ぶしかないか)と呼ぶのが好きです。
 こちらが例です:
 
 ```rust,ignore
@@ -256,13 +256,13 @@ fn bar() -> ! {
 <!-- so `bar` can never possibly return. -->
 
 このコードは、「関数`bar`はneverを返す」と解読します。neverを返す関数は、*発散する関数*(diverging function)と呼ばれます。
-型`!`の値は生成できないので、`bar`が返ることは絶対にあり得ません。
+型`!`の値は生成できないので、`bar`が有効値を返すことは決してできません。
 
 <!-- But what use is a type you can never create values for? Recall the code from -->
 <!-- Listing 2-5; we’ve reproduced part of it here in Listing 19-34. -->
 
 ですが、値を絶対に生成できない型をどう使用するのでしょうか？リスト2-5のコードを思い出してください;
-リスト19-34に一部を再現しました。
+リスト19-34に一部を再掲します。
 
 ```rust
 # let guess = "3";
@@ -383,7 +383,7 @@ loop {
 <!-- size we can know only at runtime. -->
 
 コンパイラが特定の型の値1つにどれくらいのスペースのメモリを確保するのかなどの特定の詳細を知る必要があるために、
-型システムには混乱することもある秘密の場所があります: *動的サイズ付け型*の概念です。時として*DST*や*サイズなし型*とも称され、
+Rustの型システムには混乱を招きやすい細かな仕様があります: *動的サイズ付け型*の概念です。時として*DST*や*サイズなし型*とも称され、
 これらの型により、実行時にしかサイズを知ることのできない値を使用するコードを書かせてくれます。
 
 <!-- Let’s dig into the details of a dynamically sized type called `str`, which -->
