@@ -212,7 +212,7 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 <!-- ### Adding Useful Functionality with Derived Traits -->
 
-### トレイトの継承で有用な機能を追加する
+### トレイトの導出で有用な機能を追加する
 
 <!-- It’d be nice to be able to print an instance of `Rectangle` while we’re -->
 <!-- debugging our program and see the values for all its fields. Listing 5-11 tries -->
@@ -344,7 +344,7 @@ fn main() {
 <!-- <span class="caption">Listing 5-12: Adding the annotation to derive the `Debug` -->
 <!-- trait and printing the `Rectangle` instance using debug formatting</span> -->
 
-<span class="caption">リスト5-12: `Debug`トレイトを継承する注釈を追加し、
+<span class="caption">リスト5-12: `Debug`トレイトを導出する注釈を追加し、
     `Rectangle`インスタンスをデバッグ用整形機で出力する</span>
 
 <!-- Now when we run the program, we won’t get any errors, and we’ll see the -->

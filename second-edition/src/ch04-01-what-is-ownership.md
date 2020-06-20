@@ -734,7 +734,7 @@ Rustには`Copy`トレイトと呼ばれる特別な注釈があり、
 型が`Copy`トレイトに適合していれば、代入後も古い変数が使用可能になります。コンパイラは、
 型やその一部分でも`Drop`トレイトを実装している場合、`Copy`トレイトによる注釈をさせてくれません。
 型の値がスコープを外れた時に何か特別なことを起こす必要がある場合に、`Copy`注釈を追加すると、コンパイルエラーが出ます。
-型に`Copy`注釈をつける方法について学ぶには、付録Cの「継承可能トレイト」をご覧ください。
+型に`Copy`注釈をつける方法について学ぶには、付録Cの「導出可能なトレイト」をご覧ください。
 
 <!-- So what types are `Copy`? You can check the documentation for the given type to -->
 <!-- be sure, but as a general rule, any group of simple scalar values can be -->
