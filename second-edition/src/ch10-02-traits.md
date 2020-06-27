@@ -101,8 +101,8 @@ pub trait Summary {
 <!-- already limited to 280 characters. -->
 
 今や `Summary` トレイトを使用して目的の動作を定義できたので、メディア アグリゲータで型に実装できます。
-リスト10-13は、 `Summary` トレイトを `NewsArticle` 構造体上に実装したもので、ヘッドライン、著者、そして `Summarize` の戻り値を示しています。
-`Tweet` 構造体に関しては、ツイートの内容が既に280文字に制限されていると仮定して、ユーザー名の後にツイートのテキスト全体が続くものとして `Summarize` を定義します。
+リスト10-13は、 `Summary` トレイトを `NewsArticle` 構造体上に実装したもので、ヘッドライン、著者、そして `summarize` の戻り値を示しています。
+`Tweet` 構造体に関しては、ツイートの内容が既に280文字に制限されていると仮定して、ユーザー名の後にツイートのテキスト全体が続くものとして `summarize` を定義します。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
