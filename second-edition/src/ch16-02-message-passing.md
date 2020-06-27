@@ -424,7 +424,7 @@ Got: thread
 <!-- so by cloning the transmitting half of the channel, as shown in Listing 16-11: -->
 
 `mpsc`は、*mutiple producer, single consumer*の頭字語であると前述しました。
-`mpsc`を使用に移し、リスト16-10のコードを拡張して全てが値を同じ受信機に送信する複数のスレッドを生成しましょう。
+`mpsc`を使い、リスト16-10のコードを拡張して、全ての値を同じ受信機に送信する複数のスレッドを生成しましょう。
 チャンネルの転送の片割れをクローンすることでそうすることができます。リスト16-11のようにですね:
 
 <!-- <span class="filename">Filename: src/main.rs</span> -->
