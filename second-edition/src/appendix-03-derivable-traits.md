@@ -1,6 +1,6 @@
 <!-- ## Appendix C: Derivable Traits -->
 
-## 付録C: 継承可能なトレイト
+## 付録C: 導出可能なトレイト
 
 <!-- In various places in the book, we’ve discussed the `derive` attribute, which -->
 <!-- you can apply to a struct or enum definition. The `derive` attribute generates -->
@@ -21,7 +21,7 @@
 <!-- * The conditions in which you’re allowed or not allowed to implement the trait -->
 <!-- * Examples of operations that require the trait -->
 
-* このトレイトを継承する演算子やメソッドで可能になること
+* このトレイトを導出する演算子やメソッドで可能になること
 * `derive`が提供するトレイトの実装がすること
 * トレイトを実装することが型についてどれほど重要か
 * そのトレイトを実装できたりできなかったりする条件
@@ -50,7 +50,7 @@
 <!-- would be most relevant to them? The Rust compiler doesn’t have this insight, so -->
 <!-- it can’t provide appropriate default behavior for you. -->
 
-継承できないトレイトの例は`Display`で、これはエンドユーザ向けのフォーマットを扱います。常に、エンドユーザ向けに型を表示する適切な方法について、
+導出できないトレイトの例は`Display`で、これはエンドユーザ向けのフォーマットを扱います。常に、エンドユーザ向けに型を表示する適切な方法について、
 考慮すべきです。型のどの部分をエンドユーザは見ることができるべきでしょうか？どの部分を関係があると考えるでしょうか？
 どんな形式のデータがエンドユーザにとって最も関係があるでしょうか？Rustコンパイラには、
 この見識がないため、適切な既定動作を提供してくれないのです。
@@ -60,7 +60,7 @@
 <!-- traits you can use `derive` with truly open-ended. Implementing `derive` -->
 <!-- involves using a procedural macro, which is covered in Appendix D. -->
 
-この付録で提供される継承可能なトレイトのリストは、包括的ではありません: ライブラリは、自身のトレイトに`derive`を実装でき、
+この付録で提供される導出可能なトレイトのリストは、包括的ではありません: ライブラリは、自身のトレイトに`derive`を実装でき、
 `derive`と共に使用できるトレイトのリストが実に限りのないものになってしまうのです。`derive`の実装には、
 プロシージャルなマクロが関連します。マクロについては、付録Dで講義します。
 
@@ -103,9 +103,9 @@
 <!-- instances are not equal if any fields are not equal. When derived on enums, -->
 <!-- each variant is equal to itself and not equal to the other variants. -->
 
-`PartialEq`を継承すると、`eq`メソッドを実装します。構造体に`PartialEq`を継承すると、
+`PartialEq`を導出すると、`eq`メソッドを実装します。構造体に`PartialEq`を導出すると、
 *全*フィールドが等しい時のみ2つのインスタンスは等価になり、いずれかのフィールドが等価でなければ、
-インスタンスは等価ではなくなります。enumに継承すると、各列挙子は、自身には等価ですが、他の列挙子には等価ではありません。
+インスタンスは等価ではなくなります。enumに導出すると、各列挙子は、自身には等価ですが、他の列挙子には等価ではありません。
 
 <!-- The `PartialEq` trait is required, for example, with the use of the -->
 <!-- `assert_eq!` macro, which needs to be able to compare two instances of a type -->
@@ -151,7 +151,7 @@
 <!-- point value. Calling `partial_cmp` with any floating point number and the `NaN` -->
 <!-- floating point value will return `None`. -->
 
-`PartialOrd`を継承すると、`partial_cmp`メソッドを実装し、これは、与えられた値が順序付けられない時に`None`になる`Option<Ordering>`を返します。
+`PartialOrd`を導出すると、`partial_cmp`メソッドを実装し、これは、与えられた値が順序付けられない時に`None`になる`Option<Ordering>`を返します。
 その型のほとんどの値は比較できるものの、順序付けできない値の例として、非数字(`NaN`)浮動小数点値が挙げられます。
 `partial_cmp`をあらゆる浮動小数点数と`NaN`浮動小数点数で呼び出すと、`None`が返るでしょう。
 
@@ -160,8 +160,8 @@
 <!-- definition. When derived on enums, variants of the enum declared earlier in the -->
 <!-- enum definition are considered less than the variants listed later. -->
 
-構造体に継承すると、フィールドが構造体定義で現れる順番で各フィールドの値を比較することで2つのインスタンスを比較します。
-enumに継承すると、enum定義で先に定義された列挙子が、後に列挙された列挙子よりも小さいと考えられます。
+構造体に導出すると、フィールドが構造体定義で現れる順番で各フィールドの値を比較することで2つのインスタンスを比較します。
+enumに導出すると、enum定義で先に定義された列挙子が、後に列挙された列挙子よりも小さいと考えられます。
 
 <!-- The `PartialOrd` trait is required, for example, for the `gen_range` method -->
 <!-- from the `rand` crate that generates a random value in the range specified by a -->
@@ -180,8 +180,8 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 `Ord`トレイトにより、注釈した型のあらゆる2つの値に対して、合法な順序付けが行えることがわかります。
 `Ord`トレイトは`cmp`メソッドを実装し、これは、常に合法な順序付けが可能なので、`Option<Ordering>`ではなく、
 `Ordering`を返します。`PartialOrd`と`Eq`(`Eq`は`PartialEq`も必要とします)も実装している型にしか、
-`Ord`トレイトを適用することはできません。構造体とenumで継承したら、`PartialOrd`で、
-`partial_cmp`の継承した実装と同じように`cmp`は振る舞います。
+`Ord`トレイトを適用することはできません。構造体とenumで導出したら、`PartialOrd`で、
+`partial_cmp`の導出した実装と同じように`cmp`は振る舞います。
 
 <!-- An example of when `Ord` is required is when storing values in a `BTreeSet<T>`, -->
 <!-- a data structure that stores data based on the sort order of the values. -->
@@ -206,8 +206,8 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 <!-- whole type, calls `clone` on each of the parts of the type. This means all the -->
 <!-- fields or values in the type must also implement `Clone` to derive `Clone`. -->
 
-`Clone`を継承すると、`clone`メソッドを実装し、これは型全体に対して実装されると、
-型の各部品に対して`clone`を呼び出します。要するに、`Clone`を継承するには、
+`Clone`を導出すると、`clone`メソッドを実装し、これは型全体に対して実装されると、
+型の各部品に対して`clone`を呼び出します。要するに、`Clone`を導出するには、
 型のフィールドと値全部も`Clone`を実装していなければならないということです。
 
 <!-- An example of when `Clone` is required is when calling the `to_vec` method on a -->
@@ -239,7 +239,7 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 <!-- type that implements `Copy` has a trivial implementation of `Clone` that -->
 <!-- performs the same task as `Copy`. -->
 
-部品すべてが`Copy`を実装する任意の型に対して`Copy`を継承することができます。`Clone`も実装する型に対してのみ、
+部品すべてが`Copy`を実装する任意の型に対して`Copy`を導出することができます。`Clone`も実装する型に対してのみ、
 `Copy`トレイトを適用することができます。何故なら、`Copy`を実装する型には、
 `Copy`と同じ作業を行う`Clone`の<ruby>瑣末<rp>(</rp><rt>さまつ</rt><rp>)</rp></ruby>な実装があるからです。
 
@@ -267,8 +267,8 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 <!-- meaning all fields or values must also implement `Hash` to derive `Hash`. -->
 
 `Hash`トレイトにより、任意のサイズの型のインスタンスを取り、そのインスタンスをハッシュ関数で固定サイズの値にマップできます。
-`Hash`を継承すると、`hash`メソッドを実装します。`hash`の継承された実装は、
-型の各部品に対して呼び出した`hash`の結果を組み合わせます。つまり、`Hash`を継承するには、
+`Hash`を導出すると、`hash`メソッドを実装します。`hash`の導出された実装は、
+型の各部品に対して呼び出した`hash`の結果を組み合わせます。つまり、`Hash`を導出するには、
 全フィールドと値も`Hash`を実装しなければならないということです。
 
 <!-- An example of when `Hash` is required is in storing keys in a `HashMap<K, V>` -->
@@ -286,9 +286,9 @@ enumに継承すると、enum定義で先に定義された列挙子が、後に
 <!-- meaning all fields or values in the type must also implement `Default` to -->
 <!-- derive `Default.` -->
 
-`Default`トレイトにより、型に対して既定値を生成できます。`Default`を継承すると、`default`関数を実装します。
-`default`関数の継承された実装は、型の各部品に対して`default`関数を呼び出します。つまり、
-`Default`を継承するには、型の全フィールドと値も`Default`を実装しなければならないということです。
+`Default`トレイトにより、型に対して既定値を生成できます。`Default`を導出すると、`default`関数を実装します。
+`default`関数の導出された実装は、型の各部品に対して`default`関数を呼び出します。つまり、
+`Default`を導出するには、型の全フィールドと値も`Default`を実装しなければならないということです。
 
 <!-- The `Default::default` function is commonly used in combination with the struct -->
 <!-- update syntax discussed in the “Creating Instances From Other Instances With -->

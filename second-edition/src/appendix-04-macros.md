@@ -560,7 +560,7 @@ Rustコードの完全なパーサを書くのは、単純な作業ではない�
 <!-- added the `#[derive(HelloMacro)]` annotation to. -->
 
 この関数はまず、`TokenStream`からの`input`を`to_string`を呼び出して`String`に変換します。
-この`String`は、`HelloMacro`を継承しているRustコードの文字列表現になります。
+この`String`は、`HelloMacro`を導出しているRustコードの文字列表現になります。
 リストD-2の例で、`s`は`struct Pancakes;`という`String`値になります。
 それが`#[derive(HelloMacro)]`注釈を追加したRustコードだからです。
 
