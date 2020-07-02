@@ -1,3 +1,4 @@
+<!-- -*- coding:utf-8-unix -*- -->
 <!-- ## Reference Cycles Can Leak Memory -->
 
 ## 循環参照は、メモリをリークすることもある
@@ -705,7 +706,10 @@ fn main() {
 この章で興味をそそられ、独自のスマートポインタを実装したくなったら、もっと役に立つ情報を求めて、
 [“The Rustonomicon”][nomicon]をチェックしてください。
 
+> 訳注: 日本語版のThe Rustonomiconは[こちら][nomicon-ja]です。
+
 [nomicon]: https://doc.rust-lang.org/stable/nomicon/
+[nomicon-ja]: https://doc.rust-jp.rs/rust-nomicon-ja/index.html
 
 <!-- Next, we’ll talk about concurrency in Rust. You’ll even learn about a few new -->
 <!-- smart pointers. -->
