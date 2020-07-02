@@ -108,7 +108,10 @@ unsafeなRustコードを使用することについては第19章で語りま�
 注意深い思考が必要になるということです。[The Rustonomicon]には、
 これらの保証とそれを保持する方法についての情報がより多くあります。
 
+> 訳注: 日本語版のThe Rustonomiconは[こちら][nomicon-ja]です。
+
 [The Rustonomicon]: https://doc.rust-lang.org/stable/nomicon/
+[nomicon-ja]: https://doc.rust-jp.rs/rust-nomicon-ja/index.html
 
 <!-- ## Summary -->
 
