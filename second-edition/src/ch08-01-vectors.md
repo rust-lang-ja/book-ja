@@ -1,3 +1,4 @@
+<!-- -*- coding:utf-8-unix -*- -->
 <!-- ## Storing Lists of Values with Vectors -->
 
 ## ベクタで一連の値を保持する
@@ -303,6 +304,10 @@ error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immuta
 <!-- > Rustonomicon” at https://doc.rust-lang.org/stable/nomicon/vec.html. -->
 
 > 注釈: `Vec<T>`の実装に関する詳細については、[“The Rustonomicon”](https://doc.rust-lang.org/stable/nomicon/vec.html)を参照してください。
+
+> 訳注: 日本語版のThe Rustonomiconは[こちら][nomicon-ja-vec]です。
+
+[nomicon-ja-vec]: https://doc.rust-jp.rs/rust-nomicon-ja/vec.html
 
 <!-- ### Iterating Over the Values in a Vector -->
 
