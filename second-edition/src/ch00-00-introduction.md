@@ -313,4 +313,7 @@ Rustを学ぶ過程で重要な部分は、コンパイラが表示するエラ�
 
 この本が生成されるソースファイルは、[GitHub][book]で見つかります。
 
+> 訳註: 日本語版は[こちら][book-ja]です。
+
 [book]: https://github.com/rust-lang/book/tree/master/second-edition/src
+[book-ja]: https://github.com/rust-lang-ja/book-ja
