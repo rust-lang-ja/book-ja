@@ -25,7 +25,7 @@ Our web server needs to listen to a TCP connection, so that’s the first part
 we’ll work on. The standard library offers a `std::net` module that lets us do
 this. Let’s make a new project in the usual fashion:
 
-```text
+```console
 $ cargo new hello
      Created binary (application) `hello` project
 $ cd hello
@@ -148,13 +148,14 @@ for the next time we ask for data. It therefore needs to be `mut` because its
 internal state might change; usually, we think of “reading” as not needing
 mutation, but in this case we need the `mut` keyword.
 
-Next, we need to actually read from the stream. We do this in two steps: first,
-we declare a `buffer` on the stack to hold the data that is read in. We’ve made
-the buffer 512 bytes in size, which is big enough to hold the data of a basic
-request and sufficient for our purposes in this chapter. If we wanted to handle
-requests of an arbitrary size, buffer management would need to be more
-complicated; we’ll keep it simple for now. We pass the buffer to `stream.read`,
-which will read bytes from the `TcpStream` and put them in the buffer.
+Next, we need to actually read from the stream. We do this in two steps:
+first, we declare a `buffer` on the stack to hold the data that is read in.
+We’ve made the buffer 1024 bytes in size, which is big enough to hold the
+data of a basic request and sufficient for our purposes in this chapter. If
+we wanted to handle requests of an arbitrary size, buffer management would
+need to be more complicated; we’ll keep it simple for now. We pass the buffer
+to `stream.read`, which will read bytes from the `TcpStream` and put them in
+the buffer.
 
 Second, we convert the bytes in the buffer to a string and print that string.
 The `String::from_utf8_lossy` function takes a `&[u8]` and produces a `String`
@@ -167,7 +168,7 @@ Let’s try this code! Start the program and make a request in a web browser
 again. Note that we’ll still get an error page in the browser, but our
 program’s output in the terminal will now look similar to this:
 
-```text
+```console
 $ cargo run
    Compiling hello v0.1.0 (file:///projects/hello)
     Finished dev [unoptimized + debuginfo] target(s) in 0.42s

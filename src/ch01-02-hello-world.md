@@ -24,7 +24,7 @@ and a directory for the “Hello, world!” project within the *projects* direct
 
 For Linux, macOS, and PowerShell on Windows, enter this:
 
-```text
+```console
 $ mkdir ~/projects
 $ cd ~/projects
 $ mkdir hello_world
@@ -62,7 +62,7 @@ fn main() {
 Save the file and go back to your terminal window. On Linux or macOS, enter
 the following commands to compile and run the file:
 
-```text
+```console
 $ rustc main.rs
 $ ./main
 Hello, world!
@@ -119,8 +119,9 @@ Inside the `main` function is the following code:
 ```
 
 This line does all the work in this little program: it prints text to the
-screen. There are four important details to notice here. First, Rust style is
-to indent with four spaces, not a tab.
+screen. There are four important details to notice here.
+
+First, Rust style is to indent with four spaces, not a tab.
 
 Second, `println!` calls a Rust macro. If it called a function instead, it
 would be entered as `println` (without the `!`). We’ll discuss Rust macros in
@@ -143,7 +144,7 @@ Before running a Rust program, you must compile it using the Rust compiler by
 entering the `rustc` command and passing it the name of your source file, like
 this:
 
-```text
+```console
 $ rustc main.rs
 ```
 
@@ -174,7 +175,7 @@ This shows the source code file with the *.rs* extension, the executable file
 Windows, a file containing debugging information with the *.pdb* extension.
 From here, you run the *main* or *main.exe* file, like this:
 
-```text
+```console
 $ ./main # or .\main.exe on Windows
 ```
 

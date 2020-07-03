@@ -116,30 +116,30 @@ The default generic type in this code is within the `Add` trait. Here is its
 definition:
 
 ```rust
-trait Add<RHS=Self> {
+trait Add<Rhs=Self> {
     type Output;
 
-    fn add(self, rhs: RHS) -> Self::Output;
+    fn add(self, rhs: Rhs) -> Self::Output;
 }
 ```
 
 This code should look generally familiar: a trait with one method and an
-associated type. The new part is `RHS=Self`: this syntax is called *default
-type parameters*. The `RHS` generic type parameter (short for “right hand
+associated type. The new part is `Rhs=Self`: this syntax is called *default
+type parameters*. The `Rhs` generic type parameter (short for “right hand
 side”) defines the type of the `rhs` parameter in the `add` method. If we don’t
-specify a concrete type for `RHS` when we implement the `Add` trait, the type
-of `RHS` will default to `Self`, which will be the type we’re implementing
+specify a concrete type for `Rhs` when we implement the `Add` trait, the type
+of `Rhs` will default to `Self`, which will be the type we’re implementing
 `Add` on.
 
-When we implemented `Add` for `Point`, we used the default for `RHS` because we
+When we implemented `Add` for `Point`, we used the default for `Rhs` because we
 wanted to add two `Point` instances. Let’s look at an example of implementing
-the `Add` trait where we want to customize the `RHS` type rather than using the
+the `Add` trait where we want to customize the `Rhs` type rather than using the
 default.
 
 We have two structs, `Millimeters` and `Meters`, holding values in different
 units. We want to add values in millimeters to values in meters and have the
 implementation of `Add` do the conversion correctly. We can implement `Add` for
-`Millimeters` with `Meters` as the `RHS`, as shown in Listing 19-15.
+`Millimeters` with `Meters` as the `Rhs`, as shown in Listing 19-15.
 
 <span class="filename">Filename: src/lib.rs</span>
 
@@ -151,7 +151,7 @@ implementation of `Add` do the conversion correctly. We can implement `Add` for
 `Millimeters` to add `Millimeters` to `Meters`</span>
 
 To add `Millimeters` and `Meters`, we specify `impl Add<Meters>` to set the
-value of the `RHS` type parameter instead of using the default of `Self`.
+value of the `Rhs` type parameter instead of using the default of `Self`.
 
 You’ll use default type parameters in two main ways:
 
@@ -229,7 +229,7 @@ disambiguate.
 
 Running this code prints the following:
 
-```text
+```console
 {{#include ../listings/ch19-advanced-features/listing-19-18/output.txt}}
 ```
 
@@ -264,7 +264,7 @@ is expressed in the implementation of the `Animal` trait on `Dog` in the
 In `main`, we call the `Dog::baby_name` function, which calls the associated
 function defined on `Dog` directly. This code prints the following:
 
-```text
+```console
 {{#include ../listings/ch19-advanced-features/listing-19-19/output.txt}}
 ```
 
@@ -288,7 +288,7 @@ Because `Animal::baby_name` is an associated function rather than a method, and
 thus doesn’t have a `self` parameter, Rust can’t figure out which
 implementation of `Animal::baby_name` we want. We’ll get this compiler error:
 
-```text
+```console
 {{#include ../listings/ch19-advanced-features/listing-19-20/output.txt}}
 ```
 
@@ -311,7 +311,7 @@ indicates we want to call the `baby_name` method from the `Animal` trait as
 implemented on `Dog` by saying that we want to treat the `Dog` type as an
 `Animal` for this function call. This code will now print what we want:
 
-```text
+```console
 {{#include ../listings/ch19-advanced-features/listing-19-21/output.txt}}
 ```
 
@@ -383,7 +383,7 @@ doesn’t implement `Display`, such as the `Point` struct:
 
 We get an error saying that `Display` is required but not implemented:
 
-```text
+```console
 {{#include ../listings/ch19-advanced-features/no-listing-02-impl-outlineprint-for-point/output.txt}}
 ```
 

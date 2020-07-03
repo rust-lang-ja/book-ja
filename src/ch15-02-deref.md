@@ -45,7 +45,7 @@ we have access to the integer value `y` is pointing to that we can compare with
 If we tried to write `assert_eq!(5, y);` instead, we would get this compilation
 error:
 
-```text
+```console
 {{#include ../listings/ch15-smart-pointers/output-only-01-comparing-to-reference/output.txt}}
 ```
 
@@ -68,7 +68,7 @@ reference; the dereference operator will work as shown in Listing 15-7:
 `Box<i32>`</span>
 
 The only difference between Listing 15-7 and Listing 15-6 is that here we set
-`y` to be an instance of a box pointing to the value in `x` rather than a
+`y` to be an instance of a box pointing to a copied value of `x` rather than a
 reference pointing to the value of `x`. In the last assertion, we can use the
 dereference operator to follow the box’s pointer in the same way that we did
 when `y` was a reference. Next, we’ll explore what is special about `Box<T>`
@@ -114,7 +114,7 @@ way we used references and `Box<T>`</span>
 
 Here’s the resulting compilation error:
 
-```text
+```console
 {{#include ../listings/ch15-smart-pointers/listing-15-09/output.txt}}
 ```
 

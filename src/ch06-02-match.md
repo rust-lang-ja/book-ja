@@ -172,7 +172,7 @@ We didn’t handle the `None` case, so this code will cause a bug. Luckily, it�
 a bug Rust knows how to catch. If we try to compile this code, we’ll get this
 error:
 
-```text
+```console
 {{#include ../listings/ch06-enums-and-pattern-matching/no-listing-10-non-exhaustive-match/output.txt}}
 ```
 
@@ -204,7 +204,7 @@ list before the `_` placeholder.
 However, the `match` expression can be a bit wordy in a situation in which we
 care about only *one* of the cases. For this situation, Rust provides `if let`.
 
-More about patterns, and matching can be found in [chapter 18][ch18-00-patterns].
+More about patterns and matching can be found in [chapter 18][ch18-00-patterns].
 
 [ch18-00-patterns]:
 ch18-00-patterns.html
