@@ -263,8 +263,7 @@ impl Config {
 <!-- We can also take advantage of iterators in the `search` function in our I/O -->
 <!-- project, which is reproduced here in Listing 13-28 as it was in Listing 12-19: -->
 
-入出力プロジェクトの`search`関数でも、イテレータを活用することができ、その関数は、
-リスト12-19のように、ここリスト13-28に再現しました。
+入出力プロジェクトの`search`関数でも、イテレータを活用することができます。その関数はリスト12-19に示していますが、以下のリスト13-28に再掲します。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 

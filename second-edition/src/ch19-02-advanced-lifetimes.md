@@ -151,7 +151,7 @@ Rustコンパイラのエラーメッセージは、これらの参照にライ�
 <!-- returns. This code doesn’t quite work. -->
 
 次にリスト19-14では、`Context`のインスタンスを1つ取り、`Parser`を使ってその文脈をパースし、
-`parse`が返すものを返す関数を追加します。このコードはあまり動きません。
+`parse`が返すものを返す関数を追加します。このコードは期待通りに動きません。
 
 <!-- <span class="filename">Filename: src/lib.rs</span> -->
 
