@@ -256,7 +256,7 @@ fn bar() -> ! {
 <!-- so `bar` can never possibly return. -->
 
 このコードは、「関数`bar`はneverを返す」と解読します。neverを返す関数は、*発散する関数*(diverging function)と呼ばれます。
-型`!`の値は生成できないので、`bar`が有効値を返すことは決してできません。
+型`!`の値は生成できないので、`bar`からリターンする（呼び出し元に制御を戻す）ことは決してできません。
 
 <!-- But what use is a type you can never create values for? Recall the code from -->
 <!-- Listing 2-5; we’ve reproduced part of it here in Listing 19-34. -->
