@@ -238,7 +238,7 @@ fn main() {
 }
 
 fn handle_connection(mut stream: TcpStream) {
-    let mut buffer = [0; 512];
+    let mut buffer = [0; 1024];
 
     stream.read(&mut buffer).unwrap();
 
@@ -274,14 +274,14 @@ fn handle_connection(mut stream: TcpStream) {
 
 <!-- Next, we need to actually read from the stream. We do this in two steps: first, -->
 <!-- we declare a `buffer` on the stack to hold the data that is read in. We’ve made -->
-<!-- the buffer 512 bytes in size, which is big enough to hold the data of a basic -->
+<!-- the buffer 1024 bytes in size, which is big enough to hold the data of a basic -->
 <!-- request and sufficient for our purposes in this chapter. If we wanted to handle -->
 <!-- requests of an arbitrary size, buffer management would need to be more -->
 <!-- complicated; we’ll keep it simple for now. We pass the buffer to `stream.read`, -->
 <!-- which will read bytes from the `TcpStream` and put them in the buffer. -->
 
 次に、実際にストリームから読み取る必要があります。これを2つの手順で行います: まず、
-スタックに読み取ったデータを保持する`buffer`を宣言します。バッファーのサイズは512バイトにしました。
+スタックに読み取ったデータを保持する`buffer`を宣言します。バッファーのサイズは1024バイトにしました。
 これは、基本的なリクエストには十分な大きさでこの章の目的には必要十分です。任意のサイズのリクエストを扱いたければ、
 バッファーの管理はもっと複雑にする必要があります; 今は、単純に保っておきます。このバッファーを`stream.read`に渡し、
 これが`TcpStream`からバイトを読み取ってバッファーに置きます。
@@ -296,7 +296,7 @@ fn handle_connection(mut stream: TcpStream) {
 2番目にバッファーのバイトを文字列に変換し、その文字列を出力します。`String::from_utf8_lossy`関数は、
 `&[u8]`を取り、`String`を生成します。名前の“lossy”の箇所は、無効なUTF-8シーケンスを目の当たりにした際のこの関数の振る舞いを示唆しています:
 無効なシーケンスを`�`、`U+FFFD REPLACEMENT CHARACTER`で置き換えます。
-リクエストデータによって埋められなかったバッファーの部分(`訳注` バッファーとして512バイトの領域を用意しているが、リクエストデータは512バイト存在しないことがほとんどなので変数 `buffer` の後ろ部分が埋められないまま放置されることを意図していると思われる) が置き換え文字になって表示されるのをみるでしょう。
+リクエストデータによって埋められなかったバッファーの部分(`訳注` バッファーとして1024バイトの領域を用意しているが、リクエストデータは1024バイト存在しないことがほとんどなので変数 `buffer` の後ろ部分が埋められないまま放置されることを意図していると思われる) は、置換文字が表示される場合があります。
 
 <!-- Let’s try this code! Start the program and make a request in a web browser -->
 <!-- again. Note that we’ll still get an error page in the browser, but our -->
@@ -457,7 +457,7 @@ HTTP/1.1 200 OK\r\n\r\n
 # use std::io::prelude::*;
 # use std::net::TcpStream;
 fn handle_connection(mut stream: TcpStream) {
-    let mut buffer = [0; 512];
+    let mut buffer = [0; 1024];
 
     stream.read(&mut buffer).unwrap();
 
@@ -560,7 +560,7 @@ use std::fs::File;
 // --snip--
 
 fn handle_connection(mut stream: TcpStream) {
-    let mut buffer = [0; 512];
+    let mut buffer = [0; 1024];
     stream.read(&mut buffer).unwrap();
 
     let mut file = File::open("hello.html").unwrap();
@@ -640,7 +640,7 @@ HTMLが描画されるのが確認できるはずです！
 // --snip--
 
 fn handle_connection(mut stream: TcpStream) {
-    let mut buffer = [0; 512];
+    let mut buffer = [0; 1024];
     stream.read(&mut buffer).unwrap();
 
     let get = b"GET / HTTP/1.1\r\n";
@@ -808,7 +808,7 @@ fn handle_connection(mut stream: TcpStream) {
 // --snip--
 
 fn handle_connection(mut stream: TcpStream) {
-#     let mut buffer = [0; 512];
+#     let mut buffer = [0; 1024];
 #     stream.read(&mut buffer).unwrap();
 #
 #     let get = b"GET / HTTP/1.1\r\n";
