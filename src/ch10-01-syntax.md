@@ -44,12 +44,13 @@ to declare the type parameter name before we use it. To define the generic
 between the name of the function and the parameter list, like this:
 
 ```rust,ignore
-fn largest<T>(list: &[T]) -> T {
+fn largest<T>(list: &[T]) -> &T {
 ```
 
 We read this definition as: the function `largest` is generic over some type
 `T`. This function has one parameter named `list`, which is a slice of values
-of type `T`. The `largest` function will return a value of the same type `T`.
+of type `T`. The `largest` function will return a reference to a value of the
+same type `T`.
 
 Listing 10-5 shows the combined `largest` function definition using the generic
 data type in its signature. The listing also shows how we can call the function
@@ -67,7 +68,7 @@ uses generic type parameters but doesn’t compile yet</span>
 
 If we compile this code right now, we’ll get this error:
 
-```text
+```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/output.txt}}
 ```
 
@@ -123,7 +124,7 @@ compiler know that the generic type `T` will be an integer for this instance of
 `Point<T>`. Then when we specify 4.0 for `y`, which we’ve defined to have the
 same type as `x`, we’ll get a type mismatch error like this:
 
-```text
+```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-07/output.txt}}
 ```
 

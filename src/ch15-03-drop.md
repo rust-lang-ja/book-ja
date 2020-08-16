@@ -6,7 +6,7 @@ provide an implementation for the `Drop` trait on any type, and the code you
 specify can be used to release resources like files or network connections.
 We’re introducing `Drop` in the context of smart pointers because the
 functionality of the `Drop` trait is almost always used when implementing a
-smart pointer. For example, `Box<T>` customizes `Drop` to deallocate the space
+smart pointer. For example, when a `Box<T>` is dropped it will deallocate the space
 on the heap that the box points to.
 
 In some languages, the programmer must call code to free memory or resources
@@ -51,7 +51,7 @@ call the `drop` method explicitly.
 
 When we run this program, we’ll see the following output:
 
-```text
+```console
 {{#include ../listings/ch15-smart-pointers/listing-15-14/output.txt}}
 ```
 
@@ -88,7 +88,7 @@ the `Drop` trait manually to clean up early</span>
 
 When we try to compile this code, we’ll get this error:
 
-```text
+```console
 {{#include ../listings/ch15-smart-pointers/listing-15-15/output.txt}}
 ```
 
@@ -123,7 +123,7 @@ drop a value before it goes out of scope</span>
 
 Running this code will print the following:
 
-```text
+```console
 {{#include ../listings/ch15-smart-pointers/listing-15-16/output.txt}}
 ```
 

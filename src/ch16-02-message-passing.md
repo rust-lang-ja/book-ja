@@ -3,8 +3,8 @@
 One increasingly popular approach to ensuring safe concurrency is *message
 passing*, where threads or actors communicate by sending each other messages
 containing data. Here’s the idea in a slogan from [the Go language
-documentation](http://golang.org/doc/effective_go.html): “Do not communicate by
-sharing memory; instead, share memory by communicating.”
+documentation](https://golang.org/doc/effective_go.html#concurrency): 
+“Do not communicate by sharing memory; instead, share memory by communicating.”
 
 One major tool Rust has for accomplishing message-sending concurrency is the
 *channel*, a programming concept that Rust’s standard library provides an
@@ -157,7 +157,7 @@ again. Potentially, the other thread’s modifications could cause errors or
 unexpected results due to inconsistent or nonexistent data. However, Rust gives
 us an error if we try to compile the code in Listing 16-9:
 
-```text
+```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-09/output.txt}}
 ```
 

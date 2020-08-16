@@ -20,7 +20,7 @@ If we don’t add the type annotation here, Rust will display the following
 error, which means the compiler needs more information from us to know which
 type we want to use:
 
-```text
+```console
 {{#include ../listings/ch03-common-programming-concepts/output-only-01-no-type-annotations/output.txt}}
 ```
 
@@ -55,7 +55,7 @@ value.
 
 Each variant can be either signed or unsigned and has an explicit size.
 *Signed* and *unsigned* refer to whether it’s possible for the number to be
-negative or positive—in other words, whether the number needs to have a sign
+negative—in other words, whether the number needs to have a sign
 with it (signed) or whether it will only ever be positive and can therefore be
 represented without a sign (unsigned). It’s like writing numbers on paper: when
 the sign matters, a number is shown with a plus sign or a minus sign; however,
@@ -326,7 +326,7 @@ compile but exit with an error when it runs:
 
 Running this code using `cargo run` produces the following result:
 
-```text
+```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access/output.txt}}
 ```
 

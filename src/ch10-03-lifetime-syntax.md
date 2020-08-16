@@ -45,7 +45,7 @@ the inner scope ends, and we attempt to print the value in `r`. This code won’
 compile because the value `r` is referring to has gone out of scope before we
 try to use it. Here is the error message:
 
-```text
+```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-17/output.txt}}
 ```
 
@@ -113,13 +113,10 @@ function to find the longer of two string slices</span>
 
 Note that we want the function to take string slices, which are references,
 because we don’t want the `longest` function to take ownership of its
-parameters. We want to allow the function to accept slices of a `String` (the
-type stored in the variable `string1`) as well as string literals (which is
-what variable `string2` contains).
-
-Refer to the [“String Slices as Parameters”][string-slices-as-parameters]<!--
-ignore --> section in Chapter 4 for more discussion about why the parameters we
-use in Listing 10-20 are the ones we want.
+parameters. Refer to the [“String Slices as
+Parameters”][string-slices-as-parameters]<!-- ignore --> section in Chapter 4
+for more discussion about why the parameters we use in Listing 10-20 are the
+ones we want.
 
 If we try to implement the `longest` function as shown in Listing 10-21, it
 won’t compile.
@@ -136,7 +133,7 @@ compile</span>
 
 Instead, we get the following error that talks about lifetimes:
 
-```text
+```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/output.txt}}
 ```
 
@@ -282,7 +279,7 @@ has gone out of scope</span>
 
 When we try to compile this code, we’ll get this error:
 
-```text
+```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-24/output.txt}}
 ```
 
@@ -341,7 +338,7 @@ type, this implementation will fail to compile because the return value
 lifetime is not related to the lifetime of the parameters at all. Here is the
 error message we get:
 
-```text
+```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/output.txt}}
 ```
 
@@ -609,11 +606,13 @@ analysis happens at compile time, which doesn’t affect runtime performance!
 
 Believe it or not, there is much more to learn on the topics we discussed in
 this chapter: Chapter 17 discusses trait objects, which are another way to use
-traits. Chapter 19 covers more complex scenarios involving lifetime annotations
-as well as some advanced type system features. But next, you’ll learn how to
-write tests in Rust so you can make sure your code is working the way it should.
+traits. There are also more complex scenarios involving lifetime annotations
+that you will only need in very advanced scenarios; for those, you should read
+the [Rust Reference][reference]. But next, you’ll learn how to write tests in
+Rust so you can make sure your code is working the way it should.
 
 [references-and-borrowing]:
 ch04-02-references-and-borrowing.html#references-and-borrowing
 [string-slices-as-parameters]:
 ch04-03-slices.html#string-slices-as-parameters
+[reference]: ../reference/index.html

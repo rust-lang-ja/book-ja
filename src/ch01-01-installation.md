@@ -27,8 +27,8 @@ using these steps should work as expected with the content of this book.
 
 If you’re using Linux or macOS, open a terminal and enter the following command:
 
-```text
-$ curl https://sh.rustup.rs -sSf | sh
+```console
+$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
 The command downloads a script and starts the installation of the `rustup`
@@ -37,24 +37,6 @@ for your password. If the install is successful, the following line will appear:
 
 ```text
 Rust is installed now. Great!
-```
-
-If you prefer, feel free to download the script and inspect it before running
-it.
-
-The installation script automatically adds Rust to your system PATH after your
-next login. If you want to start using Rust right away instead of restarting
-your terminal, run the following command in your shell to add Rust to your
-system PATH manually:
-
-```text
-$ source $HOME/.cargo/env
-```
-
-Alternatively, you can add the following line to your *~/.bash_profile*:
-
-```text
-$ export PATH="$HOME/.cargo/bin:$PATH"
 ```
 
 Additionally, you’ll need a linker of some kind. It’s likely one is already
@@ -71,11 +53,11 @@ On Windows, go to [https://www.rust-lang.org/tools/install][install] and follow
 the instructions for installing Rust. At some point in the installation, you’ll
 receive a message explaining that you’ll also need the C++ build tools for
 Visual Studio 2013 or later. The easiest way to acquire the build tools is to
-install [Build Tools for Visual Studio 2019][visualstudio]. The tools are in
-the Other Tools and Frameworks section.
+install [Build Tools for Visual Studio 2019][visualstudio]. When asked which
+workloads to install make sure "C++ build tools" is selected and that the Windows 10 SDK and the English language pack components are included.
 
 [install]: https://www.rust-lang.org/tools/install
-[visualstudio]: https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2019
+[visualstudio]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
 
 The rest of this book uses commands that work in both *cmd.exe* and PowerShell.
 If there are specific differences, we’ll explain which to use.
@@ -85,14 +67,14 @@ If there are specific differences, we’ll explain which to use.
 After you’ve installed Rust via `rustup`, updating to the latest version is
 easy. From your shell, run the following update script:
 
-```text
+```console
 $ rustup update
 ```
 
 To uninstall Rust and `rustup`, run the following uninstall script from your
 shell:
 
-```text
+```console
 $ rustup self uninstall
 ```
 
@@ -101,7 +83,7 @@ $ rustup self uninstall
 To check whether you have Rust installed correctly, open a shell and enter this
 line:
 
-```text
+```console
 $ rustc --version
 ```
 
@@ -122,7 +104,7 @@ resources include [the Users forum][users] and [Stack Overflow][stackoverflow].
 
 [discord]: https://discord.gg/rust-lang
 [users]: https://users.rust-lang.org/
-[stackoverflow]: http://stackoverflow.com/questions/tagged/rust
+[stackoverflow]: https://stackoverflow.com/questions/tagged/rust
 
 ### Local Documentation
 

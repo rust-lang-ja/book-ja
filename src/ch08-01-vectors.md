@@ -138,7 +138,7 @@ and any other references to the contents of the vector remain valid. Recall the
 rule that states you can’t have mutable and immutable references in the same
 scope. That rule applies in Listing 8-7, where we hold an immutable reference to
 the first element in a vector and try to add an element to the end, which won’t
-work.
+work if we also try to refer to that element later in the function:
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-07/src/main.rs:here}}
@@ -149,7 +149,7 @@ while holding a reference to an item</span>
 
 Compiling this code will result in this error:
 
-```text
+```console
 {{#include ../listings/ch08-common-collections/listing-08-07/output.txt}}
 ```
 
@@ -232,11 +232,12 @@ the program will get at runtime to store in a vector, the enum technique won’t
 work. Instead, you can use a trait object, which we’ll cover in Chapter 17.
 
 Now that we’ve discussed some of the most common ways to use vectors, be sure
-to review the API documentation for all the many useful methods defined on
+to review [the API documentation][vec-api] for all the many useful methods defined on
 `Vec<T>` by the standard library. For example, in addition to `push`, a `pop`
 method removes and returns the last element. Let’s move on to the next
 collection type: `String`!
 
 [data-types]: ch03-02-data-types.html#data-types
 [nomicon]: ../nomicon/vec.html
+[vec-api]: ../std/vec/struct.Vec.html
 [deref]: ch15-02-deref.html#following-the-pointer-to-the-value-with-the-dereference-operator

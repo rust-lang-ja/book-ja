@@ -67,7 +67,7 @@ likely to move code definitions and item calls independently of each other.
 Let’s try to compile Listing 7-3 and find out why it won’t compile yet! The
 error we get is shown in Listing 7-4.
 
-```text
+```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-03/output.txt}}
 ```
 
@@ -97,7 +97,7 @@ see and do everything in the restaurant in which they operate.
 Rust chose to have the module system function this way so that hiding inner
 implementation details is the default. That way, you know which parts of the
 inner code you can change without breaking outer code. But you can expose inner
-parts of child modules code to outer ancestor modules by using the `pub`
+parts of child modules' code to outer ancestor modules by using the `pub`
 keyword to make an item public.
 
 ### Exposing Paths with the `pub` Keyword
@@ -119,7 +119,7 @@ use it from `eat_at_restaurant`</span>
 Unfortunately, the code in Listing 7-5 still results in an error, as shown in
 Listing 7-6.
 
-```text
+```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-05/output.txt}}
 ```
 

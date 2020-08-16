@@ -120,7 +120,7 @@ program.
 
 We hinted that this example wouldn’t compile. Now let’s find out why!
 
-```text
+```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-13/output.txt}}
 ```
 
@@ -150,7 +150,7 @@ multiple threads to own the `Mutex<T>`</span>
 Once again, we compile and get... different errors! The compiler is teaching us
 a lot.
 
-```text
+```console
 {{#include ../listings/ch16-fearless-concurrency/listing-16-14/output.txt}}
 ```
 
@@ -176,9 +176,11 @@ Fortunately, `Arc<T>` *is* a type like `Rc<T>` that is safe to use in
 concurrent situations. The *a* stands for *atomic*, meaning it’s an *atomically
 reference counted* type. Atomics are an additional kind of concurrency
 primitive that we won’t cover in detail here: see the standard library
-documentation for `std::sync::atomic` for more details. At this point, you just
+documentation for [`std::sync::atomic`] for more details. At this point, you just
 need to know that atomics work like primitive types but are safe to share
 across threads.
+
+[`std::sync::atomic`]: ../std/sync/atomic/index.html
 
 You might then wonder why all primitive types aren’t atomic and why standard
 library types aren’t implemented to use `Arc<T>` by default. The reason is that
