@@ -1,17 +1,23 @@
-<!-- ## Comments -->
+<!--
+## Comments
+-->
 
 ## コメント
 
-<!-- All programmers strive to make their code easy to understand, but sometimes -->
-<!-- extra explanation is warranted. In these cases, programmers leave notes, or -->
-<!-- *comments*, in their source code that the compiler will ignore but people -->
-<!-- reading the source code may find useful. -->
+<!--
+All programmers strive to make their code easy to understand, but sometimes
+extra explanation is warranted. In these cases, programmers leave notes, or
+*comments*, in their source code that the compiler will ignore but people
+reading the source code may find useful.
+-->
 
 全プログラマは、自分のコードがわかりやすくなるよう努めますが、時として追加の説明が許されることもあります。
 このような場合、プログラマは注釈または*コメント*をソースコードに残し、コメントをコンパイラは無視しますが、
 ソースコードを読む人間には有益なものと思えるでしょう。
 
-<!-- Here’s a simple comment: -->
+<!--
+Here’s a simple comment:
+-->
 
 こちらが単純なコメントです:
 
@@ -19,9 +25,11 @@
 // hello, world
 ```
 
-<!-- In Rust, comments must start with two slashes and continue until the end of the -->
-<!-- line. For comments that extend beyond a single line, you’ll need to include -->
-<!-- `//` on each line, like this: -->
+<!--
+In Rust, comments must start with two slashes and continue until the end of the
+line. For comments that extend beyond a single line, you’ll need to include
+`//` on each line, like this:
+-->
 
 Rustでは、コメントは2連スラッシュで始め、行の終わりまで続きます。コメントが複数行にまたがる場合、
 各行に`//`を含める必要があります。こんな感じに:
@@ -34,7 +42,9 @@ Rustでは、コメントは2連スラッシュで始め、行の終わりまで
 // ふう！願わくば、このコメントで何が起きているか説明されていると嬉しい。
 ```
 
-<!-- Comments can also be placed at the end of lines containing code: -->
+<!--
+Comments can also be placed at the end of lines containing code:
+-->
 
 コメントは、コードが書かれた行の末尾にも配置することができます:
 
@@ -46,8 +56,10 @@ fn main() {
 }
 ```
 
-<!-- But you’ll more often see them used in this format, with the comment on a -->
-<!-- separate line above the code it's annotating: -->
+<!--
+But you’ll more often see them used in this format, with the comment on a
+separate line above the code it's annotating:
+-->
 
 しかし、こちらの形式のコメントの方が見かける機会は多いでしょう。注釈しようとしているコードの1行上に書く形式です:
 
@@ -61,7 +73,9 @@ fn main() {
 }
 ```
 
-<!-- Rust also has another kind of comment, documentation comments, which we’ll -->
-<!-- discuss in Chapter 14. -->
+<!--
+Rust also has another kind of comment, documentation comments, which we’ll
+discuss in Chapter 14.
+-->
 
 Rustには他の種類のコメント、ドキュメントコメントもあり、それについては第14章で議論します。
