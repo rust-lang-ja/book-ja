@@ -1,5 +1,4 @@
 <!--
--*- coding:utf-8-unix -*-
 ## Storing Lists of Values with Vectors
 -->
 
