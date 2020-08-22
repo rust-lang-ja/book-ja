@@ -21,7 +21,9 @@ ensure the actual references used at runtime will definitely be valid.
 同様に、参照のライフタイムがいくつか異なる方法で関係することがある場合には注釈しなければなりません。
 コンパイラは、ジェネリックライフタイム引数を使用して関係を注釈し、実行時に実際の参照が確かに有効であることを保証することを要求するのです。
 
-<!-- 4行目頭、ways you might encouter...はways that you might encounterで訳している(つまり同格)
+<!--
+4行目頭、ways you might encouter...はways that you might encounterで訳している(つまり同格)
+-->
 
 <!--
 The concept of lifetimes is somewhat different from tools in other programming
@@ -54,8 +56,17 @@ scope.
 参照するつもりだったデータ以外のデータを参照してしまいます。リスト10-17のプログラムを考えてください。
 これには、外側のスコープと内側のスコープが含まれています。
 
-```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-17/src/main.rs:here}}
+```rust,ignore
+{
+    let r;
+
+    {
+        let x = 5;
+        r = &x;
+    }
+
+    println!("r: {}", r);
+}
 ```
 
 <!--
@@ -93,14 +104,10 @@ try to use it. Here is the error message:
 `r`の値を出力しようとしています。`r`が参照している値が使おうとする前にスコープを抜けるので、
 このコードはコンパイルできません。こちらがエラーメッセージです:
 
-```console
-{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-17/output.txt}}
-```
-
-<!--
+```text
 error[E0597]: `x` does not live long enough
 (エラー: `x`の生存期間が短すぎます)
-  src/main.rs:7:5
+  --> src/main.rs:7:5
    |
 6  |         r = &x;
    |              - borrow occurs here
@@ -112,7 +119,7 @@ error[E0597]: `x` does not live long enough
 10 | }
    | - borrowed value needs to live until here
    | (借用された値はここまで生きる必要があります)
--->
+```
 
 <!--
 The variable `x` doesn’t “live long enough.” The reason is that `x` will be out
@@ -145,8 +152,17 @@ whether all borrows are valid. Listing 10-18 shows the same code as Listing
 Rustコンパイラには、スコープを比較して全ての借用が有効であるかを決定する*借用チェッカー*があります。
 リスト10-18は、リスト10-17と同じコードを示していますが、変数のライフタイムを表示する注釈が付いています:
 
-```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-18/src/main.rs:here}}
+```rust,ignore
+{
+    let r;                // ---------+-- 'a
+                          //          |
+    {                     //          |
+        let x = 5;        // -+-- 'b  |
+        r = &x;           //  |       |
+    }                     // -+       |
+                          //          |
+    println!("r: {}", r); //          |
+}                         // ---------+
 ```
 
 <!--
@@ -179,7 +195,14 @@ compiles without any errors.
 リスト10-19でコードを修正したので、ダングリング参照はなくなり、エラーなくコンパイルできます。
 
 ```rust
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-19/src/main.rs:here}}
+{
+    let x = 5;            // ----------+-- 'b
+                          //           |
+    let r = &x;           // --+-- 'a  |
+                          //   |       |
+    println!("r: {}", r); //   |       |
+                          // --+       |
+}                         // ----------+
 ```
 
 <!--
@@ -231,7 +254,14 @@ longest string is abcd`.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-20/src/main.rs}}
+fn main() {
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
+
+    let result = longest(string1.as_str(), string2);
+    // 最長の文字列は、{}です
+    println!("The longest string is {}", result);
+}
 ```
 
 <!--
@@ -275,8 +305,14 @@ won’t compile.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/src/main.rs:here}}
+```rust,ignore
+fn longest(x: &str, y: &str) -> &str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
 ```
 
 <!--
@@ -293,14 +329,10 @@ Instead, we get the following error that talks about lifetimes:
 
 代わりに、以下のようなライフタイムに言及するエラーが出ます:
 
-```console
-{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/output.txt}}
-```
-
-<!--
+```text
 error[E0106]: missing lifetime specifier
 (エラー: ライフタイム指定子が不足しています)
- src/main.rs:1:33
+ --> src/main.rs:1:33
   |
 1 | fn longest(x: &str, y: &str) -> &str {
   |                                 ^ expected lifetime parameter
@@ -310,7 +342,7 @@ error[E0106]: missing lifetime specifier
 signature does not say whether it is borrowed from `x` or `y`
   (助言: この関数の戻り値型は借用された値を含んでいますが、
 シグニチャは、それが`x`か`y`由来のものなのか宣言していません)
--->
+```
 
 <!--
 The help text reveals that the return type needs a generic lifetime parameter
@@ -439,7 +471,13 @@ Listing 10-22.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-22/src/main.rs:here}}
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
 ```
 
 <!--
@@ -525,13 +563,25 @@ a straightforward example.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-23/src/main.rs:here}}
-```
-
-<!--
+# fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+#     if x.len() > y.len() {
+#         x
+#     } else {
+#         y
+#     }
+# }
+#
+fn main() {
     // 長い文字列は長い
     let string1 = String::from("long string is long");
--->
+
+    {
+        let string2 = String::from("xyz");
+        let result = longest(string1.as_str(), string2.as_str());
+        println!("The longest string is {}", result);
+    }
+}
+```
 
 <!--
 <span class="caption">Listing 10-23: Using the `longest` function with
@@ -574,8 +624,16 @@ compile.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-24/src/main.rs:here}}
+```rust,ignore
+fn main() {
+    let string1 = String::from("long string is long");
+    let result;
+    {
+        let string2 = String::from("xyz");
+        result = longest(string1.as_str(), string2.as_str());
+    }
+    println!("The longest string is {}", result);
+}
 ```
 
 <!--
@@ -591,8 +649,17 @@ When we try to compile this code, we’ll get this error:
 
 このコードのコンパイルを試みると、こんなエラーになります:
 
-```console
-{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-24/output.txt}}
+```text
+error[E0597]: `string2` does not live long enough
+  --> src/main.rs:15:5
+   |
+14 |         result = longest(string1.as_str(), string2.as_str());
+   |                                            ------- borrow occurs here
+15 |     }
+   |     ^ `string2` dropped here while still borrowed
+16 |     println!("The longest string is {}", result);
+17 | }
+   | - borrowed value needs to live until here
 ```
 
 <!--
@@ -601,7 +668,7 @@ The error shows that for `result` to be valid for the `println!` statement,
 this because we annotated the lifetimes of the function parameters and return
 values using the same lifetime parameter `'a`.
 -->
-s
+
 このエラーは、`result`が`println!`文に対して有効になるために、`string2`が外側のスコープの終わりまで有効である必要があることを示しています。
 関数引数と戻り値のライフタイムを同じライフタイム引数`'a`で注釈したので、コンパイラはこのことを知っています。
 
@@ -658,7 +725,9 @@ following code will compile:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-08-only-one-reference-with-lifetime/src/main.rs:here}}
+fn longest<'a>(x: &'a str, y: &str) -> &'a str {
+    x
+}
 ```
 
 <!--
@@ -690,14 +759,13 @@ this attempted implementation of the `longest` function that won’t compile:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/src/main.rs:here}}
-```
-
-<--
+```rust,ignore
+fn longest<'a>(x: &str, y: &str) -> &'a str {
     // 本当に長い文字列
     let result = String::from("really long string");
--->
+    result.as_str()
+}
+```
 
 <!--
 Here, even though we’ve specified a lifetime parameter `'a` for the return
@@ -710,15 +778,26 @@ error message we get:
 引数のライフタイムと全く関係がないので、この実装はコンパイルできないでしょう。
 こちらが、得られるエラーメッセージです:
 
-```console
-{{#include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/output.txt}}
-```
-
-<!--
+```text
+error[E0597]: `result` does not live long enough
+ --> src/main.rs:3:5
+  |
+3 |     result.as_str()
+  |     ^^^^^^ does not live long enough
+4 | }
+  | - borrowed value only lives until here
+  |
 note: borrowed value must be valid for the lifetime 'a as defined on the
 function body at 1:1...
 (注釈: 借用された値は、関数本体1行目1文字目で定義されているようにライフタイム'aに対して有効でなければなりません)
--->
+ --> src/main.rs:1:1
+  |
+1 | / fn longest<'a>(x: &str, y: &str) -> &'a str {
+2 | |     let result = String::from("really long string");
+3 | |     result.as_str()
+4 | | }
+  | |_^
+```
 
 <!--
 The problem is that `result` goes out of scope and gets cleaned up at the end
@@ -770,16 +849,19 @@ struct named `ImportantExcerpt` that holds a string slice.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-25/src/main.rs}}
-```
+struct ImportantExcerpt<'a> {
+    part: &'a str,
+}
 
-<!--
+fn main() {
     // 僕をイシュマエルとお呼び。何年か前・・・
     let novel = String::from("Call me Ishmael. Some years ago...");
     let first_sentence = novel.split('.')
         .next()
         .expect("Could not find a '.'");  // '.'が見つかりませんでした
--->
+    let i = ImportantExcerpt { part: first_sentence };
+}
+```
 
 <!--
 <span class="caption">Listing 10-25: A struct that holds a reference, so its
@@ -840,7 +922,17 @@ Chapter 4 we had a function in Listing 4-9, which is shown again in Listing
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-26/src/main.rs:here}}
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
 ```
 
 <!--
@@ -1110,7 +1202,15 @@ First, we’ll use a method named `level` whose only parameter is a reference to
 まず、唯一の引数が`self`への参照で戻り値が`i32`という何かへの参照ではない`level`というメソッドを使用します:
 
 ```rust
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-10-lifetimes-on-methods/src/main.rs:1st}}
+# struct ImportantExcerpt<'a> {
+#     part: &'a str,
+# }
+#
+impl<'a> ImportantExcerpt<'a> {
+    fn level(&self) -> i32 {
+        3
+    }
+}
 ```
 
 <!--
@@ -1129,13 +1229,18 @@ Here is an example where the third lifetime elision rule applies:
 3番目のライフタイム省略規則が適用される例はこちらです:
 
 ```rust
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-10-lifetimes-on-methods/src/main.rs:3rd}}
-```
-
-<!--
+# struct ImportantExcerpt<'a> {
+#     part: &'a str,
+# }
+#
+impl<'a> ImportantExcerpt<'a> {
+    fn announce_and_return_part(&self, announcement: &str) -> &str {
         // お知らせします
         println!("Attention please: {}", announcement);
--->
+        self.part
+    }
+}
+```
 
 <!--
 There are two input lifetimes, so Rust applies the first lifetime elision rule
@@ -1208,13 +1313,20 @@ bounds, and lifetimes all in one function!
 ジェネリックな型引数、トレイト境界、ライフタイムを指定する記法を全て1関数でちょっと眺めましょう！
 
 ```rust
-{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-11-generics-traits-and-lifetimes/src/main.rs:here}}
-```
+use std::fmt::Display;
 
-<!--
+fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
+    where T: Display
+{
     // アナウンス！
     println!("Announcement! {}", ann);
--->
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+```
 
 <!--
 This is the `longest` function from Listing 10-22 that returns the longer of

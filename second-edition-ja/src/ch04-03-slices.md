@@ -51,7 +51,17 @@ end of the word. Let’s try that as shown in Listing 4-7.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:here}}
+fn first_word(s: &String) -> usize {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+
+    s.len()
+}
 ```
 
 <!--
@@ -71,7 +81,7 @@ a value is a space, we’ll convert our `String` to an array of bytes using the
 `as_bytes`メソッドを使って、`String`オブジェクトをバイト配列に変換しています。
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:as_bytes}}
+let bytes = s.as_bytes();
 ```
 
 <!--
@@ -81,7 +91,7 @@ Next, we create an iterator over the array of bytes using the `iter` method:
 次に、そのバイト配列に対して、`iter`メソッドを使用してイテレータを生成しています:
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:iter}}
+for (i, &item) in bytes.iter().enumerate() {
 ```
 
 <!--
@@ -120,7 +130,12 @@ Otherwise, we return the length of the string by using `s.len()`:
 それ以外の場合、`s.len()`を使って文字列の長さを返します。
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:inside_for}}
+    if item == b' ' {
+        return i;
+    }
+}
+
+s.len()
 ```
 
 <!--
@@ -143,18 +158,63 @@ uses the `first_word` function from Listing 4-7.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
+<!--
 ```rust
-{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-08/src/main.rs:here}}
-```
+# fn first_word(s: &String) -> usize {
+#     let bytes = s.as_bytes();
+#
+#     for (i, &item) in bytes.iter().enumerate() {
+#         if item == b' ' {
+#             return i;
+#         }
+#     }
+#
+#     s.len()
+# }
+#
+fn main() {
+let mut s = String::from("hello world");
+-->
 
 <!--
+let word = first_word(&s); // word will get the value 5
+-->
+
+<!--
+s.clear(); // This empties the String, making it equal to ""
+-->
+
+<!--
+// word still has the value 5 here, but there's no more string that
+// we could meaningfully use the value 5 with. word is now totally invalid!
+}
+```
+-->
+
+```rust
+# fn first_word(s: &String) -> usize {
+#     let bytes = s.as_bytes();
+#
+#     for (i, &item) in bytes.iter().enumerate() {
+#         if item == b' ' {
+#             return i;
+#         }
+#     }
+#
+#     s.len()
+# }
+#
+fn main() {
+    let mut s = String::from("hello world");
+
     let word = first_word(&s); // wordの中身は、値5になる
 
     s.clear(); // Stringを空にする。つまり、""と等しくする
 
     // wordはまだ値5を保持しているが、もうこの値を有効に使用できる文字列は存在しない。
     // wordは完全に無効なのだ！
--->
+}
+```
 
 <!--
 <span class="caption">Listing 4-8: Storing the result from calling the
@@ -219,7 +279,10 @@ A *string slice* is a reference to part of a `String`, and it looks like this:
 *文字列スライス*とは、`String`の一部への参照で、こんな見た目をしています:
 
 ```rust
-{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-17-slice/src/main.rs:here}}
+let s = String::from("hello world");
+
+let hello = &s[0..5];
+let world = &s[6..11];
 ```
 
 <!--
@@ -317,12 +380,12 @@ let slice = &s[..];
 ```
 
 <!--
-> Note: String slice range indices must occur at valid UTF-8 character
-> boundaries. If you attempt to create a string slice in the middle of a
-> multibyte character, your program will exit with an error. For the purposes
-> of introducing string slices, we are assuming ASCII only in this section; a
-> more thorough discussion of UTF-8 handling is in the “Storing UTF-8 Encoded
-> Text with Strings” section of Chapter 8.
+Note: String slice range indices must occur at valid UTF-8 character
+boundaries. If you attempt to create a string slice in the middle of a
+multibyte character, your program will exit with an error. For the purposes
+of introducing string slices, we are assuming ASCII only in this section; a
+more thorough discussion of UTF-8 handling is in the “Storing UTF-8 Encoded
+Text with Strings” section of Chapter 8.
 -->
 
 > 注釈: 文字列スライスの範囲添え字は、有効なUTF-8文字境界に置かなければなりません。
@@ -341,10 +404,21 @@ slice. The type that signifies “string slice” is written as `&str`:
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
+
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-18-first-word-slice/src/main.rs:here}}
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
 ```
 
 <!--
@@ -402,11 +476,15 @@ compile-time error:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/src/main.rs:here}}
-```
+```rust,ignore
+fn main() {
+    let mut s = String::from("hello world");
 
-<!--s.clear(); // error!    (エラー！) -->
+    let word = first_word(&s);
+
+    s.clear(); // error!    (エラー！)
+}
+```
 
 <!--
 Here’s the compiler error:
@@ -414,14 +492,10 @@ Here’s the compiler error:
 
 こちらがコンパイルエラーです:
 
-```console
-{{#include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/output.txt}}
-```
-
-<!--
+```text
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
 (エラー: 不変として借用されているので、`s`を可変で借用できません)
-src/main.rs:6:5
+ --> src/main.rs:6:5
   |
 4 |     let word = first_word(&s);
   |                            - immutable borrow occurs here (不変借用はここで起きています)
@@ -431,7 +505,6 @@ src/main.rs:6:5
 7 | }
   | - immutable borrow ends here (不変借用はここで終わっています)
 ```
--->
 
 <!--
 Recall from the borrowing rules that if we have an immutable reference to
@@ -500,7 +573,7 @@ and `&str` values.
 同じ関数を`String`値と`&str`値両方に使えるようになるからです。
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:here}}
+fn first_word(s: &str) -> &str {
 ```
 
 <!--
@@ -523,11 +596,60 @@ without losing any functionality:
 
 <span class="filename">Filename: src/main.rs</span>
 
+<!--
 ```rust
-{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:usage}}
-```
+# fn first_word(s: &str) -> &str {
+#     let bytes = s.as_bytes();
+#
+#     for (i, &item) in bytes.iter().enumerate() {
+#         if item == b' ' {
+#             return &s[0..i];
+#         }
+#     }
+#
+#     &s[..]
+# }
+fn main() {
+let my_string = String::from("hello world");
+-->
 
 <!--
+// first_word works on slices of `String`s
+let word = first_word(&my_string[..]);
+-->
+
+<!--
+let my_string_literal = "hello world";
+-->
+
+<!--
+// first_word works on slices of string literals
+let word = first_word(&my_string_literal[..]);
+-->
+
+<!--
+// Because string literals *are* string slices already,
+// this works too, without the slice syntax!
+let word = first_word(my_string_literal);
+}
+```
+-->
+
+```rust
+# fn first_word(s: &str) -> &str {
+#     let bytes = s.as_bytes();
+#
+#     for (i, &item) in bytes.iter().enumerate() {
+#         if item == b' ' {
+#             return &s[0..i];
+#         }
+#     }
+#
+#     &s[..]
+# }
+fn main() {
+    let my_string = String::from("hello world");
+
     // first_wordは`String`のスライスに対して機能する
     let word = first_word(&my_string[..]);
 
@@ -539,7 +661,8 @@ without losing any functionality:
     // 文字列リテラルは、すでに文字列スライス*な*ので、
     // スライス記法なしでも機能するのだ！
     let word = first_word(my_string_literal);
--->
+}
+```
 
 <!--
 ### Other Slices
