@@ -418,7 +418,7 @@ error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immuta
   --> src/main.rs:18:5
    |
 16 |     let word = first_word(&s);
-   |                           -- immutable borrow occurs here
+   |                           -- immutable borrow occurs here (不変借用はここで発生しています)
 17 | 
 18 |     s.clear(); // error!        (エラー！)
    |     ^^^^^^^^^ mutable borrow occurs here (可変借用はここで発生しています)
