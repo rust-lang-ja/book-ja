@@ -483,6 +483,8 @@ fn main() {
     let word = first_word(&s);
 
     s.clear(); // error!    (エラー！)
+
+    println!("the first word is: {}", word);
 }
 ```
 
@@ -493,17 +495,28 @@ Here’s the compiler error:
 こちらがコンパイルエラーです:
 
 ```text
+$ cargo run
+   Compiling ownership v0.1.0 (file:///projects/ownership)
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
 (エラー: 不変として借用されているので、`s`を可変で借用できません)
- --> src/main.rs:6:5
-  |
-4 |     let word = first_word(&s);
-  |                            - immutable borrow occurs here (不変借用はここで起きています)
-5 |
-6 |     s.clear(); // error!        (エラー！)
-  |     ^ mutable borrow occurs here (可変借用はここで起きています)
-7 | }
-  | - immutable borrow ends here (不変借用はここで終わっています)
+  --> src/main.rs:18:5
+   |
+16 |     let word = first_word(&s);
+   |                           -- immutable borrow occurs here (不変借用はここで発生しています)
+17 | 
+18 |     s.clear(); // error!        (エラー！)
+   |     ^^^^^^^^^ mutable borrow occurs here (可変借用はここで発生しています)
+19 | 
+20 |     println!("the first word is: {}", word);
+   |                                       ---- immutable borrow later used here
+                                                (不変借用はその後ここで使われています)
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0502`.
+error: could not compile `ownership`.
+
+To learn more, run the command again with --verbose.
 ```
 
 <!--
