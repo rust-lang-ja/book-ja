@@ -271,7 +271,7 @@ in Listing D-1 mean; for the full macro pattern syntax, see [the reference].
 マクロのパターンは値ではなく、Rustコードの構造に対してマッチされるからです。リストD-1のパターンの部品がどんな意味か見ていきましょう;
 マクロパターン記法全ては[参考文献]をご覧ください。
 
-[参考文献]: ../../reference/macros.html
+[参考文献]: https://doc.rust-lang.org/reference/macros.html
 
 <!--
 First, a set of parentheses encompasses the whole pattern. Next comes a dollar
