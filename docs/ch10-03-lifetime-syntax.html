@@ -1,0 +1,1372 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Validating References with Lifetimes - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html" class="active"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Validating References with Lifetimes
+-->
+<h2><a class="header" href="#ライフタイムで参照を検証する" id="ライフタイムで参照を検証する">ライフタイムで参照を検証する</a></h2>
+<!--
+One detail we didn’t discuss in the “References and Borrowing” section in
+Chapter 4 is that every reference in Rust has a *lifetime*, which is the scope
+for which that reference is valid. Most of the time, lifetimes are implicit and
+inferred, just like most of the time, types are inferred. We must annotate types
+when multiple types are possible. In a similar way, we must annotate lifetimes
+when the lifetimes of references could be related in a few different ways. Rust
+requires us to annotate the relationships using generic lifetime parameters to
+ensure the actual references used at runtime will definitely be valid.
+-->
+<p>第4章の「参照と借用」節で議論しなかった詳細の一つに、Rustにおいて参照は全てライフタイムを保持するということがあります。
+ライフタイムとは、その参照が有効になるスコープのことです。多くの場合、型が推論されるように、
+大体の場合、ライフタイムも暗黙的に推論されます。複数の型の可能性があるときには、型を注釈しなければなりません。
+同様に、参照のライフタイムがいくつか異なる方法で関係することがある場合には注釈しなければなりません。
+コンパイラは、ジェネリックライフタイム引数を使用して関係を注釈し、実行時に実際の参照が確かに有効であることを保証することを要求するのです。</p>
+<!--
+4行目頭、ways you might encouter...はways that you might encounterで訳している(つまり同格)
+-->
+<!--
+The concept of lifetimes is somewhat different from tools in other programming
+languages, arguably making lifetimes Rust’s most distinctive feature. Although
+we won’t cover lifetimes in their entirety in this chapter, we’ll discuss
+common ways you might encounter lifetime syntax so you can become familiar with
+the concepts. See the “Advanced Lifetimes” section in Chapter 19 for more
+detailed information.
+-->
+<p>ライフタイムの概念は、他のプログラミング言語の道具とはどこか異なり、間違いなく、
+Rustで一番際立った機能になっています。この章では、ライフタイムの全てを講義しないものの、
+ライフタイム記法と遭遇する可能性のある一般的な手段を議論するので、その概念に馴染めます。
+もっと詳しく知るには、第19章の「高度なライフタイム」節を参照されたし。</p>
+<!--
+### Preventing Dangling References with Lifetimes
+-->
+<h3><a class="header" href="#ライフタイムでダングリング参照を回避する" id="ライフタイムでダングリング参照を回避する">ライフタイムでダングリング参照を回避する</a></h3>
+<!--
+The main aim of lifetimes is to prevent dangling references, which cause a
+program to reference data other than the data it’s intended to reference.
+Consider the program in Listing 10-17, which has an outer scope and an inner
+scope.
+-->
+<p>ライフタイムの主な目的は、ダングリング参照を回避することです。ダングリング参照によりプログラムは、
+参照するつもりだったデータ以外のデータを参照してしまいます。リスト10-17のプログラムを考えてください。
+これには、外側のスコープと内側のスコープが含まれています。</p>
+<pre><code class="language-rust ignore">{
+    let r;
+
+    {
+        let x = 5;
+        r = &amp;x;
+    }
+
+    println!(&quot;r: {}&quot;, r);
+}
+</code></pre>
+<!--
+<span class="caption">Listing 10-17: An attempt to use a reference whose value
+has gone out of scope</span>
+-->
+<p><span class="caption">リスト10-17: 値がスコープを抜けてしまった参照を使用しようとする</span></p>
+<!--
+> Note: The example in Listing 10-17, 10-18, and 10-24 declare variables
+> without giving them an initial value, so the variable name exists in the
+> outer scope. At first glance, this might appear to be in conflict with Rust's
+> having no null values. However, if we try to use a variable before giving it
+> a value, we’ll get a compile-time error, which shows that Rust indeed does
+> not allow null values.
+-->
+<blockquote>
+<p>注釈: リスト10-17や10-18、10-24では、変数に初期値を与えずに宣言しているので、変数名は外側のスコープに存在します。
+初見では、これはRustにはnull値が存在しないということと衝突しているように見えるかもしれません。
+しかしながら、値を与える前に変数を使用しようとすれば、コンパイルエラーになり、
+これは、確かにRustではnull値は許可されないことを示します。</p>
+</blockquote>
+<!--
+The outer scope declares a variable named `r` with no initial value, and the
+inner scope declares a variable named `x` with the initial value of 5. Inside
+the inner scope, we attempt to set the value of `r` as a reference to `x`. Then
+the inner scope ends, and we attempt to print the value in `r`. This code won’t
+compile because the value `r` is referring to has gone out of scope before we
+try to use it. Here is the error message:
+-->
+<p>外側のスコープで初期値なしの<code>r</code>という変数を宣言し、内側のスコープで初期値5の<code>x</code>という変数を宣言しています。
+内側のスコープ内で、<code>r</code>の値を<code>x</code>への参照にセットしようとしています。それから内側のスコープが終わり、
+<code>r</code>の値を出力しようとしています。<code>r</code>が参照している値が使おうとする前にスコープを抜けるので、
+このコードはコンパイルできません。こちらがエラーメッセージです:</p>
+<pre><code class="language-text">error[E0597]: `x` does not live long enough
+(エラー: `x`の生存期間が短すぎます)
+  --&gt; src/main.rs:7:5
+   |
+6  |         r = &amp;x;
+   |              - borrow occurs here
+   |              (借用はここで起きています)
+7  |     }
+   |     ^ `x` dropped here while still borrowed
+   |     (`x`は借用されている間にここでドロップされました)
+...
+10 | }
+   | - borrowed value needs to live until here
+   | (借用された値はここまで生きる必要があります)
+</code></pre>
+<!--
+The variable `x` doesn’t “live long enough.” The reason is that `x` will be out
+of scope when the inner scope ends on line 7. But `r` is still valid for the
+outer scope; because its scope is larger, we say that it “lives longer.” If
+Rust allowed this code to work, `r` would be referencing memory that was
+deallocated when `x` went out of scope, and anything we tried to do with `r`
+wouldn’t work correctly. So how does Rust determine that this code is invalid?
+It uses a borrow checker.
+-->
+<p>変数<code>x</code>の「生存期間が短すぎます」。原因は、内側のスコープが7行目で終わった時点で<code>x</code>がスコープを抜けるからです。
+ですが、<code>r</code>はまだ、外側のスコープに対して有効です; スコープが大きいので、「長生きする」と言います。
+Rustで、このコードが動くことを許可していたら、<code>r</code>は<code>x</code>がスコープを抜けた時に解放されるメモリを参照していることになり、
+<code>r</code>で行おうとするいかなることもちゃんと動作しないでしょう。では、どうやってコンパイラはこのコードが無効であると決定しているのでしょうか？
+借用チェッカーを使用しています。</p>
+<!--
+### The Borrow Checker
+-->
+<h3><a class="header" href="#借用精査機" id="借用精査機">借用精査機</a></h3>
+<!--
+The Rust compiler has a *borrow checker* that compares scopes to determine
+whether all borrows are valid. Listing 10-18 shows the same code as Listing
+10-17 but with annotations showing the lifetimes of the variables:
+-->
+<p>Rustコンパイラには、スコープを比較して全ての借用が有効であるかを決定する<em>借用チェッカー</em>があります。
+リスト10-18は、リスト10-17と同じコードを示していますが、変数のライフタイムを表示する注釈が付いています:</p>
+<pre><code class="language-rust ignore">{
+    let r;                // ---------+-- 'a
+                          //          |
+    {                     //          |
+        let x = 5;        // -+-- 'b  |
+        r = &amp;x;           //  |       |
+    }                     // -+       |
+                          //          |
+    println!(&quot;r: {}&quot;, r); //          |
+}                         // ---------+
+</code></pre>
+<!--
+<span class="caption">Listing 10-18: Annotations of the lifetimes of `r` and
+`x`, named `'a` and `'b`, respectively</span>
+-->
+<p><span class="caption">リスト10-18: それぞれ<code>'a</code>と<code>'b</code>と名付けられた<code>r</code>と<code>x</code>のライフタイムの注釈</span></p>
+<!--
+Here, we’ve annotated the lifetime of `r` with `'a` and the lifetime of `x`
+with `'b`. As you can see, the inner `'b` block is much smaller than the outer
+`'a` lifetime block. At compile time, Rust compares the size of the two
+lifetimes and sees that `r` has a lifetime of `'a` but that it refers to memory
+with a lifetime of `'b`. The program is rejected because `'b` is shorter than
+`'a`: the subject of the reference doesn’t live as long as the reference.
+-->
+<p>ここで、<code>r</code>のライフタイムは<code>'a</code>、<code>x</code>のライフタイムは<code>'b</code>で注釈しました。ご覧の通り、
+内側の<code>'b</code>ブロックの方が、外側の<code>'a</code>ライフタイムブロックよりはるかに小さいです。
+コンパイル時に、コンパイラは2つのライフタイムのサイズを比較し、<code>r</code>は<code>'a</code>のライフタイムだけれども、
+<code>'b</code>のライフタイムのメモリを参照していると確認します。<code>'b</code>は<code>'a</code>よりも短いので、プログラムは拒否されます:
+参照の対象が参照ほど長生きしないのです。</p>
+<!--
+Listing 10-19 fixes the code so it doesn’t have a dangling reference and
+compiles without any errors.
+-->
+<p>リスト10-19でコードを修正したので、ダングリング参照はなくなり、エラーなくコンパイルできます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>{
+    let x = 5;            // ----------+-- 'b
+                          //           |
+    let r = &amp;x;           // --+-- 'a  |
+                          //   |       |
+    println!(&quot;r: {}&quot;, r); //   |       |
+                          // --+       |
+}                         // ----------+
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 10-19: A valid reference because the data has a
+longer lifetime than the reference</span>
+-->
+<p><span class="caption">リスト10-19: データのライフタイムが参照より長いので、有効な参照</span></p>
+<!--
+Here, `x` has the lifetime `'b`, which in this case is larger than `'a`. This
+means `r` can reference `x` because Rust knows that the reference in `r` will
+always be valid while `x` is valid.
+-->
+<p>ここで<code>x</code>のライフタイムは<code>'b</code>になり、今回の場合<code>'a</code>よりも大きいです。つまり、
+コンパイラは<code>x</code>が有効な間、<code>r</code>の参照も常に有効になることを把握しているので、<code>r</code>は<code>x</code>を参照できます。</p>
+<!--
+Now that you know where the lifetimes of references are and how Rust analyzes
+lifetimes to ensure references will always be valid, let’s explore generic
+lifetimes of parameters and return values in the context of functions.
+-->
+<p>今や、参照のライフタイムがどれだけあり、コンパイラがライフタイムを解析して参照が常に有効であることを保証する仕組みがわかったので、
+関数の文脈でジェネリックな引数と戻り値のライフタイムを探究しましょう。</p>
+<!--
+### Generic Lifetimes in Functions
+-->
+<h3><a class="header" href="#関数のジェネリックなライフタイム" id="関数のジェネリックなライフタイム">関数のジェネリックなライフタイム</a></h3>
+<!--
+Let’s write a function that returns the longer of two string slices. This
+function will take two string slices and return a string slice. After we’ve
+implemented the `longest` function, the code in Listing 10-20 should print `The
+longest string is abcd`.
+-->
+<p>2つの文字列スライスのうち、長い方を返す関数を書きましょう。この関数は、
+2つの文字列スライスを取り、1つの文字列スライスを返します。<code>longest</code>関数の実装完了後、
+リスト10-20のコードは、<code>The logest string is abcd</code>と出力するはずです。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let string1 = String::from(&quot;abcd&quot;);
+    let string2 = &quot;xyz&quot;;
+
+    let result = longest(string1.as_str(), string2);
+    // 最長の文字列は、{}です
+    println!(&quot;The longest string is {}&quot;, result);
+}
+</code></pre>
+<!--
+<span class="caption">Listing 10-20: A `main` function that calls the `longest`
+function to find the longer of two string slices</span>
+-->
+<p><span class="caption">リスト10-20: <code>longest</code>関数を呼び出して2つの文字列スライスのうち長い方を探す<code>main</code>関数</span></p>
+<!--
+Note that we want the function to take string slices, which are references,
+because we don’t want the `longest` function to take ownership of its
+parameters. We want to allow the function to accept slices of a `String` (the
+type stored in the variable `string1`) as well as string literals (which is
+what variable `string2` contains).
+-->
+<p>関数に取ってほしい引数が文字列スライス、つまり参照であることに注意してください。
+何故なら、<code>longest</code>関数に引数の所有権を奪ってほしくないからです。
+この関数に<code>String</code>のスライス(変数<code>string1</code>に格納されている型)と文字列リテラル(変数<code>string2</code>が含むもの)を受け取らせたいのです。</p>
+<!--
+Refer to the “String Slices as Parameters” section in Chapter 4 for more
+discussion about why the parameters we use in Listing 10-20 are the ones we
+want.
+-->
+<p>リスト10-20で使用している引数が、我々が必要としているものである理由についてもっと詳しい議論は、
+第4章の「引数としての文字列スライス」節をご参照ください。</p>
+<!--
+If we try to implement the `longest` function as shown in Listing 10-21, it
+won’t compile.
+-->
+<p>リスト10-21に示したように<code>longest</code>関数を実装しようとしたら、コンパイルできないでしょう。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
+    if x.len() &gt; y.len() {
+        x
+    } else {
+        y
+    }
+}
+</code></pre>
+<!--
+<span class="caption">Listing 10-21: An implementation of the `longest`
+function that returns the longer of two string slices but does not yet
+compile</span>
+-->
+<p><span class="caption">リスト10-21: 2つの文字列スライスのうち長い方を返すけれども、コンパイルできない<code>longest</code>関数の実装</span></p>
+<!--
+Instead, we get the following error that talks about lifetimes:
+-->
+<p>代わりに、以下のようなライフタイムに言及するエラーが出ます:</p>
+<pre><code class="language-text">error[E0106]: missing lifetime specifier
+(エラー: ライフタイム指定子が不足しています)
+ --&gt; src/main.rs:1:33
+  |
+1 | fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
+  |                                 ^ expected lifetime parameter
+  |                                   (ライフタイム引数が予想されます)
+  |
+  = help: this function's return type contains a borrowed value, but the
+signature does not say whether it is borrowed from `x` or `y`
+  (助言: この関数の戻り値型は借用された値を含んでいますが、
+シグニチャは、それが`x`か`y`由来のものなのか宣言していません)
+</code></pre>
+<!--
+The help text reveals that the return type needs a generic lifetime parameter
+on it because Rust can’t tell whether the reference being returned refers to
+`x` or `y`. Actually, we don’t know either, because the `if` block in the body
+of this function returns a reference to `x` and the `else` block returns a
+reference to `y`!
+-->
+<p>助言テキストが、戻り値の型はジェネリックなライフタイム引数である必要があると明かしています。
+というのも、返している参照が<code>x</code>か<code>y</code>のどちらを参照しているか、コンパイラにはわからないからです。
+この関数の本体の<code>if</code>ブロックは<code>x</code>への参照を返し、<code>else</code>ブロックは<code>y</code>への参照を返すので、
+実際、どちらか私たちにもわかりません！</p>
+<!--
+When we’re defining this function, we don’t know the concrete values that will
+be passed into this function, so we don’t know whether the `if` case or the
+`else` case will execute. We also don’t know the concrete lifetimes of the
+references that will be passed in, so we can’t look at the scopes as we did in
+Listings 10-18 and 10-19 to determine whether the reference we return will
+always be valid. The borrow checker can’t determine this either, because it
+doesn’t know how the lifetimes of `x` and `y` relate to the lifetime of the
+return value. To fix this error, we’ll add generic lifetime parameters that
+define the relationship between the references so the borrow checker can
+perform its analysis.
+-->
+<p>この関数を定義する際、この関数に渡される具体的な値がわからないので、<code>if</code>ケースか、<code>else</code>ケースが実行されるか、わからないのです。
+また、渡される参照の具体的なライフタイムもわからないので、リスト10-18と10-19で、
+返す参照が常に有効であるかを決定したように、スコープを見ることもできないのです。
+借用チェッカーもこれを決定することはできません。<code>x</code>と<code>y</code>のライフタイムがどう戻り値のライフタイムと関係するかわからないからです。
+このエラーを修正するには、借用チェッカーが解析を実行できるように、参照間の関係を定義するジェネリックなライフタイム引数を追加します。</p>
+<!--
+### Lifetime Annotation Syntax
+-->
+<h3><a class="header" href="#ライフタイム注釈記法" id="ライフタイム注釈記法">ライフタイム注釈記法</a></h3>
+<!--
+Lifetime annotations don’t change how long any of the references live. Just
+as functions can accept any type when the signature specifies a generic type
+parameter, functions can accept references with any lifetime by specifying a
+generic lifetime parameter. Lifetime annotations describe the relationships of
+the lifetimes of multiple references to each other without affecting the
+lifetimes.
+-->
+<p>ライフタイム注釈は、いかなる参照の生存期間も変えることはありません。シグニチャがジェネリックな型引数を指定していると、
+関数があらゆる型を受け入れるのと全く同様に、ジェネリックなライフタイム引数を指定することで関数は、
+あらゆるライフタイムの参照を受け入れるのです。ライフタイム注釈は、ライフタイムに影響することなく、
+複数の参照のライフタイムのお互いの関係を記述します。</p>
+<!--
+Lifetime annotations have a slightly unusual syntax: the names of lifetime
+parameters must start with an apostrophe (`'`) and are usually all lowercase and
+very short, like generic types. Most people use the name `'a`. We place
+lifetime parameter annotations after the `&` of a reference, using a space to
+separate the annotation from the reference’s type.
+-->
+<p>ライフタイム注釈は、少し不自然な記法です: ライフタイム引数の名前はアポストロフィー(<code>'</code>)で始まらなければならず、
+通常全部小文字で、ジェネリック型のようにとても短いです。多くの人は、<code>'a</code>という名前を使います。
+ライフタイム引数注釈は、参照の<code>&amp;</code>の後に配置し、注釈と参照の型を区別するために空白を1つ使用します。</p>
+<!--
+Here are some examples: a reference to an `i32` without a lifetime parameter, a
+reference to an `i32` that has a lifetime parameter named `'a`, and a mutable
+reference to an `i32` that also has the lifetime `'a`.
+-->
+<p>例を挙げましょう: ライフタイム引数なしの<code>i32</code>への参照、<code>'a</code>というライフタイム引数付きの<code>i32</code>への参照、
+そしてこれもライフタイム<code>'a</code>付きの<code>i32</code>への可変参照です。</p>
+<pre><code class="language-rust ignore">&amp;i32        // a reference
+            // (ただの)参照
+&amp;'a i32     // a reference with an explicit lifetime
+            // 明示的なライフタイム付きの参照
+&amp;'a mut i32 // a mutable reference with an explicit lifetime
+            // 明示的なライフタイム付きの可変参照
+</code></pre>
+<!--
+One lifetime annotation by itself doesn’t have much meaning, because the
+annotations are meant to tell Rust how generic lifetime parameters of multiple
+references relate to each other. For example, let’s say we have a function with
+the parameter `first` that is a reference to an `i32` with lifetime `'a`. The
+function also has another parameter named `second` that is another reference to
+an `i32` that also has the lifetime `'a`. The lifetime annotations indicate
+that the references `first` and `second` must both live as long as that generic
+lifetime.
+-->
+<p>1つのライフタイム注釈それだけでは、大して意味はありません。注釈は、複数の参照のジェネリックなライフタイム引数が、
+お互いにどう関係するかをコンパイラに指示することを意図しているからです。例えば、
+ライフタイム<code>'a</code>付きの<code>i32</code>への参照となる引数<code>first</code>のある関数があるとしましょう。
+この関数にはさらに、<code>'a</code>のライフタイム付きの<code>i32</code>への別の参照となる<code>second</code>という別の引数もあります。
+ライフタイム注釈は、<code>first</code>と<code>second</code>の参照がどちらもジェネリックなライフタイムと同じだけ生きることを示唆します。</p>
+<!--
+### Lifetime Annotations in Function Signatures
+-->
+<h3><a class="header" href="#関数シグニチャにおけるライフタイム注釈" id="関数シグニチャにおけるライフタイム注釈">関数シグニチャにおけるライフタイム注釈</a></h3>
+<!--
+Now let’s examine lifetime annotations in the context of the `longest`
+function. As with generic type parameters, we need to declare generic lifetime
+parameters inside angle brackets between the function name and the parameter
+list. The constraint we want to express in this signature is that all the
+references in the parameters and the return value must have the same lifetime.
+We’ll name the lifetime `'a` and then add it to each reference, as shown in
+Listing 10-22.
+-->
+<p>さて、<code>longest</code>関数の文脈でライフタイム注釈を調査しましょう。ジェネリックな型引数同様、
+関数名と引数リストの間、山カッコの中にジェネリックなライフタイム引数を宣言する必要があります。
+このシグニチャで表現したい制約は、引数の全参照と戻り値が同じライフタイムになることです。
+ライフタイムを<code>'a</code>と名付け、それから各参照に追記します。リスト10-22に示したように。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+    if x.len() &gt; y.len() {
+        x
+    } else {
+        y
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 10-22: The `longest` function definition
+specifying that all the references in the signature must have the same lifetime
+`'a`</span>
+-->
+<p><span class="caption">リスト10-22: シグニチャの全参照が同じライフタイム<code>'a</code>になると指定した<code>longest</code>関数の定義</span></p>
+<!--
+This code should compile and produce the result we want when we use it with the
+`main` function in Listing 10-20.
+-->
+<p>このコードはコンパイルでき、リスト10-20の<code>main</code>関数とともに使用したら、欲しい結果になるはずです。</p>
+<!--
+The function signature now tells Rust that for some lifetime `'a`, the function
+takes two parameters, both of which are string slices that live at least as
+long as lifetime `'a`. The function signature also tells Rust that the string
+slice returned from the function will live at least as long as lifetime `'a`.
+These constraints are what we want Rust to enforce. Remember, when we specify
+the lifetime parameters in this function signature, we’re not changing the
+lifetimes of any values passed in or returned. Rather, we’re specifying that
+the borrow checker should reject any values that don’t adhere to these
+constraints. Note that the `longest` function doesn’t need to know exactly how
+long `x` and `y` will live, only that some scope can be substituted for `'a`
+that will satisfy this signature.
+-->
+<p>これで関数シグニチャは、何らかのライフタイム<code>'a</code>に対して、関数は2つの引数を取り、
+どちらも少なくともライフタイム<code>'a</code>と同じだけ生きる文字列スライスであるとコンパイラに教えるようになりました。
+また、この関数シグニチャは、関数から返る文字列スライスも少なくともライフタイム<code>'a</code>と同じだけ生きると、
+コンパイラに教えています。これらの制約は、コンパイラに強制してほしいものです。
+この関数シグニチャでライフタイム引数を指定する時、渡されたり、返したりした、いかなる値のライフタイムも変更していないことを思い出してください。
+むしろ、借用チェッカーは、これらの制約を守らない値全てを拒否するべきと指定しています。
+<code>longest</code>関数は、正確に<code>x</code>と<code>y</code>の生存期間を知る必要はなく、何かのスコープが<code>'a</code>に代替され、
+このシグニチャを満足することだけ知っている必要があることに注意してください。</p>
+<!--
+When annotating lifetimes in functions, the annotations go in the function
+signature, not in the function body. Rust can analyze the code within the
+function without any help. However, when a function has references to or from
+code outside that function, it becomes almost impossible for Rust to figure out
+the lifetimes of the parameters or return values on its own. The lifetimes
+might be different each time the function is called. This is why we need to
+annotate the lifetimes manually.
+-->
+<p>関数でライフタイムを注釈する際、注釈は関数シグニチャに<ruby>嵌<rp>(</rp><rt>はま</rt><rp>)</rp></ruby>り、
+関数本体には嵌りません。コンパイラは、なんの助けもなく、関数内のコードを解析できます。しかしながら、
+関数に、関数外からの参照や、関数外への参照がある場合、コンパイラは引数や戻り値のライフタイムをそれだけで解決することはほとんど不可能になります。
+ライフタイムは、関数が呼び出される度に異なる可能性があります。このために、手動でライフタイムを注釈する必要があるのです。</p>
+<!--
+When we pass concrete references to `longest`, the concrete lifetime that is
+substituted for `'a` is the part of the scope of `x` that overlaps with the
+scope of `y`. In other words, the generic lifetime `'a` will get the concrete
+lifetime that is equal to the smaller of the lifetimes of `x` and `y`. Because
+we’ve annotated the returned reference with the same lifetime parameter `'a`,
+the returned reference will also be valid for the length of the smaller of the
+lifetimes of `x` and `y`.
+-->
+<p>具体的な参照を<code>longest</code>に渡すと、<code>'a</code>を代替する具体的なライフタイムは、<code>y</code>のスコープと被さる<code>x</code>のスコープの一部になります。
+言い換えると、ジェネリックなライフタイム<code>'a</code>は、<code>x</code>と<code>y</code>のライフタイムのうち、小さい方に等しい具体的なライフタイムになるのです。
+返却される参照を同じライフタイム引数<code>'a</code>で注釈したので、返却される参照も<code>x</code>か<code>y</code>のライフタイムの小さい方と同じだけ有効になるでしょう。</p>
+<!--
+Let’s look at how the lifetime annotations restrict the `longest` function by
+passing in references that have different concrete lifetimes. Listing 10-23 is
+a straightforward example.
+-->
+<p>ライフタイム注釈が異なる具体的なライフタイムになる参照を渡すことで<code>longest</code>関数を制限する方法を見ましょう。
+リスト10-23は、率直な例です。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+</span><span class="boring">    if x.len() &gt; y.len() {
+</span><span class="boring">        x
+</span><span class="boring">    } else {
+</span><span class="boring">        y
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    // 長い文字列は長い
+    let string1 = String::from(&quot;long string is long&quot;);
+
+    {
+        let string2 = String::from(&quot;xyz&quot;);
+        let result = longest(string1.as_str(), string2.as_str());
+        println!(&quot;The longest string is {}&quot;, result);
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 10-23: Using the `longest` function with
+references to `String` values that have different concrete lifetimes</span>
+-->
+<p><span class="caption">リスト10-23: 異なる具体的なライフタイムの<code>String</code>値への参照で<code>longest</code>関数を使用する</span></p>
+<!--
+In this example, `string1` is valid until the end of the outer scope, `string2`
+is valid until the end of the inner scope, and `result` references something
+that is valid until the end of the inner scope. Run this code, and you’ll see
+that the borrow checker approves of this code; it will compile and print `The
+longest string is long string is long`.
+-->
+<p>この例において、<code>string1</code>は外側のスコープの終わりまで有効で、<code>string2</code>は内側のスコープの終わりまで有効、
+そして<code>result</code>は内側のスコープの終わりまで有効な何かを参照しています。このコードを実行すると、
+借用チェッカーがこのコードを良しとするのがわかるでしょう。要するに、コンパイルでき、
+<code>The longest string is long string is long</code>と出力するのです。</p>
+<!--
+Next, let’s try an example that shows that the lifetime of the reference in
+`result` must be the smaller lifetime of the two arguments. We’ll move the
+declaration of the `result` variable outside the inner scope but leave the
+assignment of the value to the `result` variable inside the scope with
+`string2`. Then we’ll move the `println!` that uses `result` outside the inner
+scope, after the inner scope has ended. The code in Listing 10-24 will not
+compile.
+-->
+<p>次に、<code>result</code>の参照のライフタイムが2つの引数の小さい方のライフタイムになることを示す例を試しましょう。
+<code>result</code>変数の宣言を内側のスコープの外に移すものの、<code>result</code>変数への代入は<code>string2</code>のスコープ内に残したままにします。
+それから<code>result</code>を使用する<code>println!</code>を内側のスコープの外、内側のスコープが終わった後に移動します。
+リスト10-24のコードはコンパイルできません。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let string1 = String::from(&quot;long string is long&quot;);
+    let result;
+    {
+        let string2 = String::from(&quot;xyz&quot;);
+        result = longest(string1.as_str(), string2.as_str());
+    }
+    println!(&quot;The longest string is {}&quot;, result);
+}
+</code></pre>
+<!--
+<span class="caption">Listing 10-24: Attempting to use `result` after `string2`
+has gone out of scope</span>
+-->
+<p><span class="caption">リスト10-24: <code>string2</code>がスコープを抜けてから<code>result</code>を使用しようとする</span></p>
+<!--
+When we try to compile this code, we’ll get this error:
+-->
+<p>このコードのコンパイルを試みると、こんなエラーになります:</p>
+<pre><code class="language-text">error[E0597]: `string2` does not live long enough
+  --&gt; src/main.rs:15:5
+   |
+14 |         result = longest(string1.as_str(), string2.as_str());
+   |                                            ------- borrow occurs here
+15 |     }
+   |     ^ `string2` dropped here while still borrowed
+16 |     println!(&quot;The longest string is {}&quot;, result);
+17 | }
+   | - borrowed value needs to live until here
+</code></pre>
+<!--
+The error shows that for `result` to be valid for the `println!` statement,
+`string2` would need to be valid until the end of the outer scope. Rust knows
+this because we annotated the lifetimes of the function parameters and return
+values using the same lifetime parameter `'a`.
+-->
+<p>このエラーは、<code>result</code>が<code>println!</code>文に対して有効になるために、<code>string2</code>が外側のスコープの終わりまで有効である必要があることを示しています。
+関数引数と戻り値のライフタイムを同じライフタイム引数<code>'a</code>で注釈したので、コンパイラはこのことを知っています。</p>
+<!--
+As humans, we can look at this code and see that `string1` is longer than
+`string2` and therefore `result` will contain a reference to `string1`.
+Because `string1` has not gone out of scope yet, a reference to `string1` will
+still be valid for the `println!` statement. However, the compiler can’t see
+that the reference is valid in this case. We’ve told Rust that the lifetime of
+the reference returned by the `longest` function is the same as the smaller of
+the lifetimes of the references passed in. Therefore, the borrow checker
+disallows the code in Listing 10-24 as possibly having an invalid reference.
+-->
+<p>人間からしたら、このコードを見て<code>string1</code>は<code>string2</code>よりも長いことが確認でき、
+故に<code>result</code>は<code>string1</code>への参照を含んでいます。まだ<code>string1</code>はスコープを抜けていないので、
+それでも<code>string1</code>への参照は<code>println!</code>にとって有効でしょう。ですが、コンパイラはこの場合、
+参照が有効であると見なせません。<code>longest</code>関数から返ってくる参照のライフタイムは、
+渡した参照のうちの小さい方と同じだとコンパイラに指示しました。それ故に、
+借用チェッカーは、リスト10-24のコードを無効な参照がある可能性があるとして許可しないのです。</p>
+<!--
+Try designing more experiments that vary the values and lifetimes of the
+references passed in to the `longest` function and how the returned reference
+is used. Make hypotheses about whether or not your experiments will pass the
+borrow checker before you compile; then check to see if you’re right!
+-->
+<p>試しに値や、<code>longest</code>関数に渡される参照のライフタイムや、返される参照の使用法が異なる実験をもっとしてみてください。
+自分の実験がコンパイル前に借用チェッカーを通るかどうか仮説を立ててください; そして、正しいか確かめてください！</p>
+<!--
+### Thinking in Terms of Lifetimes
+-->
+<h3><a class="header" href="#ライフタイムの観点で思考する" id="ライフタイムの観点で思考する">ライフタイムの観点で思考する</a></h3>
+<!--
+The way in which you need to specify lifetime parameters depends on what your
+function is doing. For example, if we changed the implementation of the
+`longest` function to always return the first parameter rather than the longest
+string slice, we wouldn’t need to specify a lifetime on the `y` parameter. The
+following code will compile:
+-->
+<p>ライフタイム引数を指定する必要のある手段は、関数が行っていることによります。例えば、
+<code>longest</code>関数の実装を最長の文字列スライスではなく、常に最初の引数を返すように変更したら、
+<code>y</code>引数に対してライフタイムを指定する必要はなくなるでしょう。以下のコードはコンパイルできます:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str {
+    x
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+In this example, we’ve specified a lifetime parameter `'a` for the parameter
+`x` and the return type, but not for the parameter `y`, because the lifetime of
+`y` does not have any relationship with the lifetime of `x` or the return value.
+-->
+<p>この例では、引数<code>x</code>と戻り値に対してライフタイム引数<code>'a</code>を指定しましたが、引数<code>y</code>には指定していません。
+<code>y</code>のライフタイムは<code>x</code>や戻り値のライフタイムとは何の関係もないからです。</p>
+<!--
+When returning a reference from a function, the lifetime parameter for the
+return type needs to match the lifetime parameter for one of the parameters. If
+the reference returned does *not* refer to one of the parameters, it must refer
+to a value created within this function, which would be a dangling reference
+because the value will go out of scope at the end of the function. Consider
+this attempted implementation of the `longest` function that won’t compile:
+-->
+<p>関数から参照を返す際、戻り値型のライフタイム引数は、引数のうちどれかのライフタイム引数と一致する必要があります。
+返される参照が引数のどれかを参照してい<em>なけれ</em>ば、この関数内で生成された値を参照しているに違いなく、
+これは、その値が関数の末端でスコープを抜けるので、ダングリング参照になるでしょう。
+コンパイルできないこの<code>longest</code>関数の未遂の実装を考えてください:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn longest&lt;'a&gt;(x: &amp;str, y: &amp;str) -&gt; &amp;'a str {
+    // 本当に長い文字列
+    let result = String::from(&quot;really long string&quot;);
+    result.as_str()
+}
+</code></pre>
+<!--
+Here, even though we’ve specified a lifetime parameter `'a` for the return
+type, this implementation will fail to compile because the return value
+lifetime is not related to the lifetime of the parameters at all. Here is the
+error message we get:
+-->
+<p>ここでは、たとえ、戻り値型にライフタイム引数<code>'a</code>を指定していても、戻り値のライフタイムは、
+引数のライフタイムと全く関係がないので、この実装はコンパイルできないでしょう。
+こちらが、得られるエラーメッセージです:</p>
+<pre><code class="language-text">error[E0597]: `result` does not live long enough
+ --&gt; src/main.rs:3:5
+  |
+3 |     result.as_str()
+  |     ^^^^^^ does not live long enough
+4 | }
+  | - borrowed value only lives until here
+  |
+note: borrowed value must be valid for the lifetime 'a as defined on the
+function body at 1:1...
+(注釈: 借用された値は、関数本体1行目1文字目で定義されているようにライフタイム'aに対して有効でなければなりません)
+ --&gt; src/main.rs:1:1
+  |
+1 | / fn longest&lt;'a&gt;(x: &amp;str, y: &amp;str) -&gt; &amp;'a str {
+2 | |     let result = String::from(&quot;really long string&quot;);
+3 | |     result.as_str()
+4 | | }
+  | |_^
+</code></pre>
+<!--
+The problem is that `result` goes out of scope and gets cleaned up at the end
+of the `longest` function. We’re also trying to return a reference to `result`
+from the function. There is no way we can specify lifetime parameters that
+would change the dangling reference, and Rust won’t let us create a dangling
+reference. In this case, the best fix would be to return an owned data type
+rather than a reference so the calling function is then responsible for
+cleaning up the value.
+-->
+<p>問題は、<code>result</code>が<code>longest</code>関数の末端でスコープを抜け、片付けられてしまうことです。
+また、関数から<code>result</code>を返そうともしています。ダングリング参照を変えるであろうライフタイム引数を指定する手段はなく、
+コンパイラは、ダングリング参照を生成させてくれません。今回の場合、最善の修正案は、
+呼び出し元の関数が値の片付けに責任を持てるよう、参照ではなく所有されたデータ型を返すことでしょう。</p>
+<!--
+Ultimately, lifetime syntax is about connecting the lifetimes of various
+parameters and return values of functions. Once they’re connected, Rust has
+enough information to allow memory-safe operations and disallow operations that
+would create dangling pointers or otherwise violate memory safety.
+-->
+<p>究極的にライフタイム記法は、関数のいろんな引数と戻り値のライフタイムを接続することに関するのです。
+一旦、繋がりができたら、メモリ安全な処理を許可するのに十分な情報がコンパイラにはあり、
+ダングリングポインタを生成するであろう処理を不認可し、さもなくばメモリ安全性を侵害するのです。</p>
+<!--
+### Lifetime Annotations in Struct Definitions
+-->
+<h3><a class="header" href="#構造体定義のライフタイム注釈" id="構造体定義のライフタイム注釈">構造体定義のライフタイム注釈</a></h3>
+<!--
+So far, we’ve only defined structs to hold owned types. It’s possible for
+structs to hold references, but in that case we would need to add a lifetime
+annotation on every reference in the struct’s definition. Listing 10-25 has a
+struct named `ImportantExcerpt` that holds a string slice.
+-->
+<p>ここまで、所有された型を保持する構造体だけを定義してきました。構造体に参照を保持させることもできますが、
+その場合、構造体定義の全参照にライフタイム注釈を付け加える必要があるでしょう。
+リスト10-25には、文字列スライスを保持する<code>ImportantExcerpt</code>(重要な一節)という構造体があります。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">struct ImportantExcerpt&lt;'a&gt; {
+    part: &amp;'a str,
+}
+
+fn main() {
+    // 僕をイシュマエルとお呼び。何年か前・・・
+    let novel = String::from(&quot;Call me Ishmael. Some years ago...&quot;);
+    let first_sentence = novel.split('.')
+        .next()
+        .expect(&quot;Could not find a '.'&quot;);  // '.'が見つかりませんでした
+    let i = ImportantExcerpt { part: first_sentence };
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 10-25: A struct that holds a reference, so its
+definition needs a lifetime annotation</span>
+-->
+<p><span class="caption">リスト10-25: 参照を含む構造体なので、定義にライフタイム注釈が必要</span></p>
+<!--
+This struct has one field, `part`, that holds a string slice, which is a
+reference. As with generic data types, we declare the name of the generic
+lifetime parameter inside angle brackets after the name of the struct so we can
+use the lifetime parameter in the body of the struct definition. This
+annotation means an instance of `ImportantExcerpt` can’t outlive the reference
+it holds in its `part` field.
+-->
+<p>この構造体には文字列スライスを保持する1つのフィールド、<code>part</code>があり、これは参照です。
+ジェネリックなデータ型同様、構造体名の後、山カッコの中にジェネリックなライフタイム引数の名前を宣言するので、
+構造体定義の本体でライフタイム引数を使用できます。この注釈は、<code>ImportantExcerpt</code>のインスタンスが、
+<code>part</code>フィールドに保持している参照よりも長生きしないことを意味します。</p>
+<!--
+The `main` function here creates an instance of the `ImportantExcerpt` struct
+that holds a reference to the first sentence of the `String` owned by the
+variable `novel`. The data in `novel` exists before the `ImportantExcerpt`
+instance is created. In addition, `novel` doesn’t go out of scope until after
+the `ImportantExcerpt` goes out of scope, so the reference in the
+`ImportantExcerpt` instance is valid.
+-->
+<p>ここの<code>main</code>関数は、変数<code>novel</code>に所有される<code>String</code>の、最初の文への参照を保持する<code>ImportantExcerpt</code>インスタンスを生成しています。
+<code>novel</code>のデータは、<code>ImportantExcerpt</code>インスタンスが作られる前に存在しています。
+加えて、<code>ImportantExcerpt</code>がスコープを抜けるまで<code>novel</code>はスコープを抜けないので、
+<code>ImportantExcerpt</code>インスタンスの参照は有効なのです。</p>
+<!--
+### Lifetime Elision
+-->
+<h3><a class="header" href="#ライフタイム省略" id="ライフタイム省略">ライフタイム省略</a></h3>
+<!--
+You’ve learned that every reference has a lifetime and that you need to specify
+lifetime parameters for functions or structs that use references. However, in
+Chapter 4 we had a function in Listing 4-9, which is shown again in Listing
+10-26, that compiled without lifetime annotations.
+-->
+<p>全参照にはライフタイムがあり、参照を使用する関数や構造体にはライフタイム引数を指定する必要があることを学びました。
+ですが、リスト4-9にとある関数があり、リスト10-26に再度示しましたが、
+これは、ライフタイム注釈なしでコンパイルできました。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>fn first_word(s: &amp;str) -&gt; &amp;str {
+    let bytes = s.as_bytes();
+
+    for (i, &amp;item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &amp;s[0..i];
+        }
+    }
+
+    &amp;s[..]
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 10-26: A function we defined in Listing 4-9 that
+compiled without lifetime annotations, even though the parameter and return
+type are references</span>
+-->
+<p><span class="caption">リスト10-26: 引数と戻り値型が参照であるにも関わらず、ライフタイム注釈なしでコンパイルできた
+リスト4-9で定義した関数</span></p>
+<!--
+The reason this function compiles without lifetime annotations is historical:
+in early versions (pre-1.0) of Rust, this code wouldn’t have compiled because
+every reference needed an explicit lifetime. At that time, the function
+signature would have been written like this:
+-->
+<p>この関数がライフタイム注釈なしでコンパイルできた理由は、歴史的なものです: 昔のバージョンのRust(1.0以前)では、
+全参照に明示的なライフタイムが必要だったので、このコードはコンパイルできませんでした。
+その頃、関数シグニチャはこのように記述されていたのです:</p>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {
+</code></pre>
+<!--
+After writing a lot of Rust code, the Rust team found that Rust programmers
+were entering the same lifetime annotations over and over in particular
+situations. These situations were predictable and followed a few deterministic
+patterns. The developers programmed these patterns into the compiler’s code so
+the borrow checker could infer the lifetimes in these situations and wouldn't
+need explicit annotations.
+-->
+<p>多くのRustコードを書いた後、Rustチームは、Rustプログラマが特定の場面では、
+何度も何度も同じライフタイム注釈を入力することを発見しました。これらの場面は予測可能で、
+いくつかの決定的なパターンに従っていました。開発者はこのパターンをコンパイラのコードに落とし込んだので、
+このような場面には借用チェッカーがライフタイムを推論できるようになり、明示的な注釈を必要としなくなったのです。</p>
+<!--
+This piece of Rust history is relevant because it’s possible that more
+deterministic patterns will emerge and be added to the compiler. In the future,
+even fewer lifetime annotations might be required.
+-->
+<p>他の決定的なパターンが出現し、コンパイラに追加されることもあり得るので、このRustの歴史は関係があります。
+将来的に、さらに少数のライフタイム注釈しか必要にならない可能性もあります。</p>
+<!--
+The patterns programmed into Rust’s analysis of references are called the
+*lifetime elision rules*. These aren’t rules for programmers to follow; they’re
+a set of particular cases that the compiler will consider, and if your code
+fits these cases, you don’t need to write the lifetimes explicitly.
+-->
+<p>コンパイラの参照解析に落とし込まれたパターンは、<em>ライフタイム省略規則</em>と呼ばれます。
+これらはプログラマが従う規則ではありません; コンパイラが考慮する一連の特定のケースであり、
+自分のコードがこのケースに当てはまれば、ライフタイムを明示的に書く必要はなくなります。</p>
+<!--
+The elision rules don’t provide full inference. If Rust deterministically
+applies the rules but there is still ambiguity as to what lifetimes the
+references have, the compiler won’t guess what the lifetime of the remaining
+references should be. In this case, instead of guessing, the compiler will give
+you an error that you can resolve by adding the lifetime annotations that
+specify how the references relate to each other.
+-->
+<p>省略規則は、完全な推論を提供しません。コンパイラが決定的に規則を適用できるけれども、
+参照が保持するライフタイムに関してそれでも曖昧性があるなら、コンパイラは、残りの参照がなるべきライフタイムを推測しません。
+この場合コンパイラは、それらを推測するのではなくエラーを与えます。
+これらは、参照がお互いにどう関係するかを指定するライフタイム注釈を追記することで解決できます。</p>
+<!--
+Lifetimes on function or method parameters are called *input lifetimes*, and
+lifetimes on return values are called *output lifetimes*.
+-->
+<p>関数やメソッドの引数のライフタイムは、<em>入力ライフタイム</em>と呼ばれ、
+戻り値のライフタイムは<em>出力ライフタイム</em>と称されます。</p>
+<!--
+The compiler uses three rules to figure out what lifetimes references have when
+there aren’t explicit annotations. The first rule applies to input lifetimes,
+and the second and third rules apply to output lifetimes. If the compiler gets
+to the end of the three rules and there are still references for which it can’t
+figure out lifetimes, the compiler will stop with an error.
+-->
+<p>コンパイラは3つの規則を活用し、明示的な注釈がない時に、参照がどんなライフタイムになるかを計算します。
+最初の規則は入力ライフタイムに適用され、2番目と3番目の規則は出力ライフタイムに適用されます。
+コンパイラが3つの規則の最後まで到達し、それでもライフタイムを割り出せない参照があったら、
+コンパイラはエラーで停止します。</p>
+<!--
+The first rule is that each parameter that is a reference gets its own lifetime
+parameter. In other words, a function with one parameter gets one lifetime
+parameter: `fn foo<'a>(x: &'a i32)`; a function with two parameters gets two
+separate lifetime parameters: `fn foo<'a, 'b>(x: &'a i32, y: &'b i32)`; and so
+on.
+-->
+<p>最初の規則は、参照である各引数は、独自のライフタイム引数を得るというものです。換言すれば、
+1引数の関数は、1つのライフタイム引数を得るということです: <code>fn foo&lt;'a&gt;(x: &amp;'a i32)</code>;
+2つ引数のある関数は、2つの個別のライフタイム引数を得ます: <code>fn foo&lt;'a, 'b&gt;(x: &amp;'a i32, y: &amp;'b i32)</code>;
+以下同様。</p>
+<!--
+The second rule is if there is exactly one input lifetime parameter, that
+lifetime is assigned to all output lifetime parameters: `fn foo<'a>(x: &'a i32)
+-> &'a i32`.
+-->
+<p>2番目の規則は、1つだけ入力ライフタイム引数があるなら、そのライフタイムが全ての出力ライフタイム引数に代入されるというものです:
+<code>fn foo&lt;'a&gt;(x: &amp;'a i32) -&gt; &amp;'a i32</code>。</p>
+<!--
+The third rule is if there are multiple input lifetime parameters, but one of
+them is `&self` or `&mut self` because this is a method, the lifetime of `self`
+is assigned to all output lifetime parameters. This third rule makes methods
+much nicer to read and write because fewer symbols are necessary.
+-->
+<p>3番目の規則は、複数の入力ライフタイム引数があるけれども、メソッドなのでそのうちの一つが<code>&amp;self</code>や<code>&amp;mut self</code>だったら、
+<code>self</code>のライフタイムが全出力ライフタイム引数に代入されるというものです。
+この3番目の規則により、必要なシンボルの数が減るので、メソッドが遥かに読み書きしやすくなります。</p>
+<!--
+Let’s pretend we’re the compiler. We’ll apply these rules to figure out what
+the lifetimes of the references in the signature of the `first_word` function
+in Listing 10-26 are. The signature starts without any lifetimes associated
+with the references:
+-->
+<p>コンパイラになってみましょう。これらの規則を適用して、リスト10-26の<code>first_word</code>関数のシグニチャの参照のライフタイムが何か計算します。
+シグニチャは、参照に紐づけられるライフタイムがない状態から始まります:</p>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {
+</code></pre>
+<!--
+Then the compiler applies the first rule, which specifies that each parameter
+gets its own lifetime. We’ll call it `'a` as usual, so now the signature is
+this:
+-->
+<p>そうして、コンパイラは最初の規則を適用し、各引数が独自のライフタイムを得ると指定します。
+それを通常通り<code>'a</code>と呼ぶので、シグニチャはこうなります:</p>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;str {
+</code></pre>
+<!--
+The second rule applies because there is exactly one input lifetime. The second
+rule specifies that the lifetime of the one input parameter gets assigned to
+the output lifetime, so the signature is now this:
+-->
+<p>1つだけ入力ライフタイムがあるので、2番目の規則を適用します。2番目の規則は、1つの入力引数のライフタイムが、
+出力引数に代入されると指定するので、シグニチャはこうなります:</p>
+<pre><code class="language-rust ignore">fn first_word&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str {
+</code></pre>
+<!--
+Now all the references in this function signature have lifetimes, and the
+compiler can continue its analysis without needing the programmer to annotate
+the lifetimes in this function signature.
+-->
+<p>もうこの関数シグニチャの全ての参照にライフタイムが付いたので、コンパイラは、
+プログラマにこの関数シグニチャのライフタイムを注釈してもらう必要なく、解析を続行できます。</p>
+<!--
+Let’s look at another example, this time using the `longest` function that had
+no lifetime parameters when we started working with it in Listing 10-21:
+-->
+<p>別の例に目を向けましょう。今回は、リスト10-21で取り掛かったときにはライフタイム引数がなかった<code>longest</code>関数です:</p>
+<pre><code class="language-rust ignore">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str {
+</code></pre>
+<!--
+Let’s apply the first rule: each parameter gets its own lifetime. This time we
+have two parameters instead of one, so we have two lifetimes:
+-->
+<p>最初の規則を適用しましょう: 各引数が独自のライフタイムを得るのです。今回は、
+1つではなく2つ引数があるので、ライフタイムも2つです:</p>
+<pre><code class="language-rust ignore">fn longest&lt;'a, 'b&gt;(x: &amp;'a str, y: &amp;'b str) -&gt; &amp;str {
+</code></pre>
+<!--
+You can see that the second rule doesn’t apply because there is more than one
+input lifetime. The third rule doesn’t apply either, because `longest` is a
+function rather than a method, so none of the parameters are `self`. After
+working through all three rules, we still haven’t figured out what the return
+type’s lifetime is. This is why we got an error trying to compile the code in
+Listing 10-21: the compiler worked through the lifetime elision rules but still
+couldn’t figure out all the lifetimes of the references in the signature.
+-->
+<p>2つ以上入力ライフタイムがあるので、2番目の規則は適用されないとわかります。また3番目の規則も適用されません。
+<code>longest</code>はメソッドではなく関数なので、どの引数も<code>self</code>ではないのです。3つの規則全部を適用した後、
+まだ戻り値型のライフタイムが判明していません。このために、リスト10-21でこのコードをコンパイルしようとしてエラーになったのです:
+コンパイラは、ライフタイム省略規則全てを適用したけれども、シグニチャの参照全部のライフタイムを計算できなかったのです。</p>
+<!--
+Because the third rule really only applies in method signatures, we’ll look at
+lifetimes in that context next to see why the third rule means we don’t have to
+annotate lifetimes in method signatures very often.
+-->
+<p>3番目の規則は本当にメソッドシグニチャでしか適用されないので、次にその文脈でライフタイムを観察し、
+3番目の規則が、メソッドシグニチャであまり頻繁にライフタイムを注釈しなくても済むことを意味する理由を確認します。</p>
+<!--
+### Lifetime Annotations in Method Definitions
+-->
+<h3><a class="header" href="#メソッド定義におけるライフタイム注釈" id="メソッド定義におけるライフタイム注釈">メソッド定義におけるライフタイム注釈</a></h3>
+<!--
+When we implement methods on a struct with lifetimes, we use the same syntax as
+that of generic type parameters shown in Listing 10-11. Where we declare and
+use the lifetime parameters depends on whether they’re related to the struct
+fields or the method parameters and return values.
+-->
+<p>構造体にライフタイムのあるメソッドを実装する際、リスト10-11で示したジェネリックな型引数と同じ記法を使用します。
+ライフタイム引数を宣言し使用する場所は、構造体フィールドかメソッド引数と戻り値に関係するかによります。</p>
+<!--
+Lifetime names for struct fields always need to be declared after the `impl`
+keyword and then used after the struct’s name, because those lifetimes are part
+of the struct’s type.
+-->
+<p>構造体のフィールド用のライフタイム名は、<code>impl</code>キーワードの後に宣言する必要があり、
+それから構造体名の後に使用されます。そのようなライフタイムは構造体の型の一部になるからです。</p>
+<!--
+In method signatures inside the `impl` block, references might be tied to the
+lifetime of references in the struct’s fields, or they might be independent. In
+addition, the lifetime elision rules often make it so that lifetime annotations
+aren’t necessary in method signatures. Let’s look at some examples using the
+struct named `ImportantExcerpt` that we defined in Listing 10-25.
+-->
+<p><code>impl</code>ブロック内のメソッドシグニチャでは、参照は構造体のフィールドの参照のライフタイムに紐づくか、
+独立している可能性があります。加えて、ライフタイム省略規則により、メソッドシグニチャでライフタイム注釈が必要なくなることがよくあります。
+リスト10-25で定義した<code>ImportantExcerpt</code>という構造体を使用して、何か例を見ましょう。</p>
+<!--
+First, we’ll use a method named `level` whose only parameter is a reference to
+`self` and whose return value is an `i32`, which is not a reference to anything:
+-->
+<p>まず、唯一の引数が<code>self</code>への参照で戻り値が<code>i32</code>という何かへの参照ではない<code>level</code>というメソッドを使用します:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    part: &amp;'a str,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+    fn level(&amp;self) -&gt; i32 {
+        3
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+The lifetime parameter declaration after `impl` and use after the type name
+are required, but we’re not required to annotate the lifetime of the reference
+to `self` because of the first elision rule.
+-->
+<p><code>impl</code>後のライフタイム引数宣言と型名の後に使用するのは必須ですが、最初の省略規則のため、
+<code>self</code>への参照のライフタイムを注釈する必要はありません。</p>
+<!--
+Here is an example where the third lifetime elision rule applies:
+-->
+<p>3番目のライフタイム省略規則が適用される例はこちらです:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
+</span><span class="boring">    part: &amp;'a str,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl&lt;'a&gt; ImportantExcerpt&lt;'a&gt; {
+    fn announce_and_return_part(&amp;self, announcement: &amp;str) -&gt; &amp;str {
+        // お知らせします
+        println!(&quot;Attention please: {}&quot;, announcement);
+        self.part
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+There are two input lifetimes, so Rust applies the first lifetime elision rule
+and gives both `&self` and `announcement` their own lifetimes. Then, because
+one of the parameters is `&self`, the return type gets the lifetime of `&self`,
+and all lifetimes have been accounted for.
+-->
+<p>2つ入力ライフタイムがあるので、コンパイラは最初のライフタイム省略規則を適用し、
+<code>&amp;self</code>と<code>announcement</code>に独自のライフタイムを与えます。それから、
+引数の1つが<code>&amp;self</code>なので、戻り値型は<code>&amp;self</code>のライフタイムを得て、
+全てのライフタイムが説明されました。</p>
+<!--
+### The Static Lifetime
+-->
+<h3><a class="header" href="#静的ライフタイム" id="静的ライフタイム">静的ライフタイム</a></h3>
+<!--
+One special lifetime we need to discuss is `'static`, which denotes the entire
+duration of the program. All string literals have the `'static` lifetime, which
+we can annotate as follows:
+-->
+<p>議論する必要のある1種の特殊なライフタイムが、<code>'static</code>であり、これはプログラム全体の期間を示します。
+文字列リテラルは全て<code>'static</code>ライフタイムになり、次のように注釈できます:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>// 静的ライフタイムを持ってるよ
+let s: &amp;'static str = &quot;I have a static lifetime.&quot;;
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+The text of this string is stored directly in the binary of your program, which
+is always available. Therefore, the lifetime of all string literals is
+`'static`.
+-->
+<p>この文字列のテキストは、プログラムのバイナリに直接格納され、常に利用可能です。故に、全文字列リテラルのライフタイムは、
+<code>'static</code>なのです。</p>
+<!--
+You might see suggestions to use the `'static` lifetime in error messages. But
+before specifying `'static` as the lifetime for a reference, think about
+whether the reference you have actually lives the entire lifetime of your
+program or not. You might consider whether you want it to live that long, even
+if it could. Most of the time, the problem results from attempting to create a
+dangling reference or a mismatch of the available lifetimes. In such cases, the
+solution is fixing those problems, not specifying the `'static` lifetime.
+-->
+<p>エラーメッセージで<code>'static</code>ライフタイムを使用する提言を目撃する可能性があります。
+ですが、参照に対してライフタイムとして<code>'static</code>を指定する前に、今ある参照が本当にプログラムの全期間生きるかどうか考えてください。
+可能であっても、参照がそれだけの期間生きてほしいかどうか考慮する可能性があります。
+ほとんどの場合、問題は、ダングリング参照を生成しようとしているか、利用可能なライフタイムの不一致が原因です。
+そのような場合、解決策はその問題を修正することであり、<code>'static</code>ライフタイムを指定することではありません。</p>
+<!--
+## Generic Type Parameters, Trait Bounds, and Lifetimes Together
+-->
+<h2><a class="header" href="#ジェネリックな型引数トレイト境界ライフタイムを一度に" id="ジェネリックな型引数トレイト境界ライフタイムを一度に">ジェネリックな型引数、トレイト境界、ライフタイムを一度に</a></h2>
+<!--
+Let’s briefly look at the syntax of specifying generic type parameters, trait
+bounds, and lifetimes all in one function!
+-->
+<p>ジェネリックな型引数、トレイト境界、ライフタイムを指定する記法を全て1関数でちょっと眺めましょう！</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::fmt::Display;
+
+fn longest_with_an_announcement&lt;'a, T&gt;(x: &amp;'a str, y: &amp;'a str, ann: T) -&gt; &amp;'a str
+    where T: Display
+{
+    // アナウンス！
+    println!(&quot;Announcement! {}&quot;, ann);
+    if x.len() &gt; y.len() {
+        x
+    } else {
+        y
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+This is the `longest` function from Listing 10-22 that returns the longer of
+two string slices. But now it has an extra parameter named `ann` of the generic
+type `T`, which can be filled in by any type that implements the `Display`
+trait as specified by the `where` clause. This extra parameter will be printed
+before the function compares the lengths of the string slices, which is why the
+`Display` trait bound is necessary. Because lifetimes are a type of generic,
+the declarations of the lifetime parameter `'a` and the generic type parameter
+`T` go in the same list inside the angle brackets after the function name.
+-->
+<p>これがリスト10-22からの2つの文字列のうち長い方を返す<code>longest</code>関数ですが、
+ジェネリックな型<code>T</code>の<code>ann</code>という追加の引数があり、これは<code>where</code>節で指定されているように、
+<code>Display</code>トレイトを実装するあらゆる型で埋めることができます。
+この追加の引数は、関数が文字列スライスの長さを比較する前に出力されるので、
+<code>Display</code>トレイト境界が必要なのです。ライフタイムは一種のジェネリックなので、
+ライフタイム引数<code>'a</code>とジェネリックな型引数<code>T</code>が関数名の後、山カッコ内の同じリストに収まっています。</p>
+<!--
+## Summary
+-->
+<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<!--
+We covered a lot in this chapter! Now that you know about generic type
+parameters, traits and trait bounds, and generic lifetime parameters, you’re
+ready to write code without repetition that works in many different situations.
+Generic type parameters let you apply the code to different types. Traits and
+trait bounds ensure that even though the types are generic, they’ll have the
+behavior the code needs. You learned how to use lifetime annotations to ensure
+that this flexible code won’t have any dangling references. And all of this
+analysis happens at compile time, which doesn’t affect runtime performance!
+-->
+<p>いろんなことをこの章では講義しましたね！今やジェネリックな型引数、トレイトとトレイト境界、そしてジェネリックなライフタイム引数を知ったので、
+多くの異なる場面で動くコードを繰り返しなく書く準備ができました。ジェネリックな型引数により、
+コードを異なる型に適用させてくれます。トレイトとトレイト境界は、型がジェネリックであっても、
+コードが必要とする振る舞いを持つことを保証します。ライフタイム注釈を活用して、
+この柔軟なコードにダングリング参照が存在しないことを保証する方法を学びました。
+さらにこの解析は全てコンパイル時に起こり、実行時のパフォーマンスには影響しません！</p>
+<!--
+Believe it or not, there is much more to learn on the topics we discussed in
+this chapter: Chapter 17 discusses trait objects, which are another way to use
+traits. Chapter 19 covers more complex scenarios involving lifetime annotations
+as well as some advanced type system features. But next, you’ll learn how to
+write tests in Rust so you can make sure your code is working the way it should.
+-->
+<p>信じるかどうかは自由ですが、この章で議論した話題にはもっともっと学ぶべきことがあります:
+第17章ではトレイトオブジェクトを議論します。これはトレイトを使用する別の手段です。
+第19章では、ライフタイム注釈が関わるもっと複雑な筋書きと何か高度な型システムの機能を講義します。
+ですが次は、コードがあるべき通りに動いていることを確かめられるように、Rustでテストを書く方法を学びます。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch10-02-traits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch11-00-testing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch10-02-traits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch11-00-testing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

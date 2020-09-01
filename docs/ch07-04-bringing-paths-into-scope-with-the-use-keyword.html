@@ -1,0 +1,824 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Bringing Paths Into Scope with the use Keyword - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html" class="active"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Bringing Paths into Scope with the `use` Keyword
+-->
+<h2><a class="header" href="#useキーワードでパスをスコープに持ち込む" id="useキーワードでパスをスコープに持ち込む"><code>use</code>キーワードでパスをスコープに持ち込む</a></h2>
+<!--
+It might seem like the paths we’ve written to call functions so far are
+inconveniently long and repetitive. For example, in Listing 7-7, whether we
+chose the absolute or relative path to the `add_to_waitlist` function, every
+time we wanted to call `add_to_waitlist` we had to specify `front_of_house` and
+`hosting` too. Fortunately, there’s a way to simplify this process. We can
+bring a path into a scope once and then call the items in that path as if
+they’re local items with the `use` keyword.
+-->
+<p>これまで関数呼び出しのために書いてきたパスは、長く、繰り返しも多くて不便なものでした。
+例えば、Listing 7-7 においては、絶対パスを使うか相対パスを使うかにかかわらず、<code>add_to_waitlist</code>関数を呼ぼうと思うたびに<code>front_of_house</code>と<code>hosting</code>も指定しないといけませんでした。
+ありがたいことに、この手続きを簡単化する方法があります。
+<code>use</code>キーワードを使うことで、パスを一度スコープに持ち込んでしまえば、それ以降はパス内の要素がローカルにあるかのように呼び出すことができるのです。</p>
+<!--
+In Listing 7-11, we bring the `crate::front_of_house::hosting` module into the
+scope of the `eat_at_restaurant` function so we only have to specify
+`hosting::add_to_waitlist` to call the `add_to_waitlist` function in
+`eat_at_restaurant`.
+-->
+<p>Listing 7-11 では、<code>crate::front_of_house::hosting</code>モジュールを<code>eat_at_restaurant</code>関数のスコープに持ち込むことで、<code>eat_at_restaurant</code>において、<code>hosting::add_to_waitlist</code>と指定するだけで<code>add_to_waitlist</code>関数を呼び出せるようにしています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+use crate::front_of_house::hosting;
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
+}
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 7-11: Bringing a module into scope with
+`use`</span>
+-->
+<p><span class="caption">Listing 7-11: <code>use</code> でモジュールをスコープに持ち込む</span></p>
+<!--
+Adding `use` and a path in a scope is similar to creating a symbolic link in
+the filesystem. By adding `use crate::front_of_house::hosting` in the crate
+root, `hosting` is now a valid name in that scope, just as though the `hosting`
+module had been defined in the crate root. Paths brought into scope with `use`
+also check privacy, like any other paths.
+-->
+<p><code>use</code>とパスをスコープに追加することは、ファイルシステムにおいてシンボリックリンクを張ることに似ています。
+<code>use crate::front_of_house::hosting</code>をクレートルートに追加することで、<code>hosting</code>はこのスコープで有効な名前となり、まるで<code>hosting</code>はクレートルートで定義されていたかのようになります。
+スコープに<code>use</code>で持ち込まれたパスも、他のパスと同じようにプライバシーがチェックされます。</p>
+<!--
+You can also bring an item into scope with `use` and a relative path. Listing
+7-12 shows how to specify a relative path to get the same behavior as in
+Listing 7-11.
+-->
+<p><code>use</code>と相対パスで要素をスコープに持ち込むこともできます。
+Listing 7-12 はListing 7-11 と同じふるまいを得るためにどう相対パスを書けば良いかを示しています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+use self::front_of_house::hosting;
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
+}
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 7-12: Bringing a module into scope with `use` and
+a relative path</span>
+-->
+<p><span class="caption">Listing 7-12: モジュールを<code>use</code>と相対パスを使ってスコープに持ち込む</span></p>
+<!--
+### Creating Idiomatic `use` Paths
+-->
+<h3><a class="header" href="#慣例に従ったuseパスを作る" id="慣例に従ったuseパスを作る">慣例に従った<code>use</code>パスを作る</a></h3>
+<!--
+In Listing 7-11, you might have wondered why we specified `use
+crate::front_of_house::hosting` and then called `hosting::add_to_waitlist` in
+`eat_at_restaurant` rather than specifying the `use` path all the way out to
+the `add_to_waitlist` function to achieve the same result, as in Listing 7-13.
+-->
+<p>Listing 7-11 を見て、なぜ<code>use crate::front_of_house::hosting</code>と書いて<code>eat_at_restaurant</code>内で<code>hosting::add_to_waitlist</code>と呼び出したのか不思議に思っているかもしれません。Listing 7-13 のように、<code>use</code>で<code>add_to_waitlist</code>までのパスをすべて指定しても同じ結果が得られるのに、と。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+use crate::front_of_house::hosting::add_to_waitlist;
+
+pub fn eat_at_restaurant() {
+    add_to_waitlist();
+    add_to_waitlist();
+    add_to_waitlist();
+}
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 7-13: Bringing the `add_to_waitlist` function
+into scope with `use`, which is unidiomatic</span>
+-->
+<p><span class="caption">Listing 7-13: <code>add_to_waitlist</code> 関数を<code>use</code> でスコープに持ち込む。このやりかたは慣例的ではない</span></p>
+<!--
+Although both Listing 7-11 and 7-13 accomplish the same task, Listing 7-11 is
+the idiomatic way to bring a function into scope with `use`. Bringing the
+function’s parent module into scope with `use` so we have to specify the parent
+module when calling the function makes it clear that the function isn’t locally
+defined while still minimizing repetition of the full path. The code in Listing
+7-13 is unclear as to where `add_to_waitlist` is defined.
+-->
+<p>Listing 7-11 も 7-13 もおなじ仕事をしてくれますが、関数をスコープに<code>use</code>で持ち込む場合、Listing 7-11 のほうが慣例的なやり方です。
+関数の親モジュールを<code>use</code>で持ち込むことで、関数を呼び出す際、毎回親モジュールを指定しなければならないようにすれば、フルパスを繰り返して書くことを抑えつつ、関数がローカルで定義されていないことを明らかにできます。
+Listing 7-13 のコードではどこで<code>add_to_waitlist</code>が定義されたのかが不明瞭です。</p>
+<!--
+On the other hand, when bringing in structs, enums, and other items with `use`,
+it’s idiomatic to specify the full path. Listing 7-14 shows the idiomatic way
+to bring the standard library’s `HashMap` struct into the scope of a binary
+crate.
+-->
+<p>一方で、構造体やenumその他の要素を<code>use</code>で持ち込むときは、フルパスを書くのが慣例的です。
+Listing 7-14 は標準ライブラリの<code>HashMap</code>構造体をバイナリクレートのスコープに持ち込む慣例的なやり方を示しています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let mut map = HashMap::new();
+    map.insert(1, 2);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 7-14: Bringing `HashMap` into scope in an
+idiomatic way</span>
+-->
+<p><span class="caption">Listing 7-14: <code>HashMap</code>を慣例的なやり方でスコープに持ち込む</span></p>
+<!--
+There’s no strong reason behind this idiom: it’s just the convention that has
+emerged, and folks have gotten used to reading and writing Rust code this way.
+-->
+<p>こちらの慣例の背後には、はっきりとした理由はありません。自然に発生した慣習であり、みんなRustのコードをこのやり方で読み書きするのに慣れてしまったというだけです。</p>
+<!--
+The exception to this idiom is if we’re bringing two items with the same name
+into scope with `use` statements, because Rust doesn’t allow that. Listing 7-15
+shows how to bring two `Result` types into scope that have the same name but
+different parent modules and how to refer to them.
+-->
+<p>同じ名前の2つの要素を<code>use</code>でスコープに持ち込むのはRustでは許されないので、そのときこの慣例は例外的に不可能です。
+Listing 7-15は、同じ名前を持つけれど異なる親モジュールを持つ2つの<code>Result</code>型をスコープに持ち込み、それらを参照するやり方を示しています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::fmt;
+use std::io;
+
+fn function1() -&gt; fmt::Result {
+    // --snip--
+    // （略）
+<span class="boring">    Ok(())
+</span>}
+
+fn function2() -&gt; io::Result&lt;()&gt; {
+    // --snip--
+    // （略）
+<span class="boring">    Ok(())
+</span>}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 7-15: Bringing two types with the same name into
+the same scope requires using their parent modules.</span>
+-->
+<p><span class="caption">Listing 7-15: 同じ名前を持つ2つの型を同じスコープに持ち込むには親モジュールを使わないといけない。</span></p>
+<!--
+As you can see, using the parent modules distinguishes the two `Result` types.
+If instead we specified `use std::fmt::Result` and `use std::io::Result`, we’d
+have two `Result` types in the same scope and Rust wouldn’t know which one we
+meant when we used `Result`.
+-->
+<p>このように、親モジュールを使うことで2つの<code>Result</code>型を区別できます。
+もし<code>use std::fmt::Result</code> と <code>use std::io::Result</code>と書いていたとしたら、2つの<code>Result</code>型が同じスコープに存在することになり、私達が<code>Result</code>を使ったときにどちらのことを意味しているのかRustはわからなくなってしまいます。</p>
+<!--
+### Providing New Names with the `as` Keyword
+-->
+<h3><a class="header" href="#新しい名前をasキーワードで与える" id="新しい名前をasキーワードで与える">新しい名前を<code>as</code>キーワードで与える</a></h3>
+<!--
+There’s another solution to the problem of bringing two types of the same name
+into the same scope with `use`: after the path, we can specify `as` and a new
+local name, or alias, for the type. Listing 7-16 shows another way to write the
+code in Listing 7-15 by renaming one of the two `Result` types using `as`.
+-->
+<p>同じ名前の2つの型を<code>use</code>を使って同じスコープに持ち込むという問題には、もう一つ解決策があります。パスの後に、<code>as</code>と型の新しいローカル名、即ちエイリアスを指定すればよいのです。
+Listing 7-16 は、Listing 7-15 のコードを、2つの<code>Result</code>型のうち一つを<code>as</code>を使ってリネームするという別のやり方で書いたものを表しています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::fmt::Result;
+use std::io::Result as IoResult;
+
+fn function1() -&gt; Result {
+    // --snip--
+<span class="boring">    Ok(())
+</span>}
+
+fn function2() -&gt; IoResult&lt;()&gt; {
+    // --snip--
+<span class="boring">    Ok(())
+</span>}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 7-16: Renaming a type when it’s brought into
+scope with the `as` keyword</span>
+-->
+<p><span class="caption">Listing 7-16: 型がスコープに持ち込まれた時、<code>as</code>キーワードを使ってその名前を変えている</span></p>
+<!--
+In the second `use` statement, we chose the new name `IoResult` for the
+`std::io::Result` type, which won’t conflict with the `Result` from `std::fmt`
+that we’ve also brought into scope. Listing 7-15 and Listing 7-16 are
+considered idiomatic, so the choice is up to you!
+-->
+<p>2つめの<code>use</code>文では、<code>std::io::Result</code>に、<code>IoResult</code>という新たな名前を選んでやります。<code>std::fmt</code>の<code>Result</code>もスコープに持ち込んでいますが、この名前はこれとは衝突しません。
+Listing 7-15もListing 7-16も慣例的とみなされているので、どちらを使っても構いませんよ！</p>
+<!--
+### Re-exporting Names with `pub use`
+-->
+<h3><a class="header" href="#pub-useを使って名前を再公開する" id="pub-useを使って名前を再公開する"><code>pub use</code>を使って名前を再公開する</a></h3>
+<!--
+When we bring a name into scope with the `use` keyword, the name available in
+the new scope is private. To enable the code that calls our code to refer to
+that name as if it had been defined in that code’s scope, we can combine `pub`
+and `use`. This technique is called *re-exporting* because we’re bringing
+an item into scope but also making that item available for others to bring into
+their scope.
+-->
+<p><code>use</code>キーワードで名前をスコープに持ちこんだ時、新しいスコープで使用できるその名前は非公開です。
+私達のコードを呼び出すコードが、まるでその名前が私達のコードのスコープで定義されていたかのように参照できるようにするためには、<code>pub</code>と<code>use</code>を組み合わせればいいです。
+このテクニックは、要素を自分たちのスコープに持ち込むだけでなく、他の人がその要素をその人のスコープに持ち込むことも可能にすることから、<em>再公開 (re-exporting)</em> と呼ばれています。</p>
+<!--
+Listing 7-17 shows the code in Listing 7-11 with `use` in the root module
+changed to `pub use`.
+-->
+<p>Listing 7-17 は Listing 7-11 のコードのルートモジュールでの<code>use</code>を<code>pub use</code>に変更したものを示しています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+pub use crate::front_of_house::hosting;
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
+}
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 7-17: Making a name available for any code to use
+from a new scope with `pub use`</span>
+-->
+<p><span class="caption">Listing 7-17: <code>pub use</code>で、新たなスコープのコードがその名前を使えるようにする</span></p>
+<!--
+By using `pub use`, external code can now call the `add_to_waitlist` function
+using `hosting::add_to_waitlist`. If we hadn’t specified `pub use`, the
+`eat_at_restaurant` function could call `hosting::add_to_waitlist` in its
+scope, but external code couldn’t take advantage of this new path.
+-->
+<p><code>pub use</code>を使うことで、外部のコードが<code>hosting::add_to_waitlist</code>を使って<code>add_to_waitlist</code>関数を呼び出せるようになりました。
+<code>pub use</code>を使っていなければ、<code>eat_at_restaurant</code>関数は<code>hosting::add_to_waitlist</code>を自らのスコープ内で使えるものの、外部のコードはこの新しいパスを利用することはできないでしょう。</p>
+<!--
+Re-exporting is useful when the internal structure of your code is different
+from how programmers calling your code would think about the domain. For
+example, in this restaurant metaphor, the people running the restaurant think
+about “front of house” and “back of house.” But customers visiting a restaurant
+probably won’t think about the parts of the restaurant in those terms. With
+`pub use`, we can write our code with one structure but expose a different
+structure. Doing so makes our library well organized for programmers working on
+the library and programmers calling the library.
+-->
+<p>再公開は、あなたのコードの内部構造と、あなたのコードを呼び出すプログラマーたちのその領域に関しての見方が異なるときに有用です。
+例えば、レストランの比喩では、レストランを経営している人は「接客部門 (front of house)」と「後方部門 (back of house)」のことについて考えるでしょう。
+しかし、レストランを訪れるお客さんは、そのような観点からレストランの部門について考えることはありません。
+<code>pub use</code>を使うことで、ある構造でコードを書きつつも、別の構造で公開するということが可能になります。
+こうすることで、私達のライブラリを、ライブラリを開発するプログラマにとっても、ライブラリを呼び出すプログラマにとっても、よく整理されたものとすることができます。</p>
+<!--
+### Using External Packages
+-->
+<h3><a class="header" href="#外部のパッケージを使う" id="外部のパッケージを使う">外部のパッケージを使う</a></h3>
+<!--
+In Chapter 2, we programmed a guessing game project that used an external
+package called `rand` to get random numbers. To use `rand` in our project, we
+added this line to *Cargo.toml*:
+-->
+<p>2章で、乱数を得るために<code>rand</code>という外部パッケージを使って、数当てゲームをプログラムしました。
+<code>rand</code>を私達のプロジェクトで使うために、次の行を <em>Cargo.toml</em> に書き加えましたね：</p>
+<!-- When updating the version of `rand` used, also update the version of
+`rand` used in these files so they all match:
+* ch02-00-guessing-game-tutorial.md
+* ch14-03-cargo-workspaces.md
+-->
+<!--
+<span class="filename">Filename: Cargo.toml</span>
+-->
+<p><span class="filename">ファイル名: Cargo.toml</span></p>
+<pre><code class="language-toml">[dependencies]
+rand = &quot;0.5.5&quot;
+</code></pre>
+<!--
+Adding `rand` as a dependency in *Cargo.toml* tells Cargo to download the
+`rand` package and any dependencies from [crates.io](https://crates.io/) and
+make `rand` available to our project.
+-->
+<p><code>rand</code>を依存 (dependency) として <em>Cargo.toml</em> に追加すると、<code>rand</code>パッケージとそのすべての依存を<a href="https://crates.io/">crates.io</a>からダウンロードして、私達のプロジェクトで<code>rand</code>が使えるようにするようCargoに命令します。</p>
+<!--
+Then, to bring `rand` definitions into the scope of our package, we added a
+`use` line starting with the name of the crate, `rand`, and listed the items
+we wanted to bring into scope. Recall that in the [“Generating a Random
+Number”][rand] section in Chapter 2, we brought the `Rng` trait
+into scope and called the `rand::thread_rng` function:
+-->
+<p>そして、<code>rand</code>の定義を私達のパッケージのスコープに持ち込むために、クレートの名前である<code>rand</code>から始まる<code>use</code>の行を追加し、そこにスコープに持ち込みたい要素を並べました。
+2章の<a href="ch02-00-guessing-game-tutorial.html#generating-a-random-number">乱数を生成する</a>の節で、<code>Rng</code>トレイトをスコープに持ち込み<code>rand::thread_rng</code>関数を呼び出したことを思い出してください。</p>
+<pre><code class="language-rust ignore"><span class="boring">use std::io;
+</span>use rand::Rng;
+
+fn main() {
+<span class="boring">    println!(&quot;Guess the number!&quot;);
+</span><span class="boring">
+</span>    let secret_number = rand::thread_rng().gen_range(1, 101);
+<span class="boring">
+</span><span class="boring">    println!(&quot;The secret number is: {}&quot;, secret_number);
+</span><span class="boring">
+</span><span class="boring">    println!(&quot;Please input your guess.&quot;);
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect(&quot;Failed to read line&quot;);
+</span><span class="boring">
+</span><span class="boring">    println!(&quot;You guessed: {}&quot;, guess);
+</span>}
+</code></pre>
+<!--
+Members of the Rust community have made many packages available at
+[crates.io](https://crates.io/), and pulling any of them into your package
+involves these same steps: listing them in your package’s *Cargo.toml* file and
+using `use` to bring items from their crates into scope.
+-->
+<p>Rustコミュニティに所属する人々が<a href="https://crates.io/">crates.io</a>でたくさんのパッケージを利用できるようにしてくれており、上と同じステップを踏めばそれらをあなたのパッケージに取り込むことができます：あなたのパッケージの <em>Cargo.toml</em> ファイルにそれらを書き並べ、<code>use</code>を使って要素をクレートからスコープへと持ち込めばよいのです。</p>
+<!--
+Note that the standard library (`std`) is also a crate that’s external to our
+package. Because the standard library is shipped with the Rust language, we
+don’t need to change *Cargo.toml* to include `std`. But we do need to refer to
+it with `use` to bring items from there into our package’s scope. For example,
+with `HashMap` we would use this line:
+-->
+<p>標準ライブラリ (<code>std</code>) も、私達のパッケージの外部にあるクレートだということに注意してください。
+標準ライブラリはRust言語に同梱されているので、 <em>Cargo.toml</em> を <code>std</code>を含むように変更する必要はありません。
+しかし、その要素をそこから私達のパッケージのスコープに持ち込むためには、<code>use</code>を使って参照する必要はあります。
+例えば、<code>HashMap</code>には次の行を使います。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::collections::HashMap;
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+This is an absolute path starting with `std`, the name of the standard library
+crate.
+-->
+<p>これは標準ライブラリクレートの名前<code>std</code>から始まる絶対パスです。</p>
+<!--
+### Using Nested Paths to Clean Up Large `use` Lists
+-->
+<h3><a class="header" href="#巨大なuseのリストをネストしたパスを使って整理する" id="巨大なuseのリストをネストしたパスを使って整理する">巨大な<code>use</code>のリストをネストしたパスを使って整理する</a></h3>
+<!--
+If we’re using multiple items defined in the same crate or same module,
+listing each item on its own line can take up a lot of vertical space in our
+files. For example, these two `use` statements we had in the Guessing Game in
+Listing 2-4 bring items from `std` into scope:
+-->
+<p>同じクレートか同じモジュールで定義された複数の要素を使おうとする時、それぞれの要素を一行一行並べると、縦に大量のスペースを取ってしまいます。
+例えば、Listing 2-4の数当てゲームで使った次の2つの<code>use</code>文が<code>std</code>からスコープへ要素を持ち込みました。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore"><span class="boring">use rand::Rng;
+</span>// --snip--
+// （略）
+use std::cmp::Ordering;
+use std::io;
+// --snip--
+// （略）
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!(&quot;Guess the number!&quot;);
+</span><span class="boring">
+</span><span class="boring">    let secret_number = rand::thread_rng().gen_range(1, 101);
+</span><span class="boring">
+</span><span class="boring">    println!(&quot;The secret number is: {}&quot;, secret_number);
+</span><span class="boring">
+</span><span class="boring">    println!(&quot;Please input your guess.&quot;);
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect(&quot;Failed to read line&quot;);
+</span><span class="boring">
+</span><span class="boring">    println!(&quot;You guessed: {}&quot;, guess);
+</span><span class="boring">
+</span><span class="boring">    match guess.cmp(&amp;secret_number) {
+</span><span class="boring">        Ordering::Less =&gt; println!(&quot;Too small!&quot;),
+</span><span class="boring">        Ordering::Greater =&gt; println!(&quot;Too big!&quot;),
+</span><span class="boring">        Ordering::Equal =&gt; println!(&quot;You win!&quot;),
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre>
+<!--
+Instead, we can use nested paths to bring the same items into scope in one
+line. We do this by specifying the common part of the path, followed by two
+colons, and then curly brackets around a list of the parts of the paths that
+differ, as shown in Listing 7-18.
+-->
+<p>代わりに、ネストしたパスを使うことで、同じ一連の要素を1行でスコープに持ち込めます。
+これをするには、Listing 7-18 に示されるように、パスの共通部分を書き、2つのコロンを続け、そこで波括弧で互いに異なる部分のパスのリストを囲みます。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore"><span class="boring">use rand::Rng;
+</span>// --snip--
+// （略）
+use std::{cmp::Ordering, io};
+// --snip--
+// （略）
+<span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    println!(&quot;Guess the number!&quot;);
+</span><span class="boring">
+</span><span class="boring">    let secret_number = rand::thread_rng().gen_range(1, 101);
+</span><span class="boring">
+</span><span class="boring">    println!(&quot;The secret number is: {}&quot;, secret_number);
+</span><span class="boring">
+</span><span class="boring">    println!(&quot;Please input your guess.&quot;);
+</span><span class="boring">
+</span><span class="boring">    let mut guess = String::new();
+</span><span class="boring">
+</span><span class="boring">    io::stdin()
+</span><span class="boring">        .read_line(&amp;mut guess)
+</span><span class="boring">        .expect(&quot;Failed to read line&quot;);
+</span><span class="boring">
+</span><span class="boring">    let guess: u32 = guess.trim().parse().expect(&quot;Please type a number!&quot;);
+</span><span class="boring">
+</span><span class="boring">    println!(&quot;You guessed: {}&quot;, guess);
+</span><span class="boring">
+</span><span class="boring">    match guess.cmp(&amp;secret_number) {
+</span><span class="boring">        Ordering::Less =&gt; println!(&quot;Too small!&quot;),
+</span><span class="boring">        Ordering::Greater =&gt; println!(&quot;Too big!&quot;),
+</span><span class="boring">        Ordering::Equal =&gt; println!(&quot;You win!&quot;),
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre>
+<!--
+<span class="caption">Listing 7-18: Specifying a nested path to bring multiple
+items with the same prefix into scope</span>
+-->
+<p><span class="caption">Listing 7-18: 同じプレフィックスをもつ複数の要素をスコープに持ち込むためにネストしたパスを指定する</span></p>
+<!--
+In bigger programs, bringing many items into scope from the same crate or
+module using nested paths can reduce the number of separate `use` statements
+needed by a lot!
+-->
+<p>大きなプログラムにおいては、同じクレートやモジュールからのたくさんの要素をネストしたパスで持ち込むようにすれば、独立した<code>use</code>文の数を大きく減らすことができます！</p>
+<!--
+We can use a nested path at any level in a path, which is useful when combining
+two `use` statements that share a subpath. For example, Listing 7-19 shows two
+`use` statements: one that brings `std::io` into scope and one that brings
+`std::io::Write` into scope.
+-->
+<p>ネストしたパスはパスのどの階層においても使うことができます。これはサブパスを共有する2つの<code>use</code>文を合体させるときに有用です。
+例えば、Listing 7-19 は2つの<code>use</code>文を示しています：1つは<code>std::io</code>をスコープに持ち込み、もう一つは<code>std::io::Write</code>をスコープに持ち込んでいます。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::io;
+use std::io::Write;
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 7-19: Two `use` statements where one is a subpath
+of the other</span>
+-->
+<p><span class="caption">Listing 7-19: 片方がもう片方のサブパスである2つの<code>use</code>文</span></p>
+<!--
+The common part of these two paths is `std::io`, and that’s the complete first
+path. To merge these two paths into one `use` statement, we can use `self` in
+the nested path, as shown in Listing 7-20.
+-->
+<p>これらの2つのパスの共通部分は<code>std::io</code>であり、そしてこれは最初のパスにほかなりません。これらの2つのパスを1つの<code>use</code>文へと合体させるには、Listing 7-20 に示されるように、ネストしたパスに<code>self</code>を使いましょう。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::io::{self, Write};
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 7-20: Combining the paths in Listing 7-19 into
+one `use` statement</span>
+-->
+<p><span class="caption">Listing 7-20: Listing 7-19 のパスを一つの <code>use</code> 文に合体させる</span></p>
+<!--
+This line brings `std::io` and `std::io::Write` into scope.
+-->
+<p>この行は <code>std::io</code> と<code>std::io::Write</code> をスコープに持ち込みます。</p>
+<!--
+### The Glob Operator
+-->
+<h3><a class="header" href="#glob演算子" id="glob演算子">glob演算子</a></h3>
+<!--
+If we want to bring *all* public items defined in a path into scope, we can
+specify that path followed by `*`, the glob operator:
+-->
+<p>パスにおいて定義されているすべての公開要素をスコープに持ち込みたいときは、glob演算子 <code>*</code> をそのパスの後ろに続けて書きましょう：</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::collections::*;
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+This `use` statement brings all public items defined in `std::collections` into
+the current scope. Be careful when using the glob operator! Glob can make it
+harder to tell what names are in scope and where a name used in your program
+was defined.
+-->
+<p>この<code>use</code>文は<code>std::collections</code>のすべての公開要素を現在のスコープに持ち込みます。
+glob演算子を使う際にはご注意を！
+globをすると、どの名前がスコープ内にあり、プログラムで使われている名前がどこで定義されたのか分かりづらくなります。</p>
+<!--
+The glob operator is often used when testing to bring everything under test
+into the `tests` module; we’ll talk about that in the [“How to Write
+Tests”][writing-tests] section in Chapter 11. The glob operator
+is also sometimes used as part of the prelude pattern: see [the standard
+library documentation](../std/prelude/index.html#other-preludes)
+for more information on that pattern.
+-->
+<p>glob演算子はしばしば、テストの際、テストされるあらゆるものを<code>tests</code>モジュールに持ち込むために使われます。これについては11章<a href="ch11-01-writing-tests.html#how-to-write-tests">テストの書き方</a>の節で話します。
+glob演算子はプレリュードパターンの一部としても使われることがあります：そのようなパターンについて、より詳しくは<a href="../std/prelude/index.html#other-preludes">標準ライブラリのドキュメント</a>をご覧ください。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch07-05-separating-modules-into-different-files.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch07-05-separating-modules-into-different-files.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

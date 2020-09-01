@@ -1,0 +1,654 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Working with Environment Variables - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html" class="active"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Working with Environment Variables
+-->
+<h2><a class="header" href="#環境変数を取り扱う" id="環境変数を取り扱う">環境変数を取り扱う</a></h2>
+<!--
+We’ll improve `minigrep` by adding an extra feature: an option for
+case-insensitive searching that the user can turn on via an environment
+variable. We could make this feature a command line option and require that
+users enter it each time they want it to apply, but instead we’ll use an
+environment variable. Doing so allows our users to set the environment variable
+once and have all their searches be case insensitive in that terminal session.
+-->
+<p>おまけの機能を追加して<code>minigrep</code>を改善します: 環境変数でユーザがオンにできる大文字小文字無視の検索用のオプションです。
+この機能をコマンドラインオプションにして、適用したい度にユーザが入力しなければならないようにすることもできますが、
+代わりに環境変数を使用します。そうすることでユーザは1回環境変数をセットすれば、そのターミナルセッションの間は、
+大文字小文字無視の検索を行うことができるようになるわけです。</p>
+<!--
+### Writing a Failing Test for the Case-Insensitive `search` Function
+-->
+<h3><a class="header" href="#大文字小文字を区別しないsearch関数用に失敗するテストを書く" id="大文字小文字を区別しないsearch関数用に失敗するテストを書く">大文字小文字を区別しない<code>search</code>関数用に失敗するテストを書く</a></h3>
+<!--
+We want to add a new `search_case_insensitive` function that we’ll call when
+the environment variable is on. We’ll continue to follow the TDD process, so
+the first step is again to write a failing test. We’ll add a new test for the
+new `search_case_insensitive` function and rename our old test from
+`one_result` to `case_sensitive` to clarify the differences between the two
+tests, as shown in Listing 12-20.
+-->
+<p>環境変数がオンの場合に呼び出す<code>search_case_insensitive</code>関数を新しく追加したいです。テスト駆動開発の過程に従い続けるので、
+最初の手順は、今回も失敗するテストを書くことです。新しい<code>search_case_insensitive</code>関数用の新規テストを追加し、
+古いテストを<code>one_result</code>から<code>case_sensitive</code>に名前変更して、二つのテストの差異を明確化します。
+リスト12-20に示したようにですね。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn case_sensitive() {
+        let query = &quot;duct&quot;;
+// Rust
+// 安全かつ高速で生産的
+// 三つを選んで
+// ガムテープ
+        let contents = &quot;\
+Rust:
+safe, fast, productive.
+Pick three.
+Duct tape.&quot;;
+
+        assert_eq!(
+            vec![&quot;safe, fast, productive.&quot;],
+            search(query, contents)
+        );
+    }
+
+    #[test]
+    fn case_insensitive() {
+        let query = &quot;rUsT&quot;;
+// (最後の行のみ)
+// 私を信じて
+        let contents = &quot;\
+Rust:
+safe, fast, productive.
+Pick three.
+Trust me.&quot;;
+
+        assert_eq!(
+            vec![&quot;Rust:&quot;, &quot;Trust me.&quot;],
+            search_case_insensitive(query, contents)
+        );
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 12-20: Adding a new failing test for the
+case-insensitive function we’re about to add</span>
+-->
+<p><span class="caption">リスト12-20: 追加しようとしている大文字小文字を区別しない関数用の失敗するテストを新しく追加する</span></p>
+<!--
+Note that we’ve edited the old test’s `contents` too. We’ve added a new line
+with the text `“Duct tape”` using a capital D that shouldn’t match the query
+`“duct”` when we’re searching in a case-sensitive manner. Changing the old test
+in this way helps ensure that we don’t accidentally break the case-sensitive
+search functionality that we’ve already implemented. This test should pass now
+and should continue to pass as we work on the case-insensitive search.
+-->
+<p>古いテストの<code>contents</code>も変更していることに注意してください。大文字小文字を区別する検索を行う際に、
+<code>&quot;duct&quot;</code>というクエリに合致しないはずの大文字Dを使用した<code>&quot;Duct tape&quot;</code>(ガムテープ)という新しい行を追加しました。
+このように古いテストを変更することで、既に実装済みの大文字小文字を区別する検索機能を誤って壊してしまわないことを保証する助けになります。
+このテストはもう通り、大文字小文字を区別しない検索に取り掛かっても通り続けるはずです。</p>
+<!--
+The new test for the case-*insensitive* search uses “rUsT” as its query. In the
+`search_case_insensitive` function we’re about to add, the query “rUsT”
+should match the line containing “Rust:” with a capital R and match the line
+`“Trust me.”` even though both have different casing than the query. This is
+our failing test, and it will fail to compile because we haven’t yet defined
+the `search_case_insensitive` function. Feel free to add a skeleton
+implementation that always returns an empty vector, similar to the way we did
+for the `search` function in Listing 12-16 to see the test compile and fail.
+-->
+<p>大文字小文字を区別<em>しない</em>検索の新しいテストは、クエリに&quot;rUsT&quot;を使用しています。
+追加直前の<code>search_case_insensitive</code>関数では、&quot;rUsT&quot;というクエリは、
+両方ともクエリとは大文字小文字が異なるのに、大文字Rの&quot;Rust:&quot;を含む行と、
+<code>“Trust me.”</code>という行にもマッチするはずです。これが失敗するテストであり、まだ<code>search_case_insensitive</code>関数を定義していないので、
+コンパイルは失敗するでしょう。リスト12-16の<code>search</code>関数で行ったのと同様に空のベクタを常に返すような仮実装を追加し、テストがコンパイルされるものの、失敗する様をご自由に確認してください。</p>
+<!--
+### Implementing the `search_case_insensitive` Function
+-->
+<h3><a class="header" href="#search_case_insensitive関数を実装する" id="search_case_insensitive関数を実装する"><code>search_case_insensitive</code>関数を実装する</a></h3>
+<!--
+The `search_case_insensitive` function, shown in Listing 12-21, will be almost
+the same as the `search` function. The only difference is that we’ll lowercase
+the `query` and each `line` so whatever the case of the input arguments,
+they’ll be the same case when we check whether the line contains the query.
+-->
+<p><code>search_case_insensitive</code>関数は、リスト12-21に示しましたが、<code>search</code>関数とほぼ同じです。
+唯一の違いは、<code>query</code>と各<code>line</code>を小文字化していることなので、入力引数の大文字小文字によらず、
+行がクエリを含んでいるか確認する際には、同じになるわけです。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub fn search_case_insensitive&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
+    let query = query.to_lowercase();
+    let mut results = Vec::new();
+
+    for line in contents.lines() {
+        if line.to_lowercase().contains(&amp;query) {
+            results.push(line);
+        }
+    }
+
+    results
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 12-21: Defining the `search_case_insensitive`
+function to lowercase the query and the line before comparing them</span>
+-->
+<p><span class="caption">リスト12-21: 比較する前にクエリと行を小文字化するよう、<code>search_case_insensitive</code>関数を定義する</span></p>
+<!--
+First, we lowercase the `query` string and store it in a shadowed variable with
+the same name. Calling `to_lowercase` on the query is necessary so no matter
+whether the user’s query is `“rust”`, `“RUST”`, `“Rust”`, or `“rUsT”`, we’ll treat the
+query as if it was `“rust”` and be insensitive to the case.
+-->
+<p>まず、<code>query</code>文字列を小文字化し、同じ名前の覆い隠された変数に保存します。ユーザのクエリが<code>&quot;rust&quot;</code>や<code>&quot;RUST&quot;</code>、
+<code>&quot;Rust&quot;</code>、<code>&quot;rUsT&quot;</code>などだったりしても、<code>&quot;rust&quot;</code>であり、大文字小文字を区別しないかのようにクエリを扱えるように、
+<code>to_lowercase</code>をクエリに対して呼び出すことは必須です。</p>
+<!--
+Note that `query` is now a `String` rather than a string slice, because calling
+`to_lowercase` creates new data rather than referencing existing data. Say the
+query is `“rUsT”`, as an example: that string slice doesn’t contain a lowercase
+`u` or `t` for us to use, so we have to allocate a new `String` containing
+`“rust”`. When we pass `query` as an argument to the `contains` method now, we
+need to add an ampersand because the signature of `contains` is defined to take
+a string slice.
+-->
+<p><code>query</code>は最早、文字列スライスではなく<code>String</code>であることに注意してください。というのも、
+<code>to_lowercase</code>を呼び出すと、既存のデータを参照するというよりも、新しいデータを作成するからです。
+例として、クエリは<code>&quot;rUsT&quot;</code>だとしましょう: その文字列スライスは、小文字の<code>u</code>や<code>t</code>を使えるように含んでいないので、
+<code>&quot;rust&quot;</code>を含む新しい<code>String</code>のメモリを確保しなければならないのです。今、<code>contains</code>メソッドに引数として<code>query</code>を渡すと、
+アンド記号を追加する必要があります。<code>contains</code>のシグニチャは、文字列スライスを取るよう定義されているからです。</p>
+<!--
+2行目真ん中、to lowercase ...がかかる先が微妙。今の訳の通りなら、beforeの前にtoを記述する気もする
+-->
+<!--
+Next, we add a call to `to_lowercase` on each `line` before we check whether it
+contains `query` to lowercase all characters. Now that we’ve converted `line`
+and `query` to lowercase, we’ll find matches no matter what the case of the
+query is.
+-->
+<p>次に、各<code>line</code>が<code>query</code>を含むか確かめる前に<code>to_lowercase</code>の呼び出しを追加し、全文字を小文字化しています。
+今や<code>line</code>と<code>query</code>を小文字に変換したので、クエリが大文字であろうと小文字であろうとマッチを検索するでしょう。</p>
+<!--
+Let’s see if this implementation passes the tests:
+-->
+<p>この実装がテストを通過するか確認しましょう:</p>
+<pre><code class="language-text">running 2 tests
+test test::case_insensitive ... ok
+test test::case_sensitive ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+Great! They passed. Now, let’s call the new `search_case_insensitive` function
+from the `run` function. First, we’ll add a configuration option to the
+`Config` struct to switch between case-sensitive and case-insensitive search.
+Adding this field will cause compiler errors because we aren’t initializing
+this field anywhere yet:
+-->
+<p>素晴らしい！どちらも通りました。では、<code>run</code>関数から新しい<code>search_case_insensitive</code>関数を呼び出しましょう。
+1番目に大文字小文字の区別を切り替えられるよう、<code>Config</code>構造体に設定オプションを追加します。
+まだどこでも、このフィールドの初期化をしていないので、追加するとコンパイルエラーが起きます:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub struct Config {
+    pub query: String,
+    pub filename: String,
+    pub case_sensitive: bool,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Note that we added the `case_sensitive` field that holds a Boolean. Next, we
+need the `run` function to check the `case_sensitive` field’s value and use
+that to decide whether to call the `search` function or the
+`search_case_insensitive` function, as shown in Listing 12-22. Note this still
+won’t compile yet.
+-->
+<p>論理値を持つ<code>case_sensitive</code>フィールドを追加したことに注意してください。次に、<code>run</code>関数に、
+<code>case_sensitive</code>フィールドの値を確認し、<code>search</code>関数か<code>search_case_insensitive</code>関数を呼ぶかを決定するのに使ってもらう必要があります。
+リスト12-22のようにですね。それでも、これはまだコンパイルできないことに注意してください。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::error::Error;
+</span><span class="boring">use std::fs::File;
+</span><span class="boring">use std::io::prelude::*;
+</span><span class="boring">
+</span><span class="boring">fn search&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
+</span><span class="boring">     vec![]
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub fn search_case_insensitive&lt;'a&gt;(query: &amp;str, contents: &amp;'a str) -&gt; Vec&lt;&amp;'a str&gt; {
+</span><span class="boring">     vec![]
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct Config {
+</span><span class="boring">    query: String,
+</span><span class="boring">    filename: String,
+</span><span class="boring">    case_sensitive: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt; {
+    let mut f = File::open(config.filename)?;
+
+    let mut contents = String::new();
+    f.read_to_string(&amp;mut contents)?;
+
+    let results = if config.case_sensitive {
+        search(&amp;config.query, &amp;contents)
+    } else {
+        search_case_insensitive(&amp;config.query, &amp;contents)
+    };
+
+    for line in results {
+        println!(&quot;{}&quot;, line);
+    }
+
+    Ok(())
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 12-22: Calling either `search` or
+`search_case_insensitive` based on the value in `config.case_sensitive`</span>
+-->
+<p><span class="caption">リスト12-22: <code>config.case_sensitive</code>の値に基づいて<code>search</code>か<code>search_case_insensitive</code>を呼び出す</span></p>
+<!--
+Finally, we need to check for the environment variable. The functions for
+working with environment variables are in the `env` module in the standard
+library, so we want to bring that module into scope with a `use std::env;` line
+at the top of *src/lib.rs*. Then we’ll use the `var` function from the `env`
+module to check for an environment variable named `CASE_INSENSITIVE`, as shown
+in Listing 12-23.
+-->
+<p>最後に、環境変数を確認する必要があります。環境変数を扱う関数は、標準ライブラリの<code>env</code>モジュールにあるので、
+<code>use std::env;</code>行で<em>src/lib.rs</em>の冒頭でそのモジュールをスコープに持ってくる必要があります。そして、
+<code>env</code>モジュールから<code>var</code>関数を使用して<code>CASE_INSENSITIVE</code>という環境変数のチェックを行います。
+リスト12-23のようにですね。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::env;
+<span class="boring">struct Config {
+</span><span class="boring">    query: String,
+</span><span class="boring">    filename: String,
+</span><span class="boring">    case_sensitive: bool,
+</span><span class="boring">}
+</span>
+// --snip--
+
+impl Config {
+    pub fn new(args: &amp;[String]) -&gt; Result&lt;Config, &amp;'static str&gt; {
+        if args.len() &lt; 3 {
+            return Err(&quot;not enough arguments&quot;);
+        }
+
+        let query = args[1].clone();
+        let filename = args[2].clone();
+
+        let case_sensitive = env::var(&quot;CASE_INSENSITIVE&quot;).is_err();
+
+        Ok(Config { query, filename, case_sensitive })
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 12-23: Checking for an environment variable named
+`CASE_INSENSITIVE`</span>
+-->
+<p><span class="caption">リスト12-23: <code>CASE_INSENSITIVE</code>という環境変数のチェックを行う</span></p>
+<!--
+Here, we create a new variable `case_sensitive`. To set its value, we call the
+`env::var` function and pass it the name of the `CASE_INSENSITIVE` environment
+variable. The `env::var` function returns a `Result` that will be the successful
+`Ok` variant that contains the value of the environment variable if the
+environment variable is set. It will return the `Err` variant if the
+environment variable is not set.
+-->
+<p>ここで、<code>case_sensitive</code>という新しい変数を生成しています。その値をセットするために、
+<code>env::var</code>関数を呼び出し、<code>CASE_INSENSITIVE</code>環境変数の名前を渡しています。<code>env::var</code>関数は、
+環境変数がセットされていたら、環境変数の値を含む<code>Ok</code>列挙子の成功値になる<code>Result</code>を返します。
+環境変数がセットされていなければ、<code>Err</code>列挙子を返すでしょう。</p>
+<!--
+We’re using the `is_err` method on the `Result` to check whether it’s an error
+and therefore unset, which means it *should* do a case-sensitive search. If the
+`CASE_INSENSITIVE` environment variable is set to anything, `is_err` will
+return false and the program will perform a case-insensitive search. We don’t
+care about the *value* of the environment variable, just whether it’s set or
+unset, so we’re checking `is_err` rather than `unwrap`, `expect`, or any
+of the other methods we’ve seen on `Result`.
+-->
+<p><code>Result</code>の<code>is_err</code>メソッドを使用して、エラーでありゆえに、セットされていないことを確認しています。
+これは大文字小文字を区別する検索をす<em>べき</em>ことを意味します。<code>CASE_INSENSITIVE</code>環境変数が何かにセットされていれば、
+<code>is_err</code>はfalseを返し、プログラムは大文字小文字を区別しない検索を実行するでしょう。環境変数の<em>値</em>はどうでもよく、
+セットされているかどうかだけ気にするので、<code>unwrap</code>や<code>expect</code>あるいは、他のここまで見かけた<code>Result</code>のメソッドではなく、
+<code>is_err</code>をチェックしています。</p>
+<!--
+We pass the value in the `case_sensitive` variable to the `Config` instance so
+the `run` function can read that value and decide whether to call `search` or
+`search_case_insensitive`, as we implemented in Listing 12-22.
+-->
+<p><code>case_sensitive</code>変数の値を<code>Config</code>インスタンスに渡しているので、リスト12-22で実装したように、
+<code>run</code>関数はその値を読み取り、<code>search</code>か<code>search_case_insensitive</code>を呼び出すか決定できるのです。</p>
+<!--
+Let’s give it a try! First, we’ll run our program without the environment
+variable set and with the query `to`, which should match any line that contains
+the word “to” in all lowercase:
+-->
+<p>試行してみましょう！まず、環境変数をセットせずにクエリは<code>to</code>でプログラムを実行し、
+この時は全て小文字で&quot;to&quot;という言葉を含むあらゆる行が合致するはずです。</p>
+<pre><code class="language-text">$ cargo run to poem.txt
+   Compiling minigrep v0.1.0 (file:///projects/minigrep)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+     Running `target/debug/minigrep to poem.txt`
+Are you nobody, too?
+How dreary to be somebody!
+</code></pre>
+<!--
+Looks like that still works! Now, let’s run the program with `CASE_INSENSITIVE`
+set to `1` but with the same query `to`.
+-->
+<p>まだ機能しているようです！では、<code>CASE_INSENSITIVE</code>を1にしつつ、同じクエリの<code>to</code>でプログラムを実行しましょう。</p>
+<!--
+If you’re using PowerShell, you will need to set the environment variable and
+run the program in two commands rather than one:
+-->
+<p>PowerShellを使用しているなら、1コマンドではなく、2コマンドで環境変数をセットし、プログラムを実行する必要があるでしょう:</p>
+<pre><code class="language-text">$ $env:CASE_INSENSITIVE=1
+$ cargo run to poem.txt
+</code></pre>
+<!--
+We should get lines that contain “to” that might have uppercase letters:
+-->
+<p>大文字も含む可能性のある&quot;to&quot;を含有する行が得られるはずです:</p>
+<pre><code class="language-text">$ CASE_INSENSITIVE=1 cargo run to poem.txt
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+     Running `target/debug/minigrep to poem.txt`
+Are you nobody, too?
+How dreary to be somebody!
+To tell your name the livelong day
+To an admiring bog!
+</code></pre>
+<!--
+Excellent, we also got lines containing “To”! Our `minigrep` program can now do
+case-insensitive searching controlled by an environment variable. Now you know
+how to manage options set using either command line arguments or environment
+variables.
+-->
+<p>素晴らしい、&quot;To&quot;を含む行も出てきましたね！<code>minigrep</code>プログラムはこれで、
+環境変数によって制御できる大文字小文字を区別しない検索も行えるようになりました。もうコマンドライン引数か、
+環境変数を使ってオプションを管理する方法も知りましたね。</p>
+<!--
+Some programs allow arguments *and* environment variables for the same
+configuration. In those cases, the programs decide that one or the other takes
+precedence. For another exercise on your own, try controlling case
+insensitivity through either a command line argument or an environment
+variable. Decide whether the command line argument or the environment variable
+should take precedence if the program is run with one set to case sensitive and
+one set to case insensitive.
+-->
+<p>引数<em>と</em>環境変数で同じ設定を行うことができるプログラムもあります。そのような場合、
+プログラムはどちらが優先されるか決定します。自身の別の鍛錬として、コマンドライン引数か、
+環境変数で大文字小文字の区別を制御できるようにしてみてください。
+片方は大文字小文字を区別するようにセットされ、もう片方は区別しないようにセットしてプログラムが実行された時に、
+コマンドライン引数と環境変数のどちらの優先度が高くなるかを決めてください。</p>
+<!--
+The `std::env` module contains many more useful features for dealing with
+environment variables: check out its documentation to see what is available.
+-->
+<p><code>std::env</code>モジュールは、環境変数を扱うもっと多くの有用な機能を有しています:
+ドキュメンテーションを確認して、何が利用可能か確かめてください。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch12-04-testing-the-librarys-functionality.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch12-06-writing-to-stderr-instead-of-stdout.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch12-04-testing-the-librarys-functionality.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch12-06-writing-to-stderr-instead-of-stdout.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

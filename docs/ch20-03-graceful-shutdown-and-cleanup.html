@@ -1,0 +1,955 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Graceful Shutdown and Cleanup - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html" class="active"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Graceful Shutdown and Cleanup
+-->
+<h2><a class="header" href="#正常なシャットダウンと片付け" id="正常なシャットダウンと片付け">正常なシャットダウンと片付け</a></h2>
+<!--
+The code in Listing 20-21 is responding to requests asynchronously through the
+use of a thread pool, as we intended. We get some warnings about the `workers`,
+`id`, and `thread` fields that we’re not using in a direct way that reminds us
+we’re not cleaning up anything. When we use the less elegant <span
+class="keystroke">ctrl-c</span> method to halt the main thread, all other
+threads are stopped immediately as well, even if they’re in the middle of
+serving a request.
+-->
+<p>リスト20-21のコードは、意図した通り、スレッドプールの使用を通してリクエストに非同期に応答できます。
+直接使用していない<code>workers</code>、<code>id</code>、<code>thread</code>フィールドについて警告が出ます。この警告は、現在のコードは何も片付けていないことを思い出させてくれます。
+優美さに欠ける<span class="keystroke">ctrl-c</span>を使用してメインスレッドを停止させる方法を使用すると、
+リクエストの処理中であっても、他のスレッドも停止します。</p>
+<!--
+Now we’ll implement the `Drop` trait to call `join` on each of the threads in
+the pool so they can finish the requests they’re working on before closing.
+Then we’ll implement a way to tell the threads they should stop accepting new
+requests and shut down. To see this code in action, we’ll modify our server to
+accept only two requests before gracefully shutting down its thread pool.
+-->
+<p>では、閉じる前に取り掛かっているリクエストを完了できるように、プールの各スレッドに対して<code>join</code>を呼び出す<code>Drop</code>トレイトを実装します。
+そして、スレッドに新しいリクエストの受付を停止し、終了するように教える方法を実装します。
+このコードが動いているのを確かめるために、サーバを変更して正常にスレッドプールを終了する前に2つしかリクエストを受け付けないようにします。</p>
+<!--
+### Implementing the `Drop` Trait on `ThreadPool`
+-->
+<h3><a class="header" href="#threadpoolにdropトレイトを実装する" id="threadpoolにdropトレイトを実装する"><code>ThreadPool</code>に<code>Drop</code>トレイトを実装する</a></h3>
+<!--
+Let’s start with implementing `Drop` on our thread pool. When the pool is
+dropped, our threads should all join to make sure they finish their work.
+Listing 20-23 shows a first attempt at a `Drop` implementation; this code won’t
+quite work yet.
+-->
+<p>スレッドプールに<code>Drop</code>を実装するところから始めましょう。プールがドロップされると、
+スレッドは全てjoinして、作業を完了するのを確かめるべきです。リスト20-23は、<code>Drop</code>実装の最初の試みを表示しています;
+このコードはまだ完全には動きません。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore">impl Drop for ThreadPool {
+    fn drop(&amp;mut self) {
+        for worker in &amp;mut self.workers {
+            // ワーカー{}を終了します
+            println!(&quot;Shutting down worker {}&quot;, worker.id);
+
+            worker.thread.join().unwrap();
+        }
+    }
+}
+</code></pre>
+<!--
+<span class="caption">Listing 20-23: Joining each thread when the thread pool
+goes out of scope</span>
+-->
+<p><span class="caption">リスト20-23: スレッドプールがスコープを抜けた時にスレッドをjoinさせる</span></p>
+<!--
+First, we loop through each of the thread pool `workers`. We use `&mut` for
+this because `self` is a mutable reference, and we also need to be able to
+mutate `worker`. For each worker, we print a message saying that this
+particular worker is shutting down, and then we call `join` on that worker’s
+thread. If the call to `join` fails, we use `unwrap` to make Rust panic and go
+into an ungraceful shutdown.
+-->
+<p>まず、スレッドプール<code>workers</code>それぞれを走査します。<code>self</code>は可変参照であり、<code>worker</code>を可変化できる必要もあるので、
+これには<code>&amp;mut</code>を使用しています。ワーカーそれぞれに対して、特定のワーカーを終了する旨のメッセージを出力し、
+それから<code>join</code>をワーカースレッドに対して呼び出しています。<code>join</code>の呼び出しが失敗したら、
+<code>unwrap</code>を使用してRustをパニックさせ、正常でないシャットダウンに移行します。</p>
+<!--
+Here is the error we get when we compile this code:
+-->
+<p>こちらが、このコードをコンパイルする際に出るエラーです:</p>
+<pre><code class="language-text">error[E0507]: cannot move out of borrowed content
+  --&gt; src/lib.rs:65:13
+   |
+65 |             worker.thread.join().unwrap();
+   |             ^^^^^^ cannot move out of borrowed content
+</code></pre>
+<!--
+The error tells us we can’t call `join` because we only have a mutable borrow
+of each `worker` and `join` takes ownership of its argument. To solve this
+issue, we need to move the thread out of the `Worker` instance that owns
+`thread` so `join` can consume the thread. We did this in Listing 17-15: if
+`Worker` holds an `Option<thread::JoinHandle<()>` instead, we can call the
+`take` method on the `Option` to move the value out of the `Some` variant and
+leave a `None` variant in its place. In other words, a `Worker` that is running
+will have a `Some` variant in `thread`, and when we want to clean up a
+`Worker` we’ll replace `Some` with `None` so the worker doesn’t have a
+thread to run.
+-->
+<p>各<code>worker</code>の可変参照しかなく、<code>join</code>は引数の所有権を奪うためにこのエラーは<code>join</code>を呼び出せないと教えてくれています。
+この問題を解決するには、<code>join</code>がスレッドを消費できるように、<code>thread</code>を所有する<code>Worker</code>インスタンスからスレッドをムーブする必要があります。
+これをリスト17-15では行いました: <code>Worker</code>が代わりに<code>Option&lt;thread::JoinHandle&lt;()&gt;&gt;</code>を保持していれば、
+<code>Option</code>に対して<code>take</code>メソッドを呼び出し、<code>Some</code>列挙子から値をムーブし、その場所に<code>None</code>列挙子を残すことができます。
+言い換えれば、実行中の<code>Worker</code>には<code>thread</code>に<code>Some</code>列挙子があり、<code>Worker</code>を片付けたい時には、
+ワーカーが実行するスレッドがないように<code>Some</code>を<code>None</code>で置き換えるのです。</p>
+<!--
+So we know we want to update the definition of `Worker` like this:
+-->
+<p>従って、<code>Worker</code>の定義を以下のように更新したいことがわかります:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use std::thread;
+</span>struct Worker {
+    id: usize,
+    thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Now let’s lean on the compiler to find the other places that need to change.
+Checking this code, we get two errors:
+-->
+<p>さて、コンパイラを頼りにして他に変更する必要がある箇所を探しましょう。このコードをチェックすると、
+2つのエラーが出ます:</p>
+<pre><code class="language-text">error[E0599]: no method named `join` found for type
+`std::option::Option&lt;std::thread::JoinHandle&lt;()&gt;&gt;` in the current scope
+  --&gt; src/lib.rs:65:27
+   |
+65 |             worker.thread.join().unwrap();
+   |                           ^^^^
+
+error[E0308]: mismatched types
+  --&gt; src/lib.rs:89:13
+   |
+89 |             thread,
+   |             ^^^^^^
+   |             |
+   |             expected enum `std::option::Option`, found struct
+   `std::thread::JoinHandle`
+   |             help: try using a variant of the expected type: `Some(thread)`
+   |
+   = note: expected type `std::option::Option&lt;std::thread::JoinHandle&lt;()&gt;&gt;`
+              found type `std::thread::JoinHandle&lt;_&gt;`
+</code></pre>
+<!--
+Let’s address the second error, which points to the code at the end of
+`Worker::new`; we need to wrap the `thread` value in `Some` when we create a
+new `Worker`. Make the following changes to fix this error:
+-->
+<p>2番目のエラーを扱いましょう。これは、<code>Worker::new</code>の最後のコードを指しています; 新しい<code>Worker</code>を作成する際に、
+<code>Some</code>に<code>thread</code>の値を包む必要があります。このエラーを修正するために以下の変更を行なってください:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore">impl Worker {
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Job&gt;&gt;&gt;) -&gt; Worker {
+        // --snip--
+
+        Worker {
+            id,
+            thread: Some(thread),
+        }
+    }
+}
+</code></pre>
+<!--
+The first error is in our `Drop` implementation. We mentioned earlier that we
+intended to call `take` on the `Option` value to move `thread` out of `worker`.
+The following changes will do so:
+-->
+<p>最初のエラーは<code>Drop</code>実装内にあります。先ほど、<code>Option</code>値に対して<code>take</code>を呼び出し、
+<code>thread</code>を<code>worker</code>からムーブする意図があることに触れました。以下の変更がそれを行います:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore">impl Drop for ThreadPool {
+    fn drop(&amp;mut self) {
+        for worker in &amp;mut self.workers {
+            println!(&quot;Shutting down worker {}&quot;, worker.id);
+
+            if let Some(thread) = worker.thread.take() {
+                thread.join().unwrap();
+            }
+        }
+    }
+}
+</code></pre>
+<!--
+As discussed in Chapter 17, the `take` method on `Option` takes the `Some`
+variant out and leaves `None` in its place. We’re using `if let` to destructure
+the `Some` and get the thread; then we call `join` on the thread. If a worker’s
+thread is already `None`, we know that worker has already had its thread
+cleaned up, so nothing happens in that case.
+-->
+<p>第17章で議論したように、<code>Option</code>の<code>take</code>メソッドは、<code>Some</code>列挙子を取り出し、その箇所に<code>None</code>を残します。
+<code>if let</code>を使用して<code>Some</code>を分配し、スレッドを得ています; そして、スレッドに対して<code>join</code>を呼び出します。
+ワーカーのスレッドが既に<code>None</code>なら、ワーカーはスレッドを既に片付け済みであることがわかるので、
+その場合には何も起きません。</p>
+<!--
+### Signaling to the Threads to Stop Listening for Jobs
+-->
+<h3><a class="header" href="#スレッドに仕事をリッスンするのを止めるよう通知する" id="スレッドに仕事をリッスンするのを止めるよう通知する">スレッドに仕事をリッスンするのを止めるよう通知する</a></h3>
+<!--
+With all the changes we’ve made, our code compiles without any warnings. But
+the bad news is this code doesn’t function the way we want it to yet. The key
+is the logic in the closures run by the threads of the `Worker` instances: at
+the moment, we call `join`, but that won’t shut down the threads because they
+`loop` forever looking for jobs. If we try to drop our `ThreadPool` with our
+current implementation of `drop`, the main thread will block forever waiting
+for the first thread to finish.
+-->
+<p>これらの変更によって、コードは警告なしでコンパイルできます。ですが悪い知らせは、このコードが期待したようにはまだ機能しないことです。
+鍵は、<code>Worker</code>インスタンスのスレッドで実行されるクロージャのロジックです: 現時点で<code>join</code>を呼び出していますが、
+仕事を求めて永遠に<code>loop</code>するので、スレッドを終了しません。現在の<code>drop</code>の実装で<code>ThreadPool</code>をドロップしようとしたら、
+最初のスレッドが完了するのを待機してメインスレッドは永遠にブロックされるでしょう。</p>
+<!--
+To fix this problem, we’ll modify the threads so they listen for either a `Job`
+to run or a signal that they should stop listening and exit the infinite loop.
+Instead of `Job` instances, our channel will send one of these two enum
+variants.
+-->
+<p>この問題を修正するには、スレッドが、実行すべき<code>Job</code>か、リッスンをやめて無限ループを抜ける通知をリッスンするように、
+変更します。<code>Job</code>インスタンスの代わりに、チャンネルはこれら2つのenum列挙子の一方を送信します。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Job;
+</span>enum Message {
+    NewJob(Job),
+    Terminate,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+This `Message` enum will either be a `NewJob` variant that holds the `Job` the
+thread should run, or it will be a `Terminate` variant that will cause the
+thread to exit its loop and stop.
+-->
+<p>この<code>Message</code> enumはスレッドが実行すべき<code>Job</code>を保持する<code>NewJob</code>列挙子か、スレッドをループから抜けさせ、
+停止させる<code>Terminate</code>列挙子のどちらかになります。</p>
+<!--
+We need to adjust the channel to use values of type `Message` rather than type
+`Job`, as shown in Listing 20-24.
+-->
+<p>チャンネルを調整し、型<code>Job</code>ではなく、型<code>Message</code>を使用するようにする必要があります。リスト20-24のようにですね。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore">pub struct ThreadPool {
+    workers: Vec&lt;Worker&gt;,
+    sender: mpsc::Sender&lt;Message&gt;,
+}
+
+// --snip--
+
+impl ThreadPool {
+    // --snip--
+
+    pub fn execute&lt;F&gt;(&amp;self, f: F)
+        where
+            F: FnOnce() + Send + 'static
+    {
+        let job = Box::new(f);
+
+        self.sender.send(Message::NewJob(job)).unwrap();
+    }
+}
+
+// --snip--
+
+impl Worker {
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Message&gt;&gt;&gt;) -&gt;
+        Worker {
+
+        let thread = thread::spawn(move ||{
+            loop {
+                let message = receiver.lock().unwrap().recv().unwrap();
+
+                match message {
+                    Message::NewJob(job) =&gt; {
+                        println!(&quot;Worker {} got a job; executing.&quot;, id);
+
+                        job.call_box();
+                    },
+                    Message::Terminate =&gt; {
+                        // ワーカー{}は停止するよう指示された
+                        println!(&quot;Worker {} was told to terminate.&quot;, id);
+
+                        break;
+                    },
+                }
+            }
+        });
+
+        Worker {
+            id,
+            thread: Some(thread),
+        }
+    }
+}
+</code></pre>
+<!--
+<span class="caption">Listing 20-24: Sending and receiving `Message` values and
+exiting the loop if a `Worker` receives `Message::Terminate`</span>
+-->
+<p><span class="caption">リスト20-24: <code>Message</code>値を送受信し、<code>Worker</code>が<code>Message::Terminate</code>を受け取ったら、ループを抜ける</span></p>
+<!--
+To incorporate the `Message` enum, we need to change `Job` to `Message` in two
+places: the definition of `ThreadPool` and the signature of `Worker::new`. The
+`execute` method of `ThreadPool` needs to send jobs wrapped in the
+`Message::NewJob` variant. Then, in `Worker::new` where a `Message` is received
+from the channel, the job will be processed if the `NewJob` variant is
+received, and the thread will break out of the loop if the `Terminate` variant
+is received.
+-->
+<p><code>Message</code> enumを具体化するために、2箇所で<code>Job</code>を<code>Message</code>に変更する必要があります:
+<code>ThreadPool</code>の定義と<code>Worker::new</code>のシグニチャです。<code>ThreadPool</code>の<code>execute</code>メソッドは、
+仕事を<code>Message::NewJob</code>列挙子に包んで送信する必要があります。それから、
+<code>Message</code>がチャンネルから受け取られる<code>Worker::new</code>で、<code>NewJob</code>列挙子が受け取られたら、
+仕事が処理され、<code>Terminate</code>列挙子が受け取られたら、スレッドはループを抜けます。</p>
+<!--
+With these changes, the code will compile and continue to function in the same
+way as it did after Listing 20-21. But we’ll get a warning because we aren’t
+creating any messages of the `Terminate` variety. Let’s fix this warning by
+changing our `Drop` implementation to look like Listing 20-25.
+-->
+<p>これらの変更と共に、コードはコンパイルでき、リスト20-21の後と同じように機能し続けます。ですが、
+<code>Terminate</code>のメッセージを何も生成していないので、警告が出るでしょう。
+<code>Drop</code>実装をリスト20-25のような見た目に変更してこの警告を修正しましょう。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore">impl Drop for ThreadPool {
+    fn drop(&amp;mut self) {
+        println!(&quot;Sending terminate message to all workers.&quot;);
+
+        for _ in &amp;mut self.workers {
+            self.sender.send(Message::Terminate).unwrap();
+        }
+
+        // 全ワーカーを閉じます
+        println!(&quot;Shutting down all workers.&quot;);
+
+        for worker in &amp;mut self.workers {
+            // ワーカー{}を閉じます
+            println!(&quot;Shutting down worker {}&quot;, worker.id);
+
+            if let Some(thread) = worker.thread.take() {
+                thread.join().unwrap();
+            }
+        }
+    }
+}
+</code></pre>
+<!--
+<span class="caption">Listing 20-25: Sending `Message::Terminate` to the
+workers before calling `join` on each worker thread</span>
+-->
+<p><span class="caption">リスト20-25: 各ワーカースレッドに対して<code>join</code>を呼び出す前にワーカーに<code>Message::Terminate</code>を送信する</span></p>
+<!--
+We’re now iterating over the workers twice: once to send one `Terminate`
+message for each worker and once to call `join` on each worker’s thread. If we
+tried to send a message and `join` immediately in the same loop, we couldn’t
+guarantee that the worker in the current iteration would be the one to get the
+message from the channel.
+-->
+<p>今では、ワーカーを2回走査しています: 各ワーカーに<code>Terminate</code>メッセージを送信するために1回と、
+各ワーカースレッドに<code>join</code>を呼び出すために1回です。メッセージ送信と<code>join</code>を同じループで即座に行おうとすると、
+現在の繰り返しのワーカーがチャンネルからメッセージを受け取っているものであるか保証できなくなってしまいます。</p>
+<!--
+To better understand why we need two separate loops, imagine a scenario with
+two workers. If we used a single loop to iterate through each worker, on the
+first iteration a terminate message would be sent down the channel and `join`
+called on the first worker’s thread. If that first worker was busy processing a
+request at that moment, the second worker would pick up the terminate message
+from the channel and shut down. We would be left waiting on the first worker to
+shut down, but it never would because the second thread picked up the terminate
+message. Deadlock!
+-->
+<p>2つの個別のループが必要な理由をよりよく理解するために、2つのワーカーがある筋書きを想像してください。
+単独のループで各ワーカーを走査すると、最初の繰り返しでチャンネルに停止メッセージが送信され、
+<code>join</code>が最初のワーカースレッドで呼び出されます。その最初のワーカーが現在、リクエストの処理で忙しければ、
+2番目のワーカーがチャンネルから停止メッセージを受け取り、閉じます。最初のワーカーの終了待ちをしたままですが、
+2番目のスレッドが停止メッセージを拾ってしまったので、終了することは絶対にありません。デッドロックです！</p>
+<!--
+To prevent this scenario, we first put all of our `Terminate` messages on the
+channel in one loop; then we join on all the threads in another loop. Each
+worker will stop receiving requests on the channel once it gets a terminate
+message. So, we can be sure that if we send the same number of terminate
+messages as there are workers, each worker will receive a terminate message
+before `join` is called on its thread.
+-->
+<p>この筋書きを回避するために、1つのループでまず、チャンネルに対して全ての<code>Terminate</code>メッセージを送信します;
+そして、別のループで全スレッドのjoinを待ちます。一旦停止メッセージを受け取ったら、各ワーカーはチャンネルからのリクエストの受付をやめます。
+故に、存在するワーカーと同じ数だけ停止メッセージを送れば、<code>join</code>がスレッドに対して呼び出される前に、
+停止メッセージを各ワーカーが受け取ると確信できるわけです。</p>
+<!--
+To see this code in action, let’s modify `main` to accept only two requests
+before gracefully shutting down the server, as shown in Listing 20-26.
+-->
+<p>このコードが動いているところを確認するために、<code>main</code>を変更してサーバを正常に閉じる前に2つしかリクエストを受け付けないようにしましょう。
+リスト20-26のようにですね。</p>
+<!--
+<span class="filename">Filename: src/bin/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/bin/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let listener = TcpListener::bind(&quot;127.0.0.1:7878&quot;).unwrap();
+    let pool = ThreadPool::new(4);
+
+    for stream in listener.incoming().take(2) {
+        let stream = stream.unwrap();
+
+        pool.execute(|| {
+            handle_connection(stream);
+        });
+    }
+
+    println!(&quot;Shutting down.&quot;);
+}
+</code></pre>
+<!--
+<span class="caption">Listing 20-26: Shut down the server after serving two
+requests by exiting the loop</span>
+-->
+<p><span class="caption">リスト20-26: ループを抜けることで、2つのリクエストを処理した後にサーバを閉じる</span></p>
+<!--
+You wouldn’t want a real-world web server to shut down after serving only two
+requests. This code just demonstrates that the graceful shutdown and cleanup is
+in working order.
+-->
+<p>現実世界のWebサーバには、たった2つリクエストを受け付けた後にシャットダウンしてほしくはないでしょう。
+このコードは、単に正常なシャットダウンとクリーンアップが正しく機能することを示すだけです。</p>
+<!--
+The `take` method is defined in the `Iterator` trait and limits the iteration
+to the first two items at most. The `ThreadPool` will go out of scope at the
+end of `main`, and the `drop` implementation will run.
+-->
+<p><code>take</code>メソッドは、<code>Iterator</code>トレイトで定義されていて、最大でも繰り返しを最初の2つの要素だけに制限します。
+<code>ThreadPool</code>は<code>main</code>の末端でスコープを抜け、<code>drop</code>実装が実行されます。</p>
+<!--
+Start the server with `cargo run`, and make three requests. The third request
+should error, and in your terminal you should see output similar to this:
+-->
+<p><code>cargo run</code>でサーバを開始し、3つリクエストを行なってください。3番目のリクエストはエラーになるはずで、
+端末にはこのような出力が目撃できるはずです:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling hello v0.1.0 (file:///projects/hello)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.0 secs
+     Running `target/debug/hello`
+Worker 0 got a job; executing.
+Worker 3 got a job; executing.
+Shutting down.
+Sending terminate message to all workers.
+Shutting down all workers.
+Shutting down worker 0
+Worker 1 was told to terminate.
+Worker 2 was told to terminate.
+Worker 0 was told to terminate.
+Worker 3 was told to terminate.
+Shutting down worker 1
+Shutting down worker 2
+Shutting down worker 3
+</code></pre>
+<!--
+You might see a different ordering of workers and messages printed. We can see
+how this code works from the messages: workers 0 and 3 got the first two
+requests, and then on the third request, the server stopped accepting
+connections. When the `ThreadPool` goes out of scope at the end of `main`, its
+`Drop` implementation kicks in, and the pool tells all workers to terminate.
+The workers each print a message when they see the terminate message, and then
+the thread pool calls `join` to shut down each worker thread.
+-->
+<p>ワーカーとメッセージの順番は異なる可能性があります。どうやってこのコードが動くのかメッセージからわかります:
+ワーカー0と3が最初の2つのリクエストを受け付け、そして3番目のリクエストではサーバは接続の受け入れをやめます。
+<code>main</code>の最後で<code>ThreadPool</code>がスコープを抜ける際、<code>Drop</code>実装が割り込み、プールが全ワーカーに停止するよう指示します。
+ワーカーはそれぞれ、停止メッセージを確認した時にメッセージを出力し、それからスレッドプールは各ワーカースレッドを閉じる<code>join</code>を呼び出します。</p>
+<!--
+Notice one interesting aspect of this particular execution: the `ThreadPool`
+sent the terminate messages down the channel, and before any worker received
+the messages, we tried to join worker 0. Worker 0 had not yet received the
+terminate message, so the main thread blocked waiting for worker 0 to finish.
+In the meantime, each of the workers received the termination messages. When
+worker 0 finished, the main thread waited for the rest of the workers to
+finish. At that point, they had all received the termination message and were
+able to shut down.
+-->
+<p>この特定の実行のある面白い側面に注目してください: <code>ThreadPool</code>はチャンネルに停止メッセージを送信しますが、
+どのワーカーがそのメッセージを受け取るよりも前に、ワーカー0のjoinを試みています。ワーカー0はまだ停止メッセージを受け取っていなかったので、
+メインスレッドはワーカー0が完了するまで待機してブロックされます。その間に、各ワーカーは停止メッセージを受け取ります。
+ワーカー0が完了したら、メインスレッドは残りのワーカーが完了するのを待機します。その時点で全ワーカーは停止メッセージを受け取った後で、
+閉じることができたのです。</p>
+<!--
+Congrats! We’ve now completed our project; we have a basic web server that uses
+a thread pool to respond asynchronously. We’re able to perform a graceful
+shutdown of the server, which cleans up all the threads in the pool.
+-->
+<p>おめでとうございます！プロジェクトを完成させました; スレッドプールを使用して非同期に応答する基本的なWebサーバができました。
+サーバの正常なシャットダウンを行うことができ、プールの全スレッドを片付けます。</p>
+<!--
+Here’s the full code for reference:
+-->
+<p>参考までに、こちらが全コードです:</p>
+<!--
+<span class="filename">Filename: src/bin/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/bin/main.rs</span></p>
+<pre><code class="language-rust ignore">extern crate hello;
+use hello::ThreadPool;
+
+use std::io::prelude::*;
+use std::net::TcpListener;
+use std::net::TcpStream;
+use std::fs::File;
+use std::thread;
+use std::time::Duration;
+
+fn main() {
+    let listener = TcpListener::bind(&quot;127.0.0.1:7878&quot;).unwrap();
+    let pool = ThreadPool::new(4);
+
+    for stream in listener.incoming().take(2) {
+        let stream = stream.unwrap();
+
+        pool.execute(|| {
+            handle_connection(stream);
+        });
+    }
+
+    // 閉じます
+    println!(&quot;Shutting down.&quot;);
+}
+
+fn handle_connection(mut stream: TcpStream) {
+    let mut buffer = [0; 1024];
+    stream.read(&amp;mut buffer).unwrap();
+
+    let get = b&quot;GET / HTTP/1.1\r\n&quot;;
+    let sleep = b&quot;GET /sleep HTTP/1.1\r\n&quot;;
+
+    let (status_line, filename) = if buffer.starts_with(get) {
+        (&quot;HTTP/1.1 200 OK\r\n\r\n&quot;, &quot;hello.html&quot;)
+    } else if buffer.starts_with(sleep) {
+        thread::sleep(Duration::from_secs(5));
+        (&quot;HTTP/1.1 200 OK\r\n\r\n&quot;, &quot;hello.html&quot;)
+    } else {
+        (&quot;HTTP/1.1 404 NOT FOUND\r\n\r\n&quot;, &quot;404.html&quot;)
+    };
+
+     let mut file = File::open(filename).unwrap();
+     let mut contents = String::new();
+
+     file.read_to_string(&amp;mut contents).unwrap();
+
+     let response = format!(&quot;{}{}&quot;, status_line, contents);
+
+     stream.write(response.as_bytes()).unwrap();
+     stream.flush().unwrap();
+}
+</code></pre>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::thread;
+use std::sync::mpsc;
+use std::sync::Arc;
+use std::sync::Mutex;
+
+enum Message {
+    NewJob(Job),
+    Terminate,
+}
+
+pub struct ThreadPool {
+    workers: Vec&lt;Worker&gt;,
+    sender: mpsc::Sender&lt;Message&gt;,
+}
+
+trait FnBox {
+    fn call_box(self: Box&lt;Self&gt;);
+}
+
+impl&lt;F: FnOnce()&gt; FnBox for F {
+    fn call_box(self: Box&lt;F&gt;) {
+        (*self)()
+    }
+}
+
+type Job = Box&lt;FnBox + Send + 'static&gt;;
+
+impl ThreadPool {
+    /// Create a new ThreadPool.
+    ///
+    /// The size is the number of threads in the pool.
+    ///
+    /// # Panics
+    ///
+    /// The `new` function will panic if the size is zero.
+    pub fn new(size: usize) -&gt; ThreadPool {
+        assert!(size &gt; 0);
+
+        let (sender, receiver) = mpsc::channel();
+
+        let receiver = Arc::new(Mutex::new(receiver));
+
+        let mut workers = Vec::with_capacity(size);
+
+        for id in 0..size {
+            workers.push(Worker::new(id, Arc::clone(&amp;receiver)));
+        }
+
+        ThreadPool {
+            workers,
+            sender,
+        }
+    }
+
+    pub fn execute&lt;F&gt;(&amp;self, f: F)
+        where
+            F: FnOnce() + Send + 'static
+    {
+        let job = Box::new(f);
+
+        self.sender.send(Message::NewJob(job)).unwrap();
+    }
+}
+
+impl Drop for ThreadPool {
+    fn drop(&amp;mut self) {
+        println!(&quot;Sending terminate message to all workers.&quot;);
+
+        for _ in &amp;mut self.workers {
+            self.sender.send(Message::Terminate).unwrap();
+        }
+
+        println!(&quot;Shutting down all workers.&quot;);
+
+        for worker in &amp;mut self.workers {
+            println!(&quot;Shutting down worker {}&quot;, worker.id);
+
+            if let Some(thread) = worker.thread.take() {
+                thread.join().unwrap();
+            }
+        }
+    }
+}
+
+struct Worker {
+    id: usize,
+    thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
+}
+
+impl Worker {
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Message&gt;&gt;&gt;) -&gt;
+        Worker {
+
+        let thread = thread::spawn(move ||{
+            loop {
+                let message = receiver.lock().unwrap().recv().unwrap();
+
+                match message {
+                    Message::NewJob(job) =&gt; {
+                        println!(&quot;Worker {} got a job; executing.&quot;, id);
+
+                        job.call_box();
+                    },
+                    Message::Terminate =&gt; {
+                        println!(&quot;Worker {} was told to terminate.&quot;, id);
+
+                        break;
+                    },
+                }
+            }
+        });
+
+        Worker {
+            id,
+            thread: Some(thread),
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+We could do more here! If you want to continue enhancing this project, here are
+some ideas:
+-->
+<p>ここでできることはまだあるでしょう！よりこのプロジェクトを改善したいのなら、こちらがアイディアの一部です:</p>
+<!--
+* Add more documentation to `ThreadPool` and its public methods.
+* Add tests of the library’s functionality.
+* Change calls to `unwrap` to more robust error handling.
+* Use `ThreadPool` to perform some task other than serving web requests.
+* Find a thread pool crate on *https://crates.io/* and implement a similar web
+server using the crate instead. Then compare its API and robustness to the
+thread pool we implemented.
+-->
+<ul>
+<li><code>ThreadPool</code>とその公開メソッドにもっとドキュメンテーションを追加する。</li>
+<li>ライブラリの機能のテストを追加する。</li>
+<li><code>unwrap</code>の呼び出しをもっと頑健なエラー処理に変更する。</li>
+<li><code>ThreadPool</code>を使用してWebリクエスト以外のなんらかの作業を行う。</li>
+<li><em>https://crates.io</em> でスレッドプールのクレートを探して、そのクレートを代わりに使用して似たWebサーバを実装する。
+そして、APIと頑健性を我々が実装したものと比較する。</li>
+</ul>
+<!--
+## Summary
+-->
+<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<!--
+Well done! You’ve made it to the end of the book! We want to thank you for
+joining us on this tour of Rust. You’re now ready to implement your own Rust
+projects and help with other peoples’ projects. Keep in mind that there is a
+welcoming community of other Rustaceans who would love to help you with any
+challenges you encounter on your Rust journey.
+-->
+<p>よくやりました！本の最後に到達しました！Rustのツアーに参加していただき、感謝の辞を述べたいです。
+もう、ご自身のRustプロジェクトや他の方のプロジェクトのお手伝いをする準備ができています。
+あなたがこれからのRustの旅で遭遇する、あらゆる困難の手助けを是非とも行いたいRustaceanたちの温かいコミュニティがあることを心に留めておいてくださいね。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch20-02-multithreaded.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="appendix-00.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch20-02-multithreaded.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="appendix-00.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

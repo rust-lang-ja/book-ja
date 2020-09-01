@@ -1,0 +1,715 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Test Organization - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html" class="active"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Test Organization
+-->
+<h2><a class="header" href="#テストの体系化" id="テストの体系化">テストの体系化</a></h2>
+<!--
+As mentioned at the start of the chapter, testing is a complex discipline, and
+different people use different terminology and organization. The Rust community
+thinks about tests in terms of two main categories: *unit tests* and
+*integration tests*. Unit tests are small and more focused, testing one module
+in isolation at a time, and can test private interfaces. Integration tests are
+entirely external to your library and use your code in the same way any other
+external code would, using only the public interface and potentially exercising
+multiple modules per test.
+-->
+<p>章の初めで触れたように、テストは複雑な鍛錬であり、人によって専門用語や体系化が異なります。
+Rustのコミュニティでは、テストを2つの大きなカテゴリで捉えています: <em>単体テスト</em>と<em>結合テスト</em>です。
+単体テストは小規模でより集中していて、個別に1回に1モジュールをテストし、非公開のインターフェイスもテストすることがあります。
+結合テストは、完全にライブラリ外になり、他の外部コード同様に自分のコードを使用し、公開インターフェイスのみ使用し、
+1テストにつき複数のモジュールを用いることもあります。</p>
+<!--
+Writing both kinds of tests is important to ensure that the pieces of your
+library are doing what you expect them to, separately and together.
+-->
+<p>どちらのテストを書くのも、ライブラリの一部が個別かつ共同でしてほしいことをしていることを確認するのに重要なのです。</p>
+<!--
+### Unit Tests
+-->
+<h3><a class="header" href="#単体テスト" id="単体テスト">単体テスト</a></h3>
+<!--
+The purpose of unit tests is to test each unit of code in isolation from the
+rest of the code to quickly pinpoint where code is and isn’t working as
+expected. We put unit tests in the *src* directory in each file with the
+code that they’re testing. The convention is to create a module named `tests`
+in each file to contain the test functions and to annotate the module with
+`cfg(test)`.
+-->
+<p>単体テストの目的は、残りのコードから切り離して各単位のコードをテストし、
+コードが想定通り、動いたり動いていなかったりする箇所を迅速に特定することです。
+単体テストは、テスト対象となるコードと共に、<em>src</em>ディレクトリの各ファイルに置きます。
+慣習は、各ファイルに<code>tests</code>という名前のモジュールを作り、テスト関数を含ませ、
+そのモジュールを<code>cfg(test)</code>で注釈することです。</p>
+<!--
+#### The Tests Module and `#[cfg(test)]`
+-->
+<h4><a class="header" href="#テストモジュールとcfgtest" id="テストモジュールとcfgtest">テストモジュールと<code>#[cfg(test)]</code></a></h4>
+<!--
+The `#[cfg(test)]` annotation on the tests module tells Rust to compile and run
+the test code only when we run `cargo test`, but not when we run `cargo build`.
+This saves compile time when we only want to build the library and saves space
+in the resulting compiled artifact because the tests are not included. You’ll
+see that because integration tests go in a different directory, they don’t need
+the `#[cfg(test)]` annotation. However, because unit tests go in the same files
+as the code, we use `#[cfg(test)]` to specify that they shouldn’t be
+included in the compiled result.
+-->
+<p>testsモジュールの<code>#[cfg(test)]</code>という注釈は、コンパイラに<code>cargo build</code>を走らせた時ではなく、<code>cargo test</code>を走らせた時にだけ、
+テストコードをコンパイルし走らせるよう指示します。これにより、ライブラリをビルドしたいだけの時にはコンパイルタイムを節約し、
+テストが含まれないので、コンパイル後の成果物のサイズも節約します。結合テストは別のディレクトリに存在することになるので、
+<code>#[cfg(test)]</code>注釈は必要ないとわかるでしょう。しかしながら、単体テストはコードと同じファイルに存在するので、
+<code>#[cfg(test)]</code>を使用してコンパイル結果に含まれないよう指定するのです。</p>
+<!--
+Recall that when we generated the new `adder` project in the first section of
+this chapter, Cargo generated this code for us:
+-->
+<p>この章の最初の節で新しい<code>adder</code>プロジェクトを生成した時に、Cargoがこのコードも生成してくれたことを思い出してください:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+This code is the automatically generated test module. The attribute `cfg`
+stands for *configuration* and tells Rust that the following item should only
+be included given a certain configuration option. In this case, the
+configuration option is `test`, which is provided by Rust for compiling and
+running tests. By using the `cfg` attribute, Cargo compiles our test code only
+if we actively run the tests with `cargo test`. This includes any helper
+functions that might be within this module, in addition to the functions
+annotated with `#[test]`.
+-->
+<p>このコードが自動生成されたテストモジュールです。<code>cfg</code>という属性は、<em>configuration</em>を表していて、
+コンパイラに続く要素が、ある特定の設定オプションを与えられたら、含まれるように指示します。
+今回の場合、設定オプションは、<code>test</code>であり、言語によって提供されているテストをコンパイルし、
+走らせるためのものです。<code>cfg</code>属性を使用することで、<code>cargo test</code>で積極的にテストを実行した場合のみ、
+Cargoがテストコードをコンパイルします。これには、このモジュールに含まれるかもしれないヘルパー関数全ても含まれ、
+<code>#[test]</code>で注釈された関数だけにはなりません。</p>
+<!--
+#### Testing Private Functions
+-->
+<h4><a class="header" href="#非公開関数をテストする" id="非公開関数をテストする">非公開関数をテストする</a></h4>
+<!--
+There’s debate within the testing community about whether or not private
+functions should be tested directly, and other languages make it difficult or
+impossible to test private functions. Regardless of which testing ideology you
+adhere to, Rust’s privacy rules do allow you to test private functions.
+Consider the code in Listing 11-12 with the private function `internal_adder`.
+-->
+<p>テストコミュニティ内で非公開関数を直接テストするべきかについては議論があり、
+他の言語では非公開関数をテストするのは困難だったり、不可能だったりします。
+あなたがどちらのテストイデオロギーを支持しているかに関わらず、Rustの公開性規則により、
+非公開関数をテストすることが確かに可能です。リスト11-12の非公開関数<code>internal_adder</code>を含むコードを考えてください。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub fn add_two(a: i32) -&gt; i32 {
+    internal_adder(a, 2)
+}
+
+fn internal_adder(a: i32, b: i32) -&gt; i32 {
+    a + b
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn internal() {
+        assert_eq!(4, internal_adder(2, 2));
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 11-12: Testing a private function</span>
+-->
+<p><span class="caption">リスト11-12: 非公開関数をテストする</span></p>
+<!--
+Note that the `internal_adder` function is not marked as `pub`, but because
+tests are just Rust code and the `tests` module is just another module, you can
+import and call `internal_adder` in a test just fine. If you don’t think
+private functions should be tested, there’s nothing in Rust that will compel
+you to do so.
+-->
+<p><code>internal_adder</code>関数は<code>pub</code>とマークされていないものの、テストも単なるRustのコードであり、
+<code>tests</code>モジュールもただのモジュールでしかないので、テスト内で<code>internal_adder</code>を普通にインポートし呼び出すことができます。
+非公開関数はテストするべきではないとお考えなら、Rustにはそれを強制するものは何もありません。</p>
+<!--
+### Integration Tests
+-->
+<h3><a class="header" href="#結合テスト" id="結合テスト">結合テスト</a></h3>
+<!--
+In Rust, integration tests are entirely external to your library. They use your
+library in the same way any other code would, which means they can only call
+functions that are part of your library’s public API. Their purpose is to test
+whether many parts of your library work together correctly. Units of code that
+work correctly on their own could have problems when integrated, so test
+coverage of the integrated code is important as well. To create integration
+tests, you first need a *tests* directory.
+-->
+<p>Rustにおいて、結合テストは完全にライブラリ外のものです。他のコードと全く同様にあなたのライブラリを使用するので、
+ライブラリの公開APIの一部である関数しか呼び出すことはできません。その目的は、
+ライブラリのいろんな部分が共同で正常に動作しているかをテストすることです。
+単体では正常に動くコードも、結合した状態だと問題を孕む可能性もあるので、
+結合したコードのテストの範囲も同様に重要になるのです。結合テストを作成するには、
+まず<em>tests</em>ディレクトリが必要になります。</p>
+<!--
+#### The *tests* Directory
+-->
+<h4><a class="header" href="#testsディレクトリ" id="testsディレクトリ"><em>tests</em>ディレクトリ</a></h4>
+<!--
+We create a *tests* directory at the top level of our project directory, next
+to *src*. Cargo knows to look for integration test files in this directory. We
+can then make as many test files as we want to in this directory, and Cargo
+will compile each of the files as an individual crate.
+-->
+<p>プロジェクトディレクトリのトップ階層、<em>src</em>の隣に<em>tests</em>ディレクトリを作成します。
+Cargoは、このディレクトリに結合テストのファイルを探すことを把握しています。
+そして、このディレクトリ内にいくらでもテストファイルを作成することができ、
+Cargoはそれぞれのファイルを個別のクレートとしてコンパイルします。</p>
+<!--
+Let’s create an integration test. With the code in Listing 11-12 still in the
+*src/lib.rs* file, make a *tests* directory, create a new file named
+*tests/integration_test.rs*, and enter the code in Listing 11-13.
+-->
+<p>結合テストを作成しましょう。リスト11-12のコードが<em>src/lib.rs</em>ファイルにあるまま、
+<em>tests</em>ディレクトリを作成し、<em>tests/integration_test.rs</em>という名前の新しいファイルを生成し、
+リスト11-13のコードを入力してください。</p>
+<!--
+<span class="filename">Filename: tests/integration_test.rs</span>
+-->
+<p><span class="filename">ファイル名: tests/integration_test.rs</span></p>
+<pre><code class="language-rust ignore">extern crate adder;
+
+#[test]
+fn it_adds_two() {
+    assert_eq!(4, adder::add_two(2));
+}
+</code></pre>
+<!--
+<span class="caption">Listing 11-13: An integration test of a function in the
+`adder` crate</span>
+-->
+<p><span class="caption">リスト11-13: <code>adder</code>クレートの関数の結合テスト</span></p>
+<!--
+We’ve added `extern crate adder` at the top of the code, which we didn’t need
+in the unit tests. The reason is that each test in the `tests` directory is a
+separate crate, so we need to import our library into each of them.
+-->
+<p>コードの頂点に<code>extern crate adder</code>を追記しましたが、これは単体テストでは必要なかったものです。
+理由は、<code>tests</code>ディレクトリのテストはそれぞれ個別のクレートであるため、
+各々ライブラリをインポートする必要があるためです。</p>
+<!--
+We don’t need to annotate any code in *tests/integration_test.rs* with
+`#[cfg(test)]`. Cargo treats the `tests` directory specially and compiles files
+in this directory only when we run `cargo test`. Run `cargo test` now:
+-->
+<p><em>tests/integration_test.rs</em>のどんなコードも<code>#[cfg(test)]</code>で注釈する必要はありません。
+Cargoは<code>tests</code>ディレクトリを特別に扱い、<code>cargo test</code>を走らせた時にのみこのディレクトリのファイルをコンパイルするのです。
+さあ、<code>cargo test</code>を実行してください:</p>
+<pre><code class="language-text">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running target/debug/deps/adder-abcabcabc
+
+running 1 test
+test tests::internal ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+     Running target/debug/deps/integration_test-ce99bcc2479f4607
+
+running 1 test
+test it_adds_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+The three sections of output include the unit tests, the integration test, and
+the doc tests. The first section for the unit tests is the same as we’ve been
+seeing: one line for each unit test (one named `internal` that we added in
+Listing 11-12) and then a summary line for the unit tests.
+-->
+<p>3つの区域の出力が単体テスト、結合テスト、ドックテストを含んでいます。単体テスト用の最初の区域は、
+今まで見てきたものと同じです: 各単体テストに1行(リスト11-12で追加した<code>internal</code>という名前のもの)と、
+単体テストのサマリー行です。</p>
+<!--
+The integration tests section starts with the line `Running
+target/debug/deps/integration-test-ce99bcc2479f4607` (the hash at the end of
+your output will be different). Next, there is a line for each test function in
+that integration test and a summary line for the results of the integration
+test just before the `Doc-tests adder` section starts.
+-->
+<p>結合テストの区域は、
+<code>Running target/debug/deps/integration-test-ce99bcc2479f4607</code>という行で始まっています(最後のハッシュはあなたの出力とは違うでしょう)。
+次に、この結合テストの各テスト関数用の行があり、<code>Doc-tests adder</code>区域が始まる直前に、
+結合テストの結果用のサマリー行があります。</p>
+<!--
+Similarly to how adding more unit test functions adds more result lines to the
+unit tests section, adding more test functions to the integration test file
+adds more result lines to this integration test file’s section. Each
+integration test file has its own section, so if we add more files in the
+*tests* directory, there will be more integration test sections.
+-->
+<p>単体テスト関数を追加することで単体テスト区域のテスト結果の行が増えたように、
+作成した結合テストファイルにテスト関数を追加することでそのファイルの区域に結果の行が増えることになります。
+結合テストファイルはそれぞれ独自の区域があるため、<em>tests</em>ディレクトリにさらにファイルを追加すれば、
+結合テストの区域が増えることになるでしょう。</p>
+<!--
+We can still run a particular integration test function by specifying the test
+function’s name as an argument to `cargo test`. To run all the tests in a
+particular integration test file, use the `--test` argument of `cargo test`
+followed by the name of the file:
+-->
+<p>それでも、テスト関数の名前を引数として<code>cargo test</code>に指定することで、特定の結合テスト関数を走らせることができます。
+特定の結合テストファイルにあるテストを全て走らせるには、<code>cargo test</code>に<code>--test</code>引数、
+その後にファイル名を続けて使用してください:</p>
+<pre><code class="language-text">$ cargo test --test integration_test
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+     Running target/debug/integration_test-952a27e0126bb565
+
+running 1 test
+test it_adds_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+This command runs only the tests in the *tests/integration_test.rs* file.
+-->
+<p>このコマンドは、<em>tests/integration_test.rs</em>ファイルにあるテストのみを実行します。</p>
+<!--
+#### Submodules in Integration Tests
+-->
+<h4><a class="header" href="#結合テスト内のサブモジュール" id="結合テスト内のサブモジュール">結合テスト内のサブモジュール</a></h4>
+<!--
+As you add more integration tests, you might want to make more than one file in
+the *tests* directory to help organize them; for example, you can group the
+test functions by the functionality they’re testing. As mentioned earlier, each
+file in the *tests* directory is compiled as its own separate crate.
+-->
+<p>結合テストを追加するにつれて、<em>tests</em>ディレクトリに2つ以上のファイルを作成して体系化したくなるかもしれません;
+例えば、テスト対象となる機能でテスト関数をグループ化することができます。前述したように、
+<em>tests</em>ディレクトリの各ファイルは、個別のクレートとしてコンパイルされます。</p>
+<!--
+Treating each integration test file as its own crate is useful to create
+separate scopes that are more like the way end users will be using your crate.
+However, this means files in the *tests* directory don’t share the same
+behavior as files in *src* do, as you learned in Chapter 7 regarding how to
+separate code into modules and files.
+-->
+<p>各結合テストファイルをそれ自身のクレートとして扱うと、
+エンドユーザがあなたのクレートを使用するかのように個別のスコープを生成するのに役立ちます。
+ですが、これは<em>tests</em>ディレクトリのファイルが、コードをモジュールとファイルに分ける方法に関して第7章で学んだように、
+<em>src</em>のファイルとは同じ振る舞いを共有しないことを意味します。</p>
+<!--
+The different behavior of files in the *tests* directory is most noticeable
+when you have a set of helper functions that would be useful in multiple
+integration test files and you try to follow the steps in the “Moving Modules
+to Other Files” section of Chapter 7 to extract them into a common module. For
+example, if we create *tests/common.rs* and place a function named `setup` in
+it, we can add some code to `setup` that we want to call from multiple test
+functions in multiple test files:
+-->
+<p><em>tests</em>ディレクトリのファイルの異なる振る舞いは、複数の結合テストファイルで役に立ちそうなヘルパー関数ができ、
+第7章の「モジュールを別のファイルに移動する」節の手順に従って共通モジュールに抽出しようとした時に最も気付きやすくなります。
+例えば、<em>tests/common.rs</em>を作成し、そこに<code>setup</code>という名前の関数を配置したら、
+複数のテストファイルの複数のテスト関数から呼び出したい<code>setup</code>に何らかのコードを追加することができます:</p>
+<!--
+<span class="filename">Filename: tests/common.rs</span>
+-->
+<p><span class="filename">ファイル名: tests/common.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub fn setup() {
+    // ここにライブラリテスト固有のコードが来る
+    // setup code specific to your library's tests would go here
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+When we run the tests again, we’ll see a new section in the test output for the
+*common.rs* file, even though this file doesn’t contain any test functions nor
+did we call the `setup` function from anywhere:
+-->
+<p>再度テストを実行すると、<em>common.rs</em>ファイルは何もテスト関数を含んだり、<code>setup</code>関数をどこかから呼んだりしてないのに、
+テスト出力に<em>common.rs</em>用の区域が見えるでしょう。</p>
+<pre><code class="language-text">running 1 test
+test tests::internal ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+     Running target/debug/deps/common-b8b07b6f1be2db70
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+     Running target/debug/deps/integration_test-d993c68b431d39df
+
+running 1 test
+test it_adds_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+Having `common` appear in the test results with `running 0 tests` displayed for
+it is not what we wanted. We just wanted to share some code with the other
+integration test files.
+-->
+<p><code>common</code>が<code>running 0 tests</code>とテスト結果に表示されるのは、望んだ結果ではありません。
+ただ単に他の結合テストファイルと何らかのコードを共有したかっただけです。</p>
+<!--
+To avoid having `common` appear in the test output, instead of creating
+*tests/common.rs*, we’ll create *tests/common/mod.rs*. In the “Rules of Module
+Filesystems” section of Chapter 7, we used the naming convention
+*module_name/mod.rs* for files of modules that have submodules. We don’t have
+submodules for `common` here, but naming the file this way tells Rust not to
+treat the `common` module as an integration test file. When we move the `setup`
+function code into *tests/common/mod.rs* and delete the *tests/common.rs* file,
+the section in the test output will no longer appear. Files in subdirectories
+of the *tests* directory don’t get compiled as separate crates or have sections
+in the test output.
+-->
+<p><code>common</code>がテスト出力に出現するのを防ぐには、<em>tests/common.rs</em>を作成する代わりに、
+<em>tests/common/mod.rs</em>を作成します。第7章の「モジュールファイルシステムの規則」節において、
+<em>module_name/mod.rs</em>という命名規則をサブモジュールのあるモジュールのファイルに使用しました。
+ここでは<code>common</code>にサブモジュールはありませんが、
+このように命名することでコンパイラに<code>common</code>モジュールを結合テストファイルとして扱わないように指示します。
+<code>setup</code>関数のコードを<em>tests/common/mod.rs</em>に移動し、<em>tests/common.rs</em>ファイルを削除すると、
+テスト出力に区域はもう表示されなくなります。<em>tests</em>ディレクトリのサブディレクトリ内のファイルは個別クレートとしてコンパイルされたり、
+テスト出力に区域が表示されることがないのです。</p>
+<!--
+After we’ve created *tests/common/mod.rs*, we can use it from any of the
+integration test files as a module. Here’s an example of calling the `setup`
+function from the `it_adds_two` test in *tests/integration_test.rs*:
+-->
+<p><em>tests/common/mod.rs</em>を作成した後、それをどの結合テストファイルからもモジュールとして使用することができます。
+こちらは、<em>tests/integration_test.rs</em>内の<code>it_adds_two</code>テストから<code>setup</code>関数を呼び出す例です:</p>
+<!--
+<span class="filename">Filename: tests/integration_test.rs</span>
+-->
+<p><span class="filename">ファイル名: tests/integration_test.rs</span></p>
+<pre><code class="language-rust ignore">extern crate adder;
+
+mod common;
+
+#[test]
+fn it_adds_two() {
+    common::setup();
+    assert_eq!(4, adder::add_two(2));
+}
+</code></pre>
+<!--
+Note that the `mod common;` declaration is the same as the module declarations
+we demonstrated in Listing 7-4. Then in the test function, we can call the
+`common::setup()` function.
+-->
+<p><code>mod common;</code>という宣言は、リスト7-4で模擬したモジュール宣言と同じであることに注意してください。
+それから、テスト関数内で<code>common::setup()</code>関数を呼び出すことができます。</p>
+<!--
+#### Integration Tests for Binary Crates
+-->
+<h4><a class="header" href="#バイナリクレート用の結合テスト" id="バイナリクレート用の結合テスト">バイナリクレート用の結合テスト</a></h4>
+<!--
+If our project is a binary crate that only contains a *src/main.rs* file and
+doesn’t have a *src/lib.rs* file, we can’t create integration tests in the
+*tests* directory and use `extern crate` to import functions defined in the
+*src/main.rs* file. Only library crates expose functions that other crates can
+call and use; binary crates are meant to be run on their own.
+-->
+<p>もしもプロジェクトが<em>src/main.rs</em>ファイルのみを含み、<em>src/lib.rs</em>ファイルを持たないバイナリクレートだったら、
+<em>tests</em>ディレクトリに結合テストを作成し、
+<code>extern crate</code>を使用して<em>src/main.rs</em>ファイルに定義された関数をインポートすることはできません。
+ライブラリクレートのみが、他のクレートが呼び出して使用できる関数を晒せるのです; 
+バイナリクレートはそれ単体で実行することを意味しています。</p>
+<!--
+This is one of the reasons Rust projects that provide a binary have a
+straightforward *src/main.rs* file that calls logic that lives in the
+*src/lib.rs* file. Using that structure, integration tests *can* test the
+library crate by using `extern crate` to exercise the important functionality.
+If the important functionality works, the small amount of code in the
+*src/main.rs* file will work as well, and that small amount of code doesn’t
+need to be tested.
+-->
+<p>これは、バイナリを提供するRustのプロジェクトに、
+<em>src/lib.rs</em>ファイルに存在するロジックを呼び出す単純な<em>src/main.rs</em>ファイルがある一因になっています。
+この構造を使用して結合テストは、<code>extern crate</code>を使用して重要な機能を用いることでライブラリクレートをテストすることが<em>できます</em>。
+この重要な機能が動作すれば、<em>src/main.rs</em>ファイルの少量のコードも動作し、その少量のコードはテストする必要がないわけです。</p>
+<!--
+## Summary
+-->
+<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<!--
+Rust’s testing features provide a way to specify how code should function to
+ensure it continues to work as we expect, even as we make changes. Unit tests
+exercise different parts of a library separately and can test private
+implementation details. Integration tests check that many parts of the library
+work together correctly, and they use the library’s public API to test the code
+in the same way external code will use it. Even though Rust’s type system and
+ownership rules help prevent some kinds of bugs, tests are still important to
+help reduce logic bugs having to do with how your code is expected to behave.
+-->
+<p>Rustのテスト機能は、変更を加えた後でさえ想定通りにコードが機能し続けることを保証して、
+コードが機能すべき方法を指定する手段を提供します。単体テストはライブラリの異なる部分を個別に用い、
+非公開の実装詳細をテストすることができます。結合テストは、ライブラリのいろんな部分が共同で正常に動作することを確認し、
+ライブラリの公開APIを使用して外部コードが使用するのと同じ方法でコードをテストします。
+Rustの型システムと所有権ルールにより防がれるバグの種類もあるものの、それでもテストは、
+コードが振る舞うと予想される方法に関するロジックのバグを減らすのに重要なのです。</p>
+<!--
+Let’s combine the knowledge you learned in this chapter and in previous
+chapters and work on a project!
+-->
+<p>この章と以前の章で学んだ知識を結集して、とあるプロジェクトに取り掛かりましょう！</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch11-02-running-tests.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch12-00-an-io-project.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch11-02-running-tests.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch12-00-an-io-project.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Advanced Types - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html" class="active"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Advanced Types
+-->
+<h2><a class="header" href="#高度な型" id="高度な型">高度な型</a></h2>
+<!--
+The Rust type system has some features that we’ve mentioned in this book but
+haven’t yet discussed. We’ll start by discussing newtypes in general as we
+examine why newtypes are useful as types. Then we’ll move on to type aliases, a
+feature similar to newtypes but with slightly different semantics. We’ll also
+discuss the `!` type and dynamically sized types.
+-->
+<p>Rustの型システムには、この本で触れたけれども、まだ議論していない機能があります。ニュータイプが何故型として有用なのかを調査するため、
+一般化してニュータイプを議論することから始めます。そして、型エイリアスに移ります。ニュータイプに類似しているけれども、
+多少異なる意味を持つ機能です。また、<code>!</code>型と動的サイズ付け型も議論します。</p>
+<!--
+> Note: The next section assumes you’ve read the earlier section “The Newtype
+> Pattern to Implement External Traits on External Types.”
+-->
+<blockquote>
+<p>注釈: 次の節は、前節「外部の型に外部のトレイトを実装するニュータイプパターン」を読了済みであることを前提にしています。</p>
+</blockquote>
+<!--
+### Using the Newtype Pattern for Type Safety and Abstraction
+-->
+<h3><a class="header" href="#型安全性と抽象化を求めてニュータイプパターンを使用する" id="型安全性と抽象化を求めてニュータイプパターンを使用する">型安全性と抽象化を求めてニュータイプパターンを使用する</a></h3>
+<!--
+The newtype pattern is useful for tasks beyond those we’ve discussed so far,
+including statically enforcing that values are never confused and indicating
+the units of a value. You saw an example of using newtypes to indicate units in
+Listing 19-23: recall that the `Millimeters` and `Meters` structs wrapped `u32`
+values in a newtype. If we wrote a function with a parameter of type
+`Millimeters`, we couldn’t compile a program that accidentally tried to call
+that function with a value of type `Meters` or a plain `u32`.
+-->
+<p>ここまでに議論した以上の作業についてもニュータイプパターンは有用で、静的に絶対に値を混同しないことを強制したり、
+値の単位を示すことを含みます。ニュータイプを使用して単位を示す例をリスト19-23で見かけました:
+<code>Millimeters</code>と<code>Meters</code>構造体は、<code>u32</code>値をニュータイプにラップしていたことを思い出してください。
+型<code>Millimeters</code>を引数にする関数を書いたら、誤ってその関数を型<code>Meters</code>や普通の<code>u32</code>で呼び出そうとするプログラムはコンパイルできないでしょう。</p>
+<!--
+Another use of the newtype pattern is in abstracting away some implementation
+details of a type: the new type can expose a public API that is different from
+the API of the private inner type if we used the new type directly to restrict
+the available functionality, for example.
+-->
+<p>型の実装の詳細を抽象化する際にニュータイプパターンを使用するでしょう: 例えば、新しい型を直接使用して、
+利用可能な機能を制限したら、非公開の内部の型のAPIとは異なる公開APIを新しい型は露出できます。</p>
+<!--
+Newtypes can also hide internal implementation. For example, we could provide a
+`People` type to wrap a `HashMap<i32, String>` that stores a person’s ID
+associated with their name. Code using `People` would only interact with the
+public API we provide, such as a method to add a name string to the `People`
+collection; that code wouldn’t need to know that we assign an `i32` ID to names
+internally. The newtype pattern is a lightweight way to achieve encapsulation
+to hide implementation details, which we discussed in the “Encapsulation that
+Hides Implementation Details” section of Chapter 17.
+-->
+<p>ニュータイプはまた、内部の実装を<ruby>隠匿<rp>(</rp><rt>いんとく</rt><rp>)</rp></ruby>することもできます。例を挙げれば、<code>People</code>型を提供して、
+人のIDと名前を紐づけて格納する<code>HashMap&lt;i32, String&gt;</code>をラップすることができるでしょう。
+<code>People</code>を使用するコードは、名前の文字列を<code>People</code>コレクションに追加するメソッドなど、
+提供している公開APIとだけ相互作用するでしょう; そのコードは、内部で<code>i32</code>IDを名前に代入していることを知る必要はないでしょう。
+ニュータイプパターンは、カプセル化を実現して実装の詳細を隠匿する軽い方法であり、
+実装の詳細を隠匿することは、第17章の「カプセル化は実装詳細を隠蔽する」節で議論しましたね。</p>
+<!--
+### Creating Type Synonyms with Type Aliases
+-->
+<h3><a class="header" href="#型エイリアスで型同義語を生成する" id="型エイリアスで型同義語を生成する">型エイリアスで型同義語を生成する</a></h3>
+<!--
+Along with the newtype pattern, Rust provides the ability to declare a *type
+alias* to give an existing type another name. For this we use the `type`
+keyword. For example, we can create the alias `Kilometers` to `i32` like so:
+-->
+<p>ニュータイプパターンに付随して、Rustでは、既存の型に別の名前を与える<em>型エイリアス</em>(type alias: 型別名)を宣言する能力が提供されています。
+このために、<code>type</code>キーワードを使用します。例えば、以下のように<code>i32</code>に対して<code>Kilometers</code>というエイリアスを作れます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>type Kilometers = i32;
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Now, the alias `Kilometers` is a *synonym* for `i32`; unlike the `Millimeters`
+and `Meters` types we created in Listing 19-23, `Kilometers` is not a separate,
+new type. Values that have the type `Kilometers` will be treated the same as
+values of type `i32`:
+-->
+<p>これで、別名の<code>Kilometers</code>は<code>i32</code>と<em>同義語</em>になりました; リスト19-23で生成した<code>Millimeters</code>と<code>Meters</code>とは異なり、
+<code>Kilometers</code>は個別の新しい型ではありません。型<code>Kilometers</code>の値は、型<code>i32</code>の値と同等に扱われます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>type Kilometers = i32;
+
+let x: i32 = 5;
+let y: Kilometers = 5;
+
+println!(&quot;x + y = {}&quot;, x + y);
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Because `Kilometers` and `i32` are the same type, we can add values of both
+types and we can pass `Kilometers` values to functions that take `i32`
+parameters. However, using this method, we don’t get the type checking benefits
+that we get from the newtype pattern discussed earlier.
+-->
+<p><code>Kilometers</code>と<code>i32</code>が同じ型なので、両方の型の値を足し合わせたり、<code>Kilometers</code>の値を<code>i32</code>引数を取る関数に渡せたりします。
+ですが、この方策を使用すると、先ほど議論したニュータイプパターンで得られる型チェックの利便性は得られません。</p>
+<!--
+The main use case for type synonyms is to reduce repetition. For example, we
+might have a lengthy type like this:
+-->
+<p>型同義語の主なユースケースは、繰り返しを減らすことです。例えば、こんな感じの長い型があるかもしれません:</p>
+<pre><code class="language-rust ignore">Box&lt;Fn() + Send + 'static&gt;
+</code></pre>
+<!--
+Writing this lengthy type in function signatures and as type annotations all
+over the code can be tiresome and error prone. Imagine having a project full of
+code like that in Listing 19-32.
+-->
+<p>この長ったらしい型を関数シグニチャや型注釈としてコードのあちこちで記述するのは、面倒で間違いも起きやすいです。
+リスト19-32のそのようなコードで溢れかえったプロジェクトがあることを想像してください。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let f: Box&lt;Fn() + Send + 'static&gt; = Box::new(|| println!(&quot;hi&quot;));
+
+fn takes_long_type(f: Box&lt;Fn() + Send + 'static&gt;) {
+    // --snip--
+}
+
+fn returns_long_type() -&gt; Box&lt;Fn() + Send + 'static&gt; {
+    // --snip--
+<span class="boring">    Box::new(|| ())
+</span>}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 19-32: Using a long type in many places</span>
+-->
+<p><span class="caption">リスト19-32: 長い型を多くの場所で使用する</span></p>
+<!--
+A type alias makes this code more manageable by reducing the repetition. In
+Listing 19-33, we’ve introduced an alias named `Thunk` for the verbose type and
+can replace all uses of the type with the shorter alias `Thunk`.
+-->
+<p>型エイリアスは、繰り返しを減らすことでこのコードをより管理しやすくしてくれます。リスト19-33で、
+冗長な型に<code>Thunk</code>(<code>注釈</code>: 塊)を導入し、その型の使用全部をより短い別名の<code>Thunk</code>で置き換えることができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>type Thunk = Box&lt;Fn() + Send + 'static&gt;;
+
+let f: Thunk = Box::new(|| println!(&quot;hi&quot;));
+
+fn takes_long_type(f: Thunk) {
+    // --snip--
+}
+
+fn returns_long_type() -&gt; Thunk {
+    // --snip--
+<span class="boring">    Box::new(|| ())
+</span>}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 19-33: Introducing a type alias `Thunk` to reduce
+repetition</span>
+-->
+<p><span class="caption">リスト19-33: 型エイリアスの<code>Thunk</code>を導入して繰り返しを減らす</span></p>
+<!--
+This code is much easier to read and write! Choosing a meaningful name for a
+type alias can help communicate your intent as well (*thunk* is a word for code
+to be evaluated at a later time, so it’s an appropriate name for a closure that
+gets stored).
+-->
+<p>このコードの方が遥かに読み書きしやすいです！型エイリアスに意味のある名前を選択すると、
+意図を伝えるのにも役に立つことがあります(<em>thunk</em>は後ほど評価されるコードのための単語なので、
+格納されるクロージャーには適切な名前です)。</p>
+<!--
+Type aliases are also commonly used with the `Result<T, E>` type for reducing
+repetition. Consider the `std::io` module in the standard library. I/O
+operations often return a `Result<T, E>` to handle situations when operations
+fail to work. This library has a `std::io::Error` struct that represents all
+possible I/O errors. Many of the functions in `std::io` will be returning
+`Result<T, E>` where the `E` is `std::io::Error`, such as these functions in
+the `Write` trait:
+-->
+<p>型エイリアスは、繰り返しを減らすために<code>Result&lt;T, E&gt;</code>型ともよく使用されます。標準ライブラリの<code>std::io</code>モジュールを考えてください。
+I/O処理はしばしば、<code>Result&lt;T, E&gt;</code>を返して処理がうまく動かなかった時を扱います。このライブラリには、
+全ての可能性のあるI/Oエラーを表す<code>std::io::Error</code>構造体があります。<code>std::io</code>の関数の多くは、
+<code>Write</code>トレイトの以下の関数のように<code>E</code>が<code>std::io::Error</code>の<code>Result&lt;T, E&gt;</code>を返すでしょう:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::io::Error;
+use std::fmt;
+
+pub trait Write {
+    fn write(&amp;mut self, buf: &amp;[u8]) -&gt; Result&lt;usize, Error&gt;;
+    fn flush(&amp;mut self) -&gt; Result&lt;(), Error&gt;;
+
+    fn write_all(&amp;mut self, buf: &amp;[u8]) -&gt; Result&lt;(), Error&gt;;
+    fn write_fmt(&amp;mut self, fmt: fmt::Arguments) -&gt; Result&lt;(), Error&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+The `Result<..., Error>` is repeated a lot. As such, `std::io` has this type of
+alias declaration:
+-->
+<p><code>Result&lt;..., Error&gt;</code>が何度も繰り返されてます。そんな状態なので、<code>std::io</code>にはこんな類のエイリアス宣言があります:</p>
+<pre><code class="language-rust ignore">type Result&lt;T&gt; = Result&lt;T, std::io::Error&gt;;
+</code></pre>
+<!--
+Because this declaration is in the `std::io` module, we can use the fully
+qualified alias `std::io::Result<T>`-that is, a `Result<T, E>` with the `E`
+filled in as `std::io::Error`. The `Write` trait function signatures end up
+looking like this:
+-->
+<p>この宣言は<code>std::io</code>モジュール内にあるので、フルパスエイリアスの<code>std::io::Result&lt;T&gt;</code>を使用できます。
+つまり、<code>E</code>が<code>std::io::Error</code>で埋められた<code>Result&lt;T, E&gt;</code>です。その結果、<code>Write</code>トレイトの関数シグニチャは、
+以下のような見た目になります:</p>
+<pre><code class="language-rust ignore">pub trait Write {
+    fn write(&amp;mut self, buf: &amp;[u8]) -&gt; Result&lt;usize&gt;;
+    fn flush(&amp;mut self) -&gt; Result&lt;()&gt;;
+
+    fn write_all(&amp;mut self, buf: &amp;[u8]) -&gt; Result&lt;()&gt;;
+    fn write_fmt(&amp;mut self, fmt: Arguments) -&gt; Result&lt;()&gt;;
+}
+</code></pre>
+<!--
+The type alias helps in two ways: it makes code easier to write *and* it gives
+us a consistent interface across all of `std::io`. Because it’s an alias, it’s
+just another `Result<T, E>`, which means we can use any methods that work on
+`Result<T, E>` with it, as well as special syntax like the `?` operator.
+-->
+<p>型エイリアスは、2通りの方法で役に立っています: コードを書きやすくすること<em>と</em><code>std::io</code>を通して首尾一貫したインターフェイスを与えてくれることです。
+別名なので、ただの<code>Result&lt;T, E&gt;</code>であり、要するに<code>Result&lt;T, E&gt;</code>に対して動くメソッドはなんでも使えるし、
+<code>?</code>演算子のような特殊な記法も使えます。</p>
+<!--
+### The Never Type that Never Returns
+-->
+<h3><a class="header" href="#never型は絶対に返らない" id="never型は絶対に返らない">never型は絶対に返らない</a></h3>
+<!--
+to stand inで「代役を務める」という意味だが、ここではあえて直訳にした
+-->
+<!--
+Rust has a special type named `!` that’s known in type theory lingo as the
+*empty type* because it has no values. We prefer to call it the *never type*
+because it stands in the place of the return type when a function will never
+return. Here is an example:
+-->
+<p>Rustには、<code>!</code>という名前の特別な型があります。それは型理論の専門用語では <em>Empty型</em> と呼ばれ値なしを表します。私たちは、
+関数が値を返すことが決して (never) ない時に戻り値の型を記す場所に使われるので、<em>never type</em>(<code>訳注</code>: 日本語にはできないので、never型と呼ぶしかないか)と呼ぶのが好きです。
+こちらが例です:</p>
+<pre><code class="language-rust ignore">fn bar() -&gt; ! {
+    // --snip--
+}
+</code></pre>
+<!--
+This code is read as “the function `bar` returns never.” Functions that return
+never are called *diverging functions*. We can’t create values of the type `!`
+so `bar` can never possibly return.
+-->
+<p>このコードは、「関数<code>bar</code>はneverを返す」と解読します。neverを返す関数は、<em>発散する関数</em>(diverging function)と呼ばれます。
+型<code>!</code>の値は生成できないので、<code>bar</code>からリターンする（呼び出し元に制御を戻す）ことは決してできません。</p>
+<!--
+But what use is a type you can never create values for? Recall the code from
+Listing 2-5; we’ve reproduced part of it here in Listing 19-34.
+-->
+<p>ですが、値を絶対に生成できない型をどう使用するのでしょうか？リスト2-5のコードを思い出してください;
+リスト19-34に一部を再掲します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">let guess = &quot;3&quot;;
+</span><span class="boring">loop {
+</span>let guess: u32 = match guess.trim().parse() {
+    Ok(num) =&gt; num,
+    Err(_) =&gt; continue,
+};
+<span class="boring">break;
+</span><span class="boring">}
+</span><span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 19-34: A `match` with an arm that ends in
+`continue`</span>
+-->
+<p><span class="caption">リスト19-34: <code>continue</code>になるアームがある<code>match</code></span></p>
+<!--
+At the time, we skipped over some details in this code. In Chapter 6 in “The
+`match` Control Flow Operator” section, we discussed that `match` arms must all
+return the same type. So, for example, the following code doesn’t work:
+-->
+<p>この時点では、このコードの詳細の一部を飛ばしました。第6章の「<code>match</code>フロー制御演算子」節で、
+<code>match</code>アームは全て同じ型を返さなければならないと議論しました。従って、例えば以下のコードは動きません:</p>
+<pre><code class="language-rust ignore">let guess = match guess.trim().parse() {
+    Ok(_) =&gt; 5,
+    Err(_) =&gt; &quot;hello&quot;,
+}
+</code></pre>
+<!--
+The type of `guess` in this code would have to be an integer *and* a string,
+and Rust requires that `guess` have only one type. So what does `continue`
+return? How were we allowed to return a `u32` from one arm and have another arm
+that ends with `continue` in Listing 19-34?
+-->
+<p>このコードの<code>guess</code>は整数<em>かつ</em>文字列にならなければならないでしょうが、Rustでは、<code>guess</code>は1つの型にしかならないことを要求されます。
+では、<code>continue</code>は何を返すのでしょうか？どうやってリスト19-34で1つのアームからは<code>u32</code>を返し、別のアームでは、
+<code>continue</code>で終わっていたのでしょうか？</p>
+<!--
+As you might have guessed, `continue` has a `!` value. That is, when Rust
+computes the type of `guess`, it looks at both match arms, the former with a
+value of `u32` and the latter with a `!` value. Because `!` can never have a
+value, Rust decides that the type of `guess` is `u32`.
+-->
+<p>もうお気付きかもしれませんが、<code>continue</code>は<code>!</code>値です。つまり、コンパイラが<code>guess</code>の型を計算する時、
+両方のmatchアームを見て、前者は<code>u32</code>の値、後者は<code>!</code>値となります。<code>!</code>は絶対に値を持ち得ないので、
+コンパイラは、<code>guess</code>の型は<code>u32</code>と決定するのです。</p>
+<!--
+The formal way of describing this behavior is that expressions of type `!` can
+be coerced into any other type. We’re allowed to end this `match` arm with
+`continue` because `continue` doesn’t return a value; instead, it moves control
+back to the top of the loop, so in the `Err` case, we never assign a value to
+`guess`.
+-->
+<p>この振る舞いを解説する公式の方法は、型<code>!</code>の式は、他のどんな型にも型強制され得るということです。
+この<code>match</code>アームを<code>continue</code>で終えることができます。何故なら、<code>continue</code>は値を返さないからです;
+その代わりに制御をループの冒頭に戻すので、<code>Err</code>の場合、<code>guess</code>には絶対に値を代入しないのです。</p>
+<!--
+The never type is useful with the `panic!` macro as well. Remember the `unwrap`
+function that we call on `Option<T>` values to produce a value or panic? Here
+is its definition:
+-->
+<p>never型は、<code>panic!</code>マクロとも有用です。<code>Option&lt;T&gt;</code>値に対して呼び出して、値かパニックを生成した<code>unwrap</code>関数を覚えていますか？
+こちらがその定義です:</p>
+<pre><code class="language-rust ignore">impl&lt;T&gt; Option&lt;T&gt; {
+    pub fn unwrap(self) -&gt; T {
+        match self {
+            Some(val) =&gt; val,
+            None =&gt; panic!(&quot;called `Option::unwrap()` on a `None` value&quot;),
+        }
+    }
+}
+</code></pre>
+<!--
+In this code, the same thing happens as in the `match` in Listing 19-34: Rust
+sees that `val` has the type `T` and `panic!` has the type `!`, so the result
+of the overall `match` expression is `T`. This code works because `panic!`
+doesn't produce a value; it ends the program. In the `None` case, we won’t be
+returning a value from `unwrap`, so this code is valid.
+-->
+<p>このコードにおいて、リスト19-34の<code>match</code>と同じことが起きています: コンパイラは、<code>val</code>の型は<code>T</code>で、
+<code>panic!</code>の型は<code>!</code>なので、<code>match</code>式全体の結果は<code>T</code>と確認します。<code>panic!</code>は値を生成しないので、
+このコードは動きます。つまり、プログラムを終了するのです。<code>None</code>の場合、<code>unwrap</code>から値は返さないので、
+このコードは合法なのです。</p>
+<!--
+One final expression that has the type `!` is a `loop`:
+-->
+<p>型が<code>!</code>の最後の式は、<code>loop</code>です:</p>
+<pre><code class="language-rust ignore">// 永遠に
+print!(&quot;forever &quot;);
+
+loop {
+    // さらに永遠に
+    print!(&quot;and ever &quot;);
+}
+</code></pre>
+<!--
+Here, the loop never ends, so `!` is the value of the expression. However, this
+wouldn’t be true if we included a `break`, because the loop would terminate
+when it got to the `break`.
+-->
+<p>ここで、ループは終わりませんので、<code>!</code>が式の値です。ところが、<code>break</code>を含んでいたら、これは真実にはならないでしょう。
+<code>break</code>に到達した際にループが終了してしまうからです。</p>
+<!--
+### Dynamically Sized Types and the `Sized` Trait
+-->
+<h3><a class="header" href="#動的サイズ付け型とsizedトレイト" id="動的サイズ付け型とsizedトレイト">動的サイズ付け型と<code>Sized</code>トレイト</a></h3>
+<!--
+Due to Rust’s need to know certain details, such as how much space to allocate
+for a value of a particular type, there is a corner of its type system that can
+be confusing: the concept of *dynamically sized types*. Sometimes referred to
+as *DSTs* or *unsized types*, these types let us write code using values whose
+size we can know only at runtime.
+-->
+<p>コンパイラが特定の型の値1つにどれくらいのスペースのメモリを確保するのかなどの特定の詳細を知る必要があるために、
+Rustの型システムには混乱を招きやすい細かな仕様があります: <em>動的サイズ付け型</em>の概念です。時として<em>DST</em>や<em>サイズなし型</em>とも称され、
+これらの型により、実行時にしかサイズを知ることのできない値を使用するコードを書かせてくれます。</p>
+<!--
+Let’s dig into the details of a dynamically sized type called `str`, which
+we’ve been using throughout the book. That’s right, not `&str`, but `str` on
+its own, is a DST. We can’t know how long the string is until runtime, meaning
+we can’t create a variable of type `str`, nor can we take an argument of type
+`str`. Consider the following code, which does not work:
+-->
+<p><code>str</code>と呼ばれる動的サイズ付け型の詳細を深掘りしましょう。本を通して使用してきましたね。
+そうです。<code>&amp;str</code>ではなく、<code>str</code>は単独でDSTなのです。実行時までは文字列の長さを知ることができず、
+これは、型<code>str</code>の変数を生成したり、型<code>str</code>を引数に取ることはできないことを意味します。
+動かない以下のコードを考えてください:</p>
+<pre><code class="language-rust ignore">// こんにちは
+let s1: str = &quot;Hello there!&quot;;
+// 調子はどう？
+let s2: str = &quot;How's it going?&quot;;
+</code></pre>
+<!--
+Rust needs to know how much memory to allocate for any value of a particular
+type, and all values of a type must use the same amount of memory. If Rust
+allowed us to write this code, these two `str` values would need to take up the
+same amount of space. But they have different lengths: `s1` needs 12 bytes of
+storage and `s2` needs 15. This is why it’s not possible to create a variable
+holding a dynamically sized type.
+-->
+<p>コンパイラは、特定の型のどんな値に対しても確保するメモリ量を知る必要があり、ある型の値は全て同じ量のメモリを使用しなければなりません。
+Rustでこのコードを書くことが許容されたら、これら2つの<code>str</code>値は、同じ量のスペースを消費する必要があったでしょう。
+ですが、長さが異なります: <code>s1</code>は、12バイトのストレージが必要で、<code>s2</code>は15バイトです。このため、
+動的サイズ付け型を保持する変数を生成することはできないのです。</p>
+<!--
+So what do we do? In this case, you already know the answer: we make the types
+of `s1` and `s2` a `&str` rather than a `str`. Recall that in the “String
+Slices” section of Chapter 4, we said the slice data structure stores the
+starting position and the length of the slice.
+-->
+<p>では、どうすればいいのでしょうか？この場合、もう答えはご存知です: <code>s1</code>と<code>s2</code>の型を<code>str</code>ではなく、
+<code>&amp;str</code>にすればいいのです。第4章の「文字列スライス」節でスライスデータ構造は、
+開始地点とスライスの長さを格納していると述べたことを思い出してください。</p>
+<!--
+So although a `&T` is a single value that stores the memory address of where
+the `T` is located, a `&str` is *two* values: the address of the `str` and its
+length. As such, we can know the size of a `&str` value at compile time: it’s
+twice the length of a `usize`. That is, we always know the size of a `&str`, no
+matter how long the string it refers to is. In general, this is the way in
+which dynamically sized types are used in Rust: they have an extra bit of
+metadata that stores the size of the dynamic information. The golden rule of
+dynamically sized types is that we must always put values of dynamically sized
+types behind a pointer of some kind.
+-->
+<p>従って、<code>&amp;T</code>は、<code>T</code>がどこにあるかのメモリアドレスを格納する単独の値だけれども、<code>&amp;str</code>は<em>2つ</em>の値なのです:
+<code>str</code>のアドレスとその長さです。そのため、コンパイル時に<code>&amp;str</code>のサイズを知ることができます:
+<code>usize</code>の長さの2倍です。要するに、参照している文字列の長さによらず、常に<code>&amp;str</code>のサイズがわかります。
+通常、このようにしてRustでは動的サイズ付け型が使用されます: 動的情報のサイズを格納する追加のちょっとしたメタデータがあるのです。
+動的サイズ付け型の黄金規則は、常に動的サイズ付け型の値をなんらかの種類のポインタの背後に配置しなければならないということです。</p>
+<!--
+We can combine `str` with all kinds of pointers: for example, `Box<str>` or
+`Rc<str>`. In fact, you’ve seen this before but with a different dynamically
+sized type: traits. Every trait is a dynamically sized type we can refer to by
+using the name of the trait. In Chapter 17 in the “Using Trait Objects that
+Allow for Values of Different Types” section, we mentioned that to use traits
+as trait objects, we must put them behind a pointer, such as `&Trait` or
+`Box<Trait>` (`Rc<Trait>` would work too).
+-->
+<p><code>str</code>を全ての種類のポインタと組み合わせられます: 例を挙げれば、<code>Box&lt;str&gt;</code>や<code>Rc&lt;str&gt;</code>などです。
+実際、これまでに見かけましたが、異なる動的サイズ付け型でした: トレイトです。全てのトレイトは、
+トレイト名を使用して参照できる動的サイズ付け型です。第17章の「トレイトオブジェクトで異なる型の値を許容する」節で、
+トレイトをトレイトオブジェクトとして使用するには、<code>&amp;Trait</code>や<code>Box&lt;Trait&gt;</code>(Rc<Trait>も動くでしょう)など、
+ポインタの背後に配置しなければならないことに触れました。</p>
+<!--
+To work with DSTs, Rust has a particular trait called the `Sized` trait to
+determine whether or not a type’s size is known at compile time. This trait is
+automatically implemented for everything whose size is known at compile time.
+In addition, Rust implicitly adds a bound on `Sized` to every generic function.
+That is, a generic function definition like this:
+-->
+<p>DSTを扱うために、Rustには<code>Sized</code>トレイトと呼ばれる特定のトレイトがあり、型のサイズがコンパイル時にわかるかどうかを決定します。
+このトレイトは、コンパイル時にサイズの判明する全てのものに自動的に実装されます。加えて、
+コンパイラは暗黙的に全てのジェネリックな関数に<code>Sized</code>の境界を追加します。つまり、こんな感じのジェネリック関数定義は:</p>
+<pre><code class="language-rust ignore">fn generic&lt;T&gt;(t: T) {
+    // --snip--
+}
+</code></pre>
+<!--
+is actually treated as though we had written this:
+-->
+<p>実際にはこう書いたかのように扱われます:</p>
+<pre><code class="language-rust ignore">fn generic&lt;T: Sized&gt;(t: T) {
+    // --snip--
+}
+</code></pre>
+<!--
+By default, generic functions will work only on types that have a known size at
+compile time. However, you can use the following special syntax to relax this
+restriction:
+-->
+<p>既定では、ジェネリック関数はコンパイル時に判明するサイズがある型に対してのみ動きます。
+ですが、以下の特別な記法を用いてこの制限を緩めることができます:</p>
+<pre><code class="language-rust ignore">fn generic&lt;T: ?Sized&gt;(t: &amp;T) {
+    // --snip--
+}
+</code></pre>
+<!--
+A trait bound on `?Sized` is the opposite of a trait bound on `Sized`: we would
+read this as “`T` may or may not be `Sized`.” This syntax is only available for
+`Sized`, not any other traits.
+-->
+<p><code>?Sized</code>のトレイト境界は、<code>Sized</code>のトレイト境界の逆になります: これを「<code>T</code>は<code>Sized</code>かもしれないし、違うかもしれない」と解読するでしょう。
+この記法は、<code>Sized</code>にのみ利用可能で、他のトレイトにはありません。</p>
+<!--
+Also note that we switched the type of the `t` parameter from `T` to `&T`.
+Because the type might not be `Sized`, we need to use it behind some kind of
+pointer. In this case, we’ve chosen a reference.
+-->
+<p>また、<code>t</code>引数の型を<code>T</code>から<code>&amp;T</code>に切り替えたことにも注目してください。型は<code>Sized</code>でない可能性があるので、
+なんらかのポインタの背後に使用する必要があるのです。今回は、参照を選択しました。</p>
+<!--
+Next, we’ll talk about functions and closures!
+-->
+<p>次は、関数とクロージャについて語ります！</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch19-03-advanced-traits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch19-05-advanced-functions-and-closures.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch19-03-advanced-traits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch19-05-advanced-functions-and-closures.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

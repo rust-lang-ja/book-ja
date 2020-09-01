@@ -1,0 +1,1229 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Refactoring to Improve Modularity and Error Handling - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html" class="active"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Refactoring to Improve Modularity and Error Handling
+-->
+<h2><a class="header" href="#リファクタリングしてモジュール性とエラー処理を向上させる" id="リファクタリングしてモジュール性とエラー処理を向上させる">リファクタリングしてモジュール性とエラー処理を向上させる</a></h2>
+<!--
+To improve our program, we’ll fix four problems that have to do with the
+program’s structure and how it’s handling potential errors.
+-->
+<p>プログラムを改善するために、プログラムの構造と起こりうるエラーに対処する方法に関連する4つの問題を修正していきましょう。</p>
+<!--
+First, our `main` function now performs two tasks: it parses arguments and
+opens files. For such a small function, this isn’t a major problem. However, if
+we continue to grow our program inside `main`, the number of separate tasks the
+`main` function handles will increase. As a function gains responsibilities, it
+becomes more difficult to reason about, harder to test, and harder to change
+without breaking one of its parts. It’s best to separate functionality so each
+function is responsible for one task.
+-->
+<p>1番目は、<code>main</code>関数が2つの仕事を受け持っていることです: 引数を解析し、ファイルを開いています。
+このような小さな関数なら、これは、大した問題ではありませんが、<code>main</code>内でプログラムを巨大化させ続けたら、
+<code>main</code>関数が扱う個別の仕事の数も増えていきます。関数が責任を受け持つごとに、
+正しいことを確認しにくくなり、テストも行いづらくなり、機能を壊さずに変更するのも困難になっていきます。
+機能を小分けして、各関数が1つの仕事のみに責任を持つようにするのが最善です。</p>
+<!--
+This issue also ties into the second problem: although `query` and `filename`
+are configuration variables to our program, variables like `f` and `contents`
+are used to perform the program’s logic. The longer `main` becomes, the more
+variables we’ll need to bring into scope; the more variables we have in scope,
+the harder it will be to keep track of the purpose of each. It’s best to group
+the configuration variables into one structure to make their purpose clear.
+-->
+<p>この問題は、2番目の問題にも結びついています: <code>query</code>と<code>filename</code>はプログラムの設定用変数ですが、
+<code>f</code>や<code>contents</code>といった変数は、プログラムのロジックを担っています。<code>main</code>が長くなるほど、
+スコープに入れるべき変数も増えます。そして、スコープにある変数が増えれば、各々の目的を追うのも大変になるわけです。
+設定用変数を一つの構造に押し込め、目的を明瞭化するのが最善です。</p>
+<!--
+The third problem is that we’ve used `expect` to print an error message when
+opening the file fails, but the error message just prints `file not found`.
+Opening a file can fail in a number of ways besides the file being missing: for
+example, the file might exist, but we might not have permission to open it.
+Right now, if we’re in that situation, we’d print the `file not found` error
+message, which would give the user the wrong information!
+-->
+<p>3番目の問題は、ファイルを開き損ねた時に<code>expect</code>を使ってエラーメッセージを出力しているのに、
+エラーメッセージが<code>ファイルが見つかりませんでした</code>としか表示しないことです。
+ファイルを開く行為は、ファイルが存在しない以外にもいろんな方法で失敗することがあります:
+例えば、ファイルは存在するかもしれないけれど、開く権限がないかもしれないなどです。
+現時点では、そのような状況になった時、「ファイルが見つかりませんでした」というエラーメッセージを出力し、
+これはユーザに間違った情報を与えるのです。</p>
+<!--
+1行目最後の方のandを順接の理由で訳している
+-->
+<!--
+Fourth, we use `expect` repeatedly to handle different errors, and if the user
+runs our program without specifying enough arguments, they’ll get an `index out
+of bounds` error from Rust that doesn’t clearly explain the problem. It would
+be best if all the error-handling code was in one place so future maintainers
+have only one place to consult in the code if the error-handling logic needs to
+change. Having all the error-handling code in one place will also ensure that
+we’re printing messages that will be meaningful to our end users.
+-->
+<p>4番目は、異なるエラーを処理するのに<code>expect</code>を繰り返し使用しているので、ユーザが十分な数の引数を渡さずにプログラムを起動した時に、
+問題を明確に説明しない「範囲外アクセス(index out of bounds)」というエラーがRustから得られることです。
+エラー処理のコードが全て1箇所に存在し、将来エラー処理ロジックが変更になった時に、
+メンテナンス者が1箇所のコードのみを考慮すればいいようにするのが最善でしょう。
+エラー処理コードが1箇所にあれば、エンドユーザにとって意味のあるメッセージを出力していることを確認することにもつながります。</p>
+<!--
+Let’s address these four problems by refactoring our project.
+-->
+<p>プロジェクトをリファクタリングして、これら4つの問題を扱いましょう。</p>
+<!--
+### Separation of Concerns for Binary Projects
+-->
+<h3><a class="header" href="#バイナリプロジェクトの責任の分離" id="バイナリプロジェクトの責任の分離">バイナリプロジェクトの責任の分離</a></h3>
+<!--
+The organizational problem of allocating responsibility for multiple tasks to
+the `main` function is common to many binary projects. As a result, the Rust
+community has developed a process to use as a guideline for splitting the
+separate concerns of a binary program when `main` starts getting large. The
+process has the following steps:
+-->
+<p><code>main</code>関数に複数の仕事の責任を割り当てるという構造上の問題は、多くのバイナリプロジェクトでありふれています。
+結果として、<code>main</code>が肥大化し始めた際にバイナリプログラムの個別の責任を分割するためにガイドラインとして活用できる工程をRustコミニュティは、
+開発しました。この工程は、以下のような手順になっています:</p>
+<!--
+* Split your program into a *main.rs* and a *lib.rs* and move your program’s
+logic to *lib.rs*.
+* As long as your command line parsing logic is small, it can remain in
+*main.rs*.
+* When the command line parsing logic starts getting complicated, extract it
+from *main.rs* and move it to *lib.rs*.
+-->
+<ul>
+<li>プログラムを<em>main.rs</em>と<em>lib.rs</em>に分け、ロジックを<em>lib.rs</em>に移動する。</li>
+<li>コマンドライン引数の解析ロジックが小規模な限り、<em>main.rs</em>に置いても良い。</li>
+<li>コマンドライン引数の解析ロジックが複雑化の様相を呈し始めたら、<em>main.rs</em>から抽出して<em>lib.rs</em>に移動する。</li>
+</ul>
+<!--
+The responsibilities that remain in the `main` function after this process
+should be limited to the following:
+-->
+<p>この工程の後に<code>main</code>関数に残る責任は以下に限定される:</p>
+<!--
+* Calling the command line parsing logic with the argument values
+* Setting up any other configuration
+* Calling a `run` function in *lib.rs*
+* Handling the error if `run` returns an error
+-->
+<ul>
+<li>引数の値でコマンドライン引数の解析ロジックを呼び出す</li>
+<li>他のあらゆる設定を行う</li>
+<li><em>lib.rs</em>の<code>run</code>関数を呼び出す</li>
+<li><code>run</code>がエラーを返した時に処理する</li>
+</ul>
+<!--
+This pattern is about separating concerns: *main.rs* handles running the
+program, and *lib.rs* handles all the logic of the task at hand. Because we
+can’t test the `main` function directly, this structure lets us test all of
+your program’s logic by moving it into functions in *lib.rs*. The only code
+that remains in *main.rs* will be small enough to verify its correctness by
+reading it. Let’s rework our program by following this process.
+-->
+<p>このパターンは、責任の分離についてです: <em>main.rs</em>はプログラムの実行を行い、
+そして、<em>lib.rs</em>が手にある仕事のロジック全てを扱います。<code>main</code>関数を直接テストすることはできないので、
+この構造により、プログラムのロジック全てを<em>lib.rs</em>の関数に移すことでテストできるようになります。
+<em>main.rs</em>に残る唯一のコードは、読めばその正当性が評価できるだけ小規模になるでしょう。
+この工程に従って、プログラムのやり直しをしましょう。</p>
+<!--
+#### Extracting the Argument Parser
+-->
+<h4><a class="header" href="#引数解析器を抽出する" id="引数解析器を抽出する">引数解析器を抽出する</a></h4>
+<!--
+We’ll extract the functionality for parsing arguments into a function that
+`main` will call to prepare for moving the command line parsing logic to
+*src/lib.rs*. Listing 12-5 shows the new start of `main` that calls a new
+function `parse_config`, which we’ll define in *src/main.rs* for the moment.
+-->
+<p>引数解析の機能を<code>main</code>が呼び出す関数に抽出して、コマンドライン引数解析ロジックを<em>src/lib.rs</em>に移動する準備をします。
+リスト12-5に新しい関数<code>parse_config</code>を呼び出す<code>main</code>の冒頭部を示し、
+この新しい関数は今だけ<em>src/main.rs</em>に定義します。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let args: Vec&lt;String&gt; = env::args().collect();
+
+    let (query, filename) = parse_config(&amp;args);
+
+    // --snip--
+}
+
+fn parse_config(args: &amp;[String]) -&gt; (&amp;str, &amp;str) {
+    let query = &amp;args[1];
+    let filename = &amp;args[2];
+
+    (query, filename)
+}
+</code></pre>
+<!--
+<span class="caption">Listing 12-5: Extracting a `parse_config` function from
+`main`</span>
+-->
+<p><span class="caption">リスト12-5: <code>main</code>から<code>parse_config</code>関数を抽出する</span></p>
+<!--
+We’re still collecting the command line arguments into a vector, but instead of
+assigning the argument value at index 1 to the variable `query` and the
+argument value at index 2 to the variable `filename` within the `main`
+function, we pass the whole vector to the `parse_config` function. The
+`parse_config` function then holds the logic that determines which argument
+goes in which variable and passes the values back to `main`. We still create
+the `query` and `filename` variables in `main`, but `main` no longer has the
+responsibility of determining how the command line arguments and variables
+correspond.
+-->
+<p>それでもまだ、コマンドライン引数をベクタに集結させていますが、<code>main</code>関数内で引数の値の添え字1を変数<code>query</code>に、
+添え字2を変数<code>filename</code>に代入する代わりに、ベクタ全体を<code>parse_config</code>関数に渡しています。
+そして、<code>parse_config</code>関数にはどの引数がどの変数に入り、それらの値を<code>main</code>に返すというロジックが存在します。
+まだ<code>main</code>内に<code>query</code>と<code>filename</code>という変数を生成していますが、もう<code>main</code>は、
+コマンドライン引数と変数がどう対応するかを決定する責任は持ちません。</p>
+<!--
+This rework may seem like overkill for our small program, but we’re refactoring
+in small, incremental steps. After making this change, run the program again to
+verify that the argument parsing still works. It’s good to check your progress
+often, to help you identify the cause of problems when they occur.
+-->
+<p>このやり直しは、私たちの小規模なプログラムにはやりすぎに思えるかもしれませんが、
+少しずつ段階的にリファクタリングしているのです。この変更後、プログラムを再度実行して、
+引数解析がまだ動作していることを実証してください。問題が発生した時に原因を特定する助けにするために頻繁に進捗を確認するのはいいことです。</p>
+<!--
+#### Grouping Configuration Values
+-->
+<h4><a class="header" href="#設定値をまとめる" id="設定値をまとめる">設定値をまとめる</a></h4>
+<!--
+We can take another small step to improve the `parse_config` function further.
+At the moment, we’re returning a tuple, but then we immediately break that
+tuple into individual parts again. This is a sign that perhaps we don’t have
+the right abstraction yet.
+-->
+<p>もう少し<code>parse_config</code>関数を改善することができます。現時点では、タプルを返していますが、
+即座にタプルを分解して再度個別の値にしています。これは、正しい抽象化をまだできていないかもしれない兆候です。</p>
+<!--
+Another indicator that shows there’s room for improvement is the `config` part
+of `parse_config`, which implies that the two values we return are related and
+are both part of one configuration value. We’re not currently conveying this
+meaning in the structure of the data other than grouping the two values into
+a tuple; we could put the two values into one struct and give each of the
+struct fields a meaningful name. Doing so will make it easier for future
+maintainers of this code to understand how the different values relate to each
+other and what their purpose is.
+-->
+<p>まだ改善の余地があると示してくれる他の徴候は、<code>parse_config</code>の<code>config</code>の部分であり、
+返却している二つの値は関係があり、一つの設定値の一部にどちらもなることを暗示しています。
+現状では、一つのタプルにまとめていること以外、この意味をデータの構造に載せていません;
+この二つの値を1構造体に置き換え、構造体のフィールドそれぞれに意味のある名前をつけることもできるでしょう。
+そうすることで将来このコードのメンテナンス者が、異なる値が相互に関係する仕方や、目的を理解しやすくできるでしょう。</p>
+<!--
+> Note: Some people call this anti-pattern of using primitive values when a
+> complex type would be more appropriate *primitive obsession*.
+-->
+<blockquote>
+<p>注釈: この複雑型(complex type)がより適切な時に組み込みの値を使うアンチパターンを、
+<em>primitive obsession</em>(<code>訳注</code>: 初めて聞いた表現。<em>組み込み型強迫観念</em>といったところだろうか)と呼ぶ人もいます。</p>
+</blockquote>
+<!--
+Listing 12-6 shows the improvements to the `parse_config` function.
+-->
+<p>リスト12-6は、<code>parse_config</code>関数の改善を示しています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust should_panic"><span class="boring">use std::env;
+</span><span class="boring">use std::fs::File;
+</span><span class="boring">
+</span>fn main() {
+    let args: Vec&lt;String&gt; = env::args().collect();
+
+    let config = parse_config(&amp;args);
+
+    println!(&quot;Searching for {}&quot;, config.query);
+    println!(&quot;In file {}&quot;, config.filename);
+
+    let mut f = File::open(config.filename).expect(&quot;file not found&quot;);
+
+    // --snip--
+}
+
+struct Config {
+    query: String,
+    filename: String,
+}
+
+fn parse_config(args: &amp;[String]) -&gt; Config {
+    let query = args[1].clone();
+    let filename = args[2].clone();
+
+    Config { query, filename }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 12-6: Refactoring `parse_config` to return an
+instance of a `Config` struct</span>
+-->
+<p><span class="caption">リスト12-6: <code>parse_config</code>をリファクタリングして<code>Config</code>構造体のインスタンスを返す</span></p>
+<!--
+We’ve added a struct named `Config` defined to have fields named `query` and
+`filename`. The signature of `parse_config` now indicates that it returns a
+`Config` value. In the body of `parse_config`, where we used to return string
+slices that reference `String` values in `args`, we now define `Config` to
+contain owned `String` values. The `args` variable in `main` is the owner of
+the argument values and is only letting the `parse_config` function borrow
+them, which means we’d violate Rust’s borrowing rules if `Config` tried to take
+ownership of the values in `args`.
+-->
+<p><code>query</code>と<code>filename</code>というフィールドを持つよう定義された<code>Config</code>という構造体を追加しました。
+<code>parse_config</code>のシグニチャは、これで<code>Config</code>値を返すと示すようになりました。<code>parse_config</code>の本体では、
+以前は<code>args</code>の<code>String</code>値を参照する文字列スライスを返していましたが、
+今では所有する<code>String</code>値を含むように<code>Config</code>を定義しています。<code>main</code>の<code>args</code>変数は引数値の所有者であり、
+<code>parse_config</code>関数だけに借用させていますが、これは<code>Config</code>が<code>args</code>の値の所有権を奪おうとしたら、
+Rustの借用規則に違反してしまうことを意味します。</p>
+<!--
+We could manage the `String` data in a number of different ways, but the
+easiest, though somewhat inefficient, route is to call the `clone` method on
+the values. This will make a full copy of the data for the `Config` instance to
+own, which takes more time and memory than storing a reference to the string
+data. However, cloning the data also makes our code very straightforward
+because we don’t have to manage the lifetimes of the references; in this
+circumstance, giving up a little performance to gain simplicity is a worthwhile
+trade-off.
+-->
+<p><code>String</code>のデータは、多くの異なる手法で管理できますが、最も単純だけれどもどこか非効率的な手段は、
+値に対して<code>clone</code>メソッドを呼び出すことです。これにより、<code>Config</code>インスタンスが所有するデータの総コピーが生成されるので、
+文字列データへの参照を保持するよりも時間とメモリを消費します。ですが、データをクローンすることで、
+コードがとても素直にもなります。というのも、参照のライフタイムを管理する必要がないからです。
+つまり、この場面において、少々のパフォーマンスを犠牲にして単純性を得るのは、価値のある代償です。</p>
+<!--
+> ### The Trade-Offs of Using `clone`
+>
+> There’s a tendency among many Rustaceans to avoid using `clone` to fix
+> ownership problems because of its runtime cost. In Chapter 13, you’ll learn
+> how to use more efficient methods in this type of situation. But for now,
+> it’s okay to copy a few strings to continue making progress because we’ll
+> make these copies only once and your filename and query string are very
+> small. It’s better to have a working program that’s a bit inefficient than to
+> try to hyperoptimize code on your first pass. As you become more experienced
+> with Rust, it’ll be easier to start with the most efficient solution, but for
+> now, it’s perfectly acceptable to call `clone`.
+-->
+<blockquote>
+<h3><a class="header" href="#cloneを使用する代償" id="cloneを使用する代償"><code>clone</code>を使用する代償</a></h3>
+<p>実行時コストのために<code>clone</code>を使用して所有権問題を解消するのを避ける傾向が多くのRustaceanにあります。
+第13章で、この種の状況においてより効率的なメソッドの使用法を学ぶでしょう。ですがとりあえずは、
+これらのコピーをするのは1回だけですし、ファイル名とクエリ文字列は非常に小さなものなので、
+いくつかの文字列をコピーして進捗するのは良しとしましょう。最初の通り道でコードを究極的に効率化しようとするよりも、
+ちょっと非効率的でも動くプログラムを用意する方がいいでしょう。もっとRustの経験を積めば、
+最も効率的な解決法から開始することも簡単になるでしょうが、今は、<code>clone</code>を呼び出すことは完璧に受け入れられることです。</p>
+</blockquote>
+<!--
+We’ve updated `main` so it places the instance of `Config` returned by
+`parse_config` into a variable named `config`, and we updated the code that
+previously used the separate `query` and `filename` variables so it now uses
+the fields on the `Config` struct instead.
+-->
+<p><code>main</code>を更新したので、<code>parse_config</code>から返された<code>Config</code>のインスタンスを<code>config</code>という変数に置くようになり、
+以前は個別の<code>query</code>と<code>filename</code>変数を使用していたコードを更新したので、代わりに<code>Config</code>構造体のフィールドを使用するようになりました。</p>
+<!--
+Now our code more clearly conveys that `query` and `filename` are related and
+that their purpose is to configure how the program will work. Any code that
+uses these values knows to find them in the `config` instance in the fields
+named for their purpose.
+-->
+<p>これでコードは<code>query</code>と<code>filename</code>が関連していることと、その目的がプログラムの振る舞い方を設定するということをより明確に伝えます。
+これらの値を使用するあらゆるコードは、<code>config</code>インスタンスの目的の名前を冠したフィールドにそれらを発見することを把握しています。</p>
+<!--
+#### Creating a Constructor for `Config`
+-->
+<h4><a class="header" href="#configのコンストラクタを作成する" id="configのコンストラクタを作成する"><code>Config</code>のコンストラクタを作成する</a></h4>
+<!--
+So far, we’ve extracted the logic responsible for parsing the command line
+arguments from `main` and placed it in the `parse_config` function. Doing so
+helped us to see that the `query` and `filename` values were related and that
+relationship should be conveyed in our code. We then added a `Config` struct to
+name the related purpose of `query` and `filename` and to be able to return the
+values’ names as struct field names from the `parse_config` function.
+-->
+<p>ここまでで、コマンドライン引数を解析する責任を負ったロジックを<code>main</code>から抽出し、<code>parse_config</code>関数に配置しました。
+そうすることで<code>query</code>と<code>filename</code>の値が関連し、その関係性がコードに載っていることを確認する助けになりました。
+それから<code>Config</code>構造体を追加して<code>query</code>と<code>filename</code>の関係する目的を名前付けし、
+構造体のフィールド名として<code>parse_config</code>関数からその値の名前を返すことができています。</p>
+<!--
+So now that the purpose of the `parse_config` function is to create a `Config`
+instance, we can change `parse_config` from a plain function to a function
+named `new` that is associated with the `Config` struct. Making this change
+will make the code more idiomatic. We can create instances of types in the
+standard library, such as `String`, by calling `String::new`. Similarly, by
+changing `parse_config` into a `new` function associated with `Config`, we’ll
+be able to create instances of `Config` by calling `Config::new`. Listing 12-7
+shows the changes we need to make.
+-->
+<p>したがって、今や<code>parse_config</code>関数の目的は<code>Config</code>インスタンスを生成することになったので、
+<code>parse_config</code>をただの関数から<code>Config</code>構造体に紐づく<code>new</code>という関数に変えることができます。
+この変更を行うことで、コードがより慣用的になります。<code>String</code>などの標準ライブラリの型のインスタンスを、
+<code>String::new</code>を呼び出すことで生成できます。同様に、<code>parse_config</code>を<code>Config</code>に紐づく<code>new</code>関数に変えれば、
+<code>Config::new</code>を呼び出すことで<code>Config</code>のインスタンスを生成できるようになります。リスト12-7が、
+行う必要のある変更を示しています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust should_panic"><span class="boring">use std::env;
+</span><span class="boring">
+</span>fn main() {
+    let args: Vec&lt;String&gt; = env::args().collect();
+
+    let config = Config::new(&amp;args);
+
+    // --snip--
+}
+
+<span class="boring">struct Config {
+</span><span class="boring">    query: String,
+</span><span class="boring">    filename: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span>// --snip--
+
+impl Config {
+    fn new(args: &amp;[String]) -&gt; Config {
+        let query = args[1].clone();
+        let filename = args[2].clone();
+
+        Config { query, filename }
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 12-7: Changing `parse_config` into
+`Config::new`</span>
+-->
+<p><span class="caption">リスト12-7: <code>parse_config</code>を<code>Config::new</code>に変える</span></p>
+<!--
+We’ve updated `main` where we were calling `parse_config` to instead call
+`Config::new`. We’ve changed the name of `parse_config` to `new` and moved it
+within an `impl` block, which associates the `new` function with `Config`. Try
+compiling this code again to make sure it works.
+-->
+<p><code>parse_config</code>を呼び出していた<code>main</code>を代わりに<code>Config::new</code>を呼び出すように更新しました。
+<code>parse_config</code>の名前を<code>new</code>に変え、<code>impl</code>ブロックに入れ込んだので、<code>new</code>関数と<code>Config</code>が紐づくようになりました。
+再度このコードをコンパイルしてみて、動作することを確かめてください。</p>
+<!--
+### Fixing the Error Handling
+-->
+<h3><a class="header" href="#エラー処理を修正する" id="エラー処理を修正する">エラー処理を修正する</a></h3>
+<!--
+Now we’ll work on fixing our error handling. Recall that attempting to access
+the values in the `args` vector at index 1 or index 2 will cause the program to
+panic if the vector contains fewer than three items. Try running the program
+without any arguments; it will look like this:
+-->
+<p>さて、エラー処理の修正に取り掛かりましょう。ベクタが2個以下の要素しか含んでいないときに<code>args</code>ベクタの添え字1か2にアクセスしようとすると、
+プログラムがパニックすることを思い出してください。試しに引数なしでプログラムを実行してください。すると、こんな感じになります:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling minigrep v0.1.0 (file:///projects/minigrep)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+     Running `target/debug/minigrep`
+thread 'main' panicked at 'index out of bounds: the len is 1
+but the index is 1', src/main.rs:29:21
+(スレッド'main'は、「境界外アクセス: 長さは1なのに添え字も1です」でパニックしました)
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+</code></pre>
+<!--
+The line `index out of bounds: the len is 1 but the index is 1` is an error
+message intended for programmers. It won’t help our end users understand what
+happened and what they should do instead. Let’s fix that now.
+-->
+<p><code>境界外アクセス: 長さは1なのに添え字も1です</code>という行は、プログラマ向けのエラーメッセージです。
+エンドユーザが起きたことと代わりにすべきことを理解する手助けにはならないでしょう。これを今修正しましょう。</p>
+<!--
+#### Improving the Error Message
+-->
+<h4><a class="header" href="#エラーメッセージを改善する" id="エラーメッセージを改善する">エラーメッセージを改善する</a></h4>
+<!--
+In Listing 12-8, we add a check in the `new` function that will verify that the
+slice is long enough before accessing index 1 and 2. If the slice isn’t long
+enough, the program panics and displays a better error message than the `index
+out of bounds` message.
+-->
+<p>リスト12-8で、<code>new</code>関数に、添え字1と2にアクセスする前にスライスが十分長いことを実証するチェックを追加しています。
+スライスの長さが十分でなければ、プログラムはパニックし、<code>境界外インデックス</code>よりもいいエラーメッセージを表示します。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">// --snip--
+fn new(args: &amp;[String]) -&gt; Config {
+    if args.len() &lt; 3 {
+        // 引数の数が足りません
+        panic!(&quot;not enough arguments&quot;);
+    }
+    // --snip--
+</code></pre>
+<!--
+<span class="caption">Listing 12-8: Adding a check for the number of
+arguments</span>
+-->
+<p><span class="caption">リスト12-8: 引数の数のチェックを追加する</span></p>
+<!--
+This code is similar to the `Guess::new` function we wrote in Listing 9-9,
+where we called `panic!` when the `value` argument was out of the range of
+valid values. Instead of checking for a range of values here, we’re checking
+that the length of `args` is at least 3 and the rest of the function can
+operate under the assumption that this condition has been met. If `args` has
+fewer than three items, this condition will be true, and we call the `panic!`
+macro to end the program immediately.
+-->
+<p>このコードは、リスト9-9で記述した<code>value</code>引数が正常な値の範囲外だった時に<code>panic!</code>を呼び出した<code>Guess::new</code>関数と似ています。
+ここでは、値の範囲を確かめる代わりに、<code>args</code>の長さが少なくとも3であることを確かめていて、
+関数の残りの部分は、この条件が満たされているという前提のもとで処理を行うことができます。
+<code>args</code>に2要素以下しかなければ、この条件は真になり、<code>panic!</code>マクロを呼び出して、即座にプログラムを終了させます。</p>
+<!--
+With these extra few lines of code in `new`, let’s run the program without any
+arguments again to see what the error looks like now:
+-->
+<p>では、<code>new</code>のこの追加の数行がある状態で、再度引数なしでプログラムを走らせ、エラーがどんな見た目か確かめましょう:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling minigrep v0.1.0 (file:///projects/minigrep)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+     Running `target/debug/minigrep`
+thread 'main' panicked at 'not enough arguments', src/main.rs:30:12
+(スレッド'main'は「引数が足りません」でパニックしました)
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+</code></pre>
+<!--
+This output is better: we now have a reasonable error message. However, we also
+have extraneous information we don’t want to give to our users. Perhaps using
+the technique we used in Listing 9-9 isn’t the best to use here: a call to
+`panic!` is more appropriate for a programming problem than a usage problem, as
+discussed in Chapter 9. Instead, we can use the other technique you learned
+about in Chapter 9—returning a `Result` that indicates either success or an
+error.
+-->
+<p>この出力の方がマシです: これでエラーメッセージが合理的になりました。ですが、
+ユーザに与えたくない追加の情報も含まれてしまっています。おそらく、
+ここではリスト9-9で使用したテクニックを使用するのは最善ではありません: 
+<code>panic!</code>の呼び出しは、第9章で議論したように、使用の問題よりもプログラミング上の問題により適しています。
+代わりに、第9章で学んだもう一つのテクニックを使用することができます。成功か失敗かを示唆する<code>Result</code>を返すことです。</p>
+<!--
+#### Returning a `Result` from `new` Instead of Calling `panic!`
+-->
+<h4><a class="header" href="#panicを呼び出す代わりにnewからresultを返す" id="panicを呼び出す代わりにnewからresultを返す"><code>panic!</code>を呼び出す代わりに<code>new</code>から<code>Result</code>を返す</a></h4>
+<!--
+We can instead return a `Result` value that will contain a `Config` instance in
+the successful case and will describe the problem in the error case. When
+`Config::new` is communicating to `main`, we can use the `Result` type to
+signal there was a problem. Then we can change `main` to convert an `Err`
+variant into a more practical error for our users without the surrounding text
+about `thread 'main'` and `RUST_BACKTRACE` that a call to `panic!` causes.
+-->
+<p>代わりに、成功時には<code>Config</code>インスタンスを含み、エラー時には問題に言及する<code>Result</code>値を返すことができます。
+<code>Config::new</code>が<code>main</code>と対話する時、<code>Result</code>型を使用して問題があったと信号を送ることができます。
+それから<code>main</code>を変更して、<code>panic!</code>呼び出しが引き起こしていた<code>thread 'main'</code>と<code>RUST_BACKTRACE</code>に関する周囲のテキストがない、
+ユーザ向けのより実用的なエラーに<code>Err</code>列挙子を変換することができます。</p>
+<!--
+Listing 12-9 shows the changes we need to make to the return value of
+`Config::new` and the body of the function needed to return a `Result`. Note
+that this won’t compile until we update `main` as well, which we’ll do in the
+next listing.
+-->
+<p>リスト12-9は、<code>Config::new</code>の戻り値に必要な変更と<code>Result</code>を返すのに必要な関数の本体を示しています。
+<code>main</code>も更新するまで、これはコンパイルできないことに注意してください。その更新は次のリストで行います。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">impl Config {
+    fn new(args: &amp;[String]) -&gt; Result&lt;Config, &amp;'static str&gt; {
+        if args.len() &lt; 3 {
+            return Err(&quot;not enough arguments&quot;);
+        }
+
+        let query = args[1].clone();
+        let filename = args[2].clone();
+
+        Ok(Config { query, filename })
+    }
+}
+</code></pre>
+<!--
+<span class="caption">Listing 12-9: Returning a `Result` from
+`Config::new`</span>
+-->
+<p><span class="caption">リスト12-9: <code>Config::new</code>から<code>Result</code>を返却する</span></p>
+<!--
+Our `new` function now returns a `Result` with a `Config` instance in the
+success case and a `&'static str` in the error case. Recall from “The Static
+Lifetime” section in Chapter 10 that `&'static str` is the type of string
+literals, which is our error message type for now.
+-->
+<p><code>new</code>関数は、これで、成功時には<code>Config</code>インスタンスを、エラー時には<code>&amp;'static str</code>を伴う<code>Result</code>を返すようになりました。
+第10章の「静的ライフタイム」節から<code>&amp;'static str</code>は文字列リテラルの型であることを思い出してください。
+これは、今はエラーメッセージの型になっています。</p>
+<!--
+We’ve made two changes in the body of the `new` function: instead of calling
+`panic!` when the user doesn’t pass enough arguments, we now return an `Err`
+value, and we’ve wrapped the `Config` return value in an `Ok`. These changes
+make the function conform to its new type signature.
+-->
+<p><code>new</code>関数の本体で2つ変更を行いました: 十分な数の引数をユーザが渡さなかった場合に<code>panic!</code>を呼び出す代わりに、
+今は<code>Err</code>値を返し、<code>Config</code>戻り値を<code>Ok</code>に包んでいます。これらの変更により、関数が新しい型シグニチャに適合するわけです。</p>
+<!--
+Returning an `Err` value from `Config::new` allows the `main` function to
+handle the `Result` value returned from the `new` function and exit the process
+more cleanly in the error case.
+-->
+<p><code>Config::new</code>から<code>Err</code>値を返すことにより、<code>main</code>関数は、<code>new</code>関数から返ってくる<code>Result</code>値を処理し、
+エラー時により綺麗にプロセスから抜け出すことができます。</p>
+<!--
+#### Calling `Config::new` and Handling Errors
+-->
+<h4><a class="header" href="#confignewを呼び出しエラーを処理する" id="confignewを呼び出しエラーを処理する"><code>Config::new</code>を呼び出し、エラーを処理する</a></h4>
+<!--
+To handle the error case and print a user-friendly message, we need to update
+`main` to handle the `Result` being returned by `Config::new`, as shown in
+Listing 12-10. We’ll also take the responsibility of exiting the command line
+tool with a nonzero error code from `panic!` and implement it by hand. A
+nonzero exit status is a convention to signal to the process that called our
+program that the program exited with an error state.
+-->
+<p>エラーケースを処理し、ユーザフレンドリーなメッセージを出力するために、<code>main</code>を更新して、
+リスト12-10に示したように<code>Config::new</code>から返されている<code>Result</code>を処理する必要があります。
+また、<code>panic!</code>からコマンドラインツールを0以外のエラーコードで抜け出す責任も奪い取り、
+手作業でそれも実装します。0以外の終了コードは、
+我々のプログラムを呼び出したプロセスにプログラムがエラー状態で終了したことを通知する慣習です。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">use std::process;
+
+fn main() {
+    let args: Vec&lt;String&gt; = env::args().collect();
+
+    let config = Config::new(&amp;args).unwrap_or_else(|err| {
+        // 引数解析時に問題
+        println!(&quot;Problem parsing arguments: {}&quot;, err);
+        process::exit(1);
+    });
+
+    // --snip--
+</code></pre>
+<!--
+<span class="caption">Listing 12-10: Exiting with an error code if creating a
+new `Config` fails</span>
+-->
+<p><span class="caption">リスト12-10: 新しい<code>Config</code>作成に失敗したら、エラーコードで終了する</span></p>
+<!--
+In this listing, we’ve used a method we haven’t covered before:
+`unwrap_or_else`, which is defined on `Result<T, E>` by the standard library.
+Using `unwrap_or_else` allows us to define some custom, non-`panic!` error
+handling. If the `Result` is an `Ok` value, this method’s behavior is similar
+to `unwrap`: it returns the inner value `Ok` is wrapping. However, if the value
+is an `Err` value, this method calls the code in the *closure*, which is an
+anonymous function we define and pass as an argument to `unwrap_or_else`. We’ll
+cover closures in more detail in Chapter 13. For now, you just need to know
+that `unwrap_or_else` will pass the inner value of the `Err`, which in this
+case is the static string `not enough arguments` that we added in Listing 12-9,
+to our closure in the argument `err` that appears between the vertical pipes.
+The code in the closure can then use the `err` value when it runs.
+-->
+<p>このリストにおいて、以前には講義していないメソッドを使用しました: <code>unwrap_or_else</code>です。
+これは標準ライブラリで<code>Result&lt;T, E&gt;</code>に定義されています。<code>unwrap_or_else</code>を使うことで、
+<code>panic!</code>ではない何らか独自のエラー処理を定義できるのです。この<code>Result</code>が<code>Ok</code>値だったら、
+このメソッドの振る舞いは<code>unwrap</code>に似ています: <code>Ok</code>が包んでいる中身の値を返すのです。
+しかし、値が<code>Err</code>値なら、このメソッドは、<em>クロージャ</em>内でコードを呼び出し、
+クロージャは私たちが定義し、引数として<code>unwrap_or_else</code>に渡す匿名関数です。クロージャについては第13章で詳しく講義します。
+とりあえず、<code>unwrap_or_else</code>は、今回リスト12-9で追加した<code>not enough arguments</code>という静的文字列の<code>Err</code>の中身を、
+縦棒の間に出現する<code>err</code>引数のクロージャに渡していることだけ知っておく必要があります。
+クロージャのコードはそれから、実行された時に<code>err</code>値を使用できます。</p>
+<!--
+We’ve added a new `use` line to import `process` from the standard library. The
+code in the closure that will be run in the error case is only two lines: we
+print the `err` value and then call `process::exit`. The `process::exit`
+function will stop the program immediately and return the number that was
+passed as the exit status code. This is similar to the `panic!`-based handling
+we used in Listing 12-8, but we no longer get all the extra output. Let’s try
+it:
+-->
+<p>新規<code>use</code>行を追加して標準ライブラリから<code>process</code>をインポートしました。クロージャ内のエラー時に走るコードは、
+たった2行です: <code>err</code>の値を出力し、それから<code>process::exit</code>を呼び出します。<code>process::exit</code>関数は、
+即座にプログラムを停止させ、渡された数字を終了コードとして返します。これは、リスト12-8で使用した<code>panic!</code>ベースの処理と似ていますが、
+もう余計な出力はされません。試しましょう:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling minigrep v0.1.0 (file:///projects/minigrep)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.48 secs
+     Running `target/debug/minigrep`
+Problem parsing arguments: not enough arguments
+</code></pre>
+<!--
+Great! This output is much friendlier for our users.
+-->
+<p>素晴らしい！この出力の方が遥かにユーザに優しいです。</p>
+<!--
+### Extracting Logic from `main`
+-->
+<h3><a class="header" href="#mainからロジックを抽出する" id="mainからロジックを抽出する"><code>main</code>からロジックを抽出する</a></h3>
+<!--
+Now that we’ve finished refactoring the configuration parsing, let’s turn to
+the program’s logic. As we stated in “Separation of Concerns for Binary
+Projects”, we’ll extract a function named `run` that will hold all the logic
+currently in the `main` function that isn’t involved with setting up
+configuration or handling errors. When we’re done, `main` will be concise and
+easy to verify by inspection, and we’ll be able to write tests for all the
+other logic.
+-->
+<p>これで設定解析のリファクタリングが終了したので、プログラムのロジックに目を向けましょう。
+「バイナリプロジェクトの責任の分離」で述べたように、
+現在<code>main</code>関数に存在する設定のセットアップやエラー処理に関わらない全てのロジックを保持することになる<code>run</code>という関数を抽出します。
+やり終わったら、<code>main</code>は簡潔かつ視察で確かめやすくなり、他のロジック全部に対してテストを書くことができるでしょう。</p>
+<!--
+Listing 12-11 shows the extracted `run` function. For now, we’re just making
+the small, incremental improvement of extracting the function. We’re still
+defining the function in *src/main.rs*.
+-->
+<p>リスト12-11は、抜き出した<code>run</code>関数を示しています。今は少しずつ段階的に関数を抽出する改善を行っています。
+それでも、<em>src/main.rs</em>に関数を定義していきます。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    // --snip--
+
+    println!(&quot;Searching for {}&quot;, config.query);
+    println!(&quot;In file {}&quot;, config.filename);
+
+    run(config);
+}
+
+fn run(config: Config) {
+    let mut f = File::open(config.filename).expect(&quot;file not found&quot;);
+
+    let mut contents = String::new();
+    f.read_to_string(&amp;mut contents)
+        .expect(&quot;something went wrong reading the file&quot;);
+
+    println!(&quot;With text:\n{}&quot;, contents);
+}
+
+// --snip--
+</code></pre>
+<!--
+<span class="caption">Listing 12-11: Extracting a `run` function containing the
+rest of the program logic</span>
+-->
+<p><span class="caption">リスト12-11: 残りのプログラムロジックを含む<code>run</code>関数を抽出する</span></p>
+<!--
+The `run` function now contains all the remaining logic from `main`, starting
+from reading the file. The `run` function takes the `Config` instance as an
+argument.
+-->
+<p>これで<code>run</code>関数は、ファイル読み込みから始まる<code>main</code>関数の残りのロジック全てを含むようになりました。
+この<code>run</code>関数は、引数に<code>Config</code>インスタンスを取ります。</p>
+<!--
+#### Returning Errors from the `run` Function
+-->
+<h4><a class="header" href="#run関数からエラーを返す" id="run関数からエラーを返す"><code>run</code>関数からエラーを返す</a></h4>
+<!--
+1行目。ここではwith ...を順接の理由で訳している。with ...は普通、状態を表す表現
+ちょっと意味が強すぎるかもしれない。
+With you next to me, I'll drive to wherever you like. (君が隣にいる状態で、何処へでも君の好きな場所にドライブするよ)
+-->
+<!--
+With the remaining program logic separated into the `run` function, we can
+improve the error handling, as we did with `Config::new` in Listing 12-9.
+Instead of allowing the program to panic by calling `expect`, the `run`
+function will return a `Result<T, E>` when something goes wrong. This will let
+us further consolidate into `main` the logic around handling errors in a
+user-friendly way. Listing 12-12 shows the changes we need to make to the
+signature and body of `run`.
+-->
+<p>残りのプログラムロジックが<code>run</code>関数に隔離されたので、リスト12-9の<code>Config::new</code>のように、
+エラー処理を改善することができます。<code>expect</code>を呼び出してプログラムにパニックさせる代わりに、
+<code>run</code>関数は、何か問題が起きた時に<code>Result&lt;T, E&gt;</code>を返します。これにより、
+さらにエラー処理周りのロジックをユーザに優しい形で<code>main</code>に統合することができます。
+リスト12-12にシグニチャと<code>run</code>本体に必要な変更を示しています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">use std::error::Error;
+
+// --snip--
+
+fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt; {
+    let mut f = File::open(config.filename)?;
+
+    let mut contents = String::new();
+    f.read_to_string(&amp;mut contents)?;
+
+    println!(&quot;With text:\n{}&quot;, contents);
+
+    Ok(())
+}
+</code></pre>
+<!--
+<span class="caption">Listing 12-12: Changing the `run` function to return
+`Result`</span>
+-->
+<p><span class="caption">リスト12-12: <code>run</code>関数を変更して<code>Result</code>を返す</span></p>
+<!--
+We’ve made three significant changes here. First, we changed the return type of
+the `run` function to `Result<(), Box<Error>>`. This function previously
+returned the unit type, `()`, and we keep that as the value returned in the
+`Ok` case.
+-->
+<p>ここでは、3つの大きな変更を行いました。まず、<code>run</code>関数の戻り値を<code>Result&lt;(), Box&lt;Error&gt;&gt;</code>に変えました。
+この関数は、以前はユニット型、<code>()</code>を返していて、それを<code>Ok</code>の場合に返される値として残しました。</p>
+<!--
+For the error type, we used the *trait object* `Box<Error>` (and we’ve brought
+`std::error::Error` into scope with a `use` statement at the top). We’ll cover
+trait objects in Chapter 17. For now, just know that `Box<Error>` means the
+function will return a type that implements the `Error` trait, but we don’t
+have to specify what particular type the return value will be. This gives us
+flexibility to return error values that may be of different types in different
+error cases.
+-->
+<p>エラー型については、<em>トレイトオブジェクト</em>の<code>Box&lt;Error&gt;</code>を使用しました(同時に冒頭で<code>use</code>文により、
+<code>std::error::Error</code>をスコープに導入しています)。トレイトオブジェクトについては、第17章で講義します。
+とりあえず、<code>Box&lt;Error&gt;</code>は、関数が<code>Error</code>トレイトを実装する型を返すことを意味しますが、
+戻り値の型を具体的に指定しなくても良いことを知っておいてください。これにより、
+エラーケースによって異なる型のエラー値を返す柔軟性を得ます。</p>
+<!--
+Second, we’ve removed the calls to `expect` in favor of the `?` operator, as we
+talked about in Chapter 9. Rather than `panic!` on an error, the `?` operator
+will return the error value from the current function for the caller to handle.
+-->
+<p>2番目に、<code>expect</code>の呼び出しよりも<code>?</code>演算子を選択して取り除きました。第9章で語りましたね。
+エラーでパニックするのではなく、<code>?</code>演算子は呼び出し元が処理できるように、現在の関数からエラー値を返します。</p>
+<!--
+Third, the `run` function now returns an `Ok` value in the success case. We’ve
+declared the `run` function’s success type as `()` in the signature, which
+means we need to wrap the unit type value in the `Ok` value. This `Ok(())`
+syntax might look a bit strange at first, but using `()` like this is the
+idiomatic way to indicate that we’re calling `run` for its side effects only;
+it doesn’t return a value we need.
+-->
+<p>3番目に、<code>run</code>関数は今、成功時に<code>Ok</code>値を返すようになりました。<code>run</code>関数の成功型は、
+シグニチャで<code>()</code>と定義したので、ユニット型の値を<code>Ok</code>値に包む必要があります。
+最初は、この<code>Ok(())</code>という記法は奇妙に見えるかもしれませんが、このように<code>()</code>を使うことは、
+<code>run</code>を副作用のためだけに呼び出していると示唆する慣習的な方法です; 必要な値は返しません。</p>
+<!--
+When you run this code, it will compile but will display a warning:
+-->
+<p>このコードを実行すると、コンパイルは通るものの、警告が表示されるでしょう:</p>
+<pre><code class="language-text">warning: unused `std::result::Result` which must be used
+(警告: 使用されなければならない`std::result::Result`が未使用です)
+  --&gt; src/main.rs:18:5
+   |
+18 |     run(config);
+   |     ^^^^^^^^^^^^
+= note: #[warn(unused_must_use)] on by default
+</code></pre>
+<!--
+3行目中盤、andだが、逆接のように訳している。andはフローが流れていることを表すだけなので、こうなっている模様
+-->
+<!--
+Rust tells us that our code ignored the `Result` value and the `Result` value
+might indicate that an error occurred. But we’re not checking to see whether or
+not there was an error, and the compiler reminds us that we probably meant to
+have some error-handling code here! Let’s rectify that problem now.
+-->
+<p>コンパイラは、コードが<code>Result</code>値を無視していると教えてくれて、この<code>Result</code>値は、
+エラーが発生したと示唆しているかもしれません。しかし、エラーがあったか確認するつもりはありませんが、
+コンパイラは、ここにエラー処理コードを書くつもりだったんじゃないかと思い出させてくれています！
+今、その問題を改修しましょう。</p>
+<!--
+#### Handling Errors Returned from `run` in `main`
+-->
+<h4><a class="header" href="#mainでrunから返ってきたエラーを処理する" id="mainでrunから返ってきたエラーを処理する"><code>main</code>で<code>run</code>から返ってきたエラーを処理する</a></h4>
+<!--
+We’ll check for errors and handle them using a technique similar to one we used
+with `Config::new` in Listing 12-10, but with a slight difference:
+-->
+<p>リスト12-10の<code>Config::new</code>に対して行った方法に似たテクニックを使用してエラーを確認し、扱いますが、
+少し違いがあります:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    // --snip--
+
+    println!(&quot;Searching for {}&quot;, config.query);
+    println!(&quot;In file {}&quot;, config.filename);
+
+    if let Err(e) = run(config) {
+        println!(&quot;Application error: {}&quot;, e);
+
+        process::exit(1);
+    }
+}
+</code></pre>
+<!--
+We use `if let` rather than `unwrap_or_else` to check whether `run` returns an
+`Err` value and call `process::exit(1)` if it does. The `run` function doesn’t
+return a value that we want to `unwrap` in the same way that `Config::new`
+returns the `Config` instance. Because `run` returns `()` in the success case
+we only care about detecting an error, so we don’t need `unwrap_or_else` to
+return the unwrapped value because it would only be `()`.
+-->
+<p><code>unwrap_or_else</code>ではなく、<code>if let</code>で<code>run</code>が<code>Err</code>値を返したかどうかを確認し、そうなら<code>process::exit(1)</code>を呼び出しています。
+<code>run</code>関数は、<code>Config::new</code>が<code>Config</code>インスタンスを返すのと同じように<code>unwrap</code>したい値を返すことはありません。
+<code>run</code>は成功時に<code>()</code>を返すので、エラーを検知することにのみ興味があり、<code>()</code>でしかないので、
+<code>unwrap_or_else</code>に包まれた値を返してもらう必要はないのです。</p>
+<!--
+The bodies of the `if let` and the `unwrap_or_else` functions are the same in
+both cases: we print the error and exit.
+-->
+<p><code>if let</code>と<code>unwrap_or_else</code>関数の中身はどちらも同じです: エラーを出力して終了します。</p>
+<!--
+### Splitting Code into a Library Crate
+-->
+<h3><a class="header" href="#コードをライブラリクレートに分割する" id="コードをライブラリクレートに分割する">コードをライブラリクレートに分割する</a></h3>
+<!--
+Our `minigrep` project is looking good so far! Now we’ll split the
+*src/main.rs* file and put some code into the *src/lib.rs* file so we can test
+it and have a *src/main.rs* file with fewer responsibilities.
+-->
+<p>ここまで<code>minigrep</code>は良さそうですね！では、テストを行え、<em>src/main.rs</em>ファイルの責任が減らせるように、
+<em>src/main.rs</em>ファイルを分割し、一部のコードを<em>src/lib.rs</em>ファイルに置きましょう。</p>
+<!--
+Let’s move all the code that isn’t the `main` function from *src/main.rs* to
+*src/lib.rs*:
+-->
+<p><code>main</code>関数以外のコード全部を<em>src/main.rs</em>から<em>src/lib.rs</em>に移動しましょう:</p>
+<!--
+* The `run` function definition
+* The relevant `use` statements
+* The definition of `Config`
+* The `Config::new` function definition
+-->
+<ul>
+<li><code>run</code>関数定義</li>
+<li>関係する<code>use</code>文</li>
+<li><code>Config</code>の定義</li>
+<li><code>Config::new</code>関数定義</li>
+</ul>
+<!--
+The contents of *src/lib.rs* should have the signatures shown in Listing 12-13
+(we’ve omitted the bodies of the functions for brevity). Note that this won't
+compile until we modify *src/main.rs* in Listing 12-14.
+-->
+<p><em>src/lib.rs</em>の中身にはリスト12-13に示したようなシグニチャがあるはずです(関数の本体は簡潔性のために省略しました)。
+リスト12-14で<em>src/main.rs</em>に変更を加えるまで、このコードはコンパイルできないことに注意してください。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore">use std::error::Error;
+use std::fs::File;
+use std::io::prelude::*;
+
+pub struct Config {
+    pub query: String,
+    pub filename: String,
+}
+
+impl Config {
+    pub fn new(args: &amp;[String]) -&gt; Result&lt;Config, &amp;'static str&gt; {
+        // --snip--
+    }
+}
+
+pub fn run(config: Config) -&gt; Result&lt;(), Box&lt;Error&gt;&gt; {
+    // --snip--
+}
+</code></pre>
+<!--
+<span class="caption">Listing 12-13: Moving `Config` and `run` into
+*src/lib.rs*</span>
+-->
+<p><span class="caption">リスト12-13: <code>Config</code>と<code>run</code>を<em>src/lib.rs</em>に移動する</span></p>
+<!--
+We’ve made liberal use of `pub` here: on `Config`, on its fields and its
+`new` method, and on the `run` function. We now have a library crate that has a
+public API that we can test!
+-->
+<p>ここでは、寛大に<code>pub</code>を使用しています: <code>Config</code>のフィールドと<code>new</code>メソッドと<code>run</code>関数です。
+これでテスト可能な公開APIのあるライブラリクレートができました！</p>
+<!--
+Now we need to bring the code we moved to *src/lib.rs* into the scope of the
+binary crate in *src/main.rs*, as shown in Listing 12-14.
+-->
+<p>さて、<em>src/lib.rs</em>に移動したコードを<em>src/main.rs</em>のバイナリクレートのスコープに持っていく必要があります。
+リスト12-14に示したようにですね。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">extern crate minigrep;
+
+use std::env;
+use std::process;
+
+use minigrep::Config;
+
+fn main() {
+    // --snip--
+    if let Err(e) = minigrep::run(config) {
+        // --snip--
+    }
+}
+</code></pre>
+<!--
+<span class="caption">Listing 12-14: Bringing the `minigrep` crate into the
+scope of *src/main.rs*</span>
+-->
+<p><span class="caption">リスト12-14: <code>minigrep</code>クレートを<em>src/main.rs</em>のスコープに持っていく</span></p>
+<!--
+To bring the library crate into the binary crate, we use `extern crate
+minigrep`. Then we add a `use minigrep::Config` line to bring the `Config` type
+into scope, and we prefix the `run` function with our crate name. Now all the
+functionality should be connected and should work. Run the program with `cargo
+run` and make sure everything works correctly.
+-->
+<p>ライブラリクレートをバイナリクレートに持っていくのに、<code>extern crate minigrep</code>を使用しています。
+それから<code>use minigrep::Config</code>行を追加して<code>Config</code>型をスコープに持ってきて、
+<code>run</code>関数にクレート名を接頭辞として付けます。これで全機能が連結され、動くはずです。
+<code>cargo run</code>でプログラムを走らせて、すべてがうまくいっていることを確かめてください。</p>
+<!--
+Whew! That was a lot of work, but we’ve set ourselves up for success in the
+future. Now it’s much easier to handle errors, and we’ve made the code more
+modular. Almost all of our work will be done in *src/lib.rs* from here on out.
+-->
+<p>ふう！作業量が多かったですね。ですが、将来成功する準備はできています。
+もう、エラー処理は遥かに楽になり、コードのモジュール化もできました。
+ここから先の作業は、ほぼ<em>src/lib.rs</em>で完結するでしょう。</p>
+<!--
+Let’s take advantage of this newfound modularity by doing something that would
+have been difficult with the old code but is easy with the new code: we’ll
+write some tests!
+-->
+<p>古いコードでは大変だけれども、新しいコードでは楽なことをして新発見のモジュール性を活用しましょう:
+テストを書くのです！</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch12-02-reading-a-file.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch12-04-testing-the-librarys-functionality.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch12-02-reading-a-file.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch12-04-testing-the-librarys-functionality.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>
