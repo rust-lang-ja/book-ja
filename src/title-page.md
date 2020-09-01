@@ -23,7 +23,7 @@ The 2018 Edition of the Rust language includes a number of improvements that
 make Rust more ergonomic and easier to learn. This iteration of the book
 contains a number of changes to reflect those improvements:
 -->
-Rust言語の2018 Editionには、Rustをもっと使いやすく、学びやすくするための多くの改善点があります。
+Rust言語の2018 Editionには、Rustをもっと扱いやすく、学びやすくするための多くの改善点があります。
 それらの改善点を反映するために、今回の改版は多くの変更点を含んでいます：
 
 <!--
@@ -50,7 +50,7 @@ Rust言語の2018 Editionには、Rustをもっと使いやすく、学びやす
 - 11章には、`?`演算子を使うテストの書き方を説明する "Using `Result<T, E>` in Tests" という新しい節があります。
 - 19章の「高度なライフタイム」節はなくなりました。コンパイラの改善により、この節の内容が現れることはいっそう稀になったからです。
 - 付録D「マクロ」は、手続き的マクロも説明するようになり、19章の「マクロ」節に移動しました。
-- 付録A「キーワード」では、2015 Editionと2018 Editionで書かれたコードを一緒に使えるようにしてくれる、raw identifiersという新しい機能も説明します。
+- 付録A「キーワード」では、2015 Editionと2018 Editionで書かれたコードを一緒に使えるようにしてくれる、生識別子という新しい機能も説明します。
 - 付録Dは "Useful Development Tools" という名前に変わり、Rustコードを書く手助けになる最近登場したツールを説明します。
 - 多くの細かい誤りや不正確な言葉遣いを直しました。報告してくれた読者の皆様、ありがとうございます！
 
@@ -69,7 +69,7 @@ The HTML format is available online at
 and offline with installations of Rust made with `rustup`; run `rustup docs
 --book` to open.
 -->
-HTML版は[https://doc.rust-lang.org/stable/book/](https://doc.rust-lang.org/stable/book/)で手に入ります。
+HTML版は[https://doc.rust-lang.org/stable/book/](https://doc.rust-lang.org/stable/book/)で公開されています。
 オフラインで見たい場合は、`rustup`でインストールしたRustを使って`rustup docs --book`としてください。
 
 <!--
