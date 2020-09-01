@@ -1,8 +1,10 @@
 use rand::Rng;
 // ANCHOR: here
 // --snip--
+// （略）
 use std::{cmp::Ordering, io};
 // --snip--
+// （略）
 // ANCHOR_END: here
 
 fn main() {
