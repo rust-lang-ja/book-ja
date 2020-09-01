@@ -19,12 +19,13 @@ jobs:
       # - run: TODO
       - store_artifacts:
           path: docs
+      # Restore a deleted file.
       - run: git checkout rust-toolchain
-      # - deploy:
-      #     name: If master branch, publish to GitHub Page
-      #     command: |
-      #       if [ "x_${CIRCLE_BRANCH}" == "x_master" ]; then
-      #         git config user.name "bn-e (CircleCI)"
-      #         git config user.email "bn-e@hibaridb.org"
-      #         ./tools/circleci/push-to-master.sh
-      #       fi
+      - deploy:
+          name: If master-ja branch, publish to GitHub Page
+          command: |
+            if [ "x_${CIRCLE_BRANCH}" == "x_master-ja" ]; then
+              git config user.name "bn-e (CircleCI)"
+              git config user.email "bn-e@hibaridb.org"
+              ./tools/circleci/push-to-master-ja.sh
+            fi
