@@ -23,7 +23,7 @@ item can be used by outside code (*public*) or is an internal implementation
 detail and not available for outside use (*private*).
 -->
 *モジュール* はクレート内のコードをグループ化し、可読性と再利用性を上げるのに役に立ちます。
-モジュールは要素の *プライバシー* も制御できます。プライバシーとは、要素がコードの外側で使える *(公開 public)* か、内部の実装の詳細であり外部では使えない *(非公開 private)* か、です。
+モジュールは要素の *プライバシー* も制御できます。プライバシーとは、要素がコードの外側で使える *(公開 public)* のか、内部の実装の詳細であり外部では使えない *(非公開 private)* のかです。
 <!--
 As an example, let’s write a library crate that provides the functionality of a
 restaurant. We’ll define the signatures of functions but leave their bodies
@@ -41,8 +41,8 @@ payment, and bartenders make drinks. Back of house is where the chefs and cooks
 work in the kitchen, dishwashers clean up, and managers do administrative work.
 -->
 レストラン業界では、レストランの一部を *接客部門 (front of house)* といい、その他を *後方部門 (back of house)* といいます。
-接客部門とはお客様がいるところです。接客係がお客様を席に案内し、給仕係が注文と支払いを受け付け、バーテンダーが飲み物を作ります。
-後方部門とはシェフや料理人がキッチンで働き、皿が洗われ、マネージャが管理業務をする場所です。
+接客部門とはお客さんがいるところです。接客係がお客様を席に案内し、給仕係が注文と支払いを受け付け、バーテンダーが飲み物を作ります。
+後方部門とはシェフや料理人がキッチンで働き、皿洗い係が食器を片付け、マネージャが管理業務をする場所です。
 
 <!--
 To structure our crate in the same way that a real restaurant works, we can
@@ -88,7 +88,7 @@ on the groups rather than having to read through all the definitions.
 Programmers adding new functionality to this code would know where to place the
 code to keep the program organized.
 -->
-モジュールを使うことで、関係する定義を一つにまとめ、どうして関係しているのかに名前をつけることができます。
+モジュールを使うことで、関連する定義を一つにまとめ、関連する理由を名前で示せます。
 このコードを使うプログラマーは、定義を全部読むことなく、グループ単位でコードを読み進められるので、欲しい定義を見つけ出すのが簡単になるでしょう。
 このコードに新しい機能を付け加えるプログラマーは、プログラムのまとまりを保つために、どこにその機能のコードを置けば良いのかがわかるでしょう。
 

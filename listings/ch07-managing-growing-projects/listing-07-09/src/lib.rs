@@ -26,6 +26,6 @@ pub fn eat_at_restaurant() {
     // The next line won't compile if we uncomment it; we're not allowed
     // to see or modify the seasonal fruit that comes with the meal
     // 下の行のコメントを外すとコンパイルできない。食事についてくる
-    // 季節の野菜を知ることも修正することも許されていないので
+    // 季節のフルーツを知ることも修正することも許されていないので
     // meal.seasonal_fruit = String::from("blueberries");
 }

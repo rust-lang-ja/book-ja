@@ -98,8 +98,8 @@ will work without any modification, even though the definitions live in
 different files. This technique lets you move modules to new files as they grow
 in size.
 -->
-定義は別のファイルに動いたにもかかわらず、モジュールツリーは同じままであり、`eat_at_restaurant`内での関数呼び出しもなんの変更もなくうまく行きます。
-このテクニックのおかげで、モジュールが大きくなってきた段階で新しいファイルへ動かすということができます。
+定義は別のファイルにあるにもかかわらず、モジュールツリーは同じままであり、`eat_at_restaurant`内での関数呼び出しもなんの変更もなくうまく行きます。
+このテクニックのおかげで、モジュールが大きくなってきた段階で新しいファイルへ動かす、ということができます。
 
 <!--
 Note that the `pub use crate::front_of_house::hosting` statement in
@@ -109,7 +109,7 @@ looks in a file with the same name as the module for the code that goes into
 that module.
 -->
 *src/lib.rs* における`pub use crate::front_of_house::hosting` という文も変わっていないし、`use`はどのファイルがクレートの一部としてコンパイルされるかになんの影響も与えないということに注意してください。
-`mod`キーワードがモジュールを宣言したなら、Rustはそのモジュールに挿入するためのコードを求めて、モジュールと同じ名前のファイルを探すというわけです。
+`mod`キーワードがモジュールを宣言したなら、Rustはそのモジュールに挿入するためのコードを求めて、モジュールと同じ名前のファイルの中を探すというわけです。
 
 <!--
 ## Summary

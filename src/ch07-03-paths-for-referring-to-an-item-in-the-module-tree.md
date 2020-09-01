@@ -23,13 +23,13 @@ A path can take two forms:
   an identifier in the current module.
 -->
 * *絶対パス* は、クレートの名前か`crate`という文字列を使うことで、クレートルートからスタートします。
-* *相対パス* は、`self`、`super`または今のモジュール内の指定子を使うことで、現在のモジュールからスタートします。
+* *相対パス* は、`self`、`super`または今のモジュール内の識別子を使うことで、現在のモジュールからスタートします。
 
 <!--
 Both absolute and relative paths are followed by one or more identifiers
 separated by double colons (`::`).
 -->
-絶対パスも相対パスも、その後に一つ以上の指定子がダブルコロン(`::`)で仕切られて続きます。
+絶対パスも相対パスも、その後に一つ以上の識別子がダブルコロン(`::`)で仕切られて続きます。
 
 <!--
 Let’s return to the example in Listing 7-1. How do we call the
@@ -46,9 +46,10 @@ in a bit.
 Listing 7-1の例に戻ってみましょう。
 `add_to_waitlist`関数をどうやって呼べばいいでしょうか？
 すなわち、`add_to_waitlist`のパスは何でしょうか？
-クレートルートに定義された新しい`eat_at_restaurant`という関数から、`add_to_waitlist`関数を呼びだす2つの方法を示します。
+Listing 7-3 は、モジュールと関数をいくつか取り除いてコードをやや簡潔にしています。
+これを使って、クレートルートに定義された新しい`eat_at_restaurant`という関数から、`add_to_waitlist`関数を呼びだす2つの方法を示しましょう。
 `eat_at_restaurant`関数はこのライブラリクレートの公開 (public) APIの1つなので、`pub`キーワードをつけておきます。
-`pub`については、[”パスを`pub`キーワードで公開する”][pub]<!-- ignore -->の節でより詳しく学びます。
+`pub`については、[パスを`pub`キーワードで公開する][pub]<!-- ignore -->の節でより詳しく学びます。
 この例はまだコンパイルできないことに注意してください。理由はすぐに説明します。
 
 <!--
@@ -84,7 +85,7 @@ is like using `/` to start from the filesystem root in your shell.
 -->
 `crate`の後は、`add_to_waitlist`にたどり着くまで、後に続くモジュールを書き込んでいます。
 同じ構造のファイルシステムを想像すれば、`/front_of_house/hosting/add_to_waitlist`とパスを指定して`add_to_waitlist`を実行していることに相当します。
-`crate`という名前を使ってクレートルートからスタートするというのは、`/`をつかってファイルシステムのルートからスタートするようなものです。
+`crate`という名前を使ってクレートルートからスタートするというのは、`/`を使ってファイルシステムのルートからスタートするようなものです。
 
 <!--
 The second time we call `add_to_waitlist` in `eat_at_restaurant`, we use a
@@ -150,9 +151,9 @@ Modules aren’t useful only for organizing your code. They also define Rust’s
 external code isn’t allowed to know about, call, or rely on. So, if you want to
 make an item like a function or struct private, you put it in a module.
 -->
-モジュールはコードのまとまりを良くするのに便利なだけではありません。
-モジュールはRustの *プライバシー境界* も定義します。これは、外部のコードが知ったり、呼び出したり、依存したりしてはいけない実装の詳細を包む線引きです。
-なので、関数や構造体と言った要素を非公開にしたければ、モジュールに入れればよいのです。
+モジュールはコードの整理に役立つだけではありません。
+モジュールはRustの *プライバシー境界* も定義します。これは、外部のコードが知ったり、呼び出したり、依存したりしてはいけない実装の詳細をカプセル化する線引きです。
+なので、関数や構造体といった要素を非公開にしたければ、モジュールに入れればよいのです。
 
 <!--
 The way privacy works in Rust is that all items (functions, methods, structs,
@@ -179,7 +180,7 @@ keyword to make an item public.
 -->
 Rustは、内部実装の詳細を隠すことが標準であるようにモジュールシステムを機能させることを選択しました。
 こうすることで、内部のコードのどの部分が、外部のコードを壊すことなく変更できるのかを知ることができます。
-しかし、`pub`キーワードを使って要素を公開することで、子モジュールの内部部品を外部の祖先モジュールに公開することができます。
+しかし、`pub`キーワードを使って要素を公開することで、子モジュールの内部部品を外部の祖先モジュールに見せることができます。
 
 
 <!--
@@ -252,7 +253,7 @@ Listing 7-6 のエラーは`add_to_waitlist`関数が非公開だと言ってい
 Let’s also make the `add_to_waitlist` function public by adding the `pub`
 keyword before its definition, as in Listing 7-7.
 -->
-`add_to_waitlist`の宣言の前に`pub`キーワードを追加して、これも公開しましょう。
+`add_to_waitlist`の定義の前に`pub`キーワードを追加して、これも公開しましょう。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -305,7 +306,7 @@ as `eat_at_restaurant`, so the relative path starting from the module in which
 `add_to_waitlist` are marked with `pub`, the rest of the path works, and this
 function call is valid!
 -->
-相対パスについての議論も、最初のステップを除けば同じです。パスをクレートルートから始めるのではなくて、`front_of_house`から始めるのです。
+相対パスについても、最初のステップを除けば同じ理屈です。パスをクレートルートから始めるのではなくて、`front_of_house`から始めるのです。
 `front_of_house`モジュールは`eat_at_restaurant`と同じモジュールで定義されているので、`eat_at_restaurant`が定義されている場所からの相対パスが使えます。
 そして、`hosting`と`add_to_waitlist`は`pub`が付いていますから、残りのパスについても問題はなく、この関数呼び出しは有効というわけです。
 
@@ -320,7 +321,7 @@ We can also construct relative paths that begin in the parent module by using
 the `..` syntax. Why would we want to do this?
 -->
 親モジュールから始まる相対パスなら、`super`を最初につけることで構成できます。
-`..`構文をファイルシステムパスの最初につけるのに似ています。
+ファイルシステムパスを`..`構文で始めるのに似ています。
 どのようなときのこの機能が使いたくなるのでしょう？
 
 <!--
@@ -381,7 +382,7 @@ decides which fruit accompanies the meal based on what’s in season and in
 stock. The available fruit changes quickly, so customers can’t choose the fruit
 or even see which fruit they’ll get.
 -->
-構造体やenumも`pub`を使って公開するよう指定することができますが、追加の細目がいくつかあります。
+構造体やenumも`pub`を使って公開するよう指定できますが、追加の細目がいくつかあります。
 構造体定義の前に`pub`を使うと、構造体は公開されますが、構造体のフィールドは非公開のままなのです。
 それぞれのフィールドを公開するか否かを個々に決められます。
 Listing 7-9 では、公開の`toast`フィールドと、非公開の`seasonal_fruit`フィールドをもつ公開の`back_of_house::Breakfast`構造体を定義しました。
@@ -455,8 +456,8 @@ are public; it would be annoying to have to annotate all enum variants with
 are often useful without their fields being public, so struct fields follow the
 general rule of everything being private by default unless annotated with `pub`.
 -->
-`Appetizer`というenumを公開したので、`Soup`と`Salad`というヴァリアントも`eat_at_restaurant`で使うことができます。
-enumはヴァリアントが公開されてないとあまり便利ではないのですが、毎回enumのすべてのヴァリアントに`pub`をつけないといけないなんて面倒なので、enumのヴァリアントは標準で公開されるようになっているのです。
+`Appetizer`というenumを公開したので、`Soup`と`Salad`というヴァリアントも`eat_at_restaurant`で使えます。
+enumはヴァリアントが公開されてないとあまり便利ではないのですが、毎回enumのすべてのヴァリアントに`pub`をつけるのは面倒なので、enumのヴァリアントは標準で公開されるようになっているのです。
 構造体はフィールドが公開されていなくても便利なことが多いので、構造体のフィールドは、`pub`がついてない限り標準で非公開という通常のルールに従うわけです。
 
 <!--

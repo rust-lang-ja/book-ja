@@ -12,8 +12,8 @@ time we wanted to call `add_to_waitlist` we had to specify `front_of_house` and
 bring a path into a scope once and then call the items in that path as if
 they’re local items with the `use` keyword.
 -->
-これまでに書いてきたパスは、長く、繰り返しも多くて不便なものでした。
-例えば、Listing 7-7 においては、絶対パスを使うか相対パスを使うかにかかわらず、`add_to_waitlist`関数を呼ぼうと思うたびに`front_of_house`と`hosting`も書き込まないといけませんでした。
+これまで関数呼び出しのために書いてきたパスは、長く、繰り返しも多くて不便なものでした。
+例えば、Listing 7-7 においては、絶対パスを使うか相対パスを使うかにかかわらず、`add_to_waitlist`関数を呼ぼうと思うたびに`front_of_house`と`hosting`も指定しないといけませんでした。
 ありがたいことに、この手続きを簡単化する方法があります。
 `use`キーワードを使うことで、パスを一度スコープに持ち込んでしまえば、それ以降はパス内の要素がローカルにあるかのように呼び出すことができるのです。
 
@@ -23,7 +23,7 @@ scope of the `eat_at_restaurant` function so we only have to specify
 `hosting::add_to_waitlist` to call the `add_to_waitlist` function in
 `eat_at_restaurant`.
 -->
-Listing 7-11 では、`crate::front_of_house::hosting`モジュールを`eat_at_restaurant`関数のスコープに持ち込むことで、`eat_at_restaurant`において、`hosting::add_to_waitlist`と書き込むだけで`add_to_waitlist`関数を呼び出せるようにしています。
+Listing 7-11 では、`crate::front_of_house::hosting`モジュールを`eat_at_restaurant`関数のスコープに持ち込むことで、`eat_at_restaurant`において、`hosting::add_to_waitlist`と指定するだけで`add_to_waitlist`関数を呼び出せるようにしています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -143,7 +143,7 @@ idiomatic way</span>
 There’s no strong reason behind this idiom: it’s just the convention that has
 emerged, and folks have gotten used to reading and writing Rust code this way.
 -->
-こちらの慣例には特に意味はありません。自然に発生した慣習であり、みんなRustのコードをこのやり方で読み書きするのに慣れてしまったというだけです。
+こちらの慣例の背後には、はっきりとした理由はありません。自然に発生した慣習であり、みんなRustのコードをこのやり方で読み書きするのに慣れてしまったというだけです。
 
 <!--
 The exception to this idiom is if we’re bringing two items with the same name
@@ -151,7 +151,7 @@ into scope with `use` statements, because Rust doesn’t allow that. Listing 7-1
 shows how to bring two `Result` types into scope that have the same name but
 different parent modules and how to refer to them.
 -->
-同じ名前の2つの要素を`use`でスコープに持ち込むのは許されないので、そのときこの慣例は例外的に不可能です。
+同じ名前の2つの要素を`use`でスコープに持ち込むのはRustでは許されないので、そのときこの慣例は例外的に不可能です。
 Listing 7-15は、同じ名前を持つけれど異なる親モジュールを持つ2つの`Result`型をスコープに持ち込み、それらを参照するやり方を示しています。
 
 <!--
@@ -181,7 +181,7 @@ meant when we used `Result`.
 <!--
 ### Providing New Names with the `as` Keyword
 -->
-### 新しい名前を`as`で与える
+### 新しい名前を`as`キーワードで与える
 
 <!--
 There’s another solution to the problem of bringing two types of the same name
@@ -189,8 +189,8 @@ into the same scope with `use`: after the path, we can specify `as` and a new
 local name, or alias, for the type. Listing 7-16 shows another way to write the
 code in Listing 7-15 by renaming one of the two `Result` types using `as`.
 -->
-同じ名前の2つの型を`use`を使って同じスコープに持ち込むという問題には、もう一つ解決策があります。パスの後に、`as`と型の新しいローカル名、即ちエイリアスを書き込めばよいのです。
-Listing 7-16 は、Listing 7-15 のコードを、2つの`Result`型のうち一つを`as`を使って改名するという別のやり方で書いたものを表しています。
+同じ名前の2つの型を`use`を使って同じスコープに持ち込むという問題には、もう一つ解決策があります。パスの後に、`as`と型の新しいローカル名、即ちエイリアスを指定すればよいのです。
+Listing 7-16 は、Listing 7-15 のコードを、2つの`Result`型のうち一つを`as`を使ってリネームするという別のやり方で書いたものを表しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -277,7 +277,7 @@ the library and programmers calling the library.
 例えば、レストランの比喩では、レストランを経営している人は「接客部門 (front of house)」と「後方部門 (back of house)」のことについて考えるでしょう。
 しかし、レストランを訪れるお客さんは、そのような観点からレストランの部門について考えることはありません。
 `pub use`を使うことで、ある構造でコードを書きつつも、別の構造で公開するということが可能になります。
-こうすることで、私達のライブラリを、ライブラリに取り組むプログラマにとっても、ライブラリを呼び出すプログラマにとっても、よく整理されたものとすることができます。
+こうすることで、私達のライブラリを、ライブラリを開発するプログラマにとっても、ライブラリを呼び出すプログラマにとっても、よく整理されたものとすることができます。
 
 <!--
 ### Using External Packages
@@ -369,7 +369,7 @@ listing each item on its own line can take up a lot of vertical space in our
 files. For example, these two `use` statements we had in the Guessing Game in
 Listing 2-4 bring items from `std` into scope:
 -->
-同じクレーとか同じモジュールで定義された複数の要素を使おうとする時、それぞれの要素を一行一行並べると、縦に大量のスペースを取ってしまいます。
+同じクレートか同じモジュールで定義された複数の要素を使おうとする時、それぞれの要素を一行一行並べると、縦に大量のスペースを取ってしまいます。
 例えば、Listing 2-4の数当てゲームで使った次の2つの`use`文が`std`からスコープへ要素を持ち込みました。
 
 <!--
@@ -387,7 +387,7 @@ line. We do this by specifying the common part of the path, followed by two
 colons, and then curly brackets around a list of the parts of the paths that
 differ, as shown in Listing 7-18.
 -->
-代わりに、ネストしたパスを、同じ要素をスコープに1行で持ち込むのに使えます。
+代わりに、ネストしたパスを使うことで、同じ一連の要素を1行でスコープに持ち込めます。
 これをするには、Listing 7-18 に示されるように、パスの共通部分を書き、2つのコロンを続け、そこで波括弧で互いに異なる部分のパスのリストを囲みます。
 
 <!--
@@ -403,7 +403,7 @@ differ, as shown in Listing 7-18.
 <span class="caption">Listing 7-18: Specifying a nested path to bring multiple
 items with the same prefix into scope</span>
 -->
-<span class="caption">Listing 7-18: 同じプレフィックスをもつ複数の要素をスコープに持ち込むためにネストしたパスを書き込む</span>
+<span class="caption">Listing 7-18: 同じプレフィックスをもつ複数の要素をスコープに持ち込むためにネストしたパスを指定する</span>
 
 <!--
 In bigger programs, bringing many items into scope from the same crate or

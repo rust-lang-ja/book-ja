@@ -11,7 +11,7 @@ you’ll clarify where to find code that implements a particular feature and
 where to go to change how a feature works.
 -->
 大きなプログラムを書く時、そのすべてを頭の中に入れておくのは不可能になるため、コードのまとまりを良くすることが重要になります。
-関係した機能をまとめ、異なる特徴を持つコードを分割することにより、特定の機能を実装しているコードを見つけたり、機能を変更したりするためにどこを探せば良いのかを明確にすることができます。
+関係した機能をまとめ、異なる特徴を持つコードを分割することにより、特定の機能を実装しているコードを見つけたり、機能を変更したりするためにどこを探せば良いのかを明確にできます。
 
 <!--
 The programs we’ve written so far have been in one module in one file. As a
@@ -24,7 +24,7 @@ that evolve together, Cargo provides workspaces, which we’ll cover in the
 [“Cargo Workspaces”][workspaces] section in Chapter 14.
 -->
 私達がこれまでに書いてきたプログラムは、一つのファイル内の一つのモジュール内にありました。
-プロジェクトが大きくなるに連れて、これを複数のモジュールに、ついで複数のファイルに分割することで、プログラムを整理することができます。
+プロジェクトが大きくなるにつれて、これを複数のモジュールに、ついで複数のファイルに分割することで、プログラムを整理することができます。
 パッケージは複数のバイナリクレートからなり、またライブラリクレートを1つもつこともできます。
 パッケージが大きくなるにつれて、その一部を抜き出して分離したクレートにし、外部依存とするのもよいでしょう。
 この章ではそれらのテクニックすべてを学びます。
@@ -40,7 +40,7 @@ public for other code to use and which parts are private implementation details
 that you reserve the right to change. This is another way to limit the amount
 of detail you have to keep in your head.
 -->
-機能をグループにまとめられることに加え、実装の詳細がカプセル化されることにより、コードをより高いレベルで再利用することができます：
+機能をグループにまとめられることに加え、実装の詳細がカプセル化されることにより、コードをより高いレベルで再利用できるようになります：
 手続きを実装し終えてしまえば、他のコードはそのコードの公開されたインターフェースを通じて、実装の詳細を知ることなくそのコードを呼び出すことができるのです。
 コードをどう書くかによって、どの部分が他のコードにも使える公開のものになるのか、それとも自分だけが変更できる非公開のものになるのかが決定されます。
 これもまた、記憶しておくべき細部を制限してくれる方法のひとつです。
