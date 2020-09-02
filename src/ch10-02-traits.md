@@ -680,7 +680,7 @@ error.
 -->
 このエラーの鍵となる行は、`cannot move out of type [T], a non-copy slice`です。
 ジェネリックでないバージョンの`largest`関数では、最大の`i32`か`char`を探そうとするだけでした。
-第4章の「スタックだけのデータ: コピー」節で議論したように、`i32`や`char`のような既知のサイズの型は、
+第4章の[スタックのみのデータ: コピー][stack-only-data-copy]節で議論したように、`i32`や`char`のような既知のサイズの型は、
 スタックに格納できるので、`Copy`トレイトを実装しています。しかし、`largest`関数をジェネリックにすると、
 `list`引数が`Copy`トレイトを実装しない型を含む可能性も出てきたのです。結果として、
 `list[0]`から値を`largest`にムーブできず、このエラーに陥ったのです。
@@ -845,7 +845,13 @@ lifetimes do that.
 型が欲しい振る舞いを保持していることを保証するのではなく、必要な間だけ参照が有効であることをライフタイムは保証します。
 ライフタイムがどうやってそれを行うかを見ましょう。
 
+<!--
 [stack-only-data-copy]:
 ch04-01-what-is-ownership.html#stack-only-data-copy
 [using-trait-objects-that-allow-for-values-of-different-types]:
 ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
+-->
+[stack-only-data-copy]:
+ch04-01-what-is-ownership.html#%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%81%AE%E3%81%BF%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF-%E3%82%B3%E3%83%94%E3%83%BC
+[using-trait-objects-that-allow-for-values-of-different-types]:
+ch17-02-trait-objects.html#%E3%83%88%E3%83%AC%E3%82%A4%E3%83%88%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A7%E7%95%B0%E3%81%AA%E3%82%8B%E5%9E%8B%E3%81%AE%E5%80%A4%E3%82%92%E8%A8%B1%E5%AE%B9%E3%81%99%E3%82%8B
