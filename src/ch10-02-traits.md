@@ -234,7 +234,7 @@ implementation to use.
 しかし、外部のトレイトを外部の型に対して実装することはできません。例として、
 `aggregator`クレート内で`Vec<T>`に対して`Display`トレイトを実装することはできません。
 `Display`と`Vec<T>`は標準ライブラリで定義され、`aggregator`クレートに固有ではないからです。
-この制限は、*コヒーレンス*(coherence)あるいは、具体的に*オーファンルール*(orphan rule)と呼ばれるプログラムの特性の一部で、
+この制限は、*コヒーレンス*(coherence)、特に*孤児のルール*(orphan rule)と呼ばれるプログラムの特性の一部で、
 親の型が存在しないためにそう命名されました。この規則により、他の人のコードが自分のコードを壊したり、
 その逆が起きないことを保証してくれます。この規則がなければ、2つのクレートが同じ型に対して同じトレイトを実装できてしまい、
 コンパイラはどちらの実装を使うべきかわからなくなってしまうでしょう。
@@ -295,9 +295,9 @@ directly, we’ve provided a default implementation and specified that
 `NewsArticle` implements the `Summary` trait. As a result, we can still call
 the `summarize` method on an instance of `NewsArticle`, like this:
 -->
-たとえ、最早`NewsArticle`に直接`summarize`メソッドを定義することはなくても、デフォルト実装を提供し、
-`NewsArticle`は`Summary`トレイトを実装すると指定しました。結果的に、それでも、
-`NewsArticle`のインスタンスに対して`summarize`メソッドを呼び出すことができます。
+最早`NewsArticle`に直接`summarize`メソッドを定義してはいませんが、私達はデフォルト実装を提供しており、
+`NewsArticle`は`Summary`トレイトを実装すると指定しました。そのため、
+`NewsArticle`のインスタンスに対して`summarize`メソッドを同じように呼び出すことができます。
 このように:
 
 ```rust,ignore
@@ -331,10 +331,10 @@ a small part of it. For example, we could define the `Summary` trait to have a
 `summarize_author` method:
 -->
 
-デフォルト実装は、他のデフォルト実装がないメソッドでも呼び出すことができます。
-このように、トレイトは多くの有用な機能を提供しつつ、実装者に僅かな部分だけ指定してもらう必要しかないのです。
-例えば、`Summary`トレイトを実装が必須の`summarize_author`メソッドを持つように定義し、
-それから`summarize_author`メソッドを呼び出すデフォルト実装のある`summarize`メソッドを定義することもできます:
+デフォルト実装は、自らのトレイトのデフォルト実装を持たない他のメソッドを呼び出すことができます。
+このようにすれば、トレイトは多くの有用な機能を提供しつつ、実装者は僅かな部分しか指定しなくて済むようになります。
+例えば、`Summary`トレイトを、（実装者が）内容を実装しなければならない`summarize_author`メソッドを持つように定義し、
+それから`summarize_author`メソッドを呼び出すデフォルト実装を持つ`summarize`メソッドを定義することもできます:
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-03-default-impl-calls-other-methods/src/lib.rs:here}}
@@ -345,7 +345,7 @@ To use this version of `Summary`, we only need to define `summarize_author`
 when we implement the trait on a type:
 -->
 
-このバージョンの`Summary`を使用するには、型にトレイトを実装する際に`summarize_author`を定義する必要しかありません:
+このバージョンの`Summary`を使用するために、型にトレイトを実装する際、実装する必要があるのは`summarize_author`だけです:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-03-default-impl-calls-other-methods/src/lib.rs:impl}}
@@ -360,7 +360,7 @@ definition of `summarize_author` that we’ve provided. Because we’ve implemen
 -->
 
 `summarize_author`定義後、`Tweet`構造体のインスタンスに対して`summarize`を呼び出せ、
-`summarize`のデフォルト実装は、提供済みの`summarize_author`の定義を呼び出すでしょう。
+`summarize`のデフォルト実装は、私達が提供した`summarize_author`の定義を呼び出すでしょう。
 `summarize_author`を実装したので、追加のコードを書く必要なく、`Summary`トレイトは、
 `summarize`メソッドの振る舞いを与えてくれました。
 
@@ -379,7 +379,7 @@ Note that it isn’t possible to call the default implementation from an
 overriding implementation of that same method.
 -->
 
-同じメソッドのオーバーライドした実装からは、デフォルト実装を呼び出すことができないことに注意してください。
+デフォルト実装を、そのメソッドをオーバーライドしている実装から呼び出すことはできないことに注意してください。
 
 <!--
 ### Traits as Parameters
@@ -630,9 +630,9 @@ type parameter’s bounds, let’s return to Listing 10-5 to fix the definition 
 the `largest` function that uses a generic type parameter! Last time we tried
 to run that code, we received this error:
 -->
-ジェネリックな型引数の境界で使用したい振る舞いを指定する方法を知ったので、リスト10-5に戻って、
-ジェネリックな型引数を使用する`largest`関数の定義を修正しましょう！最後にそのコードを実行しようとしたら、
-こんなエラーが出ました:
+ジェネリックな型引数の境界で使用したい振る舞いを指定する方法がわかったので、リスト10-5に戻って、
+ジェネリックな型引数を使用する`largest`関数の定義を修正しましょう！最後にそのコードを実行しようとした時、
+こんなエラーが出ていました:
 
 ```text
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/output.txt}}
@@ -647,11 +647,11 @@ slices of any type that we can compare. We don’t need to bring `PartialOrd`
 into scope because it’s in the prelude. Change the signature of `largest` to
 look like this:
 -->
-`largest`の本体で、大なり演算子(`>`)を使用して型`T`の2つの値を比較したかったのです。その演算子は、
+`largest`の本体で、大なり演算子(`>`)を使用して型`T`の2つの値を比較しようとしていました。その演算子は、
 標準ライブラリトレイトの`std::cmp::PartialOrd`でデフォルトメソッドとして定義されているので、
-`largest`関数が、比較できるあらゆる型のスライスに対して動くように、`T`のトレイト境界に`PartialOrd`を指定する必要があります。
-初期化処理に含まれているので、`PartialOrd`をスコープに導入する必要はありません。
-`largest`のシグニチャを以下のような見た目に変えてください:
+`largest`関数が、比較できるあらゆる型のスライスに対して動くようにするためには、`T`のトレイト境界に`PartialOrd`を指定する必要があります。
+`PartialOrd`は初期化処理に含まれているので、これをスコープに導入する必要はありません。
+`largest`のシグニチャを以下のように変えてください:
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-07-fixing-listing-10-05/src/main.rs:here}}
@@ -680,7 +680,7 @@ error.
 -->
 このエラーの鍵となる行は、`cannot move out of type [T], a non-copy slice`です。
 ジェネリックでないバージョンの`largest`関数では、最大の`i32`か`char`を探そうとするだけでした。
-第4章の[スタックのみのデータ: コピー][stack-only-data-copy]節で議論したように、`i32`や`char`のような既知のサイズの型は、
+第4章の[スタックのみのデータ: コピー][stack-only-data-copy]節で議論したように、`i32`や`char`のようなサイズが既知の型は、
 スタックに格納できるので、`Copy`トレイトを実装しています。しかし、`largest`関数をジェネリックにすると、
 `list`引数が`Copy`トレイトを実装しない型を含む可能性も出てきたのです。結果として、
 `list[0]`から値を`largest`にムーブできず、このエラーに陥ったのです。
@@ -692,9 +692,8 @@ a generic `largest` function that will compile as long as the types of the
 values in the slice that we pass into the function implement the `PartialOrd`
 *and* `Copy` traits, like `i32` and `char` do.
 -->
-このコードを`Copy`トレイトを実装する型とだけで呼び出すには、`T`のトレイト境界に`Copy`を追加できます！
-リスト10-15は、関数に渡したスライスの値の型が`i32`や`char`などのように、`PartialOrd`*と*`Copy`を実装する限り、
-コンパイルできるジェネリックな`largest`関数の完全なコードを示しています。
+このコードを`Copy`トレイトを実装する型だけを使って呼び出すようにしたいなら、`T`のトレイト境界に`Copy`を追加すればよいです！
+リスト10-15は、関数に渡したスライスの値の型が、`i32`や`char`などのように`PartialOrd`*と*`Copy`を実装する限りコンパイルできる、ジェネリックな`largest`関数の完全なコードを示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -711,7 +710,7 @@ function that works on any generic type that implements the `PartialOrd` and
 `Copy` traits</span>
 -->
 <span class="caption">リスト10-15: `PartialOrd`と`Copy`トレイトを実装するあらゆるジェネリックな型に対して動く、
-`largest`関数の動く定義</span>
+`largest`関数の実際の定義</span>
 
 <!--
 If we don’t want to restrict the `largest` function to the types that implement
@@ -722,11 +721,10 @@ potentially making more heap allocations in the case of types that own heap
 data like `String`, and heap allocations can be slow if we’re working with
 large amounts of data.
 -->
-もし`largest`関数を`Copy`を実装する型だけに制限したくなかったら、`Copy`ではなく、
-`T`が`Clone`というトレイト境界を持つと指定することもできます。そうしたら、
+もし`largest`関数を`Copy`を実装する型だけに制限したくなかったら、`T`が`Copy`ではなく`Clone`というトレイト境界を持つと指定することもできます。そうしたら、
 `largest`関数に所有権が欲しい時にスライスの各値をクローンできます。`clone`関数を使用するということは、
-`String`のようなヒープデータを所有する型の場合にもっとヒープ確保が発生する可能性があることを意味し、
-大きなデータを取り扱っていたら、ヒープ確保は遅いこともあります。
+`String`のようなヒープデータを持つ型の場合により多くのヒープ確保が発生する可能性があることを意味します。
+そして、大量のデータを取り扱っていたら、ヒープ確保には時間がかかることもあります。
 
 <!--
 Another way we could implement `largest` is for the function to return a
@@ -738,7 +736,7 @@ avoid heap allocations. Try implementing these alternate solutions on your own!
 `largest`の別の実装方法は、関数がスライスの`T`値への参照を返すようにすることです。
 戻り値の型を`T`ではなく`&T`に変え、それにより関数の本体を参照を返すように変更したら、
 `Clone`か`Copy`トレイト境界は必要なくなり、ヒープ確保も避けられるでしょう。
-試しにこれらの対立的な解決策もご自身で実装してみてください！
+これらの代替策をご自身で実装してみましょう！
 
 <!--
 ### Using Trait Bounds to Conditionally Implement Methods
@@ -830,9 +828,9 @@ generics.
 トレイトとトレイト境界により、ジェネリックな型引数を使用して重複を減らしつつ、コンパイラに対して、
 そのジェネリックな型に特定の振る舞いが欲しいことを指定するコードを書くことができます。
 それからコンパイラは、トレイト境界の情報を活用してコードに使用された具体的な型が正しい振る舞いを提供しているか確認できます。
-動的型付け言語では、型が実装しない型のメソッドを呼び出せば、実行時にエラーが出るでしょう。
-しかし、Rustはこの種のエラーをコンパイル時に移したので、コードが動かせるようにさえなる以前に問題を修正することを強制されるのです。
-加えて、コンパイル時に既に確認したので、実行時に振る舞いがあるかどうか確認するコードを書かなくても済みます。
+動的型付け言語では、型が実装しない型のメソッドを呼び出せば、実行時 (runtime) にエラーが出るでしょう。
+しかし、Rustはこの種のエラーをコンパイル時に移したので、コードが動かせるようになる以前に問題を修正することを強制されるのです。
+加えて、コンパイル時に既に確認したので、実行時の振る舞いを確認するコードを書かなくても済みます。
 そうすることでジェネリクスの柔軟性を諦める必要なく、パフォーマンスを向上させます。
 
 <!--
@@ -841,9 +839,9 @@ Rather than ensuring that a type has the behavior we want, lifetimes ensure
 that references are valid as long as we need them to be. Let’s look at how
 lifetimes do that.
 -->
-もう使用してきたことのある別の種のジェネリクスは、ライフタイムと呼ばれます。
-型が欲しい振る舞いを保持していることを保証するのではなく、必要な間だけ参照が有効であることをライフタイムは保証します。
-ライフタイムがどうやってそれを行うかを見ましょう。
+すでに使っている他のジェネリクスに、ライフタイムと呼ばれるものがあります。
+ライフタイムは、型が欲しい振る舞いを保持していることではなく、必要な間だけ参照が有効であることを保証します。
+ライフタイムがどうやってそれを行うかを見てみましょう。
 
 <!--
 [stack-only-data-copy]:
