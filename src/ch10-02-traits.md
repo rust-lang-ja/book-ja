@@ -68,9 +68,7 @@ need a summary from each type, and we need to request that summary by calling a
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-pub trait Summary {
-    fn summarize(&self) -> String;
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-12/src/lib.rs}}
 ```
 
 <!--
@@ -139,35 +137,7 @@ already limited to 280 characters.
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# pub trait Summary {
-#     fn summarize(&self) -> String;
-# }
-#
-pub struct NewsArticle {
-    pub headline: String,
-    pub location: String,
-    pub author: String,
-    pub content: String,
-}
-
-impl Summary for NewsArticle {
-    fn summarize(&self) -> String {
-        format!("{}, by {} ({})", self.headline, self.author, self.location)
-    }
-}
-
-pub struct Tweet {
-    pub username: String,
-    pub content: String,
-    pub reply: bool,
-    pub retweet: bool,
-}
-
-impl Summary for Tweet {
-    fn summarize(&self) -> String {
-        format!("{}: {}", self.username, self.content)
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-13/src/lib.rs:here}}
 ```
 
 <!--
@@ -202,15 +172,7 @@ After implementing the trait, we can call the methods on instances of
 こんな感じで:
 
 ```rust,ignore
-let tweet = Tweet {
-    username: String::from("horse_ebooks"),
-    // もちろん、ご存知かもしれないようにね、みなさん
-    content: String::from("of course, as you probably already know, people"),
-    reply: false,
-    retweet: false,
-};
-
-println!("1 new tweet: {}", tweet.summarize());
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-01-calling-trait-method/src/main.rs:here}}
 ```
 
 <!--
@@ -226,7 +188,7 @@ Note that because we defined the `Summary` trait and the `NewsArticle` and
 scope. Let’s say this *lib.rs* is for a crate we’ve called `aggregator` and
 someone else wants to use our crate’s functionality to implement the `Summary`
 trait on a struct defined within their library’s scope. They would need to
-import the trait into their scope first. They would do so by specifying `use
+bring the trait into their scope first. They would do so by specifying `use
 aggregator::Summary;`, which then would enable them to implement `Summary` for
 their type. The `Summary` trait would also need to be a public trait for
 another crate to implement it, which it is because we put the `pub` keyword
@@ -296,7 +258,7 @@ each method’s default behavior.
 <!--
 Listing 10-14 shows how to specify a default string for the `summarize` method
 of the `Summary` trait instead of only defining the method signature, as we did
-in Listing 10-12:
+in Listing 10-12.
 -->
 
 リスト10-14は、リスト10-12のように、メソッドシグニチャだけを定義するのではなく、
@@ -309,12 +271,7 @@ in Listing 10-12:
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-pub trait Summary {
-    fn summarize(&self) -> String {
-        // (もっと読む)
-        String::from("(Read more...)")
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-14/src/lib.rs:here}}
 ```
 
 <!--
@@ -329,7 +286,6 @@ To use a default implementation to summarize instances of `NewsArticle` instead
 of defining a custom implementation, we specify an empty `impl` block with
 `impl Summary for NewsArticle {}`.
 -->
-
 独自の実装を定義するのではなく、デフォルト実装を使用して`NewsArticle`のインスタンスをまとめるには、
 `impl Summary for NewsArticle {}`と空の`impl`ブロックを指定します。
 
@@ -339,27 +295,13 @@ directly, we’ve provided a default implementation and specified that
 `NewsArticle` implements the `Summary` trait. As a result, we can still call
 the `summarize` method on an instance of `NewsArticle`, like this:
 -->
-
 たとえ、最早`NewsArticle`に直接`summarize`メソッドを定義することはなくても、デフォルト実装を提供し、
 `NewsArticle`は`Summary`トレイトを実装すると指定しました。結果的に、それでも、
 `NewsArticle`のインスタンスに対して`summarize`メソッドを呼び出すことができます。
 このように:
 
 ```rust,ignore
-let article = NewsArticle {
-    // ペンギンチームがスタンレーカップチャンピオンシップを勝ち取る！
-    headline: String::from("Penguins win the Stanley Cup Championship!"),
-    // ピッツバーグ、ペンシルベニア州、アメリカ
-    location: String::from("Pittsburgh, PA, USA"),
-    // アイスバーグ
-    author: String::from("Iceburgh"),
-    // ピッツバーグ・ペンギンが再度NHL(National Hockey League)で最強のホッケーチームになった
-    content: String::from("The Pittsburgh Penguins once again are the best
-    hockey team in the NHL."),
-};
-
-// 新しい記事が利用可能です！ {}
-println!("New article available! {}", article.summarize());
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-02-calling-default-impl/src/main.rs:here}}
 ```
 
 <!--
@@ -395,14 +337,7 @@ a small part of it. For example, we could define the `Summary` trait to have a
 それから`summarize_author`メソッドを呼び出すデフォルト実装のある`summarize`メソッドを定義することもできます:
 
 ```rust
-pub trait Summary {
-    fn summarize_author(&self) -> String;
-
-    fn summarize(&self) -> String {
-        // {}さんからもっと読む
-        format!("(Read more from {}...)", self.summarize_author())
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-03-default-impl-calls-other-methods/src/lib.rs:here}}
 ```
 
 <!--
@@ -413,11 +348,7 @@ when we implement the trait on a type:
 このバージョンの`Summary`を使用するには、型にトレイトを実装する際に`summarize_author`を定義する必要しかありません:
 
 ```rust,ignore
-impl Summary for Tweet {
-    fn summarize_author(&self) -> String {
-        format!("@{}", self.username)
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-03-default-impl-calls-other-methods/src/lib.rs:impl}}
 ```
 
 <!--
@@ -434,14 +365,7 @@ definition of `summarize_author` that we’ve provided. Because we’ve implemen
 `summarize`メソッドの振る舞いを与えてくれました。
 
 ```rust,ignore
-let tweet = Tweet {
-    username: String::from("horse_ebooks"),
-    content: String::from("of course, as you probably already know, people"),
-    reply: false,
-    retweet: false,
-};
-
-println!("1 new tweet: {}", tweet.summarize());
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-03-default-impl-calls-other-methods/src/main.rs:here}}
 ```
 
 <!--
@@ -458,109 +382,246 @@ overriding implementation of that same method.
 同じメソッドのオーバーライドした実装からは、デフォルト実装を呼び出すことができないことに注意してください。
 
 <!--
-### Trait Bounds
+### Traits as Parameters
 -->
 
-### トレイト境界
+### 引数としてのトレイト
 
 <!--
-Now that you know how to define traits and implement those traits on types, we
-can explore how to use traits with generic type parameters. We can use *trait
-bounds* to constrain generic types to ensure the type will be limited to those
-that implement a particular trait and behavior.
+Now that you know how to define and implement traits, we can explore how to use
+traits to define functions that accept many different types.
 -->
-
-これでトレイトの定義とトレイトを型に実装する方法を知ったので、ジェネリックな型引数でトレイトを使用する方法を探究できます。
-*トレイト境界*を使用してジェネリックな型を制限し、型が特定のトレイトや振る舞いを実装するものに制限されることを保証できます。
+トレイトを定義し実装する方法はわかったので、トレイトを使っていろんな種類の型を受け付ける関数を定義する方法を学んでいきましょう。
 
 <!--
-For example, in Listing 10-13, we implemented the `Summary` trait on the types
-`NewsArticle` and `Tweet`. We can define a function `notify` that calls the
-`summarize` method on its parameter `item`, which is of the generic type `T`.
-To be able to call `summarize` on `item` without getting an error telling us
-that the generic type `T` doesn’t implement the method `summarize`, we can use
-trait bounds on `T` to specify that `item` must be of a type that implements
-the `Summary` trait:
+For example, in Listing 10-13, we implemented the `Summary` trait on the
+`NewsArticle` and `Tweet` types. We can define a `notify` function that calls
+the `summarize` method on its `item` parameter, which is of some type that
+implements the `Summary` trait. To do this, we can use the `impl Trait`
+syntax, like this:
 -->
-
-例として、リスト10-13で、`Summary`トレイトを型`NewsArticle`と`Tweet`に実装しました。
-引数`item`に対して`summarize`メソッドを呼び出す関数`notify`を定義でき、この引数はジェネリックな型`T`です。
-`item`の`summarize`を呼ぶときにジェネリックな型`T`がメソッド`summarize`を実装してないというエラーが出ないように、
-`T`のトレイト境界を使って`item`が`Summary`トレイトを実装する型でなければならないと指定できます。
+たとえば、Listing 10-13では、`NewsArticle`と`Tweet`型に`Summary`トレイトを実装しました。
+ここで、引数の`item`の`summarize`メソッドを呼ぶ関数`notify`を定義することができます。ただし、引数`item`は`Summary`トレイトを実装しているような何らかの型であるとします。
+このようなことをするためには、`impl Trait`構文を使うことができます。
 
 ```rust,ignore
-pub fn notify<T: Summary>(item: T) {
-    // 新ニュース！ {}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-04-traits-as-parameters/src/lib.rs:here}}
+```
+
+<!--
+Instead of a concrete type for the `item` parameter, we specify the `impl`
+keyword and the trait name. This parameter accepts any type that implements the
+specified trait. In the body of `notify`, we can call any methods on `item`
+that come from the `Summary` trait, such as `summarize`. We can call `notify`
+and pass in any instance of `NewsArticle` or `Tweet`. Code that calls the
+function with any other type, such as a `String` or an `i32`, won’t compile
+because those types don’t implement `Summary`.
+-->
+引数の`item`には、具体的な型の代わりに、`impl`キーワードとトレイト名を指定します。
+この引数は、指定されたトレイトを実装しているあらゆる型を受け付けます。
+`notify`の中身では、`summarize`のような、`Summary`トレイトに由来する`item`のあらゆるメソッドを呼び出すことができます。
+私達は、`notify`を呼びだし、`NewsArticle`か`Tweet`のどんなインスタンスでも渡すことができます。
+この関数を呼び出すときに`String`や`i32`のような他の型を渡すようなコードを書くと、これらの型は`Summary`を実装していないので、コンパイルできません。
+
+<!--
+#### Trait Bound Syntax
+-->
+#### トレイト境界構文
+
+<!--
+The `impl Trait` syntax works for straightforward cases but is actually
+syntax sugar for a longer form, which is called a *trait bound*; it looks like
+this:
+-->
+`impl Trait`構文は単純なケースを解決しますが、実はより長い*trait bound* と呼ばれる姿の糖衣構文 (syntax sugar) なのです。
+それは以下のようなものです：
+
+```rust,ignore
+pub fn notify<T: Summary>(item: &T) {
     println!("Breaking news! {}", item.summarize());
 }
 ```
 
 <!--
-We place trait bounds with the declaration of the generic type parameter, after
-a colon and inside angle brackets. Because of the trait bound on `T`, we can
-call `notify` and pass in any instance of `NewsArticle` or `Tweet`. Code that
-calls the function with any other type, like a `String` or an `i32`, won’t
-compile, because those types don’t implement `Summary`.
+This longer form is equivalent to the example in the previous section but is
+more verbose. We place trait bounds with the declaration of the generic type
+parameter after a colon and inside angle brackets.
 -->
-
-トレイト境界をジェネリックな型引数宣言とともにコロンの後、山カッコ内に配置しています。`T`に付けられたトレイト境界のため、
-`notify`を呼び出して`NewsArticle`か`Tweet`のどんなインスタンスも渡すことができます。
-あらゆる他の型、`String`や`i32`などでこの関数を呼び出すコードは、型が`Summary`を実装しないので、
-コンパイルできません。
+この「より長い」姿は前節の例と等価ですが、より冗長です。
+トレイト境界と、コロンを挟んでジェネリックな型引数の宣言を書き、それを角カッコで囲っています。
 
 <!--
-We can specify multiple trait bounds on a generic type using the `+` syntax.
-For example, to use display formatting on the type `T` in a function as well as
-the `summarize` method, we can use `T: Summary + Display` to say `T` can be any
-type that implements `Summary` and `Display`.
+The `impl Trait` syntax is convenient and makes for more concise code in simple
+cases. The trait bound syntax can express more complexity in other cases. For
+example, we can have two parameters that implement `Summary`. Using the `impl
+Trait` syntax looks like this:
 -->
-
-`+`記法でジェネリックな型に複数のトレイト境界を指定できます。例えば、関数で`T`に対してフォーマット表示と、
-`summarize`メソッドを使用するには、`T: Summary + Display`を使用して、`T`は`Summary`と`Display`を実装するどんな型にもなると宣言できます。
-
-<!--
-However, there are downsides to using too many trait bounds. Each generic has
-its own trait bounds, so functions with multiple generic type parameters can
-have lots of trait bound information between a function’s name and its
-parameter list, making the function signature hard to read. For this reason,
-Rust has alternate syntax for specifying trait bounds inside a `where` clause
-after the function signature. So instead of writing this:
--->
-
-しかしながら、トレイト境界が多すぎると欠点もあります。各ジェネリックには、特有のトレイト境界があるので、
-複数のジェネリックな型引数がある関数には、関数名と引数リストの間に多くのトレイト境界の情報が付くこともあり、
-関数シグニチャが読みづらくなる原因になります。このため、Rustには関数シグニチャの後、
-`where`節内にトレイト境界を指定する対立的な記法があります。従って、こう書く代わりに:
+簡単なケースに対し、`impl Trait`構文は便利で、コードを簡潔にしてくれます。
+そうでないケースの場合、トレイト境界構文を使えば複雑な状態を表現できます。
+たとえば、`Summary`を実装する2つのパラメータを持つような関数を考えることができます。
+`impl Trait`構文を使うとこのようになるでしょう：
 
 ```rust,ignore
-fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {
+pub fn notify(item1: &impl Summary, item2: &impl Summary) {
+```
+
+<!--
+If we wanted this function to allow `item1` and `item2` to have different
+types, using `impl Trait` would be appropriate (as long as both types implement
+`Summary`). If we wanted to force both parameters to have the same type, that’s
+only possible to express using a trait bound, like this:
+-->
+この関数が受け取る`item1`と`item2`の型が（どちらも`Summary`を実装する限り）異なっても良いとするならば、`impl Trait`は適切でしょう。
+両方の引数が同じ型であることを強制することは、以下のようにトレイト境界を使ってのみ表現可能です：
+
+```rust,ignore
+pub fn notify<T: Summary>(item1: &T, item2: &T) {
+```
+
+<!--
+The generic type `T` specified as the type of the `item1` and `item2`
+parameters constrains the function such that the concrete type of the value
+passed as an argument for `item1` and `item2` must be the same.
+-->
+引数である`item1`と`item2`の型としてジェネリックな型`T`を指定することにより、実際に関数に`item1`と`item2`として渡される変数の値は同じ具体的な型を持っていなくてはならないと制約しています。
+
+<!--
+#### Specifying Multiple Trait Bounds with the `+` Syntax
+-->
+#### 複数のトレイト境界を`+`構文で指定する
+
+<!--
+We can also specify more than one trait bound. Say we wanted `notify` to use
+display formatting on `item` as well as the `summarize` method: we specify in
+the `notify` definition that `item` must implement both `Display` and
+`Summary`. We can do so using the `+` syntax:
+-->
+1つ以上のトレイト境界も指定できます。
+たとえば、`notify`が`summarize`メソッドに加えて`item`の画面出力形式（ディスプレイフォーマット）を使いたいとします。すなわち、`notify`の定義に`item`は`Display`と`Summary`の両方を実装していなくてはならないと指定したいとします。
+これは、以下のように`+`構文で行うことができます：
+
+```rust,ignore
+pub fn notify(item: &(impl Summary + Display)) {
+```
+
+<!--
+The `+` syntax is also valid with trait bounds on generic types:
+-->
+ジェネリック型に対しても`+`構文は使えます：
+
+```rust,ignore
+pub fn notify<T: Summary + Display>(item: &T) {
+```
+
+<!--
+With the two trait bounds specified, the body of `notify` can call `summarize`
+and use `{}` to format `item`.
+-->
+これら2つのトレイト境界が指定されていれば、`notify`の中では`summarize`を呼び出すことと、`{}`を使って`item`をフォーマットすることの両方が行なえます。
+
+<!--
+#### Clearer Trait Bounds with `where` Clauses
+-->
+#### `where`句を使ったより明確なトレイト境界
+
+<!--
+Using too many trait bounds has its downsides. Each generic has its own trait
+bounds, so functions with multiple generic type parameters can contain lots of
+trait bound information between the function’s name and its parameter list,
+making the function signature hard to read. For this reason, Rust has alternate
+syntax for specifying trait bounds inside a `where` clause after the function
+signature. So instead of writing this:
+-->
+あまりたくさんのトレイト境界を使うことには欠点もあります。
+それぞれのジェネリック（な型）にそれぞれのトレイト境界があるので、複数のジェネリック型の引数をもつ関数は、関数名と引数リストの間に大量のトレイト境界に関する情報を含まないといけないかもしれません。これでは関数のシグネチャが読みにくくなってしまいます。
+このため、Rustはトレイト境界を関数シグネチャの後の`where`句の中で指定するという別の構文を用意しています。
+なので、このように書く：
+
+```rust,ignore
+fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
 ```
 
 <!--
 we can use a `where` clause, like this:
 -->
-
-こんな感じに`where`節を活用できます:
+代わりに、`where`句を使い、このように書くことができます：
 
 ```rust,ignore
-fn some_function<T, U>(t: T, u: U) -> i32
+fn some_function<T, U>(t: &T, u: &U) -> i32
     where T: Display + Clone,
           U: Clone + Debug
 {
 ```
 
 <!--
-This function’s signature is less cluttered in that the function name,
-parameter list, and return type are close together, similar to a function
-without lots of trait bounds.
+This function’s signature is less cluttered: the function name, parameter list,
+and return type are close together, similar to a function without lots of trait
+bounds.
 -->
+この関数シグニチャは、よりさっぱりとしています。トレイト境界を多く持たない関数と同じように、関数名、引数リスト、戻り値の型が一緒になって近くにあるからですね。
 
-この関数シグニチャは、多くのトレイト境界のない関数のように、関数名、引数リスト、戻り値の型が一緒になって近いという点でごちゃごちゃしていません。
+<!--
+### Returning Types that Implement Traits
+-->
+### トレイトを実装するような型を返す
+
+
+<!--
+We can also use the `impl Trait` syntax in the return position to return a
+value of some type that implements a trait, as shown here:
+-->
+以下のように、`impl Trait`構文をreturnの場所で使うことにより、あるトレイトを実装するような何らかの型を返すことができます。
+
+```rust,ignore
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-05-returning-impl-trait/src/lib.rs:here}}
+```
+
+<!--
+By using `impl Summary` for the return type, we specify that the
+`returns_summarizable` function returns some type that implements the `Summary`
+trait without naming the concrete type. In this case, `returns_summarizable`
+returns a `Tweet`, but the code calling this function doesn’t know that.
+-->
+戻り値の型として`impl Summary`を使うことにより、具体的な型が何かを言うことなく、`returns_summarizable`関数は`Summary`トレイトを実装するような何らかの方を返すのだと指定することができます。
+今回`returns_summarizable`は`Tweet`を返しますが、この関数を呼び出すコードはそのことを知りません。
+
+<!--
+The ability to return a type that is only specified by the trait it implements
+is especially useful in the context of closures and iterators, which we cover
+in Chapter 13. Closures and iterators create types that only the compiler knows
+or types that are very long to specify. The `impl Trait` syntax lets you
+concisely specify that a function returns some type that implements the
+`Iterator` trait without needing to write out a very long type.
+-->
+その実装するトレイトによってのみ指定されている型を返すという能力は、13章で学ぶ、クロージャとイテレータを扱うときに特に便利です。
+クロージャとイテレータの作り出す型は、コンパイラだけが知っているものであったり、指定するには長すぎるものであったりします。
+`impl Trait`構文を使えば、非常に長い型を書くことなく、ある関数は`Iterator`トレイトを実装するある型を返すのだと簡潔に指定することができます。
+
+<!--
+However, you can only use `impl Trait` if you’re returning a single type. For
+example, this code that returns either a `NewsArticle` or a `Tweet` with the
+return type specified as `impl Summary` wouldn’t work:
+-->
+しかし、`impl Trait`は一つの型を返す場合にのみ使えます。
+たとえば、以下のように、戻り値の型は`impl Summary`で指定しつつ、`NewsArticle`か`Tweet`を返すようなコードは失敗します：
+
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-06-impl-trait-returns-one-type/src/lib.rs:here}}
+```
+
+<!--
+Returning either a `NewsArticle` or a `Tweet` isn’t allowed due to restrictions
+around how the `impl Trait` syntax is implemented in the compiler. We’ll cover
+how to write a function with this behavior in the [“Using Trait Objects That
+Allow for Values of Different
+Types”][using-trait-objects-that-allow-for-values-of-different-types] section of Chapter 17.
+-->
+`NewsArticle`か`Trait`を返すというのは、コンパイラの`impl Trait`構文の実装まわりの制約により許されていません。
+このような振る舞いをする関数を書く方法は、17章の[トレイトオブジェクトで異なる型の値を許容する][using-trait-objects-that-allow-for-values-of-different-types]節で学びます。
 
 <!--
 ### Fixing the `largest` Function with Trait Bounds
 -->
-
 ### トレイト境界で`largest`関数を修正する
 
 <!--
@@ -569,19 +630,12 @@ type parameter’s bounds, let’s return to Listing 10-5 to fix the definition 
 the `largest` function that uses a generic type parameter! Last time we tried
 to run that code, we received this error:
 -->
-
 ジェネリックな型引数の境界で使用したい振る舞いを指定する方法を知ったので、リスト10-5に戻って、
 ジェネリックな型引数を使用する`largest`関数の定義を修正しましょう！最後にそのコードを実行しようとしたら、
 こんなエラーが出ました:
 
 ```text
-error[E0369]: binary operation `>` cannot be applied to type `T`
- --> src/main.rs:5:12
-  |
-5 |         if item > largest {
-  |            ^^^^^^^^^^^^^^
-  |
-  = note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/output.txt}}
 ```
 
 <!--
@@ -593,7 +647,6 @@ slices of any type that we can compare. We don’t need to bring `PartialOrd`
 into scope because it’s in the prelude. Change the signature of `largest` to
 look like this:
 -->
-
 `largest`の本体で、大なり演算子(`>`)を使用して型`T`の2つの値を比較したかったのです。その演算子は、
 標準ライブラリトレイトの`std::cmp::PartialOrd`でデフォルトメソッドとして定義されているので、
 `largest`関数が、比較できるあらゆる型のスライスに対して動くように、`T`のトレイト境界に`PartialOrd`を指定する必要があります。
@@ -601,51 +654,30 @@ look like this:
 `largest`のシグニチャを以下のような見た目に変えてください:
 
 ```rust,ignore
-fn largest<T: PartialOrd>(list: &[T]) -> T {
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-07-fixing-listing-10-05/src/main.rs:here}}
 ```
 
 <!--
 This time when we compile the code, we get a different set of errors:
 -->
+今回のコンパイルでは、別のエラーが出てきます：
 
-今度コードをコンパイルすると、異なる一連のエラーが出ます:
-
-```text
-error[E0508]: cannot move out of type `[T]`, a non-copy slice
-(エラー: `[T]`、コピーでないスライスからムーブできません。)
- --> src/main.rs:2:23
-  |
-2 |     let mut largest = list[0];
-  |                       ^^^^^^^
-  |                       |
-  |                       cannot move out of here
-  |                       help: consider using a reference instead: `&list[0]`
-                         (助言: 代わりに参照の使用を考慮してください: `&list[0]`)
-
-error[E0507]: cannot move out of borrowed content
-(エラー: 借用された内容からムーブできません)
- --> src/main.rs:4:9
-  |
-4 |     for &item in list.iter() {
-  |         ^----
-  |         ||
-  |         |hint: to prevent move, use `ref item` or `ref mut item`
-  |         cannot move out of borrowed content
-            (ヒント: ムーブを避けるには、`ref item`か`ref mut item`を使用してください)
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-07-fixing-listing-10-05/output.txt}}
 ```
 
 <!--
 The key line in this error is `cannot move out of type [T], a non-copy slice`.
 With our non-generic versions of the `largest` function, we were only trying to
-find the largest `i32` or `char`. As discussed in the “Stack-Only Data: Copy”
-section in Chapter 4, types like `i32` and `char` that have a known size can be
-stored on the stack, so they implement the `Copy` trait. But when we made the
-`largest` function generic, it became possible for the `list` parameter to have
-types in it that don’t implement the `Copy` trait. Consequently, we wouldn’t be
-able to move the value out of `list[0]` and into the `largest` variable,
-resulting in this error.
+find the largest `i32` or `char`. As discussed in the [“Stack-Only Data:
+Copy”][stack-only-data-copy] section in Chapter 4, types like
+`i32` and `char` that have a known size can be stored on the stack, so they
+implement the `Copy` trait. But when we made the `largest` function generic,
+it became possible for the `list` parameter to have types in it that don’t
+implement the `Copy` trait. Consequently, we wouldn’t be able to move the
+value out of `list[0]` and into the `largest` variable, resulting in this
+error.
 -->
-
 このエラーの鍵となる行は、`cannot move out of type [T], a non-copy slice`です。
 ジェネリックでないバージョンの`largest`関数では、最大の`i32`か`char`を探そうとするだけでした。
 第4章の「スタックだけのデータ: コピー」節で議論したように、`i32`や`char`のような既知のサイズの型は、
@@ -660,7 +692,6 @@ a generic `largest` function that will compile as long as the types of the
 values in the slice that we pass into the function implement the `PartialOrd`
 *and* `Copy` traits, like `i32` and `char` do.
 -->
-
 このコードを`Copy`トレイトを実装する型とだけで呼び出すには、`T`のトレイト境界に`Copy`を追加できます！
 リスト10-15は、関数に渡したスライスの値の型が`i32`や`char`などのように、`PartialOrd`*と*`Copy`を実装する限り、
 コンパイルできるジェネリックな`largest`関数の完全なコードを示しています。
@@ -668,33 +699,10 @@ values in the slice that we pass into the function implement the `PartialOrd`
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
-    let mut largest = list[0];
-
-    for &item in list.iter() {
-        if item > largest {
-            largest = item;
-        }
-    }
-
-    largest
-}
-
-fn main() {
-    let number_list = vec![34, 50, 25, 100, 65];
-
-    let result = largest(&number_list);
-    println!("The largest number is {}", result);
-
-    let char_list = vec!['y', 'm', 'a', 'q'];
-
-    let result = largest(&char_list);
-    println!("The largest char is {}", result);
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-15/src/main.rs}}
 ```
 
 <!--
@@ -702,7 +710,6 @@ fn main() {
 function that works on any generic type that implements the `PartialOrd` and
 `Copy` traits</span>
 -->
-
 <span class="caption">リスト10-15: `PartialOrd`と`Copy`トレイトを実装するあらゆるジェネリックな型に対して動く、
 `largest`関数の動く定義</span>
 
@@ -715,7 +722,6 @@ potentially making more heap allocations in the case of types that own heap
 data like `String`, and heap allocations can be slow if we’re working with
 large amounts of data.
 -->
-
 もし`largest`関数を`Copy`を実装する型だけに制限したくなかったら、`Copy`ではなく、
 `T`が`Clone`というトレイト境界を持つと指定することもできます。そうしたら、
 `largest`関数に所有権が欲しい時にスライスの各値をクローンできます。`clone`関数を使用するということは、
@@ -729,7 +735,6 @@ instead of `T`, thereby changing the body of the function to return a
 reference, we wouldn’t need the `Clone` or `Copy` trait bounds and we could
 avoid heap allocations. Try implementing these alternate solutions on your own!
 -->
-
 `largest`の別の実装方法は、関数がスライスの`T`値への参照を返すようにすることです。
 戻り値の型を`T`ではなく`&T`に変え、それにより関数の本体を参照を返すように変更したら、
 `Clone`か`Copy`トレイト境界は必要なくなり、ヒープ確保も避けられるでしょう。
@@ -738,7 +743,6 @@ avoid heap allocations. Try implementing these alternate solutions on your own!
 <!--
 ### Using Trait Bounds to Conditionally Implement Methods
 -->
-
 ### トレイト境界を使用して、メソッド実装を条件分けする
 
 <!--
@@ -749,46 +753,25 @@ traits. For example, the type `Pair<T>` in Listing 10-16 always implements the
 inner type `T` implements the `PartialOrd` trait that enables comparison *and*
 the `Display` trait that enables printing.
 -->
-
 ジェネリックな型引数を持つ`impl`ブロックにトレイト境界を与えることで、
 特定のトレイトを実装する型に対するメソッド実装を条件分けできます。例えば、
 リスト10-16の型`Pair<T>`は、常に`new`関数を実装します。しかし、`Pair<T>`は、
 内部の型`T`が比較を可能にする`PartialOrd`トレイト*と*出力を可能にする`Display`トレイトを実装している時のみ、
 `cmp_display`メソッドを実装します。
 
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<span class="filename">ファイル名: src/lib.rs</span>
+
 ```rust
-use std::fmt::Display;
-
-struct Pair<T> {
-    x: T,
-    y: T,
-}
-
-impl<T> Pair<T> {
-    fn new(x: T, y: T) -> Self {
-        Self {
-            x,
-            y,
-        }
-    }
-}
-
-impl<T: Display + PartialOrd> Pair<T> {
-    fn cmp_display(&self) {
-        if self.x >= self.y {
-            println!("The largest member is x = {}", self.x);
-        } else {
-            println!("The largest member is y = {}", self.y);
-        }
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-16/src/lib.rs}}
 ```
 
 <!--
 <span class="caption">Listing 10-16: Conditionally implement methods on a
 generic type depending on trait bounds</span>
 -->
-
 <span class="caption">リスト10-16: トレイト境界によってジェネリックな型に対するメソッド実装を条件分けする</span>
 
 <!--
@@ -799,7 +782,6 @@ Rust standard library. For example, the standard library implements the
 `ToString` trait on any type that implements the `Display` trait. The `impl`
 block in the standard library looks similar to this code:
 -->
-
 また、別のトレイトを実装するあらゆる型に対するトレイト実装を条件分けすることもできます。
 トレイト境界を満たすあらゆる型にトレイトを実装することは、*ブランケット実装*(blanket implementation)と呼ばれ、
 Rustの標準ライブラリで広く使用されています。例を挙げれば、標準ライブラリは、
@@ -818,7 +800,6 @@ Because the standard library has this blanket implementation, we can call the
 the `Display` trait. For example, we can turn integers into their corresponding
 `String` values like this because integers implement `Display`:
 -->
-
 標準ライブラリにはこのブランケット実装があるので、`Display`トレイトを実装する任意の型に対して、
 `ToString`トレイトで定義された`to_string`メソッドを呼び出せるのです。
 例えば、整数は`Display`を実装するので、このように整数値を対応する`String`値に変換できます:
@@ -831,7 +812,6 @@ let s = 3.to_string();
 Blanket implementations appear in the documentation for the trait in the
 “Implementors” section.
 -->
-
 ブランケット実装は、「実装したもの」節のトレイトのドキュメンテーションに出現します。
 
 <!--
@@ -840,14 +820,13 @@ reduce duplication but also specify to the compiler that we want the generic
 type to have particular behavior. The compiler can then use the trait bound
 information to check that all the concrete types used with our code provide the
 correct behavior. In dynamically typed languages, we would get an error at
-runtime if we called a method on a type that the type didn’t implement. But
-Rust moves these errors to compile time so we’re forced to fix the problems
-before our code is even able to run. Additionally, we don’t have to write code
-that checks for behavior at runtime because we’ve already checked at compile
-time. Doing so improves performance without having to give up the flexibility
-of generics.
+runtime if we called a method on a type which didn’t define the method. But Rust
+moves these errors to compile time so we’re forced to fix the problems before
+our code is even able to run. Additionally, we don’t have to write code that
+checks for behavior at runtime because we’ve already checked at compile time.
+Doing so improves performance without having to give up the flexibility of
+generics.
 -->
-
 トレイトとトレイト境界により、ジェネリックな型引数を使用して重複を減らしつつ、コンパイラに対して、
 そのジェネリックな型に特定の振る舞いが欲しいことを指定するコードを書くことができます。
 それからコンパイラは、トレイト境界の情報を活用してコードに使用された具体的な型が正しい振る舞いを提供しているか確認できます。
@@ -862,7 +841,11 @@ Rather than ensuring that a type has the behavior we want, lifetimes ensure
 that references are valid as long as we need them to be. Let’s look at how
 lifetimes do that.
 -->
-
 もう使用してきたことのある別の種のジェネリクスは、ライフタイムと呼ばれます。
 型が欲しい振る舞いを保持していることを保証するのではなく、必要な間だけ参照が有効であることをライフタイムは保証します。
 ライフタイムがどうやってそれを行うかを見ましょう。
+
+[stack-only-data-copy]:
+ch04-01-what-is-ownership.html#stack-only-data-copy
+[using-trait-objects-that-allow-for-values-of-different-types]:
+ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
