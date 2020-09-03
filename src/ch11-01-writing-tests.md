@@ -10,7 +10,7 @@ the expected manner. The bodies of test functions typically perform these three
 actions:
 -->
 
-テストは、非テストコードが想定された方法で機能していることを実証するRustの関数です。
+テストは、テスト以外のコードが想定された方法で機能していることを実証するRustの関数です。
 テスト関数の本体は、典型的には以下の3つの動作を行います:
 
 <!--
@@ -21,7 +21,7 @@ actions:
 
 1. 必要なデータや状態をセットアップする。
 2. テスト対象のコードを走らせる。
-3. 結果が想定通りかアサーションする。
+3. 結果が想定通りであることを断定（以下、アサーションという）する。
 
 <!--
 Let’s look at the features Rust provides specifically for writing tests that
@@ -36,7 +36,7 @@ Rustが、特にこれらの動作を行うテストを書くために用意し�
 ### The Anatomy of a Test Function
 -->
 
-## テスト関数の解剖
+## テスト関数の構成
 
 <!--
 At its simplest, a test in Rust is a function that’s annotated with the `test`
@@ -49,7 +49,7 @@ test function passes or fails.
 -->
 最も単純には、Rustにおけるテストは`test`属性で注釈された関数のことです。属性とは、
 Rustコードの欠片に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した`derive`属性です。
-関数をテスト関数に変えるには、`fn`の前に`#[test]`を付け加えるのです。
+関数をテスト関数に変えるには、`fn`の前に`#[test]`を付け加えてください。
 `cargo test`コマンドでテストを実行したら、コンパイラは`test`属性で注釈された関数を走らせるテスト用バイナリをビルドし、
 各テスト関数が通過したか失敗したかを報告します。
 
@@ -71,8 +71,8 @@ real-world tests that call some code that we’ve written and assert that its
 behavior is correct.
 -->
 
-実際にテストすることなしにテンプレートのテストが生成されるのを実験することでテストの動作法の一部の側面を探究しましょう。
-それから、自分で書いた何らかのコードを呼び出し、振る舞いが正しいかアサーションする現実世界のテストを書きましょう。
+まず、実際にはコードをテストしない、自動生成されたテンプレートのテストで実験して、テストの動作の性質をいくらか学びましょう。
+その後で、以前書いたコードを呼び出し、振る舞いが正しいことをアサーションする、ホンモノのテストを書きましょう。
 
 <!--
 Let’s create a new library project called `adder`:
@@ -120,10 +120,10 @@ indicate which functions are tests by using the `#[test]` attribute.
 -->
 
 とりあえず、最初の2行は無視し、関数に集中してその動作法を見ましょう。
-`fn`行の`#[test]`注釈に注目してください: この属性は、これがテスト関数であることを示唆しますので、
-テスト実行機はこの関数をテストとして扱うとわかるのです。さらに、`tests`モジュール内には非テスト関数を入れ込み、
+`fn`行の`#[test]`注釈に注目してください: この属性は、これがテスト関数であることを示すので、
+テスト実行機はこの関数をテストとして扱うとわかるのです。さらに、`tests`モジュール内にはテスト関数以外の関数を入れ、
 一般的なシナリオをセットアップしたり、共通の処理を行う手助けをしたりもできるので、
-`#[test]`属性でどの関数がテストかを示唆する必要があるのです。
+`#[test]`属性でどの関数がテストかを示す必要があるのです。
 
 <!--
 The function body uses the `assert_eq!` macro to assert that 2 + 2 equals 4.
@@ -132,7 +132,7 @@ it to see that this test passes.
 -->
 
 関数本体は、`assert_eq!`マクロを使用して、2 + 2が4に等しいことをアサーションしています。
-このアサーションは、典型的なテストのフォーマット例をなしているわけです。走らせてこのテストが通ることを確かめましょう。
+このアサーションは、典型的なテストのフォーマット例をなしているわけです。走らせてこのテストが通る（訳注：テストが成功する、の意味。英語でpassということから、このように表現される）ことを確かめましょう。
 
 <!--
 The `cargo test` command runs all tests in our project, as shown in Listing
@@ -202,7 +202,7 @@ ignore the `Doc-tests` output.
 -->
 
 テスト出力の次の部分、つまり`Doc-tests adder`で始まる部分は、ドキュメンテーションテストの結果用のものです。
-まだドキュメンテーションテストは何もないものの、コンパイラは、APIドキュメントに現れたどんなコード例もコンパイルできます。
+まだドキュメンテーションテストは何もないものの、コンパイラは、APIドキュメントに現れるどんなコード例もコンパイルできます。
 この機能により、ドキュメントとコードを同期することができるわけです。ドキュメンテーションテストの書き方については、
 第14章の[テストとしてのドキュメンテーションコメント][doc-comments]節で議論しましょう。今は、`Doc-tests`出力は無視します。
 
@@ -311,7 +311,7 @@ The summary line displays at the end: overall, our test result is `FAILED`.
 We had one test pass and one test fail.
 -->
 
-サマリー行が最後に出力されています: 総合的に言うと、テスト結果は`失敗`でした。
+サマリー行が最後に出力されています: 総合的に言うと、テスト結果は`FAILED`でした。
 一つのテストが通り、一つが失敗したわけです。
 
 <!--
@@ -319,7 +319,7 @@ Now that you’ve seen what the test results look like in different scenarios,
 let’s look at some macros other than `panic!` that are useful in tests.
 -->
 
-異なる筋書きでのテスト結果がどんな風になるか見てきたので、テストを行う際に有用になる`panic!`以外のマクロに目を向けましょう。
+様々な状況でのテスト結果がどんな風になるか見てきたので、テストを行う際に有用になる`panic!`以外のマクロに目を向けましょう。
 
 <!--
 ### Checking Results with the `assert!` Macro
@@ -511,9 +511,9 @@ expression, not the values that lead to the `false` value.
 機能をテストする一般的な方法は、テスト下にあるコードの結果をコードが返すと期待される値と比較して、
 等しいと確かめることです。これを`assert`マクロを使用して`==`演算子を使用した式を渡すことで行うこともできます。
 しかしながら、これはありふれたテストなので、標準ライブラリには1組のマクロ(`assert_eq!`と`assert_ne!`)が提供され、
-このテストをより便利に行うことができます。これらのマクロはそれぞれ、二つの引数を等値性と非等値性のために比較します。
+このテストをより便利に行うことができます。これらのマクロはそれぞれ、二つの引数を比べ、等しいかと等しくないかを確かめます。
 また、アサーションが失敗したら二つの値の出力もし、テストが失敗した*原因*を確認しやすくなります。
-一方で`assert!`マクロは、`==`式の値が`false`値になったことしか示唆せず、`false`値に導いた値は出力しません。
+一方で`assert!`マクロは、`==`式の値が`false`になったことしか示さず、`false`になった原因の値は出力しません。
 
 <!--
 In Listing 11-7, we write a function named `add_two` that adds `2` to its
@@ -603,12 +603,12 @@ would result in a failure message that displays `` assertion failed: `(left ==
 right)` `` and that `left` was `5` and `right` was `4`.
 -->
 
-二つの値が等しいとアサーションを行う関数の引数は、
-`expected`と`actual`と呼ばれ、引数を指定する順序が問題になる言語やテストフレームワークもあることに注意してください。
+二つの値が等しいとアサーションを行う関数の引数を
+`expected`と`actual`と呼び、引数を指定する順序が問題になる言語やテストフレームワークもあることに注意してください。
 ですがRustでは、`left`と`right`と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は、
 問題になりません。`assert_eq!(add_two(2), 4)`と今回のテストのアサーションを書くこともでき、
 そうすると失敗メッセージは、`` assertion failed: `(left == right)` ``となり、
-`left`が`5`で`right`が`4`と表示されるわけです。
+`left`が`5`で`right`が`4`と表示されるでしょう。
 
 <!--
 The `assert_ne!` macro will pass if the two values we give it are not equal and
@@ -623,7 +623,7 @@ to assert might be that the output of the function is not equal to the input.
 `assert_ne!`マクロは、与えた2つの値が等しくなければ通り、等しければ失敗します。
 このマクロは、値が何になる*だろう*か確信が持てないけれども、コードが意図した通りに動いていれば、
 確実にこの値にはなら*ないだろう*とわかっているような場合に最も有用になります。例えば、
-入力を何らかの手段で変えることが保障されているけれども、入力が変更される方法がテストを実行する曜日に依存する関数をテストしているなら、
+入力を何らかの手段で変え（て出力す）ることが保証されているけれども、入力の変え方がテストを実行する曜日に依存する関数をテストしているなら、
 アサーションすべき最善の事柄は、関数の出力が入力と等しくないことかもしれません。
 
 <!--
@@ -641,16 +641,16 @@ definition. See Appendix C, [“Derivable Traits,”][derivable-traits]
 for more details about these and other derivable traits.
 -->
 
-表面下では、`assert_eq!`と`assert_ne!`マクロはそれぞれ、`==`と`!=`演算子を使用しています。
+内部的には、`assert_eq!`と`assert_ne!`マクロは、それぞれ`==`と`!=`演算子を使用しています。
 アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用して出力するので、
 比較対象の値は`PartialEq`と`Debug`トレイトを実装していなければなりません。
-組み込み型の全部と、標準ライブラリの型はほぼ全てこれらのトレイトを実装しています。
+すべての組み込み型と、ほぼすべての標準ライブラリの型はこれらのトレイトを実装しています。
 自分で定義した構造体とenumについては、`PartialEq`を実装して、
-その型の値が等しいか等しくないかアサーションする必要があるでしょう。`Debug`を実装して、
-アサーションが失敗した時に値を出力する必要もあるでしょう。
+その型の値が等しいか等しくないかをアサーションできる必要があるでしょう。`Debug`を実装して、
+それが失敗した時に値を出力できる必要もあるでしょう。
 第5章のリスト5-12で触れたように、どちらのトレイトも導出可能なトレイトなので、
-これは通常、構造体やenum定義に`#[derive(PartialEq, Debug)]`という注釈を追加するくらい単純になります。
-これらや他の導出可能なトレイトに関する詳細については、付録C、[導出可能なトレイト][derivable-traits]をご覧ください。
+これは通常、単純に構造体やenum定義に`#[derive(PartialEq, Debug)]`という注釈を追加するだけのことです。
+これらやその他の導出可能なトレイトに関する詳細については、付録C、[導出可能なトレイト][derivable-traits]をご覧ください。
 
 <!--
 ### Adding Custom Failure Messages
@@ -672,11 +672,11 @@ the problem is with the code.
 -->
 さらに、`assert!`、`assert_eq!`、`assert_ne!`の追加引数として、失敗メッセージと共にカスタムのメッセージが表示されるよう、
 追加することもできます。`assert!`の1つの必須引数、
-あるいは`assert_eq!`と`assert_ne!`の2つの必須引数の後に指定された引数はどれも`format!`マクロに明け渡されるので、
-(format!マクロについては第8章の[`+`演算子、または`format!`マクロで連結][concatenation-with-the--operator-or-the-format-macro]節で議論しました)、
+あるいは`assert_eq!`と`assert_ne!`の2つの必須引数の後に指定された引数はすべて`format!`マクロに渡されるので、
+（format!マクロについては第8章の[`+`演算子、または`format!`マクロで連結][concatenation-with-the--operator-or-the-format-macro]節で議論しました）、
 `{}`プレースホルダーを含むフォーマット文字列とこのプレースホルダーに置き換えられる値を渡すことができます。
 カスタムメッセージは、アサーションがどんな意味を持つかドキュメント化するのに役に立ちます;
-テストが失敗した時、問題が何なのかコードと共により良い考えを持てるでしょう。
+もしテストが失敗した時、コードにどんな問題があるのかをよりしっかり把握できるはずです。
 
 <!--
 For example, let’s say we have a function that greets people by name and we
@@ -703,8 +703,8 @@ so instead of checking for exact equality to the value returned from the
 input parameter.
 -->
 
-このプログラムの必要事項はまだ合意が得られておらず、挨拶の先頭の`Hello`というテキストは変わるだろうということは極めて確かです。
-要件が変わった時にテストを更新しなくてもよいようにしたいと決定したので、
+このプログラムの要件はまだ取り決められておらず、挨拶の先頭の`Hello`というテキストはきっと変わることになりそうです。
+要件が変わった時にテストを更新しなくてもよいようにしたいと決めたので、
 `greeting`関数から返る値と正確な等値性を確認するのではなく、出力が入力引数のテキストを含むことをアサーションするだけにします。
 
 <!--
@@ -712,7 +712,7 @@ Let’s introduce a bug into this code by changing `greeting` to not include
 `name` to see what this test failure looks like:
 -->
 
-`greeting`が`name`を含まないように変更してこのコードにバグを仕込み、このテストの失敗がどんな見た目になるのか確かめましょう:
+`greeting`が`name`を含まないように変更してこのコードにバグを仕込み、このテストの失敗がどんな風になるのか確かめましょう:
 
 ```rust,not_desired_behavior
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-06-greeter-with-bug/src/lib.rs:here}}
@@ -737,9 +737,9 @@ filled in with the actual value we got from the `greeting` function:
 -->
 
 この結果は、アサーションが失敗し、どの行にアサーションがあるかを示しているだけです。
-より有用な失敗メッセージは今回の場合、`greeting`関数から得た値を出力することでしょう。
-`greeting`関数から得た実際の値で埋められるプレースホルダーを含むフォーマット文字列からなるカスタムの失敗メッセージを与え、
-テスト関数を変更しましょう:
+今回の場合、失敗メッセージが`greeting`関数から得た値を出力していればより有用でしょう。
+テスト関数を変更し、
+`greeting`関数から得た実際の値で埋められるプレースホルダーを含むフォーマット文字列からなるカスタムの失敗メッセージを与えてみましょう。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-07-custom-failure-message/src/lib.rs:here}}
@@ -760,7 +760,7 @@ We can see the value we actually got in the test output, which would help us
 debug what happened instead of what we were expecting to happen.
 -->
 
-実際に得られた値がテスト出力に見られ、起こると想定していたものではなく、
+テスト出力に実際に得られた値が表示されているので、起こると想定していたものではなく、
 起こったものをデバッグするのに役に立ちます。
 
 <!--
@@ -799,7 +799,7 @@ Listing 11-8 shows a test that checks that the error conditions of `Guess::new`
 happen when we expect them to.
 -->
 
-リスト11-8は、予想した時に`Guess::new`のエラー条件が発生していることを確認するテストを示しています。
+リスト11-8は、予想どおりに`Guess::new`のエラー条件が発生していることを確認するテストを示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -875,7 +875,7 @@ different messages depending on whether the value is too small or too large.
 `should_panic`を使用するテストは不正確なこともあります。なぜなら、コードが何らかのパニックを起こしたことしか示さないからです。
 `should_panic`のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。
 `should_panic`のテストの正確を期すために、`should_panic`属性の省略可能な`expected`引数を追加できます。
-このテストの拘束具が、失敗メッセージに与えられたテキストが含まれていることを確かめてくれるでしょう。
+このテストの「拘束具」は、失敗メッセージに与えられたテキストが含まれていることを確かめてくれます。
 例えば、リスト11-9の`Guess`の変更されたコードを考えてください。ここでは、
 `new`関数は、値の大小によって異なるメッセージでパニックします。
 
@@ -911,9 +911,9 @@ the `else if value > 100` case.
 `should_panic`属性の`expected`引数に置いた値が`Guess::new`関数がパニックしたメッセージの一部になっているので、
 このテストは通ります。予想されるパニックメッセージ全体を指定することもでき、今回の場合、
 `Guess value must be less than or equal to 100, got 200.`となります。
-`should_panic`の予想される引数に指定すると決めたものは、パニックメッセージの固有性や活動性、
-テストの正確性によります。今回の場合、パニックメッセージの一部でも、テスト関数内のコードが、
-`else if value > 100`ケースを実行していると確認するのに事足りるのです。
+`should_panic`の予想される引数に何を指定するかは、パニックメッセージのどこが固有でどこが動的か、
+またテストをどの程度正確に行いたいかによります。今回の場合、パニックメッセージの一部でも、テスト関数内のコードが、
+`else if value > 100`の場合を実行していると確認するのに事足りるのです。
 
 <!--
 To see what happens when a `should_panic` test with an `expected` message
@@ -945,7 +945,7 @@ less than or equal to 100'`. The panic message that we did get in this case was
 figuring out where our bug is!
 -->
 
-この失敗メッセージは、このテストが確かにまさしく予想通りパニックしたことを示唆していますが、
+この失敗メッセージは、このテストが確かに予想通りパニックしたことを示していますが、
 パニックメッセージは、予想される文字列の`'Guess value must be less than or equal to 100'`を含んでいませんでした。
 実際に得られたパニックメッセージは今回の場合、`Guess value must be greater than or equal to 1, got 200`でした。
 そうしてバグの所在地を割り出し始めることができるわけです！
