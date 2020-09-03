@@ -15,8 +15,8 @@ actions:
 
 <!--
 1. Set up any needed data or state.
-2. Run the code we want to test.
-3. Assert the results are what we expect.
+2. Run the code you want to test.
+3. Assert the results are what you expect.
 -->
 
 1. 必要なデータや状態をセットアップする。
@@ -42,12 +42,11 @@ Rustが、特にこれらの動作を行うテストを書くために用意し�
 At its simplest, a test in Rust is a function that’s annotated with the `test`
 attribute. Attributes are metadata about pieces of Rust code; one example is
 the `derive` attribute we used with structs in Chapter 5. To change a function
-into a test function, we add `#[test]` on the line before `fn`. When we run our
+into a test function, add `#[test]` on the line before `fn`. When you run your
 tests with the `cargo test` command, Rust builds a test runner binary that runs
 the functions annotated with the `test` attribute and reports on whether each
 test function passes or fails.
 -->
-
 最も単純には、Rustにおけるテストは`test`属性で注釈された関数のことです。属性とは、
 Rustコードの欠片に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した`derive`属性です。
 関数をテスト関数に変えるには、`fn`の前に`#[test]`を付け加えるのです。
@@ -55,17 +54,15 @@ Rustコードの欠片に関するメタデータです; 一例を挙げれば�
 各テスト関数が通過したか失敗したかを報告します。
 
 <!--
-In Chapter 7, we saw that when we make a new library project with Cargo, a test
-module with a test function in it is automatically generated for us. This
-module helps us start writing our tests so you don’t have to look up the
-exact structure and syntax of test functions every time you start a new
-project. You can add as many additional test functions and as many test modules
-as you want!
+When we make a new library project with Cargo, a test module with a test
+function in it is automatically generated for us. This module helps you start
+writing your tests so you don’t have to look up the exact structure and syntax
+of test functions every time you start a new project. You can add as many
+additional test functions and as many test modules as you want!
 -->
-
-第7章で、Cargoで新規ライブラリプロジェクトを作成した時に、テスト関数が含まれるテストモジュールが自動で生成されたことを見かけました。
-このモジュールのおかげでテストを書き始めることができるので、新しいプロジェクトを立ち上げる度に、
-テスト関数の正確な構造と記法を調べる必要がなくなるわけです。必要なだけ追加のテスト関数とテストモジュールは追記することができます。
+新しいライブラリプロジェクトをCargoで作ると、テスト関数付きのテストモジュールが自動的に生成されます。
+このモジュールのおかげで、新しいプロジェクトを始めるたびにテスト関数の正しい構造とか文法をいちいち検索しなくてすみます。
+ここに好きな数だけテスト関数やテストモジュールを追加すればいいというわけです！
 
 <!--
 We’ll explore some aspects of how tests work by experimenting with the template
@@ -83,7 +80,7 @@ Let’s create a new library project called `adder`:
 
 `adder`という新しいライブラリプロジェクトを生成しましょう:
 
-```text
+```console
 $ cargo new adder --lib
      Created library `adder` project
 $ cd adder
@@ -103,14 +100,7 @@ Listing 11-1.
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# fn main() {}
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-01/src/lib.rs:here}}
 ```
 
 <!--
@@ -151,22 +141,9 @@ The `cargo test` command runs all tests in our project, as shown in Listing
 
 `cargo test`コマンドでプロジェクトにあるテストが全て実行されます。リスト11-2に示したようにですね。
 
-```text
-$ cargo test
-   Compiling adder v0.1.0 (file:///projects/adder)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.22 secs
-     Running target/debug/deps/adder-ce99bcc2479f4607
 
-running 1 test
-test tests::it_works ... ok
-
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
-
-   Doc-tests adder
-
-running 0 tests
-
-test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/listing-11-01/output.txt}}
 ```
 
 <!--
@@ -194,12 +171,13 @@ Cargoがテストをコンパイルし、走らせました。`Compiling`, `Fini
 Because we don’t have any tests we’ve marked as ignored, the summary shows `0
 ignored`. We also haven’t filtered the tests being run, so the end of the
 summary shows `0 filtered out`. We’ll talk about ignoring and filtering out
-tests in the next section, “Controlling How Tests Are Run.”
+tests in the next section, [“Controlling How Tests Are
+Run.”][controlling-how-tests-are-run]
 -->
 
 無視すると指定したテストは何もなかったため、まとめは`0 ignored`と示しています。
 また、実行するテストにフィルタをかけもしなかったので、まとめの最後に`0 filtered out`と表示されています。
-テストを無視することとフィルタすることに関しては次の節、「テストの実行され方を制御する」で語ります。
+テストを無視することとフィルタすることに関しては次の節、[テストの実行され方を制御する][controlling-how-tests-are-run]で語ります。
 
 <!--
 The `0 measured` statistic is for benchmark tests that measure performance.
@@ -211,21 +189,22 @@ Benchmark tests are, as of this writing, only available in nightly Rust. See
 ベンチマークテストは、本書記述の時点では、ナイトリ版のRustでのみ利用可能です。
 詳しくは、[ベンチマークテストのドキュメンテーション][bench]を参照されたし。
 
-[bench]: ../../unstable-book/library-features/test.html
+[bench]: ../unstable-book/library-features/test.html
 
 <!--
 The next part of the test output, which starts with `Doc-tests adder`, is for
 the results of any documentation tests. We don’t have any documentation tests
 yet, but Rust can compile any code examples that appear in our API
 documentation. This feature helps us keep our docs and our code in sync! We’ll
-discuss how to write documentation tests in the “Documentation Comments As
-Tests” section of Chapter 14. For now, we’ll ignore the `Doc-tests` output.
+discuss how to write documentation tests in the [“Documentation Comments as
+Tests”][doc-comments] section of Chapter 14. For now, we’ll
+ignore the `Doc-tests` output.
 -->
 
 テスト出力の次の部分、つまり`Doc-tests adder`で始まる部分は、ドキュメンテーションテストの結果用のものです。
 まだドキュメンテーションテストは何もないものの、コンパイラは、APIドキュメントに現れたどんなコード例もコンパイルできます。
 この機能により、ドキュメントとコードを同期することができるわけです。ドキュメンテーションテストの書き方については、
-第14章の「テストとしてのドキュメンテーションコメント」節で議論しましょう。今は、`Doc-tests`出力は無視します。
+第14章の[テストとしてのドキュメンテーションコメント][doc-comments]節で議論しましょう。今は、`Doc-tests`出力は無視します。
 
 <!--
 Let’s change the name of our test to see how that changes the test output.
@@ -243,14 +222,7 @@ so:
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# fn main() {}
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn exploration() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-01-changing-test-name/src/lib.rs:here}}
 ```
 
 <!--
@@ -260,11 +232,8 @@ Then run `cargo test` again. The output now shows `exploration` instead of
 
 そして、`cargo test`を再度走らせます。これで出力が`it_works`の代わりに`exploration`と表示しています:
 
-```text
-running 1 test
-test tests::exploration ... ok
-
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-01-changing-test-name/output.txt}}
 ```
 
 <!--
@@ -286,23 +255,8 @@ which is to call the `panic!` macro. Enter the new test, `another`, so your
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
-
-```rust
-# fn main() {}
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn exploration() {
-        assert_eq!(2 + 2, 4);
-    }
-
-    #[test]
-    fn another() {
-        //このテストを失敗させる
-        panic!("Make this test fail");
-    }
-}
+```rust,panics
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-03/src/lib.rs:here}}
 ```
 
 <!--
@@ -321,22 +275,7 @@ Run the tests again using `cargo test`. The output should look like Listing
 `exploration`テストは通り、`another`は失敗したと表示されます。
 
 ```text
-running 2 tests
-test tests::exploration ... ok
-test tests::another ... FAILED
-
-failures:
-
----- tests::another stdout ----
-    thread 'tests::another' panicked at 'Make this test fail', src/lib.rs:10:8
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
-
-failures:
-    tests::another
-
-test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
-
-error: test failed
+{{#include ../listings/ch11-writing-automated-tests/listing-11-03/output.txt}}
 ```
 
 <!--
@@ -355,7 +294,8 @@ on line 10 in the *src/lib.rs* file. The next section lists just the names of
 all the failing tests, which is useful when there are lots of tests and lots of
 detailed failing test output. We can use the name of a failing test to run just
 that test to more easily debug it; we’ll talk more about ways to run tests in
-the “Controlling How Tests Are Run” section.
+the [“Controlling How Tests Are Run”][controlling-how-tests-are-run]
+section.
 -->
 
 `ok`の代わりに`test test::another`の行は、`FAILED`を表示しています。個々の結果とまとめの間に、
@@ -364,7 +304,7 @@ the “Controlling How Tests Are Run” section.
 これは、*src/lib.rs*ファイルの10行で起きました。次の区域は失敗したテストの名前だけを列挙しています。
 これは、テストがたくさんあり、失敗したテストの詳細がたくさん表示されるときに有用になります。
 失敗したテストの名前を使用してそのテストだけを実行し、より簡単にデバッグすることができます。
-テストの実行方法については、「テストの実行され方を制御する」節でもっと語りましょう。
+テストの実行方法については、[テストの実行され方を制御する][controlling-how-tests-are-run]節でもっと語りましょう。
 
 <!--
 The summary line displays at the end: overall, our test result is `FAILED`.
@@ -418,18 +358,7 @@ method, which are repeated here in Listing 11-5. Let’s put this code in the
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# fn main() {}
-#[derive(Debug)]
-pub struct Rectangle {
-    length: u32,
-    width: u32,
-}
-
-impl Rectangle {
-    pub fn can_hold(&self, other: &Rectangle) -> bool {
-        self.length > other.length && self.width > other.width
-    }
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-05/src/lib.rs:here}}
 ```
 
 <!--
@@ -442,14 +371,14 @@ impl Rectangle {
 <!--
 The `can_hold` method returns a Boolean, which means it’s a perfect use case
 for the `assert!` macro. In Listing 11-6, we write a test that exercises the
-`can_hold` method by creating a `Rectangle` instance that has a length of 8 and
-a width of 7 and asserting that it can hold another `Rectangle` instance that
-has a length of 5 and a width of 1.
+`can_hold` method by creating a `Rectangle` instance that has a width of 8 and
+a height of 7 and asserting that it can hold another `Rectangle` instance that
+has a width of 5 and a height of 1.
 -->
 
 `can_hold`メソッドは論理値を返すので、`assert!`マクロの完璧なユースケースになるわけです。
-リスト11-6で、長さが8、幅が7の`Rectangle`インスタンスを生成し、これが長さ5、
-幅1の別の`Rectangle`インスタンスを保持できるとアサーションすることで`can_hold`を用いるテストを書きます。
+リスト11-6で、幅が8、高さが7の`Rectangle`インスタンスを生成し、これが幅5、
+高さ1の別の`Rectangle`インスタンスを保持できるとアサーションすることで`can_hold`を用いるテストを書きます。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -458,19 +387,7 @@ has a length of 5 and a width of 1.
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# fn main() {}
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn larger_can_hold_smaller() {
-        let larger = Rectangle { length: 8, width: 7 };
-        let smaller = Rectangle { length: 5, width: 1 };
-
-        assert!(larger.can_hold(&smaller));
-    }
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-06/src/lib.rs:here}}
 ```
 
 <!--
@@ -481,16 +398,18 @@ larger rectangle can indeed hold a smaller rectangle</span>
 <span class="caption">リスト11-6: より大きな四角形がより小さな四角形を確かに保持できるかを確認する`can_hold`用のテスト</span>
 
 <!--
-Note that we’ve added a new line inside the `tests` module: the `use super::*;`.
+Note that we’ve added a new line inside the `tests` module: `use super::*;`.
 The `tests` module is a regular module that follows the usual visibility rules
-we covered in Chapter 7 in the “Privacy Rules” section. Because the `tests`
-module is an inner module, we need to bring the code under test in the outer
-module into the scope of the inner module. We use a glob here so anything we
-define in the outer module is available to this `tests` module.
+we covered in Chapter 7 in the [“Paths for Referring to an Item in the Module
+Tree”][paths-for-referring-to-an-item-in-the-module-tree]
+section. Because the `tests` module is an inner module, we need to bring the
+code under test in the outer module into the scope of the inner module. We use
+a glob here so anything we define in the outer module is available to this
+`tests` module.
 -->
 
 `tests`モジュール内に新しい行を加えたことに注目してください: `use super::*`です。
-`tests`モジュールは、第7章の「プライバシー規則」節で講義した通常の公開ルールに従う普通のモジュールです。
+`tests`モジュールは、第7章の[モジュールツリーの要素を示すためのパス][paths-for-referring-to-an-item-in-the-module-tree]節で講義した通常の公開ルールに従う普通のモジュールです。
 `tests`モジュールは、内部モジュールなので、外部モジュール内のテスト配下にあるコードを内部モジュールのスコープに持っていく必要があります。
 ここではglobを使用して、外部モジュールで定義したもの全てがこの`tests`モジュールでも使用可能になるようにしています。
 
@@ -505,11 +424,8 @@ is supposed to return `true`, so our test should pass. Let’s find out!
 そして、`assert!`マクロを呼び出し、`larger.can_hold(&smaller)`の呼び出し結果を渡しました。
 この式は、`true`を返すと考えられるので、テストは通るはずです。確かめましょう！
 
-```text
-running 1 test
-test tests::larger_can_hold_smaller ... ok
-
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/listing-11-06/output.txt}}
 ```
 
 <!--
@@ -526,24 +442,7 @@ rectangle cannot hold a larger rectangle:
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# fn main() {}
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn larger_can_hold_smaller() {
-        // --snip--
-    }
-
-    #[test]
-    fn smaller_cannot_hold_larger() {
-        let larger = Rectangle { length: 8, width: 7 };
-        let smaller = Rectangle { length: 5, width: 1 };
-
-        assert!(!smaller.can_hold(&larger));
-    }
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-02-adding-another-rectangle-test/src/lib.rs:here}}
 ```
 
 <!--
@@ -555,74 +454,40 @@ result, our test will pass if `can_hold` returns `false`:
 今回の場合、`can_hold`関数の正しい結果は`false`なので、その結果を`assert!`マクロに渡す前に反転させる必要があります。
 結果として、`can_hold`が`false`を返せば、テストは通ります。
 
-```text
-running 2 tests
-test tests::smaller_cannot_hold_larger ... ok
-test tests::larger_can_hold_smaller ... ok
-
-test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-02-adding-another-rectangle-test/output.txt}}
 ```
 
 <!--
 Two tests that pass! Now let’s see what happens to our test results when we
 introduce a bug in our code. Let’s change the implementation of the `can_hold`
 method by replacing the greater than sign with a less than sign when it
-compares the lengths:
+compares the widths:
 -->
-
 通るテストが2つ！さて、コードにバグを導入したらテスト結果がどうなるか確認してみましょう。
-長さを比較する大なり記号を小なり記号で置き換えて`can_hold`メソッドの実装を変更しましょう:
+幅を比較する大なり記号を小なり記号で置き換えて`can_hold`メソッドの実装を変更しましょう:
 
-```rust
-# fn main() {}
-# #[derive(Debug)]
-# pub struct Rectangle {
-#     length: u32,
-#     width: u32,
-# }
-// --snip--
-
-impl Rectangle {
-    pub fn can_hold(&self, other: &Rectangle) -> bool {
-        self.length < other.length && self.width > other.width
-    }
-}
+```rust,not_desired_behavior
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-03-introducing-a-bug/src/lib.rs:here}}
 ```
 
 <!--
 Running the tests now produces the following:
 -->
-
 テストを実行すると、以下のような出力をします:
 
-```text
-running 2 tests
-test tests::smaller_cannot_hold_larger ... ok
-test tests::larger_can_hold_smaller ... FAILED
-
-failures:
-
----- tests::larger_can_hold_smaller stdout ----
-    thread 'tests::larger_can_hold_smaller' panicked at 'assertion failed:
-    larger.can_hold(&smaller)', src/lib.rs:22:8
-    (スレッド'tests::larger_can_hold_smallerはsrc/lib.rs:22:8の'assertion failed: larger.can_hold(&smaller)'
-    でパニックしました)
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
-
-failures:
-    tests::larger_can_hold_smaller
-
-test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-03-introducing-a-bug/output.txt}}
 ```
 
 <!--
-Our tests caught the bug! Because `larger.length` is 8 and `smaller.length` is
-5, the comparison of the lengths in `can_hold` now returns `false`: 8 is not
+Our tests caught the bug! Because `larger.width` is 8 and `smaller.width` is
+5, the comparison of the widths in `can_hold` now returns `false`: 8 is not
 less than 5.
 -->
 
-テストによりバグが捕捉されました！`larger.length`が8、`smaller.length`が5なので、
-`can_hold`内の長さの比較が今は`false`を返すようになったのです: 8は5より小さくないですからね。
+テストによりバグが捕捉されました！`larger.width`が8、`smaller.width`が5なので、
+`can_hold`内の幅の比較が今は`false`を返すようになったのです: 8は5より小さくないですからね。
 
 <!--
 ### Testing Equality with the `assert_eq!` and `assert_ne!` Macros
@@ -632,7 +497,7 @@ less than 5.
 
 <!--
 A common way to test functionality is to compare the result of the code under
-test to the value we expect the code to return to make sure they’re equal. We
+test to the value you expect the code to return to make sure they’re equal. You
 could do this using the `assert!` macro and passing it an expression using the
 `==` operator. However, this is such a common test that the standard library
 provides a pair of macros—`assert_eq!` and `assert_ne!`—to perform this test
@@ -666,20 +531,7 @@ parameter and returns the result. Then we test this function using the
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# fn main() {}
-pub fn add_two(a: i32) -> i32 {
-    a + 2
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_adds_two() {
-        assert_eq!(4, add_two(2));
-    }
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-07/src/lib.rs:here}}
 ```
 
 <!--
@@ -693,13 +545,8 @@ mod tests {
 Let’s check that it passes!
 -->
 
-テストが通ることを確認しましょう！
-
-```text
-running 1 test
-test tests::it_adds_two ... ok
-
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/listing-11-07/output.txt}}
 ```
 
 <!--
@@ -720,35 +567,17 @@ instead add `3`:
 コードにバグを仕込んで、`assert_eq!`を使ったテストが失敗した時にどんな見た目になるのか確認してみましょう。
 `add_two`関数の実装を代わりに`3`を足すように変えてください:
 
-```rust
-# fn main() {}
-pub fn add_two(a: i32) -> i32 {
-    a + 3
-}
+```rust,not_desired_behavior
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-04-bug-in-add-two/src/lib.rs:here}}
 ```
 
 <!--
 Run the tests again:
 -->
-
 テストを再度実行します:
 
-```text
-running 1 test
-test tests::it_adds_two ... FAILED
-
-failures:
-
----- tests::it_adds_two stdout ----
-        thread 'tests::it_adds_two' panicked at 'assertion failed: `(left == right)`
-  left: `4`,
- right: `5`', src/lib.rs:11:8
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
-
-failures:
-    tests::it_adds_two
-
-test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-04-bug-in-add-two/output.txt}}
 ```
 
 <!--
@@ -805,11 +634,11 @@ implement the `PartialEq` and `Debug` traits. All the primitive types and most
 of the standard library types implement these traits. For structs and enums
 that you define, you’ll need to implement `PartialEq` to assert that values of
 those types are equal or not equal. You’ll need to implement `Debug` to print
-out the values when the assertion fails. Because both traits are derivable traits,
+the values when the assertion fails. Because both traits are derivable traits,
 as mentioned in Listing 5-12 in Chapter 5, this is usually as straightforward
 as adding the `#[derive(PartialEq, Debug)]` annotation to your struct or enum
-definition. See Appendix C for more details about these and other derivable
-traits.
+definition. See Appendix C, [“Derivable Traits,”][derivable-traits]
+for more details about these and other derivable traits.
 -->
 
 表面下では、`assert_eq!`と`assert_ne!`マクロはそれぞれ、`==`と`!=`演算子を使用しています。
@@ -821,39 +650,38 @@ traits.
 アサーションが失敗した時に値を出力する必要もあるでしょう。
 第5章のリスト5-12で触れたように、どちらのトレイトも導出可能なトレイトなので、
 これは通常、構造体やenum定義に`#[derive(PartialEq, Debug)]`という注釈を追加するくらい単純になります。
-これらや他の導出可能なトレイトに関する詳細については、付録Cをご覧ください。
+これらや他の導出可能なトレイトに関する詳細については、付録C、[導出可能なトレイト][derivable-traits]をご覧ください。
 
 <!--
 ### Adding Custom Failure Messages
 -->
-
 ### カスタムの失敗メッセージを追加する
 
 <!--
-We can also add a custom message to be printed with the failure message as
+You can also add a custom message to be printed with the failure message as
 optional arguments to the `assert!`, `assert_eq!`, and `assert_ne!` macros. Any
 arguments specified after the one required argument to `assert!` or the two
 required arguments to `assert_eq!` and `assert_ne!` are passed along to the
-`format!` macro (discussed in Chapter 8 in the “Concatenation with the `+`
-Operator or the `format!` Macro” section), so you can pass a format string that
-contains `{}` placeholders and values to go in those placeholders. Custom
-messages are useful to document what an assertion means; when a test fails,
-we’ll have a better idea of what the problem is with the code.
+`format!` macro (discussed in Chapter 8 in the [“Concatenation with the `+`
+Operator or the `format!`
+Macro”][concatenation-with-the--operator-or-the-format-macro]
+section), so you can pass a format string that contains `{}` placeholders and
+values to go in those placeholders. Custom messages are useful to document
+what an assertion means; when a test fails, you’ll have a better idea of what
+the problem is with the code.
 -->
-
 さらに、`assert!`、`assert_eq!`、`assert_ne!`の追加引数として、失敗メッセージと共にカスタムのメッセージが表示されるよう、
 追加することもできます。`assert!`の1つの必須引数、
 あるいは`assert_eq!`と`assert_ne!`の2つの必須引数の後に指定された引数はどれも`format!`マクロに明け渡されるので、
-(format!マクロについては第8章の「`+`演算子または、`format!`マクロで連結する」節で議論しました)、
+(format!マクロについては第8章の[`+`演算子、または`format!`マクロで連結][concatenation-with-the--operator-or-the-format-macro]節で議論しました)、
 `{}`プレースホルダーを含むフォーマット文字列とこのプレースホルダーに置き換えられる値を渡すことができます。
 カスタムメッセージは、アサーションがどんな意味を持つかドキュメント化するのに役に立ちます;
 テストが失敗した時、問題が何なのかコードと共により良い考えを持てるでしょう。
 
 <!--
-For example, let’s say we have a function that greets people by name, and we
+For example, let’s say we have a function that greets people by name and we
 want to test that the name we pass into the function appears in the output:
 -->
-
 例として、人々に名前で挨拶をする関数があり、関数に渡した名前が出力に出現することをテストしたいとしましょう:
 
 <!--
@@ -863,22 +691,7 @@ want to test that the name we pass into the function appears in the output:
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# fn main() {}
-pub fn greeting(name: &str) -> String {
-    // こんにちは、{}さん！
-    format!("Hello {}!", name)
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn greeting_contains_name() {
-        let result = greeting("Carol");
-        assert!(result.contains("Carol"));
-    }
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-05-greeter/src/lib.rs:here}}
 ```
 
 <!--
@@ -901,11 +714,8 @@ Let’s introduce a bug into this code by changing `greeting` to not include
 
 `greeting`が`name`を含まないように変更してこのコードにバグを仕込み、このテストの失敗がどんな見た目になるのか確かめましょう:
 
-```rust
-# fn main() {}
-pub fn greeting(name: &str) -> String {
-    String::from("Hello!")
-}
+```rust,not_desired_behavior
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-06-greeter-with-bug/src/lib.rs:here}}
 ```
 
 <!--
@@ -914,19 +724,8 @@ Running this test produces the following:
 
 このテストを実行すると、以下のように出力されます:
 
-```text
-running 1 test
-test tests::greeting_contains_name ... FAILED
-
-failures:
-
----- tests::greeting_contains_name stdout ----
-        thread 'tests::greeting_contains_name' panicked at 'assertion failed:
-result.contains("Carol")', src/lib.rs:12:8
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
-
-failures:
-    tests::greeting_contains_name
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-06-greeter-with-bug/output.txt}}
 ```
 
 <!--
@@ -943,15 +742,7 @@ filled in with the actual value we got from the `greeting` function:
 テスト関数を変更しましょう:
 
 ```rust,ignore
-#[test]
-fn greeting_contains_name() {
-    let result = greeting("Carol");
-    assert!(
-        result.contains("Carol"),
-        //挨拶は名前を含んでいません。値は`{}`でした
-        "Greeting did not contain name, value was `{}`", result
-    );
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-07-custom-failure-message/src/lib.rs:here}}
 ```
 
 <!--
@@ -960,11 +751,8 @@ Now when we run the test, we’ll get a more informative error message:
 
 これでテストを実行したら、より有益なエラーメッセージが得られるでしょう:
 
-```text
----- tests::greeting_contains_name stdout ----
-        thread 'tests::greeting_contains_name' panicked at 'Greeting did not
-contain name, value was `Hello!`', src/lib.rs:12:8
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-07-custom-failure-message/output.txt}}
 ```
 
 <!--
@@ -985,14 +773,14 @@ debug what happened instead of what we were expecting to happen.
 In addition to checking that our code returns the correct values we expect,
 it’s also important to check that our code handles error conditions as we
 expect. For example, consider the `Guess` type that we created in Chapter 9,
-Listing 9-9. Other code that uses `Guess` depends on the guarantee that `Guess`
-instances will only contain values between 1 and 100. We can write a test that
+Listing 9-10. Other code that uses `Guess` depends on the guarantee that `Guess`
+instances will contain only values between 1 and 100. We can write a test that
 ensures that attempting to create a `Guess` instance with a value outside that
 range panics.
 -->
 
 期待する正しい値をコードが返すことを確認することに加えて、想定通りにコードがエラー状態を扱っていることを確認するのも重要です。
-例えば、第9章のリスト9-9で生成した`Guess`型を考えてください。`Guess`を使用する他のコードは、
+例えば、第9章のリスト9-10で生成した`Guess`型を考えてください。`Guess`を使用する他のコードは、
 `Guess`のインスタンスは1から100の範囲の値しか含まないという保証に依存しています。
 その範囲外の値で`Guess`インスタンスを生成しようとするとパニックすることを確認するテストを書くことができます。
 
@@ -1020,34 +808,7 @@ happen when we expect them to.
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# fn main() {}
-pub struct Guess {
-    value: u32,
-}
-
-impl Guess {
-    pub fn new(value: u32) -> Guess {
-        if value < 1 || value > 100 {
-            //予想値は1から100の間でなければなりません
-            panic!("Guess value must be between 1 and 100, got {}.", value);
-        }
-
-        Guess {
-            value
-        }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    #[should_panic]
-    fn greater_than_100() {
-        Guess::new(200);
-    }
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-08/src/lib.rs:here}}
 ```
 
 <!--
@@ -1066,39 +827,18 @@ passes:
 `#[test]`属性の後、適用するテスト関数の前に`#[should_panic]`属性を配置しています。
 このテストが通るときの結果を見ましょう:
 
-```text
-running 1 test
-test tests::greater_than_100 ... ok
-
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/listing-11-08/output.txt}}
 ```
 
 <!--
 Looks good! Now let’s introduce a bug in our code by removing the condition
 that the `new` function will panic if the value is greater than 100:
 -->
-
 よさそうですね！では、値が100より大きいときに`new`関数がパニックするという条件を除去することでコードにバグを導入しましょう:
 
-```rust
-# fn main() {}
-# pub struct Guess {
-#     value: u32,
-# }
-#
-// --snip--
-
-impl Guess {
-    pub fn new(value: u32) -> Guess {
-        if value < 1  {
-            panic!("Guess value must be between 1 and 100, got {}.", value);
-        }
-
-        Guess {
-            value
-        }
-    }
-}
+```rust,not_desired_behavior
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-08-guess-with-bug/src/lib.rs:here}}
 ```
 
 <!--
@@ -1107,16 +847,8 @@ When we run the test in Listing 11-8, it will fail:
 
 リスト11-8のテストを実行すると、失敗するでしょう:
 
-```text
-running 1 test
-test tests::greater_than_100 ... FAILED
-
-failures:
-
-failures:
-    tests::greater_than_100
-
-test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-08-guess-with-bug/output.txt}}
 ```
 
 <!--
@@ -1132,7 +864,7 @@ means that the code in the test function did not cause a panic.
 <!--
 Tests that use `should_panic` can be imprecise because they only indicate that
 the code has caused some panic. A `should_panic` test would pass even if the
-test panics for a different reason than the one we were expecting to happen. To
+test panics for a different reason from the one we were expecting to happen. To
 make `should_panic` tests more precise, we can add an optional `expected`
 parameter to the `should_panic` attribute. The test harness will make sure that
 the failure message contains the provided text. For example, consider the
@@ -1154,42 +886,7 @@ different messages depending on whether the value is too small or too large.
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-# fn main() {}
-# pub struct Guess {
-#     value: u32,
-# }
-#
-// --snip--
-
-impl Guess {
-    pub fn new(value: u32) -> Guess {
-        if value < 1 {
-            //予想値は、1以上でなければなりませんが、{}でした
-            panic!("Guess value must be greater than or equal to 1, got {}.",
-                   value);
-        } else if value > 100 {
-            //予想値は100以下でなければなりませんが、{}でした
-            panic!("Guess value must be less than or equal to 100, got {}.",
-                   value);
-        }
-
-        Guess {
-            value
-        }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    // 予想値は100以下でなければなりません
-    #[should_panic(expected = "Guess value must be less than or equal to 100")]
-    fn greater_than_100() {
-        Guess::new(200);
-    }
-}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-09/src/lib.rs:here}}
 ```
 
 <!--
@@ -1223,16 +920,11 @@ To see what happens when a `should_panic` test with an `expected` message
 fails, let’s again introduce a bug into our code by swapping the bodies of the
 `if value < 1` and the `else if value > 100` blocks:
 -->
-
 `expected`メッセージありの`should_panic`テストが失敗すると何が起きるのが確かめるために、
 `if value < 1`と`else if value > 100`ブロックの本体を入れ替えることで再度コードにバグを仕込みましょう:
 
-```rust,ignore
-if value < 1 {
-    panic!("Guess value must be less than or equal to 100, got {}.", value);
-} else if value > 100 {
-    panic!("Guess value must be greater than or equal to 1, got {}.", value);
-}
+```rust,ignore,not_desired_behavior
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-09-guess-with-panic-msg-bug/src/lib.rs:here}}
 ```
 
 <!--
@@ -1241,24 +933,8 @@ This time when we run the `should_panic` test, it will fail:
 
 `should_panic`テストを実行すると、今回は失敗するでしょう:
 
-```text
-running 1 test
-test tests::greater_than_100 ... FAILED
-
-failures:
-
----- tests::greater_than_100 stdout ----
-        thread 'tests::greater_than_100' panicked at 'Guess value must be
-greater than or equal to 1, got 200.', src/lib.rs:11:12
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
-note: Panic did not include expected string 'Guess value must be less than or
-equal to 100'
-(注釈: パニックには'Guess value must be less than or equal to 100'という予想される文字列が含まれませんでした)
-
-failures:
-    tests::greater_than_100
-
-test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-09-guess-with-panic-msg-bug/output.txt}}
 ```
 
 <!--
@@ -1275,6 +951,49 @@ figuring out where our bug is!
 そうしてバグの所在地を割り出し始めることができるわけです！
 
 <!--
+### Using `Result<T, E>` in Tests
+-->
+### `Result<T, E>`をテストで使う
+
+<!--
+So far, we’ve written tests that panic when they fail. We can also write tests
+that use `Result<T, E>`! Here’s the test from Listing 11-1, rewritten to use
+`Result<T, E>` and return an `Err` instead of panicking:
+-->
+これまでは、失敗するとパニックするようなテストを書いてきましたが、
+`Result<T, E>`を使うようなテストを書くこともできます！
+以下は、Listing 11-1のテストを、`Result<T, E>`を使い、パニックする代わりに`Err`を返すように書き直したものです：
+
+```rust
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-10-result-in-tests/src/lib.rs}}
+```
+
+<!--
+The `it_works` function now has a return type, `Result<(), String>`. In the
+body of the function, rather than calling the `assert_eq!` macro, we return
+`Ok(())` when the test passes and an `Err` with a `String` inside when the test
+fails.
+-->
+`it_works`関数の戻り値の型は`Result<(), String>`になりました。
+関数内で`assert_eq!`マクロを呼び出す代わりに、テストが成功すれば`Ok(())`を、失敗すれば`Err`に`String`を入れて返すようにします。
+
+<!--
+Writing tests so they return a `Result<T, E>` enables you to use the question
+mark operator in the body of tests, which can be a convenient way to write
+tests that should fail if any operation within them returns an `Err` variant.
+-->
+`Result<T, E>` を返すようなテストを書くと、ハテナ演算子（訳注：`?`のこと）をテストの中で使えるようになります。
+これは、テスト内で何らかの工程が`Err`ヴァリアントを返したときに失敗するべきテストを書くのに便利です。
+
+<!--
+You can’t use the `#[should_panic]` annotation on tests that use `Result<T,
+E>`. Instead, you should return an `Err` value directly when the test should
+fail.
+-->
+`Result<T, E>`を使うテストに`#[should_panic]`注釈を使うことはできません。
+テストが失敗しなければならないときは、直接`Err`値を返してください。
+
+<!--
 Now that you know several ways to write tests, let’s look at what is happening
 when we run our tests and explore the different options we can use with `cargo
 test`.
@@ -1282,3 +1001,11 @@ test`.
 
 今やテスト記法を複数知ったので、テストを走らせる際に起きていることに目を向け、
 `cargo test`で使用できるいろんなオプションを探究しましょう。
+
+[concatenation-with-the--operator-or-the-format-macro]:
+ch08-02-strings.html#%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%BE%E3%81%9F%E3%81%AFformat%E3%83%9E%E3%82%AF%E3%83%AD%E3%81%A7%E9%80%A3%E7%B5%90
+[controlling-how-tests-are-run]:
+ch11-02-running-tests.html#controlling-how-tests-are-run
+[derivable-traits]: appendix-03-derivable-traits.html
+[doc-comments]: ch14-02-publishing-to-crates-io.html#documentation-comments-as-tests
+[paths-for-referring-to-an-item-in-the-module-tree]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html
