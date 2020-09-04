@@ -44,10 +44,10 @@
     - [`use`キーワードでパスをスコープに持ち込む](ch07-04-bringing-paths-into-scope-with-the-use-keyword.md)
     - [モジュールを複数のファイルに分割する](ch07-05-separating-modules-into-different-files.md)
 
-- [Common Collections](ch08-00-common-collections.md)
-    - [Storing Lists of Values with Vectors](ch08-01-vectors.md)
-    - [Storing UTF-8 Encoded Text with Strings](ch08-02-strings.md)
-    - [Storing Keys with Associated Values in Hash Maps](ch08-03-hash-maps.md)
+- [一般的なコレクション](ch08-00-common-collections.md)
+    - [ベクタで一連の値を保持する](ch08-01-vectors.md)
+    - [文字列でUTF-8でエンコードされたテキストを保持する](ch08-02-strings.md)
+    - [ハッシュマップに値に紐づいたキーを格納する](ch08-03-hash-maps.md)
 
 - [Error Handling](ch09-00-error-handling.md)
     - [Unrecoverable Errors with `panic!`](ch09-01-unrecoverable-errors-with-panic.md)
