@@ -59,10 +59,10 @@
     - [トレイト：共通の振る舞いを定義する](ch10-02-traits.md)
     - [ライフタイムで参照を検証する](ch10-03-lifetime-syntax.md)
 
-- [Writing Automated Tests](ch11-00-testing.md)
-    - [How to Write Tests](ch11-01-writing-tests.md)
-    - [Controlling How Tests Are Run](ch11-02-running-tests.md)
-    - [Test Organization](ch11-03-test-organization.md)
+- [自動テストを書く](ch11-00-testing.md)
+    - [テストの記述法](ch11-01-writing-tests.md)
+    - [テストの実行のされ方を制御する](ch11-02-running-tests.md)
+    - [テストの体系化](ch11-03-test-organization.md)
 
 - [An I/O Project: Building a Command Line Program](ch12-00-an-io-project.md)
     - [Accepting Command Line Arguments](ch12-01-accepting-command-line-arguments.md)
