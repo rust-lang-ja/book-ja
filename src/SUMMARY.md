@@ -35,14 +35,14 @@
     - [`match`フロー制御演算子](ch06-02-match.md)
     - [`if let`で簡潔なフロー制御](ch06-03-if-let.md)
 
-## Basic Rust Literacy
+## 基本的なRustリテラシー
 
-- [Managing Growing Projects with Packages, Crates, and Modules](ch07-00-managing-growing-projects-with-packages-crates-and-modules.md)
-    - [Packages and Crates](ch07-01-packages-and-crates.md)
-    - [Defining Modules to Control Scope and Privacy](ch07-02-defining-modules-to-control-scope-and-privacy.md)
-    - [Paths for Referring to an Item in the Module Tree](ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md)
-    - [Bringing Paths Into Scope with the `use` Keyword](ch07-04-bringing-paths-into-scope-with-the-use-keyword.md)
-    - [Separating Modules into Different Files](ch07-05-separating-modules-into-different-files.md)
+- [肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する](ch07-00-managing-growing-projects-with-packages-crates-and-modules.md)
+    - [パッケージとクレート](ch07-01-packages-and-crates.md)
+    - [モジュールを定義して、スコープとプライバシーを制御する](ch07-02-defining-modules-to-control-scope-and-privacy.md)
+    - [モジュールツリーの要素を示すためのパス](ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md)
+    - [`use`キーワードでパスをスコープに持ち込む](ch07-04-bringing-paths-into-scope-with-the-use-keyword.md)
+    - [モジュールを複数のファイルに分割する](ch07-05-separating-modules-into-different-files.md)
 
 - [Common Collections](ch08-00-common-collections.md)
     - [Storing Lists of Values with Vectors](ch08-01-vectors.md)
