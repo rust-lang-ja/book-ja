@@ -30,10 +30,10 @@
     - [構造体を使ったプログラム例](ch05-02-example-structs.md)
     - [メソッド記法](ch05-03-method-syntax.md)
 
-- [Enums and Pattern Matching](ch06-00-enums.md)
-    - [Defining an Enum](ch06-01-defining-an-enum.md)
-    - [The `match` Control Flow Operator](ch06-02-match.md)
-    - [Concise Control Flow with `if let`](ch06-03-if-let.md)
+- [Enumとパターンマッチング](ch06-00-enums.md)
+    - [Enumを定義する](ch06-01-defining-an-enum.md)
+    - [`match`フロー制御演算子](ch06-02-match.md)
+    - [`if let`で簡潔なフロー制御](ch06-03-if-let.md)
 
 ## Basic Rust Literacy
 
