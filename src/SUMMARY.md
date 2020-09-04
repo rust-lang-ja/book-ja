@@ -25,10 +25,10 @@
     - [参照と借用](ch04-02-references-and-borrowing.md)
     - [スライス型](ch04-03-slices.md)
 
-- [Using Structs to Structure Related Data](ch05-00-structs.md)
-    - [Defining and Instantiating Structs](ch05-01-defining-structs.md)
-    - [An Example Program Using Structs](ch05-02-example-structs.md)
-    - [Method Syntax](ch05-03-method-syntax.md)
+- [構造体を使用して関係のあるデータを構造化する](ch05-00-structs.md)
+    - [構造体を定義し、インスタンス化する](ch05-01-defining-structs.md)
+    - [構造体を使ったプログラム例](ch05-02-example-structs.md)
+    - [メソッド記法](ch05-03-method-syntax.md)
 
 - [Enums and Pattern Matching](ch06-00-enums.md)
     - [Defining an Enum](ch06-01-defining-an-enum.md)
