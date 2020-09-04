@@ -54,10 +54,10 @@
     - [`Result`で回復可能なエラー](ch09-02-recoverable-errors-with-result.md)
     - [`panic!`すべきかするまいか](ch09-03-to-panic-or-not-to-panic.md)
 
-- [Generic Types, Traits, and Lifetimes](ch10-00-generics.md)
-    - [Generic Data Types](ch10-01-syntax.md)
-    - [Traits: Defining Shared Behavior](ch10-02-traits.md)
-    - [Validating References with Lifetimes](ch10-03-lifetime-syntax.md)
+- [ジェネリック型、トレイト、ライフタイム](ch10-00-generics.md)
+    - [ジェネリックなデータ型](ch10-01-syntax.md)
+    - [トレイト：共通の振る舞いを定義する](ch10-02-traits.md)
+    - [ライフタイムで参照を検証する](ch10-03-lifetime-syntax.md)
 
 - [Writing Automated Tests](ch11-00-testing.md)
     - [How to Write Tests](ch11-01-writing-tests.md)
