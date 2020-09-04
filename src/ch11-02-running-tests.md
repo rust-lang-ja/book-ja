@@ -2,7 +2,7 @@
 ## Controlling How Tests Are Run
 -->
 
-## テストの実行され方を制御する
+## テストの実行のされ方を制御する
 
 <!--
 Just as `cargo run` compiles your code and then runs the resulting binary,
