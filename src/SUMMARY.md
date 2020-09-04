@@ -6,24 +6,24 @@
 
 ## 事始め
 
-- [Getting Started](ch01-00-getting-started.md)
-    - [Installation](ch01-01-installation.md)
+- [事始め](ch01-00-getting-started.md)
+    - [インストール](ch01-01-installation.md)
     - [Hello, World!](ch01-02-hello-world.md)
     - [Hello, Cargo!](ch01-03-hello-cargo.md)
 
-- [Programming a Guessing Game](ch02-00-guessing-game-tutorial.md)
+- [数当てゲームをプログラムする](ch02-00-guessing-game-tutorial.md)
 
-- [Common Programming Concepts](ch03-00-common-programming-concepts.md)
-    - [Variables and Mutability](ch03-01-variables-and-mutability.md)
-    - [Data Types](ch03-02-data-types.md)
-    - [Functions](ch03-03-how-functions-work.md)
-    - [Comments](ch03-04-comments.md)
-    - [Control Flow](ch03-05-control-flow.md)
+- [一般的なプログラミングの概念](ch03-00-common-programming-concepts.md)
+    - [変数と可変性](ch03-01-variables-and-mutability.md)
+    - [データ型](ch03-02-data-types.md)
+    - [関数](ch03-03-how-functions-work.md)
+    - [コメント](ch03-04-comments.md)
+    - [制御フロー](ch03-05-control-flow.md)
 
-- [Understanding Ownership](ch04-00-understanding-ownership.md)
-    - [What is Ownership?](ch04-01-what-is-ownership.md)
-    - [References and Borrowing](ch04-02-references-and-borrowing.md)
-    - [The Slice Type](ch04-03-slices.md)
+- [所有権を理解する](ch04-00-understanding-ownership.md)
+    - [所有権とは？](ch04-01-what-is-ownership.md)
+    - [参照と借用](ch04-02-references-and-borrowing.md)
+    - [スライス型](ch04-03-slices.md)
 
 - [Using Structs to Structure Related Data](ch05-00-structs.md)
     - [Defining and Instantiating Structs](ch05-01-defining-structs.md)
