@@ -7,5 +7,5 @@ language = "ja"
 build-dir = "docs"
 
 [output.html]
-additional-css = ["ferris.css", "theme/2018-edition.css"]
+additional-css = ["ferris.css", "theme/2018-edition.css", "theme/em-to-bold.css"]
 additional-js = ["ferris.js"]
