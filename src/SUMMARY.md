@@ -1,8 +1,8 @@
 # Rustプログラミング言語
 
-[The Rust Programming Language](title-page.md)
-[Foreword](foreword.md)
-[Introduction](ch00-00-introduction.md)
+[Rustプログラミング言語](title-page.md)
+[まえがき](foreword.md)
+[導入](ch00-00-introduction.md)
 
 ## Getting started
 
