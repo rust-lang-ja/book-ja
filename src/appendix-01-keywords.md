@@ -216,7 +216,7 @@ The error shows that you can’t use the keyword `match` as the function
 identifier. To use `match` as a function name, you need to use the raw
 identifier syntax, like this:
 -->
-このエラーは`match`というキーワードを関数の指定子としては使えないと示しています。
+このエラーは`match`というキーワードを関数の識別子としては使えないと示しています。
 `match`を関数名として使うには、次のように、生識別子構文を使う必要があります。
 
 <!--
@@ -251,7 +251,7 @@ has a `try` function, you’ll need to use the raw identifier syntax, `r#try` in
 this case, to call that function from your 2018 edition code. See [Appendix
 E][appendix-e] for more information on editions.
 -->
-生識別子を使えば、仮にそれが予約されたキーワードであろうとも、任意の単語を指定子として使えるようになります。
+生識別子を使えば、仮にそれが予約されたキーワードであろうとも、任意の単語を識別子として使えるようになります。
 更に、あなたのクレートが使っているRustのeditionとは異なるeditionで書かれたライブラリを呼び出すこともできるようになります。
 たとえば、`try`は2015 editionではキーワードではありませんでしたが、2018 editionではキーワードです。
 もし、2015 editionで書かれており、`try`関数を持っているライブラリに依存している場合、あなたの2018 editionのコードからその関数を呼び出すためには、生識別子構文を使う必要がでてくるでしょう。今回なら`r#try`ですね。

@@ -29,7 +29,7 @@ edition brings together the features that have landed into a clear package with
 fully updated documentation and tooling. New editions ship as part of the usual
 six-week release process.
 -->
-2、3年ごとに、Rustチームは新しいRustの *edition* を作ります。
+2、3年ごとに、RustチームはRustの新しい *edition* を作ります。
 それぞれのeditionには、それまでにRustにやってきた新しい機能が、完全に更新されたドキュメントとツール群とともに、まとまったパッケージとなってまとめられています。
 新しいeditionは通常の6週間ごとのリリースの一部として配布されます。
 
@@ -47,7 +47,7 @@ Editions serve different purposes for different people:
   project as a whole.
 -->
 * アクティブなRustユーザにとっては、新しいeditionは、少しずつ増えてきた変更点を理解しやすいパッケージにしてまとめるものです。
-* Rustユーザでない人にとっては、新しいeditionは、何かしら大きな達成がなされたことを示します。Rustに今一度目を向けてみても良いかもしれません。
+* Rustユーザでない人にとっては、新しいeditionは、何かしら大きな達成がなされたことを示します。Rustには今一度目を向ける価値があると感じさせるかもしれません。
 * Rustを開発している人にとっては、新しいeditionは、プロジェクト全体の目標地点となります。
 
 <!--

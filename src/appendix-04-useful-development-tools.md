@@ -9,7 +9,7 @@ project provides. We’ll look at automatic formatting, quick ways to apply
 warning fixes, a linter, and integrating with IDEs.
 -->
 この付録では、Rustプロジェクトの提供する便利な開発ツールについていくつかお話します。
-自動フォーマット、警告に対する修正をすばやく適用する方法、そしてIDEとの統合について見ていきます。
+自動フォーマット、警告に対する修正をすばやく適用する方法、lintツール、そしてIDEとの統合について見ていきます。
 
 <!--
 ### Automatic Formatting with `rustfmt`
@@ -219,7 +219,7 @@ that your program would be more correct if you used the constant instead. You
 would then change your code to use the `PI` constant. The following code
 doesn’t result in any errors or warnings from Clippy:
 -->
-あなたは、このエラーのおかげで、Rustにはより正確に定義されたこの定数がすでにあり、これを代わりに使うことでプログラムをより正しくできるだろうと知ることができます。
+あなたは、このエラーのおかげで、Rustにはより正確に定義された定数がすでにあり、これを代わりに使うとプログラムがより正しくなるかもしれないと気づくことができます。
 なので、あなたはコードを定数`PI`を使うように変更するでしょう。
 以下のコードはもうClippyからエラーや警告は受けません。
 
@@ -256,7 +256,7 @@ languages to communicate with each other. Different clients can use the `rls`,
 such as [the Rust plug-in for Visual Studio Code][vscode].
 -->
 IDEでの開発の助けになるよう、Rustプロジェクトは *Rust Language Server* (`rls`)を配布しています。
-このツールは、[Language Server Protocol][lsp]という、IDEとプログラミング言語が対話するための言語を使います。
+このツールは、[Language Server Protocol][lsp]という、IDEとプログラミング言語が対話するための仕様に対応しています。
 [Visual Studio CodeのRustプラグイン][vscode]をはじめ、様々なクライアントが`rls`を使うことができます。
 
 [lsp]: http://langserver.org/
