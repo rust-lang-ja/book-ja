@@ -18,7 +18,7 @@
     - [データ型](ch03-02-data-types.md)
     - [関数](ch03-03-how-functions-work.md)
     - [コメント](ch03-04-comments.md)
-    - [制御フロー](ch03-05-control-flow.md)
+    - [フロー制御](ch03-05-control-flow.md)
 
 - [所有権を理解する](ch04-00-understanding-ownership.md)
     - [所有権とは？](ch04-01-what-is-ownership.md)
