@@ -110,7 +110,7 @@
 
 - [パターンとマッチング](ch18-00-patterns.md)
     - [パターンが使用されることのある箇所全部](ch18-01-all-the-places-for-patterns.md)
-    - [論駁可能性：合致しないかどうか](ch18-02-refutability.md)
+    - [論駁可能性：パターンが合致しないかどうか](ch18-02-refutability.md)
     - [パターン記法](ch18-03-pattern-syntax.md)
 
 - [高度な機能](ch19-00-advanced-features.md)
