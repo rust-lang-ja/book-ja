@@ -120,10 +120,10 @@
     - [高度な関数とクロージャ](ch19-05-advanced-functions-and-closures.md)
     - [マクロ](ch19-06-macros.md)
 
-- [Final Project: Building a Multithreaded Web Server](ch20-00-final-project-a-web-server.md)
-    - [Building a Single-Threaded Web Server](ch20-01-single-threaded.md)
-    - [Turning Our Single-Threaded Server into a Multithreaded Server](ch20-02-multithreaded.md)
-    - [Graceful Shutdown and Cleanup](ch20-03-graceful-shutdown-and-cleanup.md)
+- [最後のプロジェクト：マルチスレッドのWebサーバを構築する](ch20-00-final-project-a-web-server.md)
+    - [シングルスレッドのWebサーバを構築する](ch20-01-single-threaded.md)
+    - [シングルスレッドサーバをマルチスレッド化する](ch20-02-multithreaded.md)
+    - [正常なシャットダウンと片付け](ch20-03-graceful-shutdown-and-cleanup.md)
 
 - [Appendix](appendix-00.md)
     - [A - Keywords](appendix-01-keywords.md)
