@@ -1,8 +1,8 @@
 <!--
-## Appendix E: Translations of the Book
+## Appendix F: Translations of the Book
 -->
 
-## 付録E: 本の翻訳
+## 付録F: 本の翻訳
 
 <!--
 For resources in languages other than English. Most are still in progress; see
