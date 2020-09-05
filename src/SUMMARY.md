@@ -95,11 +95,11 @@
     - [`RefCell<T>`と内部可変性パターン](ch15-05-interior-mutability.md)
     - [循環参照は、メモリをリークすることもある](ch15-06-reference-cycles.md)
 
-- [Fearless Concurrency](ch16-00-concurrency.md)
-    - [Using Threads to Run Code Simultaneously](ch16-01-threads.md)
-    - [Using Message Passing to Transfer Data Between Threads](ch16-02-message-passing.md)
-    - [Shared-State Concurrency](ch16-03-shared-state.md)
-    - [Extensible Concurrency with the `Sync` and `Send` Traits](ch16-04-extensible-concurrency-sync-and-send.md)
+- [恐れるな！並行性](ch16-00-concurrency.md)
+    - [スレッドを使用してコードを同時に走らせる](ch16-01-threads.md)
+    - [メッセージ受け渡しを使ってスレッド間でデータを転送する](ch16-02-message-passing.md)
+    - [状態共有並行性](ch16-03-shared-state.md)
+    - [`Sync`と`Send`トレイトで拡張可能な並行性](ch16-04-extensible-concurrency-sync-and-send.md)
 
 - [Object Oriented Programming Features of Rust](ch17-00-oop.md)
     - [Characteristics of Object-Oriented Languages](ch17-01-what-is-oo.md)
