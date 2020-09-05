@@ -1,0 +1,961 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Traits: Defining Shared Behavior - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html" class="active"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Traits: Defining Shared Behavior
+-->
+<h2><a class="header" href="#トレイト-共通の振る舞いを定義する" id="トレイト-共通の振る舞いを定義する">トレイト: 共通の振る舞いを定義する</a></h2>
+<!--
+A *trait* tells the Rust compiler about functionality a particular type has and
+can share with other types. We can use traits to define shared behavior in an
+abstract way. We can use trait bounds to specify that a generic can be any type
+that has certain behavior.
+-->
+<p><em>トレイト</em>により、Rustコンパイラに特定の型に存在し、他の型と共有できる機能について知らせます。
+トレイトを使用して共通の振る舞いを抽象的に定義できます。トレイト境界を使用して、
+あるジェネリックが特定の振る舞いのあるあらゆる型になり得ることを指定できます。</p>
+<!--
+> Note: Traits are similar to a feature often called *interfaces* in other
+> languages, although with some differences.
+-->
+<blockquote>
+<p>注釈: 違いはあるものの、トレイトは他の言語でよくインターフェイスと呼ばれる機能に類似しています。</p>
+</blockquote>
+<!--
+### Defining a Trait
+-->
+<h3><a class="header" href="#トレイトを定義する" id="トレイトを定義する">トレイトを定義する</a></h3>
+<!--
+A type’s behavior consists of the methods we can call on that type. Different
+types share the same behavior if we can call the same methods on all of those
+types. Trait definitions are a way to group method signatures together to
+define a set of behaviors necessary to accomplish some purpose.
+-->
+<p>型の振る舞いは、その型に対して呼び出せるメソッドから構成されます。異なる型は、それらの型全部に対して同じメソッドを呼び出せたら、
+同じ振る舞いを共有します。トレイト定義は、メソッドシグニチャを一緒くたにしてなんらかの目的を達成するのに必要な一連の振る舞いを定義する手段です。</p>
+<!--
+For example, let’s say we have multiple structs that hold various kinds and
+amounts of text: a `NewsArticle` struct that holds a news story filed in a
+particular location and a `Tweet` that can have at most 280 characters along
+with metadata that indicates whether it was a new tweet, a retweet, or a reply
+to another tweet.
+-->
+<p>例えば、いろんな種類や量のテキストを保持する複数の構造体があるとしましょう: 特定の場所で送られる新しいニュースを保持する<code>NewsArticle</code>と、
+新規ツイートか、リツイートか、はたまた他のツイートへのリプライなのかを示すメタデータを伴う最大で280文字までの<code>Tweet</code>です。</p>
+<!--
+We want to make a media aggregator library that can display summaries of data
+that might be stored in a `NewsArticle` or `Tweet` instance. To do this, we
+need a summary from each type, and we need to request that summary by calling a
+`summarize` method on an instance. Listing 10-12 shows the definition of a
+`Summary` trait that expresses this behavior.
+-->
+<p><code>NewsArticle</code> または <code>Tweet</code> インスタンスに保存されているデータのサマリを表示できるメディア アグリゲータ ライブラリを作成します。
+これをするには、各型のサマリーが必要で、インスタンスで <code>summarize</code> メソッドを呼び出してサマリーを要求する必要があります。
+リスト10-12は、この振る舞いを表現する<code>Summary</code>トレイトの定義を表示しています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub trait Summary {
+    fn summarize(&amp;self) -&gt; String;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 10-12: A `Summary` trait that consists of the
+behavior provided by a `summarize` method</span>
+-->
+<p><span class="caption">リスト10-12: <code>summarize</code>メソッドで提供される振る舞いからなる<code>Summary</code>トレイト</span></p>
+<!--
+Here, we declare a trait using the `trait` keyword and then the trait’s name,
+which is `Summary` in this case. Inside the curly brackets, we declare the
+method signatures that describe the behaviors of the types that implement this
+trait, which in this case is `fn summarize(&self) -> String`.
+-->
+<p>ここでは、<code>trait</code>キーワード、それからトレイト名を使用してトレイトを定義していて、その名前は今回の場合、
+<code>Summary</code>です。波括弧の中にこのトレイトを実装する型の振る舞いを記述するメソッドシグニチャを定義し、
+今回の場合は、<code>fn summarize(&amp;self) -&gt; String</code>です。</p>
+<!--
+After the method signature, instead of providing an implementation within curly
+brackets, we use a semicolon. Each type implementing this trait must provide
+its own custom behavior for the body of the method. The compiler will enforce
+that any type that has the `Summary` trait will have the method `summarize`
+defined with this signature exactly.
+-->
+<p>メソッドシグニチャの後に、波括弧内に実装を提供する代わりに、セミコロンを使用しています。
+このトレイトを実装する型はそれぞれ、メソッドの本体に独自の振る舞いを提供しなければなりません。
+コンパイラにより、<code>Summary</code>トレイトを保持するあらゆる型に、このシグニチャと全く同じメソッド<code>summarize</code>が定義されていることが、
+強制されます。</p>
+<!--
+A trait can have multiple methods in its body: the method signatures are listed
+one per line and each line ends in a semicolon.
+-->
+<p>トレイトには、本体に複数のメソッドを含むことができます: メソッドシグニチャは行ごとに列挙され、
+各行はセミコロンで終止します。</p>
+<!--
+### Implementing a Trait on a Type
+-->
+<h3><a class="header" href="#トレイトを型に実装する" id="トレイトを型に実装する">トレイトを型に実装する</a></h3>
+<!--
+Now that we’ve defined the desired behavior using the `Summary` trait, we can
+implement it on the types in our media aggregator. Listing 10-13 shows an
+implementation of the `Summary` trait on the `NewsArticle` struct that uses the
+headline, the author, and the location to create the return value of
+`summarize`. For the `Tweet` struct, we define `summarize` as the username
+followed by the entire text of the tweet, assuming that tweet content is
+already limited to 280 characters.
+-->
+<p>今や <code>Summary</code> トレイトを使用して目的の動作を定義できたので、メディア アグリゲータで型に実装できます。
+リスト10-13は、 <code>Summary</code> トレイトを <code>NewsArticle</code> 構造体上に実装したもので、ヘッドライン、著者、そして <code>summarize</code> の戻り値を示しています。
+<code>Tweet</code> 構造体に関しては、ツイートの内容が既に280文字に制限されていると仮定して、ユーザー名の後にツイートのテキスト全体が続くものとして <code>summarize</code> を定義します。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">pub trait Summary {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub struct NewsArticle {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+
+impl Summary for NewsArticle {
+    fn summarize(&amp;self) -&gt; String {
+        format!(&quot;{}, by {} ({})&quot;, self.headline, self.author, self.location)
+    }
+}
+
+pub struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+
+impl Summary for Tweet {
+    fn summarize(&amp;self) -&gt; String {
+        format!(&quot;{}: {}&quot;, self.username, self.content)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 10-13: Implementing the `Summary` trait on the
+`NewsArticle` and `Tweet` types</span>
+-->
+<p><span class="caption">リスト10-13: <code>Summary</code>トレイトを<code>NewsArticle</code>と<code>Tweet</code>型に実装する</span></p>
+<!--
+Implementing a trait on a type is similar to implementing regular methods. The
+difference is that after `impl`, we put the trait name that we want to
+implement, then use the `for` keyword, and then specify the name of the type we
+want to implement the trait for. Within the `impl` block, we put the method
+signatures that the trait definition has defined. Instead of adding a semicolon
+after each signature, we use curly brackets and fill in the method body with
+the specific behavior that we want the methods of the trait to have for the
+particular type.
+-->
+<p>型にトレイトを実装することは、普通のメソッドを実装することに似ています。違いは、<code>impl</code>の後に、
+実装したいトレイトの名前を置き、それから<code>for</code>キーワード、さらにトレイトの実装対象の型の名前を指定することです。
+<code>impl</code>ブロック内に、トレイト定義で定義したメソッドシグニチャを置きます。各シグニチャの後にセミコロンを追記するのではなく、
+波括弧を使用し、メソッド本体に特定の型のトレイトのメソッドに欲しい特定の振る舞いを入れます。</p>
+<!--
+After implementing the trait, we can call the methods on instances of
+`NewsArticle` and `Tweet` in the same way we call regular methods, like this:
+-->
+<p>トレイトを実装後、普通のメソッド同様に<code>NewsArticle</code>や<code>Tweet</code>のインスタンスに対してこのメソッドを呼び出せます。
+こんな感じで:</p>
+<pre><code class="language-rust ignore">let tweet = Tweet {
+    username: String::from(&quot;horse_ebooks&quot;),
+    // もちろん、ご存知かもしれないようにね、みなさん
+    content: String::from(&quot;of course, as you probably already know, people&quot;),
+    reply: false,
+    retweet: false,
+};
+
+println!(&quot;1 new tweet: {}&quot;, tweet.summarize());
+</code></pre>
+<!--
+This code prints `1 new tweet: horse_ebooks: of course, as you probably already
+know, people`.
+-->
+<p>このコードは、<code>1 new tweet: horse_ebooks: of course, as you probably already know, people</code>と出力します。</p>
+<!--
+Note that because we defined the `Summary` trait and the `NewsArticle` and
+`Tweet` types in the same *lib.rs* in Listing 10-13, they’re all in the same
+scope. Let’s say this *lib.rs* is for a crate we’ve called `aggregator` and
+someone else wants to use our crate’s functionality to implement the `Summary`
+trait on a struct defined within their library’s scope. They would need to
+import the trait into their scope first. They would do so by specifying `use
+aggregator::Summary;`, which then would enable them to implement `Summary` for
+their type. The `Summary` trait would also need to be a public trait for
+another crate to implement it, which it is because we put the `pub` keyword
+before `trait` in Listing 10-12.
+-->
+<p>リスト10-13で<code>Summary</code>トレイトと<code>NewArticle</code>、<code>Tweet</code>型を同じ<em>lib.rs</em>に定義したので、
+全部同じスコープにあることに注目してください。この<em>lib.rs</em>を<code>aggregator</code>と呼ばれるクレート専用にして、
+誰か他の人が私たちのクレートの機能を活用して自分のライブラリのスコープに定義された構造体に<code>Summary</code>トレイトを実装したいとしましょう。
+まず、トレイトをスコープにインポートする必要があるでしょう。<code>use aggregator::Summary;</code>と指定してそれを行い、
+これにより、自分の型に<code>Summary</code>を実装することが可能になるでしょう。<code>Summary</code>トレイトは、
+他のクレートが実装するためには、公開トレイトである必要があり、ここでは、リスト10-12の<code>trait</code>の前に、
+<code>pub</code>キーワードを置いたのでそうなっています。</p>
+<!--
+One restriction to note with trait implementations is that we can implement a
+trait on a type only if either the trait or the type is local to our crate.
+For example, we can implement standard library traits like `Display` on a
+custom type like `Tweet` as part of our `aggregator` crate functionality,
+because the type `Tweet` is local to our `aggregator` crate. We can also
+implement `Summary` on `Vec<T>` in our `aggregator` crate, because the
+trait `Summary` is local to our `aggregator` crate.
+-->
+<p>トレイト実装で注意すべき制限の1つは、トレイトか対象の型が自分のクレートに固有(local)である時のみ、
+型に対してトレイトを実装できるということです。例えば、<code>Display</code>のような標準ライブラリのトレイトを<code>aggregator</code>クレートの機能の一部として、
+<code>Tweet</code>のような独自の型に実装できます。型<code>Tweet</code>が<code>aggregator</code>クレートに固有だからです。
+また、<code>Summary</code>を<code>aggregator</code>クレートで<code>Vec&lt;T&gt;</code>に対して実装することもできます。
+トレイト<code>Summary</code>は、<code>aggregator</code>クレートに固有だからです。</p>
+<!--
+But we can’t implement external traits on external types. For example, we can’t
+implement the `Display` trait on `Vec<T>` within our `aggregator` crate,
+because `Display` and `Vec<T>` are defined in the standard library and aren’t
+local to our `aggregator` crate. This restriction is part of a property of
+programs called *coherence*, and more specifically the *orphan rule*, so named
+because the parent type is not present. This rule ensures that other people’s
+code can’t break your code and vice versa. Without the rule, two crates could
+implement the same trait for the same type, and Rust wouldn’t know which
+implementation to use.
+-->
+<p>しかし、外部のトレイトを外部の型に対して実装することはできません。例として、
+<code>aggregator</code>クレート内で<code>Vec&lt;T&gt;</code>に対して<code>Display</code>トレイトを実装することはできません。
+<code>Display</code>と<code>Vec&lt;T&gt;</code>は標準ライブラリで定義され、<code>aggregator</code>クレートに固有ではないからです。
+この制限は、<em>コヒーレンス</em>(coherence)あるいは、具体的に<em>オーファンルール</em>(orphan rule)と呼ばれるプログラムの特性の一部で、
+親の型が存在しないためにそう命名されました。この規則により、他の人のコードが自分のコードを壊したり、
+その逆が起きないことを保証してくれます。この規則がなければ、2つのクレートが同じ型に対して同じトレイトを実装できてしまい、
+コンパイラはどちらの実装を使うべきかわからなくなってしまうでしょう。</p>
+<!--
+### Default Implementations
+-->
+<h3><a class="header" href="#デフォルト実装" id="デフォルト実装">デフォルト実装</a></h3>
+<!--
+Sometimes it’s useful to have default behavior for some or all of the methods
+in a trait instead of requiring implementations for all methods on every type.
+Then, as we implement the trait on a particular type, we can keep or override
+each method’s default behavior.
+-->
+<p>時として、全ての型の全メソッドに対して実装を必要とするのではなく、トレイトの全てあるいは一部のメソッドに対してデフォルトの振る舞いがあると有用です。
+そうすれば、特定の型にトレイトを実装する際、各メソッドのデフォルト実装を保持するかオーバーライドできるわけです。</p>
+<!--
+Listing 10-14 shows how to specify a default string for the `summarize` method
+of the `Summary` trait instead of only defining the method signature, as we did
+in Listing 10-12:
+-->
+<p>リスト10-14は、リスト10-12のように、メソッドシグニチャだけを定義するのではなく、
+<code>Summary</code>トレイトの<code>summarize</code>メソッドにデフォルトの文字列を指定する方法を示しています:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub trait Summary {
+    fn summarize(&amp;self) -&gt; String {
+        // (もっと読む)
+        String::from(&quot;(Read more...)&quot;)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 10-14: Definition of a `Summary` trait with a
+default implementation of the `summarize` method</span>
+-->
+<p><span class="caption">リスト10-14: <code>summarize</code>メソッドのデフォルト実装がある<code>Summary</code>トレイトの定義</span></p>
+<!--
+To use a default implementation to summarize instances of `NewsArticle` instead
+of defining a custom implementation, we specify an empty `impl` block with
+`impl Summary for NewsArticle {}`.
+-->
+<p>独自の実装を定義するのではなく、デフォルト実装を使用して<code>NewsArticle</code>のインスタンスをまとめるには、
+<code>impl Summary for NewsArticle {}</code>と空の<code>impl</code>ブロックを指定します。</p>
+<!--
+Even though we’re no longer defining the `summarize` method on `NewsArticle`
+directly, we’ve provided a default implementation and specified that
+`NewsArticle` implements the `Summary` trait. As a result, we can still call
+the `summarize` method on an instance of `NewsArticle`, like this:
+-->
+<p>たとえ、最早<code>NewsArticle</code>に直接<code>summarize</code>メソッドを定義することはなくても、デフォルト実装を提供し、
+<code>NewsArticle</code>は<code>Summary</code>トレイトを実装すると指定しました。結果的に、それでも、
+<code>NewsArticle</code>のインスタンスに対して<code>summarize</code>メソッドを呼び出すことができます。
+このように:</p>
+<pre><code class="language-rust ignore">let article = NewsArticle {
+    // ペンギンチームがスタンレーカップチャンピオンシップを勝ち取る！
+    headline: String::from(&quot;Penguins win the Stanley Cup Championship!&quot;),
+    // ピッツバーグ、ペンシルベニア州、アメリカ
+    location: String::from(&quot;Pittsburgh, PA, USA&quot;),
+    // アイスバーグ
+    author: String::from(&quot;Iceburgh&quot;),
+    // ピッツバーグ・ペンギンが再度NHL(National Hockey League)で最強のホッケーチームになった
+    content: String::from(&quot;The Pittsburgh Penguins once again are the best
+    hockey team in the NHL.&quot;),
+};
+
+// 新しい記事が利用可能です！ {}
+println!(&quot;New article available! {}&quot;, article.summarize());
+</code></pre>
+<!--
+This code prints `New article available! (Read more...)`.
+-->
+<p>このコードは、<code>New article available! (Read more...)</code>と出力します。</p>
+<!--
+Creating a default implementation for `summarize` doesn’t require us to change
+anything about the implementation of `Summary` on `Tweet` in Listing 10-13. The
+reason is that the syntax for overriding a default implementation is the same
+as the syntax for implementing a trait method that doesn’t have a default
+implementation.
+-->
+<p><code>summarize</code>にデフォルト実装を用意しても、リスト10-13の<code>Tweet</code>の<code>Summary</code>実装を変える必要はありません。
+理由は、デフォルト実装をオーバーライドする記法がデフォルト実装のないトレイトメソッドを実装する記法と同じだからです。</p>
+<!--
+Default implementations can call other methods in the same trait, even if those
+other methods don’t have a default implementation. In this way, a trait can
+provide a lot of useful functionality and only require implementors to specify
+a small part of it. For example, we could define the `Summary` trait to have a
+`summarize_author` method whose implementation is required, and then define a
+`summarize` method that has a default implementation that calls the
+`summarize_author` method:
+-->
+<p>デフォルト実装は、他のデフォルト実装がないメソッドでも呼び出すことができます。
+このように、トレイトは多くの有用な機能を提供しつつ、実装者に僅かな部分だけ指定してもらう必要しかないのです。
+例えば、<code>Summary</code>トレイトを実装が必須の<code>summarize_author</code>メソッドを持つように定義し、
+それから<code>summarize_author</code>メソッドを呼び出すデフォルト実装のある<code>summarize</code>メソッドを定義することもできます:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub trait Summary {
+    fn summarize_author(&amp;self) -&gt; String;
+
+    fn summarize(&amp;self) -&gt; String {
+        // {}さんからもっと読む
+        format!(&quot;(Read more from {}...)&quot;, self.summarize_author())
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+To use this version of `Summary`, we only need to define `summarize_author`
+when we implement the trait on a type:
+-->
+<p>このバージョンの<code>Summary</code>を使用するには、型にトレイトを実装する際に<code>summarize_author</code>を定義する必要しかありません:</p>
+<pre><code class="language-rust ignore">impl Summary for Tweet {
+    fn summarize_author(&amp;self) -&gt; String {
+        format!(&quot;@{}&quot;, self.username)
+    }
+}
+</code></pre>
+<!--
+After we define `summarize_author`, we can call `summarize` on instances of the
+`Tweet` struct, and the default implementation of `summarize` will call the
+definition of `summarize_author` that we’ve provided. Because we’ve implemented
+`summarize_author`, the `Summary` trait has given us the behavior of the
+`summarize` method without requiring us to write any more code.
+-->
+<p><code>summarize_author</code>定義後、<code>Tweet</code>構造体のインスタンスに対して<code>summarize</code>を呼び出せ、
+<code>summarize</code>のデフォルト実装は、提供済みの<code>summarize_author</code>の定義を呼び出すでしょう。
+<code>summarize_author</code>を実装したので、追加のコードを書く必要なく、<code>Summary</code>トレイトは、
+<code>summarize</code>メソッドの振る舞いを与えてくれました。</p>
+<pre><code class="language-rust ignore">let tweet = Tweet {
+    username: String::from(&quot;horse_ebooks&quot;),
+    content: String::from(&quot;of course, as you probably already know, people&quot;),
+    reply: false,
+    retweet: false,
+};
+
+println!(&quot;1 new tweet: {}&quot;, tweet.summarize());
+</code></pre>
+<!--
+This code prints `1 new tweet: (Read more from @horse_ebooks...)`.
+-->
+<p>このコードは、<code>1 new tweet: (Read more from @horse_ebooks...)</code>と出力します。</p>
+<!--
+Note that it isn’t possible to call the default implementation from an
+overriding implementation of that same method.
+-->
+<p>同じメソッドのオーバーライドした実装からは、デフォルト実装を呼び出すことができないことに注意してください。</p>
+<!--
+### Trait Bounds
+-->
+<h3><a class="header" href="#トレイト境界" id="トレイト境界">トレイト境界</a></h3>
+<!--
+Now that you know how to define traits and implement those traits on types, we
+can explore how to use traits with generic type parameters. We can use *trait
+bounds* to constrain generic types to ensure the type will be limited to those
+that implement a particular trait and behavior.
+-->
+<p>これでトレイトの定義とトレイトを型に実装する方法を知ったので、ジェネリックな型引数でトレイトを使用する方法を探究できます。
+<em>トレイト境界</em>を使用してジェネリックな型を制限し、型が特定のトレイトや振る舞いを実装するものに制限されることを保証できます。</p>
+<!--
+For example, in Listing 10-13, we implemented the `Summary` trait on the types
+`NewsArticle` and `Tweet`. We can define a function `notify` that calls the
+`summarize` method on its parameter `item`, which is of the generic type `T`.
+To be able to call `summarize` on `item` without getting an error telling us
+that the generic type `T` doesn’t implement the method `summarize`, we can use
+trait bounds on `T` to specify that `item` must be of a type that implements
+the `Summary` trait:
+-->
+<p>例として、リスト10-13で、<code>Summary</code>トレイトを型<code>NewsArticle</code>と<code>Tweet</code>に実装しました。
+引数<code>item</code>に対して<code>summarize</code>メソッドを呼び出す関数<code>notify</code>を定義でき、この引数はジェネリックな型<code>T</code>です。
+<code>item</code>の<code>summarize</code>を呼ぶときにジェネリックな型<code>T</code>がメソッド<code>summarize</code>を実装してないというエラーが出ないように、
+<code>T</code>のトレイト境界を使って<code>item</code>が<code>Summary</code>トレイトを実装する型でなければならないと指定できます。</p>
+<pre><code class="language-rust ignore">pub fn notify&lt;T: Summary&gt;(item: T) {
+    // 新ニュース！ {}
+    println!(&quot;Breaking news! {}&quot;, item.summarize());
+}
+</code></pre>
+<!--
+We place trait bounds with the declaration of the generic type parameter, after
+a colon and inside angle brackets. Because of the trait bound on `T`, we can
+call `notify` and pass in any instance of `NewsArticle` or `Tweet`. Code that
+calls the function with any other type, like a `String` or an `i32`, won’t
+compile, because those types don’t implement `Summary`.
+-->
+<p>トレイト境界をジェネリックな型引数宣言とともにコロンの後、山カッコ内に配置しています。<code>T</code>に付けられたトレイト境界のため、
+<code>notify</code>を呼び出して<code>NewsArticle</code>か<code>Tweet</code>のどんなインスタンスも渡すことができます。
+あらゆる他の型、<code>String</code>や<code>i32</code>などでこの関数を呼び出すコードは、型が<code>Summary</code>を実装しないので、
+コンパイルできません。</p>
+<!--
+We can specify multiple trait bounds on a generic type using the `+` syntax.
+For example, to use display formatting on the type `T` in a function as well as
+the `summarize` method, we can use `T: Summary + Display` to say `T` can be any
+type that implements `Summary` and `Display`.
+-->
+<p><code>+</code>記法でジェネリックな型に複数のトレイト境界を指定できます。例えば、関数で<code>T</code>に対してフォーマット表示と、
+<code>summarize</code>メソッドを使用するには、<code>T: Summary + Display</code>を使用して、<code>T</code>は<code>Summary</code>と<code>Display</code>を実装するどんな型にもなると宣言できます。</p>
+<!--
+However, there are downsides to using too many trait bounds. Each generic has
+its own trait bounds, so functions with multiple generic type parameters can
+have lots of trait bound information between a function’s name and its
+parameter list, making the function signature hard to read. For this reason,
+Rust has alternate syntax for specifying trait bounds inside a `where` clause
+after the function signature. So instead of writing this:
+-->
+<p>しかしながら、トレイト境界が多すぎると欠点もあります。各ジェネリックには、特有のトレイト境界があるので、
+複数のジェネリックな型引数がある関数には、関数名と引数リストの間に多くのトレイト境界の情報が付くこともあり、
+関数シグニチャが読みづらくなる原因になります。このため、Rustには関数シグニチャの後、
+<code>where</code>節内にトレイト境界を指定する対立的な記法があります。従って、こう書く代わりに:</p>
+<pre><code class="language-rust ignore">fn some_function&lt;T: Display + Clone, U: Clone + Debug&gt;(t: T, u: U) -&gt; i32 {
+</code></pre>
+<!--
+we can use a `where` clause, like this:
+-->
+<p>こんな感じに<code>where</code>節を活用できます:</p>
+<pre><code class="language-rust ignore">fn some_function&lt;T, U&gt;(t: T, u: U) -&gt; i32
+    where T: Display + Clone,
+          U: Clone + Debug
+{
+</code></pre>
+<!--
+This function’s signature is less cluttered in that the function name,
+parameter list, and return type are close together, similar to a function
+without lots of trait bounds.
+-->
+<p>この関数シグニチャは、多くのトレイト境界のない関数のように、関数名、引数リスト、戻り値の型が一緒になって近いという点でごちゃごちゃしていません。</p>
+<!--
+### Fixing the `largest` Function with Trait Bounds
+-->
+<h3><a class="header" href="#トレイト境界でlargest関数を修正する" id="トレイト境界でlargest関数を修正する">トレイト境界で<code>largest</code>関数を修正する</a></h3>
+<!--
+Now that you know how to specify the behavior you want to use using the generic
+type parameter’s bounds, let’s return to Listing 10-5 to fix the definition of
+the `largest` function that uses a generic type parameter! Last time we tried
+to run that code, we received this error:
+-->
+<p>ジェネリックな型引数の境界で使用したい振る舞いを指定する方法を知ったので、リスト10-5に戻って、
+ジェネリックな型引数を使用する<code>largest</code>関数の定義を修正しましょう！最後にそのコードを実行しようとしたら、
+こんなエラーが出ました:</p>
+<pre><code class="language-text">error[E0369]: binary operation `&gt;` cannot be applied to type `T`
+ --&gt; src/main.rs:5:12
+  |
+5 |         if item &gt; largest {
+  |            ^^^^^^^^^^^^^^
+  |
+  = note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
+</code></pre>
+<!--
+In the body of `largest` we wanted to compare two values of type `T` using the
+greater than (`>`) operator. Because that operator is defined as a default
+method on the standard library trait `std::cmp::PartialOrd`, we need to specify
+`PartialOrd` in the trait bounds for `T` so the `largest` function can work on
+slices of any type that we can compare. We don’t need to bring `PartialOrd`
+into scope because it’s in the prelude. Change the signature of `largest` to
+look like this:
+-->
+<p><code>largest</code>の本体で、大なり演算子(<code>&gt;</code>)を使用して型<code>T</code>の2つの値を比較したかったのです。その演算子は、
+標準ライブラリトレイトの<code>std::cmp::PartialOrd</code>でデフォルトメソッドとして定義されているので、
+<code>largest</code>関数が、比較できるあらゆる型のスライスに対して動くように、<code>T</code>のトレイト境界に<code>PartialOrd</code>を指定する必要があります。
+初期化処理に含まれているので、<code>PartialOrd</code>をスコープに導入する必要はありません。
+<code>largest</code>のシグニチャを以下のような見た目に変えてください:</p>
+<pre><code class="language-rust ignore">fn largest&lt;T: PartialOrd&gt;(list: &amp;[T]) -&gt; T {
+</code></pre>
+<!--
+This time when we compile the code, we get a different set of errors:
+-->
+<p>今度コードをコンパイルすると、異なる一連のエラーが出ます:</p>
+<pre><code class="language-text">error[E0508]: cannot move out of type `[T]`, a non-copy slice
+(エラー: `[T]`、コピーでないスライスからムーブできません。)
+ --&gt; src/main.rs:2:23
+  |
+2 |     let mut largest = list[0];
+  |                       ^^^^^^^
+  |                       |
+  |                       cannot move out of here
+  |                       help: consider using a reference instead: `&amp;list[0]`
+                         (助言: 代わりに参照の使用を考慮してください: `&amp;list[0]`)
+
+error[E0507]: cannot move out of borrowed content
+(エラー: 借用された内容からムーブできません)
+ --&gt; src/main.rs:4:9
+  |
+4 |     for &amp;item in list.iter() {
+  |         ^----
+  |         ||
+  |         |hint: to prevent move, use `ref item` or `ref mut item`
+  |         cannot move out of borrowed content
+            (ヒント: ムーブを避けるには、`ref item`か`ref mut item`を使用してください)
+</code></pre>
+<!--
+The key line in this error is `cannot move out of type [T], a non-copy slice`.
+With our non-generic versions of the `largest` function, we were only trying to
+find the largest `i32` or `char`. As discussed in the “Stack-Only Data: Copy”
+section in Chapter 4, types like `i32` and `char` that have a known size can be
+stored on the stack, so they implement the `Copy` trait. But when we made the
+`largest` function generic, it became possible for the `list` parameter to have
+types in it that don’t implement the `Copy` trait. Consequently, we wouldn’t be
+able to move the value out of `list[0]` and into the `largest` variable,
+resulting in this error.
+-->
+<p>このエラーの鍵となる行は、<code>cannot move out of type [T], a non-copy slice</code>です。
+ジェネリックでないバージョンの<code>largest</code>関数では、最大の<code>i32</code>か<code>char</code>を探そうとするだけでした。
+第4章の「スタックだけのデータ: コピー」節で議論したように、<code>i32</code>や<code>char</code>のような既知のサイズの型は、
+スタックに格納できるので、<code>Copy</code>トレイトを実装しています。しかし、<code>largest</code>関数をジェネリックにすると、
+<code>list</code>引数が<code>Copy</code>トレイトを実装しない型を含む可能性も出てきたのです。結果として、
+<code>list[0]</code>から値を<code>largest</code>にムーブできず、このエラーに陥ったのです。</p>
+<!--
+To call this code with only those types that implement the `Copy` trait, we can
+add `Copy` to the trait bounds of `T`! Listing 10-15 shows the complete code of
+a generic `largest` function that will compile as long as the types of the
+values in the slice that we pass into the function implement the `PartialOrd`
+*and* `Copy` traits, like `i32` and `char` do.
+-->
+<p>このコードを<code>Copy</code>トレイトを実装する型とだけで呼び出すには、<code>T</code>のトレイト境界に<code>Copy</code>を追加できます！
+リスト10-15は、関数に渡したスライスの値の型が<code>i32</code>や<code>char</code>などのように、<code>PartialOrd</code><em>と</em><code>Copy</code>を実装する限り、
+コンパイルできるジェネリックな<code>largest</code>関数の完全なコードを示しています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn largest&lt;T: PartialOrd + Copy&gt;(list: &amp;[T]) -&gt; T {
+    let mut largest = list[0];
+
+    for &amp;item in list.iter() {
+        if item &gt; largest {
+            largest = item;
+        }
+    }
+
+    largest
+}
+
+fn main() {
+    let number_list = vec![34, 50, 25, 100, 65];
+
+    let result = largest(&amp;number_list);
+    println!(&quot;The largest number is {}&quot;, result);
+
+    let char_list = vec!['y', 'm', 'a', 'q'];
+
+    let result = largest(&amp;char_list);
+    println!(&quot;The largest char is {}&quot;, result);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 10-15: A working definition of the `largest`
+function that works on any generic type that implements the `PartialOrd` and
+`Copy` traits</span>
+-->
+<p><span class="caption">リスト10-15: <code>PartialOrd</code>と<code>Copy</code>トレイトを実装するあらゆるジェネリックな型に対して動く、
+<code>largest</code>関数の動く定義</span></p>
+<!--
+If we don’t want to restrict the `largest` function to the types that implement
+the `Copy` trait, we could specify that `T` has the trait bound `Clone` instead
+of `Copy`. Then we could clone each value in the slice when we want the
+`largest` function to have ownership. Using the `clone` function means we’re
+potentially making more heap allocations in the case of types that own heap
+data like `String`, and heap allocations can be slow if we’re working with
+large amounts of data.
+-->
+<p>もし<code>largest</code>関数を<code>Copy</code>を実装する型だけに制限したくなかったら、<code>Copy</code>ではなく、
+<code>T</code>が<code>Clone</code>というトレイト境界を持つと指定することもできます。そうしたら、
+<code>largest</code>関数に所有権が欲しい時にスライスの各値をクローンできます。<code>clone</code>関数を使用するということは、
+<code>String</code>のようなヒープデータを所有する型の場合にもっとヒープ確保が発生する可能性があることを意味し、
+大きなデータを取り扱っていたら、ヒープ確保は遅いこともあります。</p>
+<!--
+Another way we could implement `largest` is for the function to return a
+reference to a `T` value in the slice. If we change the return type to `&T`
+instead of `T`, thereby changing the body of the function to return a
+reference, we wouldn’t need the `Clone` or `Copy` trait bounds and we could
+avoid heap allocations. Try implementing these alternate solutions on your own!
+-->
+<p><code>largest</code>の別の実装方法は、関数がスライスの<code>T</code>値への参照を返すようにすることです。
+戻り値の型を<code>T</code>ではなく<code>&amp;T</code>に変え、それにより関数の本体を参照を返すように変更したら、
+<code>Clone</code>か<code>Copy</code>トレイト境界は必要なくなり、ヒープ確保も避けられるでしょう。
+試しにこれらの対立的な解決策もご自身で実装してみてください！</p>
+<!--
+### Using Trait Bounds to Conditionally Implement Methods
+-->
+<h3><a class="header" href="#トレイト境界を使用してメソッド実装を条件分けする" id="トレイト境界を使用してメソッド実装を条件分けする">トレイト境界を使用して、メソッド実装を条件分けする</a></h3>
+<!--
+By using a trait bound with an `impl` block that uses generic type parameters,
+we can implement methods conditionally for types that implement the specified
+traits. For example, the type `Pair<T>` in Listing 10-16 always implements the
+`new` function. But `Pair<T>` only implements the `cmp_display` method if its
+inner type `T` implements the `PartialOrd` trait that enables comparison *and*
+the `Display` trait that enables printing.
+-->
+<p>ジェネリックな型引数を持つ<code>impl</code>ブロックにトレイト境界を与えることで、
+特定のトレイトを実装する型に対するメソッド実装を条件分けできます。例えば、
+リスト10-16の型<code>Pair&lt;T&gt;</code>は、常に<code>new</code>関数を実装します。しかし、<code>Pair&lt;T&gt;</code>は、
+内部の型<code>T</code>が比較を可能にする<code>PartialOrd</code>トレイト<em>と</em>出力を可能にする<code>Display</code>トレイトを実装している時のみ、
+<code>cmp_display</code>メソッドを実装します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::fmt::Display;
+
+struct Pair&lt;T&gt; {
+    x: T,
+    y: T,
+}
+
+impl&lt;T&gt; Pair&lt;T&gt; {
+    fn new(x: T, y: T) -&gt; Self {
+        Self {
+            x,
+            y,
+        }
+    }
+}
+
+impl&lt;T: Display + PartialOrd&gt; Pair&lt;T&gt; {
+    fn cmp_display(&amp;self) {
+        if self.x &gt;= self.y {
+            println!(&quot;The largest member is x = {}&quot;, self.x);
+        } else {
+            println!(&quot;The largest member is y = {}&quot;, self.y);
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 10-16: Conditionally implement methods on a
+generic type depending on trait bounds</span>
+-->
+<p><span class="caption">リスト10-16: トレイト境界によってジェネリックな型に対するメソッド実装を条件分けする</span></p>
+<!--
+We can also conditionally implement a trait for any type that implements
+another trait. Implementations of a trait on any type that satisfies the trait
+bounds are called *blanket implementations* and are extensively used in the
+Rust standard library. For example, the standard library implements the
+`ToString` trait on any type that implements the `Display` trait. The `impl`
+block in the standard library looks similar to this code:
+-->
+<p>また、別のトレイトを実装するあらゆる型に対するトレイト実装を条件分けすることもできます。
+トレイト境界を満たすあらゆる型にトレイトを実装することは、<em>ブランケット実装</em>(blanket implementation)と呼ばれ、
+Rustの標準ライブラリで広く使用されています。例を挙げれば、標準ライブラリは、
+<code>Display</code>トレイトを実装するあらゆる型に<code>ToString</code>トレイトを実装しています。
+標準ライブラリの<code>impl</code>ブロックは以下のような見た目です:</p>
+<pre><code class="language-rust ignore">impl&lt;T: Display&gt; ToString for T {
+    // --snip--
+}
+</code></pre>
+<!--
+Because the standard library has this blanket implementation, we can call the
+`to_string` method defined by the `ToString` trait on any type that implements
+the `Display` trait. For example, we can turn integers into their corresponding
+`String` values like this because integers implement `Display`:
+-->
+<p>標準ライブラリにはこのブランケット実装があるので、<code>Display</code>トレイトを実装する任意の型に対して、
+<code>ToString</code>トレイトで定義された<code>to_string</code>メソッドを呼び出せるのです。
+例えば、整数は<code>Display</code>を実装するので、このように整数値を対応する<code>String</code>値に変換できます:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let s = 3.to_string();
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Blanket implementations appear in the documentation for the trait in the
+“Implementors” section.
+-->
+<p>ブランケット実装は、「実装したもの」節のトレイトのドキュメンテーションに出現します。</p>
+<!--
+Traits and trait bounds let us write code that uses generic type parameters to
+reduce duplication but also specify to the compiler that we want the generic
+type to have particular behavior. The compiler can then use the trait bound
+information to check that all the concrete types used with our code provide the
+correct behavior. In dynamically typed languages, we would get an error at
+runtime if we called a method on a type that the type didn’t implement. But
+Rust moves these errors to compile time so we’re forced to fix the problems
+before our code is even able to run. Additionally, we don’t have to write code
+that checks for behavior at runtime because we’ve already checked at compile
+time. Doing so improves performance without having to give up the flexibility
+of generics.
+-->
+<p>トレイトとトレイト境界により、ジェネリックな型引数を使用して重複を減らしつつ、コンパイラに対して、
+そのジェネリックな型に特定の振る舞いが欲しいことを指定するコードを書くことができます。
+それからコンパイラは、トレイト境界の情報を活用してコードに使用された具体的な型が正しい振る舞いを提供しているか確認できます。
+動的型付け言語では、型が実装しない型のメソッドを呼び出せば、実行時にエラーが出るでしょう。
+しかし、Rustはこの種のエラーをコンパイル時に移したので、コードが動かせるようにさえなる以前に問題を修正することを強制されるのです。
+加えて、コンパイル時に既に確認したので、実行時に振る舞いがあるかどうか確認するコードを書かなくても済みます。
+そうすることでジェネリクスの柔軟性を諦める必要なく、パフォーマンスを向上させます。</p>
+<!--
+Another kind of generic that we’ve already been using is called *lifetimes*.
+Rather than ensuring that a type has the behavior we want, lifetimes ensure
+that references are valid as long as we need them to be. Let’s look at how
+lifetimes do that.
+-->
+<p>もう使用してきたことのある別の種のジェネリクスは、ライフタイムと呼ばれます。
+型が欲しい振る舞いを保持していることを保証するのではなく、必要な間だけ参照が有効であることをライフタイムは保証します。
+ライフタイムがどうやってそれを行うかを見ましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch10-01-syntax.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch10-03-lifetime-syntax.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch10-01-syntax.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch10-03-lifetime-syntax.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

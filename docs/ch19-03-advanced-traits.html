@@ -1,0 +1,1168 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Advanced Traits - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html" class="active"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Advanced Traits
+-->
+<h2><a class="header" href="#高度なトレイト" id="高度なトレイト">高度なトレイト</a></h2>
+<!--
+We first covered traits in the “Traits: Defining Shared Behavior” section of
+Chapter 10, but as with lifetimes, we didn’t discuss the more advanced details.
+Now that you know more about Rust, we can get into the nitty-gritty.
+-->
+<p>最初にトレイトについて講義したのは、第10章の「トレイト: 共通の振る舞いを定義する」節でしたが、
+ライフタイム同様、より高度な詳細は議論しませんでした。今や、Rustに詳しくなったので、核心に迫れるでしょう。</p>
+<!--
+### Specifying Placeholder Types in Trait Definitions with Associated Types
+-->
+<h3><a class="header" href="#関連型でトレイト定義においてプレースホルダーの型を指定する" id="関連型でトレイト定義においてプレースホルダーの型を指定する">関連型でトレイト定義においてプレースホルダーの型を指定する</a></h3>
+<!--
+*Associated types* connect a type placeholder with a trait such that the trait
+method definitions can use these placeholder types in their signatures. The
+implementor of a trait will specify the concrete type to be used in this type’s
+place for the particular implementation. That way, we can define a trait that
+uses some types without needing to know exactly what those types are until the
+trait is implemented.
+-->
+<p><em>関連型</em>は、トレイトのメソッド定義がシグニチャでプレースホルダーの型を使用できるように、トレイトと型のプレースホルダーを結び付けます。
+トレイトを実装するものがこの特定の実装で型の位置に使用される具体的な型を指定します。そうすることで、
+なんらかの型を使用するトレイトをトレイトを実装するまでその型が一体なんであるかを知る必要なく定義できます。</p>
+<!--
+3行目、the rest of the bookとあるが、これ以降の章という意味での残りではなく、ここまでに見かけてきた章のことと思われるため
+-->
+<!--
+We’ve described most of the advanced features in this chapter as being rarely
+needed. Associated types are somewhere in the middle: they’re used more rarely
+than features explained in the rest of the book but more commonly than many of
+the other features discussed in this chapter.
+-->
+<p>この章のほとんどの高度な機能は、稀にしか必要にならないと解説しました。関連型はその中間にあります:
+本の他の部分で説明される機能よりは使用されるのが稀ですが、この章で議論される他の多くの機能よりは頻繁に使用されます。</p>
+<!--
+One example of a trait with an associated type is the `Iterator` trait that the
+standard library provides. The associated type is named `Item` and stands in
+for the type of the values the type implementing the `Iterator` trait is
+iterating over. In “The `Iterator` Trait and the `next` Method” section of
+Chapter 13, we mentioned that the definition of the `Iterator` trait is as
+shown in Listing 19-20.
+-->
+<p>関連型があるトレイトの一例は、標準ライブラリが提供する<code>Iterator</code>トレイトです。その関連型は<code>Item</code>と名付けられ、
+<code>Iterator</code>トレイトを実装している型が走査している値の型の代役を務めます。第13章の「<code>Iterator</code>トレイトと<code>next</code>メソッド」節で、
+<code>Iterator</code>トレイトの定義は、リスト19-20に示したようなものであることに触れました。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub trait Iterator {
+    type Item;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 19-20: The definition of the `Iterator` trait
+that has an associated type `Item`</span>
+-->
+<p><span class="caption">リスト19-20: 関連型<code>Item</code>がある<code>Iterator</code>トレイトの定義</span></p>
+<!--
+The type `Item` is a placeholder type, and the `next` method’s definition shows
+that it will return values of type `Option<Self::Item>`. Implementors of the
+`Iterator` trait will specify the concrete type for `Item`, and the `next`
+method will return an `Option` containing a value of that concrete type.
+-->
+<p>型<code>Item</code>はプレースホルダー型で<code>next</code>メソッドの定義は、型<code>Option&lt;Self::Item&gt;</code>の値を返すことを示しています。
+<code>Iterator</code>トレイトを実装するものは、<code>Item</code>の具体的な型を指定し、<code>next</code>メソッドは、
+その具体的な型の値を含む<code>Option</code>を返します。</p>
+<!--
+ジェネリクスはこうという話をしているのに、似ていると言っているのがどうも引っかかる
+1行目終わり、the latter allowsと思われるが、直っていない
+-->
+<!--
+Associated types might seem like a similar concept to generics, in that the
+latter allow us to define a function without specifying what types it can
+handle. So why use associated types?
+-->
+<p>関連型は、ジェネリクスにより扱う型を指定せずに関数を定義できるという点でジェネリクスに似た概念のように思える可能性があります。
+では、何故関連型を使用するのでしょうか？</p>
+<!--
+Let’s examine the difference between the two concepts with an example from
+Chapter 13 that implements the `Iterator` trait on the `Counter` struct. In
+Listing 13-21, we specified that the `Item` type was `u32`:
+-->
+<p>2つの概念の違いを第13章から<code>Counter</code>構造体に<code>Iterator</code>トレイトを実装する例で調査しましょう。
+リスト13-21で、<code>Item</code>型は<code>u32</code>だと指定しました:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore">impl Iterator for Counter {
+    type Item = u32;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        // --snip--
+</code></pre>
+<!--
+This syntax seems comparable to that of generics. So why not just define the
+`Iterator` trait with generics, as shown in Listing 19-21?
+-->
+<p>この記法は、ジェネリクスと比較可能に思えます。では、何故単純にリスト19-21のように、
+<code>Iterator</code>トレイトをジェネリクスで定義しないのでしょうか？</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub trait Iterator&lt;T&gt; {
+    fn next(&amp;mut self) -&gt; Option&lt;T&gt;;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 19-21: A hypothetical definition of the
+`Iterator` trait using generics</span>
+-->
+<p><span class="caption">ジェネリクスを使用した架空の<code>Iterator</code>トレイトの定義</span></p>
+<!--
+The difference is that when using generics, as in Listing 19-21, we must
+annotate the types in each implementation; because we can also implement
+`Iterator<String> for Counter` or any other type, we could have multiple
+implementations of `Iterator` for `Counter`. In other words, when a trait has a
+generic parameter, it can be implemented for a type multiple times, changing
+the concrete types of the generic type parameters each time. When we use the
+`next` method on `Counter`, we would have to provide type annotations to
+indicate which implementation of `Iterator` we want to use.
+-->
+<p>差異は、リスト19-21のようにジェネリクスを使用すると、各実装で型を注釈しなければならないことです;
+<code>Iterator&lt;String&gt; for Counter</code>や他のどんな型にも実装することができるので、
+<code>Counter</code>の<code>Iterator</code>の実装が複数できるでしょう。換言すれば、トレイトにジェネリックな引数があると、
+毎回ジェネリックな型引数の具体的な型を変更してある型に対して複数回実装できるということです。
+<code>Counter</code>に対して<code>next</code>メソッドを使用する際に、どの<code>Iterator</code>の実装を使用したいか型注釈をつけなければならないでしょう。</p>
+<!--
+With associated types, we don’t need to annotate types because we can’t
+implement a trait on a type multiple times. In Listing 19-20 with the
+definition that uses associated types, we can only choose what the type of
+`Item` will be once, because there can only be one `impl Iterator for Counter`.
+We don’t have to specify that we want an iterator of `u32` values everywhere
+that we call `next` on `Counter`.
+-->
+<p>関連型なら、同じ型に対してトレイトを複数回実装できないので、型を注釈する必要はありません。
+関連型を使用する定義があるリスト19-20では、<code>Item</code>の型は1回しか選択できませんでした。
+1つしか<code>impl Iterator for Counter</code>がないからです。<code>Counter</code>に<code>next</code>を呼び出す度に、
+<code>u32</code>値のイテレータが欲しいと指定しなくてもよいわけです。</p>
+<!--
+### Default Generic Type Parameters and Operator Overloading
+-->
+<h3><a class="header" href="#デフォルトのジェネリック型引数と演算子オーバーロード" id="デフォルトのジェネリック型引数と演算子オーバーロード">デフォルトのジェネリック型引数と演算子オーバーロード</a></h3>
+<!--
+When we use generic type parameters, we can specify a default concrete type for
+the generic type. This eliminates the need for implementors of the trait to
+specify a concrete type if the default type works. The syntax for specifying a
+default type for a generic type is `<PlaceholderType=ConcreteType>` when
+declaring the generic type.
+-->
+<p>ジェネリックな型引数を使用する際、ジェネリックな型に対して規定の具体的な型を指定できます。これにより、
+既定の型が動くのなら、トレイトを実装する側が具体的な型を指定する必要を排除します。ジェネリックな型に既定の型を指定する記法は、
+ジェネリックな型を宣言する際に<code>&lt;PlaceholderType=ConcreteType&gt;</code>です。</p>
+<!--
+A great example of a situation where this technique is useful is with operator
+overloading. *Operator overloading* is customizing the behavior of an operator
+(such as `+`) in particular situations.
+-->
+<p>このテクニックが有用になる場面の好例が、演算子オーバーロードです。<em>演算子オーバーロード</em>とは、
+特定の状況で演算子(<code>+</code>など)の振る舞いをカスタマイズすることです。</p>
+<!--
+Rust doesn’t allow you to create your own operators or overload arbitrary
+operators. But you can overload the operations and corresponding traits listed
+in `std::ops` by implementing the traits associated with the operator. For
+example, in Listing 19-22 we overload the `+` operator to add two `Point`
+instances together. We do this by implementing the `Add` trait on a `Point`
+struct:
+-->
+<p>Rustでは、独自の演算子を作ったり、任意の演算子をオーバーロードすることはできません。しかし、
+演算子に紐づいたトレイトを実装することで<code>std::ops</code>に列挙された処理と対応するトレイトをオーバーロードできます。
+例えば、リスト19-22で<code>+</code>演算子をオーバーロードして2つの<code>Point</code>インスタンスを足し合わせています。
+<code>Point</code>構造体に<code>Add</code>トレイトを実装することでこれを行なっています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::ops::Add;
+
+#[derive(Debug, PartialEq)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Add for Point {
+    type Output = Point;
+
+    fn add(self, other: Point) -&gt; Point {
+        Point {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
+
+fn main() {
+    assert_eq!(Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
+               Point { x: 3, y: 3 });
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 19-22: Implementing the `Add` trait to overload
+the `+` operator for `Point` instances</span>
+-->
+<p><span class="caption">リスト19-22: <code>Add</code>トレイトを実装して<code>Point</code>インスタンス用に<code>+</code>演算子をオーバーロードする</span></p>
+<!--
+The `add` method adds the `x` values of two `Point` instances and the `y`
+values of two `Point` instances to create a new `Point`. The `Add` trait has an
+associated type named `Output` that determines the type returned from the `add`
+method.
+-->
+<p><code>add</code>メソッドは2つの<code>Point</code>インスタンスの<code>x</code>値と2つの<code>Point</code>インスタンスの<code>y</code>値を足します。
+<code>Add</code>トレイトには、<code>add</code>メソッドから返却される型を決定する<code>Output</code>という関連型があります。</p>
+<!--
+The default generic type in this code is within the `Add` trait. Here is its
+definition:
+-->
+<p>このコードの既定のジェネリック型は、<code>Add</code>トレイト内にあります。こちらがその定義です:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>trait Add&lt;RHS=Self&gt; {
+    type Output;
+
+    fn add(self, rhs: RHS) -&gt; Self::Output;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+This code should look generally familiar: a trait with one method and an
+associated type. The new part is `RHS=Self`: this syntax is called *default
+type parameters*. The `RHS` generic type parameter (short for “right hand
+side”) defines the type of the `rhs` parameter in the `add` method. If we don’t
+specify a concrete type for `RHS` when we implement the `Add` trait, the type
+of `RHS` will default to `Self`, which will be the type we’re implementing
+`Add` on.
+-->
+<p>このコードは一般的に馴染みがあるはずです: 1つのメソッドと関連型が1つあるトレイトです。
+新しい部分は、<code>RHS=Self</code>です: この記法は、<em>デフォルト型引数</em>と呼ばれます。
+RHSというジェネリックな型引数(&quot;right hand side&quot;: 右辺の省略形)が、<code>add</code>メソッドの<code>rhs</code>引数の型を定義しています。
+<code>Add</code>トレイトを実装する際に<code>RHS</code>の具体的な型を指定しなければ、<code>RHS</code>の型は標準で<code>Self</code>になり、
+これは<code>Add</code>を実装している型になります。</p>
+<!--
+When we implemented `Add` for `Point`, we used the default for `RHS` because we
+wanted to add two `Point` instances. Let’s look at an example of implementing
+the `Add` trait where we want to customize the `RHS` type rather than using the
+default.
+-->
+<p><code>Point</code>に<code>Add</code>を実装する際、2つの<code>Point</code>インスタンスを足したかったので、<code>RHS</code>の規定を使用しました。
+既定を使用するのではなく、<code>RHS</code>の型をカスタマイズしたくなる<code>Add</code>トレイトの実装例に目を向けましょう。</p>
+<!--
+We have two structs `Millimeters` and `Meters`, holding values in different
+units. We want to add values in millimeters to values in meters and have the
+implementation of `Add` do the conversion correctly. We can implement `Add` for
+`Millimeters` with `Meters` as the `RHS`, as shown in Listing 19-23.
+-->
+<p>異なる単位で値を保持する構造体、<code>Millimeters</code>と<code>Meters</code>(それぞれ<code>ミリメートル</code>と<code>メートル</code>)が2つあります。
+ミリメートルの値をメートルの値に足し、<code>Add</code>の実装に変換を正しくしてほしいです。
+<code>Add</code>を<code>RHS</code>に<code>Meters</code>のある<code>Millimeters</code>に実装することができます。リスト19-23のように:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::ops::Add;
+
+struct Millimeters(u32);
+struct Meters(u32);
+
+impl Add&lt;Meters&gt; for Millimeters {
+    type Output = Millimeters;
+
+    fn add(self, other: Meters) -&gt; Millimeters {
+        Millimeters(self.0 + (other.0 * 1000))
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 19-23: Implementing the `Add` trait on
+`Millimeters` to add `Millimeters` to `Meters`</span>
+-->
+<p><span class="caption">リスト19-23: <code>Millimeters</code>に<code>Add</code>トレイトを実装して、<code>Meters</code>に<code>Millimeters</code>を足す</span></p>
+<!--
+To add `Millimeters` and `Meters`, we specify `impl Add<Meters>` to set the
+value of the `RHS` type parameter instead of using the default of `Self`.
+-->
+<p><code>Millimeters</code>を<code>Meters</code>に足すため、<code>Self</code>という既定を使う代わりに<code>impl Add&lt;Meters&gt;</code>を指定して、
+<code>RHS</code>型引数の値をセットしています。</p>
+<!--
+You'll use default type parameters in two main ways:
+-->
+<p>主に2通りの方法でデフォルト型引数を使用します:</p>
+<!--
+* To extend a type without breaking existing code
+* To allow customization in specific cases most users won’t need
+-->
+<ul>
+<li>既存のコードを破壊せずに型を拡張する</li>
+<li>ほとんどのユーザは必要としない特定の場合でカスタマイズを可能にする</li>
+</ul>
+<!--
+The standard library’s `Add` trait is an example of the second purpose:
+usually, you’ll add two like types, but the `Add` trait provides the ability to
+customize beyond that. Using a default type parameter in the `Add` trait
+definition means you don’t have to specify the extra parameter most of the
+time. In other words, a bit of implementation boilerplate isn’t needed, making
+it easier to use the trait.
+-->
+<p>標準ライブラリの<code>Add</code>トレイトは、2番目の目的の例です: 通常、2つの似た型を足しますが、
+<code>Add</code>トレイトはそれ以上にカスタマイズする能力を提供します。<code>Add</code>トレイト定義でデフォルト型引数を使用することは、
+ほとんどの場合、追加の引数を指定しなくてもよいことを意味します。つまり、トレイトを使いやすくして、
+ちょっとだけ実装の定型コードが必要なくなるのです。</p>
+<!--
+The first purpose is similar to the second but in reverse: if you want to add a
+type parameter to an existing trait, you can give it a default to allow
+extension of the functionality of the trait without breaking the existing
+implementation code.
+-->
+<p>最初の目的は2番目に似ていますが、逆です: 既存のトレイトに型引数を追加したいなら、既定を与えて、
+既存の実装コードを破壊せずにトレイトの機能を拡張できるのです。</p>
+<!--
+### Fully Qualified Syntax for Disambiguation: Calling Methods with the Same Name
+-->
+<h3><a class="header" href="#明確化のためのフルパス記法-同じ名前のメソッドを呼ぶ" id="明確化のためのフルパス記法-同じ名前のメソッドを呼ぶ">明確化のためのフルパス記法: 同じ名前のメソッドを呼ぶ</a></h3>
+<!--
+Nothing in Rust prevents a trait from having a method with the same name as
+another trait’s method, nor does Rust prevent you from implementing both traits
+on one type. It’s also possible to implement a method directly on the type with
+the same name as methods from traits.
+-->
+<p>Rustにおいて、別のトレイトのメソッドと同じ名前のメソッドがトレイトにあったり、両方のトレイトを1つの型に実装することを妨げるものは何もありません。
+トレイトのメソッドと同じ名前のメソッドを直接型に実装することも可能です。</p>
+<!--
+When calling methods with the same name, you'll need to tell Rust which one you
+want to use. Consider the code in Listing 19-24 where we’ve defined two traits,
+`Pilot` and `Wizard`, that both have a method called `fly`. We then implement
+both traits on a type `Human` that already has a method named `fly` implemented
+on it. Each `fly` method does something different.
+-->
+<p>同じ名前のメソッドを呼ぶ際、コンパイラにどれを使用したいのか教える必要があるでしょう。両方とも<code>fly</code>というメソッドがある2つのトレイト、
+<code>Pilot</code>と<code>Wizard</code>(<code>訳注</code>: パイロットと魔法使い)を定義したリスト19-24のコードを考えてください。
+それから両方のトレイトを既に<code>fly</code>というメソッドが実装されている型<code>Human</code>(<code>訳注</code>: 人間)に実装します。
+各<code>fly</code>メソッドは異なることをします。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>trait Pilot {
+    fn fly(&amp;self);
+}
+
+trait Wizard {
+    fn fly(&amp;self);
+}
+
+struct Human;
+
+impl Pilot for Human {
+    fn fly(&amp;self) {
+        // キャプテンのお言葉
+        println!(&quot;This is your captain speaking.&quot;);
+    }
+}
+
+impl Wizard for Human {
+    fn fly(&amp;self) {
+        // 上がれ！
+        println!(&quot;Up!&quot;);
+    }
+}
+
+impl Human {
+    fn fly(&amp;self) {
+        // *激しく腕を振る*
+        println!(&quot;*waving arms furiously*&quot;);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 19-24: Two traits are defined to have a `fly`
+method and are implemented on the `Human` type, and a `fly` method is
+implemented on `Human` directly</span>
+-->
+<p><span class="caption">リスト19-24: 2つのトレイトに<code>fly</code>があるように定義され、<code>Human</code>に実装されつつ、
+<code>fly</code>メソッドは<code>Human</code>に直接にも実装されている</span></p>
+<!--
+When we call `fly` on an instance of `Human`, the compiler defaults to calling
+the method that is directly implemented on the type, as shown in Listing 19-25.
+-->
+<p><code>Human</code>のインスタンスに対して<code>fly</code>を呼び出すと、コンパイラは型に直接実装されたメソッドを標準で呼び出します。
+リスト19-25のようにですね:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">trait Pilot {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">trait Wizard {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Human;
+</span><span class="boring">
+</span><span class="boring">impl Pilot for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;This is your captain speaking.&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Wizard for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;Up!&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;*waving arms furiously*&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let person = Human;
+    person.fly();
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 19-25: Calling `fly` on an instance of
+`Human`</span>
+-->
+<p><span class="caption">リスト19-25: <code>Human</code>のインスタンスに対して<code>fly</code>を呼び出す</span></p>
+<!--
+Running this code will print `*waving arms furiously*`, showing that Rust
+called the `fly` method implemented on `Human` directly.
+-->
+<p>このコードを実行すると、<code>*waving arms furiously*</code>と出力され、コンパイラが<code>Human</code>に直接実装された<code>fly</code>メソッドを呼んでいることを示しています。</p>
+<!--
+To call the `fly` methods from either the `Pilot` trait or the `Wizard` trait,
+we need to use more explicit syntax to specify which `fly` method we mean.
+Listing 19-26 demonstrates this syntax.
+-->
+<p><code>Pilot</code>トレイトか、<code>Wizard</code>トレイトの<code>fly</code>メソッドを呼ぶためには、
+より明示的な記法を使用して、どの<code>fly</code>メソッドを意図しているか指定する必要があります。
+リスト19-26は、この記法をデモしています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">trait Pilot {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">trait Wizard {
+</span><span class="boring">    fn fly(&amp;self);
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Human;
+</span><span class="boring">
+</span><span class="boring">impl Pilot for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;This is your captain speaking.&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Wizard for Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;Up!&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Human {
+</span><span class="boring">    fn fly(&amp;self) {
+</span><span class="boring">        println!(&quot;*waving arms furiously*&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let person = Human;
+    Pilot::fly(&amp;person);
+    Wizard::fly(&amp;person);
+    person.fly();
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 19-26: Specifying which trait’s `fly` method we
+want to call</span>
+-->
+<p><span class="caption">リスト19-26: どのトレイトの<code>fly</code>メソッドを呼び出したいか指定する</span></p>
+<!--
+Specifying the trait name before the method name clarifies to Rust which
+implementation of `fly` we want to call. We could also write
+`Human::fly(&person)`, which is equivalent to the `person.fly()` that we used
+in Listing 19-26, but this is a bit longer to write if we don’t need to
+disambiguate.
+-->
+<p>メソッド名の前にトレイト名を指定すると、コンパイラにどの<code>fly</code>の実装を呼び出したいか明確化できます。
+また、<code>Human::fly(&amp;person)</code>と書くこともでき、リスト19-26で使用した<code>person.fly()</code>と等価ですが、
+こちらの方は明確化する必要がないなら、ちょっと記述量が増えます。</p>
+<!--
+Running this code prints the following:
+-->
+<p>このコードを実行すると、こんな出力がされます:</p>
+<pre><code class="language-text">This is your captain speaking.
+Up!
+*waving arms furiously*
+</code></pre>
+<!--
+Because the `fly` method takes a `self` parameter, if we had two *types* that
+both implement one *trait*, Rust could figure out which implementation of a
+trait to use based on the type of `self`.
+-->
+<p><code>fly</code>メソッドは<code>self</code>引数を取るので、1つの<em>トレイト</em>を両方実装する<em>型</em>が2つあれば、
+コンパイラには、<code>self</code>の型に基づいてどのトレイトの実装を使うべきかわかるでしょう。</p>
+<!--
+However, associated functions that are part of traits don’t have a `self`
+parameter. When two types in the same scope implement that trait, Rust can’t
+figure out which type you mean unless you use *fully qualified syntax*. For
+example, the `Animal` trait in Listing 19-27 has the associated function
+`baby_name`, the implementation of `Animal` for the struct `Dog`, and the
+associated function `baby_name` defined on `Dog` directly.
+-->
+<p>しかしながら、トレイトの一部になる関連関数には<code>self</code>引数がありません。同じスコープの2つの型がそのトレイトを実装する場合、
+<em>フルパス記法</em>(fully qualified syntax)を使用しない限り、どの型を意図しているかコンパイラは推論できません。例えば、
+リスト19-27の<code>Animal</code>トレイトには、関連関数<code>baby_name</code>、構造体<code>Dog</code>の<code>Animal</code>の実装、
+<code>Dog</code>に直接定義された関連関数<code>baby_name</code>があります。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">trait Animal {
+    fn baby_name() -&gt; String;
+}
+
+struct Dog;
+
+impl Dog {
+    fn baby_name() -&gt; String {
+        // スポット(Wikipediaによると、飼い主の事故死後もその人の帰りを待つ忠犬の名前の模様)
+        String::from(&quot;Spot&quot;)
+    }
+}
+
+impl Animal for Dog {
+    fn baby_name() -&gt; String {
+        // 子犬
+        String::from(&quot;puppy&quot;)
+    }
+}
+
+fn main() {
+    // 赤ちゃん犬は{}と呼ばれる
+    println!(&quot;A baby dog is called a {}&quot;, Dog::baby_name());
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 19-27: A trait with an associated function and a
+type with an associated function of the same name that also implements the
+trait</span>
+-->
+<p><span class="caption">リスト19-27: 関連関数のあるトレイトとそのトレイトも実装し、同じ名前の関連関数がある型</span></p>
+<!--
+This code is for an animal shelter that wants to name all puppies Spot, which
+is implemented in the `baby_name` associated function that is defined on `Dog`.
+The `Dog` type also implements the trait `Animal`, which describes
+characteristics that all animals have. Baby dogs are called puppies, and that
+is expressed in the implementation of the `Animal` trait on `Dog` in the
+`baby_name` function associated with the `Animal` trait.
+-->
+<p>このコードは、全ての子犬をスポットと名付けたいアニマル・シェルター(<code>訳注</code>: 身寄りのないペットを保護する保健所みたいなところ)用で、
+<code>Dog</code>に定義された<code>baby_name</code>関連関数で実装されています。<code>Dog</code>型は、トレイト<code>Animal</code>も実装し、
+このトレイトは全ての動物が持つ特徴を記述します。赤ちゃん犬は子犬と呼ばれ、
+それが<code>Dog</code>の<code>Animal</code>トレイトの実装の<code>Animal</code>トレイトと紐づいた<code>base_name</code>関数で表現されています。</p>
+<!--
+In `main`, we call the `Dog::baby_name` function, which calls the associated
+function defined on `Dog` directly. This code prints the following:
+-->
+<p><code>main</code>で、<code>Dog::baby_name</code>関数を呼び出し、直接<code>Dog</code>に定義された関連関数を呼び出しています。
+このコードは以下のような出力をします:</p>
+<pre><code class="language-text">A baby dog is called a Spot
+</code></pre>
+<!--
+This output isn’t what we wanted. We want to call the `baby_name` function that
+is part of the `Animal` trait that we implemented on `Dog` so the code prints
+`A baby dog is called a puppy`. The technique of specifying the trait name that
+we used in Listing 19-26 doesn’t help here; if we change `main` to the code in
+Listing 19-28, we’ll get a compilation error.
+-->
+<p>この出力は、欲しかったものではありません。<code>Dog</code>に実装した<code>Animal</code>トレイトの一部の<code>baby_name</code>関数を呼び出したいので、
+コードは<code>A baby dog is called a puppy</code>と出力します。リスト19-26で使用したトレイト名を指定するテクニックは、
+ここでは役に立ちません; <code>main</code>をリスト19-28のようなコードに変更したら、コンパイルエラーになるでしょう。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    println!(&quot;A baby dog is called a {}&quot;, Animal::baby_name());
+}
+</code></pre>
+<!--
+<span class="caption">Listing 19-28: Attempting to call the `baby_name`
+function from the `Animal` trait, but Rust doesn’t know which implementation to
+use</span>
+-->
+<p><span class="caption">リスト19-28: <code>Animal</code>トレイトの<code>baby_name</code>関数を呼び出そうとするも、コンパイラにはどの実装を使うべきかわからない</span></p>
+<!--
+Because `Animal::baby_name` is an associated function rather than a method, and
+thus doesn’t have a `self` parameter, Rust can’t figure out which
+implementation of `Animal::baby_name` we want. We’ll get this compiler error:
+-->
+<p><code>Animal::baby_name</code>はメソッドではなく関連関数であり、故に<code>self</code>引数がないので、どの<code>Animal::baby_name</code>が欲しいのか、
+コンパイラには推論できません。こんなコンパイルエラーが出るでしょう:</p>
+<pre><code class="language-text">error[E0283]: type annotations required: cannot resolve `_: Animal`
+(エラー: 型注釈が必要です: `_: Animal`を解決できません)
+  --&gt; src/main.rs:20:43
+   |
+20 |     println!(&quot;A baby dog is called a {}&quot;, Animal::baby_name());
+   |                                           ^^^^^^^^^^^^^^^^^
+   |
+   = note: required by `Animal::baby_name`
+   (注釈: `Animal::baby_name`に必要です)
+</code></pre>
+<!--
+To disambiguate and tell Rust that we want to use the implementation of
+`Animal` for `Dog`, we need to use fully qualified syntax. Listing 19-29
+demonstrates how to use fully qualified syntax.
+-->
+<p><code>Dog</code>に対して<code>Animal</code>実装を使用したいと明確化し、コンパイラに指示するには、フルパス記法を使う必要があります。
+リスト19-29は、フルパス記法を使用する方法をデモしています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">trait Animal {
+</span><span class="boring">    fn baby_name() -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">struct Dog;
+</span><span class="boring">
+</span><span class="boring">impl Dog {
+</span><span class="boring">    fn baby_name() -&gt; String {
+</span><span class="boring">        String::from(&quot;Spot&quot;)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Animal for Dog {
+</span><span class="boring">    fn baby_name() -&gt; String {
+</span><span class="boring">        String::from(&quot;puppy&quot;)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    println!(&quot;A baby dog is called a {}&quot;, &lt;Dog as Animal&gt;::baby_name());
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 19-29: Using fully qualified syntax to specify
+that we want to call the `baby_name` function from the `Animal` trait as
+implemented on `Dog`</span>
+-->
+<p><span class="caption">リスト19-29: フルパス記法を使って<code>Dog</code>に実装されているように、
+<code>Animal</code>トレイトからの<code>baby_name</code>関数を呼び出したいと指定する</span></p>
+<!--
+We’re providing Rust with a type annotation within the angle brackets, which
+indicates we want to call the `baby_name` method from the `Animal` trait as
+implemented on `Dog` by saying that we want to treat the `Dog` type as an
+`Animal` for this function call. This code will now print what we want:
+-->
+<p>コンパイラに山カッコ内で型注釈を提供し、これは、この関数呼び出しでは<code>Dog</code>型を<code>Animal</code>として扱いたいと宣言することで、
+<code>Dog</code>に実装されたように、<code>Animal</code>トレイトの<code>baby_name</code>メソッドを呼び出したいと示唆しています。
+もうこのコードは、望み通りの出力をします:</p>
+<pre><code class="language-text">A baby dog is called a puppy
+</code></pre>
+<!--
+In general, fully qualified syntax is defined as follows:
+-->
+<p>一般的に、フルパス記法は、以下のように定義されています:</p>
+<pre><code class="language-rust ignore">&lt;Type as Trait&gt;::function(receiver_if_method, next_arg, ...);
+</code></pre>
+<!--
+For associated functions, there would not be a `receiver`: there would only be
+the list of other arguments. You could use fully qualified syntax everywhere
+that you call functions or methods. However, you’re allowed to omit any part of
+this syntax that Rust can figure out from other information in the program. You
+only need to use this more verbose syntax in cases where there are multiple
+implementations that use the same name and Rust needs help to identify which
+implementation you want to call.
+-->
+<p>関連関数では、<code>receiver</code>がないでしょう: 他の引数のリストがあるだけでしょう。関数やメソッドを呼び出す箇所全部で、
+フルパス記法を使用することもできるでしょうが、プログラムの他の情報からコンパイラが推論できるこの記法のどの部分も省略することが許容されています。
+同じ名前を使用する実装が複数あり、どの実装を呼び出したいかコンパイラが特定するのに助けが必要な場合だけにこのより冗長な記法を使用する必要があるのです。</p>
+<!--
+### Using Supertraits to Require One Trait’s Functionality Within Another Trait
+-->
+<h3><a class="header" href="#スーパートレイトを使用して別のトレイト内であるトレイトの機能を必要とする" id="スーパートレイトを使用して別のトレイト内であるトレイトの機能を必要とする">スーパートレイトを使用して別のトレイト内で、あるトレイトの機能を必要とする</a></h3>
+<!--
+Sometimes, you might need one trait to use another trait’s functionality. In
+this case, you need to rely on the dependent trait's also being implemented.
+The trait you rely on is a *supertrait* of the trait you’re implementing.
+-->
+<p>時として、あるトレイトに別のトレイトの機能を使用させる必要がある可能性があります。この場合、
+依存するトレイトも実装されることを信用する必要があります。信用するトレイトは、実装しているトレイトの<em>スーパートレイト</em>です。</p>
+<!--
+For example, let’s say we want to make an `OutlinePrint` trait with an
+`outline_print` method that will print a value framed in asterisks. That is,
+given a `Point` struct that implements `Display` to result in `(x, y)`, when we
+call `outline_print` on a `Point` instance that has `1` for `x` and `3` for
+`y`, it should print the following:
+-->
+<p>例えば、アスタリスクをフレームにする値を出力する<code>outline_print</code>メソッドがある<code>OutlinePrint</code>トレイトを作りたくなったとしましょう。
+つまり、<code>Display</code>を実装し、<code>(x, y)</code>という結果になる<code>Point</code>構造体が与えられて、
+<code>x</code>が<code>1</code>、<code>y</code>が<code>3</code>の<code>Point</code>インスタンスに対して<code>outline_print</code>を呼び出すと、以下のような出力をするはずです:</p>
+<pre><code class="language-text">**********
+*        *
+* (1, 3) *
+*        *
+**********
+</code></pre>
+<!--
+In the implementation of `outline_print`, we want to use the `Display` trait’s
+functionality. Therefore, we need to specify that the `OutlinePrint` trait will
+work only for types that also implement `Display` and provide the functionality
+that `OutlinePrint` needs. We can do that in the trait definition by specifying
+`OutlinePrint: Display`. This technique is similar to adding a trait bound to
+the trait. Listing 19-30 shows an implementation of the `OutlinePrint` trait.
+-->
+<p><code>outline_print</code>の実装では、<code>Display</code>トレイトの機能を使用したいです。故に、<code>Display</code>も実装する型に対してだけ<code>OutlinePrint</code>が動くと指定し、
+<code>OutlinePrint</code>が必要とする機能を提供する必要があるわけです。トレイト定義で<code>OutlinePrint: Display</code>と指定することで、
+そうすることができます。このテクニックは、トレイトにトレイト境界を追加することに似ています。
+リスト19-30は、<code>OutlinePrint</code>トレイトの実装を示しています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::fmt;
+
+trait OutlinePrint: fmt::Display {
+    fn outline_print(&amp;self) {
+        let output = self.to_string();
+        let len = output.len();
+        println!(&quot;{}&quot;, &quot;*&quot;.repeat(len + 4));
+        println!(&quot;*{}*&quot;, &quot; &quot;.repeat(len + 2));
+        println!(&quot;* {} *&quot;, output);
+        println!(&quot;*{}*&quot;, &quot; &quot;.repeat(len + 2));
+        println!(&quot;{}&quot;, &quot;*&quot;.repeat(len + 4));
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 19-30: Implementing the `OutlinePrint` trait that
+requires the functionality from `Display`</span>
+-->
+<p><span class="caption">リスト19-30: <code>Display</code>からの機能を必要とする<code>OutlinePrint</code>トレイトを実装する</span></p>
+<!--
+Because we’ve specified that `OutlinePrint` requires the `Display` trait, we
+can use the `to_string` function that is automatically implemented for any type
+that implements `Display`. If we tried to use `to_string` without adding a
+colon and specifying `Display` trait after the trait name, we’d get an
+error saying that no method named `to_string` was found for the type `&Self` in
+the current scope.
+-->
+<p><code>OutlinePrint</code>は<code>Display</code>トレイトを必要とすると指定したので、<code>Display</code>を実装するどんな型にも自動的に実装される<code>to_string</code>関数を使えます。
+トレイト名の後にコロンと<code>Display</code>トレイトを追加せずに<code>to_string</code>を使おうとしたら、
+現在のスコープで型<code>&amp;Self</code>に<code>to_string</code>というメソッドは存在しないというエラーが出るでしょう。</p>
+<!--
+Let’s see what happens when we try to implement `OutlinePrint` on a type that
+doesn’t implement `Display`, such as the `Point` struct:
+-->
+<p><code>Display</code>を実装しない型、<code>Point</code>構造体などに<code>OutlinePrint</code>を実装しようとしたら、何が起きるか確認しましょう:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">trait OutlinePrint {}
+</span>struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl OutlinePrint for Point {}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+We get an error saying that `Display` is required but not implemented:
+-->
+<p><code>Display</code>が必要だけれども、実装されていないというエラーが出ます:</p>
+<pre><code class="language-text">error[E0277]: the trait bound `Point: std::fmt::Display` is not satisfied
+  --&gt; src/main.rs:20:6
+   |
+20 | impl OutlinePrint for Point {}
+   |      ^^^^^^^^^^^^ `Point` cannot be formatted with the default formatter;
+try using `:?` instead if you are using a format string
+   |
+   = help: the trait `std::fmt::Display` is not implemented for `Point`
+</code></pre>
+<!--
+To fix this, we implement `Display` on `Point` and satisfy the constraint that
+`OutlinePrint` requires, like so:
+-->
+<p>これを修正するために、<code>Point</code>に<code>Display</code>を実装し、<code>OutlinePrint</code>が必要とする制限を満たします。
+こんな感じで:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Point {
+</span><span class="boring">    x: i32,
+</span><span class="boring">    y: i32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>use std::fmt;
+
+impl fmt::Display for Point {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
+        write!(f, &quot;({}, {})&quot;, self.x, self.y)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Then implementing the `OutlinePrint` trait on `Point` will compile
+successfully, and we can call `outline_print` on a `Point` instance to display
+it within an outline of asterisks.
+-->
+<p>そうすれば、<code>Point</code>に<code>OutlinePrint</code>トレイトを実装してもコンパイルは成功し、
+<code>Point</code>インスタンスに対して<code>outline_print</code>を呼び出し、アスタリスクのふちの中に表示することができます。</p>
+<!--
+### Using the Newtype Pattern to Implement External Traits on External Types
+-->
+<h3><a class="header" href="#ニュータイプパターンを使用して外部の型に外部のトレイトを実装する" id="ニュータイプパターンを使用して外部の型に外部のトレイトを実装する">ニュータイプパターンを使用して外部の型に外部のトレイトを実装する</a></h3>
+<!--
+In Chapter 10 in the “Implementing a Trait on a Type” section, we mentioned the
+orphan rule that states we’re allowed to implement a trait on a type as long as
+either the trait or the type are local to our crate. It’s possible to get
+around this restriction using the *newtype pattern*, which involves creating a
+new type in a tuple struct. (We covered tuple structs in the “Using Tuple
+Structs without Named Fields to Create Different Types” section of Chapter 5.)
+The tuple struct will have one field and be a thin wrapper around the type we
+want to implement a trait for. Then the wrapper type is local to our crate, and
+we can implement the trait on the wrapper. *Newtype* is a term that originates
+from the Haskell programming language. There is no runtime performance penalty
+for using this pattern, and the wrapper type is elided at compile time.
+-->
+<p>第10章の「型にトレイトを実装する」節で、トレイトか型がクレートにローカルな限り、型にトレイトを実装できると述べるオーファンルールについて触れました。
+<em>ニュータイプパターン</em>を使用してこの制限を回避することができ、タプル構造体に新しい型を作成することになります。
+(タプル構造体については、第5章の「異なる型を生成する名前付きフィールドのないタプル構造体を使用する」節で講義しました。)
+タプル構造体は1つのフィールドを持ち、トレイトを実装したい型の薄いラッパになるでしょう。そして、
+ラッパの型はクレートにローカルなので、トレイトをラッパに実装できます。<em>ニュータイプ</em>という用語は、
+Haskellプログラミング言語に端を発しています。このパターンを使用するのに実行時のパフォーマンスを犠牲にすることはなく、
+ラッパ型はコンパイル時に省かれます。</p>
+<!--
+As an example, let’s say we want to implement `Display` on `Vec<T>`, which the
+orphan rule prevents us from doing directly because the `Display` trait and the
+`Vec<T>` type are defined outside our crate. We can make a `Wrapper` struct
+that holds an instance of `Vec<T>`; then we can implement `Display` on
+`Wrapper` and use the `Vec<T>` value, as shown in Listing 19-31.
+-->
+<p>例として、<code>Vec&lt;T&gt;</code>に<code>Display</code>を実装したいとしましょう。<code>Display</code>トレイトも<code>Vec&lt;T&gt;</code>型もクレートの外で定義されているので、
+直接それを行うことはオーファンルールにより妨げられます。<code>Vec&lt;T&gt;</code>のインスタンスを保持する<code>Wrapper</code>構造体を作成できます;
+そして、<code>Wrapper</code>に<code>Display</code>を実装し、<code>Vec&lt;T&gt;</code>値を使用できます。リスト19-31のように。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::fmt;
+
+struct Wrapper(Vec&lt;String&gt;);
+
+impl fmt::Display for Wrapper {
+    fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {
+        write!(f, &quot;[{}]&quot;, self.0.join(&quot;, &quot;))
+    }
+}
+
+fn main() {
+    let w = Wrapper(vec![String::from(&quot;hello&quot;), String::from(&quot;world&quot;)]);
+    println!(&quot;w = {}&quot;, w);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 19-31: Creating a `Wrapper` type around
+`Vec<String>` to implement `Display`</span>
+-->
+<p><span class="caption">リスト19-31: <code>Vec&lt;String&gt;</code>の周りに<code>Wrapper</code>を作成して<code>Display</code>を実装する</span></p>
+<!--
+The implementation of `Display` uses `self.0` to access the inner `Vec<T>`,
+because `Wrapper` is a tuple struct and `Vec<T>` is the item at index 0 in the
+tuple. Then we can use the functionality of the `Display` type on `Wrapper`.
+-->
+<p><code>Display</code>の実装は、<code>self.0</code>で中身の<code>Vec&lt;T&gt;</code>にアクセスしています。<code>Wrapper</code>はタプル構造体で、
+<code>Vec&lt;T&gt;</code>がタプルの添え字0の要素だからです。それから、<code>Wrapper</code>に対して<code>Display</code>型の機能を使用できます。</p>
+<!--
+The downside of using this technique is that `Wrapper` is a new type, so it
+doesn’t have the methods of the value it’s holding. We would have to implement
+all the methods of `Vec<T>` directly on `Wrapper` such that the methods
+delegate to `self.0`, which would allow us to treat `Wrapper` exactly like a
+`Vec<T>`. If we wanted the new type to have every method the inner type has,
+implementing the `Deref` trait (discussed in Chapter 15 in the “Treating Smart
+Pointers like Regular References with the `Deref` Trait” section) on the
+`Wrapper` to return the inner type would be a solution. If we don’t want the
+`Wrapper` type to have all the methods of the inner type—for example, to
+restrict the `Wrapper` type’s behavior—we would have to implement just the
+methods we do want manually.
+-->
+<p>このテクニックを使用する欠点は、<code>Wrapper</code>が新しい型なので、保持している値のメソッドがないことです。
+<code>self.0</code>に委譲して、<code>Wrapper</code>を<code>Vec&lt;T&gt;</code>と全く同様に扱えるように、<code>Wrapper</code>に直接<code>Vec&lt;T&gt;</code>の全てのメソッドを実装しなければならないでしょう。
+内部の型が持つ全てのメソッドを新しい型に持たせたいなら、
+<code>Deref</code>トレイト(第15章の「<code>Deref</code>トレイトでスマートポインタを普通の参照のように扱う」節で議論しました)を<code>Wrapper</code>に実装して、
+内部の型を返すことは解決策の1つでしょう。内部の型のメソッド全部を<code>Wrapper</code>型に持たせたくない(例えば、<code>Wrapper</code>型の機能を制限するなど)なら、
+本当に欲しいメソッドだけを手動で実装しなければならないでしょう。</p>
+<!--
+Now you know how the newtype pattern is used in relation to traits; it’s also a
+useful pattern even when traits are not involved. Let’s switch focus and look
+at some advanced ways to interact with Rust’s type system.
+-->
+<p>もう、トレイトに関してニュータイプパターンが使用される方法を知りました; トレイトが関連しなくても、
+有用なパターンでもあります。焦点を変更して、Rustの型システムと相互作用する一部の高度な方法を見ましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch19-01-unsafe-rust.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch19-04-advanced-types.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch19-01-unsafe-rust.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch19-04-advanced-types.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

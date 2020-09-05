@@ -1,0 +1,919 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Recoverable Errors with Result - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html" class="active"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Recoverable Errors with `Result`
+-->
+<h2><a class="header" href="#resultで回復可能なエラー" id="resultで回復可能なエラー"><code>Result</code>で回復可能なエラー</a></h2>
+<!--
+Most errors aren’t serious enough to require the program to stop entirely.
+Sometimes, when a function fails, it’s for a reason that we can easily
+interpret and respond to. For example, if you try to open a file and that
+operation fails because the file doesn’t exist, we might want to create the
+file instead of terminating the process.
+-->
+<p>多くのエラーは、プログラムを完全にストップさせるほど深刻ではありません。時々、関数が失敗した時に、
+容易に解釈し、対応できる理由によることがあります。例えば、ファイルを開こうとして、
+ファイルが存在しないために処理が失敗したら、プロセスを停止するのではなく、ファイルを作成したいことがあります。</p>
+<!--
+Recall from “[Handling Potential Failure with the `Result`
+Type][handle_failure]” in Chapter 2 that the `Result` enum is
+defined as having two variants, `Ok` and `Err`, as follows:
+-->
+<p>第2章の<a href="ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-the-result-type">「<code>Result</code>型で失敗する可能性に対処する」</a>で<code>Result</code> enumが以下のように、
+<code>Ok</code>と<code>Err</code>の2列挙子からなるよう定義されていることを思い出してください:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>enum Result&lt;T, E&gt; {
+    Ok(T),
+    Err(E),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+The `T` and `E` are generic type parameters: we’ll discuss generics in more
+detail in Chapter 10. What you need to know right now is that `T` represents
+the type of the value that will be returned in a success case within the `Ok`
+variant, and `E` represents the type of the error that will be returned in a
+failure case within the `Err` variant. Because `Result` has these generic type
+parameters, we can use the `Result` type and the functions that the standard
+library has defined on it in many different situations where the successful
+value and error value we want to return may differ.
+-->
+<p><code>T</code>と<code>E</code>は、ジェネリックな型引数です: ジェネリクスについて詳しくは、第10章で議論します。
+たった今知っておく必要があることは、<code>T</code>が成功した時に<code>Ok</code>列挙子に含まれて返される値の型を表すことと、
+<code>E</code>が失敗した時に<code>Err</code>列挙子に含まれて返されるエラーの型を表すことです。<code>Result</code>はこのようなジェネリックな型引数を含むので、
+標準ライブラリ上に定義されている<code>Result</code>型や関数などを、成功した時とエラーの時に返したい値が異なるような様々な場面で使用できるのです。</p>
+<!--
+Let’s call a function that returns a `Result` value because the function could
+fail. In Listing 9-3 we try to open a file.
+-->
+<p>関数が失敗する可能性があるために<code>Result</code>値を返す関数を呼び出しましょう: リスト9-3では、
+ファイルを開こうとしています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::fs::File;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 9-3: Opening a file</span>
+-->
+<p><span class="caption">リスト9-3: ファイルを開く</span></p>
+<!--
+How do we know `File::open` returns a `Result`? We could look at the standard
+library API documentation, or we could ask the compiler! If we give `f` a type
+annotation that we know is *not* the return type of the function and then try
+to compile the code, the compiler will tell us that the types don’t match. The
+error message will then tell us what the type of `f` *is*. Let’s try it! We
+know that the return type of `File::open` isn’t of type `u32`, so let’s change
+the `let f` statement to this:
+-->
+<p><code>File::open</code>が<code>Result</code>を返すとどう知るのでしょうか？標準ライブラリのAPIドキュメントを参照することもできますし、
+コンパイラに尋ねることもできます！<code>f</code>に関数の戻り値では<em>ない</em>と判明している型注釈を与えて、
+コードのコンパイルを試みれば、コンパイラは型が合わないと教えてくれるでしょう。そして、エラーメッセージは、
+<code>f</code>の<em>実際の</em>型を教えてくれるでしょう。試してみましょう！<code>File::open</code>の戻り値の型は<code>u32</code>ではないと判明しているので、
+<code>let f</code>文を以下のように変更しましょう:</p>
+<pre><code class="language-rust ignore">let f: u32 = File::open(&quot;hello.txt&quot;);
+</code></pre>
+<!--
+Attempting to compile now gives us the following output:
+-->
+<p>これでコンパイルしようとすると、以下のような出力が得られます:</p>
+<pre><code class="language-text">error[E0308]: mismatched types
+(エラー: 型が合いません)
+ --&gt; src/main.rs:4:18
+  |
+4 |     let f: u32 = File::open(&quot;hello.txt&quot;);
+  |                  ^^^^^^^^^^^^^^^^^^^^^^^ expected u32, found enum
+`std::result::Result`
+  |
+  = note: expected type `u32`
+  (注釈: 予期した型は`u32`です)
+             found type `std::result::Result&lt;std::fs::File, std::io::Error&gt;`
+  (実際の型は`std::result::Result&lt;std::fs::File, std::io::Error&gt;`です)
+</code></pre>
+<!--
+This tells us the return type of the `File::open` function is a `Result<T, E>`.
+The generic parameter `T` has been filled in here with the type of the success
+value, `std::fs::File`, which is a file handle. The type of `E` used in the
+error value is `std::io::Error`.
+-->
+<p>これにより、<code>File::open</code>関数の戻り値の型は、<code>Result&lt;T, E&gt;</code>であることがわかります。ジェネリック引数の<code>T</code>は、
+ここでは成功値の型<code>std::fs::File</code>で埋められていて、これはファイルハンドルです。
+エラー値で使用されている<code>E</code>の型は、<code>std::io::Error</code>です。</p>
+<!--
+This return type means the call to `File::open` might succeed and return a file
+handle that we can read from or write to. The function call also might fail:
+for example, the file might not exist, or we might not have permission to
+access the file. The `File::open` function needs to have a way to tell us
+whether it succeeded or failed and at the same time give us either the file
+handle or error information. This information is exactly what the `Result` enum
+conveys.
+-->
+<p>この戻り値型は、<code>File::open</code>の呼び出しが成功し、読み込みと書き込みを行えるファイルハンドルを返す可能性があることを意味します。
+また、関数呼び出しは失敗もする可能性があります: 例えば、ファイルが存在しない可能性、ファイルへのアクセス権限がない可能性です。
+<code>File::open</code>には成功したか失敗したかを知らせる方法とファイルハンドルまたは、エラー情報を与える方法が必要なのです。
+この情報こそが<code>Result</code> enumが伝達するものなのです。</p>
+<!--
+In the case where `File::open` succeeds, the value in the variable `f` will be
+an instance of `Ok` that contains a file handle. In the case where it fails,
+the value in `f` will be an instance of `Err` that contains more information
+about the kind of error that happened.
+-->
+<p><code>File::open</code>が成功した場合、変数<code>f</code>の値はファイルハンドルを含む<code>Ok</code>インスタンスになります。
+失敗した場合には、発生したエラーの種類に関する情報をより多く含む<code>Err</code>インスタンスが<code>f</code>の値になります。</p>
+<!--
+We need to add to the code in Listing 9-3 to take different actions depending
+on the value `File::open` returns. Listing 9-4 shows one way to handle the
+`Result` using a basic tool, the `match` expression that we discussed in
+Chapter 6.
+-->
+<p>リスト9-3のコードに追記をして<code>File::open</code>が返す値に応じて異なる動作をする必要があります。
+リスト9-4に基礎的な道具を使って<code>Result</code>を扱う方法を一つ示しています。第6章で議論した<code>match</code>式です。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust should_panic">use std::fs::File;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;);
+
+    let f = match f {
+        Ok(file) =&gt; file,
+        Err(error) =&gt; {
+            // ファイルを開く際に問題がありました
+            panic!(&quot;There was a problem opening the file: {:?}&quot;, error)
+        },
+    };
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 9-4: Using a `match` expression to handle the
+`Result` variants that might be returned</span>
+-->
+<p><span class="caption">リスト9-4: <code>match</code>式を使用して返却される可能性のある<code>Result</code>列挙子を処理する</span></p>
+<!--
+Note that, like the `Option` enum, the `Result` enum and its variants have been
+imported in the prelude, so we don’t need to specify `Result::` before the `Ok`
+and `Err` variants in the `match` arms.
+-->
+<p><code>Option</code> enumのように、<code>Result</code> enumとその列挙子は、初期化処理でインポートされているので、
+<code>match</code>アーム内で<code>Ok</code>と<code>Err</code>列挙子の前に<code>Result::</code>を指定する必要がないことに注目してください。</p>
+<!--
+Here we tell Rust that when the result is `Ok`, return the inner `file` value
+out of the `Ok` variant, and we then assign that file handle value to the
+variable `f`. After the `match`, we can use the file handle for reading or
+writing.
+-->
+<p>ここでは、結果が<code>Ok</code>の時に、<code>Ok</code>列挙子から中身の<code>file</code>値を返すように指示し、
+それからそのファイルハンドル値を変数<code>f</code>に代入しています。<code>match</code>の後には、
+ファイルハンドルを使用して読み込んだり書き込むことができるわけです。</p>
+<!--
+The other arm of the `match` handles the case where we get an `Err` value from
+`File::open`. In this example, we’ve chosen to call the `panic!` macro. If
+there’s no file named *hello.txt* in our current directory and we run this
+code, we’ll see the following output from the `panic!` macro:
+-->
+<p><code>match</code>のもう一つのアームは、<code>File::open</code>から<code>Err</code>値が得られたケースを処理しています。
+この例では、<code>panic!</code>マクロを呼び出すことを選択しています。カレントディレクトリに<em>hello.txt</em>というファイルがなく、
+このコードを走らせたら、<code>panic!</code>マクロからの以下のような出力を目の当たりにするでしょう:</p>
+<pre><code class="language-text">thread 'main' panicked at 'There was a problem opening the file: Error { repr:
+Os { code: 2, message: &quot;No such file or directory&quot; } }', src/main.rs:9:12
+('main'スレッドは、src/main.rs:9:12の「ファイルを開く際に問題がありました: Error{ repr:
+Os { code: 2, message: &quot;そのような名前のファイルまたはディレクトリはありません&quot;}}」でパニックしました)
+</code></pre>
+<!--
+As usual, this output tells us exactly what has gone wrong.
+-->
+<p>通常通り、この出力は、一体何がおかしくなったのかを物語っています。</p>
+<!--
+### Matching on Different Errors
+-->
+<h3><a class="header" href="#色々なエラーにマッチする" id="色々なエラーにマッチする">色々なエラーにマッチする</a></h3>
+<!--
+The code in Listing 9-4 will `panic!` no matter why `File::open` failed. What
+we want to do instead is take different actions for different failure reasons:
+if `File::open` failed because the file doesn’t exist, we want to create the
+file and return the handle to the new file. If `File::open` failed for any
+other reason-for example, because we didn’t have permission to open the file-we
+still want the code to `panic!` in the same way as it did in Listing 9-4. Look
+at Listing 9-5, which adds another arm to the `match`.
+-->
+<p>リスト9-4のコードは、<code>File::open</code>が失敗した理由にかかわらず<code>panic!</code>します。代わりにしたいことは、
+失敗理由によって動作を変えることです: ファイルが存在しないために<code>File::open</code>が失敗したら、
+ファイルを作成し、その新しいファイルへのハンドルを返したいです。他の理由(例えばファイルを開く権限がなかったなど)で、
+<code>File::open</code>が失敗したら、リスト9-4のようにコードには<code>panic!</code>してほしいのです。
+リスト9-5を眺めてください。ここでは<code>match</code>に別のアームを追加しています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<!-- ignore this test because otherwise it creates hello.txt which causes other
+tests to fail lol -->
+<pre><code class="language-rust ignore">use std::fs::File;
+use std::io::ErrorKind;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;);
+
+    let f = match f {
+        Ok(file) =&gt; file,
+        Err(ref error) if error.kind() == ErrorKind::NotFound =&gt; {
+            match File::create(&quot;hello.txt&quot;) {
+                Ok(fc) =&gt; fc,
+                Err(e) =&gt; {
+                    panic!(
+                        //ファイルを作成しようとしましたが、問題がありました
+                        &quot;Tried to create file but there was a problem: {:?}&quot;,
+                        e
+                    )
+                },
+            }
+        },
+        Err(error) =&gt; {
+            panic!(
+                &quot;There was a problem opening the file: {:?}&quot;,
+                error
+            )
+        },
+    };
+}
+</code></pre>
+<!--
+<span class="caption">Listing 9-5: Handling different kinds of errors in
+different ways</span>
+-->
+<p><span class="caption">リスト9-5: 色々な種類のエラーを異なる方法で扱う</span></p>
+<!--
+The type of the value that `File::open` returns inside the `Err` variant is
+`io::Error`, which is a struct provided by the standard library. This struct
+has a method `kind` that we can call to get an `io::ErrorKind` value. The enum
+`io::ErrorKind` is provided by the standard library and has variants
+representing the different kinds of errors that might result from an `io`
+operation. The variant we want to use is `ErrorKind::NotFound`, which indicates
+the file we’re trying to open doesn’t exist yet.
+-->
+<p><code>File::open</code>が<code>Err</code>列挙子に含めて返す値の型は、<code>io::Error</code>であり、これは標準ライブラリで提供されている構造体です。
+この構造体には、呼び出すと<code>io::ErrorKind</code>値が得られる<code>kind</code>メソッドがあります。<code>io::ErrorKind</code>というenumは、
+標準ライブラリで提供されていて、<code>io</code>処理の結果発生する可能性のある色々な種類のエラーを表す列挙子があります。
+使用したい列挙子は、<code>ErrorKind::NotFound</code>で、これは開こうとしているファイルがまだ存在しないことを示唆します。</p>
+<!--
+The condition `if error.kind() == ErrorKind::NotFound` is called a *match
+guard*: it’s an extra condition on a `match` arm that further refines the arm’s
+pattern. This condition must be true for that arm’s code to be run; otherwise,
+the pattern matching will move on to consider the next arm in the `match`. The
+`ref` in the pattern is needed so `error` is not moved into the guard condition
+but is merely referenced by it. The reason you use `ref` to create a reference
+in a pattern instead of `&` will be covered in detail in Chapter 18. In short,
+in the context of a pattern, `&` matches a reference and gives you its value,
+but `ref` matches a value and gives you a reference to it.
+-->
+<p><code>if error.kind() == ErrorKind::Notfound</code>という条件式は、<em>マッチガード</em>と呼ばれます:
+アームのパターンをさらに洗練する<code>match</code>アーム上のおまけの条件式です。この条件式は、
+そのアームのコードが実行されるには真でなければいけないのです; そうでなければ、
+パターンマッチングは継続し、<code>match</code>の次のアームを考慮します。パターンの<code>ref</code>は、
+<code>error</code>がガード条件式にムーブされないように必要ですが、ただ単にガード式に参照されます。
+<code>ref</code>を使用して<code>&amp;</code>の代わりにパターン内で参照を作っている理由は、第18章で詳しく講義します。
+手短に言えば、パターンの文脈において、<code>&amp;</code>は参照にマッチし、その値を返しますが、
+<code>ref</code>は値にマッチし、それへの参照を返すということなのです。</p>
+<!--
+The condition we want to check in the match guard is whether the value returned
+by `error.kind()` is the `NotFound` variant of the `ErrorKind` enum. If it is,
+we try to create the file with `File::create`. However, because `File::create`
+could also fail, we need to add an inner `match` expression as well. When the
+file can’t be opened, a different error message will be printed. The last arm
+of the outer `match` stays the same so the program panics on any error besides
+the missing file error.
+-->
+<p>マッチガードで精査したい条件は、<code>error.kind()</code>により返る値が、<code>ErrorKind</code> enumの<code>NotFound</code>列挙子であるかということです。
+もしそうなら、<code>File::create</code>でファイル作成を試みます。ところが、<code>File::create</code>も失敗する可能性があるので、
+内部にも<code>match</code>式を追加する必要があるのです。ファイルが開けないなら、異なるエラーメッセージが出力されるでしょう。
+外側の<code>match</code>の最後のアームは同じままなので、ファイルが存在しないエラー以外ならプログラムはパニックします。</p>
+<!--
+### Shortcuts for Panic on Error: `unwrap` and `expect`
+-->
+<h3><a class="header" href="#エラー時にパニックするショートカット-unwrapとexpect" id="エラー時にパニックするショートカット-unwrapとexpect">エラー時にパニックするショートカット: <code>unwrap</code>と<code>expect</code></a></h3>
+<!--
+Using `match` works well enough, but it can be a bit verbose and doesn’t always
+communicate intent well. The `Result<T, E>` type has many helper methods
+defined on it to do various tasks. One of those methods, called `unwrap`, is a
+shortcut method that is implemented just like the `match` expression we wrote
+in Listing 9-4. If the `Result` value is the `Ok` variant, `unwrap` will return
+the value inside the `Ok`. If the `Result` is the `Err` variant, `unwrap` will
+call the `panic!` macro for us. Here is an example of `unwrap` in action:
+-->
+<p><code>match</code>の使用は、十分に仕事をしてくれますが、いささか冗長になり得る上、必ずしも意図をよく伝えるとは限りません。
+<code>Result&lt;T, E&gt;</code>型には、色々な作業をするヘルパーメソッドが多く定義されています。それらの関数の一つは、
+<code>unwrap</code>と呼ばれますが、リスト9-4で書いた<code>match</code>式と同じように実装された短絡メソッドです。
+<code>Result</code>値が<code>Ok</code>列挙子なら、<code>unwrap</code>は<code>Ok</code>の中身を返します。<code>Result</code>が<code>Err</code>列挙子なら、
+<code>unwrap</code>は<code>panic!</code>マクロを呼んでくれます。こちらが実際に動作している<code>unwrap</code>の例です:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust should_panic">use std::fs::File;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;).unwrap();
+}
+</code></pre></pre>
+<!--
+If we run this code without a *hello.txt* file, we’ll see an error message from
+the `panic!` call that the `unwrap` method makes:
+-->
+<p>このコードを<em>hello.txt</em>ファイルなしで走らせたら、<code>unwrap</code>メソッドが行う<code>panic!</code>呼び出しからのエラーメッセージを目の当たりにするでしょう:</p>
+<pre><code class="language-text">thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Error {
+repr: Os { code: 2, message: &quot;No such file or directory&quot; } }',
+src/libcore/result.rs:906:4
+('main'スレッドは、src/libcore/result.rs:906:4の
+「`Err`値に対して`Result::unwrap()`が呼び出されました: Error{
+repr: Os { code: 2, message: &quot;そのようなファイルまたはディレクトリはありません&quot; } }」でパニックしました)
+</code></pre>
+<!--
+Another method, `expect`, which is similar to `unwrap`, lets us also choose the
+`panic!` error message. Using `expect` instead of `unwrap` and providing good
+error messages can convey your intent and make tracking down the source of a
+panic easier. The syntax of `expect` looks like this:
+-->
+<p>別のメソッド<code>expect</code>は、<code>unwrap</code>に似ていますが、<code>panic!</code>のエラーメッセージも選択させてくれます。
+<code>unwrap</code>の代わりに<code>expect</code>を使用して、いいエラーメッセージを提供すると、意図を伝え、
+パニックの原因をたどりやすくしてくれます。<code>expect</code>の表記はこんな感じです:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust should_panic">use std::fs::File;
+
+fn main() {
+    // hello.txtを開くのに失敗しました
+    let f = File::open(&quot;hello.txt&quot;).expect(&quot;Failed to open hello.txt&quot;);
+}
+</code></pre></pre>
+<!--
+We use `expect` in the same way as `unwrap`: to return the file handle or call
+the `panic!` macro. The error message used by `expect` in its call to `panic!`
+will be the parameter that we pass to `expect`, rather than the default
+`panic!` message that `unwrap` uses. Here’s what it looks like:
+-->
+<p><code>expect</code>を<code>unwrap</code>と同じように使用してます: ファイルハンドルを返したり、<code>panic!</code>マクロを呼び出しています。
+<code>expect</code>が<code>panic!</code>呼び出しで使用するエラーメッセージは、<code>unwrap</code>が使用するデフォルトの<code>panic!</code>メッセージではなく、
+<code>expect</code>に渡した引数になります。以下のようになります:</p>
+<pre><code class="language-text">thread 'main' panicked at 'Failed to open hello.txt: Error { repr: Os { code:
+2, message: &quot;No such file or directory&quot; } }', src/libcore/result.rs:906:4
+</code></pre>
+<!--
+Because this error message starts with the text we specified, `Failed to open
+hello.txt`, it will be easier to find where in the code this error message is
+coming from. If we use `unwrap` in multiple places, it can take more time to
+figure out exactly which `unwrap` is causing the panic because all `unwrap`
+calls that panic print the same message.
+-->
+<p>このエラーメッセージは、指定したテキストの<code>hello.txtを開くのに失敗しました</code>で始まっているので、
+コード内のどこでエラーメッセージが出力されたのかより見つけやすくなるでしょう。複数箇所で<code>unwrap</code>を使用していたら、
+ズバリどの<code>unwrap</code>がパニックを引き起こしているのか理解するのは、より時間がかかる可能性があります。
+パニックする<code>unwrap</code>呼び出しは全て、同じメッセージを出力するからです。</p>
+<!--
+### Propagating Errors
+-->
+<h3><a class="header" href="#エラーを委譲する" id="エラーを委譲する">エラーを委譲する</a></h3>
+<!--
+When you’re writing a function whose implementation calls something that might
+fail, instead of handling the error within this function, you can return the
+error to the calling code so that it can decide what to do. This is known as
+*propagating* the error and gives more control to the calling code, where there
+might be more information or logic that dictates how the error should be
+handled than what you have available in the context of your code.
+-->
+<p>失敗する可能性のある何かを呼び出す実装をした関数を書く際、関数内でエラーを処理する代わりに、
+呼び出し元がどうするかを決められるようにエラーを返すことができます。これはエラーの<em>委譲</em>として認知され、
+自分のコードの文脈で利用可能なものよりも、
+エラーの処理法を規定する情報やロジックがより多くある呼び出し元のコードに制御を明け渡します。</p>
+<!--
+For example, Listing 9-6 shows a function that reads a username from a file. If
+the file doesn’t exist or can’t be read, this function will return those errors
+to the code that called this function.
+-->
+<p>例えば、リスト9-6の関数は、ファイルからユーザ名を読み取ります。ファイルが存在しなかったり、読み込みできなければ、
+この関数はそのようなエラーを呼び出し元のコードに返します。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::io;
+use std::io::Read;
+use std::fs::File;
+
+fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    let f = File::open(&quot;hello.txt&quot;);
+
+    let mut f = match f {
+        Ok(file) =&gt; file,
+        Err(e) =&gt; return Err(e),
+    };
+
+    let mut s = String::new();
+
+    match f.read_to_string(&amp;mut s) {
+        Ok(_) =&gt; Ok(s),
+        Err(e) =&gt; Err(e),
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 9-6: A function that returns errors to the
+calling code using `match`</span>
+-->
+<p><span class="caption">リスト9-6: <code>match</code>でエラーを呼び出し元のコードに返す関数</span></p>
+<!--
+Look at the return type of the function first: `Result<String, io::Error>`.
+This means the function is returning a value of the type `Result<T, E>` where
+the generic parameter `T` has been filled in with the concrete type `String`
+and the generic type `E` has been filled in with the concrete type `io::Error`.
+If this function succeeds without any problems, the code that calls this
+function will receive an `Ok` value that holds a `String`—the username that
+this function read from the file. If this function encounters any problems, the
+code that calls this function will receive an `Err` value that holds an
+instance of `io::Error` that contains more information about what the problems
+were. We chose `io::Error` as the return type of this function because that
+happens to be the type of the error value returned from both of the operations
+we’re calling in this function’s body that might fail: the `File::open`
+function and the `read_to_string` method.
+-->
+<p>まずは、関数の戻り値型に注目してください: <code>Result&lt;String, io::Error&gt;</code>です。つまり、この関数は、
+<code>Result&lt;T, E&gt;</code>型の値を返しているということです。ここでジェネリック引数の<code>T</code>は、具体型<code>String</code>で埋められ、
+ジェネリック引数の<code>E</code>は具体型<code>io::Error</code>で埋められています。この関数が何の問題もなく成功すれば、
+この関数を呼び出したコードは、<code>String</code>(関数がファイルから読み取ったユーザ名)を保持する<code>Ok</code>値を受け取ります。
+この関数が何か問題に行き当たったら、呼び出し元のコードは<code>io::Error</code>のインスタンスを保持する<code>Err</code>値を受け取り、
+この<code>io::Error</code>は問題の内容に関する情報をより多く含んでいます。関数の戻り値の型に<code>io::Error</code>を選んだのは、
+この関数本体で呼び出している失敗する可能性のある処理が両方とも偶然この型をエラー値として返すからです:
+<code>File::open</code>関数と<code>read_to_string</code>メソッドです。</p>
+<!--
+The body of the function starts by calling the `File::open` function. Then we
+handle the `Result` value returned with a `match` similar to the `match` in
+Listing 9-4, only instead of calling `panic!` in the `Err` case, we return
+early from this function and pass the error value from `File::open` back to the
+calling code as this function’s error value. If `File::open` succeeds, we store
+the file handle in the variable `f` and continue.
+-->
+<p>関数の本体は、<code>File::open</code>関数を呼び出すところから始まります。そして、リスト9-4の<code>match</code>に似た<code>match</code>で返ってくる<code>Result</code>値を扱い、
+<code>Err</code>ケースに<code>panic!</code>を呼び出すだけの代わりに、この関数から早期リターンしてこの関数のエラー値として、
+<code>File::open</code>から得たエラー値を呼び出し元に渡し戻します。<code>File::open</code>が成功すれば、
+ファイルハンドルを変数<code>f</code>に保管して継続します。</p>
+<!--
+Then we create a new `String` in variable `s` and call the `read_to_string`
+method on the file handle in `f` to read the contents of the file into `s`. The
+`read_to_string` method also returns a `Result` because it might fail, even
+though `File::open` succeeded. So we need another `match` to handle that
+`Result`: if `read_to_string` succeeds, then our function has succeeded, and we
+return the username from the file that’s now in `s` wrapped in an `Ok`. If
+`read_to_string` fails, we return the error value in the same way that we
+returned the error value in the `match` that handled the return value of
+`File::open`. However, we don’t need to explicitly say `return`, because this
+is the last expression in the function.
+-->
+<p>さらに、変数<code>s</code>に新規<code>String</code>を生成し、<code>f</code>のファイルハンドルに対して<code>read_to_string</code>を呼び出して、
+ファイルの中身を<code>s</code>に読み出します。<code>File::open</code>が成功しても、失敗する可能性があるので、<code>read_to_string</code>メソッドも、
+<code>Result</code>を返却します。その<code>Result</code>を処理するために別の<code>match</code>が必要になります: <code>read_to_string</code>が成功したら、
+関数は成功し、今は<code>Ok</code>に包まれた<code>s</code>に入っているファイルのユーザ名を返却します。<code>read_to_string</code>が失敗したら、
+<code>File::open</code>の戻り値を扱った<code>match</code>でエラー値を返したように、エラー値を返します。
+しかし、明示的に<code>return</code>を述べる必要はありません。これが関数の最後の式だからです。</p>
+<!--
+The code that calls this code will then handle getting either an `Ok` value
+that contains a username or an `Err` value that contains an `io::Error`. We
+don’t know what the calling code will do with those values. If the calling code
+gets an `Err` value, it could call `panic!` and crash the program, use a
+default username, or look up the username from somewhere other than a file, for
+example. We don’t have enough information on what the calling code is actually
+trying to do, so we propagate all the success or error information upwards for
+it to handle appropriately.
+-->
+<p>そうしたら、呼び出し元のコードは、ユーザ名を含む<code>Ok</code>値か、<code>io::Error</code>を含む<code>Err</code>値を得て扱います。
+呼び出し元のコードがそれらの値をどうするかはわかりません。呼び出しコードが<code>Err</code>値を得たら、
+例えば、<code>panic!</code>を呼び出してプログラムをクラッシュさせたり、デフォルトのユーザ名を使ったり、
+ファイル以外の場所からユーザ名を検索したりできるでしょう。呼び出し元のコードが実際に何をしようとするかについて、
+十分な情報がないので、成功や失敗情報を全て委譲して適切に扱えるようにするのです。</p>
+<!--
+This pattern of propagating errors is so common in Rust that Rust provides the
+question mark operator `?` to make this easier.
+-->
+<p>Rustにおいて、この種のエラー委譲は非常に一般的なので、Rustにはこれをしやすくする<code>?</code>演算子が用意されています。</p>
+<!--
+#### A Shortcut for Propagating Errors: the `?` operator
+-->
+<h4><a class="header" href="#エラー委譲のショートカット-演算子" id="エラー委譲のショートカット-演算子">エラー委譲のショートカット: <code>?</code>演算子</a></h4>
+<!--
+Listing 9-7 shows an implementation of `read_username_from_file` that has the
+same functionality as it had in Listing 9-6, but this implementation uses the
+`?` operator:
+-->
+<p>リスト9-7もリスト9-6と同じ機能を有する<code>read_username_from_file</code>の実装ですが、
+こちらは<code>?</code>演算子を使用しています:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::io;
+use std::io::Read;
+use std::fs::File;
+
+fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    let mut f = File::open(&quot;hello.txt&quot;)?;
+    let mut s = String::new();
+    f.read_to_string(&amp;mut s)?;
+    Ok(s)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 9-7: A function that returns errors to the
+calling code using the `?` operator</span>
+-->
+<p><span class="caption">リスト9-7: <code>?</code>演算子でエラーを呼び出し元に返す関数</span></p>
+<!--
+The `?` placed after a `Result` value is defined to work in almost the same way
+as the `match` expressions we defined to handle the `Result` values in Listing
+9-6. If the value of the `Result` is an `Ok`, the value inside the `Ok` will
+get returned from this expression, and the program will continue. If the value
+is an `Err`, the value inside the `Err` will be returned from the whole
+function as if we had used the `return` keyword so the error value gets
+propagated to the calling code.
+-->
+<p><code>Result</code>値の直後に置かれた<code>?</code>は、リスト9-6で<code>Result</code>値を処理するために定義した<code>match</code>式とほぼ同じように動作します。
+<code>Result</code>の値が<code>Ok</code>なら、<code>Ok</code>の中身がこの式から返ってきて、プログラムは継続します。値が<code>Err</code>なら、
+<code>return</code>キーワードを使ったかのように関数全体から<code>Err</code>の中身が返ってくるので、
+エラー値は呼び出し元のコードに委譲されます。</p>
+<!--
+There is a difference between what the `match` expression from Listing 9-6 and
+the `?` operator do: error values used with `?` go through the `from` function,
+defined in the `From` trait in the standard library, which is used to convert
+errors from one type into another. When the `?` operator calls the `from`
+function, the error type received is converted into the error type defined in
+the return type of the current function. This is useful when a function returns
+one error type to represent all the ways a function might fail, even if parts
+might fail for many different reasons. As long as each error type implements
+the `from` function to define how to convert itself to the returned error type,
+the `?` operator takes care of the conversion automatically.
+-->
+<p>リスト9-6の<code>match</code>式と<code>?</code>演算子には違いがあります: <code>?</code>を使ったエラー値は、
+標準ライブラリの<code>From</code>トレイトで定義され、エラーの型を別のものに変換する<code>from</code>関数を通ることです。
+<code>?</code>演算子が<code>from</code>関数を呼び出すと、受け取ったエラー型が現在の関数の戻り値型で定義されているエラー型に変換されます。これは、
+個々がいろんな理由で失敗する可能性があるのにも関わらず、関数が失敗する可能性を全て一つのエラー型で表現して返す時に有用です。
+各エラー型が<code>from</code>関数を実装して返り値のエラー型への変換を定義している限り、
+<code>?</code>演算子が変換の面倒を自動的に見てくれます。</p>
+<!--
+In the context of Listing 9-7, the `?` at the end of the `File::open` call will
+return the value inside an `Ok` to the variable `f`. If an error occurs, the
+`?` operator will return early out of the whole function and give any `Err`
+value to the calling code. The same thing applies to the `?` at the end of the
+`read_to_string` call.
+-->
+<p>リスト9-7の文脈では、<code>File::open</code>呼び出し末尾の<code>?</code>は<code>Ok</code>の中身を変数<code>f</code>に返します。
+エラーが発生したら、<code>?</code>演算子により関数全体から早期リターンし、あらゆる<code>Err</code>値を呼び出し元に与えます。
+同じ法則が<code>read_to_string</code>呼び出し末尾の<code>?</code>にも適用されます。</p>
+<!--
+The `?` operator eliminates a lot of boilerplate and makes this function’s
+implementation simpler. We could even shorten this code further by chaining
+method calls immediately after the `?`, as shown in Listing 9-8.
+-->
+<p><code>?</code>演算子により定型コードの多くが排除され、この関数の実装を単純にしてくれます。
+リスト9-8で示したように、<code>?</code>の直後のメソッド呼び出しを連結することでさらにこのコードを短くすることさえもできます。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::io;
+use std::io::Read;
+use std::fs::File;
+
+fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    let mut s = String::new();
+
+    File::open(&quot;hello.txt&quot;)?.read_to_string(&amp;mut s)?;
+
+    Ok(s)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 9-8: Chaining method calls after the `?`
+operator</span>
+-->
+<p><span class="caption">リスト9-8: <code>?</code>演算子の後のメソッド呼び出しを連結する</span></p>
+<!--
+We’ve moved the creation of the new `String` in `s` to the beginning of the
+function; that part hasn’t changed. Instead of creating a variable `f`, we’ve
+chained the call to `read_to_string` directly onto the result of
+`File::open("hello.txt")?`. We still have a `?` at the end of the
+`read_to_string` call, and we still return an `Ok` value containing the
+username in `s` when both `File::open` and `read_to_string` succeed rather than
+returning errors. The functionality is again the same as in Listing 9-6 and
+Listing 9-7; this is just a different, more ergonomic way to write it.
+-->
+<p><code>s</code>の新規<code>String</code>の生成を関数の冒頭に移動しました; その部分は変化していません。変数<code>f</code>を生成する代わりに、
+<code>read_to_string</code>の呼び出しを直接<code>File::open(&quot;hello.txt&quot;)?</code>の結果に連結させました。
+それでも、<code>read_to_string</code>呼び出しの末尾には<code>?</code>があり、<code>File::open</code>と<code>read_to_string</code>両方が成功したら、
+エラーを返すというよりもそれでも、<code>s</code>にユーザ名を含む<code>Ok</code>値を返します。機能もまたリスト9-6及び、9-7と同じです;
+ただ単に異なるバージョンのよりエルゴノミックな書き方なのです。</p>
+<!--
+#### `?` Operator Can Only Be Used in Functions That Return `Result`
+-->
+<h4><a class="header" href="#演算子はresultを返す関数でしか使用できない" id="演算子はresultを返す関数でしか使用できない"><code>?</code>演算子は、<code>Result</code>を返す関数でしか使用できない</a></h4>
+<!--
+The `?` operator can only be used in functions that have a return type of
+`Result`, because it is defined to work in the same way as the `match`
+expression we defined in Listing 9-6. The part of the `match` that requires a
+return type of `Result` is `return Err(e)`, so the return type of the function
+must be a `Result` to be compatible with this `return`.
+-->
+<p><code>?</code>演算子は戻り値に<code>Result</code>を持つ関数でしか使用できません。というのも、リスト9-6で定義した<code>match</code>式と同様に動作するよう、
+定義されているからです。<code>Result</code>の戻り値型を要求する<code>match</code>の部品は、<code>return Err(e)</code>なので、
+関数の戻り値はこの<code>return</code>と互換性を保つために<code>Result</code>でなければならないのです。</p>
+<!--
+Let’s look at what happens if we use the `?` operator in the `main` function,
+which you’ll recall has a return type of `()`:
+-->
+<p><code>main</code>関数で<code>?</code>演算子を使用したらどうなるか見てみましょう。<code>main</code>関数は、戻り値が<code>()</code>でしたね:</p>
+<pre><code class="language-rust ignore">use std::fs::File;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;)?;
+}
+</code></pre>
+<!--
+When we compile this code, we get the following error message:
+-->
+<p>このコードをコンパイルすると、以下のようなエラーメッセージが得られます:</p>
+<pre><code class="language-text">error[E0277]: the trait bound `(): std::ops::Try` is not satisfied
+(エラー: `(): std::ops::Try`というトレイト境界が満たされていません)
+ --&gt; src/main.rs:4:13
+  |
+4 |     let f = File::open(&quot;hello.txt&quot;)?;
+  |             ------------------------
+  |             |
+  |             the `?` operator can only be used in a function that returns
+  `Result` (or another type that implements `std::ops::Try`)
+  |             in this macro invocation
+  |             (このマクロ呼び出しの`Result`(かまたは`std::ops::Try`を実装する他の型)を返す関数でしか`?`演算子は使用できません)
+  |
+  = help: the trait `std::ops::Try` is not implemented for `()`
+  (助言: `std::ops::Try`トレイトは`()`には実装されていません)
+  = note: required by `std::ops::Try::from_error`
+  (注釈: `std::ops::Try::from_error`で要求されています)
+</code></pre>
+<!--
+This error points out that we’re only allowed to use the `?` operator in a
+function that returns `Result`. In functions that don’t return `Result`, when
+you call other functions that return `Result`, you’ll need to use a `match` or
+one of the `Result` methods to handle the `Result` instead of using the `?`
+operator to potentially propagate the error to the calling code.
+-->
+<p>このエラーは、<code>?</code>演算子は<code>Result</code>を返す関数でしか使用が許可されないと指摘しています。
+<code>Result</code>を返さない関数では、<code>Result</code>を返す別の関数を呼び出した時、
+<code>?</code>演算子を使用してエラーを呼び出し元に委譲する可能性を生み出す代わりに、<code>match</code>か<code>Result</code>のメソッドのどれかを使う必要があるでしょう。</p>
+<!--
+Now that we’ve discussed the details of calling `panic!` or returning `Result`,
+let’s return to the topic of how to decide which is appropriate to use in which
+cases.
+-->
+<p>さて、<code>panic!</code>呼び出しや<code>Result</code>を返す詳細について議論し終えたので、
+どんな場合にどちらを使うのが適切か決める方法についての話に戻りましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch09-01-unrecoverable-errors-with-panic.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch09-03-to-panic-or-not-to-panic.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch09-01-unrecoverable-errors-with-panic.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch09-03-to-panic-or-not-to-panic.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

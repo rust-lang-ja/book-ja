@@ -1,0 +1,669 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Cargo Workspaces - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html" class="active"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Cargo Workspaces
+-->
+<h2><a class="header" href="#cargoのワークスペース" id="cargoのワークスペース">Cargoのワークスペース</a></h2>
+<!--
+In Chapter 12, we built a package that included a binary crate and a library
+crate. As your project develops, you might find that the library crate
+continues to get bigger and you want to split up your package further into
+multiple library crates. In this situation, Cargo offers a feature called
+*workspaces* that can help manage multiple related packages that are developed
+in tandem.
+-->
+<p>第12章で、バイナリクレートとライブラリクレートを含むパッケージを構築しました。プロジェクトの開発が進むにつれて、
+ライブラリクレートの肥大化が続き、その上で複数のライブラリクレートにパッケージを分割したくなることでしょう。
+この場面において、Cargoは<em>ワークスペース</em>という協調して開発された関連のある複数のパッケージを管理するのに役立つ機能を提供しています。</p>
+<!--
+### Creating a Workspace
+-->
+<h3><a class="header" href="#ワークスペースを生成する" id="ワークスペースを生成する">ワークスペースを生成する</a></h3>
+<!--
+A *workspace* is a set of packages that share the same *Cargo.lock* and output
+directory. Let’s make a project using a workspace-we'll use trivial code so we
+can concentrate on the structure of the workspace. There are multiple ways to
+structure a workspace; we’re going to show a common way. We’ll have a
+workspace containing a binary and two libraries. The binary, which will provide
+the main functionality, will depend on the two libraries. One library will
+provide an `add_one` function, and a second library an `add_two` function.
+These three crates will be part of the same workspace. We'll start by creating
+a new directory for the workspace:
+-->
+<p><em>ワークスペース</em>は、同じ<em>Cargo.lock</em>と出力ディレクトリを共有する一連のパッケージです。
+ワークスペースを使用したプロジェクトを作成し、ワークスペースの構造に集中できるよう、瑣末なコードを使用しましょう。
+ワークスペースを構築する方法は複数ありますが、一般的な方法を提示しましょう。バイナリ1つとライブラリ2つを含むワークスペースを作ります。
+バイナリは、主要な機能を提供しますが、2つのライブラリに依存しています。
+一方のライブラリは、<code>add_one</code>関数を提供し、2番目のライブラリは、<code>add_two</code>関数を提供します。
+これら3つのクレートが同じワークスペースの一部になります。ワークスペース用の新しいディレクトリを作ることから始めましょう:</p>
+<pre><code class="language-text">$ mkdir add
+$ cd add
+</code></pre>
+<!--
+Next, in the *add* directory, we create the *Cargo.toml* file that will
+configure the entire workspace. This file won't have a `[package]` section or
+the metadata we’ve seen in other *Cargo.toml* files. Instead, it will start
+with a `[workspace]` section that will allow us to add members to the workspace
+by specifying the path to our binary crate; in this case, that path is *adder*:
+-->
+<p>次に<em>add</em>ディレクトリにワークスペース全体を設定する<em>Cargo.toml</em>ファイルを作成します。
+このファイルには、他の<em>Cargo.toml</em>ファイルで見かけるような<code>[package]</code>セクションやメタデータはありません。
+代わりにバイナリクレートへのパスを指定することでワークスペースにメンバを追加させてくれる<code>[workspace]</code>セクションから開始します;
+今回の場合、そのパスは<em>adder</em>です:</p>
+<!--
+<span class="filename">Filename: Cargo.toml</span>
+-->
+<p><span class="filename">ファイル名: Cargo.toml</span></p>
+<pre><code class="language-toml">[workspace]
+
+members = [
+    &quot;adder&quot;,
+]
+</code></pre>
+<!--
+Next, we’ll create the `adder` binary crate by running `cargo new` within the
+*add* directory:
+-->
+<p>次に、<em>add</em>ディレクトリ内で<code>cargo new</code>を実行することで<code>adder</code>バイナリクレートを作成しましょう:</p>
+<pre><code class="language-text">$ cargo new --bin adder
+     Created binary (application) `adder` project
+</code></pre>
+<!--
+At this point, we can build the workspace by running `cargo build`. The files
+in your *add* directory should look like this:
+-->
+<p>この時点で、<code>cargo build</code>を走らせるとワークスペースを構築できます。<em>add</em>ディレクトリに存在するファイルは、
+以下のようになるはずです:</p>
+<pre><code class="language-text">├── Cargo.lock
+├── Cargo.toml
+├── adder
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+└── target
+</code></pre>
+<!--
+The workspace has one *target* directory at the top level for the compiled
+artifacts to be placed into; the `adder` crate doesn’t have its own *target*
+directory. Even if we were to run `cargo build` from inside the *adder*
+directory, the compiled artifacts would still end up in *add/target* rather
+than *add/adder/target*. Cargo structures the *target* directory in a workspace
+like this because the crates in a workspace are meant to depend on each other.
+If each crate had its own *target* directory, each crate would have to
+recompile each of the other crates in the workspace to have the artifacts in
+its own *target* directory. By sharing one *target* directory, the crates can
+avoid unnecessary rebuilding.
+-->
+<p>ワークスペースには、コンパイルした生成物を置けるように最上位に<em>target</em>のディレクトリがあります;
+<code>adder</code>クレートには<em>target</em>ディレクトリはありません。
+<em>adder</em>ディレクトリ内部から<code>cargo build</code>を走らせることになっていたとしても、コンパイルされる生成物は、
+<em>add/adder/target</em>ではなく、<em>add/target</em>に落ち着くでしょう。ワークスペースのクレートは、
+お互いに依存しあうことを意味するので、Cargoはワークスペースの<em>target</em>ディレクトリをこのように構成します。
+各クレートが<em>target</em>ディレクトリを持っていたら、各クレートがワークスペースの他のクレートを再コンパイルし、
+<em>target</em>ディレクトリに生成物がある状態にしなければならないでしょう。一つの<em>target</em>ディレクトリを共有することで、
+クレートは不必要な再ビルドを回避できるのです。</p>
+<!--
+### Creating the Second Crate in the Workspace
+-->
+<h3><a class="header" href="#ワークスペース内に2番目のクレートを作成する" id="ワークスペース内に2番目のクレートを作成する">ワークスペース内に2番目のクレートを作成する</a></h3>
+<!--
+Next, let’s create another member crate in the workspace and call it `add-one`.
+Change the top-level *Cargo.toml* to specify the *add-one* path in the
+`members` list:
+-->
+<p>次に、ワークスペースに別のメンバクレートを作成し、<code>add-one</code>と呼びましょう。
+最上位の<em>Cargo.toml</em>を変更して<code>members</code>リストで<em>add-one</em>パスを指定するようにしてください:</p>
+<!--
+<span class="filename">Filename: Cargo.toml</span>
+-->
+<p><span class="filename">ファイル名: Cargo.toml</span></p>
+<pre><code class="language-toml">[workspace]
+
+members = [
+    &quot;adder&quot;,
+    &quot;add-one&quot;,
+]
+</code></pre>
+<!--
+Then generate a new library crate named `add-one`:
+-->
+<p>それから、<code>add-one</code>という名前のライブラリクレートを生成してください:</p>
+<pre><code class="language-text">$ cargo new add-one --lib
+     Created library `add-one` project
+</code></pre>
+<!--
+Your *add* directory should now have these directories and files:
+-->
+<p>これで<em>add</em>ディレクトリには、以下のディレクトリやファイルが存在するはずです:</p>
+<pre><code class="language-text">├── Cargo.lock
+├── Cargo.toml
+├── add-one
+│   ├── Cargo.toml
+│   └── src
+│       └── lib.rs
+├── adder
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+└── target
+</code></pre>
+<!--
+In the *add-one/src/lib.rs* file, let’s add an `add_one` function:
+-->
+<p><em>add-one/src/lib.rs</em>ファイルに<code>add_one</code>関数を追加しましょう:</p>
+<!--
+<span class="filename">Filename: add-one/src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: add-one/src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub fn add_one(x: i32) -&gt; i32 {
+    x + 1
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Now that we have a library crate in the workspace, we can have the binary crate
+`adder` depend on the library crate `add-one`. First, we’ll need to add a path
+dependency on `add-one` to *adder/Cargo.toml*:
+-->
+<p>ワークスペースにライブラリクレートが存在するようになったので、バイナリクレート<code>adder</code>をライブラリクレートの<code>add-one</code>に依存させられます。
+まず、<code>add-one</code>へのパス依存を<em>adder/Cargo.toml</em>に追加する必要があります:</p>
+<!--
+<span class="filename">Filename: adder/Cargo.toml</span>
+-->
+<p><span class="filename">ファイル名: adder/Cargo.toml</span></p>
+<pre><code class="language-toml">[dependencies]
+
+add-one = { path = &quot;../add-one&quot; }
+</code></pre>
+<!--
+Cargo doesn't assume that crates in a workspace will depend on each other, so
+we need to be explicit about the dependency relationships between the crates.
+-->
+<p>Cargoはワークスペースのクレートが、お互いに依存しているとは想定していないので、
+クレート間の依存関係について明示する必要があります。</p>
+<!--
+Next, let’s use the `add_one` function from the `add-one` crate in the `adder`
+crate. Open the *adder/src/main.rs* file and add an `extern crate` line at
+the top to bring the new `add-one` library crate into scope. Then change the
+`main` function to call the `add_one` function, as in Listing 14-7:
+-->
+<p>次に、<code>adder</code>クレートの<code>add-one</code>クレートから<code>add_one</code>関数を使用しましょう。<em>adder/src/main.rs</em>ファイルを開き、
+冒頭に<code>extern crate</code>行を追加して新しい<code>add-one</code>ライブラリクレートをスコープに導入してください。
+それから<code>main</code>関数を変更し、<code>add_one</code>関数を呼び出します。リスト14-7のようにですね:</p>
+<!--
+<span class="filename">Filename: adder/src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: adder/src/main.rs</span></p>
+<pre><code class="language-rust ignore">extern crate add_one;
+
+fn main() {
+    let num = 10;
+    // こんにちは世界！{}+1は{}!
+    println!(&quot;Hello, world! {} plus one is {}!&quot;, num, add_one::add_one(num));
+}
+</code></pre>
+<!--
+<span class="caption">Listing 14-7: Using the `add-one` library crate from the
+`adder` crate</span>
+-->
+<p><span class="caption">リスト14-7: <code>adder</code>クレートから<code>add-one</code>ライブラリクレートを使用する</span></p>
+<!--
+Let’s build the workspace by running `cargo build` in the top-level *add*
+directory!
+-->
+<p>最上位の<em>add</em>ディレクトリで<code>cargo build</code>を実行することでワークスペースをビルドしましょう！</p>
+<pre><code class="language-text">$ cargo build
+   Compiling add-one v0.1.0 (file:///projects/add/add-one)
+   Compiling adder v0.1.0 (file:///projects/add/adder)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.68 secs
+</code></pre>
+<!--
+To run the binary crate from the *add* directory, we need to specify which
+package in the workspace we want to use by using the `-p` argument and the
+package name with `cargo run`:
+-->
+<p><em>add</em>ディレクトリからバイナリクレートを実行するには、<code>-p</code>引数とパッケージ名を<code>cargo run</code>と共に使用して、
+使用したいワークスペースのパッケージを指定する必要があります:</p>
+<pre><code class="language-text">$ cargo run -p adder
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+     Running `target/debug/adder`
+Hello, world! 10 plus one is 11!
+</code></pre>
+<!--
+This runs the code in *adder/src/main.rs*, which depends on the `add-one` crate.
+-->
+<p>これにより、<em>adder/src/main.rs</em>のコードが実行され、これは<code>add_one</code>クレートに依存しています。</p>
+<!--
+#### Depending on an External Crate in a Workspace
+-->
+<h4><a class="header" href="#ワークスペースの外部クレートに依存する" id="ワークスペースの外部クレートに依存する">ワークスペースの外部クレートに依存する</a></h4>
+<!--
+Notice that the workspace has only one *Cargo.lock* file at the top level of
+the workspace rather than having a *Cargo.lock* in each crate’s directory. This
+ensures that all crates are using the same version of all dependencies. If we
+add the `rand` crate to the *adder/Cargo.toml* and *add-one/Cargo.toml*
+files, Cargo will resolve both of those to one version of `rand` and record
+that in the one *Cargo.lock*. Making all crates in the workspace use the same
+dependencies means the crates in the workspace will always be compatible with
+each other. Let’s add the `rand` crate to the `[dependencies]` section in the
+*add-one/Cargo.toml* file to be able to use the `rand` crate in the `add-one`
+crate:
+-->
+<p>ワークスペースには、各クレートのディレクトリそれぞれに<em>Cargo.lock</em>が存在するのではなく、
+ワークスペースの最上位階層にただ一つの<em>Cargo.lock</em>が存在するだけのことに注目してください。
+これにより、全クレートが全依存の同じバージョンを使用していることが確認されます。
+<code>rand</code>クレートを<em>adder/Cargo.toml</em>と<em>add-one/Cargo.toml</em>ファイルに追加すると、
+Cargoは両者をあるバージョンの<code>rand</code>に解決し、それを一つの<em>Cargo.lock</em>に記録します。
+ワークスペースの全クレートに同じ依存を使用させるということは、
+ワークスペースのクレートが相互に互換性を常に維持するということになります。
+<em>add-one/Cargo.toml</em>ファイルの<code>[dependencies]</code>セクションに<code>rand</code>クレートを追加して、
+<code>add-one</code>クレートで<code>rand</code>クレートを使用できます:</p>
+<!--
+<span class="filename">Filename: add-one/Cargo.toml</span>
+-->
+<p><span class="filename">ファイル名: add-one/Cargo.toml</span></p>
+<pre><code class="language-toml">[dependencies]
+
+rand = &quot;0.3.14&quot;
+</code></pre>
+<!--
+We can now add `extern crate rand;` to the *add-one/src/lib.rs* file, and
+building the whole workspace by running `cargo build` in the *add* directory
+will bring in and compile the `rand` crate:
+-->
+<p>これで、<em>add-one/src/lib.rs</em>ファイルに<code>extern crate rand;</code>を追加でき、
+<em>add</em>ディレクトリで<code>cargo build</code>を実行することでワークスペース全体をビルドすると、
+<code>rand</code>クレートを持ってきてコンパイルするでしょう:</p>
+<pre><code class="language-text">$ cargo build
+    Updating registry `https://github.com/rust-lang/crates.io-index`
+ Downloading rand v0.3.14
+   --snip--
+   Compiling rand v0.3.14
+   Compiling add-one v0.1.0 (file:///projects/add/add-one)
+   Compiling adder v0.1.0 (file:///projects/add/adder)
+    Finished dev [unoptimized + debuginfo] target(s) in 10.18 secs
+</code></pre>
+<!--
+The top-level *Cargo.lock* now contains information about the dependency of
+`add-one` on `rand`. However, even though `rand` is used somewhere in the
+workspace, we can’t use it in other crates in the workspace unless we add
+`rand` to their *Cargo.toml* files as well. For example, if we add `extern
+crate rand;` to the *adder/src/main.rs* file for the `adder` crate, we’ll get
+an error:
+-->
+<p>さて、最上位の<em>Cargo.lock</em>は、<code>rand</code>に対する<code>add-one</code>の依存の情報を含むようになりました。
+ですが、<code>rand</code>はワークスペースのどこかで使用されているにも関わらず、それぞれの<em>Cargo.toml</em>ファイルにも、
+<code>rand</code>を追加しない限り、ワークスペースの他のクレートでそれを使用することはできません。
+例えば、<code>adder</code>クレートの<em>adder/src/main.rs</em>ファイルに<code>extern crate rand;</code>を追加すると、
+エラーが出ます:</p>
+<pre><code class="language-text">$ cargo build
+   Compiling adder v0.1.0 (file:///projects/add/adder)
+error: use of unstable library feature 'rand': use `rand` from crates.io (see
+issue #27703)
+(エラー: 不安定なライブラリの機能'rand'を使用しています: crates.ioの`rand`を使用してください)
+ --&gt; adder/src/main.rs:1:1
+  |
+1 | extern crate rand;
+</code></pre>
+<!--
+To fix this, edit the *Cargo.toml* file for the `adder` crate and indicate that
+`rand` is a dependency for that crate as well. Building the `adder` crate will
+add `rand` to the list of dependencies for `adder` in *Cargo.lock*, but no
+additional copies of `rand` will be downloaded. Cargo has ensured that any
+crate in the workspace using the `rand` crate will be using the same version.
+Using the same version of `rand` across the workspace saves space because we
+won’t have multiple copies and ensures that the crates in the workspace will be
+compatible with each other.
+-->
+<p>これを修正するには、<code>adder</code>クレートの<em>Cargo.toml</em>ファイルを編集し、同様にそのクレートが<code>rand</code>に依存していることを示してください。
+<code>adder</code>クレートをビルドすると、<code>rand</code>を<em>Cargo.lock</em>の<code>adder</code>の依存一覧に追加しますが、
+<code>rand</code>のファイルが追加でダウンロードされることはありません。Cargoが、ワークスペースの<code>rand</code>を使用するどのクレートも、
+同じバージョンを使っていることを確かめてくれるのです。ワークスペース全体で<code>rand</code>の同じバージョンを使用することにより、
+複数のコピーが存在しないのでスペースを節約し、ワークスペースのクレートが相互に互換性を維持することを確かめます。</p>
+<!--
+#### Adding a Test to a Workspace
+-->
+<h4><a class="header" href="#ワークスペースにテストを追加する" id="ワークスペースにテストを追加する">ワークスペースにテストを追加する</a></h4>
+<!--
+For another enhancement, let’s add a test of the `add_one::add_one` function
+within the `add_one` crate:
+-->
+<p>さらなる改善として、<code>add_one</code>クレート内に<code>add_one::add_one</code>関数のテストを追加しましょう:</p>
+<!--
+<span class="filename">Filename: add-one/src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: add-one/src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub fn add_one(x: i32) -&gt; i32 {
+    x + 1
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        assert_eq!(3, add_one(2));
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Now run `cargo test` in the top-level *add* directory:
+-->
+<p>では、最上位の<em>add</em>ディレクトリで<code>cargo test</code>を実行してください:</p>
+<pre><code class="language-text">$ cargo test
+   Compiling add-one v0.1.0 (file:///projects/add/add-one)
+   Compiling adder v0.1.0 (file:///projects/add/adder)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.27 secs
+     Running target/debug/deps/add_one-f0253159197f7841
+
+running 1 test
+test tests::it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+     Running target/debug/deps/adder-f88af9d2cc175a5e
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests add-one
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+The first section of the output shows that the `it_works` test in the `add-one`
+crate passed. The next section shows that zero tests were found in the `adder`
+crate, and then the last section shows zero documentation tests were found in
+the `add-one` crate. Running `cargo test` in a workspace structured like this
+one will run the tests for all the crates in the workspace.
+-->
+<p>出力の最初の区域が、<code>add-one</code>クレートの<code>it_works</code>テストが通ったことを示しています。
+次の区域には、<code>adder</code>クレートにはテストが見つからなかったことが示され、
+さらに最後の区域には、<code>add-one</code>クレートにドキュメンテーションテストは見つからなかったと表示されています。
+このような構造をしたワークスペースで<code>cargo test</code>を走らせると、ワークスペースの全クレートのテストを実行します。</p>
+<!--
+We can also run tests for one particular crate in a workspace from the
+top-level directory by using the `-p` flag and specifying the name of the crate
+we want to test:
+-->
+<p><code>-p</code>フラグを使用し、テストしたいクレートの名前を指定することで最上位ディレクトリから、
+ワークスペースのある特定のクレート用のテストを実行することもできます:</p>
+<pre><code class="language-text">$ cargo test -p add-one
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+     Running target/debug/deps/add_one-b3235fea9a156f74
+
+running 1 test
+test tests::it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests add-one
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+This output shows `cargo test` only ran the tests for the `add-one` crate and
+didn’t run the `adder` crate tests.
+-->
+<p>この出力は、<code>cargo test</code>が<code>add-one</code>クレートのテストのみを実行し、<code>adder</code>クレートのテストは実行しなかったことを示しています。</p>
+<!--
+If you publish the crates in the workspace to *https://crates.io/*, each crate
+in the workspace will need to be published separately. The `cargo publish`
+command does not have an `--all` flag or a `-p` flag, so you must change to
+each crate’s directory and run `cargo publish` on each crate in the workspace
+to publish the crates.
+-->
+<p>ワークスペースのクレートを <em>https://crates.io/</em> に公開したら、ワークスペースのクレートは個別に公開される必要があります。
+<code>cargo publish</code>コマンドには<code>--all</code>フラグや<code>-p</code>フラグはないので、各クレートのディレクトリに移動して、
+ワークスペースの各クレートを<code>cargo publish</code>して、公開しなければなりません。</p>
+<!--
+For additional practice, add an `add-two` crate to this workspace in a similar
+way as the `add-one` crate!
+-->
+<p>鍛錬を積むために、<code>add-one</code>クレートと同様の方法でワークスペースに<code>add-two</code>クレートを追加してください！</p>
+<!--
+As your project grows, consider using a workspace: it’s easier to understand
+smaller, individual components than one big blob of code. Furthermore, keeping
+the crates in a workspace can make coordination between them easier if they are
+often changed at the same time.
+-->
+<p>プロジェクトが肥大化してきたら、ワークスペースの使用を考えてみてください: 大きな一つのコードの塊よりも、
+微細で個別のコンポーネントの方が理解しやすいです。またワークスペースにクレートを保持することは、
+同時に変更されることが多いのなら、協調しやすくなることにも繋がります。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch14-02-publishing-to-crates-io.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch14-04-installing-binaries.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch14-02-publishing-to-crates-io.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch14-04-installing-binaries.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Method Syntax - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html" class="active"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Method Syntax
+-->
+<h2><a class="header" href="#メソッド記法" id="メソッド記法">メソッド記法</a></h2>
+<!--
+*Methods* are similar to functions: they’re declared with the `fn` keyword and
+their name, they can have parameters and a return value, and they contain some
+code that is run when they’re called from somewhere else. However, methods are
+different from functions in that they’re defined within the context of a struct
+(or an enum or a trait object, which we cover in Chapters 6 and 17,
+respectively), and their first parameter is always `self`, which represents the
+instance of the struct the method is being called on.
+-->
+<p><em>メソッド</em>は関数に似ています: <code>fn</code>キーワードと名前で宣言されるし、引数と返り値があるし、
+どこか別の場所で呼び出された時に実行されるコードを含みます。ところが、
+メソッドは構造体の文脈(あるいはenumかトレイトオブジェクトの。これらについては各々第6章と17章で解説します)で定義されるという点で、
+関数とは異なり、最初の引数は必ず<code>self</code>になり、これはメソッドが呼び出されている構造体インスタンスを表します。</p>
+<!--
+### Defining Methods
+-->
+<h3><a class="header" href="#メソッドを定義する" id="メソッドを定義する">メソッドを定義する</a></h3>
+<!--
+Let’s change the `area` function that has a `Rectangle` instance as a parameter
+and instead make an `area` method defined on the `Rectangle` struct, as shown
+in Listing 5-13.
+-->
+<p><code>Rectangle</code>インスタンスを引数に取る<code>area</code>関数を変え、代わりに<code>Rectangle</code>構造体上に<code>area</code>メソッドを作りましょう。
+リスト5-13に示した通りですね。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn area(&amp;self) -&gt; u32 {
+        self.width * self.height
+    }
+}
+
+fn main() {
+    let rect1 = Rectangle { width: 30, height: 50 };
+
+    println!(
+        &quot;The area of the rectangle is {} square pixels.&quot;,
+        rect1.area()
+    );
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 5-13: Defining an `area` method on the
+`Rectangle` struct</span>
+-->
+<p><span class="caption">リスト5-13: <code>Rectangle</code>構造体上に<code>area</code>メソッドを定義する</span></p>
+<!--
+To define the function within the context of `Rectangle`, we start an `impl`
+(implementation) block. Then we move the `area` function within the `impl`
+curly brackets and change the first (and in this case, only) parameter to be
+`self` in the signature and everywhere within the body. In `main`, where we
+called the `area` function and passed `rect1` as an argument, we can instead
+use *method syntax* to call the `area` method on our `Rectangle` instance.
+The method syntax goes after an instance: we add a dot followed by the method
+name, parentheses, and any arguments.
+-->
+<p><code>Rectangle</code>の文脈内で関数を定義するには、<code>impl</code>(implementation; 実装)ブロックを始めます。
+それから<code>area</code>関数を<code>impl</code>の波かっこ内に移動させ、最初の(今回は唯一の)引数をシグニチャ内と本体内全てで<code>self</code>に変えます。
+<code>area</code>関数を呼び出し、<code>rect1</code>を引数として渡す<code>main</code>では、代替としてメソッド記法を使用して、
+<code>Rectangle</code>インスタンスの<code>area</code>メソッドを呼び出せます。メソッド記法は、インスタンスの後に続きます:
+ドット、メソッド名、かっこ、そして引数と続くわけです。</p>
+<!--
+In the signature for `area`, we use `&self` instead of `rectangle: &Rectangle`
+because Rust knows the type of `self` is `Rectangle` due to this method being
+inside the `impl Rectangle` context. Note that we still need to use the `&`
+before `self`, just like we did in `&Rectangle`. Methods can take ownership of
+`self`, borrow `self` immutably as we’ve done here, or borrow `self` mutably,
+just as they can any other parameter.
+-->
+<p><code>area</code>のシグニチャでは、<code>rectangle: &amp;Rectangle</code>の代わりに<code>&amp;self</code>を使用しています。
+というのも、コンパイラは、このメソッドが<code>impl Rectangle</code>という文脈内に存在するために、
+<code>self</code>の型が<code>Rectangle</code>であると把握しているからです。<code>&amp;Rectangle</code>と同様に、
+<code>self</code>の直前に<code>&amp;</code>を使用していることに注意してください。メソッドは、<code>self</code>の所有権を奪ったり、
+ここでしているように不変で<code>self</code>を借用したり、可変で<code>self</code>を借用したりできるのです。
+他の引数と全く同じですね。</p>
+<!--
+We’ve chosen `&self` here for the same reason we used `&Rectangle` in the
+function version: we don’t want to take ownership, and we just want to read the
+data in the struct, not write to it. If we wanted to change the instance that
+we’ve called the method on as part of what the method does, we’d use `&mut
+self` as the first parameter. Having a method that takes ownership of the
+instance by using just `self` as the first parameter is rare; this technique is
+usually used when the method transforms `self` into something else and we want
+to prevent the caller from using the original instance after the transformation.
+-->
+<p>ここで<code>&amp;self</code>を選んでいるのは、関数バージョンで<code>&amp;Rectangle</code>を使用していたのと同様の理由です:
+所有権はいらず、構造体のデータを読み込みたいだけで、書き込む必要はないわけです。
+メソッドの一部でメソッドを呼び出したインスタンスを変更したかったら、第1引数に<code>&amp;mut self</code>を使用するでしょう。
+<code>self</code>だけを第1引数にしてインスタンスの所有権を奪うメソッドを定義することは稀です; このテクニックは通常、
+メソッドが<code>self</code>を何か別のものに変形し、変形後に呼び出し元が元のインスタンスを使用できないようにしたい場合に使用されます。</p>
+<!--
+The main benefit of using methods instead of functions, in addition to using
+method syntax and not having to repeat the type of `self` in every method’s
+signature, is for organization. We’ve put all the things we can do with an
+instance of a type in one `impl` block rather than making future users of our
+code search for capabilities of `Rectangle` in various places in the library we
+provide.
+-->
+<p>関数の代替としてメソッドを使う主な利点は、メソッド記法を使用して全メソッドのシグニチャで<code>self</code>の型を繰り返す必要がなくなる以外だと、
+体系化です。コードの将来的な利用者に<code>Rectangle</code>の機能を提供しているライブラリ内の各所でその機能を探させるのではなく、
+この型のインスタンスでできることを一つの<code>impl</code>ブロックにまとめあげています。</p>
+<!--
+例によって、以下の節では、引用ブロックの後に和訳を示します
+-->
+<!--
+### Where’s the `->` Operator?
+
+In C and C++, two different operators are used for calling methods: you use
+`.` if you’re calling a method on the object directly and `->` if you're
+calling the method on a pointer to the object and need to dereference the
+pointer first. In other words, if `object` is a pointer,
+`object->something()` is similar to `(*object).something()`.
+
+Rust doesn’t have an equivalent to the `->` operator; instead, Rust has a
+feature called *automatic referencing and dereferencing*. Calling methods is
+one of the few places in Rust that has this behavior.
+
+Here’s how it works: when you call a method with `object.something()`, Rust
+automatically adds in `&`, `&mut`, or `*` so `object` matches the signature of
+the method. In other words, the following are the same:
+
+```rust
+# #[derive(Debug,Copy,Clone)]
+# struct Point {
+#     x: f64,
+#     y: f64,
+# }
+#
+# impl Point {
+#    fn distance(&self, other: &Point) -> f64 {
+#        let x_squared = f64::powi(other.x - self.x, 2);
+#        let y_squared = f64::powi(other.y - self.y, 2);
+#
+#        f64::sqrt(x_squared + y_squared)
+#    }
+# }
+# let p1 = Point { x: 0.0, y: 0.0 };
+# let p2 = Point { x: 5.0, y: 6.5 };
+p1.distance(&p2);
+(&p1).distance(&p2);
+```
+
+The first one looks much cleaner. This automatic referencing behavior works
+because methods have a clear receiver—the type of `self`. Given the receiver
+and name of a method, Rust can figure out definitively whether the method is
+reading (`&self`), mutating (`&mut self`), or consuming (`self`). The fact
+that Rust makes borrowing implicit for method receivers is a big part of
+making ownership ergonomic in practice.
+-->
+<blockquote>
+<h3><a class="header" href="#-演算子はどこに行ったの" id="-演算子はどこに行ったの"><code>-&gt;</code>演算子はどこに行ったの？</a></h3>
+<p>CとC++では、メソッド呼び出しには2種類の異なる演算子が使用されます:
+オブジェクトに対して直接メソッドを呼び出すのなら、<code>.</code>を使用するし、オブジェクトのポインタに対してメソッドを呼び出し、
+先にポインタを参照外しする必要があるなら、<code>-&gt;</code>を使用するわけです。
+言い換えると、<code>object</code>がポインタなら、<code>object-&gt;something()</code>は、<code>(*object).something()</code>と同等なのです。</p>
+<p>Rustには<code>-&gt;</code>演算子の代わりとなるようなものはありません; その代わり、Rustには、
+<em>自動参照および参照外し</em>という機能があります。Rustにおいてメソッド呼び出しは、
+この動作が行われる数少ない箇所なのです。</p>
+<p>動作方法はこうです: <code>object.something()</code>とメソッドを呼び出すと、
+コンパイラは<code>object</code>がメソッドのシグニチャと合致するように、自動で<code>&amp;</code>か<code>&amp;mut</code>、<code>*</code>を付与するのです。
+要するに、以下のコードは同じものです:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">#[derive(Debug,Copy,Clone)]
+</span><span class="boring">struct Point {
+</span><span class="boring">    x: f64,
+</span><span class="boring">    y: f64,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Point {
+</span><span class="boring">   fn distance(&amp;self, other: &amp;Point) -&gt; f64 {
+</span><span class="boring">       let x_squared = f64::powi(other.x - self.x, 2);
+</span><span class="boring">       let y_squared = f64::powi(other.y - self.y, 2);
+</span><span class="boring">
+</span><span class="boring">       f64::sqrt(x_squared + y_squared)
+</span><span class="boring">   }
+</span><span class="boring">}
+</span><span class="boring">let p1 = Point { x: 0.0, y: 0.0 };
+</span><span class="boring">let p2 = Point { x: 5.0, y: 6.5 };
+</span>p1.distance(&amp;p2);
+(&amp;p1).distance(&amp;p2);
+<span class="boring">}
+</span></code></pre></pre>
+<p>前者の方がずっと明確です。メソッドには自明な受け手(<code>self</code>の型)がいるので、この自動参照機能は動作するのです。
+受け手とメソッド名が与えられれば、コンパイラは確実にメソッドが読み込み専用(<code>&amp;self</code>)か、書き込みもする(<code>&amp;mut self</code>)のか、
+所有権を奪う(<code>self</code>)のか判断できるわけです。メソッドの受け手に関して借用が明示されないというのが、
+所有権を実際に使うのがRustにおいて簡単である大きな理由です。</p>
+</blockquote>
+<!--
+### Methods with More Parameters
+-->
+<h3><a class="header" href="#より引数の多いメソッド" id="より引数の多いメソッド">より引数の多いメソッド</a></h3>
+<!--
+Let’s practice using methods by implementing a second method on the `Rectangle`
+struct. This time, we want an instance of `Rectangle` to take another instance
+of `Rectangle` and return `true` if the second `Rectangle` can fit completely
+within `self`; otherwise it should return `false`. That is, we want to be able
+to write the program shown in Listing 5-14, once we’ve defined the `can_hold`
+method.
+-->
+<p><code>Rectangle</code>構造体に2番目のメソッドを実装して、メソッドを使う鍛錬をしましょう。今回は、<code>Rectangle</code>のインスタンスに、
+別の<code>Rectangle</code>のインスタンスを取らせ、2番目の<code>Rectangle</code>が<code>self</code>に完全にはめ込まれたら、<code>true</code>を返すようにしたいのです;
+そうでなければ、<code>false</code>を返すべきです。つまり、一旦<code>can_hold</code>メソッドを定義したら、
+リスト5-14のようなプログラムを書けるようになりたいのです。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let rect1 = Rectangle { width: 30, height: 50 };
+    let rect2 = Rectangle { width: 10, height: 40 };
+    let rect3 = Rectangle { width: 60, height: 45 };
+
+    // rect1にrect2ははまり込む？
+    println!(&quot;Can rect1 hold rect2? {}&quot;, rect1.can_hold(&amp;rect2));
+    println!(&quot;Can rect1 hold rect3? {}&quot;, rect1.can_hold(&amp;rect3));
+}
+</code></pre>
+<!--
+<span class="caption">Listing 5-14: Using the as-yet-unwritten `can_hold`
+method</span>
+-->
+<p><span class="caption">リスト5-14: 未完成の<code>can_hold</code>を使用する</span></p>
+<!--
+And the expected output would look like the following, because both dimensions
+of `rect2` are smaller than the dimensions of `rect1` but `rect3` is wider than
+`rect1`:
+-->
+<p>そして、予期される出力は以下のようになります。なぜなら、<code>rect2</code>の各次元は<code>rect1</code>よりも小さいものの、
+<code>rect3</code>は<code>rect1</code>より幅が広いからです:</p>
+<pre><code class="language-text">Can rect1 hold rect2? true
+Can rect1 hold rect3? false
+</code></pre>
+<!--
+We know we want to define a method, so it will be within the `impl Rectangle`
+block. The method name will be `can_hold`, and it will take an immutable borrow
+of another `Rectangle` as a parameter. We can tell what the type of the
+parameter will be by looking at the code that calls the method:
+`rect1.can_hold(&rect2)` passes in `&rect2`, which is an immutable borrow to
+`rect2`, an instance of `Rectangle`. This makes sense because we only need to
+read `rect2` (rather than write, which would mean we’d need a mutable borrow),
+and we want `main` to retain ownership of `rect2` so we can use it again after
+calling the `can_hold` method. The return value of `can_hold` will be a
+Boolean, and the implementation will check whether the width and height of
+`self` are both greater than the width and height of the other `Rectangle`,
+respectively. Let’s add the new `can_hold` method to the `impl` block from
+Listing 5-13, shown in Listing 5-15.
+-->
+<p>メソッドを定義したいことはわかっているので、<code>impl Rectangle</code>ブロック内での話になります。
+メソッド名は、<code>can_hold</code>になり、引数として別の<code>Rectangle</code>を不変借用で取るでしょう。
+メソッドを呼び出すコードを見れば、引数の型が何になるかわかります: <code>rect1.can_hold(&amp;rect2)</code>は、
+<code>&amp;rect2</code>、<code>Rectangle</code>のインスタンスである<code>rect2</code>への不変借用を渡しています。
+これは道理が通っています。なぜなら、<code>rect2</code>を読み込む(書き込みではなく。この場合、可変借用が必要になります)だけでよく、
+<code>can_hold</code>メソッドを呼び出した後にも<code>rect2</code>が使えるよう、所有権を<code>main</code>に残したままにしたいからです。
+<code>can_hold</code>の返り値は、booleanになり、メソッドの中身は、<code>self</code>の幅と高さがもう一つの<code>Rectangle</code>の幅と高さよりも、
+それぞれ大きいことを確認します。リスト5-13の<code>impl</code>ブロックに新しい<code>can_hold</code>メソッドを追記しましょう。
+リスト5-15に示した通りです。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    width: u32,
+</span><span class="boring">    height: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Rectangle {
+    fn area(&amp;self) -&gt; u32 {
+        self.width * self.height
+    }
+
+    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.width &gt; other.width &amp;&amp; self.height &gt; other.height
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 5-15: Implementing the `can_hold` method on
+`Rectangle` that takes another `Rectangle` instance as a parameter</span>
+-->
+<p><span class="caption">リスト5-15: 別の<code>Rectangle</code>のインスタンスを引数として取る<code>can_hold</code>メソッドを、
+<code>Rectangle</code>に実装する</span></p>
+<!--
+When we run this code with the `main` function in Listing 5-14, we’ll get our
+desired output. Methods can take multiple parameters that we add to the
+signature after the `self` parameter, and those parameters work just like
+parameters in functions.
+-->
+<p>このコードをリスト5-14の<code>main</code>関数と合わせて実行すると、望み通りの出力が得られます。
+メソッドは、<code>self</code>引数の後にシグニチャに追加した引数を複数取ることができ、
+その引数は、関数の引数と同様に動作するのです。</p>
+<!--
+### Associated Functions
+-->
+<h3><a class="header" href="#関連関数" id="関連関数">関連関数</a></h3>
+<!--
+Another useful feature of `impl` blocks is that we’re allowed to define
+functions within `impl` blocks that *don’t* take `self` as a parameter. These
+are called *associated functions* because they’re associated with the struct.
+They’re still functions, not methods, because they don’t have an instance of
+the struct to work with. You’ve already used the `String::from` associated
+function.
+-->
+<p><code>impl</code>ブロックの別の有益な機能は、<code>impl</code>ブロック内に<code>self</code>を引数に取ら<em>ない</em>関数を定義できることです。
+これは、構造体に関連付けられているので、<em>関連関数</em>と呼ばれます。それでも、関連関数は関数であり、メソッドではありません。
+というのも、対象となる構造体のインスタンスが存在しないからです。もう<code>String::from</code>という関連関数を使用したことがありますね。</p>
+<!--
+Associated functions are often used for constructors that will return a new
+instance of the struct. For example, we could provide an associated function
+that would have one dimension parameter and use that as both width and height,
+thus making it easier to create a square `Rectangle` rather than having to
+specify the same value twice:
+-->
+<p>関連関数は、構造体の新規インスタンスを返すコンストラクタによく使用されます。例えば、一次元の引数を取り、
+長さと幅両方に使用する関連関数を提供することができ、その結果、同じ値を2回指定する必要なく、
+正方形の<code>Rectangle</code>を生成しやすくすることができます。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    width: u32,
+</span><span class="boring">    height: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Rectangle {
+    fn square(size: u32) -&gt; Rectangle {
+        Rectangle { width: size, height: size }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+To call this associated function, we use the `::` syntax with the struct name;
+`let sq = Rectangle::square(3);` is an example. This function is namespaced by
+the struct: the `::` syntax is used for both associated functions and
+namespaces created by modules. We’ll discuss modules in Chapter 7.
+-->
+<p>この関連関数を呼び出すために、構造体名と一緒に<code>::</code>記法を使用します; 一例は<code>let sq = Rectangle::square(3);</code>です。
+この関数は、構造体によって名前空間分けされています: <code>::</code>という記法は、関連関数とモジュールによって作り出される名前空間両方に使用されます。
+モジュールについては第7章で議論します。</p>
+<!--
+### Multiple `impl` Blocks
+-->
+<h3><a class="header" href="#複数のimplブロック" id="複数のimplブロック">複数の<code>impl</code>ブロック</a></h3>
+<!--
+Each struct is allowed to have multiple `impl` blocks. For example, Listing
+5-15 is equivalent to the code shown in Listing 5-16, which has each method
+in its own `impl` block.
+-->
+<p>各構造体には、複数の<code>impl</code>ブロックを存在させることができます。例えば、リスト5-15はリスト5-16に示したコードと等価で、
+リスト5-16では、各メソッドごとに<code>impl</code>ブロックを用意しています。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    width: u32,
+</span><span class="boring">    height: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Rectangle {
+    fn area(&amp;self) -&gt; u32 {
+        self.width * self.height
+    }
+}
+
+impl Rectangle {
+    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.width &gt; other.width &amp;&amp; self.height &gt; other.height
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 5-16: Rewriting Listing 5-15 using multiple `impl`
+blocks</span>
+-->
+<p><span class="caption">リスト5-16: 複数の<code>impl</code>ブロックを使用してリスト5-15を書き直す</span></p>
+<!--
+There’s no reason to separate these methods into multiple `impl` blocks here,
+but this is valid syntax. We'll see a case in which multiple `impl` blocks are
+useful in Chapter 10, where we discuss generic types and traits.
+-->
+<p>ここでこれらのメソッドを個々の<code>impl</code>ブロックに分ける理由はないのですが、合法な書き方です。
+複数の<code>impl</code>ブロックが有用になるケースは第10章で見ますが、そこではジェネリック型と、トレイトについて議論します。</p>
+<!--
+## Summary
+-->
+<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<!--
+Structs let us create custom types that are meaningful for your domain. By
+using structs, we can keep associated pieces of data connected to each other
+and name each piece to make our code clear. Methods let us specify the
+behavior that instances of our structs have, and associated functions let you
+namespace functionality that is particular to our struct without having an
+instance available.
+-->
+<p>構造体により、自分の領域で意味のある独自の型を作成することができます。構造体を使用することで、
+関連のあるデータ片を相互に結合させたままにし、各部品に名前を付け、コードを明確にすることができます。
+メソッドにより、構造体のインスタンスが行う動作を指定することができ、関連関数により、
+構造体に特有の機能をインスタンスを利用することなく、名前空間分けすることができます。</p>
+<!--
+But structs aren’t the only way we can create custom types: let’s turn to
+Rust’s enum feature to add another tool to our toolbox.
+-->
+<p>しかし、構造体だけが独自の型を作成する手段ではありません: Rustのenum機能に目を向けて、
+別の道具を道具箱に追加しましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch05-02-example-structs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch06-00-enums.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch05-02-example-structs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch06-00-enums.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

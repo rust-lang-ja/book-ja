@@ -1,0 +1,5 @@
+/* 1重スターで囲われた部分も斜体でなくボールド体にする */
+em {
+    font-weight: bold;
+    font-style: normal;
+}

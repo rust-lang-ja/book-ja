@@ -1,0 +1,783 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Treating Smart Pointers Like Regular References with the Deref Trait - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html" class="active"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Treating Smart Pointers Like Regular References with the `Deref` Trait
+-->
+<h2><a class="header" href="#derefトレイトでスマートポインタを普通の参照のように扱う" id="derefトレイトでスマートポインタを普通の参照のように扱う"><code>Deref</code>トレイトでスマートポインタを普通の参照のように扱う</a></h2>
+<!--
+Implementing the `Deref` trait allows you to customize the behavior of the
+*dereference operator*, `*` (as opposed to the multiplication or glob
+operator). By implementing `Deref` in such a way that a smart pointer can be
+treated like a regular reference, you can write code that operates on
+references and use that code with smart pointers too.
+-->
+<p><code>Deref</code>トレイトを実装することで<em>参照外し演算子</em>の<code>*</code>(掛け算やグロブ演算子とは違います)の振る舞いをカスタマイズすることができます。
+スマートポインタを普通の参照のように扱えるように<code>Deref</code>を実装することで、
+参照に対して処理を行うコードを書き、そのコードをスマートポインタとともにも使用できます。</p>
+<!--
+Let’s first look at how dereference operator works with regular references.
+Then we'll try to define a custom type that behaves like `Box<T>`, and see why
+the dereference operator doesn't work like a reference on our newly defined
+type. We’ll explore how implementing the `Deref` trait makes it possible for
+smart pointers to work in a similar way as references. Then we’ll look at
+Rust’s *deref coercion* feature and how it lets us work with either references
+or smart pointers.
+-->
+<p>まずは、参照外し演算子が普通の参照に対して動作するところを見ましょう。それから<code>Box&lt;T&gt;</code>のように振る舞う独自の型を定義し、
+参照外し演算子が新しく定義した型に対して参照のように動作しない理由を確認しましょう。
+<code>Deref</code>トレイトを実装することでスマートポインタが参照と似た方法で動作するようにできる方法を探求します。
+そして、Rustの<em>参照外し型強制</em>機能と、それにより参照やスマートポインタと協調できる方法を見ます。</p>
+<!--
+### Following the Pointer to the Value with the Dereference Operator
+-->
+<h3><a class="header" href="#参照外し演算子で値までポインタを追いかける" id="参照外し演算子で値までポインタを追いかける">参照外し演算子で値までポインタを追いかける</a></h3>
+<!--
+A regular reference is a type of pointer, and one way to think of a pointer is
+as an arrow to a value stored somewhere else. In Listing 15-6, we create a
+reference to an `i32` value and then use the dereference operator to follow the
+reference to the data:
+-->
+<p>普通の参照は1種のポインタであり、ポインタの捉え方の一つが、どこか他の場所に格納された値への矢印としてです。
+リスト15-6で、<code>i32</code>値への参照を生成し、それから参照外し演算子を使用して参照をデータまで追いかけています:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let x = 5;
+    let y = &amp;x;
+
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 15-6: Using the dereference operator to follow a
+reference to an `i32` value</span>
+-->
+<p><span class="caption">リスト15-6: 参照外し演算子を使用して参照を<code>i32</code>値まで追いかける</span></p>
+<!--
+The variable `x` holds an `i32` value, `5`. We set `y` equal to a reference to
+`x`. We can assert that `x` is equal to `5`. However, if we want to make an
+assertion about the value in `y`, we have to use `*y` to follow the reference
+to the value it’s pointing to (hence *dereference*). Once we dereference `y`,
+we have access to the integer value `y` is pointing to that we can compare with
+`5`.
+-->
+<p>変数<code>x</code>は<code>i32</code>値の<code>5</code>を保持しています。<code>y</code>を<code>x</code>への参照にセットします。<code>x</code>は<code>5</code>に等しいとアサートできます。
+しかしながら、<code>y</code>の値に関するアサートを行いたい場合、<code>*y</code>を使用して参照を指している値まで追いかけなければなりません(そのため<em>参照外し</em>です)。
+一旦、<code>y</code>を参照外ししたら、<code>y</code>が指している<code>5</code>と比較できる整数値にアクセスできます。</p>
+<!--
+If we tried to write `assert_eq!(5, y);` instead, we would get this compilation
+error:
+-->
+<p>代わりに<code>assert_eq!(5, y);</code>と書こうとしたら、こんなコンパイルエラーが出るでしょう:</p>
+<pre><code class="language-text">error[E0277]: the trait bound `{integer}: std::cmp::PartialEq&lt;&amp;{integer}&gt;` is
+not satisfied
+(エラー: トレイト境界`{integer}: std::cmp::PartialEq&lt;&amp;{integer}&gt;`は満たされていません)
+ --&gt; src/main.rs:6:5
+  |
+6 |     assert_eq!(5, y);
+  |     ^^^^^^^^^^^^^^^^^ can't compare `{integer}` with `&amp;{integer}`
+  |
+  = help: the trait `std::cmp::PartialEq&lt;&amp;{integer}&gt;` is not implemented for
+  `{integer}`
+  (助言: トレイト`std::cmp::PartialEq&lt;&amp;{integer}&gt;`は`{integer}`に対して実装されていません)
+</code></pre>
+<!--
+Comparing a number and a reference to a number isn’t allowed because they’re
+different types. We must use the dereference operator to follow the reference
+to the value it's pointing to.
+-->
+<p>参照と数値は異なる型なので、比較することは許容されていません。参照外し演算子を使用して、
+参照を指している値まで追いかけなければならないのです。</p>
+<!--
+### Using `Box<T>` Like a Reference
+-->
+<h3><a class="header" href="#boxtを参照のように使う" id="boxtを参照のように使う"><code>Box&lt;T&gt;</code>を参照のように使う</a></h3>
+<!--
+We can rewrite the code in Listing 15-6 to use a `Box<T>` instead of a
+reference; the dereference operator will work as shown in Listing 15-7:
+-->
+<p>リスト15-6のコードを参照の代わりに<code>Box&lt;T&gt;</code>を使うように書き直すことができます;
+参照外し演算子は、リスト15-7に示したように動くでしょう:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let x = 5;
+    let y = Box::new(x);
+
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 15-7: Using the dereference operator on a
+`Box<i32>`</span>
+-->
+<p><span class="caption">リスト15-7: <code>Box&lt;i32&gt;</code>に対して参照外し演算子を使用する</span></p>
+<!--
+The only difference between Listing 15-7 and Listing 15-6 is that here we set
+`y` to be an instance of a box pointing to the value in `x` rather than a
+reference pointing to the value of `x`. In the last assertion, we can use the
+dereference operator to follow the box’s pointer in the same way that we did
+when `y` was a reference. Next, we’ll explore what is special about `Box<T>`
+that enables us to use the dereference operator by defining our own box type.
+-->
+<p>リスト15-7とリスト15-6の唯一の違いは、ここでは、<code>x</code>の値を指す参照ではなく、
+<code>x</code>の値を指すボックスのインスタンスに<code>y</code>をセットしていることです。
+最後のアサートで参照外し演算子を使用して<code>y</code>が参照だった時のようにボックスのポインタを追いかけることができます。
+次に、独自のボックス型を定義することで参照外し演算子を使用させてくれる<code>Box&lt;T&gt;</code>について何が特別なのかを探究します。</p>
+<!--
+### Defining Our Own Smart Pointer
+-->
+<h3><a class="header" href="#独自のスマートポインタを定義する" id="独自のスマートポインタを定義する">独自のスマートポインタを定義する</a></h3>
+<!--
+Let’s build a smart pointer similar to the `Box<T>` type provided by the
+standard library to experience how smart pointers behave differently than
+references by default. Then we’ll look at how to add the ability to use the
+dereference operator.
+-->
+<p>標準ライブラリが提供している<code>Box&lt;T&gt;</code>型に似たスマートポインタを構築して、スマートポインタは既定で
+参照に比べてどう異なって振る舞うのか経験しましょう。それから、参照外し演算子を使う能力を追加する方法に目を向けましょう。</p>
+<!--
+The `Box<T>` type is ultimately defined as a tuple struct with one element, so
+Listing 15-8 defines a `MyBox<T>` type in the same way. We’ll also define a
+`new` function to match the `new` function defined on `Box<T>`.
+-->
+<p><code>Box&lt;T&gt;</code>型は究極的に1要素のタプル構造体として定義されているので、リスト15-8は、同じように<code>MyBox&lt;T&gt;</code>型を定義しています。
+また、<code>Box&lt;T&gt;</code>に定義された<code>new</code>関数と合致する<code>new</code>関数も定義しています。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>struct MyBox&lt;T&gt;(T);
+
+impl&lt;T&gt; MyBox&lt;T&gt; {
+    fn new(x: T) -&gt; MyBox&lt;T&gt; {
+        MyBox(x)
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 15-8: Defining a `MyBox<T>` type</span>
+-->
+<p><span class="caption">リスト15-8: <code>MyBox&lt;T&gt;</code>型を定義する</span></p>
+<!--
+We define a struct named `MyBox` and declare a generic parameter `T`, because
+we want our type to hold values of any type. The `MyBox` type is a tuple struct
+with one element of type `T`. The `MyBox::new` function takes one parameter of
+type `T` and returns a `MyBox` instance that holds the value passed in.
+-->
+<p><code>MyBox</code>という構造体を定義し、ジェネリック引数の<code>T</code>を宣言しています。自分の型にどんな型の値も保持させたいからです。
+<code>MyBox</code>型は、型<code>T</code>を1要素持つタプル構造体です。<code>MyBox::new</code>関数は型<code>T</code>の引数を1つ取り、
+渡した値を保持する<code>MyBox</code>インスタンスを返します。</p>
+<!--
+Let’s try adding the `main` function in Listing 15-7 to Listing 15-8 and
+changing it to use the `MyBox<T>` type we’ve defined instead of `Box<T>`. The
+code in Listing 15-9 won’t compile because Rust doesn’t know how to dereference
+`MyBox`.
+-->
+<p>試しにリスト15-7の<code>main</code>関数をリスト15-8に追加し、<code>Box&lt;T&gt;</code>の代わりに定義した<code>MyBox&lt;T&gt;</code>型を使うよう変更してみてください。
+コンパイラは<code>MyBox</code>を参照外しする方法がわからないので、リスト15-9のコードはコンパイルできません。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let x = 5;
+    let y = MyBox::new(x);
+
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
+}
+</code></pre>
+<!--
+<span class="caption">Listing 15-9: Attempting to use `MyBox<T>` in the same
+way we used references and `Box<T>`</span>
+-->
+<p><span class="caption">リスト15-9: 参照と<code>Box&lt;T&gt;</code>を使ったのと同じように<code>MyBox&lt;T&gt;</code>を使おうとする</span></p>
+<!--
+Here’s the resulting compilation error:
+-->
+<p>こちらが結果として出るコンパイルエラーです:</p>
+<pre><code class="language-text">error[E0614]: type `MyBox&lt;{integer}&gt;` cannot be dereferenced
+(エラー: 型`MyBox&lt;{integer}&gt;`は参照外しできません)
+  --&gt; src/main.rs:14:19
+   |
+14 |     assert_eq!(5, *y);
+   |                   ^^
+</code></pre>
+<!--
+Our `MyBox<T>` type can’t be dereferenced because we haven’t implemented that
+ability on our type. To enable dereferencing with the `*` operator, we
+implement the `Deref` trait.
+-->
+<p><code>MyBox&lt;T&gt;</code>に参照外しの能力を実装していないので、参照外しできません。<code>*</code>演算子で参照外しできるようにするには、
+<code>Deref</code>トレイトを実装します。</p>
+<!--
+### Treating a Type Like a Reference by Implementing the `Deref` Trait
+-->
+<h3><a class="header" href="#derefトレイトを実装して型を参照のように扱う" id="derefトレイトを実装して型を参照のように扱う"><code>Deref</code>トレイトを実装して型を参照のように扱う</a></h3>
+<!--
+As discussed in Chapter 10, to implement a trait, we need to provide
+implementations for the trait’s required methods. The `Deref` trait, provided
+by the standard library, requires us to implement one method named `deref` that
+borrows `self` and returns a reference to the inner data. Listing 15-10
+contains an implementation of `Deref` to add to the definition of `MyBox`:
+-->
+<p>第10章で議論したように、トレイトを実装するには、トレイトの必須メソッドに実装を提供する必要があります。
+<code>Deref</code>トレイトは標準ライブラリで提供されていますが、<code>self</code>を借用し、
+内部のデータへの参照を返す<code>deref</code>という1つのメソッドを実装する必要があります。リスト15-10には、
+<code>MyBox</code>の定義に追記する<code>Deref</code>の実装が含まれています:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>use std::ops::Deref;
+
+<span class="boring">struct MyBox&lt;T&gt;(T);
+</span>impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
+    type Target = T;
+
+    fn deref(&amp;self) -&gt; &amp;T {
+        &amp;self.0
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 15-10: Implementing `Deref` on `MyBox<T>`</span>
+-->
+<p><span class="caption">リスト15-10: <code>MyBox&lt;T&gt;</code>に<code>Deref</code>を実装する</span></p>
+<!--
+The `type Target = T;` syntax defines an associated type for the `Deref` trait
+to use. Associated types are a slightly different way of declaring a generic
+parameter, but you don’t need to worry about them for now; we’ll cover them in
+more detail in Chapter 19.
+-->
+<p><code>type Target = T;</code>という記法は、<code>Deref</code>トレイトが使用する関連型を定義しています。関連型は、
+ジェネリック引数を宣言する少しだけ異なる方法ですが、今は気にする必要はありません; 第19章でより詳しく講義します。</p>
+<!--
+We fill in the body of the `deref` method with `&self.0` so `deref` returns a
+reference to the value we want to access with the `*` operator. The `main`
+function in Listing 15-9 that calls `*` on the `MyBox<T>` value now compiles,
+and the assertions pass!
+-->
+<p><code>deref</code>メソッドの本体を<code>&amp;self.0</code>で埋めているので、<code>deref</code>は<code>*</code>演算子でアクセスしたい値への参照を返します。
+リスト15-9の<code>MyBox&lt;T&gt;</code>に<code>*</code>を呼び出す<code>main</code>関数はこれでコンパイルでき、アサートも通ります！</p>
+<!--
+Without the `Deref` trait, the compiler can only dereference `&` references.
+The `deref` method gives the compiler the ability to take a value of any type
+that implements `Deref` and call the `deref` method to get a `&` reference that
+it knows how to dereference.
+-->
+<p><code>Deref</code>がなければ、コンパイラは<code>&amp;</code>参照しか参照外しできなくなります。<code>deref</code>メソッドによりコンパイラは、
+<code>Deref</code>を実装するあらゆる型の値を取り、<code>deref</code>メソッドを呼び出して参照外しの仕方を知っている<code>&amp;</code>参照を得る能力を獲得するのです。</p>
+<!--
+When we entered `*y` in Listing 15-9, behind the scenes Rust actually ran this
+code:
+-->
+<p>リスト15-9に<code>*y</code>を入力した時、水面下でコンパイラは、実際にはこのようなコードを走らせていました:</p>
+<pre><code class="language-rust ignore">*(y.deref())
+</code></pre>
+<!--
+最後の行は、これで合っているのか自信がない・・・
+-->
+<!--
+Rust substitutes the `*` operator with a call to the `deref` method and then a
+plain dereference so we don’t have to think about whether or not we need to
+call the `deref` method. This Rust feature lets us write code that functions
+identically whether we have a regular reference or a type that implements
+`Deref`.
+-->
+<p>コンパイラは、<code>*</code>演算子を<code>deref</code>メソッド、それから何の変哲もない参照外しの呼び出しに置き換えるので、
+<code>deref</code>メソッドを呼び出す必要があるかどうかを考える必要はないわけです。このRustの機能により、
+普通の参照か<code>Deref</code>を実装した型であるかどうかに関わらず、等しく機能するコードを書かせてくれます。</p>
+<!--
+The reason the `deref` method returns a reference to a value and that the plain
+dereference outside the parentheses in `*(y.deref())` is still necessary is the
+ownership system. If the `deref` method returned the value directly instead of
+a reference to the value, the value would be moved out of `self`. We don't want
+to take ownership of the inner value inside `MyBox<T>` in this case or in most
+cases where we use the dereference operator.
+-->
+<p><code>deref</code>メソッドが値への参照を返し、<code>*(y.deref())</code>のかっこの外の何の変哲もない参照外しがそれでも必要な理由は、
+所有権システムです。<code>deref</code>メソッドが値への参照ではなく、値を直接返したら、値は<code>self</code>から外にムーブされてしまいます。
+今回の場合や、参照外し演算子を使用する多くの場合には<code>MyBox&lt;T&gt;</code>の中の値の所有権を奪いたくはありません。</p>
+<!--
+2行目、... just once, [each time ...]という構造と思われる
+-->
+<!--
+Note that the `*` operator is replaced with a call to the `deref` method and
+then a call to `*` operator just once, each time we type a `*` in our code.
+Because the substitution of the `*` operator does not recurse infinitely, we
+end up with data of type `i32`, which matches the `5` in `assert_eq!` in
+Listing 15-9.
+-->
+<p><code>*</code>演算子は、コードで<code>*</code>を打つたびに、ただ1回、<code>deref</code>メソッドの呼び出し、そして<code>*</code>演算子の呼び出しに置き換えられることに注意してください。
+<code>*</code>演算子の置き換えは、無限に繰り返されないので、型<code>i32</code>に行き着き、リスト15-9で<code>assert_eq!</code>の<code>5</code>と合致します。</p>
+<!--
+### Implicit Deref Coercions with Functions and Methods
+-->
+<h3><a class="header" href="#関数やメソッドで暗黙的な参照外し型強制" id="関数やメソッドで暗黙的な参照外し型強制">関数やメソッドで暗黙的な参照外し型強制</a></h3>
+<!--
+*Deref coercion* is a convenience that Rust performs on arguments to functions
+and methods. Deref coercion converts a reference to a type that implements
+`Deref` into a reference to a type that `Deref` can convert the original type
+into. Deref coercion happens automatically when we pass a reference to a
+particular type’s value as an argument to a function or method that doesn’t
+match the parameter type in the function or method definition. A sequence of
+calls to the `deref` method converts the type we provided into the type the
+parameter needs.
+-->
+<p><em>参照外し型強制</em>は、コンパイラが関数やメソッドの実引数に行う便利なものです。参照外し型強制は、
+<code>Deref</code>を実装する型への参照を<code>Deref</code>が元の型を変換できる型への参照に変換します。参照外し型強制は、
+特定の型の値への参照を関数やメソッド定義の引数型と一致しない引数として関数やメソッドに渡すときに自動的に発生します。
+一連の<code>deref</code>メソッドの呼び出しが、提供した型を引数が必要とする型に変換します。</p>
+<!--
+2行目、add as many ... asのようにも見えるが、add [as many ...]ということと思われる
+-->
+<!--
+Deref coercion was added to Rust so that programmers writing function and
+method calls don’t need to add as many explicit references and dereferences
+with `&` and `*`. The deref coercion feature also lets us write more code that
+can work for either references or smart pointers.
+-->
+<p>参照外し型強制は、関数やメソッド呼び出しを書くプログラマが<code>&amp;</code>や<code>*</code>を多くの明示的な参照や参照外しとして追記する必要がないように、
+Rustに追加されました。また、参照外し型強制のおかげで参照あるいはスマートポインタのどちらかで動くコードをもっと書くことができます。</p>
+<!--
+To see deref coercion in action, let’s use the `MyBox<T>` type we defined in
+Listing 15-8 as well as the implementation of `Deref` that we added in Listing
+15-10. Listing 15-11 shows the definition of a function that has a string slice
+parameter:
+-->
+<p>参照外し型強制が実際に動いていることを確認するため、リスト15-8で定義した<code>MyBox&lt;T&gt;</code>と、
+リスト15-10で追加した<code>Deref</code>の実装を使用しましょう。リスト15-11は、
+文字列スライス引数のある関数の定義を示しています:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>fn hello(name: &amp;str) {
+    println!(&quot;Hello, {}!&quot;, name);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 15-11: A `hello` function that has the parameter
+`name` of type `&str`</span>
+-->
+<p><span class="caption">リスト15-11: 型<code>&amp;str</code>の引数<code>name</code>のある<code>hello</code>関数</span></p>
+<!--
+We can call the `hello` function with a string slice as an argument, such as
+`hello("Rust");` for example. Deref coercion makes it possible to call `hello`
+with a reference to a value of type `MyBox<String>`, as shown in Listing 15-12:
+-->
+<p><code>hello</code>関数は、文字列スライスを引数として呼び出すことができます。例えば、<code>hello(&quot;Rust&quot;)</code>などです。
+参照外し型強制により、<code>hello</code>を型<code>MyBox&lt;String&gt;</code>の値への参照とともに呼び出すことができます。リスト15-12のようにですね:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::ops::Deref;
+</span><span class="boring">
+</span><span class="boring">struct MyBox&lt;T&gt;(T);
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; MyBox&lt;T&gt; {
+</span><span class="boring">    fn new(x: T) -&gt; MyBox&lt;T&gt; {
+</span><span class="boring">        MyBox(x)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
+</span><span class="boring">    type Target = T;
+</span><span class="boring">
+</span><span class="boring">    fn deref(&amp;self) -&gt; &amp;T {
+</span><span class="boring">        &amp;self.0
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn hello(name: &amp;str) {
+</span><span class="boring">    println!(&quot;Hello, {}!&quot;, name);
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let m = MyBox::new(String::from(&quot;Rust&quot;));
+    hello(&amp;m);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 15-12: Calling `hello` with a reference to a
+`MyBox<String>` value, which works because of deref coercion</span>
+-->
+<p><span class="caption">リスト15-12: <code>hello</code>を<code>MyBox&lt;String&gt;</code>値とともに呼び出し、参照外し型強制のおかげで動く</span></p>
+<!--
+Here we’re calling the `hello` function with the argument `&m`, which is a
+reference to a `MyBox<String>` value. Because we implemented the `Deref` trait
+on `MyBox<T>` in Listing 15-10, Rust can turn `&MyBox<String>` into `&String`
+by calling `deref`. The standard library provides an implementation of `Deref`
+on `String` that returns a string slice, and this is in the API documentation
+for `Deref`. Rust calls `deref` again to turn the `&String` into `&str`, which
+matches the `hello` function’s definition.
+-->
+<p>ここで、<code>hello</code>関数を引数<code>&amp;m</code>とともに呼び出しています。この引数は、<code>MyBox&lt;String&gt;</code>値への参照です。
+リスト15-10で<code>MyBox&lt;T&gt;</code>に<code>Deref</code>トレイトを実装したので、コンパイラは<code>deref</code>を呼び出すことで、
+<code>&amp;MyBox&lt;String&gt;</code>を<code>&amp;String</code>に変換できるのです。標準ライブラリは、<code>String</code>に文字列スライスを返す<code>Deref</code>の実装を提供していて、
+この実装は、<code>Deref</code>のAPIドキュメンテーションに載っています。コンパイラはさらに<code>deref</code>を呼び出して、
+<code>&amp;String</code>を<code>&amp;str</code>に変換し、これは<code>hello</code>関数の定義と合致します。</p>
+<!--
+If Rust didn’t implement deref coercion, we would have to write the code in
+Listing 15-13 instead of the code in Listing 15-12 to call `hello` with a value
+of type `&MyBox<String>`.
+-->
+<p>Rustに参照外し型強制が実装されていなかったら、リスト15-12のコードの代わりにリスト15-13のコードを書き、
+型<code>&amp;MyBox&lt;String&gt;</code>の値で<code>hello</code>を呼び出さなければならなかったでしょう。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::ops::Deref;
+</span><span class="boring">
+</span><span class="boring">struct MyBox&lt;T&gt;(T);
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; MyBox&lt;T&gt; {
+</span><span class="boring">    fn new(x: T) -&gt; MyBox&lt;T&gt; {
+</span><span class="boring">        MyBox(x)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl&lt;T&gt; Deref for MyBox&lt;T&gt; {
+</span><span class="boring">    type Target = T;
+</span><span class="boring">
+</span><span class="boring">    fn deref(&amp;self) -&gt; &amp;T {
+</span><span class="boring">        &amp;self.0
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn hello(name: &amp;str) {
+</span><span class="boring">    println!(&quot;Hello, {}!&quot;, name);
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn main() {
+    let m = MyBox::new(String::from(&quot;Rust&quot;));
+    hello(&amp;(*m)[..]);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 15-13: The code we would have to write if Rust
+didn’t have deref coercion</span>
+-->
+<p><span class="caption">リスト15-13: Rustに参照外し型強制がなかった場合に書かなければならないであろうコード</span></p>
+<!--
+The `(*m)` dereferences the `MyBox<String>` into a `String`. Then the `&` and
+`[..]` take a string slice of the `String` that is equal to the whole string to
+match the signature of `hello`. The code without deref coercions is harder to
+read, write, and understand with all of these symbols involved. Deref coercion
+allows Rust to handle these conversions for us automatically.
+-->
+<p><code>(*m)</code>が<code>MyBox&lt;String&gt;</code>を<code>String</code>に参照外ししています。そして、<code>&amp;</code>と<code>[..]</code>により、
+文字列全体と等しい<code>String</code>の文字列スライスを取り、<code>hello</code>のシグニチャと一致するわけです。
+参照外し型強制のないコードは、これらの記号が関係するので、読むのも書くのも理解するのもより難しくなります。
+参照外し型強制により、コンパイラはこれらの変換を自動的に扱えるのです。</p>
+<!--
+When the `Deref` trait is defined for the types involved, Rust will analyze the
+types and use `Deref::deref` as many times as necessary to get a reference to
+match the parameter’s type. The number of times that `Deref::deref` needs to be
+inserted is resolved at compile time, so there is no runtime penalty for taking
+advantage of deref coercion!
+-->
+<p><code>Deref</code>トレイトが関係する型に定義されていると、コンパイラは、型を分析し必要なだけ<code>Deref::deref</code>を使用して、
+参照を得、引数の型と一致させます。<code>Deref::deref</code>が挿入される必要のある回数は、コンパイル時に解決されるので、
+参照外し型強制を活用するための実行時の代償は何もありません。</p>
+<!--
+### How Deref Coercion Interacts with Mutability
+-->
+<h3><a class="header" href="#参照外し型強制が可変性と相互作用する方法" id="参照外し型強制が可変性と相互作用する方法">参照外し型強制が可変性と相互作用する方法</a></h3>
+<!--
+Similar to how we use the `Deref` trait to override `*` operator on
+immutable references, you can use the `DerefMut` trait to override the `*`
+operator on mutable references.
+-->
+<p><code>Deref</code>トレイトを使用して不変参照に対して<code>*</code>をオーバーライドするように、
+<code>DerefMut</code>トレイトを使用して可変参照の<code>*</code>演算子をオーバーライドできます。</p>
+<!--
+Rust does deref coercion when it finds types and trait implementations in three
+cases:
+-->
+<p>以下の3つの場合に型やトレイト実装を見つけた時にコンパイラは、参照外し型強制を行います:</p>
+<!--
+* From `&T` to `&U` when `T: Deref<Target=U>`
+* From `&mut T` to `&mut U` when `T: DerefMut<Target=U>`
+* From `&mut T` to `&U` when `T: Deref<Target=U>`
+-->
+<ul>
+<li><code>T: Deref&lt;Target=U&gt;</code>の時、<code>&amp;T</code>から<code>&amp;U</code></li>
+<li><code>T: DerefMut&lt;Target=U&gt;</code>の時、<code>&amp;mut T</code>から<code>&amp;mut U</code></li>
+<li><code>T: Deref&lt;Target=U&gt;</code>の時、<code>&amp;mut T</code>から<code>&amp;U</code></li>
+</ul>
+<!--
+The first two cases are the same except for mutability. The first case states
+that if you have a `&T`, and `T` implements `Deref` to some type `U`, you can
+get a `&U` transparently. The second case states that the same deref coercion
+happens for mutable references.
+-->
+<p>前者2つは、可変性を除いて一緒です。最初のケースは、<code>&amp;T</code>があり、<code>T</code>が何らかの型<code>U</code>への<code>Deref</code>を実装しているなら、
+透過的に<code>&amp;U</code>を得られると述べています。2番目のケースは、同じ参照外し型強制が可変参照についても起こることを述べています。</p>
+<!--
+8行目後半、andだが、逆説で訳した
+-->
+<!--
+The third case is trickier: Rust will also coerce a mutable reference to an
+immutable one. But the reverse is *not* possible: immutable references will
+never coerce to mutable references. Because of the borrowing rules, if you have
+a mutable reference, that mutable reference must be the only reference to that
+data (otherwise, the program wouldn’t compile). Converting one mutable
+reference to one immutable reference will never break the borrowing rules.
+Converting an immutable reference to a mutable reference would require that
+there is only one immutable reference to that data, and the borrowing rules
+don’t guarantee that. Therefore, Rust can’t make the assumption that converting
+an immutable reference to a mutable reference is possible.
+-->
+<p>3番目のケースはもっと巧妙です: Rustはさらに、可変参照を不変参照にも型強制するのです。ですが、逆はできま<em>せん</em>:
+不変参照は、絶対に可変参照に型強制されないのです。借用規則により、可変参照があるなら、
+その可変参照がそのデータへの唯一の参照に違いありません(でなければ、プログラムはコンパイルできません)。
+1つの可変参照を1つの不変参照に変換することは、借用規則を絶対に破壊しません。
+不変参照を可変参照にするには、そのデータへの不変参照がたった1つしかないことが必要ですが、
+借用規則はそれを保証してくれません。故に、不変参照を可変参照に変換することが可能であるという前提を敷けません。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch15-01-box.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch15-03-drop.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch15-01-box.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch15-03-drop.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

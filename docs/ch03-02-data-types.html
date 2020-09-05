@@ -1,0 +1,805 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Data Types - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html" class="active"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Data Types
+-->
+<h2><a class="header" href="#データ型" id="データ型">データ型</a></h2>
+<!--
+Every value in Rust is of a certain *data type*, which tells Rust what kind of
+data is being specified so it knows how to work with that data. We'll look at
+two data type subsets: scalar and compound.
+-->
+<p>Rustにおける値は全て、何らかの<em>データ型</em>になり、コンパイラがどんなデータが指定されているか知れるので、
+そのデータの取り扱い方も把握できるというわけです。2種のデータ型のサブセットを見ましょう: スカラー型と複合型です。</p>
+<!--
+Keep in mind that Rust is a *statically typed* language, which means that it
+must know the types of all variables at compile time. The compiler can usually
+infer what type we want to use based on the value and how we use it. In cases
+when many types are possible, such as when we converted a `String` to a numeric
+type using `parse` in the “Comparing the Guess to the Secret Number” section in
+Chapter 2, we must add a type annotation, like this:
+-->
+<p>Rustは<em>静的型付き</em>言語であることを弁えておいてください。つまり、
+コンパイル時に全ての変数の型が判明している必要があるということです。コンパイラは通常、値と使用方法に基づいて、
+使用したい型を推論してくれます。複数の型が推論される可能性がある場合、例えば、
+第2章の「予想と秘密の数字を比較する」節で<code>parse</code>メソッドを使って<code>String</code>型を数値型に変換した時のように、
+複数の型が可能な場合には、型注釈をつけなければいけません。以下のようにですね:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let guess: u32 = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);    // 数字ではありません！
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+If we don’t add the type annotation here, Rust will display the following
+error, which means the compiler needs more information from us to know which
+type we want to use:
+-->
+<p>ここで型注釈を付けなければ、コンパイラは以下のエラーを表示し、これは可能性のある型のうち、
+どの型を使用したいのかを知るのに、コンパイラがプログラマからもっと情報を得る必要があることを意味します:</p>
+<pre><code class="language-text">error[E0282]: type annotations needed
+              (型注釈が必要です)
+ --&gt; src/main.rs:2:9
+  |
+2 |     let guess = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);
+  |         ^^^^^ cannot infer type for `_`
+  |               (`_`の型が推論できません)
+  |
+  = note: type annotations or generic parameter binding required
+    (注釈: 型注釈、またはジェネリクス引数束縛が必要です)
+</code></pre>
+<!--
+You’ll see different type annotations for other data types.
+-->
+<p>他のデータ型についても、様々な型注釈を目にすることになるでしょう。</p>
+<!--
+### Scalar Types
+-->
+<h3><a class="header" href="#スカラー型" id="スカラー型">スカラー型</a></h3>
+<!--
+A *scalar* type represents a single value. Rust has four primary scalar types:
+integers, floating-point numbers, Booleans, and characters. You may recognize
+these from other programming languages. Let’s jump into how they work in Rust.
+-->
+<p>スカラー型は、単独の値を表します。Rustには主に4つのスカラー型があります:
+整数、浮動小数点数、論理値、最後に文字です。他のプログラミング言語でも、これらの型を見かけたことはあるでしょう。
+Rustでの動作方法に飛び込みましょう。</p>
+<!--
+#### Integer Types
+-->
+<h4><a class="header" href="#整数型" id="整数型">整数型</a></h4>
+<!--
+An *integer* is a number without a fractional component. We used one integer
+type in Chapter 2, the `u32` type. This type declaration indicates that the
+value it’s associated with should be an unsigned integer (signed integer types
+start with `i` instead of `u`) that takes up 32 bits of space. Table 3-1 shows
+the built-in integer types in Rust. Each variant in the Signed and Unsigned
+columns (for example, `i16`) can be used to declare the type of an integer
+value.
+-->
+<p>整数とは、小数部分のない数値のことです。第2章で一つの整数型を使用しましたね。<code>u32</code>型です。
+この型定義は、紐付けられる値が、符号なし整数(符号付き整数は<code>u</code>ではなく、<code>i</code>で始まります)になり、
+これは、32ビット分のサイズを取ります。表3-1は、Rustの組み込み整数型を表示しています。
+符号付きと符号なし欄の各バリアント(例: <code>i16</code>)を使用して、整数値の型を宣言することができます。</p>
+<!--
+<span class="caption">Table 3-1: Integer Types in Rust</span>
+-->
+<p><span class="caption">表3-1: Rustの整数型</span></p>
+<!--
+| Length | Signed  | Unsigned |
+|--------|---------|----------|
+| 8-bit  | `i8`    | `u8`     |
+| 16-bit | `i16`   | `u16`    |
+| 32-bit | `i32`   | `u32`    |
+| 64-bit | `i64`   | `u64`    |
+| arch   | `isize` | `usize`  |
+-->
+<table><thead><tr><th>大きさ</th><th>符号付き</th><th>符号なし</th></tr></thead><tbody>
+<tr><td>8-bit</td><td><code>i8</code></td><td><code>u8</code></td></tr>
+<tr><td>16-bit</td><td><code>i16</code></td><td><code>u16</code></td></tr>
+<tr><td>32-bit</td><td><code>i32</code></td><td><code>u32</code></td></tr>
+<tr><td>64-bit</td><td><code>i64</code></td><td><code>u64</code></td></tr>
+<tr><td>arch</td><td><code>isize</code></td><td><code>usize</code></td></tr>
+</tbody></table>
+<!--
+Each variant can be either signed or unsigned and has an explicit size.
+*Signed* and *unsigned* refers to whether it’s possible for the number to be
+negative or positive-in other words, whether the number needs to have a sign
+with it (signed) or whether it will only ever be positive and can therefore be
+represented without a sign (unsigned). It’s like writing numbers on paper: when
+the sign matters, a number is shown with a plus sign or a minus sign; however,
+when it’s safe to assume the number is positive, it’s shown with no sign.
+Signed numbers are stored using two’s complement representation (if you’re
+unsure what this is, you can search for it online; an explanation is outside
+the scope of this book).
+-->
+<p>各バリアントは、符号付きか符号なしかを選べ、明示的なサイズを持ちます。<em>符号付き</em>と<em>符号なし</em>は、
+数値が正負を持つかどうかを示します。つまり、数値が符号を持つ必要があるかどうか(符号付き)、または、
+絶対に正数にしかならず符号なしで表現できるかどうか(符号なし)です。これは、数値を紙に書き下すのと似ています:
+符号が問題になるなら、数値はプラス記号、またはマイナス記号とともに表示されます; しかしながら、
+その数値が正数であると仮定することが安全なら、符号なしで表示できるわけです。符号付き数値は、
+2の補数表現で保持されます(これが何なのか確信を持てないのであれば、ネットで検索することができます。
+まあ要するに、この解説は、この本の範疇外というわけです)。</p>
+<!--
+Each signed variant can store numbers from -(2<sup>n - 1</sup>) to 2<sup>n -
+1</sup> - 1 inclusive, where *n* is the number of bits that variant uses. So an
+`i8` can store numbers from -(2<sup>7</sup>) to 2<sup>7</sup> - 1, which equals
+-128 to 127. Unsigned variants can store numbers from 0 to 2<sup>n</sup> - 1,
+so a `u8` can store numbers from 0 to 2<sup>8</sup> - 1, which equals 0 to 255.
+-->
+<p>各符号付きバリアントは、-(2<sup>n - 1</sup>)以上2<sup>n - 1</sup> - 1以下の数値を保持でき、
+ここで<em>n</em>はこのバリアントが使用するビット数です。以上から、<code>i8</code>型は-(2<sup>7</sup>)から2<sup>7</sup> - 1まで、
+つまり、-128から127までを保持できます。符号なしバリアントは、0以上2<sup>n</sup> - 1以下を保持できるので、
+<code>u8</code>型は、0から2<sup>8</sup> - 1までの値、つまり、0から255までを保持できることになります。</p>
+<!--
+Additionally, the `isize` and `usize` types depend on the kind of computer your
+program is running on: 64-bits if you’re on a 64-bit architecture and 32-bits
+if you’re on a 32-bit architecture.
+-->
+<p>加えて、<code>isize</code>と<code>usize</code>型は、プログラムが動作しているコンピュータの種類に依存します:
+64ビットアーキテクチャなら、64ビットですし、32ビットアーキテクチャなら、32ビットになります。</p>
+<!--
+You can write integer literals in any of the forms shown in Table 3-2. Note
+that all number literals except the byte literal allow a type suffix, such as
+`57u8`, and `_` as a visual separator, such as `1_000`.
+-->
+<p>整数リテラル(<code>訳注</code>: リテラルとは、見たままの値ということ)は、表3-2に示すどの形式でも記述することができます。
+バイトリテラルを除く数値リテラルは全て、
+型接尾辞(例えば、<code>57u8</code>)と<code>_</code>を見た目の区切り記号(例えば、<code>1_000</code>)に付加することができます。</p>
+<!--
+<span class="caption">Table 3-2: Integer Literals in Rust</span>
+-->
+<p><span class="caption">表3-2: Rustの整数リテラル</span></p>
+<!--
+| Number literals  | Example       |
+|------------------|---------------|
+| Decimal          | `98_222`      |
+| Hex              | `0xff`        |
+| Octal            | `0o77`        |
+| Binary           | `0b1111_0000` |
+| Byte (`u8` only) | `b'A'`        |
+-->
+<table><thead><tr><th>数値リテラル</th><th>例</th></tr></thead><tbody>
+<tr><td>10進数</td><td><code>98_222</code></td></tr>
+<tr><td>16進数</td><td><code>0xff</code></td></tr>
+<tr><td>8進数</td><td><code>0o77</code></td></tr>
+<tr><td>2進数</td><td><code>0b1111_0000</code></td></tr>
+<tr><td>バイト (<code>u8</code>だけ)</td><td><code>b'A'</code></td></tr>
+</tbody></table>
+<!--
+So how do you know which type of integer to use? If you’re unsure, Rust’s
+defaults are generally good choices, and integer types default to `i32`: this
+type is generally the fastest, even on 64-bit systems. The primary situation in
+which you’d use `isize` or `usize` is when indexing some sort of collection.
+-->
+<p>では、どの整数型を使うべきかはどう把握すればいいのでしょうか？もし確信が持てないのならば、
+Rustの基準型は一般的にいい選択肢になります。整数型の基準は<code>i32</code>型です: 64ビットシステム上でも、
+この型が普通最速になります。<code>isize</code>と<code>usize</code>を使う主な状況は、何らかのコレクションにアクセスすることです。</p>
+<!--
+#### Floating-Point Types
+-->
+<h4><a class="header" href="#浮動小数点型" id="浮動小数点型">浮動小数点型</a></h4>
+<!--
+Rust also has two primitive types for *floating-point numbers*, which are
+numbers with decimal points. Rust’s floating-point types are `f32` and `f64`,
+which are 32 bits and 64 bits in size, respectively. The default type is `f64`
+because on modern CPUs it’s roughly the same speed as `f32` but is capable of
+more precision.
+-->
+<p>Rustにはさらに、<em>浮動小数点数</em>に対しても、2種類の基本型があり、浮動小数点数とは数値に小数点がついたもののことです。
+Rustの浮動小数点型は、<code>f32</code>と<code>f64</code>で、それぞれ32ビットと64ビットサイズです。基準型は<code>f64</code>です。
+なぜなら、現代のCPUでは、<code>f32</code>とほぼ同スピードにもかかわらず、より精度が高くなるからです。</p>
+<!--
+Here’s an example that shows floating-point numbers in action:
+-->
+<p>実際に動作している浮動小数点数の例をご覧ください:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let x = 2.0; // f64
+
+    let y: f32 = 3.0; // f32
+}
+</code></pre></pre>
+<!--
+Floating-point numbers are represented according to the IEEE-754 standard. The
+`f32` type is a single-precision float, and `f64` has double precision.
+-->
+<p>浮動小数点数は、IEEE-754規格に従って表現されています。<code>f32</code>が単精度浮動小数点数、
+<code>f64</code>が倍精度浮動小数点数です。</p>
+<!--
+#### Numeric Operations
+-->
+<h4><a class="header" href="#数値演算" id="数値演算">数値演算</a></h4>
+<!--
+Rust supports the usual basic mathematical operations you’d expect for all of the
+number types: addition, subtraction, multiplication, division, and remainder.
+The following code shows how you’d use each one in a `let` statement:
+-->
+<p>Rustにも全数値型に期待されうる標準的な数学演算が用意されています: 足し算、引き算、掛け算、割り算、余りです。
+以下の例では、<code>let</code>文での各演算の使用方法をご覧になれます:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<!--
+```rust
+fn main() {
+// addition
+let sum = 5 + 10;
+
+// subtraction
+let difference = 95.5 - 4.3;
+
+// multiplication
+let product = 4 * 30;
+
+// division
+let quotient = 56.7 / 32.2;
+
+// remainder
+let remainder = 43 % 5;
+}
+```
+-->
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    // 足し算
+    let sum = 5 + 10;
+
+    // 引き算
+    let difference = 95.5 - 4.3;
+
+    // 掛け算
+    let product = 4 * 30;
+
+    // 割り算
+    let quotient = 56.7 / 32.2;
+
+    // 余り
+    let remainder = 43 % 5;
+}
+</code></pre></pre>
+<!--
+Each expression in these statements uses a mathematical operator and evaluates
+to a single value, which is then bound to a variable. Appendix B contains a
+list of all operators that Rust provides.
+-->
+<p>これらの文の各式は、数学演算子を使用しており、一つの値に評価され、そして、変数に束縛されます。
+付録BにRustで使える演算子の一覧が載っています。</p>
+<!--
+#### The Boolean Type
+-->
+<h4><a class="header" href="#論理値型" id="論理値型">論理値型</a></h4>
+<!--
+As in most other programming languages, a boolean type in Rust has two possible
+values: `true` and `false`. The boolean type in Rust is specified using `bool`.
+For example:
+-->
+<p>他の多くの言語同様、Rustの論理値型も取りうる値は二つしかありません: <code>true</code>と<code>false</code>です。
+Rustの論理値型は、<code>bool</code>と指定されます。
+例です:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<!--
+```rust
+fn main() {
+let t = true;
+let f: bool = false; // with explicit type annotation
+}
+```
+-->
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let t = true;
+
+    let f: bool = false; // 明示的型注釈付きで
+}
+</code></pre></pre>
+<!--
+The main way to use Boolean values is through conditionals, such as an `if`
+expression. We’ll cover how `if` expressions work in Rust in the “Control Flow”
+section.
+-->
+<p>論理値を使う主な手段は、条件式です。例えば、<code>if</code>式などですね。<code>if</code>式のRustでの動作方法については、
+「制御フロー」節で講義します。</p>
+<!--
+#### The Character Type
+-->
+<h4><a class="header" href="#文字型" id="文字型">文字型</a></h4>
+<!--
+So far we’ve worked only with numbers, but Rust supports letters too. Rust’s
+`char` type is the language’s most primitive alphabetic type, and the following
+code shows one way to use it. (Note that the `char` type is specified with
+single quotes, as opposed to strings, which use double quotes.)
+-->
+<p>ここまで、数値型のみ扱ってきましたが、Rustには文字も用意されています。Rustの<code>char</code>型は、
+言語の最も基本的なアルファベット型であり、以下のコードでその使用方法の一例を見ることができます。
+(<code>char</code>は、ダブルクォーテーションマークを使用する文字列に対して、シングルクォートで指定されることに注意してください。)</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+   let c = 'z';
+   let z = 'ℤ';
+   let heart_eyed_cat = '😻';    //ハート目の猫
+}
+</code></pre></pre>
+<!--
+Rust’s `char` type represents a Unicode Scalar Value, which means it can
+represent a lot more than just ASCII. Accented letters; Chinese, Japanese and
+Korean characters; emoji; and zero-width spaces are all valid `char` types in
+Rust. Unicode Scalar Values range from `U+0000` to `U+D7FF` and `U+E000` to
+`U+10FFFF` inclusive. However, a “character” isn’t really a concept in Unicode,
+so your human intuition for what a “character” is may not match up with what a
+`char` is in Rust. We’ll discuss this topic in detail in the “Strings” in Chapter 8.
+-->
+<p>Rustの<code>char</code>型は、ユニコードのスカラー値を表します。これはつまり、アスキーよりもずっとたくさんのものを表せるということです。
+アクセント文字; 中国語、日本語、韓国語文字;
+絵文字; ゼロ幅スペースは、全てRustでは、有効な<code>char</code>型になります。ユニコードスカラー値は、
+<code>U+0000</code>から<code>U+D7FF</code>までと<code>U+E000</code>から<code>U+10FFFF</code>までの範囲になります。
+ところが、「文字」は実はユニコードの概念ではないので、文字とは何かという人間としての直観は、
+Rustにおける<code>char</code>値が何かとは合致しない可能性があります。この話題については、第8章の「文字列」で詳しく議論しましょう。</p>
+<!--
+### Compound Types
+-->
+<h3><a class="header" href="#複合型" id="複合型">複合型</a></h3>
+<!--
+*Compound types* can group multiple values into one type. Rust has two
+primitive compound types: tuples and arrays.
+-->
+<p><em>複合型</em>により、複数の値を一つの型にまとめることができます。Rustには、
+2種類の基本的な複合型があります: タプルと配列です。</p>
+<!--
+#### The Tuple type
+-->
+<h4><a class="header" href="#タプル型" id="タプル型">タプル型</a></h4>
+<!--
+A tuple is a general way of grouping together some number of other values with
+a variety of types into one compound type.
+-->
+<p>タプルは、複数の型の何らかの値を一つの複合型にまとめ上げる一般的な手段です。</p>
+<!--
+We create a tuple by writing a comma-separated list of values inside
+parentheses. Each position in the tuple has a type, and the types of the
+different values in the tuple don’t have to be the same. We’ve added optional
+type annotations in this example:
+-->
+<p>タプルは、丸かっこの中にカンマ区切りの値リストを書くことで生成します。タプルの位置ごとに型があり、
+タプル内の値はそれぞれ全てが同じ型である必要はありません。今回の例では、型注釈をあえて追加しました:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let tup: (i32, f64, u8) = (500, 6.4, 1);
+}
+</code></pre></pre>
+<!--
+The variable `tup` binds to the entire tuple, because a tuple is considered a
+single compound element. To get the individual values out of a tuple, we can
+use pattern matching to destructure a tuple value, like this:
+-->
+<p>変数<code>tup</code>は、タプル全体に束縛されています。なぜなら、タプルは、一つの複合要素と考えられるからです。
+タプルから個々の値を取り出すには、パターンマッチングを使用して分解することができます。以下のように:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let tup = (500, 6.4, 1);
+
+    let (x, y, z) = tup;
+
+    println!(&quot;The value of y is: {}&quot;, y);
+}
+</code></pre></pre>
+<!--
+This program first creates a tuple and binds it to the variable `tup`. It then
+uses a pattern with `let` to take `tup` and turn it into three separate
+variables, `x`, `y`, and `z`. This is called *destructuring*, because it breaks
+the single tuple into three parts. Finally, the program prints the value of
+`y`, which is `6.4`.
+-->
+<p>このプログラムは、まずタプルを生成し、それを変数<code>tup</code>に束縛しています。
+それから<code>let</code>とパターンを使って<code>tup</code>変数の中身を3つの個別の変数(<code>x</code>、<code>y</code>、<code>z</code>ですね)に変換しています。
+この過程は、<em>分配</em>と呼ばれます。単独のタプルを破壊して三分割しているからです。最後に、
+プログラムは<code>y</code>変数の値を出力し、<code>6.4</code>と表示されます。</p>
+<!--
+In addition to destructuring through pattern matching, we can also access a tuple
+element directly by using a period (`.`) followed by the index of the value we
+want to access. For example:
+-->
+<p>パターンマッチングを通しての分配の他にも、アクセスしたい値の番号をピリオド(<code>.</code>)に続けて書くことで、
+タプルの要素に直接アクセスすることもできます。例です:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let x: (i32, f64, u8) = (500, 6.4, 1);
+
+    let five_hundred = x.0;
+
+    let six_point_four = x.1;
+
+    let one = x.2;
+}
+</code></pre></pre>
+<!--
+This program creates a tuple, `x`, and then makes new variables for each
+element by using their index. As with most programming languages, the first
+index in a tuple is 0.
+-->
+<p>このプログラムは、新しいタプル<code>x</code>を作成し、添え字アクセスで各要素に対して新しい変数も作成しています。
+多くのプログラミング言語同様、タプルの最初の添え字は0です。</p>
+<!--
+#### The Array Type
+-->
+<h4><a class="header" href="#配列型" id="配列型">配列型</a></h4>
+<!--
+Another way to have a collection of multiple values is with an *array*. Unlike
+a tuple, every element of an array must have the same type. Arrays in Rust are
+different than arrays in some other languages because arrays in Rust have a
+fixed length: once declared, they cannot grow or shrink in size.
+-->
+<p><em>配列</em>によっても、複数の値のコレクションを得ることができます。タプルと異なり、配列の全要素は、
+同じ型でなければなりません。Rustの配列は、他の言語と異なっています。Rustの配列は、
+固定長なのです: 一度宣言されたら、サイズを伸ばすことも縮めることもできません。</p>
+<!--
+In Rust, the values going into an array are written as a comma-separated list
+inside square brackets:
+-->
+<p>Rustでは、配列に入れる要素は、角かっこ内にカンマ区切りリストとして記述します:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let a = [1, 2, 3, 4, 5];
+}
+</code></pre></pre>
+<!--
+Arrays are useful when you want your data allocated on the stack rather than
+the heap (we will discuss the stack and the heap more in Chapter 4) or when
+you want to ensure you always have a fixed number of elements. An array isn't
+as flexible as the vector type, though. A vector is a similar collection type
+provided by the standard library that *is* allowed to grow or shrink in size.
+If you’re unsure whether to use an array or a vector, you should probably use a
+vector. Chapter 8 discusses vectors in more detail.
+-->
+<p>配列は、ヒープよりもスタック(スタックとヒープについては第4章で<ruby>詳<rp>(</rp><rt>つまび</rt><rp>)</rp></ruby>らかに議論します)にデータのメモリを確保したい時、
+または、常に固定長の要素があることを確認したい時に有効です。
+ただ、配列は、ベクタ型ほど柔軟ではありません。ベクタは、標準ライブラリによって提供されている配列と似たようなコレクション型で、
+こちらは、サイズを伸縮させることが<em>できます</em>。配列とベクタ型、どちらを使うべきか確信が持てない時は、
+おそらくベクタ型を使うべきです。第8章でベクタについて詳細に議論します。</p>
+<!--
+An example of when you might want to use an array rather than a vector is in a
+program that needs to know the names of the months of the year. It’s very
+unlikely that such a program will need to add or remove months, so you can use
+an array because you know it will always contain 12 items:
+-->
+<p>ベクタ型よりも配列を使いたくなるかもしれない例は、1年の月の名前を扱うプログラムです。そのようなプログラムで、
+月を追加したり削除したりすることまずないので、配列を使用できます。常に12個要素があることもわかってますからね:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let months = [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;,
+              &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;];
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+##### Accessing Array Elements
+-->
+<h5><a class="header" href="#配列の要素にアクセスする" id="配列の要素にアクセスする">配列の要素にアクセスする</a></h5>
+<!--
+An array is a single chunk of memory allocated on the stack. You can access
+elements of an array using indexing, like this:
+-->
+<p>配列は、スタック上に確保される一塊のメモリです。添え字によって、
+配列の要素にこのようにアクセスすることができます:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let a = [1, 2, 3, 4, 5];
+
+    let first = a[0];
+    let second = a[1];
+}
+</code></pre></pre>
+<!--
+In this example, the variable named `first` will get the value `1`, because
+that is the value at index `[0]` in the array. The variable named `second` will
+get the value `2` from index `[1]` in the array.
+-->
+<p>この例では、<code>first</code>という名前の変数には<code>1</code>という値が格納されます。配列の<code>[0]</code>番目にある値が、
+それだからですね。<code>second</code>という名前の変数には、配列の<code>[1]</code>番目の値<code>2</code>が格納されます。</p>
+<!--
+##### Invalid Array Element Access
+-->
+<h5><a class="header" href="#配列要素への無効なアクセス" id="配列要素への無効なアクセス">配列要素への無効なアクセス</a></h5>
+<!--
+What happens if you try to access an element of an array that is past the end
+of the array? Say you change the example to the following code, which will
+compile but exit with an error when it runs:
+-->
+<p>配列の終端を越えて要素にアクセスしようとしたら、どうなるでしょうか？
+先ほどの例を以下のように変えたとすると、コンパイルは通りますが、実行するとエラーで終了します:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let a = [1, 2, 3, 4, 5];
+    let index = 10;
+
+    let element = a[index];
+
+    println!(&quot;The value of element is: {}&quot;, element);   // 要素の値は{}です
+}
+</code></pre>
+<!--
+Running this code using `cargo run` produces the following result:
+-->
+<p>このコードを<code>cargo run</code>で走らせると、以下のような結果になります:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling arrays v0.1.0 (file:///projects/arrays)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running `target/debug/arrays`
+thread '&lt;main&gt;' panicked at 'index out of bounds: the len is 5 but the index is
+ 10', src/main.rs:6
+スレッド'&lt;main&gt;'は'範囲外アクセス: 長さは5ですが、添え字は10でした', src/main.rs:6
+でパニックしました
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+</code></pre>
+<!--
+The compilation didn’t produce any errors, but the program results in a
+*runtime* error and didn’t exit successfully. When you attempt to access an
+element using indexing, Rust will check that the index you’ve specified is less
+than the array length. If the index is greater than the length, Rust will
+*panic*, which is the term Rust uses when a program exits with an error.
+-->
+<p>コンパイルでは何もエラーが出なかったものの、プログラムは<em>実行時</em>エラーに陥り、
+正常終了しませんでした。要素に添え字アクセスを試みると、言語は、
+指定されたその添え字が配列長よりも小さいかを確認してくれます。添え字が配列長よりも大きければ、言語は<em>パニック</em>します。
+パニックとは、プログラムがエラーで終了したことを表すRust用語です。</p>
+<!--
+This is the first example of Rust’s safety principles in action. In many
+low-level languages, this kind of check is not done, and when you provide an
+incorrect index, invalid memory can be accessed. Rust protects you against this
+kind of error by immediately exiting instead of allowing the memory access and
+continuing. Chapter 9 discusses more of Rust’s error handling.
+-->
+<p>これは、実際に稼働しているRustの安全機構の最初の例になります。低レベル言語の多くでは、
+この種のチェックは行われないため、間違った添え字を与えると、無効なメモリにアクセスできてしまいます。
+Rustでは、メモリアクセスを許可し、処理を継続する代わりに即座にプログラムを終了することで、
+この種のエラーからプログラマを保護しています。Rustのエラー処理については、第9章でもっと議論します。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch03-01-variables-and-mutability.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch03-03-how-functions-work.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch03-01-variables-and-mutability.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch03-03-how-functions-work.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>References and Borrowing - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html" class="active"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## References and Borrowing
+-->
+<h2><a class="header" href="#参照と借用" id="参照と借用">参照と借用</a></h2>
+<!--
+The issue with the tuple code in Listing 4-5 is that we have to return the
+`String` to the calling function so we can still use the `String` after the
+call to `calculate_length`, because the `String` was moved into
+`calculate_length`.
+-->
+<p>リスト4-5のタプルコードの問題は、<code>String</code>型を呼び出し元の関数に戻さないと、<code>calculate_length</code>を呼び出した後に、
+<code>String</code>オブジェクトが使えなくなることであり、これは<code>String</code>オブジェクトが<code>calculate_length</code>にムーブされてしまうためでした。</p>
+<!--
+Here is how you would define and use a `calculate_length` function that has a
+reference to an object as a parameter instead of taking ownership of the
+value:
+-->
+<p>ここで、値の所有権をもらう代わりに引数としてオブジェクトへの参照を取る<code>calculate_length</code>関数を定義し、
+使う方法を見てみましょう:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let s1 = String::from(&quot;hello&quot;);
+
+    let len = calculate_length(&amp;s1);
+
+    // '{}'の長さは、{}です
+    println!(&quot;The length of '{}' is {}.&quot;, s1, len);
+}
+
+fn calculate_length(s: &amp;String) -&gt; usize {
+    s.len()
+}
+</code></pre></pre>
+<!--
+First, notice that all the tuple code in the variable declaration and the
+function return value is gone. Second, note that we pass `&s1` into
+`calculate_length` and, in its definition, we take `&String` rather than
+`String`.
+-->
+<p>まず、変数宣言と関数の戻り値にあったタプルコードは全てなくなったことに気付いてください。
+2番目に、<code>&amp;s1</code>を<code>calcuate_length</code>に渡し、その定義では、<code>String</code>型ではなく、<code>&amp;String</code>を受け取っていることに注目してください。</p>
+<!--
+These ampersands are *references*, and they allow you to refer to some value
+without taking ownership of it. Figure 4-5 shows a diagram.
+-->
+<p>これらのアンド記号が参照であり、これのおかげで所有権をもらうことなく値を参照することができるのです。
+図4-5はその図解です。</p>
+<!--
+<img alt="&String s pointing at String s1" src="img/trpl04-05.svg" class="center" />
+-->
+<img alt="文字列s1を指す&amp;String型のs" src="img/trpl04-05.svg" class="center" />
+<!--
+<span class="caption">Figure 4-5: A diagram of `&String s` pointing at `String
+s1`</span>
+-->
+<p><span class="caption">図4-5: <code>String s1</code>を指す<code>&amp;String s</code>の図表</span></p>
+<!--
+Note: The opposite of referencing by using `&` is *dereferencing*, which is
+accomplished with the dereference operator, `*`. We’ll see some uses of the
+dereference operator in Chapter 8 and discuss details of dereferencing in
+Chapter 15.
+-->
+<blockquote>
+<p>注釈: <code>&amp;</code>による参照の逆は、<em>参照外し</em>であり、参照外し演算子の<code>*</code>で達成できます。
+第8章で参照外し演算子の使用例を眺め、第15章で参照外しについて詳しく議論します。</p>
+</blockquote>
+<!--
+Let’s take a closer look at the function call here:
+-->
+<p>ここの関数呼び出しについて、もっと詳しく見てみましょう:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">fn calculate_length(s: &amp;String) -&gt; usize {
+</span><span class="boring">    s.len()
+</span><span class="boring">}
+</span>let s1 = String::from(&quot;hello&quot;);
+
+let len = calculate_length(&amp;s1);
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+The `&s1` syntax lets us create a reference that *refers* to the value of `s1`
+but does not own it. Because it does not own it, the value it points to will
+not be dropped when the reference goes out of scope.
+-->
+<p>この<code>&amp;s1</code>という記法により、<code>s1</code>の値を<em>参照する</em>参照を生成することができますが、これを所有することはありません。
+所有してないということは、指している値は、参照がスコープを抜けてもドロップされないということです。</p>
+<!--
+Likewise, the signature of the function uses `&` to indicate that the type of
+the parameter `s` is a reference. Let’s add some explanatory annotations:
+-->
+<p>同様に、関数のシグニチャでも、<code>&amp;</code>を使用して引数<code>s</code>の型が参照であることを示しています。
+説明的な注釈を加えてみましょう:</p>
+<!--
+```rust
+fn calculate_length(s: &String) -> usize { // s is a reference to a String
+s.len()
+} // Here, s goes out of scope. But because it does not have ownership of what
+// it refers to, nothing happens.
+```
+-->
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>fn calculate_length(s: &amp;String) -&gt; usize { // sはStringへの参照
+    s.len()
+} // ここで、sはスコープ外になる。けど、参照しているものの所有権を持っているわけではないので
+  // 何も起こらない
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+The scope in which the variable `s` is valid is the same as any function
+parameter's scope, but we don’t drop what the reference points to when it goes
+out of scope because we don’t have ownership. When functions have references as
+parameters instead of the actual values, we won’t need to return the values in
+order to give back ownership, since we never had ownership.
+-->
+<p>変数<code>s</code>が有効なスコープは、あらゆる関数の引数のものと同じですが、所有権はないので、<code>s</code>がスコープを抜けても、
+参照が指しているものをドロップすることはありません。関数が実際の値の代わりに参照を引数に取ると、
+所有権をもらわないので、所有権を返す目的で値を返す必要はありません。</p>
+<!--
+We call having references as function parameters *borrowing*. As in real life,
+if a person owns something, you can borrow it from them. When you’re done, you
+have to give it back.
+-->
+<p>関数の引数に参照を取ることを<em>借用</em>と呼びます。現実生活のように、誰かが何かを所有していたら、
+それを借りることができます。用が済んだら、返さなきゃいけないわけです。</p>
+<!--
+So what happens if we try to modify something we’re borrowing? Try the code in
+Listing 4-6. Spoiler alert: it doesn’t work!
+-->
+<p>では、借用した何かを変更しようとしたら、どうなるのでしょうか？リスト4-6のコードを試してください。
+ネタバレ注意: 動きません！</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let s = String::from(&quot;hello&quot;);
+
+    change(&amp;s);
+}
+
+fn change(some_string: &amp;String) {
+    some_string.push_str(&quot;, world&quot;);
+}
+</code></pre>
+<!--
+<span class="caption">Listing 4-6: Attempting to modify a borrowed value</span>
+-->
+<p><span class="caption">リスト4-6: 借用した値を変更しようと試みる</span></p>
+<!--
+Here’s the error:
+-->
+<p>これがエラーです:</p>
+<pre><code class="language-text">error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable
+(エラー: 不変な借用をした中身`*some_string`を可変で借用できません)
+ --&gt; error.rs:8:5
+  |
+7 | fn change(some_string: &amp;String) {
+  |                        ------- use `&amp;mut String` here to make mutable
+8 |     some_string.push_str(&quot;, world&quot;);
+  |     ^^^^^^^^^^^ cannot borrow as mutable
+</code></pre>
+<!--
+Just as variables are immutable by default, so are references. We’re not
+allowed to modify something we have a reference to.
+-->
+<p>変数が標準で不変なのと全く同様に、参照も不変なのです。参照している何かを変更することは叶わないわけです。</p>
+<!--
+### Mutable References
+-->
+<h3><a class="header" href="#可変な参照" id="可変な参照">可変な参照</a></h3>
+<!--
+We can fix the error in the code from Listing 4-6 with just a small tweak:
+-->
+<p>一捻り加えるだけでリスト4-6のコードのエラーは解決します:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let mut s = String::from(&quot;hello&quot;);
+
+    change(&amp;mut s);
+}
+
+fn change(some_string: &amp;mut String) {
+    some_string.push_str(&quot;, world&quot;);
+}
+</code></pre></pre>
+<!--
+First, we had to change `s` to be `mut`. Then we had to create a mutable
+reference with `&mut s` and accept a mutable reference with `some_string: &mut
+String`.
+-->
+<p>始めに、<code>s</code>を<code>mut</code>に変えなければなりませんでした。そして、<code>&amp;mut s</code>で可変な参照を生成し、
+<code>some_string: &amp;mut String</code>で可変な参照を受け入れなければなりませんでした。</p>
+<!--
+But mutable references have one big restriction: you can have only one mutable
+reference to a particular piece of data in a particular scope. This code will
+fail:
+-->
+<p>ところが、可変な参照には大きな制約が一つあります: 特定のスコープで、ある特定のデータに対しては、
+一つしか可変な参照を持てないことです。こちらのコードは失敗します:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">let mut s = String::from(&quot;hello&quot;);
+
+let r1 = &amp;mut s;
+let r2 = &amp;mut s;
+</code></pre>
+<!--
+Here’s the error:
+-->
+<p>これがエラーです:</p>
+<pre><code class="language-text">error[E0499]: cannot borrow `s` as mutable more than once at a time
+(エラー: 一度に`s`を可変として2回以上借用することはできません)
+ --&gt; borrow_twice.rs:5:19
+  |
+4 |     let r1 = &amp;mut s;
+  |                   - first mutable borrow occurs here
+  |                    (最初の可変な参照はここ)
+5 |     let r2 = &amp;mut s;
+  |                   ^ second mutable borrow occurs here
+  |                    (二つ目の可変な参照はここ)
+6 | }
+  | - first borrow ends here
+  |   (最初の借用はここで終わり)
+</code></pre>
+<!--
+This restriction allows for mutation but in a very controlled fashion. It’s
+something that new Rustaceans struggle with, because most languages let you
+mutate whenever you’d like.
+-->
+<p>この制約は、可変化を許可するものの、それを非常に統制の取れた形で行えます。これは、新たなRustaceanにとっては、
+壁です。なぜなら、多くの言語では、いつでも好きな時に可変化できるからです。</p>
+<!--
+The benefit of having this restriction is that Rust can prevent data races at
+compile time. A *data race* is similar to a race condition and happens when
+these three behaviors occur:
+-->
+<p>この制約がある利点は、コンパイラがコンパイル時にデータ競合を防ぐことができる点です。
+データ競合とは、競合条件と類似していて、これら3つの振る舞いが起きる時に発生します:</p>
+<!--
+* Two or more pointers access the same data at the same time.
+* At least one of the pointers is being used to write to the data.
+* There’s no mechanism being used to synchronize access to the data.
+-->
+<ul>
+<li>2つ以上のポインタが同じデータに同時にアクセスする。</li>
+<li>少なくとも一つのポインタがデータに書き込みを行っている。</li>
+<li>データへのアクセスを同期する機構が使用されていない。</li>
+</ul>
+<!--
+Data races cause undefined behavior and can be difficult to diagnose and fix
+when you’re trying to track them down at runtime; Rust prevents this problem
+from happening because it won’t even compile code with data races!
+-->
+<p>データ競合は未定義の振る舞いを引き起こし、実行時に追いかけようとした時に特定し解決するのが難しい問題です。
+しかし、Rustは、データ競合が起こるコードをコンパイルさえしないので、この問題が発生しないようにしてくれるわけです。</p>
+<!--
+As always, we can use curly brackets to create a new scope, allowing for
+multiple mutable references, just not *simultaneous* ones:
+-->
+<p>いつものように、波かっこを使って新しいスコープを生成し、<em>同時並行</em>なものでなく、複数の可変な参照を作ることができます。</p>
+<!--
+```rust
+let mut s = String::from("hello");
+-->
+<!--
+{
+let r1 = &mut s;
+-->
+<!--
+} // r1 goes out of scope here, so we can make a new reference with no problems.
+-->
+<!--
+let r2 = &mut s;
+```
+-->
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let mut s = String::from(&quot;hello&quot;);
+
+{
+    let r1 = &amp;mut s;
+
+} // r1はここでスコープを抜けるので、問題なく新しい参照を作ることができる
+
+let r2 = &amp;mut s;
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+A similar rule exists for combining mutable and immutable references. This code
+results in an error:
+-->
+<p>可変と不変な参照を組み合わせることに関しても、似たような規則が存在しています。このコードはエラーになります:</p>
+<!--
+```rust,ignore
+let mut s = String::from("hello");
+-->
+<!--
+let r1 = &s; // no problem
+let r2 = &s; // no problem
+let r3 = &mut s; // BIG PROBLEM
+```
+-->
+<pre><code class="language-rust ignore">let mut s = String::from(&quot;hello&quot;);
+
+let r1 = &amp;s; // 問題なし
+let r2 = &amp;s; // 問題なし
+let r3 = &amp;mut s; // 大問題！
+</code></pre>
+<!--
+Here’s the error:
+-->
+<p>これがエラーです:</p>
+<pre><code class="language-text">error[E0502]: cannot borrow `s` as mutable because it is also borrowed as
+immutable
+(エラー: `s`は不変で借用されているので、可変で借用できません)
+ --&gt; borrow_thrice.rs:6:19
+  |
+4 |     let r1 = &amp;s; // no problem
+  |               - immutable borrow occurs here
+5 |     let r2 = &amp;s; // no problem
+6 |     let r3 = &amp;mut s; // BIG PROBLEM
+  |                   ^ mutable borrow occurs here
+7 | }
+  | - immutable borrow ends here
+</code></pre>
+<!--
+Whew! We *also* cannot have a mutable reference while we have an immutable one.
+Users of an immutable reference don’t expect the values to suddenly change out
+from under them! However, multiple immutable references are okay because no one
+who is just reading the data has the ability to affect anyone else’s reading of
+the data.
+-->
+<p>ふう！<em>さらに</em>不変な参照をしている間は、可変な参照をすることはできません。不変参照の使用者は、
+それ以降に値が突然変わることなんて予想してません！しかしながら、複数の不変参照をすることは可能です。
+データを読み込んでいるだけの人に、他人がデータを読み込むことに対して影響を与える能力はないからです。</p>
+<!--
+Even though these errors may be frustrating at times, remember that it’s the
+Rust compiler pointing out a potential bug early (at compile time rather than
+at runtime) and showing you exactly where the problem is. Then you don't have
+to track down why your data isn’t what you thought it was.
+-->
+<p>これらのエラーは、時としてイライラするものではありますが、Rustコンパイラがバグの可能性を早期に指摘してくれ(それも実行時ではなくコンパイル時に)、
+問題の発生箇所をズバリ示してくれるのだと覚えておいてください。そうして想定通りにデータが変わらない理由を追いかける必要がなくなります。</p>
+<!--
+### Dangling References
+-->
+<h3><a class="header" href="#宙に浮いた参照" id="宙に浮いた参照">宙に浮いた参照</a></h3>
+<!--
+In languages with pointers, it’s easy to erroneously create a *dangling
+pointer*, a pointer that references a location in memory that may have been
+given to someone else, by freeing some memory while preserving a pointer to
+that memory. In Rust, by contrast, the compiler guarantees that references will
+never be dangling references: if you have a reference to some data, the
+compiler will ensure that the data will not go out of scope before the
+reference to the data does.
+-->
+<p>ポインタのある言語では、誤ってダングリングポインタを生成してしまいやすいです。ダングリングポインタとは、
+他人に渡されてしまった可能性のあるメモリを指すポインタのことであり、その箇所へのポインタを保持している間に、
+メモリを解放してしまうことで発生します。対照的にRustでは、コンパイラが、
+参照がダングリング参照に絶対ならないよう保証してくれます: つまり、何らかのデータへの参照があったら、
+コンパイラは参照がスコープを抜けるまで、データがスコープを抜けることがないよう確認してくれるわけです。</p>
+<!--
+Let’s try to create a dangling reference, which Rust will prevent with a
+compile-time error:
+-->
+<p>ダングリング参照作りを試してみますが、コンパイラはこれをコンパイルエラーで阻止します:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let reference_to_nothing = dangle();
+}
+
+fn dangle() -&gt; &amp;String {
+    let s = String::from(&quot;hello&quot;);
+
+    &amp;s
+}
+</code></pre>
+<!--
+Here’s the error:
+-->
+<p>こちらがエラーです:</p>
+<pre><code class="language-text">error[E0106]: missing lifetime specifier
+(エラー: ライフタイム指定子がありません)
+ --&gt; main.rs:5:16
+  |
+5 | fn dangle() -&gt; &amp;String {
+  |                ^ expected lifetime parameter
+  |
+  = help: this function's return type contains a borrowed value, but there is no
+    value for it to be borrowed from
+    (助言: この関数の戻り値型は、借用した値を含んでいますが、借用される値がどこにもありません)
+  = help: consider giving it a 'static lifetime
+  ('staticライフタイムを与えることを考慮してみてください)
+</code></pre>
+<!--
+This error message refers to a feature we haven’t covered yet: *lifetimes*. We'll
+discuss lifetimes in detail in Chapter 10. But, if you disregard the parts
+about lifetimes, the message does contain the key to why this code is a problem:
+-->
+<p>このエラーメッセージは、まだ講義していない機能について触れています: <em>ライフタイム</em>です。
+ライフタイムについては第10章で詳しく議論しますが、ライフタイムに関する部分を無視すれば、
+このメッセージは、確かにこのコードが問題になる理由に関する鍵を握っています:</p>
+<pre><code class="language-text">this function's return type contains a borrowed value, but there is no value
+for it to be borrowed from.
+</code></pre>
+<!--
+Let’s take a closer look at exactly what’s happening at each stage of our
+`dangle` code:
+-->
+<p><code>dangle</code>コードの各段階で一体何が起きているのかを詳しく見ていきましょう:</p>
+<!--
+```rust,ignore
+fn dangle() -> &String { // dangle returns a reference to a String
+-->
+<!--
+let s = String::from("hello"); // s is a new String
+-->
+<!--
+&s // we return a reference to the String, s
+} // Here, s goes out of scope, and is dropped. Its memory goes away.
+// Danger!
+```
+-->
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn dangle() -&gt; &amp;String { // dangleはStringへの参照を返す
+
+    let s = String::from(&quot;hello&quot;); // sは新しいString
+
+    &amp;s // String sへの参照を返す
+} // ここで、sはスコープを抜け、ドロップされる。そのメモリは消される。
+  // 危険だ
+</code></pre>
+<!--
+Because `s` is created inside `dangle`, when the code of `dangle` is finished,
+`s` will be deallocated. But we tried to return a reference to it. That means
+this reference would be pointing to an invalid `String`. That’s no good! Rust
+won’t let us do this.
+-->
+<p><code>s</code>は、<code>dangle</code>内で生成されているので、<code>dangle</code>のコードが終わったら、<code>s</code>は解放されてしまいますが、
+そこへの参照を返そうとしました。つまり、この参照は無効な<code>String</code>を指していると思われるのです。
+よくないことです！コンパイラは、これを阻止してくれるのです。</p>
+<!--
+The solution here is to return the `String` directly:
+-->
+<p>ここでの解決策は、<code>String</code>を直接返すことです:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>fn no_dangle() -&gt; String {
+    let s = String::from(&quot;hello&quot;);
+
+    s
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+This works without any problems. Ownership is moved out, and nothing is
+deallocated.
+-->
+<p>これは何の問題もなく動きます。所有権はムーブされ、何も解放されることはありません。</p>
+<!--
+### The Rules of References
+-->
+<h3><a class="header" href="#参照の規則" id="参照の規則">参照の規則</a></h3>
+<!--
+Let’s recap what we’ve discussed about references:
+-->
+<p>参照について議論したことを再確認しましょう:</p>
+<!--
+* At any given time, you can have *either* one mutable reference *or* any
+number of immutable references.
+* References must always be valid.
+-->
+<ul>
+<li>任意のタイミングで、一つの可変参照<em>か</em>不変な参照いくつでもの<em>どちらか</em>を行える。</li>
+<li>参照は常に有効でなければならない。</li>
+</ul>
+<!--
+Next, we’ll look at a different kind of reference: slices.
+-->
+<p>次は、違う種類の参照を見ていきましょう: スライスです。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch04-01-what-is-ownership.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch04-03-slices.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch04-01-what-is-ownership.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch04-03-slices.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

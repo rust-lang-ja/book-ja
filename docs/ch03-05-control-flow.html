@@ -1,0 +1,862 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Control Flow - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html" class="active"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Control Flow
+-->
+<h2><a class="header" href="#フロー制御" id="フロー制御">フロー制御</a></h2>
+<!--
+Deciding whether or not to run some code depending on if a condition is true
+and deciding to run some code repeatedly while a condition is true are basic
+building blocks in most programming languages. The most common constructs that
+let you control the flow of execution of Rust code are `if` expressions and
+loops.
+-->
+<p>条件が真かどうかによってコードを走らせるかどうかを決定したり、
+条件が真の間繰り返しコードを走らせるか決定したりすることは、多くのプログラミング言語において、基本的な構成ブロックです。
+Rustコードの実行フローを制御する最も一般的な文法要素は、<code>if</code>式とループです。</p>
+<!--
+### `if` Expressions
+-->
+<h3><a class="header" href="#if式" id="if式"><code>if</code>式</a></h3>
+<!--
+An `if` expression allows us to branch your code depending on conditions. We
+provide a condition and then state, “If this condition is met, run this block
+of code. If the condition is not met, do not run this block of code.”
+-->
+<p>if式によって、条件に依存して枝分かれをさせることができます。条件を与え、以下のように宣言します。
+「もし条件が合ったら、この一連のコードを実行しろ。条件に合わなければ、この一連のコードは実行するな」と。</p>
+<!--
+Create a new project called *branches* in your *projects* directory to explore
+the `if` expression. In the *src/main.rs* file, input the following:
+-->
+<p><em>projects</em>ディレクトリに<em>branches</em>という名のプロジェクトを作って<code>if</code>式について掘り下げていきましょう。
+<em>src/main.rs</em>ファイルに、以下のように入力してください:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let number = 3;
+
+    if number &lt; 5 {
+        println!(&quot;condition was true&quot;);       // 条件は真でした
+    } else {
+        println!(&quot;condition was false&quot;);      // 条件は偽でした
+    }
+}
+</code></pre></pre>
+<!--
+NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199
+-->
+<!--
+All `if` expressions start with the keyword `if`, which is followed by a
+condition. In this case, the condition checks whether or not the variable
+`number` has a value less than 5. The block of code we want to execute if the
+condition is true is placed immediately after the condition inside curly
+brackets. Blocks of code associated with the conditions in `if` expressions are
+sometimes called *arms*, just like the arms in `match` expressions that we
+discussed in the “Comparing the Guess to the Secret Number” section of
+Chapter 2.
+-->
+<p><code>if</code>式は全て、キーワードの<code>if</code>から始め、条件式を続けます。今回の場合、
+条件式は変数<code>number</code>が5未満の値になっているかどうかをチェックします。
+条件が真の時に実行したい一連のコードを条件式の直後に波かっこで包んで配置します。<code>if</code>式の条件式と紐付けられる一連のコードは、
+時として<em>アーム</em>と呼ばれることがあります。
+第2章の「予想と秘密の数字を比較する」の節で議論した<code>match</code>式のアームと同じです。</p>
+<!--
+Optionally, we can also include an `else` expression, which we chose
+to do here, to give the program an alternative block of code to execute should
+the condition evaluate to false. If you don’t provide an `else` expression and
+the condition is false, the program will just skip the `if` block and move on
+to the next bit of code.
+-->
+<p>オプションとして、<code>else</code>式を含むこともでき(ここではそうしています)、これによりプログラムは、
+条件式が偽になった時に実行するコードを与えられることになります。仮に、<code>else</code>式を与えずに条件式が偽になったら、
+プログラムは単に<code>if</code>ブロックを飛ばして次のコードを実行しにいきます。</p>
+<!--
+Try running this code; you should see the following output:
+-->
+<p>このコードを走らせてみましょう; 以下のような出力を目の当たりにするはずです:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running `target/debug/branches`
+condition was true
+</code></pre>
+<!--
+Let’s try changing the value of `number` to a value that makes the condition
+`false` to see what happens:
+-->
+<p><code>number</code>の値を条件が<code>false</code>になるような値に変更してどうなるか確かめてみましょう:</p>
+<pre><code class="language-rust ignore">let number = 7;
+</code></pre>
+<!--
+Run the program again, and look at the output:
+-->
+<p>再度プログラムを実行して、出力に注目してください:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running `target/debug/branches`
+condition was false
+</code></pre>
+<!--
+It’s also worth noting that the condition in this code *must* be a `bool`. If
+the condition isn’t a `bool`, we’ll get an error. For example, try running the
+following code:
+-->
+<p>このコード内の条件式は、<code>bool</code>型で<em>なければならない</em>ことにも触れる価値があります。
+条件式が、<code>bool</code>型でない時は、エラーになります。例えば、試しに以下のコードを実行してみてください:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let number = 3;
+
+    if number {
+        println!(&quot;number was three&quot;);     // 数値は3です
+    }
+}
+</code></pre>
+<!--
+The `if` condition evaluates to a value of `3` this time, and Rust throws an
+error:
+-->
+<p>今回、<code>if</code>の条件式は<code>3</code>という値に評価され、コンパイラがエラーを投げます:</p>
+<pre><code class="language-text">error[E0308]: mismatched types
+              (型が合いません)
+ --&gt; src/main.rs:4:8
+  |
+4 |     if number {
+  |        ^^^^^^ expected bool, found integral variable
+  |               (bool型を予期したのに、整数変数が見つかりました)
+  |
+  = note: expected type `bool`
+             found type `{integer}`
+</code></pre>
+<!--
+The error indicates that Rust expected a `bool` but got an integer. Unlike
+languages such as Ruby and JavaScript, Rust will not automatically try to
+convert non-Boolean types to a Boolean. You must be explicit and always provide
+`if` with a Boolean as its condition. If we want the `if` code block to run
+only when a number is not equal to `0`, for example, we can change the `if`
+expression to the following:
+-->
+<p>このエラーは、コンパイラは<code>bool</code>型を予期していたのに、整数だったことを示唆しています。
+RubyやJavaScriptなどの言語とは異なり、Rustでは、論理値以外の値が、自動的に論理値に変換されることはありません。
+明示し、必ず<code>if</code>には条件式として、<code>論理値</code>を与えなければなりません。
+例えば、数値が<code>0</code>以外の時だけ<code>if</code>のコードを走らせたいなら、以下のように<code>if</code>式を変更することができます:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let number = 3;
+
+    if number != 0 {
+        println!(&quot;number was something other than zero&quot;);   // 数値は0以外の何かです
+    }
+}
+</code></pre></pre>
+<!--
+Running this code will print `number was something other than zero`.
+-->
+<p>このコードを実行したら、<code>number was something other than zero</code>と表示されるでしょう。</p>
+<!--
+#### Handling Multiple Conditions with `else if`
+-->
+<h4><a class="header" href="#else-ifで複数の条件を扱う" id="else-ifで複数の条件を扱う"><code>else if</code>で複数の条件を扱う</a></h4>
+<!--
+You can have multiple conditions by combining `if` and `else` in an `else if`
+expression. For example:
+-->
+<p><code>if</code>と<code>else</code>を組み合わせて<code>else if</code>式にすることで複数の条件を持たせることもできます。例です:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let number = 6;
+
+    if number % 4 == 0 {
+        // 数値は4で割り切れます
+        println!(&quot;number is divisible by 4&quot;);
+    } else if number % 3 == 0 {
+        // 数値は3で割り切れます
+        println!(&quot;number is divisible by 3&quot;);
+    } else if number % 2 == 0 {
+        // 数値は2で割り切れます
+        println!(&quot;number is divisible by 2&quot;);
+    } else {
+        // 数値は4、3、2で割り切れません
+        println!(&quot;number is not divisible by 4, 3, or 2&quot;);
+    }
+}
+</code></pre></pre>
+<!--
+This program has four possible paths it can take. After running it, you should
+see the following output:
+-->
+<p>このプログラムには、通り道が4つあります。実行後、以下のような出力を目の当たりにするはずです:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running `target/debug/branches`
+number is divisible by 3
+</code></pre>
+<!--
+When this program executes, it checks each `if` expression in turn and executes
+the first body for which the condition holds true. Note that even though 6 is
+divisible by 2, we don’t see the output `number is divisible by 2`, nor do we
+see the `number is not divisible by 4, 3, or 2` text from the `else` block.
+That's because Rust will only execute the block for the first true condition, and
+once it finds one, it won’t even check the rest.
+-->
+<p>このプログラムを実行すると、<code>if</code>式が順番に吟味され、最初に条件が真になった本体が実行されます。
+6は2で割り切れるものの、<code>number is devisible by 2</code>や、
+<code>else</code>ブロックの<code>number is not divisible by 4, 3, or 2</code>という出力はされないことに注目してください。
+それは、Rustが最初の真条件のブロックのみを実行し、
+条件に合ったものが見つかったら、残りはチェックすらしないからです。</p>
+<!--
+Using too many `else if` expressions can clutter your code, so if you have more
+than one, you might want to refactor your code. Chapter 6 describes a powerful
+Rust branching construct called `match` for these cases.
+-->
+<p><code>else if</code>式を使いすぎると、コードがめちゃくちゃになってしまうので、1つ以上あるなら、
+コードをリファクタリングしたくなるかもしれません。これらのケースに有用な<code>match</code>と呼ばれる、
+強力なRustの枝分かれ文法要素については第6章で解説します。</p>
+<!--
+#### Using `if` in a `let` Statement
+-->
+<h4><a class="header" href="#let文内でif式を使う" id="let文内でif式を使う"><code>let</code>文内で<code>if</code>式を使う</a></h4>
+<!--
+Because `if` is an expression, we can use it on the right side of a `let`
+statement, as in Listing 3-2.
+-->
+<p><code>if</code>は式なので、<code>let</code>文の右辺に持ってくることができます。リスト3-2のようにですね。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let condition = true;
+    let number = if condition {
+        5
+    } else {
+        6
+    };
+
+    // numberの値は、{}です
+    println!(&quot;The value of number is: {}&quot;, number);
+}
+</code></pre></pre>
+<!-- <span class="caption">Listing 3-2: Assigning the result of an `if` expression
+to a variable</span> -->
+<p><span class="caption">リスト3-2: <code>if</code>式の結果を変数に代入する</span></p>
+<!--
+The `number` variable will be bound to a value based on the outcome of the `if`
+expression. Run this code to see what happens:
+-->
+<p>この<code>number</code>変数は、<code>if</code>式の結果に基づいた値に束縛されます。このコードを走らせてどうなるか確かめてください:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
+     Running `target/debug/branches`
+The value of number is: 5
+</code></pre>
+<!--
+Remember that blocks of code evaluate to the last expression in them, and
+numbers by themselves are also expressions. In this case, the value of the
+whole `if` expression depends on which block of code executes. This means the
+values that have the potential to be results from each arm of the `if` must be
+the same type; in Listing 3-2, the results of both the `if` arm and the `else`
+arm were `i32` integers. If the types are mismatched, as in the following
+example, we'll get an error:
+-->
+<p>一連のコードは、そのうちの最後の式に評価され、数値はそれ単独でも式になることを思い出してください。
+今回の場合、この<code>if</code>式全体の値は、どのブロックのコードが実行されるかに基づきます。これはつまり、
+<code>if</code>の各アームの結果になる可能性がある値は、同じ型でなければならないということになります;
+リスト3-2で、<code>if</code>アームも<code>else</code>アームも結果は、<code>i32</code>の整数でした。以下の例のように、
+型が合わない時には、エラーになるでしょう:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    let condition = true;
+
+    let number = if condition {
+        5
+    } else {
+        &quot;six&quot;
+    };
+
+    println!(&quot;The value of number is: {}&quot;, number);
+}
+</code></pre>
+<!--
+When we try to compile this code, we’ll get an error. The `if` and `else` arms
+have value types that are incompatible, and Rust indicates exactly where to
+find the problem in the program:
+-->
+<p>このコードをコンパイルしようとすると、エラーになります。<code>if</code>と<code>else</code>アームは互換性のない値の型になり、
+コンパイラがプログラム内で問題の見つかった箇所をスバリ指摘してくれます:</p>
+<pre><code class="language-text">error[E0308]: if and else have incompatible types
+              (ifとelseの型に互換性がありません)
+ --&gt; src/main.rs:4:18
+  |
+4 |       let number = if condition {
+  |  __________________^
+5 | |         5
+6 | |     } else {
+7 | |         &quot;six&quot;
+8 | |     };
+  | |_____^ expected integral variable, found &amp;str
+  |         (整数変数を予期しましたが、&amp;strが見つかりました)
+  |
+  = note: expected type `{integer}`
+             found type `&amp;str`
+</code></pre>
+<!--
+The expression in the `if` block evaluates to an integer, and the expression in
+the `else` block evaluates to a string. This won’t work because variables must
+have a single type. Rust needs to know at compile time what type the `number`
+variable is, definitively, so it can verify at compile time that its type is
+valid everywhere we use `number`. Rust wouldn’t be able to do that if the type
+of `number` was only determined at runtime; the compiler would be more complex
+and would make fewer guarantees about the code if it had to keep track of
+multiple hypothetical types for any variable.
+-->
+<p><code>if</code>ブロックの式は整数に評価され、<code>else</code>ブロックの式は文字列に評価されます。これでは動作しません。
+変数は単独の型でなければならないからです。コンパイラは、コンパイル時に<code>number</code>変数の型を確実に把握する必要があるため、
+コンパイル時に<code>number</code>が使われている箇所全部で型が有効かどうか検査することができるのです。
+<code>number</code>の型が実行時にしか決まらないのであれば、コンパイラはそれを実行することができなくなってしまいます;
+どの変数に対しても、架空の複数の型があることを追いかけなければならないのであれば、コンパイラはより複雑になり、
+コードに対して行える保証が少なくなってしまうでしょう。</p>
+<!--
+### Repetition with Loops
+-->
+<h3><a class="header" href="#ループでの繰り返し" id="ループでの繰り返し">ループでの繰り返し</a></h3>
+<!--
+It’s often useful to execute a block of code more than once. For this task,
+Rust provides several *loops*. A loop runs through the code inside the loop
+body to the end and then starts immediately back at the beginning. To
+experiment with loops, let’s make a new project called *loops*.
+-->
+<p>一連のコードを1回以上実行できると、しばしば役に立ちます。この作業用に、
+Rustにはいくつかの<em>ループ</em>が用意されています。ループは、本体内のコードを最後まで実行し、
+直後にまた最初から処理を開始します。
+ループを試してみるのに、<em>loops</em>という名の新プロジェクトを作りましょう。</p>
+<!--
+Rust has three kinds of loops: `loop`, `while`, and `for`. Let’s try each one.
+-->
+<p>Rustには3種類のループが存在します: <code>loop</code>と<code>while</code>と<code>for</code>です。それぞれ試してみましょう。</p>
+<!--
+#### Repeating Code with `loop`
+-->
+<h4><a class="header" href="#loopでコードを繰り返す" id="loopでコードを繰り返す"><code>loop</code>でコードを繰り返す</a></h4>
+<!--
+The `loop` keyword tells Rust to execute a block of code over and over again
+forever or until you explicitly tell it to stop.
+-->
+<p><code>loop</code>キーワードを使用すると、同じコードを何回も何回も永遠に、明示的にやめさせるまで実行します。</p>
+<!--
+As an example, change the *src/main.rs* file in your *loops* directory to look
+like this:
+-->
+<p>例として、<em>loops</em>ディレクトリの<em>src/main.rs</em>ファイルを以下のような感じに書き換えてください:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">fn main() {
+    loop {
+        println!(&quot;again!&quot;);   // また
+    }
+}
+</code></pre>
+<!--
+When we run this program, we’ll see `again!` printed over and over continuously
+until we stop the program manually. Most terminals support a keyboard shortcut,
+<span class="keystroke">ctrl-c</span>, to halt a program that is stuck in a
+continual loop. Give it a try:
+-->
+<p>このプログラムを実行すると、プログラムを手動で止めるまで、何度も何度も続けて<code>again!</code>と出力するでしょう。
+ほとんどの端末で<span class="keystroke">ctrl-c</span>というショートカットが使え、
+永久ループに囚われてしまったプログラムを終了させられます。試しにやってみましょう:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling loops v0.1.0 (file:///projects/loops)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.29 secs
+     Running `target/debug/loops`
+again!
+again!
+again!
+again!
+^Cagain!
+</code></pre>
+<!--
+The symbol `^C` represents where you pressed <span class="keystroke">ctrl-c
+</span>. You may or may not see the word `again!` printed after the `^C`,
+depending on where the code was in the loop when it received the halt signal.
+-->
+<p><code>^C</code>という記号が出た場所が、<span class="keystroke">ctrl-c</span>を押した場所です。<code>^C</code>の後には<code>again!</code>と表示されたり、
+されなかったりします。ストップシグナルをコードが受け取った時にループのどこにいたかによります。</p>
+<!--
+Fortunately, Rust provides another, more reliable way to break out of a loop.
+You can place the `break` keyword within the loop to tell the program when to
+stop executing the loop. Recall that we did this in the guessing game in the
+“Quitting After a Correct Guess” section of Chapter 2 to exit the program when
+the user won the game by guessing the correct number.
+-->
+<p>幸いなことに、Rustにはループを抜け出す別のより信頼できる手段があります。
+ループ内に<code>break</code>キーワードを配置することで、プログラムに実行を終了すべきタイミングを教えることができます。
+第2章の「正しい予想をした後に終了する」節の数当てゲーム内でこれをして、ユーザが予想を的中させ、
+ゲームに勝った時にプログラムを終了させたことを思い出してください。</p>
+<!--
+#### Conditional Loops with `while`
+-->
+<h4><a class="header" href="#whileで条件付きループ" id="whileで条件付きループ"><code>while</code>で条件付きループ</a></h4>
+<!--
+It’s often useful for a program to evaluate a condition within a loop. While
+the condition is true, the loop runs. When the condition ceases to be true, the
+program calls `break`, stopping the loop. This loop type could be implemented
+using a combination of `loop`, `if`, `else`, and `break`; you could try that
+now in a program, if you’d like.
+-->
+<p>プログラムにとってループ内で条件式を評価できると、有益なことがしばしばあります。条件が真の間、
+ループが走るわけです。条件が真でなくなった時にプログラムは<code>break</code>を呼び出し、ループを終了します。
+このタイプのループは、<code>loop</code>、<code>if</code>、<code>else</code>、<code>break</code>を組み合わせることでも実装できます;
+お望みなら、プログラムで今、試してみるのもいいでしょう。</p>
+<!--
+However, this pattern is so common that Rust has a built-in language construct
+for it, called a `while` loop. Listing 3-3 uses `while`: the program loops
+three times, counting down each time, and then, after the loop, it prints
+another message and exits:
+-->
+<p>しかし、このパターンは頻出するので、Rustにはそれ用の文法要素が用意されていて、<code>while</code>ループと呼ばれます。
+リスト3-3は、<code>while</code>を使用しています: プログラムは3回ループし、それぞれカウントダウンします。
+それから、ループ後に別のメッセージを表示して終了します:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let mut number = 3;
+
+    while number != 0 {
+        println!(&quot;{}!&quot;, number);
+
+        number = number - 1;
+    }
+
+    // 発射！
+    println!(&quot;LIFTOFF!!!&quot;);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 3-3: Using a `while` loop to run code while a
+condition holds true</span>
+-->
+<p><span class="caption">リスト3-3: 条件が真の間、コードを走らせる<code>while</code>ループを使用する</span></p>
+<!--
+This construct eliminates a lot of nesting that would be necessary if you used
+`loop`, `if`, `else`, and `break`, and it’s clearer. While a condition holds
+true, the code runs; otherwise, it exits the loop.
+-->
+<p>この文法要素により、<code>loop</code>、<code>if</code>、<code>else</code>、<code>break</code>を使った時に必要になるネストがなくなり、
+より明確になります。条件が真の間、コードは実行されます; そうでなければ、ループを抜けます.</p>
+<!--
+#### Looping Through a Collection with `for`
+-->
+<h4><a class="header" href="#forでコレクションを覗き見る" id="forでコレクションを覗き見る"><code>for</code>でコレクションを覗き見る</a></h4>
+<!--
+You could use the `while` construct to loop over the elements of a collection,
+such as an array. For example, let's look at Listing 3-4.
+-->
+<p><code>while</code>要素を使って配列などのコレクションの要素を覗き見ることができます。例えば、リスト3-4を見ましょう。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let a = [10, 20, 30, 40, 50];
+    let mut index = 0;
+
+    while index &lt; 5 {
+        // 値は{}です
+        println!(&quot;the value is: {}&quot;, a[index]);
+
+        index = index + 1;
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 3-4: Looping through each element of a collection
+using a `while` loop</span>
+-->
+<p><span class="caption">リスト3-4: <code>while</code>ループでコレクションの各要素を覗き見る</span></p>
+<!--
+Here, the code counts up through the elements in the array. It starts at index
+`0`, and then loops until it reaches the final index in the array (that is,
+when `index < 5` is no longer true). Running this code will print every element
+in the array:
+-->
+<p>ここで、コードは配列の要素を順番にカウントアップして覗いています。番号0から始まり、
+配列の最終番号に到達するまでループします(つまり、<code>index &lt; 5</code>が真でなくなる時です)。
+このコードを走らせると、配列内の全要素が出力されます:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling loops v0.1.0 (file:///projects/loops)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
+     Running `target/debug/loops`
+the value is: 10
+the value is: 20
+the value is: 30
+the value is: 40
+the value is: 50
+</code></pre>
+<!--
+All five array values appear in the terminal, as expected. Even though `index`
+will reach a value of `5` at some point, the loop stops executing before trying
+to fetch a sixth value from the array.
+-->
+<p>予想通り、配列の5つの要素が全てターミナルに出力されています。<code>index</code>変数の値はどこかで<code>5</code>という値になるものの、
+配列から6番目の値を拾おうとする前にループは実行を終了します。</p>
+<!--
+But this approach is error prone; we could cause the program to panic if the
+index length is incorrect. It’s also slow, because the compiler adds runtime
+code to perform the conditional check on every element on every iteration
+through the loop.
+-->
+<p>しかし、このアプローチは間違いが発生しやすいです; 添え字の長さが間違っていれば、
+プログラムはパニックしてしまいます。また遅いです。
+コンパイラが実行時にループの各回ごとに境界値チェックを行うようなコードを追加するからです。</p>
+<!--
+As a more efficient alternative, you can use a `for` loop and execute some code
+for each item in a collection. A `for` loop looks like this code in Listing 3-5.
+-->
+<p>より効率的な対立案として、<code>for</code>ループを使ってコレクションの各アイテムに対してコードを実行することができます。
+<code>for</code>ループはリスト3-5のこんな見た目です。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let a = [10, 20, 30, 40, 50];
+
+    for element in a.iter() {
+        // 値は{}です
+        println!(&quot;the value is: {}&quot;, element);
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 3-5: Looping through each element of a collection
+using a `for` loop</span>
+-->
+<p><span class="caption">リスト3-4: <code>for</code>ループを使ってコレクションの各要素を覗き見る</span></p>
+<!--
+When we run this code, we’ll see the same output as in Listing 3-4. More
+importantly, we’ve now increased the safety of the code and eliminated the
+chance of bugs that might result from going beyond the end of the array or not
+going far enough and missing some items.
+-->
+<p>このコードを走らせたら、リスト3-4と同じ出力が得られるでしょう。より重要なのは、
+コードの安全性を向上させ、配列の終端を超えてアクセスしたり、
+終端に届く前にループを終えてアイテムを見逃してしまったりするバグの可能性を完全に排除したことです。</p>
+<!--
+For example, in the code in Listing 3-4, if you removed an item from the `a`
+array but forgot to update the condition to `while index < 4`, the code would
+panic. Using the `for` loop, you don’t need to remember to change any other
+code if you changed the number of values in the array.
+-->
+<p>例えば、リスト3-4のコードで、<code>a</code>配列からアイテムを1つ削除したのに、条件式を<code>while index &lt; 4</code>にするのを忘れていたら、
+コードはパニックします。<code>for</code>ループを使っていれば、配列の要素数を変えても、
+他のコードをいじることを覚えておく必要はなくなるわけです。</p>
+<!--
+The safety and conciseness of `for` loops make them the most commonly used loop
+construct in Rust. Even in situations in which you want to run some code a
+certain number of times, as in the countdown example that used a `while` loop
+in Listing 3-3, most Rustaceans would use a `for` loop. The way to do that
+would be to use a `Range`, which is a type provided by the standard library
+that generates all numbers in sequence starting from one number and ending
+before another number.
+-->
+<p><code>for</code>ループのこの安全性と簡潔性により、Rustで使用頻度の最も高いループになっています。
+リスト3-3で<code>while</code>ループを使ったカウントダウンサンプルのように、一定の回数、同じコードを実行したいような状況であっても、
+多くのRustaceanは、<code>for</code>ループを使うでしょう。どうやってやるかといえば、
+<code>Range</code>型を使うのです。Range型は、標準ライブラリで提供される片方の数字から始まって、
+もう片方の数字未満の数値を順番に生成する型です。</p>
+<!--
+Here’s what the countdown would look like using a `for` loop and another method
+we’ve not yet talked about, `rev`, to reverse the range:
+-->
+<p><code>for</code>ループと、まだ話していない別のメソッド<code>rev</code>を使って範囲を逆順にしたカウントダウンはこうなります:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    for number in (1..4).rev() {
+        println!(&quot;{}!&quot;, number);
+    }
+    println!(&quot;LIFTOFF!!!&quot;);
+}
+</code></pre></pre>
+<!--
+This code is a bit nicer, isn’t it?
+-->
+<p>こちらのコードの方が少しいいでしょう？</p>
+<!--
+## Summary
+-->
+<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<!--
+You made it! That was a sizable chapter: you learned about variables, scalar
+and compound data types, functions, comments, `if` expressions, and loops! If
+you want to practice with the concepts discussed in this chapter, try building
+programs to do the following:
+-->
+<p>やりましたね！結構長い章でした: 変数、スカラー値と複合データ型、関数、コメント、<code>if</code>式、そして、ループについて学びました！
+この章で議論した概念について経験を積みたいのであれば、以下のことをするプログラムを組んでみてください:</p>
+<!--
+* Convert temperatures between Fahrenheit and Celsius.
+* Generate the nth Fibonacci number.
+* Print the lyrics to the Christmas carol “The Twelve Days of Christmas,”
+taking advantage of the repetition in the song.
+-->
+<ul>
+<li>温度を華氏と摂氏で変換する。</li>
+<li>フィボナッチ数列のn番目を生成する。</li>
+<li>クリスマスキャロルの定番、&quot;The Twelve Days of Christmas&quot;の歌詞を、
+曲の反復性を利用して出力する。</li>
+</ul>
+<!--
+When you’re ready to move on, we’ll talk about a concept in Rust that *doesn’t*
+commonly exist in other programming languages: ownership.
+-->
+<p>次に進む準備ができたら、他の言語にはあまり存在<em>しない</em>Rustの概念について話しましょう: 所有権です。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch03-04-comments.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch04-00-understanding-ownership.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch03-04-comments.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch04-00-understanding-ownership.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

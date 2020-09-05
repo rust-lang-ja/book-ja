@@ -1,0 +1,950 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Processing a Series of Items with Iterators - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html" class="active"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Processing a Series of Items with Iterators
+-->
+<h2><a class="header" href="#一連の要素をイテレータで処理する" id="一連の要素をイテレータで処理する">一連の要素をイテレータで処理する</a></h2>
+<!--
+The iterator pattern allows you to perform some task on a sequence of items in
+turn. An iterator is responsible for the logic of iterating over each item and
+determining when the sequence has finished. When you use iterators, you don’t
+have to reimplement that logic yourself.
+-->
+<p>イテレータパターンにより、一連の要素に順番に何らかの作業を行うことができます。イテレータは、
+各要素を繰り返し、シーケンスが終わったことを決定するロジックの責任を負います。イテレータを使用すると、
+自身でそのロジックを再実装する必要がなくなるのです。</p>
+<!--
+In Rust, iterators are *lazy*, meaning they have no effect until you call
+methods that consume the iterator to use it up. For example, the code in
+Listing 13-13 creates an iterator over the items in the vector `v1` by calling
+the `iter` method defined on `Vec<T>`. This code by itself doesn’t do anything
+useful.
+-->
+<p>Rustにおいて、イテレータは<em>怠惰</em>です。つまり、イテレータを使い込んで消費するメソッドを呼ぶまで何の効果もないということです。
+例えば、リスト13-13のコードは、<code>Vec&lt;T&gt;</code>に定義された<code>iter</code>メソッドを呼ぶことで<code>v1</code>ベクタの要素に対するイテレータを生成しています。
+このコード単独では、何も有用なことはしません。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let v1 = vec![1, 2, 3];
+
+let v1_iter = v1.iter();
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-13: Creating an iterator</span>
+-->
+<p><span class="caption">リスト13-13: イテレータを生成する</span></p>
+<!--
+Once we’ve created an iterator, we can use it in a variety of ways. In Listing
+3-5 in Chapter 3, we used iterators with `for` loops to execute some code on
+each item, although we glossed over what the call to `iter` did until now.
+-->
+<p>一旦イテレータを生成したら、いろんな手段で使用することができます。第3章のリスト3-5では、
+ここまで<code>iter</code>の呼び出しが何をするかごまかしてきましたが、<code>for</code>ループでイテレータを使い、
+各要素に何かコードを実行しています。</p>
+<!--
+The example in Listing 13-14 separates the creation of the iterator from the
+use of the iterator in the `for` loop. The iterator is stored in the `v1_iter`
+variable, and no iteration takes place at that time. When the `for` loop is
+called using the iterator in `v1_iter`, each element in the iterator is used in
+one iteration of the loop, which prints out each value.
+-->
+<p>リスト13-14の例は、イテレータの生成と<code>for</code>ループでイテレータを使用することを区別しています。
+イテレータは、<code>v1_iter</code>変数に保存され、その時には繰り返しは起きていません。<code>v1_iter</code>のイテレータで、
+<code>for</code>ループが呼び出された時に、イテレータの各要素がループの繰り返しで使用され、各値が出力されます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let v1 = vec![1, 2, 3];
+
+let v1_iter = v1.iter();
+
+for val in v1_iter {
+    // {}でした
+    println!(&quot;Got: {}&quot;, val);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-14: Using an iterator in a `for` loop
+-->
+<p><span class="caption">リスト13-14: <code>for</code>ループでイテレータを使用する</span></p>
+<!--
+In languages that don’t have iterators provided by their standard libraries,
+you would likely write this same functionality by starting a variable at index
+0, using that variable to index into the vector to get a value, and
+incrementing the variable value in a loop until it reached the total number of
+item in the vector.
+-->
+<p>標準ライブラリにより提供されるイテレータが存在しない言語では、変数を添え字0から始め、
+その変数でベクタに添え字アクセスして値を得て、ベクタの総要素数に到達するまでループでその変数の値をインクリメントすることで、
+この同じ機能を書く可能性が高いでしょう。</p>
+<!--
+Iterators handle all that logic for you, cutting down on repetitive code you
+could potentially mess up. Iterators give you more flexibility to use the same
+logic with many different kinds of sequences, not just data structures you can
+index into, like vectors. Let’s examine how iterators do that.
+-->
+<p>イテレータはそのロジック全てを処理してくれるので、めちゃくちゃにしてしまう可能性のあるコードの繰り返しを減らしてくれます。
+イテレータにより、添え字を使えるデータ構造、ベクタなどだけではなく、多くの異なるシーケンスに対して同じロジックを使う柔軟性も得られます。
+イテレータがそれをする方法を調査しましょう。</p>
+<!--
+### The `Iterator` Trait and the `next` Method
+-->
+<h3><a class="header" href="#iteratorトレイトとnextメソッド" id="iteratorトレイトとnextメソッド"><code>Iterator</code>トレイトと<code>next</code>メソッド</a></h3>
+<!--
+All iterators implement a trait named `Iterator` that is defined in the
+standard library. The definition of the trait looks like this:
+-->
+<p>全てのイテレータは、標準ライブラリで定義されている<code>Iterator</code>というトレイトを実装しています。
+このトレイトの定義は、以下のようになっています:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub trait Iterator {
+    type Item;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;;
+
+    // デフォルト実装のあるメソッドは省略
+    // methods with default implementations elided
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Notice this definition uses some new syntax: `type Item` and `Self::Item`,
+which are defining an *associated type* with this trait. We’ll talk about
+associated types in depth in Chapter 19. For now, all you need to know is that
+this code says implementing the `Iterator` trait requires that you also define
+an `Item` type, and this `Item` type is used in the return type of the `next`
+method. In other words, the `Item` type will be the type returned from the
+iterator.
+-->
+<p>この定義は新しい記法を使用していることに注目してください: <code>type Item</code>と<code>Self::Item</code>で、
+これらはこのトレイトとの<em>関連型</em>(associated type)を定義しています。関連型についての詳細は、第19章で語ります。
+とりあえず、知っておく必要があることは、このコードが<code>Iterator</code>トレイトを実装するには、<code>Item</code>型も定義する必要があり、
+そして、この<code>Item</code>型が<code>next</code>メソッドの戻り値の型に使われていると述べていることです。換言すれば、
+<code>Item</code>型がイテレータから返ってくる型になるだろうということです。</p>
+<!--
+The `Iterator` trait only requires implementors to define one method: the
+`next` method, which returns one item of the iterator at a time wrapped in
+`Some` and, when iteration is over, returns `None`.
+-->
+<p><code>Iterator</code>トレイトは、一つのメソッドを定義することを実装者に要求することだけします: <code>next</code>メソッドで、
+これは1度に<code>Some</code>に包まれたイテレータの1要素を返し、繰り返しが終わったら、<code>None</code>を返します。</p>
+<!--
+We can call the `next` method on iterators directly; Listing 13-15 demonstrates
+what values are returned from repeated calls to `next` on the iterator created
+from the vector.
+-->
+<p>イテレータに対して直接<code>next</code>メソッドを呼び出すこともできます; リスト13-15は、
+ベクタから生成されたイテレータの<code>next</code>を繰り返し呼び出した時にどんな値が返るかを模擬しています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn iterator_demonstration() {
+    let v1 = vec![1, 2, 3];
+
+    let mut v1_iter = v1.iter();
+
+    assert_eq!(v1_iter.next(), Some(&amp;1));
+    assert_eq!(v1_iter.next(), Some(&amp;2));
+    assert_eq!(v1_iter.next(), Some(&amp;3));
+    assert_eq!(v1_iter.next(), None);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-15: Calling the `next` method on an
+iterator</span>
+-->
+<p><span class="caption">リスト13-15: イテレータに対して<code>next</code>メソッドを呼び出す</span></p>
+<!--
+Note that we needed to make `v1_iter` mutable: calling the `next` method on an
+iterator changes internal state that the iterator uses to keep track of where
+it is in the sequence. In other words, this code *consumes*, or uses up, the
+iterator. Each call to `next` eats up an item from the iterator. We didn’t need
+to make `v1_iter` mutable when we used a `for` loop because the loop took
+ownership of `v1_iter` and made it mutable behind the scenes.
+-->
+<p><code>v1_iter</code>を可変にする必要があったことに注目してください: イテレータの<code>next</code>メソッドを呼び出すと、
+今シーケンスのどこにいるかを追いかけるためにイテレータが使用している内部の状態が変わります。
+つまり、このコードはイテレータを<em>消費</em>、または使い込むのです。
+<code>next</code>の各呼び出しは、イテレータの要素を一つ、食います。<code>for</code>ループを使用した時には、
+<code>v1_iter</code>を可変にする必要はありませんでした。というのも、ループが<code>v1_iter</code>の所有権を奪い、
+陰で可変にしていたからです。</p>
+<!--
+Also note that the values we get from the calls to `next` are immutable
+references to the values in the vector. The `iter` method produces an iterator
+over immutable references. If we want to create an iterator that takes
+ownership of `v1` and returns owned values, we can call `into_iter` instead of
+`iter`. Similarly, if we want to iterate over mutable references, we can call
+`iter_mut` instead of `iter`.
+-->
+<p>また、<code>next</code>の呼び出しで得られる値は、ベクタの値への不変な参照であることにも注目してください。
+<code>iter</code>メソッドは、不変参照へのイテレータを生成します。<code>v1</code>の所有権を奪い、所有された値を返すイテレータを生成したいなら、
+<code>iter</code>ではなく<code>into_iter</code>を呼び出すことができます。同様に、可変参照を繰り返したいなら、
+<code>iter</code>ではなく<code>iter_mut</code>を呼び出せます。</p>
+<!--
+### Methods that Consume the Iterator
+-->
+<h3><a class="header" href="#イテレータを消費するメソッド" id="イテレータを消費するメソッド">イテレータを消費するメソッド</a></h3>
+<!--
+The `Iterator` trait has a number of different methods with default
+implementations provided by the standard library; you can find out about these
+methods by looking in the standard library API documentation for the `Iterator`
+trait. Some of these methods call the `next` method in their definition, which
+is why we’re required to implement the `next` method when implementing the
+`Iterator` trait.
+-->
+<p><code>Iterator</code>トレイトには、標準ライブラリが提供してくれているデフォルト実装のある多くの異なるメソッドがあります;
+<code>Iterator</code>トレイトの標準ライブラリのAPIドキュメントを検索することで、これらのメソッドについて知ることができます。
+これらのメソッドの中には、定義内で<code>next</code>メソッドを呼ぶものもあり、故に<code>Iterator</code>トレイトを実装する際には、
+<code>next</code>メソッドを実装する必要があるのです。</p>
+<!--
+Methods that call `next` are called *consuming adaptors*, because calling them
+uses up the iterator. One example is the `sum` method, which takes ownership of
+the iterator and iterates through the items by repeatedly calling `next`, thus
+consuming the iterator. As it iterates through, it adds each item to a running
+total and returns the total when iteration is complete. Listing 13-16 has a
+test illustrating a use of the `sum` method:
+-->
+<p><code>next</code>を呼び出すメソッドは、<em>消費アダプタ</em>(consuming adaptors)と呼ばれます。呼び出しがイテレータの使い込みになるからです。
+一例は、<code>sum</code>メソッドで、これはイテレータの所有権を奪い、<code>next</code>を繰り返し呼び出すことで要素を繰り返し、
+故にイテレータを消費するのです。繰り返しが進むごとに、各要素を一時的な合計に追加し、
+繰り返しが完了したら、その合計を返します。リスト13-16は、<code>sum</code>の使用を説明したテストです:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>#[test]
+fn iterator_sum() {
+    let v1 = vec![1, 2, 3];
+
+    let v1_iter = v1.iter();
+
+    let total: i32 = v1_iter.sum();
+
+    assert_eq!(total, 6);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-16: Calling the `sum` method to get the total
+of all items in the iterator</span>
+-->
+<p><span class="caption">リスト13-16: <code>sum</code>メソッドを呼び出してイテレータの全要素の合計を得る</span></p>
+<!--
+We aren’t allowed to use `v1_iter` after the call to `sum` because `sum` takes
+ownership of the iterator we call it on.
+-->
+<p><code>sum</code>は呼び出し対象のイテレータの所有権を奪うので、<code>sum</code>呼び出し後に<code>v1_iter</code>を使用することはできません。</p>
+<!--
+### Methods that Produce Other Iterators
+-->
+<h2><a class="header" href="#他のイテレータを生成するメソッド" id="他のイテレータを生成するメソッド">他のイテレータを生成するメソッド</a></h2>
+<!--
+Other methods defined on the `Iterator` trait, known as *iterator adaptors*,
+allow us to change iterators into different kind of iterators. You can chain
+multiple calls to iterator adaptors to perform complex actions in a readable
+way. But because all iterators are lazy, we have to call one of the consuming
+adaptor methods to get results from calls to iterator adaptors.
+-->
+<p><code>Iterator</code>トレイトに定義された他のメソッドは、<em>イテレータアダプタ</em>(iterator adaptors)として知られていますが、
+イテレータを別の種類のイテレータに変えさせてくれます。イテレータアダプタを複数回呼ぶ呼び出しを連結して、
+複雑な動作を読みやすい形で行うことができます。ですが、全てのイテレータは怠惰なので、消費アダプタメソッドのどれかを呼び出し、
+イテレータアダプタの呼び出しから結果を得なければなりません。</p>
+<!--
+Listing 13-17 shows an example of calling the iterator adaptor method `map`,
+which takes a closure to call on each item to produce a new iterator. The
+closure here creates a new iterator in which each item from the vector has been
+incremented by 1. However, this code produces a warning:
+-->
+<p>リスト13-17は、イテレータアダプタメソッドの<code>map</code>の呼び出し例を示し、各要素に対して呼び出すクロージャを取り、
+新しいイテレータを生成します。ここのクロージャは、ベクタの各要素が1インクリメントされる新しいイテレータを作成します。
+ところが、このコードは警告を発します:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let v1: Vec&lt;i32&gt; = vec![1, 2, 3];
+
+v1.iter().map(|x| x + 1);
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-17: Calling the iterator adaptor `map` to
+create a new iterator</span>
+-->
+<p><span class="caption">リスト13-17: イテレータアダプタの<code>map</code>を呼び出して新規イテレータを作成する</span></p>
+<!--
+The warning we get is this:
+-->
+<p>出る警告は以下の通りです:</p>
+<pre><code class="language-text">warning: unused `std::iter::Map` which must be used: iterator adaptors are lazy
+and do nothing unless consumed
+(警告: 使用されねばならない`std::iter::Map`が未使用です: イテレータアダプタは怠惰で、
+消費されるまで何もしません)
+ --&gt; src/main.rs:4:5
+  |
+4 |     v1.iter().map(|x| x + 1);
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: #[warn(unused_must_use)] on by default
+</code></pre>
+<!--
+The code in Listing 13-17 doesn’t do anything; the closure we’ve specified
+never gets called. The warning reminds us why: iterator adaptors are lazy, and
+we need to consume the iterator here.
+-->
+<p>リスト13-17のコードは何もしません; 指定したクロージャは、決して呼ばれないのです。警告が理由を思い出させてくれています:
+イテレータアダプタは怠惰で、ここでイテレータを消費する必要があるのです。</p>
+<!--
+To fix this and consume the iterator, we’ll use the `collect` method, which we
+used in Chapter 12 with `env::args` in Listing 12-1. This method consumes the
+iterator and collects the resulting values into a collection data type.
+-->
+<p>これを修正し、イテレータを消費するには、<code>collect</code>メソッドを使用しますが、これは第12章のリスト12-1で<code>env::args</code>とともに使用しました。
+このメソッドはイテレータを消費し、結果の値をコレクションデータ型に集結させます。</p>
+<!--
+In Listing 13-18, we collect the results of iterating over the iterator that’s
+returned from the call to `map` into a vector. This vector will end up
+containing each item from the original vector incremented by 1.
+-->
+<p>リスト13-18において、<code>map</code>呼び出しから返ってきたイテレータを繰り返した結果をベクタに集結させています。
+このベクタは、最終的に元のベクタの各要素に1を足したものが含まれます。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let v1: Vec&lt;i32&gt; = vec![1, 2, 3];
+
+let v2: Vec&lt;_&gt; = v1.iter().map(|x| x + 1).collect();
+
+assert_eq!(v2, vec![2, 3, 4]);
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-18: Calling the `map` method to create a new
+iterator and then calling the `collect` method to consume the new iterator and
+create a vector</span>
+-->
+<p><span class="caption">リスト13-18: <code>map</code>メソッドを呼び出して新規イテレータを作成し、
+それから<code>collect</code>メソッドを呼び出してその新規イテレータを消費し、ベクタを生成する</span></p>
+<!--
+Because `map` takes a closure, we can specify any operation we want to perform
+on each item. This is a great example of how closures let us customize some
+behavior while reusing the iteration behavior that the `Iterator` trait
+provides.
+-->
+<p><code>map</code>はクロージャを取るので、各要素に対して行いたいどんな処理も指定することができます。
+これは、<code>Iterator</code>トレイトが提供する繰り返し動作を再利用しつつ、
+クロージャにより一部の動作をカスタマイズできる好例になっています。</p>
+<!--
+### Using Closures that Capture Their Environment
+-->
+<h3><a class="header" href="#環境をキャプチャするクロージャを使用する" id="環境をキャプチャするクロージャを使用する">環境をキャプチャするクロージャを使用する</a></h3>
+<!--
+Now that we’ve introduced iterators, we can demonstrate a common use of
+closures that capture their environment by using the `filter` iterator adaptor.
+The `filter` method on an iterator takes a closure that takes each item from
+the iterator and returns a Boolean. If the closure returns `true`, the value
+will be included in the iterator produced by `filter`. If the closure returns
+`false`, the value won’t be included in the resulting iterator.
+-->
+<p>イテレータが出てきたので、<code>filter</code>イテレータアダプタを使って環境をキャプチャするクロージャの一般的な使用をデモすることができます。
+イテレータの<code>filter</code>メソッドは、イテレータの各要素を取り、論理値を返すクロージャを取ります。
+このクロージャが<code>true</code>を返せば、<code>filter</code>が生成するイテレータにその値が含まれます。クロージャが<code>false</code>を返したら、
+結果のイテレータにその値は含まれません。</p>
+<!--
+In Listing 13-19 we use `filter` with a closure that captures the `shoe_size`
+variable from its environment to iterate over a collection of `Shoe` struct
+instances. It will return only shoes that are the specified size.
+-->
+<p>リスト13-19では、環境から<code>shoe_size</code>変数をキャプチャするクロージャで<code>filter</code>を使って、
+<code>Shoe</code>構造体インスタンスのコレクションを繰り返しています。指定したサイズの靴だけを返すわけです。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>#[derive(PartialEq, Debug)]
+struct Shoe {
+    size: u32,
+    style: String,
+}
+
+fn shoes_in_my_size(shoes: Vec&lt;Shoe&gt;, shoe_size: u32) -&gt; Vec&lt;Shoe&gt; {
+    shoes.into_iter()
+        .filter(|s| s.size == shoe_size)
+        .collect()
+}
+
+#[test]
+fn filters_by_size() {
+    let shoes = vec![
+        Shoe { size: 10, style: String::from(&quot;sneaker&quot;) },
+        Shoe { size: 13, style: String::from(&quot;sandal&quot;) },
+        Shoe { size: 10, style: String::from(&quot;boot&quot;) },
+    ];
+
+    let in_my_size = shoes_in_my_size(shoes, 10);
+
+    assert_eq!(
+        in_my_size,
+        vec![
+            Shoe { size: 10, style: String::from(&quot;sneaker&quot;) },
+            Shoe { size: 10, style: String::from(&quot;boot&quot;) },
+        ]
+    );
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-19: Using the `filter` method with a closure
+that captures `shoe_size`</span>
+-->
+<p><span class="caption">リスト13-19: <code>shoe_size</code>をキャプチャするクロージャで<code>filter</code>メソッドを使用する</span></p>
+<!--
+The `shoes_in_my_size` function takes ownership of a vector of shoes and a shoe
+size as parameters. It returns a vector containing only shoes of the specified
+size.
+-->
+<p><code>shoes_in_my_size</code>関数は、引数として靴のベクタとサイズの所有権を奪います。指定されたサイズの靴だけを含むベクタを返します。</p>
+<!--
+In the body of `shoes_in_my_size`, we call `into_iter` to create an iterator
+that takes ownership of the vector. Then we call `filter` to adapt that
+iterator into a new iterator that only contains elements for which the closure
+returns `true`.
+-->
+<p><code>shoes_in_my_size</code>の本体で、<code>into_iter</code>を呼び出してベクタの所有権を奪うイテレータを作成しています。
+そして、<code>filter</code>を呼び出してそのイテレータをクロージャが<code>true</code>を返した要素だけを含む新しいイテレータに適合させます。</p>
+<!--
+The closure captures the `shoe_size` parameter from the environment and
+compares the value with each shoe’s size, keeping only shoes of the size
+specified. Finally, calling `collect` gathers the values returned by the
+adapted iterator into a vector that’s returned by the function.
+-->
+<p>クロージャは、環境から<code>shoe_size</code>引数をキャプチャし、指定されたサイズの靴だけを保持しながら、
+その値を各靴のサイズと比較します。最後に、<code>collect</code>を呼び出すと、
+関数により返ってきたベクタに適合させたイテレータから返ってきた値が集まるのです。</p>
+<!--
+The test shows that when we call `shoes_in_my_size`, we get back only shoes
+that have the same size as the value we specified.
+-->
+<p><code>shoes_in_my_size</code>を呼び出した時に、指定した値と同じサイズの靴だけが得られることをテストは示しています。</p>
+<!--
+### Creating Our Own Iterators with `Iterator` Trait
+-->
+<h3><a class="header" href="#iteratorトレイトで独自のイテレータを作成する" id="iteratorトレイトで独自のイテレータを作成する"><code>Iterator</code>トレイトで独自のイテレータを作成する</a></h3>
+<!--
+We’ve shown that you can create an iterator by calling `iter`, `into_iter`, or
+`iter_mut` on a vector. You can create iterators from the other collection
+types in the standard library, such as hash map. You can also create iterators
+that do anything you want by implementing the `Iterator` trait on your own
+types. As previously mentioned, the only method you’re required to provide a
+definition for is the `next` method. Once you’ve done that, you can use all
+other methods that have default implementations provided by the `Iterator`
+trait!
+-->
+<p>ベクタに対し、<code>iter</code>、<code>into_iter</code>、<code>iter_mut</code>を呼び出すことでイテレータを作成できることを示してきました。
+ハッシュマップなどの標準ライブラリの他のコレクション型からもイテレータを作成できます。
+<code>Iterator</code>トレイトを自分で実装することで、したいことを何でもするイテレータを作成することもできます。
+前述の通り、定義を提供する必要のある唯一のメソッドは、<code>next</code>メソッドなのです。一旦、そうしてしまえば、
+<code>Iterator</code>トレイトが用意しているデフォルト実装のある他の全てのメソッドを使うことができるのです！</p>
+<!--
+To demonstrate, let’s create an iterator that will only ever count from 1 to 5.
+First, we’ll create a struct to hold some values. Then we’ll make this struct
+into an iterator by implementing the `Iterator` trait and use the values in
+that implementation.
+-->
+<p>デモ用に、絶対に1から5をカウントするだけのイテレータを作成しましょう。まず、値を保持する構造体を生成し、
+<code>Iterator</code>トレイトを実装することでこの構造体をイテレータにし、その実装内の値を使用します。</p>
+<!--
+Listing 13-20 has the definition of the `Counter` struct and an associated
+`new` function to create instances of `Counter`:
+-->
+<p>リスト13-20は、<code>Counter</code>構造体と<code>Counter</code>のインスタンスを作る<code>new</code>関連関数の定義です:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>struct Counter {
+    count: u32,
+}
+
+impl Counter {
+    fn new() -&gt; Counter {
+        Counter { count: 0 }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-20: Defining the `Counter` struct and a `new`
+function that creates instances of `Counter` with an initial value of 0 for
+`count`</span>
+-->
+<p><span class="caption">リスト13-20: <code>Counter</code>構造体と<code>count</code>に対して0という初期値で<code>Counter</code>のインスタンスを作る<code>new</code>関数を定義する</span></p>
+<!--
+The `Counter` struct has one field named `count`. This field holds a `u32`
+value that will keep track of where we are in the process of iterating from 1
+to 5. The `count` field is private because we want the implementation of
+`Counter` to manage its value. The `new` function enforces the behavior of
+always starting new instances with a value of 0 in the `count` field.
+-->
+<p><code>Counter</code>構造体には、<code>count</code>というフィールドがあります。このフィールドは、
+1から5までの繰り返しのどこにいるかを追いかける<code>u32</code>値を保持しています。<code>Counter</code>の実装にその値を管理してほしいので、
+<code>count</code>フィールドは非公開です。<code>count</code>フィールドは常に0という値から新規インスタンスを開始するという動作を<code>new</code>関数は強要します。</p>
+<!--
+Next, we’ll implement the `Iterator` trait for our `Counter` type by defining
+the body of the `next` method to specify what we want to happen when this
+iterator is used, as shown in Listing 13-21:
+-->
+<p>次に、<code>next</code>メソッドの本体をこのイテレータが使用された際に起きてほしいことを指定するように定義して、
+<code>Counter</code>型に対して<code>Iterator</code>トレイトを実装します。リスト13-21のようにですね:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Counter {
+</span><span class="boring">    count: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Iterator for Counter {
+    type Item = u32;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        self.count += 1;
+
+        if self.count &lt; 6 {
+            Some(self.count)
+        } else {
+            None
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-21: Implementing the `Iterator` trait on our
+`Counter` struct</span>
+-->
+<p><span class="caption">リスト13-21: <code>Counter</code>構造体に<code>Iterator</code>トレイトを実装する</span></p>
+<!--
+We set the associated `Item` type for our iterator to `u32`, meaning the
+iterator will return `u32` values. Again, don’t worry about associated types
+yet, we’ll cover them in Chapter 19.
+-->
+<p>イテレータの<code>Item</code>関連型を<code>u32</code>に設定しました。つまり、イテレータは、<code>u32</code>の値を返します。
+ここでも、まだ関連型について心配しないでください。第19章で講義します。</p>
+<!--
+We want our iterator to add 1 to the current state, so we initialized `count`
+to 0 so it would return 1 first. If the value of `count` is less than 6, `next`
+will return the current value wrapped in `Some`, but if `count` is 6 or higher,
+our iterator will return `None`.
+-->
+<p>イテレータに現在の状態に1を足してほしいので、まず1を返すように<code>count</code>を0に初期化しました。
+<code>count</code>の値が5以下なら、<code>next</code>は<code>Some</code>に包まれた現在の値を返しますが、
+<code>count</code>が6以上なら、イテレータは<code>None</code>を返します。</p>
+<!--
+#### Using Our `Counter` Iterator’s `next` Method
+-->
+<h4><a class="header" href="#counterイテレータのnextメソッドを使用する" id="counterイテレータのnextメソッドを使用する"><code>Counter</code>イテレータの<code>next</code>メソッドを使用する</a></h4>
+<!--
+Once we’ve implemented the `Iterator` trait, we have an iterator! Listing 13-22
+shows a test demonstrating that we can use the iterator functionality of our
+`Counter` struct by calling the `next` method on it directly, just as we did
+with the iterator created from a vector in Listing 13-15.
+-->
+<p>一旦<code>Iterator</code>トレイトを実装し終わったら、イテレータの出来上がりです！リスト13-22は、
+リスト13-15のベクタから生成したイテレータと全く同様に、直接<code>next</code>メソッドを呼び出すことで、
+<code>Counter</code>構造体のイテレータ機能を使用できることをデモするテストを示しています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Counter {
+</span><span class="boring">    count: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Iterator for Counter {
+</span><span class="boring">    type Item = u32;
+</span><span class="boring">
+</span><span class="boring">    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+</span><span class="boring">        self.count += 1;
+</span><span class="boring">
+</span><span class="boring">        if self.count &lt; 6 {
+</span><span class="boring">            Some(self.count)
+</span><span class="boring">        } else {
+</span><span class="boring">            None
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[test]
+fn calling_next_directly() {
+    let mut counter = Counter::new();
+
+    assert_eq!(counter.next(), Some(1));
+    assert_eq!(counter.next(), Some(2));
+    assert_eq!(counter.next(), Some(3));
+    assert_eq!(counter.next(), Some(4));
+    assert_eq!(counter.next(), Some(5));
+    assert_eq!(counter.next(), None);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-22: Testing the functionality of the `next`
+method implementation</span>
+-->
+<p><span class="caption">リスト13-22: <code>next</code>メソッド実装の機能をテストする</span></p>
+<!--
+This test creates a new `Counter` instance in the `counter` variable and then
+calls `next` repeatedly, verifying that we have implemented the behavior we
+want this iterator to have: returning the values from 1 to 5.
+-->
+<p>このテストは、<code>counter</code>変数に新しい<code>Counter</code>インスタンスを生成し、
+それからイテレータにほしい動作が実装し終わっていることを実証しながら、<code>next</code>を繰り返し呼び出しています:
+1から5の値を返すことです。</p>
+<!--
+#### Using Other `Iterator` Trait Methods
+-->
+<h4><a class="header" href="#他のiteratorトレイトメソッドを使用する" id="他のiteratorトレイトメソッドを使用する">他の<code>Iterator</code>トレイトメソッドを使用する</a></h4>
+<!--
+We implemented the `Iterator` trait by defining the `next` method, so we
+can now use any `Iterator` trait method’s default implementations as defined in
+the standard library, because they all use the `next` method’s functionality.
+-->
+<p><code>next</code>メソッドを定義して<code>Iterator</code>トレイトを実装したので、今では、標準ライブラリで定義されているように、
+どんな<code>Iterator</code>トレイトメソッドのデフォルト実装も使えるようになりました。全て<code>next</code>メソッドの機能を使っているからです。</p>
+<!--
+For example, if for some reason we wanted to take the values produced by an
+instance of `Counter`, pair them with values produced by another `Counter`
+instance after skipping the first value, multiply each pair together, keep only
+those results that are divisible by 3, and add all the resulting values
+together, we could do so, as shown in the test in Listing 13-23:
+-->
+<p>例えば、何らかの理由で、<code>Counter</code>インスタンスが生成する値を取り、最初の値を飛ばしてから、
+別の<code>Counter</code>インスタンスが生成する値と一組にし、各ペアを掛け算し、3で割り切れる結果だけを残し、
+全結果の値を足し合わせたくなったら、リスト13-23のテストに示したように、そうすることができます:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<!--
+check to seeは畳語だが、いい訳はあるだろうか
+-->
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct Counter {
+</span><span class="boring">    count: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Counter {
+</span><span class="boring">    fn new() -&gt; Counter {
+</span><span class="boring">        Counter { count: 0 }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Iterator for Counter {
+</span><span class="boring">    // このイテレータはu32を生成します
+</span><span class="boring">    // Our iterator will produce u32s
+</span><span class="boring">    type Item = u32;
+</span><span class="boring">
+</span><span class="boring">    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+</span><span class="boring">        // カウントをインクリメントする。故に0から始まる
+</span><span class="boring">        // increment our count. This is why we started at zero.
+</span><span class="boring">        self.count += 1;
+</span><span class="boring">
+</span><span class="boring">        // カウントが終わったかどうか確認する
+</span><span class="boring">        // check to see if we've finished counting or not.
+</span><span class="boring">        if self.count &lt; 6 {
+</span><span class="boring">            Some(self.count)
+</span><span class="boring">        } else {
+</span><span class="boring">            None
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>#[test]
+fn using_other_iterator_trait_methods() {
+    let sum: u32 = Counter::new().zip(Counter::new().skip(1))
+                                 .map(|(a, b)| a * b)
+                                 .filter(|x| x % 3 == 0)
+                                 .sum();
+    assert_eq!(18, sum);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 13-23: Using a variety of `Iterator` trait
+methods on our `Counter` iterator</span>
+-->
+<p><span class="caption">リスト13-23: <code>Counter</code>イテレータに対していろんな<code>Iterator</code>トレイトのメソッドを使用する</span></p>
+<!--
+Note that `zip` produces only four pairs; the theoretical fifth pair `(5,
+None)` is never produced because `zip` returns `None` when either of its input
+iterators return `None`.
+-->
+<p><code>zip</code>は4組しか生成しないことに注意してください; 理論的な5番目の組の<code>(5, None)</code>は、
+入力イテレータのどちらかが<code>None</code>を返したら、<code>zip</code>は<code>None</code>を返却するため、決して生成されることはありません。</p>
+<!--
+All of these method calls are possible because we specified how the `next`
+method works, and the standard library provides default implementations for
+other methods that call `next`.
+-->
+<p><code>next</code>メソッドの動作方法を指定し、標準ライブラリが<code>next</code>を呼び出す他のメソッドにデフォルト実装を提供しているので、
+これらのメソッド呼び出しは全て可能です。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch13-01-closures.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch13-03-improving-our-io-project.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch13-01-closures.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch13-03-improving-our-io-project.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

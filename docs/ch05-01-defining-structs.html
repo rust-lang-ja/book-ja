@@ -1,0 +1,699 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Defining and Instantiating Structs - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html" class="active"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Defining and Instantiating Structs
+-->
+<h2><a class="header" href="#構造体を定義しインスタンス化する" id="構造体を定義しインスタンス化する">構造体を定義し、インスタンス化する</a></h2>
+<!--
+Structs are similar to tuples, which were discussed in Chapter 3. Like tuples,
+the pieces of a struct can be different types. Unlike with tuples, you'll name
+each piece of data so it’s clear what the values mean. As a result of these
+names, structs are more flexible than tuples: we don’t have to rely on the
+order of the data to specify or access the values of an instance.
+-->
+<p>構造体は第3章で議論したタプルと似ています。タプル同様、構造体の一部を異なる型にできます。
+一方タプルとは違って、各データ片には名前をつけるので、値の意味が明確になります。
+この名前のおかげで、構造体はタプルに比して、より柔軟になるわけです: データの順番に頼って、
+インスタンスの値を指定したり、アクセスしたりする必要がないのです。</p>
+<!--
+To define a struct, we enter the keyword `struct` and name the entire struct. A
+struct’s name should describe the significance of the pieces of data being
+grouped together. Then, inside curly brackets, we define the names and types of
+the pieces of data, which we call *fields*. For example, Listing 5-1 shows a
+struct that stores information about a user account.
+-->
+<p>構造体の定義は、<code>struct</code>キーワードを入れ、構造体全体に名前を付けます。構造体名は、
+一つにグループ化されるデータ片の意義を表すものであるべきです。そして、波かっこ内に、
+データ片の名前と型を定義し、これは<em>フィールド</em>と呼ばれます。例えば、リスト5-1では、
+ユーザアカウントに関する情報を保持する構造体を示しています。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>struct User {
+    username: String,
+    email: String,
+    sign_in_count: u64,
+    active: bool,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 5-1: A `User` struct definition</span>
+-->
+<p><span class="caption">リスト5-1: <code>User</code>構造体定義</span></p>
+<!--
+To use a struct after we’ve defined it, we create an *instance* of that struct
+by specifying concrete values for each of the fields. We create an instance by
+stating the name of the struct, and then add curly brackets containing `key:
+value` pairs, where the keys are the names of the fields and the values are the
+data we want to store in those fields. We don’t have to specify the fields in
+the same order in which we declared them in the struct. In other words, the
+struct definition is like a general template for the type, and instances fill
+in that template with particular data to create values of the type. For
+example, we can declare a particular user as shown in Listing 5-2.
+-->
+<p>構造体を定義した後に使用するには、各フィールドに対して具体的な値を指定して構造体の<em>インスタンス</em>を生成します。
+インスタンスは、構造体名を記述し、<code>key: value</code>ペアを含む波かっこを付け加えることで生成します。
+ここで、キーはフィールド名、値はそのフィールドに格納したいデータになります。フィールドは、
+構造体で宣言した通りの順番に指定する必要はありません。換言すると、構造体定義とは、
+型に対する一般的な雛形のようなものであり、インスタンスは、その雛形を特定のデータで埋め、その型の値を生成するわけです。
+例えば、リスト5-2で示されたように特定のユーザを宣言することができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct User {
+</span><span class="boring">    username: String,
+</span><span class="boring">    email: String,
+</span><span class="boring">    sign_in_count: u64,
+</span><span class="boring">    active: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span>let user1 = User {
+    email: String::from(&quot;someone@example.com&quot;),
+    username: String::from(&quot;someusername123&quot;),
+    active: true,
+    sign_in_count: 1,
+};
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 5-2: Creating an instance of the `User`
+struct</span>
+-->
+<p><span class="caption">リスト5-2: <code>User</code>構造体のインスタンスを生成する</span></p>
+<!--
+To get a specific value from a struct, we can use dot notation. If we wanted
+just this user’s email address, we can use `user1.email` wherever we wanted
+to use this value. If the instance is mutable, we can change a value by using
+the dot notation and assigning into a particular field. Listing 5-3 shows how
+to change the value in the `email` field of a mutable `User` instance.
+-->
+<p>構造体から特定の値を得るには、ドット記法が使えます。このユーザのEメールアドレスだけが欲しいなら、
+この値を使いたかった場所全部で<code>user1.email</code>が使えます。インスタンスが可変であれば、
+ドット記法を使い特定のフィールドに代入することで値を変更できます。リスト5-3では、
+可変な<code>User</code>インスタンスの<code>email</code>フィールド値を変更する方法を示しています。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct User {
+</span><span class="boring">    username: String,
+</span><span class="boring">    email: String,
+</span><span class="boring">    sign_in_count: u64,
+</span><span class="boring">    active: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span>let mut user1 = User {
+    email: String::from(&quot;someone@example.com&quot;),
+    username: String::from(&quot;someusername123&quot;),
+    active: true,
+    sign_in_count: 1,
+};
+
+user1.email = String::from(&quot;anotheremail@example.com&quot;);
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 5-3: Changing the value in the `email` field of a
+`User` instance</span>
+-->
+<p><span class="caption">リスト5-3: ある<code>User</code>インスタンスの<code>email</code>フィールド値を変更する</span></p>
+<!--
+Note that the entire instance must be mutable; Rust doesn’t allow us to mark
+only certain fields as mutable. As with any expression, we can construct a new
+instance of the struct as the last expression in the function body to
+implicitly return that new instance.
+-->
+<p>インスタンス全体が可変でなければならないことに注意してください; Rustでは、一部のフィールドのみを可変にすることはできないのです。
+また、あらゆる式同様、構造体の新規インスタンスを関数本体の最後の式として生成して、
+そのインスタンスを返すことを暗示できます。</p>
+<!--
+Listing 5-4 shows a `build_user` function that returns a `User` instance with
+the given email and username. The `active` field gets the value of `true`, and
+the `sign_in_count` gets a value of `1`.
+-->
+<p>リスト5-4は、与えられたemailとusernameで<code>User</code>インスタンスを生成する<code>build_user</code>関数を示しています。
+<code>active</code>フィールドには<code>true</code>値が入り、<code>sign_in_count</code>には値<code>1</code>が入ります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct User {
+</span><span class="boring">    username: String,
+</span><span class="boring">    email: String,
+</span><span class="boring">    sign_in_count: u64,
+</span><span class="boring">    active: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn build_user(email: String, username: String) -&gt; User {
+    User {
+        email: email,
+        username: username,
+        active: true,
+        sign_in_count: 1,
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 5-4: A `build_user` function that takes an email
+and username and returns a `User` instance</span>
+-->
+<p><span class="caption">リスト5-4: Eメールとユーザ名を取り、<code>User</code>インスタンスを返す<code>build_user</code>関数</span></p>
+<!--
+It makes sense to name the function parameters with the same name as the struct
+fields, but having to repeat the `email` and `username` field names and
+variables is a bit tedious. If the struct had more fields, repeating each name
+would get even more annoying. Luckily, there's a convenient shorthand!
+-->
+<p>構造体のフィールドと同じ名前を関数の引数にもつけることは筋が通っていますが、
+<code>email</code>と<code>username</code>というフィールド名と変数を繰り返さなきゃいけないのは、ちょっと面倒です。
+構造体にもっとフィールドがあれば、名前を繰り返すことはさらに煩わしくなるでしょう。
+幸運なことに、便利な省略記法があります！</p>
+<!--
+### Using the Field Init Shorthand when Variables and Fields Have the Same Name
+-->
+<h3><a class="header" href="#フィールドと変数が同名の時にフィールド初期化省略記法を使う" id="フィールドと変数が同名の時にフィールド初期化省略記法を使う">フィールドと変数が同名の時にフィールド初期化省略記法を使う</a></h3>
+<!--
+Because the parameter names and the struct field names are exactly the same in
+Listing 5-4, we can use the *field init shorthand* syntax to rewrite
+`build_user` so that it behaves exactly the same but doesn’t have the
+repetition of `email` and `username`, as shown in Listing 5-5.
+-->
+<p>仮引数名と構造体のフィールド名がリスト5-4では、全く一緒なので、<em>フィールド初期化省略</em>記法を使って<code>build_user</code>を書き換えても、
+振る舞いは全く同じにしつつ、リスト5-5に示したように<code>email</code>と<code>username</code>を繰り返さなくてもよくなります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct User {
+</span><span class="boring">    username: String,
+</span><span class="boring">    email: String,
+</span><span class="boring">    sign_in_count: u64,
+</span><span class="boring">    active: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn build_user(email: String, username: String) -&gt; User {
+    User {
+        email,
+        username,
+        active: true,
+        sign_in_count: 1,
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 5-5: A `build_user` function that uses field init
+shorthand because the `email` and `username` parameters have the same name as
+struct fields</span>
+-->
+<p><span class="caption">リスト5-5: <code>email</code>と<code>username</code>引数が構造体のフィールドと同名なので、
+フィールド初期化省略法を使用する<code>build_user</code>関数</span></p>
+<!--
+Here, we’re creating a new instance of the `User` struct, which has a field
+named `email`. We want to set the `email` field’s value to the value in the
+`email` parameter of the `build_user` function. Because the `email` field and
+the `email` parameter have the same name, we only need to write `email` rather
+than `email: email`.
+-->
+<p>ここで、<code>email</code>というフィールドを持つ<code>User</code>構造体の新規インスタンスを生成しています。
+<code>email</code>フィールドを<code>build_user</code>関数の<code>email</code>引数の値にセットしたいわけです。
+<code>email</code>フィールドと<code>email</code>引数は同じ名前なので、<code>email: email</code>と書くのではなく、
+<code>email</code>と書くだけで済むのです。</p>
+<!--
+### Creating Instances From Other Instances With Struct Update Syntax
+-->
+<h3><a class="header" href="#構造体更新記法で他のインスタンスからインスタンスを生成する" id="構造体更新記法で他のインスタンスからインスタンスを生成する">構造体更新記法で他のインスタンスからインスタンスを生成する</a></h3>
+<!--
+It’s often useful to create a new instance of a struct that uses most of an old
+instance’s values, but changes some. You'll do this using *struct update syntax*.
+-->
+<p>多くは前のインスタンスの値を使用しつつ、変更する箇所もある形で新しいインスタンスを生成できるとしばしば有用です。
+<em>構造体更新記法</em>でそうすることができます。</p>
+<!--
+First, Listing 5-6 shows how we create a new `User` instance in `user2` without
+the update syntax. We set new values for `email` and `username`, but otherwise
+use the same values from `user1` that we created in Listing 5-2.
+-->
+<p>まず、リスト5-6では、更新記法なしで<code>user2</code>に新しい<code>User</code>インスタンスを生成する方法を示しています。
+<code>email</code>と<code>username</code>には新しい値をセットしていますが、それ以外にはリスト5-2で生成した<code>user1</code>の値を使用しています。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct User {
+</span><span class="boring">    username: String,
+</span><span class="boring">    email: String,
+</span><span class="boring">    sign_in_count: u64,
+</span><span class="boring">    active: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">let user1 = User {
+</span><span class="boring">    email: String::from(&quot;someone@example.com&quot;),
+</span><span class="boring">    username: String::from(&quot;someusername123&quot;),
+</span><span class="boring">    active: true,
+</span><span class="boring">    sign_in_count: 1,
+</span><span class="boring">};
+</span><span class="boring">
+</span>let user2 = User {
+    email: String::from(&quot;another@example.com&quot;),
+    username: String::from(&quot;anotherusername567&quot;),
+    active: user1.active,
+    sign_in_count: user1.sign_in_count,
+};
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 5-6: Creating a new `User` instance using some of
+the values from `user1`</span>
+-->
+<p><span class="caption">リスト5-6: <code>user1</code>の一部の値を使用しつつ、新しい<code>User</code>インスタンスを生成する</span></p>
+<!--
+Using struct update syntax, we can achieve the same effect with less code,
+shown in Listing 5-7. The syntax `..` specifies that the remaining fields not
+explicitly set should have the same value as the fields in the given instance.
+-->
+<p>構造体更新記法を使用すると、リスト5-7に示したように、コード量を減らしつつ、同じ効果を達成できます。<code>..</code>という記法により、
+明示的にセットされていない残りのフィールドが、与えられたインスタンスのフィールドと同じ値になるように指定します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct User {
+</span><span class="boring">    username: String,
+</span><span class="boring">    email: String,
+</span><span class="boring">    sign_in_count: u64,
+</span><span class="boring">    active: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">let user1 = User {
+</span><span class="boring">    email: String::from(&quot;someone@example.com&quot;),
+</span><span class="boring">    username: String::from(&quot;someusername123&quot;),
+</span><span class="boring">    active: true,
+</span><span class="boring">    sign_in_count: 1,
+</span><span class="boring">};
+</span><span class="boring">
+</span>let user2 = User {
+    email: String::from(&quot;another@example.com&quot;),
+    username: String::from(&quot;anotherusername567&quot;),
+    ..user1
+};
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 5-7: Using struct update syntax to set new
+`email` and `username` values for a `User` instance but use the rest of the
+values from the fields of the instance in the `user1` variable</span>
+-->
+<p><span class="caption">リスト5-7: 構造体更新記法を使用して、新しい<code>User</code>インスタンス用の値に新しい<code>email</code>と<code>username</code>をセットしつつ、
+残りの値は、<code>user1</code>変数のフィールド値を使う</span></p>
+<!--
+The code in Listing 5-7 also creates an instance in `user2` that has a
+different value for `email` and `username` but has the same values for the
+`active` and `sign_in_count` fields from `user1`.
+-->
+<p>リスト5-7のコードも、<code>email</code>と<code>username</code>については異なる値、<code>active</code>と<code>sign_in_count</code>フィールドについては、
+<code>user1</code>と同じ値になるインスタンスを<code>user2</code>に生成します。</p>
+<!--
+### Using Tuple Structs without Named Fields to Create Different Types
+-->
+<h3><a class="header" href="#異なる型を生成する名前付きフィールドのないタプル構造体を使用する" id="異なる型を生成する名前付きフィールドのないタプル構造体を使用する">異なる型を生成する名前付きフィールドのないタプル構造体を使用する</a></h3>
+<!--
+We can also define structs that look similar to tuples, called *tuple
+structs*. Tuple structs have the added meaning the struct name provides but
+don’t have names associated with their fields; rather, they just have the types
+of the fields. Tuple structs are useful when you want to give the whole tuple a
+name and make the tuple be a different type than other tuples, and naming each
+field as in a regular struct would be verbose or redundant.
+-->
+<p>構造体名により追加の意味を含むものの、フィールドに紐づけられた名前がなく、むしろフィールドの型だけの<em>タプル構造体</em>と呼ばれる、
+タプルに似た構造体を定義することもできます。タプル構造体は、構造体名が提供する追加の意味は含むものの、
+フィールドに紐付けられた名前はありません; むしろ、フィールドの型だけが存在します。タプル構造体は、タプル全体に名前をつけ、
+そのタプルを他のタプルとは異なる型にしたい場合に有用ですが、普通の構造体のように各フィールド名を与えるのは、
+冗長、または余計になるでしょう。</p>
+<!--
+To define a tuple struct, you start with the `struct` keyword and the struct name
+followed by the types in the tuple. For example, here are definitions and
+usages of two tuple structs named `Color` and `Point`:
+-->
+<p>タプル構造体を定義するには、<code>struct</code>キーワードの後に構造体名、さらにタプルに含まれる型を続けます。
+例えば、こちらは、<code>Color</code>と<code>Point</code>という2種類のタプル構造体の定義と使用法です:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+let black = Color(0, 0, 0);
+let origin = Point(0, 0, 0);
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Note that the `black` and `origin` values are different types, because they’re
+instances of different tuple structs. Each struct we define is its own type,
+even though the fields within the struct have the same types. For example, a
+function that takes a parameter of type `Color` cannot take a `Point` as an
+argument, even though both types are made up of three `i32` values. Otherwise,
+tuple struct instances behave like tuples: you destructure them into their
+individual pieces, you can use a `.` followed by the index to access an
+individual value, and so on.
+-->
+<p><code>black</code>と<code>origin</code>の値は、違う型であることに注目してください。これらは、異なるタプル構造体のインスタンスだからですね。
+定義された各構造体は、構造体内のフィールドが同じ型であっても、それ自身が独自の型になります。
+例えば、<code>Color</code>型を引数に取る関数は、<code>Point</code>を引数に取ることはできません。たとえ、両者の型が、
+3つの<code>i32</code>値からできていてもです。それ以外については、タプル構造体のインスタンスは、
+タプルと同じように振る舞います: 分配して個々の部品にしたり、<code>.</code>と添え字を使用して個々の値にアクセスするなどです。</p>
+<!--
+### Unit-Like Structs without Any Fields
+-->
+<h3><a class="header" href="#フィールドのないユニットruby様rprprtようrtrprpruby構造体" id="フィールドのないユニットruby様rprprtようrtrprpruby構造体">フィールドのないユニット<ruby>様<rp>(</rp><rt>よう</rt><rp>)</rp></ruby>構造体</a></h3>
+<!--
+We can also define structs that don’t have any fields! These are called
+*unit-like structs* because they behave similarly to `()`, the unit type.
+Unit-like structs can be useful in situations in which you need to implement a
+trait on some type but you don’t have any data that you want to store in the type
+itself. We’ll discuss traits in Chapter 10.
+-->
+<p>また、一切フィールドのない構造体を定義することもできます！これらは、<code>()</code>、ユニット型と似たような振る舞いをすることから、
+<em>ユニット様構造体</em>と呼ばれます。ユニット様構造体は、ある型にトレイトを実装するけれども、
+型自体に保持させるデータは一切ない場面に有効になります。トレイトについては第10章で議論します。</p>
+<!--
+以下のパラグラフでは、引用されてるブロックの後に、和訳を示します。こうしないと、意図通りのレイアウトにならないようです
+-->
+<!--
+### Ownership of Struct Data
+In the `User` struct definition in Listing 5-1, we used the owned `String`
+type rather than the `&str` string slice type. This is a deliberate choice
+because we want instances of this struct to own all of its data and for that
+data to be valid for as long as the entire struct is valid.
+
+It’s possible for structs to store references to data owned by something else,
+but to do so requires the use of *lifetimes*, a Rust feature that we’ll
+discuss in Chapter 10. Lifetimes ensure that the data referenced by a struct
+is valid for as long as the struct is. Let’s say you try to store a reference
+in a struct without specifying lifetimes, like this, which won't work:
+
+<span class="filename">Filename: src/main.rs</span>
+
+```rust,ignore
+struct User {
+username: &str,
+email: &str,
+sign_in_count: u64,
+active: bool,
+}
+
+fn main() {
+let user1 = User {
+email: "someone@example.com",
+username: "someusername123",
+active: true,
+sign_in_count: 1,
+};
+}
+```
+
+The compiler will complain that it needs lifetime specifiers:
+
+```text
+error[E0106]: missing lifetime specifier
+
+|
+2 |     username: &str,
+|               ^ expected lifetime parameter
+
+error[E0106]: missing lifetime specifier
+
+|
+3 |     email: &str,
+|            ^ expected lifetime parameter
+```
+
+In Chapter 10, we’ll discuss how to fix these errors so you can store
+references in structs, but for now, we’ll fix errors like these using owned
+types like `String` instead of references like `&str`.
+-->
+<blockquote>
+<h3><a class="header" href="#構造体データの所有権" id="構造体データの所有権">構造体データの所有権</a></h3>
+<p>リスト5-1の<code>User</code>構造体定義において、<code>&amp;str</code>文字列スライス型ではなく、所有権のある<code>String</code>型を使用しました。
+これは意図的な選択です。というのも、この構造体のインスタンスには全データを所有してもらう必要があり、
+このデータは、構造体全体が有効な間はずっと有効である必要があるのです。</p>
+<p>構造体に、他の何かに所有されたデータへの参照を保持させることもできますが、
+そうするには<em>ライフタイム</em>という第10章で議論するRustの機能を使用しなければなりません。
+ライフタイムのおかげで構造体に参照されたデータが、構造体自体が有効な間、ずっと有効であることを保証してくれるのです。
+ライフタイムを指定せずに構造体に参照を保持させようとしたとしましょう。以下の通りですが、これは動きません:</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">struct User {
+    username: &amp;str,
+    email: &amp;str,
+    sign_in_count: u64,
+    active: bool,
+}
+
+fn main() {
+    let user1 = User {
+        email: &quot;someone@example.com&quot;,
+        username: &quot;someusername123&quot;,
+        active: true,
+        sign_in_count: 1,
+    };
+}
+</code></pre>
+<p>コンパイラは、ライフタイム指定子が必要だと怒るでしょう:</p>
+<pre><code class="language-text">error[E0106]: missing lifetime specifier
+(エラー: ライフタイム指定子がありません)
+ --&gt;
+  | 
+2 |     username: &amp;str,
+  |               ^ expected lifetime parameter
+                   (ライフタイム引数を予期しました)
+
+error[E0106]: missing lifetime specifier
+ --&gt;
+  | 
+3 |     email: &amp;str,
+  |            ^ expected lifetime parameter
+</code></pre>
+<p>第10章で、これらのエラーを解消して構造体に参照を保持する方法について議論しますが、
+当面、今回のようなエラーは、<code>&amp;str</code>のような参照の代わりに、<code>String</code>のような所有された型を使うことで修正します。</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch05-00-structs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch05-02-example-structs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch05-00-structs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch05-02-example-structs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,1275 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>How to Write Tests - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html" class="active"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## How to Write Tests
+-->
+<h2><a class="header" href="#テストの記述法" id="テストの記述法">テストの記述法</a></h2>
+<!--
+Tests are Rust functions that verify that the non-test code is functioning in
+the expected manner. The bodies of test functions typically perform these three
+actions:
+-->
+<p>テストは、非テストコードが想定された方法で機能していることを実証するRustの関数です。
+テスト関数の本体は、典型的には以下の3つの動作を行います:</p>
+<!--
+1. Set up any needed data or state.
+2. Run the code we want to test.
+3. Assert the results are what we expect.
+-->
+<ol>
+<li>必要なデータや状態をセットアップする。</li>
+<li>テスト対象のコードを走らせる。</li>
+<li>結果が想定通りかアサーションする。</li>
+</ol>
+<!--
+Let’s look at the features Rust provides specifically for writing tests that
+take these actions, which include the `test` attribute, a few macros, and the
+`should_panic` attribute.
+-->
+<p>Rustが、特にこれらの動作を行うテストを書くために用意している機能を見ていきましょう。
+これには、<code>test</code>属性、いくつかのマクロ、<code>should_panic</code>属性が含まれます。</p>
+<!--
+### The Anatomy of a Test Function
+-->
+<h2><a class="header" href="#テスト関数の解剖" id="テスト関数の解剖">テスト関数の解剖</a></h2>
+<!--
+At its simplest, a test in Rust is a function that’s annotated with the `test`
+attribute. Attributes are metadata about pieces of Rust code; one example is
+the `derive` attribute we used with structs in Chapter 5. To change a function
+into a test function, we add `#[test]` on the line before `fn`. When we run our
+tests with the `cargo test` command, Rust builds a test runner binary that runs
+the functions annotated with the `test` attribute and reports on whether each
+test function passes or fails.
+-->
+<p>最も単純には、Rustにおけるテストは<code>test</code>属性で注釈された関数のことです。属性とは、
+Rustコードの欠片に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した<code>derive</code>属性です。
+関数をテスト関数に変えるには、<code>fn</code>の前に<code>#[test]</code>を付け加えるのです。
+<code>cargo test</code>コマンドでテストを実行したら、コンパイラは<code>test</code>属性で注釈された関数を走らせるテスト用バイナリをビルドし、
+各テスト関数が通過したか失敗したかを報告します。</p>
+<!--
+In Chapter 7, we saw that when we make a new library project with Cargo, a test
+module with a test function in it is automatically generated for us. This
+module helps us start writing our tests so you don’t have to look up the
+exact structure and syntax of test functions every time you start a new
+project. You can add as many additional test functions and as many test modules
+as you want!
+-->
+<p>第7章で、Cargoで新規ライブラリプロジェクトを作成した時に、テスト関数が含まれるテストモジュールが自動で生成されたことを見かけました。
+このモジュールのおかげでテストを書き始めることができるので、新しいプロジェクトを立ち上げる度に、
+テスト関数の正確な構造と記法を調べる必要がなくなるわけです。必要なだけ追加のテスト関数とテストモジュールは追記することができます。</p>
+<!--
+We’ll explore some aspects of how tests work by experimenting with the template
+test generated for us without actually testing any code. Then we’ll write some
+real-world tests that call some code that we’ve written and assert that its
+behavior is correct.
+-->
+<p>実際にテストすることなしにテンプレートのテストが生成されるのを実験することでテストの動作法の一部の側面を探究しましょう。
+それから、自分で書いた何らかのコードを呼び出し、振る舞いが正しいかアサーションする現実世界のテストを書きましょう。</p>
+<!--
+Let’s create a new library project called `adder`:
+-->
+<p><code>adder</code>という新しいライブラリプロジェクトを生成しましょう:</p>
+<pre><code class="language-text">$ cargo new adder --lib
+     Created library `adder` project
+$ cd adder
+</code></pre>
+<!--
+The contents of the *src/lib.rs* file in your `adder` library should look like
+Listing 11-1.
+-->
+<p><code>adder</code>ライブラリの<em>src/lib.rs</em>ファイルの中身は、リスト11-1のような見た目のはずです。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 11-1: The test module and function generated
+automatically by `cargo new`</span>
+-->
+<p><span class="caption">リスト11-1: <code>cargo new</code>で自動生成されたテストモジュールと関数</span></p>
+<!--
+For now, let’s ignore the top two lines and focus on the function to see how it
+works. Note the `#[test]` annotation before the `fn` line: this attribute
+indicates this is a test function, so the test runner knows to treat this
+function as a test. We could also have non-test functions in the `tests` module
+to help set up common scenarios or perform common operations, so we need to
+indicate which functions are tests by using the `#[test]` attribute.
+-->
+<p>とりあえず、最初の2行は無視し、関数に集中してその動作法を見ましょう。
+<code>fn</code>行の<code>#[test]</code>注釈に注目してください: この属性は、これがテスト関数であることを示唆しますので、
+テスト実行機はこの関数をテストとして扱うとわかるのです。さらに、<code>tests</code>モジュール内には非テスト関数を入れ込み、
+一般的なシナリオをセットアップしたり、共通の処理を行う手助けをしたりもできるので、
+<code>#[test]</code>属性でどの関数がテストかを示唆する必要があるのです。</p>
+<!--
+The function body uses the `assert_eq!` macro to assert that 2 + 2 equals 4.
+This assertion serves as an example of the format for a typical test. Let’s run
+it to see that this test passes.
+-->
+<p>関数本体は、<code>assert_eq!</code>マクロを使用して、2 + 2が4に等しいことをアサーションしています。
+このアサーションは、典型的なテストのフォーマット例をなしているわけです。走らせてこのテストが通ることを確かめましょう。</p>
+<!--
+The `cargo test` command runs all tests in our project, as shown in Listing
+11-2.
+-->
+<p><code>cargo test</code>コマンドでプロジェクトにあるテストが全て実行されます。リスト11-2に示したようにですね。</p>
+<pre><code class="language-text">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.22 secs
+     Running target/debug/deps/adder-ce99bcc2479f4607
+
+running 1 test
+test tests::it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+<span class="caption">Listing 11-2: The output from running the automatically
+generated test</span>
+-->
+<p><span class="caption">リスト11-2: 自動生成されたテストを走らせた出力</span></p>
+<!--
+Cargo compiled and ran the test. After the `Compiling`, `Finished`, and
+`Running` lines is the line `running 1 test`. The next line shows the name
+of the generated test function, called `it_works`, and the result of running
+that test, `ok`. The overall summary of running the tests appears next. The
+text `test result: ok.` means that all the tests passed, and the portion that
+reads `1 passed; 0 failed` totals the number of tests that passed or failed.
+-->
+<p>Cargoがテストをコンパイルし、走らせました。<code>Compiling</code>, <code>Finished</code>, <code>Running</code>の行の後に<code>running 1 test</code>の行があります。
+次行が、生成されたテスト関数の<code>it_works</code>という名前とこのテストの実行結果、<code>ok</code>を示しています。
+テスト実行の総合的なまとめが次に出現します。<code>test result:ok.</code>というテキストは、
+全テストが通ったことを意味し、<code>1 passed; 0 failed</code>と読める部分は、通過または失敗したテストの数を合計しているのです。</p>
+<!--
+Because we don’t have any tests we’ve marked as ignored, the summary shows `0
+ignored`. We also haven’t filtered the tests being run, so the end of the
+summary shows `0 filtered out`. We’ll talk about ignoring and filtering out
+tests in the next section, “Controlling How Tests Are Run.”
+-->
+<p>無視すると指定したテストは何もなかったため、まとめは<code>0 ignored</code>と示しています。
+また、実行するテストにフィルタをかけもしなかったので、まとめの最後に<code>0 filtered out</code>と表示されています。
+テストを無視することとフィルタすることに関しては次の節、「テストの実行され方を制御する」で語ります。</p>
+<!--
+The `0 measured` statistic is for benchmark tests that measure performance.
+Benchmark tests are, as of this writing, only available in nightly Rust. See
+[the documentation about benchmark tests][bench] to learn more.
+-->
+<p><code>0 measured</code>という統計は、パフォーマンスを測定するベンチマークテスト用です。
+ベンチマークテストは、本書記述の時点では、ナイトリ版のRustでのみ利用可能です。
+詳しくは、<a href="../../unstable-book/library-features/test.html">ベンチマークテストのドキュメンテーション</a>を参照されたし。</p>
+<!--
+The next part of the test output, which starts with `Doc-tests adder`, is for
+the results of any documentation tests. We don’t have any documentation tests
+yet, but Rust can compile any code examples that appear in our API
+documentation. This feature helps us keep our docs and our code in sync! We’ll
+discuss how to write documentation tests in the “Documentation Comments As
+Tests” section of Chapter 14. For now, we’ll ignore the `Doc-tests` output.
+-->
+<p>テスト出力の次の部分、つまり<code>Doc-tests adder</code>で始まる部分は、ドキュメンテーションテストの結果用のものです。
+まだドキュメンテーションテストは何もないものの、コンパイラは、APIドキュメントに現れたどんなコード例もコンパイルできます。
+この機能により、ドキュメントとコードを同期することができるわけです。ドキュメンテーションテストの書き方については、
+第14章の「テストとしてのドキュメンテーションコメント」節で議論しましょう。今は、<code>Doc-tests</code>出力は無視します。</p>
+<!--
+Let’s change the name of our test to see how that changes the test output.
+Change the `it_works` function to a different name, such as `exploration`, like
+so:
+-->
+<p>テストの名前を変更してどうテスト出力が変わるか確かめましょう。<code>it_works</code>関数を違う名前、<code>exploration</code>などに変えてください。
+そう、以下のように:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn exploration() {
+        assert_eq!(2 + 2, 4);
+    }
+}
+</code></pre></pre>
+<!--
+Then run `cargo test` again. The output now shows `exploration` instead of
+`it_works`:
+-->
+<p>そして、<code>cargo test</code>を再度走らせます。これで出力が<code>it_works</code>の代わりに<code>exploration</code>と表示しています:</p>
+<pre><code class="language-text">running 1 test
+test tests::exploration ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+Let’s add another test, but this time we’ll make a test that fails! Tests fail
+when something in the test function panics. Each test is run in a new thread,
+and when the main thread sees that a test thread has died, the test is marked
+as failed. We talked about the simplest way to cause a panic in Chapter 9,
+which is to call the `panic!` macro. Enter the new test, `another`, so your
+*src/lib.rs* file looks like Listing 11-3.
+-->
+<p>別のテストを追加しますが、今回は失敗するテストにしましょう！テスト関数内の何かがパニックすると、
+テストは失敗します。各テストは、新規スレッドで実行され、メインスレッドが、テストスレッドが死んだと確認した時、
+テストは失敗と印づけられます。第9章でパニックを引き起こす最も単純な方法について語りました。
+要するに、<code>panic!</code>マクロを呼び出すことです。<em>src/lib.rs</em>ファイルがリスト11-3のような見た目になるよう、
+新しいテスト<code>another</code>を入力してください。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn exploration() {
+        assert_eq!(2 + 2, 4);
+    }
+
+    #[test]
+    fn another() {
+        //このテストを失敗させる
+        panic!(&quot;Make this test fail&quot;);
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 11-3: Adding a second test that will fail because
+we call the `panic!` macro</span>
+-->
+<p><span class="caption">リスト11-3: <code>panic!</code>マクロを呼び出したために失敗する2番目のテストを追加する</span></p>
+<!--
+Run the tests again using `cargo test`. The output should look like Listing
+11-4, which shows that our `exploration` test passed and `another` failed.
+-->
+<p><code>cargo test</code>で再度テストを走らせてください。出力はリスト11-4のようになるはずであり、
+<code>exploration</code>テストは通り、<code>another</code>は失敗したと表示されます。</p>
+<pre><code class="language-text">running 2 tests
+test tests::exploration ... ok
+test tests::another ... FAILED
+
+failures:
+
+---- tests::another stdout ----
+    thread 'tests::another' panicked at 'Make this test fail', src/lib.rs:10:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+
+failures:
+    tests::another
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+
+error: test failed
+</code></pre>
+<!--
+<span class="caption">Listing 11-4: Test results when one test passes and one
+test fails</span>
+-->
+<p><span class="caption">リスト11-4: 一つのテストが通り、一つが失敗するときのテスト結果</span></p>
+<!--
+Instead of `ok`, the line `test tests::another` shows `FAILED`. Two new
+sections appear between the individual results and the summary: the first
+section displays the detailed reason for each test failure. In this case,
+`another` failed because it `panicked at 'Make this test fail'`, which happened
+on line 10 in the *src/lib.rs* file. The next section lists just the names of
+all the failing tests, which is useful when there are lots of tests and lots of
+detailed failing test output. We can use the name of a failing test to run just
+that test to more easily debug it; we’ll talk more about ways to run tests in
+the “Controlling How Tests Are Run” section.
+-->
+<p><code>ok</code>の代わりに<code>test test::another</code>の行は、<code>FAILED</code>を表示しています。個々の結果とまとめの間に、
+2つ新たな区域ができました: 最初の区域は、失敗したテスト各々の具体的な理由を表示しています。
+今回の場合、<code>another</code>は<code>'Make this test fail'でパニックした</code>ために失敗し、
+これは、<em>src/lib.rs</em>ファイルの10行で起きました。次の区域は失敗したテストの名前だけを列挙しています。
+これは、テストがたくさんあり、失敗したテストの詳細がたくさん表示されるときに有用になります。
+失敗したテストの名前を使用してそのテストだけを実行し、より簡単にデバッグすることができます。
+テストの実行方法については、「テストの実行され方を制御する」節でもっと語りましょう。</p>
+<!--
+The summary line displays at the end: overall, our test result is `FAILED`.
+We had one test pass and one test fail.
+-->
+<p>サマリー行が最後に出力されています: 総合的に言うと、テスト結果は<code>失敗</code>でした。
+一つのテストが通り、一つが失敗したわけです。</p>
+<!--
+Now that you’ve seen what the test results look like in different scenarios,
+let’s look at some macros other than `panic!` that are useful in tests.
+-->
+<p>異なる筋書きでのテスト結果がどんな風になるか見てきたので、テストを行う際に有用になる<code>panic!</code>以外のマクロに目を向けましょう。</p>
+<!--
+### Checking Results with the `assert!` Macro
+-->
+<h3><a class="header" href="#assertマクロで結果を確認する" id="assertマクロで結果を確認する"><code>assert!</code>マクロで結果を確認する</a></h3>
+<!--
+The `assert!` macro, provided by the standard library, is useful when you want
+to ensure that some condition in a test evaluates to `true`. We give the
+`assert!` macro an argument that evaluates to a Boolean. If the value is
+`true`, `assert!` does nothing and the test passes. If the value is `false`,
+the `assert!` macro calls the `panic!` macro, which causes the test to fail.
+Using the `assert!` macro helps us check that our code is functioning in the
+way we intend.
+-->
+<p><code>assert!</code>マクロは、標準ライブラリで提供されていますが、テスト内の何らかの条件が<code>true</code>と評価されることを確かめたいときに有効です。
+<code>assert!</code>マクロには、論理値に評価される引数を与えます。その値が<code>true</code>なら、
+<code>assert!</code>は何もせず、テストは通ります。その値が<code>false</code>なら、<code>assert!</code>マクロは<code>panic!</code>マクロを呼び出し、
+テストは失敗します。<code>assert!</code>マクロを使用することで、コードが意図した通りに機能していることを確認する助けになるわけです。</p>
+<!--
+In Chapter 5, Listing 5-15, we used a `Rectangle` struct and a `can_hold`
+method, which are repeated here in Listing 11-5. Let’s put this code in the
+*src/lib.rs* file and write some tests for it using the `assert!` macro.
+-->
+<p>第5章のリスト5-15で、<code>Rectangle</code>構造体と<code>can_hold</code>メソッドを使用しました。リスト11-5でもそれを繰り返しています。
+このコードを<em>src/lib.rs</em>ファイルに放り込み、<code>assert!</code>マクロでそれ用のテストを何か書いてみましょう。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>#[derive(Debug)]
+pub struct Rectangle {
+    length: u32,
+    width: u32,
+}
+
+impl Rectangle {
+    pub fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.length &gt; other.length &amp;&amp; self.width &gt; other.width
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 11-5: Using the `Rectangle` struct and its
+`can_hold` method from Chapter 5</span>
+-->
+<p><span class="caption">リスト11-5: 第5章から<code>Rectangle</code>構造体とその<code>can_hold</code>メソッドを使用する</span></p>
+<!--
+The `can_hold` method returns a Boolean, which means it’s a perfect use case
+for the `assert!` macro. In Listing 11-6, we write a test that exercises the
+`can_hold` method by creating a `Rectangle` instance that has a length of 8 and
+a width of 7 and asserting that it can hold another `Rectangle` instance that
+has a length of 5 and a width of 1.
+-->
+<p><code>can_hold</code>メソッドは論理値を返すので、<code>assert!</code>マクロの完璧なユースケースになるわけです。
+リスト11-6で、長さが8、幅が7の<code>Rectangle</code>インスタンスを生成し、これが長さ5、
+幅1の別の<code>Rectangle</code>インスタンスを保持できるとアサーションすることで<code>can_hold</code>を用いるテストを書きます。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn larger_can_hold_smaller() {
+        let larger = Rectangle { length: 8, width: 7 };
+        let smaller = Rectangle { length: 5, width: 1 };
+
+        assert!(larger.can_hold(&amp;smaller));
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 11-6: A test for `can_hold` that checks whether a
+larger rectangle can indeed hold a smaller rectangle</span>
+-->
+<p><span class="caption">リスト11-6: より大きな四角形がより小さな四角形を確かに保持できるかを確認する<code>can_hold</code>用のテスト</span></p>
+<!--
+Note that we’ve added a new line inside the `tests` module: the `use super::*;`.
+The `tests` module is a regular module that follows the usual visibility rules
+we covered in Chapter 7 in the “Privacy Rules” section. Because the `tests`
+module is an inner module, we need to bring the code under test in the outer
+module into the scope of the inner module. We use a glob here so anything we
+define in the outer module is available to this `tests` module.
+-->
+<p><code>tests</code>モジュール内に新しい行を加えたことに注目してください: <code>use super::*</code>です。
+<code>tests</code>モジュールは、第7章の「プライバシー規則」節で講義した通常の公開ルールに従う普通のモジュールです。
+<code>tests</code>モジュールは、内部モジュールなので、外部モジュール内のテスト配下にあるコードを内部モジュールのスコープに持っていく必要があります。
+ここではglobを使用して、外部モジュールで定義したもの全てがこの<code>tests</code>モジュールでも使用可能になるようにしています。</p>
+<!--
+We’ve named our test `larger_can_hold_smaller`, and we’ve created the two
+`Rectangle` instances that we need. Then we called the `assert!` macro and
+passed it the result of calling `larger.can_hold(&smaller)`. This expression
+is supposed to return `true`, so our test should pass. Let’s find out!
+-->
+<p>テストは<code>larger_can_hold_smaller</code>と名付け、必要な<code>Rectangle</code>インスタンスを2つ生成しています。
+そして、<code>assert!</code>マクロを呼び出し、<code>larger.can_hold(&amp;smaller)</code>の呼び出し結果を渡しました。
+この式は、<code>true</code>を返すと考えられるので、テストは通るはずです。確かめましょう！</p>
+<pre><code class="language-text">running 1 test
+test tests::larger_can_hold_smaller ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+It does pass! Let’s add another test, this time asserting that a smaller
+rectangle cannot hold a larger rectangle:
+-->
+<p>通ります！別のテストを追加しましょう。今回は、小さい四角形は、より大きな四角形を保持できないことをアサーションします。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn larger_can_hold_smaller() {
+        // --snip--
+    }
+
+    #[test]
+    fn smaller_cannot_hold_larger() {
+        let larger = Rectangle { length: 8, width: 7 };
+        let smaller = Rectangle { length: 5, width: 1 };
+
+        assert!(!smaller.can_hold(&amp;larger));
+    }
+}
+</code></pre></pre>
+<!--
+Because the correct result of the `can_hold` function in this case is `false`,
+we need to negate that result before we pass it to the `assert!` macro. As a
+result, our test will pass if `can_hold` returns `false`:
+-->
+<p>今回の場合、<code>can_hold</code>関数の正しい結果は<code>false</code>なので、その結果を<code>assert!</code>マクロに渡す前に反転させる必要があります。
+結果として、<code>can_hold</code>が<code>false</code>を返せば、テストは通ります。</p>
+<pre><code class="language-text">running 2 tests
+test tests::smaller_cannot_hold_larger ... ok
+test tests::larger_can_hold_smaller ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+Two tests that pass! Now let’s see what happens to our test results when we
+introduce a bug in our code. Let’s change the implementation of the `can_hold`
+method by replacing the greater than sign with a less than sign when it
+compares the lengths:
+-->
+<p>通るテストが2つ！さて、コードにバグを導入したらテスト結果がどうなるか確認してみましょう。
+長さを比較する大なり記号を小なり記号で置き換えて<code>can_hold</code>メソッドの実装を変更しましょう:</p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">pub struct Rectangle {
+</span><span class="boring">    length: u32,
+</span><span class="boring">    width: u32,
+</span><span class="boring">}
+</span>// --snip--
+
+impl Rectangle {
+    pub fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.length &lt; other.length &amp;&amp; self.width &gt; other.width
+    }
+}
+</code></pre></pre>
+<!--
+Running the tests now produces the following:
+-->
+<p>テストを実行すると、以下のような出力をします:</p>
+<pre><code class="language-text">running 2 tests
+test tests::smaller_cannot_hold_larger ... ok
+test tests::larger_can_hold_smaller ... FAILED
+
+failures:
+
+---- tests::larger_can_hold_smaller stdout ----
+    thread 'tests::larger_can_hold_smaller' panicked at 'assertion failed:
+    larger.can_hold(&amp;smaller)', src/lib.rs:22:8
+    (スレッド'tests::larger_can_hold_smallerはsrc/lib.rs:22:8の'assertion failed: larger.can_hold(&amp;smaller)'
+    でパニックしました)
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+
+failures:
+    tests::larger_can_hold_smaller
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+Our tests caught the bug! Because `larger.length` is 8 and `smaller.length` is
+5, the comparison of the lengths in `can_hold` now returns `false`: 8 is not
+less than 5.
+-->
+<p>テストによりバグが捕捉されました！<code>larger.length</code>が8、<code>smaller.length</code>が5なので、
+<code>can_hold</code>内の長さの比較が今は<code>false</code>を返すようになったのです: 8は5より小さくないですからね。</p>
+<!--
+### Testing Equality with the `assert_eq!` and `assert_ne!` Macros
+-->
+<h3><a class="header" href="#assert_eqとassert_neマクロで等値性をテストする" id="assert_eqとassert_neマクロで等値性をテストする"><code>assert_eq!</code>と<code>assert_ne!</code>マクロで等値性をテストする</a></h3>
+<!--
+A common way to test functionality is to compare the result of the code under
+test to the value we expect the code to return to make sure they’re equal. We
+could do this using the `assert!` macro and passing it an expression using the
+`==` operator. However, this is such a common test that the standard library
+provides a pair of macros—`assert_eq!` and `assert_ne!`—to perform this test
+more conveniently. These macros compare two arguments for equality or
+inequality, respectively. They’ll also print the two values if the assertion
+fails, which makes it easier to see *why* the test failed; conversely, the
+`assert!` macro only indicates that it got a `false` value for the `==`
+expression, not the values that lead to the `false` value.
+-->
+<p>機能をテストする一般的な方法は、テスト下にあるコードの結果をコードが返すと期待される値と比較して、
+等しいと確かめることです。これを<code>assert</code>マクロを使用して<code>==</code>演算子を使用した式を渡すことで行うこともできます。
+しかしながら、これはありふれたテストなので、標準ライブラリには1組のマクロ(<code>assert_eq!</code>と<code>assert_ne!</code>)が提供され、
+このテストをより便利に行うことができます。これらのマクロはそれぞれ、二つの引数を等値性と非等値性のために比較します。
+また、アサーションが失敗したら二つの値の出力もし、テストが失敗した<em>原因</em>を確認しやすくなります。
+一方で<code>assert!</code>マクロは、<code>==</code>式の値が<code>false</code>値になったことしか示唆せず、<code>false</code>値に導いた値は出力しません。</p>
+<!--
+In Listing 11-7, we write a function named `add_two` that adds `2` to its
+parameter and returns the result. Then we test this function using the
+`assert_eq!` macro.
+-->
+<p>リスト11-7において、引数に<code>2</code>を加えて結果を返す<code>add_two</code>という名前の関数を書いています。
+そして、<code>assert_eq!</code>マクロでこの関数をテストしています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>pub fn add_two(a: i32) -&gt; i32 {
+    a + 2
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_adds_two() {
+        assert_eq!(4, add_two(2));
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 11-7: Testing the function `add_two` using the
+`assert_eq!` macro</span>
+-->
+<p><span class="caption">リスト11-7: <code>assert_eq!</code>マクロで<code>add_two</code>関数をテストする</span></p>
+<!--
+Let’s check that it passes!
+-->
+<p>テストが通ることを確認しましょう！</p>
+<pre><code class="language-text">running 1 test
+test tests::it_adds_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+The first argument we gave to the `assert_eq!` macro, `4`, is equal to the
+result of calling `add_two(2)`. The line for this test is `test
+tests::it_adds_two ... ok`, and the `ok` text indicates that our test passed!
+-->
+<p><code>assert_eq!</code>マクロに与えた第1引数の<code>4</code>は、<code>add_two(2)</code>の呼び出し結果と等しいです。
+このテストの行は<code>test tests::it_adds_two ... ok</code>であり、<code>ok</code>というテキストはテストが通ったことを示しています！</p>
+<!--
+Let’s introduce a bug into our code to see what it looks like when a test that
+uses `assert_eq!` fails. Change the implementation of the `add_two` function to
+instead add `3`:
+-->
+<p>コードにバグを仕込んで、<code>assert_eq!</code>を使ったテストが失敗した時にどんな見た目になるのか確認してみましょう。
+<code>add_two</code>関数の実装を代わりに<code>3</code>を足すように変えてください:</p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>pub fn add_two(a: i32) -&gt; i32 {
+    a + 3
+}
+</code></pre></pre>
+<!--
+Run the tests again:
+-->
+<p>テストを再度実行します:</p>
+<pre><code class="language-text">running 1 test
+test tests::it_adds_two ... FAILED
+
+failures:
+
+---- tests::it_adds_two stdout ----
+        thread 'tests::it_adds_two' panicked at 'assertion failed: `(left == right)`
+  left: `4`,
+ right: `5`', src/lib.rs:11:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+
+failures:
+    tests::it_adds_two
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+Our test caught the bug! The `it_adds_two` test failed, displaying the message
+`` assertion failed: `(left == right)` `` and showing that `left` was `4` and
+`right` was `5`. This message is useful and helps us start debugging: it means
+the `left` argument to `assert_eq!` was `4` but the `right` argument, where we
+had `add_two(2)`, was `5`.
+-->
+<p>テストがバグを捕捉しました！<code>it_adds_two</code>のテストは失敗し、<code>assertion failed: `(left == right)`</code>というメッセージを表示し、
+<code>left</code>は<code>4</code>で、<code>right</code>は<code>5</code>だったと示しています。このメッセージは有用で、デバッグを開始する助けになります:
+<code>assert_eq!</code>の<code>left</code>引数は<code>4</code>だったが、<code>add_two(2)</code>がある<code>right</code>引数は<code>5</code>だったことを意味しています。</p>
+<!--
+Note that in some languages and test frameworks, the parameters to the
+functions that assert two values are equal are called `expected` and `actual`,
+and the order in which we specify the arguments matters. However, in Rust,
+they’re called `left` and `right`, and the order in which we specify the value
+we expect and the value that the code under test produces doesn’t matter. We
+could write the assertion in this test as `assert_eq!(add_two(2), 4)`, which
+would result in a failure message that displays `` assertion failed: `(left ==
+right)` `` and that `left` was `5` and `right` was `4`.
+-->
+<p>二つの値が等しいとアサーションを行う関数の引数は、
+<code>expected</code>と<code>actual</code>と呼ばれ、引数を指定する順序が問題になる言語やテストフレームワークもあることに注意してください。
+ですがRustでは、<code>left</code>と<code>right</code>と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は、
+問題になりません。<code>assert_eq!(add_two(2), 4)</code>と今回のテストのアサーションを書くこともでき、
+そうすると失敗メッセージは、<code>assertion failed: `(left == right)`</code>となり、
+<code>left</code>が<code>5</code>で<code>right</code>が<code>4</code>と表示されるわけです。</p>
+<!--
+The `assert_ne!` macro will pass if the two values we give it are not equal and
+fail if they’re equal. This macro is most useful for cases when we’re not sure
+what a value *will* be, but we know what the value definitely *won’t* be if our
+code is functioning as we intend. For example, if we’re testing a function that
+is guaranteed to change its input in some way, but the way in which the input
+is changed depends on the day of the week that we run our tests, the best thing
+to assert might be that the output of the function is not equal to the input.
+-->
+<p><code>assert_ne!</code>マクロは、与えた2つの値が等しくなければ通り、等しければ失敗します。
+このマクロは、値が何になる<em>だろう</em>か確信が持てないけれども、コードが意図した通りに動いていれば、
+確実にこの値にはなら<em>ないだろう</em>とわかっているような場合に最も有用になります。例えば、
+入力を何らかの手段で変えることが保障されているけれども、入力が変更される方法がテストを実行する曜日に依存する関数をテストしているなら、
+アサーションすべき最善の事柄は、関数の出力が入力と等しくないことかもしれません。</p>
+<!--
+Under the surface, the `assert_eq!` and `assert_ne!` macros use the operators
+`==` and `!=`, respectively. When the assertions fail, these macros print their
+arguments using debug formatting, which means the values being compared must
+implement the `PartialEq` and `Debug` traits. All the primitive types and most
+of the standard library types implement these traits. For structs and enums
+that you define, you’ll need to implement `PartialEq` to assert that values of
+those types are equal or not equal. You’ll need to implement `Debug` to print
+out the values when the assertion fails. Because both traits are derivable traits,
+as mentioned in Listing 5-12 in Chapter 5, this is usually as straightforward
+as adding the `#[derive(PartialEq, Debug)]` annotation to your struct or enum
+definition. See Appendix C for more details about these and other derivable
+traits.
+-->
+<p>表面下では、<code>assert_eq!</code>と<code>assert_ne!</code>マクロはそれぞれ、<code>==</code>と<code>!=</code>演算子を使用しています。
+アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用して出力するので、
+比較対象の値は<code>PartialEq</code>と<code>Debug</code>トレイトを実装していなければなりません。
+組み込み型の全部と、標準ライブラリの型はほぼ全てこれらのトレイトを実装しています。
+自分で定義した構造体とenumについては、<code>PartialEq</code>を実装して、
+その型の値が等しいか等しくないかアサーションする必要があるでしょう。<code>Debug</code>を実装して、
+アサーションが失敗した時に値を出力する必要もあるでしょう。
+第5章のリスト5-12で触れたように、どちらのトレイトも導出可能なトレイトなので、
+これは通常、構造体やenum定義に<code>#[derive(PartialEq, Debug)]</code>という注釈を追加するくらい単純になります。
+これらや他の導出可能なトレイトに関する詳細については、付録Cをご覧ください。</p>
+<!--
+### Adding Custom Failure Messages
+-->
+<h3><a class="header" href="#カスタムの失敗メッセージを追加する" id="カスタムの失敗メッセージを追加する">カスタムの失敗メッセージを追加する</a></h3>
+<!--
+We can also add a custom message to be printed with the failure message as
+optional arguments to the `assert!`, `assert_eq!`, and `assert_ne!` macros. Any
+arguments specified after the one required argument to `assert!` or the two
+required arguments to `assert_eq!` and `assert_ne!` are passed along to the
+`format!` macro (discussed in Chapter 8 in the “Concatenation with the `+`
+Operator or the `format!` Macro” section), so you can pass a format string that
+contains `{}` placeholders and values to go in those placeholders. Custom
+messages are useful to document what an assertion means; when a test fails,
+we’ll have a better idea of what the problem is with the code.
+-->
+<p>さらに、<code>assert!</code>、<code>assert_eq!</code>、<code>assert_ne!</code>の追加引数として、失敗メッセージと共にカスタムのメッセージが表示されるよう、
+追加することもできます。<code>assert!</code>の1つの必須引数、
+あるいは<code>assert_eq!</code>と<code>assert_ne!</code>の2つの必須引数の後に指定された引数はどれも<code>format!</code>マクロに明け渡されるので、
+(format!マクロについては第8章の「<code>+</code>演算子または、<code>format!</code>マクロで連結する」節で議論しました)、
+<code>{}</code>プレースホルダーを含むフォーマット文字列とこのプレースホルダーに置き換えられる値を渡すことができます。
+カスタムメッセージは、アサーションがどんな意味を持つかドキュメント化するのに役に立ちます;
+テストが失敗した時、問題が何なのかコードと共により良い考えを持てるでしょう。</p>
+<!--
+For example, let’s say we have a function that greets people by name, and we
+want to test that the name we pass into the function appears in the output:
+-->
+<p>例として、人々に名前で挨拶をする関数があり、関数に渡した名前が出力に出現することをテストしたいとしましょう:</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>pub fn greeting(name: &amp;str) -&gt; String {
+    // こんにちは、{}さん！
+    format!(&quot;Hello {}!&quot;, name)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn greeting_contains_name() {
+        let result = greeting(&quot;Carol&quot;);
+        assert!(result.contains(&quot;Carol&quot;));
+    }
+}
+</code></pre></pre>
+<!--
+The requirements for this program haven’t been agreed upon yet, and we’re
+pretty sure the `Hello` text at the beginning of the greeting will change. We
+decided we don’t want to have to update the test when the requirements change,
+so instead of checking for exact equality to the value returned from the
+`greeting` function, we’ll just assert that the output contains the text of the
+input parameter.
+-->
+<p>このプログラムの必要事項はまだ合意が得られておらず、挨拶の先頭の<code>Hello</code>というテキストは変わるだろうということは極めて確かです。
+要件が変わった時にテストを更新しなくてもよいようにしたいと決定したので、
+<code>greeting</code>関数から返る値と正確な等値性を確認するのではなく、出力が入力引数のテキストを含むことをアサーションするだけにします。</p>
+<!--
+Let’s introduce a bug into this code by changing `greeting` to not include
+`name` to see what this test failure looks like:
+-->
+<p><code>greeting</code>が<code>name</code>を含まないように変更してこのコードにバグを仕込み、このテストの失敗がどんな見た目になるのか確かめましょう:</p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>pub fn greeting(name: &amp;str) -&gt; String {
+    String::from(&quot;Hello!&quot;)
+}
+</code></pre></pre>
+<!--
+Running this test produces the following:
+-->
+<p>このテストを実行すると、以下のように出力されます:</p>
+<pre><code class="language-text">running 1 test
+test tests::greeting_contains_name ... FAILED
+
+failures:
+
+---- tests::greeting_contains_name stdout ----
+        thread 'tests::greeting_contains_name' panicked at 'assertion failed:
+result.contains(&quot;Carol&quot;)', src/lib.rs:12:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+
+failures:
+    tests::greeting_contains_name
+</code></pre>
+<!--
+This result just indicates that the assertion failed and which line the
+assertion is on. A more useful failure message in this case would print the
+value we got from the `greeting` function. Let’s change the test function,
+giving it a custom failure message made from a format string with a placeholder
+filled in with the actual value we got from the `greeting` function:
+-->
+<p>この結果は、アサーションが失敗し、どの行にアサーションがあるかを示しているだけです。
+より有用な失敗メッセージは今回の場合、<code>greeting</code>関数から得た値を出力することでしょう。
+<code>greeting</code>関数から得た実際の値で埋められるプレースホルダーを含むフォーマット文字列からなるカスタムの失敗メッセージを与え、
+テスト関数を変更しましょう:</p>
+<pre><code class="language-rust ignore">#[test]
+fn greeting_contains_name() {
+    let result = greeting(&quot;Carol&quot;);
+    assert!(
+        result.contains(&quot;Carol&quot;),
+        //挨拶は名前を含んでいません。値は`{}`でした
+        &quot;Greeting did not contain name, value was `{}`&quot;, result
+    );
+}
+</code></pre>
+<!--
+Now when we run the test, we’ll get a more informative error message:
+-->
+<p>これでテストを実行したら、より有益なエラーメッセージが得られるでしょう:</p>
+<pre><code class="language-text">---- tests::greeting_contains_name stdout ----
+        thread 'tests::greeting_contains_name' panicked at 'Greeting did not
+contain name, value was `Hello!`', src/lib.rs:12:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+</code></pre>
+<!--
+We can see the value we actually got in the test output, which would help us
+debug what happened instead of what we were expecting to happen.
+-->
+<p>実際に得られた値がテスト出力に見られ、起こると想定していたものではなく、
+起こったものをデバッグするのに役に立ちます。</p>
+<!--
+### Checking for Panics with `should_panic`
+-->
+<h3><a class="header" href="#should_panicでパニックを確認する" id="should_panicでパニックを確認する"><code>should_panic</code>でパニックを確認する</a></h3>
+<!--
+In addition to checking that our code returns the correct values we expect,
+it’s also important to check that our code handles error conditions as we
+expect. For example, consider the `Guess` type that we created in Chapter 9,
+Listing 9-9. Other code that uses `Guess` depends on the guarantee that `Guess`
+instances will only contain values between 1 and 100. We can write a test that
+ensures that attempting to create a `Guess` instance with a value outside that
+range panics.
+-->
+<p>期待する正しい値をコードが返すことを確認することに加えて、想定通りにコードがエラー状態を扱っていることを確認するのも重要です。
+例えば、第9章のリスト9-9で生成した<code>Guess</code>型を考えてください。<code>Guess</code>を使用する他のコードは、
+<code>Guess</code>のインスタンスは1から100の範囲の値しか含まないという保証に依存しています。
+その範囲外の値で<code>Guess</code>インスタンスを生成しようとするとパニックすることを確認するテストを書くことができます。</p>
+<!--
+We do this by adding another attribute, `should_panic`, to our test function.
+This attribute makes a test pass if the code inside the function panics; the
+test will fail if the code inside the function doesn’t panic.
+-->
+<p>これは、テスト関数に<code>should_panic</code>という別の属性を追加することで達成できます。
+この属性は、関数内のコードがパニックしたら、テストを通過させます。つまり、
+関数内のコードがパニックしなかったら、テストは失敗するわけです。</p>
+<!--
+Listing 11-8 shows a test that checks that the error conditions of `Guess::new`
+happen when we expect them to.
+-->
+<p>リスト11-8は、予想した時に<code>Guess::new</code>のエラー条件が発生していることを確認するテストを示しています。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span>pub struct Guess {
+    value: u32,
+}
+
+impl Guess {
+    pub fn new(value: u32) -&gt; Guess {
+        if value &lt; 1 || value &gt; 100 {
+            //予想値は1から100の間でなければなりません
+            panic!(&quot;Guess value must be between 1 and 100, got {}.&quot;, value);
+        }
+
+        Guess {
+            value
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+    fn greater_than_100() {
+        Guess::new(200);
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 11-8: Testing that a condition will cause a
+`panic!`</span>
+-->
+<p><span class="caption">リスト11-8: 状況が<code>panic!</code>を引き起こすとテストする</span></p>
+<!--
+We place the `#[should_panic]` attribute after the `#[test]` attribute and
+before the test function it applies to. Let’s look at the result when this test
+passes:
+-->
+<p><code>#[test]</code>属性の後、適用するテスト関数の前に<code>#[should_panic]</code>属性を配置しています。
+このテストが通るときの結果を見ましょう:</p>
+<pre><code class="language-text">running 1 test
+test tests::greater_than_100 ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+Looks good! Now let’s introduce a bug in our code by removing the condition
+that the `new` function will panic if the value is greater than 100:
+-->
+<p>よさそうですね！では、値が100より大きいときに<code>new</code>関数がパニックするという条件を除去することでコードにバグを導入しましょう:</p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span><span class="boring">pub struct Guess {
+</span><span class="boring">    value: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>// --snip--
+
+impl Guess {
+    pub fn new(value: u32) -&gt; Guess {
+        if value &lt; 1  {
+            panic!(&quot;Guess value must be between 1 and 100, got {}.&quot;, value);
+        }
+
+        Guess {
+            value
+        }
+    }
+}
+</code></pre></pre>
+<!--
+When we run the test in Listing 11-8, it will fail:
+-->
+<p>リスト11-8のテストを実行すると、失敗するでしょう:</p>
+<pre><code class="language-text">running 1 test
+test tests::greater_than_100 ... FAILED
+
+failures:
+
+failures:
+    tests::greater_than_100
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+We don’t get a very helpful message in this case, but when we look at the test
+function, we see that it’s annotated with `#[should_panic]`. The failure we got
+means that the code in the test function did not cause a panic.
+-->
+<p>この場合、それほど役に立つメッセージは得られませんが、テスト関数に目を向ければ、
+<code>#[should_panic]</code>で注釈されていることがわかります。得られた失敗は、
+テスト関数のコードがパニックを引き起こさなかったことを意味するのです。</p>
+<!--
+Tests that use `should_panic` can be imprecise because they only indicate that
+the code has caused some panic. A `should_panic` test would pass even if the
+test panics for a different reason than the one we were expecting to happen. To
+make `should_panic` tests more precise, we can add an optional `expected`
+parameter to the `should_panic` attribute. The test harness will make sure that
+the failure message contains the provided text. For example, consider the
+modified code for `Guess` in Listing 11-9 where the `new` function panics with
+different messages depending on whether the value is too small or too large.
+-->
+<p><code>should_panic</code>を使用するテストは不正確なこともあります。なぜなら、コードが何らかのパニックを起こしたことしか示さないからです。
+<code>should_panic</code>のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。
+<code>should_panic</code>のテストの正確を期すために、<code>should_panic</code>属性の省略可能な<code>expected</code>引数を追加できます。
+このテストの拘束具が、失敗メッセージに与えられたテキストが含まれていることを確かめてくれるでしょう。
+例えば、リスト11-9の<code>Guess</code>の変更されたコードを考えてください。ここでは、
+<code>new</code>関数は、値の大小によって異なるメッセージでパニックします。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+</span><span class="boring">pub struct Guess {
+</span><span class="boring">    value: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span>// --snip--
+
+impl Guess {
+    pub fn new(value: u32) -&gt; Guess {
+        if value &lt; 1 {
+            //予想値は、1以上でなければなりませんが、{}でした
+            panic!(&quot;Guess value must be greater than or equal to 1, got {}.&quot;,
+                   value);
+        } else if value &gt; 100 {
+            //予想値は100以下でなければなりませんが、{}でした
+            panic!(&quot;Guess value must be less than or equal to 100, got {}.&quot;,
+                   value);
+        }
+
+        Guess {
+            value
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    // 予想値は100以下でなければなりません
+    #[should_panic(expected = &quot;Guess value must be less than or equal to 100&quot;)]
+    fn greater_than_100() {
+        Guess::new(200);
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 11-9: Testing that a condition will cause a
+`panic!` with a particular panic message</span>
+-->
+<p><span class="caption">リスト11-9: 状況が特定のパニックメッセージで<code>panic!</code>を引き起こすことをテストする</span></p>
+<!--
+This test will pass because the value we put in the `should_panic` attribute’s
+`expected` parameter is a substring of the message that the `Guess::new`
+function panics with. We could have specified the entire panic message that we
+expect, which in this case would be `Guess value must be less than or equal to
+100, got 200.` What you choose to specify in the expected parameter for
+`should_panic` depends on how much of the panic message is unique or dynamic
+and how precise you want your test to be. In this case, a substring of the
+panic message is enough to ensure that the code in the test function executes
+the `else if value > 100` case.
+-->
+<p><code>should_panic</code>属性の<code>expected</code>引数に置いた値が<code>Guess::new</code>関数がパニックしたメッセージの一部になっているので、
+このテストは通ります。予想されるパニックメッセージ全体を指定することもでき、今回の場合、
+<code>Guess value must be less than or equal to 100, got 200.</code>となります。
+<code>should_panic</code>の予想される引数に指定すると決めたものは、パニックメッセージの固有性や活動性、
+テストの正確性によります。今回の場合、パニックメッセージの一部でも、テスト関数内のコードが、
+<code>else if value &gt; 100</code>ケースを実行していると確認するのに事足りるのです。</p>
+<!--
+To see what happens when a `should_panic` test with an `expected` message
+fails, let’s again introduce a bug into our code by swapping the bodies of the
+`if value < 1` and the `else if value > 100` blocks:
+-->
+<p><code>expected</code>メッセージありの<code>should_panic</code>テストが失敗すると何が起きるのが確かめるために、
+<code>if value &lt; 1</code>と<code>else if value &gt; 100</code>ブロックの本体を入れ替えることで再度コードにバグを仕込みましょう:</p>
+<pre><code class="language-rust ignore">if value &lt; 1 {
+    panic!(&quot;Guess value must be less than or equal to 100, got {}.&quot;, value);
+} else if value &gt; 100 {
+    panic!(&quot;Guess value must be greater than or equal to 1, got {}.&quot;, value);
+}
+</code></pre>
+<!--
+This time when we run the `should_panic` test, it will fail:
+-->
+<p><code>should_panic</code>テストを実行すると、今回は失敗するでしょう:</p>
+<pre><code class="language-text">running 1 test
+test tests::greater_than_100 ... FAILED
+
+failures:
+
+---- tests::greater_than_100 stdout ----
+        thread 'tests::greater_than_100' panicked at 'Guess value must be
+greater than or equal to 1, got 200.', src/lib.rs:11:12
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+note: Panic did not include expected string 'Guess value must be less than or
+equal to 100'
+(注釈: パニックには'Guess value must be less than or equal to 100'という予想される文字列が含まれませんでした)
+
+failures:
+    tests::greater_than_100
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<!--
+The failure message indicates that this test did indeed panic as we expected,
+but the panic message did not include the expected string `'Guess value must be
+less than or equal to 100'`. The panic message that we did get in this case was
+`Guess value must be greater than or equal to 1, got 200.` Now we can start
+figuring out where our bug is!
+-->
+<p>この失敗メッセージは、このテストが確かにまさしく予想通りパニックしたことを示唆していますが、
+パニックメッセージは、予想される文字列の<code>'Guess value must be less than or equal to 100'</code>を含んでいませんでした。
+実際に得られたパニックメッセージは今回の場合、<code>Guess value must be greater than or equal to 1, got 200</code>でした。
+そうしてバグの所在地を割り出し始めることができるわけです！</p>
+<!--
+Now that you know several ways to write tests, let’s look at what is happening
+when we run our tests and explore the different options we can use with `cargo
+test`.
+-->
+<p>今やテスト記法を複数知ったので、テストを走らせる際に起きていることに目を向け、
+<code>cargo test</code>で使用できるいろんなオプションを探究しましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch11-00-testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch11-02-running-tests.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch11-00-testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch11-02-running-tests.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

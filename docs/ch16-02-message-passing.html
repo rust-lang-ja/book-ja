@@ -1,0 +1,734 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Using Message Passing to Transfer Data Between Threads - The Rust Programming Language 日本語版</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+        <link rel="stylesheet" href="theme/em-to-bold.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language</a></li><li class="expanded affix "><a href="foreword.html">Foreword</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> Programming a Guessing Game</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> Common Programming Concepts</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> Variables and Mutability</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> Data Types</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> Functions</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> Comments</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> Control Flow</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> Understanding Ownership</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> What is Ownership?</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> References and Borrowing</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> The Slice Type</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> Using Structs to Structure Related Data</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> Defining and Instantiating Structs</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> An Example Program Using Structs</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> Method Syntax</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enums and Pattern Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Defining an Enum</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> The match Control Flow Operator</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> Concise Control Flow with if let</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> Managing Growing Projects with Packages, Crates, and Modules</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> Packages and Crates</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> Defining Modules to Control Scope and Privacy</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> Paths for Referring to an Item in the Module Tree</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> Bringing Paths Into Scope with the use Keyword</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> Separating Modules into Different Files</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> Common Collections</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> Storing Lists of Values with Vectors</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> Storing UTF-8 Encoded Text with Strings</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> Storing Keys with Associated Values in Hash Maps</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> Error Handling</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> Unrecoverable Errors with panic!</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Recoverable Errors with Result</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> To panic! or Not To panic!</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> Generic Types, Traits, and Lifetimes</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> Generic Data Types</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> Traits: Defining Shared Behavior</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> Validating References with Lifetimes</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> Writing Automated Tests</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> How to Write Tests</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> Controlling How Tests Are Run</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> Test Organization</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> An I/O Project: Building a Command Line Program</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> More about Cargo and Crates.io</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> Customizing Builds with Release Profiles</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Publishing a Crate to Crates.io</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargo Workspaces</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> Installing Binaries from Crates.io with cargo install</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> Extending Cargo with Custom Commands</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Using Box<T> to Point to Data on the Heap</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Treating Smart Pointers Like Regular References with the Deref Trait</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Running Code on Cleanup with the Drop Trait</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Reference Cycles Can Leak Memory</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Using Threads to Run Code Simultaneously</a></li><li class="expanded "><a href="ch16-02-message-passing.html" class="active"><strong aria-hidden="true">16.2.</strong> Using Message Passing to Transfer Data Between Threads</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared-State Concurrency</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency with the Sync and Send Traits</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects That Allow for Values of Different Types</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns and Matching</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns Can Be Used</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> Pattern Syntax</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> Advanced Traits</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> Advanced Types</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> Advanced Functions and Closures</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> Macros</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> Building a Single-Threaded Web Server</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning Our Single-Threaded Server into a Multithreaded Server</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations of the Book</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+## Using Message Passing to Transfer Data Between Threads
+-->
+<h2><a class="header" href="#メッセージ受け渡しを使ってスレッド間でデータを転送する" id="メッセージ受け渡しを使ってスレッド間でデータを転送する">メッセージ受け渡しを使ってスレッド間でデータを転送する</a></h2>
+<!--
+One increasingly popular approach to ensuring safe concurrency is *message
+passing*, where threads or actors communicate by sending each other messages
+containing data. Here’s the idea in a slogan from [the Go language
+documentation](http://golang.org/doc/effective_go.html): “Do not communicate by
+sharing memory; instead, share memory by communicating.”
+-->
+<p>人気度を増してきている安全な並行性を保証する一つのアプローチが<em>メッセージ受け渡し</em>で、
+スレッドやアクターがデータを含むメッセージを相互に送り合うことでやり取りします。
+こちらが、<a href="http:golang.org/doc/effective_go.html">Go言語のドキュメンテーション</a>のスローガンにある考えです:
+「メモリを共有することでやり取りするな; 代わりにやり取りすることでメモリを共有しろ」</p>
+<!--
+One major tool Rust has for accomplishing message-sending concurrency is the
+*channel*, a programming concept that Rust’s standard library provides an
+implementation of. You can imagine a channel in programming as being like a
+channel of water, such as a stream or a river. If you put something like a
+rubber duck or a boat into a stream, it will travel downstream to the end of the
+waterway.
+-->
+<p>メッセージ送信並行性を達成するためにRustに存在する一つの主な道具は、<em>チャンネル</em>で、
+Rustの標準ライブラリが実装を提供しているプログラミング概念です。プログラミングのチャンネルは、
+水の流れのように考えることができます。小川とか川ですね。アヒルのおもちゃやボートみたいなものを流れに置いたら、
+水路の終端まで下流に流れていきます。</p>
+<!--
+5行目終わり、for arriving messagesは本来ならfor messages arrivingのような気がするが、その想定で訳してある
+これは自動詞を形容詞のように前からかけているだけと思われる
+-->
+<!--
+A channel in programming has two halves: a transmitter and a receiver. The
+transmitter half is the upstream location where you put rubber ducks into the
+river, and the receiver half is where the rubber duck ends up downstream. One
+part of our code calls methods on the transmitter with the data you want to
+send, and another part checks the receiving end for arriving messages. A
+channel is said to be *closed* if either the transmitter or receiver half is
+dropped.
+-->
+<p>プログラミングにおけるチャンネルは、2分割できます: 転送機と受信機です。転送機はアヒルのおもちゃを川に置く上流になり、
+受信機は、アヒルのおもちゃが行き着く下流になります。コードのある箇所が送信したいデータとともに転送機のメソッドを呼び出し、
+別の部分がメッセージが到着していないか受信側を調べます。転送機と受信機のどちらかがドロップされると、
+チャンネルは<em>閉じられた</em>と言います。</p>
+<!--
+Here, we’ll work up to a program that has one thread to generate values and
+send them down a channel, and another thread that will receive the values and
+print them out. We’ll be sending simple values between threads using a channel
+to illustrate the feature. Once you’re familiar with the technique, you could
+use channels to implement a chat system or a system where many threads perform
+parts of a calculation and send the parts to one thread that aggregates the
+results.
+-->
+<p>ここで、1つのスレッドが値を生成し、それをチャンネルに送信し、別のスレッドがその値を受け取り、
+出力するプログラムに取り掛かります。チャンネルを使用してスレッド間に単純な値を送り、
+機能の説明を行います。一旦、そのテクニックに慣れてしまえば、チャンネルを使用してチャットシステムや、
+多くのスレッドが計算の一部を担い、結果をまとめる1つのスレッドにその部分を送るようなシステムを実装できるでしょう。</p>
+<!--
+First, in Listing 16-6, we’ll create a channel but not do anything with it.
+Note that this won’t compile yet because Rust can’t tell what type of values we
+want to send over the channel.
+-->
+<p>まず、リスト16-6において、チャンネルを生成するものの、何もしません。
+チャンネル越しにどんな型の値を送りたいのかコンパイラがわからないため、
+これはまだコンパイルできないことに注意してください。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+<span class="boring">    tx.send(()).unwrap();
+</span>}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 16-6: Creating a channel and assigning the two
+halves to `tx` and `rx`</span>
+-->
+<p><span class="caption">リスト16-6: チャンネルを生成し、2つの部品を<code>tx</code>と<code>rx</code>に代入する</span></p>
+<!--
+We create a new channel using the `mpsc::channel` function; `mpsc` stands for
+*multiple producer, single consumer*. In short, the way Rust’s standard library
+implements channels means a channel can have multiple *sending* ends that
+produce values but only one *receiving* end that consumes those values. Imagine
+multiple streams flowing together into one big river: everything sent down any
+of the streams will end up in one river at the end. We’ll start with a single
+producer for now, but we’ll add multiple producers when we get this example
+working.
+-->
+<p><code>mpsc::channel</code>関数で新しいチャンネルを生成しています; <code>mpsc</code>は<em>multiple producer, single consumer</em>を表しています。
+簡潔に言えば、Rustの標準ライブラリがチャンネルを実装している方法は、1つのチャンネルが値を生成する複数の<em>送信</em>側と、
+その値を消費するたった1つの<em>受信</em>側を持つことができるということを意味します。
+複数の小川が互いに合わさって1つの大きな川になるところを想像してください: 
+どの小川を通っても、送られたものは最終的に1つの川に行き着きます。今は、1つの生成器から始めますが、
+この例が動作するようになったら、複数の生成器を追加します。</p>
+<!--
+NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199
+-->
+<!--
+The `mpsc::channel` function returns a tuple, the first element of which is the
+sending end and the second element is the receiving end. The abbreviations `tx`
+and `rx` are traditionally used in many fields for *transmitter* and *receiver*
+respectively, so we name our variables as such to indicate each end. We’re
+using a `let` statement with a pattern that destructures the tuples; we’ll
+discuss the use of patterns in `let` statements and destructuring in
+Chapter 18. Using a `let` statement this way is a convenient approach to
+extract the pieces of the tuple returned by `mpsc::channel`.
+-->
+<p><code>mpsc::channel</code>関数はタプルを返し、1つ目の要素は、送信側、2つ目の要素は受信側になります。
+<code>tx</code>と<code>rx</code>という略称は、多くの分野で伝統的に<em>転送機</em>と<em>受信機</em>にそれぞれ使用されているので、
+変数をそのように名付けて、各終端を示します。タプルを分配するパターンを伴う<code>let</code>文を使用しています;
+<code>let</code>文でパターンを使用することと分配については、第18章で議論しましょう。このように<code>let</code>文を使うと、
+<code>mpsc::channel</code>で返ってくるタプルの部品を抽出するのが便利になります。</p>
+<!--
+Let’s move the transmitting end into a spawned thread and have it send one
+string so the spawned thread is communicating with the main thread, as shown in
+Listing 16-7. This is like putting a rubber duck in the river upstream or
+sending a chat message from one thread to another.
+-->
+<p>立ち上げたスレッドがメインスレッドとやり取りするように、転送機を立ち上げたスレッドに移動し、
+1文字列を送らせましょう。リスト16-7のようにですね。川の上流にアヒルのおもちゃを置いたり、
+チャットのメッセージをあるスレッドから別のスレッドに送るみたいですね。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+
+    thread::spawn(move || {
+        let val = String::from(&quot;hi&quot;);
+        tx.send(val).unwrap();
+    });
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 16-7: Moving `tx` to a spawned thread and sending
+“hi”</span>
+-->
+<p><span class="caption">リスト16-7: <code>tx</code>を立ち上げたスレッドに移動し、「やあ」を送る</span></p>
+<!--
+Again, we’re using `thread::spawn` to create a new thread and then using `move`
+to move `tx` into the closure so the spawned thread owns `tx`. The spawned
+thread needs to own the transmitting end of the channel to be able to send
+messages through the channel.
+-->
+<p>今回も、<code>thread::spawn</code>を使用して新しいスレッドを生成し、それから<code>move</code>を使用して、
+立ち上げたスレッドが<code>tx</code>を所有するようにクロージャに<code>tx</code>をムーブしています。立ち上げたスレッドは、
+メッセージをチャンネルを通して送信できるように、チャンネルの送信側を所有する必要があります。</p>
+<!--
+The transmitting end has a `send` method that takes the value we want to send.
+The `send` method returns a `Result<T, E>` type, so if the receiving end has
+already been dropped and there’s nowhere to send a value, the send operation
+will return an error. In this example, we’re calling `unwrap` to panic in case
+of an error. But in a real application, we would handle it properly: return to
+Chapter 9 to review strategies for proper error handling.
+-->
+<p>転送側には、送信したい値を取る<code>send</code>メソッドがあります。<code>send</code>メソッドは<code>Result&lt;T, E&gt;</code>型を返すので、
+既に受信側がドロップされ、値を送信する場所がなければ、送信処理はエラーを返します。
+この例では、エラーの場合には、パニックするように<code>unwrap</code>を呼び出しています。ですが、実際のアプリケーションでは、
+ちゃんと扱うでしょう: 第9章に戻ってちゃんとしたエラー処理の方法を再確認してください。</p>
+<!--
+In Listing 16-8, we’ll get the value from the receiving end of the channel in
+the main thread. This is like retrieving the rubber duck from the water at the
+end of the river or like getting a chat message.
+-->
+<p>リスト16-8において、メインスレッドのチャンネルの受信側から値を得ます。
+アヒルのおもちゃを川の終端で水から回収したり、チャットメッセージを取得するみたいですね。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+
+    thread::spawn(move || {
+        let val = String::from(&quot;hi&quot;);
+        tx.send(val).unwrap();
+    });
+
+    let received = rx.recv().unwrap();
+    // 値は{}です
+    println!(&quot;Got: {}&quot;, received);
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 16-8: Receiving the value “hi” in the main thread
+and printing it</span>
+-->
+<p><span class="caption">リスト16-8: 「やあ」の値をメインスレッドで受け取り、出力する</span></p>
+<!--
+The receiving end of a channel has two useful methods: `recv` and `try_recv`.
+We’re using `recv`, short for *receive*, which will block the main thread’s
+execution and wait until a value is sent down the channel. Once a value is
+sent, `recv` will return it in a `Result<T, E>`. When the sending end of the
+channel closes, `recv` will return an error to signal that no more values will
+be coming.
+-->
+<p>チャンネルの受信側には有用なメソッドが2つあります: <code>recv</code>と<code>try_recv</code>です。
+<em>receive</em>の省略形である<code>recv</code>を使っています。これは、メインスレッドの実行をブロックし、
+値がチャンネルを流れてくるまで待機します。一旦値が送信されたら、<code>recv</code>はそれを<code>Result&lt;T, E&gt;</code>に含んで返します。
+チャンネルの送信側が閉じたら、<code>recv</code>はエラーを返し、もう値は来ないと通知します。</p>
+<!--
+The `try_recv` method doesn’t block, but will instead return a `Result<T, E>`
+immediately: an `Ok` value holding a message if one is available and an `Err`
+value if there aren’t any messages this time. Using `try_recv` is useful if
+this thread has other work to do while waiting for messages: we could write a
+loop that calls `try_recv` every so often, handles a message if one is
+available, and otherwise does other work for a little while until checking
+again.
+-->
+<p><code>try_recv</code>メソッドはブロックせず、代わりに即座に<code>Result&lt;T, E&gt;</code>を返します: 
+メッセージがあったら、それを含む<code>Ok</code>値、今回は何もメッセージがなければ、<code>Err</code>値です。
+メッセージを待つ間にこのスレッドにすることが他にあれば、<code>try_recv</code>は有用です:
+<code>try_recv</code>を頻繁に呼び出し、メッセージがあったら処理し、それ以外の場合は、
+再度チェックするまでちょっとの間、他の作業をするループを書くことができるでしょう。</p>
+<!--
+We’ve used `recv` in this example for simplicity; we don’t have any other work
+for the main thread to do other than wait for messages, so blocking the main
+thread is appropriate.
+-->
+<p>この例では、簡潔性のために<code>recv</code>を使用しました; メッセージを待つこと以外にメインスレッドがすべき作業はないので、
+メインスレッドをブロックするのは適切です。</p>
+<!--
+When we run the code in Listing 16-8, we’ll see the value printed from the main
+thread:
+-->
+<p>リスト16-8のコードを実行したら、メインスレッドから値が出力されるところを目撃するでしょう:</p>
+<pre><code class="language-text">Got: hi
+</code></pre>
+<!--
+Perfect!
+-->
+<p>完璧です！</p>
+<!--
+### Channels and Ownership Transference
+-->
+<h3><a class="header" href="#チャンネルと所有権の転送" id="チャンネルと所有権の転送">チャンネルと所有権の転送</a></h3>
+<!--
+The ownership rules play a vital role in message sending because they help you
+write safe, concurrent code. Preventing errors in concurrent programming is the
+advantage of thinking about ownership throughout your Rust program. Let's do
+an experiment to show how channels and ownership work together to prevent
+problems: we’ll try to use a `val` value in the spawned thread *after* we’ve
+sent it down the channel. Try compiling the code in Listing 16-9 to see why
+this code isn’t allowed:
+-->
+<p>安全な並行コードを書く手助けをしてくれるので、所有権規則は、メッセージ送信で重要な役割を担っています。
+並行プログラミングでエラーを回避することは、Rustプログラム全体で所有権について考える利点です。
+実験をしてチャンネルと所有権がともに動いて、どう問題を回避するかをお見せしましょう:
+<code>val</code>値を立ち上げたスレッドで、チャンネルに送った<em>後</em>に使用を試みます。
+リスト16-9のコードのコンパイルを試みて、このコードが許容されない理由を確認してください:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+
+    thread::spawn(move || {
+        let val = String::from(&quot;hi&quot;);
+        tx.send(val).unwrap();
+        // valは{}
+        println!(&quot;val is {}&quot;, val);
+    });
+
+    let received = rx.recv().unwrap();
+    println!(&quot;Got: {}&quot;, received);
+}
+</code></pre>
+<!--
+<span class="caption">Listing 16-9: Attempting to use `val` after we’ve sent it
+down the channel</span>
+-->
+<p><span class="caption">リスト16-9: チャンネルに送信後に<code>val</code>の使用を試みる</span></p>
+<!--
+Here, we try to print `val` after we’ve sent it down the channel via `tx.send`.
+Allowing this would be a bad idea: once the value has been sent to another
+thread, that thread could modify or drop it before we try to use the value
+again. Potentially, the other thread's modifications could cause errors or
+unexpected results due to inconsistent or nonexistent data. However, Rust gives
+us an error if we try to compile the code in Listing 16-9:
+-->
+<p>ここで、<code>tx.send</code>経由でチャンネルに送信後に<code>val</code>を出力しようとしています。これを許可するのは、悪い考えです:
+一旦、値が他のスレッドに送信されたら、再度値を使用しようとする前にそのスレッドが変更したりドロップできてしまいます。
+可能性として、その別のスレッドの変更により、矛盾していたり存在しないデータのせいでエラーが発生したり、
+予期しない結果になるでしょう。ですが、リスト16-9のコードのコンパイルを試みると、Rustはエラーを返します:</p>
+<pre><code class="language-text">error[E0382]: use of moved value: `val`
+  --&gt; src/main.rs:10:31
+   |
+9  |         tx.send(val).unwrap();
+   |                 --- value moved here
+10 |         println!(&quot;val is {}&quot;, val);
+   |                               ^^^ value used here after move
+   |
+   = note: move occurs because `val` has type `std::string::String`, which does
+not implement the `Copy` trait
+</code></pre>
+<!--
+Our concurrency mistake has caused a compile time error. The `send` function
+takes ownership of its parameter, and when the value is moved, the receiver
+takes ownership of it. This stops us from accidentally using the value again
+after sending it; the ownership system checks that everything is okay.
+-->
+<p>並行性のミスがコンパイルエラーを招きました。<code>send</code>関数は引数の所有権を奪い、
+値がムーブされると、受信側が所有権を得るのです。これにより、送信後に誤って再度値を使用するのを防いでくれます;
+所有権システムが、万事問題ないことを確認してくれます。</p>
+<!--
+### Sending Multiple Values and Seeing the Receiver Waiting
+-->
+<h3><a class="header" href="#複数の値を送信し受信側が待機するのを確かめる" id="複数の値を送信し受信側が待機するのを確かめる">複数の値を送信し、受信側が待機するのを確かめる</a></h3>
+<!--
+The code in Listing 16-8 compiled and ran, but it didn’t clearly show us that
+two separate threads were talking to each other over the channel. In Listing
+16-10 we’ve made some modifications that will prove the code in Listing 16-8 is
+running concurrently: the spawned thread will now send multiple messages and
+pause for a second between each message.
+-->
+<p>リスト16-8のコードはコンパイルでき、動きましたが、2つの個別のスレッドがお互いにチャンネル越しに会話していることは、
+明瞭に示されませんでした。リスト16-10において、リスト16-8のコードが並行に動いていることを証明する変更を行いました:
+立ち上げたスレッドは、複数のメッセージを送信し、各メッセージ間で、1秒待機します。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+use std::time::Duration;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+
+    thread::spawn(move || {
+        // スレッドからやあ(hi from the thread)
+        let vals = vec![
+            String::from(&quot;hi&quot;),
+            String::from(&quot;from&quot;),
+            String::from(&quot;the&quot;),
+            String::from(&quot;thread&quot;),
+        ];
+
+        for val in vals {
+            tx.send(val).unwrap();
+            thread::sleep(Duration::from_secs(1));
+        }
+    });
+
+    for received in rx {
+        println!(&quot;Got: {}&quot;, received);
+    }
+}
+</code></pre></pre>
+<!--
+<span class="caption">Listing 16-10: Sending multiple messages and pausing
+between each</span>
+-->
+<p><span class="caption">リスト16-10: 複数のメッセージを送信し、メッセージ間で停止する</span></p>
+<!--
+This time, the spawned thread has a vector of strings that we want to send to
+the main thread. We iterate over them, sending each individually, and pause
+between each by calling the `thread::sleep` function with a `Duration` value of
+1 second.
+-->
+<p>今回は、メインスレッドに送信したい文字列のベクタを立ち上げたスレッドが持っています。
+それらを繰り返し、各々個別に送信し、<code>Duration</code>の値1秒とともに<code>thread::sleep</code>関数を呼び出すことで、
+メッセージ間で停止します。</p>
+<!--
+In the main thread, we’re not calling the `recv` function explicitly anymore:
+instead, we’re treating `rx` as an iterator. For each value received, we’re
+printing it. When the channel is closed, iteration will end.
+-->
+<p>メインスレッドにおいて、最早<code>recv</code>関数を明示的に呼んではいません: 代わりに、
+<code>rx</code>をイテレータとして扱っています。受信した値それぞれを出力します。
+チャンネルが閉じられると、繰り返しも終わります。</p>
+<!--
+When running the code in Listing 16-10, you should see the following output
+with a 1-second pause in between each line:
+-->
+<p>リスト16-10のコードを走らせると、各行の間に1秒の待機をしつつ、以下のような出力を目の当たりにするはずです:</p>
+<pre><code class="language-text">Got: hi
+Got: from
+Got: the
+Got: thread
+</code></pre>
+<!--
+Because we don’t have any code that pauses or delays in the `for` loop in the
+main thread, we can tell that the main thread is waiting to receive values from
+the spawned thread.
+-->
+<p>メインスレッドの<code>for</code>ループには停止したり、遅れせたりするコードは何もないので、
+メインスレッドが立ち上げたスレッドから値を受け取るのを待機していることがわかります。</p>
+<!--
+### Creating Multiple Producers by Cloning the Transmitter
+-->
+<h3><a class="header" href="#転送機をクローンして複数の生成器を作成する" id="転送機をクローンして複数の生成器を作成する">転送機をクローンして複数の生成器を作成する</a></h3>
+<!--
+Earlier we mentioned that `mpsc` was an acronym for *multiple producer,
+single consumer*. Let’s put `mpsc` to use and expand the code in Listing 16-10
+to create multiple threads that all send values to the same receiver. We can do
+so by cloning the transmitting half of the channel, as shown in Listing 16-11:
+-->
+<p><code>mpsc</code>は、<em>mutiple producer, single consumer</em>の頭字語であると前述しました。
+<code>mpsc</code>を使い、リスト16-10のコードを拡張して、全ての値を同じ受信機に送信する複数のスレッドを生成しましょう。
+チャンネルの転送の片割れをクローンすることでそうすることができます。リスト16-11のようにですね:</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">use std::thread;
+</span><span class="boring">use std::sync::mpsc;
+</span><span class="boring">use std::time::Duration;
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span>// --snip--
+
+let (tx, rx) = mpsc::channel();
+
+let tx1 = mpsc::Sender::clone(&amp;tx);
+thread::spawn(move || {
+    let vals = vec![
+        String::from(&quot;hi&quot;),
+        String::from(&quot;from&quot;),
+        String::from(&quot;the&quot;),
+        String::from(&quot;thread&quot;),
+    ];
+
+    for val in vals {
+        tx1.send(val).unwrap();
+        thread::sleep(Duration::from_secs(1));
+    }
+});
+
+thread::spawn(move || {
+    // 君のためにもっとメッセージを(more messages for you)
+    let vals = vec![
+        String::from(&quot;more&quot;),
+        String::from(&quot;messages&quot;),
+        String::from(&quot;for&quot;),
+        String::from(&quot;you&quot;),
+    ];
+
+    for val in vals {
+        tx.send(val).unwrap();
+        thread::sleep(Duration::from_secs(1));
+    }
+});
+
+for received in rx {
+    println!(&quot;Got: {}&quot;, received);
+}
+
+// --snip--
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+<span class="caption">Listing 16-11: Sending multiple messages from multiple
+producers</span>
+-->
+<p><span class="caption">リスト16-11: 複数の生成器から複数のメッセージを送信する</span></p>
+<!--
+This time, before we create the first spawned thread, we call `clone` on the
+sending end of the channel. This will give us a new sending handle we can pass
+to the first spawned thread. We pass the original sending end of the channel to
+a second spawned thread. This gives us two threads, each sending different
+messages to the receiving end of the channel.
+-->
+<p>今回、最初のスレッドを立ち上げる前に、チャンネルの送信側に対して<code>clone</code>を呼び出しています。
+これにより、最初に立ち上げたスレッドに渡せる新しい送信ハンドルが得られます。
+元のチャンネルの送信側は、2番目に立ち上げたスレッドに渡します。これにより2つスレッドが得られ、
+それぞれチャンネルの受信側に異なるメッセージを送信します。</p>
+<!--
+When you run the code, your output should look something like this:
+-->
+<p>コードを実行すると、出力は以下のようなものになるはずです:</p>
+<pre><code class="language-text">Got: hi
+Got: more
+Got: from
+Got: messages
+Got: for
+Got: the
+Got: thread
+Got: you
+</code></pre>
+<!--
+You might see the values in another order; it depends on your system. This is
+what makes concurrency interesting as well as difficult. If you experiment with
+`thread::sleep`, giving it various values in the different threads, each run
+will be more nondeterministic and create different output each time.
+-->
+<p>別の順番で値が出る可能性もあります; システム次第です。並行性が面白いと同時に難しい部分でもあります。
+異なるスレッドで色々な値を与えて<code>thread::sleep</code>で実験をしたら、走らせるたびにより非決定的になり、
+毎回異なる出力をするでしょう。</p>
+<!--
+Now that we’ve looked at how channels work, let’s look at a different method of
+concurrency.
+-->
+<p>チャンネルの動作方法を見たので、他の並行性に目を向けましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch16-01-threads.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch16-03-shared-state.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="ch16-01-threads.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="ch16-03-shared-state.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>
