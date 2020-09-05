@@ -153,28 +153,62 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2><a class="header" href="#appendix-d---useful-development-tools" id="appendix-d---useful-development-tools">Appendix D - Useful Development Tools</a></h2>
-<p>In this appendix, we talk about some useful development tools that the Rust
+                        <!--
+## Appendix D - Useful Development Tools
+-->
+<h2><a class="header" href="#付録d---便利な開発ツール" id="付録d---便利な開発ツール">付録D - 便利な開発ツール</a></h2>
+<!--
+In this appendix, we talk about some useful development tools that the Rust
 project provides. We’ll look at automatic formatting, quick ways to apply
-warning fixes, a linter, and integrating with IDEs.</p>
-<h3><a class="header" href="#automatic-formatting-with-rustfmt" id="automatic-formatting-with-rustfmt">Automatic Formatting with <code>rustfmt</code></a></h3>
-<p>The <code>rustfmt</code> tool reformats your code according to the community code style.
-Many collaborative projects use <code>rustfmt</code> to prevent arguments about which
-style to use when writing Rust: everyone formats their code using the tool.</p>
-<p>To install <code>rustfmt</code>, enter the following:</p>
+warning fixes, a linter, and integrating with IDEs.
+-->
+<p>この付録では、Rustプロジェクトの提供する便利な開発ツールについていくつかお話します。
+自動フォーマット、警告に対する修正をすばやく適用する方法、lintツール、そしてIDEとの統合について見ていきます。</p>
+<!--
+### Automatic Formatting with `rustfmt`
+-->
+<h3><a class="header" href="#rustfmtを使った自動フォーマット" id="rustfmtを使った自動フォーマット"><code>rustfmt</code>を使った自動フォーマット</a></h3>
+<!--
+The `rustfmt` tool reformats your code according to the community code style.
+Many collaborative projects use `rustfmt` to prevent arguments about which
+style to use when writing Rust: everyone formats their code using the tool.
+-->
+<p><code>rustfmt</code>というツールは、コミュニティのコードスタイルに合わせてあなたのコードをフォーマットしてくれます。
+Rustを書くときにどのスタイルを使うかで揉めないように、多くの共同で行われるプロジェクトが<code>rustfmt</code>を使っています：全員がこのツールでコードをフォーマットするのです。</p>
+<!--
+To install `rustfmt`, enter the following:
+-->
+<p><code>rustfmt</code>をインストールするには、以下を入力してください：</p>
 <pre><code class="language-console">$ rustup component add rustfmt
 </code></pre>
-<p>This command gives you <code>rustfmt</code> and <code>cargo-fmt</code>, similar to how Rust gives you
-both <code>rustc</code> and <code>cargo</code>. To format any Cargo project, enter the following:</p>
+<!--
+This command gives you `rustfmt` and `cargo-fmt`, similar to how Rust gives you
+both `rustc` and `cargo`. To format any Cargo project, enter the following:
+-->
+<p>これで<code>rustfmt</code>と<code>cargo-fmt</code>が使えるようになります。これは<code>rustc</code>と<code>cargo</code>の両方のコマンドがあるのと似たようなものです。
+どんなCargoのプロジェクトも、次を入力するとフォーマットできます：</p>
 <pre><code class="language-console">$ cargo fmt
 </code></pre>
-<p>Running this command reformats all the Rust code in the current crate. This
+<!--
+Running this command reformats all the Rust code in the current crate. This
 should only change the code style, not the code semantics. For more information
-on <code>rustfmt</code>, see <a href="https://github.com/rust-lang/rustfmt">its documentation</a>.</p>
-<h3><a class="header" href="#fix-your-code-with-rustfix" id="fix-your-code-with-rustfix">Fix Your Code with <code>rustfix</code></a></h3>
-<p>The rustfix tool is included with Rust installations and can automatically fix
+on `rustfmt`, see [its documentation][rustfmt].
+-->
+<p>このコマンドを実行すると、現在のクレートのあらゆるRustコードをフォーマットし直します。
+これを行うと、コードのスタイルのみが変わり、コードの意味は変わりません。
+<code>rustfmt</code>についてより詳しく知るには<a href="https://github.com/rust-lang/rustfmt">ドキュメント</a>を読んでください。</p>
+<!--
+### Fix Your Code with `rustfix`
+-->
+<h3><a class="header" href="#rustfixでコードを修正する" id="rustfixでコードを修正する"><code>rustfix</code>でコードを修正する</a></h3>
+<!--
+The rustfix tool is included with Rust installations and can automatically fix
 some compiler warnings. If you’ve written code in Rust, you’ve probably seen
-compiler warnings. For example, consider this code:</p>
+compiler warnings. For example, consider this code:
+-->
+<p>rustfixというツールはRustをインストールすると同梱されており、コンパイラの警告 (warning) を自動で直してくれます。
+Rustでコードを書いたことがある人なら、コンパイラの警告を見たことがあるでしょう。
+たとえば、下のコードを考えます：</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn do_something() {}
 
@@ -184,8 +218,12 @@ fn main() {
     }
 }
 </code></pre></pre>
-<p>Here, we’re calling the <code>do_something</code> function 100 times, but we never use the
-variable <code>i</code> in the body of the <code>for</code> loop. Rust warns us about that:</p>
+<!--
+Here, we’re calling the `do_something` function 100 times, but we never use the
+variable `i` in the body of the `for` loop. Rust warns us about that:
+-->
+<p>ここで、<code>do_something</code>関数を100回呼んでいますが、<code>for</code>ループの内部で変数<code>i</code>を一度も使っていません。
+Rustはこれについて警告します：</p>
 <pre><code class="language-console">$ cargo build
    Compiling myprogram v0.1.0 (file:///projects/myprogram)
 warning: unused variable: `i`
@@ -198,16 +236,24 @@ warning: unused variable: `i`
 
     Finished dev [unoptimized + debuginfo] target(s) in 0.50s
 </code></pre>
-<p>The warning suggests that we use <code>_i</code> as a name instead: the underscore
+<!--
+The warning suggests that we use `_i` as a name instead: the underscore
 indicates that we intend for this variable to be unused. We can automatically
-apply that suggestion using the <code>rustfix</code> tool by running the command <code>cargo fix</code>:</p>
+apply that suggestion using the `rustfix` tool by running the command `cargo
+fix`:
+-->
+<p>警告は、変数名に<code>_i</code>を使ってはどうかと提案しています：アンダーバーはその変数を使わないという意図を示すのです。
+<code>cargo fix</code>というコマンドを実行することで、この提案を<code>rustfix</code>ツールで自動で適用できます。</p>
 <pre><code class="language-console">$ cargo fix
     Checking myprogram v0.1.0 (file:///projects/myprogram)
       Fixing src/main.rs (1 fix)
     Finished dev [unoptimized + debuginfo] target(s) in 0.59s
 </code></pre>
-<p>When we look at <em>src/main.rs</em> again, we’ll see that <code>cargo fix</code> has changed the
-code:</p>
+<!--
+When we look at *src/main.rs* again, we’ll see that `cargo fix` has changed the
+code:
+-->
+<p><em>src/main.rs</em>をもう一度見てみると、<code>cargo fix</code>によってコードが変更されていることがわかります。</p>
 <p><span class="filename">Filename: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn do_something() {}
 
@@ -217,28 +263,56 @@ fn main() {
     }
 }
 </code></pre></pre>
-<p>The <code>for</code> loop variable is now named <code>_i</code>, and the warning no longer appears.</p>
-<p>You can also use the <code>cargo fix</code> command to transition your code between
-different Rust editions. Editions are covered in Appendix E.</p>
-<h3><a class="header" href="#more-lints-with-clippy" id="more-lints-with-clippy">More Lints with Clippy</a></h3>
-<p>The Clippy tool is a collection of lints to analyze your code so you can catch
-common mistakes and improve your Rust code.</p>
-<p>To install Clippy, enter the following:</p>
+<!--
+The `for` loop variable is now named `_i`, and the warning no longer appears.
+-->
+<p><code>for</code>ループの変数は<code>_i</code>という名前になったので、警告はもう現れません。</p>
+<!--
+You can also use the `cargo fix` command to transition your code between
+different Rust editions. Editions are covered in Appendix E.
+-->
+<p><code>cargo fix</code>コマンドを使うと、異なるRust editionの間でコードを変換することもできます。
+editionについては付録Eに書いています。</p>
+<!--
+### More Lints with Clippy
+-->
+<h3><a class="header" href="#clippyでもっとlintを" id="clippyでもっとlintを">Clippyでもっとlintを</a></h3>
+<!--
+The Clippy tool is a collection of lints to analyze your code so you can catch
+common mistakes and improve your Rust code.
+-->
+<p>Clippyというツールは、コードを分析することで、よくある間違いを見つけ、Rustのコードを改善させてくれるlintを集めたものです（訳注：いわゆる静的解析ツール）。</p>
+<!--
+To install Clippy, enter the following:
+-->
+<p>Clippyをインストールするには、次を入力してください：</p>
 <pre><code class="language-console">$ rustup component add clippy
 </code></pre>
-<p>To run Clippy’s lints on any Cargo project, enter the following:</p>
+<!--
+To run Clippy’s lints on any Cargo project, enter the following:
+-->
+<p>Clippyのlintは、次のコマンドでどんなCargoプロジェクトに対しても実行できます：</p>
 <pre><code class="language-console">$ cargo clippy
 </code></pre>
-<p>For example, say you write a program that uses an approximation of a
-mathematical constant, such as pi, as this program does:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<!--
+For example, say you write a program that uses an approximation of a
+mathematical constant, such as pi, as this program does:
+-->
+<p>たとえば、下のように、円周率などの数学定数の近似を使ったプログラムを書いているとします。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let x = 3.1415;
     let r = 8.0;
     println!(&quot;the area of the circle is {}&quot;, x * r * r);
 }
 </code></pre></pre>
-<p>Running <code>cargo clippy</code> on this project results in this error:</p>
+<!--
+Running `cargo clippy` on this project results in this error:
+-->
+<p><code>cargo clippy</code>をこのプロジェクトに実行すると次のエラーを得ます：</p>
 <pre><code class="language-text">error: approximate value of `f{32, 64}::consts::PI` found. Consider using it directly
  --&gt; src/main.rs:2:13
   |
@@ -248,30 +322,59 @@ mathematical constant, such as pi, as this program does:</p>
   = note: #[deny(clippy::approx_constant)] on by default
   = help: for further information visit https://rust-lang-nursery.github.io/rust-clippy/master/index.html#approx_constant
 </code></pre>
-<p>This error lets you know that Rust has this constant defined more precisely and
+<!--
+This error lets you know that Rust has this constant defined more precisely and
 that your program would be more correct if you used the constant instead. You
-would then change your code to use the <code>PI</code> constant. The following code
-doesn’t result in any errors or warnings from Clippy:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+would then change your code to use the `PI` constant. The following code
+doesn’t result in any errors or warnings from Clippy:
+-->
+<p>あなたは、このエラーのおかげで、Rustにはより正確に定義された定数がすでにあり、これを代わりに使うとプログラムがより正しくなるかもしれないと気づくことができます。
+なので、あなたはコードを定数<code>PI</code>を使うように変更するでしょう。
+以下のコードはもうClippyからエラーや警告は受けません。</p>
+<!--
+<span class="filename">Filename: src/main.rs</span>
+-->
+<p><span class="filename">ファイル名: src/main.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">fn main() {
     let x = std::f64::consts::PI;
     let r = 8.0;
     println!(&quot;the area of the circle is {}&quot;, x * r * r);
 }
 </code></pre></pre>
-<p>For more information on Clippy, see <a href="https://github.com/rust-lang/rust-clippy">its documentation</a>.</p>
-<h3><a class="header" href="#ide-integration-using-the-rust-language-server" id="ide-integration-using-the-rust-language-server">IDE Integration Using the Rust Language Server</a></h3>
-<p>To help IDE integration, the Rust project distributes the <em>Rust Language
-Server</em> (<code>rls</code>). This tool speaks the <a href="http://langserver.org/">Language Server
-Protocol</a>, which is a specification for IDEs and programming
-languages to communicate with each other. Different clients can use the <code>rls</code>,
-such as <a href="https://marketplace.visualstudio.com/items?itemName=rust-lang.rust">the Rust plug-in for Visual Studio Code</a>.</p>
-<p>To install the <code>rls</code>, enter the following:</p>
+<!--
+For more information on Clippy, see [its documentation][clippy].
+-->
+<p>Clippyについてより詳しく知るには、<a href="https://github.com/rust-lang/rust-clippy">ドキュメント</a>を読んでください。</p>
+<!--
+### IDE Integration Using the Rust Language Server
+-->
+<h3><a class="header" href="#rust-language-serverを使ってideと統合する" id="rust-language-serverを使ってideと統合する">Rust Language Serverを使ってIDEと統合する</a></h3>
+<!--
+To help IDE integration, the Rust project distributes the *Rust Language
+Server* (`rls`). This tool speaks the [Language Server
+Protocol][lsp], which is a specification for IDEs and programming
+languages to communicate with each other. Different clients can use the `rls`,
+such as [the Rust plug-in for Visual Studio Code][vscode].
+-->
+<p>IDEでの開発の助けになるよう、Rustプロジェクトは <em>Rust Language Server</em> (<code>rls</code>)を配布しています。
+このツールは、<a href="http://langserver.org/">Language Server Protocol</a>という、IDEとプログラミング言語が対話するための仕様に対応しています。
+<a href="https://marketplace.visualstudio.com/items?itemName=rust-lang.rust">Visual Studio CodeのRustプラグイン</a>をはじめ、様々なクライアントが<code>rls</code>を使うことができます。</p>
+<!--
+To install the `rls`, enter the following:
+-->
+<p><code>rls</code>をインストールするには、以下を入力してください：</p>
 <pre><code class="language-console">$ rustup component add rls
 </code></pre>
-<p>Then install the language server support in your particular IDE; you’ll gain
-abilities such as autocompletion, jump to definition, and inline errors.</p>
-<p>For more information on the <code>rls</code>, see <a href="https://github.com/rust-lang/rls">its documentation</a>.</p>
+<!--
+Then install the language server support in your particular IDE; you’ll gain
+abilities such as autocompletion, jump to definition, and inline errors.
+-->
+<p>つづけて、あなたのIDE向けのlanguage serverサポートをインストールしてください。
+すると、自動補完、定義へのジャンプ、インラインのエラー表示などの機能が得られるはずです。</p>
+<!--
+For more information on the `rls`, see [its documentation][rls].
+-->
+<p><code>rls</code>についてより詳しく知るには<a href="https://github.com/rust-lang/rls">ドキュメント</a>を読んでください。</p>
 
                     </main>
 
