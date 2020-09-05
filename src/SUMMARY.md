@@ -72,7 +72,7 @@
     - [環境変数を取り扱う](ch12-05-working-with-environment-variables.md)
     - [標準出力ではなく標準エラーにエラーメッセージを書き込む](ch12-06-writing-to-stderr-instead-of-stdout.md)
 
-## Thinking in Rust
+## Rustで思考する
 
 - [Functional Language Features: Iterators and Closures](ch13-00-functional-features.md)
     - [Closures: Anonymous Functions that Can Capture Their Environment](ch13-01-closures.md)
