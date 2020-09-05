@@ -74,11 +74,11 @@
 
 ## Rustで思考する
 
-- [Functional Language Features: Iterators and Closures](ch13-00-functional-features.md)
-    - [Closures: Anonymous Functions that Can Capture Their Environment](ch13-01-closures.md)
-    - [Processing a Series of Items with Iterators](ch13-02-iterators.md)
-    - [Improving Our I/O Project](ch13-03-improving-our-io-project.md)
-    - [Comparing Performance: Loops vs. Iterators](ch13-04-performance.md)
+- [関数型言語の機能：イテレータとクロージャ](ch13-00-functional-features.md)
+    - [クロージャ：環境をキャプチャできる匿名関数](ch13-01-closures.md)
+    - [一連の要素をイテレータで処理する](ch13-02-iterators.md)
+    - [入出力プロジェクトを改善する](ch13-03-improving-our-io-project.md)
+    - [パフォーマンス比較：ループVSイテレータ](ch13-04-performance.md)
 
 - [More about Cargo and Crates.io](ch14-00-more-about-cargo.md)
     - [Customizing Builds with Release Profiles](ch14-01-release-profiles.md)
