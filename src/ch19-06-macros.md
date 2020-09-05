@@ -793,11 +793,11 @@ expression to print literally, so we use `stringify!`. Using `stringify!` also
 saves an allocation by converting `#name` to a string literal at compile time.
 -->
 
-ここで使用した`stringify!`マクロは、言語に埋め込まれています。`1 + 2`などのようなRustの式を取り、
-コンパイル時に`"1 + 2"`のような文字列リテラルにその式を変換します。これは、`format!`や`println!`とは異なります。
-こちらのマクロは、式を評価し、そしてその結果を`String`に変換します。`#name`入力が文字通り出力される式という可能性もあるので、
-`stringify!`を使用しています。`stringify!`を使用すると、コンパイル時に`#name`を文字列リテラルに変換することで、
-メモリ確保しなくても済みます。
+ここで使用した`stringify!`マクロは、言語に組み込まれています。`1 + 2`などのようなRustの式を取り、
+コンパイル時に`"1 + 2"`のような文字列リテラルにその式を変換します。
+これは、`format!`や`println!`のような、式を評価し、そしてその結果を`String`に変換するマクロとは異なります。
+`#name`入力が文字通り出力されるべき式という可能性もあるので、`stringify!`を使用しています。
+`stringify!`を使用すると、コンパイル時に`#name`を文字列リテラルに変換することで、メモリ確保しなくても済みます。
 
 <!--
 At this point, `cargo build` should complete successfully in both `hello_macro`
@@ -812,10 +812,10 @@ dependencies; if not, you can specify them as `path` dependencies as follows:
 
 この時点で、`cargo build`は`hello_macro`と`hello_macro_derive`の両方で成功するはずです。
 これらのクレートをリスト19-30のコードにフックして、プロシージャルマクロが動くところを確認しましょう！
-`cargo new pancakes`で*projects*ディレクトリに新しいバイナリプロジェクトを作成してください。
+`cargo new pancakes`であなたの*プロジェクトの*ディレクトリ（訳注：これまでに作った2つのクレート内ではないということ）に新しいバイナリプロジェクトを作成してください。
 `hello_macro`と`hello_macro_derive`を依存として`pancakes`クレートの*Cargo.toml*に追加する必要があります。
-自分のバージョンの`hello_macro`と`hello_macro_derive`を[crates.io](https://crates.io/) に公開するつもりなら、
-普通の依存になるでしょう; そうでなければ、以下のように`path`依存として指定できます:
+自分のバージョンの`hello_macro`と`hello_macro_derive`を[crates.io](https://crates.io/) に公開しているなら、
+普通の依存になるでしょう; そうでなければ、以下のように`path`依存として指定すればよいです:
 
 ```toml
 {{#include ../listings/ch19-advanced-features/no-listing-21-pancakes/pancakes/Cargo.toml:7:9}}
@@ -830,7 +830,7 @@ trait implementation.
 -->
 
 リスト19-30のコードを*src/main.rs*に配置し、`cargo run`を実行してください: `Hello, Macro! My name is Pancakes`と出力するはずです。
-プロシージャルマクロの`HelloMacro`トレイトの実装は、`pancakes`クレートが実装する必要なく、包含されました;
+手続き的マクロの`HelloMacro`トレイトの実装は、`pancakes`クレートが実装する必要なく、包含されました;
 `#[derive(HelloMacro)]`がトレイトの実装を追加したのです。
 
 <!--
