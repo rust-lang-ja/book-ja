@@ -1,6 +1,6 @@
 # Rustプログラミング言語
 
-[Rustプログラミング言語](title-page.md)
+[The Rust Programming Language 日本語版](title-page.md)
 [まえがき](foreword.md)
 [導入](ch00-00-introduction.md)
 
