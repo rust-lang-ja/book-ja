@@ -106,12 +106,12 @@
     - [トレイトオブジェクトで異なる型の値を許容する](ch17-02-trait-objects.md)
     - [オブジェクト指向デザインパターンを実装する](ch17-03-oo-design-patterns.md)
 
-## Advanced Topics
+## 高度なトピック
 
-- [Patterns and Matching](ch18-00-patterns.md)
-    - [All the Places Patterns Can Be Used](ch18-01-all-the-places-for-patterns.md)
-    - [Refutability: Whether a Pattern Might Fail to Match](ch18-02-refutability.md)
-    - [Pattern Syntax](ch18-03-pattern-syntax.md)
+- [パターンとマッチング](ch18-00-patterns.md)
+    - [パターンが使用されることのある箇所全部](ch18-01-all-the-places-for-patterns.md)
+    - [論駁可能性：合致しないかどうか](ch18-02-refutability.md)
+    - [パターン記法](ch18-03-pattern-syntax.md)
 
 - [Advanced Features](ch19-00-advanced-features.md)
     - [Unsafe Rust](ch19-01-unsafe-rust.md)
