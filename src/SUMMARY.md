@@ -80,12 +80,12 @@
     - [入出力プロジェクトを改善する](ch13-03-improving-our-io-project.md)
     - [パフォーマンス比較：ループVSイテレータ](ch13-04-performance.md)
 
-- [More about Cargo and Crates.io](ch14-00-more-about-cargo.md)
-    - [Customizing Builds with Release Profiles](ch14-01-release-profiles.md)
-    - [Publishing a Crate to Crates.io](ch14-02-publishing-to-crates-io.md)
-    - [Cargo Workspaces](ch14-03-cargo-workspaces.md)
-    - [Installing Binaries from Crates.io with `cargo install`](ch14-04-installing-binaries.md)
-    - [Extending Cargo with Custom Commands](ch14-05-extending-cargo.md)
+- [CargoとCrates.ioについてより詳しく](ch14-00-more-about-cargo.md)
+    - [リリースプロファイルでビルドをカスタマイズする](ch14-01-release-profiles.md)
+    - [Crates.ioにクレートを公開する](ch14-02-publishing-to-crates-io.md)
+    - [Cargoのワークスペース](ch14-03-cargo-workspaces.md)
+    - [`cargo install`でCrates.ioからバイナリをインストールする](ch14-04-installing-binaries.md)
+    - [独自のコマンドでCargoを拡張する](ch14-05-extending-cargo.md)
 
 - [Smart Pointers](ch15-00-smart-pointers.md)
     - [Using `Box<T>` to Point to Data on the Heap](ch15-01-box.md)
