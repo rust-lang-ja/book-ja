@@ -295,7 +295,7 @@ directly, we’ve provided a default implementation and specified that
 `NewsArticle` implements the `Summary` trait. As a result, we can still call
 the `summarize` method on an instance of `NewsArticle`, like this:
 -->
-最早`NewsArticle`に直接`summarize`メソッドを定義してはいませんが、私達はデフォルト実装を提供しており、
+もはや`NewsArticle`に直接`summarize`メソッドを定義してはいませんが、私達はデフォルト実装を提供しており、
 `NewsArticle`は`Summary`トレイトを実装すると指定しました。そのため、
 `NewsArticle`のインスタンスに対して`summarize`メソッドを同じように呼び出すことができます。
 このように:
@@ -421,7 +421,7 @@ because those types don’t implement `Summary`.
 この引数は、指定されたトレイトを実装しているあらゆる型を受け付けます。
 `notify`の中身では、`summarize`のような、`Summary`トレイトに由来する`item`のあらゆるメソッドを呼び出すことができます。
 私達は、`notify`を呼びだし、`NewsArticle`か`Tweet`のどんなインスタンスでも渡すことができます。
-この関数を呼び出すときに`String`や`i32`のような他の型を渡すようなコードを書くと、これらの型は`Summary`を実装していないので、コンパイルできません。
+この関数を呼び出すときに、`String`や`i32`のような他の型を渡すようなコードはコンパイルできません。なぜなら、これらの型は`Summary`を実装していないからです。
 
 <!--
 #### Trait Bound Syntax
@@ -433,11 +433,12 @@ The `impl Trait` syntax works for straightforward cases but is actually
 syntax sugar for a longer form, which is called a *trait bound*; it looks like
 this:
 -->
-`impl Trait`構文は単純なケースを解決しますが、実はより長い*trait bound* と呼ばれる姿の糖衣構文 (syntax sugar) なのです。
+`impl Trait`構文は単純なケースを解決しますが、実はより長い*トレイト境界 (trait bound)* と呼ばれる姿の糖衣構文 (syntax sugar) なのです。
 それは以下のようなものです：
 
 ```rust,ignore
 pub fn notify<T: Summary>(item: &T) {
+	// 速報！ {}
     println!("Breaking news! {}", item.summarize());
 }
 ```
@@ -448,7 +449,7 @@ more verbose. We place trait bounds with the declaration of the generic type
 parameter after a colon and inside angle brackets.
 -->
 この「より長い」姿は前節の例と等価ですが、より冗長です。
-トレイト境界と、コロンを挟んでジェネリックな型引数の宣言を書き、それを角カッコで囲っています。
+角カッコの中にジェネリックな型引数の宣言を書き、型引数の後ろにコロンを挟んでトレイト境界を置いています。
 
 <!--
 The `impl Trait` syntax is convenient and makes for more concise code in simple
@@ -483,7 +484,7 @@ The generic type `T` specified as the type of the `item1` and `item2`
 parameters constrains the function such that the concrete type of the value
 passed as an argument for `item1` and `item2` must be the same.
 -->
-引数である`item1`と`item2`の型としてジェネリックな型`T`を指定することにより、実際に関数に`item1`と`item2`として渡される変数の値は同じ具体的な型を持っていなくてはならないと制約しています。
+引数である`item1`と`item2`の型としてジェネリックな型`T`を指定しました。これにより、`item1`と`item2`として関数に渡される値の具体的な型が同一でなければならない、という制約を与えています。
 
 <!--
 #### Specifying Multiple Trait Bounds with the `+` Syntax
@@ -496,8 +497,8 @@ display formatting on `item` as well as the `summarize` method: we specify in
 the `notify` definition that `item` must implement both `Display` and
 `Summary`. We can do so using the `+` syntax:
 -->
-1つ以上のトレイト境界も指定できます。
-たとえば、`notify`が`summarize`メソッドに加えて`item`の画面出力形式（ディスプレイフォーマット）を使いたいとします。すなわち、`notify`の定義に`item`は`Display`と`Summary`の両方を実装していなくてはならないと指定したいとします。
+複数のトレイト境界も指定できます。
+たとえば、`notify`に`summarize`メソッドに加えて`item`の画面出力形式（ディスプレイフォーマット）を使わせたいとします。その場合は、`notify`の定義に`item`は`Display`と`Summary`の両方を実装していなくてはならないと指定することになります。
 これは、以下のように`+`構文で行うことができます：
 
 ```rust,ignore
@@ -507,7 +508,7 @@ pub fn notify(item: &(impl Summary + Display)) {
 <!--
 The `+` syntax is also valid with trait bounds on generic types:
 -->
-ジェネリック型に対しても`+`構文は使えます：
+`+`構文はジェネリック型につけたトレイト境界に対しても使えます：
 
 ```rust,ignore
 pub fn notify<T: Summary + Display>(item: &T) {
@@ -533,7 +534,7 @@ syntax for specifying trait bounds inside a `where` clause after the function
 signature. So instead of writing this:
 -->
 あまりたくさんのトレイト境界を使うことには欠点もあります。
-それぞれのジェネリック（な型）にそれぞれのトレイト境界があるので、複数のジェネリック型の引数をもつ関数は、関数名と引数リストの間に大量のトレイト境界に関する情報を含まないといけないかもしれません。これでは関数のシグネチャが読みにくくなってしまいます。
+それぞれのジェネリック（な型）がそれぞれのトレイト境界をもつので、複数のジェネリック型の引数をもつ関数は、関数名と引数リストの間に大量のトレイト境界に関する情報を含むことがあります。これでは関数のシグネチャが読みにくくなってしまいます。
 このため、Rustはトレイト境界を関数シグネチャの後の`where`句の中で指定するという別の構文を用意しています。
 なので、このように書く：
 
@@ -563,14 +564,14 @@ bounds.
 <!--
 ### Returning Types that Implement Traits
 -->
-### トレイトを実装するような型を返す
+### トレイトを実装している型を返す
 
 
 <!--
 We can also use the `impl Trait` syntax in the return position to return a
 value of some type that implements a trait, as shown here:
 -->
-以下のように、`impl Trait`構文をreturnの場所で使うことにより、あるトレイトを実装するような何らかの型を返すことができます。
+以下のように、`impl Trait`構文を戻り値型のところで使うことにより、あるトレイトを実装する何らかの型を返すことができます。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-05-returning-impl-trait/src/lib.rs:here}}
@@ -582,7 +583,7 @@ By using `impl Summary` for the return type, we specify that the
 trait without naming the concrete type. In this case, `returns_summarizable`
 returns a `Tweet`, but the code calling this function doesn’t know that.
 -->
-戻り値の型として`impl Summary`を使うことにより、具体的な型が何かを言うことなく、`returns_summarizable`関数は`Summary`トレイトを実装するような何らかの方を返すのだと指定することができます。
+戻り値の型として`impl Summary`を使うことにより、具体的な型が何かを言うことなく、`returns_summarizable`関数は`Summary`トレイトを実装している何らかの型を返すのだと指定することができます。
 今回`returns_summarizable`は`Tweet`を返しますが、この関数を呼び出すコードはそのことを知りません。
 
 <!--
@@ -593,7 +594,7 @@ or types that are very long to specify. The `impl Trait` syntax lets you
 concisely specify that a function returns some type that implements the
 `Iterator` trait without needing to write out a very long type.
 -->
-その実装するトレイトによってのみ指定されている型を返すという能力は、13章で学ぶ、クロージャとイテレータを扱うときに特に便利です。
+実装しているトレイトだけで戻り値型を指定できることは、13章で学ぶ、クロージャとイテレータを扱うときに特に便利です。
 クロージャとイテレータの作り出す型は、コンパイラだけが知っているものであったり、指定するには長すぎるものであったりします。
 `impl Trait`構文を使えば、非常に長い型を書くことなく、ある関数は`Iterator`トレイトを実装するある型を返すのだと簡潔に指定することができます。
 
@@ -650,7 +651,7 @@ look like this:
 `largest`の本体で、大なり演算子(`>`)を使用して型`T`の2つの値を比較しようとしていました。その演算子は、
 標準ライブラリトレイトの`std::cmp::PartialOrd`でデフォルトメソッドとして定義されているので、
 `largest`関数が、比較できるあらゆる型のスライスに対して動くようにするためには、`T`のトレイト境界に`PartialOrd`を指定する必要があります。
-`PartialOrd`は初期化処理に含まれているので、これをスコープに導入する必要はありません。
+`PartialOrd`はpreludeに含まれているので、これをスコープに導入する必要はありません。
 `largest`のシグニチャを以下のように変えてください:
 
 ```rust,ignore
@@ -680,7 +681,7 @@ error.
 -->
 このエラーの鍵となる行は、`cannot move out of type [T], a non-copy slice`です。
 ジェネリックでないバージョンの`largest`関数では、最大の`i32`か`char`を探そうとするだけでした。
-第4章の[スタックのみのデータ: コピー][stack-only-data-copy]節で議論したように、`i32`や`char`のようなサイズが既知の型は、
+第4章の[スタックのみのデータ: コピー][stack-only-data-copy]節で議論したように、`i32`や`char`のようなサイズが既知の型は
 スタックに格納できるので、`Copy`トレイトを実装しています。しかし、`largest`関数をジェネリックにすると、
 `list`引数が`Copy`トレイトを実装しない型を含む可能性も出てきたのです。結果として、
 `list[0]`から値を`largest`にムーブできず、このエラーに陥ったのです。
@@ -828,7 +829,7 @@ generics.
 トレイトとトレイト境界により、ジェネリックな型引数を使用して重複を減らしつつ、コンパイラに対して、
 そのジェネリックな型に特定の振る舞いが欲しいことを指定するコードを書くことができます。
 それからコンパイラは、トレイト境界の情報を活用してコードに使用された具体的な型が正しい振る舞いを提供しているか確認できます。
-動的型付け言語では、型が実装しない型のメソッドを呼び出せば、実行時 (runtime) にエラーが出るでしょう。
+動的型付き言語では、その型に定義されていないメソッドを呼び出せば、実行時 (runtime) にエラーが出るでしょう。
 しかし、Rustはこの種のエラーをコンパイル時に移したので、コードが動かせるようになる以前に問題を修正することを強制されるのです。
 加えて、コンパイル時に既に確認したので、実行時の振る舞いを確認するコードを書かなくても済みます。
 そうすることでジェネリクスの柔軟性を諦める必要なく、パフォーマンスを向上させます。

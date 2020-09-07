@@ -1,6 +1,7 @@
 // ANCHOR: here
 pub trait Summary {
     fn summarize(&self) -> String {
+        // "（もっと読む）"
         String::from("(Read more...)")
     }
 }
