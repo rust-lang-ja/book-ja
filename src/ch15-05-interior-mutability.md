@@ -402,7 +402,7 @@ mod tests {
 that isn’t allowed by the borrow checker</span>
 -->
 
-<span class="caption">リスト15-21: 借用チェッカーが許可してくれない`MockMessanger`を実装しようとする</span>
+<span class="caption">リスト15-21: 借用チェッカーが許可してくれない`MockMessenger`を実装しようとする</span>
 
 <!--
 This test code defines a `MockMessenger` struct that has a `sent_messages`
