@@ -257,6 +257,8 @@ let mut v = vec![1, 2, 3, 4, 5];
 let first = &v[0];
 
 v.push(6);
+
+println!("The first element is: {}", first);
 ```
 
 <!-- <span class="caption">Listing 8-7: Attempting to add an element to a vector -->
@@ -271,17 +273,19 @@ v.push(6);
 ```text
 error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immutable
 (エラー: 不変としても借用されているので、`v`を可変で借用できません)
-  |
-4 |     let first = &v[0];
-  |                  - immutable borrow occurs here
-  |                  (不変借用はここで発生しています)
-5 |
-6 |     v.push(6);
-  |     ^ mutable borrow occurs here
-  |      (可変借用は、ここで発生しています)
-7 | }
-  | - immutable borrow ends here
-  |   (不変借用はここで終了しています)
+  --> src/main.rs:10:5
+   |
+8  |     let first = &v[0];
+   |                  - immutable borrow occurs here
+   |                  (不変借用はここで発生しています)
+9  |
+10 |     v.push(6);
+   |     ^^^^^^^^^ mutable borrow occurs here
+   |      (可変借用は、ここで発生しています)
+11 |
+12 |     println!("The first element is: {}", first);
+   |                                          ----- borrow later used here
+                                              (不変借用はその後ここで使われています) 
 ```
 
 <!-- The code in Listing 8-7 might look like it should work: why should a reference -->
