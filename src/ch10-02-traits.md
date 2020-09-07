@@ -11,9 +11,9 @@ abstract way. We can use trait bounds to specify that a generic can be any type
 that has certain behavior.
 -->
 
-*トレイト*により、Rustコンパイラに特定の型に存在し、他の型と共有できる機能について知らせます。
-トレイトを使用して共通の振る舞いを抽象的に定義できます。トレイト境界を使用して、
-あるジェネリックが特定の振る舞いのあるあらゆる型になり得ることを指定できます。
+*トレイト*は、Rustコンパイラに、特定の型に存在し、他の型と共有できる機能について知らせます。
+トレイトを使用すると、共通の振る舞いを抽象的に定義できます。トレイト境界を使用すると、
+あるジェネリックが、特定の振る舞いをもつあらゆる型になり得ることを指定できます。
 
 <!--
 > Note: Traits are similar to a feature often called *interfaces* in other
@@ -35,8 +35,8 @@ types. Trait definitions are a way to group method signatures together to
 define a set of behaviors necessary to accomplish some purpose.
 -->
 
-型の振る舞いは、その型に対して呼び出せるメソッドから構成されます。異なる型は、それらの型全部に対して同じメソッドを呼び出せたら、
-同じ振る舞いを共有します。トレイト定義は、メソッドシグニチャを一緒くたにしてなんらかの目的を達成するのに必要な一連の振る舞いを定義する手段です。
+型の振る舞いは、その型に対して呼び出せるメソッドから構成されます。異なる型は、それらの型全てに対して同じメソッドを呼び出せるなら、
+同じ振る舞いを共有することになります。トレイト定義は、メソッドシグニチャをあるグループにまとめ、なんらかの目的を達成するのに必要な一連の振る舞いを定義する手段です。
 
 <!--
 For example, let’s say we have multiple structs that hold various kinds and
@@ -46,7 +46,7 @@ with metadata that indicates whether it was a new tweet, a retweet, or a reply
 to another tweet.
 -->
 
-例えば、いろんな種類や量のテキストを保持する複数の構造体があるとしましょう: 特定の場所で送られる新しいニュースを保持する`NewsArticle`と、
+例えば、いろんな種類や量のテキストを保持する複数の構造体があるとしましょう: 特定の場所から送られる新しいニュースを保持する`NewsArticle`と、
 新規ツイートか、リツイートか、はたまた他のツイートへのリプライなのかを示すメタデータを伴う最大で280文字までの`Tweet`です。
 
 <!--
@@ -57,7 +57,7 @@ need a summary from each type, and we need to request that summary by calling a
 `Summary` trait that expresses this behavior.
 -->
 
-`NewsArticle` または `Tweet` インスタンスに保存されているデータのサマリを表示できるメディア アグリゲータ ライブラリを作成します。
+`NewsArticle` または `Tweet` インスタンスに保存されているデータのサマリーを表示できるメディア アグリゲータ ライブラリを作成します。
 これをするには、各型のサマリーが必要で、インスタンスで `summarize` メソッドを呼び出してサマリーを要求する必要があります。
 リスト10-12は、この振る舞いを表現する`Summary`トレイトの定義を表示しています。
 
@@ -99,7 +99,7 @@ defined with this signature exactly.
 
 メソッドシグニチャの後に、波括弧内に実装を提供する代わりに、セミコロンを使用しています。
 このトレイトを実装する型はそれぞれ、メソッドの本体に独自の振る舞いを提供しなければなりません。
-コンパイラにより、`Summary`トレイトを保持するあらゆる型に、このシグニチャと全く同じメソッド`summarize`が定義されていることが、
+コンパイラにより、`Summary`トレイトを保持するあらゆる型に、このシグニチャと全く同じメソッド`summarize`が定義されていることが
 強制されます。
 
 <!--
@@ -107,8 +107,8 @@ A trait can have multiple methods in its body: the method signatures are listed
 one per line and each line ends in a semicolon.
 -->
 
-トレイトには、本体に複数のメソッドを含むことができます: メソッドシグニチャは行ごとに列挙され、
-各行はセミコロンで終止します。
+トレイトには、本体に複数のメソッドを含むことができます: メソッドシグニチャは行ごとに並べられ、
+各行はセミコロンで終わります。
 
 <!--
 ### Implementing a Trait on a Type
@@ -126,8 +126,8 @@ followed by the entire text of the tweet, assuming that tweet content is
 already limited to 280 characters.
 -->
 
-今や `Summary` トレイトを使用して目的の動作を定義できたので、メディア アグリゲータで型に実装できます。
-リスト10-13は、 `Summary` トレイトを `NewsArticle` 構造体上に実装したもので、ヘッドライン、著者、そして `summarize` の戻り値を示しています。
+今や `Summary` トレイトを使用して目的の動作を定義できたので、メディア アグリゲータでこれを型に実装できます。
+リスト10-13は、 `Summary` トレイトを `NewsArticle` 構造体上に実装したもので、ヘッドライン、著者、そして地域情報を使って`summarize` の戻り値を作っています。
 `Tweet` 構造体に関しては、ツイートの内容が既に280文字に制限されていると仮定して、ユーザー名の後にツイートのテキスト全体が続くものとして `summarize` を定義します。
 
 <!--
@@ -198,7 +198,7 @@ before `trait` in Listing 10-12.
 リスト10-13で`Summary`トレイトと`NewArticle`、`Tweet`型を同じ*lib.rs*に定義したので、
 全部同じスコープにあることに注目してください。この*lib.rs*を`aggregator`と呼ばれるクレート専用にして、
 誰か他の人が私たちのクレートの機能を活用して自分のライブラリのスコープに定義された構造体に`Summary`トレイトを実装したいとしましょう。
-まず、トレイトをスコープにインポートする必要があるでしょう。`use aggregator::Summary;`と指定してそれを行い、
+まず、トレイトをスコープに取り込む必要があるでしょう。`use aggregator::Summary;`と指定してそれを行えば、
 これにより、自分の型に`Summary`を実装することが可能になるでしょう。`Summary`トレイトは、
 他のクレートが実装するためには、公開トレイトである必要があり、ここでは、リスト10-12の`trait`の前に、
 `pub`キーワードを置いたのでそうなっています。
@@ -252,8 +252,8 @@ Then, as we implement the trait on a particular type, we can keep or override
 each method’s default behavior.
 -->
 
-時として、全ての型の全メソッドに対して実装を必要とするのではなく、トレイトの全てあるいは一部のメソッドに対してデフォルトの振る舞いがあると有用です。
-そうすれば、特定の型にトレイトを実装する際、各メソッドのデフォルト実装を保持するかオーバーライドできるわけです。
+時として、全ての型の全メソッドに対して実装を要求するのではなく、トレイトの全てあるいは一部のメソッドに対してデフォルトの振る舞いがあると有用です。
+そうすれば、特定の型にトレイトを実装する際、各メソッドのデフォルト実装を保持するかオーバーライドするか選べるわけです。
 
 <!--
 Listing 10-14 shows how to specify a default string for the `summarize` method
@@ -262,7 +262,7 @@ in Listing 10-12.
 -->
 
 リスト10-14は、リスト10-12のように、メソッドシグニチャだけを定義するのではなく、
-`Summary`トレイトの`summarize`メソッドにデフォルトの文字列を指定する方法を示しています:
+`Summary`トレイトの`summarize`メソッドにデフォルトの文字列を指定する方法を示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -286,7 +286,7 @@ To use a default implementation to summarize instances of `NewsArticle` instead
 of defining a custom implementation, we specify an empty `impl` block with
 `impl Summary for NewsArticle {}`.
 -->
-独自の実装を定義するのではなく、デフォルト実装を使用して`NewsArticle`のインスタンスをまとめるには、
+独自の実装を定義するのではなく、デフォルト実装を利用して`NewsArticle`のインスタンスをまとめるには、
 `impl Summary for NewsArticle {}`と空の`impl`ブロックを指定します。
 
 <!--
@@ -308,7 +308,7 @@ the `summarize` method on an instance of `NewsArticle`, like this:
 This code prints `New article available! (Read more...)`.
 -->
 
-このコードは、`New article available! (Read more...)`と出力します。
+このコードは、`New article available! (Read more...)`（`新しい記事があります！（もっと読む）`）と出力します。
 
 <!--
 Creating a default implementation for `summarize` doesn’t require us to change
@@ -319,7 +319,7 @@ implementation.
 -->
 
 `summarize`にデフォルト実装を用意しても、リスト10-13の`Tweet`の`Summary`実装を変える必要はありません。
-理由は、デフォルト実装をオーバーライドする記法がデフォルト実装のないトレイトメソッドを実装する記法と同じだからです。
+理由は、デフォルト実装をオーバーライドする記法はデフォルト実装のないトレイトメソッドを実装する記法と同じだからです。
 
 <!--
 Default implementations can call other methods in the same trait, even if those
@@ -372,7 +372,7 @@ definition of `summarize_author` that we’ve provided. Because we’ve implemen
 This code prints `1 new tweet: (Read more from @horse_ebooks...)`.
 -->
 
-このコードは、`1 new tweet: (Read more from @horse_ebooks...)`と出力します。
+このコードは、`1 new tweet: (Read more from @horse_ebooks...)`（`1つの新しいツイート：（@horse_ebooksさんの文章をもっと読む）`）と出力します。
 
 <!--
 Note that it isn’t possible to call the default implementation from an
@@ -421,7 +421,8 @@ because those types don’t implement `Summary`.
 この引数は、指定されたトレイトを実装しているあらゆる型を受け付けます。
 `notify`の中身では、`summarize`のような、`Summary`トレイトに由来する`item`のあらゆるメソッドを呼び出すことができます。
 私達は、`notify`を呼びだし、`NewsArticle`か`Tweet`のどんなインスタンスでも渡すことができます。
-この関数を呼び出すときに、`String`や`i32`のような他の型を渡すようなコードはコンパイルできません。なぜなら、これらの型は`Summary`を実装していないからです。
+この関数を呼び出すときに、`String`や`i32`のような他の型を渡すようなコードはコンパイルできません。
+なぜなら、これらの型は`Summary`を実装していないからです。
 
 <!--
 #### Trait Bound Syntax
@@ -484,7 +485,8 @@ The generic type `T` specified as the type of the `item1` and `item2`
 parameters constrains the function such that the concrete type of the value
 passed as an argument for `item1` and `item2` must be the same.
 -->
-引数である`item1`と`item2`の型としてジェネリックな型`T`を指定しました。これにより、`item1`と`item2`として関数に渡される値の具体的な型が同一でなければならない、という制約を与えています。
+引数である`item1`と`item2`の型としてジェネリックな型`T`を指定しました。
+これにより、`item1`と`item2`として関数に渡される値の具体的な型が同一でなければならない、という制約を与えています。
 
 <!--
 #### Specifying Multiple Trait Bounds with the `+` Syntax
@@ -498,7 +500,8 @@ the `notify` definition that `item` must implement both `Display` and
 `Summary`. We can do so using the `+` syntax:
 -->
 複数のトレイト境界も指定できます。
-たとえば、`notify`に`summarize`メソッドに加えて`item`の画面出力形式（ディスプレイフォーマット）を使わせたいとします。その場合は、`notify`の定義に`item`は`Display`と`Summary`の両方を実装していなくてはならないと指定することになります。
+たとえば、`notify`に`summarize`メソッドに加えて`item`の画面出力形式（ディスプレイフォーマット）を使わせたいとします。
+その場合は、`notify`の定義に`item`は`Display`と`Summary`の両方を実装していなくてはならないと指定することになります。
 これは、以下のように`+`構文で行うことができます：
 
 ```rust,ignore
@@ -534,7 +537,8 @@ syntax for specifying trait bounds inside a `where` clause after the function
 signature. So instead of writing this:
 -->
 あまりたくさんのトレイト境界を使うことには欠点もあります。
-それぞれのジェネリック（な型）がそれぞれのトレイト境界をもつので、複数のジェネリック型の引数をもつ関数は、関数名と引数リストの間に大量のトレイト境界に関する情報を含むことがあります。これでは関数のシグネチャが読みにくくなってしまいます。
+それぞれのジェネリック（な型）がそれぞれのトレイト境界をもつので、複数のジェネリック型の引数をもつ関数は、関数名と引数リストの間に大量のトレイト境界に関する情報を含むことがあります。
+これでは関数のシグネチャが読みにくくなってしまいます。
 このため、Rustはトレイト境界を関数シグネチャの後の`where`句の中で指定するという別の構文を用意しています。
 なので、このように書く：
 
@@ -583,7 +587,7 @@ By using `impl Summary` for the return type, we specify that the
 trait without naming the concrete type. In this case, `returns_summarizable`
 returns a `Tweet`, but the code calling this function doesn’t know that.
 -->
-戻り値の型として`impl Summary`を使うことにより、具体的な型が何かを言うことなく、`returns_summarizable`関数は`Summary`トレイトを実装している何らかの型を返すのだと指定することができます。
+戻り値の型として`impl Summary`を使うことにより、具体的な型が何かを言うことなく、`returns_summarizable`関数は`Summary`トレイトを実装している何らかの型を返すのだ、と指定することができます。
 今回`returns_summarizable`は`Tweet`を返しますが、この関数を呼び出すコードはそのことを知りません。
 
 <!--
@@ -596,14 +600,14 @@ concisely specify that a function returns some type that implements the
 -->
 実装しているトレイトだけで戻り値型を指定できることは、13章で学ぶ、クロージャとイテレータを扱うときに特に便利です。
 クロージャとイテレータの作り出す型は、コンパイラだけが知っているものであったり、指定するには長すぎるものであったりします。
-`impl Trait`構文を使えば、非常に長い型を書くことなく、ある関数は`Iterator`トレイトを実装するある型を返すのだと簡潔に指定することができます。
+`impl Trait`構文を使えば、非常に長い型を書くことなく、ある関数は`Iterator`トレイトを実装するある型を返すのだ、と簡潔に指定することができます。
 
 <!--
 However, you can only use `impl Trait` if you’re returning a single type. For
 example, this code that returns either a `NewsArticle` or a `Tweet` with the
 return type specified as `impl Summary` wouldn’t work:
 -->
-しかし、`impl Trait`は一つの型を返す場合にのみ使えます。
+ただし、`impl Trait`は一種類の型を返す場合にのみ使えます。
 たとえば、以下のように、戻り値の型は`impl Summary`で指定しつつ、`NewsArticle`か`Tweet`を返すようなコードは失敗します：
 
 ```rust,ignore,does_not_compile
@@ -648,7 +652,7 @@ slices of any type that we can compare. We don’t need to bring `PartialOrd`
 into scope because it’s in the prelude. Change the signature of `largest` to
 look like this:
 -->
-`largest`の本体で、大なり演算子(`>`)を使用して型`T`の2つの値を比較しようとしていました。その演算子は、
+`largest`の本体で、大なり演算子(`>`)を使用して型`T`の2つの値を比較しようとしていました。この演算子は、
 標準ライブラリトレイトの`std::cmp::PartialOrd`でデフォルトメソッドとして定義されているので、
 `largest`関数が、比較できるあらゆる型のスライスに対して動くようにするためには、`T`のトレイト境界に`PartialOrd`を指定する必要があります。
 `PartialOrd`はpreludeに含まれているので、これをスコープに導入する必要はありません。
@@ -736,7 +740,7 @@ avoid heap allocations. Try implementing these alternate solutions on your own!
 -->
 `largest`の別の実装方法は、関数がスライスの`T`値への参照を返すようにすることです。
 戻り値の型を`T`ではなく`&T`に変え、それにより関数の本体を参照を返すように変更したら、
-`Clone`か`Copy`トレイト境界は必要なくなり、ヒープ確保も避けられるでしょう。
+`Clone`や`Copy`トレイト境界は必要なくなり、ヒープ確保も避けられるでしょう。
 これらの代替策をご自身で実装してみましょう！
 
 <!--
@@ -811,7 +815,7 @@ let s = 3.to_string();
 Blanket implementations appear in the documentation for the trait in the
 “Implementors” section.
 -->
-ブランケット実装は、「実装したもの」節のトレイトのドキュメンテーションに出現します。
+ブランケット実装は、トレイトのドキュメンテーションの「実装したもの」節に出現します。
 
 <!--
 Traits and trait bounds let us write code that uses generic type parameters to
@@ -832,7 +836,7 @@ generics.
 動的型付き言語では、その型に定義されていないメソッドを呼び出せば、実行時 (runtime) にエラーが出るでしょう。
 しかし、Rustはこの種のエラーをコンパイル時に移したので、コードが動かせるようになる以前に問題を修正することを強制されるのです。
 加えて、コンパイル時に既に確認したので、実行時の振る舞いを確認するコードを書かなくても済みます。
-そうすることでジェネリクスの柔軟性を諦める必要なく、パフォーマンスを向上させます。
+そうすることで、ジェネリクスの柔軟性を諦めることなくパフォーマンスを向上させます。
 
 <!--
 Another kind of generic that we’ve already been using is called *lifetimes*.
