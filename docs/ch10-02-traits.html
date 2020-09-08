@@ -163,9 +163,9 @@ can share with other types. We can use traits to define shared behavior in an
 abstract way. We can use trait bounds to specify that a generic can be any type
 that has certain behavior.
 -->
-<p><em>トレイト</em>により、Rustコンパイラに特定の型に存在し、他の型と共有できる機能について知らせます。
-トレイトを使用して共通の振る舞いを抽象的に定義できます。トレイト境界を使用して、
-あるジェネリックが特定の振る舞いのあるあらゆる型になり得ることを指定できます。</p>
+<p><em>トレイト</em>は、Rustコンパイラに、特定の型に存在し、他の型と共有できる機能について知らせます。
+トレイトを使用すると、共通の振る舞いを抽象的に定義できます。トレイト境界を使用すると、
+あるジェネリックが、特定の振る舞いをもつあらゆる型になり得ることを指定できます。</p>
 <!--
 > Note: Traits are similar to a feature often called *interfaces* in other
 > languages, although with some differences.
@@ -183,8 +183,8 @@ types share the same behavior if we can call the same methods on all of those
 types. Trait definitions are a way to group method signatures together to
 define a set of behaviors necessary to accomplish some purpose.
 -->
-<p>型の振る舞いは、その型に対して呼び出せるメソッドから構成されます。異なる型は、それらの型全部に対して同じメソッドを呼び出せたら、
-同じ振る舞いを共有します。トレイト定義は、メソッドシグニチャを一緒くたにしてなんらかの目的を達成するのに必要な一連の振る舞いを定義する手段です。</p>
+<p>型の振る舞いは、その型に対して呼び出せるメソッドから構成されます。異なる型は、それらの型全てに対して同じメソッドを呼び出せるなら、
+同じ振る舞いを共有することになります。トレイト定義は、メソッドシグニチャをあるグループにまとめ、なんらかの目的を達成するのに必要な一連の振る舞いを定義する手段です。</p>
 <!--
 For example, let’s say we have multiple structs that hold various kinds and
 amounts of text: a `NewsArticle` struct that holds a news story filed in a
@@ -192,7 +192,7 @@ particular location and a `Tweet` that can have at most 280 characters along
 with metadata that indicates whether it was a new tweet, a retweet, or a reply
 to another tweet.
 -->
-<p>例えば、いろんな種類や量のテキストを保持する複数の構造体があるとしましょう: 特定の場所で送られる新しいニュースを保持する<code>NewsArticle</code>と、
+<p>例えば、いろんな種類や量のテキストを保持する複数の構造体があるとしましょう: 特定の場所から送られる新しいニュースを保持する<code>NewsArticle</code>と、
 新規ツイートか、リツイートか、はたまた他のツイートへのリプライなのかを示すメタデータを伴う最大で280文字までの<code>Tweet</code>です。</p>
 <!--
 We want to make a media aggregator library that can display summaries of data
@@ -201,7 +201,7 @@ need a summary from each type, and we need to request that summary by calling a
 `summarize` method on an instance. Listing 10-12 shows the definition of a
 `Summary` trait that expresses this behavior.
 -->
-<p><code>NewsArticle</code> または <code>Tweet</code> インスタンスに保存されているデータのサマリを表示できるメディア アグリゲータ ライブラリを作成します。
+<p><code>NewsArticle</code> または <code>Tweet</code> インスタンスに保存されているデータのサマリーを表示できるメディア アグリゲータ ライブラリを作成します。
 これをするには、各型のサマリーが必要で、インスタンスで <code>summarize</code> メソッドを呼び出してサマリーを要求する必要があります。
 リスト10-12は、この振る舞いを表現する<code>Summary</code>トレイトの定義を表示しています。</p>
 <!--
@@ -239,14 +239,14 @@ defined with this signature exactly.
 -->
 <p>メソッドシグニチャの後に、波括弧内に実装を提供する代わりに、セミコロンを使用しています。
 このトレイトを実装する型はそれぞれ、メソッドの本体に独自の振る舞いを提供しなければなりません。
-コンパイラにより、<code>Summary</code>トレイトを保持するあらゆる型に、このシグニチャと全く同じメソッド<code>summarize</code>が定義されていることが、
+コンパイラにより、<code>Summary</code>トレイトを保持するあらゆる型に、このシグニチャと全く同じメソッド<code>summarize</code>が定義されていることが
 強制されます。</p>
 <!--
 A trait can have multiple methods in its body: the method signatures are listed
 one per line and each line ends in a semicolon.
 -->
-<p>トレイトには、本体に複数のメソッドを含むことができます: メソッドシグニチャは行ごとに列挙され、
-各行はセミコロンで終止します。</p>
+<p>トレイトには、本体に複数のメソッドを含むことができます: メソッドシグニチャは行ごとに並べられ、
+各行はセミコロンで終わります。</p>
 <!--
 ### Implementing a Trait on a Type
 -->
@@ -260,8 +260,8 @@ headline, the author, and the location to create the return value of
 followed by the entire text of the tweet, assuming that tweet content is
 already limited to 280 characters.
 -->
-<p>今や <code>Summary</code> トレイトを使用して目的の動作を定義できたので、メディア アグリゲータで型に実装できます。
-リスト10-13は、 <code>Summary</code> トレイトを <code>NewsArticle</code> 構造体上に実装したもので、ヘッドライン、著者、そして <code>summarize</code> の戻り値を示しています。
+<p>今や <code>Summary</code> トレイトを使用して目的の動作を定義できたので、メディア アグリゲータでこれを型に実装できます。
+リスト10-13は、 <code>Summary</code> トレイトを <code>NewsArticle</code> 構造体上に実装したもので、ヘッドライン、著者、そして地域情報を使って<code>summarize</code> の戻り値を作っています。
 <code>Tweet</code> 構造体に関しては、ツイートの内容が既に280文字に制限されていると仮定して、ユーザー名の後にツイートのテキスト全体が続くものとして <code>summarize</code> を定義します。</p>
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -326,16 +326,22 @@ After implementing the trait, we can call the methods on instances of
 -->
 <p>トレイトを実装後、普通のメソッド同様に<code>NewsArticle</code>や<code>Tweet</code>のインスタンスに対してこのメソッドを呼び出せます。
 こんな感じで:</p>
-<pre><code class="language-rust ignore">let tweet = Tweet {
-    username: String::from(&quot;horse_ebooks&quot;),
-    // もちろん、ご存知かもしれないようにね、みなさん
-    content: String::from(&quot;of course, as you probably already know, people&quot;),
-    reply: false,
-    retweet: false,
-};
+<pre><code class="language-rust ignore"><span class="boring">use chapter10::{self, Summary, Tweet};
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span>    let tweet = Tweet {
+        username: String::from(&quot;horse_ebooks&quot;),
+        content: String::from(
+            // もちろん、ご存知かもしれませんがね、みなさん
+            &quot;of course, as you probably already know, people&quot;,
+        ),
+        reply: false,
+        retweet: false,
+    };
 
-println!(&quot;1 new tweet: {}&quot;, tweet.summarize());
-</code></pre>
+    println!(&quot;1 new tweet: {}&quot;, tweet.summarize());
+<span class="boring">}
+</span></code></pre>
 <!--
 This code prints `1 new tweet: horse_ebooks: of course, as you probably already
 know, people`.
@@ -347,7 +353,7 @@ Note that because we defined the `Summary` trait and the `NewsArticle` and
 scope. Let’s say this *lib.rs* is for a crate we’ve called `aggregator` and
 someone else wants to use our crate’s functionality to implement the `Summary`
 trait on a struct defined within their library’s scope. They would need to
-import the trait into their scope first. They would do so by specifying `use
+bring the trait into their scope first. They would do so by specifying `use
 aggregator::Summary;`, which then would enable them to implement `Summary` for
 their type. The `Summary` trait would also need to be a public trait for
 another crate to implement it, which it is because we put the `pub` keyword
@@ -356,7 +362,7 @@ before `trait` in Listing 10-12.
 <p>リスト10-13で<code>Summary</code>トレイトと<code>NewArticle</code>、<code>Tweet</code>型を同じ<em>lib.rs</em>に定義したので、
 全部同じスコープにあることに注目してください。この<em>lib.rs</em>を<code>aggregator</code>と呼ばれるクレート専用にして、
 誰か他の人が私たちのクレートの機能を活用して自分のライブラリのスコープに定義された構造体に<code>Summary</code>トレイトを実装したいとしましょう。
-まず、トレイトをスコープにインポートする必要があるでしょう。<code>use aggregator::Summary;</code>と指定してそれを行い、
+まず、トレイトをスコープに取り込む必要があるでしょう。<code>use aggregator::Summary;</code>と指定してそれを行えば、
 これにより、自分の型に<code>Summary</code>を実装することが可能になるでしょう。<code>Summary</code>トレイトは、
 他のクレートが実装するためには、公開トレイトである必要があり、ここでは、リスト10-12の<code>trait</code>の前に、
 <code>pub</code>キーワードを置いたのでそうなっています。</p>
@@ -388,7 +394,7 @@ implementation to use.
 <p>しかし、外部のトレイトを外部の型に対して実装することはできません。例として、
 <code>aggregator</code>クレート内で<code>Vec&lt;T&gt;</code>に対して<code>Display</code>トレイトを実装することはできません。
 <code>Display</code>と<code>Vec&lt;T&gt;</code>は標準ライブラリで定義され、<code>aggregator</code>クレートに固有ではないからです。
-この制限は、<em>コヒーレンス</em>(coherence)あるいは、具体的に<em>オーファンルール</em>(orphan rule)と呼ばれるプログラムの特性の一部で、
+この制限は、<em>コヒーレンス</em>(coherence)、特に<em>孤児のルール</em>(orphan rule)と呼ばれるプログラムの特性の一部で、
 親の型が存在しないためにそう命名されました。この規則により、他の人のコードが自分のコードを壊したり、
 その逆が起きないことを保証してくれます。この規則がなければ、2つのクレートが同じ型に対して同じトレイトを実装できてしまい、
 コンパイラはどちらの実装を使うべきかわからなくなってしまうでしょう。</p>
@@ -402,15 +408,15 @@ in a trait instead of requiring implementations for all methods on every type.
 Then, as we implement the trait on a particular type, we can keep or override
 each method’s default behavior.
 -->
-<p>時として、全ての型の全メソッドに対して実装を必要とするのではなく、トレイトの全てあるいは一部のメソッドに対してデフォルトの振る舞いがあると有用です。
-そうすれば、特定の型にトレイトを実装する際、各メソッドのデフォルト実装を保持するかオーバーライドできるわけです。</p>
+<p>時として、全ての型の全メソッドに対して実装を要求するのではなく、トレイトの全てあるいは一部のメソッドに対してデフォルトの振る舞いがあると有用です。
+そうすれば、特定の型にトレイトを実装する際、各メソッドのデフォルト実装を保持するかオーバーライドするか選べるわけです。</p>
 <!--
 Listing 10-14 shows how to specify a default string for the `summarize` method
 of the `Summary` trait instead of only defining the method signature, as we did
-in Listing 10-12:
+in Listing 10-12.
 -->
 <p>リスト10-14は、リスト10-12のように、メソッドシグニチャだけを定義するのではなく、
-<code>Summary</code>トレイトの<code>summarize</code>メソッドにデフォルトの文字列を指定する方法を示しています:</p>
+<code>Summary</code>トレイトの<code>summarize</code>メソッドにデフォルトの文字列を指定する方法を示しています。</p>
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
@@ -420,11 +426,33 @@ in Listing 10-12:
 </span><span class="boring">fn main() {
 </span>pub trait Summary {
     fn summarize(&amp;self) -&gt; String {
-        // (もっと読む)
+        // &quot;（もっと読む）&quot;
         String::from(&quot;(Read more...)&quot;)
     }
 }
-<span class="boring">}
+<span class="boring">
+</span><span class="boring">pub struct NewsArticle {
+</span><span class="boring">    pub headline: String,
+</span><span class="boring">    pub location: String,
+</span><span class="boring">    pub author: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Summary for NewsArticle {}
+</span><span class="boring">
+</span><span class="boring">pub struct Tweet {
+</span><span class="boring">    pub username: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">    pub reply: bool,
+</span><span class="boring">    pub retweet: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Summary for Tweet {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String {
+</span><span class="boring">        format!(&quot;{}: {}&quot;, self.username, self.content)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">}
 </span></code></pre></pre>
 <!--
 <span class="caption">Listing 10-14: Definition of a `Summary` trait with a
@@ -436,7 +464,7 @@ To use a default implementation to summarize instances of `NewsArticle` instead
 of defining a custom implementation, we specify an empty `impl` block with
 `impl Summary for NewsArticle {}`.
 -->
-<p>独自の実装を定義するのではなく、デフォルト実装を使用して<code>NewsArticle</code>のインスタンスをまとめるには、
+<p>独自の実装を定義するのではなく、デフォルト実装を利用して<code>NewsArticle</code>のインスタンスをまとめるには、
 <code>impl Summary for NewsArticle {}</code>と空の<code>impl</code>ブロックを指定します。</p>
 <!--
 Even though we’re no longer defining the `summarize` method on `NewsArticle`
@@ -444,29 +472,34 @@ directly, we’ve provided a default implementation and specified that
 `NewsArticle` implements the `Summary` trait. As a result, we can still call
 the `summarize` method on an instance of `NewsArticle`, like this:
 -->
-<p>たとえ、最早<code>NewsArticle</code>に直接<code>summarize</code>メソッドを定義することはなくても、デフォルト実装を提供し、
-<code>NewsArticle</code>は<code>Summary</code>トレイトを実装すると指定しました。結果的に、それでも、
-<code>NewsArticle</code>のインスタンスに対して<code>summarize</code>メソッドを呼び出すことができます。
+<p>もはや<code>NewsArticle</code>に直接<code>summarize</code>メソッドを定義してはいませんが、私達はデフォルト実装を提供しており、
+<code>NewsArticle</code>は<code>Summary</code>トレイトを実装すると指定しました。そのため、
+<code>NewsArticle</code>のインスタンスに対して<code>summarize</code>メソッドを同じように呼び出すことができます。
 このように:</p>
-<pre><code class="language-rust ignore">let article = NewsArticle {
-    // ペンギンチームがスタンレーカップチャンピオンシップを勝ち取る！
-    headline: String::from(&quot;Penguins win the Stanley Cup Championship!&quot;),
-    // ピッツバーグ、ペンシルベニア州、アメリカ
-    location: String::from(&quot;Pittsburgh, PA, USA&quot;),
-    // アイスバーグ
-    author: String::from(&quot;Iceburgh&quot;),
-    // ピッツバーグ・ペンギンが再度NHL(National Hockey League)で最強のホッケーチームになった
-    content: String::from(&quot;The Pittsburgh Penguins once again are the best
-    hockey team in the NHL.&quot;),
-};
+<pre><code class="language-rust ignore"><span class="boring">use chapter10::{self, NewsArticle, Summary};
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span>    let article = NewsArticle {
+        // ペンギンチームがスタンレーカップチャンピオンシップを勝ち取る！
+        headline: String::from(&quot;Penguins win the Stanley Cup Championship!&quot;),
+        // アメリカ、ペンシルベニア州、ピッツバーグ
+        location: String::from(&quot;Pittsburgh, PA, USA&quot;),
+        // アイスバーグ
+        author: String::from(&quot;Iceburgh&quot;),
+        // ピッツバーグ・ペンギンが再度NHL(National Hockey League)で最強のホッケーチームになった
+        content: String::from(
+            &quot;The Pittsburgh Penguins once again are the best \
+             hockey team in the NHL.&quot;,
+        ),
+    };
 
-// 新しい記事が利用可能です！ {}
-println!(&quot;New article available! {}&quot;, article.summarize());
-</code></pre>
+    println!(&quot;New article available! {}&quot;, article.summarize());
+<span class="boring">}
+</span></code></pre>
 <!--
 This code prints `New article available! (Read more...)`.
 -->
-<p>このコードは、<code>New article available! (Read more...)</code>と出力します。</p>
+<p>このコードは、<code>New article available! (Read more...)</code>（<code>新しい記事があります！（もっと読む）</code>）と出力します。</p>
 <!--
 Creating a default implementation for `summarize` doesn’t require us to change
 anything about the implementation of `Summary` on `Tweet` in Listing 10-13. The
@@ -475,7 +508,7 @@ as the syntax for implementing a trait method that doesn’t have a default
 implementation.
 -->
 <p><code>summarize</code>にデフォルト実装を用意しても、リスト10-13の<code>Tweet</code>の<code>Summary</code>実装を変える必要はありません。
-理由は、デフォルト実装をオーバーライドする記法がデフォルト実装のないトレイトメソッドを実装する記法と同じだからです。</p>
+理由は、デフォルト実装をオーバーライドする記法はデフォルト実装のないトレイトメソッドを実装する記法と同じだからです。</p>
 <!--
 Default implementations can call other methods in the same trait, even if those
 other methods don’t have a default implementation. In this way, a trait can
@@ -485,10 +518,10 @@ a small part of it. For example, we could define the `Summary` trait to have a
 `summarize` method that has a default implementation that calls the
 `summarize_author` method:
 -->
-<p>デフォルト実装は、他のデフォルト実装がないメソッドでも呼び出すことができます。
-このように、トレイトは多くの有用な機能を提供しつつ、実装者に僅かな部分だけ指定してもらう必要しかないのです。
-例えば、<code>Summary</code>トレイトを実装が必須の<code>summarize_author</code>メソッドを持つように定義し、
-それから<code>summarize_author</code>メソッドを呼び出すデフォルト実装のある<code>summarize</code>メソッドを定義することもできます:</p>
+<p>デフォルト実装は、自らのトレイトのデフォルト実装を持たない他のメソッドを呼び出すことができます。
+このようにすれば、トレイトは多くの有用な機能を提供しつつ、実装者は僅かな部分しか指定しなくて済むようになります。
+例えば、<code>Summary</code>トレイトを、（実装者が）内容を実装しなければならない<code>summarize_author</code>メソッドを持つように定義し、
+それから<code>summarize_author</code>メソッドを呼び出すデフォルト実装を持つ<code>summarize</code>メソッドを定義することもできます:</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
 </span><span class="boring">fn main() {
@@ -496,18 +529,47 @@ a small part of it. For example, we could define the `Summary` trait to have a
     fn summarize_author(&amp;self) -&gt; String;
 
     fn summarize(&amp;self) -&gt; String {
-        // {}さんからもっと読む
+        // &quot;（{}さんの文章をもっと読む）&quot;
         format!(&quot;(Read more from {}...)&quot;, self.summarize_author())
     }
 }
-<span class="boring">}
+<span class="boring">
+</span><span class="boring">pub struct Tweet {
+</span><span class="boring">    pub username: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">    pub reply: bool,
+</span><span class="boring">    pub retweet: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Summary for Tweet {
+</span><span class="boring">    fn summarize_author(&amp;self) -&gt; String {
+</span><span class="boring">        format!(&quot;@{}&quot;, self.username)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">}
 </span></code></pre></pre>
 <!--
 To use this version of `Summary`, we only need to define `summarize_author`
 when we implement the trait on a type:
 -->
-<p>このバージョンの<code>Summary</code>を使用するには、型にトレイトを実装する際に<code>summarize_author</code>を定義する必要しかありません:</p>
-<pre><code class="language-rust ignore">impl Summary for Tweet {
+<p>このバージョンの<code>Summary</code>を使用するために、型にトレイトを実装する際、実装する必要があるのは<code>summarize_author</code>だけです:</p>
+<pre><code class="language-rust ignore"><span class="boring">pub trait Summary {
+</span><span class="boring">    fn summarize_author(&amp;self) -&gt; String;
+</span><span class="boring">
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String {
+</span><span class="boring">        // &quot;（{}さんの文章をもっと読む）&quot;
+</span><span class="boring">        format!(&quot;(Read more from {}...)&quot;, self.summarize_author())
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct Tweet {
+</span><span class="boring">    pub username: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">    pub reply: bool,
+</span><span class="boring">    pub retweet: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span>impl Summary for Tweet {
     fn summarize_author(&amp;self) -&gt; String {
         format!(&quot;@{}&quot;, self.username)
     }
@@ -521,105 +583,354 @@ definition of `summarize_author` that we’ve provided. Because we’ve implemen
 `summarize` method without requiring us to write any more code.
 -->
 <p><code>summarize_author</code>定義後、<code>Tweet</code>構造体のインスタンスに対して<code>summarize</code>を呼び出せ、
-<code>summarize</code>のデフォルト実装は、提供済みの<code>summarize_author</code>の定義を呼び出すでしょう。
+<code>summarize</code>のデフォルト実装は、私達が提供した<code>summarize_author</code>の定義を呼び出すでしょう。
 <code>summarize_author</code>を実装したので、追加のコードを書く必要なく、<code>Summary</code>トレイトは、
 <code>summarize</code>メソッドの振る舞いを与えてくれました。</p>
-<pre><code class="language-rust ignore">let tweet = Tweet {
-    username: String::from(&quot;horse_ebooks&quot;),
-    content: String::from(&quot;of course, as you probably already know, people&quot;),
-    reply: false,
-    retweet: false,
-};
+<pre><code class="language-rust ignore"><span class="boring">use chapter10::{self, Summary, Tweet};
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span>    let tweet = Tweet {
+        username: String::from(&quot;horse_ebooks&quot;),
+        content: String::from(
+            &quot;of course, as you probably already know, people&quot;,
+        ),
+        reply: false,
+        retweet: false,
+    };
 
-println!(&quot;1 new tweet: {}&quot;, tweet.summarize());
-</code></pre>
+    println!(&quot;1 new tweet: {}&quot;, tweet.summarize());
+<span class="boring">}
+</span></code></pre>
 <!--
 This code prints `1 new tweet: (Read more from @horse_ebooks...)`.
 -->
-<p>このコードは、<code>1 new tweet: (Read more from @horse_ebooks...)</code>と出力します。</p>
+<p>このコードは、<code>1 new tweet: (Read more from @horse_ebooks...)</code>（<code>1つの新しいツイート：（@horse_ebooksさんの文章をもっと読む）</code>）と出力します。</p>
 <!--
 Note that it isn’t possible to call the default implementation from an
 overriding implementation of that same method.
 -->
-<p>同じメソッドのオーバーライドした実装からは、デフォルト実装を呼び出すことができないことに注意してください。</p>
+<p>デフォルト実装を、そのメソッドをオーバーライドしている実装から呼び出すことはできないことに注意してください。</p>
 <!--
-### Trait Bounds
+### Traits as Parameters
 -->
-<h3><a class="header" href="#トレイト境界" id="トレイト境界">トレイト境界</a></h3>
+<h3><a class="header" href="#引数としてのトレイト" id="引数としてのトレイト">引数としてのトレイト</a></h3>
 <!--
-Now that you know how to define traits and implement those traits on types, we
-can explore how to use traits with generic type parameters. We can use *trait
-bounds* to constrain generic types to ensure the type will be limited to those
-that implement a particular trait and behavior.
+Now that you know how to define and implement traits, we can explore how to use
+traits to define functions that accept many different types.
 -->
-<p>これでトレイトの定義とトレイトを型に実装する方法を知ったので、ジェネリックな型引数でトレイトを使用する方法を探究できます。
-<em>トレイト境界</em>を使用してジェネリックな型を制限し、型が特定のトレイトや振る舞いを実装するものに制限されることを保証できます。</p>
+<p>トレイトを定義し実装する方法はわかったので、トレイトを使っていろんな種類の型を受け付ける関数を定義する方法を学んでいきましょう。</p>
 <!--
-For example, in Listing 10-13, we implemented the `Summary` trait on the types
-`NewsArticle` and `Tweet`. We can define a function `notify` that calls the
-`summarize` method on its parameter `item`, which is of the generic type `T`.
-To be able to call `summarize` on `item` without getting an error telling us
-that the generic type `T` doesn’t implement the method `summarize`, we can use
-trait bounds on `T` to specify that `item` must be of a type that implements
-the `Summary` trait:
+For example, in Listing 10-13, we implemented the `Summary` trait on the
+`NewsArticle` and `Tweet` types. We can define a `notify` function that calls
+the `summarize` method on its `item` parameter, which is of some type that
+implements the `Summary` trait. To do this, we can use the `impl Trait`
+syntax, like this:
 -->
-<p>例として、リスト10-13で、<code>Summary</code>トレイトを型<code>NewsArticle</code>と<code>Tweet</code>に実装しました。
-引数<code>item</code>に対して<code>summarize</code>メソッドを呼び出す関数<code>notify</code>を定義でき、この引数はジェネリックな型<code>T</code>です。
-<code>item</code>の<code>summarize</code>を呼ぶときにジェネリックな型<code>T</code>がメソッド<code>summarize</code>を実装してないというエラーが出ないように、
-<code>T</code>のトレイト境界を使って<code>item</code>が<code>Summary</code>トレイトを実装する型でなければならないと指定できます。</p>
-<pre><code class="language-rust ignore">pub fn notify&lt;T: Summary&gt;(item: T) {
-    // 新ニュース！ {}
+<p>たとえば、Listing 10-13では、<code>NewsArticle</code>と<code>Tweet</code>型に<code>Summary</code>トレイトを実装しました。
+ここで、引数の<code>item</code>の<code>summarize</code>メソッドを呼ぶ関数<code>notify</code>を定義することができます。ただし、引数<code>item</code>は<code>Summary</code>トレイトを実装しているような何らかの型であるとします。
+このようなことをするためには、<code>impl Trait</code>構文を使うことができます。</p>
+<pre><code class="language-rust ignore"><span class="boring">pub trait Summary {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct NewsArticle {
+</span><span class="boring">    pub headline: String,
+</span><span class="boring">    pub location: String,
+</span><span class="boring">    pub author: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Summary for NewsArticle {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String {
+</span><span class="boring">        format!(&quot;{}, by {} ({})&quot;, self.headline, self.author, self.location)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct Tweet {
+</span><span class="boring">    pub username: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">    pub reply: bool,
+</span><span class="boring">    pub retweet: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Summary for Tweet {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String {
+</span><span class="boring">        format!(&quot;{}: {}&quot;, self.username, self.content)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>pub fn notify(item: &amp;impl Summary) {
     println!(&quot;Breaking news! {}&quot;, item.summarize());
 }
 </code></pre>
 <!--
-We place trait bounds with the declaration of the generic type parameter, after
-a colon and inside angle brackets. Because of the trait bound on `T`, we can
-call `notify` and pass in any instance of `NewsArticle` or `Tweet`. Code that
-calls the function with any other type, like a `String` or an `i32`, won’t
-compile, because those types don’t implement `Summary`.
+Instead of a concrete type for the `item` parameter, we specify the `impl`
+keyword and the trait name. This parameter accepts any type that implements the
+specified trait. In the body of `notify`, we can call any methods on `item`
+that come from the `Summary` trait, such as `summarize`. We can call `notify`
+and pass in any instance of `NewsArticle` or `Tweet`. Code that calls the
+function with any other type, such as a `String` or an `i32`, won’t compile
+because those types don’t implement `Summary`.
 -->
-<p>トレイト境界をジェネリックな型引数宣言とともにコロンの後、山カッコ内に配置しています。<code>T</code>に付けられたトレイト境界のため、
-<code>notify</code>を呼び出して<code>NewsArticle</code>か<code>Tweet</code>のどんなインスタンスも渡すことができます。
-あらゆる他の型、<code>String</code>や<code>i32</code>などでこの関数を呼び出すコードは、型が<code>Summary</code>を実装しないので、
-コンパイルできません。</p>
+<p>引数の<code>item</code>には、具体的な型の代わりに、<code>impl</code>キーワードとトレイト名を指定します。
+この引数は、指定されたトレイトを実装しているあらゆる型を受け付けます。
+<code>notify</code>の中身では、<code>summarize</code>のような、<code>Summary</code>トレイトに由来する<code>item</code>のあらゆるメソッドを呼び出すことができます。
+私達は、<code>notify</code>を呼びだし、<code>NewsArticle</code>か<code>Tweet</code>のどんなインスタンスでも渡すことができます。
+この関数を呼び出すときに、<code>String</code>や<code>i32</code>のような他の型を渡すようなコードはコンパイルできません。
+なぜなら、これらの型は<code>Summary</code>を実装していないからです。</p>
 <!--
-We can specify multiple trait bounds on a generic type using the `+` syntax.
-For example, to use display formatting on the type `T` in a function as well as
-the `summarize` method, we can use `T: Summary + Display` to say `T` can be any
-type that implements `Summary` and `Display`.
+#### Trait Bound Syntax
 -->
-<p><code>+</code>記法でジェネリックな型に複数のトレイト境界を指定できます。例えば、関数で<code>T</code>に対してフォーマット表示と、
-<code>summarize</code>メソッドを使用するには、<code>T: Summary + Display</code>を使用して、<code>T</code>は<code>Summary</code>と<code>Display</code>を実装するどんな型にもなると宣言できます。</p>
+<h4><a class="header" href="#トレイト境界構文" id="トレイト境界構文">トレイト境界構文</a></h4>
 <!--
-However, there are downsides to using too many trait bounds. Each generic has
-its own trait bounds, so functions with multiple generic type parameters can
-have lots of trait bound information between a function’s name and its
-parameter list, making the function signature hard to read. For this reason,
-Rust has alternate syntax for specifying trait bounds inside a `where` clause
-after the function signature. So instead of writing this:
+The `impl Trait` syntax works for straightforward cases but is actually
+syntax sugar for a longer form, which is called a *trait bound*; it looks like
+this:
 -->
-<p>しかしながら、トレイト境界が多すぎると欠点もあります。各ジェネリックには、特有のトレイト境界があるので、
-複数のジェネリックな型引数がある関数には、関数名と引数リストの間に多くのトレイト境界の情報が付くこともあり、
-関数シグニチャが読みづらくなる原因になります。このため、Rustには関数シグニチャの後、
-<code>where</code>節内にトレイト境界を指定する対立的な記法があります。従って、こう書く代わりに:</p>
-<pre><code class="language-rust ignore">fn some_function&lt;T: Display + Clone, U: Clone + Debug&gt;(t: T, u: U) -&gt; i32 {
+<p><code>impl Trait</code>構文は単純なケースを解決しますが、実はより長い<em>トレイト境界 (trait bound)</em> と呼ばれる姿の糖衣構文 (syntax sugar) なのです。
+それは以下のようなものです：</p>
+<pre><code class="language-rust ignore">pub fn notify&lt;T: Summary&gt;(item: &amp;T) {
+	// 速報！ {}
+    println!(&quot;Breaking news! {}&quot;, item.summarize());
+}
+</code></pre>
+<!--
+This longer form is equivalent to the example in the previous section but is
+more verbose. We place trait bounds with the declaration of the generic type
+parameter after a colon and inside angle brackets.
+-->
+<p>この「より長い」姿は前節の例と等価ですが、より冗長です。
+角カッコの中にジェネリックな型引数の宣言を書き、型引数の後ろにコロンを挟んでトレイト境界を置いています。</p>
+<!--
+The `impl Trait` syntax is convenient and makes for more concise code in simple
+cases. The trait bound syntax can express more complexity in other cases. For
+example, we can have two parameters that implement `Summary`. Using the `impl
+Trait` syntax looks like this:
+-->
+<p>簡単なケースに対し、<code>impl Trait</code>構文は便利で、コードを簡潔にしてくれます。
+そうでないケースの場合、トレイト境界構文を使えば複雑な状態を表現できます。
+たとえば、<code>Summary</code>を実装する2つのパラメータを持つような関数を考えることができます。
+<code>impl Trait</code>構文を使うとこのようになるでしょう：</p>
+<pre><code class="language-rust ignore">pub fn notify(item1: &amp;impl Summary, item2: &amp;impl Summary) {
+</code></pre>
+<!--
+If we wanted this function to allow `item1` and `item2` to have different
+types, using `impl Trait` would be appropriate (as long as both types implement
+`Summary`). If we wanted to force both parameters to have the same type, that’s
+only possible to express using a trait bound, like this:
+-->
+<p>この関数が受け取る<code>item1</code>と<code>item2</code>の型が（どちらも<code>Summary</code>を実装する限り）異なっても良いとするならば、<code>impl Trait</code>は適切でしょう。
+両方の引数が同じ型であることを強制することは、以下のようにトレイト境界を使ってのみ表現可能です：</p>
+<pre><code class="language-rust ignore">pub fn notify&lt;T: Summary&gt;(item1: &amp;T, item2: &amp;T) {
+</code></pre>
+<!--
+The generic type `T` specified as the type of the `item1` and `item2`
+parameters constrains the function such that the concrete type of the value
+passed as an argument for `item1` and `item2` must be the same.
+-->
+<p>引数である<code>item1</code>と<code>item2</code>の型としてジェネリックな型<code>T</code>を指定しました。
+これにより、<code>item1</code>と<code>item2</code>として関数に渡される値の具体的な型が同一でなければならない、という制約を与えています。</p>
+<!--
+#### Specifying Multiple Trait Bounds with the `+` Syntax
+-->
+<h4><a class="header" href="#複数のトレイト境界を構文で指定する" id="複数のトレイト境界を構文で指定する">複数のトレイト境界を<code>+</code>構文で指定する</a></h4>
+<!--
+We can also specify more than one trait bound. Say we wanted `notify` to use
+display formatting on `item` as well as the `summarize` method: we specify in
+the `notify` definition that `item` must implement both `Display` and
+`Summary`. We can do so using the `+` syntax:
+-->
+<p>複数のトレイト境界も指定できます。
+たとえば、<code>notify</code>に<code>summarize</code>メソッドに加えて<code>item</code>の画面出力形式（ディスプレイフォーマット）を使わせたいとします。
+その場合は、<code>notify</code>の定義に<code>item</code>は<code>Display</code>と<code>Summary</code>の両方を実装していなくてはならないと指定することになります。
+これは、以下のように<code>+</code>構文で行うことができます：</p>
+<pre><code class="language-rust ignore">pub fn notify(item: &amp;(impl Summary + Display)) {
+</code></pre>
+<!--
+The `+` syntax is also valid with trait bounds on generic types:
+-->
+<p><code>+</code>構文はジェネリック型につけたトレイト境界に対しても使えます：</p>
+<pre><code class="language-rust ignore">pub fn notify&lt;T: Summary + Display&gt;(item: &amp;T) {
+</code></pre>
+<!--
+With the two trait bounds specified, the body of `notify` can call `summarize`
+and use `{}` to format `item`.
+-->
+<p>これら2つのトレイト境界が指定されていれば、<code>notify</code>の中では<code>summarize</code>を呼び出すことと、<code>{}</code>を使って<code>item</code>をフォーマットすることの両方が行なえます。</p>
+<!--
+#### Clearer Trait Bounds with `where` Clauses
+-->
+<h4><a class="header" href="#where句を使ったより明確なトレイト境界" id="where句を使ったより明確なトレイト境界"><code>where</code>句を使ったより明確なトレイト境界</a></h4>
+<!--
+Using too many trait bounds has its downsides. Each generic has its own trait
+bounds, so functions with multiple generic type parameters can contain lots of
+trait bound information between the function’s name and its parameter list,
+making the function signature hard to read. For this reason, Rust has alternate
+syntax for specifying trait bounds inside a `where` clause after the function
+signature. So instead of writing this:
+-->
+<p>あまりたくさんのトレイト境界を使うことには欠点もあります。
+それぞれのジェネリック（な型）がそれぞれのトレイト境界をもつので、複数のジェネリック型の引数をもつ関数は、関数名と引数リストの間に大量のトレイト境界に関する情報を含むことがあります。
+これでは関数のシグネチャが読みにくくなってしまいます。
+このため、Rustはトレイト境界を関数シグネチャの後の<code>where</code>句の中で指定するという別の構文を用意しています。
+なので、このように書く：</p>
+<pre><code class="language-rust ignore">fn some_function&lt;T: Display + Clone, U: Clone + Debug&gt;(t: &amp;T, u: &amp;U) -&gt; i32 {
 </code></pre>
 <!--
 we can use a `where` clause, like this:
 -->
-<p>こんな感じに<code>where</code>節を活用できます:</p>
-<pre><code class="language-rust ignore">fn some_function&lt;T, U&gt;(t: T, u: U) -&gt; i32
+<p>代わりに、<code>where</code>句を使い、このように書くことができます：</p>
+<pre><code class="language-rust ignore">fn some_function&lt;T, U&gt;(t: &amp;T, u: &amp;U) -&gt; i32
     where T: Display + Clone,
           U: Clone + Debug
 {
 </code></pre>
 <!--
-This function’s signature is less cluttered in that the function name,
-parameter list, and return type are close together, similar to a function
-without lots of trait bounds.
+This function’s signature is less cluttered: the function name, parameter list,
+and return type are close together, similar to a function without lots of trait
+bounds.
 -->
-<p>この関数シグニチャは、多くのトレイト境界のない関数のように、関数名、引数リスト、戻り値の型が一緒になって近いという点でごちゃごちゃしていません。</p>
+<p>この関数シグニチャは、よりさっぱりとしています。トレイト境界を多く持たない関数と同じように、関数名、引数リスト、戻り値の型が一緒になって近くにあるからですね。</p>
+<!--
+### Returning Types that Implement Traits
+-->
+<h3><a class="header" href="#トレイトを実装している型を返す" id="トレイトを実装している型を返す">トレイトを実装している型を返す</a></h3>
+<!--
+We can also use the `impl Trait` syntax in the return position to return a
+value of some type that implements a trait, as shown here:
+-->
+<p>以下のように、<code>impl Trait</code>構文を戻り値型のところで使うことにより、あるトレイトを実装する何らかの型を返すことができます。</p>
+<pre><code class="language-rust ignore"><span class="boring">pub trait Summary {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct NewsArticle {
+</span><span class="boring">    pub headline: String,
+</span><span class="boring">    pub location: String,
+</span><span class="boring">    pub author: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Summary for NewsArticle {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String {
+</span><span class="boring">        format!(&quot;{}, by {} ({})&quot;, self.headline, self.author, self.location)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct Tweet {
+</span><span class="boring">    pub username: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">    pub reply: bool,
+</span><span class="boring">    pub retweet: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Summary for Tweet {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String {
+</span><span class="boring">        format!(&quot;{}: {}&quot;, self.username, self.content)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn returns_summarizable() -&gt; impl Summary {
+    Tweet {
+        username: String::from(&quot;horse_ebooks&quot;),
+        content: String::from(
+            &quot;of course, as you probably already know, people&quot;,
+        ),
+        reply: false,
+        retweet: false,
+    }
+}
+</code></pre>
+<!--
+By using `impl Summary` for the return type, we specify that the
+`returns_summarizable` function returns some type that implements the `Summary`
+trait without naming the concrete type. In this case, `returns_summarizable`
+returns a `Tweet`, but the code calling this function doesn’t know that.
+-->
+<p>戻り値の型として<code>impl Summary</code>を使うことにより、具体的な型が何かを言うことなく、<code>returns_summarizable</code>関数は<code>Summary</code>トレイトを実装している何らかの型を返すのだ、と指定することができます。
+今回<code>returns_summarizable</code>は<code>Tweet</code>を返しますが、この関数を呼び出すコードはそのことを知りません。</p>
+<!--
+The ability to return a type that is only specified by the trait it implements
+is especially useful in the context of closures and iterators, which we cover
+in Chapter 13. Closures and iterators create types that only the compiler knows
+or types that are very long to specify. The `impl Trait` syntax lets you
+concisely specify that a function returns some type that implements the
+`Iterator` trait without needing to write out a very long type.
+-->
+<p>実装しているトレイトだけで戻り値型を指定できることは、13章で学ぶ、クロージャとイテレータを扱うときに特に便利です。
+クロージャとイテレータの作り出す型は、コンパイラだけが知っているものであったり、指定するには長すぎるものであったりします。
+<code>impl Trait</code>構文を使えば、非常に長い型を書くことなく、ある関数は<code>Iterator</code>トレイトを実装するある型を返すのだ、と簡潔に指定することができます。</p>
+<!--
+However, you can only use `impl Trait` if you’re returning a single type. For
+example, this code that returns either a `NewsArticle` or a `Tweet` with the
+return type specified as `impl Summary` wouldn’t work:
+-->
+<p>ただし、<code>impl Trait</code>は一種類の型を返す場合にのみ使えます。
+たとえば、以下のように、戻り値の型は<code>impl Summary</code>で指定しつつ、<code>NewsArticle</code>か<code>Tweet</code>を返すようなコードは失敗します：</p>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">pub trait Summary {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String;
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct NewsArticle {
+</span><span class="boring">    pub headline: String,
+</span><span class="boring">    pub location: String,
+</span><span class="boring">    pub author: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Summary for NewsArticle {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String {
+</span><span class="boring">        format!(&quot;{}, by {} ({})&quot;, self.headline, self.author, self.location)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">pub struct Tweet {
+</span><span class="boring">    pub username: String,
+</span><span class="boring">    pub content: String,
+</span><span class="boring">    pub reply: bool,
+</span><span class="boring">    pub retweet: bool,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Summary for Tweet {
+</span><span class="boring">    fn summarize(&amp;self) -&gt; String {
+</span><span class="boring">        format!(&quot;{}: {}&quot;, self.username, self.content)
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn returns_summarizable(switch: bool) -&gt; impl Summary {
+    if switch {
+        NewsArticle {
+            headline: String::from(
+                &quot;Penguins win the Stanley Cup Championship!&quot;,
+            ),
+            location: String::from(&quot;Pittsburgh, PA, USA&quot;),
+            author: String::from(&quot;Iceburgh&quot;),
+            content: String::from(
+                &quot;The Pittsburgh Penguins once again are the best \
+                 hockey team in the NHL.&quot;,
+            ),
+        }
+    } else {
+        Tweet {
+            username: String::from(&quot;horse_ebooks&quot;),
+            content: String::from(
+                &quot;of course, as you probably already know, people&quot;,
+            ),
+            reply: false,
+            retweet: false,
+        }
+    }
+}
+</code></pre>
+<!--
+Returning either a `NewsArticle` or a `Tweet` isn’t allowed due to restrictions
+around how the `impl Trait` syntax is implemented in the compiler. We’ll cover
+how to write a function with this behavior in the [“Using Trait Objects That
+Allow for Values of Different
+Types”][using-trait-objects-that-allow-for-values-of-different-types] section of Chapter 17.
+-->
+<p><code>NewsArticle</code>か<code>Trait</code>を返すというのは、コンパイラの<code>impl Trait</code>構文の実装まわりの制約により許されていません。
+このような振る舞いをする関数を書く方法は、17章の<a href="ch17-02-trait-objects.html#%E3%83%88%E3%83%AC%E3%82%A4%E3%83%88%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A7%E7%95%B0%E3%81%AA%E3%82%8B%E5%9E%8B%E3%81%AE%E5%80%A4%E3%82%92%E8%A8%B1%E5%AE%B9%E3%81%99%E3%82%8B">トレイトオブジェクトで異なる型の値を許容する</a>節で学びます。</p>
 <!--
 ### Fixing the `largest` Function with Trait Bounds
 -->
@@ -630,16 +941,27 @@ type parameter’s bounds, let’s return to Listing 10-5 to fix the definition 
 the `largest` function that uses a generic type parameter! Last time we tried
 to run that code, we received this error:
 -->
-<p>ジェネリックな型引数の境界で使用したい振る舞いを指定する方法を知ったので、リスト10-5に戻って、
-ジェネリックな型引数を使用する<code>largest</code>関数の定義を修正しましょう！最後にそのコードを実行しようとしたら、
-こんなエラーが出ました:</p>
-<pre><code class="language-text">error[E0369]: binary operation `&gt;` cannot be applied to type `T`
- --&gt; src/main.rs:5:12
+<p>ジェネリックな型引数の境界で使用したい振る舞いを指定する方法がわかったので、リスト10-5に戻って、
+ジェネリックな型引数を使用する<code>largest</code>関数の定義を修正しましょう！最後にそのコードを実行しようとした時、
+こんなエラーが出ていました:</p>
+<pre><code class="language-text">$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
+error[E0369]: binary operation `&gt;` cannot be applied to type `T`
+ --&gt; src/main.rs:5:17
   |
 5 |         if item &gt; largest {
-  |            ^^^^^^^^^^^^^^
+  |            ---- ^ ------- T
+  |            |
+  |            T
   |
-  = note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
+  = note: `T` might need a bound for `std::cmp::PartialOrd`
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0369`.
+error: could not compile `chapter10`.
+
+To learn more, run the command again with --verbose.
 </code></pre>
 <!--
 In the body of `largest` we wanted to compare two values of type `T` using the
@@ -650,53 +972,92 @@ slices of any type that we can compare. We don’t need to bring `PartialOrd`
 into scope because it’s in the prelude. Change the signature of `largest` to
 look like this:
 -->
-<p><code>largest</code>の本体で、大なり演算子(<code>&gt;</code>)を使用して型<code>T</code>の2つの値を比較したかったのです。その演算子は、
+<p><code>largest</code>の本体で、大なり演算子(<code>&gt;</code>)を使用して型<code>T</code>の2つの値を比較しようとしていました。この演算子は、
 標準ライブラリトレイトの<code>std::cmp::PartialOrd</code>でデフォルトメソッドとして定義されているので、
-<code>largest</code>関数が、比較できるあらゆる型のスライスに対して動くように、<code>T</code>のトレイト境界に<code>PartialOrd</code>を指定する必要があります。
-初期化処理に含まれているので、<code>PartialOrd</code>をスコープに導入する必要はありません。
-<code>largest</code>のシグニチャを以下のような見た目に変えてください:</p>
+<code>largest</code>関数が、比較できるあらゆる型のスライスに対して動くようにするためには、<code>T</code>のトレイト境界に<code>PartialOrd</code>を指定する必要があります。
+<code>PartialOrd</code>はpreludeに含まれているので、これをスコープに導入する必要はありません。
+<code>largest</code>のシグニチャを以下のように変えてください:</p>
 <pre><code class="language-rust ignore">fn largest&lt;T: PartialOrd&gt;(list: &amp;[T]) -&gt; T {
-</code></pre>
+<span class="boring">    let mut largest = list[0];
+</span><span class="boring">
+</span><span class="boring">    for &amp;item in list {
+</span><span class="boring">        if item &gt; largest {
+</span><span class="boring">            largest = item;
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    largest
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn main() {
+</span><span class="boring">    let number_list = vec![34, 50, 25, 100, 65];
+</span><span class="boring">
+</span><span class="boring">    let result = largest(&amp;number_list);
+</span><span class="boring">    println!(&quot;The largest number is {}&quot;, result);
+</span><span class="boring">
+</span><span class="boring">    let char_list = vec!['y', 'm', 'a', 'q'];
+</span><span class="boring">
+</span><span class="boring">    let result = largest(&amp;char_list);
+</span><span class="boring">    println!(&quot;The largest char is {}&quot;, result);
+</span><span class="boring">}
+</span></code></pre>
 <!--
 This time when we compile the code, we get a different set of errors:
 -->
-<p>今度コードをコンパイルすると、異なる一連のエラーが出ます:</p>
-<pre><code class="language-text">error[E0508]: cannot move out of type `[T]`, a non-copy slice
-(エラー: `[T]`、コピーでないスライスからムーブできません。)
+<p>今回のコンパイルでは、別のエラーが出てきます：</p>
+<pre><code class="language-console">$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
+error[E0508]: cannot move out of type `[T]`, a non-copy slice
+（エラー[E0508]： 型`[T]`をもつ、非コピーのスライスからのムーブはできません）
  --&gt; src/main.rs:2:23
   |
 2 |     let mut largest = list[0];
   |                       ^^^^^^^
   |                       |
   |                       cannot move out of here
-  |                       help: consider using a reference instead: `&amp;list[0]`
-                         (助言: 代わりに参照の使用を考慮してください: `&amp;list[0]`)
+  |                       （ここからムーブすることはできません）
+  |                       move occurs because `list[_]` has type `T`, which does not implement the `Copy` trait
+  |                       （ムーブが発生するのは、`list[_]`は`T`という、`Copy`トレイトを実装しない型であるためです）
+  |                       help: consider borrowing here: `&amp;list[0]`
+  |                       （助言：借用するようにしてみてはいかがですか： `&amp;list[0]`）
 
-error[E0507]: cannot move out of borrowed content
-(エラー: 借用された内容からムーブできません)
- --&gt; src/main.rs:4:9
+error[E0507]: cannot move out of a shared reference
+（エラー[E0507]：共有の参照からムーブはできません）
+ --&gt; src/main.rs:4:18
   |
-4 |     for &amp;item in list.iter() {
-  |         ^----
+4 |     for &amp;item in list {
+  |         -----    ^^^^
   |         ||
-  |         |hint: to prevent move, use `ref item` or `ref mut item`
-  |         cannot move out of borrowed content
-            (ヒント: ムーブを避けるには、`ref item`か`ref mut item`を使用してください)
+  |         |data moved here
+  |         |（データがここでムーブされています）
+  |         |move occurs because `item` has type `T`, which does not implement the `Copy` trait
+  |         |（ムーブが発生するのは、`item`は`T`という、`Copy`トレイトを実装しない型であるためです）
+  |         help: consider removing the `&amp;`: `item`
+  |         （助言：`&amp;`を取り除いてみてはいかがですか： `item`）
+
+error: aborting due to 2 previous errors
+
+Some errors have detailed explanations: E0507, E0508.
+For more information about an error, try `rustc --explain E0507`.
+error: could not compile `chapter10`.
+
+To learn more, run the command again with --verbose.
 </code></pre>
 <!--
 The key line in this error is `cannot move out of type [T], a non-copy slice`.
 With our non-generic versions of the `largest` function, we were only trying to
-find the largest `i32` or `char`. As discussed in the “Stack-Only Data: Copy”
-section in Chapter 4, types like `i32` and `char` that have a known size can be
-stored on the stack, so they implement the `Copy` trait. But when we made the
-`largest` function generic, it became possible for the `list` parameter to have
-types in it that don’t implement the `Copy` trait. Consequently, we wouldn’t be
-able to move the value out of `list[0]` and into the `largest` variable,
-resulting in this error.
+find the largest `i32` or `char`. As discussed in the [“Stack-Only Data:
+Copy”][stack-only-data-copy] section in Chapter 4, types like
+`i32` and `char` that have a known size can be stored on the stack, so they
+implement the `Copy` trait. But when we made the `largest` function generic,
+it became possible for the `list` parameter to have types in it that don’t
+implement the `Copy` trait. Consequently, we wouldn’t be able to move the
+value out of `list[0]` and into the `largest` variable, resulting in this
+error.
 -->
 <p>このエラーの鍵となる行は、<code>cannot move out of type [T], a non-copy slice</code>です。
 ジェネリックでないバージョンの<code>largest</code>関数では、最大の<code>i32</code>か<code>char</code>を探そうとするだけでした。
-第4章の「スタックだけのデータ: コピー」節で議論したように、<code>i32</code>や<code>char</code>のような既知のサイズの型は、
+第4章の<a href="ch04-01-what-is-ownership.html#%E3%82%B9%E3%82%BF%E3%83%83%E3%82%AF%E3%81%AE%E3%81%BF%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF-%E3%82%B3%E3%83%94%E3%83%BC">スタックのみのデータ: コピー</a>節で議論したように、<code>i32</code>や<code>char</code>のようなサイズが既知の型は
 スタックに格納できるので、<code>Copy</code>トレイトを実装しています。しかし、<code>largest</code>関数をジェネリックにすると、
 <code>list</code>引数が<code>Copy</code>トレイトを実装しない型を含む可能性も出てきたのです。結果として、
 <code>list[0]</code>から値を<code>largest</code>にムーブできず、このエラーに陥ったのです。</p>
@@ -707,9 +1068,8 @@ a generic `largest` function that will compile as long as the types of the
 values in the slice that we pass into the function implement the `PartialOrd`
 *and* `Copy` traits, like `i32` and `char` do.
 -->
-<p>このコードを<code>Copy</code>トレイトを実装する型とだけで呼び出すには、<code>T</code>のトレイト境界に<code>Copy</code>を追加できます！
-リスト10-15は、関数に渡したスライスの値の型が<code>i32</code>や<code>char</code>などのように、<code>PartialOrd</code><em>と</em><code>Copy</code>を実装する限り、
-コンパイルできるジェネリックな<code>largest</code>関数の完全なコードを示しています。</p>
+<p>このコードを<code>Copy</code>トレイトを実装する型だけを使って呼び出すようにしたいなら、<code>T</code>のトレイト境界に<code>Copy</code>を追加すればよいです！
+リスト10-15は、関数に渡したスライスの値の型が、<code>i32</code>や<code>char</code>などのように<code>PartialOrd</code><em>と</em><code>Copy</code>を実装する限りコンパイルできる、ジェネリックな<code>largest</code>関数の完全なコードを示しています。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
@@ -717,7 +1077,7 @@ values in the slice that we pass into the function implement the `PartialOrd`
 <pre><pre class="playpen"><code class="language-rust">fn largest&lt;T: PartialOrd + Copy&gt;(list: &amp;[T]) -&gt; T {
     let mut largest = list[0];
 
-    for &amp;item in list.iter() {
+    for &amp;item in list {
         if item &gt; largest {
             largest = item;
         }
@@ -744,7 +1104,7 @@ function that works on any generic type that implements the `PartialOrd` and
 `Copy` traits</span>
 -->
 <p><span class="caption">リスト10-15: <code>PartialOrd</code>と<code>Copy</code>トレイトを実装するあらゆるジェネリックな型に対して動く、
-<code>largest</code>関数の動く定義</span></p>
+<code>largest</code>関数の実際の定義</span></p>
 <!--
 If we don’t want to restrict the `largest` function to the types that implement
 the `Copy` trait, we could specify that `T` has the trait bound `Clone` instead
@@ -754,11 +1114,10 @@ potentially making more heap allocations in the case of types that own heap
 data like `String`, and heap allocations can be slow if we’re working with
 large amounts of data.
 -->
-<p>もし<code>largest</code>関数を<code>Copy</code>を実装する型だけに制限したくなかったら、<code>Copy</code>ではなく、
-<code>T</code>が<code>Clone</code>というトレイト境界を持つと指定することもできます。そうしたら、
+<p>もし<code>largest</code>関数を<code>Copy</code>を実装する型だけに制限したくなかったら、<code>T</code>が<code>Copy</code>ではなく<code>Clone</code>というトレイト境界を持つと指定することもできます。そうしたら、
 <code>largest</code>関数に所有権が欲しい時にスライスの各値をクローンできます。<code>clone</code>関数を使用するということは、
-<code>String</code>のようなヒープデータを所有する型の場合にもっとヒープ確保が発生する可能性があることを意味し、
-大きなデータを取り扱っていたら、ヒープ確保は遅いこともあります。</p>
+<code>String</code>のようなヒープデータを持つ型の場合により多くのヒープ確保が発生する可能性があることを意味します。
+そして、大量のデータを取り扱っていたら、ヒープ確保には時間がかかることもあります。</p>
 <!--
 Another way we could implement `largest` is for the function to return a
 reference to a `T` value in the slice. If we change the return type to `&T`
@@ -768,8 +1127,8 @@ avoid heap allocations. Try implementing these alternate solutions on your own!
 -->
 <p><code>largest</code>の別の実装方法は、関数がスライスの<code>T</code>値への参照を返すようにすることです。
 戻り値の型を<code>T</code>ではなく<code>&amp;T</code>に変え、それにより関数の本体を参照を返すように変更したら、
-<code>Clone</code>か<code>Copy</code>トレイト境界は必要なくなり、ヒープ確保も避けられるでしょう。
-試しにこれらの対立的な解決策もご自身で実装してみてください！</p>
+<code>Clone</code>や<code>Copy</code>トレイト境界は必要なくなり、ヒープ確保も避けられるでしょう。
+これらの代替策をご自身で実装してみましょう！</p>
 <!--
 ### Using Trait Bounds to Conditionally Implement Methods
 -->
@@ -787,6 +1146,10 @@ the `Display` trait that enables printing.
 リスト10-16の型<code>Pair&lt;T&gt;</code>は、常に<code>new</code>関数を実装します。しかし、<code>Pair&lt;T&gt;</code>は、
 内部の型<code>T</code>が比較を可能にする<code>PartialOrd</code>トレイト<em>と</em>出力を可能にする<code>Display</code>トレイトを実装している時のみ、
 <code>cmp_display</code>メソッドを実装します。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
 </span><span class="boring">fn main() {
@@ -799,10 +1162,7 @@ struct Pair&lt;T&gt; {
 
 impl&lt;T&gt; Pair&lt;T&gt; {
     fn new(x: T, y: T) -&gt; Self {
-        Self {
-            x,
-            y,
-        }
+        Self { x, y }
     }
 }
 
@@ -858,36 +1218,42 @@ the `Display` trait. For example, we can turn integers into their corresponding
 Blanket implementations appear in the documentation for the trait in the
 “Implementors” section.
 -->
-<p>ブランケット実装は、「実装したもの」節のトレイトのドキュメンテーションに出現します。</p>
+<p>ブランケット実装は、トレイトのドキュメンテーションの「実装したもの」節に出現します。</p>
 <!--
 Traits and trait bounds let us write code that uses generic type parameters to
 reduce duplication but also specify to the compiler that we want the generic
 type to have particular behavior. The compiler can then use the trait bound
 information to check that all the concrete types used with our code provide the
 correct behavior. In dynamically typed languages, we would get an error at
-runtime if we called a method on a type that the type didn’t implement. But
-Rust moves these errors to compile time so we’re forced to fix the problems
-before our code is even able to run. Additionally, we don’t have to write code
-that checks for behavior at runtime because we’ve already checked at compile
-time. Doing so improves performance without having to give up the flexibility
-of generics.
+runtime if we called a method on a type which didn’t define the method. But Rust
+moves these errors to compile time so we’re forced to fix the problems before
+our code is even able to run. Additionally, we don’t have to write code that
+checks for behavior at runtime because we’ve already checked at compile time.
+Doing so improves performance without having to give up the flexibility of
+generics.
 -->
 <p>トレイトとトレイト境界により、ジェネリックな型引数を使用して重複を減らしつつ、コンパイラに対して、
 そのジェネリックな型に特定の振る舞いが欲しいことを指定するコードを書くことができます。
 それからコンパイラは、トレイト境界の情報を活用してコードに使用された具体的な型が正しい振る舞いを提供しているか確認できます。
-動的型付け言語では、型が実装しない型のメソッドを呼び出せば、実行時にエラーが出るでしょう。
-しかし、Rustはこの種のエラーをコンパイル時に移したので、コードが動かせるようにさえなる以前に問題を修正することを強制されるのです。
-加えて、コンパイル時に既に確認したので、実行時に振る舞いがあるかどうか確認するコードを書かなくても済みます。
-そうすることでジェネリクスの柔軟性を諦める必要なく、パフォーマンスを向上させます。</p>
+動的型付き言語では、その型に定義されていないメソッドを呼び出せば、実行時 (runtime) にエラーが出るでしょう。
+しかし、Rustはこの種のエラーをコンパイル時に移したので、コードが動かせるようになる以前に問題を修正することを強制されるのです。
+加えて、コンパイル時に既に確認したので、実行時の振る舞いを確認するコードを書かなくても済みます。
+そうすることで、ジェネリクスの柔軟性を諦めることなくパフォーマンスを向上させます。</p>
 <!--
 Another kind of generic that we’ve already been using is called *lifetimes*.
 Rather than ensuring that a type has the behavior we want, lifetimes ensure
 that references are valid as long as we need them to be. Let’s look at how
 lifetimes do that.
 -->
-<p>もう使用してきたことのある別の種のジェネリクスは、ライフタイムと呼ばれます。
-型が欲しい振る舞いを保持していることを保証するのではなく、必要な間だけ参照が有効であることをライフタイムは保証します。
-ライフタイムがどうやってそれを行うかを見ましょう。</p>
+<p>すでに使っている他のジェネリクスに、ライフタイムと呼ばれるものがあります。
+ライフタイムは、型が欲しい振る舞いを保持していることではなく、必要な間だけ参照が有効であることを保証します。
+ライフタイムがどうやってそれを行うかを見てみましょう。</p>
+<!--
+[stack-only-data-copy]:
+ch04-01-what-is-ownership.html#stack-only-data-copy
+[using-trait-objects-that-allow-for-values-of-different-types]:
+ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
+-->
 
                     </main>
 
