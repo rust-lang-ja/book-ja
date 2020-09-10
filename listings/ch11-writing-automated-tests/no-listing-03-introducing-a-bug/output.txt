@@ -11,8 +11,8 @@ failures:
 
 ---- tests::larger_can_hold_smaller stdout ----
 thread 'main' panicked at 'assertion failed: larger.can_hold(&smaller)', src/lib.rs:28:9
+(スレッド'main'はsrc/lib.rs:28:9の'assertion failed: larger.can_hold(&smaller)'でパニックしました)
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace.
-
 
 failures:
     tests::larger_can_hold_smaller
