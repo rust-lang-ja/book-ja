@@ -47,7 +47,7 @@
 - [一般的なコレクション](ch08-00-common-collections.md)
     - [ベクタで一連の値を保持する](ch08-01-vectors.md)
     - [文字列でUTF-8でエンコードされたテキストを保持する](ch08-02-strings.md)
-    - [ハッシュマップに値に紐づいたキーを格納する](ch08-03-hash-maps.md)
+    - [キーとそれに紐づいた値をハッシュマップに格納する](ch08-03-hash-maps.md)
 
 - [エラー処理](ch09-00-error-handling.md)
     - [`panic!`で回復不能なエラー](ch09-01-unrecoverable-errors-with-panic.md)
