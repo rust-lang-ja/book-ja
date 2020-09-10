@@ -186,7 +186,7 @@ Benchmark tests are, as of this writing, only available in nightly Rust. See
 -->
 
 `0 measured`という統計は、パフォーマンスを測定するベンチマークテスト用です。
-ベンチマークテストは、本書記述の時点では、ナイトリ版のRustでのみ利用可能です。
+ベンチマークテストは、本書記述の時点では、nightly版のRustでのみ利用可能です。
 詳しくは、[ベンチマークテストのドキュメンテーション][bench]を参照されたし。
 
 [bench]: ../unstable-book/library-features/test.html
@@ -248,7 +248,7 @@ which is to call the `panic!` macro. Enter the new test, `another`, so your
 別のテストを追加しますが、今回は失敗するテストにしましょう！テスト関数内の何かがパニックすると、
 テストは失敗します。各テストは、新規スレッドで実行され、メインスレッドが、テストスレッドが死んだと確認した時、
 テストは失敗と印づけられます。第9章でパニックを引き起こす最も単純な方法について語りました。
-要するに、`panic!`マクロを呼び出すことです。*src/lib.rs*ファイルがリスト11-3のような見た目になるよう、
+そう、`panic!`マクロを呼び出すことですね。*src/lib.rs*ファイルがリスト11-3のような見た目になるよう、
 新しいテスト`another`を入力してください。
 
 <!--
@@ -607,8 +607,8 @@ right)` `` and that `left` was `5` and `right` was `4`.
 
 二つの値が等しいとアサーションを行う関数の引数を
 `expected`と`actual`と呼び、引数を指定する順序が問題になる言語やテストフレームワークもあることに注意してください。
-ですがRustでは、`left`と`right`と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は、
-問題になりません。`assert_eq!(add_two(2), 4)`と今回のテストのアサーションを書くこともでき、
+ですがRustでは、`left`と`right`と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は
+問題になりません。今回のテストのアサーションを`assert_eq!(add_two(2), 4)`と書くこともでき、
 そうすると失敗メッセージは、`` assertion failed: `(left == right)` ``となり、
 `left`が`5`で`right`が`4`と表示されるでしょう。
 
@@ -644,14 +644,14 @@ for more details about these and other derivable traits.
 -->
 
 内部的には、`assert_eq!`と`assert_ne!`マクロは、それぞれ`==`と`!=`演算子を使用しています。
-アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用して出力するので、
+アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用してプリントするので、
 比較対象の値は`PartialEq`と`Debug`トレイトを実装していなければなりません。
 すべての組み込み型と、ほぼすべての標準ライブラリの型はこれらのトレイトを実装しています。
-自分で定義した構造体とenumについては、`PartialEq`を実装して、
-その型の値が等しいか等しくないかをアサーションできる必要があるでしょう。`Debug`を実装して、
-それが失敗した時に値を出力できる必要もあるでしょう。
+自分で定義した構造体やenumについては、
+その型の値が等しいか等しくないかをアサーションするために、`PartialEq`を実装する必要があるでしょう。
+それが失敗した時にその値をプリントできるように、`Debug`を実装する必要もあるでしょう。
 第5章のリスト5-12で触れたように、どちらのトレイトも導出可能なトレイトなので、
-これは通常、単純に構造体やenum定義に`#[derive(PartialEq, Debug)]`という注釈を追加するだけのことです。
+これは通常、単純に構造体やenum定義に`#[derive(PartialEq, Debug)]`という注釈を追加するだけですみます。
 これらやその他の導出可能なトレイトに関する詳細については、付録C、[導出可能なトレイト][derivable-traits]をご覧ください。
 
 <!--
@@ -673,7 +673,7 @@ what an assertion means; when a test fails, you’ll have a better idea of what
 the problem is with the code.
 -->
 さらに、`assert!`、`assert_eq!`、`assert_ne!`の追加引数として、失敗メッセージと共にカスタムのメッセージが表示されるよう、
-追加することもできます。`assert!`の1つの必須引数、
+追加することもできます。`assert!`の1つの必須引数の後に、
 あるいは`assert_eq!`と`assert_ne!`の2つの必須引数の後に指定された引数はすべて`format!`マクロに渡されるので、
 （format!マクロについては第8章の[`+`演算子、または`format!`マクロで連結][concatenation-with-the--operator-or-the-format-macro]節で議論しました）、
 `{}`プレースホルダーを含むフォーマット文字列とこのプレースホルダーに置き換えられる値を渡すことができます。
@@ -705,8 +705,8 @@ so instead of checking for exact equality to the value returned from the
 input parameter.
 -->
 
-このプログラムの要件はまだ取り決められておらず、挨拶の先頭の`Hello`というテキストはきっと変わることになりそうです。
-要件が変わった時にテストを更新しなくてもよいようにしたいと決めたので、
+このプログラムの要件はまだ取り決められておらず、挨拶の先頭の`Hello`というテキストはおそらく変わります。
+要件が変わった時にテストを更新しなくてもよいようにしたいと考え、
 `greeting`関数から返る値と正確な等値性を確認するのではなく、出力が入力引数のテキストを含むことをアサーションするだけにします。
 
 <!--
@@ -762,7 +762,7 @@ We can see the value we actually got in the test output, which would help us
 debug what happened instead of what we were expecting to happen.
 -->
 
-テスト出力に実際に得られた値が表示されているので、起こると想定していたものではなく、
+実際に得られた値がテスト出力に表示されているので、起こると想定していたものではなく、
 起こったものをデバッグするのに役に立ちます。
 
 <!--
@@ -877,9 +877,9 @@ different messages depending on whether the value is too small or too large.
 `should_panic`を使用するテストは不正確なこともあります。なぜなら、コードが何らかのパニックを起こしたことしか示さないからです。
 `should_panic`のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。
 `should_panic`のテストの正確を期すために、`should_panic`属性の省略可能な`expected`引数を追加できます。
-このテストの「拘束具」は、失敗メッセージに与えられたテキストが含まれていることを確かめてくれます。
+これはテストの「拘束具」のようなもので、失敗メッセージに与えられたテキストが含まれていることを確かめてくれます。
 例えば、リスト11-9の`Guess`の変更されたコードを考えてください。ここでは、
-`new`関数は、値の大小によって異なるメッセージでパニックします。
+`new`関数は、値が大きすぎるか小さすぎるかによって異なるメッセージでパニックします。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
