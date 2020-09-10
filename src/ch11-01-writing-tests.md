@@ -255,6 +255,8 @@ which is to call the `panic!` macro. Enter the new test, `another`, so your
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
+<span class="filename">ファイル名: src/lib.rs</span>
+
 ```rust,panics
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-03/src/lib.rs:here}}
 ```
