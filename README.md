@@ -1,6 +1,6 @@
 # The Rust Programming Language
 
-[![CircleCI](https://circleci.com/gh/rust-lang-ja/book-ja.svg?style=svg)](https://circleci.com/gh/rust-lang-ja/book-ja)
+[![CircleCI](https://circleci.com/gh/rust-lang-ja/book-ja/tree/master-ja.svg?style=shield)](https://circleci.com/gh/rust-lang-ja/book-ja)
 
 This repository contains the source of "The Rust Programming Language" book.
 
