@@ -876,9 +876,9 @@ different messages depending on whether the value is too small or too large.
 
 `should_panic`を使用するテストは不正確なこともあります。なぜなら、コードが何らかのパニックを起こしたことしか示さないからです。
 `should_panic`のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。
-`should_panic`のテストの正確を期すために、`should_panic`属性の省略可能な`expected`引数を追加できます。
-これはテストの「拘束具」のようなもので、失敗メッセージに与えられたテキストが含まれていることを確かめてくれます。
-例えば、リスト11-9の`Guess`の変更されたコードを考えてください。ここでは、
+`should_panic`のテストの正確を期すために、`should_panic`属性に`expected`引数を追加することもできます。
+このテストハーネスは、失敗メッセージに与えられたテキストが含まれていることを確かめてくれます。
+例えば、リスト11-9の修正された`Guess`のコードを考えてください。ここでは、
 `new`関数は、値が大きすぎるか小さすぎるかによって異なるメッセージでパニックします。
 
 <!--
@@ -984,7 +984,7 @@ Writing tests so they return a `Result<T, E>` enables you to use the question
 mark operator in the body of tests, which can be a convenient way to write
 tests that should fail if any operation within them returns an `Err` variant.
 -->
-`Result<T, E>` を返すようなテストを書くと、ハテナ演算子（訳注：`?`のこと）をテストの中で使えるようになります。
+`Result<T, E>` を返すようなテストを書くと、`?`演算子をテストの中で使えるようになります。
 これは、テスト内で何らかの工程が`Err`ヴァリアントを返したときに失敗するべきテストを書くのに便利です。
 
 <!--
