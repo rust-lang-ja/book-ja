@@ -162,17 +162,17 @@ Tests are Rust functions that verify that the non-test code is functioning in
 the expected manner. The bodies of test functions typically perform these three
 actions:
 -->
-<p>テストは、非テストコードが想定された方法で機能していることを実証するRustの関数です。
+<p>テストは、テスト以外のコードが想定された方法で機能していることを実証するRustの関数です。
 テスト関数の本体は、典型的には以下の3つの動作を行います:</p>
 <!--
 1. Set up any needed data or state.
-2. Run the code we want to test.
-3. Assert the results are what we expect.
+2. Run the code you want to test.
+3. Assert the results are what you expect.
 -->
 <ol>
 <li>必要なデータや状態をセットアップする。</li>
 <li>テスト対象のコードを走らせる。</li>
-<li>結果が想定通りかアサーションする。</li>
+<li>結果が想定通りであることを断定（以下、アサーションという）する。</li>
 </ol>
 <!--
 Let’s look at the features Rust provides specifically for writing tests that
@@ -184,45 +184,44 @@ take these actions, which include the `test` attribute, a few macros, and the
 <!--
 ### The Anatomy of a Test Function
 -->
-<h2><a class="header" href="#テスト関数の解剖" id="テスト関数の解剖">テスト関数の解剖</a></h2>
+<h2><a class="header" href="#テスト関数の構成" id="テスト関数の構成">テスト関数の構成</a></h2>
 <!--
 At its simplest, a test in Rust is a function that’s annotated with the `test`
 attribute. Attributes are metadata about pieces of Rust code; one example is
 the `derive` attribute we used with structs in Chapter 5. To change a function
-into a test function, we add `#[test]` on the line before `fn`. When we run our
+into a test function, add `#[test]` on the line before `fn`. When you run your
 tests with the `cargo test` command, Rust builds a test runner binary that runs
 the functions annotated with the `test` attribute and reports on whether each
 test function passes or fails.
 -->
 <p>最も単純には、Rustにおけるテストは<code>test</code>属性で注釈された関数のことです。属性とは、
 Rustコードの欠片に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した<code>derive</code>属性です。
-関数をテスト関数に変えるには、<code>fn</code>の前に<code>#[test]</code>を付け加えるのです。
+関数をテスト関数に変えるには、<code>fn</code>の前に<code>#[test]</code>を付け加えてください。
 <code>cargo test</code>コマンドでテストを実行したら、コンパイラは<code>test</code>属性で注釈された関数を走らせるテスト用バイナリをビルドし、
 各テスト関数が通過したか失敗したかを報告します。</p>
 <!--
-In Chapter 7, we saw that when we make a new library project with Cargo, a test
-module with a test function in it is automatically generated for us. This
-module helps us start writing our tests so you don’t have to look up the
-exact structure and syntax of test functions every time you start a new
-project. You can add as many additional test functions and as many test modules
-as you want!
+When we make a new library project with Cargo, a test module with a test
+function in it is automatically generated for us. This module helps you start
+writing your tests so you don’t have to look up the exact structure and syntax
+of test functions every time you start a new project. You can add as many
+additional test functions and as many test modules as you want!
 -->
-<p>第7章で、Cargoで新規ライブラリプロジェクトを作成した時に、テスト関数が含まれるテストモジュールが自動で生成されたことを見かけました。
-このモジュールのおかげでテストを書き始めることができるので、新しいプロジェクトを立ち上げる度に、
-テスト関数の正確な構造と記法を調べる必要がなくなるわけです。必要なだけ追加のテスト関数とテストモジュールは追記することができます。</p>
+<p>新しいライブラリプロジェクトをCargoで作ると、テスト関数付きのテストモジュールが自動的に生成されます。
+このモジュールのおかげで、新しいプロジェクトを始めるたびにテスト関数の正しい構造とか文法をいちいち検索しなくてすみます。
+ここに好きな数だけテスト関数やテストモジュールを追加すればいいというわけです！</p>
 <!--
 We’ll explore some aspects of how tests work by experimenting with the template
 test generated for us without actually testing any code. Then we’ll write some
 real-world tests that call some code that we’ve written and assert that its
 behavior is correct.
 -->
-<p>実際にテストすることなしにテンプレートのテストが生成されるのを実験することでテストの動作法の一部の側面を探究しましょう。
-それから、自分で書いた何らかのコードを呼び出し、振る舞いが正しいかアサーションする現実世界のテストを書きましょう。</p>
+<p>まず、実際にはコードをテストしない、自動生成されたテンプレートのテストで実験して、テストの動作の性質をいくらか学びましょう。
+その後で、以前書いたコードを呼び出し、振る舞いが正しいことをアサーションする、ホンモノのテストを書きましょう。</p>
 <!--
 Let’s create a new library project called `adder`:
 -->
 <p><code>adder</code>という新しいライブラリプロジェクトを生成しましょう:</p>
-<pre><code class="language-text">$ cargo new adder --lib
+<pre><code class="language-console">$ cargo new adder --lib
      Created library `adder` project
 $ cd adder
 </code></pre>
@@ -235,15 +234,16 @@ Listing 11-1.
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span>#[cfg(test)]
+<pre><pre class="playpen"><code class="language-rust">#[cfg(test)]
 mod tests {
     #[test]
     fn it_works() {
         assert_eq!(2 + 2, 4);
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 <span class="caption">Listing 11-1: The test module and function generated
 automatically by `cargo new`</span>
@@ -258,26 +258,26 @@ to help set up common scenarios or perform common operations, so we need to
 indicate which functions are tests by using the `#[test]` attribute.
 -->
 <p>とりあえず、最初の2行は無視し、関数に集中してその動作法を見ましょう。
-<code>fn</code>行の<code>#[test]</code>注釈に注目してください: この属性は、これがテスト関数であることを示唆しますので、
-テスト実行機はこの関数をテストとして扱うとわかるのです。さらに、<code>tests</code>モジュール内には非テスト関数を入れ込み、
+<code>fn</code>行の<code>#[test]</code>注釈に注目してください: この属性は、これがテスト関数であることを示すので、
+テスト実行機はこの関数をテストとして扱うとわかるのです。さらに、<code>tests</code>モジュール内にはテスト関数以外の関数を入れ、
 一般的なシナリオをセットアップしたり、共通の処理を行う手助けをしたりもできるので、
-<code>#[test]</code>属性でどの関数がテストかを示唆する必要があるのです。</p>
+<code>#[test]</code>属性でどの関数がテストかを示す必要があるのです。</p>
 <!--
 The function body uses the `assert_eq!` macro to assert that 2 + 2 equals 4.
 This assertion serves as an example of the format for a typical test. Let’s run
 it to see that this test passes.
 -->
 <p>関数本体は、<code>assert_eq!</code>マクロを使用して、2 + 2が4に等しいことをアサーションしています。
-このアサーションは、典型的なテストのフォーマット例をなしているわけです。走らせてこのテストが通ることを確かめましょう。</p>
+このアサーションは、典型的なテストのフォーマット例をなしているわけです。走らせてこのテストが通る（訳注：テストが成功する、の意味。英語でpassということから、このように表現される）ことを確かめましょう。</p>
 <!--
 The `cargo test` command runs all tests in our project, as shown in Listing
 11-2.
 -->
 <p><code>cargo test</code>コマンドでプロジェクトにあるテストが全て実行されます。リスト11-2に示したようにですね。</p>
-<pre><code class="language-text">$ cargo test
+<pre><code class="language-console">$ cargo test
    Compiling adder v0.1.0 (file:///projects/adder)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.22 secs
-     Running target/debug/deps/adder-ce99bcc2479f4607
+    Finished test [unoptimized + debuginfo] target(s) in 0.57s
+     Running target/debug/deps/adder-92948b65e88960b4
 
 running 1 test
 test tests::it_works ... ok
@@ -289,6 +289,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
 </code></pre>
 <!--
 <span class="caption">Listing 11-2: The output from running the automatically
@@ -311,31 +312,33 @@ reads `1 passed; 0 failed` totals the number of tests that passed or failed.
 Because we don’t have any tests we’ve marked as ignored, the summary shows `0
 ignored`. We also haven’t filtered the tests being run, so the end of the
 summary shows `0 filtered out`. We’ll talk about ignoring and filtering out
-tests in the next section, “Controlling How Tests Are Run.”
+tests in the next section, [“Controlling How Tests Are
+Run.”][controlling-how-tests-are-run]
 -->
 <p>無視すると指定したテストは何もなかったため、まとめは<code>0 ignored</code>と示しています。
 また、実行するテストにフィルタをかけもしなかったので、まとめの最後に<code>0 filtered out</code>と表示されています。
-テストを無視することとフィルタすることに関しては次の節、「テストの実行され方を制御する」で語ります。</p>
+テストを無視することとフィルタすることに関しては次の節、<a href="ch11-02-running-tests.html#controlling-how-tests-are-run">テストの実行され方を制御する</a>で語ります。</p>
 <!--
 The `0 measured` statistic is for benchmark tests that measure performance.
 Benchmark tests are, as of this writing, only available in nightly Rust. See
 [the documentation about benchmark tests][bench] to learn more.
 -->
 <p><code>0 measured</code>という統計は、パフォーマンスを測定するベンチマークテスト用です。
-ベンチマークテストは、本書記述の時点では、ナイトリ版のRustでのみ利用可能です。
-詳しくは、<a href="../../unstable-book/library-features/test.html">ベンチマークテストのドキュメンテーション</a>を参照されたし。</p>
+ベンチマークテストは、本書記述の時点では、nightly版のRustでのみ利用可能です。
+詳しくは、<a href="../unstable-book/library-features/test.html">ベンチマークテストのドキュメンテーション</a>を参照されたし。</p>
 <!--
 The next part of the test output, which starts with `Doc-tests adder`, is for
 the results of any documentation tests. We don’t have any documentation tests
 yet, but Rust can compile any code examples that appear in our API
 documentation. This feature helps us keep our docs and our code in sync! We’ll
-discuss how to write documentation tests in the “Documentation Comments As
-Tests” section of Chapter 14. For now, we’ll ignore the `Doc-tests` output.
+discuss how to write documentation tests in the [“Documentation Comments as
+Tests”][doc-comments] section of Chapter 14. For now, we’ll
+ignore the `Doc-tests` output.
 -->
 <p>テスト出力の次の部分、つまり<code>Doc-tests adder</code>で始まる部分は、ドキュメンテーションテストの結果用のものです。
-まだドキュメンテーションテストは何もないものの、コンパイラは、APIドキュメントに現れたどんなコード例もコンパイルできます。
+まだドキュメンテーションテストは何もないものの、コンパイラは、APIドキュメントに現れるどんなコード例もコンパイルできます。
 この機能により、ドキュメントとコードを同期することができるわけです。ドキュメンテーションテストの書き方については、
-第14章の「テストとしてのドキュメンテーションコメント」節で議論しましょう。今は、<code>Doc-tests</code>出力は無視します。</p>
+第14章の<a href="ch14-02-publishing-to-crates-io.html#documentation-comments-as-tests">テストとしてのドキュメンテーションコメント</a>節で議論しましょう。今は、<code>Doc-tests</code>出力は無視します。</p>
 <!--
 Let’s change the name of our test to see how that changes the test output.
 Change the `it_works` function to a different name, such as `exploration`, like
@@ -347,24 +350,37 @@ so:
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span>#[cfg(test)]
+<pre><pre class="playpen"><code class="language-rust">#[cfg(test)]
 mod tests {
     #[test]
     fn exploration() {
         assert_eq!(2 + 2, 4);
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 Then run `cargo test` again. The output now shows `exploration` instead of
 `it_works`:
 -->
 <p>そして、<code>cargo test</code>を再度走らせます。これで出力が<code>it_works</code>の代わりに<code>exploration</code>と表示しています:</p>
-<pre><code class="language-text">running 1 test
+<pre><code class="language-console">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished test [unoptimized + debuginfo] target(s) in 0.59s
+     Running target/debug/deps/adder-92948b65e88960b4
+
+running 1 test
 test tests::exploration ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
 </code></pre>
 <!--
 Let’s add another test, but this time we’ll make a test that fails! Tests fail
@@ -377,14 +393,13 @@ which is to call the `panic!` macro. Enter the new test, `another`, so your
 <p>別のテストを追加しますが、今回は失敗するテストにしましょう！テスト関数内の何かがパニックすると、
 テストは失敗します。各テストは、新規スレッドで実行され、メインスレッドが、テストスレッドが死んだと確認した時、
 テストは失敗と印づけられます。第9章でパニックを引き起こす最も単純な方法について語りました。
-要するに、<code>panic!</code>マクロを呼び出すことです。<em>src/lib.rs</em>ファイルがリスト11-3のような見た目になるよう、
+そう、<code>panic!</code>マクロを呼び出すことですね。<em>src/lib.rs</em>ファイルがリスト11-3のような見た目になるよう、
 新しいテスト<code>another</code>を入力してください。</p>
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span>#[cfg(test)]
+<pre><pre class="playpen"><code class="language-rust panics">#[cfg(test)]
 mod tests {
     #[test]
     fn exploration() {
@@ -397,7 +412,9 @@ mod tests {
         panic!(&quot;Make this test fail&quot;);
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 <span class="caption">Listing 11-3: Adding a second test that will fail because
 we call the `panic!` macro</span>
@@ -409,22 +426,28 @@ Run the tests again using `cargo test`. The output should look like Listing
 -->
 <p><code>cargo test</code>で再度テストを走らせてください。出力はリスト11-4のようになるはずであり、
 <code>exploration</code>テストは通り、<code>another</code>は失敗したと表示されます。</p>
-<pre><code class="language-text">running 2 tests
-test tests::exploration ... ok
+<pre><code class="language-text">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished test [unoptimized + debuginfo] target(s) in 0.72s
+     Running target/debug/deps/adder-92948b65e88960b4
+
+running 2 tests
 test tests::another ... FAILED
+test tests::exploration ... ok
 
 failures:
 
 ---- tests::another stdout ----
-    thread 'tests::another' panicked at 'Make this test fail', src/lib.rs:10:8
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+thread 'main' panicked at 'Make this test fail', src/lib.rs:10:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace.
+
 
 failures:
     tests::another
 
 test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 
-error: test failed
+error: test failed, to rerun pass '--lib'
 </code></pre>
 <!--
 <span class="caption">Listing 11-4: Test results when one test passes and one
@@ -440,7 +463,8 @@ on line 10 in the *src/lib.rs* file. The next section lists just the names of
 all the failing tests, which is useful when there are lots of tests and lots of
 detailed failing test output. We can use the name of a failing test to run just
 that test to more easily debug it; we’ll talk more about ways to run tests in
-the “Controlling How Tests Are Run” section.
+the [“Controlling How Tests Are Run”][controlling-how-tests-are-run]
+section.
 -->
 <p><code>ok</code>の代わりに<code>test test::another</code>の行は、<code>FAILED</code>を表示しています。個々の結果とまとめの間に、
 2つ新たな区域ができました: 最初の区域は、失敗したテスト各々の具体的な理由を表示しています。
@@ -448,18 +472,18 @@ the “Controlling How Tests Are Run” section.
 これは、<em>src/lib.rs</em>ファイルの10行で起きました。次の区域は失敗したテストの名前だけを列挙しています。
 これは、テストがたくさんあり、失敗したテストの詳細がたくさん表示されるときに有用になります。
 失敗したテストの名前を使用してそのテストだけを実行し、より簡単にデバッグすることができます。
-テストの実行方法については、「テストの実行され方を制御する」節でもっと語りましょう。</p>
+テストの実行方法については、<a href="ch11-02-running-tests.html#controlling-how-tests-are-run">テストの実行され方を制御する</a>節でもっと語りましょう。</p>
 <!--
 The summary line displays at the end: overall, our test result is `FAILED`.
 We had one test pass and one test fail.
 -->
-<p>サマリー行が最後に出力されています: 総合的に言うと、テスト結果は<code>失敗</code>でした。
+<p>サマリー行が最後に出力されています: 総合的に言うと、テスト結果は<code>FAILED</code>でした。
 一つのテストが通り、一つが失敗したわけです。</p>
 <!--
 Now that you’ve seen what the test results look like in different scenarios,
 let’s look at some macros other than `panic!` that are useful in tests.
 -->
-<p>異なる筋書きでのテスト結果がどんな風になるか見てきたので、テストを行う際に有用になる<code>panic!</code>以外のマクロに目を向けましょう。</p>
+<p>様々な状況でのテスト結果がどんな風になるか見てきたので、テストを行う際に有用になる<code>panic!</code>以外のマクロに目を向けましょう。</p>
 <!--
 ### Checking Results with the `assert!` Macro
 -->
@@ -488,19 +512,20 @@ method, which are repeated here in Listing 11-5. Let’s put this code in the
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span>#[derive(Debug)]
-pub struct Rectangle {
-    length: u32,
+<pre><pre class="playpen"><code class="language-rust">#[derive(Debug)]
+struct Rectangle {
     width: u32,
+    height: u32,
 }
 
 impl Rectangle {
-    pub fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
-        self.length &gt; other.length &amp;&amp; self.width &gt; other.width
+    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.width &gt; other.width &amp;&amp; self.height &gt; other.height
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 <span class="caption">Listing 11-5: Using the `Rectangle` struct and its
 `can_hold` method from Chapter 5</span>
@@ -509,46 +534,67 @@ impl Rectangle {
 <!--
 The `can_hold` method returns a Boolean, which means it’s a perfect use case
 for the `assert!` macro. In Listing 11-6, we write a test that exercises the
-`can_hold` method by creating a `Rectangle` instance that has a length of 8 and
-a width of 7 and asserting that it can hold another `Rectangle` instance that
-has a length of 5 and a width of 1.
+`can_hold` method by creating a `Rectangle` instance that has a width of 8 and
+a height of 7 and asserting that it can hold another `Rectangle` instance that
+has a width of 5 and a height of 1.
 -->
 <p><code>can_hold</code>メソッドは論理値を返すので、<code>assert!</code>マクロの完璧なユースケースになるわけです。
-リスト11-6で、長さが8、幅が7の<code>Rectangle</code>インスタンスを生成し、これが長さ5、
-幅1の別の<code>Rectangle</code>インスタンスを保持できるとアサーションすることで<code>can_hold</code>を用いるテストを書きます。</p>
+リスト11-6で、幅が8、高さが7の<code>Rectangle</code>インスタンスを生成し、これが幅5、
+高さ1の別の<code>Rectangle</code>インスタンスを保持できるとアサーションすることで<code>can_hold</code>を用いるテストを書きます。</p>
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    width: u32,
+</span><span class="boring">    height: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Rectangle {
+</span><span class="boring">    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+</span><span class="boring">        self.width &gt; other.width &amp;&amp; self.height &gt; other.height
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
 </span>#[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn larger_can_hold_smaller() {
-        let larger = Rectangle { length: 8, width: 7 };
-        let smaller = Rectangle { length: 5, width: 1 };
+        let larger = Rectangle {
+            width: 8,
+            height: 7,
+        };
+        let smaller = Rectangle {
+            width: 5,
+            height: 1,
+        };
 
         assert!(larger.can_hold(&amp;smaller));
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 <span class="caption">Listing 11-6: A test for `can_hold` that checks whether a
 larger rectangle can indeed hold a smaller rectangle</span>
 -->
 <p><span class="caption">リスト11-6: より大きな四角形がより小さな四角形を確かに保持できるかを確認する<code>can_hold</code>用のテスト</span></p>
 <!--
-Note that we’ve added a new line inside the `tests` module: the `use super::*;`.
+Note that we’ve added a new line inside the `tests` module: `use super::*;`.
 The `tests` module is a regular module that follows the usual visibility rules
-we covered in Chapter 7 in the “Privacy Rules” section. Because the `tests`
-module is an inner module, we need to bring the code under test in the outer
-module into the scope of the inner module. We use a glob here so anything we
-define in the outer module is available to this `tests` module.
+we covered in Chapter 7 in the [“Paths for Referring to an Item in the Module
+Tree”][paths-for-referring-to-an-item-in-the-module-tree]
+section. Because the `tests` module is an inner module, we need to bring the
+code under test in the outer module into the scope of the inner module. We use
+a glob here so anything we define in the outer module is available to this
+`tests` module.
 -->
 <p><code>tests</code>モジュール内に新しい行を加えたことに注目してください: <code>use super::*</code>です。
-<code>tests</code>モジュールは、第7章の「プライバシー規則」節で講義した通常の公開ルールに従う普通のモジュールです。
+<code>tests</code>モジュールは、第7章の<a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html">モジュールツリーの要素を示すためのパス</a>節で講義した通常の公開ルールに従う普通のモジュールです。
 <code>tests</code>モジュールは、内部モジュールなので、外部モジュール内のテスト配下にあるコードを内部モジュールのスコープに持っていく必要があります。
 ここではglobを使用して、外部モジュールで定義したもの全てがこの<code>tests</code>モジュールでも使用可能になるようにしています。</p>
 <!--
@@ -560,10 +606,22 @@ is supposed to return `true`, so our test should pass. Let’s find out!
 <p>テストは<code>larger_can_hold_smaller</code>と名付け、必要な<code>Rectangle</code>インスタンスを2つ生成しています。
 そして、<code>assert!</code>マクロを呼び出し、<code>larger.can_hold(&amp;smaller)</code>の呼び出し結果を渡しました。
 この式は、<code>true</code>を返すと考えられるので、テストは通るはずです。確かめましょう！</p>
-<pre><code class="language-text">running 1 test
+<pre><code class="language-console">$ cargo test
+   Compiling rectangle v0.1.0 (file:///projects/rectangle)
+    Finished test [unoptimized + debuginfo] target(s) in 0.66s
+     Running target/debug/deps/rectangle-6584c4561e48942e
+
+running 1 test
 test tests::larger_can_hold_smaller ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests rectangle
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
 </code></pre>
 <!--
 It does pass! Let’s add another test, this time asserting that a smaller
@@ -574,7 +632,18 @@ rectangle cannot hold a larger rectangle:
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
+</span><span class="boring">    width: u32,
+</span><span class="boring">    height: u32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Rectangle {
+</span><span class="boring">    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+</span><span class="boring">        self.width &gt; other.width &amp;&amp; self.height &gt; other.height
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
 </span>#[cfg(test)]
 mod tests {
     use super::*;
@@ -582,17 +651,35 @@ mod tests {
     #[test]
     fn larger_can_hold_smaller() {
         // --snip--
-    }
+<span class="boring">        let larger = Rectangle {
+</span><span class="boring">            width: 8,
+</span><span class="boring">            height: 7,
+</span><span class="boring">        };
+</span><span class="boring">        let smaller = Rectangle {
+</span><span class="boring">            width: 5,
+</span><span class="boring">            height: 1,
+</span><span class="boring">        };
+</span><span class="boring">
+</span><span class="boring">        assert!(larger.can_hold(&amp;smaller));
+</span>    }
 
     #[test]
     fn smaller_cannot_hold_larger() {
-        let larger = Rectangle { length: 8, width: 7 };
-        let smaller = Rectangle { length: 5, width: 1 };
+        let larger = Rectangle {
+            width: 8,
+            height: 7,
+        };
+        let smaller = Rectangle {
+            width: 5,
+            height: 1,
+        };
 
         assert!(!smaller.can_hold(&amp;larger));
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 Because the correct result of the `can_hold` function in this case is `false`,
 we need to negate that result before we pass it to the `assert!` macro. As a
@@ -600,70 +687,121 @@ result, our test will pass if `can_hold` returns `false`:
 -->
 <p>今回の場合、<code>can_hold</code>関数の正しい結果は<code>false</code>なので、その結果を<code>assert!</code>マクロに渡す前に反転させる必要があります。
 結果として、<code>can_hold</code>が<code>false</code>を返せば、テストは通ります。</p>
-<pre><code class="language-text">running 2 tests
-test tests::smaller_cannot_hold_larger ... ok
+<pre><code class="language-console">$ cargo test
+   Compiling rectangle v0.1.0 (file:///projects/rectangle)
+    Finished test [unoptimized + debuginfo] target(s) in 0.66s
+     Running target/debug/deps/rectangle-6584c4561e48942e
+
+running 2 tests
 test tests::larger_can_hold_smaller ... ok
+test tests::smaller_cannot_hold_larger ... ok
 
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests rectangle
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
 </code></pre>
 <!--
 Two tests that pass! Now let’s see what happens to our test results when we
 introduce a bug in our code. Let’s change the implementation of the `can_hold`
 method by replacing the greater than sign with a less than sign when it
-compares the lengths:
+compares the widths:
 -->
 <p>通るテストが2つ！さて、コードにバグを導入したらテスト結果がどうなるか確認してみましょう。
-長さを比較する大なり記号を小なり記号で置き換えて<code>can_hold</code>メソッドの実装を変更しましょう:</p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span><span class="boring">#[derive(Debug)]
-</span><span class="boring">pub struct Rectangle {
-</span><span class="boring">    length: u32,
+幅を比較する大なり記号を小なり記号で置き換えて<code>can_hold</code>メソッドの実装を変更しましょう:</p>
+<pre><pre class="playpen"><code class="language-rust not_desired_behavior"><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Rectangle {
 </span><span class="boring">    width: u32,
+</span><span class="boring">    height: u32,
 </span><span class="boring">}
+</span><span class="boring">
 </span>// --snip--
-
 impl Rectangle {
-    pub fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
-        self.length &lt; other.length &amp;&amp; self.width &gt; other.width
+    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.width &lt; other.width &amp;&amp; self.height &gt; other.height
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn larger_can_hold_smaller() {
+</span><span class="boring">        let larger = Rectangle {
+</span><span class="boring">            width: 8,
+</span><span class="boring">            height: 7,
+</span><span class="boring">        };
+</span><span class="boring">        let smaller = Rectangle {
+</span><span class="boring">            width: 5,
+</span><span class="boring">            height: 1,
+</span><span class="boring">        };
+</span><span class="boring">
+</span><span class="boring">        assert!(larger.can_hold(&amp;smaller));
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn smaller_cannot_hold_larger() {
+</span><span class="boring">        let larger = Rectangle {
+</span><span class="boring">            width: 8,
+</span><span class="boring">            height: 7,
+</span><span class="boring">        };
+</span><span class="boring">        let smaller = Rectangle {
+</span><span class="boring">            width: 5,
+</span><span class="boring">            height: 1,
+</span><span class="boring">        };
+</span><span class="boring">
+</span><span class="boring">        assert!(!smaller.can_hold(&amp;larger));
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 Running the tests now produces the following:
 -->
 <p>テストを実行すると、以下のような出力をします:</p>
-<pre><code class="language-text">running 2 tests
-test tests::smaller_cannot_hold_larger ... ok
+<pre><code class="language-console">$ cargo test
+   Compiling rectangle v0.1.0 (file:///projects/rectangle)
+    Finished test [unoptimized + debuginfo] target(s) in 0.66s
+     Running target/debug/deps/rectangle-6584c4561e48942e
+
+running 2 tests
 test tests::larger_can_hold_smaller ... FAILED
+test tests::smaller_cannot_hold_larger ... ok
 
 failures:
 
 ---- tests::larger_can_hold_smaller stdout ----
-    thread 'tests::larger_can_hold_smaller' panicked at 'assertion failed:
-    larger.can_hold(&amp;smaller)', src/lib.rs:22:8
-    (スレッド'tests::larger_can_hold_smallerはsrc/lib.rs:22:8の'assertion failed: larger.can_hold(&amp;smaller)'
-    でパニックしました)
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+thread 'main' panicked at 'assertion failed: larger.can_hold(&amp;smaller)', src/lib.rs:28:9
+(スレッド'main'はsrc/lib.rs:28:9の'assertion failed: larger.can_hold(&amp;smaller)'でパニックしました)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace.
 
 failures:
     tests::larger_can_hold_smaller
 
 test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+
+error: test failed, to rerun pass '--lib'
 </code></pre>
 <!--
-Our tests caught the bug! Because `larger.length` is 8 and `smaller.length` is
-5, the comparison of the lengths in `can_hold` now returns `false`: 8 is not
+Our tests caught the bug! Because `larger.width` is 8 and `smaller.width` is
+5, the comparison of the widths in `can_hold` now returns `false`: 8 is not
 less than 5.
 -->
-<p>テストによりバグが捕捉されました！<code>larger.length</code>が8、<code>smaller.length</code>が5なので、
-<code>can_hold</code>内の長さの比較が今は<code>false</code>を返すようになったのです: 8は5より小さくないですからね。</p>
+<p>テストによりバグが捕捉されました！<code>larger.width</code>が8、<code>smaller.width</code>が5なので、
+<code>can_hold</code>内の幅の比較が今は<code>false</code>を返すようになったのです: 8は5より小さくないですからね。</p>
 <!--
 ### Testing Equality with the `assert_eq!` and `assert_ne!` Macros
 -->
 <h3><a class="header" href="#assert_eqとassert_neマクロで等値性をテストする" id="assert_eqとassert_neマクロで等値性をテストする"><code>assert_eq!</code>と<code>assert_ne!</code>マクロで等値性をテストする</a></h3>
 <!--
 A common way to test functionality is to compare the result of the code under
-test to the value we expect the code to return to make sure they’re equal. We
+test to the value you expect the code to return to make sure they’re equal. You
 could do this using the `assert!` macro and passing it an expression using the
 `==` operator. However, this is such a common test that the standard library
 provides a pair of macros—`assert_eq!` and `assert_ne!`—to perform this test
@@ -676,9 +814,9 @@ expression, not the values that lead to the `false` value.
 <p>機能をテストする一般的な方法は、テスト下にあるコードの結果をコードが返すと期待される値と比較して、
 等しいと確かめることです。これを<code>assert</code>マクロを使用して<code>==</code>演算子を使用した式を渡すことで行うこともできます。
 しかしながら、これはありふれたテストなので、標準ライブラリには1組のマクロ(<code>assert_eq!</code>と<code>assert_ne!</code>)が提供され、
-このテストをより便利に行うことができます。これらのマクロはそれぞれ、二つの引数を等値性と非等値性のために比較します。
+このテストをより便利に行うことができます。これらのマクロはそれぞれ、二つの引数を比べ、等しいかと等しくないかを確かめます。
 また、アサーションが失敗したら二つの値の出力もし、テストが失敗した<em>原因</em>を確認しやすくなります。
-一方で<code>assert!</code>マクロは、<code>==</code>式の値が<code>false</code>値になったことしか示唆せず、<code>false</code>値に導いた値は出力しません。</p>
+一方で<code>assert!</code>マクロは、<code>==</code>式の値が<code>false</code>になったことしか示さず、<code>false</code>になった原因の値は出力しません。</p>
 <!--
 In Listing 11-7, we write a function named `add_two` that adds `2` to its
 parameter and returns the result. Then we test this function using the
@@ -690,8 +828,7 @@ parameter and returns the result. Then we test this function using the
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span>pub fn add_two(a: i32) -&gt; i32 {
+<pre><pre class="playpen"><code class="language-rust">pub fn add_two(a: i32) -&gt; i32 {
     a + 2
 }
 
@@ -704,7 +841,9 @@ mod tests {
         assert_eq!(4, add_two(2));
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 <span class="caption">Listing 11-7: Testing the function `add_two` using the
 `assert_eq!` macro</span>
@@ -713,11 +852,22 @@ mod tests {
 <!--
 Let’s check that it passes!
 -->
-<p>テストが通ることを確認しましょう！</p>
-<pre><code class="language-text">running 1 test
+<pre><code class="language-console">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished test [unoptimized + debuginfo] target(s) in 0.58s
+     Running target/debug/deps/adder-92948b65e88960b4
+
+running 1 test
 test tests::it_adds_two ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
 </code></pre>
 <!--
 The first argument we gave to the `assert_eq!` macro, `4`, is equal to the
@@ -733,30 +883,49 @@ instead add `3`:
 -->
 <p>コードにバグを仕込んで、<code>assert_eq!</code>を使ったテストが失敗した時にどんな見た目になるのか確認してみましょう。
 <code>add_two</code>関数の実装を代わりに<code>3</code>を足すように変えてください:</p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span>pub fn add_two(a: i32) -&gt; i32 {
+<pre><pre class="playpen"><code class="language-rust not_desired_behavior">pub fn add_two(a: i32) -&gt; i32 {
     a + 3
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn it_adds_two() {
+</span><span class="boring">        assert_eq!(4, add_two(2));
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 Run the tests again:
 -->
 <p>テストを再度実行します:</p>
-<pre><code class="language-text">running 1 test
+<pre><code class="language-console">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished test [unoptimized + debuginfo] target(s) in 0.61s
+     Running target/debug/deps/adder-92948b65e88960b4
+
+running 1 test
 test tests::it_adds_two ... FAILED
 
 failures:
 
 ---- tests::it_adds_two stdout ----
-        thread 'tests::it_adds_two' panicked at 'assertion failed: `(left == right)`
+thread 'main' panicked at 'assertion failed: `(left == right)`
   left: `4`,
- right: `5`', src/lib.rs:11:8
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+ right: `5`', src/lib.rs:11:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace.
+
 
 failures:
     tests::it_adds_two
 
 test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+
+error: test failed, to rerun pass '--lib'
 </code></pre>
 <!--
 Our test caught the bug! The `it_adds_two` test failed, displaying the message
@@ -778,12 +947,12 @@ could write the assertion in this test as `assert_eq!(add_two(2), 4)`, which
 would result in a failure message that displays `` assertion failed: `(left ==
 right)` `` and that `left` was `5` and `right` was `4`.
 -->
-<p>二つの値が等しいとアサーションを行う関数の引数は、
-<code>expected</code>と<code>actual</code>と呼ばれ、引数を指定する順序が問題になる言語やテストフレームワークもあることに注意してください。
-ですがRustでは、<code>left</code>と<code>right</code>と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は、
-問題になりません。<code>assert_eq!(add_two(2), 4)</code>と今回のテストのアサーションを書くこともでき、
+<p>二つの値が等しいとアサーションを行う関数の引数を
+<code>expected</code>と<code>actual</code>と呼び、引数を指定する順序が問題になる言語やテストフレームワークもあることに注意してください。
+ですがRustでは、<code>left</code>と<code>right</code>と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は
+問題になりません。今回のテストのアサーションを<code>assert_eq!(add_two(2), 4)</code>と書くこともでき、
 そうすると失敗メッセージは、<code>assertion failed: `(left == right)`</code>となり、
-<code>left</code>が<code>5</code>で<code>right</code>が<code>4</code>と表示されるわけです。</p>
+<code>left</code>が<code>5</code>で<code>right</code>が<code>4</code>と表示されるでしょう。</p>
 <!--
 The `assert_ne!` macro will pass if the two values we give it are not equal and
 fail if they’re equal. This macro is most useful for cases when we’re not sure
@@ -796,7 +965,7 @@ to assert might be that the output of the function is not equal to the input.
 <p><code>assert_ne!</code>マクロは、与えた2つの値が等しくなければ通り、等しければ失敗します。
 このマクロは、値が何になる<em>だろう</em>か確信が持てないけれども、コードが意図した通りに動いていれば、
 確実にこの値にはなら<em>ないだろう</em>とわかっているような場合に最も有用になります。例えば、
-入力を何らかの手段で変えることが保障されているけれども、入力が変更される方法がテストを実行する曜日に依存する関数をテストしているなら、
+入力を何らかの手段で変え（て出力す）ることが保証されているけれども、入力の変え方がテストを実行する曜日に依存する関数をテストしているなら、
 アサーションすべき最善の事柄は、関数の出力が入力と等しくないことかもしれません。</p>
 <!--
 Under the surface, the `assert_eq!` and `assert_ne!` macros use the operators
@@ -806,46 +975,48 @@ implement the `PartialEq` and `Debug` traits. All the primitive types and most
 of the standard library types implement these traits. For structs and enums
 that you define, you’ll need to implement `PartialEq` to assert that values of
 those types are equal or not equal. You’ll need to implement `Debug` to print
-out the values when the assertion fails. Because both traits are derivable traits,
+the values when the assertion fails. Because both traits are derivable traits,
 as mentioned in Listing 5-12 in Chapter 5, this is usually as straightforward
 as adding the `#[derive(PartialEq, Debug)]` annotation to your struct or enum
-definition. See Appendix C for more details about these and other derivable
-traits.
+definition. See Appendix C, [“Derivable Traits,”][derivable-traits]
+for more details about these and other derivable traits.
 -->
-<p>表面下では、<code>assert_eq!</code>と<code>assert_ne!</code>マクロはそれぞれ、<code>==</code>と<code>!=</code>演算子を使用しています。
-アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用して出力するので、
+<p>内部的には、<code>assert_eq!</code>と<code>assert_ne!</code>マクロは、それぞれ<code>==</code>と<code>!=</code>演算子を使用しています。
+アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用してプリントするので、
 比較対象の値は<code>PartialEq</code>と<code>Debug</code>トレイトを実装していなければなりません。
-組み込み型の全部と、標準ライブラリの型はほぼ全てこれらのトレイトを実装しています。
-自分で定義した構造体とenumについては、<code>PartialEq</code>を実装して、
-その型の値が等しいか等しくないかアサーションする必要があるでしょう。<code>Debug</code>を実装して、
-アサーションが失敗した時に値を出力する必要もあるでしょう。
+すべての組み込み型と、ほぼすべての標準ライブラリの型はこれらのトレイトを実装しています。
+自分で定義した構造体やenumについては、
+その型の値が等しいか等しくないかをアサーションするために、<code>PartialEq</code>を実装する必要があるでしょう。
+それが失敗した時にその値をプリントできるように、<code>Debug</code>を実装する必要もあるでしょう。
 第5章のリスト5-12で触れたように、どちらのトレイトも導出可能なトレイトなので、
-これは通常、構造体やenum定義に<code>#[derive(PartialEq, Debug)]</code>という注釈を追加するくらい単純になります。
-これらや他の導出可能なトレイトに関する詳細については、付録Cをご覧ください。</p>
+これは通常、単純に構造体やenum定義に<code>#[derive(PartialEq, Debug)]</code>という注釈を追加するだけですみます。
+これらやその他の導出可能なトレイトに関する詳細については、付録C、<a href="appendix-03-derivable-traits.html">導出可能なトレイト</a>をご覧ください。</p>
 <!--
 ### Adding Custom Failure Messages
 -->
 <h3><a class="header" href="#カスタムの失敗メッセージを追加する" id="カスタムの失敗メッセージを追加する">カスタムの失敗メッセージを追加する</a></h3>
 <!--
-We can also add a custom message to be printed with the failure message as
+You can also add a custom message to be printed with the failure message as
 optional arguments to the `assert!`, `assert_eq!`, and `assert_ne!` macros. Any
 arguments specified after the one required argument to `assert!` or the two
 required arguments to `assert_eq!` and `assert_ne!` are passed along to the
-`format!` macro (discussed in Chapter 8 in the “Concatenation with the `+`
-Operator or the `format!` Macro” section), so you can pass a format string that
-contains `{}` placeholders and values to go in those placeholders. Custom
-messages are useful to document what an assertion means; when a test fails,
-we’ll have a better idea of what the problem is with the code.
+`format!` macro (discussed in Chapter 8 in the [“Concatenation with the `+`
+Operator or the `format!`
+Macro”][concatenation-with-the--operator-or-the-format-macro]
+section), so you can pass a format string that contains `{}` placeholders and
+values to go in those placeholders. Custom messages are useful to document
+what an assertion means; when a test fails, you’ll have a better idea of what
+the problem is with the code.
 -->
 <p>さらに、<code>assert!</code>、<code>assert_eq!</code>、<code>assert_ne!</code>の追加引数として、失敗メッセージと共にカスタムのメッセージが表示されるよう、
-追加することもできます。<code>assert!</code>の1つの必須引数、
-あるいは<code>assert_eq!</code>と<code>assert_ne!</code>の2つの必須引数の後に指定された引数はどれも<code>format!</code>マクロに明け渡されるので、
-(format!マクロについては第8章の「<code>+</code>演算子または、<code>format!</code>マクロで連結する」節で議論しました)、
+追加することもできます。<code>assert!</code>の1つの必須引数の後に、
+あるいは<code>assert_eq!</code>と<code>assert_ne!</code>の2つの必須引数の後に指定された引数はすべて<code>format!</code>マクロに渡されるので、
+（format!マクロについては第8章の<a href="ch08-02-strings.html#%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%BE%E3%81%9F%E3%81%AFformat%E3%83%9E%E3%82%AF%E3%83%AD%E3%81%A7%E9%80%A3%E7%B5%90"><code>+</code>演算子、または<code>format!</code>マクロで連結</a>節で議論しました）、
 <code>{}</code>プレースホルダーを含むフォーマット文字列とこのプレースホルダーに置き換えられる値を渡すことができます。
 カスタムメッセージは、アサーションがどんな意味を持つかドキュメント化するのに役に立ちます;
-テストが失敗した時、問題が何なのかコードと共により良い考えを持てるでしょう。</p>
+もしテストが失敗した時、コードにどんな問題があるのかをよりしっかり把握できるはずです。</p>
 <!--
-For example, let’s say we have a function that greets people by name, and we
+For example, let’s say we have a function that greets people by name and we
 want to test that the name we pass into the function appears in the output:
 -->
 <p>例として、人々に名前で挨拶をする関数があり、関数に渡した名前が出力に出現することをテストしたいとしましょう:</p>
@@ -853,9 +1024,7 @@ want to test that the name we pass into the function appears in the output:
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span>pub fn greeting(name: &amp;str) -&gt; String {
-    // こんにちは、{}さん！
+<pre><pre class="playpen"><code class="language-rust">pub fn greeting(name: &amp;str) -&gt; String {
     format!(&quot;Hello {}!&quot;, name)
 }
 
@@ -869,7 +1038,9 @@ mod tests {
         assert!(result.contains(&quot;Carol&quot;));
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 The requirements for this program haven’t been agreed upon yet, and we’re
 pretty sure the `Hello` text at the beginning of the greeting will change. We
@@ -878,35 +1049,56 @@ so instead of checking for exact equality to the value returned from the
 `greeting` function, we’ll just assert that the output contains the text of the
 input parameter.
 -->
-<p>このプログラムの必要事項はまだ合意が得られておらず、挨拶の先頭の<code>Hello</code>というテキストは変わるだろうということは極めて確かです。
-要件が変わった時にテストを更新しなくてもよいようにしたいと決定したので、
+<p>このプログラムの要件はまだ取り決められておらず、挨拶の先頭の<code>Hello</code>というテキストはおそらく変わります。
+要件が変わった時にテストを更新しなくてもよいようにしたいと考え、
 <code>greeting</code>関数から返る値と正確な等値性を確認するのではなく、出力が入力引数のテキストを含むことをアサーションするだけにします。</p>
 <!--
 Let’s introduce a bug into this code by changing `greeting` to not include
 `name` to see what this test failure looks like:
 -->
-<p><code>greeting</code>が<code>name</code>を含まないように変更してこのコードにバグを仕込み、このテストの失敗がどんな見た目になるのか確かめましょう:</p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span>pub fn greeting(name: &amp;str) -&gt; String {
+<p><code>greeting</code>が<code>name</code>を含まないように変更してこのコードにバグを仕込み、このテストの失敗がどんな風になるのか確かめましょう:</p>
+<pre><pre class="playpen"><code class="language-rust not_desired_behavior">pub fn greeting(name: &amp;str) -&gt; String {
     String::from(&quot;Hello!&quot;)
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    fn greeting_contains_name() {
+</span><span class="boring">        let result = greeting(&quot;Carol&quot;);
+</span><span class="boring">        assert!(result.contains(&quot;Carol&quot;));
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 Running this test produces the following:
 -->
 <p>このテストを実行すると、以下のように出力されます:</p>
-<pre><code class="language-text">running 1 test
+<pre><code class="language-console">$ cargo test
+   Compiling greeter v0.1.0 (file:///projects/greeter)
+    Finished test [unoptimized + debuginfo] target(s) in 0.91s
+     Running target/debug/deps/greeter-170b942eb5bf5e3a
+
+running 1 test
 test tests::greeting_contains_name ... FAILED
 
 failures:
 
 ---- tests::greeting_contains_name stdout ----
-        thread 'tests::greeting_contains_name' panicked at 'assertion failed:
-result.contains(&quot;Carol&quot;)', src/lib.rs:12:8
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+thread 'main' panicked at 'assertion failed: result.contains(&quot;Carol&quot;)', src/lib.rs:12:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace.
+
 
 failures:
     tests::greeting_contains_name
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+
+error: test failed, to rerun pass '--lib'
 </code></pre>
 <!--
 This result just indicates that the assertion failed and which line the
@@ -916,33 +1108,60 @@ giving it a custom failure message made from a format string with a placeholder
 filled in with the actual value we got from the `greeting` function:
 -->
 <p>この結果は、アサーションが失敗し、どの行にアサーションがあるかを示しているだけです。
-より有用な失敗メッセージは今回の場合、<code>greeting</code>関数から得た値を出力することでしょう。
-<code>greeting</code>関数から得た実際の値で埋められるプレースホルダーを含むフォーマット文字列からなるカスタムの失敗メッセージを与え、
-テスト関数を変更しましょう:</p>
-<pre><code class="language-rust ignore">#[test]
-fn greeting_contains_name() {
-    let result = greeting(&quot;Carol&quot;);
-    assert!(
-        result.contains(&quot;Carol&quot;),
-        //挨拶は名前を含んでいません。値は`{}`でした
-        &quot;Greeting did not contain name, value was `{}`&quot;, result
-    );
-}
-</code></pre>
+今回の場合、失敗メッセージが<code>greeting</code>関数から得た値を出力していればより有用でしょう。
+テスト関数を変更し、
+<code>greeting</code>関数から得た実際の値で埋められるプレースホルダーを含むフォーマット文字列からなるカスタムの失敗メッセージを与えてみましょう。</p>
+<pre><code class="language-rust ignore"><span class="boring">pub fn greeting(name: &amp;str) -&gt; String {
+</span><span class="boring">    String::from(&quot;Hello!&quot;)
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span>    #[test]
+    fn greeting_contains_name() {
+        let result = greeting(&quot;Carol&quot;);
+        assert!(
+            result.contains(&quot;Carol&quot;),
+            //挨拶(greeting)は名前を含んでいません。その値は`{}`でした
+            &quot;Greeting did not contain name, value was `{}`&quot;,
+            result
+        );
+    }
+<span class="boring">}
+</span></code></pre>
 <!--
 Now when we run the test, we’ll get a more informative error message:
 -->
 <p>これでテストを実行したら、より有益なエラーメッセージが得られるでしょう:</p>
-<pre><code class="language-text">---- tests::greeting_contains_name stdout ----
-        thread 'tests::greeting_contains_name' panicked at 'Greeting did not
-contain name, value was `Hello!`', src/lib.rs:12:8
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+<pre><code class="language-console">$ cargo test
+   Compiling greeter v0.1.0 (file:///projects/greeter)
+    Finished test [unoptimized + debuginfo] target(s) in 0.93s
+     Running target/debug/deps/greeter-170b942eb5bf5e3a
+
+running 1 test
+test tests::greeting_contains_name ... FAILED
+
+failures:
+
+---- tests::greeting_contains_name stdout ----
+thread 'main' panicked at 'Greeting did not contain name, value was `Hello!`', src/lib.rs:12:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace.
+
+
+failures:
+    tests::greeting_contains_name
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+
+error: test failed, to rerun pass '--lib'
 </code></pre>
 <!--
 We can see the value we actually got in the test output, which would help us
 debug what happened instead of what we were expecting to happen.
 -->
-<p>実際に得られた値がテスト出力に見られ、起こると想定していたものではなく、
+<p>実際に得られた値がテスト出力に表示されているので、起こると想定していたものではなく、
 起こったものをデバッグするのに役に立ちます。</p>
 <!--
 ### Checking for Panics with `should_panic`
@@ -952,13 +1171,13 @@ debug what happened instead of what we were expecting to happen.
 In addition to checking that our code returns the correct values we expect,
 it’s also important to check that our code handles error conditions as we
 expect. For example, consider the `Guess` type that we created in Chapter 9,
-Listing 9-9. Other code that uses `Guess` depends on the guarantee that `Guess`
-instances will only contain values between 1 and 100. We can write a test that
+Listing 9-10. Other code that uses `Guess` depends on the guarantee that `Guess`
+instances will contain only values between 1 and 100. We can write a test that
 ensures that attempting to create a `Guess` instance with a value outside that
 range panics.
 -->
 <p>期待する正しい値をコードが返すことを確認することに加えて、想定通りにコードがエラー状態を扱っていることを確認するのも重要です。
-例えば、第9章のリスト9-9で生成した<code>Guess</code>型を考えてください。<code>Guess</code>を使用する他のコードは、
+例えば、第9章のリスト9-10で生成した<code>Guess</code>型を考えてください。<code>Guess</code>を使用する他のコードは、
 <code>Guess</code>のインスタンスは1から100の範囲の値しか含まないという保証に依存しています。
 その範囲外の値で<code>Guess</code>インスタンスを生成しようとするとパニックすることを確認するテストを書くことができます。</p>
 <!--
@@ -973,26 +1192,23 @@ test will fail if the code inside the function doesn’t panic.
 Listing 11-8 shows a test that checks that the error conditions of `Guess::new`
 happen when we expect them to.
 -->
-<p>リスト11-8は、予想した時に<code>Guess::new</code>のエラー条件が発生していることを確認するテストを示しています。</p>
+<p>リスト11-8は、予想どおりに<code>Guess::new</code>のエラー条件が発生していることを確認するテストを示しています。</p>
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span>pub struct Guess {
-    value: u32,
+<pre><pre class="playpen"><code class="language-rust">pub struct Guess {
+    value: i32,
 }
 
 impl Guess {
-    pub fn new(value: u32) -&gt; Guess {
+    pub fn new(value: i32) -&gt; Guess {
         if value &lt; 1 || value &gt; 100 {
-            //予想値は1から100の間でなければなりません
+            //予想値は1から100の間でなければなりませんが、{}でした。
             panic!(&quot;Guess value must be between 1 and 100, got {}.&quot;, value);
         }
 
-        Guess {
-            value
-        }
+        Guess { value }
     }
 }
 
@@ -1006,7 +1222,9 @@ mod tests {
         Guess::new(200);
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 <span class="caption">Listing 11-8: Testing that a condition will cause a
 `panic!`</span>
@@ -1019,48 +1237,80 @@ passes:
 -->
 <p><code>#[test]</code>属性の後、適用するテスト関数の前に<code>#[should_panic]</code>属性を配置しています。
 このテストが通るときの結果を見ましょう:</p>
-<pre><code class="language-text">running 1 test
+<pre><code class="language-console">$ cargo test
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished test [unoptimized + debuginfo] target(s) in 0.58s
+     Running target/debug/deps/guessing_game-57d70c3acb738f4d
+
+running 1 test
 test tests::greater_than_100 ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests guessing_game
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
 </code></pre>
 <!--
 Looks good! Now let’s introduce a bug in our code by removing the condition
 that the `new` function will panic if the value is greater than 100:
 -->
 <p>よさそうですね！では、値が100より大きいときに<code>new</code>関数がパニックするという条件を除去することでコードにバグを導入しましょう:</p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span><span class="boring">pub struct Guess {
-</span><span class="boring">    value: u32,
+<pre><pre class="playpen"><code class="language-rust not_desired_behavior"><span class="boring">pub struct Guess {
+</span><span class="boring">    value: i32,
 </span><span class="boring">}
 </span><span class="boring">
 </span>// --snip--
-
 impl Guess {
-    pub fn new(value: u32) -&gt; Guess {
-        if value &lt; 1  {
+    pub fn new(value: i32) -&gt; Guess {
+        if value &lt; 1 {
+            //予想値は1から100の間でなければなりませんが、{}でした。
             panic!(&quot;Guess value must be between 1 and 100, got {}.&quot;, value);
         }
 
-        Guess {
-            value
-        }
+        Guess { value }
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    #[should_panic]
+</span><span class="boring">    fn greater_than_100() {
+</span><span class="boring">        Guess::new(200);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 When we run the test in Listing 11-8, it will fail:
 -->
 <p>リスト11-8のテストを実行すると、失敗するでしょう:</p>
-<pre><code class="language-text">running 1 test
+<pre><code class="language-console">$ cargo test
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished test [unoptimized + debuginfo] target(s) in 0.62s
+     Running target/debug/deps/guessing_game-57d70c3acb738f4d
+
+running 1 test
 test tests::greater_than_100 ... FAILED
 
 failures:
+
+---- tests::greater_than_100 stdout ----
+note: test did not panic as expected
 
 failures:
     tests::greater_than_100
 
 test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+
+error: test failed, to rerun pass '--lib'
 </code></pre>
 <!--
 We don’t get a very helpful message in this case, but when we look at the test
@@ -1073,7 +1323,7 @@ means that the code in the test function did not cause a panic.
 <!--
 Tests that use `should_panic` can be imprecise because they only indicate that
 the code has caused some panic. A `should_panic` test would pass even if the
-test panics for a different reason than the one we were expecting to happen. To
+test panics for a different reason from the one we were expecting to happen. To
 make `should_panic` tests more precise, we can add an optional `expected`
 parameter to the `should_panic` attribute. The test harness will make sure that
 the failure message contains the provided text. For example, consider the
@@ -1082,36 +1332,36 @@ different messages depending on whether the value is too small or too large.
 -->
 <p><code>should_panic</code>を使用するテストは不正確なこともあります。なぜなら、コードが何らかのパニックを起こしたことしか示さないからです。
 <code>should_panic</code>のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。
-<code>should_panic</code>のテストの正確を期すために、<code>should_panic</code>属性の省略可能な<code>expected</code>引数を追加できます。
-このテストの拘束具が、失敗メッセージに与えられたテキストが含まれていることを確かめてくれるでしょう。
-例えば、リスト11-9の<code>Guess</code>の変更されたコードを考えてください。ここでは、
-<code>new</code>関数は、値の大小によって異なるメッセージでパニックします。</p>
+<code>should_panic</code>のテストの正確を期すために、<code>should_panic</code>属性に<code>expected</code>引数を追加することもできます。
+このテストハーネスは、失敗メッセージに与えられたテキストが含まれていることを確かめてくれます。
+例えば、リスト11-9の修正された<code>Guess</code>のコードを考えてください。ここでは、
+<code>new</code>関数は、値が大きすぎるか小さすぎるかによって異なるメッセージでパニックします。</p>
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn main() {}
-</span><span class="boring">pub struct Guess {
-</span><span class="boring">    value: u32,
+<pre><pre class="playpen"><code class="language-rust"><span class="boring">pub struct Guess {
+</span><span class="boring">    value: i32,
 </span><span class="boring">}
 </span><span class="boring">
 </span>// --snip--
-
 impl Guess {
-    pub fn new(value: u32) -&gt; Guess {
+    pub fn new(value: i32) -&gt; Guess {
         if value &lt; 1 {
-            //予想値は、1以上でなければなりませんが、{}でした
-            panic!(&quot;Guess value must be greater than or equal to 1, got {}.&quot;,
-                   value);
+            panic!(
+                //予想値は1以上でなければなりませんが、{}でした。
+                &quot;Guess value must be greater than or equal to 1, got {}.&quot;,
+                value
+            );
         } else if value &gt; 100 {
-            //予想値は100以下でなければなりませんが、{}でした
-            panic!(&quot;Guess value must be less than or equal to 100, got {}.&quot;,
-                   value);
+            panic!(
+                //予想値は100以下でなければなりませんが、{}でした。
+                &quot;Guess value must be less than or equal to 100, got {}.&quot;,
+                value
+            );
         }
 
-        Guess {
-            value
-        }
+        Guess { value }
     }
 }
 
@@ -1120,13 +1370,15 @@ mod tests {
     use super::*;
 
     #[test]
-    // 予想値は100以下でなければなりません
+    //予想値は100以下でなければなりません
     #[should_panic(expected = &quot;Guess value must be less than or equal to 100&quot;)]
     fn greater_than_100() {
         Guess::new(200);
     }
 }
-</code></pre></pre>
+<span class="boring">
+</span><span class="boring">fn main() {}
+</span></code></pre></pre>
 <!--
 <span class="caption">Listing 11-9: Testing that a condition will cause a
 `panic!` with a particular panic message</span>
@@ -1146,9 +1398,9 @@ the `else if value > 100` case.
 <p><code>should_panic</code>属性の<code>expected</code>引数に置いた値が<code>Guess::new</code>関数がパニックしたメッセージの一部になっているので、
 このテストは通ります。予想されるパニックメッセージ全体を指定することもでき、今回の場合、
 <code>Guess value must be less than or equal to 100, got 200.</code>となります。
-<code>should_panic</code>の予想される引数に指定すると決めたものは、パニックメッセージの固有性や活動性、
-テストの正確性によります。今回の場合、パニックメッセージの一部でも、テスト関数内のコードが、
-<code>else if value &gt; 100</code>ケースを実行していると確認するのに事足りるのです。</p>
+<code>should_panic</code>の予想される引数に何を指定するかは、パニックメッセージのどこが固有でどこが動的か、
+またテストをどの程度正確に行いたいかによります。今回の場合、パニックメッセージの一部でも、テスト関数内のコードが、
+<code>else if value &gt; 100</code>の場合を実行していると確認するのに事足りるのです。</p>
 <!--
 To see what happens when a `should_panic` test with an `expected` message
 fails, let’s again introduce a bug into our code by swapping the bodies of the
@@ -1156,33 +1408,68 @@ fails, let’s again introduce a bug into our code by swapping the bodies of the
 -->
 <p><code>expected</code>メッセージありの<code>should_panic</code>テストが失敗すると何が起きるのが確かめるために、
 <code>if value &lt; 1</code>と<code>else if value &gt; 100</code>ブロックの本体を入れ替えることで再度コードにバグを仕込みましょう:</p>
-<pre><code class="language-rust ignore">if value &lt; 1 {
-    panic!(&quot;Guess value must be less than or equal to 100, got {}.&quot;, value);
-} else if value &gt; 100 {
-    panic!(&quot;Guess value must be greater than or equal to 1, got {}.&quot;, value);
-}
-</code></pre>
+<pre><code class="language-rust ignore not_desired_behavior"><span class="boring">pub struct Guess {
+</span><span class="boring">    value: i32,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Guess {
+</span><span class="boring">    pub fn new(value: i32) -&gt; Guess {
+</span>        if value &lt; 1 {
+            panic!(
+                //予想値は100以下でなければなりませんが、{}でした。
+                &quot;Guess value must be less than or equal to 100, got {}.&quot;,
+                value
+            );
+        } else if value &gt; 100 {
+            panic!(
+                //予想値は1以上でなければなりませんが、{}でした。
+                &quot;Guess value must be greater than or equal to 1, got {}.&quot;,
+                value
+            );
+        }
+<span class="boring">
+</span><span class="boring">        Guess { value }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">#[cfg(test)]
+</span><span class="boring">mod tests {
+</span><span class="boring">    use super::*;
+</span><span class="boring">
+</span><span class="boring">    #[test]
+</span><span class="boring">    #[should_panic(expected = &quot;Guess value must be less than or equal to 100&quot;)]
+</span><span class="boring">    fn greater_than_100() {
+</span><span class="boring">        Guess::new(200);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre>
 <!--
 This time when we run the `should_panic` test, it will fail:
 -->
 <p><code>should_panic</code>テストを実行すると、今回は失敗するでしょう:</p>
-<pre><code class="language-text">running 1 test
+<pre><code class="language-console">$ cargo test
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished test [unoptimized + debuginfo] target(s) in 0.66s
+     Running target/debug/deps/guessing_game-57d70c3acb738f4d
+
+running 1 test
 test tests::greater_than_100 ... FAILED
 
 failures:
 
 ---- tests::greater_than_100 stdout ----
-        thread 'tests::greater_than_100' panicked at 'Guess value must be
-greater than or equal to 1, got 200.', src/lib.rs:11:12
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
-note: Panic did not include expected string 'Guess value must be less than or
-equal to 100'
-(注釈: パニックには'Guess value must be less than or equal to 100'という予想される文字列が含まれませんでした)
+thread 'main' panicked at 'Guess value must be greater than or equal to 1, got 200.', src/lib.rs:13:13
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace.
+note: panic did not contain expected string
+      panic message: `&quot;Guess value must be greater than or equal to 1, got 200.&quot;`,
+ expected substring: `&quot;Guess value must be less than or equal to 100&quot;`
 
 failures:
     tests::greater_than_100
 
 test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+
+error: test failed, to rerun pass '--lib'
 </code></pre>
 <!--
 The failure message indicates that this test did indeed panic as we expected,
@@ -1191,10 +1478,60 @@ less than or equal to 100'`. The panic message that we did get in this case was
 `Guess value must be greater than or equal to 1, got 200.` Now we can start
 figuring out where our bug is!
 -->
-<p>この失敗メッセージは、このテストが確かにまさしく予想通りパニックしたことを示唆していますが、
+<p>この失敗メッセージは、このテストが確かに予想通りパニックしたことを示していますが、
 パニックメッセージは、予想される文字列の<code>'Guess value must be less than or equal to 100'</code>を含んでいませんでした。
 実際に得られたパニックメッセージは今回の場合、<code>Guess value must be greater than or equal to 1, got 200</code>でした。
 そうしてバグの所在地を割り出し始めることができるわけです！</p>
+<!--
+### Using `Result<T, E>` in Tests
+-->
+<h3><a class="header" href="#resultt-eをテストで使う" id="resultt-eをテストで使う"><code>Result&lt;T, E&gt;</code>をテストで使う</a></h3>
+<!--
+So far, we’ve written tests that panic when they fail. We can also write tests
+that use `Result<T, E>`! Here’s the test from Listing 11-1, rewritten to use
+`Result<T, E>` and return an `Err` instead of panicking:
+-->
+<p>これまでは、失敗するとパニックするようなテストを書いてきましたが、
+<code>Result&lt;T, E&gt;</code>を使うようなテストを書くこともできます！
+以下は、Listing 11-1のテストを、<code>Result&lt;T, E&gt;</code>を使い、パニックする代わりに<code>Err</code>を返すように書き直したものです：</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() -&gt; Result&lt;(), String&gt; {
+        if 2 + 2 == 4 {
+            Ok(())
+        } else {
+            Err(String::from(&quot;two plus two does not equal four&quot;))
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+The `it_works` function now has a return type, `Result<(), String>`. In the
+body of the function, rather than calling the `assert_eq!` macro, we return
+`Ok(())` when the test passes and an `Err` with a `String` inside when the test
+fails.
+-->
+<p><code>it_works</code>関数の戻り値の型は<code>Result&lt;(), String&gt;</code>になりました。
+関数内で<code>assert_eq!</code>マクロを呼び出す代わりに、テストが成功すれば<code>Ok(())</code>を、失敗すれば<code>Err</code>に<code>String</code>を入れて返すようにします。</p>
+<!--
+Writing tests so they return a `Result<T, E>` enables you to use the question
+mark operator in the body of tests, which can be a convenient way to write
+tests that should fail if any operation within them returns an `Err` variant.
+-->
+<p><code>Result&lt;T, E&gt;</code> を返すようなテストを書くと、<code>?</code>演算子をテストの中で使えるようになります。
+これは、テスト内で何らかの工程が<code>Err</code>ヴァリアントを返したときに失敗するべきテストを書くのに便利です。</p>
+<!--
+You can’t use the `#[should_panic]` annotation on tests that use `Result<T,
+E>`. Instead, you should return an `Err` value directly when the test should
+fail.
+-->
+<p><code>Result&lt;T, E&gt;</code>を使うテストに<code>#[should_panic]</code>注釈を使うことはできません。
+テストが失敗しなければならないときは、直接<code>Err</code>値を返してください。</p>
 <!--
 Now that you know several ways to write tests, let’s look at what is happening
 when we run our tests and explore the different options we can use with `cargo
