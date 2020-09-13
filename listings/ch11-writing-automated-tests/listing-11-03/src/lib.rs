@@ -8,6 +8,7 @@ mod tests {
 
     #[test]
     fn another() {
+        //このテストを失敗させる
         panic!("Make this test fail");
     }
 }
