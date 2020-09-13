@@ -2,7 +2,7 @@
 ## Storing Keys Associated with Values in Hash Maps
 -->
 
-## ハッシュマップに値に紐づいたキーを格納する
+## キーとそれに紐づいた値をハッシュマップに格納する
 
 <!--
 The last of our common collections is the *hash map*. The type `HashMap<K, V>`
