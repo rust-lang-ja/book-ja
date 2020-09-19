@@ -45,7 +45,7 @@ see [the documentation][collections].
 標準ライブラリで提供されている他の種のコレクションについて学ぶには、
 [ドキュメント][collections]を参照されたし。
 
-[collections]: ../../std/collections/index.html
+[collections]: https://doc.rust-lang.org/std/collections/index.html
 
 <!--
 We’ll discuss how to create and update vectors, strings, and hash maps, as well
