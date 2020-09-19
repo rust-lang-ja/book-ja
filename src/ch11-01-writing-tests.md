@@ -189,7 +189,7 @@ Benchmark tests are, as of this writing, only available in nightly Rust. See
 ベンチマークテストは、本書記述の時点では、nightly版のRustでのみ利用可能です。
 詳しくは、[ベンチマークテストのドキュメンテーション][bench]を参照されたし。
 
-[bench]: ../unstable-book/library-features/test.html
+[bench]: https://doc.rust-lang.org/unstable-book/library-features/test.html
 
 <!--
 The next part of the test output, which starts with `Doc-tests adder`, is for
