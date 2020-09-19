@@ -246,7 +246,7 @@ variant:
 私たちが定義し、使用したのと全く同じenumと列挙子がありますが、アドレスデータを二種の異なる構造体の形で列挙子に埋め込み、
 この構造体は各列挙子用に異なる形で定義されています。
 
-[IpAddr]: ../../std/net/enum.IpAddr.html
+[IpAddr]: https://doc.rust-lang.org/std/net/enum.IpAddr.html
 
 <!--
 ```rust
@@ -531,7 +531,7 @@ as follows:
 値が存在するか不在かという概念をコード化するenumならあります。このenumが`Option<T>`で、
 以下のように[標準ライブラリに定義][option]されています。
 
-[option]: ../../std/option/enum.Option.html
+[option]: https://doc.rust-lang.org/std/option/enum.Option.html
 
 ```rust
 enum Option<T> {
@@ -686,7 +686,7 @@ the methods on `Option<T>` will be extremely useful in your journey with Rust.
 [ドキュメント][docs]でそれらを確認できます。`Option<T>`のメソッドに馴染むと、
 Rustの旅が極めて有益になるでしょう。
 
-[docs]: ../../std/option/enum.Option.html
+[docs]: https://doc.rust-lang.org/std/option/enum.Option.html
 
 <!--
 In general, in order to use an `Option<T>` value, you want to have code that
