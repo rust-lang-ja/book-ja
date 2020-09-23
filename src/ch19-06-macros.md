@@ -405,7 +405,7 @@ programmer to write code like Listing 19-30 using our crate.
 このクレートは、`hello_macro`という関連関数が1つある`HelloMacro`というトレイトを定義します。
 クレートの使用者に使用者の型に`HelloMacro`トレイトを実装することを強制するのではなく、
 使用者が型を`#[derive(HelloMacro)]`で注釈して`hello_macro`関数の既定の実装を得られるように、
-プロシージャルマクロを提供します。既定の実装は、`Hello, Macro! My name is TypeName!`(`訳注`: こんにちは、マクロ！僕の名前はTypeNameだよ！)と出力し、
+手続き的マクロを提供します。既定の実装は、`Hello, Macro! My name is TypeName!`(`訳注`: こんにちは、マクロ！僕の名前はTypeNameだよ！)と出力し、
 ここで`TypeName`はこのトレイトが定義されている型の名前です。言い換えると、他のプログラマに我々のクレートを使用して、
 リスト19-30のようなコードを書けるようにするクレートを記述します。
 
@@ -423,7 +423,7 @@ programmer to write code like Listing 19-30 using our crate.
 to write when using our procedural macro</span>
 -->
 
-<span class="caption">リスト19-30: 我々のプロシージャルマクロを使用した時にクレートの使用者が書けるようになるコード</span>
+<span class="caption">リスト19-30: 我々の手続き的マクロを使用した時にクレートの使用者が書けるようになるコード</span>
 
 <!--
 This code will print `Hello, Macro! My name is Pancakes!` when we’re done. The
@@ -497,10 +497,10 @@ called `foo_derive`. Let’s start a new crate called `hello_macro_derive` insid
 our `hello_macro` project:
 -->
 
-次の手順は、プロシージャルマクロを定義することです。これを執筆している時点では、プロシージャルマクロは、
+次の手順は、手続き的マクロを定義することです。これを執筆している時点では、手続き的マクロは、
 独自のクレートに存在する必要があります。最終的には、この制限は持ち上げられる可能性があります。
 クレートとマクロクレートを構成する慣習は以下の通りです: `foo`というクレートに対して、
-独自のderiveプロシージャルマクロクレートは`foo_derive`と呼ばれます。`hello_macro`プロジェクト内に、
+カスタムのderive手続き的マクロクレートは`foo_derive`と呼ばれます。`hello_macro`プロジェクト内に、
 `hello_macro_derive`と呼ばれる新しいクレートを開始しましょう:
 
 ```console
@@ -520,11 +520,11 @@ possible for programmers to use `hello_macro` even if they don’t want the
 `derive` functionality.
 -->
 
-2つのクレートは緊密に関係しているので、`hello_macro`クレートのディレクトリ内にプロシージャルマクロクレートを作成しています。
-`hello_macro`のトレイト定義を変更したら、`hello_macro_derive`のプロシージャルマクロの実装も変更しなければならないでしょう。
+2つのクレートは緊密に関係しているので、`hello_macro`クレートのディレクトリ内に手続き的マクロクレートを作成しています。
+`hello_macro`のトレイト定義を変更したら、`hello_macro_derive`の手続き的マクロの実装も変更しなければならないでしょう。
 2つのクレートは個別に公開される必要があり、これらのクレートを使用するプログラマは、
 両方を依存に追加し、スコープに導入する必要があるでしょう。`hello_macro`クレートに依存として、
-`hello_macro_derive`を使用させ、プロシージャルマクロのコードを再エクスポートすることもできるかもしれませんが、
+`hello_macro_derive`を使用させ、手続き的マクロのコードを再エクスポートすることもできるかもしれませんが、
 このようなプロジェクトの構造にすることで、プログラマが`derive`機能を使用したくなくても、`hello_macro`を使用することが可能になります。
 
 <!--
@@ -534,7 +534,7 @@ in a moment, so we need to add them as dependencies. Add the following to the
 *Cargo.toml* file for `hello_macro_derive`:
 -->
 
-`hello_macro_derive`クレートをプロシージャルマクロクレートとして宣言する必要があります。
+`hello_macro_derive`クレートを手続き的マクロクレートとして宣言する必要があります。
 また、すぐにわかるように、`syn`と`quote`クレートの機能も必要になるので、依存として追加する必要があります。
 以下を`hello_macro_derive`の*Cargo.toml*ファイルに追加してください:
 
@@ -554,7 +554,7 @@ your *src/lib.rs* file for the `hello_macro_derive` crate. Note that this code
 won’t compile until we add a definition for the `impl_hello_macro` function.
 -->
 
-プロシージャルマクロの定義を開始するために、`hello_macro_derive`クレートの*src/lib.rs*ファイルにリスト19-31のコードを配置してください。
+手続き的マクロの定義を開始するために、`hello_macro_derive`クレートの*src/lib.rs*ファイルにリスト19-31のコードを配置してください。
 `impl_hello_macro`関数の定義を追加するまでこのコードはコンパイルできないことに注意してください。
 
 <!--
