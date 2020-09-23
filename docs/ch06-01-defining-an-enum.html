@@ -380,7 +380,7 @@ variant:
 -->
 <p>バージョン4とバージョン6のIPアドレスを格納するデータ構造を定義する複数の異なる方法を示してきました。
 しかしながら、蓋を開けてみれば、IPアドレスを格納してその種類をコード化したくなるということは一般的なので、
-<a href="../../std/net/enum.IpAddr.html">標準ライブラリに使用可能な定義があります！</a> 標準ライブラリでの<code>IpAddr</code>の定義のされ方を見てみましょう:
+<a href="https://doc.rust-lang.org/std/net/enum.IpAddr.html">標準ライブラリに使用可能な定義があります！</a> 標準ライブラリでの<code>IpAddr</code>の定義のされ方を見てみましょう:
 私たちが定義し、使用したのと全く同じenumと列挙子がありますが、アドレスデータを二種の異なる構造体の形で列挙子に埋め込み、
 この構造体は各列挙子用に異なる形で定義されています。</p>
 <!--
@@ -634,7 +634,7 @@ as follows:
 -->
 <p>問題は、全く概念にあるのではなく、特定の実装にあるのです。そんな感じなので、Rustにはnullがありませんが、
 値が存在するか不在かという概念をコード化するenumならあります。このenumが<code>Option&lt;T&gt;</code>で、
-以下のように<a href="../../std/option/enum.Option.html">標準ライブラリに定義</a>されています。</p>
+以下のように<a href="https://doc.rust-lang.org/std/option/enum.Option.html">標準ライブラリに定義</a>されています。</p>
 <pre><pre class="playpen"><code class="language-rust">
 <span class="boring">#![allow(unused_variables)]
 </span><span class="boring">fn main() {
@@ -766,7 +766,7 @@ the methods on `Option<T>` will be extremely useful in your journey with Rust.
 -->
 <p>では、<code>Option&lt;T&gt;</code>型の値がある時、その値を使えるようにするには、どのように<code>Some</code>列挙子から<code>T</code>型の値を取り出せばいいのでしょうか？
 <code>Option&lt;T&gt;</code>には様々な場面で有効に活用できる非常に多くのメソッドが用意されています;
-<a href="../../std/option/enum.Option.html">ドキュメント</a>でそれらを確認できます。<code>Option&lt;T&gt;</code>のメソッドに馴染むと、
+<a href="https://doc.rust-lang.org/std/option/enum.Option.html">ドキュメント</a>でそれらを確認できます。<code>Option&lt;T&gt;</code>のメソッドに馴染むと、
 Rustの旅が極めて有益になるでしょう。</p>
 <!--
 In general, in order to use an `Option<T>` value, you want to have code that

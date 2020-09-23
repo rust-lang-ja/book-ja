@@ -175,7 +175,7 @@ will then prompt the player to enter a guess. After a guess is entered, the
 program will indicate whether the guess is too low or too high. If the guess is
 correct, the game will print a congratulatory message and exit.
 -->
-<p>古典的な初心者向けのプログラミング問題を実装してみましょう: 数当てゲームです。 
+<p>古典的な初心者向けのプログラミング問題を実装してみましょう: 数当てゲームです。
 これは以下のように動作します: プログラムは1から100までの乱数整数を生成します。
 そしてプレーヤーに予想を入力するよう促します。予想を入力したら、プログラムは、
 その予想が小さすぎたか大きすぎたかを出力します。予想が当たっていれば、ゲームは祝福メッセージを表示し、
@@ -320,7 +320,7 @@ prelude, you have to bring that type into scope explicitly with a `use`
 statement. Using the `std::io` library provides you with a number of useful
 features, including the ability to accept user input.
 -->
-<p>デフォルトでは、<a href="../../std/prelude/index.html"><em>prelude</em></a><!-- ignored -->に存在するいくつかの型のみ使えます。
+<p>デフォルトでは、<a href="https://doc.rust-lang.org/std/prelude/index.html"><em>prelude</em></a><!-- ignored -->に存在するいくつかの型のみ使えます。
 もし、使用したい型がpreludeにない場合は、<code>use</code>文で明示的にその型をスコープに導入する必要があります。
 <code>std::io</code>ライブラリを使用することで、ユーザ入力を受け付ける能力などの実用的な機能の多くを使用することができます。</p>
 <!--
@@ -404,7 +404,7 @@ library that is a growable, UTF-8 encoded bit of text.
 <p>数当てゲームのプログラムに戻りましょう。さあ、<code>let mut guess</code>が<code>guess</code>という名前の可変変数を導入するとわかりましたね。
 イコール記号(<code>=</code>)の反対側には、変数<code>guess</code>が束縛される値があります。この値は、
 <code>String::new</code>関数の呼び出し結果であり、この関数は、<code>String</code>型のオブジェクトを返します。
-<a href="../../std/string/struct.String.html"><code>String</code></a><!-- ignore -->型は、標準ライブラリによって提供される文字列型で、
+<a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a><!-- ignore -->型は、標準ライブラリによって提供される文字列型で、
 サイズ可変、UTF-8エンコードされたテキスト破片になります。</p>
 <!--
 The `::` syntax in the `::new` line indicates that `new` is an *associated
@@ -445,7 +445,7 @@ returns an instance of [`std::io::Stdin`][iostdin], which is a
 type that represents a handle to the standard input for your terminal.
 -->
 <p>仮に、プログラムの冒頭で<code>use std::io</code>としていなければ、この関数呼び出しは、<code>std::io::stdin</code>と記述していたでしょう。
-この<code>stdin</code>関数は、 <a href="../../std/io/struct.Stdin.html"><code>std::io::Stdin</code></a><!-- ignore -->オブジェクトを返し、この型は、
+この<code>stdin</code>関数は、 <a href="https://doc.rust-lang.org/std/io/struct.Stdin.html"><code>std::io::Stdin</code></a><!-- ignore -->オブジェクトを返し、この型は、
 ターミナルの標準入力へのハンドルを表す型になります。</p>
 <!--
 The next part of the code, `.read_line(&mut guess)`, calls the
@@ -453,7 +453,7 @@ The next part of the code, `.read_line(&mut guess)`, calls the
 get input from the user. We’re also passing one argument to `read_line`: `&mut
 guess`.
 -->
-<p>その次のコード片、<code>.read_line(&amp;mut guess)</code>は、標準入力ハンドルの<a href="../../std/io/struct.Stdin.html#method.read_line"><code>read_line</code></a><!-- ignore -->
+<p>その次のコード片、<code>.read_line(&amp;mut guess)</code>は、標準入力ハンドルの<a href="https://doc.rust-lang.org/std/io/struct.Stdin.html#method.read_line"><code>read_line</code></a><!-- ignore -->
 メソッドを呼び出して、ユーザから入力を受け付けます。また、<code>read_line</code>メソッドに対して、<code>&amp;mut guess</code>という引数を一つ渡していますね。</p>
 <!--
 The job of `read_line` is to take whatever the user types into standard input
@@ -518,8 +518,8 @@ we're passing it, but it also returns a value—in this case, an
 well as specific versions for submodules, such as `io::Result`.
 -->
 <p>以前にも述べたように、<code>read_line</code>メソッドは、渡された文字列にユーザが入力したものを入れ込むだけでなく、
-値も返します(今回は<a href="../../std/io/type.Result.html"><code>io::Result</code></a><!-- ignore -->です)。 Rustには<code>Result</code>と名のついた型が、
-標準ライブラリにたくさんあります: 汎用の<a href="../../std/result/enum.Result.html"><code>Result</code></a><!-- ignore -->の他、
+値も返します(今回は<a href="https://doc.rust-lang.org/std/io/type.Result.html"><code>io::Result</code></a><!-- ignore -->です)。 Rustには<code>Result</code>と名のついた型が、
+標準ライブラリにたくさんあります: 汎用の<a href="https://doc.rust-lang.org/std/result/enum.Result.html"><code>Result</code></a><!-- ignore -->の他、
 <code>io::Result</code>などのサブモジュール用に特化したものまで。</p>
 <!--
 The `Result` types are [*enumerations*][enums], often referred
@@ -553,7 +553,7 @@ could use it. In this case, that value is the number of bytes in what the user
 entered into standard input.
 -->
 <p>これら<code>Result</code>型の目的は、エラー処理の情報をコード化することです。<code>Result</code>型の値も、他の型同様、
-メソッドが定義されています。<code>io::Result</code>オブジェクトには、呼び出し可能な<a href="../../std/result/enum.Result.html#method.expect"><code>expect</code>メソッド</a><!-- ignore -->があります。
+メソッドが定義されています。<code>io::Result</code>オブジェクトには、呼び出し可能な<a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.expect"><code>expect</code>メソッド</a><!-- ignore -->があります。
 この<code>io::Result</code>オブジェクトが<code>Err</code>値の場合、<code>expect</code>メソッドはプログラムをクラッシュさせ、
 引数として渡されたメッセージを表示します。<code>read_line</code>メソッドが<code>Err</code>を返したら、
 恐らく根底にあるOSによるエラーに起因するのでしょう。
@@ -721,7 +721,7 @@ Listing 2-2.
    Compiling libc v0.2.14                                            (libc v0.2.14をコンパイルしています)
    Compiling rand v0.3.14                                            (rand v0.3.14をコンパイルしています)
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)   (guessing_game v0.1.0をコンパイルしています)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs    
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
 </code></pre>
 <!--
 <span class="caption">Listing 2-2: The output from running `cargo build` after
@@ -1070,7 +1070,7 @@ in `guess` and `secret_number`.
 <p>それから、一番下に新しく5行追加して<code>Ordering</code>型を使用しています。<code>cmp</code>メソッドは、
 2値を比較し、比較できるものに対してなら何に対しても呼び出せます。このメソッドは、
 比較したいものへの参照を取ります: ここでは、<code>guess</code>変数と<code>secret_number</code>変数を比較しています。
-それからこのメソッドは<code>use</code>文でスコープに導入した<code>Ordering</code>列挙型の値を返します。 
+それからこのメソッドは<code>use</code>文でスコープに導入した<code>Ordering</code>列挙型の値を返します。
 <a href="ch06-02-match.html"><code>match</code></a><!-- ignore -->式を使用して、<code>guess</code>変数と<code>secret_number</code>を<code>cmp</code>に渡して返ってきた<code>Ordering</code>の列挙子に基づき、
 次の動作を決定しています。</p>
 <!--
@@ -1233,7 +1233,7 @@ this example program and the comparison with `secret_number` means that Rust
 will infer that `secret_number` should be a `u32` as well. So now the
 comparison will be between two values of the same type!
 -->
-<p><a href="../../std/primitive.str.html#method.parse">文字列の<code>parse</code>メソッド</a><!-- ignore -->は、文字列を解析して何らかの数値にします。
+<p><a href="https://doc.rust-lang.org/std/primitive.str.html#method.parse">文字列の<code>parse</code>メソッド</a><!-- ignore -->は、文字列を解析して何らかの数値にします。
 このメソッドは、いろんな数値型を解析できるので、<code>let guess: u32</code>としてコンパイラに私たちが求めている型をズバリ示唆する必要があるのです。
 <code>guess</code>の後のコロン(<code>:</code>)がコンパイラに変数の型を注釈する合図になります。
 Rustには、組み込みの数値型がいくつかあります; ここの<code>u32</code>型は、32ビットの非負整数です。
