@@ -1380,7 +1380,7 @@ Rustには、組み込みの数値型がいくつかあります; ここの`u32`
 `secret_number`変数も`u32`型であるとコンパイラが推論することを意味します。
 従って、今では比較が同じ型の2つの値で行われることになるわけです！
 
-[parse]: https://doc.rust-lang.org/std/primitive.str.html
+[parse]: https://doc.rust-lang.org/std/primitive.str.html#method.parse
 
 <!--
 The call to `parse` could easily cause an error. If, for example, the string
