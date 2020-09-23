@@ -178,7 +178,7 @@ definition</span>
 -->
 
 > 標準ライブラリの`vec!`マクロの実際の定義は、予め正確なメモリ量を確保するコードを含みます。
-> そのコードは、ここでは簡略化のために含まない最適化です。
+> その最適化コードは、ここでは簡略化のために含みません。
 
 <!--
 The `#[macro_export]` annotation indicates that this macro should be made
@@ -299,7 +299,7 @@ programmers will *use* macros more than *write* macros, we won’t discuss
 the online documentation or other resources, such as [“The Little Book of Rust
 Macros”][tlborm].
 -->
-`macro_rules!`には、奇妙なコーナーケースがあります。
+`macro_rules!`には、いくつかの奇妙なコーナーケースがあります。
 将来、Rustには別種の宣言的マクロが登場する予定です。これは、同じように働くけれども、それらのコーナーケースのうちいくらかを修正します。
 そのアップデート以降、`macro_rules!`は事実上非推奨 (deprecated) となる予定です。
 この事実と、ほとんどのRustプログラマーはマクロを*書く*よりも*使う*ことが多いということを考えて、`macro_rules!`についてはこれ以上語らないことにします。
