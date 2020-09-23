@@ -25,7 +25,7 @@ program will indicate whether the guess is too low or too high. If the guess is
 correct, the game will print a congratulatory message and exit.
 -->
 
-古典的な初心者向けのプログラミング問題を実装してみましょう: 数当てゲームです。 
+古典的な初心者向けのプログラミング問題を実装してみましょう: 数当てゲームです。
 これは以下のように動作します: プログラムは1から100までの乱数整数を生成します。
 そしてプレーヤーに予想を入力するよう促します。予想を入力したら、プログラムは、
 その予想が小さすぎたか大きすぎたかを出力します。予想が当たっていれば、ゲームは祝福メッセージを表示し、
@@ -219,7 +219,7 @@ features, including the ability to accept user input.
 もし、使用したい型がpreludeにない場合は、`use`文で明示的にその型をスコープに導入する必要があります。
 `std::io`ライブラリを使用することで、ユーザ入力を受け付ける能力などの実用的な機能の多くを使用することができます。
 
-[prelude]: ../../std/prelude/index.html
+[prelude]: https://doc.rust-lang.org/std/prelude/index.html
 
 <!--
 As you saw in Chapter 1, the `main` function is the entry point into the
@@ -332,7 +332,7 @@ library that is a growable, UTF-8 encoded bit of text.
 [`String`][string]<!-- ignore -->型は、標準ライブラリによって提供される文字列型で、
 サイズ可変、UTF-8エンコードされたテキスト破片になります。
 
-[string]: ../../std/string/struct.String.html
+[string]: https://doc.rust-lang.org/std/string/struct.String.html
 
 <!--
 The `::` syntax in the `::new` line indicates that `new` is an *associated
@@ -387,7 +387,7 @@ type that represents a handle to the standard input for your terminal.
 この`stdin`関数は、 [`std::io::Stdin`][iostdin]<!-- ignore -->オブジェクトを返し、この型は、
 ターミナルの標準入力へのハンドルを表す型になります。
 
-[iostdin]: ../../std/io/struct.Stdin.html
+[iostdin]: https://doc.rust-lang.org/std/io/struct.Stdin.html
 
 <!--
 The next part of the code, `.read_line(&mut guess)`, calls the
@@ -399,7 +399,7 @@ guess`.
 その次のコード片、`.read_line(&mut guess)`は、標準入力ハンドルの[`read_line`][read_line]<!-- ignore -->
 メソッドを呼び出して、ユーザから入力を受け付けます。また、`read_line`メソッドに対して、`&mut guess`という引数を一つ渡していますね。
 
-[read_line]: ../../std/io/struct.Stdin.html#method.read_line
+[read_line]: https://doc.rust-lang.org/std/io/struct.Stdin.html#method.read_line
 
 <!--
 The job of `read_line` is to take whatever the user types into standard input
@@ -485,8 +485,8 @@ well as specific versions for submodules, such as `io::Result`.
 標準ライブラリにたくさんあります: 汎用の[`Result`][result]<!-- ignore -->の他、
 `io::Result`などのサブモジュール用に特化したものまで。
 
-[ioresult]: ../../std/io/type.Result.html
-[result]: ../../std/result/enum.Result.html
+[ioresult]: https://doc.rust-lang.org/std/io/type.Result.html
+[result]: https://doc.rust-lang.org/std/result/enum.Result.html
 
 <!--
 The `Result` types are [*enumerations*][enums], often referred
@@ -535,7 +535,7 @@ entered into standard input.
 返り値を取り出して、ただその値を返すので、これを使用することができるでしょう。
 今回の場合、その返り値とは、ユーザが標準入力に入力したデータのバイト数になります。
 
-[expect]: ../../std/result/enum.Result.html#method.expect
+[expect]: https://doc.rust-lang.org/std/result/enum.Result.html#method.expect
 
 <!--
 If you don’t call `expect`, the program will compile, but we’ll get a warning:
@@ -745,7 +745,7 @@ $ cargo build
    Compiling libc v0.2.14                                            (libc v0.2.14をコンパイルしています)
    Compiling rand v0.3.14                                            (rand v0.3.14をコンパイルしています)
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)   (guessing_game v0.1.0をコンパイルしています)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs    
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
 ```
 
 <!--
@@ -1180,7 +1180,7 @@ in `guess` and `secret_number`.
 それから、一番下に新しく5行追加して`Ordering`型を使用しています。`cmp`メソッドは、
 2値を比較し、比較できるものに対してなら何に対しても呼び出せます。このメソッドは、
 比較したいものへの参照を取ります: ここでは、`guess`変数と`secret_number`変数を比較しています。
-それからこのメソッドは`use`文でスコープに導入した`Ordering`列挙型の値を返します。 
+それからこのメソッドは`use`文でスコープに導入した`Ordering`列挙型の値を返します。
 [`match`][match]<!-- ignore -->式を使用して、`guess`変数と`secret_number`を`cmp`に渡して返ってきた`Ordering`の列挙子に基づき、
 次の動作を決定しています。
 
@@ -1380,7 +1380,7 @@ Rustには、組み込みの数値型がいくつかあります; ここの`u32`
 `secret_number`変数も`u32`型であるとコンパイラが推論することを意味します。
 従って、今では比較が同じ型の2つの値で行われることになるわけです！
 
-[parse]: ../../std/primitive.str.html#method.parse
+[parse]: https://doc.rust-lang.org/std/primitive.str.html#method.parse
 
 <!--
 The call to `parse` could easily cause an error. If, for example, the string

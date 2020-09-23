@@ -120,7 +120,7 @@ higher-ranked lifetimeについては議論の余地ありか
 * `where` - 型を制限する節に言及する
 * `while` - 式の結果に基づいて条件的にループする
 
-[union]: ../reference/items/unions.html
+[union]: https://doc.rust-lang.org/reference/items/unions.html
 
 <!--
 ### Keywords Reserved for Future Use
