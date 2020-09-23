@@ -889,7 +889,7 @@ macros: you create a crate with the `proc-macro` crate type and implement a
 function that generates the code you want!
 -->
 それ以外において、属性風マクロはカスタムのderiveマクロと同じ動きをします：
-`proc-macro`クレートを使ってクレートを作り、あなたのほしいコードを生成してくれる関数を実装すればよいです！
+クレートタイプとして`proc-macro`を使ってクレートを作り、あなたのほしいコードを生成してくれる関数を実装すればよいです！
 
 <!--
 ### Function-like macros
