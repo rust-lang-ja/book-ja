@@ -906,6 +906,8 @@ earlier. Function-like macros take a `TokenStream` parameter and their
 definition manipulates that `TokenStream` using Rust code as the other two
 types of procedural macros do. An example of a function-like macro is an `sql!`
 macro that might be called like so:
+
+[decl]: #declarative-macros-with-macro_rules-for-general-metaprogramming
 -->
 関数風マクロは、関数呼び出しのように見えるマクロを定義します。
 これらは、`macro_rules!`マクロのように、関数よりフレキシブルです。
