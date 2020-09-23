@@ -596,7 +596,7 @@ allows us to read and manipulate Rust code from our code.
 -->
 
 3つの新しいクレートを導入しました: `proc_macro`、[`syn`]、[`quote`]です。`proc_macro`クレートは、
-Rustに付随してくるので、*Cargo.toml*の依存に追加する必要はありませんでした。`proc_macro`クレートは私達のコードからRustのコードを読んだり操作したりするのを可能にするRustのAPIです。
+Rustに付随してくるので、*Cargo.toml*の依存に追加する必要はありませんでした。`proc_macro`クレートはコンパイラのAPIで、私達のコードからRustのコードを読んだり操作したりすることを可能にします。
 
 [`syn`]: https://crates.io/crates/syn
 [`quote`]: https://crates.io/crates/quote
