@@ -5,17 +5,19 @@
 ## ライフタイムで参照を検証する
 
 <!--
-One detail we didn’t discuss in the “References and Borrowing” section in
-Chapter 4 is that every reference in Rust has a *lifetime*, which is the scope
-for which that reference is valid. Most of the time, lifetimes are implicit and
-inferred, just like most of the time, types are inferred. We must annotate types
-when multiple types are possible. In a similar way, we must annotate lifetimes
-when the lifetimes of references could be related in a few different ways. Rust
-requires us to annotate the relationships using generic lifetime parameters to
-ensure the actual references used at runtime will definitely be valid.
+One detail we didn’t discuss in the [“References and
+Borrowing”][references-and-borrowing] section in Chapter 4 is
+that every reference in Rust has a *lifetime*, which is the scope for which
+that reference is valid. Most of the time, lifetimes are implicit and
+inferred, just like most of the time, types are inferred. We must annotate
+types when multiple types are possible. In a similar way, we must annotate
+lifetimes when the lifetimes of references could be related in a few different
+ways. Rust requires us to annotate the relationships using generic lifetime
+parameters to ensure the actual references used at runtime will definitely be
+valid.
 -->
 
-第4章の「参照と借用」節で議論しなかった詳細の一つに、Rustにおいて参照は全てライフタイムを保持するということがあります。
+第4章の[「参照と借用」][references-and-borrowing]節で議論しなかった詳細の一つに、Rustにおいて参照は全てライフタイムを保持するということがあります。
 ライフタイムとは、その参照が有効になるスコープのことです。多くの場合、型が推論されるように、
 大体の場合、ライフタイムも暗黙的に推論されます。複数の型の可能性があるときには、型を注釈しなければなりません。
 同様に、参照のライフタイムがいくつか異なる方法で関係することがある場合には注釈しなければなりません。
@@ -30,14 +32,12 @@ The concept of lifetimes is somewhat different from tools in other programming
 languages, arguably making lifetimes Rust’s most distinctive feature. Although
 we won’t cover lifetimes in their entirety in this chapter, we’ll discuss
 common ways you might encounter lifetime syntax so you can become familiar with
-the concepts. See the “Advanced Lifetimes” section in Chapter 19 for more
-detailed information.
+the concepts.
 -->
 
 ライフタイムの概念は、他のプログラミング言語の道具とはどこか異なり、間違いなく、
 Rustで一番際立った機能になっています。この章では、ライフタイムの全てを講義しないものの、
 ライフタイム記法と遭遇する可能性のある一般的な手段を議論するので、その概念に馴染めます。
-もっと詳しく知るには、第19章の「高度なライフタイム」節を参照されたし。
 
 <!--
 ### Preventing Dangling References with Lifetimes
@@ -56,17 +56,8 @@ scope.
 参照するつもりだったデータ以外のデータを参照してしまいます。リスト10-17のプログラムを考えてください。
 これには、外側のスコープと内側のスコープが含まれています。
 
-```rust,ignore
-{
-    let r;
-
-    {
-        let x = 5;
-        r = &x;
-    }
-
-    println!("r: {}", r);
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-17/src/main.rs:here}}
 ```
 
 <!--
@@ -77,9 +68,9 @@ has gone out of scope</span>
 <span class="caption">リスト10-17: 値がスコープを抜けてしまった参照を使用しようとする</span>
 
 <!--
-> Note: The example in Listing 10-17, 10-18, and 10-24 declare variables
+> Note: The examples in Listings 10-17, 10-18, and 10-24 declare variables
 > without giving them an initial value, so the variable name exists in the
-> outer scope. At first glance, this might appear to be in conflict with Rust's
+> outer scope. At first glance, this might appear to be in conflict with Rust’s
 > having no null values. However, if we try to use a variable before giving it
 > a value, we’ll get a compile-time error, which shows that Rust indeed does
 > not allow null values.
@@ -104,21 +95,8 @@ try to use it. Here is the error message:
 `r`の値を出力しようとしています。`r`が参照している値が使おうとする前にスコープを抜けるので、
 このコードはコンパイルできません。こちらがエラーメッセージです:
 
-```text
-error[E0597]: `x` does not live long enough
-(エラー: `x`の生存期間が短すぎます)
-  --> src/main.rs:7:5
-   |
-6  |         r = &x;
-   |              - borrow occurs here
-   |              (借用はここで起きています)
-7  |     }
-   |     ^ `x` dropped here while still borrowed
-   |     (`x`は借用されている間にここでドロップされました)
-...
-10 | }
-   | - borrowed value needs to live until here
-   | (借用された値はここまで生きる必要があります)
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-17/output.txt}}
 ```
 
 <!--
@@ -146,23 +124,14 @@ Rustで、このコードが動くことを許可していたら、`r`は`x`が�
 <!--
 The Rust compiler has a *borrow checker* that compares scopes to determine
 whether all borrows are valid. Listing 10-18 shows the same code as Listing
-10-17 but with annotations showing the lifetimes of the variables:
+10-17 but with annotations showing the lifetimes of the variables.
 -->
 
 Rustコンパイラには、スコープを比較して全ての借用が有効であるかを決定する*借用チェッカー*があります。
-リスト10-18は、リスト10-17と同じコードを示していますが、変数のライフタイムを表示する注釈が付いています:
+リスト10-18は、リスト10-17と同じコードを示していますが、変数のライフタイムを表示する注釈が付いています。
 
-```rust,ignore
-{
-    let r;                // ---------+-- 'a
-                          //          |
-    {                     //          |
-        let x = 5;        // -+-- 'b  |
-        r = &x;           //  |       |
-    }                     // -+       |
-                          //          |
-    println!("r: {}", r); //          |
-}                         // ---------+
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-18/src/main.rs:here}}
 ```
 
 <!--
@@ -195,14 +164,7 @@ compiles without any errors.
 リスト10-19でコードを修正したので、ダングリング参照はなくなり、エラーなくコンパイルできます。
 
 ```rust
-{
-    let x = 5;            // ----------+-- 'b
-                          //           |
-    let r = &x;           // --+-- 'a  |
-                          //   |       |
-    println!("r: {}", r); //   |       |
-                          // --+       |
-}                         // ----------+
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-19/src/main.rs:here}}
 ```
 
 <!--
@@ -254,14 +216,7 @@ longest string is abcd`.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-fn main() {
-    let string1 = String::from("abcd");
-    let string2 = "xyz";
-
-    let result = longest(string1.as_str(), string2);
-    // 最長の文字列は、{}です
-    println!("The longest string is {}", result);
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-20/src/main.rs}}
 ```
 
 <!--
@@ -274,23 +229,16 @@ function to find the longer of two string slices</span>
 <!--
 Note that we want the function to take string slices, which are references,
 because we don’t want the `longest` function to take ownership of its
-parameters. We want to allow the function to accept slices of a `String` (the
-type stored in the variable `string1`) as well as string literals (which is
-what variable `string2` contains).
+parameters. Refer to the [“String Slices as
+Parameters”][string-slices-as-parameters] section in Chapter 4
+for more discussion about why the parameters we use in Listing 10-20 are the
+ones we want.
 -->
 
 関数に取ってほしい引数が文字列スライス、つまり参照であることに注意してください。
 何故なら、`longest`関数に引数の所有権を奪ってほしくないからです。
-この関数に`String`のスライス(変数`string1`に格納されている型)と文字列リテラル(変数`string2`が含むもの)を受け取らせたいのです。
-
-<!--
-Refer to the “String Slices as Parameters” section in Chapter 4 for more
-discussion about why the parameters we use in Listing 10-20 are the ones we
-want.
--->
-
 リスト10-20で使用している引数が、我々が必要としているものである理由についてもっと詳しい議論は、
-第4章の「引数としての文字列スライス」節をご参照ください。
+第4章の[「引数としての文字列スライス」][string-slices-as-parameters]節をご参照ください。
 
 <!--
 If we try to implement the `longest` function as shown in Listing 10-21, it
@@ -305,14 +253,8 @@ won’t compile.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn longest(x: &str, y: &str) -> &str {
-    if x.len() > y.len() {
-        x
-    } else {
-        y
-    }
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/src/main.rs:here}}
 ```
 
 <!--
@@ -329,19 +271,8 @@ Instead, we get the following error that talks about lifetimes:
 
 代わりに、以下のようなライフタイムに言及するエラーが出ます:
 
-```text
-error[E0106]: missing lifetime specifier
-(エラー: ライフタイム指定子が不足しています)
- --> src/main.rs:1:33
-  |
-1 | fn longest(x: &str, y: &str) -> &str {
-  |                                 ^ expected lifetime parameter
-  |                                   (ライフタイム引数が予想されます)
-  |
-  = help: this function's return type contains a borrowed value, but the
-signature does not say whether it is borrowed from `x` or `y`
-  (助言: この関数の戻り値型は借用された値を含んでいますが、
-シグニチャは、それが`x`か`y`由来のものなのか宣言していません)
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/output.txt}}
 ```
 
 <!--
@@ -471,13 +402,7 @@ Listing 10-22.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-    if x.len() > y.len() {
-        x
-    } else {
-        y
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-22/src/main.rs:here}}
 ```
 
 <!--
@@ -500,19 +425,23 @@ The function signature now tells Rust that for some lifetime `'a`, the function
 takes two parameters, both of which are string slices that live at least as
 long as lifetime `'a`. The function signature also tells Rust that the string
 slice returned from the function will live at least as long as lifetime `'a`.
-These constraints are what we want Rust to enforce. Remember, when we specify
-the lifetime parameters in this function signature, we’re not changing the
-lifetimes of any values passed in or returned. Rather, we’re specifying that
-the borrow checker should reject any values that don’t adhere to these
-constraints. Note that the `longest` function doesn’t need to know exactly how
-long `x` and `y` will live, only that some scope can be substituted for `'a`
-that will satisfy this signature.
+In practice, it means that the lifetime of the reference returned by the
+`longest` function is the same as the smaller of the lifetimes of the
+references passed in. These constraints are what we want Rust to enforce.
+Remember, when we specify the lifetime parameters in this function signature,
+we’re not changing the lifetimes of any values passed in or returned. Rather,
+we’re specifying that the borrow checker should reject any values that don’t
+adhere to these constraints. Note that the `longest` function doesn’t need to
+know exactly how long `x` and `y` will live, only that some scope can be
+substituted for `'a` that will satisfy this signature.
 -->
 
 これで関数シグニチャは、何らかのライフタイム`'a`に対して、関数は2つの引数を取り、
 どちらも少なくともライフタイム`'a`と同じだけ生きる文字列スライスであるとコンパイラに教えるようになりました。
 また、この関数シグニチャは、関数から返る文字列スライスも少なくともライフタイム`'a`と同じだけ生きると、
-コンパイラに教えています。これらの制約は、コンパイラに強制してほしいものです。
+コンパイラに教えています。
+これは実際には、`longest`関数の返す参照のライフタイムは、渡される参照のライフタイムのうち短いほうだ、という意味です。
+これらの制約は、コンパイラに強制してほしいものです。
 この関数シグニチャでライフタイム引数を指定する時、渡されたり、返したりした、いかなる値のライフタイムも変更していないことを思い出してください。
 むしろ、借用チェッカーは、これらの制約を守らない値全てを拒否するべきと指定しています。
 `longest`関数は、正確に`x`と`y`の生存期間を知る必要はなく、何かのスコープが`'a`に代替され、
@@ -563,24 +492,7 @@ a straightforward example.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-# fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-#     if x.len() > y.len() {
-#         x
-#     } else {
-#         y
-#     }
-# }
-#
-fn main() {
-    // 長い文字列は長い
-    let string1 = String::from("long string is long");
-
-    {
-        let string2 = String::from("xyz");
-        let result = longest(string1.as_str(), string2.as_str());
-        println!("The longest string is {}", result);
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-23/src/main.rs:here}}
 ```
 
 <!--
@@ -624,16 +536,8 @@ compile.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let string1 = String::from("long string is long");
-    let result;
-    {
-        let string2 = String::from("xyz");
-        result = longest(string1.as_str(), string2.as_str());
-    }
-    println!("The longest string is {}", result);
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-24/src/main.rs:here}}
 ```
 
 <!--
@@ -649,17 +553,8 @@ When we try to compile this code, we’ll get this error:
 
 このコードのコンパイルを試みると、こんなエラーになります:
 
-```text
-error[E0597]: `string2` does not live long enough
-  --> src/main.rs:15:5
-   |
-14 |         result = longest(string1.as_str(), string2.as_str());
-   |                                            ------- borrow occurs here
-15 |     }
-   |     ^ `string2` dropped here while still borrowed
-16 |     println!("The longest string is {}", result);
-17 | }
-   | - borrowed value needs to live until here
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-24/output.txt}}
 ```
 
 <!--
@@ -725,9 +620,7 @@ following code will compile:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn longest<'a>(x: &'a str, y: &str) -> &'a str {
-    x
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-08-only-one-reference-with-lifetime/src/main.rs:here}}
 ```
 
 <!--
@@ -759,12 +652,8 @@ this attempted implementation of the `longest` function that won’t compile:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn longest<'a>(x: &str, y: &str) -> &'a str {
-    // 本当に長い文字列
-    let result = String::from("really long string");
-    result.as_str()
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/src/main.rs:here}}
 ```
 
 <!--
@@ -778,25 +667,8 @@ error message we get:
 引数のライフタイムと全く関係がないので、この実装はコンパイルできないでしょう。
 こちらが、得られるエラーメッセージです:
 
-```text
-error[E0597]: `result` does not live long enough
- --> src/main.rs:3:5
-  |
-3 |     result.as_str()
-  |     ^^^^^^ does not live long enough
-4 | }
-  | - borrowed value only lives until here
-  |
-note: borrowed value must be valid for the lifetime 'a as defined on the
-function body at 1:1...
-(注釈: 借用された値は、関数本体1行目1文字目で定義されているようにライフタイム'aに対して有効でなければなりません)
- --> src/main.rs:1:1
-  |
-1 | / fn longest<'a>(x: &str, y: &str) -> &'a str {
-2 | |     let result = String::from("really long string");
-3 | |     result.as_str()
-4 | | }
-  | |_^
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/output.txt}}
 ```
 
 <!--
@@ -849,18 +721,7 @@ struct named `ImportantExcerpt` that holds a string slice.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-struct ImportantExcerpt<'a> {
-    part: &'a str,
-}
-
-fn main() {
-    // 僕をイシュマエルとお呼び。何年か前・・・
-    let novel = String::from("Call me Ishmael. Some years ago...");
-    let first_sentence = novel.split('.')
-        .next()
-        .expect("Could not find a '.'");  // '.'が見つかりませんでした
-    let i = ImportantExcerpt { part: first_sentence };
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-25/src/main.rs}}
 ```
 
 <!--
@@ -922,17 +783,7 @@ Chapter 4 we had a function in Listing 4-9, which is shown again in Listing
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
-fn first_word(s: &str) -> &str {
-    let bytes = s.as_bytes();
-
-    for (i, &item) in bytes.iter().enumerate() {
-        if item == b' ' {
-            return &s[0..i];
-        }
-    }
-
-    &s[..]
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-26/src/main.rs:here}}
 ```
 
 <!--
@@ -964,7 +815,7 @@ After writing a lot of Rust code, the Rust team found that Rust programmers
 were entering the same lifetime annotations over and over in particular
 situations. These situations were predictable and followed a few deterministic
 patterns. The developers programmed these patterns into the compiler’s code so
-the borrow checker could infer the lifetimes in these situations and wouldn't
+the borrow checker could infer the lifetimes in these situations and wouldn’t
 need explicit annotations.
 -->
 
@@ -1020,13 +871,15 @@ The compiler uses three rules to figure out what lifetimes references have when
 there aren’t explicit annotations. The first rule applies to input lifetimes,
 and the second and third rules apply to output lifetimes. If the compiler gets
 to the end of the three rules and there are still references for which it can’t
-figure out lifetimes, the compiler will stop with an error.
+figure out lifetimes, the compiler will stop with an error. These rules apply
+to `fn` definitions as well as `impl` blocks.
 -->
 
 コンパイラは3つの規則を活用し、明示的な注釈がない時に、参照がどんなライフタイムになるかを計算します。
 最初の規則は入力ライフタイムに適用され、2番目と3番目の規則は出力ライフタイムに適用されます。
 コンパイラが3つの規則の最後まで到達し、それでもライフタイムを割り出せない参照があったら、
 コンパイラはエラーで停止します。
+これらの規則は`fn`の定義にも`impl`ブロックと同様に適用されます。
 
 <!--
 The first rule is that each parameter that is a reference gets its own lifetime
@@ -1202,24 +1055,16 @@ First, we’ll use a method named `level` whose only parameter is a reference to
 まず、唯一の引数が`self`への参照で戻り値が`i32`という何かへの参照ではない`level`というメソッドを使用します:
 
 ```rust
-# struct ImportantExcerpt<'a> {
-#     part: &'a str,
-# }
-#
-impl<'a> ImportantExcerpt<'a> {
-    fn level(&self) -> i32 {
-        3
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-10-lifetimes-on-methods/src/main.rs:1st}}
 ```
 
 <!--
-The lifetime parameter declaration after `impl` and use after the type name
+The lifetime parameter declaration after `impl` and its use after the type name
 are required, but we’re not required to annotate the lifetime of the reference
 to `self` because of the first elision rule.
 -->
 
-`impl`後のライフタイム引数宣言と型名の後に使用するのは必須ですが、最初の省略規則のため、
+`impl`後のライフタイム引数宣言と型名の後にそれを使用するのは必須ですが、最初の省略規則のため、
 `self`への参照のライフタイムを注釈する必要はありません。
 
 <!--
@@ -1229,17 +1074,7 @@ Here is an example where the third lifetime elision rule applies:
 3番目のライフタイム省略規則が適用される例はこちらです:
 
 ```rust
-# struct ImportantExcerpt<'a> {
-#     part: &'a str,
-# }
-#
-impl<'a> ImportantExcerpt<'a> {
-    fn announce_and_return_part(&self, announcement: &str) -> &str {
-        // お知らせします
-        println!("Attention please: {}", announcement);
-        self.part
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-10-lifetimes-on-methods/src/main.rs:3rd}}
 ```
 
 <!--
@@ -1261,21 +1096,21 @@ and all lifetimes have been accounted for.
 ###  静的ライフタイム
 
 <!--
-One special lifetime we need to discuss is `'static`, which denotes the entire
-duration of the program. All string literals have the `'static` lifetime, which
-we can annotate as follows:
+One special lifetime we need to discuss is `'static`, which means that this
+reference *can* live for the entire duration of the program. All string
+literals have the `'static` lifetime, which we can annotate as follows:
 -->
 
-議論する必要のある1種の特殊なライフタイムが、`'static`であり、これはプログラム全体の期間を示します。
+議論する必要のある1種の特殊なライフタイムが、`'static`であり、これはこの参照がプログラム全体において生きて*いられる*ことを表します。
 文字列リテラルは全て`'static`ライフタイムになり、次のように注釈できます:
 
 ```rust
-// 静的ライフタイムを持ってるよ
+// 僕は静的ライフタイムを持ってるよ
 let s: &'static str = "I have a static lifetime.";
 ```
 
 <!--
-The text of this string is stored directly in the binary of your program, which
+The text of this string is stored directly in the program’s binary, which
 is always available. Therefore, the lifetime of all string literals is
 `'static`.
 -->
@@ -1313,19 +1148,7 @@ bounds, and lifetimes all in one function!
 ジェネリックな型引数、トレイト境界、ライフタイムを指定する記法を全て1関数でちょっと眺めましょう！
 
 ```rust
-use std::fmt::Display;
-
-fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
-    where T: Display
-{
-    // アナウンス！
-    println!("Announcement! {}", ann);
-    if x.len() > y.len() {
-        x
-    } else {
-        y
-    }
-}
+{{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-11-generics-traits-and-lifetimes/src/main.rs:here}}
 ```
 
 <!--
@@ -1373,12 +1196,27 @@ analysis happens at compile time, which doesn’t affect runtime performance!
 <!--
 Believe it or not, there is much more to learn on the topics we discussed in
 this chapter: Chapter 17 discusses trait objects, which are another way to use
-traits. Chapter 19 covers more complex scenarios involving lifetime annotations
-as well as some advanced type system features. But next, you’ll learn how to
-write tests in Rust so you can make sure your code is working the way it should.
+traits. There are also more complex scenarios involving lifetime annotations
+that you will only need in very advanced scenarios; for those, you should read
+the [Rust Reference][reference]. But next, you’ll learn how to write tests in
+Rust so you can make sure your code is working the way it should.
 -->
 
 信じるかどうかは自由ですが、この章で議論した話題にはもっともっと学ぶべきことがあります:
 第17章ではトレイトオブジェクトを議論します。これはトレイトを使用する別の手段です。
-第19章では、ライフタイム注釈が関わるもっと複雑な筋書きと何か高度な型システムの機能を講義します。
+非常に高度な状況でのみ必要となる、ライフタイム注釈に関する更に複雑な状況もあります；これらについては、[Rustリファレンス][reference]を読んでください。
 ですが次は、コードがあるべき通りに動いていることを確かめられるように、Rustでテストを書く方法を学びます。
+
+<!--
+[references-and-borrowing]:
+ch04-02-references-and-borrowing.html#references-and-borrowing
+[string-slices-as-parameters]:
+ch04-03-slices.html#string-slices-as-parameters
+-->
+
+[references-and-borrowing]:
+ch04-02-references-and-borrowing.html#参照と借用
+[string-slices-as-parameters]:
+ch04-03-slices.html#引数としての文字列スライス
+
+[reference]: ../reference/index.html

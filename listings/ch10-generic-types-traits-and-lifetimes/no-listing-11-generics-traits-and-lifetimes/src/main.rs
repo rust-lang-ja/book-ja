@@ -21,6 +21,7 @@ fn longest_with_an_announcement<'a, T>(
 where
     T: Display,
 {
+    //       "アナウンス！ {}"
     println!("Announcement! {}", ann);
     if x.len() > y.len() {
         x

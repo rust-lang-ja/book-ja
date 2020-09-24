@@ -1,10 +1,12 @@
 // ANCHOR: here
 fn main() {
+    // 長い文字列は長い
     let string1 = String::from("long string is long");
 
     {
         let string2 = String::from("xyz");
         let result = longest(string1.as_str(), string2.as_str());
+        // 一番長い文字列は{}
         println!("The longest string is {}", result);
     }
 }
