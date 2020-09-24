@@ -2,6 +2,7 @@
 fn main() {
     // 長い文字列は長い
     let string1 = String::from("long string is long");
+    // （訳注：この言葉自体に深い意味はない。下の"xyz"より長いということだけが重要）
 
     {
         let string2 = String::from("xyz");
