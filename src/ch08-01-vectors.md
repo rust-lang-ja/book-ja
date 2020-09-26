@@ -273,8 +273,8 @@ ownership and borrowing rules (covered in Chapter 4) to ensure this reference
 and any other references to the contents of the vector remain valid. Recall the
 rule that states you can’t have mutable and immutable references in the same
 scope. That rule applies in Listing 8-7, where we hold an immutable reference to
-the first element in a vector and try to add an element to the end, which won't
-work.
+the first element in a vector and try to add an element to the end, which won’t
+work if we also try to refer to that element later in the function:
 -->
 
 プログラムに有効な参照がある場合、借用チェッカー(borrow checker)は(第4章で解説しましたが)、
