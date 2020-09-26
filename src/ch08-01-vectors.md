@@ -6,7 +6,7 @@
 
 <!--
 The first collection type we’ll look at is `Vec<T>`, also known as a *vector*.
-Vectors allow us to store more than one value in a single data structure that
+Vectors allow you to store more than one value in a single data structure that
 puts all the values next to each other in memory. Vectors can only store values
 of the same type. They are useful when you have a list of items, such as the
 lines of text in a file or the prices of items in a shopping cart.
@@ -31,7 +31,7 @@ Listing 8-1.
 新しい空のベクタを作るには、リスト8-1に示されたように、`Vec::new`関数を呼べばよいです。
 
 ```rust
-let v: Vec<i32> = Vec::new();
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-01/src/main.rs:here}}
 ```
 
 <!--
@@ -62,19 +62,22 @@ hold elements of the `i32` type.
 <!--
 In more realistic code, Rust can often infer the type of value you want to
 store once you insert values, so you rarely need to do this type annotation.
-It's more common to create a `Vec<T>` that has initial values, and Rust
+It’s more common to create a `Vec<T>` that has initial values, and Rust
 provides the `vec!` macro for convenience. The macro will create a new vector
-that holds the values we give it. Listing 8-2 creates a new `Vec<i32>` that
-holds the values `1`, `2`, and `3`.
+that holds the values you give it. Listing 8-2 creates a new `Vec<i32>` that
+holds the values `1`, `2`, and `3`. The integer type is `i32` because that’s
+the default integer type, as we discussed in the [“Data Types”][data-types]
+section of Chapter 3.
 -->
 
 より現実的なコードでは、一旦値を挿入したら、コンパイラは保持させたい値の型をしばしば推論できるので、
 この型注釈をすることは滅多にありません。初期値のある`Vec<T>`を生成する方が一般的ですし、
 Rustには、利便性のために`vec!`というマクロも用意されています。このマクロは、
 与えた値を保持する新しいベクタ型を生成します。リスト8-2では、`1`、`2`、`3`という値を持つ新しい`Vec<i32>`を生成しています。
+整数型を`i32`にしているのは、3章の[「データ型」][data-types]節で学んだようにこれが標準の整数型だからです。
 
 ```rust
-let v = vec![1, 2, 3];
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-02/src/main.rs:here}}
 ```
 
 <!--
@@ -107,12 +110,7 @@ as shown in Listing 8-3.
 ベクタを生成し、それから要素を追加するには、リスト8-3に示したように、`push`メソッドを使用できます。
 
 ```rust
-let mut v = Vec::new();
-
-v.push(5);
-v.push(6);
-v.push(7);
-v.push(8);
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-03/src/main.rs:here}}
 ```
 
 <!--
@@ -146,28 +144,9 @@ annotated in Listing 8-4.
 
 他のあらゆる`構造体`同様、ベクタもスコープを抜ければ、解放されます。リスト8-4に注釈したようにですね。
 
-<!--
-```rust
-{
-let v = vec![1, 2, 3, 4];
--->
-
-<!--
-// do stuff with v
--->
-
-<!--
-} // <- v goes out of scope and is freed here
-```
--->
 
 ```rust
-{
-    let v = vec![1, 2, 3, 4];
-
-    // vで作業をする
-
-} // <- vはここでスコープを抜け、解放される
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-04/src/main.rs:here}}
 ```
 
 <!--
@@ -178,7 +157,7 @@ are dropped</span>
 <span class="caption">リスト8-4: ベクタとその要素がドロップされる箇所を示す</span>
 
 <!--
-When the vector gets dropped, all of its contents will also be dropped, meaning
+When the vector gets dropped, all of its contents are also dropped, meaning
 those integers it holds will be cleaned up. This may seem like a
 straightforward point but can get a bit more complicated when you start to
 introduce references to the elements of the vector. Let’s tackle that next!
@@ -213,10 +192,7 @@ indexing syntax or the `get` method.
 リスト8-5に示したのは、両メソッドがベクタの値に対して、添字記法と`get`メソッドによりアクセスするところです。
 
 ```rust
-let v = vec![1, 2, 3, 4, 5];
-
-let third: &i32 = &v[2];
-let third: Option<&i32> = v.get(2);
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-05/src/main.rs:here}}
 ```
 
 <!--
@@ -250,11 +226,8 @@ Rustには要素を参照する方法が2通りあるので、ベクタに要素
 プログラムの振る舞いを選択できます。例として、ベクタに5つ要素があり、添え字100の要素にアクセスを試みた場合、
 プログラムがすることを確認しましょう。リスト8-6に示したようにですね。
 
-```rust,should_panic
-let v = vec![1, 2, 3, 4, 5];
-
-let does_not_exist = &v[100];
-let does_not_exist = v.get(100);
+```rust,should_panic,panics
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-06/src/main.rs:here}}
 ```
 
 <!--
@@ -267,7 +240,7 @@ let does_not_exist = v.get(100);
 <!--
 When we run this code, the first `[]` method will cause the program to panic
 because it references a nonexistent element. This method is best used when you
-want your program to crash if there's an attempt to access an element past the
+want your program to crash if there’s an attempt to access an element past the
 end of the vector.
 -->
 
@@ -298,7 +271,7 @@ value. That would be more user-friendly than crashing the program due to a typo!
 When the program has a valid reference, the borrow checker enforces the
 ownership and borrowing rules (covered in Chapter 4) to ensure this reference
 and any other references to the contents of the vector remain valid. Recall the
-rule that states we can’t have mutable and immutable references in the same
+rule that states you can’t have mutable and immutable references in the same
 scope. That rule applies in Listing 8-7, where we hold an immutable reference to
 the first element in a vector and try to add an element to the end, which won't
 work.
@@ -308,16 +281,11 @@ work.
 所有権と借用規則を強制し、ベクタの中身へのこの参照や他のいかなる参照も有効であり続けることを保証してくれます。
 同一スコープ上では、可変と不変な参照を同時には存在させられないというルールを思い出してください。
 このルールはリスト8-7にも適用され、リスト8-7ではベクタの最初の要素への不変参照を保持し、
-終端に要素を追加しようとしていますが、動きません。
+終端に要素を追加しようとしています。
+もし、関数内のここ以降で、この要素を参照しようとしている場合、これは動きません。
 
-```rust,ignore
-let mut v = vec![1, 2, 3, 4, 5];
-
-let first = &v[0];
-
-v.push(6);
-
-println!("The first element is: {}", first);
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-07/src/main.rs:here}}
 ```
 
 <!--
@@ -333,20 +301,8 @@ Compiling this code will result in this error:
 
 このコードをコンパイルすると、こんなエラーになります:
 
-```text
-error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immutable
-(エラー: 不変としても借用されているので、`v`を可変で借用できません)
-  |
-4 |     let first = &v[0];
-  |                  - immutable borrow occurs here
-  |                  (不変借用はここで発生しています)
-5 |
-6 |     v.push(6);
-  |     ^ mutable borrow occurs here
-  |      (可変借用は、ここで発生しています)
-7 | }
-  | - immutable borrow ends here
-  |   (不変借用はここで終了しています)
+```console
+{{#include ../listings/ch08-common-collections/listing-08-07/output.txt}}
 ```
 
 <!--
@@ -354,7 +310,7 @@ The code in Listing 8-7 might look like it should work: why should a reference
 to the first element care about what changes at the end of the vector? This
 error is due to the way vectors work: adding a new element onto the end of the
 vector might require allocating new memory and copying the old elements to the
-new space if there isn’t enough room to put all the elements next to each
+new space, if there isn’t enough room to put all the elements next to each
 other where the vector currently is. In that case, the reference to the first
 element would be pointing to deallocated memory. The borrowing rules prevent
 programs from ending up in that situation.
@@ -368,25 +324,25 @@ programs from ending up in that situation.
 そのような場面に陥らないよう回避されるのです。
 
 <!--
-> Note: For more on the implementation details of the `Vec<T>` type, see “The
-> Rustonomicon” at https://doc.rust-lang.org/stable/nomicon/vec.html.
+> Note: For more on the implementation details of the `Vec<T>` type, see [“The
+> Rustonomicon”][nomicon].
 -->
 
-> 注釈: `Vec<T>`の実装に関する詳細については、[“The Rustonomicon”](https://doc.rust-lang.org/stable/nomicon/vec.html)を参照してください。
+> 注釈: `Vec<T>`の実装に関する詳細については、[“The Rustonomicon”][nomicon]を参照してください。
 
 > 訳注: 日本語版のThe Rustonomiconは[こちら][nomicon-ja-vec]です。
 
 [nomicon-ja-vec]: https://doc.rust-jp.rs/rust-nomicon-ja/vec.html
 
 <!--
-### Iterating Over the Values in a Vector
+### Iterating over the Values in a Vector
 -->
 
 ### ベクタの値を走査する
 
 <!--
 If we want to access each element in a vector in turn, we can iterate through
-all of the elements rather than use indexes to access one at a time. Listing
+all of the elements rather than use indices to access one at a time. Listing
 8-8 shows how to use a `for` loop to get immutable references to each element
 in a vector of `i32` values and print them.
 -->
@@ -395,10 +351,7 @@ in a vector of `i32` values and print them.
 リスト8-8で`for`ループを使い、`i32`のベクタの各要素に対する不変な参照を得て、それらを出力する方法を示しています。
 
 ```rust
-let v = vec![100, 32, 57];
-for i in &v {
-    println!("{}", i);
-}
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-08/src/main.rs:here}}
 ```
 
 <!--
@@ -418,10 +371,7 @@ will add `50` to each element.
 リスト8-9の`for`ループでは、各要素に`50`を足しています。
 
 ```rust
-let mut v = vec![100, 32, 57];
-for i in &mut v {
-    *i += 50;
-}
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-09/src/main.rs:here}}
 ```
 
 <!--
@@ -434,11 +384,14 @@ elements in a vector</span>
 <!--
 To change the value that the mutable reference refers to, we have to use the
 dereference operator (`*`) to get to the value in `i` before we can use the
-`+=` operator.
+`+=` operator. We’ll talk more about the dereference operator in the
+[“Following the Pointer to the Value with the Dereference Operator”][deref]
+section of Chapter 15.
 -->
 
 可変参照が参照している値を変更するには、`+=`演算子を使用する前に、
 参照外し演算子(`*`)を使用して`i`の値に辿り着かないといけません。
+参照外し演算子については、15章の[「参照外し演算子で値までポインタを追いかける」][deref]節でより詳しく扱います。
 
 <!--
 ### Using an Enum to Store Multiple Types
@@ -474,17 +427,7 @@ ultimately, holds different types. We’ve demonstrated this in Listing 8-10.
 結果的に異なる型を保持できるようになるわけです。リスト8-10でこれを模擬しています。
 
 ```rust
-enum SpreadsheetCell {
-    Int(i32),
-    Float(f64),
-    Text(String),
-}
-
-let row = vec![
-    SpreadsheetCell::Int(3),
-    SpreadsheetCell::Text(String::from("blue")),
-    SpreadsheetCell::Float(10.12),
-];
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-10/src/main.rs:here}}
 ```
 
 <!--
@@ -513,7 +456,7 @@ enumに加えて`match`式を使うことは、第6章で議論した通り、�
 保証できることを意味します。
 
 <!--
-When you're writing a program, if you don’t know the exhaustive set of types
+When you’re writing a program, if you don’t know the exhaustive set of types
 the program will get at runtime to store in a vector, the enum technique won’t
 work. Instead, you can use a trait object, which we’ll cover in Chapter 17.
 -->
@@ -523,7 +466,7 @@ work. Instead, you can use a trait object, which we’ll cover in Chapter 17.
 
 <!--
 Now that we’ve discussed some of the most common ways to use vectors, be sure
-to review the API documentation for all the many useful methods defined on
+to review [the API documentation][vec-api] for all the many useful methods defined on
 `Vec<T>` by the standard library. For example, in addition to `push`, a `pop`
 method removes and returns the last element. Let’s move on to the next
 collection type: `String`!
@@ -534,5 +477,17 @@ collection type: `String`!
 -->
 
 今や、ベクタを使用するべき最も一般的な方法について触れ、議論したので、標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについては、
-APIドキュメントを確認することを心得てください。例として、`push`に加えて、`pop`メソッドは最後の要素を削除して返します。
+[APIドキュメント][vec-api]を確認することを心得てください。例として、`push`に加えて、`pop`メソッドは最後の要素を削除して返します。
 次のコレクション型に移りましょう: `String`です！
+
+<!--
+[data-types]: ch03-02-data-types.html#data-types
+[nomicon]: ../nomicon/vec.html
+[vec-api]: ../std/vec/struct.Vec.html
+[deref]: ch15-02-deref.html#following-the-pointer-to-the-value-with-the-dereference-operator
+-->
+
+[data-types]: ch03-02-data-types.html#データ型
+[nomicon]: ../nomicon/vec.html
+[vec-api]: ../std/vec/struct.Vec.html
+[deref]: ch15-02-deref.html#参照外し演算子で値までポインタを追いかける
