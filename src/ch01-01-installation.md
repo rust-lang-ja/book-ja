@@ -15,23 +15,22 @@ an internet connection for the download.
 
 <!--
 > Note: If you prefer not to use `rustup` for some reason, please see [the Rust
-> installation page](https://www.rust-lang.org/install.html) for other options.
+> installation page](https://www.rust-lang.org/tools/install) for other options.
 -->
 
-> 注釈: なんらかの理由で`rustup`を使用しないことを好むのなら、[Rustインストールページ](https://www.rust-lang.org/install.html)で、
+> 注釈: なんらかの理由で`rustup`を使用しないことを好むのなら、[Rustインストールページ](https://www.rust-lang.org/tools/install)で、
 > 他の選択肢をご覧になってください。
 
 <!--
-The following steps install the latest stable version of the Rust compiler. All
-the examples and output in this book use stable Rust 1.21.0. Rust’s stability
-guarantees ensure that all the examples in the book that compile will continue
-to compile with newer Rust versions. The output might differ slightly between
-versions, because Rust often improves error messages and warnings. In other
-words, any newer, stable version of Rust you install using these steps should
-work as expected with the content of this book.
+The following steps install the latest stable version of the Rust compiler.
+Rust’s stability guarantees ensure that all the examples in the book that
+compile will continue to compile with newer Rust versions. The output might
+differ slightly between versions, because Rust often improves error messages
+and warnings. In other words, any newer, stable version of Rust you install
+using these steps should work as expected with the content of this book.
 -->
 
-以下の手順で最新の安定版のRustコンパイラをインストールします。この本の例と出力は全て、安定版のRust1.21.0を使用しています。
+以下の手順で最新の安定版のRustコンパイラをインストールします。
 Rustの安定性保証により、現在この本の例でコンパイルできるものは、新しいバージョンになってもコンパイルでき続けることを保証します。
 出力は、バージョンによって多少異なる可能性があります。Rustは頻繁にエラーメッセージと警告を改善しているからです。
 言い換えると、どんな新しいバージョンでもこの手順に従ってインストールした安定版なら、
@@ -43,7 +42,7 @@ Rustの安定性保証により、現在この本の例でコンパイルでき�
 > In this chapter and throughout the book, we’ll show some commands used in the
 > terminal. Lines that you should enter in a terminal all start with `$`. You
 > don’t need to type in the `$` character; it indicates the start of each
-> command. Lines that don't start with `$` typically show the output of the
+> command. Lines that don’t start with `$` typically show the output of the
 > previous command. Additionally, PowerShell-specific examples will use `>`
 > rather than `$`.
 -->
@@ -67,8 +66,8 @@ If you’re using Linux or macOS, open a terminal and enter the following comman
 
 LinuxかmacOSを使用しているなら、端末を開き、以下のコマンドを入力してください:
 
-```text
-$ curl https://sh.rustup.rs -sSf | sh
+```console
+$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
 <!--
@@ -82,37 +81,6 @@ for your password. If the install is successful, the following line will appear:
 
 ```text
 Rust is installed now. Great!
-```
-
-<!--
-If you prefer, feel free to download the script and inspect it before running
-it.
--->
-
-お好みでご自由にスクリプトをダウンロードし、実行前に調査することもできます。
-
-<!--
-The installation script automatically adds Rust to your system PATH after your
-next login. If you want to start using Rust right away instead of restarting
-your terminal, run the following command in your shell to add Rust to your
-system PATH manually:
--->
-
-インストールスクリプトは、次回のログイン後にRustをシステムのPATHに自動的に追加します。端末を再起動するのではなく、
-いますぐにRustを使用し始めたいのなら、シェルで以下のコマンドを実行してRustをシステムのPATHに手動で追加します:
-
-```text
-$ source $HOME/.cargo/env
-```
-
-<!--
-Alternatively, you can add the following line to your *~/.bash_profile*:
--->
-
-また、以下の行を *~/.bash_profile*に追加することもできます:
-
-```text
-$ export PATH="$HOME/.cargo/bin:$PATH"
 ```
 
 <!--
@@ -139,22 +107,24 @@ Cコンパイラは通常正しいリンカとセットになっています。
 
 ### Windowsで`rustup`をインストールする
 
+
 <!--
-On Windows, go to [https://www.rust-lang.org/install.html][install] and follow
+On Windows, go to [https://www.rust-lang.org/tools/install][install] and follow
 the instructions for installing Rust. At some point in the installation, you’ll
 receive a message explaining that you’ll also need the C++ build tools for
 Visual Studio 2013 or later. The easiest way to acquire the build tools is to
-install [Build Tools for Visual Studio 2017][visualstudio]. The tools are in
-the Other Tools and Frameworks section.
+install [Build Tools for Visual Studio 2019][visualstudio]. When asked which
+workloads to install make sure "C++ build tools" is selected and that the Windows 10 SDK and the English language pack components are included.
+
 -->
 
-Windowsでは、[https://www.rust-lang.org/install.html][install]に行き、手順に従ってRustをインストールしてください。
+Windowsでは、[https://www.rust-lang.org/tools/install][install]に行き、手順に従ってRustをインストールしてください。
 インストールの途中で、Visual Studio2013以降用のC++ビルドツールも必要になるという旨のメッセージが出るでしょう。
-ビルドツールを取得する最も簡単な方法は、[Visual Studio 2017用のビルドツール][visualstudio]をインストールすることです。
-ツールは、他のツール及びフレームワークのセクションにあります。
+ビルドツールを取得する最も簡単な方法は、[Visual Studio 2019用のビルドツール][visualstudio]をインストールすることです。
+どのworkloadsをインストールするかと質問されたときは、"C++ build tools"が選択されており、Windows 10 SDKとEnglish lanugage packが含まれていることを確かめてください。
 
-[install]: https://www.rust-lang.org/install.html
-[visualstudio]: https://www.visualstudio.com/downloads/
+[install]: https://www.rust-lang.org/tools/install
+[visualstudio]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
 
 <!--
 The rest of this book uses commands that work in both *cmd.exe* and PowerShell.
@@ -178,7 +148,7 @@ easy. From your shell, run the following update script:
 `rustup`経由でRustをインストールしたら、最新版への更新は、簡単になります。シェルから、
 以下の更新スクリプトを実行してください:
 
-```text
+```console
 $ rustup update
 ```
 
@@ -189,7 +159,7 @@ shell:
 
 Rustと`rustup`をアンインストールするには、シェルから以下のアンインストールスクリプトを実行してください:
 
-```text
+```console
 $ rustup self uninstall
 ```
 
@@ -206,7 +176,7 @@ line:
 
 Rustが正常にインストールされているか確かめるには、シェルを開いて以下の行を入力してください:
 
-```text
+```console
 $ rustc --version
 ```
 
@@ -225,17 +195,15 @@ rustc x.y.z (abcabcabc yyyy-mm-dd)
 If you see this information, you have installed Rust successfully! If you don’t
 see this information and you’re on Windows, check that Rust is in your `%PATH%`
 system variable. If that’s all correct and Rust still isn’t working, there are
-a number of places you can get help. The easiest is [the #rust IRC channel on
-irc.mozilla.org][irc], which you can access through
-[Mibbit][mibbit]. At that address you can chat with other Rustaceans (a silly
-nickname we call ourselves) who can help you out. Other great resources include
-[the Users forum][users] and [Stack Overflow][stackoverflow].
+a number of places you can get help. The easiest is the #beginners channel on
+[the official Rust Discord][discord]. There, you can chat with other Rustaceans
+(a silly nickname we call ourselves) who can help you out. Other great
+resources include [the Users forum][users] and [Stack Overflow][stackoverflow].
 -->
 
 この情報が見れたら、Rustのインストールに成功しました！この情報が出ず、Windowsを使っているなら、
 Rustが`%PATH%`システム環境変数にあることを確認してください。全て正常で、それでもRustが動かないなら、
-助力を得られる場所はたくさんあります。最も簡単なのが[irc.mozilla.orgの#rust IRCチャンネル][irc]で、
-[Mibbit][mibbit]を通してアクセスできます。そのアドレスで、助けてくれる他のRustacean(自分たちを呼ぶバカなニックネーム)とチャットできます。
+助力を得られる場所はたくさんあります。最も簡単なのが[Rustの公式Discord][discord]の#beginnersチャンネルです。そのアドレスで、助けてくれる他のRustacean(自分たちを呼ぶバカなニックネーム)とチャットできます。
 他の素晴らしいリソースには、[ユーザ・フォーラム][users]と[Stack Overflow][stackoverflow]が含まれます。
 
 > Rustacean: いらないかもしれない補足です。Rustaceanは公式にcrustaceans(甲殻類)から[来て][twitter]いるそうです。
@@ -243,10 +211,9 @@ Rustが`%PATH%`システム環境変数にあることを確認してくださ�
 > 違うそうです。検索したら、堅牢性が高いから甲殻類という意見もありますが、真偽は不明です。
 > 明日使えるかもしれないトリビアでした。
 
-[irc]: irc://irc.mozilla.org/#rust
-[mibbit]: http://chat.mibbit.com/?server=irc.mozilla.org&channel=%23rust
+[discord]: https://discord.gg/rust-lang
 [users]: https://users.rust-lang.org/
-[stackoverflow]: http://stackoverflow.com/questions/tagged/rust
+[stackoverflow]: https://stackoverflow.com/questions/tagged/rust
 [twitter]: https://mobile.twitter.com/rustlang/status/916284650674323457
 [mascott]: https://www.slideshare.net/wolf-dog/ss-64026540
 
@@ -257,12 +224,12 @@ Rustが`%PATH%`システム環境変数にあることを確認してくださ�
 ### ローカルのドキュメンテーション
 
 <!--
-The installer also includes a copy of the documentation locally, so you can
-read it offline. Run `rustup doc` to open the local documentation in your
-browser.
+The installation of Rust also includes a copy of the documentation locally, so
+you can read it offline. Run `rustup doc` to open the local documentation in
+your browser.
 -->
 
-インストーラは、ドキュメンテーションの複製もローカルに含んでいるので、オフラインで閲覧することができます。
+Rustのインストールは、ドキュメンテーションの複製もローカルに含んでいるので、オフラインで閲覧することができます。
 ブラウザでローカルのドキュメンテーションを開くには、`rustup doc`を実行してください。
 
 <!--
