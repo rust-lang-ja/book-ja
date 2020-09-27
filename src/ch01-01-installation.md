@@ -10,15 +10,14 @@ command line tool for managing Rust versions and associated tools. You’ll need
 an internet connection for the download.
 -->
 
-最初の手順は、Rustをインストールすることです。Rustは、`rustup`というRustのバージョンと関連するツールを管理するコマンドラインツールを使用して、
-ダウンロードします。ダウンロードするには、インターネット接続が必要でしょう。
+最初の手順は、Rustをインストールすることです。Rustは、Rustのバージョンと関連するツールを管理する、`rustup`というコマンドラインツールを使用してダウンロードします。ダウンロードするには、インターネット接続が必要でしょう。
 
 <!--
 > Note: If you prefer not to use `rustup` for some reason, please see [the Rust
 > installation page](https://www.rust-lang.org/tools/install) for other options.
 -->
 
-> 注釈: なんらかの理由で`rustup`を使用しないことを好むのなら、[Rustインストールページ](https://www.rust-lang.org/tools/install)で、
+> 注釈: なんらかの理由で`rustup`を使用したくない場合、[Rustインストールページ](https://www.rust-lang.org/tools/install)で、
 > 他の選択肢をご覧になってください。
 
 <!--
@@ -31,7 +30,7 @@ using these steps should work as expected with the content of this book.
 -->
 
 以下の手順で最新の安定版のRustコンパイラをインストールします。
-Rustの安定性保証により、現在この本の例でコンパイルできるものは、新しいバージョンになってもコンパイルでき続けることを保証します。
+Rustは安定性 (stability) を保証しているので、現在この本の例でコンパイルできるものは、新しいバージョンになってもコンパイルでき続けることが保証されます。
 出力は、バージョンによって多少異なる可能性があります。Rustは頻繁にエラーメッセージと警告を改善しているからです。
 言い換えると、どんな新しいバージョンでもこの手順に従ってインストールした安定版なら、
 この本の内容で想定通りに動くはずです。
@@ -47,11 +46,11 @@ Rustの安定性保証により、現在この本の例でコンパイルでき�
 > rather than `$`.
 -->
 
-> ### コマンドライン表記
+> ### コマンドラインの記法
 >
 > この章及び、本を通して、端末で使用するなんらかのコマンドを示すことがあります。読者が入力するべき行は、
-> 全て`$`で始まります。`$`文字を入れる必要はありません; 各コマンドの開始を示しているだけです。
-> `$`で始まらない行は、典型的には直前のコマンドの出力を示します。また、PowerShell限定の例は、
+> 全て`$`で始まります。ただし、読者が`$`文字を入力する必要はありません; これは各コマンドの開始を示しているだけです。
+> `$`で始まらない行は、典型的には直前のコマンドの出力を示します。また、PowerShell限定の例には、
 > `$`ではなく、`>`を使用します。
 
 <!--
@@ -64,7 +63,7 @@ Rustの安定性保証により、現在この本の例でコンパイルでき�
 If you’re using Linux or macOS, open a terminal and enter the following command:
 -->
 
-LinuxかmacOSを使用しているなら、端末を開き、以下のコマンドを入力してください:
+LinuxかmacOSを使用しているなら、端末（ターミナル）を開き、以下のコマンドを入力してください:
 
 ```console
 $ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
@@ -93,13 +92,13 @@ compiler. Also, some common Rust packages depend on C code and will need a C
 compiler. Therefore, it might be worth installing one now.
 -->
 
-さらに、なんらかの類のリンカが必要になるでしょう。既にインストールされている可能性が高いものの、
-Rustプログラムのコンパイルを試みて、リンカが実行できないというエラーが出たら、
+これに加えて、なんらかのリンカが必要になるでしょう。既にインストールされている可能性は高いものの、
+Rustプログラムをコンパイルしようとした時、リンカが実行できないというエラーが出たら、
 システムにリンカがインストールされていないということなので、手動でインストールする必要があるでしょう。
 Cコンパイラは通常正しいリンカとセットになっています。
 自分のプラットフォームのドキュメンテーションを見てCコンパイラのインストール方法を確認してください。
 一般的なRustパッケージの中には、Cコードに依存し、Cコンパイラが必要になるものもあります。
-故に今インストールする価値はあるかもしれません。
+ですので、Cコンパイラは今のうちにインストールしておく価値があるかもしれません。
 
 <!--
 ### Installing `rustup` on Windows
@@ -119,7 +118,7 @@ workloads to install make sure "C++ build tools" is selected and that the Window
 -->
 
 Windowsでは、[https://www.rust-lang.org/tools/install][install]に行き、手順に従ってRustをインストールしてください。
-インストールの途中で、Visual Studio2013以降用のC++ビルドツールも必要になるという旨のメッセージが出るでしょう。
+インストールの途中で、Visual Studio 2013以降用のC++ビルドツールも必要になるという旨のメッセージが出るでしょう。
 ビルドツールを取得する最も簡単な方法は、[Visual Studio 2019用のビルドツール][visualstudio]をインストールすることです。
 どのworkloadsをインストールするかと質問されたときは、"C++ build tools"が選択されており、Windows 10 SDKとEnglish lanugage packが含まれていることを確かめてください。
 
@@ -132,7 +131,7 @@ If there are specific differences, we’ll explain which to use.
 -->
 
 これ以降、*cmd.exe*とPowerShellの両方で動くコマンドを使用します。
-特定の違いがあったら、どちらを使用すべきか説明します。
+特段の違いがあったら、どちらを使用すべきか説明します。
 
 <!--
 ### Updating and Uninstalling
@@ -145,8 +144,8 @@ After you’ve installed Rust via `rustup`, updating to the latest version is
 easy. From your shell, run the following update script:
 -->
 
-`rustup`経由でRustをインストールしたら、最新版への更新は、簡単になります。シェルから、
-以下の更新スクリプトを実行してください:
+`rustup`経由でRustをインストールしたなら、最新版へ更新するのは簡単です。
+シェルから以下の更新スクリプトを実行してください:
 
 ```console
 $ rustup update
@@ -201,21 +200,24 @@ a number of places you can get help. The easiest is the #beginners channel on
 resources include [the Users forum][users] and [Stack Overflow][stackoverflow].
 -->
 
-この情報が見れたら、Rustのインストールに成功しました！この情報が出ず、Windowsを使っているなら、
-Rustが`%PATH%`システム環境変数にあることを確認してください。全て正常で、それでもRustが動かないなら、
-助力を得られる場所はたくさんあります。最も簡単なのが[Rustの公式Discord][discord]の#beginnersチャンネルです。そのアドレスで、助けてくれる他のRustacean(自分たちを呼ぶバカなニックネーム)とチャットできます。
-他の素晴らしいリソースには、[ユーザ・フォーラム][users]と[Stack Overflow][stackoverflow]が含まれます。
+この情報が見られたなら、Rustのインストールに成功しています！この情報が出ず、Windowsを使っているなら、
+Rustが`%PATH%`システム環境変数にあることを確認してください。これらが全て正常であるのに、それでもRustがうまく動かないなら、
+助力を得られる場所はたくさんあります。最も簡単なのが[Rustの公式Discord][discord]の#beginnersチャンネルです。そのアドレスで、助けてくれる他のRustacean (Rustユーザが自分たちのことを呼ぶ、冗談めいたニックネーム) たちとチャットできます。
+他にも、素晴らしいリソースとして[ユーザ・フォーラム][users]と[Stack Overflow][stackoverflow]が挙げられます。
 
-> Rustacean: いらないかもしれない補足です。Rustaceanは公式にcrustaceans(甲殻類)から[来て][twitter]いるそうです。
-> そのため、Rustのマスコットは非公式らしいですが、[カニ][mascott]。上の会話でCの欠点を削ぎ落としているからcを省いてるの？みたいなことを聞いていますが、
+> 訳注1：Rustaceanについて、いらないかもしれない補足です。[公式Twitter曰く、Rustaceanはcrustaceans（甲殻類）から来ている][twitter]そうです。
+> そのため、Rustのマスコットは（非公式らしいですが）[カニ][mascott]。上の会話でCの欠点を削ぎ落としているからcを省いてるの？みたいなことを聞いていますが、
 > 違うそうです。検索したら、堅牢性が高いから甲殻類という意見もありますが、真偽は不明です。
 > 明日使えるかもしれないトリビアでした。
+
+> 訳注2：上にある公式Discordは英語話者のコミュニティです。日本語話者のためのコミュニティが[slackにあります][slack_jp]。こちらでもRustaceanたちが活発に議論をしているので、ぜひいらしてください。
 
 [discord]: https://discord.gg/rust-lang
 [users]: https://users.rust-lang.org/
 [stackoverflow]: https://stackoverflow.com/questions/tagged/rust
 [twitter]: https://mobile.twitter.com/rustlang/status/916284650674323457
 [mascott]: https://www.slideshare.net/wolf-dog/ss-64026540
+[slack_jp]: https://rust-jp.herokuapp.com/
 
 <!--
 ### Local Documentation
@@ -229,7 +231,7 @@ you can read it offline. Run `rustup doc` to open the local documentation in
 your browser.
 -->
 
-Rustのインストールは、ドキュメンテーションの複製もローカルに含んでいるので、オフラインで閲覧することができます。
+インストールされたRustには、ローカルに複製されたドキュメンテーションのコピーが含まれているので、これをオフラインで閲覧することができます。
 ブラウザでローカルのドキュメンテーションを開くには、`rustup doc`を実行してください。
 
 <!--
@@ -238,4 +240,4 @@ sure what it does or how to use it, use the application programming interface
 (API) documentation to find out!
 -->
 
-標準ライブラリにより型や関数が提供され、それがなんなのかや使用方法に確信が持てない度に、APIドキュメンテーションを使用して探してください！
+標準ライブラリにより提供される型や関数がなんなのかや、それをどう使えば良いのかがよくわからないときは、いつでもAPIのドキュメンテーションを検索してみてください！
