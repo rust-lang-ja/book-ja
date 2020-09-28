@@ -10,7 +10,7 @@ reference a contiguous sequence of elements in a collection rather than the
 whole collection.
 -->
 
-所有権のない別のデータ型は、*スライス*です。スライスにより、コレクション全体というより、
+所有権のない別のデータ型は、*スライス*です。スライスにより、コレクション全体ではなく、
 その内の一連の要素を参照することができます。
 
 <!--
@@ -20,8 +20,8 @@ space in the string, the whole string must be one word, so the entire string
 should be returned.
 -->
 
-ここに小さなプログラミング問題があります: 文字列を受け取って、その文字列中の最初の単語を返す関数を書いてください。
-関数が文字列中に空白を見つけなかったら、文字列全体が一つの単語に違いないので、文字列全体が返されるべきです。
+ちょっとしたプログラミングの問題を考えてみましょう: 文字列を受け取って、その文字列中の最初の単語を返す関数を書いてください。
+関数が文字列中に空白を見つけられなかったら、文字列全体が一つの単語に違いないので、文字列全体が返されるべきです。
 
 <!--
 Let’s think about the signature of this function:
@@ -90,8 +90,8 @@ than calculating the index ourselves.
 -->
 
 イテレータについて詳しくは、第13章で議論します。今は、`iter`は、コレクション内の各要素を返すメソッドであること、
-`enumerate`が`iter`の結果を包んで、代わりにタプルの一部として各要素を返すことを知っておいてください。
-`enumerate`から返ってくるタプルの第1要素は、添え字であり、2番目の要素は、(コレクションの)要素への参照になります。
+`enumerate`が`iter`の結果をラップして、（結果をそのまま返す）代わりにタプルの一部として各要素を返すことを知っておいてください。
+`enumerate`から返ってくるタプルの第1要素は、添え字であり、2番目の要素は、(コレクションの）要素への参照になります。
 これは、手動で添え字を計算するよりも少しだけ便利です。
 
 <!--
@@ -161,7 +161,7 @@ because the contents of `s` have changed since we saved `5` in `word`.
 このプログラムは何のエラーもなくコンパイルが通り、`word`を`s.clear()`の呼び出し後に使用しても、
 コンパイルが通ります。`word`は`s`の状態に全く関連づけられていないので、その中身はまだ値`5`のままです。
 その値`5`を変数`s`に使用し、最初の単語を取り出そうとすることはできますが、これはバグでしょう。
-というのも、`s`の中身は、`5`を`word`に保存してから変わってしまったからです。
+というのも、`s`の中身は、`5`を`word`に保存した後変わってしまったからです。
 
 <!--
 Having to worry about the index in `word` getting out of sync with the data in
@@ -184,8 +184,8 @@ that state at all. We now have three unrelated variables floating around that
 need to be kept in sync.
 -->
 
-今、私たちは開始*と*終端の添え字を追うようになりました。特定の状態のデータから計算されたけど、
-その状態に全く紐付かない値が増えました。いつの間にか変わってしまうので、同期を取る必要のある、関連性のない変数が3つになってしまいました。
+今、私たちは開始*と*終端の添え字を追うようになりました。特定の状態のデータから計算されたが、
+その状態に全く紐付けられていない値がさらに増えました。いつの間にか変わってしまうので、同期を取る必要のある、関連性のない変数が3つになってしまいました。
 
 <!--
 Luckily, Rust has a solution to this problem: string slices.
@@ -216,7 +216,7 @@ to a portion of the `String`.
 -->
 
 これは、`String`全体への参照を取ることに似ていますが、余計な`[0..5]`という部分が付いています。
-`String`全体への参照というよりも、`String`の一部への参照です。
+`String`全体への参照ではなく、`String`の一部への参照です。
 
 <!--
 We can create slices using a range within brackets by specifying
@@ -230,7 +230,7 @@ a slice that contains a pointer to the 7th byte (counting from 1) of `s` with a 
 
 `[starting_index..ending_index]`と指定することで、角かっこに範囲を使い、スライスを生成できます。
 ここで、`starting_index`はスライスの最初の位置、`ending_index`はスライスの終端位置よりも、
-1大きくなります。内部的には、スライスデータ構造は、開始地点とスライスの長さを保持しており、
+1大きい値です。内部的には、スライスデータ構造は、開始地点とスライスの長さを保持しており、
 スライスの長さは`ending_index`から`starting_index`を引いたものに対応します。以上より、
 `let world = &s[6..11];`の場合には、`world`は`s`の（1から数えて）7バイト目へのポインタと5という長さを保持するスライスになるでしょう。
 
@@ -258,7 +258,7 @@ With Rust’s `..` range syntax, if you want to start at the first index (zero),
 you can drop the value before the two periods. In other words, these are equal:
 -->
 
-Rustの`..`という範囲記法で、最初の番号(ゼロ)から始めたければ、2連ピリオドの前に値を書かなければいいのです。
+Rustの`..`という範囲記法で、最初の番号(ゼロ)から始めたければ、2連ピリオドの前に値を書かなければいいです。
 換言すれば、これらは等価です:
 
 ```rust
@@ -273,7 +273,7 @@ By the same token, if your slice includes the last byte of the `String`, you
 can drop the trailing number. That means these are equal:
 -->
 
-同様の意味で、`String`の最後のバイトをスライスが含むのならば、末尾の数値を書かなければいいのです。
+同様の意味で、`String`の最後のバイトをスライスが含むのならば、末尾の数値を書かなければいいです。
 つまり、これらは等価になります:
 
 ```rust
@@ -312,7 +312,7 @@ let slice = &s[..];
 
 > 注釈: 文字列スライスの範囲添え字は、有効なUTF-8文字境界に置かなければなりません。
 > マルチバイト文字の真ん中で文字列スライスを生成しようとしたら、エラーでプログラムは落ちるでしょう。
-> 文字列スライスを導入する目的で、この節ではASCIIのみを想定しています; UTF-8に関するより徹底した議論は、
+> この節では文字列スライスを導入することが目的なので、ASCIIのみを想定しています; UTF-8に関するより徹底した議論は、
 > 第8章の[「文字列でUTF-8エンコードされたテキストを格納する」][strings]節で行います。
 
 <!--
@@ -320,7 +320,7 @@ With all this information in mind, let’s rewrite `first_word` to return a
 slice. The type that signifies “string slice” is written as `&str`:
 -->
 
-これら全ての情報を心に留めて、`first_word`を書き直してスライスを返すようにしましょう。
+これらの情報を念頭に、`first_word`を書き直してスライスを返すようにしましょう。
 文字列スライスを意味する型は、`&str`と記述します:
 
 <!--
@@ -340,7 +340,7 @@ return a string slice using the start of the string and the index of the space
 as the starting and ending indices.
 -->
 
-リスト4-7で取った手段と同じ方法で単語の終端添え字を取得しています。つまり、最初の空白を探すことです。
+リスト4-7で取った方法と同じように、最初の空白を探すことで単語の終端の添え字を取得しています。
 空白を発見したら、文字列の最初を開始地点、空白の添え字を終了地点として使用して文字列スライスを返しています。
 
 <!--
@@ -533,9 +533,9 @@ detail when we talk about vectors in Chapter 8.
 -->
 
 このスライスは、`&[i32]`という型になります。これも文字列スライスと同じように動作します。
-つまり、最初の要素への参照と長さを保持することです。他のすべての種類のコレクションに対して、
-この種のスライスは使用するでしょう。これらのコレクションについて詳しくは、
-第8章でベクタについて話すときに議論します。
+つまり、最初の要素への参照と長さを保持するのです。
+この種のスライスは、他のすべての種類のコレクションに対して使用することになるでしょう。
+それらのコレクションについて、詳しくは、第8章でベクタについて話すときに議論します。
 
 <!--
 ## Summary
@@ -551,10 +551,10 @@ owner of data automatically clean up that data when the owner goes out of scope
 means you don’t have to write and debug extra code to get this control.
 -->
 
-所有権、借用、スライスの概念は、コンパイル時にRustプログラムにおいて、メモリ安全性を保証します。
+所有権、借用、スライスの概念は、Rustプログラムにおいて、コンパイル時にメモリ安全性を保証します。
 Rust言語も他のシステムプログラミング言語と同じように、メモリの使用法について制御させてくれるわけですが、
-所有者がスコープを抜けたときにデータの所有者に自動的にデータを片付けさせることは、この制御を得るために、
-余計なコードを書いてデバッグする必要がないことを意味します。
+データの所有者がスコープを抜けたときに、所有者に自動的にデータを片付けさせることは、この制御をするために、
+余計なコードを書いたりデバッグしたりする必要がないことを意味します。
 
 <!--
 Ownership affects how lots of other parts of Rust work, so we’ll talk about

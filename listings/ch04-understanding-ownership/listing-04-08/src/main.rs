@@ -22,7 +22,7 @@ fn main() {
 
     // word still has the value 5 here, but there's no more string that
     // we could meaningfully use the value 5 with. word is now totally invalid!
-    // wordはまだ値5を保持しているが、もうこの値を有効に使用できる文字列は存在しない。
-    // wordは完全に無効なのだ！
+    // wordはまだ値5を保持しているが、もうこの値を正しい意味で使用できる文字列は存在しない。
+    // wordは今や完全に無効なのだ！
 }
 // ANCHOR_END: here

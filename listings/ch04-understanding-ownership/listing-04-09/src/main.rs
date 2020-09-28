@@ -28,7 +28,7 @@ fn main() {
 
     // Because string literals *are* string slices already,
     // this works too, without the slice syntax!
-    // 文字列リテラルは、すでに文字列スライス*な*ので、
+    // 文字列リテラルは「それ自体すでに文字列スライスなので」、
     // スライス記法なしでも機能するのだ！
     let word = first_word(my_string_literal);
 }
