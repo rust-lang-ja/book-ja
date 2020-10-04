@@ -397,7 +397,7 @@ has a width of 5 and a height of 1.
 larger rectangle can indeed hold a smaller rectangle</span>
 -->
 
-<span class="caption">リスト11-6: より大きな四角形がより小さな四角形を確かに保持できるかを確認する`can_hold`用のテスト</span>
+<span class="caption">リスト11-6: より大きな長方形がより小さな長方形を確かに保持できるかを確認する`can_hold`用のテスト</span>
 
 <!--
 Note that we’ve added a new line inside the `tests` module: `use super::*;`.
@@ -435,7 +435,7 @@ It does pass! Let’s add another test, this time asserting that a smaller
 rectangle cannot hold a larger rectangle:
 -->
 
-通ります！別のテストを追加しましょう。今回は、小さい四角形は、より大きな四角形を保持できないことをアサーションします。
+通ります！別のテストを追加しましょう。今回は、小さい長方形は、より大きな長方形を保持できないことをアサーションします。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
