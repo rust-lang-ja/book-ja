@@ -78,7 +78,7 @@ and the height are related to each other because together they describe one
 rectangle.
 -->
 
-リスト5-8のコードはうまく動き、各次元で`area`関数を呼び出すことで四角形の面積を割り出しますが、
+リスト5-8のコードはうまく動き、各寸法を与えて`area`関数を呼び出すことで四角形の面積を割り出しますが、
 改善点があります。幅と高さは、組み合わせると一つの四角形を表すので、相互に関係があるわけです。
 
 <!--
