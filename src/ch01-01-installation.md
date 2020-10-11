@@ -120,7 +120,9 @@ workloads to install make sure "C++ build tools" is selected and that the Window
 Windowsでは、[https://www.rust-lang.org/tools/install][install]に行き、手順に従ってRustをインストールしてください。
 インストールの途中で、Visual Studio 2013以降用のC++ビルドツールも必要になるという旨のメッセージが出るでしょう。
 ビルドツールを取得する最も簡単な方法は、[Visual Studio 2019用のビルドツール][visualstudio]をインストールすることです。
-どのworkloadsをインストールするかと質問されたときは、"C++ build tools"が選択されており、Windows 10 SDKとEnglish lanugage packが含まれていることを確かめてください。
+どのワークロード (workloads) をインストールするかと質問されたときは、"C++ build tools"が選択されており、Windows 10 SDKと英語の言語パック (English language pack) が含まれていることを確かめてください。
+
+> 訳注：Windowsの言語を日本語にしている場合は言語パックのところで「日本語」が選択されており、そのままの設定でインストールしても基本的に問題ないはずです。しかし、サードパーティーのツールやライブラリの中には英語の言語パックを必要とするものがあるため、「日本語」に加えて「英語」も選択することをお勧めします。
 
 [install]: https://www.rust-lang.org/tools/install
 [visualstudio]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
