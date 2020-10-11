@@ -275,7 +275,7 @@ of `rect2` are smaller than the dimensions of `rect1` but `rect3` is wider than
 `rect1`:
 -->
 
-そして、予期される出力は以下のようになります。なぜなら、`rect2`の各次元は`rect1`よりも小さいものの、
+そして、予期される出力は以下のようになります。なぜなら、`rect2`の各寸法は`rect1`よりも小さいものの、
 `rect3`は`rect1`より幅が広いからです:
 
 ```text
@@ -379,7 +379,7 @@ thus making it easier to create a square `Rectangle` rather than having to
 specify the same value twice:
 -->
 
-関連関数は、構造体の新規インスタンスを返すコンストラクタによく使用されます。例えば、一次元の引数を取り、
+関連関数は、構造体の新規インスタンスを返すコンストラクタによく使用されます。例えば、一つの寸法を引数に取り、
 長さと幅両方に使用する関連関数を提供することができ、その結果、同じ値を2回指定する必要なく、
 正方形の`Rectangle`を生成しやすくすることができます。
 
