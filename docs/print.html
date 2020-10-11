@@ -7818,7 +7818,7 @@ calling the `area` function with each dimension, we can do better. The width
 and the height are related to each other because together they describe one
 rectangle.
 -->
-<p>リスト5-8のコードはうまく動き、各次元で<code>area</code>関数を呼び出すことで長方形の面積を割り出しますが、
+<p>リスト5-8のコードはうまく動き、各寸法を与えて<code>area</code>関数を呼び出すことで四角形の面積を割り出しますが、
 改善点があります。幅と高さは、組み合わせると一つの長方形を表すので、相互に関係があるわけです。</p>
 <!--
 The issue with this code is evident in the signature of `area`:
@@ -8368,7 +8368,7 @@ And the expected output would look like the following, because both dimensions
 of `rect2` are smaller than the dimensions of `rect1` but `rect3` is wider than
 `rect1`:
 -->
-<p>そして、予期される出力は以下のようになります。なぜなら、<code>rect2</code>の各次元は<code>rect1</code>よりも小さいものの、
+<p>そして、予期される出力は以下のようになります。なぜなら、<code>rect2</code>の各寸法は<code>rect1</code>よりも小さいものの、
 <code>rect3</code>は<code>rect1</code>より幅が広いからです:</p>
 <pre><code class="language-text">Can rect1 hold rect2? true
 Can rect1 hold rect3? false
@@ -8458,7 +8458,7 @@ that would have one dimension parameter and use that as both width and height,
 thus making it easier to create a square `Rectangle` rather than having to
 specify the same value twice:
 -->
-<p>関連関数は、構造体の新規インスタンスを返すコンストラクタによく使用されます。例えば、一次元の引数を取り、
+<p>関連関数は、構造体の新規インスタンスを返すコンストラクタによく使用されます。例えば、一つの寸法を引数に取り、
 長さと幅両方に使用する関連関数を提供することができ、その結果、同じ値を2回指定する必要なく、
 正方形の<code>Rectangle</code>を生成しやすくすることができます。</p>
 <!--
