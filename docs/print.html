@@ -7766,7 +7766,7 @@ To understand when we might want to use structs, let’s write a program that
 calculates the area of a rectangle. We’ll start with single variables, and then
 refactor the program until we’re using structs instead.
 -->
-<p>構造体を使用したくなる可能性のあるケースを理解するために、四角形の面積を求めるプログラムを書きましょう。
+<p>構造体を使用したくなる可能性のあるケースを理解するために、長方形の面積を求めるプログラムを書きましょう。
 単一の変数から始め、代わりに構造体を使うようにプログラムをリファクタリングします。</p>
 <!--
 Let’s make a new binary project with Cargo called *rectangles* that will take
@@ -7775,7 +7775,7 @@ of the rectangle. Listing 5-8 shows a short program with one way of doing
 exactly that in our project’s *src/main.rs*.
 -->
 <p>Cargoで<em>rectangles</em>という新規バイナリプロジェクトを作成しましょう。このプロジェクトは、
-四角形の幅と高さをピクセルで指定し、その面積を求めます。リスト5-8に、プロジェクトの<em>src/main.rs</em>で、
+長方形の幅と高さをピクセルで指定し、その面積を求めます。リスト5-8に、プロジェクトの<em>src/main.rs</em>で、
 正にそうする一例を短いプログラムとして示しました。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -7786,7 +7786,7 @@ exactly that in our project’s *src/main.rs*.
     let height1 = 50;
 
     println!(
-        // 四角形の面積は、{}平方ピクセルです
+        // 長方形の面積は、{}平方ピクセルです
         &quot;The area of the rectangle is {} square pixels.&quot;,
         area(width1, height1)
     );
@@ -7800,13 +7800,13 @@ fn area(width: u32, height: u32) -&gt; u32 {
 <span class="caption">Listing 5-8: Calculating the area of a rectangle
 specified by separate width and height variables</span>
 -->
-<p><span class="caption">リスト5-8: 個別の幅と高さ変数を指定して四角形の面積を求める</span></p>
+<p><span class="caption">リスト5-8: 個別の幅と高さ変数を指定して長方形の面積を求める</span></p>
 <!--
 Now, run this program using `cargo run`:
 -->
 <p>では、<code>cargo run</code>でこのプログラムを走らせてください:</p>
 <pre><code class="language-text">The area of the rectangle is 1500 square pixels.
-(四角形の面積は、1500平方ピクセルです)
+(長方形の面積は、1500平方ピクセルです)
 </code></pre>
 <!--
 ### Refactoring with Tuples
@@ -7818,8 +7818,8 @@ calling the `area` function with each dimension, we can do better. The width
 and the height are related to each other because together they describe one
 rectangle.
 -->
-<p>リスト5-8のコードはうまく動き、各次元で<code>area</code>関数を呼び出すことで四角形の面積を割り出しますが、
-改善点があります。幅と高さは、組み合わせると一つの四角形を表すので、相互に関係があるわけです。</p>
+<p>リスト5-8のコードはうまく動き、各次元で<code>area</code>関数を呼び出すことで長方形の面積を割り出しますが、
+改善点があります。幅と高さは、組み合わせると一つの長方形を表すので、相互に関係があるわけです。</p>
 <!--
 The issue with this code is evident in the signature of `area`:
 -->
@@ -7833,7 +7833,7 @@ not expressed anywhere in our program. It would be more readable and more
 manageable to group width and height together. We’ve already discussed one way
 we might do that in the "The Tuple Type" section of Chapter 3: by using tuples.
 -->
-<p><code>area</code>関数は、1四角形の面積を求めるものと考えられますが、今書いた関数には、引数が2つあります。
+<p><code>area</code>関数は、1長方形の面積を求めるものと考えられますが、今書いた関数には、引数が2つあります。
 引数は関連性があるのに、このプログラム内のどこにもそのことは表現されていません。
 幅と高さを一緒にグループ化する方が、より読みやすく、扱いやすくなるでしょう。
 それをする一つの方法については、第3章の「タプル型」節ですでに議論しました: タプルを使うのです。</p>
@@ -7866,7 +7866,7 @@ fn area(dimensions: (u32, u32)) -&gt; u32 {
 <span class="caption">Listing 5-9: Specifying the width and height of the
 rectangle with a tuple</span>
 -->
-<p><span class="caption">リスト5-9: タプルで四角形の幅と高さを指定する</span></p>
+<p><span class="caption">リスト5-9: タプルで長方形の幅と高さを指定する</span></p>
 <!--
 In one way, this program is better. Tuples let us add a bit of structure, and
 we’re now passing just one argument. But in another way, this version is less
@@ -7885,7 +7885,7 @@ out and keep it in mind as well. It would be easy to forget or mix up these
 values and cause errors, because we haven’t conveyed the meaning of our data in
 our code.
 -->
-<p>面積計算で幅と高さを混在させるのなら問題はないのですが、四角形を画面に描画したいとなると、問題になるのです！
+<p>面積計算で幅と高さを混在させるのなら問題はないのですが、長方形を画面に描画したいとなると、問題になるのです！
 タプルの添え字<code>0</code>が<code>幅</code>で、添え字<code>1</code>が<code>高さ</code>であることを肝に銘じておかなければなりません。
 他人がこのコードをいじることになったら、このことを割り出し、同様に肝に銘じなければならないでしょう。
 容易く、このことを忘れたり、これらの値を混ぜこぜにしたりしてエラーを発生させてしまうでしょう。
@@ -8123,7 +8123,7 @@ struct, because it won’t work with any other type. Let’s look at how we can
 continue to refactor this code by turning the `area` function into an `area`
 *method* defined on our `Rectangle` type.
 -->
-<p><code>area</code>関数は、非常に特殊です: 四角形の面積を算出するだけです。<code>Rectangle</code>構造体とこの動作をより緊密に結び付けられると、
+<p><code>area</code>関数は、非常に特殊です: 長方形の面積を算出するだけです。<code>Rectangle</code>構造体とこの動作をより緊密に結び付けられると、
 役に立つでしょう。なぜなら、他のどんな型でもうまく動作しなくなるからです。
 <code>area</code>関数を<code>Rectangle</code>型に定義された<code>area</code><em>メソッド</em>に変形することで、
 このコードをリファクタリングし続けられる方法について見ていきましょう。</p>
@@ -11657,7 +11657,7 @@ read their contents is a good next step. There are two ways to reference a
 value stored in a vector. In the examples, we’ve annotated the types of the
 values that are returned from these functions for extra clarity.
 -->
-<p>もうベクタを生成し、更新し、破壊する方法を知ったので、中身を読む方法を知るのはいいステップアップです。
+<p>もうベクタを生成し、更新し、破棄する方法を知ったので、中身を読む方法を知るのはいいステップアップです。
 ベクタに保持された値を参照する方法は2つあります。例では、さらなる明瞭性を求めて、
 これらの関数から返る値の型を注釈しました。</p>
 <!--
@@ -18167,7 +18167,7 @@ mod tests {
 <span class="caption">Listing 11-6: A test for `can_hold` that checks whether a
 larger rectangle can indeed hold a smaller rectangle</span>
 -->
-<p><span class="caption">リスト11-6: より大きな四角形がより小さな四角形を確かに保持できるかを確認する<code>can_hold</code>用のテスト</span></p>
+<p><span class="caption">リスト11-6: より大きな長方形がより小さな長方形を確かに保持できるかを確認する<code>can_hold</code>用のテスト</span></p>
 <!--
 Note that we’ve added a new line inside the `tests` module: `use super::*;`.
 The `tests` module is a regular module that follows the usual visibility rules
@@ -18212,7 +18212,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 It does pass! Let’s add another test, this time asserting that a smaller
 rectangle cannot hold a larger rectangle:
 -->
-<p>通ります！別のテストを追加しましょう。今回は、小さい四角形は、より大きな四角形を保持できないことをアサーションします。</p>
+<p>通ります！別のテストを追加しましょう。今回は、小さい長方形は、より大きな長方形を保持できないことをアサーションします。</p>
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
