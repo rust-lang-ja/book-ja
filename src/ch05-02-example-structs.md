@@ -99,7 +99,7 @@ manageable to group width and height together. We’ve already discussed one way
 we might do that in the "The Tuple Type" section of Chapter 3: by using tuples.
 -->
 
-`area`関数は、1の面積を求めるものと考えられますが、今書いた関数には、引数が2つあります。
+`area`関数は、1長方形の面積を求めるものと考えられますが、今書いた関数には、引数が2つあります。
 引数は関連性があるのに、このプログラム内のどこにもそのことは表現されていません。
 幅と高さを一緒にグループ化する方が、より読みやすく、扱いやすくなるでしょう。
 それをする一つの方法については、第3章の「タプル型」節ですでに議論しました: タプルを使うのです。
