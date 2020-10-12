@@ -1,0 +1,29 @@
+.ayu .header-notice {
+    border-top: 1px solid #492b2d;
+    border-bottom: 1px solid #492b2d;
+    background-color: #492b2d;
+}
+
+.coal .header-notice {
+    border-top: 1px solid #552e28;
+    border-bottom: 1px solid #552e28;
+    background-color: #552e28;
+}
+
+.light .header-notice {
+    border-top: 1px solid #f0e1e1;
+    border-bottom: 1px solid #f0e1e1;
+    background-color: #f0e1e1;
+}
+
+.navy .header-notice {
+    border-top: 1px solid #492b2d;
+    border-bottom: 1px solid #492b2d;
+    background-color: #492b2d;
+}
+
+.rust .header-notice {
+    border-top: 1px solid #b9897f;
+    border-bottom: 1px solid #b9897f;
+    background-color: #b9897f;
+}
