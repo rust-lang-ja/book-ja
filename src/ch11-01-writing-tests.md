@@ -48,7 +48,7 @@ the functions annotated with the `test` attribute and reports on whether each
 test function passes or fails.
 -->
 最も単純には、Rustにおけるテストは`test`属性で注釈された関数のことです。属性とは、
-Rustコードの欠片に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した`derive`属性です。
+Rustコードの部品に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した`derive`属性です。
 関数をテスト関数に変えるには、`fn`の前に`#[test]`を付け加えてください。
 `cargo test`コマンドでテストを実行したら、コンパイラは`test`属性で注釈された関数を走らせるテスト用バイナリをビルドし、
 各テスト関数が通過したか失敗したかを報告します。
