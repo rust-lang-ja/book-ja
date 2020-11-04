@@ -31933,7 +31933,7 @@ Consequently, we don’t need to know all the possible types at compile time.
 それから<em>トレイトオブジェクト</em>を取るベクタを定義できます。トレイトオブジェクトは、
 指定したトレイトを実装するある型のインスタンスを指します。<code>&amp;</code>参照や<code>Box&lt;T&gt;</code>スマートポインタなどの、
 何らかのポインタを指定し、それから関係のあるトレイトを指定する(トレイトオブジェクトがポインタを使用しなければならない理由については、
-第19章の「動的サイズ付け型とSizedトレイト」節で語ります)ことでトレイトオブジェクトを作成します。
+第19章の「動的サイズ決定型とSizedトレイト」節で語ります)ことでトレイトオブジェクトを作成します。
 ジェネリックまたは具体的な型があるところにトレイトオブジェクトは使用できます。どこでトレイトオブジェクトを使用しようと、
 Rustの型システムは、コンパイル時にその文脈で使用されているあらゆる値がそのトレイトオブジェクトのトレイトを実装していることを保証します。
 結果としてコンパイル時に可能性のある型を全て知る必要はなくなるのです。</p>
@@ -35616,7 +35616,7 @@ and dynamically sized types
 <li>Unsafe Rust: Rustの保証の一部を抜けてその保証を手動で保持する責任を負う方法</li>
 <li>高度なライフタイム: 複雑なライフタイム状況の記法</li>
 <li>高度なトレイト: 関連型、デフォルト型引数、フルパス記法、スーパートレイト、トレイトに関連するニュータイプパターン</li>
-<li>高度な型: ニュータイプパターンについてもっと、型エイリアス、never型、動的サイズ型</li>
+<li>高度な型: ニュータイプパターンについてもっと、型エイリアス、never型、動的サイズ決定型</li>
 <li>高度な関数とクロージャ: 関数ポインタとクロージャの返却</li>
 </ul>
 <!--
@@ -37407,7 +37407,7 @@ discuss the `!` type and dynamically sized types.
 -->
 <p>Rustの型システムには、この本で触れたけれども、まだ議論していない機能があります。ニュータイプが何故型として有用なのかを調査するため、
 一般化してニュータイプを議論することから始めます。そして、型エイリアスに移ります。ニュータイプに類似しているけれども、
-多少異なる意味を持つ機能です。また、<code>!</code>型と動的サイズ付け型も議論します。</p>
+多少異なる意味を持つ機能です。また、<code>!</code>型と動的サイズ決定型も議論します。</p>
 <!--
 > Note: The next section assumes you’ve read the earlier section “The Newtype
 > Pattern to Implement External Traits on External Types.”
@@ -37772,7 +37772,7 @@ when it got to the `break`.
 <!--
 ### Dynamically Sized Types and the `Sized` Trait
 -->
-<h3><a class="header" href="#動的サイズ付け型とsizedトレイト" id="動的サイズ付け型とsizedトレイト">動的サイズ付け型と<code>Sized</code>トレイト</a></h3>
+<h3><a class="header" href="#動的サイズ決定型とsizedトレイト" id="動的サイズ決定型とsizedトレイト">動的サイズ決定型と<code>Sized</code>トレイト</a></h3>
 <!--
 Due to Rust’s need to know certain details, such as how much space to allocate
 for a value of a particular type, there is a corner of its type system that can
@@ -37781,7 +37781,7 @@ as *DSTs* or *unsized types*, these types let us write code using values whose
 size we can know only at runtime.
 -->
 <p>コンパイラが特定の型の値1つにどれくらいのスペースのメモリを確保するのかなどの特定の詳細を知る必要があるために、
-Rustの型システムには混乱を招きやすい細かな仕様があります: <em>動的サイズ付け型</em>の概念です。時として<em>DST</em>や<em>サイズなし型</em>とも称され、
+Rustの型システムには混乱を招きやすい細かな仕様があります: <em>動的サイズ決定型</em>の概念です。時として<em>DST</em>や<em>サイズなし型</em>とも称され、
 これらの型により、実行時にしかサイズを知ることのできない値を使用するコードを書かせてくれます。</p>
 <!--
 Let’s dig into the details of a dynamically sized type called `str`, which
@@ -37790,7 +37790,7 @@ its own, is a DST. We can’t know how long the string is until runtime, meaning
 we can’t create a variable of type `str`, nor can we take an argument of type
 `str`. Consider the following code, which does not work:
 -->
-<p><code>str</code>と呼ばれる動的サイズ付け型の詳細を深掘りしましょう。本を通して使用してきましたね。
+<p><code>str</code>と呼ばれる動的サイズ決定型の詳細を深掘りしましょう。本を通して使用してきましたね。
 そうです。<code>&amp;str</code>ではなく、<code>str</code>は単独でDSTなのです。実行時までは文字列の長さを知ることができず、
 これは、型<code>str</code>の変数を生成したり、型<code>str</code>を引数に取ることはできないことを意味します。
 動かない以下のコードを考えてください:</p>
@@ -37810,7 +37810,7 @@ holding a dynamically sized type.
 <p>コンパイラは、特定の型のどんな値に対しても確保するメモリ量を知る必要があり、ある型の値は全て同じ量のメモリを使用しなければなりません。
 Rustでこのコードを書くことが許容されたら、これら2つの<code>str</code>値は、同じ量のスペースを消費する必要があったでしょう。
 ですが、長さが異なります: <code>s1</code>は、12バイトのストレージが必要で、<code>s2</code>は15バイトです。このため、
-動的サイズ付け型を保持する変数を生成することはできないのです。</p>
+動的サイズ決定型を保持する変数を生成することはできないのです。</p>
 <!--
 So what do we do? In this case, you already know the answer: we make the types
 of `s1` and `s2` a `&str` rather than a `str`. Recall that in the “String
@@ -37834,8 +37834,8 @@ types behind a pointer of some kind.
 <p>従って、<code>&amp;T</code>は、<code>T</code>がどこにあるかのメモリアドレスを格納する単独の値だけれども、<code>&amp;str</code>は<em>2つ</em>の値なのです:
 <code>str</code>のアドレスとその長さです。そのため、コンパイル時に<code>&amp;str</code>のサイズを知ることができます:
 <code>usize</code>の長さの2倍です。要するに、参照している文字列の長さによらず、常に<code>&amp;str</code>のサイズがわかります。
-通常、このようにしてRustでは動的サイズ付け型が使用されます: 動的情報のサイズを格納する追加のちょっとしたメタデータがあるのです。
-動的サイズ付け型の黄金規則は、常に動的サイズ付け型の値をなんらかの種類のポインタの背後に配置しなければならないということです。</p>
+通常、このようにしてRustでは動的サイズ決定型が使用されます: 動的情報のサイズを格納する追加のちょっとしたメタデータがあるのです。
+動的サイズ決定型の黄金規則は、常に動的サイズ決定型の値をなんらかの種類のポインタの背後に配置しなければならないということです。</p>
 <!--
 We can combine `str` with all kinds of pointers: for example, `Box<str>` or
 `Rc<str>`. In fact, you’ve seen this before but with a different dynamically
@@ -37846,8 +37846,8 @@ as trait objects, we must put them behind a pointer, such as `&Trait` or
 `Box<Trait>` (`Rc<Trait>` would work too).
 -->
 <p><code>str</code>を全ての種類のポインタと組み合わせられます: 例を挙げれば、<code>Box&lt;str&gt;</code>や<code>Rc&lt;str&gt;</code>などです。
-実際、これまでに見かけましたが、異なる動的サイズ付け型でした: トレイトです。全てのトレイトは、
-トレイト名を使用して参照できる動的サイズ付け型です。第17章の「トレイトオブジェクトで異なる型の値を許容する」節で、
+実際、これまでに見かけましたが、異なる動的サイズ決定型でした: トレイトです。全てのトレイトは、
+トレイト名を使用して参照できる動的サイズ決定型です。第17章の「トレイトオブジェクトで異なる型の値を許容する」節で、
 トレイトをトレイトオブジェクトとして使用するには、<code>&amp;Trait</code>や<code>Box&lt;Trait&gt;</code>(Rc<Trait>も動くでしょう)など、
 ポインタの背後に配置しなければならないことに触れました。</p>
 <!--
@@ -42796,7 +42796,7 @@ parameters with trait bounds.
 <tr><td><code>T: 'a</code></td><td>ライフタイム<code>'a</code>よりも長生きしなければならないジェネリック型<code>T</code>(型がライフタイムより長生きするとは、<code>'a</code>よりも短いライフタイムの参照を何も遷移的に含められないことを意味する)</td></tr>
 <tr><td><code>T : 'static</code></td><td>ジェネリック型<code>T</code>が<code>'static</code>なもの以外の借用された参照を何も含まない</td></tr>
 <tr><td><code>'b: 'a</code></td><td>ジェネリックなライフタイム<code>'b</code>がライフタイム<code>'a</code>より長生きしなければならない</td></tr>
-<tr><td><code>T: ?Sized</code></td><td>ジェネリック型引数が動的サイズ付け型であることを許容する</td></tr>
+<tr><td><code>T: ?Sized</code></td><td>ジェネリック型引数が動的サイズ決定型であることを許容する</td></tr>
 <tr><td><code>'a + trait</code>, <code>trait + trait</code></td><td>複合型制約</td></tr>
 </tbody></table>
 <!--

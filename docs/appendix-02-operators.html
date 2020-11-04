@@ -428,7 +428,7 @@ parameters with trait bounds.
 <tr><td><code>T: 'a</code></td><td>ライフタイム<code>'a</code>よりも長生きしなければならないジェネリック型<code>T</code>(型がライフタイムより長生きするとは、<code>'a</code>よりも短いライフタイムの参照を何も遷移的に含められないことを意味する)</td></tr>
 <tr><td><code>T : 'static</code></td><td>ジェネリック型<code>T</code>が<code>'static</code>なもの以外の借用された参照を何も含まない</td></tr>
 <tr><td><code>'b: 'a</code></td><td>ジェネリックなライフタイム<code>'b</code>がライフタイム<code>'a</code>より長生きしなければならない</td></tr>
-<tr><td><code>T: ?Sized</code></td><td>ジェネリック型引数が動的サイズ付け型であることを許容する</td></tr>
+<tr><td><code>T: ?Sized</code></td><td>ジェネリック型引数が動的サイズ決定型であることを許容する</td></tr>
 <tr><td><code>'a + trait</code>, <code>trait + trait</code></td><td>複合型制約</td></tr>
 </tbody></table>
 <!--
