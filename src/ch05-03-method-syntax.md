@@ -267,7 +267,7 @@ fn main() {
 method</span>
 -->
 
-<span class="caption">リスト5-14: 未完成の`can_hold`を使用する</span>
+<span class="caption">リスト5-14: まだ書いていない`can_hold`メソッドを使用する</span>
 
 <!--
 And the expected output would look like the following, because both dimensions
