@@ -183,7 +183,7 @@ we’re using into a data type with a name for the whole as well as names for th
 parts, as shown in Listing 5-10.
 -->
 
-データにラベル付けをして意味付けを行い、構造体を使います。現在使用しているタプルを全体と一部に名前のあるデータ型に、
+データのラベル付けで意味を付与するために構造体を使います。現在使用しているタプルを全体と一部に名前のあるデータ型に、
 変形することができます。そう、リスト5-10に示したように。
 
 <!--
