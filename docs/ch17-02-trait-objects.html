@@ -672,7 +672,7 @@ method to call.
 ジェネリックな型引数の箇所に使用している具体的な型に対して生成するのでした。単相化の結果吐かれるコードは、
 <em>スタティックディスパッチ</em>を行い、これは、コンパイル時にコンパイラがどのメソッドを呼び出しているかわかる時のことです。
 これは、<em>ダイナミックディスパッチ</em>とは対照的で、この時、コンパイラは、コンパイル時にどのメソッドを呼び出しているのかわかりません。
-ダイナミックディスパッチの場合、コンパイラは、実行時にどのメソッドを呼び出すか弾き出すコードを生成します。</p>
+ダイナミックディスパッチの場合、コンパイラは、どのメソッドを呼び出すか実行時に弾き出すコードを生成します。</p>
 <!--
 When we use trait objects, Rust must use dynamic dispatch. The compiler doesn’t
 know all the types that might be used with the code that is using trait
