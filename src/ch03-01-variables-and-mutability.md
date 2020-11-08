@@ -89,7 +89,7 @@ assign twice to immutable variable x`, because you tried to assign a second
 value to the immutable `x` variable.
 -->
 
-このエラーは、エラーの原因が`不変変数xに2回代入できない`であると示しています。不変な`x`という変数に第2段階の値を代入しようとしたからです。
+このエラーは、エラーの原因が`不変変数xに2回代入できない`であると示しています。不変な`x`という変数に別の値を代入しようとしたからです。
 
 <!--
 It’s important that we get compile-time errors when we attempt to change a
