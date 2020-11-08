@@ -107,7 +107,7 @@ many people are enthusiastic about channels. However, thanks to Rust’s type
 system and ownership rules, you can’t get locking and unlocking wrong.
 -->
 
-ミューテックスの管理は、正しく行うのに著しく技工を要することがあるので、多くの人がチャンネルに熱狂的になるわけです。
+ミューテックスの管理は、正しく行うのに著しく技巧を要することがあるので、多くの人がチャンネルに熱狂的になるわけです。
 しかしながら、Rustの型システムと所有権規則のおかげで、ロックとアンロックをおかしくすることはありません。
 
 <!--
