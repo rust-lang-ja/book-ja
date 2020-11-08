@@ -249,7 +249,7 @@ in Listing 16-1 and call `join` to make sure the spawned thread finishes before
 -->
 
 `thread::spawn`の戻り値を変数に保存することで、立ち上げたスレッドが実行されなかったり、
-完全には実行されなかったりする問題を修正することができます。`thread:spawn`の戻り値の型は`JoinHandle`です。
+完全には実行されなかったりする問題を修正することができます。`thread::spawn`の戻り値の型は`JoinHandle`です。
 `JoinHandle`は、その`join`メソッドを呼び出したときにスレッドの終了を待つ所有された値です。
 リスト16-2は、リスト16-1で生成したスレッドの`JoinHandle`を使用し、`join`を呼び出して、
 `main`が終了する前に、立ち上げたスレッドが確実に完了する方法を示しています:
