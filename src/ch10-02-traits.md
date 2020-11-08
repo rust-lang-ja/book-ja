@@ -450,7 +450,7 @@ more verbose. We place trait bounds with the declaration of the generic type
 parameter after a colon and inside angle brackets.
 -->
 この「より長い」姿は前節の例と等価ですが、より冗長です。
-角カッコの中にジェネリックな型引数の宣言を書き、型引数の後ろにコロンを挟んでトレイト境界を置いています。
+山カッコの中にジェネリックな型引数の宣言を書き、型引数の後ろにコロンを挟んでトレイト境界を置いています。
 
 <!--
 The `impl Trait` syntax is convenient and makes for more concise code in simple
