@@ -82,11 +82,11 @@ Rustはまた、現代的な開発ツールをシステムプログラミング�
 
 <!--
 * Cargo, the included dependency manager and build tool, makes adding,
-compiling, and managing dependencies painless and consistent across the Rust
-ecosystem.
+  compiling, and managing dependencies painless and consistent across the Rust
+  ecosystem.
 * Rustfmt ensures a consistent coding style across developers.
 * The Rust Language Server powers Integrated Development Environment (IDE)
-integration for code completion and inline error messages.
+  integration for code completion and inline error messages.
 -->
 
 * Cargoは、付属の依存マネージャ兼ビルドツールで、依存を追加、コンパイル、管理することを楽かつ、
@@ -169,7 +169,7 @@ Rustは、Rustプログラミング言語やコミュニティ、開発者ツー
 Rust is for people who crave speed and stability in a language. By speed, we
 mean the speed of the programs that you can create with Rust and the speed at
 which Rust lets you write them. The Rust compiler’s checks ensure stability
-through feature additions and refactoring. This is contrast to the brittle
+through feature additions and refactoring. This is in contrast to the brittle
 legacy code in languages without these checks, which developers are often
 afraid to modify. By striving for zero-cost abstractions, higher-level features
 that compile to lower-level code as fast as code written manually, Rust
@@ -186,14 +186,14 @@ Rustは安全なコードを高速なコードにもしようと努力してい�
 <!--
 The Rust language hopes to support many other users as well; those mentioned
 here are merely some of the biggest stakeholders. Overall, Rust’s greatest
-ambition is to eliminate trade-offs that programmers have accepted for
-decades: safety *and* productivity, speed *and* ergonomics. Give
-Rust a try, and see if its choices work for you.
+ambition is to eliminate the trade-offs that programmers have accepted for
+decades by providing safety *and* productivity, speed *and* ergonomics. Give
+Rust a try and see if its choices work for you.
 -->
 
 Rust言語は他の多くのユーザのサポートも望んでいます; ここで名前を出した方は、
-ただの最大の出資者の一部です。総合すると、Rustの最大の野望は、プログラマが数十年間受け入れてきた代償を排除することです:
-つまり、安全性*と*生産性、スピード*と*エルゴノミクスです。Rustを試してみて、その選択が自分に合っているか確かめてください。
+ただの最大の出資者の一部です。総合すると、Rustの最大の野望は、プログラマが数十年間受け入れてきた代償を、安全性*と*生産性、
+スピード*と*エルゴノミクスを提供することで排除することです。Rustを試してみて、その選択が自分に合っているか確かめてください。
 
 <!--
 ## Who This Book Is For
@@ -243,9 +243,9 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 2、12、20章がプロジェクトの章です。つまり、残りは概念の章です。
 
 <!--
-Chapter 1 explains how to install Rust, how to write a Hello, world! program,
+Chapter 1 explains how to install Rust, how to write a "Hello, world!" program,
 and how to use Cargo, Rust’s package manager and build tool. Chapter 2 is a
-hands-on introduction to the Rust language. We’ll cover concepts at a high
+hands-on introduction to the Rust language. Here we cover concepts at a high
 level, and later chapters will provide additional detail. If you want to get
 your hands dirty right away, Chapter 2 is the one for that. At first, you
 might even want to skip Chapter 3, which covers Rust features similar to those
@@ -256,8 +256,8 @@ to skip Chapter 2 and go straight to Chapter 3, returning to Chapter 2 when
 you’d like to work on a project applying the details you’ve learned.
 -->
 
-第1章はRustのインストール方法、Hello, world!プログラムの書き方、Rustのパッケージマネージャ兼、
-ビルドツールのCargoの使用方法を説明します。第2章は、Rust言語への実践的な導入です。概念を高度に講義し、後ほどの章で追加の詳細を提供します。
+第1章はRustのインストール方法、"Hello, world!"プログラムの書き方、Rustのパッケージマネージャ兼、
+ビルドツールのCargoの使用方法を説明します。第2章は、Rust言語への実践的な導入です。ここでは概念を高度に講義し、後ほどの章で追加の詳細を提供します。
 今すぐRustの世界に飛び込みたいなら、第2章こそがそのためのものです。第3章は他のプログラミング言語の機能に似たRustの機能を講義していますが、
 最初その3章すら飛ばして、まっすぐに第4章に向かい、Rustの所有権システムについて学びたくなる可能性があります。
 しかしながら、あなたが次に進む前に全ての詳細を学ぶことを好む特別に几帳面な学習者なら、
