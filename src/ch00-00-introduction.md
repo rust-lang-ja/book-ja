@@ -252,7 +252,7 @@ to skip Chapter 2 and go straight to Chapter 3, returning to Chapter 2 when
 you’d like to work on a project applying the details you’ve learned.
 -->
 
-第1章はRustのインストール方法、"Hello, world!"プログラムの書き方、Rustのパッケージマネージャ兼、
+第1章はRustのインストール方法、“Hello, world!”プログラムの書き方、Rustのパッケージマネージャ兼、
 ビルドツールのCargoの使用方法を説明します。第2章は、Rust言語への実践的な導入です。ここでは概念をざっくりと講義し、後ほどの章で追加の詳細を提供します。
 今すぐRustの世界に飛び込みたいなら、第2章こそがそのためのものです。第3章は他のプログラミング言語の機能に似たRustの機能を講義していますが、
 最初その3章すら飛ばして、まっすぐに第4章に向かい、Rustの所有権システムについて学びたくなる可能性があります。
