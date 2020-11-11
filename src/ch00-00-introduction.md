@@ -243,7 +243,7 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 2、12、20章がプロジェクトの章です。つまり、残りは概念の章です。
 
 <!--
-Chapter 1 explains how to install Rust, how to write a "Hello, world!" program,
+Chapter 1 explains how to install Rust, how to write a “Hello, world!” program,
 and how to use Cargo, Rust’s package manager and build tool. Chapter 2 is a
 hands-on introduction to the Rust language. Here we cover concepts at a high
 level, and later chapters will provide additional detail. If you want to get
