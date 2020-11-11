@@ -162,10 +162,6 @@ Rustは、Rustプログラミング言語やコミュニティ、開発者ツー
 ### スピードと安定性に価値を見出す方
 
 <!--
-最後から3行目、zero-cost abstractions, higher-level featuresの繋がりがよくわからない。byが両者にかかっているように訳した
--->
-
-<!--
 Rust is for people who crave speed and stability in a language. By speed, we
 mean the speed of the programs that you can create with Rust and the speed at
 which Rust lets you write them. The Rust compiler’s checks ensure stability
@@ -287,7 +283,7 @@ explores Rust’s error-handling philosophy and techniques.
 <!--
 Chapter 10 digs into generics, traits, and lifetimes, which give you the power
 to define code that applies to multiple types. Chapter 11 is all about testing,
-which even with Rust’s safety guarantees is necessary to ensure your program's
+which even with Rust’s safety guarantees is necessary to ensure your program’s
 logic is correct. In Chapter 12, we’ll build our own implementation of a subset
 of functionality from the `grep` command line tool that searches for text
 within files. For this, we’ll use many of the concepts we discussed in the
@@ -362,24 +358,48 @@ confusion. But do whatever works for you.
 混乱したら、前の章に戻らなければならない可能性もあります。ですが、自分に合った方法でどうぞ。
 
 <!--
+<span id="ferris"></span>
+-->
+
+<span id="ferris"></span>
+
+<!--
 An important part of the process of learning Rust is learning how to read the
 error messages the compiler displays: these will guide you toward working code.
-As such, we’ll provide many examples that don't compile along with the error
+As such, we’ll provide many examples that don’t compile along with the error
 message the compiler will show you in each situation. Know that if you enter
 and run a random example, it may not compile! Make sure you read the
 surrounding text to see whether the example you’re trying to run is meant to
-error. In most situations, we’ll lead you to the correct version of any code that
-doesn’t compile.
--->
-
-<!--
-NOTE: docs.rust-lang.orgにあるバージョンだとFerrisに関する追記があるが、2nd editionで必要なのか、確認が必要
+error. Ferris will also help you distinguish code that isn’t meant to work:
 -->
 
 Rustを学ぶ過程で重要な部分は、コンパイラが表示するエラーメッセージを読む方法を学ぶことです:
 それは動くコードへと導いてくれます。そのため、各場面でコンパイラが表示するエラーメッセージとともに、
 コンパイルできない例を多く提供します。適当に例を選んで走らせたら、コンパイルできないかもしれないことを知ってください！
 周りのテキストを読んで実行しようとしている例がエラーになることを意図しているのか確認することを確かめてください。
+フェリスもコードが動作するとは意図されていないコードを見分けるのを手助けしてくれます:
+
+<!--
+| Ferris                                                                 | Meaning                                          |
+|------------------------------------------------------------------------|--------------------------------------------------|
+| <img src="img/ferris/does_not_compile.svg" class="ferris-explain"/>    | This code does not compile!                      |
+| <img src="img/ferris/panics.svg" class="ferris-explain"/>              | This code panics!                                |
+| <img src="img/ferris/unsafe.svg" class="ferris-explain"/>              | This code block contains unsafe code.            |
+| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain"/>| This code does not produce the desired behavior. |
+-->
+
+| Ferris                                                                 | Meaning                                          |
+|------------------------------------------------------------------------|--------------------------------------------------|
+| <img src="img/ferris/does_not_compile.svg" class="ferris-explain"/>    | このコードはコンパイルできません！               |
+| <img src="img/ferris/panics.svg" class="ferris-explain"/>              | このコードはパニックします！                     |
+| <img src="img/ferris/unsafe.svg" class="ferris-explain"/>              | このコードはアンセーフなコードを含みます。       |
+| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain"/>| このコードは求められている振る舞いをしません。   |
+
+<!--
+In most situations, we’ll lead you to the correct version of any code that
+doesn’t compile.
+-->
+
 ほとんどの場合、コンパイルできないあらゆるコードの正しいバージョンへと導きます。
 
 <!--
