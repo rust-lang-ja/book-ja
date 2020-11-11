@@ -247,11 +247,11 @@ Chapter 1 explains how to install Rust, how to write a "Hello, world!" program,
 and how to use Cargo, Rust’s package manager and build tool. Chapter 2 is a
 hands-on introduction to the Rust language. Here we cover concepts at a high
 level, and later chapters will provide additional detail. If you want to get
-your hands dirty right away, Chapter 2 is the one for that. At first, you
+your hands dirty right away, Chapter 2 is the place for that. At first, you
 might even want to skip Chapter 3, which covers Rust features similar to those
-of other programming language, and head straight to Chapter 4 to learn about
+of other programming languages, and head straight to Chapter 4 to learn about
 Rust’s ownership system. However, if you’re a particularly meticulous learner
-who prefers to learn every detail before moving onto the next, you might want
+who prefers to learn every detail before moving on to the next, you might want
 to skip Chapter 2 and go straight to Chapter 3, returning to Chapter 2 when
 you’d like to work on a project applying the details you’ve learned.
 -->
@@ -324,12 +324,12 @@ principles you might be familiar with.
 <!--
 Chapter 18 is a reference on patterns and pattern matching, which are powerful
 ways of expressing ideas throughout Rust programs. Chapter 19 contains a
-smorgasbord of advanced topics of interest, including unsafe Rust and more
-about lifetimes, traits, types, functions, and closures.
+smorgasbord of advanced topics of interest, including unsafe Rust, macros, and
+more about lifetimes, traits, types, functions, and closures.
 -->
 
 第18章は、パターンとパターンマッチングのリファレンスであり、これらはRustプログラムを通して、
-考えを表現する強力な方法になります。第19章は、unsafe Rustやライフタイム、トレイト、型、関数、クロージャの詳細を含む、
+考えを表現する強力な方法になります。第19章は、unsafe Rustやマクロ、ライフタイム、トレイト、型、関数、クロージャの詳細を含む、
 興味のある高度な話題のスモーガスボード(`訳注`: 日本でいうバイキングのこと)を含みます。
 
 <!--
@@ -343,12 +343,14 @@ multithreaded web server!
 Finally, some appendixes contain useful information about the language in a
 more reference-like format. Appendix A covers Rust’s keywords, Appendix B
 covers Rust’s operators and symbols, Appendix C covers derivable traits
-provided by the standard library, Appendix D covers macros.
+provided by the standard library, Appendix D covers some useful development
+tools, and Appendix E explains Rust editions.
 -->
 
 最後に、言語についての有用な情報をよりリファレンスのような形式で含む付録があります。
 付録AはRustのキーワードを講義し、付録Bは、Rustの演算子と記号、付録Cは、
-標準ライブラリが提供する導出可能なトレイト、付録Dはマクロを講義します。
+標準ライブラリが提供する導出可能なトレイト、付録Dはいくつか便利な開発ツールを講義し、
+付録EではRustのエディションについて説明します。
 
 <!--
 There is no wrong way to read this book: if you want to skip ahead, go for it!
@@ -362,12 +364,12 @@ confusion. But do whatever works for you.
 <!--
 An important part of the process of learning Rust is learning how to read the
 error messages the compiler displays: these will guide you toward working code.
-As such, we’ll provide many examples of code that doesn’t compile along with
-the error message the compiler will show you in each situation. Know that if
-you enter and run a random example, it may not compile! Make sure you read the
+As such, we’ll provide many examples that don't compile along with the error
+message the compiler will show you in each situation. Know that if you enter
+and run a random example, it may not compile! Make sure you read the
 surrounding text to see whether the example you’re trying to run is meant to
-error. In most situations, we’ll lead you to the correct version of any code
-that doesn’t compile.
+error. In most situations, we’ll lead you to the correct version of any code that
+doesn’t compile.
 -->
 
 <!--
@@ -376,12 +378,12 @@ NOTE: docs.rust-lang.orgにあるバージョンだとFerrisに関する追記�
 
 Rustを学ぶ過程で重要な部分は、コンパイラが表示するエラーメッセージを読む方法を学ぶことです:
 それは動くコードへと導いてくれます。そのため、各場面でコンパイラが表示するエラーメッセージとともに、
-コンパイルできないコードの例を多く提供します。適当に例を選んで走らせたら、コンパイルできないかもしれないことを知ってください！
+コンパイルできない例を多く提供します。適当に例を選んで走らせたら、コンパイルできないかもしれないことを知ってください！
 周りのテキストを読んで実行しようとしている例がエラーになることを意図しているのか確認することを確かめてください。
 ほとんどの場合、コンパイルできないあらゆるコードの正しいバージョンへと導きます。
 
 <!--
-## Source code
+## Source Code
 -->
 
 ## ソースコード
@@ -395,5 +397,5 @@ The source files from which this book is generated can be found on
 
 > 訳注: 日本語版は[こちら][book-ja]です。
 
-[book]: https://github.com/rust-lang/book/tree/master/second-edition/src
+[book]: https://github.com/rust-lang/book/tree/master/src
 [book-ja]: https://github.com/rust-lang-ja/book-ja
