@@ -287,7 +287,7 @@ explores Rust’s error-handling philosophy and techniques.
 <!--
 Chapter 10 digs into generics, traits, and lifetimes, which give you the power
 to define code that applies to multiple types. Chapter 11 is all about testing,
-which even with Rust's safety guarantees is necessary to ensure your program's
+which even with Rust’s safety guarantees is necessary to ensure your program's
 logic is correct. In Chapter 12, we’ll build our own implementation of a subset
 of functionality from the `grep` command line tool that searches for text
 within files. For this, we’ll use many of the concepts we discussed in the
