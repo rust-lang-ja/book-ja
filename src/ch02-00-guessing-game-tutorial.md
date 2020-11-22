@@ -571,7 +571,7 @@ because you just want to crash this program when a problem occurs, you can use
 -->
 
 警告を抑制する正しい手段は、実際にエラー対処コードを書くことですが、今は、
-問題が起きた時にプロラグムをクラッシュさせたいので、`expect`を使用できるわけです。
+問題が起きた時にプログラムをクラッシュさせたいので、`expect`を使用できるわけです。
 エラーから復旧する方法については、第9章で学ぶでしょう。
 
 <!--
