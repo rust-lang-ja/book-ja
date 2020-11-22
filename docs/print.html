@@ -30806,7 +30806,7 @@ mutex is described as *guarding* the data it holds via the locking system.
 <p>ミューテックスは、どんな時も1つのスレッドにしかなんらかのデータへのアクセスを許可しないというように、
 &quot;mutual exclusion&quot;(相互排他)の省略形です。ミューテックスにあるデータにアクセスするには、
 ミューテックスのロックを所望することでアクセスしたいことをまず、スレッドは通知しなければなりません。
-ロックとは、現在誰がデータへの排他的アクセスを行なっているかを追跡するミューテックの一部をなすデータ構造です。
+ロックとは、現在誰がデータへの排他的アクセスを行なっているかを追跡するミューテックスの一部をなすデータ構造です。
 故に、ミューテックスはロックシステム経由で保持しているデータを<em>死守する</em>(guarding)と解説されます。</p>
 <!--
 Mutexes have a reputation for being difficult to use because you have to
