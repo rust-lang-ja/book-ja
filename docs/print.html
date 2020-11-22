@@ -1938,7 +1938,7 @@ because you just want to crash this program when a problem occurs, you can use
 `expect`. You'll learn about recovering from errors in Chapter 9.
 -->
 <p>警告を抑制する正しい手段は、実際にエラー対処コードを書くことですが、今は、
-問題が起きた時にプロラグムをクラッシュさせたいので、<code>expect</code>を使用できるわけです。
+問題が起きた時にプログラムをクラッシュさせたいので、<code>expect</code>を使用できるわけです。
 エラーから復旧する方法については、第9章で学ぶでしょう。</p>
 <!--
 ### Printing Values with `println!` Placeholders
@@ -20477,7 +20477,7 @@ much easier to refactor smaller amounts of code. We’ll do that next.
 <code>main</code>関数が複数の責任を受け持っています: 一般に、各関数がただ一つの責任だけを持つようになれば、
 関数は明確かつ、管理しやすくなります。もう一つの問題点は、できうる限りのエラー処理を怠っていることです。
 まだプログラムが小規模なので、これらの欠陥は大きな問題にはなりませんが、プログラムが大規模になるにつれ、
-それを綺麗に解消するのは困難になっていきます。プログラムを開発する際に早い段階でリファクタングを行うのは、
+それを綺麗に解消するのは困難になっていきます。プログラムを開発する際に早い段階でリファクタリングを行うのは、
 良い戦術です。リファクタリングするコードの量が少なければ、はるかに簡単になりますからね。次は、それを行いましょう。</p>
 <!--
 ## Refactoring to Improve Modularity and Error Handling
@@ -20561,7 +20561,7 @@ separate concerns of a binary program when `main` starts getting large. The
 process has the following steps:
 -->
 <p><code>main</code>関数に複数の仕事の責任を割り当てるという構造上の問題は、多くのバイナリプロジェクトでありふれています。
-結果として、<code>main</code>が肥大化し始めた際にバイナリプログラムの個別の責任を分割するためにガイドラインとして活用できる工程をRustコミニュティは、
+結果として、<code>main</code>が肥大化し始めた際にバイナリプログラムの個別の責任を分割するためにガイドラインとして活用できる工程をRustコミュニティは、
 開発しました。この工程は、以下のような手順になっています:</p>
 <!--
 * Split your program into a *main.rs* and a *lib.rs* and move your program’s
@@ -43633,7 +43633,7 @@ new version of stable Rust. Each upgrade should be painless, but should also
 bring you new features, fewer bugs, and faster compile times.
 -->
 <p>この問題に対する我々の解決策は「停滞なしの安定性」と呼ばれるもので、ガイドの原則は以下の通りです:
-安定版Rustの新しいバージョンにアップグレードするのを恐れる必要は何もないはずです。各アップグレートは痛みのないもののはずですが、
+安定版Rustの新しいバージョンにアップグレードするのを恐れる必要は何もないはずです。各アップグレードは痛みのないもののはずですが、
 新しい機能、より少ないバグ、高速なコンパイル時間も齎すべきです。</p>
 <!--
 ### Choo, Choo! Release Channels and Riding the Trains
