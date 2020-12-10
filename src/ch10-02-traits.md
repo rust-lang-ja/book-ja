@@ -621,7 +621,7 @@ how to write a function with this behavior in the [“Using Trait Objects That
 Allow for Values of Different
 Types”][using-trait-objects-that-allow-for-values-of-different-types] section of Chapter 17.
 -->
-`NewsArticle`か`Trait`を返すというのは、コンパイラの`impl Trait`構文の実装まわりの制約により許されていません。
+`NewsArticle`か`Tweet`を返すというのは、コンパイラの`impl Trait`構文の実装まわりの制約により許されていません。
 このような振る舞いをする関数を書く方法は、17章の[トレイトオブジェクトで異なる型の値を許容する][using-trait-objects-that-allow-for-values-of-different-types]節で学びます。
 
 <!--
