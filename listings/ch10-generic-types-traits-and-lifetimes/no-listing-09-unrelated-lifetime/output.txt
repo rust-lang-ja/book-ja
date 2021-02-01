@@ -1,6 +1,7 @@
 $ cargo run
    Compiling chapter10 v0.1.0 (file:///projects/chapter10)
 error[E0515]: cannot return value referencing local variable `result`
+(エラー[E0515]: ローカル変数`result`を参照している値は返せません)
   --> src/main.rs:11:5
    |
 11 |     result.as_str()
@@ -8,6 +9,8 @@ error[E0515]: cannot return value referencing local variable `result`
    |     |
    |     returns a value referencing data owned by the current function
    |     `result` is borrowed here
+   |    (現在の関数に所有されているデータを参照する値を返しています
+   |     `result`はここで借用されています)
 
 error: aborting due to previous error
 

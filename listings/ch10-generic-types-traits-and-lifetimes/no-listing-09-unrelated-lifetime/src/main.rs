@@ -8,6 +8,7 @@ fn main() {
 
 // ANCHOR: here
 fn longest<'a>(x: &str, y: &str) -> &'a str {
+    // 本当に長い文字列
     let result = String::from("really long string");
     result.as_str()
 }
