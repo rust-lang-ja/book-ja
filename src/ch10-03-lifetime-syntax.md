@@ -821,9 +821,10 @@ enough information to allow memory-safe operations and disallow operations that
 would create dangling pointers or otherwise violate memory safety.
 -->
 
-究極的にライフタイム記法は、関数のいろんな引数と戻り値のライフタイムを接続することに関するのです。
-一旦、繋がりができたら、メモリ安全な処理を許可するのに十分な情報がコンパイラにはあり、
-ダングリングポインタを生成するであろう処理を不認可し、さもなくばメモリ安全性を侵害するのです。
+究極的にライフタイム記法は、関数のいろんな引数と戻り値のライフタイムを接続することに関するものです。
+一旦それらが繋がれば、メモリ安全な処理を許可し、
+ダングリングポインタを生成したりメモリ安全性を侵害したりする処理を禁止するのに
+十分な情報をコンパイラは得たことになります。
 
 <!--
 ### Lifetime Annotations in Struct Definitions
