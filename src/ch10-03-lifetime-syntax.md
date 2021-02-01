@@ -714,7 +714,7 @@ string slice, we wouldn’t need to specify a lifetime on the `y` parameter. The
 following code will compile:
 -->
 
-ライフタイム引数を指定する必要のある手段は、関数が行っていることによります。例えば、
+何にライフタイム引数を指定する必要があるかは、関数が行っていることに依存します。例えば、
 `longest`関数の実装を最長の文字列スライスではなく、常に最初の引数を返すように変更したら、
 `y`引数に対してライフタイムを指定する必要はなくなるでしょう。以下のコードはコンパイルできます:
 
