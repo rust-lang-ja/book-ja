@@ -553,7 +553,7 @@ passing in references that have different concrete lifetimes. Listing 10-23 is
 a straightforward example.
 -->
 
-ライフタイム注釈が異なる具体的なライフタイムになる参照を渡すことで`longest`関数を制限する方法を見ましょう。
+ライフタイム注釈が異なる具体的なライフタイムを持つ参照を渡すことで`longest`関数を制限する方法を見ましょう。
 リスト10-23は、率直な例です。
 
 <!--
@@ -588,7 +588,7 @@ fn main() {
 references to `String` values that have different concrete lifetimes</span>
 -->
 
-<span class="caption">リスト10-23: 異なる具体的なライフタイムの`String`値への参照で`longest`関数を使用する</span>
+<span class="caption">リスト10-23: 異なる具体的なライフタイムを持つ`String`値への参照で`longest`関数を使用する</span>
 
 <!--
 In this example, `string1` is valid until the end of the outer scope, `string2`
