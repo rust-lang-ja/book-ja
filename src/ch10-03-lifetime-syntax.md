@@ -669,7 +669,7 @@ this because we annotated the lifetimes of the function parameters and return
 values using the same lifetime parameter `'a`.
 -->
 
-このエラーは、`result`が`println!`文に対して有効になるために、`string2`が外側のスコープの終わりまで有効である必要があることを示しています。
+このエラーは、`result`が`println!`文に対して有効であるためには、`string2`が外側のスコープの終わりまで有効である必要があることを示しています。
 関数引数と戻り値のライフタイムを同じライフタイム引数`'a`で注釈したので、コンパイラはこのことを知っています。
 
 <!--
@@ -683,11 +683,11 @@ the lifetimes of the references passed in. Therefore, the borrow checker
 disallows the code in Listing 10-24 as possibly having an invalid reference.
 -->
 
-人間からしたら、このコードを見て`string1`は`string2`よりも長いことが確認でき、
-故に`result`は`string1`への参照を含んでいます。まだ`string1`はスコープを抜けていないので、
-それでも`string1`への参照は`println!`にとって有効でしょう。ですが、コンパイラはこの場合、
+人間からしたら、`string1`は`string2`よりも長く、それ故に`result`が`string1`への参照を含んでいることは
+コードから明らかです。まだ`string1`はスコープを抜けていないので、
+`string1`への参照は`println!`にとって有効でしょう。ですが、コンパイラはこの場合、
 参照が有効であると見なせません。`longest`関数から返ってくる参照のライフタイムは、
-渡した参照のうちの小さい方と同じだとコンパイラに指示しました。それ故に、
+渡した参照のうちの小さい方と同じだとコンパイラに指示しました。したがって、
 借用チェッカーは、リスト10-24のコードを無効な参照がある可能性があるとして許可しないのです。
 
 <!--
