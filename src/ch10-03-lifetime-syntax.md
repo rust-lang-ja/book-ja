@@ -459,10 +459,10 @@ We’ll name the lifetime `'a` and then add it to each reference, as shown in
 Listing 10-22.
 -->
 
-さて、`longest`関数の文脈でライフタイム注釈を調査しましょう。ジェネリックな型引数同様、
-関数名と引数リストの間、山カッコの中にジェネリックなライフタイム引数を宣言する必要があります。
-このシグニチャで表現したい制約は、引数の全参照と戻り値が同じライフタイムになることです。
-ライフタイムを`'a`と名付け、それから各参照に追記します。リスト10-22に示したように。
+さて、`longest`関数を例にライフタイム注釈を詳しく見ていきましょう。ジェネリックな型引数同様、
+関数名と引数リストの間の山カッコの中にジェネリックなライフタイム引数を宣言します。
+このシグニチャで表現したい制約は、引数の全ての参照と戻り値が同じライフタイムを持つことです。
+リスト10-22に示すように、ライフタイムを`'a`と名付け、それを各参照に付与します。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -486,7 +486,7 @@ specifying that all the references in the signature must have the same lifetime
 `'a`</span>
 -->
 
-<span class="caption">リスト10-22: シグニチャの全参照が同じライフタイム`'a`になると指定した`longest`関数の定義</span>
+<span class="caption">リスト10-22: シグニチャの全参照が同じライフタイム`'a`を持つと指定した`longest`関数の定義</span>
 
 <!--
 This code should compile and produce the result we want when we use it with the
