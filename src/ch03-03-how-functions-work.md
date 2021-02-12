@@ -563,20 +563,26 @@ Running this code produces an error, as follows:
 このコードを実行すると、以下のようにエラーが出ます:
 
 ```text
+$ cargo run
+   Compiling functions v0.1.0 (file:///projects/functions)
 error[E0308]: mismatched types
               (型が合いません)
- --> src/main.rs:7:28
+
+ --> src/main.rs:7:24
   |
-7 |   fn plus_one(x: i32) -> i32 {
-  |  ____________________________^
-8 | |     x + 1;
-  | |          - help: consider removing this semicolon
-9 | | }
-  | |_^ expected i32, found ()
-  |     (i32を予期したのに、()型が見つかりました)
-  |
-  = note: expected type `i32`
-             found type `()`
+7 | fn plus_one(x: i32) -> i32 {
+  |    --------            ^^^ expected `i32`, found `()`
+  |    |
+  |    implicitly returns `()` as its body has no tail or `return` expression
+8 |     x + 1;
+  |          - help: consider removing this semicolon
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `functions`
+
+To learn more, run the command again with --verbose.
 ```
 
 <!--
