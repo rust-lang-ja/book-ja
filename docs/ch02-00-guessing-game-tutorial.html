@@ -911,9 +911,7 @@ Now that you've added the `rand` crate to *Cargo.toml*, let's start using
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">extern crate rand;
-
-use std::io;
+<pre><code class="language-rust ignore">use std::io;
 use rand::Rng;
 
 fn main() {
@@ -927,7 +925,8 @@ fn main() {
 
     let mut guess = String::new();
 
-    io::stdin().read_line(&amp;mut guess)
+    io::stdin()
+        .read_line(&amp;mut guess)
         .expect(&quot;Failed to read line&quot;);
 
     println!(&quot;You guessed: {}&quot;, guess);
@@ -939,33 +938,26 @@ random number</span>
 -->
 <p><span class="caption">リスト2-3: 乱数を生成するコードの追加</span></p>
 <!--
-First, we add a line that lets Rust know we’ll be using the `rand` crate as an
-external dependency. This also does the equivalent of calling `use rand`, so
-now we can call anything in the `rand` crate by placing `rand::` before it.
--->
-<p>まず、コンパイラに<code>rand</code>クレートを外部依存として使用することを知らせる行を追加しています。
-これにより、<code>use rand</code>を呼ぶのと同じ効果が得られるので、<code>rand</code>クレートのものを<code>rand::</code>という接頭辞をつけて呼び出せるようになりました。</p>
-<!--
-Next, we add another `use` line: `use rand::Rng`. The `Rng` trait defines
+First, we add a `use` line: `use rand::Rng`. The `Rng` trait defines
 methods that random number generators implement, and this trait must be in
 scope for us to use those methods. Chapter 10 will cover traits in detail.
 -->
-<p>次に、別の<code>use</code>行を追加しています: <code>use rand::Rng</code>ですね。<code>Rng</code>トレイトは乱数生成器が実装するメソッドを定義していて、
+<p>まず、<code>use</code>行を追加しています: <code>use rand::Rng</code>ですね。<code>Rng</code>トレイトは乱数生成器が実装するメソッドを定義していて、
 このトレイトがスコープにないと、メソッドを使用できないのです。トレイトについて詳しくは、
 第10章で解説します。</p>
 <!--
-Also, we’re adding two more lines in the middle. The `rand::thread_rng` function
+Next, we’re adding two lines in the middle. The `rand::thread_rng` function
 will give us the particular random number generator that we’re going to use:
 one that is local to the current thread of execution and seeded by the
-operating system. Next, we call the `gen_range` method on the random number
+operating system. Then we call the `gen_range` method on the random number
 generator. This method is defined by the `Rng` trait that we brought into
 scope with the `use rand::Rng` statement. The `gen_range` method takes two
 numbers as arguments and generates a random number between them. It’s inclusive
 on the lower bound but exclusive on the upper bound, so we need to specify `1`
 and `101` to request a number between 1 and 100.
 -->
-<p>また、途中に2行追加もしています。<code>rand::thread_rng</code>関数は、これから使う特定の乱数生成器を返してくれます: この乱数生成器は、実行スレッドに固有で、OSにより、シード値を与えられています。
-次に、この乱数生成器の<code>gen_range</code>メソッドを呼び出しています。このメソッドは、
+<p>次に、途中に2行を追加しています。<code>rand::thread_rng</code>関数は、これから使う特定の乱数生成器を返してくれます: この乱数生成器は、実行スレッドに固有で、OSにより、シード値を与えられています。
+そして、この乱数生成器の<code>gen_range</code>メソッドを呼び出しています。このメソッドは、
 <code>use rand::Rng</code>文でスコープに導入した<code>Rng</code>トレイトで定義されています。<code>gen_range</code>メソッドは二つの数字を引数に取り、
 それらの間の乱数を生成してくれます。範囲は下限値を含み、上限値を含まないため、<code>1</code>と<code>101</code>と指定しないと1から100の範囲の数字は得られません。</p>
 <!--
@@ -1033,9 +1025,7 @@ will explain.
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">extern crate rand;
-
-use std::io;
+<pre><code class="language-rust ignore">use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
@@ -1543,11 +1533,9 @@ secret number. Listing 2-6 shows the final code:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">extern crate rand;
-
-use std::io;
+<pre><code class="language-rust ignore">use rand::Rng;
 use std::cmp::Ordering;
-use rand::Rng;
+use std::io;
 
 fn main() {
     println!(&quot;Guess the number!&quot;);
@@ -1559,7 +1547,8 @@ fn main() {
 
         let mut guess = String::new();
 
-        io::stdin().read_line(&amp;mut guess)
+        io::stdin()
+            .read_line(&amp;mut guess)
             .expect(&quot;Failed to read line&quot;);
 
         let guess: u32 = match guess.trim().parse() {
