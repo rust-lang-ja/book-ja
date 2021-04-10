@@ -214,10 +214,6 @@ Rustで要素のリストがあるときはほとんど、`Vec<T>`を使用す�
 ボックスのおかげで再帰的なデータ型を定義できるわけを、あまり気を散らすことなく調べることができるのです。
 
 <!--
-この, whichは短い日本語に訳すのが難しい
--->
-
-<!--
 Listing 15-2 contains an enum definition for a cons list. Note that this code
 won’t compile yet because the `List` type doesn’t have a known size, which
 we’ll demonstrate.
