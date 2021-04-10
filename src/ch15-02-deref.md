@@ -12,9 +12,9 @@ treated like a regular reference, you can write code that operates on
 references and use that code with smart pointers too.
 -->
 
-`Deref`トレイトを実装することで*参照外し演算子*の`*`(掛け算やグロブ演算子とは違います)の振る舞いをカスタマイズすることができます。
-スマートポインタを普通の参照のように扱えるように`Deref`を実装することで、
-参照に対して処理を行うコードを書き、そのコードをスマートポインタとともにも使用できます。
+`Deref`トレイトを実装することで、*参照外し演算子*の`*`（掛け算やグロブ演算子とは違います）の振る舞いをカスタマイズできます。
+`Deref`を実装してスマートポインタを普通の参照みたいに扱えるようにすれば、
+参照に対して処理を行うコードを書いて、そのコードをスマートポインタに対しても使うことができるのです。
 
 <!--
 Let’s first look at how dereference operator works with regular references.
@@ -26,10 +26,10 @@ Rust’s *deref coercion* feature and how it lets us work with either references
 or smart pointers.
 -->
 
-まずは、参照外し演算子が普通の参照に対して動作するところを見ましょう。それから`Box<T>`のように振る舞う独自の型を定義し、
-参照外し演算子が新しく定義した型に対して参照のように動作しない理由を確認しましょう。
-`Deref`トレイトを実装することでスマートポインタが参照と似た方法で動作するようにできる方法を探求します。
-そして、Rustの*参照外し型強制*機能と、それにより参照やスマートポインタと協調できる方法を見ます。
+まずは、参照外し演算子が普通の参照に対して動作するところを見ましょう。それから、`Box<T>`のように振る舞う独自の型を定義してみましょう。
+参照とは異なり、新しく定義した型には参照外し演算子を使えません。その理由を確認します。
+`Deref`トレイトを実装すればスマートポインタは参照と同じように機能するので、そのやり方を調べましょう。
+そして、Rustには*参照外し型強制*という機能があり、その機能のおかげで参照やスマートポインタをうまく使うことができるので、それに目を向けてみましょう。
 
 <!--
 ### Following the Pointer to the Value with the Dereference Operator
@@ -44,8 +44,8 @@ reference to an `i32` value and then use the dereference operator to follow the
 reference to the data:
 -->
 
-普通の参照は1種のポインタであり、ポインタの捉え方の一つが、どこか他の場所に格納された値への矢印としてです。
-リスト15-6で、`i32`値への参照を生成し、それから参照外し演算子を使用して参照をデータまで追いかけています:
+普通の参照は1種のポインタであり、ポインタはどこか他の場所に格納された値への矢印と見なすことができます。
+リスト15-6では、`i32`値への参照を生成してから参照外し演算子を使ってデータまで参照を辿ります。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -79,16 +79,16 @@ we have access to the integer value `y` is pointing to that we can compare with
 `5`.
 -->
 
-変数`x`は`i32`値の`5`を保持しています。`y`を`x`への参照にセットします。`x`は`5`に等しいとアサートできます。
-しかしながら、`y`の値に関するアサートを行いたい場合、`*y`を使用して参照を指している値まで追いかけなければなりません(そのため*参照外し*です)。
-一旦、`y`を参照外ししたら、`y`が指している`5`と比較できる整数値にアクセスできます。
+変数`x`は`i32`値の`5`を保持しています。`y`は`x`への参照として設定します。`x`は`5`に等しいとアサートできます。
+しかしながら、`y`の値に関するアサートを行いたい場合、`*y`を使用して参照が指している値まで追いかけなければなりません（そのため*参照外し*です）。
+一旦`y`の参照を外せば、`y`が指している整数値にアクセスできます。これは`5`と比較可能です。
 
 <!--
 If we tried to write `assert_eq!(5, y);` instead, we would get this compilation
 error:
 -->
 
-代わりに`assert_eq!(5, y);`と書こうとしたら、こんなコンパイルエラーが出るでしょう:
+代わりに`assert_eq!(5, y);`と書こうとしたら、こんなコンパイルエラーが出るでしょう。
 
 ```text
 error[E0277]: the trait bound `{integer}: std::cmp::PartialEq<&{integer}>` is
@@ -110,8 +110,8 @@ different types. We must use the dereference operator to follow the reference
 to the value it's pointing to.
 -->
 
-参照と数値は異なる型なので、比較することは許容されていません。参照外し演算子を使用して、
-参照を指している値まで追いかけなければならないのです。
+数値と数値への参照の比較は許されていません。これらは異なる型だからです。参照外し演算子を使用して、
+参照が指している値まで追いかけなければならないのです。
 
 <!--
 ### Using `Box<T>` Like a Reference
@@ -124,8 +124,8 @@ We can rewrite the code in Listing 15-6 to use a `Box<T>` instead of a
 reference; the dereference operator will work as shown in Listing 15-7:
 -->
 
-リスト15-6のコードを参照の代わりに`Box<T>`を使うように書き直すことができます;
-参照外し演算子は、リスト15-7に示したように動くでしょう:
+リスト15-6のコードを、参照の代わりに`Box<T>`を使うように書き直すことができます。
+参照外し演算子は、リスト15-7に示したように動くでしょう。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -159,10 +159,10 @@ when `y` was a reference. Next, we’ll explore what is special about `Box<T>`
 that enables us to use the dereference operator by defining our own box type.
 -->
 
-リスト15-7とリスト15-6の唯一の違いは、ここでは、`x`の値を指す参照ではなく、
-`x`の値を指すボックスのインスタンスに`y`をセットしていることです。
-最後のアサートで参照外し演算子を使用して`y`が参照だった時のようにボックスのポインタを追いかけることができます。
-次に、独自のボックス型を定義することで参照外し演算子を使用させてくれる`Box<T>`について何が特別なのかを探究します。
+リスト15-7とリスト15-6の唯一の違いは、ここでは`y`が、`x`の値を指す参照ではなく、
+`x`の値を指すボックスのインスタンスとして設定されている点にあります。
+最後のアサートでは、参照外し演算子を使ってボックスのポインタを辿ることができます。これは`y`が参照だった時と同じやり方です。
+参照外し演算子が使える以上`Box<T>`には特別な何かがあるので、次はそれについて調べることにします。そのために、独自にボックス型を定義します。
 
 <!--
 ### Defining Our Own Smart Pointer
