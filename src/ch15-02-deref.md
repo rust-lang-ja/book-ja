@@ -177,8 +177,8 @@ references by default. Then we’ll look at how to add the ability to use the
 dereference operator.
 -->
 
-標準ライブラリが提供している`Box<T>`型に似たスマートポインタを構築して、スマートポインタは既定で
-参照に比べてどう異なって振る舞うのか経験しましょう。それから、参照外し演算子を使う能力を追加する方法に目を向けましょう。
+標準ライブラリが提供している`Box<T>`型に似たスマートポインタを作りましょう。そうすれば、スマートポインタがそのままだと
+参照と同じ様には振る舞わないことがわかります。それから、どうすれば参照外し演算子を使えるようになるのか見てみましょう。
 
 <!--
 The `Box<T>` type is ultimately defined as a tuple struct with one element, so
@@ -186,8 +186,8 @@ Listing 15-8 defines a `MyBox<T>` type in the same way. We’ll also define a
 `new` function to match the `new` function defined on `Box<T>`.
 -->
 
-`Box<T>`型は究極的に1要素のタプル構造体として定義されているので、リスト15-8は、同じように`MyBox<T>`型を定義しています。
-また、`Box<T>`に定義された`new`関数と合致する`new`関数も定義しています。
+`Box<T>`型はとどのつまり、1要素のタプル構造体として定義されています。なのでリスト15-8ではそれと同じように`MyBox<T>`型を定義しています。
+また、`Box<T>`に定義された`new`関数に対応する`new`関数も定義しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -218,9 +218,9 @@ with one element of type `T`. The `MyBox::new` function takes one parameter of
 type `T` and returns a `MyBox` instance that holds the value passed in.
 -->
 
-`MyBox`という構造体を定義し、ジェネリック引数の`T`を宣言しています。自分の型にどんな型の値も保持させたいからです。
-`MyBox`型は、型`T`を1要素持つタプル構造体です。`MyBox::new`関数は型`T`の引数を1つ取り、
-渡した値を保持する`MyBox`インスタンスを返します。
+`MyBox`という構造体を定義し、ジェネリック引数の`T`を宣言しています。この型にどんな型の値も持たせたいからです。
+`MyBox`型は型`T`の要素を1つ持つタプル構造体です。`MyBox::new`関数は型`T`の引数を1つ取り、
+渡した値を持つ`MyBox`のインスタンスを返します。
 
 <!--
 Let’s try adding the `main` function in Listing 15-7 to Listing 15-8 and
@@ -229,7 +229,7 @@ code in Listing 15-9 won’t compile because Rust doesn’t know how to derefere
 `MyBox`.
 -->
 
-試しにリスト15-7の`main`関数をリスト15-8に追加し、`Box<T>`の代わりに定義した`MyBox<T>`型を使うよう変更してみてください。
+試しにリスト15-7の`main`関数をリスト15-8に追加し、定義した`MyBox<T>`型を`Box<T>`の代わりに使うよう変更してみてください。
 コンパイラは`MyBox`を参照外しする方法がわからないので、リスト15-9のコードはコンパイルできません。
 
 <!--
@@ -259,7 +259,7 @@ way we used references and `Box<T>`</span>
 Here’s the resulting compilation error:
 -->
 
-こちらが結果として出るコンパイルエラーです:
+こちらが結果として出るコンパイルエラーです。
 
 ```text
 error[E0614]: type `MyBox<{integer}>` cannot be dereferenced
@@ -276,7 +276,7 @@ ability on our type. To enable dereferencing with the `*` operator, we
 implement the `Deref` trait.
 -->
 
-`MyBox<T>`に参照外しの能力を実装していないので、参照外しできません。`*`演算子で参照外しできるようにするには、
+`MyBox<T>`の参照を外すことはできません。そのための実装を与えていないからです。`*`演算子で参照外しできるようにするには、
 `Deref`トレイトを実装します。
 
 <!--
@@ -293,10 +293,10 @@ borrows `self` and returns a reference to the inner data. Listing 15-10
 contains an implementation of `Deref` to add to the definition of `MyBox`:
 -->
 
-第10章で議論したように、トレイトを実装するには、トレイトの必須メソッドに実装を提供する必要があります。
-`Deref`トレイトは標準ライブラリで提供されていますが、`self`を借用し、
-内部のデータへの参照を返す`deref`という1つのメソッドを実装する必要があります。リスト15-10には、
-`MyBox`の定義に追記する`Deref`の実装が含まれています:
+第10章で議論したように、トレイトを実装するにはトレイトの必須メソッドに実装を与える必要があります。
+`Deref`トレイトは標準ライブラリで提供されており、`deref`という1つのメソッドの実装を要求します。`deref`は`self`を借用し、
+内部のデータへの参照を返すメソッドです。
+リスト15-10には、`MyBox`の定義に付け足す`Deref`の実装が含まれています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -330,8 +330,7 @@ parameter, but you don’t need to worry about them for now; we’ll cover them 
 more detail in Chapter 19.
 -->
 
-`type Target = T;`という記法は、`Deref`トレイトが使用する関連型を定義しています。関連型は、
-ジェネリック引数を宣言する少しだけ異なる方法ですが、今は気にする必要はありません; 第19章でより詳しく講義します。
+`type Target = T;`という記法は、`Deref`トレイトが使用する関連型を定義しています。関連型はまた少し違ったやり方でジェネリック引数を宣言するためのものですが、今は気にする必要はありません。第19章でより詳しく扱います。
 
 <!--
 We fill in the body of the `deref` method with `&self.0` so `deref` returns a
@@ -340,7 +339,7 @@ function in Listing 15-9 that calls `*` on the `MyBox<T>` value now compiles,
 and the assertions pass!
 -->
 
-`deref`メソッドの本体を`&self.0`で埋めているので、`deref`は`*`演算子でアクセスしたい値への参照を返します。
+`deref`メソッドの本体は`&self.0`だけなので、`deref`が返すのは私達が`*`演算子でアクセスしたい値への参照なわけです。
 リスト15-9の`MyBox<T>`に`*`を呼び出す`main`関数はこれでコンパイルでき、アサートも通ります！
 
 <!--
@@ -350,23 +349,19 @@ that implements `Deref` and call the `deref` method to get a `&` reference that
 it knows how to dereference.
 -->
 
-`Deref`がなければ、コンパイラは`&`参照しか参照外しできなくなります。`deref`メソッドによりコンパイラは、
-`Deref`を実装するあらゆる型の値を取り、`deref`メソッドを呼び出して参照外しの仕方を知っている`&`参照を得る能力を獲得するのです。
+`Deref`がなければ、コンパイラは`&`参照しか参照外しできなくなります。`deref`メソッドのおかげでコンパイラは、どんな型であれ`Deref`を実装していれば`deref`メソッドを呼び出して`&`参照を得ることができます。コンパイラはその参照を外す方法を知っているのです。
 
 <!--
 When we entered `*y` in Listing 15-9, behind the scenes Rust actually ran this
 code:
 -->
 
-リスト15-9に`*y`を入力した時、水面下でコンパイラは、実際にはこのようなコードを走らせていました:
+リスト15-9に`*y`を入力した時、水面下でRustは実際にはこのようなコードを走らせていました。
 
 ```rust,ignore
 *(y.deref())
 ```
 
-<!--
-最後の行は、これで合っているのか自信がない・・・
--->
 
 <!--
 Rust substitutes the `*` operator with a call to the `deref` method and then a
@@ -376,9 +371,9 @@ identically whether we have a regular reference or a type that implements
 `Deref`.
 -->
 
-コンパイラは、`*`演算子を`deref`メソッド、それから何の変哲もない参照外しの呼び出しに置き換えるので、
-`deref`メソッドを呼び出す必要があるかどうかを考える必要はないわけです。このRustの機能により、
-普通の参照か`Deref`を実装した型であるかどうかに関わらず、等しく機能するコードを書かせてくれます。
+Rustが`*`演算子を`deref`メソッドの呼び出しと普通の参照外しへと置き換えてくれるので、
+私達は`deref`メソッドを呼び出す必要があるかどうかを考えなくて済むわけです。このRustの機能により、
+普通の参照か`Deref`を実装した型であるかどうかに関わらず、等しく機能するコードを書くことができます。
 
 <!--
 The reason the `deref` method returns a reference to a value and that the plain
@@ -389,13 +384,10 @@ to take ownership of the inner value inside `MyBox<T>` in this case or in most
 cases where we use the dereference operator.
 -->
 
-`deref`メソッドが値への参照を返し、`*(y.deref())`のかっこの外の何の変哲もない参照外しがそれでも必要な理由は、
-所有権システムです。`deref`メソッドが値への参照ではなく、値を直接返したら、値は`self`から外にムーブされてしまいます。
-今回の場合や、参照外し演算子を使用する多くの場合には`MyBox<T>`の中の値の所有権を奪いたくはありません。
+`deref`メソッドが値への参照を返し、`*(y.deref())`のかっこの外にある普通の参照外しがそれでも必要になるのは、
+所有権システムがあるからです。`deref`メソッドが値への参照ではなく値を直接返したら、値は`self`から外にムーブされてしまいます。
+今回もそうですが、参照外し演算子を使用するときはほとんどの場合、`MyBox<T>`の中の値の所有権を奪いたくはありません。
 
-<!--
-2行目、... just once, [each time ...]という構造と思われる
--->
 
 <!--
 Note that the `*` operator is replaced with a call to the `deref` method and
@@ -405,8 +397,8 @@ end up with data of type `i32`, which matches the `5` in `assert_eq!` in
 Listing 15-9.
 -->
 
-`*`演算子は、コードで`*`を打つたびに、ただ1回、`deref`メソッドの呼び出し、そして`*`演算子の呼び出しに置き換えられることに注意してください。
-`*`演算子の置き換えは、無限に繰り返されないので、型`i32`に行き着き、リスト15-9で`assert_eq!`の`5`と合致します。
+`*`演算子が`deref`メソッドの呼び出しと`*`演算子の呼び出しに置き換えられるのは、コード内で`*`を打つ毎にただ1回だけ、という点に注意して下さい。
+`*`演算子の置き換えは無限に繰り返されないので、型`i32`のデータに行き着きます。これはリスト15-9で`assert_eq!`の`5`と合致します。
 
 <!--
 ### Implicit Deref Coercions with Functions and Methods
