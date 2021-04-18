@@ -186,7 +186,7 @@ Listing 15-8 defines a `MyBox<T>` type in the same way. We’ll also define a
 `new` function to match the `new` function defined on `Box<T>`.
 -->
 
-`Box<T>`型はとどのつまり、1要素のタプル構造体として定義されています。なのでリスト15-8ではそれと同じように`MyBox<T>`型を定義しています。
+`Box<T>`型は突き詰めると（訳註：データがヒープに置かれることを無視すると）1要素のタプル構造体のような定義になります。なのでリスト15-8ではそのように`MyBox<T>`型を定義しています。
 また、`Box<T>`に定義された`new`関数に対応する`new`関数も定義しています。
 
 <!--
@@ -349,7 +349,8 @@ that implements `Deref` and call the `deref` method to get a `&` reference that
 it knows how to dereference.
 -->
 
-`Deref`がなければ、コンパイラは`&`参照しか参照外しできなくなります。`deref`メソッドのおかげでコンパイラは、どんな型であれ`Deref`を実装していれば`deref`メソッドを呼び出して`&`参照を得ることができます。コンパイラはその参照を外す方法を知っているのです。
+`Deref`トレイトがないと、コンパイラは`&`参照しか参照外しできません。
+`deref`メソッドのおかげで、コンパイラは`Deref`を実装している型の値を取り、`deref`メソッドを呼ぶことで、参照外しが可能な`&`参照を得られるようになります。
 
 <!--
 When we entered `*y` in Listing 15-9, behind the scenes Rust actually ran this
