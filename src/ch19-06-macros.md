@@ -30,7 +30,7 @@ Rustにおいて、*マクロ*という用語はある機能の集合のこと�
 We’ll talk about each of these in turn, but first, let’s look at why we even
 need macros when we already have functions.
 -->
-それぞれについて一つづつ話していきますが、その前にまず、どうして関数がすでにあるのにマクロなんてものが必要なのか見てみましょう。
+それぞれについて一つずつ話していきますが、その前にまず、どうして関数がすでにあるのにマクロなんてものが必要なのか見てみましょう。
 
 <!--
 ### The Difference Between Macros and Functions
@@ -715,7 +715,7 @@ into a `DeriveInput` instance, let’s generate the code that implements the
 -->
 
 今や、`TokenStream`からの注釈されたRustコードを`DeriveInput`インスタンスに変換するコードができたので、
-Listin 19-33のように、注釈された型に`HelloMacro`トレイトを実装するコードを生成しましょう:
+Listing 19-33のように、注釈された型に`HelloMacro`トレイトを実装するコードを生成しましょう:
 
 <!--
 <span class="filename">Filename: hello_macro_derive/src/lib.rs</span>
