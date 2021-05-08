@@ -2,7 +2,7 @@
 # Introduction
 -->
 
-# 導入
+# はじめに
 
 <!--
 > Note: This edition of the book is the same as [The Rust Programming
@@ -89,18 +89,16 @@ Rustはまた、現代的な開発ツールをシステムプログラミング�
   integration for code completion and inline error messages.
 -->
 
-* Cargoは、付属の依存マネージャ兼ビルドツールで、依存を追加、コンパイル、管理することを楽かつ、
-  Rustエコシステムを通じて矛盾させません。
-* Rustfmtは開発者の間で矛盾のないコーディングスタイルを保証します。
-* Rust Language ServerはIDE(Intefrated Development Environment)にコード補完とインラインのエラーメッセージの統合の源となります。
+* Cargoは、付属の依存関係管理ツール兼ビルドツールで、依存関係の追加、コンパイル、管理を容易にし、Rustのエコシステム全体で一貫性を持たせます。
+* Rustfmtは開発者の間で一貫したコーディングスタイルを保証します。
+* Rust言語サーバーは、IDE(統合開発環境)との統合により、コード補完やインラインエラーメッセージに対応しています。
 
 <!--
 By using these and other tools in the Rust ecosystem, developers can be
 productive while writing systems-level code.
 -->
 
-これらや他のツールをRustのエコシステムで使用することで、開発者はシステムレベルのコードを記述しつつ、
-生産的になれます。
+これらのツールやRustのエコシステムの他のツールを使用することで、開発者はシステムレベルのコードを書きながら生産性を高めることができます。
 
 <!--
 ### Students
