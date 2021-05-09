@@ -41,6 +41,7 @@ type we want to use:
 ここで型注釈を付けなければ、コンパイラは以下のエラーを表示し、これは可能性のある型のうち、
 どの型を使用したいのかを知るのに、コンパイラがプログラマからもっと情報を得る必要があることを意味します:
 
+<<<<<<< HEAD
 ```text
 error[E0282]: type annotations needed
               (型注釈が必要です)
@@ -52,6 +53,10 @@ error[E0282]: type annotations needed
   |
   = note: type annotations or generic parameter binding required
     (注釈: 型注釈、またはジェネリクス引数束縛が必要です)
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/output-only-01-no-type-annotations/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -123,8 +128,13 @@ value.
 
 <!--
 Each variant can be either signed or unsigned and has an explicit size.
+<<<<<<< HEAD
 *Signed* and *unsigned* refers to whether it’s possible for the number to be
 negative or positive-in other words, whether the number needs to have a sign
+=======
+*Signed* and *unsigned* refer to whether it’s possible for the number to be
+negative—in other words, whether the number needs to have a sign
+>>>>>>> upstream/master
 with it (signed) or whether it will only ever be positive and can therefore be
 represented without a sign (unsigned). It’s like writing numbers on paper: when
 the sign matters, a number is shown with a plus sign or a minus sign; however,
@@ -318,7 +328,7 @@ fn main() {
 
 <!--
 Each expression in these statements uses a mathematical operator and evaluates
-to a single value, which is then bound to a variable. Appendix B contains a
+to a single value, which is then bound to a variable. [Appendix B][appendix_b]<!-- ignore --> contains a
 list of all operators that Rust provides.
 -->
 
@@ -675,10 +685,15 @@ fn main() {
     let a = [1, 2, 3, 4, 5];
     let index = 10;
 
+<<<<<<< HEAD
     let element = a[index];
 
     println!("The value of element is: {}", element);   // 要素の値は{}です
 }
+=======
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access/src/main.rs}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -687,6 +702,7 @@ Running this code using `cargo run` produces the following result:
 
 このコードを`cargo run`で走らせると、以下のような結果になります:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling arrays v0.1.0 (file:///projects/arrays)
@@ -697,6 +713,10 @@ thread '<main>' panicked at 'index out of bounds: the len is 5 but the index is
 スレッド'<main>'は'範囲外アクセス: 長さは5ですが、添え字は10でした', src/main.rs:6
 でパニックしました
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -720,7 +740,17 @@ kind of error by immediately exiting instead of allowing the memory access and
 continuing. Chapter 9 discusses more of Rust’s error handling.
 -->
 
+<<<<<<< HEAD
 これは、実際に稼働しているRustの安全機構の最初の例になります。低レベル言語の多くでは、
 この種のチェックは行われないため、間違った添え字を与えると、無効なメモリにアクセスできてしまいます。
 Rustでは、メモリアクセスを許可し、処理を継続する代わりに即座にプログラムを終了することで、
 この種のエラーからプログラマを保護しています。Rustのエラー処理については、第9章でもっと議論します。
+=======
+[comparing-the-guess-to-the-secret-number]:
+ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
+[control-flow]: ch03-05-control-flow.html#control-flow
+[strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
+[unrecoverable-errors-with-panic]: ch09-01-unrecoverable-errors-with-panic.html
+[wrapping]: ../std/num/struct.Wrapping.html
+[appendix_b]: appendix-02-operators.md
+>>>>>>> upstream/master

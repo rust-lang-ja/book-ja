@@ -90,6 +90,7 @@ error:
 
 代わりに`assert_eq!(5, y);`と書こうとしたら、こんなコンパイルエラーが出るでしょう。
 
+<<<<<<< HEAD
 ```text
 error[E0277]: the trait bound `{integer}: std::cmp::PartialEq<&{integer}>` is
 not satisfied
@@ -102,6 +103,10 @@ not satisfied
   = help: the trait `std::cmp::PartialEq<&{integer}>` is not implemented for
   `{integer}`
   (助言: トレイト`std::cmp::PartialEq<&{integer}>`は`{integer}`に対して実装されていません)
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/output-only-01-comparing-to-reference/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -152,7 +157,7 @@ fn main() {
 
 <!--
 The only difference between Listing 15-7 and Listing 15-6 is that here we set
-`y` to be an instance of a box pointing to the value in `x` rather than a
+`y` to be an instance of a box pointing to a copied value of `x` rather than a
 reference pointing to the value of `x`. In the last assertion, we can use the
 dereference operator to follow the box’s pointer in the same way that we did
 when `y` was a reference. Next, we’ll explore what is special about `Box<T>`
@@ -261,6 +266,7 @@ Here’s the resulting compilation error:
 
 こちらが結果として出るコンパイルエラーです。
 
+<<<<<<< HEAD
 ```text
 error[E0614]: type `MyBox<{integer}>` cannot be dereferenced
 (エラー: 型`MyBox<{integer}>`は参照外しできません)
@@ -268,6 +274,10 @@ error[E0614]: type `MyBox<{integer}>` cannot be dereferenced
    |
 14 |     assert_eq!(5, *y);
    |                   ^^
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/listing-15-09/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

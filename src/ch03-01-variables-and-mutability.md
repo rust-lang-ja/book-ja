@@ -58,6 +58,7 @@ message, as shown in this output:
 
 これを保存し、`cargo run`コマンドでプログラムを走らせてください。次の出力に示されているようなエラーメッセージを受け取るはずです:
 
+<<<<<<< HEAD
 ```text
 error[E0384]: cannot assgin twice immutable variable `x`
               (不変変数`x`に2回代入できません)
@@ -69,6 +70,10 @@ error[E0384]: cannot assgin twice immutable variable `x`
 3 |     println!("The value of x is: {}", x);
 4 |     x = 6;
   |     ^^^^^ cannot assign twice to immutable variable
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -157,6 +162,7 @@ When we run the program now, we get this:
 
 今、このプログラムを走らせると、以下のような出力が得られます:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
@@ -164,6 +170,10 @@ $ cargo run
      Running `target/debug/variables`
 The value of x is: 5   (xの値は5です)
 The value of x is: 6
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -329,12 +339,17 @@ program, it will output the following:
 3番目の`let`文も`x`を覆い隠し、以前の値に`2`をかけることになるので、`x`の最終的な値は`12`になります。
 このプログラムを走らせたら、以下のように出力するでしょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
     Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/variables`
 The value of x is: 12
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -394,6 +409,7 @@ type:
 
 変数の型を可変にすることは許されていないと言われているわけです:
 
+<<<<<<< HEAD
 ```text
 error[E0308]: mismatched types          (型が合いません)
  --> src/main.rs:3:14
@@ -404,6 +420,10 @@ error[E0308]: mismatched types          (型が合いません)
   |
   = note: expected type `&str`
              found type `usize`
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

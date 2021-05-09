@@ -39,7 +39,7 @@ Rustプロジェクトの大多数がCargoを使用しているので、これ�
 Cargoは、「インストール」節で議論した公式のインストーラを使用していれば、勝手にインストールされます。
 Rustを他の何らかの手段でインストールした場合、以下のコマンドを端末に入れてCargoがインストールされているか確かめてください:
 
-```text
+```console
 $ cargo --version
 ```
 
@@ -69,8 +69,13 @@ Cargoを使用して新しいプロジェクトを作成し、元のHello, world
 *projects*ディレクトリ(あるいはコードを格納すると決めた場所)に戻ってください。それから、
 OSに関わらず、以下を実行してください:
 
+<<<<<<< HEAD
 ```text
 $ cargo new hello_cargo --bin
+=======
+```console
+$ cargo new hello_cargo
+>>>>>>> upstream/master
 $ cd hello_cargo
 ```
 
@@ -135,6 +140,7 @@ new`</span>
 
 <span class="caption">リスト1-2: `cargo new`で生成される*Cargo.toml*の中身</span>
 
+<<<<<<< HEAD
 <!--
 This file is in the [*TOML*][toml] (*Tom’s Obvious, Minimal
 Language*) format, which is Cargo’s configuration format.
@@ -144,6 +150,10 @@ Language*) format, which is Cargo’s configuration format.
 Cargoの設定フォーマットです。
 
 [toml]: https://github.com/toml-lang/toml
+=======
+This file is in the [*TOML*](https://toml.io)<!-- ignore --> (*Tom’s Obvious,
+Minimal Language*) format, which is Cargo’s configuration format.
+>>>>>>> upstream/master
 
 <!--
 The first line, `[package]`, is a section heading that indicates that the
@@ -244,7 +254,7 @@ entering the following command:
 さて、CargoでHello, world!プログラムをビルドし、実行する時の違いに目を向けましょう！*hello_cargo*ディレクトリから、
 以下のコマンドを入力してプロジェクトをビルドしてください:
 
-```text
+```console
 $ cargo build
    Compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)
     Finished dev [unoptimized + debuginfo] target(s) in 2.85 secs
@@ -259,7 +269,7 @@ directory. You can run the executable with this command:
 このコマンドは、カレントディレクトリではなく、*target/debug/hello_cargo*(あるいはWindowsなら、
 *target/debug/hello_cargo.exe*)に実行可能ファイルを作成します。以下のコマンドで実行可能ファイルを実行できます:
 
-```text
+```console
 $ ./target/debug/hello_cargo # or .\target\debug\hello_cargo.exe on Windows
                              # あるいは、Windowsなら、.\target\debug\hello_cargo.exe
 Hello, world!
@@ -288,7 +298,7 @@ code and then run the resulting executable all in one command:
 `cargo build`でプロジェクトをビルドし、`./target/debug/hello_cargo`で実行したばかりですが、
 `cargo run`を使用して、コードをコンパイルし、それから吐かれた実行可能ファイルを全部1コマンドで実行することもできます:
 
-```text
+```console
 $ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
      Running `target/debug/hello_cargo`
@@ -306,7 +316,7 @@ project before running it, and you would have seen this output:
 Cargoはファイルが変更されていないことを推察したので、単純にバイナリを実行したのです。
 ソースコードを変更していたら、Cargoは実行前にプロジェクトを再ビルドし、こんな出力を目の当たりにしたでしょう:
 
-```text
+```console
 $ cargo run
    Compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)
     Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs
@@ -322,7 +332,7 @@ your code to make sure it compiles but doesn’t produce an executable:
 Cargoは`cargo check`というコマンドも提供しています。このコマンドは、迅速にコードを確認し、
 コンパイルできることを確かめますが、実行可能ファイルは生成しません:
 
-```text
+```console
 $ cargo check
    Compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)
     Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
@@ -347,11 +357,16 @@ build` when they’re ready to use the executable.
 Let’s recap what we’ve learned so far about Cargo:
 -->
 
+<<<<<<< HEAD
 ここまでにCargoについて学んだことをおさらいしましょう:
 
 <!--
 * We can build a project using `cargo build` or `cargo check`.
+=======
+* We can build a project using `cargo build`.
+>>>>>>> upstream/master
 * We can build and run a project in one step using `cargo run`.
+* We can build a project without producing a binary to check for errors using `cargo check`.
 * Instead of saving the result of the build in the same directory as our code,
 Cargo stores it in the *target/debug* directory.
 -->
@@ -422,7 +437,7 @@ using Git, change to that project’s directory, and build:
 事実、既存のどんなプロジェクトに取り組むにも、以下のコマンドを使用して、Gitでコードをチェックアウトし、
 そのプロジェクトのディレクトリに移動し、ビルドできます:
 
-```text
+```console
 $ git clone someurl.com/someproject
 $ cd someproject
 $ cargo build

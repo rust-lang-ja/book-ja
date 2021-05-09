@@ -76,6 +76,7 @@ The following keywords currently have the functionality described.
 * `while` - loop conditionally based on the result of an expression
 
 [union]: ../reference/items/unions.html
+<<<<<<< HEAD
 -->
 
 <!--
@@ -123,6 +124,9 @@ higher-ranked lifetimeについては議論の余地ありか
 [union]: https://doc.rust-lang.org/reference/items/unions.html
 
 <!--
+=======
+
+>>>>>>> upstream/master
 ### Keywords Reserved for Future Use
 -->
 

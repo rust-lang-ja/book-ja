@@ -205,6 +205,7 @@ get this error:
 
 ライフタイム注釈を忘れてこの関数をコンパイルしようとすると、こんなエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0106]: missing lifetime specifier
 (エラー: ライフタイム指定子が欠けています)
@@ -218,6 +219,10 @@ parameter
   signature does not say whether it is borrowed from `query` or `contents`
   (助言: この関数の戻り値は、借用された値を含んでいますが、シグニチャにはそれが、
   `query`か`contents`から借用されたものであるかが示されていません)
+=======
+```console
+{{#include ../listings/ch12-an-io-project/output-only-02-missing-lifetimes/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -247,6 +252,7 @@ Now let’s run the test:
 
 さあ、テストを実行しましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo test
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
@@ -273,6 +279,10 @@ failures:
 test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
 
 error: test failed, to rerun pass '--lib'
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-16/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -456,6 +466,7 @@ and our test should pass. Let’s run the test:
 これで`search`関数は、`query`を含む行だけを返すはずであり、テストも通るはずです。
 テストを実行しましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo test
 --snip--
@@ -463,6 +474,10 @@ running 1 test
 test test::one_result ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-19/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -536,12 +551,17 @@ should return exactly one line from the Emily Dickinson poem, “frog”:
 さて、プログラム全体が動くはずです！試してみましょう。まずはエミリー・ディキンソンの詩から、
 ちょうど1行だけを返すはずの言葉から。"frog"です:
 
+<<<<<<< HEAD
 ```text
 $ cargo run frog poem.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished dev [unoptimized + debuginfo] target(s) in 0.38 secs
      Running `target/debug/minigrep frog poem.txt`
 How public, like a frog
+=======
+```console
+{{#include ../listings/ch12-an-io-project/no-listing-02-using-search-in-run/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -550,6 +570,7 @@ Cool! Now let’s try a word that will match multiple lines, like “body”:
 
 かっこいい！今度は、複数行にマッチするであろう言葉を試しましょう。"body"とかね:
 
+<<<<<<< HEAD
 ```text
 $ cargo run body poem.txt
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
@@ -557,6 +578,10 @@ $ cargo run body poem.txt
 I’m nobody! Who are you?
 Are you nobody, too?
 How dreary to be somebody!
+=======
+```console
+{{#include ../listings/ch12-an-io-project/output-only-03-multiple-matches/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -567,10 +592,15 @@ word that isn’t anywhere in the poem, such as “monomorphization”:
 そして最後に、詩のどこにも現れない単語を探したときに、何も出力がないことを確かめましょう。
 "monomorphization"などね:
 
+<<<<<<< HEAD
 ```text
 $ cargo run monomorphization poem.txt
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
      Running `target/debug/minigrep monomorphization poem.txt`
+=======
+```console
+{{#include ../listings/ch12-an-io-project/output-only-04-no-matches/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

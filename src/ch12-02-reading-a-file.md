@@ -154,6 +154,7 @@ second argument:
 第1コマンドライン引数には適当な文字列(まだ検索する箇所は実装してませんからね)を、第2引数に*poem.txt*ファイルを入れて、
 このコードを実行しましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo run the poem.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
@@ -171,6 +172,10 @@ How dreary to be somebody!
 How public, like a frog
 To tell your name the livelong day
 To an admiring bog!
+=======
+```console
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-04/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

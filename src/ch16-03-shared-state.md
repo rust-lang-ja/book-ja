@@ -302,6 +302,7 @@ We hinted that this example wouldn’t compile. Now let’s find out why!
 
 この例はコンパイルできないでしょうと仄めかしました。では、理由を探りましょう！
 
+<<<<<<< HEAD
 ```text
 error[E0382]: capture of moved value: `counter`
 (エラー: ムーブされた値をキャプチャしています: `counter`)
@@ -378,6 +379,10 @@ fn main() {
 
     println!("Result: {}", *counter.lock().unwrap());
 }
+=======
+```console
+{{#include ../listings/ch16-fearless-concurrency/listing-16-13/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -502,6 +507,7 @@ a lot.
 
 再三、コンパイルし……別のエラーが出ました！コンパイラはいろんなことを教えてくれています。
 
+<<<<<<< HEAD
 ```text
 error[E0277]: the trait bound `std::rc::Rc<std::sync::Mutex<i32>>:
 std::marker::Send` is not satisfied in `[closure@src/main.rs:11:36:
@@ -528,6 +534,10 @@ not implemented for `std::rc::Rc<std::sync::Mutex<i32>>`
      counter:std::rc::Rc<std::sync::Mutex<i32>>]`内に出現するので必要です)
    = note: required by `std::thread::spawn`
      (注釈: `std::thread::spawn`により必要とされています)
+=======
+```console
+{{#include ../listings/ch16-fearless-concurrency/listing-16-14/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -575,11 +585,12 @@ Fortunately, `Arc<T>` *is* a type like `Rc<T>` that is safe to use in
 concurrent situations. The *a* stands for *atomic*, meaning it’s an *atomically
 reference counted* type. Atomics are an additional kind of concurrency
 primitive that we won’t cover in detail here: see the standard library
-documentation for `std::sync::atomic` for more details. At this point, you just
+documentation for [`std::sync::atomic`] for more details. At this point, you just
 need to know that atomics work like primitive types but are safe to share
 across threads.
 -->
 
+<<<<<<< HEAD
 幸いなことに、`Arc<T>`は`Rc<T>`のような並行な状況で安全に使用できる型*です*。
 *a*は*atomic*を表し、原子的に参照カウントする型を意味します。アトミックは、
 ここでは詳しく講義しない並行性の別の基本型です: 詳細は、
@@ -587,6 +598,10 @@ across threads.
 アトミックは、基本型のように動くけれども、スレッド間で共有しても安全なことだけ知っていれば良いです。
 
 <!--
+=======
+[`std::sync::atomic`]: ../std/sync/atomic/index.html
+
+>>>>>>> upstream/master
 You might then wonder why all primitive types aren’t atomic and why standard
 library types aren’t implemented to use `Arc<T>` by default. The reason is that
 thread safety comes with a performance penalty that you only want to pay when

@@ -299,6 +299,7 @@ Listing 15-4:
 
 リスト15-3のコードをコンパイルしようとすると、リスト15-4に示したエラーが出ます。
 
+<<<<<<< HEAD
 ```text
 error[E0072]: recursive type `List` has infinite size
 (エラー: 再帰的な型`List`は無限のサイズです)
@@ -312,6 +313,10 @@ error[E0072]: recursive type `List` has infinite size
   = help: insert indirection (e.g., a `Box`, `Rc`, or `&`) at some point to
   make `List` representable
   (助言: 間接参照(例: `Box`、`Rc`、あるいは`&`)をどこかに挿入して、`List`を表現可能にしてください)
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/listing-15-03/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

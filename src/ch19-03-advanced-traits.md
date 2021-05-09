@@ -272,20 +272,20 @@ definition:
 このコードの既定のジェネリック型は、`Add`トレイト内にあります。こちらがその定義です:
 
 ```rust
-trait Add<RHS=Self> {
+trait Add<Rhs=Self> {
     type Output;
 
-    fn add(self, rhs: RHS) -> Self::Output;
+    fn add(self, rhs: Rhs) -> Self::Output;
 }
 ```
 
 <!--
 This code should look generally familiar: a trait with one method and an
-associated type. The new part is `RHS=Self`: this syntax is called *default
-type parameters*. The `RHS` generic type parameter (short for “right hand
+associated type. The new part is `Rhs=Self`: this syntax is called *default
+type parameters*. The `Rhs` generic type parameter (short for “right hand
 side”) defines the type of the `rhs` parameter in the `add` method. If we don’t
-specify a concrete type for `RHS` when we implement the `Add` trait, the type
-of `RHS` will default to `Self`, which will be the type we’re implementing
+specify a concrete type for `Rhs` when we implement the `Add` trait, the type
+of `Rhs` will default to `Self`, which will be the type we’re implementing
 `Add` on.
 -->
 
@@ -295,10 +295,14 @@ RHSというジェネリックな型引数("right hand side": 右辺の省略形
 `Add`トレイトを実装する際に`RHS`の具体的な型を指定しなければ、`RHS`の型は標準で`Self`になり、
 これは`Add`を実装している型になります。
 
+<<<<<<< HEAD
 <!--
 When we implemented `Add` for `Point`, we used the default for `RHS` because we
+=======
+When we implemented `Add` for `Point`, we used the default for `Rhs` because we
+>>>>>>> upstream/master
 wanted to add two `Point` instances. Let’s look at an example of implementing
-the `Add` trait where we want to customize the `RHS` type rather than using the
+the `Add` trait where we want to customize the `Rhs` type rather than using the
 default.
 -->
 
@@ -309,12 +313,16 @@ default.
 We have two structs `Millimeters` and `Meters`, holding values in different
 units. We want to add values in millimeters to values in meters and have the
 implementation of `Add` do the conversion correctly. We can implement `Add` for
+<<<<<<< HEAD
 `Millimeters` with `Meters` as the `RHS`, as shown in Listing 19-23.
 -->
 
 異なる単位で値を保持する構造体、`Millimeters`と`Meters`(それぞれ`ミリメートル`と`メートル`)が2つあります。
 ミリメートルの値をメートルの値に足し、`Add`の実装に変換を正しくしてほしいです。
 `Add`を`RHS`に`Meters`のある`Millimeters`に実装することができます。リスト19-23のように:
+=======
+`Millimeters` with `Meters` as the `Rhs`, as shown in Listing 19-15.
+>>>>>>> upstream/master
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -346,6 +354,7 @@ impl Add<Meters> for Millimeters {
 
 <!--
 To add `Millimeters` and `Meters`, we specify `impl Add<Meters>` to set the
+<<<<<<< HEAD
 value of the `RHS` type parameter instead of using the default of `Self`.
 -->
 
@@ -355,6 +364,9 @@ value of the `RHS` type parameter instead of using the default of `Self`.
 <!--
 You'll use default type parameters in two main ways:
 -->
+=======
+value of the `Rhs` type parameter instead of using the default of `Self`.
+>>>>>>> upstream/master
 
 主に2通りの方法でデフォルト型引数を使用します:
 
@@ -608,10 +620,15 @@ Running this code prints the following:
 
 このコードを実行すると、こんな出力がされます:
 
+<<<<<<< HEAD
 ```text
 This is your captain speaking.
 Up!
 *waving arms furiously*
+=======
+```console
+{{#include ../listings/ch19-advanced-features/listing-19-18/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -700,8 +717,13 @@ function defined on `Dog` directly. This code prints the following:
 `main`で、`Dog::baby_name`関数を呼び出し、直接`Dog`に定義された関連関数を呼び出しています。
 このコードは以下のような出力をします:
 
+<<<<<<< HEAD
 ```text
 A baby dog is called a Spot
+=======
+```console
+{{#include ../listings/ch19-advanced-features/listing-19-19/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -745,6 +767,7 @@ implementation of `Animal::baby_name` we want. We’ll get this compiler error:
 `Animal::baby_name`はメソッドではなく関連関数であり、故に`self`引数がないので、どの`Animal::baby_name`が欲しいのか、
 コンパイラには推論できません。こんなコンパイルエラーが出るでしょう:
 
+<<<<<<< HEAD
 ```text
 error[E0283]: type annotations required: cannot resolve `_: Animal`
 (エラー: 型注釈が必要です: `_: Animal`を解決できません)
@@ -755,6 +778,10 @@ error[E0283]: type annotations required: cannot resolve `_: Animal`
    |
    = note: required by `Animal::baby_name`
    (注釈: `Animal::baby_name`に必要です)
+=======
+```console
+{{#include ../listings/ch19-advanced-features/listing-19-20/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -816,8 +843,13 @@ implemented on `Dog` by saying that we want to treat the `Dog` type as an
 `Dog`に実装されたように、`Animal`トレイトの`baby_name`メソッドを呼び出したいと示唆しています。
 もうこのコードは、望み通りの出力をします:
 
+<<<<<<< HEAD
 ```text
 A baby dog is called a puppy
+=======
+```console
+{{#include ../listings/ch19-advanced-features/listing-19-21/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -964,6 +996,7 @@ We get an error saying that `Display` is required but not implemented:
 
 `Display`が必要だけれども、実装されていないというエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0277]: the trait bound `Point: std::fmt::Display` is not satisfied
   --> src/main.rs:20:6
@@ -973,6 +1006,10 @@ error[E0277]: the trait bound `Point: std::fmt::Display` is not satisfied
 try using `:?` instead if you are using a format string
    |
    = help: the trait `std::fmt::Display` is not implemented for `Point`
+=======
+```console
+{{#include ../listings/ch19-advanced-features/no-listing-02-impl-outlineprint-for-point/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

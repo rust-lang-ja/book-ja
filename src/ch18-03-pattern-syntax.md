@@ -1145,6 +1145,7 @@ When we compile this example, we get this error:
 
 この例をコンパイルすると、こんなエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error: `..` can only be used once per tuple or tuple struct pattern
 (エラー: `..`は、タプルやタプル構造体パターン1つにつき、1回しか使用できません)
@@ -1152,6 +1153,10 @@ error: `..` can only be used once per tuple or tuple struct pattern
   |
 5 |         (.., second, ..) => {
   |                      ^^
+=======
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-25/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

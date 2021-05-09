@@ -77,6 +77,7 @@ should see the following output:
 `another_function`の例を*src/main.rs*ファイルに配置して、走らせてください。
 以下のような出力が得られるはずです:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
@@ -84,6 +85,10 @@ $ cargo run
      Running `target/debug/functions`
 Hello, world!
 Another function.
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-16-functions/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -145,12 +150,17 @@ Try running this program; you should get the following output:
 
 このプログラムを走らせてみてください; 以下のような出力が得られるはずです:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
     Finished dev [unoptimized + debuginfo] target(s) in 1.21 secs
      Running `target/debug/functions`
 The value of x is: 5
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-17-functions-with-parameters/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -220,6 +230,7 @@ run`:
 このコードを走らせてみましょう。今、*function*プロジェクトの*src/main.rs*ファイルに記載されているプログラムを先ほどの例と置き換えて、
 `cargo run`で走らせてください:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
@@ -227,6 +238,10 @@ $ cargo run
      Running `target/debug/functions`
 The value of x is: 5
 The value of y is: 6
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-18-functions-with-multiple-parameters/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -332,6 +347,7 @@ fn main() {
 When you run this program, the error you’ll get looks like this:
 -->
 
+<<<<<<< HEAD
 このプログラムを実行すると、以下のようなエラーが出るでしょう:
 
 ```text
@@ -369,6 +385,10 @@ For more information about this error, try `rustc --explain E0658`.
 error: could not compile `functions`
 
 To learn more, run the command again with --verbose.
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-19-statements-vs-expressions/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -495,12 +515,17 @@ running this code; the output should look like this:
 これは、Rustにおいて、完璧に問題ない関数です。関数の戻り値型が`-> i32`と指定されていることにも注目してください。
 このコードを実行してみましょう; 出力はこんな感じになるはずです:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
     Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
      Running `target/debug/functions`
 The value of x is: 5
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-21-function-return-values/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -585,6 +610,7 @@ Running this code produces an error, as follows:
 
 このコードを実行すると、以下のようにエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
@@ -606,6 +632,10 @@ For more information about this error, try `rustc --explain E0308`.
 error: could not compile `functions`
 
 To learn more, run the command again with --verbose.
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

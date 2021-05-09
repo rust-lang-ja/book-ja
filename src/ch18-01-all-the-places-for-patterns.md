@@ -280,10 +280,15 @@ The code in Listing 18-3 will print the following:
 
 リスト18-3のコードは、以下のように出力するでしょう:
 
+<<<<<<< HEAD
 ```text
 a is at index 0
 b is at index 1
 c is at index 2
+=======
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-03/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -402,6 +407,7 @@ Attempting to compile this code results in this type error:
 
 このコードのコンパイルを試みると、このような型エラーに落ち着きます:
 
+<<<<<<< HEAD
 ```text
 error[E0308]: mismatched types
  --> src/main.rs:2:9
@@ -412,6 +418,10 @@ error[E0308]: mismatched types
   |
   = note: expected type `({integer}, {integer}, {integer})`
              found type `(_, _)`
+=======
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-05/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

@@ -504,7 +504,13 @@ types like `String` instead of references like `&str`.
 >
 > コンパイラは、ライフタイム指定子が必要だと怒るでしょう:
 >
+<<<<<<< HEAD
 > ```text
+=======
+> ```console
+> $ cargo run
+>    Compiling structs v0.1.0 (file:///projects/structs)
+>>>>>>> upstream/master
 > error[E0106]: missing lifetime specifier
 > (エラー: ライフタイム指定子がありません)
 >  -->

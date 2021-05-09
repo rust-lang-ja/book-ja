@@ -132,14 +132,19 @@ between the name of the function and the parameter list, like this:
 こんな感じに:
 
 ```rust,ignore
-fn largest<T>(list: &[T]) -> T {
+fn largest<T>(list: &[T]) -> &T {
 ```
 
 <!--
 We read this definition as: the function `largest` is generic over some type
 `T`. This function has one parameter named `list`, which is a slice of values
+<<<<<<< HEAD
 of type `T`. The `largest` function will return a value of the same type `T`.
 -->
+=======
+of type `T`. The `largest` function will return a reference to a value of the
+same type `T`.
+>>>>>>> upstream/master
 
 この定義は以下のように解読します: 関数`largest`は、なんらかの型`T`に関してジェネリックであると。
 この関数には`list`という引数が1つあり、これは型`T`の値のスライスです。
@@ -201,6 +206,7 @@ If we compile this code right now, we’ll get this error:
 
 直ちにこのコードをコンパイルしたら、以下のようなエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0369]: binary operation `>` cannot be applied to type `T`
 (エラー: 2項演算`>`は、型`T`に適用できません)
@@ -211,6 +217,10 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
   |
   = note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
   (注釈: `std::cmp::PartialOrd`の実装が`T`に対して存在しない可能性があります)
+=======
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -329,6 +339,7 @@ same type as `x`, we’ll get a type mismatch error like this:
 この例で、`x`に整数値5を代入すると、この`Point<T>`のインスタンスに対するジェネリックな型`T`は整数になるとコンパイラに知らせます。
 それから`y`に4.0を指定する時に、このフィールドは`x`と同じ型と定義したはずなので、このように型不一致エラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0308]: mismatched types
  --> src/main.rs:7:38
@@ -339,6 +350,10 @@ floating-point variable
   |
   = note: expected type `{integer}`
              found type `{float}`
+=======
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-07/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

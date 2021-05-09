@@ -470,6 +470,7 @@ example, we get the following error:
 その新しいスレッド内で`v`にアクセスできるはずです。しかし、このコードをコンパイルすると、
 以下のようなエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0373]: closure may outlive the current function, but it borrows `v`,
 which is owned by the current function
@@ -488,6 +489,10 @@ variables), use the `move` keyword
   |
 6 |     let handle = thread::spawn(move || {
   |                                ^^^^^^^
+=======
+```console
+{{#include ../listings/ch16-fearless-concurrency/listing-16-03/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -619,6 +624,7 @@ would move `v` into the closure’s environment, and we could no longer call
 違うエラーが出ます。クロージャに`move`を付与したら、`v`をクロージャの環境にムーブするので、
 最早メインスレッドで`drop`を呼び出すことは叶わなくなるでしょう。代わりにこのようなコンパイルエラーが出るでしょう:
 
+<<<<<<< HEAD
 ```text
 error[E0382]: use of moved value: `v`
 (エラー: ムーブされた値の使用: `v`)
@@ -633,6 +639,10 @@ error[E0382]: use of moved value: `v`
    = note: move occurs because `v` has type `std::vec::Vec<i32>`, which does
    not implement the `Copy` trait
    (注釈: `v`の型が`std::vec::Vec<i32>`のためムーブが起きました。この型は、`Copy`トレイトを実装していません)
+=======
+```console
+{{#include ../listings/ch16-fearless-concurrency/output-only-01-move-drop/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

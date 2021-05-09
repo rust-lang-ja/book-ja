@@ -333,8 +333,11 @@ Members of the Rust community have made many packages available at
 [crates.io](https://crates.io/), and pulling any of them into your package
 involves these same steps: listing them in your package’s *Cargo.toml* file and
 using `use` to bring items from their crates into scope.
+<<<<<<< HEAD
 -->
 Rustコミュニティに所属する人々が[crates.io](https://crates.io/)でたくさんのパッケージを利用できるようにしてくれており、上と同じステップを踏めばそれらをあなたのパッケージに取り込むことができます：あなたのパッケージの *Cargo.toml* ファイルにそれらを書き並べ、`use`を使って要素をクレートからスコープへと持ち込めばよいのです。
+=======
+>>>>>>> upstream/master
 
 <!--
 Note that the standard library (`std`) is also a crate that’s external to our
@@ -363,7 +366,10 @@ crate.
 -->
 ### 巨大な`use`のリストをネストしたパスを使って整理する
 
+<<<<<<< HEAD
 <!--
+=======
+>>>>>>> upstream/master
 If we’re using multiple items defined in the same crate or same module,
 listing each item on its own line can take up a lot of vertical space in our
 files. For example, these two `use` statements we had in the Guessing Game in
@@ -405,7 +411,10 @@ items with the same prefix into scope</span>
 -->
 <span class="caption">Listing 7-18: 同じプレフィックスをもつ複数の要素をスコープに持ち込むためにネストしたパスを指定する</span>
 
+<<<<<<< HEAD
 <!--
+=======
+>>>>>>> upstream/master
 In bigger programs, bringing many items into scope from the same crate or
 module using nested paths can reduce the number of separate `use` statements
 needed by a lot!

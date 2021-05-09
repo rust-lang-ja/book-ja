@@ -283,8 +283,13 @@ install nightly, for example:
 rustupは、グローバルかプロジェクトごとにRustのリリースチャンネルを変更しやすくしてくれます。
 標準では、安定版のRustがインストールされます。例えば、ナイトリをインストールするには:
 
+<<<<<<< HEAD
 ```text
 $ rustup install nightly
+=======
+```console
+$ rustup toolchain install nightly
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -316,7 +321,7 @@ nightly toolchain as the one `rustup` should use when you’re in that directory
 そうするためには、そのプロジェクトのディレクトリで`rustup override`を使用して、そのディレクトリにいる時に、
 `rustup`が使用するべきツールチェーンとしてナイトリ版のものをセットします。
 
-```text
+```console
 $ cd ~/projects/needs-nightly
 $ rustup override add nightly
 ```

@@ -10,8 +10,16 @@ Let’s create a new project with, as always, `cargo new`. We’ll call our proj
 on your system.
 -->
 
+<<<<<<< HEAD
 いつものように、`cargo new`で新しいプロジェクトを作りましょう。プロジェクトを`minigrep`と名付けて、
 既に自分のシステムに存在するかもしれない`grep`ツールと区別しましょう。
+=======
+```console
+$ cargo new minigrep
+     Created binary (application) `minigrep` project
+$ cd minigrep
+```
+>>>>>>> upstream/master
 
 <!--
 The first task is to make `minigrep` accept its two command line arguments: the
@@ -24,7 +32,7 @@ search in, like so:
 つまり、`cargo run`で検索文字列と検索を行うファイルへのパスと共にプログラムを実行できるようになりたいということです。
 こんな感じにね:
 
-```text
+```console
 $ cargo run searchstring example-filename.txt
 ```
 
@@ -154,6 +162,7 @@ Finally, we print the vector using the debug formatter, `:?`. Let’s try runnin
 the code with no arguments and then with two arguments:
 -->
 
+<<<<<<< HEAD
 最後に、デバッグ整形機の`:?`を使用してベクタを出力しています。引数なしでコードを走らせてみて、
 それから引数二つで試してみましょう:
 
@@ -165,6 +174,14 @@ $ cargo run
 $ cargo run needle haystack
 --snip--
 ["target/debug/minigrep", "needle", "haystack"]
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-01/output.txt}}
+```
+
+```console
+{{#include ../listings/ch12-an-io-project/output-only-01-with-args/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -251,6 +268,7 @@ and `sample.txt`:
 一時的にこれらの変数の値を出力して、コードが意図通りに動いていることを証明しています。
 再度このプログラムを`test`と`sample.txt`という引数で実行しましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo run test sample.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
@@ -258,6 +276,10 @@ $ cargo run test sample.txt
      Running `target/debug/minigrep test sample.txt`
 Searching for test
 In file sample.txt
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-02/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

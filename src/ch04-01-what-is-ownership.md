@@ -65,6 +65,7 @@ PROD: START BOX
 > behaves and why you have to make certain decisions. Parts of ownership will
 > be described in relation to the stack and the heap later in this chapter, so
 > here is a brief explanation in preparation.
+<<<<<<< HEAD
 -->
 
 <!--
@@ -105,6 +106,41 @@ PROD: START BOX
 -->
 
 <!--
+=======
+>
+> Both the stack and the heap are parts of memory that are available to your
+> code to use at runtime, but they are structured in different ways. The stack
+> stores values in the order it gets them and removes the values in the
+> opposite order. This is referred to as *last in, first out*. Think of a stack
+> of plates: when you add more plates, you put them on top of the pile, and
+> when you need a plate, you take one off the top. Adding or removing plates
+> from the middle or bottom wouldn’t work as well! Adding data is called
+> *pushing onto the stack*, and removing data is called *popping off the stack*.
+>
+> All data stored on the stack must have a known, fixed size. Data with an
+> unknown size at compile time or a size that might change must be stored on
+> the heap instead. The heap is less organized: when you put data on the heap,
+> you request a certain amount of space. The memory allocator finds an empty
+> spot in the heap that is big enough, marks it as being in use, and returns a
+> *pointer*, which is the address of that location. This process is called
+> *allocating on the heap* and is sometimes abbreviated as just *allocating*.
+> Pushing values onto the stack is not considered allocating. Because the
+> pointer is a known, fixed size, you can store the pointer on the stack, but
+> when you want the actual data, you must follow the pointer.
+>
+> Think of being seated at a restaurant. When you enter, you state the number of
+> people in your group, and the staff finds an empty table that fits everyone
+> and leads you there. If someone in your group comes late, they can ask where
+> you’ve been seated to find you.
+>
+> Pushing to the stack is faster than allocating on the heap because the
+> allocator never has to search for a place to store new data; that
+> location is always at the top of the stack. Comparatively, allocating space
+> on the heap requires more work, because the allocator must first find
+> a big enough space to hold the data and then perform bookkeeping to prepare
+> for the next allocation.
+>
+>>>>>>> upstream/master
 > Accessing data in the heap is slower than accessing data on the stack because
 > you have to follow a pointer to get there. Contemporary processors are faster
 > if they jump around less in memory. Continuing the analogy, consider a server
@@ -433,11 +469,17 @@ to hold the contents. This means:
 `String`型では、可変かつ伸長可能なテキスト破片をサポートするために、コンパイル時には不明な量のメモリを
 ヒープに確保して内容を保持します。つまり:
 
+<<<<<<< HEAD
 <!--
 * The memory must be requested from the operating system at runtime.
 * We need a way of returning this memory to the operating system when we’re
 done with our `String`.
 -->
+=======
+* The memory must be requested from the memory allocator at runtime.
+* We need a way of returning this memory to the allocator when we’re
+  done with our `String`.
+>>>>>>> upstream/master
 
 * メモリは、実行時にOSに要求される。
 * `String`型を使用し終わったら、OSにこのメモリを返還する方法が必要である。
@@ -508,7 +550,7 @@ let s = String::from("hello"); // s is valid from this point forward
 
 <!--
 There is a natural point at which we can return the memory our `String` needs
-to the operating system: when `s` goes out of scope. When a variable goes out
+to the allocator: when `s` goes out of scope. When a variable goes out
 of scope, Rust calls a special function for us. This function is called `drop`,
 and it’s where the author of `String` can put the code to return the memory.
 Rust calls `drop` automatically at the closing curly bracket.
@@ -625,7 +667,7 @@ holding the value `"hello"` bound to `s1`</span> -->
 <!--
 The length is how much memory, in bytes, the contents of the `String` is
 currently using. The capacity is the total amount of memory, in bytes, that the
-`String` has received from the operating system. The difference between length
+`String` has received from the allocator. The difference between length
 and capacity matters, but not in this context, so for now, it’s fine to ignore
 the capacity.
 -->
@@ -726,6 +768,7 @@ invalidated reference:
 
 コンパイラが無効化された参照は使用させてくれないので、以下のようなエラーが出るでしょう:
 
+<<<<<<< HEAD
 ```text
 error[E0382]: use of moved value: `s1`
               (ムーブされた値の使用: `s1`)
@@ -742,6 +785,10 @@ error[E0382]: use of moved value: `s1`
   not implement the `Copy` trait
     (注釈: ムーブが起きたのは、`s1`が`std::string::String`という
     `Copy`トレイトを実装していない型だからです)
+=======
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -841,6 +888,7 @@ different is going on.
 
 #### スタックのみのデータ: コピー
 
+<<<<<<< HEAD
 <!--
 There’s another wrinkle we haven’t talked about yet. This code using integers,
 part of which was shown in Listing 4-2, works and is valid:
@@ -848,6 +896,10 @@ part of which was shown in Listing 4-2, works and is valid:
 
 まだ話題にしていない別の問題があります。
 この整数を使用したコードは、一部をリスト4-2で示しましたが、うまく動作する有効なものです:
+=======
+There’s another wrinkle we haven’t talked about yet. This code using integers – 
+part of which was shown in Listing 4-2 – works and is valid:
+>>>>>>> upstream/master
 
 ```rust
 let x = 5;
