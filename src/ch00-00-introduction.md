@@ -117,7 +117,7 @@ programming.
 
 Rustは、学生やシステムの概念を学ぶことに興味のある方向けです。Rustを使用して、
 多くの人がOS開発などの話題を学んできました。コミュニティはとても暖かく、喜んで学生の質問に答えてくれます。
-この本のような努力を通じて、Rustチームはシステムの概念を多くの人、特にプログラミング初心者にとってアクセス可能にしたいと考えています。
+この本のような取り組みを通じて、Rustチームはシステムの概念をより多くの人、特にプログラミング初心者に知ってもらいたいと考えています。
 
 <!--
 ### Companies
@@ -133,10 +133,10 @@ bioinformatics, search engines, Internet of Things applications, machine
 learning, and even major parts of the Firefox web browser.
 -->
 
-数百の企業が、大企業、中小企業を問わず、様々なタスクにプロダクションでRustを使用しています。
+数百の企業が、大企業、中小企業を問わず、様々なタスクの本番環境でRustを使用しています。
 そのタスクには、コマンドラインツール、Webサービス、DevOpsツール、組み込みデバイス、
-オーディオとビデオの解析および変換、暗号通貨、生物情報学、サーチエンジン、IoTアプリケーション、
-機械学習、Firefoxウェブブラウザの主要部分さえ含まれます。
+オーディオやビデオの解析および変換、暗号通貨、生物情報学、サーチエンジン、IoTアプリケーション、
+機械学習、さらにはFirefoxウェブブラウザの主要部分さえ含まれます。
 
 <!--
 ### Open Source Developers
@@ -205,9 +205,8 @@ reading a book that specifically provides an introduction to programming.
 -->
 
 この本は、あなたが他のプログラミング言語でコードを書いたことがあることを想定していますが、
-具体的にどの言語かという想定はしません。私たちは、幅広い分野のプログラミング背景からの人にとってこの資料を広くアクセスできるようにしようとしてきました。
-プログラミングとはなん*なのか*やそれについて考える方法について多くを語るつもりはありません。
-もし、完全なプログラミング初心者であれば、プログラミング入門を特に行う本を読むことでよりよく役に立つでしょう。
+具体的にどの言語かという想定はしません。私たちは、様々なプログラミング背景を持つ人たちが幅広く理解できる内容にしています。プログラミングとはなん*なのか*やそれについて考える方法について多くを語るつもりはありません。
+もし、あなたがプログラミングの完全な初心者であれば、プログラミングの入門書を読むと役に立つでしょう。
 
 <!--
 ## How to Use This Book
@@ -223,7 +222,7 @@ topic in a later chapter.
 -->
 
 一般的に、この本は、順番に読み進めていくことを前提にしています。後の章は、前の章の概念の上に成り立ち、
-前の章では、ある話題にさほど深入りしない可能性があります; 典型的に後ほどの章で同じ話題を再度しています。
+前の章では、ある話題にさほど深入りしない可能性がありますが、通常は後の章で同じ話題を復習します。
 
 <!--
 You’ll find two kinds of chapters in this book: concept chapters and project
@@ -232,9 +231,9 @@ chapters, we’ll build small programs together, applying what you’ve learned 
 far. Chapters 2, 12, and 20 are project chapters; the rest are concept chapters.
 -->
 
-この本には2種類の章があるとわかるでしょう: 概念の章とプロジェクトの章です。概念の章では、
-Rustの一面を学ぶでしょう。プロジェクトの章では、それまでに学んだことを適用して一緒に小さなプログラムを構築します。
-2、12、20章がプロジェクトの章です。つまり、残りは概念の章です。
+この本には、概念の章とプロジェクトの章の2種類の章があります。概念の章では、
+Rustの一面を学ぶでしょう。プロジェクトの章では、それまでに学んだことを応用して小さなプログラムを一緒に作っていきます。
+第2、第12、第20章がプロジェクトの章で、残りは概念の章です。
 
 <!--
 Chapter 1 explains how to install Rust, how to write a “Hello, world!” program,
@@ -251,11 +250,8 @@ you’d like to work on a project applying the details you’ve learned.
 -->
 
 第1章はRustのインストール方法、“Hello, world!”プログラムの書き方、Rustのパッケージマネージャ兼、
-ビルドツールのCargoの使用方法を説明します。第2章は、Rust言語への実践的な導入です。ここでは概念をざっくりと講義し、後ほどの章で追加の詳細を提供します。
-今すぐRustの世界に飛び込みたいなら、第2章こそがそのためのものです。第3章は他のプログラミング言語の機能に似たRustの機能を講義していますが、
-最初その3章すら飛ばして、まっすぐに第4章に向かい、Rustの所有権システムについて学びたくなる可能性があります。
-しかしながら、あなたが次に進む前に全ての詳細を学ぶことを好む特別に几帳面な学習者なら、
-第2章を飛ばして真っ先に第3章に行き、学んだ詳細を適用するプロジェクトに取り組みたくなった時に第2章に戻りたくなる可能性があります。
+ビルドツールのCargoの使用方法を説明します。第2章は、Rust言語の実践的な紹介です。ここでは概念について高いレベルで説明し、後ほどの章ではさらに詳しく説明します。
+今すぐRustの世界に飛び込みたいなら、第2章こそがそのためのものです。最初は、他のプログラミング言語と同様なRustの機能を説明している第3章を飛ばして、Rustの所有権システムについて学ぶために第4章に直行するのもいいでしょう。しかし、「細かいところまで学んでから次の段階へ進みたい」という几帳面な学習者であれば、第2章を飛ばして第3章に進み、学んだ内容を応用してプロジェクトを進めたいときに第2章へ戻ってくるとよいでしょう。
 
 <!--
 Chapter 5 discusses structs and methods, and Chapter 6 covers enums, `match`
@@ -263,8 +259,8 @@ expressions, and the `if let` control flow construct. You’ll use structs and
 enums to make custom types in Rust.
 -->
 
-第5章は、構造体とメソッドについて議論し、第6章はenum、`match`式、`if let`フロー制御構文を講義します。
-構造体とenumを使用してRustにおいて独自の型を作成します。
+第5章では、構造体とメソッドについて、第6章では、列挙型、`match`式、`if let`フロー制御構文について説明しています。
+構造体や列挙型を使用して、Rustの独自の型を作成します。
 
 <!--
 In Chapter 7, you’ll learn about Rust’s module system and about privacy rules
@@ -274,9 +270,9 @@ standard library provides, such as vectors, strings, and hash maps. Chapter 9
 explores Rust’s error-handling philosophy and techniques.
 -->
 
-第7章では、Rustのモジュールシステムと自分のコードとその公開されたAPI(Application Programming Interface)を体系化するプライバシー規則について学びます。
-第8章では、ベクタ、文字列、ハッシュマップなどの標準ライブラリが提供する一般的なコレクションデータ構造の一部を議論します。
-第9章では、Rustのエラー処理哲学とテクニックを探究します。
+第7章では、Rustのモジュールシステム、自分のコードを体系化するプライバシー規則、公開されているAPI(Application Programming Interface)について学びます。
+第8章では、ベクタ、文字列、ハッシュマップなどの標準ライブラリが提供する一般的なコレクションデータ構造について説明します。
+第9章では、Rustのエラー処理哲学とテクニックについて探っていきます。
 
 <!--
 Chapter 10 digs into generics, traits, and lifetimes, which give you the power
@@ -288,10 +284,9 @@ within files. For this, we’ll use many of the concepts we discussed in the
 previous chapters.
 -->
 
-第10章ではジェネリクス、トレイト、ライフタイムについて深入りし、これらは複数の型に適用されるコードを定義する力をくれます。
-第11章は、完全にテストに関してで、Rustの安全性保証があってさえ、プログラムのロジックが正しいことを保証するために、
-必要になります。第12章では、ファイル内のテキストを検索する`grep`コマンドラインツールの一部の機能を自身で構築します。
-このために、以前の章で議論した多くの概念を使用します。
+第10章では、複数の型に適用されるコードを定義するための、ジェネリクス、トレイト、ライフタイムについて掘り下げています。
+第11章では、Rustの安全性保証があってさえ、プログラムのロジックが正しいことを確認するために必要な、テストについて説明します。
+第12章では、ファイル内のテキストを検索するコマンドラインツール`grep`の機能の一部を独自に実装します。そのためには、以前の章で説明した多くの概念を使用します。
 
 <!--
 Chapter 13 explores closures and iterators: features of Rust that come from
@@ -301,9 +296,9 @@ Chapter 15 discusses smart pointers that the standard library provides and the
 traits that enable their functionality.
 -->
 
-第13章はクロージャとイテレータを探究します。これらは、関数型プログラミング言語由来のRustの機能です。
-第14章では、Cargoをより詳しく調査し、他人と自分のライブラリを共有する最善の策について語ります。
-第15章では、標準ライブラリが提供するスマートポインタとその機能を可能にするトレイトを議論します。
+第13章では、関数型プログラミング言語に由来するRustの特徴であるクロージャとイテレータについて探っていきます。
+第14章では、Cargoをより詳しく考察し、自分のライブラリを他人と共有する最善の策について語ります。
+第15章では、標準ライブラリが提供するスマートポインタとその機能を可能にするトレイトについて説明します。
 
 <!--
 In Chapter 16, we’ll walk through different models of concurrent programming
@@ -312,8 +307,8 @@ Chapter 17 looks at how Rust idioms compare to object-oriented programming
 principles you might be familiar with.
 -->
 
-第16章では、並行プログラミングの異なるモデルを見ていき、Rustが恐れなしに複数のスレッドでプログラムする手助けをする方法を語ります。
-第17章では、馴染み深い可能性のあるオブジェクト指向プログラミングの原則とRustのイディオムがどう比較されるかに目を向けます。
+第16章では、並行プログラミングの様々なモデルを紹介し、Rustを使えば、複数のスレッドを使ったプログラミングも恐れることがないことを語ります。
+第17章では、皆さんがよく知っているオブジェクト指向プログラミングの原則とRustのイディオムが、どのように対照をなすかを見ていきます。
 
 <!--
 Chapter 18 is a reference on patterns and pattern matching, which are powerful
@@ -322,9 +317,7 @@ smorgasbord of advanced topics of interest, including unsafe Rust, macros, and
 more about lifetimes, traits, types, functions, and closures.
 -->
 
-第18章は、パターンとパターンマッチングのリファレンスであり、これらはRustプログラムを通して、
-考えを表現する強力な方法になります。第19章は、unsafe Rustやマクロ、ライフタイム、トレイト、型、関数、クロージャの詳細を含む、
-興味のある高度な話題のスモーガスボード(`訳注`: 日本でいうバイキングのこと)を含みます。
+第18章は、Rustプログラムの中で考えを表現する強力な手段である、パターンとパターンマッチングのリファレンスです。第19章では、unsafe Rustやマクロをはじめとする、ライフタイム、トレイト、型、関数、クロージャなどの詳細を含む、興味を引く高度な話題が盛りだくさんです。(`訳注`: 原文のスモーガスボードとは、日本でいうバイキング料理のことです。ここでは、盛りだくさんと意訳しました。)
 
 <!--
 In Chapter 20, we’ll complete a project in which we’ll implement a low-level
@@ -341,10 +334,7 @@ provided by the standard library, Appendix D covers some useful development
 tools, and Appendix E explains Rust editions.
 -->
 
-最後に、言語についての有用な情報をよりリファレンスのような形式で含む付録があります。
-付録AはRustのキーワードを講義し、付録Bは、Rustの演算子と記号、付録Cは、
-標準ライブラリが提供する導出可能なトレイト、付録Dはいくつか便利な開発ツールを講義し、
-付録EではRustのエディションについて説明します。
+最後に、一部の付録には、言語に関する有用な情報が、よりリファレンス的な書式で記載されています。付録AではRustのキーワードについて、付録BではRustの演算子と記号について、付録Cでは標準ライブラリで提供される派生的なトレイトについて、付録Dでは便利な開発ツールについて、付録EではRustのエディションについて説明しています。
 
 <!--
 There is no wrong way to read this book: if you want to skip ahead, go for it!
@@ -352,8 +342,8 @@ You might have to jump back to earlier chapters if you experience any
 confusion. But do whatever works for you.
 -->
 
-この本を読む間違った方法なんてありません: 飛ばしたければ、どうぞご自由に！
-混乱したら、前の章に戻らなければならない可能性もあります。ですが、自分に合った方法でどうぞ。
+この本の読み方に間違った方法なんてありません: 先に飛ばしたければ、どうぞお試しください！
+混乱したら、前の章に戻る必要があるかもしれませんが、自分に合った方法でやってみてください。
 
 <!--
 <span id="ferris"></span>
@@ -371,11 +361,8 @@ surrounding text to see whether the example you’re trying to run is meant to
 error. Ferris will also help you distinguish code that isn’t meant to work:
 -->
 
-Rustを学ぶ過程で重要な部分は、コンパイラが表示するエラーメッセージを読む方法を学ぶことです:
-それは動くコードへと導いてくれます。そのため、各場面でコンパイラが表示するエラーメッセージとともに、
-コンパイルできない例を多く提供します。適当に例を選んで走らせたら、コンパイルできないかもしれないことを知ってください！
-周りのテキストを読んで実行しようとしている例がエラーになることを意図しているのか確認することを確かめてください。
-フェリスもコードが動作するとは意図されていないコードを見分けるのを手助けしてくれます:
+Rustを学ぶ過程で重要なのは、コンパイラが表示するエラーメッセージの読み方を学ぶことです。これらは、コードが動くように導いてくれます。
+そのため、コンパイルされない例題を多数用意し、それぞれの状況でコンパイラが表示するエラーメッセージを例示します。適当な例題を入力して実行すると、コンパイルできない場合があることを知っておいてください！周りのテキストも必ず読んで、実行しようとしている例題がエラーになることを意図しているものかどうかを確認してください。また、Ferrisは動くはずのないコードを見分けるのにも役に立ちます(`訳注`: `Ferris`とは、Rustのマスコットキャラクタの蟹の名称ですが、ここで触れている`Ferris`とは、コンパイラのエラーメッセージに含まれるキャラクタのことを示しています。)：
 
 <!--
 | Ferris                                                                 | Meaning                                          |
@@ -398,7 +385,7 @@ In most situations, we’ll lead you to the correct version of any code that
 doesn’t compile.
 -->
 
-ほとんどの場合、コンパイルできないあらゆるコードの正しいバージョンへと導きます。
+ほとんどの場合、コンパイルされないコードを正解版へと導きます。
 
 <!--
 ## Source Code
