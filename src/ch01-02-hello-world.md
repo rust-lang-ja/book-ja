@@ -60,7 +60,7 @@ For Linux and macOS, enter this:
 
 LinuxとmacOSなら、こう入力してください:
 
-```text
+```console
 $ mkdir ~/projects
 $ cd ~/projects
 $ mkdir hello_world
@@ -143,7 +143,7 @@ the following commands to compile and run the file:
 ファイルを保存し、端末ウィンドウに戻ってください。LinuxかmacOSなら、以下のコマンドを打ってファイルをコンパイルし、
 実行してください:
 
-```text
+```console
 $ rustc main.rs
 $ ./main
 Hello, world!
@@ -244,12 +244,18 @@ Inside the `main` function is the following code:
 
 <!--
 This line does all the work in this little program: it prints text to the
+<<<<<<< HEAD
 screen. There are four important details to notice here. First, Rust style is
 to indent with four spaces, not a tab.
 -->
 
 この行が、この小さなプログラムの全作業をしています: テキストを画面に出力するのです。
 ここで気付くべき重要な詳細が4つあります。まず、Rustのスタイルは、タブではなく、4スペースでインデントするということです。
+=======
+screen. There are four important details to notice here.
+
+First, Rust style is to indent with four spaces, not a tab.
+>>>>>>> upstream/master
 
 <!--
 Second, `println!` calls a Rust macro. If it called a function instead, it
@@ -301,7 +307,7 @@ this:
 Rustプログラムを実行する前に、以下のように、`rustc`コマンドを入力し、ソースファイルの名前を渡すことで、
 Rustコンパイラを使用してコンパイルしなければなりません。
 
-```text
+```console
 $ rustc main.rs
 ```
 
@@ -350,7 +356,7 @@ here, you run the *main* or *main.exe* file, like this:
 そして、CMDを使用しているなら、*.pdb*拡張子のデバッグ情報を含むファイルを表示します。ここから、
 *main*か*main.exe*を走らせます。このように:
 
-```text
+```console
 $ ./main # or .\main.exe on Windows
          # または、Widnowsなら.\main.exe
 ```

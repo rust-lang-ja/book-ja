@@ -11,7 +11,7 @@ provide an implementation for the `Drop` trait on any type, and the code you
 specify can be used to release resources like files or network connections.
 We’re introducing `Drop` in the context of smart pointers because the
 functionality of the `Drop` trait is almost always used when implementing a
-smart pointer. For example, `Box<T>` customizes `Drop` to deallocate the space
+smart pointer. For example, when a `Box<T>` is dropped it will deallocate the space
 on the heap that the box points to.
 -->
 
@@ -123,10 +123,15 @@ When we run this program, we’ll see the following output:
 
 このプログラムを実行すると、以下のような出力が出ます:
 
+<<<<<<< HEAD
 ```text
 CustomSmartPointers created.
 Dropping CustomSmartPointer with data `other stuff`!
 Dropping CustomSmartPointer with data `my stuff`!
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/listing-15-14/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -205,6 +210,7 @@ When we try to compile this code, we’ll get this error:
 
 このコードをコンパイルしてみようとすると、こんなエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0040]: explicit use of destructor method
 (エラー: デストラクタメソッドを明示的に使用しています)
@@ -212,6 +218,10 @@ error[E0040]: explicit use of destructor method
    |
 14 |     c.drop();
    |       ^^^^ explicit destructor calls not allowed
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/listing-15-15/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -297,10 +307,15 @@ Running this code will print the following:
 
 このコードを実行すると、以下のように出力されます:
 
+<<<<<<< HEAD
 ```text
 CustomSmartPointer created.
 Dropping CustomSmartPointer with data `some data`!
 CustomSmartPointer dropped before the end of main.
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/listing-15-16/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

@@ -657,7 +657,7 @@ Githubアカウントでログインしてください。(現状は、Githubア�
 APIキーを取り扱ってください。そして、`cargo login`コマンドをAPIキーとともに実行してください。
 以下のようにですね:
 
-```text
+```console
 $ cargo login abcdefghijklmnopqrstuvwxyz012345
 ```
 
@@ -720,9 +720,13 @@ Even if you’ve chosen a unique name, when you run `cargo publish` to publish
 the crate at this point, you’ll get a warning and then an error:
 -->
 
+<<<<<<< HEAD
 たとえ、独自の名前を選択していたとしても、この時点で`cargo publish`を実行すると、警告とエラーが出ます:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo publish
     Updating registry `https://github.com/rust-lang/crates.io-index`
 warning: manifest has no description, license, license-file, documentation,
@@ -871,9 +875,13 @@ no limit to the number of crate versions you can publish.
 Run the `cargo publish` command again. It should succeed now:
 -->
 
+<<<<<<< HEAD
 再度`cargo publish`コマンドを実行してください。今度は成功するはずです:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo publish
  Updating registry `https://github.com/rust-lang/crates.io-index`
 Packaging guessing_game v0.1.0 (file:///projects/guessing_game)
@@ -953,7 +961,7 @@ want to yank:
 
 あるバージョンのクレートを取り下げるには、`cargo yank`を実行し、取り下げたいバージョンを指定します:
 
-```text
+```console
 $ cargo yank --vers 1.0.1
 ```
 
@@ -964,7 +972,7 @@ to start depending on a version again:
 
 `--undo`をコマンドに付与することで、取り下げを取り消し、再度あるバージョンにプロジェクトを依存させ始めることもできます:
 
-```text
+```console
 $ cargo yank --vers 1.0.1 --undo
 ```
 

@@ -8,6 +8,7 @@
 One increasingly popular approach to ensuring safe concurrency is *message
 passing*, where threads or actors communicate by sending each other messages
 containing data. Here’s the idea in a slogan from [the Go language
+<<<<<<< HEAD
 documentation](http://golang.org/doc/effective_go.html): “Do not communicate by
 sharing memory; instead, share memory by communicating.”
 -->
@@ -16,6 +17,10 @@ sharing memory; instead, share memory by communicating.”
 スレッドやアクターがデータを含むメッセージを相互に送り合うことでやり取りします。
 こちらが、[Go言語のドキュメンテーション](http:golang.org/doc/effective_go.html)のスローガンにある考えです:
 「メモリを共有することでやり取りするな; 代わりにやり取りすることでメモリを共有しろ」
+=======
+documentation](https://golang.org/doc/effective_go.html#concurrency): 
+“Do not communicate by sharing memory; instead, share memory by communicating.”
+>>>>>>> upstream/master
 
 <!--
 One major tool Rust has for accomplishing message-sending concurrency is the
@@ -364,6 +369,7 @@ us an error if we try to compile the code in Listing 16-9:
 可能性として、その別のスレッドの変更により、矛盾していたり存在しないデータのせいでエラーが発生したり、
 予期しない結果になるでしょう。ですが、リスト16-9のコードのコンパイルを試みると、Rustはエラーを返します:
 
+<<<<<<< HEAD
 ```text
 error[E0382]: use of moved value: `val`
   --> src/main.rs:10:31
@@ -375,6 +381,10 @@ error[E0382]: use of moved value: `val`
    |
    = note: move occurs because `val` has type `std::string::String`, which does
 not implement the `Copy` trait
+=======
+```console
+{{#include ../listings/ch16-fearless-concurrency/listing-16-09/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

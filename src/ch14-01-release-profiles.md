@@ -30,9 +30,13 @@ Cargoには2つの主なプロファイルが存在します: `dev`プロファ�
 These profile names might be familiar from the output of your builds:
 -->
 
+<<<<<<< HEAD
 これらのプロファイル名は、ビルドの出力で馴染みのある可能性があります:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo build
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
 $ cargo build --release
@@ -131,7 +135,11 @@ optimizations than the default, but not as many as in a release build.
 
 <!--
 For the full list of configuration options and defaults for each profile, see
+<<<<<<< HEAD
 [Cargo’s documentation](https://doc.rust-lang.org/cargo/).
 -->
 
 設定の選択肢と各プロファイルのデフォルト設定の一覧は、[Cargoのドキュメンテーション](https://doc.rust-lang.org/cargo/)を参照されたし。
+=======
+[Cargo’s documentation](https://doc.rust-lang.org/cargo/reference/profiles.html).
+>>>>>>> upstream/master

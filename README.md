@@ -1,6 +1,10 @@
 # The Rust Programming Language
 
+<<<<<<< HEAD
 [![CircleCI](https://circleci.com/gh/rust-lang-ja/book-ja/tree/master-ja.svg?style=shield)](https://circleci.com/gh/rust-lang-ja/book-ja)
+=======
+![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
+>>>>>>> upstream/master
 
 This repository contains the source of "The Rust Programming Language" book.
 

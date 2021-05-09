@@ -498,6 +498,7 @@ without any arguments; it will look like this:
 さて、エラー処理の修正に取り掛かりましょう。ベクタが2個以下の要素しか含んでいないときに`args`ベクタの添え字1か2にアクセスしようとすると、
 プログラムがパニックすることを思い出してください。試しに引数なしでプログラムを実行してください。すると、こんな感じになります:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
@@ -507,6 +508,10 @@ thread 'main' panicked at 'index out of bounds: the len is 1
 but the index is 1', src/main.rs:29:21
 (スレッド'main'は、「境界外アクセス: 長さは1なのに添え字も1です」でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-07/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -579,6 +584,7 @@ arguments again to see what the error looks like now:
 
 では、`new`のこの追加の数行がある状態で、再度引数なしでプログラムを走らせ、エラーがどんな見た目か確かめましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
@@ -587,6 +593,10 @@ $ cargo run
 thread 'main' panicked at 'not enough arguments', src/main.rs:30:12
 (スレッド'main'は「引数が足りません」でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-08/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -782,12 +792,17 @@ it:
 即座にプログラムを停止させ、渡された数字を終了コードとして返します。これは、リスト12-8で使用した`panic!`ベースの処理と似ていますが、
 もう余計な出力はされません。試しましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished dev [unoptimized + debuginfo] target(s) in 0.48 secs
      Running `target/debug/minigrep`
 Problem parsing arguments: not enough arguments
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-10/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -984,6 +999,7 @@ When you run this code, it will compile but will display a warning:
 
 このコードを実行すると、コンパイルは通るものの、警告が表示されるでしょう:
 
+<<<<<<< HEAD
 ```text
 warning: unused `std::result::Result` which must be used
 (警告: 使用されなければならない`std::result::Result`が未使用です)
@@ -992,6 +1008,10 @@ warning: unused `std::result::Result` which must be used
 18 |     run(config);
    |     ^^^^^^^^^^^^
 = note: #[warn(unused_must_use)] on by default
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-12/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

@@ -79,6 +79,7 @@ use a refutable pattern where an irrefutable pattern is required:
 ですが、`let`文は論駁不可能なパターンしか受け付けられません。`None`値に対してコードができる合法なことは何もないからです。
 コンパイル時にコンパイラは、論駁不可能なパターンが必要な箇所に論駁可能なパターンを使用しようとしたと文句を言うでしょう:
 
+<<<<<<< HEAD
 ```text
 error[E0005]: refutable pattern in local binding: `None` not covered
 (エラー: ローカル束縛に論駁可能なパターン: `None`がカバーされていません)
@@ -86,6 +87,10 @@ error[E0005]: refutable pattern in local binding: `None` not covered
   |
 3 | let Some(x) = some_option_value;
   |     ^^^^^^^ pattern `None` not covered
+=======
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-08/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -152,6 +157,7 @@ pattern:
 
 コンパイラは、論駁不可能なパターンと`if let`を使用するなんて道理が通らないと文句を言います:
 
+<<<<<<< HEAD
 ```text
 error[E0162]: irrefutable if-let pattern
 (エラー: 論駁不可能なif-letパターン)
@@ -159,6 +165,10 @@ error[E0162]: irrefutable if-let pattern
   |
 2 | if let x = 5 {
   |        ^ irrefutable pattern
+=======
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-10/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

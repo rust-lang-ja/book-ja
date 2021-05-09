@@ -173,6 +173,7 @@ function to lowercase the query and the line before comparing them</span>
 <!--
 First, we lowercase the `query` string and store it in a shadowed variable with
 the same name. Calling `to_lowercase` on the query is necessary so no matter
+<<<<<<< HEAD
 whether the user’s query is `“rust”`, `“RUST”`, `“Rust”`, or `“rUsT”`, we’ll treat the
 query as if it was `“rust”` and be insensitive to the case.
 -->
@@ -180,6 +181,13 @@ query as if it was `“rust”` and be insensitive to the case.
 まず、`query`文字列を小文字化し、同じ名前の覆い隠された変数に保存します。ユーザのクエリが`"rust"`や`"RUST"`、
 `"Rust"`、`"rUsT"`などだったりしても、`"rust"`であり、大文字小文字を区別しないかのようにクエリを扱えるように、
 `to_lowercase`をクエリに対して呼び出すことは必須です。
+=======
+whether the user’s query is `"rust"`, `"RUST"`, `"Rust"`, or `"rUsT"`, we’ll
+treat the query as if it were `"rust"` and be insensitive to the case. While
+`to_lowercase` will handle basic Unicode, it won't be 100% accurate. If we were
+writing a real application, we'd want to do a bit more work here, but this section
+is about environment variables, not Unicode, so we'll leave it at that here.
+>>>>>>> upstream/master
 
 <!--
 Note that `query` is now a `String` rather than a string slice, because calling
@@ -217,12 +225,17 @@ Let’s see if this implementation passes the tests:
 
 この実装がテストを通過するか確認しましょう:
 
+<<<<<<< HEAD
 ```text
 running 2 tests
 test test::case_insensitive ... ok
 test test::case_sensitive ... ok
 
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-21/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -416,6 +429,7 @@ the word “to” in all lowercase:
 試行してみましょう！まず、環境変数をセットせずにクエリは`to`でプログラムを実行し、
 この時は全て小文字で"to"という言葉を含むあらゆる行が合致するはずです。
 
+<<<<<<< HEAD
 ```text
 $ cargo run to poem.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
@@ -423,6 +437,10 @@ $ cargo run to poem.txt
      Running `target/debug/minigrep to poem.txt`
 Are you nobody, too?
 How dreary to be somebody!
+=======
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-23/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -432,25 +450,40 @@ set to `1` but with the same query `to`.
 
 まだ機能しているようです！では、`CASE_INSENSITIVE`を1にしつつ、同じクエリの`to`でプログラムを実行しましょう。
 
+<<<<<<< HEAD
 <!--
 If you’re using PowerShell, you will need to set the environment variable and
 run the program in two commands rather than one:
 -->
 
 PowerShellを使用しているなら、1コマンドではなく、2コマンドで環境変数をセットし、プログラムを実行する必要があるでしょう:
+=======
+If you're using PowerShell, you will need to set the environment
+variable and run the program as separate commands:
+>>>>>>> upstream/master
 
-```text
-$ $env:CASE_INSENSITIVE=1
-$ cargo run to poem.txt
+```console
+PS> $Env:CASE_INSENSITIVE=1; cargo run to poem.txt
+```
+
+This will make `CASE_INSENSITIVE` persist for the remainder of your shell
+session. It can be unset with the `Remove-Item` cmdlet:
+
+```console
+PS> Remove-Item Env:CASE_INSENSITIVE
 ```
 
 <!--
 We should get lines that contain “to” that might have uppercase letters:
 -->
 
+<<<<<<< HEAD
 大文字も含む可能性のある"to"を含有する行が得られるはずです:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ CASE_INSENSITIVE=1 cargo run to poem.txt
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
      Running `target/debug/minigrep to poem.txt`

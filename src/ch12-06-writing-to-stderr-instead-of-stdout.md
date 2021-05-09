@@ -66,7 +66,7 @@ We won’t pass any arguments, which should cause an error:
 この動作をデモする方法は、`>`と標準出力ストリームをリダイレクトする先のファイル名、*output.txt*でプログラムを走らせることによります。
 引数は何も渡さず、そうするとエラーが起きるはずです:
 
-```text
+```console
 $ cargo run > output.txt
 ```
 
@@ -171,7 +171,7 @@ redirect standard output to a file, like so:
 
 再度、標準出力をファイルにリダイレクトしてエラーは起こさない引数でプログラムを走らせましょう。以下のようにですね:
 
-```text
+```console
 $ cargo run to poem.txt > output.txt
 ```
 

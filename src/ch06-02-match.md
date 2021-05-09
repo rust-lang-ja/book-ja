@@ -442,6 +442,7 @@ error:
 `None`の場合を扱っていないため、このコードはバグを生みます。幸い、コンパイラが捕捉できるバグです。
 このコードのコンパイルを試みると、こんなエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0004]: non-exhaustive patterns: `None` not covered
 (エラー: 包括的でないパターン: `None`がカバーされてません)
@@ -449,6 +450,10 @@ error[E0004]: non-exhaustive patterns: `None` not covered
   |
 6 |         match x {
   |               ^ pattern `None` not covered
+=======
+```console
+{{#include ../listings/ch06-enums-and-pattern-matching/no-listing-10-non-exhaustive-match/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -457,8 +462,12 @@ pattern we forgot! Matches in Rust are *exhaustive*: we must exhaust every last
 possibility in order for the code to be valid. Especially in the case of
 `Option<T>`, when Rust prevents us from forgetting to explicitly handle the
 `None` case, it protects us from assuming that we have a value when we might
+<<<<<<< HEAD
 have null, thus making the billion dollar mistake discussed earlier.
 -->
+=======
+have null, thus making the billion-dollar mistake discussed earlier impossible.
+>>>>>>> upstream/master
 
 全可能性を網羅していないことをコンパイラは検知しています。もっと言えば、どのパターンを忘れているかさえ知っているのです。
 Rustにおけるマッチは、*包括的*です: 全てのあらゆる可能性を網羅し尽くさなければ、コードは有効にならないのです。
@@ -511,7 +520,15 @@ list before the `_` placeholder.
 <!--
 However, the `match` expression can be a bit wordy in a situation in which we
 care about only *one* of the cases. For this situation, Rust provides `if let`.
+<<<<<<< HEAD
 -->
 
 ですが、*一つ*のケースにしか興味がないような場面では、`match`式はちょっと長ったらしすぎます。
 このような場面用に、Rustには、`if let`が用意されています。
+=======
+
+More about patterns and matching can be found in [chapter 18][ch18-00-patterns].
+
+[ch18-00-patterns]:
+ch18-00-patterns.html
+>>>>>>> upstream/master

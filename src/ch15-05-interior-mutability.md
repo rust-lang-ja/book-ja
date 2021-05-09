@@ -182,6 +182,7 @@ If you tried to compile this code, you'd get the following error:
 
 このコードをコンパイルしようとしたら、以下のようなエラーが出るでしょう:
 
+<<<<<<< HEAD
 ```text
 error[E0596]: cannot borrow immutable local variable `x` as mutable
 (エラー: 不変なローカル変数`x`を可変で借用することはできません)
@@ -191,6 +192,10 @@ error[E0596]: cannot borrow immutable local variable `x` as mutable
   |         - consider changing this to `mut x`
 3 |     let y = &mut x;
   |                  ^ cannot borrow mutably
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/no-listing-01-cant-borrow-immutable-as-mutable/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -647,6 +652,7 @@ which isn’t allowed. When we run the tests for our library, the code in Listin
 これは許可されないことです。このテストを自分のライブラリ用に走らせると、リスト15-23のコードはエラーなくコンパイルできますが、
 テストは失敗するでしょう:
 
+<<<<<<< HEAD
 ```text
 ---- tests::it_sends_an_over_75_percent_warning_message stdout ----
 	thread 'tests::it_sends_an_over_75_percent_warning_message' panicked at
@@ -654,6 +660,10 @@ which isn’t allowed. When we run the tests for our library, the code in Listin
   (スレッド'tests::it_sends_an_over_75_percent_warning_message'は、
 'すでに借用されています: BorrowMutError', src/libcore/result.rs:906:4でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/listing-15-23/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -799,10 +809,15 @@ value of 15 rather than 5:
 
 `a`、`b`、`c`を出力すると、全て5ではなく、変更された15という値になっていることがわかります。
 
+<<<<<<< HEAD
 ```text
 a after = Cons(RefCell { value: 15 }, Nil)
 b after = Cons(RefCell { value: 6 }, Cons(RefCell { value: 15 }, Nil))
 c after = Cons(RefCell { value: 10 }, Cons(RefCell { value: 15 }, Nil))
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/listing-15-24/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

@@ -94,12 +94,17 @@ Here is the error we get when we compile this code:
 
 こちらが、このコードをコンパイルする際に出るエラーです:
 
+<<<<<<< HEAD
 ```text
 error[E0507]: cannot move out of borrowed content
   --> src/lib.rs:65:13
    |
 65 |             worker.thread.join().unwrap();
    |             ^^^^^^ cannot move out of borrowed content
+=======
+```console
+{{#include ../listings/ch20-web-server/listing-20-22/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -150,6 +155,7 @@ Checking this code, we get two errors:
 さて、コンパイラを頼りにして他に変更する必要がある箇所を探しましょう。このコードをチェックすると、
 2つのエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0599]: no method named `join` found for type
 `std::option::Option<std::thread::JoinHandle<()>>` in the current scope
@@ -170,6 +176,10 @@ error[E0308]: mismatched types
    |
    = note: expected type `std::option::Option<std::thread::JoinHandle<()>>`
               found type `std::thread::JoinHandle<_>`
+=======
+```console
+{{#include ../listings/ch20-web-server/no-listing-04-update-worker-definition/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -539,10 +549,14 @@ Start the server with `cargo run`, and make three requests. The third request
 should error, and in your terminal you should see output similar to this:
 -->
 
+<<<<<<< HEAD
 `cargo run`でサーバを開始し、3つリクエストを行なってください。3番目のリクエストはエラーになるはずで、
 端末にはこのような出力が目撃できるはずです:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo run
    Compiling hello v0.1.0 (file:///projects/hello)
     Finished dev [unoptimized + debuginfo] target(s) in 1.0 secs

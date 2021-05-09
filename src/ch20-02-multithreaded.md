@@ -359,6 +359,7 @@ error we get:
 リスト20-12の変更を*src/main.rs*に行い、それから開発を駆動するために`cargo check`からのコンパイラエラーを活用しましょう。
 こちらが得られる最初のエラーです:
 
+<<<<<<< HEAD
 ```text
 $ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
@@ -371,6 +372,10 @@ error[E0433]: failed to resolve. Use of undeclared type or module `ThreadPool`
    `ThreadPool`
 
 error: aborting due to previous error
+=======
+```console
+{{#include ../listings/ch20-web-server/listing-20-12/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -437,6 +442,7 @@ we need to address:
 
 このコードはまだ動きませんが、再度それを確認して扱う必要のある次のエラーを手に入れましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
@@ -448,6 +454,10 @@ error[E0599]: no function or associated item named `new` found for type
 13 |     let pool = ThreadPool::new(4);
    |                ^^^^^^^^^^^^^^^ function or associated item not found in
    `hello::ThreadPool`
+=======
+```console
+{{#include ../listings/ch20-web-server/no-listing-01-define-threadpool-struct/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -494,6 +504,7 @@ Let’s check the code again:
 
 コードを再度確認しましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
@@ -512,6 +523,10 @@ error[E0599]: no method named `execute` found for type `hello::ThreadPool` in th
    |
 18 |         pool.execute(|| {
    |              ^^^^^^^
+=======
+```console
+{{#include ../listings/ch20-web-server/no-listing-02-impl-threadpool-new/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -618,6 +633,7 @@ nothing, but we’re trying only to make our code compile. Let’s check it agai
 またもや、これが`execute`メソッドの最も単純な実装です: 何もしませんが、
 コードがコンパイルできるようにしようとしているだけです。再確認しましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
@@ -637,6 +653,10 @@ warning: unused variable: `f`
   |                              ^
   |
   = note: to avoid this warning, consider using `_f` instead
+=======
+```console
+{{#include ../listings/ch20-web-server/no-listing-03-define-execute/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -1267,6 +1287,7 @@ When we try to check this code, we get this error:
 
 このコードのチェックを試みると、このようなエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 $ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
@@ -1279,6 +1300,10 @@ error[E0382]: use of moved value: `receiver`
    |
    = note: move occurs because `receiver` has type
    `std::sync::mpsc::Receiver<Job>`, which does not implement the `Copy` trait
+=======
+```console
+{{#include ../listings/ch20-web-server/listing-20-17/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -1739,6 +1764,7 @@ This trick is very sneaky and complicated. Don’t worry if it doesn’t make
 perfect sense; someday, it will be completely unnecessary.
 -->
 
+<<<<<<< HEAD
 このトリックは非常にこそこそしていて複雑です。完璧に筋が通らなくても心配しないでください;
 いつの日か、完全に不要になるでしょう。
 
@@ -1751,6 +1777,9 @@ Give it a `cargo run`, and make some requests:
 リクエストを行なってください:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo run
    Compiling hello v0.1.0 (file:///projects/hello)
 warning: field is never used: `workers`

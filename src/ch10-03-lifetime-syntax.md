@@ -104,6 +104,7 @@ try to use it. Here is the error message:
 `r`の値を出力しようとしています。`r`が参照している値が使おうとする前にスコープを抜けるので、
 このコードはコンパイルできません。こちらがエラーメッセージです:
 
+<<<<<<< HEAD
 ```text
 error[E0597]: `x` does not live long enough
 (エラー: `x`の生存期間が短すぎます)
@@ -119,6 +120,10 @@ error[E0597]: `x` does not live long enough
 10 | }
    | - borrowed value needs to live until here
    | (借用された値はここまで生きる必要があります)
+=======
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-17/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -274,6 +279,7 @@ function to find the longer of two string slices</span>
 <!--
 Note that we want the function to take string slices, which are references,
 because we don’t want the `longest` function to take ownership of its
+<<<<<<< HEAD
 parameters. We want to allow the function to accept slices of a `String` (the
 type stored in the variable `string1`) as well as string literals (which is
 what variable `string2` contains).
@@ -291,6 +297,12 @@ want.
 
 リスト10-20で使用している引数が、我々が必要としているものである理由についてもっと詳しい議論は、
 第4章の「引数としての文字列スライス」節をご参照ください。
+=======
+parameters. Refer to the [“String Slices as
+Parameters”][string-slices-as-parameters]<!-- ignore --> section in Chapter 4
+for more discussion about why the parameters we use in Listing 10-20 are the
+ones we want.
+>>>>>>> upstream/master
 
 <!--
 If we try to implement the `longest` function as shown in Listing 10-21, it
@@ -329,6 +341,7 @@ Instead, we get the following error that talks about lifetimes:
 
 代わりに、以下のようなライフタイムに言及するエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0106]: missing lifetime specifier
 (エラー: ライフタイム指定子が不足しています)
@@ -342,6 +355,10 @@ error[E0106]: missing lifetime specifier
 signature does not say whether it is borrowed from `x` or `y`
   (助言: この関数の戻り値型は借用された値を含んでいますが、
 シグニチャは、それが`x`か`y`由来のものなのか宣言していません)
+=======
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -649,6 +666,7 @@ When we try to compile this code, we’ll get this error:
 
 このコードのコンパイルを試みると、こんなエラーになります:
 
+<<<<<<< HEAD
 ```text
 error[E0597]: `string2` does not live long enough
   --> src/main.rs:15:5
@@ -660,6 +678,10 @@ error[E0597]: `string2` does not live long enough
 16 |     println!("The longest string is {}", result);
 17 | }
    | - borrowed value needs to live until here
+=======
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-24/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -778,6 +800,7 @@ error message we get:
 引数のライフタイムと全く関係がないので、この実装はコンパイルできないでしょう。
 こちらが、得られるエラーメッセージです:
 
+<<<<<<< HEAD
 ```text
 error[E0597]: `result` does not live long enough
  --> src/main.rs:3:5
@@ -797,6 +820,10 @@ function body at 1:1...
 3 | |     result.as_str()
 4 | | }
   | |_^
+=======
+```console
+{{#include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -1374,6 +1401,7 @@ analysis happens at compile time, which doesn’t affect runtime performance!
 <!--
 Believe it or not, there is much more to learn on the topics we discussed in
 this chapter: Chapter 17 discusses trait objects, which are another way to use
+<<<<<<< HEAD
 traits. Chapter 19 covers more complex scenarios involving lifetime annotations
 as well as some advanced type system features. But next, you’ll learn how to
 write tests in Rust so you can make sure your code is working the way it should.
@@ -1383,3 +1411,15 @@ write tests in Rust so you can make sure your code is working the way it should.
 第17章ではトレイトオブジェクトを議論します。これはトレイトを使用する別の手段です。
 第19章では、ライフタイム注釈が関わるもっと複雑な筋書きと何か高度な型システムの機能を講義します。
 ですが次は、コードがあるべき通りに動いていることを確かめられるように、Rustでテストを書く方法を学びます。
+=======
+traits. There are also more complex scenarios involving lifetime annotations
+that you will only need in very advanced scenarios; for those, you should read
+the [Rust Reference][reference]. But next, you’ll learn how to write tests in
+Rust so you can make sure your code is working the way it should.
+
+[references-and-borrowing]:
+ch04-02-references-and-borrowing.html#references-and-borrowing
+[string-slices-as-parameters]:
+ch04-03-slices.html#string-slices-as-parameters
+[reference]: ../reference/index.html
+>>>>>>> upstream/master

@@ -300,6 +300,7 @@ ownership and borrowing rules (covered in Chapter 4) to ensure this reference
 and any other references to the contents of the vector remain valid. Recall the
 rule that states we can’t have mutable and immutable references in the same
 scope. That rule applies in Listing 8-7, where we hold an immutable reference to
+<<<<<<< HEAD
 the first element in a vector and try to add an element to the end, which won't
 work.
 -->
@@ -312,6 +313,10 @@ work.
 
 ```rust,ignore
 let mut v = vec![1, 2, 3, 4, 5];
+=======
+the first element in a vector and try to add an element to the end, which won’t
+work if we also try to refer to that element later in the function:
+>>>>>>> upstream/master
 
 let first = &v[0];
 
@@ -333,6 +338,7 @@ Compiling this code will result in this error:
 
 このコードをコンパイルすると、こんなエラーになります:
 
+<<<<<<< HEAD
 ```text
 error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immutable
 (エラー: 不変としても借用されているので、`v`を可変で借用できません)
@@ -347,6 +353,10 @@ error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immuta
 7 | }
   | - immutable borrow ends here
   |   (不変借用はここで終了しています)
+=======
+```console
+{{#include ../listings/ch08-common-collections/listing-08-07/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -523,7 +533,7 @@ work. Instead, you can use a trait object, which we’ll cover in Chapter 17.
 
 <!--
 Now that we’ve discussed some of the most common ways to use vectors, be sure
-to review the API documentation for all the many useful methods defined on
+to review [the API documentation][vec-api] for all the many useful methods defined on
 `Vec<T>` by the standard library. For example, in addition to `push`, a `pop`
 method removes and returns the last element. Let’s move on to the next
 collection type: `String`!
@@ -533,6 +543,13 @@ collection type: `String`!
 1行目、discussed some of を「について触れ、議論した」と訳した
 -->
 
+<<<<<<< HEAD
 今や、ベクタを使用するべき最も一般的な方法について触れ、議論したので、標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについては、
 APIドキュメントを確認することを心得てください。例として、`push`に加えて、`pop`メソッドは最後の要素を削除して返します。
 次のコレクション型に移りましょう: `String`です！
+=======
+[data-types]: ch03-02-data-types.html#data-types
+[nomicon]: ../nomicon/vec.html
+[vec-api]: ../std/vec/struct.Vec.html
+[deref]: ch15-02-deref.html#following-the-pointer-to-the-value-with-the-dereference-operator
+>>>>>>> upstream/master

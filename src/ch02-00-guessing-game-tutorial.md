@@ -45,8 +45,13 @@ Chapter 1 and make a new project using Cargo, like so:
 新規プロジェクトを立ち上げるには、第1章で作成した*projects*ディレクトリに行き、
 Cargoを使って新規プロジェクトを作成します。以下のように:
 
+<<<<<<< HEAD
 ```text
 $ cargo new guessing_game --bin
+=======
+```console
+$ cargo new guessing_game
+>>>>>>> upstream/master
 $ cd guessing_game
 ```
 
@@ -118,12 +123,17 @@ using the `cargo run` command:
 さて、この"Hello, world!"プログラムをコンパイルし、`cargo run`コマンドを使用して、
 以前と同じように動かしてみましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 1.50 secs
      Running `target/debug/guessing_game`
 Hello, world!
+=======
+```console
+{{#include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -543,6 +553,7 @@ If you don’t call `expect`, the program will compile, but we’ll get a warnin
 
 もし、`expect`メソッドを呼び出さなかったら、コンパイルは通るものの、警告が出るでしょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
@@ -554,6 +565,10 @@ warning: unused `std::result::Result` which must be used
    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
    = note: #[warn(unused_must_use)] on by default
+=======
+```console
+{{#include ../listings/ch02-guessing-game-tutorial/no-listing-02-without-expect/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -631,7 +646,7 @@ Let’s test the first part of the guessing game. Run it using `cargo run`:
 
 数当てゲームの最初の部分をテストしてみましょう。`cargo run`でプログラムを走らせてください:
 
-```text
+```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
@@ -737,7 +752,7 @@ Listing 2-2.
 
 さて、コードは一切変えずに、リスト2-2のようにプロジェクトをビルドしましょう。
 
-```text
+```console
 $ cargo build
     Updating registry `https://github.com/rust-lang/crates.io-index` (レジストリを更新しています)
  Downloading rand v0.3.14                                            (rand v0.3.14をダウンロードしています)
@@ -757,8 +772,12 @@ adding the rand crate as a dependency</span>
 
 <!--
 You may see different version numbers (but they will all be compatible with
+<<<<<<< HEAD
 the code, thanks to SemVer!), and the lines may be in a different order.
 -->
+=======
+the code, thanks to SemVer!), different lines (depending on the operating system), and the lines may be in a different order.
+>>>>>>> upstream/master
 
 もしかしたら、バージョンナンバーは違うかもしれません(でも、互換性はあります、SemVerのおかげでね！)。
 そして、行の出力順序も違うかもしれません。
@@ -810,7 +829,7 @@ and build again, you’ll only see two line of output:
 
 *src/main.rs*ファイルを開き、些細な変更をし、保存して再度ビルドを行えば、2行だけ出力があるでしょう:
 
-```text
+```console
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
@@ -893,7 +912,7 @@ smaller than `0.4.0`. If the `rand` crate has released two new versions,
 `rand`クレートの新バージョンが2つリリースされていたら(`0.3.15`と`0.4.0`だとします)、
 `cargo update`コマンドを走らせた時に以下のようなメッセージを目の当たりにするでしょう:
 
-```text
+```console
 $ cargo update
     Updating registry `https://github.com/rust-lang/crates.io-index`
     (レジストリ`https://github.com/rust-lang/crates-io-index`を更新しています)
@@ -1059,9 +1078,13 @@ the answer as soon as it starts!
 Try running the program a few times:
 -->
 
+<<<<<<< HEAD
 試しに何回かプログラムを走らせてみてください:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
@@ -1221,6 +1244,7 @@ However, the code in Listing 2-4 won’t compile yet. Let’s try it:
 
 ところが、リスト2-4のコードは、まだコンパイルが通りません。試してみましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
@@ -1236,6 +1260,10 @@ error[E0308]: mismatched types          (型が合いません)
 
 error: aborting due to previous error   (先のエラーのため、処理を中断します)
 Could not compile `guessing_game`.      (`guessing_game`をコンパイルできませんでした)
+=======
+```console
+{{#include ../listings/ch02-guessing-game-tutorial/listing-02-04/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -1261,12 +1289,17 @@ Rustでの標準は、`i32`型であり、型情報をどこかに追加して�
 
 <!--
 Ultimately, we want to convert the `String` the program reads as input into a
+<<<<<<< HEAD
 real number type so we can compare it numerically to the guess. We can do that
 by adding the following two lines to the `main` function body:
 -->
 
 究極的には、プログラムが入力として読み込む`String`型を現実の数値型に変換し、
 予想と数値として比較できるようにしたいわけです。これは、以下の2行を`main`関数の本体に追記することでできます:
+=======
+real number type so we can compare it numerically to the secret number. We can
+do that by adding another line to the `main` function body:
+>>>>>>> upstream/master
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -1295,15 +1328,18 @@ by adding the following two lines to the `main` function body:
 }
 ```
 
+<<<<<<< HEAD
 <!--
 The two new lines are:
 -->
 
 その2行とは:
+=======
+The line is:
+>>>>>>> upstream/master
 
 ```rust,ignore
-let guess: u32 = guess.trim().parse()
-    .expect("Please type a number!");
+let guess: u32 = guess.trim().parse().expect("Please type a number!");
 ```
 
 <!--
@@ -1396,9 +1432,13 @@ number that we want from the `Ok` value.
 Let’s run the program now!
 -->
 
+<<<<<<< HEAD
 さあ、プログラムを走らせましょう！
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 0.43 secs
@@ -1490,12 +1530,16 @@ program will crash. The user can take advantage of that in order to quit, as
 shown here:
 -->
 
+<<<<<<< HEAD
 ユーザは、<span class="keystroke">ctrl-c</span>というキーボードショートカットを使って、いつでもプログラムを強制終了させられます。
 しかし、「予想と秘密の数字を比較する」節の`parse`メソッドに関する議論で触れたように、
 この貪欲なモンスターを回避する別の方法があります: ユーザが数字以外の答えを入力すれば、プログラムはクラッシュするのです。
 ユーザは、その利点を活かして、終了することができます。以下のようにですね:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 1.50 secs
@@ -1675,9 +1719,13 @@ program ignores all errors that `parse` might encounter!
 Now everything in the program should work as expected. Let’s try it:
 -->
 
+<<<<<<< HEAD
 さて、プログラムの全てがうまく予想通りに動くはずです。試しましょう:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
      Running `target/debug/guessing_game`

@@ -60,9 +60,14 @@ Now, run this program using `cargo run`:
 
 では、`cargo run`でこのプログラムを走らせてください:
 
+<<<<<<< HEAD
 ```text
 The area of the rectangle is 1500 square pixels.
 (長方形の面積は、1500平方ピクセルです)
+=======
+```console
+{{#include ../listings/ch05-using-structs-to-structure-related-data/listing-05-08/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -426,8 +431,13 @@ following output:
 
 これでプログラムを実行すれば、エラーは出ず、以下のような出力が得られるでしょう:
 
+<<<<<<< HEAD
 ```text
 rect1 is Rectangle { width: 30, height: 50 }
+=======
+```console
+{{#include ../listings/ch05-using-structs-to-structure-related-data/listing-05-12/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -443,11 +453,16 @@ When we use the `{:#?}` style in the example, the output will look like this:
 そのような場合には、`println!`文字列中の`{:?}`の代わりに`{:#?}`を使うことができます。
 この例で`{:#?}`というスタイルを使用したら、出力は以下のようになるでしょう:
 
+<<<<<<< HEAD
 ```text
 rect1 is Rectangle {
     width: 30,
     height: 50
 }
+=======
+```console
+{{#include ../listings/ch05-using-structs-to-structure-related-data/output-only-02-pretty-debug/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

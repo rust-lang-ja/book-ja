@@ -505,6 +505,7 @@ This code will result in the following error:
 
 このコードは、以下のようなエラーに落ち着きます:
 
+<<<<<<< HEAD
 ```text
 error[E0277]: the trait bound `std::string::String: std::ops::Index<{Integer}>` is not satisfied
 (エラー: トレイト境界`std::string::String: std::ops::Index<{Integer}>`が満たされていません)
@@ -514,6 +515,10 @@ error[E0277]: the trait bound `std::string::String: std::ops::Index<{Integer}>` 
   |>                   (型`std::string::String`は`{Integer}`で添え字アクセスできません)
   = help: the trait `std::ops::Index<{Integer}>` is not implemented for `std::string::String`
   (ヘルプ: `std::ops::Index<{Integer}>`というトレイトが`std::string::String`に対して実装されていません)
+=======
+```console
+{{#include ../listings/ch08-common-collections/listing-08-19/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -721,9 +726,14 @@ runtime in the same way as if an invalid index were accessed in a vector:
 `&hello[0..1]`と使用したら、何が起きるでしょうか？答え: Rustはベクタの非合法な添え字にアクセスしたかのように、
 実行時にパニックするでしょう:
 
+<<<<<<< HEAD
 ```text
 thread 'main' panicked at 'byte index 1 is not a char boundary; it is inside 'З' (bytes 0..2) of `Здравствуйте`', src/libcore/str/mod.rs:2188:4
 ('main'スレッドは「バイト添え字1は文字の境界ではありません; `Здравствуйте`の'З'(バイト番号0から2)の中です」でパニックしました)
+=======
+```console
+{{#include ../listings/ch08-common-collections/output-only-01-not-char-boundary/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

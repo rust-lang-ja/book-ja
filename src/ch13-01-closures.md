@@ -697,6 +697,7 @@ The compiler gives us this error:
 
 コンパイラは、次のエラーを返します:
 
+<<<<<<< HEAD
 ```text
 error[E0308]: mismatched types
  --> src/main.rs
@@ -707,6 +708,10 @@ error[E0308]: mismatched types
   |
   = note: expected type `std::string::String`
              found type `{integer}`
+=======
+```console
+{{#include ../listings/ch13-functional-features/listing-13-08/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -1117,10 +1122,15 @@ Run this test with the `Cacher` implementation in Listing 13-9 and Listing
 このテストをリスト13-9とリスト13-10の`Cacher`実装で動かすと、`assert_eq`からこんなメッセージが出て、
 テストは失敗します:
 
+<<<<<<< HEAD
 ```text
 thread 'call_with_different_values' panicked at 'assertion failed: `(left == right)`
   left: `1`,
  right: `2`', src/main.rs
+=======
+```console
+{{#include ../listings/ch13-functional-features/no-listing-01-failing-cacher-test/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -1249,6 +1259,7 @@ We get an error:
 
 エラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 } closure form instead
@@ -1258,6 +1269,10 @@ error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
   |
 4 |     fn equal_to_x(z: i32) -> bool { z == x }
   |                                          ^
+=======
+```console
+{{#include ../listings/ch13-functional-features/no-listing-02-functions-cant-capture/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -1372,6 +1387,7 @@ We receive the following error:
 
 以下のようなエラーを受けます:
 
+<<<<<<< HEAD
 ```text
 error[E0382]: use of moved value: `x`
 (エラー: ムーブされた値の使用: `x`)
@@ -1388,6 +1404,10 @@ error[E0382]: use of moved value: `x`
   = note: move occurs because `x` has type `std::vec::Vec<i32>`, which does not
   implement the `Copy` trait
   (注釈: `x`が`std::vec::Vec<i32>`という`Copy`トレイトを実装しない型のため、ムーブが起きました)
+=======
+```console
+{{#include ../listings/ch13-functional-features/no-listing-03-move-closures/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

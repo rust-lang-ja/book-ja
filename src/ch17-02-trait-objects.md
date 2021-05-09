@@ -554,6 +554,7 @@ We’ll get this error because `String` doesn’t implement the `Draw` trait:
 
 `String`は`Draw`トレイトを実装していないので、このようなエラーが出ます:
 
+<<<<<<< HEAD
 ```text
 error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
   --> src/main.rs:7:13
@@ -563,6 +564,10 @@ error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
    implemented for `std::string::String`
    |
    = note: required for the cast to the object type `gui::Draw`
+=======
+```console
+{{#include ../listings/ch17-oop/listing-17-10/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -722,6 +727,7 @@ We would get this error:
 
 こんなエラーになるでしょう:
 
+<<<<<<< HEAD
 ```text
 error[E0038]: the trait `std::clone::Clone` cannot be made into an object
 (エラー: `std::clone::Clone`トレイトは、オブジェクトにすることはできません)
@@ -733,6 +739,10 @@ made into an object
   |
   = note: the trait cannot require that `Self : Sized`
   (注釈: このトレイトは、`Self : Sized`を満たせません)
+=======
+```console
+{{#include ../listings/ch17-oop/no-listing-01-trait-object-of-clone/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

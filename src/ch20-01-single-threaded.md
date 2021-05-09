@@ -58,8 +58,13 @@ this. Let’s make a new project in the usual fashion:
 WebサーバはTCP接続をリッスンするので、そこが最初に取り掛かる部分になります。標準ライブラリは、
 `std::net`というこれを行うモジュールを用意しています。通常通り、新しいプロジェクトを作りましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo new hello --bin
+=======
+```console
+$ cargo new hello
+>>>>>>> upstream/master
      Created binary (application) `hello` project
 $ cd hello
 ```
@@ -315,6 +320,7 @@ internal state might change; usually, we think of “reading” as not needing
 mutation, but in this case we need the `mut` keyword.
 -->
 
+<<<<<<< HEAD
 `handle_connection`関数において、`stream`引数を可変にしました。理由は、
 `TcpStream`インスタンスが内部で返すデータを追いかけているからです。要求した以上のデータを読み取り、
 次回データを要求した時のためにそのデータを保存する可能性があります。故に、内部の状態が変化する可能性があるので、
@@ -335,6 +341,16 @@ which will read bytes from the `TcpStream` and put them in the buffer.
 これは、基本的なリクエストには十分な大きさでこの章の目的には必要十分です。任意のサイズのリクエストを扱いたければ、
 バッファーの管理はもっと複雑にする必要があります; 今は、単純に保っておきます。このバッファーを`stream.read`に渡し、
 これが`TcpStream`からバイトを読み取ってバッファーに置きます。
+=======
+Next, we need to actually read from the stream. We do this in two steps:
+first, we declare a `buffer` on the stack to hold the data that is read in.
+We’ve made the buffer 1024 bytes in size, which is big enough to hold the
+data of a basic request and sufficient for our purposes in this chapter. If
+we wanted to handle requests of an arbitrary size, buffer management would
+need to be more complicated; we’ll keep it simple for now. We pass the buffer
+to `stream.read`, which will read bytes from the `TcpStream` and put them in
+the buffer.
+>>>>>>> upstream/master
 
 <!--
 Second, we convert the bytes in the buffer to a string and print that string.
@@ -359,7 +375,7 @@ program’s output in the terminal will now look similar to this:
 このコードを試しましょう！プログラムを開始してWebブラウザで再度リクエストを送ってください。ブラウザではそれでも、
 エラーページが得られるでしょうが、端末のプログラムの出力はこんな感じになっていることに注目してください:
 
-```text
+```console
 $ cargo run
    Compiling hello v0.1.0 (file:///projects/hello)
     Finished dev [unoptimized + debuginfo] target(s) in 0.42 secs
@@ -706,8 +722,13 @@ I/O project in Listing 12-4.
 
 <!--
 Next, we use `format!` to add the file’s contents as the body of the success
+<<<<<<< HEAD
 response.
 -->
+=======
+response. To ensure a valid HTTP response, we add the `Content-Length` header
+which is set to the size of our response body, in this case the size of `hello.html`.
+>>>>>>> upstream/master
 
 次に`format!`でファイルの中身を成功したレスポンスの本体として追記しています。
 

@@ -43,10 +43,14 @@ the `grep` tool called `ripgrep` for searching files. If we want to install
 `ripgrep`, we can run the following:
 -->
 
+<<<<<<< HEAD
 例えば、第12章で、ファイルを検索する`ripgrep`という`grep`ツールのRust版があることに触れました。
 `ripgrep`をインストールしたかったら、以下を実行することができます:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo install ripgrep
 Updating registry `https://github.com/rust-lang/crates.io-index`
  Downloading ripgrep v0.3.2

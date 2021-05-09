@@ -339,6 +339,7 @@ The warning we get is this:
 
 出る警告は以下の通りです:
 
+<<<<<<< HEAD
 ```text
 warning: unused `std::iter::Map` which must be used: iterator adaptors are lazy
 and do nothing unless consumed
@@ -350,6 +351,10 @@ and do nothing unless consumed
   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
   |
   = note: #[warn(unused_must_use)] on by default
+=======
+```console
+{{#include ../listings/ch13-functional-features/listing-13-17/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

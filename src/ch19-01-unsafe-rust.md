@@ -362,6 +362,7 @@ try to call `dangerous` without the `unsafe` block, we’ll get an error:
 個別の`unsafe`ブロックで`dangerous`関数を呼ばなければなりません。`unsafe`ブロックなしで`dangerous`を呼ぼうとすれば、
 エラーになるでしょう:
 
+<<<<<<< HEAD
 ```text
 error[E0133]: call to unsafe function requires unsafe function or block
 (エラー: unsafe関数の呼び出しには、unsafeな関数かブロックが必要です)
@@ -369,6 +370,10 @@ error[E0133]: call to unsafe function requires unsafe function or block
   |
 4 |     dangerous();
   |     ^^^^^^^^^^^ call to unsafe function
+=======
+```console
+{{#include ../listings/ch19-advanced-features/output-only-01-missing-unsafe/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -484,6 +489,7 @@ When we try to compile the code in Listing 19-5, we’ll get an error.
 
 リスト19-5のコードのコンパイルを試みると、エラーになるでしょう。
 
+<<<<<<< HEAD
 ```text
 error[E0499]: cannot borrow `*slice` as mutable more than once at a time
 (エラー: 一度に2回以上、`*slice`を可変で借用できません)
@@ -495,6 +501,10 @@ error[E0499]: cannot borrow `*slice` as mutable more than once at a time
   |           ^^^^^ second mutable borrow occurs here
 8 | }
   | - first borrow ends here
+=======
+```console
+{{#include ../listings/ch19-advanced-features/listing-19-05/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

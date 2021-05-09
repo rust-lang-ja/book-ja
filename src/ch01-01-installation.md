@@ -68,8 +68,11 @@ Rustは安定性 (stability) を保証しているので、現在この本の例
 If you’re using Linux or macOS, open a terminal and enter the following command:
 -->
 
+<<<<<<< HEAD
 LinuxかmacOSを使用しているなら、端末（ターミナル）を開き、以下のコマンドを入力してください:
 
+=======
+>>>>>>> upstream/master
 ```console
 $ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
@@ -80,14 +83,20 @@ tool, which installs the latest stable version of Rust. You might be prompted
 for your password. If the install is successful, the following line will appear:
 -->
 
+<<<<<<< HEAD
 このコマンドはスクリプトをダウンロードし、`rustup`ツールのインストールを開始し、Rustの最新の安定版をインストールします。
 パスワードを求められる可能性があります。インストールがうまく行けば、以下の行が出現するでしょう:
 
+=======
+>>>>>>> upstream/master
 ```text
 Rust is installed now. Great!
 ```
 
+<<<<<<< HEAD
 <!--
+=======
+>>>>>>> upstream/master
 Additionally, you’ll need a linker of some kind. It’s likely one is already
 installed, but when you try to compile a Rust program and get errors indicating
 that a linker could not execute, that means a linker isn’t installed on your
@@ -119,6 +128,7 @@ receive a message explaining that you’ll also need the C++ build tools for
 Visual Studio 2013 or later. The easiest way to acquire the build tools is to
 install [Build Tools for Visual Studio 2019][visualstudio]. When asked which
 workloads to install make sure "C++ build tools" is selected and that the Windows 10 SDK and the English language pack components are included.
+<<<<<<< HEAD
 
 -->
 
@@ -128,6 +138,8 @@ Windowsでは、[https://www.rust-lang.org/tools/install][install]に行き、�
 どのワークロード (workloads) をインストールするかと質問されたときは、"C++ build tools"が選択されており、Windows 10 SDKと英語の言語パック (English language pack) が含まれていることを確かめてください。
 
 > 訳注：Windowsの言語を日本語にしている場合は言語パックのところで「日本語」が選択されており、そのままの設定でインストールしても基本的に問題ないはずです。しかし、サードパーティーのツールやライブラリの中には英語の言語パックを必要とするものがあるため、「日本語」に加えて「英語」も選択することをお勧めします。
+=======
+>>>>>>> upstream/master
 
 [install]: https://www.rust-lang.org/tools/install
 [visualstudio]: https://visualstudio.microsoft.com/visual-cpp-build-tools/
@@ -151,9 +163,12 @@ After you’ve installed Rust via `rustup`, updating to the latest version is
 easy. From your shell, run the following update script:
 -->
 
+<<<<<<< HEAD
 `rustup`経由でRustをインストールしたなら、最新版へ更新するのは簡単です。
 シェルから以下の更新スクリプトを実行してください:
 
+=======
+>>>>>>> upstream/master
 ```console
 $ rustup update
 ```
@@ -163,8 +178,11 @@ To uninstall Rust and `rustup`, run the following uninstall script from your
 shell:
 -->
 
+<<<<<<< HEAD
 Rustと`rustup`をアンインストールするには、シェルから以下のアンインストールスクリプトを実行してください:
 
+=======
+>>>>>>> upstream/master
 ```console
 $ rustup self uninstall
 ```
@@ -180,8 +198,11 @@ To check whether you have Rust installed correctly, open a shell and enter this
 line:
 -->
 
+<<<<<<< HEAD
 Rustが正常にインストールされているか確かめるには、シェルを開いて以下の行を入力してください:
 
+=======
+>>>>>>> upstream/master
 ```console
 $ rustc --version
 ```
@@ -223,9 +244,12 @@ Rustが`%PATH%`システム環境変数にあることを確認してくださ�
 [discord]: https://discord.gg/rust-lang
 [users]: https://users.rust-lang.org/
 [stackoverflow]: https://stackoverflow.com/questions/tagged/rust
+<<<<<<< HEAD
 [twitter]: https://mobile.twitter.com/rustlang/status/916284650674323457
 [mascott]: https://www.slideshare.net/wolf-dog/ss-64026540
 [slack_jp]: https://rust-jp.herokuapp.com/
+=======
+>>>>>>> upstream/master
 
 <!--
 ### Local Documentation

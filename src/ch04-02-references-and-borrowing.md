@@ -192,6 +192,7 @@ Here’s the error:
 
 これがエラーです:
 
+<<<<<<< HEAD
 ```text
 error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable
 (エラー: 不変な借用をした中身`*some_string`を可変で借用できません)
@@ -201,6 +202,10 @@ error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable
   |                        ------- use `&mut String` here to make mutable
 8 |     some_string.push_str(", world");
   |     ^^^^^^^^^^^ cannot borrow as mutable
+=======
+```console
+{{#include ../listings/ch04-understanding-ownership/listing-04-06/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -279,6 +284,7 @@ Here’s the error:
 
 これがエラーです:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling ownership v0.1.0 (file:///projects/ownership)
@@ -302,6 +308,10 @@ For more information about this error, try `rustc --explain E0499`.
 error: could not compile `ownership`
 
 To learn more, run the command again with --verbose.
+=======
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -411,6 +421,7 @@ Here’s the error:
 
 これがエラーです:
 
+<<<<<<< HEAD
 ```text
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as
 immutable
@@ -424,6 +435,10 @@ immutable
   |                   ^ mutable borrow occurs here
 7 | }
   | - immutable borrow ends here
+=======
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -501,6 +516,7 @@ Here’s the error:
 
 こちらがエラーです:
 
+<<<<<<< HEAD
 ```text
 error[E0106]: missing lifetime specifier
 (エラー: ライフタイム指定子がありません)
@@ -514,6 +530,10 @@ error[E0106]: missing lifetime specifier
     (助言: この関数の戻り値型は、借用した値を含んでいますが、借用される値がどこにもありません)
   = help: consider giving it a 'static lifetime
   ('staticライフタイムを与えることを考慮してみてください)
+=======
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-14-dangling-reference/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

@@ -87,7 +87,7 @@ the following example:
 `--test-threads`フラグと使用したいスレッド数をテストバイナリに送ることができます。
 以下の例に目を向けてください:
 
-```text
+```console
 $ cargo test -- --test-threads=1
 ```
 
@@ -132,6 +132,7 @@ parameter and returns 10, as well as a test that passes and a test that fails.
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
+<<<<<<< HEAD
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
@@ -157,6 +158,10 @@ mod tests {
         assert_eq!(5, value);
     }
 }
+=======
+```rust,panics
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-10/src/lib.rs:here}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -172,6 +177,7 @@ When we run these tests with `cargo test`, we’ll see the following output:
 
 これらのテストを`cargo test`で実行すると、以下のような出力を目の当たりにするでしょう:
 
+<<<<<<< HEAD
 ```text
 running 2 tests
 test tests::this_test_will_pass ... ok
@@ -190,6 +196,10 @@ failures:
     tests::this_test_will_fail
 
 test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/listing-11-10/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -211,8 +221,13 @@ output capture behavior by using the `--nocapture` flag:
 
 通過するテストについても出力される値が見たかったら、出力キャプチャ機能を`--nocapture`フラグで無効化することができます:
 
+<<<<<<< HEAD
 ```text
 $ cargo test -- --nocapture
+=======
+```console
+$ cargo test -- --show-output
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -222,6 +237,7 @@ see the following output:
 
 リスト11-10のテストを`--nocapture`フラグと共に再度実行したら、以下のような出力を目の当たりにします:
 
+<<<<<<< HEAD
 ```text
 running 2 tests
 I got the value 4
@@ -239,6 +255,10 @@ failures:
     tests::this_test_will_fail
 
 test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/output-only-01-show-output/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -324,6 +344,7 @@ tests will run in parallel:
 
 以前見かけたように、引数なしでテストを走らせたら、全テストが並行に走ります:
 
+<<<<<<< HEAD
 ```text
 running 3 tests
 test tests::add_two_and_two ... ok
@@ -331,6 +352,10 @@ test tests::add_three_and_two ... ok
 test tests::one_hundred ... ok
 
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/listing-11-11/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -345,6 +370,7 @@ We can pass the name of any test function to `cargo test` to run only that test:
 
 あらゆるテスト関数の名前を`cargo test`に渡して、そのテストのみを実行することができます:
 
+<<<<<<< HEAD
 ```text
 $ cargo test one_hundred
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
@@ -354,6 +380,10 @@ running 1 test
 test tests::one_hundred ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/output-only-02-single-test/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -388,6 +418,7 @@ run those two by running `cargo test add`:
 テスト名の一部を指定でき、その値に合致するあらゆるテストが走ります。例えば、
 我々のテストの2つが`add`という名前を含むので、`cargo test add`を実行することで、その二つを走らせることができます:
 
+<<<<<<< HEAD
 ```text
 $ cargo test add
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
@@ -398,6 +429,10 @@ test tests::add_two_and_two ... ok
 test tests::add_three_and_two ... ok
 
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/output-only-03-multiple-tests/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -457,6 +492,7 @@ when we run our tests, `it_works` runs, but `expensive_test` doesn’t:
 `#[test]`の後の除外したいテストに`#[ignore]`行を追加しています。これで、
 テストを実行したら、`it_works`は実行されるものの、`expensive_test`は実行されません:
 
+<<<<<<< HEAD
 ```text
 $ cargo test
    Compiling adder v0.1.0 (file:///projects/adder)
@@ -468,6 +504,10 @@ test expensive_test ... ignored
 test it_works ... ok
 
 test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-11-ignore-a-test/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -478,6 +518,7 @@ the ignored tests, we can use `cargo test -- --ignored`:
 `expensive_test`関数は、`ignored`と列挙されています。無視されるテストのみを実行したかったら、
 `cargo test -- --ignored`を使うことができます:
 
+<<<<<<< HEAD
 ```text
 $ cargo test -- --ignored
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
@@ -487,6 +528,10 @@ running 1 test
 test expensive_test ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/output-only-04-running-ignored/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

@@ -200,6 +200,7 @@ The compiler error is as follows:
 
 コンパイルエラーは以下の通りです:
 
+<<<<<<< HEAD
 ```text
 error[E0277]: the trait bound `std::ops::Fn(i32) -> i32 + 'static:
 std::marker::Sized` is not satisfied
@@ -212,6 +213,10 @@ std::marker::Sized` is not satisfied
   = help: the trait `std::marker::Sized` is not implemented for
   `std::ops::Fn(i32) -> i32 + 'static`
   = note: the return type of a function must have a statically known size
+=======
+```console
+{{#include ../listings/ch19-advanced-features/no-listing-18-returns-closure/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

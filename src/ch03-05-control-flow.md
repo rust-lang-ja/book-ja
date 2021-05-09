@@ -96,12 +96,17 @@ Try running this code; you should see the following output:
 
 このコードを走らせてみましょう; 以下のような出力を目の当たりにするはずです:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
     Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 condition was true
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-26-if-true/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -121,12 +126,17 @@ Run the program again, and look at the output:
 
 再度プログラムを実行して、出力に注目してください:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
     Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 condition was false
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -161,6 +171,7 @@ error:
 
 今回、`if`の条件式は`3`という値に評価され、コンパイラがエラーを投げます:
 
+<<<<<<< HEAD
 ```text
 error[E0308]: mismatched types
               (型が合いません)
@@ -172,6 +183,10 @@ error[E0308]: mismatched types
   |
   = note: expected type `bool`
              found type `{integer}`
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -256,12 +271,17 @@ see the following output:
 
 このプログラムには、通り道が4つあります。実行後、以下のような出力を目の当たりにするはずです:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
     Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
      Running `target/debug/branches`
 number is divisible by 3
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-30-else-if/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -334,12 +354,17 @@ expression. Run this code to see what happens:
 
 この`number`変数は、`if`式の結果に基づいた値に束縛されます。このコードを走らせてどうなるか確かめてください:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
     Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
      Running `target/debug/branches`
 The value of number is: 5
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/listing-03-02/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -387,6 +412,7 @@ find the problem in the program:
 このコードをコンパイルしようとすると、エラーになります。`if`と`else`アームは互換性のない値の型になり、
 コンパイラがプログラム内で問題の見つかった箇所をスバリ指摘してくれます:
 
+<<<<<<< HEAD
 ```text
 error[E0308]: if and else have incompatible types
               (ifとelseの型に互換性がありません)
@@ -403,6 +429,10 @@ error[E0308]: if and else have incompatible types
   |
   = note: expected type `{integer}`
              found type `&str`
+=======
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -488,11 +518,15 @@ until we stop the program manually. Most terminals support a keyboard shortcut,
 continual loop. Give it a try:
 -->
 
+<<<<<<< HEAD
 このプログラムを実行すると、プログラムを手動で止めるまで、何度も何度も続けて`again!`と出力するでしょう。
 ほとんどの端末で<span class="keystroke">ctrl-c</span>というショートカットが使え、
 永久ループに囚われてしまったプログラムを終了させられます。試しにやってみましょう:
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
     Finished dev [unoptimized + debuginfo] target(s) in 0.29 secs

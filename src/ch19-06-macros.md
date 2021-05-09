@@ -497,12 +497,15 @@ called `foo_derive`. Let’s start a new crate called `hello_macro_derive` insid
 our `hello_macro` project:
 -->
 
+<<<<<<< HEAD
 次の手順は、手続き的マクロを定義することです。これを執筆している時点では、手続き的マクロは、
 独自のクレートに存在する必要があります。最終的には、この制限は持ち上げられる可能性があります。
 クレートとマクロクレートを構成する慣習は以下の通りです: `foo`というクレートに対して、
 カスタムのderive手続き的マクロクレートは`foo_derive`と呼ばれます。`hello_macro`プロジェクト内に、
 `hello_macro_derive`と呼ばれる新しいクレートを開始しましょう:
 
+=======
+>>>>>>> upstream/master
 ```console
 $ cargo new hello_macro_derive --lib
 ```

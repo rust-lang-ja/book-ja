@@ -269,6 +269,7 @@ in this directory only when we run `cargo test`. Run `cargo test` now:
 Cargoは`tests`ディレクトリを特別に扱い、`cargo test`を走らせた時にのみこのディレクトリのファイルをコンパイルするのです。
 さあ、`cargo test`を実行してください:
 
+<<<<<<< HEAD
 ```text
 $ cargo test
    Compiling adder v0.1.0 (file:///projects/adder)
@@ -292,6 +293,10 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/listing-11-13/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -342,6 +347,7 @@ followed by the name of the file:
 特定の結合テストファイルにあるテストを全て走らせるには、`cargo test`に`--test`引数、
 その後にファイル名を続けて使用してください:
 
+<<<<<<< HEAD
 ```text
 $ cargo test --test integration_test
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
@@ -351,6 +357,10 @@ running 1 test
 test it_adds_two ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/output-only-05-single-integration/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -426,6 +436,7 @@ did we call the `setup` function from anywhere:
 再度テストを実行すると、*common.rs*ファイルは何もテスト関数を含んだり、`setup`関数をどこかから呼んだりしてないのに、
 テスト出力に*common.rs*用の区域が見えるでしょう。
 
+<<<<<<< HEAD
 ```text
 running 1 test
 test tests::internal ... ok
@@ -450,6 +461,10 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+=======
+```console
+{{#include ../listings/ch11-writing-automated-tests/no-listing-12-shared-test-code-problem/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

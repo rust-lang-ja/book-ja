@@ -439,7 +439,10 @@ this:
 
 ```rust,ignore
 pub fn notify<T: Summary>(item: &T) {
+<<<<<<< HEAD
 	// 速報！ {}
+=======
+>>>>>>> upstream/master
     println!("Breaking news! {}", item.summarize());
 }
 ```
@@ -829,6 +832,7 @@ our code is even able to run. Additionally, we don’t have to write code that
 checks for behavior at runtime because we’ve already checked at compile time.
 Doing so improves performance without having to give up the flexibility of
 generics.
+<<<<<<< HEAD
 -->
 トレイトとトレイト境界により、ジェネリックな型引数を使用して重複を減らしつつ、コンパイラに対して、
 そのジェネリックな型に特定の振る舞いが欲しいことを指定するコードを書くことができます。
@@ -839,6 +843,9 @@ generics.
 そうすることで、ジェネリクスの柔軟性を諦めることなくパフォーマンスを向上させます。
 
 <!--
+=======
+
+>>>>>>> upstream/master
 Another kind of generic that we’ve already been using is called *lifetimes*.
 Rather than ensuring that a type has the behavior we want, lifetimes ensure
 that references are valid as long as we need them to be. Let’s look at how

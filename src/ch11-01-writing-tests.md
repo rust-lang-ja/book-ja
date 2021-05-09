@@ -78,8 +78,11 @@ behavior is correct.
 Let’s create a new library project called `adder`:
 -->
 
+<<<<<<< HEAD
 `adder`という新しいライブラリプロジェクトを生成しましょう:
 
+=======
+>>>>>>> upstream/master
 ```console
 $ cargo new adder --lib
      Created library `adder` project
@@ -139,9 +142,12 @@ The `cargo test` command runs all tests in our project, as shown in Listing
 11-2.
 -->
 
+<<<<<<< HEAD
 `cargo test`コマンドでプロジェクトにあるテストが全て実行されます。リスト11-2に示したようにですね。
 
 
+=======
+>>>>>>> upstream/master
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-01/output.txt}}
 ```
@@ -230,8 +236,11 @@ Then run `cargo test` again. The output now shows `exploration` instead of
 `it_works`:
 -->
 
+<<<<<<< HEAD
 そして、`cargo test`を再度走らせます。これで出力が`it_works`の代わりに`exploration`と表示しています:
 
+=======
+>>>>>>> upstream/master
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-01-changing-test-name/output.txt}}
 ```
@@ -422,10 +431,13 @@ passed it the result of calling `larger.can_hold(&smaller)`. This expression
 is supposed to return `true`, so our test should pass. Let’s find out!
 -->
 
+<<<<<<< HEAD
 テストは`larger_can_hold_smaller`と名付け、必要な`Rectangle`インスタンスを2つ生成しています。
 そして、`assert!`マクロを呼び出し、`larger.can_hold(&smaller)`の呼び出し結果を渡しました。
 この式は、`true`を返すと考えられるので、テストは通るはずです。確かめましょう！
 
+=======
+>>>>>>> upstream/master
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-06/output.txt}}
 ```
@@ -453,9 +465,12 @@ we need to negate that result before we pass it to the `assert!` macro. As a
 result, our test will pass if `can_hold` returns `false`:
 -->
 
+<<<<<<< HEAD
 今回の場合、`can_hold`関数の正しい結果は`false`なので、その結果を`assert!`マクロに渡す前に反転させる必要があります。
 結果として、`can_hold`が`false`を返せば、テストは通ります。
 
+=======
+>>>>>>> upstream/master
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-02-adding-another-rectangle-test/output.txt}}
 ```
@@ -724,8 +739,11 @@ Let’s introduce a bug into this code by changing `greeting` to not include
 Running this test produces the following:
 -->
 
+<<<<<<< HEAD
 このテストを実行すると、以下のように出力されます:
 
+=======
+>>>>>>> upstream/master
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-06-greeter-with-bug/output.txt}}
 ```
@@ -751,8 +769,11 @@ filled in with the actual value we got from the `greeting` function:
 Now when we run the test, we’ll get a more informative error message:
 -->
 
+<<<<<<< HEAD
 これでテストを実行したら、より有益なエラーメッセージが得られるでしょう:
 
+=======
+>>>>>>> upstream/master
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-07-custom-failure-message/output.txt}}
 ```
@@ -826,9 +847,12 @@ before the test function it applies to. Let’s look at the result when this tes
 passes:
 -->
 
+<<<<<<< HEAD
 `#[test]`属性の後、適用するテスト関数の前に`#[should_panic]`属性を配置しています。
 このテストが通るときの結果を見ましょう:
 
+=======
+>>>>>>> upstream/master
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-08/output.txt}}
 ```
@@ -847,8 +871,11 @@ that the `new` function will panic if the value is greater than 100:
 When we run the test in Listing 11-8, it will fail:
 -->
 
+<<<<<<< HEAD
 リスト11-8のテストを実行すると、失敗するでしょう:
 
+=======
+>>>>>>> upstream/master
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-08-guess-with-bug/output.txt}}
 ```
@@ -933,8 +960,11 @@ fails, let’s again introduce a bug into our code by swapping the bodies of the
 This time when we run the `should_panic` test, it will fail:
 -->
 
+<<<<<<< HEAD
 `should_panic`テストを実行すると、今回は失敗するでしょう:
 
+=======
+>>>>>>> upstream/master
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-09-guess-with-panic-msg-bug/output.txt}}
 ```
@@ -967,7 +997,7 @@ that use `Result<T, E>`! Here’s the test from Listing 11-1, rewritten to use
 以下は、Listing 11-1のテストを、`Result<T, E>`を使い、パニックする代わりに`Err`を返すように書き直したものです：
 
 ```rust
-{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-10-result-in-tests/src/lib.rs}}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-10-result-in-tests/src/lib.rs:here}}
 ```
 
 <!--

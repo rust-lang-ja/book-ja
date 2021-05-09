@@ -104,6 +104,7 @@ Attempting to compile now gives us the following output:
 
 これでコンパイルしようとすると、以下のような出力が得られます:
 
+<<<<<<< HEAD
 ```text
 error[E0308]: mismatched types
 (エラー: 型が合いません)
@@ -117,6 +118,10 @@ error[E0308]: mismatched types
   (注釈: 予期した型は`u32`です)
              found type `std::result::Result<std::fs::File, std::io::Error>`
   (実際の型は`std::result::Result<std::fs::File, std::io::Error>`です)
+=======
+```console
+{{#include ../listings/ch09-error-handling/no-listing-02-ask-compiler-for-type/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -663,10 +668,24 @@ function as if we had used the `return` keyword so the error value gets
 propagated to the calling code.
 -->
 
+<<<<<<< HEAD
 `Result`値の直後に置かれた`?`は、リスト9-6で`Result`値を処理するために定義した`match`式とほぼ同じように動作します。
 `Result`の値が`Ok`なら、`Ok`の中身がこの式から返ってきて、プログラムは継続します。値が`Err`なら、
 `return`キーワードを使ったかのように関数全体から`Err`の中身が返ってくるので、
 エラー値は呼び出し元のコードに委譲されます。
+=======
+There is a difference between what the `match` expression from Listing 9-6 does
+and what the `?` operator does: error values that have the `?` operator called
+on them go through the `from` function, defined in the `From` trait in the
+standard library, which is used to convert errors from one type into another.
+When the `?` operator calls the `from` function, the error type received is
+converted into the error type defined in the return type of the current
+function. This is useful when a function returns one error type to represent all
+the ways a function might fail, even if parts might fail for many different
+reasons. As long as each error type implements the `from` function to define how
+to convert itself to the returned error type, the `?` operator takes care of the
+conversion automatically.
+>>>>>>> upstream/master
 
 <!--
 There is a difference between what the `match` expression from Listing 9-6 and
@@ -764,12 +783,16 @@ The `?` operator can only be used in functions that have a return type of
 `Result`, because it is defined to work in the same way as the `match`
 expression we defined in Listing 9-6. The part of the `match` that requires a
 return type of `Result` is `return Err(e)`, so the return type of the function
+<<<<<<< HEAD
 must be a `Result` to be compatible with this `return`.
 -->
 
 `?`演算子は戻り値に`Result`を持つ関数でしか使用できません。というのも、リスト9-6で定義した`match`式と同様に動作するよう、
 定義されているからです。`Result`の戻り値型を要求する`match`の部品は、`return Err(e)`なので、
 関数の戻り値はこの`return`と互換性を保つために`Result`でなければならないのです。
+=======
+has to be a `Result` to be compatible with this `return`.
+>>>>>>> upstream/master
 
 <!--
 Let’s look at what happens if we use the `?` operator in the `main` function,
@@ -792,6 +815,7 @@ When we compile this code, we get the following error message:
 
 このコードをコンパイルすると、以下のようなエラーメッセージが得られます:
 
+<<<<<<< HEAD
 ```text
 error[E0277]: the trait bound `(): std::ops::Try` is not satisfied
 (エラー: `(): std::ops::Try`というトレイト境界が満たされていません)
@@ -809,6 +833,10 @@ error[E0277]: the trait bound `(): std::ops::Try` is not satisfied
   (助言: `std::ops::Try`トレイトは`()`には実装されていません)
   = note: required by `std::ops::Try::from_error`
   (注釈: `std::ops::Try::from_error`で要求されています)
+=======
+```console
+{{#include ../listings/ch09-error-handling/no-listing-06-question-mark-in-main/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

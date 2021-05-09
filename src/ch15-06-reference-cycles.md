@@ -198,6 +198,7 @@ moment, we’ll get this output:
 
 最後の`println!`を今だけコメントアウトしたまま、このコードを実行すると、こんな出力が得られます:
 
+<<<<<<< HEAD
 ```text
 a initial rc count = 1
 a next item = Some(RefCell { value: Nil })
@@ -206,6 +207,10 @@ b initial rc count = 1
 b next item = Some(RefCell { value: Cons(5, RefCell { value: Nil }) })
 b rc count after changing a = 2
 a rc count after changing a = 2
+=======
+```console
+{{#include ../listings/ch15-smart-pointers/listing-15-26/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

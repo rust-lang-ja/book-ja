@@ -616,6 +616,7 @@ If we run this code, we get an error message like this:
 
 このコードを動かしたら、以下のようなエラーメッセージが出ます。
 
+<<<<<<< HEAD
 ```text
 error[E0277]: the trait bound `i8: std::ops::Add<std::option::Option<i8>>` is
 not satisfied
@@ -625,6 +626,10 @@ not satisfied
 5 |     let sum = x + y;
   |                 ^ no implementation for `i8 + std::option::Option<i8>`
   |
+=======
+```console
+{{#include ../listings/ch06-enums-and-pattern-matching/no-listing-07-cant-use-option-directly/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

@@ -494,6 +494,7 @@ Here’s the compiler error:
 
 こちらがコンパイルエラーです:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling ownership v0.1.0 (file:///projects/ownership)
@@ -517,6 +518,10 @@ For more information about this error, try `rustc --explain E0502`.
 error: could not compile `ownership`.
 
 To learn more, run the command again with --verbose.
+=======
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--

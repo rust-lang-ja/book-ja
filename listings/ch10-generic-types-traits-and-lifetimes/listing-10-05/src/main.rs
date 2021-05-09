@@ -1,5 +1,9 @@
 fn largest<T>(list: &[T]) -> &T {
+<<<<<<< HEAD
     let mut largest = list[0];
+=======
+    let mut largest = &list[0];
+>>>>>>> upstream/master
 
     for item in list {
         if item > largest {

@@ -76,6 +76,7 @@ When you run the program, you’ll see something like this:
 
 このプログラムを実行すると、以下のような出力を目の当たりにするでしょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling panic v0.1.0 (file:///projects/panic)
@@ -84,6 +85,10 @@ $ cargo run
 thread 'main' panicked at 'crash and burn', src/main.rs:2:4
 ('main'スレッドはsrc/main.rs:2:4の「クラッシュして炎上」でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
+=======
+```console
+{{#include ../listings/ch09-error-handling/no-listing-01-panic/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -189,6 +194,7 @@ continue. Let’s try it and see:
 この種の脆弱性からプログラムを保護するために、存在しない添え字の要素を読もうとしたら、
 Rustは実行を中止し、継続を拒みます。試して確認してみましょう:
 
+<<<<<<< HEAD
 ```text
 $ cargo run
    Compiling panic v0.1.0 (file:///projects/panic)
@@ -199,6 +205,10 @@ thread 'main' panicked at 'index out of bounds: the len is 3 but the index is
 ('main'スレッドは、/checkout/src/liballoc/vec.rs:1555:10の
 「境界外番号: 長さは3なのに、添え字は99です」でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
+=======
+```console
+{{#include ../listings/ch09-error-handling/listing-09-01/output.txt}}
+>>>>>>> upstream/master
 ```
 
 <!--
@@ -226,6 +236,7 @@ setting the `RUST_BACKTRACE` environment variable to any value except 0.
 Listing 9-2 shows output similar to what you’ll see.
 -->
 
+<<<<<<< HEAD
 その次の注釈行は、`RUST_BACKTRACE`環境変数をセットして、まさしく何が起き、
 エラーが発生したのかのバックトレースを得られることを教えてくれています。
 *バックトレース*とは、ここに至るまでに呼び出された全関数の一覧です。Rustのバックトレースも、
@@ -236,6 +247,9 @@ Listing 9-2 shows output similar to what you’ll see.
 バックトレースを出力してみましょう。リスト9-2のような出力が得られるでしょう。
 
 ```text
+=======
+```console
+>>>>>>> upstream/master
 $ RUST_BACKTRACE=1 cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
      Running `target/debug/panic`
