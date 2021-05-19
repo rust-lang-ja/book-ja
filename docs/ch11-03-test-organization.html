@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Test Organization
 -->
-<h2><a class="header" href="#テストの体系化" id="テストの体系化">テストの体系化</a></h2>
+<h2 id="テストの体系化"><a class="header" href="#テストの体系化">テストの体系化</a></h2>
 <!--
 As mentioned at the start of the chapter, testing is a complex discipline, and
 different people use different terminology and organization. The Rust community
@@ -196,7 +198,7 @@ library are doing what you expect them to, separately and together.
 <!--
 ### Unit Tests
 -->
-<h3><a class="header" href="#単体テスト" id="単体テスト">単体テスト</a></h3>
+<h3 id="単体テスト"><a class="header" href="#単体テスト">単体テスト</a></h3>
 <!--
 The purpose of unit tests is to test each unit of code in isolation from the
 rest of the code to quickly pinpoint where code is and isn’t working as
@@ -213,7 +215,7 @@ in each file to contain the test functions and to annotate the module with
 <!--
 #### The Tests Module and `#[cfg(test)]`
 -->
-<h4><a class="header" href="#テストモジュールとcfgtest" id="テストモジュールとcfgtest">テストモジュールと<code>#[cfg(test)]</code></a></h4>
+<h4 id="テストモジュールとcfgtest"><a class="header" href="#テストモジュールとcfgtest">テストモジュールと<code>#[cfg(test)]</code></a></h4>
 <!--
 The `#[cfg(test)]` annotation on the tests module tells Rust to compile and run
 the test code only when we run `cargo test`, but not when we run `cargo build`.
@@ -269,7 +271,7 @@ Cargoがテストコードをコンパイルします。これには、このモ
 <!--
 #### Testing Private Functions
 -->
-<h4><a class="header" href="#非公開関数をテストする" id="非公開関数をテストする">非公開関数をテストする</a></h4>
+<h4 id="非公開関数をテストする"><a class="header" href="#非公開関数をテストする">非公開関数をテストする</a></h4>
 <!--
 There’s debate within the testing community about whether or not private
 functions should be tested directly, and other languages make it difficult or
@@ -324,7 +326,7 @@ you to do so.
 <!--
 ### Integration Tests
 -->
-<h3><a class="header" href="#結合テスト" id="結合テスト">結合テスト</a></h3>
+<h3 id="結合テスト"><a class="header" href="#結合テスト">結合テスト</a></h3>
 <!--
 In Rust, integration tests are entirely external to your library. They use your
 library in the same way any other code would, which means they can only call
@@ -343,7 +345,7 @@ tests, you first need a *tests* directory.
 <!--
 #### The *tests* Directory
 -->
-<h4><a class="header" href="#testsディレクトリ" id="testsディレクトリ"><em>tests</em>ディレクトリ</a></h4>
+<h4 id="testsディレクトリ"><a class="header" href="#testsディレクトリ"><em>tests</em>ディレクトリ</a></h4>
 <!--
 We create a *tests* directory at the top level of our project directory, next
 to *src*. Cargo knows to look for integration test files in this directory. We
@@ -473,7 +475,7 @@ This command runs only the tests in the *tests/integration_test.rs* file.
 <!--
 #### Submodules in Integration Tests
 -->
-<h4><a class="header" href="#結合テスト内のサブモジュール" id="結合テスト内のサブモジュール">結合テスト内のサブモジュール</a></h4>
+<h4 id="結合テスト内のサブモジュール"><a class="header" href="#結合テスト内のサブモジュール">結合テスト内のサブモジュール</a></h4>
 <!--
 As you add more integration tests, you might want to make more than one file in
 the *tests* directory to help organize them; for example, you can group the
@@ -609,7 +611,7 @@ we demonstrated in Listing 7-4. Then in the test function, we can call the
 <!--
 #### Integration Tests for Binary Crates
 -->
-<h4><a class="header" href="#バイナリクレート用の結合テスト" id="バイナリクレート用の結合テスト">バイナリクレート用の結合テスト</a></h4>
+<h4 id="バイナリクレート用の結合テスト"><a class="header" href="#バイナリクレート用の結合テスト">バイナリクレート用の結合テスト</a></h4>
 <!--
 If our project is a binary crate that only contains a *src/main.rs* file and
 doesn’t have a *src/lib.rs* file, we can’t create integration tests in the
@@ -638,7 +640,7 @@ need to be tested.
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 Rust’s testing features provide a way to specify how code should function to
 ensure it continues to work as we expect, even as we make changes. Unit tests

@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## All the Places Patterns Can Be Used
 -->
-<h2><a class="header" href="#パターンが使用されることのある箇所全部" id="パターンが使用されることのある箇所全部">パターンが使用されることのある箇所全部</a></h2>
+<h2 id="パターンが使用されることのある箇所全部"><a class="header" href="#パターンが使用されることのある箇所全部">パターンが使用されることのある箇所全部</a></h2>
 <!--
 Patterns pop up in a number of places in Rust, and you’ve been using them a lot
 without realizing it! This section dicusses all the places where patterns are
@@ -183,7 +185,7 @@ valid.
 <!--
 ### `match` Arms
 -->
-<h3><a class="header" href="#matchアーム" id="matchアーム"><code>match</code>アーム</a></h3>
+<h3 id="matchアーム"><a class="header" href="#matchアーム"><code>match</code>アーム</a></h3>
 <!--
 As discussed in Chapter 6, we use patterns in the arms of `match` expressions.
 Formally, `match` expressions are defined as the keyword `match`, a value to
@@ -222,7 +224,7 @@ this chapter.
 <!--
 ### Conditional `if let` Expressions
 -->
-<h3><a class="header" href="#条件分岐if-let式" id="条件分岐if-let式">条件分岐<code>if let</code>式</a></h3>
+<h3 id="条件分岐if-let式"><a class="header" href="#条件分岐if-let式">条件分岐<code>if let</code>式</a></h3>
 <!--
 In Chapter 6 we discussed how to use `if let` expressions mainly as a shorter
 way to write the equivalent of a `match` that only matches one case.
@@ -325,7 +327,7 @@ not alert us to the possible logic bug.
 <!--
 ### `while let` Conditional Loops
 -->
-<h3><a class="header" href="#while-let条件分岐ループ" id="while-let条件分岐ループ"><code>while let</code>条件分岐ループ</a></h3>
+<h3 id="while-let条件分岐ループ"><a class="header" href="#while-let条件分岐ループ"><code>while let</code>条件分岐ループ</a></h3>
 <!--
 Similar in construction to `if let`, the `while let` conditional loop allows a
 `while` loop to run for as long as a pattern continues to match. The example in
@@ -367,7 +369,7 @@ use `while let` to pop every element off our stack.
 <!--
 ### `for` Loops
 -->
-<h3><a class="header" href="#forループ" id="forループ"><code>for</code>ループ</a></h3>
+<h3 id="forループ"><a class="header" href="#forループ"><code>for</code>ループ</a></h3>
 <!--
 In Chapter 3, we mentioned that the `for` loop is the most common loop
 construction in Rust code, but we haven’t yet discussed the pattern that `for`
@@ -418,7 +420,7 @@ printing the first line of the output.
 <!--
 ### `let` Statements
 -->
-<h3><a class="header" href="#let文" id="let文"><code>let</code>文</a></h3>
+<h3 id="let文"><a class="header" href="#let文"><code>let</code>文</a></h3>
 <!--
 Prior to this chapter, we had only explicitly discussed using patterns with
 `match` and `if let`, but in fact, we’ve used patterns in other places as well,
@@ -522,7 +524,7 @@ the number of elements in the tuple.
 <!--
 ### Function Parameters
 -->
-<h3><a class="header" href="#関数の引数" id="関数の引数">関数の引数</a></h3>
+<h3 id="関数の引数"><a class="header" href="#関数の引数">関数の引数</a></h3>
 <!--
 Function parameters can also be patterns. The code in Listing 18-6, which
 declares a function named `foo` that takes one parameter named `x` of type

@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Graceful Shutdown and Cleanup
 -->
-<h2><a class="header" href="#正常なシャットダウンと片付け" id="正常なシャットダウンと片付け">正常なシャットダウンと片付け</a></h2>
+<h2 id="正常なシャットダウンと片付け"><a class="header" href="#正常なシャットダウンと片付け">正常なシャットダウンと片付け</a></h2>
 <!--
 The code in Listing 20-21 is responding to requests asynchronously through the
 use of a thread pool, as we intended. We get some warnings about the `workers`,
@@ -199,7 +201,7 @@ accept only two requests before gracefully shutting down its thread pool.
 <!--
 ### Implementing the `Drop` Trait on `ThreadPool`
 -->
-<h3><a class="header" href="#threadpoolにdropトレイトを実装する" id="threadpoolにdropトレイトを実装する"><code>ThreadPool</code>に<code>Drop</code>トレイトを実装する</a></h3>
+<h3 id="threadpoolにdropトレイトを実装する"><a class="header" href="#threadpoolにdropトレイトを実装する"><code>ThreadPool</code>に<code>Drop</code>トレイトを実装する</a></h3>
 <!--
 Let’s start with implementing `Drop` on our thread pool. When the pool is
 dropped, our threads should all join to make sure they finish their work.
@@ -372,7 +374,7 @@ cleaned up, so nothing happens in that case.
 <!--
 ### Signaling to the Threads to Stop Listening for Jobs
 -->
-<h3><a class="header" href="#スレッドに仕事をリッスンするのを止めるよう通知する" id="スレッドに仕事をリッスンするのを止めるよう通知する">スレッドに仕事をリッスンするのを止めるよう通知する</a></h3>
+<h3 id="スレッドに仕事をリッスンするのを止めるよう通知する"><a class="header" href="#スレッドに仕事をリッスンするのを止めるよう通知する">スレッドに仕事をリッスンするのを止めるよう通知する</a></h3>
 <!--
 With all the changes we’ve made, our code compiles without any warnings. But
 the bad news is this code doesn’t function the way we want it to yet. The key
@@ -889,7 +891,7 @@ thread pool we implemented.
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 Well done! You’ve made it to the end of the book! We want to thank you for
 joining us on this tour of Rust. You’re now ready to implement your own Rust

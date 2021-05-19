@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 # Programming a Guessing Game
 -->
-<h1><a class="header" href="#数当てゲームをプログラムする" id="数当てゲームをプログラムする">数当てゲームをプログラムする</a></h1>
+<h1 id="数当てゲームをプログラムする"><a class="header" href="#数当てゲームをプログラムする">数当てゲームをプログラムする</a></h1>
 <!--
 Let’s jump into Rust by working through a hands-on project together! This
 chapter introduces you to a few common Rust concepts by showing you how to use
@@ -199,7 +201,7 @@ correct, the game will print a congratulatory message and exit.
 <!--
 ## Setting Up a New Project
 -->
-<h2><a class="header" href="#新規プロジェクトの立ち上げ" id="新規プロジェクトの立ち上げ">新規プロジェクトの立ち上げ</a></h2>
+<h2 id="新規プロジェクトの立ち上げ"><a class="header" href="#新規プロジェクトの立ち上げ">新規プロジェクトの立ち上げ</a></h2>
 <!--
 To set up a new project, go to the *projects* directory that you created in
 Chapter 1 and make a new project using Cargo, like so:
@@ -279,7 +281,7 @@ Reopen the *src/main.rs* file. You’ll be writing all the code in this file.
 <!--
 ## Processing a Guess
 -->
-<h2><a class="header" href="#予想を処理する" id="予想を処理する">予想を処理する</a></h2>
+<h2 id="予想を処理する"><a class="header" href="#予想を処理する">予想を処理する</a></h2>
 <!--
 The first part of the guessing game program will ask for user input, process
 that input, and check that the input is in the expected form. To start, we’ll
@@ -368,7 +370,7 @@ input from the user.
 <!--
 ### Storing Values with Variables
 -->
-<h3><a class="header" href="#値を変数に保持する" id="値を変数に保持する">値を変数に保持する</a></h3>
+<h3 id="値を変数に保持する"><a class="header" href="#値を変数に保持する">値を変数に保持する</a></h3>
 <!--
 Next, we’ll create a place to store the user input, like this:
 -->
@@ -501,7 +503,7 @@ thoroughly.)
 <!--
 ### Handling Potential Failure with the `Result` Type
 -->
-<h3><a class="header" href="#result型で失敗の可能性を扱う" id="result型で失敗の可能性を扱う"><code>Result</code>型で失敗の可能性を扱う</a></h3>
+<h3 id="result型で失敗の可能性を扱う"><a class="header" href="#result型で失敗の可能性を扱う"><code>Result</code>型で失敗の可能性を扱う</a></h3>
 <!--
 We’re not quite done with this line of code. Although what we've discussed so
 far is a single line of text, it’s only the first part of the single logical
@@ -608,7 +610,7 @@ because you just want to crash this program when a problem occurs, you can use
 <!--
 ### Printing Values with `println!` Placeholders
 -->
-<h3><a class="header" href="#printlnマクロのプレースホルダーで値を出力する" id="printlnマクロのプレースホルダーで値を出力する"><code>println!</code>マクロのプレースホルダーで値を出力する</a></h3>
+<h3 id="printlnマクロのプレースホルダーで値を出力する"><a class="header" href="#printlnマクロのプレースホルダーで値を出力する"><code>println!</code>マクロのプレースホルダーで値を出力する</a></h3>
 <!--
 Aside from the closing curly brackets, there’s only one more line to discuss in
 the code added so far, which is the following:
@@ -645,7 +647,7 @@ This code would print `x = 5 and y = 10`.
 <!--
 ### Testing the First Part
 -->
-<h3><a class="header" href="#最初の部分をテストする" id="最初の部分をテストする">最初の部分をテストする</a></h3>
+<h3 id="最初の部分をテストする"><a class="header" href="#最初の部分をテストする">最初の部分をテストする</a></h3>
 <!--
 Let’s test the first part of the guessing game. Run it using `cargo run`:
 -->
@@ -667,7 +669,7 @@ keyboard and then printing it.
 <!--
 ## Generating a Secret Number
 -->
-<h2><a class="header" href="#秘密の数字を生成する" id="秘密の数字を生成する">秘密の数字を生成する</a></h2>
+<h2 id="秘密の数字を生成する"><a class="header" href="#秘密の数字を生成する">秘密の数字を生成する</a></h2>
 <!--
 Next, we need to generate a secret number that the user will try to guess. The
 secret number should be different every time so the game is fun to play more
@@ -682,7 +684,7 @@ Rustの開発チームが<a href="https://crates.io/crates/rand"><code>rand</cod
 <!--
 ### Using a Crate to Get More Functionality
 -->
-<h3><a class="header" href="#クレートを使用して機能を追加する" id="クレートを使用して機能を追加する">クレートを使用して機能を追加する</a></h3>
+<h3 id="クレートを使用して機能を追加する"><a class="header" href="#クレートを使用して機能を追加する">クレートを使用して機能を追加する</a></h3>
 <!--
 Remember that a crate is a package of Rust code. The project we’ve been
 building is a *binary crate*, which is an executable. The `rand` crate is a
@@ -803,7 +805,7 @@ your part of the code.
 <!--
 #### Ensuring Reproducible Builds with the *Cargo.lock* File
 -->
-<h4><a class="header" href="#cargolockファイルで再現可能なビルドを保証する" id="cargolockファイルで再現可能なビルドを保証する"><em>Cargo.lock</em>ファイルで再現可能なビルドを保証する</a></h4>
+<h4 id="cargolockファイルで再現可能なビルドを保証する"><a class="header" href="#cargolockファイルで再現可能なビルドを保証する"><em>Cargo.lock</em>ファイルで再現可能なビルドを保証する</a></h4>
 <!--
 Cargo has a mechanism that ensures you can rebuild the same artifact every time
 you or anyone else builds your code: Cargo will use only the versions of the
@@ -836,7 +838,7 @@ Cargoは判断基準(criteria)に合致するよう全ての依存のバージ�
 <!--
 #### Updating a Crate to Get a New Version
 -->
-<h4><a class="header" href="#クレートを更新して新バージョンを取得する" id="クレートを更新して新バージョンを取得する">クレートを更新して新バージョンを取得する</a></h4>
+<h4 id="クレートを更新して新バージョンを取得する"><a class="header" href="#クレートを更新して新バージョンを取得する">クレートを更新して新バージョンを取得する</a></h4>
 <!--
 When you *do* want to update a crate, Cargo provides another command, `update`,
 which will ignore the *Cargo.lock* file and figure out all the latest versions
@@ -900,7 +902,7 @@ Rustaceanは数多くのパッケージから構成された小規模のプロ�
 <!--
 ### Generating a Random Number
 -->
-<h3><a class="header" href="#乱数を生成する" id="乱数を生成する">乱数を生成する</a></h3>
+<h3 id="乱数を生成する"><a class="header" href="#乱数を生成する">乱数を生成する</a></h3>
 <!--
 Now that you've added the `rand` crate to *Cargo.toml*, let's start using
 `rand`. The next step is to update *src/main.rs*, as shown in Listing 2-3.
@@ -1013,7 +1015,7 @@ You should get different random numbers, and they should all be numbers between
 <!--
 ## Comparing the Guess to the Secret Number
 -->
-<h2><a class="header" href="#予想と秘密の数字を比較する" id="予想と秘密の数字を比較する">予想と秘密の数字を比較する</a></h2>
+<h2 id="予想と秘密の数字を比較する"><a class="header" href="#予想と秘密の数字を比較する">予想と秘密の数字を比較する</a></h2>
 <!--
 Now that we have user input and a random number, we can compare them. That step
 is shown in Listing 2-4. Note that this code won't compile quite yet, as we
@@ -1300,7 +1302,7 @@ Let’s change that by adding a loop!
 <!--
 ## Allowing Multiple Guesses with Looping
 -->
-<h2><a class="header" href="#ループで複数回の予想を可能にする" id="ループで複数回の予想を可能にする">ループで複数回の予想を可能にする</a></h2>
+<h2 id="ループで複数回の予想を可能にする"><a class="header" href="#ループで複数回の予想を可能にする">ループで複数回の予想を可能にする</a></h2>
 <!--
 The `loop` keyword creates an infinite loop. We'll add that now to give users
 more chances at guessing the number:
@@ -1387,7 +1389,7 @@ stop when the correct number is guessed.
 <!--
 ### Quitting After a Correct Guess
 -->
-<h3><a class="header" href="#正しい予想をした後に終了する" id="正しい予想をした後に終了する">正しい予想をした後に終了する</a></h3>
+<h3 id="正しい予想をした後に終了する"><a class="header" href="#正しい予想をした後に終了する">正しい予想をした後に終了する</a></h3>
 <!--
 Let’s program the game to quit when the user wins by adding a `break` statement:
 -->
@@ -1420,7 +1422,7 @@ exiting the program, because the loop is the last part of `main`.
 <!--
 ### Handling Invalid Input
 -->
-<h3><a class="header" href="#不正な入力を処理する" id="不正な入力を処理する">不正な入力を処理する</a></h3>
+<h3 id="不正な入力を処理する"><a class="header" href="#不正な入力を処理する">不正な入力を処理する</a></h3>
 <!--
 To further refine the game’s behavior, rather than crashing the program when
 the user inputs a non-number, let’s make the game ignore a non-number so the
@@ -1576,7 +1578,7 @@ fn main() {
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 At this point, you’ve successfully built the guessing game. Congratulations!
 -->

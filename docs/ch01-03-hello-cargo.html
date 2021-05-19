@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Hello, Cargo!
 -->
-<h2><a class="header" href="#hello-cargo" id="hello-cargo">Hello, Cargo!</a></h2>
+<h2 id="hello-cargo"><a class="header" href="#hello-cargo">Hello, Cargo!</a></h2>
 <!--
 Cargo is Rust’s build system and package manager. Most Rustaceans use this tool
 to manage their Rust projects because Cargo handles a lot of tasks for you,
@@ -214,7 +216,7 @@ determine how to install Cargo separately.
 <!--
 ### Creating a Project with Cargo
 -->
-<h3><a class="header" href="#cargoでプロジェクトを作成する" id="cargoでプロジェクトを作成する">Cargoでプロジェクトを作成する</a></h3>
+<h3 id="cargoでプロジェクトを作成する"><a class="header" href="#cargoでプロジェクトを作成する">Cargoでプロジェクトを作成する</a></h3>
 <!--
 Let’s create a new project using Cargo and look at how it differs from our
 original Hello, world! project. Navigate back to your *projects* directory (or
@@ -351,7 +353,7 @@ file.
 <!--
 ### Building and Running a Cargo Project
 -->
-<h3><a class="header" href="#cargoプロジェクトをビルドし実行する" id="cargoプロジェクトをビルドし実行する">Cargoプロジェクトをビルドし、実行する</a></h3>
+<h3 id="cargoプロジェクトをビルドし実行する"><a class="header" href="#cargoプロジェクトをビルドし実行する">Cargoプロジェクトをビルドし、実行する</a></h3>
 <!--
 Now let’s look at what's different when we build and run the Hello, world!
 program with Cargo! From your *hello_cargo* directory, build your project by
@@ -461,7 +463,7 @@ longer provide specific instructions for Linux and macOS versus Windows.
 <!--
 ### Building for Release
 -->
-<h3><a class="header" href="#リリースビルドを行う" id="リリースビルドを行う">リリースビルドを行う</a></h3>
+<h3 id="リリースビルドを行う"><a class="header" href="#リリースビルドを行う">リリースビルドを行う</a></h3>
 <!--
 When your project is finally ready for release, you can use `cargo build
 --release` to compile it with optimizations. This command will create an
@@ -483,7 +485,7 @@ the executable in *target/release*.
 <!--
 ### Cargo as Convention
 -->
-<h3><a class="header" href="#習慣としてのcargo" id="習慣としてのcargo">習慣としてのCargo</a></h3>
+<h3 id="習慣としてのcargo"><a class="header" href="#習慣としてのcargo">習慣としてのCargo</a></h3>
 <!--
 With simple projects, Cargo doesn’t provide a lot of value over just using
 `rustc`, but it will prove its worth as your programs become more intricate.
@@ -512,7 +514,7 @@ For more information about Cargo, check out [its documentation].
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 You’re already off to a great start on your Rust journey! In this chapter,
 you’ve learned how to:

@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Building a Single-Threaded Web Server
 -->
-<h2><a class="header" href="#シングルスレッドのwebサーバを構築する" id="シングルスレッドのwebサーバを構築する">シングルスレッドのWebサーバを構築する</a></h2>
+<h2 id="シングルスレッドのwebサーバを構築する"><a class="header" href="#シングルスレッドのwebサーバを構築する">シングルスレッドのWebサーバを構築する</a></h2>
 <!--
 We’ll start by getting a single-threaded web server working. Before we begin,
 let’s look at a quick overview of the protocols involved in building web
@@ -209,7 +211,7 @@ TCPとHTTPのリクエストとレスポンスの生のバイトを取り扱い�
 <!--
 ### Listening to the TCP Connection
 -->
-<h3><a class="header" href="#tcp接続をリッスンする" id="tcp接続をリッスンする">TCP接続をリッスンする</a></h3>
+<h3 id="tcp接続をリッスンする"><a class="header" href="#tcp接続をリッスンする">TCP接続をリッスンする</a></h3>
 <!--
 Our web server needs to listen to a TCP connection, so that’s the first part
 we’ll work on. The standard library offers a `std::net` module that lets us do
@@ -371,7 +373,7 @@ newest code.
 <!--
 ### Reading the Request
 -->
-<h3><a class="header" href="#リクエストを読み取る" id="リクエストを読み取る">リクエストを読み取る</a></h3>
+<h3 id="リクエストを読み取る"><a class="header" href="#リクエストを読み取る">リクエストを読み取る</a></h3>
 <!--
 Let’s implement the functionality to read the request from the browser! To
 separate the concerns of first getting a connection and then taking some action
@@ -502,7 +504,7 @@ our program.
 <!--
 ### A Closer Look at an HTTP Request
 -->
-<h3><a class="header" href="#httpリクエストを詳しく見る" id="httpリクエストを詳しく見る">HTTPリクエストを詳しく見る</a></h3>
+<h3 id="httpリクエストを詳しく見る"><a class="header" href="#httpリクエストを詳しく見る">HTTPリクエストを詳しく見る</a></h3>
 <!--
 HTTP is a text-based protocol, and a request takes this format:
 -->
@@ -568,7 +570,7 @@ Now that we know what the browser is asking for, let’s send back some data!
 <!--
 ### Writing a Response
 -->
-<h3><a class="header" href="#レスポンスを記述する" id="レスポンスを記述する">レスポンスを記述する</a></h3>
+<h3 id="レスポンスを記述する"><a class="header" href="#レスポンスを記述する">レスポンスを記述する</a></h3>
 <!--
 Now we’ll implement sending data in response to a client request. Responses
 have the following format:
@@ -663,7 +665,7 @@ Cargoからの出力以外には何も出力はありません。Webブラウザ
 <!--
 ### Returning Real HTML
 -->
-<h3><a class="header" href="#本物のhtmlを返す" id="本物のhtmlを返す">本物のHTMLを返す</a></h3>
+<h3 id="本物のhtmlを返す"><a class="header" href="#本物のhtmlを返す">本物のHTMLを返す</a></h3>
 <!--
 Let’s implement the functionality for returning more than a blank page. Create
 a new file, *hello.html*, in the root of your project directory, not in the
@@ -775,7 +777,7 @@ back the HTML file for a well-formed request to */*.
 <!--
 ### Validating the Request and Selectively Responding
 -->
-<h3><a class="header" href="#リクエストにバリデーションをかけ選択的にレスポンスを返す" id="リクエストにバリデーションをかけ選択的にレスポンスを返す">リクエストにバリデーションをかけ、選択的にレスポンスを返す</a></h3>
+<h3 id="リクエストにバリデーションをかけ選択的にレスポンスを返す"><a class="header" href="#リクエストにバリデーションをかけ選択的にレスポンスを返す">リクエストにバリデーションをかけ、選択的にレスポンスを返す</a></h3>
 <!--
 Right now, our web server will return the HTML in the file no matter what the
 client requested. Let’s add functionality to check that the browser is
@@ -949,7 +951,7 @@ should return the contents of *hello.html*, and any other request, like
 <!--
 ### A Touch of Refactoring
 -->
-<h3><a class="header" href="#リファクタリングの触り" id="リファクタリングの触り">リファクタリングの触り</a></h3>
+<h3 id="リファクタリングの触り"><a class="header" href="#リファクタリングの触り">リファクタリングの触り</a></h3>
 <!--
 At the moment the `if` and `else` blocks have a lot of repetition: they’re both
 reading files and writing the contents of the files to the stream. The only

@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Developing the Library’s Functionality with Test Driven Development
 -->
-<h2><a class="header" href="#テスト駆動開発でライブラリの機能を開発する" id="テスト駆動開発でライブラリの機能を開発する">テスト駆動開発でライブラリの機能を開発する</a></h2>
+<h2 id="テスト駆動開発でライブラリの機能を開発する"><a class="header" href="#テスト駆動開発でライブラリの機能を開発する">テスト駆動開発でライブラリの機能を開発する</a></h2>
 <!--
 Now that we’ve extracted the logic into *src/lib.rs* and left the argument
 collecting and error handling in *src/main.rs*, it’s much easier to write tests
@@ -224,7 +226,7 @@ lines that match the query. We’ll add this functionality in a function called
 <!--
 ### Writing a Failing Test
 -->
-<h3><a class="header" href="#失敗するテストを記述する" id="失敗するテストを記述する">失敗するテストを記述する</a></h3>
+<h3 id="失敗するテストを記述する"><a class="header" href="#失敗するテストを記述する">失敗するテストを記述する</a></h3>
 <!--
 Because we don’t need them anymore, let’s remove the `println!` statements from
 *src/lib.rs* and *src/main.rs* that we used to check the program’s behavior.
@@ -414,7 +416,7 @@ Great, the test fails, exactly as we expected. Let’s get the test to pass!
 <!--
 ### Writing Code to Pass the Test
 -->
-<h3><a class="header" href="#テストを通過させるコードを書く" id="テストを通過させるコードを書く">テストを通過させるコードを書く</a></h3>
+<h3 id="テストを通過させるコードを書く"><a class="header" href="#テストを通過させるコードを書く">テストを通過させるコードを書く</a></h3>
 <!--
 Currently, our test is failing because we always return an empty vector. To fix
 that and implement `search`, our program needs to follow these steps:
@@ -442,7 +444,7 @@ Let’s work through each step, starting with iterating through lines.
 <!--
 #### Iterating Through Lines with the `lines` Method
 -->
-<h4><a class="header" href="#linesメソッドで各行を繰り返す" id="linesメソッドで各行を繰り返す"><code>lines</code>メソッドで各行を繰り返す</a></h4>
+<h4 id="linesメソッドで各行を繰り返す"><a class="header" href="#linesメソッドで各行を繰り返す"><code>lines</code>メソッドで各行を繰り返す</a></h4>
 <!--
 Rust has a helpful method to handle line-by-line iteration of strings,
 conveniently named `lines`, that works as shown in Listing 12-17. Note this
@@ -478,7 +480,7 @@ in a collection.
 <!--
 #### Searching Each Line for the Query
 -->
-<h4><a class="header" href="#クエリを求めて各行を検索する" id="クエリを求めて各行を検索する">クエリを求めて各行を検索する</a></h4>
+<h4 id="クエリを求めて各行を検索する"><a class="header" href="#クエリを求めて各行を検索する">クエリを求めて各行を検索する</a></h4>
 <!--
 Next, we’ll check whether the current line contains our query string.
 Fortunately, strings have a helpful method named `contains` that does this for
@@ -509,7 +511,7 @@ line contains the string in `query`</span>
 <!--
 #### Storing Matching Lines
 -->
-<h4><a class="header" href="#合致した行を保存する" id="合致した行を保存する">合致した行を保存する</a></h4>
+<h4 id="合致した行を保存する"><a class="header" href="#合致した行を保存する">合致した行を保存する</a></h4>
 <!--
 We also need a way to store the lines that contain our query string. For that,
 we can make a mutable vector before the `for` loop and call the `push` method
@@ -571,7 +573,7 @@ and look at how to improve it.
 <!--
 #### Using the `search` Function in the `run` Function
 -->
-<h4><a class="header" href="#run関数内でsearch関数を使用する" id="run関数内でsearch関数を使用する"><code>run</code>関数内で<code>search</code>関数を使用する</a></h4>
+<h4 id="run関数内でsearch関数を使用する"><a class="header" href="#run関数内でsearch関数を使用する"><code>run</code>関数内で<code>search</code>関数を使用する</a></h4>
 <!--
 Now that the `search` function is working and tested, we need to call `search`
 from our `run` function. We need to pass the `config.query` value and the

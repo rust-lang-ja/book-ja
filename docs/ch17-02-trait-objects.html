@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Using Trait Objects that Allow for Values of Different Types
 -->
-<h2><a class="header" href="#トレイトオブジェクトで異なる型の値を許容する" id="トレイトオブジェクトで異なる型の値を許容する">トレイトオブジェクトで異なる型の値を許容する</a></h2>
+<h2 id="トレイトオブジェクトで異なる型の値を許容する"><a class="header" href="#トレイトオブジェクトで異なる型の値を許容する">トレイトオブジェクトで異なる型の値を許容する</a></h2>
 <!--
 In Chapter 8, we mentioned that one limitation of vectors is that they can
 store elements of only one type. We created a workaround in Listing 8-10 where
@@ -238,7 +240,7 @@ allow users to extend it with new types.
 <!--
 ### Defining a Trait for Common Behavior
 -->
-<h3><a class="header" href="#一般的な振る舞いにトレイトを定義する" id="一般的な振る舞いにトレイトを定義する">一般的な振る舞いにトレイトを定義する</a></h3>
+<h3 id="一般的な振る舞いにトレイトを定義する"><a class="header" href="#一般的な振る舞いにトレイトを定義する">一般的な振る舞いにトレイトを定義する</a></h3>
 <!--
 To implement the behavior we want `gui` to have, we’ll define a trait named
 `Draw` that will have one method named `draw`. Then we can define a vector that
@@ -431,7 +433,7 @@ runtime performance implications.
 <!--
 ### Implementing the Trait
 -->
-<h3><a class="header" href="#トレイトを実装する" id="トレイトを実装する">トレイトを実装する</a></h3>
+<h3 id="トレイトを実装する"><a class="header" href="#トレイトを実装する">トレイトを実装する</a></h3>
 <!--
 Now we’ll add some types that implement the `Draw` trait. We’ll provide the
 `Button` type. Again, actually implementing a GUI library is beyond the scope
@@ -599,7 +601,7 @@ It doesn’t check whether a component is an instance of a `Button` or a
 <code>components</code>ベクタで<code>Box&lt;Draw&gt;</code>を値の型として指定することで、<code>Screen</code>を、
 <code>draw</code>メソッドを呼び出せる値を必要とするように定義できたのです。</p>
 <blockquote>
-<h4><a class="header" href="#注釈-ダックタイピングについて" id="注釈-ダックタイピングについて">注釈: ダックタイピングについて</a></h4>
+<h4 id="注釈-ダックタイピングについて"><a class="header" href="#注釈-ダックタイピングについて">注釈: ダックタイピングについて</a></h4>
 <p>ご存知かもしれませんが、ダックタイピングについて補足です。ダックタイピングとは、動的型付け言語やC++のテンプレートで使用される、
 特定のフィールドやメソッドがあることを想定してコンパイルを行い、実行時に実際にあることを確かめるというプログラミング手法です。
 ダック・テストという思考法に由来するそうです。</p>
@@ -670,7 +672,7 @@ didn’t mean to pass and we should pass a different type or we should implement
 <!--
 ### Trait Objects Perform Dynamic Dispatch
 -->
-<h3><a class="header" href="#トレイトオブジェクトはダイナミックディスパッチを行う" id="トレイトオブジェクトはダイナミックディスパッチを行う">トレイトオブジェクトは、ダイナミックディスパッチを行う</a></h3>
+<h3 id="トレイトオブジェクトはダイナミックディスパッチを行う"><a class="header" href="#トレイトオブジェクトはダイナミックディスパッチを行う">トレイトオブジェクトは、ダイナミックディスパッチを行う</a></h3>
 <!--
 Recall in the “Performance of Code Using Generics” section in Chapter 10 our
 discussion on the monomorphization process performed by the compiler when we
@@ -711,7 +713,7 @@ to consider.
 <!--
 ### Object Safety Is Required for Trait Objects
 -->
-<h3><a class="header" href="#トレイトオブジェクトにはオブジェクト安全性が必要" id="トレイトオブジェクトにはオブジェクト安全性が必要">トレイトオブジェクトには、オブジェクト安全性が必要</a></h3>
+<h3 id="トレイトオブジェクトにはオブジェクト安全性が必要"><a class="header" href="#トレイトオブジェクトにはオブジェクト安全性が必要">トレイトオブジェクトには、オブジェクト安全性が必要</a></h3>
 <!--
 You can only make *object-safe* traits into trait objects. Some complex rules
 govern all the properties that make a trait object safe, but in practice, only

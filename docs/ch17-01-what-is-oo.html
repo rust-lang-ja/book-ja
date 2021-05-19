@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Characteristics of Object-Oriented Languages
 -->
-<h2><a class="header" href="#オブジェクト指向言語の特徴" id="オブジェクト指向言語の特徴">オブジェクト指向言語の特徴</a></h2>
+<h2 id="オブジェクト指向言語の特徴"><a class="header" href="#オブジェクト指向言語の特徴">オブジェクト指向言語の特徴</a></h2>
 <!--
 There is no consensus in the programming community about what features a
 language must have to be considered object oriented. Rust is influenced by many
@@ -190,7 +192,7 @@ OOP言語は特定の一般的な特徴を共有しています。具体的に�
 <!--
 ### Objects Contain Data and Behavior
 -->
-<h3><a class="header" href="#オブジェクトはデータと振る舞いを含む" id="オブジェクトはデータと振る舞いを含む">オブジェクトは、データと振る舞いを含む</a></h3>
+<h3 id="オブジェクトはデータと振る舞いを含む"><a class="header" href="#オブジェクトはデータと振る舞いを含む">オブジェクトは、データと振る舞いを含む</a></h3>
 <!--
 The book *Design Patterns: Elements of Reusable Object-Oriented Software* by
 Enoch Gamma, Richard Helm, Ralph Johnson, and John Vlissides (Addison-Wasley
@@ -224,7 +226,7 @@ functionality, according to the Gang of Four’s definition of objects.
 <!--
 ### Encapsulation that Hides Implementation Details
 -->
-<h3><a class="header" href="#カプセル化は実装詳細を隠蔽する" id="カプセル化は実装詳細を隠蔽する">カプセル化は、実装詳細を隠蔽する</a></h3>
+<h3 id="カプセル化は実装詳細を隠蔽する"><a class="header" href="#カプセル化は実装詳細を隠蔽する">カプセル化は、実装詳細を隠蔽する</a></h3>
 <!--
 Another aspect commonly associated with OOP is the idea of *encapsulation*,
 which means that the implementation details of an object aren’t accessible to
@@ -379,7 +381,7 @@ different parts of code enables encapsulation of implementation details.
 <!--
 ### Inheritance as a Type System and as Code Sharing
 -->
-<h3><a class="header" href="#型システムおよびコード共有としての継承" id="型システムおよびコード共有としての継承">型システム、およびコード共有としての継承</a></h3>
+<h3 id="型システムおよびコード共有としての継承"><a class="header" href="#型システムおよびコード共有としての継承">型システム、およびコード共有としての継承</a></h3>
 <!--
 *Inheritance* is a mechanism whereby an object can inherit from another
 object’s definition, thus gaining the parent object’s data and behavior without
@@ -440,7 +442,7 @@ each other at runtime if they share certain characteristics.
 > sometimes called *bounded parametric polymorphism*.
 -->
 <blockquote>
-<h3><a class="header" href="#多相性" id="多相性">多相性</a></h3>
+<h3 id="多相性"><a class="header" href="#多相性">多相性</a></h3>
 <p>多くの人にとって、多相性は、継承の同義語です。ですが、実際には複数の型のデータを取り扱えるコードを指すより一般的な概念です。
 継承について言えば、それらの型は一般的にはサブクラスです。</p>
 <p>Rustは代わりにジェネリクスを使用して様々な可能性のある型を抽象化し、トレイト境界を使用してそれらの型が提供するものに制約を課します。

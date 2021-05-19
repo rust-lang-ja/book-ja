@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## `RefCell<T>` and the Interior Mutability Pattern
 -->
-<h2><a class="header" href="#refcelltと内部可変性パターン" id="refcelltと内部可変性パターン"><code>RefCell&lt;T&gt;</code>と内部可変性パターン</a></h2>
+<h2 id="refcelltと内部可変性パターン"><a class="header" href="#refcelltと内部可変性パターン"><code>RefCell&lt;T&gt;</code>と内部可変性パターン</a></h2>
 <!--
 *Interior mutability* is a design pattern in Rust that allows you to mutate
 data even when there are immutable references to that data; normally, this
@@ -198,7 +200,7 @@ interior mutability pattern.
 <!--
 ### Enforcing Borrowing Rules at Runtime with `RefCell<T>`
 -->
-<h3><a class="header" href="#refcelltで実行時に借用規則を強制する" id="refcelltで実行時に借用規則を強制する"><code>RefCell&lt;T&gt;</code>で実行時に借用規則を強制する</a></h3>
+<h3 id="refcelltで実行時に借用規則を強制する"><a class="header" href="#refcelltで実行時に借用規則を強制する"><code>RefCell&lt;T&gt;</code>で実行時に借用規則を強制する</a></h3>
 <!--
 Unlike `Rc<T>`, the `RefCell<T>` type represents single ownership over the data
 it holds. So, what makes `RefCell<T>` different from a type like `Box<T>`?
@@ -304,7 +306,7 @@ examine how it’s possible.
 <!--
 ### Interior Mutability: A Mutable Borrow to an Immutable Value
 -->
-<h3><a class="header" href="#内部可変性-不変値への可変借用" id="内部可変性-不変値への可変借用">内部可変性: 不変値への可変借用</a></h3>
+<h3 id="内部可変性-不変値への可変借用"><a class="header" href="#内部可変性-不変値への可変借用">内部可変性: 不変値への可変借用</a></h3>
 <!--
 A consequence of the borrowing rules is that when you have an immutable value,
 you can’t borrow it mutably. For example, this code won’t compile:
@@ -352,7 +354,7 @@ an immutable value and see why that is useful.
 <!--
 #### A Use Case for Interior Mutability: Mock Objects
 -->
-<h4><a class="header" href="#内部可変性のユースケース-モックオブジェクト" id="内部可変性のユースケース-モックオブジェクト">内部可変性のユースケース: モックオブジェクト</a></h4>
+<h4 id="内部可変性のユースケース-モックオブジェクト"><a class="header" href="#内部可変性のユースケース-モックオブジェクト">内部可変性のユースケース: モックオブジェクト</a></h4>
 <!--
 A *test double* is the general programming concept for a type used in place of
 another type during testing. *Mock objects* are specific types of test doubles
@@ -658,7 +660,7 @@ Now that you’ve seen how to use `RefCell<T>`, let’s dig into how it works!
 <!--
 #### Keeping track of Borrows at Runtime with `RefCell<T>`
 -->
-<h4><a class="header" href="#refcelltで実行時に借用を追いかける" id="refcelltで実行時に借用を追いかける"><code>RefCell&lt;T&gt;</code>で実行時に借用を追いかける</a></h4>
+<h4 id="refcelltで実行時に借用を追いかける"><a class="header" href="#refcelltで実行時に借用を追いかける"><code>RefCell&lt;T&gt;</code>で実行時に借用を追いかける</a></h4>
 <!--
 When creating immutable and mutable references, we use the `&` and `&mut`
 syntax, respectively. With `RefCell<T>`, we use the `borrow` and `borrow_mut`
@@ -758,7 +760,7 @@ functionality than regular references provide.
 <!--
 ### Having Multiple Owners of Mutable Data by Combining `Rc<T>` and `RefCell<T>`
 -->
-<h3><a class="header" href="#rctとrefcelltを組み合わせることで可変なデータに複数の所有者を持たせる" id="rctとrefcelltを組み合わせることで可変なデータに複数の所有者を持たせる"><code>Rc&lt;T&gt;</code>と<code>RefCell&lt;T&gt;</code>を組み合わせることで可変なデータに複数の所有者を持たせる</a></h3>
+<h3 id="rctとrefcelltを組み合わせることで可変なデータに複数の所有者を持たせる"><a class="header" href="#rctとrefcelltを組み合わせることで可変なデータに複数の所有者を持たせる"><code>Rc&lt;T&gt;</code>と<code>RefCell&lt;T&gt;</code>を組み合わせることで可変なデータに複数の所有者を持たせる</a></h3>
 <!--
 A common way to use `RefCell<T>` is in combination with `Rc<T>`. Recall that
 `Rc<T>` lets you have multiple owners of some data, but it only gives immutable

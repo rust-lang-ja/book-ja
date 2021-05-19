@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Refactoring to Improve Modularity and Error Handling
 -->
-<h2><a class="header" href="#リファクタリングしてモジュール性とエラー処理を向上させる" id="リファクタリングしてモジュール性とエラー処理を向上させる">リファクタリングしてモジュール性とエラー処理を向上させる</a></h2>
+<h2 id="リファクタリングしてモジュール性とエラー処理を向上させる"><a class="header" href="#リファクタリングしてモジュール性とエラー処理を向上させる">リファクタリングしてモジュール性とエラー処理を向上させる</a></h2>
 <!--
 To improve our program, we’ll fix four problems that have to do with the
 program’s structure and how it’s handling potential errors.
@@ -242,7 +244,7 @@ Let’s address these four problems by refactoring our project.
 <!--
 ### Separation of Concerns for Binary Projects
 -->
-<h3><a class="header" href="#バイナリプロジェクトの責任の分離" id="バイナリプロジェクトの責任の分離">バイナリプロジェクトの責任の分離</a></h3>
+<h3 id="バイナリプロジェクトの責任の分離"><a class="header" href="#バイナリプロジェクトの責任の分離">バイナリプロジェクトの責任の分離</a></h3>
 <!--
 The organizational problem of allocating responsibility for multiple tasks to
 the `main` function is common to many binary projects. As a result, the Rust
@@ -299,7 +301,7 @@ reading it. Let’s rework our program by following this process.
 <!--
 #### Extracting the Argument Parser
 -->
-<h4><a class="header" href="#引数解析器を抽出する" id="引数解析器を抽出する">引数解析器を抽出する</a></h4>
+<h4 id="引数解析器を抽出する"><a class="header" href="#引数解析器を抽出する">引数解析器を抽出する</a></h4>
 <!--
 We’ll extract the functionality for parsing arguments into a function that
 `main` will call to prepare for moving the command line parsing logic to
@@ -361,7 +363,7 @@ often, to help you identify the cause of problems when they occur.
 <!--
 #### Grouping Configuration Values
 -->
-<h4><a class="header" href="#設定値をまとめる" id="設定値をまとめる">設定値をまとめる</a></h4>
+<h4 id="設定値をまとめる"><a class="header" href="#設定値をまとめる">設定値をまとめる</a></h4>
 <!--
 We can take another small step to improve the `parse_config` function further.
 At the moment, we’re returning a tuple, but then we immediately break that
@@ -479,7 +481,7 @@ trade-off.
 > now, it’s perfectly acceptable to call `clone`.
 -->
 <blockquote>
-<h3><a class="header" href="#cloneを使用する代償" id="cloneを使用する代償"><code>clone</code>を使用する代償</a></h3>
+<h3 id="cloneを使用する代償"><a class="header" href="#cloneを使用する代償"><code>clone</code>を使用する代償</a></h3>
 <p>実行時コストのために<code>clone</code>を使用して所有権問題を解消するのを避ける傾向が多くのRustaceanにあります。
 第13章で、この種の状況においてより効率的なメソッドの使用法を学ぶでしょう。ですがとりあえずは、
 これらのコピーをするのは1回だけですし、ファイル名とクエリ文字列は非常に小さなものなので、
@@ -506,7 +508,7 @@ named for their purpose.
 <!--
 #### Creating a Constructor for `Config`
 -->
-<h4><a class="header" href="#configのコンストラクタを作成する" id="configのコンストラクタを作成する"><code>Config</code>のコンストラクタを作成する</a></h4>
+<h4 id="configのコンストラクタを作成する"><a class="header" href="#configのコンストラクタを作成する"><code>Config</code>のコンストラクタを作成する</a></h4>
 <!--
 So far, we’ve extracted the logic responsible for parsing the command line
 arguments from `main` and placed it in the `parse_config` function. Doing so
@@ -582,7 +584,7 @@ compiling this code again to make sure it works.
 <!--
 ### Fixing the Error Handling
 -->
-<h3><a class="header" href="#エラー処理を修正する" id="エラー処理を修正する">エラー処理を修正する</a></h3>
+<h3 id="エラー処理を修正する"><a class="header" href="#エラー処理を修正する">エラー処理を修正する</a></h3>
 <!--
 Now we’ll work on fixing our error handling. Recall that attempting to access
 the values in the `args` vector at index 1 or index 2 will cause the program to
@@ -610,7 +612,7 @@ happened and what they should do instead. Let’s fix that now.
 <!--
 #### Improving the Error Message
 -->
-<h4><a class="header" href="#エラーメッセージを改善する" id="エラーメッセージを改善する">エラーメッセージを改善する</a></h4>
+<h4 id="エラーメッセージを改善する"><a class="header" href="#エラーメッセージを改善する">エラーメッセージを改善する</a></h4>
 <!--
 In Listing 12-8, we add a check in the `new` function that will verify that the
 slice is long enough before accessing index 1 and 2. If the slice isn’t long
@@ -679,7 +681,7 @@ error.
 <!--
 #### Returning a `Result` from `new` Instead of Calling `panic!`
 -->
-<h4><a class="header" href="#panicを呼び出す代わりにnewからresultを返す" id="panicを呼び出す代わりにnewからresultを返す"><code>panic!</code>を呼び出す代わりに<code>new</code>から<code>Result</code>を返す</a></h4>
+<h4 id="panicを呼び出す代わりにnewからresultを返す"><a class="header" href="#panicを呼び出す代わりにnewからresultを返す"><code>panic!</code>を呼び出す代わりに<code>new</code>から<code>Result</code>を返す</a></h4>
 <!--
 We can instead return a `Result` value that will contain a `Config` instance in
 the successful case and will describe the problem in the error case. When
@@ -749,7 +751,7 @@ more cleanly in the error case.
 <!--
 #### Calling `Config::new` and Handling Errors
 -->
-<h4><a class="header" href="#confignewを呼び出しエラーを処理する" id="confignewを呼び出しエラーを処理する"><code>Config::new</code>を呼び出し、エラーを処理する</a></h4>
+<h4 id="confignewを呼び出しエラーを処理する"><a class="header" href="#confignewを呼び出しエラーを処理する"><code>Config::new</code>を呼び出し、エラーを処理する</a></h4>
 <!--
 To handle the error case and print a user-friendly message, we need to update
 `main` to handle the `Result` being returned by `Config::new`, as shown in
@@ -834,7 +836,7 @@ Great! This output is much friendlier for our users.
 <!--
 ### Extracting Logic from `main`
 -->
-<h3><a class="header" href="#mainからロジックを抽出する" id="mainからロジックを抽出する"><code>main</code>からロジックを抽出する</a></h3>
+<h3 id="mainからロジックを抽出する"><a class="header" href="#mainからロジックを抽出する"><code>main</code>からロジックを抽出する</a></h3>
 <!--
 Now that we’ve finished refactoring the configuration parsing, let’s turn to
 the program’s logic. As we stated in “Separation of Concerns for Binary
@@ -895,7 +897,7 @@ argument.
 <!--
 #### Returning Errors from the `run` Function
 -->
-<h4><a class="header" href="#run関数からエラーを返す" id="run関数からエラーを返す"><code>run</code>関数からエラーを返す</a></h4>
+<h4 id="run関数からエラーを返す"><a class="header" href="#run関数からエラーを返す"><code>run</code>関数からエラーを返す</a></h4>
 <!--
 1行目。ここではwith ...を順接の理由で訳している。with ...は普通、状態を表す表現
 ちょっと意味が強すぎるかもしれない。
@@ -1008,7 +1010,7 @@ have some error-handling code here! Let’s rectify that problem now.
 <!--
 #### Handling Errors Returned from `run` in `main`
 -->
-<h4><a class="header" href="#mainでrunから返ってきたエラーを処理する" id="mainでrunから返ってきたエラーを処理する"><code>main</code>で<code>run</code>から返ってきたエラーを処理する</a></h4>
+<h4 id="mainでrunから返ってきたエラーを処理する"><a class="header" href="#mainでrunから返ってきたエラーを処理する"><code>main</code>で<code>run</code>から返ってきたエラーを処理する</a></h4>
 <!--
 We’ll check for errors and handle them using a technique similar to one we used
 with `Config::new` in Listing 12-10, but with a slight difference:
@@ -1052,7 +1054,7 @@ both cases: we print the error and exit.
 <!--
 ### Splitting Code into a Library Crate
 -->
-<h3><a class="header" href="#コードをライブラリクレートに分割する" id="コードをライブラリクレートに分割する">コードをライブラリクレートに分割する</a></h3>
+<h3 id="コードをライブラリクレートに分割する"><a class="header" href="#コードをライブラリクレートに分割する">コードをライブラリクレートに分割する</a></h3>
 <!--
 Our `minigrep` project is looking good so far! Now we’ll split the
 *src/main.rs* file and put some code into the *src/lib.rs* file so we can test

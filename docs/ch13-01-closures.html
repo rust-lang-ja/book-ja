@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Closures: Anonymous Functions that Can Capture Their Environment
 -->
-<h2><a class="header" href="#クロージャ-環境をキャプチャできる匿名関数" id="クロージャ-環境をキャプチャできる匿名関数">クロージャ: 環境をキャプチャできる匿名関数</a></h2>
+<h2 id="クロージャ-環境をキャプチャできる匿名関数"><a class="header" href="#クロージャ-環境をキャプチャできる匿名関数">クロージャ: 環境をキャプチャできる匿名関数</a></h2>
 <!--
 Rust’s closures are anonymous functions you can save in a variable or pass as
 arguments to other functions. You can create the closure in one place and then
@@ -188,7 +190,7 @@ customization.
 <!--
 ### Creating an Abstraction of Behavior with Closures
 -->
-<h3><a class="header" href="#クロージャで動作の抽象化を行う" id="クロージャで動作の抽象化を行う">クロージャで動作の抽象化を行う</a></h3>
+<h3 id="クロージャで動作の抽象化を行う"><a class="header" href="#クロージャで動作の抽象化を行う">クロージャで動作の抽象化を行う</a></h3>
 <!--
 Let’s work on an example of a situation in which it’s useful to store a closure
 to be executed later. Along the way, we’ll talk about the syntax of closures,
@@ -417,7 +419,7 @@ to call it if the result isn’t needed, and we still want to call it only once.
 <!--
 #### Refactoring Using Functions
 -->
-<h4><a class="header" href="#関数でリファクタリング" id="関数でリファクタリング">関数でリファクタリング</a></h4>
+<h4 id="関数でリファクタリング"><a class="header" href="#関数でリファクタリング">関数でリファクタリング</a></h4>
 <!--
 We could restructure the workout program in many ways. First, we’ll try
 extracting the duplicated call to the `simulated_expensive_calculation`
@@ -493,7 +495,7 @@ code where we actually need the result. This is a use case for closures!
 <!--
 #### Refactoring with Closures to Store Code
 -->
-<h4><a class="header" href="#クロージャでリファクタリングしてコードを保存する" id="クロージャでリファクタリングしてコードを保存する">クロージャでリファクタリングして、コードを保存する</a></h4>
+<h4 id="クロージャでリファクタリングしてコードを保存する"><a class="header" href="#クロージャでリファクタリングしてコードを保存する">クロージャでリファクタリングして、コードを保存する</a></h4>
 <!--
 Instead of always calling the `simulated_expensive_calculation` function before
 the `if` blocks, we can define a closure and store the *closure* in a variable
@@ -645,7 +647,7 @@ involved with closures.
 <!--
 ### Closure Type Inference and Annotation
 -->
-<h3><a class="header" href="#クロージャの型推論と注釈" id="クロージャの型推論と注釈">クロージャの型推論と注釈</a></h3>
+<h3 id="クロージャの型推論と注釈"><a class="header" href="#クロージャの型推論と注釈">クロージャの型推論と注釈</a></h3>
 <!--
 Closures don’t require you to annotate the types of the parameters or the
 return value like `fn` functions do. Type annotations are required on functions
@@ -787,7 +789,7 @@ error if we try to use a different type with the same closure.
 <!--
 ### Storing Closures Using Generic Parameters and the `Fn` Traits
 -->
-<h3><a class="header" href="#ジェネリック引数とfnトレイトを使用してクロージャを保存する" id="ジェネリック引数とfnトレイトを使用してクロージャを保存する">ジェネリック引数と<code>Fn</code>トレイトを使用してクロージャを保存する</a></h3>
+<h3 id="ジェネリック引数とfnトレイトを使用してクロージャを保存する"><a class="header" href="#ジェネリック引数とfnトレイトを使用してクロージャを保存する">ジェネリック引数と<code>Fn</code>トレイトを使用してクロージャを保存する</a></h3>
 <!--
 Let’s return to our workout generation app. In Listing 13-6, our code was still
 calling the expensive calculation closure more times than it needed to. One
@@ -1087,7 +1089,7 @@ the business logic.
 <!--
 ### Limitations of the `Cacher` Implementation
 -->
-<h3><a class="header" href="#cacher実装の限界" id="cacher実装の限界"><code>Cacher</code>実装の限界</a></h3>
+<h3 id="cacher実装の限界"><a class="header" href="#cacher実装の限界"><code>Cacher</code>実装の限界</a></h3>
 <!--
 Caching values is a generally useful behavior that we might want to use in
 other parts of our code with different closures. However, there are two
@@ -1166,7 +1168,7 @@ parameters to increase the flexibility of the `Cacher` functionality.
 <!--
 ### Capturing the Environment with Closures
 -->
-<h3><a class="header" href="#クロージャで環境をキャプチャする" id="クロージャで環境をキャプチャする">クロージャで環境をキャプチャする</a></h3>
+<h3 id="クロージャで環境をキャプチャする"><a class="header" href="#クロージャで環境をキャプチャする">クロージャで環境をキャプチャする</a></h3>
 <!--
 In the workout generator example, we only used closures as inline anonymous
 functions. However, closures have an additional capability that functions don’t

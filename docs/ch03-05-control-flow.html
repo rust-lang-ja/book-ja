@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Control Flow
 -->
-<h2><a class="header" href="#フロー制御" id="フロー制御">フロー制御</a></h2>
+<h2 id="フロー制御"><a class="header" href="#フロー制御">フロー制御</a></h2>
 <!--
 Deciding whether or not to run some code depending on if a condition is true
 and deciding to run some code repeatedly while a condition is true are basic
@@ -186,7 +188,7 @@ Rustコードの実行フローを制御する最も一般的な文法要素は�
 <!--
 ### `if` Expressions
 -->
-<h3><a class="header" href="#if式" id="if式"><code>if</code>式</a></h3>
+<h3 id="if式"><a class="header" href="#if式"><code>if</code>式</a></h3>
 <!--
 An `if` expression allows us to branch your code depending on conditions. We
 provide a condition and then state, “If this condition is met, run this block
@@ -335,7 +337,7 @@ Running this code will print `number was something other than zero`.
 <!--
 #### Handling Multiple Conditions with `else if`
 -->
-<h4><a class="header" href="#else-ifで複数の条件を扱う" id="else-ifで複数の条件を扱う"><code>else if</code>で複数の条件を扱う</a></h4>
+<h4 id="else-ifで複数の条件を扱う"><a class="header" href="#else-ifで複数の条件を扱う"><code>else if</code>で複数の条件を扱う</a></h4>
 <!--
 You can have multiple conditions by combining `if` and `else` in an `else if`
 expression. For example:
@@ -398,7 +400,7 @@ Rust branching construct called `match` for these cases.
 <!--
 #### Using `if` in a `let` Statement
 -->
-<h4><a class="header" href="#let文内でif式を使う" id="let文内でif式を使う"><code>let</code>文内で<code>if</code>式を使う</a></h4>
+<h4 id="let文内でif式を使う"><a class="header" href="#let文内でif式を使う"><code>let</code>文内で<code>if</code>式を使う</a></h4>
 <!--
 Because `if` is an expression, we can use it on the right side of a `let`
 statement, as in Listing 3-2.
@@ -506,7 +508,7 @@ multiple hypothetical types for any variable.
 <!--
 ### Repetition with Loops
 -->
-<h3><a class="header" href="#ループでの繰り返し" id="ループでの繰り返し">ループでの繰り返し</a></h3>
+<h3 id="ループでの繰り返し"><a class="header" href="#ループでの繰り返し">ループでの繰り返し</a></h3>
 <!--
 It’s often useful to execute a block of code more than once. For this task,
 Rust provides several *loops*. A loop runs through the code inside the loop
@@ -524,7 +526,7 @@ Rust has three kinds of loops: `loop`, `while`, and `for`. Let’s try each one.
 <!--
 #### Repeating Code with `loop`
 -->
-<h4><a class="header" href="#loopでコードを繰り返す" id="loopでコードを繰り返す"><code>loop</code>でコードを繰り返す</a></h4>
+<h4 id="loopでコードを繰り返す"><a class="header" href="#loopでコードを繰り返す"><code>loop</code>でコードを繰り返す</a></h4>
 <!--
 The `loop` keyword tells Rust to execute a block of code over and over again
 forever or until you explicitly tell it to stop.
@@ -585,7 +587,7 @@ the user won the game by guessing the correct number.
 <!--
 #### Conditional Loops with `while`
 -->
-<h4><a class="header" href="#whileで条件付きループ" id="whileで条件付きループ"><code>while</code>で条件付きループ</a></h4>
+<h4 id="whileで条件付きループ"><a class="header" href="#whileで条件付きループ"><code>while</code>で条件付きループ</a></h4>
 <!--
 It’s often useful for a program to evaluate a condition within a loop. While
 the condition is true, the loop runs. When the condition ceases to be true, the
@@ -638,7 +640,7 @@ true, the code runs; otherwise, it exits the loop.
 <!--
 #### Looping Through a Collection with `for`
 -->
-<h4><a class="header" href="#forでコレクションを覗き見る" id="forでコレクションを覗き見る"><code>for</code>でコレクションを覗き見る</a></h4>
+<h4 id="forでコレクションを覗き見る"><a class="header" href="#forでコレクションを覗き見る"><code>for</code>でコレクションを覗き見る</a></h4>
 <!--
 You could use the `while` construct to loop over the elements of a collection,
 such as an array. For example, let's look at Listing 3-4.
@@ -779,7 +781,7 @@ This code is a bit nicer, isn’t it?
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 You made it! That was a sizable chapter: you learned about variables, scalar
 and compound data types, functions, comments, `if` expressions, and loops! If

@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Cargo Workspaces
 -->
-<h2><a class="header" href="#cargoのワークスペース" id="cargoのワークスペース">Cargoのワークスペース</a></h2>
+<h2 id="cargoのワークスペース"><a class="header" href="#cargoのワークスペース">Cargoのワークスペース</a></h2>
 <!--
 In Chapter 12, we built a package that included a binary crate and a library
 crate. As your project develops, you might find that the library crate
@@ -187,7 +189,7 @@ in tandem.
 <!--
 ### Creating a Workspace
 -->
-<h3><a class="header" href="#ワークスペースを生成する" id="ワークスペースを生成する">ワークスペースを生成する</a></h3>
+<h3 id="ワークスペースを生成する"><a class="header" href="#ワークスペースを生成する">ワークスペースを生成する</a></h3>
 <!--
 A *workspace* is a set of packages that share the same *Cargo.lock* and output
 directory. Let’s make a project using a workspace-we'll use trivial code so we
@@ -274,7 +276,7 @@ avoid unnecessary rebuilding.
 <!--
 ### Creating the Second Crate in the Workspace
 -->
-<h3><a class="header" href="#ワークスペース内に2番目のクレートを作成する" id="ワークスペース内に2番目のクレートを作成する">ワークスペース内に2番目のクレートを作成する</a></h3>
+<h3 id="ワークスペース内に2番目のクレートを作成する"><a class="header" href="#ワークスペース内に2番目のクレートを作成する">ワークスペース内に2番目のクレートを作成する</a></h3>
 <!--
 Next, let’s create another member crate in the workspace and call it `add-one`.
 Change the top-level *Cargo.toml* to specify the *add-one* path in the
@@ -408,7 +410,7 @@ This runs the code in *adder/src/main.rs*, which depends on the `add-one` crate.
 <!--
 #### Depending on an External Crate in a Workspace
 -->
-<h4><a class="header" href="#ワークスペースの外部クレートに依存する" id="ワークスペースの外部クレートに依存する">ワークスペースの外部クレートに依存する</a></h4>
+<h4 id="ワークスペースの外部クレートに依存する"><a class="header" href="#ワークスペースの外部クレートに依存する">ワークスペースの外部クレートに依存する</a></h4>
 <!--
 Notice that the workspace has only one *Cargo.lock* file at the top level of
 the workspace rather than having a *Cargo.lock* in each crate’s directory. This
@@ -495,7 +497,7 @@ compatible with each other.
 <!--
 #### Adding a Test to a Workspace
 -->
-<h4><a class="header" href="#ワークスペースにテストを追加する" id="ワークスペースにテストを追加する">ワークスペースにテストを追加する</a></h4>
+<h4 id="ワークスペースにテストを追加する"><a class="header" href="#ワークスペースにテストを追加する">ワークスペースにテストを追加する</a></h4>
 <!--
 For another enhancement, let’s add a test of the `add_one::add_one` function
 within the `add_one` crate:

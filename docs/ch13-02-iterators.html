@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Processing a Series of Items with Iterators
 -->
-<h2><a class="header" href="#一連の要素をイテレータで処理する" id="一連の要素をイテレータで処理する">一連の要素をイテレータで処理する</a></h2>
+<h2 id="一連の要素をイテレータで処理する"><a class="header" href="#一連の要素をイテレータで処理する">一連の要素をイテレータで処理する</a></h2>
 <!--
 The iterator pattern allows you to perform some task on a sequence of items in
 turn. An iterator is responsible for the logic of iterating over each item and
@@ -261,7 +263,7 @@ index into, like vectors. Let’s examine how iterators do that.
 <!--
 ### The `Iterator` Trait and the `next` Method
 -->
-<h3><a class="header" href="#iteratorトレイトとnextメソッド" id="iteratorトレイトとnextメソッド"><code>Iterator</code>トレイトと<code>next</code>メソッド</a></h3>
+<h3 id="iteratorトレイトとnextメソッド"><a class="header" href="#iteratorトレイトとnextメソッド"><code>Iterator</code>トレイトと<code>next</code>メソッド</a></h3>
 <!--
 All iterators implement a trait named `Iterator` that is defined in the
 standard library. The definition of the trait looks like this:
@@ -363,7 +365,7 @@ ownership of `v1` and returns owned values, we can call `into_iter` instead of
 <!--
 ### Methods that Consume the Iterator
 -->
-<h3><a class="header" href="#イテレータを消費するメソッド" id="イテレータを消費するメソッド">イテレータを消費するメソッド</a></h3>
+<h3 id="イテレータを消費するメソッド"><a class="header" href="#イテレータを消費するメソッド">イテレータを消費するメソッド</a></h3>
 <!--
 The `Iterator` trait has a number of different methods with default
 implementations provided by the standard library; you can find out about these
@@ -420,7 +422,7 @@ ownership of the iterator we call it on.
 <!--
 ### Methods that Produce Other Iterators
 -->
-<h2><a class="header" href="#他のイテレータを生成するメソッド" id="他のイテレータを生成するメソッド">他のイテレータを生成するメソッド</a></h2>
+<h2 id="他のイテレータを生成するメソッド"><a class="header" href="#他のイテレータを生成するメソッド">他のイテレータを生成するメソッド</a></h2>
 <!--
 Other methods defined on the `Iterator` trait, known as *iterator adaptors*,
 allow us to change iterators into different kind of iterators. You can chain
@@ -527,7 +529,7 @@ provides.
 <!--
 ### Using Closures that Capture Their Environment
 -->
-<h3><a class="header" href="#環境をキャプチャするクロージャを使用する" id="環境をキャプチャするクロージャを使用する">環境をキャプチャするクロージャを使用する</a></h3>
+<h3 id="環境をキャプチャするクロージャを使用する"><a class="header" href="#環境をキャプチャするクロージャを使用する">環境をキャプチャするクロージャを使用する</a></h3>
 <!--
 Now that we’ve introduced iterators, we can demonstrate a common use of
 closures that capture their environment by using the `filter` iterator adaptor.
@@ -622,7 +624,7 @@ that have the same size as the value we specified.
 <!--
 ### Creating Our Own Iterators with `Iterator` Trait
 -->
-<h3><a class="header" href="#iteratorトレイトで独自のイテレータを作成する" id="iteratorトレイトで独自のイテレータを作成する"><code>Iterator</code>トレイトで独自のイテレータを作成する</a></h3>
+<h3 id="iteratorトレイトで独自のイテレータを作成する"><a class="header" href="#iteratorトレイトで独自のイテレータを作成する"><code>Iterator</code>トレイトで独自のイテレータを作成する</a></h3>
 <!--
 We’ve shown that you can create an iterator by calling `iter`, `into_iter`, or
 `iter_mut` on a vector. You can create iterators from the other collection
@@ -742,7 +744,7 @@ our iterator will return `None`.
 <!--
 #### Using Our `Counter` Iterator’s `next` Method
 -->
-<h4><a class="header" href="#counterイテレータのnextメソッドを使用する" id="counterイテレータのnextメソッドを使用する"><code>Counter</code>イテレータの<code>next</code>メソッドを使用する</a></h4>
+<h4 id="counterイテレータのnextメソッドを使用する"><a class="header" href="#counterイテレータのnextメソッドを使用する"><code>Counter</code>イテレータの<code>next</code>メソッドを使用する</a></h4>
 <!--
 Once we’ve implemented the `Iterator` trait, we have an iterator! Listing 13-22
 shows a test demonstrating that we can use the iterator functionality of our
@@ -806,7 +808,7 @@ want this iterator to have: returning the values from 1 to 5.
 <!--
 #### Using Other `Iterator` Trait Methods
 -->
-<h4><a class="header" href="#他のiteratorトレイトメソッドを使用する" id="他のiteratorトレイトメソッドを使用する">他の<code>Iterator</code>トレイトメソッドを使用する</a></h4>
+<h4 id="他のiteratorトレイトメソッドを使用する"><a class="header" href="#他のiteratorトレイトメソッドを使用する">他の<code>Iterator</code>トレイトメソッドを使用する</a></h4>
 <!--
 We implemented the `Iterator` trait by defining the `next` method, so we
 can now use any `Iterator` trait method’s default implementations as defined in

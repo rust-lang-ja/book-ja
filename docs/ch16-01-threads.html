@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Using Threads to Run Code Simultaneously
 -->
-<h2><a class="header" href="#スレッドを使用してコードを同時に走らせる" id="スレッドを使用してコードを同時に走らせる">スレッドを使用してコードを同時に走らせる</a></h2>
+<h2 id="スレッドを使用してコードを同時に走らせる"><a class="header" href="#スレッドを使用してコードを同時に走らせる">スレッドを使用してコードを同時に走らせる</a></h2>
 <!--
 In most current operating systems, an executed program’s code is run in a
 *process*, and the operating system manages multiple processes at once. Within
@@ -279,7 +281,7 @@ thread-related API provided by the standard library.
 <!--
 ### Creating a New Thread with `spawn`
 -->
-<h3><a class="header" href="#spawnで新規スレッドを生成する" id="spawnで新規スレッドを生成する"><code>spawn</code>で新規スレッドを生成する</a></h3>
+<h3 id="spawnで新規スレッドを生成する"><a class="header" href="#spawnで新規スレッドを生成する"><code>spawn</code>で新規スレッドを生成する</a></h3>
 <!--
 To create a new thread, we call the `thread::spawn` function and pass it a
 closure (we talked about closures in Chapter 13) containing the code we want to
@@ -358,7 +360,7 @@ for the operating system to switch between the threads.
 <!--
 ### Waiting for All Threads to Finish Using `join` Handles
 -->
-<h3><a class="header" href="#joinハンドルで全スレッドの終了を待つ" id="joinハンドルで全スレッドの終了を待つ"><code>join</code>ハンドルで全スレッドの終了を待つ</a></h3>
+<h3 id="joinハンドルで全スレッドの終了を待つ"><a class="header" href="#joinハンドルで全スレッドの終了を待つ"><code>join</code>ハンドルで全スレッドの終了を待つ</a></h3>
 <!--
 The code in Listing 16-1 not only stops the spawned thread prematurely most of
 the time due to the main thread ending, but also can’t guarantee that the
@@ -496,7 +498,7 @@ threads run at the same time.
 <!--
 ### Using `move` Closures with Threads
 -->
-<h3><a class="header" href="#スレッドでmoveクロージャを使用する" id="スレッドでmoveクロージャを使用する">スレッドで<code>move</code>クロージャを使用する</a></h3>
+<h3 id="スレッドでmoveクロージャを使用する"><a class="header" href="#スレッドでmoveクロージャを使用する">スレッドで<code>move</code>クロージャを使用する</a></h3>
 <!--
 The `move` closure is often used alongside `thread::spawn` because it allows
 you to use data from one thread in another thread.

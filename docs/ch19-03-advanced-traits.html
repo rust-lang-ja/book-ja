@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Advanced Traits
 -->
-<h2><a class="header" href="#高度なトレイト" id="高度なトレイト">高度なトレイト</a></h2>
+<h2 id="高度なトレイト"><a class="header" href="#高度なトレイト">高度なトレイト</a></h2>
 <!--
 We first covered traits in the “Traits: Defining Shared Behavior” section of
 Chapter 10, but as with lifetimes, we didn’t discuss the more advanced details.
@@ -183,7 +185,7 @@ Now that you know more about Rust, we can get into the nitty-gritty.
 <!--
 ### Specifying Placeholder Types in Trait Definitions with Associated Types
 -->
-<h3><a class="header" href="#関連型でトレイト定義においてプレースホルダーの型を指定する" id="関連型でトレイト定義においてプレースホルダーの型を指定する">関連型でトレイト定義においてプレースホルダーの型を指定する</a></h3>
+<h3 id="関連型でトレイト定義においてプレースホルダーの型を指定する"><a class="header" href="#関連型でトレイト定義においてプレースホルダーの型を指定する">関連型でトレイト定義においてプレースホルダーの型を指定する</a></h3>
 <!--
 *Associated types* connect a type placeholder with a trait such that the trait
 method definitions can use these placeholder types in their signatures. The
@@ -318,7 +320,7 @@ that we call `next` on `Counter`.
 <!--
 ### Default Generic Type Parameters and Operator Overloading
 -->
-<h3><a class="header" href="#デフォルトのジェネリック型引数と演算子オーバーロード" id="デフォルトのジェネリック型引数と演算子オーバーロード">デフォルトのジェネリック型引数と演算子オーバーロード</a></h3>
+<h3 id="デフォルトのジェネリック型引数と演算子オーバーロード"><a class="header" href="#デフォルトのジェネリック型引数と演算子オーバーロード">デフォルトのジェネリック型引数と演算子オーバーロード</a></h3>
 <!--
 When we use generic type parameters, we can specify a default concrete type for
 the generic type. This eliminates the need for implementors of the trait to
@@ -502,7 +504,7 @@ implementation code.
 <!--
 ### Fully Qualified Syntax for Disambiguation: Calling Methods with the Same Name
 -->
-<h3><a class="header" href="#明確化のためのフルパス記法-同じ名前のメソッドを呼ぶ" id="明確化のためのフルパス記法-同じ名前のメソッドを呼ぶ">明確化のためのフルパス記法: 同じ名前のメソッドを呼ぶ</a></h3>
+<h3 id="明確化のためのフルパス記法-同じ名前のメソッドを呼ぶ"><a class="header" href="#明確化のためのフルパス記法-同じ名前のメソッドを呼ぶ">明確化のためのフルパス記法: 同じ名前のメソッドを呼ぶ</a></h3>
 <!--
 Nothing in Rust prevents a trait from having a method with the same name as
 another trait’s method, nor does Rust prevent you from implementing both traits
@@ -878,7 +880,7 @@ implementation you want to call.
 <!--
 ### Using Supertraits to Require One Trait’s Functionality Within Another Trait
 -->
-<h3><a class="header" href="#スーパートレイトを使用して別のトレイト内であるトレイトの機能を必要とする" id="スーパートレイトを使用して別のトレイト内であるトレイトの機能を必要とする">スーパートレイトを使用して別のトレイト内で、あるトレイトの機能を必要とする</a></h3>
+<h3 id="スーパートレイトを使用して別のトレイト内であるトレイトの機能を必要とする"><a class="header" href="#スーパートレイトを使用して別のトレイト内であるトレイトの機能を必要とする">スーパートレイトを使用して別のトレイト内で、あるトレイトの機能を必要とする</a></h3>
 <!--
 Sometimes, you might need one trait to use another trait’s functionality. In
 this case, you need to rely on the dependent trait's also being implemented.
@@ -1023,7 +1025,7 @@ it within an outline of asterisks.
 <!--
 ### Using the Newtype Pattern to Implement External Traits on External Types
 -->
-<h3><a class="header" href="#ニュータイプパターンを使用して外部の型に外部のトレイトを実装する" id="ニュータイプパターンを使用して外部の型に外部のトレイトを実装する">ニュータイプパターンを使用して外部の型に外部のトレイトを実装する</a></h3>
+<h3 id="ニュータイプパターンを使用して外部の型に外部のトレイトを実装する"><a class="header" href="#ニュータイプパターンを使用して外部の型に外部のトレイトを実装する">ニュータイプパターンを使用して外部の型に外部のトレイトを実装する</a></h3>
 <!--
 In Chapter 10 in the “Implementing a Trait on a Type” section, we mentioned the
 orphan rule that states we’re allowed to implement a trait on a type as long as

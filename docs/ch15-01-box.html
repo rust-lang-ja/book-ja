@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Using `Box<T>` to Point to Data on the Heap
 -->
-<h2><a class="header" href="#ヒープのデータを指すboxtを使用する" id="ヒープのデータを指すboxtを使用する">ヒープのデータを指す<code>Box&lt;T&gt;</code>を使用する</a></h2>
+<h2 id="ヒープのデータを指すboxtを使用する"><a class="header" href="#ヒープのデータを指すboxtを使用する">ヒープのデータを指す<code>Box&lt;T&gt;</code>を使用する</a></h2>
 <!--
 The most straightforward smart pointer is a *box*, whose type is written
 `Box<T>`. Boxes allow you to store data on the heap rather than the stack. What
@@ -227,7 +229,7 @@ to that topic. So what you learn here you’ll apply again in Chapter 17!
 <!--
 ### Using a `Box<T>` to Store Data on the Heap
 -->
-<h3><a class="header" href="#boxtを使ってヒープにデータを格納する" id="boxtを使ってヒープにデータを格納する"><code>Box&lt;T&gt;</code>を使ってヒープにデータを格納する</a></h3>
+<h3 id="boxtを使ってヒープにデータを格納する"><a class="header" href="#boxtを使ってヒープにデータを格納する"><code>Box&lt;T&gt;</code>を使ってヒープにデータを格納する</a></h3>
 <!--
 Before we discuss this use case for `Box<T>`, we’ll cover the syntax and how to
 interact with values stored within a `Box<T>`.
@@ -276,7 +278,7 @@ wouldn’t be allowed to if we didn’t have boxes.
 <!--
 ### Enabling Recursive Types with Boxes
 -->
-<h3><a class="header" href="#ボックスで再帰的な型を可能にする" id="ボックスで再帰的な型を可能にする">ボックスで再帰的な型を可能にする</a></h3>
+<h3 id="ボックスで再帰的な型を可能にする"><a class="header" href="#ボックスで再帰的な型を可能にする">ボックスで再帰的な型を可能にする</a></h3>
 <!--
 At compile time, Rust needs to know how much space a type takes up. One type
 whose size can’t be known at compile time is a *recursive type*, where a value
@@ -302,7 +304,7 @@ more complex situations involving recursive types.
 <!--
 #### More Information About the Cons List
 -->
-<h4><a class="header" href="#コンスリストについてもっと詳しく" id="コンスリストについてもっと詳しく">コンスリストについてもっと詳しく</a></h4>
+<h4 id="コンスリストについてもっと詳しく"><a class="header" href="#コンスリストについてもっと詳しく">コンスリストについてもっと詳しく</a></h4>
 <!--
 A *cons list* is a data structure that comes from the Lisp programming language
 and its dialects. In Lisp, the `cons` function (short for “construct function”)
@@ -441,7 +443,7 @@ type.
 <!--
 #### Computing the Size of a Non-Recursive Type
 -->
-<h4><a class="header" href="#非再帰的な型のサイズを計算する" id="非再帰的な型のサイズを計算する">非再帰的な型のサイズを計算する</a></h4>
+<h4 id="非再帰的な型のサイズを計算する"><a class="header" href="#非再帰的な型のサイズを計算する">非再帰的な型のサイズを計算する</a></h4>
 <!--
 Recall the `Message` enum we defined in Listing 6-2 when we discussed enum
 definitions in Chapter 6:
@@ -498,7 +500,7 @@ variant. The `Cons` variant holds a value of type `i32` and a value of type
 <!--
 #### Using `Box<T>` to Get a Recursive Type with a Known Size
 -->
-<h4><a class="header" href="#boxtで既知のサイズの再帰的な型を得る" id="boxtで既知のサイズの再帰的な型を得る"><code>Box&lt;T&gt;</code>で既知のサイズの再帰的な型を得る</a></h4>
+<h4 id="boxtで既知のサイズの再帰的な型を得る"><a class="header" href="#boxtで既知のサイズの再帰的な型を得る"><code>Box&lt;T&gt;</code>で既知のサイズの再帰的な型を得る</a></h4>
 <!--
 Rust can’t figure out how much space to allocate for recursively defined types,
 so the compiler gives the error in Listing 15-4. But the error does include

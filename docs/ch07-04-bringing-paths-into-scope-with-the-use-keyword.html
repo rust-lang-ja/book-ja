@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Bringing Paths into Scope with the `use` Keyword
 -->
-<h2><a class="header" href="#useキーワードでパスをスコープに持ち込む" id="useキーワードでパスをスコープに持ち込む"><code>use</code>キーワードでパスをスコープに持ち込む</a></h2>
+<h2 id="useキーワードでパスをスコープに持ち込む"><a class="header" href="#useキーワードでパスをスコープに持ち込む"><code>use</code>キーワードでパスをスコープに持ち込む</a></h2>
 <!--
 It might seem like the paths we’ve written to call functions so far are
 inconveniently long and repetitive. For example, in Listing 7-7, whether we
@@ -263,7 +265,7 @@ a relative path</span>
 <!--
 ### Creating Idiomatic `use` Paths
 -->
-<h3><a class="header" href="#慣例に従ったuseパスを作る" id="慣例に従ったuseパスを作る">慣例に従った<code>use</code>パスを作る</a></h3>
+<h3 id="慣例に従ったuseパスを作る"><a class="header" href="#慣例に従ったuseパスを作る">慣例に従った<code>use</code>パスを作る</a></h3>
 <!--
 In Listing 7-11, you might have wondered why we specified `use
 crate::front_of_house::hosting` and then called `hosting::add_to_waitlist` in
@@ -383,7 +385,7 @@ meant when we used `Result`.
 <!--
 ### Providing New Names with the `as` Keyword
 -->
-<h3><a class="header" href="#新しい名前をasキーワードで与える" id="新しい名前をasキーワードで与える">新しい名前を<code>as</code>キーワードで与える</a></h3>
+<h3 id="新しい名前をasキーワードで与える"><a class="header" href="#新しい名前をasキーワードで与える">新しい名前を<code>as</code>キーワードで与える</a></h3>
 <!--
 There’s another solution to the problem of bringing two types of the same name
 into the same scope with `use`: after the path, we can specify `as` and a new
@@ -429,7 +431,7 @@ Listing 7-15もListing 7-16も慣例的とみなされているので、どち�
 <!--
 ### Re-exporting Names with `pub use`
 -->
-<h3><a class="header" href="#pub-useを使って名前を再公開する" id="pub-useを使って名前を再公開する"><code>pub use</code>を使って名前を再公開する</a></h3>
+<h3 id="pub-useを使って名前を再公開する"><a class="header" href="#pub-useを使って名前を再公開する"><code>pub use</code>を使って名前を再公開する</a></h3>
 <!--
 When we bring a name into scope with the `use` keyword, the name available in
 the new scope is private. To enable the code that calls our code to refer to
@@ -497,7 +499,7 @@ the library and programmers calling the library.
 <!--
 ### Using External Packages
 -->
-<h3><a class="header" href="#外部のパッケージを使う" id="外部のパッケージを使う">外部のパッケージを使う</a></h3>
+<h3 id="外部のパッケージを使う"><a class="header" href="#外部のパッケージを使う">外部のパッケージを使う</a></h3>
 <!--
 In Chapter 2, we programmed a guessing game project that used an external
 package called `rand` to get random numbers. To use `rand` in our project, we
@@ -585,7 +587,7 @@ crate.
 <!--
 ### Using Nested Paths to Clean Up Large `use` Lists
 -->
-<h3><a class="header" href="#巨大なuseのリストをネストしたパスを使って整理する" id="巨大なuseのリストをネストしたパスを使って整理する">巨大な<code>use</code>のリストをネストしたパスを使って整理する</a></h3>
+<h3 id="巨大なuseのリストをネストしたパスを使って整理する"><a class="header" href="#巨大なuseのリストをネストしたパスを使って整理する">巨大な<code>use</code>のリストをネストしたパスを使って整理する</a></h3>
 <!--
 If we’re using multiple items defined in the same crate or same module,
 listing each item on its own line can take up a lot of vertical space in our
@@ -738,7 +740,7 @@ This line brings `std::io` and `std::io::Write` into scope.
 <!--
 ### The Glob Operator
 -->
-<h3><a class="header" href="#glob演算子" id="glob演算子">glob演算子</a></h3>
+<h3 id="glob演算子"><a class="header" href="#glob演算子">glob演算子</a></h3>
 <!--
 If we want to bring *all* public items defined in a path into scope, we can
 specify that path followed by `*`, the glob operator:

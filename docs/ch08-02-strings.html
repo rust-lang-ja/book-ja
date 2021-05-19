@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Storing UTF-8 Encoded Text with Strings
 -->
-<h2><a class="header" href="#文字列でutf-8でエンコードされたテキストを保持する" id="文字列でutf-8でエンコードされたテキストを保持する">文字列でUTF-8でエンコードされたテキストを保持する</a></h2>
+<h2 id="文字列でutf-8でエンコードされたテキストを保持する"><a class="header" href="#文字列でutf-8でエンコードされたテキストを保持する">文字列でUTF-8でエンコードされたテキストを保持する</a></h2>
 <!--
 We talked about strings in Chapter 4, but we’ll look at them in more depth now.
 New Rustaceans commonly get stuck on strings for a combination of three
@@ -202,7 +204,7 @@ complicated by the differences between how people and computers interpret
 <!--
 ### What Is a String?
 -->
-<h3><a class="header" href="#文字列とは" id="文字列とは">文字列とは？</a></h3>
+<h3 id="文字列とは"><a class="header" href="#文字列とは">文字列とは？</a></h3>
 <!--
 We’ll first define what we mean by the term *string*. Rust has only one string
 type in the core language, which is the string slice `str` that is usually seen
@@ -247,7 +249,7 @@ API documentation for more about how to use them and when each is appropriate.
 <!--
 ### Creating a New String
 -->
-<h3><a class="header" href="#新規文字列を生成する" id="新規文字列を生成する">新規文字列を生成する</a></h3>
+<h3 id="新規文字列を生成する"><a class="header" href="#新規文字列を生成する">新規文字列を生成する</a></h3>
 <!--
 Many of the same operations available with `Vec<T>` are available with `String`
 as well, starting with the `new` function to create a string, shown in Listing
@@ -357,7 +359,7 @@ All of these are valid `String` values.
 <!--
 ### Updating a String
 -->
-<h3><a class="header" href="#文字列を更新する" id="文字列を更新する">文字列を更新する</a></h3>
+<h3 id="文字列を更新する"><a class="header" href="#文字列を更新する">文字列を更新する</a></h3>
 <!--
 A `String` can grow in size and its contents can change, just like the contents
 of a `Vec<T>`, if you push more data into it. In addition, we can conveniently
@@ -368,7 +370,7 @@ use the `+` operator or the `format!` macro to concatenate `String` values.
 <!--
 #### Appending to a String with `push_str` and `push`
 -->
-<h4><a class="header" href="#push_strとpushで文字列に追加する" id="push_strとpushで文字列に追加する"><code>push_str</code>と<code>push</code>で文字列に追加する</a></h4>
+<h4 id="push_strとpushで文字列に追加する"><a class="header" href="#push_strとpushで文字列に追加する"><code>push_str</code>と<code>push</code>で文字列に追加する</a></h4>
 <!--
 We can grow a `String` by using the `push_str` method to append a string slice,
 as shown in Listing 8-15.
@@ -446,7 +448,7 @@ As a result of this code, `s` will contain `lol`.
 <!--
 #### Concatenation with the `+` Operator or the `format!` Macro
 -->
-<h4><a class="header" href="#演算子またはformatマクロで連結" id="演算子またはformatマクロで連結"><code>+</code>演算子、または<code>format!</code>マクロで連結</a></h4>
+<h4 id="演算子またはformatマクロで連結"><a class="header" href="#演算子またはformatマクロで連結"><code>+</code>演算子、または<code>format!</code>マクロで連結</a></h4>
 <!--
 Often, you’ll want to combine two existing strings. One way is to use the `+`
 operator, as shown in Listing 8-18.
@@ -580,7 +582,7 @@ easier to read and doesn’t take ownership of any of its parameters.
 <!--
 ### Indexing into Strings
 -->
-<h3><a class="header" href="#文字列に添え字アクセスする" id="文字列に添え字アクセスする">文字列に添え字アクセスする</a></h3>
+<h3 id="文字列に添え字アクセスする"><a class="header" href="#文字列に添え字アクセスする">文字列に添え字アクセスする</a></h3>
 <!--
 In many other programming languages, accessing individual characters in a
 string by referencing them by index is a valid and common operation. However,
@@ -621,7 +623,7 @@ memory.
 <!--
 #### Internal Representation
 -->
-<h4><a class="header" href="#内部表現" id="内部表現">内部表現</a></h4>
+<h4 id="内部表現"><a class="header" href="#内部表現">内部表現</a></h4>
 <!--
 A `String` is a wrapper over a `Vec<u8>`. Let’s look at some of our properly
 encoded UTF-8 example strings from Listing 8-14. First, this one:
@@ -687,7 +689,7 @@ the development process.
 <!--
 #### Bytes and Scalar Values and Grapheme Clusters! Oh My!
 -->
-<h4><a class="header" href="#バイトとスカラー値と書記素クラスタなんてこった" id="バイトとスカラー値と書記素クラスタなんてこった">バイトとスカラー値と書記素クラスタ！なんてこった！</a></h4>
+<h4 id="バイトとスカラー値と書記素クラスタなんてこった"><a class="header" href="#バイトとスカラー値と書記素クラスタなんてこった">バイトとスカラー値と書記素クラスタ！なんてこった！</a></h4>
 <!--
 Another point about UTF-8 is that there are actually three relevant ways to
 look at strings from Rust’s perspective: as bytes, scalar values, and grapheme
@@ -744,7 +746,7 @@ index to determine how many valid characters there were.
 <!--
 ### Slicing Strings
 -->
-<h3><a class="header" href="#文字列をスライスする" id="文字列をスライスする">文字列をスライスする</a></h3>
+<h3 id="文字列をスライスする"><a class="header" href="#文字列をスライスする">文字列をスライスする</a></h3>
 <!--
 Indexing into a string is often a bad idea because it’s not clear what the
 return type of the string indexing operation should be: a byte value, a
@@ -791,7 +793,7 @@ can crash your program.
 <!--
 ### Methods for Iterating Over Strings
 -->
-<h3><a class="header" href="#文字列を走査するメソッド群" id="文字列を走査するメソッド群">文字列を走査するメソッド群</a></h3>
+<h3 id="文字列を走査するメソッド群"><a class="header" href="#文字列を走査するメソッド群">文字列を走査するメソッド群</a></h3>
 <!--
 Fortunately, you can access elements in a string in other ways.
 -->
@@ -862,7 +864,7 @@ provided by the standard library. Crates are available on
 <!--
 ### Strings Are Not So Simple
 -->
-<h3><a class="header" href="#文字列はそう単純じゃない" id="文字列はそう単純じゃない">文字列はそう単純じゃない</a></h3>
+<h3 id="文字列はそう単純じゃない"><a class="header" href="#文字列はそう単純じゃない">文字列はそう単純じゃない</a></h3>
 <!--
 To summarize, strings are complicated. Different programming languages make
 different choices about how to present this complexity to the programmer. Rust

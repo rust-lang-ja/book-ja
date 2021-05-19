@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Recoverable Errors with `Result`
 -->
-<h2><a class="header" href="#resultで回復可能なエラー" id="resultで回復可能なエラー"><code>Result</code>で回復可能なエラー</a></h2>
+<h2 id="resultで回復可能なエラー"><a class="header" href="#resultで回復可能なエラー"><code>Result</code>で回復可能なエラー</a></h2>
 <!--
 Most errors aren’t serious enough to require the program to stop entirely.
 Sometimes, when a function fails, it’s for a reason that we can easily
@@ -364,7 +366,7 @@ As usual, this output tells us exactly what has gone wrong.
 <!--
 ### Matching on Different Errors
 -->
-<h3><a class="header" href="#色々なエラーにマッチする" id="色々なエラーにマッチする">色々なエラーにマッチする</a></h3>
+<h3 id="色々なエラーにマッチする"><a class="header" href="#色々なエラーにマッチする">色々なエラーにマッチする</a></h3>
 <!--
 The code in Listing 9-4 will `panic!` no matter why `File::open` failed. What
 we want to do instead is take different actions for different failure reasons:
@@ -467,7 +469,7 @@ the missing file error.
 <!--
 ### Shortcuts for Panic on Error: `unwrap` and `expect`
 -->
-<h3><a class="header" href="#エラー時にパニックするショートカット-unwrapとexpect" id="エラー時にパニックするショートカット-unwrapとexpect">エラー時にパニックするショートカット: <code>unwrap</code>と<code>expect</code></a></h3>
+<h3 id="エラー時にパニックするショートカット-unwrapとexpect"><a class="header" href="#エラー時にパニックするショートカット-unwrapとexpect">エラー時にパニックするショートカット: <code>unwrap</code>と<code>expect</code></a></h3>
 <!--
 Using `match` works well enough, but it can be a bit verbose and doesn’t always
 communicate intent well. The `Result<T, E>` type has many helper methods
@@ -550,7 +552,7 @@ calls that panic print the same message.
 <!--
 ### Propagating Errors
 -->
-<h3><a class="header" href="#エラーを委譲する" id="エラーを委譲する">エラーを委譲する</a></h3>
+<h3 id="エラーを委譲する"><a class="header" href="#エラーを委譲する">エラーを委譲する</a></h3>
 <!--
 When you’re writing a function whose implementation calls something that might
 fail, instead of handling the error within this function, you can return the
@@ -679,7 +681,7 @@ question mark operator `?` to make this easier.
 <!--
 #### A Shortcut for Propagating Errors: the `?` operator
 -->
-<h4><a class="header" href="#エラー委譲のショートカット-演算子" id="エラー委譲のショートカット-演算子">エラー委譲のショートカット: <code>?</code>演算子</a></h4>
+<h4 id="エラー委譲のショートカット-演算子"><a class="header" href="#エラー委譲のショートカット-演算子">エラー委譲のショートカット: <code>?</code>演算子</a></h4>
 <!--
 Listing 9-7 shows an implementation of `read_username_from_file` that has the
 same functionality as it had in Listing 9-6, but this implementation uses the
@@ -802,7 +804,7 @@ Listing 9-7; this is just a different, more ergonomic way to write it.
 <!--
 #### `?` Operator Can Only Be Used in Functions That Return `Result`
 -->
-<h4><a class="header" href="#演算子はresultを返す関数でしか使用できない" id="演算子はresultを返す関数でしか使用できない"><code>?</code>演算子は、<code>Result</code>を返す関数でしか使用できない</a></h4>
+<h4 id="演算子はresultを返す関数でしか使用できない"><a class="header" href="#演算子はresultを返す関数でしか使用できない"><code>?</code>演算子は、<code>Result</code>を返す関数でしか使用できない</a></h4>
 <!--
 The `?` operator can only be used in functions that have a return type of
 `Result`, because it is defined to work in the same way as the `match`

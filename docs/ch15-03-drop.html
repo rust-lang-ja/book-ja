@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Running Code on Cleanup with the `Drop` Trait
 -->
-<h2><a class="header" href="#dropトレイトで片付け時にコードを走らせる" id="dropトレイトで片付け時にコードを走らせる"><code>Drop</code>トレイトで片付け時にコードを走らせる</a></h2>
+<h2 id="dropトレイトで片付け時にコードを走らせる"><a class="header" href="#dropトレイトで片付け時にコードを走らせる"><code>Drop</code>トレイトで片付け時にコードを走らせる</a></h2>
 <!--
 The second trait important to the smart pointer pattern is `Drop`, which lets
 you customize what happens when a value is about to go out of scope. You can
@@ -290,7 +292,7 @@ code that your type needs to run rather than a print message.
 <!--
 ### Dropping a Value Early with `std::mem::drop`
 -->
-<h3><a class="header" href="#stdmemdropで早期に値をドロップする" id="stdmemdropで早期に値をドロップする"><code>std::mem::drop</code>で早期に値をドロップする</a></h3>
+<h3 id="stdmemdropで早期に値をドロップする"><a class="header" href="#stdmemdropで早期に値をドロップする"><code>std::mem::drop</code>で早期に値をドロップする</a></h3>
 <!--
 Unfortunately, it’s not straightforward to disable the automatic `drop`
 functionality. Disabling `drop` isn’t usually necessary; the whole point of the

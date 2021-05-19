@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Defining an Enum
 -->
-<h2><a class="header" href="#enumを定義する" id="enumを定義する">Enumを定義する</a></h2>
+<h2 id="enumを定義する"><a class="header" href="#enumを定義する">Enumを定義する</a></h2>
 <!--
 Let’s look at a situation we might want to express in code and see why enums
 are useful and more appropriate than structs in this case. Say we need to work
@@ -221,7 +223,7 @@ as the *variants* of the enum:
 <!--
 ### Enum Values
 -->
-<h3><a class="header" href="#enumの値" id="enumの値">Enumの値</a></h3>
+<h3 id="enumの値"><a class="header" href="#enumの値">Enumの値</a></h3>
 <!--
 We can create instances of each of the two variants of `IpAddrKind` like this:
 -->
@@ -577,7 +579,7 @@ useful: `Option`.
 <!--
 ### The `Option` Enum and Its Advantages Over Null Values
 -->
-<h3><a class="header" href="#option-enumとnull値に勝る利点" id="option-enumとnull値に勝る利点"><code>Option</code> enumとNull値に勝る利点</a></h3>
+<h3 id="option-enumとnull値に勝る利点"><a class="header" href="#option-enumとnull値に勝る利点"><code>Option</code> enumとNull値に勝る利点</a></h3>
 <!--
 In the previous section, we looked at how the `IpAddr` enum let us use Rust’s
 type system to encode more information than just the data into our program.

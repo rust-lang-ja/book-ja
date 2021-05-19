@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Publishing a Crate to Crates.io
 -->
-<h2><a class="header" href="#cratesioにクレートを公開する" id="cratesioにクレートを公開する">Crates.ioにクレートを公開する</a></h2>
+<h2 id="cratesioにクレートを公開する"><a class="header" href="#cratesioにクレートを公開する">Crates.ioにクレートを公開する</a></h2>
 <!--
 We’ve used packages from [crates.io](https://crates.io) as
 dependencies of our project, but you can also share your code with other people
@@ -194,7 +196,7 @@ features next and then explain how to publish a package.
 <!--
 ### Making Useful Documentation Comments
 -->
-<h3><a class="header" href="#役に立つドキュメンテーションコメントを行う" id="役に立つドキュメンテーションコメントを行う">役に立つドキュメンテーションコメントを行う</a></h3>
+<h3 id="役に立つドキュメンテーションコメントを行う"><a class="header" href="#役に立つドキュメンテーションコメントを行う">役に立つドキュメンテーションコメントを行う</a></h3>
 <!--
 Accurately documenting your packages will help other users know how and when to
 use them, so it’s worth investing the time to write documentation. In Chapter
@@ -276,7 +278,7 @@ function</span>
 <!--
 #### Commonly Used Sections
 -->
-<h4><a class="header" href="#よく使われるセクション" id="よく使われるセクション">よく使われるセクション</a></h4>
+<h4 id="よく使われるセクション"><a class="header" href="#よく使われるセクション">よく使われるセクション</a></h4>
 <!--
 We used the `# Examples` Markdown heading in Listing 14-1 to create a section
 in the HTML with the title “Examples.” Here are some other sections that crate
@@ -314,7 +316,7 @@ your code will be interested in knowing about.
 <!--
 #### Documentation Comments as Tests
 -->
-<h4><a class="header" href="#テストとしてのドキュメンテーションコメント" id="テストとしてのドキュメンテーションコメント">テストとしてのドキュメンテーションコメント</a></h4>
+<h4 id="テストとしてのドキュメンテーションコメント"><a class="header" href="#テストとしてのドキュメンテーションコメント">テストとしてのドキュメンテーションコメント</a></h4>
 <!--
 Adding example code blocks in your documentation comments can help demonstrate
 how to use your library, and doing so has an additional bonus: running `cargo
@@ -349,7 +351,7 @@ docテストが、例とコードがお互いに同期されていないこと�
 <!--
 #### Commenting Contained Items
 -->
-<h4><a class="header" href="#含まれている要素にコメントする" id="含まれている要素にコメントする">含まれている要素にコメントする</a></h4>
+<h4 id="含まれている要素にコメントする"><a class="header" href="#含まれている要素にコメントする">含まれている要素にコメントする</a></h4>
 <!--
 Another style of doc comment, `//!`, adds documentation to the item that
 contains the comments rather than adding documentation to the items following
@@ -427,7 +429,7 @@ help your crate users understand the crate’s organization.
 <!--
 ### Exporting a Convenient Public API with `pub use`
 -->
-<h3><a class="header" href="#pub-useで便利な公開apiをエクスポートする" id="pub-useで便利な公開apiをエクスポートする"><code>pub use</code>で便利な公開APIをエクスポートする</a></h3>
+<h3 id="pub-useで便利な公開apiをエクスポートする"><a class="header" href="#pub-useで便利な公開apiをエクスポートする"><code>pub use</code>で便利な公開APIをエクスポートする</a></h3>
 <!--
 In Chapter 7, we covered how to organize our code into modules using the `mod`
 keyword, how to make items public using the `pub` keyword, and how to bring
@@ -683,7 +685,7 @@ differs from their public API.
 <!--
 ### Setting Up a Crates.io Account
 -->
-<h3><a class="header" href="#cratesioのアカウントをセットアップする" id="cratesioのアカウントをセットアップする">Crates.ioのアカウントをセットアップする</a></h3>
+<h3 id="cratesioのアカウントをセットアップする"><a class="header" href="#cratesioのアカウントをセットアップする">Crates.ioのアカウントをセットアップする</a></h3>
 <!--
 Before you can publish any crates, you need to create an account on
 [crates.io](https://crates.io) and get an API token. To do so,
@@ -715,7 +717,7 @@ revoke it and generate a new token on [crates.io](https://crates.io)
 <!--
 ### Adding Metadata to a New Crate
 -->
-<h3><a class="header" href="#新しいクレートにメタデータを追加する" id="新しいクレートにメタデータを追加する">新しいクレートにメタデータを追加する</a></h3>
+<h3 id="新しいクレートにメタデータを追加する"><a class="header" href="#新しいクレートにメタデータを追加する">新しいクレートにメタデータを追加する</a></h3>
 <!--
 Now that you have an account, let’s say you have a crate you want to publish.
 Before publishing, you’ll need to add some metadata to your crate by adding it
@@ -841,7 +843,7 @@ easily.
 <!--
 ### Publishing to Crates.io
 -->
-<h3><a class="header" href="#cratesioに公開する" id="cratesioに公開する">Crates.ioに公開する</a></h3>
+<h3 id="cratesioに公開する"><a class="header" href="#cratesioに公開する">Crates.ioに公開する</a></h3>
 <!--
 Now that you’ve created an account, saved your API token, chosen a name for
 your crate, and specified the required metadata, you’re ready to publish!
@@ -886,7 +888,7 @@ anyone can easily add your crate as a dependency of their project.
 <!--
 ### Publishing a New Version of an Existing Crate
 -->
-<h3><a class="header" href="#既存のクレートの新バージョンを公開する" id="既存のクレートの新バージョンを公開する">既存のクレートの新バージョンを公開する</a></h3>
+<h3 id="既存のクレートの新バージョンを公開する"><a class="header" href="#既存のクレートの新バージョンを公開する">既存のクレートの新バージョンを公開する</a></h3>
 <!--
 When you’ve made changes to your crate and are ready to release a new version,
 you change the `version` value specified in your *Cargo.toml* file and
@@ -901,7 +903,7 @@ Then run `cargo publish` to upload the new version.
 <!--
 ### Removing Versions from Crates.io with `cargo yank`
 -->
-<h3><a class="header" href="#cargo-yankでcratesioからバージョンを削除する" id="cargo-yankでcratesioからバージョンを削除する"><code>cargo yank</code>でCrates.ioからバージョンを削除する</a></h3>
+<h3 id="cargo-yankでcratesioからバージョンを削除する"><a class="header" href="#cargo-yankでcratesioからバージョンを削除する"><code>cargo yank</code>でCrates.ioからバージョンを削除する</a></h3>
 <!--
 最後の行。辞書には、yankingはグイっと引っ張ることとしかないが、ここでは取り下げと意訳しておく
 -->

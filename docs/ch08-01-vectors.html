@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Storing Lists of Values with Vectors
 -->
-<h2><a class="header" href="#ベクタで一連の値を保持する" id="ベクタで一連の値を保持する">ベクタで一連の値を保持する</a></h2>
+<h2 id="ベクタで一連の値を保持する"><a class="header" href="#ベクタで一連の値を保持する">ベクタで一連の値を保持する</a></h2>
 <!--
 The first collection type we’ll look at is `Vec<T>`, also known as a *vector*.
 Vectors allow us to store more than one value in a single data structure that
@@ -187,7 +189,7 @@ lines of text in a file or the prices of items in a shopping cart.
 <!--
 ### Creating a New Vector
 -->
-<h3><a class="header" href="#新しいベクタを生成する" id="新しいベクタを生成する">新しいベクタを生成する</a></h3>
+<h3 id="新しいベクタを生成する"><a class="header" href="#新しいベクタを生成する">新しいベクタを生成する</a></h3>
 <!--
 To create a new, empty vector, we can call the `Vec::new` function, as shown in
 Listing 8-1.
@@ -253,7 +255,7 @@ to modify a vector.
 <!--
 ### Updating a Vector
 -->
-<h3><a class="header" href="#ベクタを更新する" id="ベクタを更新する">ベクタを更新する</a></h3>
+<h3 id="ベクタを更新する"><a class="header" href="#ベクタを更新する">ベクタを更新する</a></h3>
 <!--
 To create a vector and then add elements to it, we can use the `push` method,
 as shown in Listing 8-3.
@@ -287,7 +289,7 @@ we don’t need the `Vec<i32>` annotation.
 <!--
 ### Dropping a Vector Drops Its Elements
 -->
-<h3><a class="header" href="#ベクタをドロップすれば要素もドロップする" id="ベクタをドロップすれば要素もドロップする">ベクタをドロップすれば、要素もドロップする</a></h3>
+<h3 id="ベクタをドロップすれば要素もドロップする"><a class="header" href="#ベクタをドロップすれば要素もドロップする">ベクタをドロップすれば、要素もドロップする</a></h3>
 <!--
 Like any other `struct`, a vector is freed when it goes out of scope, as
 annotated in Listing 8-4.
@@ -333,7 +335,7 @@ introduce references to the elements of the vector. Let’s tackle that next!
 <!--
 ### Reading Elements of Vectors
 -->
-<h3><a class="header" href="#ベクタの要素を読む" id="ベクタの要素を読む">ベクタの要素を読む</a></h3>
+<h3 id="ベクタの要素を読む"><a class="header" href="#ベクタの要素を読む">ベクタの要素を読む</a></h3>
 <!--
 Now that you know how to create, update, and destroy vectors, knowing how to
 read their contents is a good next step. There are two ways to reference a
@@ -496,7 +498,7 @@ programs from ending up in that situation.
 <!--
 ### Iterating Over the Values in a Vector
 -->
-<h3><a class="header" href="#ベクタの値を走査する" id="ベクタの値を走査する">ベクタの値を走査する</a></h3>
+<h3 id="ベクタの値を走査する"><a class="header" href="#ベクタの値を走査する">ベクタの値を走査する</a></h3>
 <!--
 If we want to access each element in a vector in turn, we can iterate through
 all of the elements rather than use indexes to access one at a time. Listing
@@ -550,7 +552,7 @@ dereference operator (`*`) to get to the value in `i` before we can use the
 <!--
 ### Using an Enum to Store Multiple Types
 -->
-<h3><a class="header" href="#enumを使って複数の型を保持する" id="enumを使って複数の型を保持する">Enumを使って複数の型を保持する</a></h3>
+<h3 id="enumを使って複数の型を保持する"><a class="header" href="#enumを使って複数の型を保持する">Enumを使って複数の型を保持する</a></h3>
 <!--
 At the beginning of this chapter, we said that vectors can only store values
 that are the same type. This can be inconvenient; there are definitely use

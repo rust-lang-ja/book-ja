@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Generic Data Types
 -->
-<h2><a class="header" href="#ジェネリックなデータ型" id="ジェネリックなデータ型">ジェネリックなデータ型</a></h2>
+<h2 id="ジェネリックなデータ型"><a class="header" href="#ジェネリックなデータ型">ジェネリックなデータ型</a></h2>
 <!--
 We can use generics to create definitions for items like function signatures or
 structs, which we can then use with many different concrete data types. Let’s
@@ -186,7 +188,7 @@ generics. Then we’ll discuss how generics affect code performance.
 <!--
 ### In Function Definitions
 -->
-<h3><a class="header" href="#関数定義では" id="関数定義では">関数定義では</a></h3>
+<h3 id="関数定義では"><a class="header" href="#関数定義では">関数定義では</a></h3>
 <!--
 When defining a function that uses generics, we place the generics in the
 signature of the function where we would usually specify the data types of the
@@ -366,7 +368,7 @@ ways of using generic type parameters.
 <!--
 ### In Struct Definitions
 -->
-<h3><a class="header" href="#構造体定義では" id="構造体定義では">構造体定義では</a></h3>
+<h3 id="構造体定義では"><a class="header" href="#構造体定義では">構造体定義では</a></h3>
 <!--
 We can also define structs to use a generic type parameter in one or more
 fields using the `<>` syntax. Listing 10-6 shows how to define a `Point<T>`
@@ -489,7 +491,7 @@ could indicate that your code needs restructuring into smaller pieces.
 <!--
 ### In Enum Definitions
 -->
-<h3><a class="header" href="#enum定義では" id="enum定義では">enum定義では</a></h3>
+<h3 id="enum定義では"><a class="header" href="#enum定義では">enum定義では</a></h3>
 <!--
 As we did with structs, we can define enums to hold generic data types in their
 variants. Let’s take another look at the `Option<T>` enum that the standard
@@ -557,7 +559,7 @@ avoid duplication by using generic types instead.
 <!--
 ### In Method Definitions
 -->
-<h3><a class="header" href="#メソッド定義では" id="メソッド定義では">メソッド定義では</a></h3>
+<h3 id="メソッド定義では"><a class="header" href="#メソッド定義では">メソッド定義では</a></h3>
 <!--
 We can implement methods on structs and enums (as we did in Chapter 5) and use
 generic types in their definitions, too. Listing 10-9 shows the `Point<T>`
@@ -716,7 +718,7 @@ are declared after `fn mixup`, because they’re only relevant to the method.
 <!--
 ### Performance of Code Using Generics
 -->
-<h3><a class="header" href="#ジェネリクスを使用したコードのパフォーマンス" id="ジェネリクスを使用したコードのパフォーマンス">ジェネリクスを使用したコードのパフォーマンス</a></h3>
+<h3 id="ジェネリクスを使用したコードのパフォーマンス"><a class="header" href="#ジェネリクスを使用したコードのパフォーマンス">ジェネリクスを使用したコードのパフォーマンス</a></h3>
 <!--
 You might be wondering whether there is a runtime cost when you’re using
 generic type parameters. The good news is that Rust implements generics in such

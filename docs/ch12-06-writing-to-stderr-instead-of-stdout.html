@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Writing Error Messages to Standard Error Instead of Standard Output
 -->
-<h2><a class="header" href="#標準出力ではなく標準エラーにエラーメッセージを書き込む" id="標準出力ではなく標準エラーにエラーメッセージを書き込む">標準出力ではなく標準エラーにエラーメッセージを書き込む</a></h2>
+<h2 id="標準出力ではなく標準エラーにエラーメッセージを書き込む"><a class="header" href="#標準出力ではなく標準エラーにエラーメッセージを書き込む">標準出力ではなく標準エラーにエラーメッセージを書き込む</a></h2>
 <!--
 At the moment we’re writing all of our output to the terminal using the
 `println!` function. Most terminals provide two kinds of output: *standard
@@ -193,7 +195,7 @@ have to use something else to print to standard error.
 <!--
 ### Checking Where Errors Are Written to
 -->
-<h3><a class="header" href="#エラーが書き込まれる場所を確認する" id="エラーが書き込まれる場所を確認する">エラーが書き込まれる場所を確認する</a></h3>
+<h3 id="エラーが書き込まれる場所を確認する"><a class="header" href="#エラーが書き込まれる場所を確認する">エラーが書き込まれる場所を確認する</a></h3>
 <!--
 First, let’s observe how the content printed by `minigrep` is currently being
 written to standard output, including any error messages we want to write to
@@ -246,7 +248,7 @@ data from a successful run ends up in the file. We'll change that.
 <!--
 ### Printing Errors to Standard Error
 -->
-<h3><a class="header" href="#エラーを標準エラーに出力する" id="エラーを標準エラーに出力する">エラーを標準エラーに出力する</a></h3>
+<h3 id="エラーを標準エラーに出力する"><a class="header" href="#エラーを標準エラーに出力する">エラーを標準エラーに出力する</a></h3>
 <!--
 We’ll use the code in Listing 12-24 to change how error messages are printed.
 Because of the refactoring we did earlier in this chapter, all the code that
@@ -324,7 +326,7 @@ and standard error for error output as appropriate.
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 This chapter recapped some of the major concepts you’ve learned so far and
 covered how to perform common I/O operations in Rust. By using command line

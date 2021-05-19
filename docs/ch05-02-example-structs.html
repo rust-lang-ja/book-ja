@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## An Example Program Using Structs
 -->
-<h2><a class="header" href="#構造体を使ったプログラム例" id="構造体を使ったプログラム例">構造体を使ったプログラム例</a></h2>
+<h2 id="構造体を使ったプログラム例"><a class="header" href="#構造体を使ったプログラム例">構造体を使ったプログラム例</a></h2>
 <!--
 To understand when we might want to use structs, let’s write a program that
 calculates the area of a rectangle. We’ll start with single variables, and then
@@ -223,7 +225,7 @@ Now, run this program using `cargo run`:
 <!--
 ### Refactoring with Tuples
 -->
-<h3><a class="header" href="#タプルでリファクタリングする" id="タプルでリファクタリングする">タプルでリファクタリングする</a></h3>
+<h3 id="タプルでリファクタリングする"><a class="header" href="#タプルでリファクタリングする">タプルでリファクタリングする</a></h3>
 <!--
 Even though Listing 5-8 works and figures out the area of the rectangle by
 calling the `area` function with each dimension, we can do better. The width
@@ -252,7 +254,7 @@ we might do that in the "The Tuple Type" section of Chapter 3: by using tuples.
 <!--
 ### Refactoring with Tuples
 -->
-<h3><a class="header" href="#タプルでリファクタリングする-1" id="タプルでリファクタリングする-1">タプルでリファクタリングする</a></h3>
+<h3 id="タプルでリファクタリングする-1"><a class="header" href="#タプルでリファクタリングする-1">タプルでリファクタリングする</a></h3>
 <!--
 Listing 5-9 shows another version of our program that uses tuples.
 -->
@@ -305,7 +307,7 @@ our code.
 <!--
 ### Refactoring with Structs: Adding More Meaning
 -->
-<h3><a class="header" href="#構造体でリファクタリングする-より意味付けする" id="構造体でリファクタリングする-より意味付けする">構造体でリファクタリングする: より意味付けする</a></h3>
+<h3 id="構造体でリファクタリングする-より意味付けする"><a class="header" href="#構造体でリファクタリングする-より意味付けする">構造体でリファクタリングする: より意味付けする</a></h3>
 <!--
 We use structs to add meaning by labeling the data. We can transform the tuple
 we’re using into a data type with a name for the whole as well as names for the
@@ -374,7 +376,7 @@ and `1`. This is a win for clarity.
 <!--
 ### Adding Useful Functionality with Derived Traits
 -->
-<h3><a class="header" href="#トレイトの導出で有用な機能を追加する" id="トレイトの導出で有用な機能を追加する">トレイトの導出で有用な機能を追加する</a></h3>
+<h3 id="トレイトの導出で有用な機能を追加する"><a class="header" href="#トレイトの導出で有用な機能を追加する">トレイトの導出で有用な機能を追加する</a></h3>
 <!--
 It’d be nice to be able to print an instance of `Rectangle` while we’re
 debugging our program and see the values for all its fields. Listing 5-11 tries

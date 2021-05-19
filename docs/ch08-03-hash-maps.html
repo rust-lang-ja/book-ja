@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Storing Keys Associated with Values in Hash Maps
 -->
-<h2><a class="header" href="#キーとそれに紐づいた値をハッシュマップに格納する" id="キーとそれに紐づいた値をハッシュマップに格納する">キーとそれに紐づいた値をハッシュマップに格納する</a></h2>
+<h2 id="キーとそれに紐づいた値をハッシュマップに格納する"><a class="header" href="#キーとそれに紐づいた値をハッシュマップに格納する">キーとそれに紐づいた値をハッシュマップに格納する</a></h2>
 <!--
 The last of our common collections is the *hash map*. The type `HashMap<K, V>`
 stores a mapping of keys of type `K` to values of type `V`. It does this via a
@@ -206,7 +208,7 @@ As always, check the standard library documentation for more information.
 <!--
 ### Creating a New Hash Map
 -->
-<h3><a class="header" href="#新規ハッシュマップを生成する" id="新規ハッシュマップを生成する">新規ハッシュマップを生成する</a></h3>
+<h3 id="新規ハッシュマップを生成する"><a class="header" href="#新規ハッシュマップを生成する">新規ハッシュマップを生成する</a></h3>
 <!--
 You can create an empty hash map with `new` and add elements with `insert`. In
 Listing 8-20, we’re keeping track of the scores of two teams whose names are
@@ -293,7 +295,7 @@ contains based on the types of the data in the vectors.
 <!--
 ### Hash Maps and Ownership
 -->
-<h3><a class="header" href="#ハッシュマップと所有権" id="ハッシュマップと所有権">ハッシュマップと所有権</a></h3>
+<h3 id="ハッシュマップと所有権"><a class="header" href="#ハッシュマップと所有権">ハッシュマップと所有権</a></h3>
 <!--
 For types that implement the `Copy` trait, like `i32`, the values are copied
 into the hash map. For owned values like `String`, the values will be moved and
@@ -341,7 +343,7 @@ the “Validating References with Lifetimes” section in Chapter 10.
 <!--
 ### Accessing Values in a Hash Map
 -->
-<h3><a class="header" href="#ハッシュマップの値にアクセスする" id="ハッシュマップの値にアクセスする">ハッシュマップの値にアクセスする</a></h3>
+<h3 id="ハッシュマップの値にアクセスする"><a class="header" href="#ハッシュマップの値にアクセスする">ハッシュマップの値にアクセスする</a></h3>
 <!--
 We can get a value out of the hash map by providing its key to the `get`
 method, as shown in Listing 8-23.
@@ -406,7 +408,7 @@ Blue: 10
 <!--
 ### Updating a Hash Map
 -->
-<h3><a class="header" href="#ハッシュマップを更新する" id="ハッシュマップを更新する">ハッシュマップを更新する</a></h3>
+<h3 id="ハッシュマップを更新する"><a class="header" href="#ハッシュマップを更新する">ハッシュマップを更新する</a></h3>
 <!--
 Although the number of keys and values is growable, each key can only have one
 value associated with it at a time. When we want to change the data in a hash
@@ -425,7 +427,7 @@ of these!
 <!--
 #### Overwriting a Value
 -->
-<h4><a class="header" href="#値を上書きする" id="値を上書きする">値を上書きする</a></h4>
+<h4 id="値を上書きする"><a class="header" href="#値を上書きする">値を上書きする</a></h4>
 <!--
 If we insert a key and a value into a hash map and then insert that same key
 with a different value, the value associated with that key will be replaced.
@@ -462,7 +464,7 @@ overwritten.
 <!--
 #### Only Inserting a Value If the Key Has No Value
 -->
-<h4><a class="header" href="#キーに値がなかった時のみ値を挿入する" id="キーに値がなかった時のみ値を挿入する">キーに値がなかった時のみ値を挿入する</a></h4>
+<h4 id="キーに値がなかった時のみ値を挿入する"><a class="header" href="#キーに値がなかった時のみ値を挿入する">キーに値がなかった時のみ値を挿入する</a></h4>
 <!--
 It’s common to check whether a particular key has a value and if it doesn’t,
 insert a value for it. Hash maps have a special API for this called `entry`
@@ -520,7 +522,7 @@ value 10.
 <!--
 #### Updating a Value Based on the Old Value
 -->
-<h4><a class="header" href="#古い値に基づいて値を更新する" id="古い値に基づいて値を更新する">古い値に基づいて値を更新する</a></h4>
+<h4 id="古い値に基づいて値を更新する"><a class="header" href="#古い値に基づいて値を更新する">古い値に基づいて値を更新する</a></h4>
 <!--
 Another common use case for hash maps is to look up a key’s value and then
 update it based on the old value. For instance, Listing 8-26 shows code that
@@ -571,7 +573,7 @@ loop, so all of these changes are safe and allowed by the borrowing rules.
 <!--
 ### Hashing Function
 -->
-<h3><a class="header" href="#ハッシュ関数" id="ハッシュ関数">ハッシュ関数</a></h3>
+<h3 id="ハッシュ関数"><a class="header" href="#ハッシュ関数">ハッシュ関数</a></h3>
 <!--
 By default, `HashMap` uses a cryptographically secure hashing function that can
 provide resistance to Denial of Service (DoS) attacks. This is not the fastest
@@ -595,7 +597,7 @@ algorithms.
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 Vectors, strings, and hash maps will provide a large amount of functionality
 necessary in programs when you need to store, access, and modify data. Here are

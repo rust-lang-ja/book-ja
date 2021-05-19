@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Implementing an Object-Oriented Design Pattern
 -->
-<h2><a class="header" href="#オブジェクト指向デザインパターンを実装する" id="オブジェクト指向デザインパターンを実装する">オブジェクト指向デザインパターンを実装する</a></h2>
+<h2 id="オブジェクト指向デザインパターンを実装する"><a class="header" href="#オブジェクト指向デザインパターンを実装する">オブジェクト指向デザインパターンを実装する</a></h2>
 <!--
 The *state pattern* is an object-oriented design pattern. The crux of the
 pattern is that a value has some internal state, which is represented by a set
@@ -300,7 +302,7 @@ make a mistake with the states, like publishing a post before it’s reviewed.
 <!--
 ### Defining `Post` and Creating a New Instance in the Draft State
 -->
-<h3><a class="header" href="#postを定義し草稿状態で新しいインスタンスを生成する" id="postを定義し草稿状態で新しいインスタンスを生成する"><code>Post</code>を定義し、草稿状態で新しいインスタンスを生成する</a></h3>
+<h3 id="postを定義し草稿状態で新しいインスタンスを生成する"><a class="header" href="#postを定義し草稿状態で新しいインスタンスを生成する"><code>Post</code>を定義し、草稿状態で新しいインスタンスを生成する</a></h3>
 <!--
 Let’s get started on the implementation of the library! We know we need a
 public `Post` struct that holds some content, so we’ll start with the
@@ -373,7 +375,7 @@ create a `Post` in any other state! In the `Post::new` function, we set the
 <!--
 ### Storing the Text of the Post Content
 -->
-<h3><a class="header" href="#記事の内容のテキストを格納する" id="記事の内容のテキストを格納する">記事の内容のテキストを格納する</a></h3>
+<h3 id="記事の内容のテキストを格納する"><a class="header" href="#記事の内容のテキストを格納する">記事の内容のテキストを格納する</a></h3>
 <!--
 Listing 17-11 showed that we want to be able to call a method named
 `add_text` and pass it a `&str` that is then added to the text content of the
@@ -427,7 +429,7 @@ support.
 <!--
 ### Ensuring the Content of a Draft Post Is Empty
 -->
-<h3><a class="header" href="#草稿の記事の内容は空であることを保証する" id="草稿の記事の内容は空であることを保証する">草稿の記事の内容は空であることを保証する</a></h3>
+<h3 id="草稿の記事の内容は空であることを保証する"><a class="header" href="#草稿の記事の内容は空であることを保証する">草稿の記事の内容は空であることを保証する</a></h3>
 <!--
 Even after we’ve called `add_text` and added some content to our post, we still
 want the `content` method to return an empty string slice because the post is
@@ -480,7 +482,7 @@ works as intended.
 <!--
 ### Requesting a Review of the Post Changes Its State
 -->
-<h3><a class="header" href="#記事の査読を要求すると状態が変化する" id="記事の査読を要求すると状態が変化する">記事の査読を要求すると、状態が変化する</a></h3>
+<h3 id="記事の査読を要求すると状態が変化する"><a class="header" href="#記事の査読を要求すると状態が変化する">記事の査読を要求すると、状態が変化する</a></h3>
 <!--
 Next, we need to add functionality to request a review of a post, which should
 change its state from `Draft` to `PendingReview`. Listing 17-15 shows this code:
@@ -611,7 +613,7 @@ Listing 17-11 now works up to line 11!
 <!--
 ### Adding the `approve` Method that Changes the Behavior of `content`
 -->
-<h3><a class="header" href="#contentの振る舞いを変化させるapproveメソッドを追加する" id="contentの振る舞いを変化させるapproveメソッドを追加する"><code>content</code>の振る舞いを変化させる<code>approve</code>メソッドを追加する</a></h3>
+<h3 id="contentの振る舞いを変化させるapproveメソッドを追加する"><a class="header" href="#contentの振る舞いを変化させるapproveメソッドを追加する"><code>content</code>の振る舞いを変化させる<code>approve</code>メソッドを追加する</a></h3>
 <!--
 The `approve` method will be similar to the `request_review` method: it will
 set `state` to the value that the current state says it should have when that
@@ -847,7 +849,7 @@ rules lives in the state objects rather than being scattered throughout `Post`.
 <!--
 ### Trade-offs of the State Pattern
 -->
-<h3><a class="header" href="#ステートパターンの代償" id="ステートパターンの代償">ステートパターンの代償</a></h3>
+<h3 id="ステートパターンの代償"><a class="header" href="#ステートパターンの代償">ステートパターンの代償</a></h3>
 <!--
 The wayで「・・・の仕方によれば」という意味になるらしい
 -->
@@ -957,7 +959,7 @@ Rustの強みをできるだけ発揮していません。<code>blog</code>ク�
 <!--
 #### Encoding States and Behavior as Types
 -->
-<h4><a class="header" href="#状態と振る舞いを型としてコード化する" id="状態と振る舞いを型としてコード化する">状態と振る舞いを型としてコード化する</a></h4>
+<h4 id="状態と振る舞いを型としてコード化する"><a class="header" href="#状態と振る舞いを型としてコード化する">状態と振る舞いを型としてコード化する</a></h4>
 <!--
 We’ll show you how to rethink the state pattern to get a different set of
 trade-offs. Rather than encapsulating the states and transitions completely so
@@ -1072,7 +1074,7 @@ these constraints will result in a compiler error.
 <!--
 #### Implementing Transitions as Transformations into Different Types
 -->
-<h4><a class="header" href="#遷移を異なる型への変形として実装する" id="遷移を異なる型への変形として実装する">遷移を異なる型への変形として実装する</a></h4>
+<h4 id="遷移を異なる型への変形として実装する"><a class="header" href="#遷移を異なる型への変形として実装する">遷移を異なる型への変形として実装する</a></h4>
 <!--
 1行目the rule thatは同格で訳しているが、the rule that a draft post has (the rule) to be...でも意味は通りそう
 -->
@@ -1238,7 +1240,7 @@ Rustでは利用可能なことを確かめました。これらのパターン�
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 No matter whether or not you think Rust is an object-oriented language after
 reading this chapter, you now know that you can use trait objects to get some

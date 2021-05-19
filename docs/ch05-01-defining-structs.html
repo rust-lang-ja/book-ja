@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Defining and Instantiating Structs
 -->
-<h2><a class="header" href="#構造体を定義しインスタンス化する" id="構造体を定義しインスタンス化する">構造体を定義し、インスタンス化する</a></h2>
+<h2 id="構造体を定義しインスタンス化する"><a class="header" href="#構造体を定義しインスタンス化する">構造体を定義し、インスタンス化する</a></h2>
 <!--
 Structs are similar to tuples, which were discussed in Chapter 3. Like tuples,
 the pieces of a struct can be different types. Unlike with tuples, you'll name
@@ -340,7 +342,7 @@ would get even more annoying. Luckily, there's a convenient shorthand!
 <!--
 ### Using the Field Init Shorthand when Variables and Fields Have the Same Name
 -->
-<h3><a class="header" href="#フィールドと変数が同名の時にフィールド初期化省略記法を使う" id="フィールドと変数が同名の時にフィールド初期化省略記法を使う">フィールドと変数が同名の時にフィールド初期化省略記法を使う</a></h3>
+<h3 id="フィールドと変数が同名の時にフィールド初期化省略記法を使う"><a class="header" href="#フィールドと変数が同名の時にフィールド初期化省略記法を使う">フィールドと変数が同名の時にフィールド初期化省略記法を使う</a></h3>
 <!--
 Because the parameter names and the struct field names are exactly the same in
 Listing 5-4, we can use the *field init shorthand* syntax to rewrite
@@ -390,7 +392,7 @@ than `email: email`.
 <!--
 ### Creating Instances From Other Instances With Struct Update Syntax
 -->
-<h3><a class="header" href="#構造体更新記法で他のインスタンスからインスタンスを生成する" id="構造体更新記法で他のインスタンスからインスタンスを生成する">構造体更新記法で他のインスタンスからインスタンスを生成する</a></h3>
+<h3 id="構造体更新記法で他のインスタンスからインスタンスを生成する"><a class="header" href="#構造体更新記法で他のインスタンスからインスタンスを生成する">構造体更新記法で他のインスタンスからインスタンスを生成する</a></h3>
 <!--
 It’s often useful to create a new instance of a struct that uses most of an old
 instance’s values, but changes some. You'll do this using *struct update syntax*.
@@ -482,7 +484,7 @@ different value for `email` and `username` but has the same values for the
 <!--
 ### Using Tuple Structs without Named Fields to Create Different Types
 -->
-<h3><a class="header" href="#異なる型を生成する名前付きフィールドのないタプル構造体を使用する" id="異なる型を生成する名前付きフィールドのないタプル構造体を使用する">異なる型を生成する名前付きフィールドのないタプル構造体を使用する</a></h3>
+<h3 id="異なる型を生成する名前付きフィールドのないタプル構造体を使用する"><a class="header" href="#異なる型を生成する名前付きフィールドのないタプル構造体を使用する">異なる型を生成する名前付きフィールドのないタプル構造体を使用する</a></h3>
 <!--
 We can also define structs that look similar to tuples, called *tuple
 structs*. Tuple structs have the added meaning the struct name provides but
@@ -531,7 +533,7 @@ individual value, and so on.
 <!--
 ### Unit-Like Structs without Any Fields
 -->
-<h3><a class="header" href="#フィールドのないユニットruby様rprprtようrtrprpruby構造体" id="フィールドのないユニットruby様rprprtようrtrprpruby構造体">フィールドのないユニット<ruby>様<rp>(</rp><rt>よう</rt><rp>)</rp></ruby>構造体</a></h3>
+<h3 id="フィールドのないユニットruby様rprprtようrtrprpruby構造体"><a class="header" href="#フィールドのないユニットruby様rprprtようrtrprpruby構造体">フィールドのないユニット<ruby>様<rp>(</rp><rt>よう</rt><rp>)</rp></ruby>構造体</a></h3>
 <!--
 We can also define structs that don’t have any fields! These are called
 *unit-like structs* because they behave similarly to `()`, the unit type.
@@ -599,7 +601,7 @@ references in structs, but for now, we’ll fix errors like these using owned
 types like `String` instead of references like `&str`.
 -->
 <blockquote>
-<h3><a class="header" href="#構造体データの所有権" id="構造体データの所有権">構造体データの所有権</a></h3>
+<h3 id="構造体データの所有権"><a class="header" href="#構造体データの所有権">構造体データの所有権</a></h3>
 <p>リスト5-1の<code>User</code>構造体定義において、<code>&amp;str</code>文字列スライス型ではなく、所有権のある<code>String</code>型を使用しました。
 これは意図的な選択です。というのも、この構造体のインスタンスには全データを所有してもらう必要があり、
 このデータは、構造体全体が有効な間はずっと有効である必要があるのです。</p>

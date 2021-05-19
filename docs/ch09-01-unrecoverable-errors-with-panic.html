@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Unrecoverable Errors with `panic!`
 -->
-<h2><a class="header" href="#panicで回復不能なエラー" id="panicで回復不能なエラー"><code>panic!</code>で回復不能なエラー</a></h2>
+<h2 id="panicで回復不能なエラー"><a class="header" href="#panicで回復不能なエラー"><code>panic!</code>で回復不能なエラー</a></h2>
 <!--
 Sometimes, bad things happen in your code, and there’s nothing you can do about
 it. In these cases, Rust has the `panic!` macro. When the `panic!` macro
@@ -204,7 +206,7 @@ been detected, and it’s not clear to the programmer how to handle the error.
 > ```
 -->
 <blockquote>
-<h3><a class="header" href="#パニックに対してスタックを巻き戻すか異常終了するか" id="パニックに対してスタックを巻き戻すか異常終了するか">パニックに対してスタックを巻き戻すか異常終了するか</a></h3>
+<h3 id="パニックに対してスタックを巻き戻すか異常終了するか"><a class="header" href="#パニックに対してスタックを巻き戻すか異常終了するか">パニックに対してスタックを巻き戻すか異常終了するか</a></h3>
 <p>標準では、パニックが発生すると、プログラムは<em>巻き戻し</em>を始めます。つまり、言語がスタックを遡り、
 遭遇した各関数のデータを片付けるということです。しかし、この遡りと片付けはすべきことが多くなります。
 対立案は、即座に異常終了し、片付けをせずにプログラムを終了させることです。そうなると、プログラムが使用していたメモリは、
@@ -267,7 +269,7 @@ backtrace is in more detail next.
 <!--
 ### Using a `panic!` Backtrace
 -->
-<h3><a class="header" href="#panicバックトレースを使用する" id="panicバックトレースを使用する"><code>panic!</code>バックトレースを使用する</a></h3>
+<h3 id="panicバックトレースを使用する"><a class="header" href="#panicバックトレースを使用する"><code>panic!</code>バックトレースを使用する</a></h3>
 <!--
 Let’s look at another example to see what it’s like when a `panic!` call comes
 from a library because of a bug in our code instead of from our code calling

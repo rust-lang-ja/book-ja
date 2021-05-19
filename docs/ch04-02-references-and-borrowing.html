@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## References and Borrowing
 -->
-<h2><a class="header" href="#参照と借用" id="参照と借用">参照と借用</a></h2>
+<h2 id="参照と借用"><a class="header" href="#参照と借用">参照と借用</a></h2>
 <!--
 The issue with the tuple code in Listing 4-5 is that we have to return the
 `String` to the calling function so we can still use the `String` after the
@@ -345,7 +347,7 @@ allowed to modify something we have a reference to.
 <!--
 ### Mutable References
 -->
-<h3><a class="header" href="#可変な参照" id="可変な参照">可変な参照</a></h3>
+<h3 id="可変な参照"><a class="header" href="#可変な参照">可変な参照</a></h3>
 <!--
 We can fix the error in the code from Listing 4-6 with just a small tweak:
 -->
@@ -539,7 +541,7 @@ to track down why your data isn’t what you thought it was.
 <!--
 ### Dangling References
 -->
-<h3><a class="header" href="#宙に浮いた参照" id="宙に浮いた参照">宙に浮いた参照</a></h3>
+<h3 id="宙に浮いた参照"><a class="header" href="#宙に浮いた参照">宙に浮いた参照</a></h3>
 <!--
 In languages with pointers, it’s easy to erroneously create a *dangling
 pointer*, a pointer that references a location in memory that may have been
@@ -662,7 +664,7 @@ deallocated.
 <!--
 ### The Rules of References
 -->
-<h3><a class="header" href="#参照の規則" id="参照の規則">参照の規則</a></h3>
+<h3 id="参照の規則"><a class="header" href="#参照の規則">参照の規則</a></h3>
 <!--
 Let’s recap what we’ve discussed about references:
 -->

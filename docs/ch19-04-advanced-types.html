@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Advanced Types
 -->
-<h2><a class="header" href="#高度な型" id="高度な型">高度な型</a></h2>
+<h2 id="高度な型"><a class="header" href="#高度な型">高度な型</a></h2>
 <!--
 The Rust type system has some features that we’ve mentioned in this book but
 haven’t yet discussed. We’ll start by discussing newtypes in general as we
@@ -193,7 +195,7 @@ discuss the `!` type and dynamically sized types.
 <!--
 ### Using the Newtype Pattern for Type Safety and Abstraction
 -->
-<h3><a class="header" href="#型安全性と抽象化を求めてニュータイプパターンを使用する" id="型安全性と抽象化を求めてニュータイプパターンを使用する">型安全性と抽象化を求めてニュータイプパターンを使用する</a></h3>
+<h3 id="型安全性と抽象化を求めてニュータイプパターンを使用する"><a class="header" href="#型安全性と抽象化を求めてニュータイプパターンを使用する">型安全性と抽象化を求めてニュータイプパターンを使用する</a></h3>
 <!--
 The newtype pattern is useful for tasks beyond those we’ve discussed so far,
 including statically enforcing that values are never confused and indicating
@@ -234,7 +236,7 @@ Hides Implementation Details” section of Chapter 17.
 <!--
 ### Creating Type Synonyms with Type Aliases
 -->
-<h3><a class="header" href="#型エイリアスで型同義語を生成する" id="型エイリアスで型同義語を生成する">型エイリアスで型同義語を生成する</a></h3>
+<h3 id="型エイリアスで型同義語を生成する"><a class="header" href="#型エイリアスで型同義語を生成する">型エイリアスで型同義語を生成する</a></h3>
 <!--
 Along with the newtype pattern, Rust provides the ability to declare a *type
 alias* to give an existing type another name. For this we use the `type`
@@ -410,7 +412,7 @@ just another `Result<T, E>`, which means we can use any methods that work on
 <!--
 ### The Never Type that Never Returns
 -->
-<h3><a class="header" href="#never型は絶対に返らない" id="never型は絶対に返らない">never型は絶対に返らない</a></h3>
+<h3 id="never型は絶対に返らない"><a class="header" href="#never型は絶対に返らない">never型は絶対に返らない</a></h3>
 <!--
 to stand inで「代役を務める」という意味だが、ここではあえて直訳にした
 -->
@@ -547,7 +549,7 @@ when it got to the `break`.
 <!--
 ### Dynamically Sized Types and the `Sized` Trait
 -->
-<h3><a class="header" href="#動的サイズ決定型とsizedトレイト" id="動的サイズ決定型とsizedトレイト">動的サイズ決定型と<code>Sized</code>トレイト</a></h3>
+<h3 id="動的サイズ決定型とsizedトレイト"><a class="header" href="#動的サイズ決定型とsizedトレイト">動的サイズ決定型と<code>Sized</code>トレイト</a></h3>
 <!--
 Due to Rust’s need to know certain details, such as how much space to allocate
 for a value of a particular type, there is a corner of its type system that can

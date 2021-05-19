@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Improving Our I/O Project
 -->
-<h2><a class="header" href="#入出力プロジェクトを改善する" id="入出力プロジェクトを改善する">入出力プロジェクトを改善する</a></h2>
+<h2 id="入出力プロジェクトを改善する"><a class="header" href="#入出力プロジェクトを改善する">入出力プロジェクトを改善する</a></h2>
 <!--
 ここでは、withを条件のように訳している。(今まではなかったのに、)今はある状態で -> ...があればという意訳である
 やはりwithは状態を表すだけなので、強すぎる気がしなくもない
@@ -188,7 +190,7 @@ concise. Let’s look at how iterators can improve our implementation of the
 <!--
 ### Removing a `clone` Using an Iterator
 -->
-<h3><a class="header" href="#イテレータを使用してcloneを取り除く" id="イテレータを使用してcloneを取り除く">イテレータを使用して<code>clone</code>を取り除く</a></h3>
+<h3 id="イテレータを使用してcloneを取り除く"><a class="header" href="#イテレータを使用してcloneを取り除く">イテレータを使用して<code>clone</code>を取り除く</a></h3>
 <!--
 In Listing 12-6, we added code that took a slice of `String` values and created
 an instance of the `Config` struct by indexing into the slice and cloning the
@@ -262,7 +264,7 @@ operations that borrow, we can move the `String` values from the iterator into
 <!--
 #### Using the Returned Iterator Directly
 -->
-<h4><a class="header" href="#返却されるイテレータを直接使う" id="返却されるイテレータを直接使う">返却されるイテレータを直接使う</a></h4>
+<h4 id="返却されるイテレータを直接使う"><a class="header" href="#返却されるイテレータを直接使う">返却されるイテレータを直接使う</a></h4>
 <!--
 Open your I/O project’s *src/main.rs* file, which should look like this:
 -->
@@ -352,7 +354,7 @@ keyword into the specification of the `args` parameter to make it mutable.
 <!--
 #### Using `Iterator` Trait Methods Instead of Indexing
 -->
-<h4><a class="header" href="#添え字の代わりにiteratorトレイトのメソッドを使用する" id="添え字の代わりにiteratorトレイトのメソッドを使用する">添え字の代わりに<code>Iterator</code>トレイトのメソッドを使用する</a></h4>
+<h4 id="添え字の代わりにiteratorトレイトのメソッドを使用する"><a class="header" href="#添え字の代わりにiteratorトレイトのメソッドを使用する">添え字の代わりに<code>Iterator</code>トレイトのメソッドを使用する</a></h4>
 <!--
 Next, we’ll fix the body of `Config::new`. The standard library documentation
 also mentions that `std::env::Args` implements the `Iterator` trait, so we know
@@ -423,7 +425,7 @@ the same thing for the `filename` value.
 <!--
 ### Making Code Clearer with Iterator Adaptors
 -->
-<h3><a class="header" href="#イテレータアダプタでコードをより明確にする" id="イテレータアダプタでコードをより明確にする">イテレータアダプタでコードをより明確にする</a></h3>
+<h3 id="イテレータアダプタでコードをより明確にする"><a class="header" href="#イテレータアダプタでコードをより明確にする">イテレータアダプタでコードをより明確にする</a></h3>
 <!--
 We can also take advantage of iterators in the `search` function in our I/O
 project, which is reproduced here in Listing 13-28 as it was in Listing 12-19:

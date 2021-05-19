@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Reference Cycles Can Leak Memory
 -->
-<h2><a class="header" href="#循環参照はメモリをリークすることもある" id="循環参照はメモリをリークすることもある">循環参照は、メモリをリークすることもある</a></h2>
+<h2 id="循環参照はメモリをリークすることもある"><a class="header" href="#循環参照はメモリをリークすることもある">循環参照は、メモリをリークすることもある</a></h2>
 <!--
 Rust’s memory safety guarantees make it difficult, but not impossible, to
 accidentally create memory that is never cleaned up (known as a *memory leak*).
@@ -192,7 +194,7 @@ Rustでは、<code>Rc&lt;T&gt;</code>と<code>RefCell&lt;T&gt;</code>を使用�
 <!--
 ### Creating a Reference Cycle
 -->
-<h3><a class="header" href="#循環参照させる" id="循環参照させる">循環参照させる</a></h3>
+<h3 id="循環参照させる"><a class="header" href="#循環参照させる">循環参照させる</a></h3>
 <!--
 Let’s look at how a reference cycle might happen and how to prevent it,
 starting with the definition of the `List` enum and a `tail` method in Listing
@@ -420,7 +422,7 @@ reference cycles.
 <!--
 ### Preventing Reference Cycles: Turning an `Rc<T>` into a `Weak<T>`
 -->
-<h3><a class="header" href="#循環参照を回避する-rctをweaktに変換する" id="循環参照を回避する-rctをweaktに変換する">循環参照を回避する: <code>Rc&lt;T&gt;</code>を<code>Weak&lt;T&gt;</code>に変換する</a></h3>
+<h3 id="循環参照を回避する-rctをweaktに変換する"><a class="header" href="#循環参照を回避する-rctをweaktに変換する">循環参照を回避する: <code>Rc&lt;T&gt;</code>を<code>Weak&lt;T&gt;</code>に変換する</a></h3>
 <!--
 So far, we’ve demonstrated that calling `Rc::clone` increases the
 `strong_count` of an `Rc<T>` instance, and an `Rc<T>` instance is only cleaned
@@ -473,7 +475,7 @@ their parent items.
 <!--
 #### Creating a Tree Data Structure: a `Node` with Child Nodes
 -->
-<h4><a class="header" href="#木データ構造を作る-子ノードのあるnode" id="木データ構造を作る-子ノードのあるnode">木データ構造を作る: 子ノードのある<code>Node</code></a></h4>
+<h4 id="木データ構造を作る-子ノードのあるnode"><a class="header" href="#木データ構造を作る-子ノードのあるnode">木データ構造を作る: 子ノードのある<code>Node</code></a></h4>
 <!--
 To start, we’ll build a tree with nodes that know about their child nodes.
 We’ll create a struct named `Node` that holds its own `i32` value as well as
@@ -560,7 +562,7 @@ parent. We’ll do that next.
 <!--
 #### Adding a Reference from a Child to Its Parent
 -->
-<h4><a class="header" href="#子供から親に参照を追加する" id="子供から親に参照を追加する">子供から親に参照を追加する</a></h4>
+<h4 id="子供から親に参照を追加する"><a class="header" href="#子供から親に参照を追加する">子供から親に参照を追加する</a></h4>
 <!--
 To make the child node aware of its parent, we need to add a `parent` field to
 our `Node` struct definition. The trouble is in deciding what the type of
@@ -708,7 +710,7 @@ cycle. We can also tell this by looking at the values we get from calling
 <!--
 #### Visualizing Changes to `strong_count` and `weak_count`
 -->
-<h4><a class="header" href="#strong_countとweak_countへの変更を可視化する" id="strong_countとweak_countへの変更を可視化する"><code>strong_count</code>と<code>weak_count</code>への変更を可視化する</a></h4>
+<h4 id="strong_countとweak_countへの変更を可視化する"><a class="header" href="#strong_countとweak_countへの変更を可視化する"><code>strong_count</code>と<code>weak_count</code>への変更を可視化する</a></h4>
 <!--
 Let’s look at how the `strong_count` and `weak_count` values of the `Rc<Node>`
 instances change by creating a new inner scope and moving the creation of
@@ -836,7 +838,7 @@ and memory leaks.
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 This chapter covered how to use smart pointers to make different guarantees and
 trade-offs than those Rust makes by default with regular references. The

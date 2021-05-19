@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Accepting Command Line Arguments
 -->
-<h2><a class="header" href="#コマンドライン引数を受け付ける" id="コマンドライン引数を受け付ける">コマンドライン引数を受け付ける</a></h2>
+<h2 id="コマンドライン引数を受け付ける"><a class="header" href="#コマンドライン引数を受け付ける">コマンドライン引数を受け付ける</a></h2>
 <!--
 Let’s create a new project with, as always, `cargo new`. We’ll call our project
 `minigrep` to distinguish it from the `grep` tool that you might already have
@@ -204,7 +206,7 @@ just learning this concept, let’s implement this capability ourselves.
 <!--
 ### Reading the Argument Values
 -->
-<h3><a class="header" href="#引数の値を読み取る" id="引数の値を読み取る">引数の値を読み取る</a></h3>
+<h3 id="引数の値を読み取る"><a class="header" href="#引数の値を読み取る">引数の値を読み取る</a></h3>
 <!--
 To enable `minigrep` to read the values of command line arguments we pass to
 it, we’ll need a function provided in Rust’s standard library, which is
@@ -271,7 +273,7 @@ current module.
 > per platform and are more complex to work with than `String` values.
 -->
 <blockquote>
-<h3><a class="header" href="#args関数と不正なユニコード" id="args関数と不正なユニコード"><code>args</code>関数と不正なユニコード</a></h3>
+<h3 id="args関数と不正なユニコード"><a class="header" href="#args関数と不正なユニコード"><code>args</code>関数と不正なユニコード</a></h3>
 <p>引数のどれかが不正なユニコードを含んでいたら、<code>std::env::args</code>はパニックすることに注意してください。
 プログラムが不正なユニコードを含む引数を受け付ける必要があるなら、代わりに<code>std::env::args_os</code>を使用してください。
 この関数は、<code>String</code>値ではなく、<code>OsString</code>値を生成するイテレータを返します。ここでは、
@@ -323,7 +325,7 @@ chapter, we’ll ignore it and save only the two arguments we need.
 <!--
 ### Saving the Argument Values in Variables
 -->
-<h3><a class="header" href="#引数の値を変数に保存する" id="引数の値を変数に保存する">引数の値を変数に保存する</a></h3>
+<h3 id="引数の値を変数に保存する"><a class="header" href="#引数の値を変数に保存する">引数の値を変数に保存する</a></h3>
 <!--
 Printing the value of the vector of arguments illustrated that the program is
 able to access the values specified as command line arguments. Now we need to

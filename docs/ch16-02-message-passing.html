@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Using Message Passing to Transfer Data Between Threads
 -->
-<h2><a class="header" href="#メッセージ受け渡しを使ってスレッド間でデータを転送する" id="メッセージ受け渡しを使ってスレッド間でデータを転送する">メッセージ受け渡しを使ってスレッド間でデータを転送する</a></h2>
+<h2 id="メッセージ受け渡しを使ってスレッド間でデータを転送する"><a class="header" href="#メッセージ受け渡しを使ってスレッド間でデータを転送する">メッセージ受け渡しを使ってスレッド間でデータを転送する</a></h2>
 <!--
 One increasingly popular approach to ensuring safe concurrency is *message
 passing*, where threads or actors communicate by sending each other messages
@@ -414,7 +416,7 @@ Perfect!
 <!--
 ### Channels and Ownership Transference
 -->
-<h3><a class="header" href="#チャンネルと所有権の転送" id="チャンネルと所有権の転送">チャンネルと所有権の転送</a></h3>
+<h3 id="チャンネルと所有権の転送"><a class="header" href="#チャンネルと所有権の転送">チャンネルと所有権の転送</a></h3>
 <!--
 The ownership rules play a vital role in message sending because they help you
 write safe, concurrent code. Preventing errors in concurrent programming is the
@@ -490,7 +492,7 @@ after sending it; the ownership system checks that everything is okay.
 <!--
 ### Sending Multiple Values and Seeing the Receiver Waiting
 -->
-<h3><a class="header" href="#複数の値を送信し受信側が待機するのを確かめる" id="複数の値を送信し受信側が待機するのを確かめる">複数の値を送信し、受信側が待機するのを確かめる</a></h3>
+<h3 id="複数の値を送信し受信側が待機するのを確かめる"><a class="header" href="#複数の値を送信し受信側が待機するのを確かめる">複数の値を送信し、受信側が待機するのを確かめる</a></h3>
 <!--
 The code in Listing 16-8 compiled and ran, but it didn’t clearly show us that
 two separate threads were talking to each other over the channel. In Listing
@@ -574,7 +576,7 @@ the spawned thread.
 <!--
 ### Creating Multiple Producers by Cloning the Transmitter
 -->
-<h3><a class="header" href="#転送機をクローンして複数の生成器を作成する" id="転送機をクローンして複数の生成器を作成する">転送機をクローンして複数の生成器を作成する</a></h3>
+<h3 id="転送機をクローンして複数の生成器を作成する"><a class="header" href="#転送機をクローンして複数の生成器を作成する">転送機をクローンして複数の生成器を作成する</a></h3>
 <!--
 Earlier we mentioned that `mpsc` was an acronym for *multiple producer,
 single consumer*. Let’s put `mpsc` to use and expand the code in Listing 16-10

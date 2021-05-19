@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## How to Write Tests
 -->
-<h2><a class="header" href="#テストの記述法" id="テストの記述法">テストの記述法</a></h2>
+<h2 id="テストの記述法"><a class="header" href="#テストの記述法">テストの記述法</a></h2>
 <!--
 Tests are Rust functions that verify that the non-test code is functioning in
 the expected manner. The bodies of test functions typically perform these three
@@ -200,7 +202,7 @@ take these actions, which include the `test` attribute, a few macros, and the
 <!--
 ### The Anatomy of a Test Function
 -->
-<h2><a class="header" href="#テスト関数の構成" id="テスト関数の構成">テスト関数の構成</a></h2>
+<h2 id="テスト関数の構成"><a class="header" href="#テスト関数の構成">テスト関数の構成</a></h2>
 <!--
 At its simplest, a test in Rust is a function that’s annotated with the `test`
 attribute. Attributes are metadata about pieces of Rust code; one example is
@@ -503,7 +505,7 @@ let’s look at some macros other than `panic!` that are useful in tests.
 <!--
 ### Checking Results with the `assert!` Macro
 -->
-<h3><a class="header" href="#assertマクロで結果を確認する" id="assertマクロで結果を確認する"><code>assert!</code>マクロで結果を確認する</a></h3>
+<h3 id="assertマクロで結果を確認する"><a class="header" href="#assertマクロで結果を確認する"><code>assert!</code>マクロで結果を確認する</a></h3>
 <!--
 The `assert!` macro, provided by the standard library, is useful when you want
 to ensure that some condition in a test evaluates to `true`. We give the
@@ -814,7 +816,7 @@ less than 5.
 <!--
 ### Testing Equality with the `assert_eq!` and `assert_ne!` Macros
 -->
-<h3><a class="header" href="#assert_eqとassert_neマクロで等値性をテストする" id="assert_eqとassert_neマクロで等値性をテストする"><code>assert_eq!</code>と<code>assert_ne!</code>マクロで等値性をテストする</a></h3>
+<h3 id="assert_eqとassert_neマクロで等値性をテストする"><a class="header" href="#assert_eqとassert_neマクロで等値性をテストする"><code>assert_eq!</code>と<code>assert_ne!</code>マクロで等値性をテストする</a></h3>
 <!--
 A common way to test functionality is to compare the result of the code under
 test to the value you expect the code to return to make sure they’re equal. You
@@ -1010,7 +1012,7 @@ for more details about these and other derivable traits.
 <!--
 ### Adding Custom Failure Messages
 -->
-<h3><a class="header" href="#カスタムの失敗メッセージを追加する" id="カスタムの失敗メッセージを追加する">カスタムの失敗メッセージを追加する</a></h3>
+<h3 id="カスタムの失敗メッセージを追加する"><a class="header" href="#カスタムの失敗メッセージを追加する">カスタムの失敗メッセージを追加する</a></h3>
 <!--
 You can also add a custom message to be printed with the failure message as
 optional arguments to the `assert!`, `assert_eq!`, and `assert_ne!` macros. Any
@@ -1182,7 +1184,7 @@ debug what happened instead of what we were expecting to happen.
 <!--
 ### Checking for Panics with `should_panic`
 -->
-<h3><a class="header" href="#should_panicでパニックを確認する" id="should_panicでパニックを確認する"><code>should_panic</code>でパニックを確認する</a></h3>
+<h3 id="should_panicでパニックを確認する"><a class="header" href="#should_panicでパニックを確認する"><code>should_panic</code>でパニックを確認する</a></h3>
 <!--
 In addition to checking that our code returns the correct values we expect,
 it’s also important to check that our code handles error conditions as we
@@ -1501,7 +1503,7 @@ figuring out where our bug is!
 <!--
 ### Using `Result<T, E>` in Tests
 -->
-<h3><a class="header" href="#resultt-eをテストで使う" id="resultt-eをテストで使う"><code>Result&lt;T, E&gt;</code>をテストで使う</a></h3>
+<h3 id="resultt-eをテストで使う"><a class="header" href="#resultt-eをテストで使う"><code>Result&lt;T, E&gt;</code>をテストで使う</a></h3>
 <!--
 So far, we’ve written tests that panic when they fail. We can also write tests
 that use `Result<T, E>`! Here’s the test from Listing 11-1, rewritten to use

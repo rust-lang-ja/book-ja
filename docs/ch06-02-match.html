@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## The `match` Control Flow Operator
 -->
-<h2><a class="header" href="#matchフロー制御演算子" id="matchフロー制御演算子"><code>match</code>フロー制御演算子</a></h2>
+<h2 id="matchフロー制御演算子"><a class="header" href="#matchフロー制御演算子"><code>match</code>フロー制御演算子</a></h2>
 <!--
 Rust has an extremely powerful control flow operator called `match` that allows
 us to compare a value against a series of patterns and then execute code based
@@ -303,7 +305,7 @@ a `Coin::Penny` but would still return the last value of the block, `1`:
 <!--
 ### Patterns that Bind to Values
 -->
-<h3><a class="header" href="#値に束縛されるパターン" id="値に束縛されるパターン">値に束縛されるパターン</a></h3>
+<h3 id="値に束縛されるパターン"><a class="header" href="#値に束縛されるパターン">値に束縛されるパターン</a></h3>
 <!--
 Another useful feature of match arms is that they can bind to parts of the
 values that match the pattern. This is how we can extract values out of enum
@@ -427,7 +429,7 @@ state value out of the `Coin` enum variant for `Quarter`.
 <!--
 ### Matching with `Option<T>`
 -->
-<h3><a class="header" href="#optiontとのマッチ" id="optiontとのマッチ"><code>Option&lt;T&gt;</code>とのマッチ</a></h3>
+<h3 id="optiontとのマッチ"><a class="header" href="#optiontとのマッチ"><code>Option&lt;T&gt;</code>とのマッチ</a></h3>
 <!--
 In the previous section we wanted to get the inner `T` value out of the `Some`
 case when using `Option<T>`; we can also handle `Option<T>` using `match` as we
@@ -530,7 +532,7 @@ enumに対し<code>match</code>し、内部のデータに変数を束縛させ�
 <!--
 いい単語を探したい(Exhaustive)
 -->
-<h3><a class="header" href="#マッチは包括的" id="マッチは包括的">マッチは包括的</a></h3>
+<h3 id="マッチは包括的"><a class="header" href="#マッチは包括的">マッチは包括的</a></h3>
 <!--
 There’s one other aspect of `match` we need to discuss. Consider this version
 of our `plus_one` function that has a bug and won't compile:
@@ -572,7 +574,7 @@ nullになるかもしれないのに値があると思い込まないよう、�
 <!--
 ### The `_` Placeholder
 -->
-<h3><a class="header" href="#_というプレースホルダー" id="_というプレースホルダー"><code>_</code>というプレースホルダー</a></h3>
+<h3 id="_というプレースホルダー"><a class="header" href="#_というプレースホルダー"><code>_</code>というプレースホルダー</a></h3>
 <!--
 Rust also has a pattern we can use when we don’t want to list all possible
 values. For example, a `u8` can have valid values of 0 through 255. If we only

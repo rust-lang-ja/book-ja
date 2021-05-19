@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Traits: Defining Shared Behavior
 -->
-<h2><a class="header" href="#トレイト-共通の振る舞いを定義する" id="トレイト-共通の振る舞いを定義する">トレイト: 共通の振る舞いを定義する</a></h2>
+<h2 id="トレイト-共通の振る舞いを定義する"><a class="header" href="#トレイト-共通の振る舞いを定義する">トレイト: 共通の振る舞いを定義する</a></h2>
 <!--
 A *trait* tells the Rust compiler about functionality a particular type has and
 can share with other types. We can use traits to define shared behavior in an
@@ -192,7 +194,7 @@ that has certain behavior.
 <!--
 ### Defining a Trait
 -->
-<h3><a class="header" href="#トレイトを定義する" id="トレイトを定義する">トレイトを定義する</a></h3>
+<h3 id="トレイトを定義する"><a class="header" href="#トレイトを定義する">トレイトを定義する</a></h3>
 <!--
 A type’s behavior consists of the methods we can call on that type. Different
 types share the same behavior if we can call the same methods on all of those
@@ -266,7 +268,7 @@ one per line and each line ends in a semicolon.
 <!--
 ### Implementing a Trait on a Type
 -->
-<h3><a class="header" href="#トレイトを型に実装する" id="トレイトを型に実装する">トレイトを型に実装する</a></h3>
+<h3 id="トレイトを型に実装する"><a class="header" href="#トレイトを型に実装する">トレイトを型に実装する</a></h3>
 <!--
 Now that we’ve defined the desired behavior using the `Summary` trait, we can
 implement it on the types in our media aggregator. Listing 10-13 shows an
@@ -417,7 +419,7 @@ implementation to use.
 <!--
 ### Default Implementations
 -->
-<h3><a class="header" href="#デフォルト実装" id="デフォルト実装">デフォルト実装</a></h3>
+<h3 id="デフォルト実装"><a class="header" href="#デフォルト実装">デフォルト実装</a></h3>
 <!--
 Sometimes it’s useful to have default behavior for some or all of the methods
 in a trait instead of requiring implementations for all methods on every type.
@@ -629,7 +631,7 @@ overriding implementation of that same method.
 <!--
 ### Traits as Parameters
 -->
-<h3><a class="header" href="#引数としてのトレイト" id="引数としてのトレイト">引数としてのトレイト</a></h3>
+<h3 id="引数としてのトレイト"><a class="header" href="#引数としてのトレイト">引数としてのトレイト</a></h3>
 <!--
 Now that you know how to define and implement traits, we can explore how to use
 traits to define functions that accept many different types.
@@ -697,7 +699,7 @@ because those types don’t implement `Summary`.
 <!--
 #### Trait Bound Syntax
 -->
-<h4><a class="header" href="#トレイト境界構文" id="トレイト境界構文">トレイト境界構文</a></h4>
+<h4 id="トレイト境界構文"><a class="header" href="#トレイト境界構文">トレイト境界構文</a></h4>
 <!--
 The `impl Trait` syntax works for straightforward cases but is actually
 syntax sugar for a longer form, which is called a *trait bound*; it looks like
@@ -749,7 +751,7 @@ passed as an argument for `item1` and `item2` must be the same.
 <!--
 #### Specifying Multiple Trait Bounds with the `+` Syntax
 -->
-<h4><a class="header" href="#複数のトレイト境界を構文で指定する" id="複数のトレイト境界を構文で指定する">複数のトレイト境界を<code>+</code>構文で指定する</a></h4>
+<h4 id="複数のトレイト境界を構文で指定する"><a class="header" href="#複数のトレイト境界を構文で指定する">複数のトレイト境界を<code>+</code>構文で指定する</a></h4>
 <!--
 We can also specify more than one trait bound. Say we wanted `notify` to use
 display formatting on `item` as well as the `summarize` method: we specify in
@@ -776,7 +778,7 @@ and use `{}` to format `item`.
 <!--
 #### Clearer Trait Bounds with `where` Clauses
 -->
-<h4><a class="header" href="#where句を使ったより明確なトレイト境界" id="where句を使ったより明確なトレイト境界"><code>where</code>句を使ったより明確なトレイト境界</a></h4>
+<h4 id="where句を使ったより明確なトレイト境界"><a class="header" href="#where句を使ったより明確なトレイト境界"><code>where</code>句を使ったより明確なトレイト境界</a></h4>
 <!--
 Using too many trait bounds has its downsides. Each generic has its own trait
 bounds, so functions with multiple generic type parameters can contain lots of
@@ -810,7 +812,7 @@ bounds.
 <!--
 ### Returning Types that Implement Traits
 -->
-<h3><a class="header" href="#トレイトを実装している型を返す" id="トレイトを実装している型を返す">トレイトを実装している型を返す</a></h3>
+<h3 id="トレイトを実装している型を返す"><a class="header" href="#トレイトを実装している型を返す">トレイトを実装している型を返す</a></h3>
 <!--
 We can also use the `impl Trait` syntax in the return position to return a
 value of some type that implements a trait, as shown here:
@@ -950,7 +952,7 @@ Types”][using-trait-objects-that-allow-for-values-of-different-types] section 
 <!--
 ### Fixing the `largest` Function with Trait Bounds
 -->
-<h3><a class="header" href="#トレイト境界でlargest関数を修正する" id="トレイト境界でlargest関数を修正する">トレイト境界で<code>largest</code>関数を修正する</a></h3>
+<h3 id="トレイト境界でlargest関数を修正する"><a class="header" href="#トレイト境界でlargest関数を修正する">トレイト境界で<code>largest</code>関数を修正する</a></h3>
 <!--
 Now that you know how to specify the behavior you want to use using the generic
 type parameter’s bounds, let’s return to Listing 10-5 to fix the definition of
@@ -1148,7 +1150,7 @@ avoid heap allocations. Try implementing these alternate solutions on your own!
 <!--
 ### Using Trait Bounds to Conditionally Implement Methods
 -->
-<h3><a class="header" href="#トレイト境界を使用してメソッド実装を条件分けする" id="トレイト境界を使用してメソッド実装を条件分けする">トレイト境界を使用して、メソッド実装を条件分けする</a></h3>
+<h3 id="トレイト境界を使用してメソッド実装を条件分けする"><a class="header" href="#トレイト境界を使用してメソッド実装を条件分けする">トレイト境界を使用して、メソッド実装を条件分けする</a></h3>
 <!--
 By using a trait bound with an `impl` block that uses generic type parameters,
 we can implement methods conditionally for types that implement the specified

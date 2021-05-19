@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Appendix C: Derivable Traits
 -->
-<h2><a class="header" href="#付録c-導出可能なトレイト" id="付録c-導出可能なトレイト">付録C: 導出可能なトレイト</a></h2>
+<h2 id="付録c-導出可能なトレイト"><a class="header" href="#付録c-導出可能なトレイト">付録C: 導出可能なトレイト</a></h2>
 <!--
 In various places in the book, we’ve discussed the `derive` attribute, which
 you can apply to a struct or enum definition. The `derive` attribute generates
@@ -240,7 +242,7 @@ involves using a procedural macro, which is covered in Appendix D.
 <!--
 ### `Debug` for Programmer Output
 -->
-<h3><a class="header" href="#プログラマ用の出力のdebug" id="プログラマ用の出力のdebug">プログラマ用の出力の<code>Debug</code></a></h3>
+<h3 id="プログラマ用の出力のdebug"><a class="header" href="#プログラマ用の出力のdebug">プログラマ用の出力の<code>Debug</code></a></h3>
 <!--
 The `Debug` trait enables debug formatting in format strings, which you
 indicate by adding `:?` within `{}` placeholders.
@@ -265,7 +267,7 @@ assertion fails so programmers can see why the two instances weren’t equal.
 <!--
 ### `PartialEq` and `Eq` for Equality Comparisons
 -->
-<h3><a class="header" href="#等価比較のためのpartialeqとeq" id="等価比較のためのpartialeqとeq">等価比較のための<code>PartialEq</code>と<code>Eq</code></a></h3>
+<h3 id="等価比較のためのpartialeqとeq"><a class="header" href="#等価比較のためのpartialeqとeq">等価比較のための<code>PartialEq</code>と<code>Eq</code></a></h3>
 <!--
 The `PartialEq` trait allows you to compare instances of a type to check for
 equality and enables use of the `==` and `!=` operators.
@@ -307,7 +309,7 @@ An example of when `Eq` is required is for keys in a `HashMap<K, V>` so the
 <!--
 ### `PartialOrd` and `Ord` for Ordering Comparisons
 -->
-<h3><a class="header" href="#順序付き比較のためのpartialordとord" id="順序付き比較のためのpartialordとord">順序付き比較のための<code>PartialOrd</code>と<code>Ord</code></a></h3>
+<h3 id="順序付き比較のためのpartialordとord"><a class="header" href="#順序付き比較のためのpartialordとord">順序付き比較のための<code>PartialOrd</code>と<code>Ord</code></a></h3>
 <!--
 The `PartialOrd` trait allows you to compare instances of a type for sorting
 purposes. A type that implements `PartialOrd` can be used with the `<`, `>`,
@@ -365,7 +367,7 @@ a data structure that stores data based on the sort order of the values.
 <!--
 ### `Clone` and `Copy` for Duplicating Values
 -->
-<h3><a class="header" href="#値を複製するcloneとcopy" id="値を複製するcloneとcopy">値を複製する<code>Clone</code>と<code>Copy</code></a></h3>
+<h3 id="値を複製するcloneとcopy"><a class="header" href="#値を複製するcloneとcopy">値を複製する<code>Clone</code>と<code>Copy</code></a></h3>
 <!--
 The `Clone` trait allows you to explicitly create a deep copy of a value, and
 the duplication process might involve running arbitrary code and copying heap
@@ -432,7 +434,7 @@ code might be slower or have to use `clone` in places.
 <!--
 ### `Hash` for Mapping a Value to a Value of Fixed Size
 -->
-<h3><a class="header" href="#値を固定サイズの値にマップするhash" id="値を固定サイズの値にマップするhash">値を固定サイズの値にマップする<code>Hash</code></a></h3>
+<h3 id="値を固定サイズの値にマップするhash"><a class="header" href="#値を固定サイズの値にマップするhash">値を固定サイズの値にマップする<code>Hash</code></a></h3>
 <!--
 The `Hash` trait allows you to take an instance of a type of arbitrary size and
 map that instance to a value of fixed size using a hash function. Deriving
@@ -452,7 +454,7 @@ to store data efficiently.
 <!--
 ### `Default` for Default Values
 -->
-<h3><a class="header" href="#既定値のためのdefault" id="既定値のためのdefault">既定値のための<code>Default</code></a></h3>
+<h3 id="既定値のためのdefault"><a class="header" href="#既定値のためのdefault">既定値のための<code>Default</code></a></h3>
 <!--
 The `Default` trait allows you to create a default value for a type. Deriving
 `Default` implements the `default` function. The derived implementation of the

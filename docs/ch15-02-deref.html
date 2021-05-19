@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Treating Smart Pointers Like Regular References with the `Deref` Trait
 -->
-<h2><a class="header" href="#derefトレイトでスマートポインタを普通の参照のように扱う" id="derefトレイトでスマートポインタを普通の参照のように扱う"><code>Deref</code>トレイトでスマートポインタを普通の参照のように扱う</a></h2>
+<h2 id="derefトレイトでスマートポインタを普通の参照のように扱う"><a class="header" href="#derefトレイトでスマートポインタを普通の参照のように扱う"><code>Deref</code>トレイトでスマートポインタを普通の参照のように扱う</a></h2>
 <!--
 Implementing the `Deref` trait allows you to customize the behavior of the
 *dereference operator*, `*` (as opposed to the multiplication or glob
@@ -199,7 +201,7 @@ or smart pointers.
 <!--
 ### Following the Pointer to the Value with the Dereference Operator
 -->
-<h3><a class="header" href="#参照外し演算子で値までポインタを追いかける" id="参照外し演算子で値までポインタを追いかける">参照外し演算子で値までポインタを追いかける</a></h3>
+<h3 id="参照外し演算子で値までポインタを追いかける"><a class="header" href="#参照外し演算子で値までポインタを追いかける">参照外し演算子で値までポインタを追いかける</a></h3>
 <!--
 A regular reference is a type of pointer, and one way to think of a pointer is
 as an arrow to a value stored somewhere else. In Listing 15-6, we create a
@@ -263,7 +265,7 @@ to the value it's pointing to.
 <!--
 ### Using `Box<T>` Like a Reference
 -->
-<h3><a class="header" href="#boxtを参照のように使う" id="boxtを参照のように使う"><code>Box&lt;T&gt;</code>を参照のように使う</a></h3>
+<h3 id="boxtを参照のように使う"><a class="header" href="#boxtを参照のように使う"><code>Box&lt;T&gt;</code>を参照のように使う</a></h3>
 <!--
 We can rewrite the code in Listing 15-6 to use a `Box<T>` instead of a
 reference; the dereference operator will work as shown in Listing 15-7:
@@ -302,7 +304,7 @@ that enables us to use the dereference operator by defining our own box type.
 <!--
 ### Defining Our Own Smart Pointer
 -->
-<h3><a class="header" href="#独自のスマートポインタを定義する" id="独自のスマートポインタを定義する">独自のスマートポインタを定義する</a></h3>
+<h3 id="独自のスマートポインタを定義する"><a class="header" href="#独自のスマートポインタを定義する">独自のスマートポインタを定義する</a></h3>
 <!--
 Let’s build a smart pointer similar to the `Box<T>` type provided by the
 standard library to experience how smart pointers behave differently than
@@ -393,7 +395,7 @@ implement the `Deref` trait.
 <!--
 ### Treating a Type Like a Reference by Implementing the `Deref` Trait
 -->
-<h3><a class="header" href="#derefトレイトを実装して型を参照のように扱う" id="derefトレイトを実装して型を参照のように扱う"><code>Deref</code>トレイトを実装して型を参照のように扱う</a></h3>
+<h3 id="derefトレイトを実装して型を参照のように扱う"><a class="header" href="#derefトレイトを実装して型を参照のように扱う"><code>Deref</code>トレイトを実装して型を参照のように扱う</a></h3>
 <!--
 As discussed in Chapter 10, to implement a trait, we need to provide
 implementations for the trait’s required methods. The `Deref` trait, provided
@@ -491,7 +493,7 @@ Listing 15-9.
 <!--
 ### Implicit Deref Coercions with Functions and Methods
 -->
-<h3><a class="header" href="#関数やメソッドで暗黙的な参照外し型強制" id="関数やメソッドで暗黙的な参照外し型強制">関数やメソッドで暗黙的な参照外し型強制</a></h3>
+<h3 id="関数やメソッドで暗黙的な参照外し型強制"><a class="header" href="#関数やメソッドで暗黙的な参照外し型強制">関数やメソッドで暗黙的な参照外し型強制</a></h3>
 <!--
 *Deref coercion* is a convenience that Rust performs on arguments to functions
 and methods. Deref coercion converts a reference to a type that implements
@@ -667,7 +669,7 @@ advantage of deref coercion!
 <!--
 ### How Deref Coercion Interacts with Mutability
 -->
-<h3><a class="header" href="#参照外し型強制が可変性と相互作用する方法" id="参照外し型強制が可変性と相互作用する方法">参照外し型強制が可変性と相互作用する方法</a></h3>
+<h3 id="参照外し型強制が可変性と相互作用する方法"><a class="header" href="#参照外し型強制が可変性と相互作用する方法">参照外し型強制が可変性と相互作用する方法</a></h3>
 <!--
 Similar to how we use the `Deref` trait to override `*` operator on
 immutable references, you can use the `DerefMut` trait to override the `*`

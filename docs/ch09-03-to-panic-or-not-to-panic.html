@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## To `panic!` or Not to `panic!`
 -->
-<h2><a class="header" href="#panicすべきかするまいか" id="panicすべきかするまいか"><code>panic!</code>すべきかするまいか</a></h2>
+<h2 id="panicすべきかするまいか"><a class="header" href="#panicすべきかするまいか"><code>panic!</code>すべきかするまいか</a></h2>
 <!--
 So how do you decide when you should `panic!` and when you should return
 `Result`? When code panics, there’s no way to recover. You could call `panic!`
@@ -208,7 +210,7 @@ library code.
 <!--
 ### Examples, Prototype Code, and Tests
 -->
-<h3><a class="header" href="#例プロトタイプコードテスト" id="例プロトタイプコードテスト">例、プロトタイプコード、テスト</a></h3>
+<h3 id="例プロトタイプコードテスト"><a class="header" href="#例プロトタイプコードテスト">例、プロトタイプコード、テスト</a></h3>
 <!--
 When you’re writing an example to illustrate some concept, having robust
 error-handling code in the example as well can make the example less clear. In
@@ -239,7 +241,7 @@ happen.
 <!--
 ### Cases in Which You Have More Information Than the Compiler
 -->
-<h3><a class="header" href="#コンパイラよりもプログラマがより情報を持っている場合" id="コンパイラよりもプログラマがより情報を持っている場合">コンパイラよりもプログラマがより情報を持っている場合</a></h3>
+<h3 id="コンパイラよりもプログラマがより情報を持っている場合"><a class="header" href="#コンパイラよりもプログラマがより情報を持っている場合">コンパイラよりもプログラマがより情報を持っている場合</a></h3>
 <!--
 It would also be appropriate to call `unwrap` when you have some other logic
 that ensures the `Result` will have an `Ok` value, but the logic isn’t
@@ -285,7 +287,7 @@ we’d definitely want to handle the `Result` in a more robust way instead.
 <!--
 ### Guidelines for Error Handling
 -->
-<h3><a class="header" href="#エラー処理のガイドライン" id="エラー処理のガイドライン">エラー処理のガイドライン</a></h3>
+<h3 id="エラー処理のガイドライン"><a class="header" href="#エラー処理のガイドライン">エラー処理のガイドライン</a></h3>
 <!--
 It’s advisable to have your code panic when it’s possible that your code
 could end up in a bad state. In this context, a *bad state* is when some
@@ -383,7 +385,7 @@ Rustの型システム(故にコンパイラが行う型精査)を使用して�
 <!--
 ### Creating Custom Types for Validation
 -->
-<h3><a class="header" href="#検証のために独自の型を作る" id="検証のために独自の型を作る">検証のために独自の型を作る</a></h3>
+<h3 id="検証のために独自の型を作る"><a class="header" href="#検証のために独自の型を作る">検証のために独自の型を作る</a></h3>
 <!--
 Let’s take the idea of using Rust’s type system to ensure we have a valid value
 one step further and look at creating a custom type for validation. Recall the
@@ -546,7 +548,7 @@ then declare in its signature that it takes or returns a `Guess` rather than a
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 Rust’s error handling features are designed to help you write more robust code.
 The `panic!` macro signals that your program is in a state it can’t handle and

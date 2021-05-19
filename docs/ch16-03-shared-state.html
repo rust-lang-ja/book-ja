@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Shared-State Concurrency
 -->
-<h2><a class="header" href="#状態共有並行性" id="状態共有並行性">状態共有並行性</a></h2>
+<h2 id="状態共有並行性"><a class="header" href="#状態共有並行性">状態共有並行性</a></h2>
 <!--
 Message passing is a fine way of handling concurrency, but it’s not the only
 one. Consider this part of the slogan from the Go language documentation again:
@@ -208,7 +210,7 @@ Rustの型システムと所有権規則は、この管理を正しく行う大�
 <!--
 ### Using Mutexes to Allow Access to Data from One Thread at a Time
 -->
-<h3><a class="header" href="#ミューテックスを使用して一度に1つのスレッドからデータにアクセスすることを許可する" id="ミューテックスを使用して一度に1つのスレッドからデータにアクセスすることを許可する">ミューテックスを使用して一度に1つのスレッドからデータにアクセスすることを許可する</a></h3>
+<h3 id="ミューテックスを使用して一度に1つのスレッドからデータにアクセスすることを許可する"><a class="header" href="#ミューテックスを使用して一度に1つのスレッドからデータにアクセスすることを許可する">ミューテックスを使用して一度に1つのスレッドからデータにアクセスすることを許可する</a></h3>
 <!--
 1行目、as in,が肝だが、inの後は普通名詞に相当するものが来るはずだが、文になっている
 -->
@@ -265,7 +267,7 @@ system and ownership rules, you can’t get locking and unlocking wrong.
 <!--
 #### The API of `Mutex<T>`
 -->
-<h4><a class="header" href="#mutextのapi" id="mutextのapi"><code>Mutex&lt;T&gt;</code>のAPI</a></h4>
+<h4 id="mutextのapi"><a class="header" href="#mutextのapi"><code>Mutex&lt;T&gt;</code>のAPI</a></h4>
 <!--
 As an example of how to use a mutex, let’s start by using a mutex in a
 single-threaded context, as shown in Listing 16-12:
@@ -346,7 +348,7 @@ to change the inner `i32` to 6.
 <!--
 #### Sharing a `Mutex<T>` Between Multiple Threads
 -->
-<h4><a class="header" href="#複数のスレッド間でmutextを共有する" id="複数のスレッド間でmutextを共有する">複数のスレッド間で<code>Mutex&lt;T&gt;</code>を共有する</a></h4>
+<h4 id="複数のスレッド間でmutextを共有する"><a class="header" href="#複数のスレッド間でmutextを共有する">複数のスレッド間で<code>Mutex&lt;T&gt;</code>を共有する</a></h4>
 <!--
 Now, let’s try to share a value between multiple threads using `Mutex<T>`.
 We’ll spin up 10 threads and have them each increment a counter value by 1, so
@@ -540,7 +542,7 @@ method we discussed in Chapter 15.
 <!--
 #### Multiple Ownership with Multiple Threads
 -->
-<h4><a class="header" href="#複数のスレッドで複数の所有権" id="複数のスレッドで複数の所有権">複数のスレッドで複数の所有権</a></h4>
+<h4 id="複数のスレッドで複数の所有権"><a class="header" href="#複数のスレッドで複数の所有権">複数のスレッドで複数の所有権</a></h4>
 <!--
 In Chapter 15, we gave a value multiple owners by using the smart pointer
 `Rc<T>` to create a reference counted value. Let’s do the same here and see
@@ -650,7 +652,7 @@ to the reference count in a thread-safe way.
 <!--
 #### Atomic Reference Counting with `Arc<T>`
 -->
-<h4><a class="header" href="#arctで原子的な参照カウント" id="arctで原子的な参照カウント"><code>Arc&lt;T&gt;</code>で原子的な参照カウント</a></h4>
+<h4 id="arctで原子的な参照カウント"><a class="header" href="#arctで原子的な参照カウント"><code>Arc&lt;T&gt;</code>で原子的な参照カウント</a></h4>
 <!--
 Fortunately, `Arc<T>` *is* a type like `Rc<T>` that is safe to use in
 concurrent situations. The *a* stands for *atomic*, meaning it’s an *atomically
@@ -738,7 +740,7 @@ thread update the final result with its part.
 <!--
 ### Similarities Between `RefCell<T>`/`Rc<T>` and `Mutex<T>`/`Arc<T>`
 -->
-<h3><a class="header" href="#refcelltrctとmutextarctの類似性" id="refcelltrctとmutextarctの類似性"><code>RefCell&lt;T&gt;</code>/<code>Rc&lt;T&gt;</code>と<code>Mutex&lt;T&gt;</code>/<code>Arc&lt;T&gt;</code>の類似性</a></h3>
+<h3 id="refcelltrctとmutextarctの類似性"><a class="header" href="#refcelltrctとmutextarctの類似性"><code>RefCell&lt;T&gt;</code>/<code>Rc&lt;T&gt;</code>と<code>Mutex&lt;T&gt;</code>/<code>Arc&lt;T&gt;</code>の類似性</a></h3>
 <!--
 You might have noticed that `counter` is immutable but we could get a mutable
 reference to the value inside it; this means `Mutex<T>` provides interior

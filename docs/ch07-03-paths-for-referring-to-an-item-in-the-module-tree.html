@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Paths for Referring to an Item in the Module Tree
 -->
-<h2><a class="header" href="#モジュールツリーの要素を示すためのパス" id="モジュールツリーの要素を示すためのパス">モジュールツリーの要素を示すためのパス</a></h2>
+<h2 id="モジュールツリーの要素を示すためのパス"><a class="header" href="#モジュールツリーの要素を示すためのパス">モジュールツリーの要素を示すためのパス</a></h2>
 <!--
 To show Rust where to find an item in a module tree, we use a path in the same
 way we use a path when navigating a filesystem. If we want to call a function,
@@ -369,7 +371,7 @@ keyword to make an item public.
 <!--
 ### Exposing Paths with the `pub` Keyword
 -->
-<h3><a class="header" href="#パスをpubキーワードで公開する" id="パスをpubキーワードで公開する">パスを<code>pub</code>キーワードで公開する</a></h3>
+<h3 id="パスをpubキーワードで公開する"><a class="header" href="#パスをpubキーワードで公開する">パスを<code>pub</code>キーワードで公開する</a></h3>
 <!--
 Let’s return to the error in Listing 7-4 that told us the `hosting` module is
 private. We want the `eat_at_restaurant` function in the parent module to have
@@ -524,7 +526,7 @@ function call is valid!
 <!--
 ### Starting Relative Paths with `super`
 -->
-<h3><a class="header" href="#相対パスをsuperで始める" id="相対パスをsuperで始める">相対パスを<code>super</code>で始める</a></h3>
+<h3 id="相対パスをsuperで始める"><a class="header" href="#相対パスをsuperで始める">相対パスを<code>super</code>で始める</a></h3>
 <!--
 We can also construct relative paths that begin in the parent module by using
 `super` at the start of the path. This is like starting a filesystem path with
@@ -581,7 +583,7 @@ gets moved to a different module.
 <!--
 ### Making Structs and Enums Public
 -->
-<h3><a class="header" href="#構造体とenumを公開する" id="構造体とenumを公開する">構造体とenumを公開する</a></h3>
+<h3 id="構造体とenumを公開する"><a class="header" href="#構造体とenumを公開する">構造体とenumを公開する</a></h3>
 <!--
 We can also use `pub` to designate structs and enums as public, but there are a
 few extra details. If we use `pub` before a struct definition, we make the

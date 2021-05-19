@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Working with Environment Variables
 -->
-<h2><a class="header" href="#環境変数を取り扱う" id="環境変数を取り扱う">環境変数を取り扱う</a></h2>
+<h2 id="環境変数を取り扱う"><a class="header" href="#環境変数を取り扱う">環境変数を取り扱う</a></h2>
 <!--
 We’ll improve `minigrep` by adding an extra feature: an option for
 case-insensitive searching that the user can turn on via an environment
@@ -188,7 +190,7 @@ once and have all their searches be case insensitive in that terminal session.
 <!--
 ### Writing a Failing Test for the Case-Insensitive `search` Function
 -->
-<h3><a class="header" href="#大文字小文字を区別しないsearch関数用に失敗するテストを書く" id="大文字小文字を区別しないsearch関数用に失敗するテストを書く">大文字小文字を区別しない<code>search</code>関数用に失敗するテストを書く</a></h3>
+<h3 id="大文字小文字を区別しないsearch関数用に失敗するテストを書く"><a class="header" href="#大文字小文字を区別しないsearch関数用に失敗するテストを書く">大文字小文字を区別しない<code>search</code>関数用に失敗するテストを書く</a></h3>
 <!--
 We want to add a new `search_case_insensitive` function that we’ll call when
 the environment variable is on. We’ll continue to follow the TDD process, so
@@ -285,7 +287,7 @@ for the `search` function in Listing 12-16 to see the test compile and fail.
 <!--
 ### Implementing the `search_case_insensitive` Function
 -->
-<h3><a class="header" href="#search_case_insensitive関数を実装する" id="search_case_insensitive関数を実装する"><code>search_case_insensitive</code>関数を実装する</a></h3>
+<h3 id="search_case_insensitive関数を実装する"><a class="header" href="#search_case_insensitive関数を実装する"><code>search_case_insensitive</code>関数を実装する</a></h3>
 <!--
 The `search_case_insensitive` function, shown in Listing 12-21, will be almost
 the same as the `search` function. The only difference is that we’ll lowercase

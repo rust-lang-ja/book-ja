@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## What Is Ownership?
 -->
-<h2><a class="header" href="#所有権とは" id="所有権とは">所有権とは？</a></h2>
+<h2 id="所有権とは"><a class="header" href="#所有権とは">所有権とは？</a></h2>
 <!--
 Rust’s central feature is *ownership*. Although the feature is straightforward
 to explain, it has deep implications for the rest of the language.
@@ -285,7 +287,7 @@ PROD: START BOX
 > ownership exists can help explain why it works the way it does.
 -->
 <blockquote>
-<h3><a class="header" href="#スタックとヒープ" id="スタックとヒープ">スタックとヒープ</a></h3>
+<h3 id="スタックとヒープ"><a class="header" href="#スタックとヒープ">スタックとヒープ</a></h3>
 <p>多くのプログラミング言語において、スタックとヒープについて考える機会はそう多くないでしょう。
 しかし、Rustのようなシステムプログラミング言語においては、値がスタックに積まれるかヒープに置かれるかは、
 言語の振る舞い方や、特定の決断を下す理由などに影響以上のものを与えるのです。
@@ -332,7 +334,7 @@ PROD: END BOX
 <!--
 ### Ownership Rules
 -->
-<h3><a class="header" href="#所有権規則" id="所有権規則">所有権規則</a></h3>
+<h3 id="所有権規則"><a class="header" href="#所有権規則">所有権規則</a></h3>
 <!--
 First, let’s take a look at the ownership rules. Keep these rules in mind as we
 work through the examples that illustrate them:
@@ -352,7 +354,7 @@ work through the examples that illustrate them:
 <!--
 ### Variable Scope
 -->
-<h3><a class="header" href="#変数スコープ" id="変数スコープ">変数スコープ</a></h3>
+<h3 id="変数スコープ"><a class="header" href="#変数スコープ">変数スコープ</a></h3>
 <!--
 We’ve walked through an example of a Rust program already in Chapter 2. Now
 that we’re past basic syntax, we won’t include all the `fn main() {` code in
@@ -432,7 +434,7 @@ understanding by introducing the `String` type.
 <!--
 ### The `String` Type
 -->
-<h3><a class="header" href="#string型" id="string型"><code>String</code>型</a></h3>
+<h3 id="string型"><a class="header" href="#string型"><code>String</code>型</a></h3>
 <!--
 To illustrate the rules of ownership, we need a data type that is more complex
 than the ones we covered in the "Data Types" section of Chapter 3. The types
@@ -521,7 +523,7 @@ cannot? The difference is how these two types deal with memory.
 <!--
 ### Memory and Allocation
 -->
-<h3><a class="header" href="#メモリと確保" id="メモリと確保">メモリと確保</a></h3>
+<h3 id="メモリと確保"><a class="header" href="#メモリと確保">メモリと確保</a></h3>
 <!--
 In the case of a string literal, we know the contents at compile time, so the
 text is hardcoded directly into the final executable. This is why string
@@ -640,7 +642,7 @@ we’ve allocated on the heap. Let’s explore some of those situations now.
 <!--
 #### Ways Variables and Data Interact: Move
 -->
-<h4><a class="header" href="#変数とデータの相互作用法-ムーブ" id="変数とデータの相互作用法-ムーブ">変数とデータの相互作用法: ムーブ</a></h4>
+<h4 id="変数とデータの相互作用法-ムーブ"><a class="header" href="#変数とデータの相互作用法-ムーブ">変数とデータの相互作用法: ムーブ</a></h4>
 <!--
 Multiple variables can interact with the same data in different ways in Rust.
 Let’s look at an example using an integer in Listing 4-2.
@@ -839,7 +841,7 @@ copying can be assumed to be inexpensive in terms of runtime performance.
 <!--
 #### Ways Variables and Data Interact: Clone
 -->
-<h4><a class="header" href="#変数とデータの相互作用法-クローン" id="変数とデータの相互作用法-クローン">変数とデータの相互作用法: クローン</a></h4>
+<h4 id="変数とデータの相互作用法-クローン"><a class="header" href="#変数とデータの相互作用法-クローン">変数とデータの相互作用法: クローン</a></h4>
 <!--
 If we *do* want to deeply copy the heap data of the `String`, not just the
 stack data, we can use a common method called `clone`. We’ll discuss method
@@ -878,7 +880,7 @@ different is going on.
 <!--
 #### Stack-Only Data: Copy
 -->
-<h4><a class="header" href="#スタックのみのデータ-コピー" id="スタックのみのデータ-コピー">スタックのみのデータ: コピー</a></h4>
+<h4 id="スタックのみのデータ-コピー"><a class="header" href="#スタックのみのデータ-コピー">スタックのみのデータ: コピー</a></h4>
 <!--
 There’s another wrinkle we haven’t talked about yet. This code using integers,
 part of which was shown in Listing 4-2, works and is valid:
@@ -958,7 +960,7 @@ be sure, but as a general rule, any group of simple scalar values can be
 <!--
 ### Ownership and Functions
 -->
-<h3><a class="header" href="#所有権と関数" id="所有権と関数">所有権と関数</a></h3>
+<h3 id="所有権と関数"><a class="header" href="#所有権と関数">所有権と関数</a></h3>
 <!--
 The semantics for passing a value to a function are similar to those for
 assigning a value to a variable. Passing a variable to a function will move or
@@ -1044,7 +1046,7 @@ the ownership rules prevent you from doing so.
 <!--
 ### Return Values and Scope
 -->
-<h3><a class="header" href="#戻り値とスコープ" id="戻り値とスコープ">戻り値とスコープ</a></h3>
+<h3 id="戻り値とスコープ"><a class="header" href="#戻り値とスコープ">戻り値とスコープ</a></h3>
 <!--
 Returning values can also transfer ownership. Listing 4-4 is an example with
 similar annotations to those in Listing 4-3.

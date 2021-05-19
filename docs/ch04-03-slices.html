@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## The Slice Type
 -->
-<h2><a class="header" href="#スライス型" id="スライス型">スライス型</a></h2>
+<h2 id="スライス型"><a class="header" href="#スライス型">スライス型</a></h2>
 <!--
 Another data type that does not have ownership is the *slice*. Slices let you
 reference a contiguous sequence of elements in a collection rather than the
@@ -388,7 +390,7 @@ Luckily, Rust has a solution to this problem: string slices.
 <!--
 ### String Slices
 -->
-<h3><a class="header" href="#文字列スライス" id="文字列スライス">文字列スライス</a></h3>
+<h3 id="文字列スライス"><a class="header" href="#文字列スライス">文字列スライス</a></h3>
 <!--
 A *string slice* is a reference to part of a `String`, and it looks like this:
 -->
@@ -619,7 +621,7 @@ RustのおかげでAPIが使いやすくなるだけでなく、ある種のエ�
 <!--
 #### String Literals Are Slices
 -->
-<h4><a class="header" href="#文字列リテラルはスライスである" id="文字列リテラルはスライスである">文字列リテラルはスライスである</a></h4>
+<h4 id="文字列リテラルはスライスである"><a class="header" href="#文字列リテラルはスライスである">文字列リテラルはスライスである</a></h4>
 <!--
 Recall that we talked about string literals being stored inside the binary. Now
 that we know about slices, we can properly understand string literals:
@@ -642,7 +644,7 @@ immutable reference.
 <!--
 #### String Slices as Parameters
 -->
-<h4><a class="header" href="#引数としての文字列スライス" id="引数としての文字列スライス">引数としての文字列スライス</a></h4>
+<h4 id="引数としての文字列スライス"><a class="header" href="#引数としての文字列スライス">引数としての文字列スライス</a></h4>
 <!--
 Knowing that you can take slices of literals and `String` values leads us to
 one more improvement on `first_word`, and that’s its signature:
@@ -739,7 +741,7 @@ let word = first_word(my_string_literal);
 <!--
 ### Other Slices
 -->
-<h3><a class="header" href="#他のスライス" id="他のスライス">他のスライス</a></h3>
+<h3 id="他のスライス"><a class="header" href="#他のスライス">他のスライス</a></h3>
 <!--
 String slices, as you might imagine, are specific to strings. But there’s a
 more general slice type, too. Consider this array:
@@ -779,7 +781,7 @@ detail when we talk about vectors in Chapter 8.
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 The concepts of ownership, borrowing, and slices ensure memory safety in Rust
 programs at compile time. The Rust language gives you control over your memory

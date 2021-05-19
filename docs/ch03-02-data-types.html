@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Data Types
 -->
-<h2><a class="header" href="#データ型" id="データ型">データ型</a></h2>
+<h2 id="データ型"><a class="header" href="#データ型">データ型</a></h2>
 <!--
 Every value in Rust is of a certain *data type*, which tells Rust what kind of
 data is being specified so it knows how to work with that data. We'll look at
@@ -224,7 +226,7 @@ You’ll see different type annotations for other data types.
 <!--
 ### Scalar Types
 -->
-<h3><a class="header" href="#スカラー型" id="スカラー型">スカラー型</a></h3>
+<h3 id="スカラー型"><a class="header" href="#スカラー型">スカラー型</a></h3>
 <!--
 A *scalar* type represents a single value. Rust has four primary scalar types:
 integers, floating-point numbers, Booleans, and characters. You may recognize
@@ -236,7 +238,7 @@ Rustでの動作方法に飛び込みましょう。</p>
 <!--
 #### Integer Types
 -->
-<h4><a class="header" href="#整数型" id="整数型">整数型</a></h4>
+<h4 id="整数型"><a class="header" href="#整数型">整数型</a></h4>
 <!--
 An *integer* is a number without a fractional component. We used one integer
 type in Chapter 2, the `u32` type. This type declaration indicates that the
@@ -347,7 +349,7 @@ Rustの基準型は一般的にいい選択肢になります。整数型の基�
 <!--
 #### Floating-Point Types
 -->
-<h4><a class="header" href="#浮動小数点型" id="浮動小数点型">浮動小数点型</a></h4>
+<h4 id="浮動小数点型"><a class="header" href="#浮動小数点型">浮動小数点型</a></h4>
 <!--
 Rust also has two primitive types for *floating-point numbers*, which are
 numbers with decimal points. Rust’s floating-point types are `f32` and `f64`,
@@ -381,7 +383,7 @@ Floating-point numbers are represented according to the IEEE-754 standard. The
 <!--
 #### Numeric Operations
 -->
-<h4><a class="header" href="#数値演算" id="数値演算">数値演算</a></h4>
+<h4 id="数値演算"><a class="header" href="#数値演算">数値演算</a></h4>
 <!--
 Rust supports the usual basic mathematical operations you’d expect for all of the
 number types: addition, subtraction, multiplication, division, and remainder.
@@ -440,7 +442,7 @@ list of all operators that Rust provides.
 <!--
 #### The Boolean Type
 -->
-<h4><a class="header" href="#論理値型" id="論理値型">論理値型</a></h4>
+<h4 id="論理値型"><a class="header" href="#論理値型">論理値型</a></h4>
 <!--
 As in most other programming languages, a boolean type in Rust has two possible
 values: `true` and `false`. The boolean type in Rust is specified using `bool`.
@@ -477,7 +479,7 @@ section.
 <!--
 #### The Character Type
 -->
-<h4><a class="header" href="#文字型" id="文字型">文字型</a></h4>
+<h4 id="文字型"><a class="header" href="#文字型">文字型</a></h4>
 <!--
 So far we’ve worked only with numbers, but Rust supports letters too. Rust’s
 `char` type is the language’s most primitive alphabetic type, and the following
@@ -515,7 +517,7 @@ Rustにおける<code>char</code>値が何かとは合致しない可能性が�
 <!--
 ### Compound Types
 -->
-<h3><a class="header" href="#複合型" id="複合型">複合型</a></h3>
+<h3 id="複合型"><a class="header" href="#複合型">複合型</a></h3>
 <!--
 *Compound types* can group multiple values into one type. Rust has two
 primitive compound types: tuples and arrays.
@@ -525,7 +527,7 @@ primitive compound types: tuples and arrays.
 <!--
 #### The Tuple type
 -->
-<h4><a class="header" href="#タプル型" id="タプル型">タプル型</a></h4>
+<h4 id="タプル型"><a class="header" href="#タプル型">タプル型</a></h4>
 <!--
 A tuple is a general way of grouping together some number of other values with
 a variety of types into one compound type.
@@ -608,7 +610,7 @@ index in a tuple is 0.
 <!--
 #### The Array Type
 -->
-<h4><a class="header" href="#配列型" id="配列型">配列型</a></h4>
+<h4 id="配列型"><a class="header" href="#配列型">配列型</a></h4>
 <!--
 Another way to have a collection of multiple values is with an *array*. Unlike
 a tuple, every element of an array must have the same type. Arrays in Rust are
@@ -663,7 +665,7 @@ an array because you know it will always contain 12 items:
 <!--
 ##### Accessing Array Elements
 -->
-<h5><a class="header" href="#配列の要素にアクセスする" id="配列の要素にアクセスする">配列の要素にアクセスする</a></h5>
+<h5 id="配列の要素にアクセスする"><a class="header" href="#配列の要素にアクセスする">配列の要素にアクセスする</a></h5>
 <!--
 An array is a single chunk of memory allocated on the stack. You can access
 elements of an array using indexing, like this:
@@ -691,7 +693,7 @@ get the value `2` from index `[1]` in the array.
 <!--
 ##### Invalid Array Element Access
 -->
-<h5><a class="header" href="#配列要素への無効なアクセス" id="配列要素への無効なアクセス">配列要素への無効なアクセス</a></h5>
+<h5 id="配列要素への無効なアクセス"><a class="header" href="#配列要素への無効なアクセス">配列要素への無効なアクセス</a></h5>
 <!--
 What happens if you try to access an element of an array that is past the end
 of the array? Say you change the example to the following code, which will

@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Macros
 -->
-<h2><a class="header" href="#マクロ" id="マクロ">マクロ</a></h2>
+<h2 id="マクロ"><a class="header" href="#マクロ">マクロ</a></h2>
 <!--
 We’ve used macros like `println!` throughout this book, but we haven’t fully
 explored what a macro is and how it works. The term *macro* refers to a family
@@ -203,7 +205,7 @@ need macros when we already have functions.
 <!--
 ### The Difference Between Macros and Functions
 -->
-<h3><a class="header" href="#マクロと関数の違い" id="マクロと関数の違い">マクロと関数の違い</a></h3>
+<h3 id="マクロと関数の違い"><a class="header" href="#マクロと関数の違い">マクロと関数の違い</a></h3>
 <!--
 Fundamentally, macros are a way of writing code that writes other code, which
 is known as *metaprogramming*. In Appendix C, we discuss the `derive`
@@ -256,7 +258,7 @@ opposed to functions you can define anywhere and call anywhere.
 <!--
 ### Declarative Macros with `macro_rules!` for General Metaprogramming
 -->
-<h3><a class="header" href="#一般的なメタプログラミングのためにmacro_rulesで宣言的なマクロ" id="一般的なメタプログラミングのためにmacro_rulesで宣言的なマクロ">一般的なメタプログラミングのために<code>macro_rules!</code>で宣言的なマクロ</a></h3>
+<h3 id="一般的なメタプログラミングのためにmacro_rulesで宣言的なマクロ"><a class="header" href="#一般的なメタプログラミングのためにmacro_rulesで宣言的なマクロ">一般的なメタプログラミングのために<code>macro_rules!</code>で宣言的なマクロ</a></h3>
 <!--
 The most widely used form of macros in Rust is *declarative macros*. These are
 also sometimes referred to as “macros by example,” “`macro_rules!` macros,” or
@@ -444,7 +446,7 @@ Macros”][tlborm].
 <!--
 ### Procedural Macros for Generating Code from Attributes
 -->
-<h3><a class="header" href="#属性からコードを生成する手続き的マクロ" id="属性からコードを生成する手続き的マクロ">属性からコードを生成する手続き的マクロ</a></h3>
+<h3 id="属性からコードを生成する手続き的マクロ"><a class="header" href="#属性からコードを生成する手続き的マクロ">属性からコードを生成する手続き的マクロ</a></h3>
 <!--
 The second form of macros is *procedural macros*, which act more like functions
 (and are a type of procedure). Procedural macros accept some code as an input,
@@ -509,7 +511,7 @@ other forms different.
 <!--
 ### How to Write a Custom `derive` Macro
 -->
-<h3><a class="header" href="#カスタムのderive-マクロの書き方" id="カスタムのderive-マクロの書き方">カスタムの<code>derive</code> マクロの書き方</a></h3>
+<h3 id="カスタムのderive-マクロの書き方"><a class="header" href="#カスタムのderive-マクロの書き方">カスタムの<code>derive</code> マクロの書き方</a></h3>
 <!--
 Let’s create a crate named `hello_macro` that defines a trait named
 `HelloMacro` with one associated function named `hello_macro`. Rather than
@@ -948,7 +950,7 @@ derive macros.
 <!--
 ### Attribute-like macros
 -->
-<h3><a class="header" href="#属性風マクロ" id="属性風マクロ">属性風マクロ</a></h3>
+<h3 id="属性風マクロ"><a class="header" href="#属性風マクロ">属性風マクロ</a></h3>
 <!--
 Attribute-like macros are similar to custom derive macros, but instead of
 generating code for the `derive` attribute, they allow you to create new
@@ -990,7 +992,7 @@ function that generates the code you want!
 <!--
 ### Function-like macros
 -->
-<h3><a class="header" href="#関数風マクロ" id="関数風マクロ">関数風マクロ</a></h3>
+<h3 id="関数風マクロ"><a class="header" href="#関数風マクロ">関数風マクロ</a></h3>
 <!--
 Function-like macros define macros that look like function calls. Similarly to
 `macro_rules!` macros, they’re more flexible than functions; for example, they
@@ -1031,7 +1033,7 @@ generate.
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 Whew! Now you have some Rust features in your toolbox that you won’t use often,
 but you’ll know they’re available in very particular circumstances. We’ve

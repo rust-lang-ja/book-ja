@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## `Rc<T>`, the Reference Counted Smart Pointer
 -->
-<h2><a class="header" href="#rctは参照カウント方式のスマートポインタ" id="rctは参照カウント方式のスマートポインタ"><code>Rc&lt;T&gt;</code>は、参照カウント方式のスマートポインタ</a></h2>
+<h2 id="rctは参照カウント方式のスマートポインタ"><a class="header" href="#rctは参照カウント方式のスマートポインタ"><code>Rc&lt;T&gt;</code>は、参照カウント方式のスマートポインタ</a></h2>
 <!--
 In the majority of cases, ownership is clear: you know exactly which variable
 owns a given value. However, there are cases when a single value might have
@@ -227,7 +229,7 @@ multithreaded programs.
 <!--
 ### Using `Rc<T>` to Share Data
 -->
-<h3><a class="header" href="#rctでデータを共有する" id="rctでデータを共有する"><code>Rc&lt;T&gt;</code>でデータを共有する</a></h3>
+<h3 id="rctでデータを共有する"><a class="header" href="#rctでデータを共有する"><code>Rc&lt;T&gt;</code>でデータを共有する</a></h3>
 <!--
 Let’s return to our cons list example in Listing 15-5. Recall that we defined
 it using `Box<T>`. This time, we’ll create two lists that both share ownership
@@ -392,7 +394,7 @@ code, we only need to consider the deep-copy clones and can disregard calls to
 <!--
 ### Cloning an `Rc<T>` Increases the Reference Count
 -->
-<h3><a class="header" href="#rctをクローンすると参照カウントが増える" id="rctをクローンすると参照カウントが増える"><code>Rc&lt;T&gt;</code>をクローンすると、参照カウントが増える</a></h3>
+<h3 id="rctをクローンすると参照カウントが増える"><a class="header" href="#rctをクローンすると参照カウントが増える"><code>Rc&lt;T&gt;</code>をクローンすると、参照カウントが増える</a></h3>
 <!--
 Let’s change our working example in Listing 15-18 so we can see the reference
 counts changing as we create and drop references to the `Rc<List>` in `a`.

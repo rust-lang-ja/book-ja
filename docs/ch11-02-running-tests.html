@@ -142,13 +142,15 @@
                         </a>
                         
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -172,7 +174,7 @@
                         <!--
 ## Controlling How Tests Are Run
 -->
-<h2><a class="header" href="#テストの実行のされ方を制御する" id="テストの実行のされ方を制御する">テストの実行のされ方を制御する</a></h2>
+<h2 id="テストの実行のされ方を制御する"><a class="header" href="#テストの実行のされ方を制御する">テストの実行のされ方を制御する</a></h2>
 <!--
 Just as `cargo run` compiles your code and then runs the resulting binary,
 `cargo test` compiles your code in test mode and runs the resulting test
@@ -203,7 +205,7 @@ can use after the separator `--`.
 <!--
 ### Running Tests in Parallel or Consecutively
 -->
-<h3><a class="header" href="#テストを並行または連続して実行する" id="テストを並行または連続して実行する">テストを並行または連続して実行する</a></h3>
+<h3 id="テストを並行または連続して実行する"><a class="header" href="#テストを並行または連続して実行する">テストを並行または連続して実行する</a></h3>
 <!--
 When you run multiple tests, by default they run in parallel using threads.
 This means the tests will finish running faster so you can get feedback quicker
@@ -258,7 +260,7 @@ state.
 <!--
 ### Showing Function Output
 -->
-<h3><a class="header" href="#関数の出力を表示する" id="関数の出力を表示する">関数の出力を表示する</a></h3>
+<h3 id="関数の出力を表示する"><a class="header" href="#関数の出力を表示する">関数の出力を表示する</a></h3>
 <!--
 By default, if a test passes, Rust’s test library captures anything printed to
 standard output. For example, if we call `println!` in a test and the test
@@ -385,7 +387,7 @@ flag, and see what the output looks like then!
 <!--
 ### Running a Subset of Tests by Name
 -->
-<h3><a class="header" href="#名前でテストの一部を実行する" id="名前でテストの一部を実行する">名前でテストの一部を実行する</a></h3>
+<h3 id="名前でテストの一部を実行する"><a class="header" href="#名前でテストの一部を実行する">名前でテストの一部を実行する</a></h3>
 <!--
 Sometimes, running a full test suite can take a long time. If you’re working on
 code in a particular area, you might want to run only the tests pertaining to
@@ -453,7 +455,7 @@ test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!--
 #### Running Single Tests
 -->
-<h4><a class="header" href="#単独のテストを走らせる" id="単独のテストを走らせる">単独のテストを走らせる</a></h4>
+<h4 id="単独のテストを走らせる"><a class="header" href="#単独のテストを走らせる">単独のテストを走らせる</a></h4>
 <!--
 We can pass the name of any test function to `cargo test` to run only that test:
 -->
@@ -483,7 +485,7 @@ given to `cargo test` will be used. But there is a way to run multiple tests.
 <!--
 #### Filtering to Run Multiple Tests
 -->
-<h4><a class="header" href="#複数のテストを実行するようフィルターをかける" id="複数のテストを実行するようフィルターをかける">複数のテストを実行するようフィルターをかける</a></h4>
+<h4 id="複数のテストを実行するようフィルターをかける"><a class="header" href="#複数のテストを実行するようフィルターをかける">複数のテストを実行するようフィルターをかける</a></h4>
 <!--
 We can specify part of a test name, and any test whose name matches that value
 will be run. For example, because two of our tests’ names contain `add`, we can
@@ -513,7 +515,7 @@ on the module’s name.
 <!--
 ### Ignoring Some Tests Unless Specifically Requested
 -->
-<h3><a class="header" href="#特に要望のない限りテストを無視する" id="特に要望のない限りテストを無視する">特に要望のない限りテストを無視する</a></h3>
+<h3 id="特に要望のない限りテストを無視する"><a class="header" href="#特に要望のない限りテストを無視する">特に要望のない限りテストを無視する</a></h3>
 <!--
 Sometimes a few specific tests can be very time-consuming to execute, so you
 might want to exclude them during most runs of `cargo test`. Rather than
