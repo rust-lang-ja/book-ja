@@ -40,6 +40,10 @@ way to talk about *part* of a string. However, we could return the index of the
 end of the word. Let’s try that, as shown in Listing 4-7.
 -->
 
+この関数、`first_word`は引数に`&String`をとります。所有権はいらないので、これで十分です。
+ですが、何を返すべきでしょうか？文字列の*一部*について語る方法が全くありません。しかし、
+単語の終端の添え字を返すことができますね。リスト4-7に示したように、その方法を試してみましょう。
+
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
@@ -518,6 +522,9 @@ let a = [1, 2, 3, 4, 5];
 Just as we might want to refer to a part of a string, we might want to refer
 to part of an array. We’d do so like this:
 -->
+
+文字列の一部を参照したくなる可能性があるのと同様、配列の一部を参照したくなる可能性もあります。
+以下のようにすれば、参照することができます:
 
 ```rust
 let a = [1, 2, 3, 4, 5];
