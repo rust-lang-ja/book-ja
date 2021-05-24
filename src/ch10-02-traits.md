@@ -450,7 +450,7 @@ more verbose. We place trait bounds with the declaration of the generic type
 parameter after a colon and inside angle brackets.
 -->
 この「より長い」姿は前節の例と等価ですが、より冗長です。
-角カッコの中にジェネリックな型引数の宣言を書き、型引数の後ろにコロンを挟んでトレイト境界を置いています。
+山カッコの中にジェネリックな型引数の宣言を書き、型引数の後ろにコロンを挟んでトレイト境界を置いています。
 
 <!--
 The `impl Trait` syntax is convenient and makes for more concise code in simple
@@ -621,7 +621,7 @@ how to write a function with this behavior in the [“Using Trait Objects That
 Allow for Values of Different
 Types”][using-trait-objects-that-allow-for-values-of-different-types] section of Chapter 17.
 -->
-`NewsArticle`か`Trait`を返すというのは、コンパイラの`impl Trait`構文の実装まわりの制約により許されていません。
+`NewsArticle`か`Tweet`を返すというのは、コンパイラの`impl Trait`構文の実装まわりの制約により許されていません。
 このような振る舞いをする関数を書く方法は、17章の[トレイトオブジェクトで異なる型の値を許容する][using-trait-objects-that-allow-for-values-of-different-types]節で学びます。
 
 <!--

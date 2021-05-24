@@ -106,7 +106,7 @@ an underscore to separate them. For example, use *hello_world.rs* rather than
 *helloworld.rs*.
 -->
 
-次にソースファイルを作り、*main.rs*と呼んでください。Rustのファイルは常に *.rs*という拡張子で終わります。
+次にソースファイルを作り、*main.rs*というファイル名にしてください。Rustのファイルは常に *.rs*という拡張子で終わります。
 ファイル名に2単語以上使っているなら、アンダースコアで区切ってください。例えば、*helloworld.rs*ではなく、
 *hello_world.rs*を使用してください。
 
@@ -189,7 +189,7 @@ Let’s review in detail what just happened in your Hello, world! program.
 Here’s the first piece of the puzzle:
 -->
 
-Hello, world!プログラムでちょうど何が起こったのか詳しく確認しましょう。
+Hello, world!プログラムでいま何が起こったのか詳しく確認しましょう。
 こちらがパズルの最初のピースです:
 
 ```rust

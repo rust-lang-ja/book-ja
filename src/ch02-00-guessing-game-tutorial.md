@@ -571,7 +571,7 @@ because you just want to crash this program when a problem occurs, you can use
 -->
 
 警告を抑制する正しい手段は、実際にエラー対処コードを書くことですが、今は、
-問題が起きた時にプロラグムをクラッシュさせたいので、`expect`を使用できるわけです。
+問題が起きた時にプログラムをクラッシュさせたいので、`expect`を使用できるわけです。
 エラーから復旧する方法については、第9章で学ぶでしょう。
 
 <!--
@@ -973,8 +973,6 @@ Now that you've added the `rand` crate to *Cargo.toml*, let's start using
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-extern crate rand;
-
 use std::io;
 use rand::Rng;
 
@@ -989,7 +987,8 @@ fn main() {
 
     let mut guess = String::new();
 
-    io::stdin().read_line(&mut guess)
+    io::stdin()
+        .read_line(&mut guess)
         .expect("Failed to read line");
 
     println!("You guessed: {}", guess);
@@ -1004,29 +1003,20 @@ random number</span>
 <span class="caption">リスト2-3: 乱数を生成するコードの追加</span>
 
 <!--
-First, we add a line that lets Rust know we’ll be using the `rand` crate as an
-external dependency. This also does the equivalent of calling `use rand`, so
-now we can call anything in the `rand` crate by placing `rand::` before it.
--->
-
-まず、コンパイラに`rand`クレートを外部依存として使用することを知らせる行を追加しています。
-これにより、`use rand`を呼ぶのと同じ効果が得られるので、`rand`クレートのものを`rand::`という接頭辞をつけて呼び出せるようになりました。
-
-<!--
-Next, we add another `use` line: `use rand::Rng`. The `Rng` trait defines
+First, we add a `use` line: `use rand::Rng`. The `Rng` trait defines
 methods that random number generators implement, and this trait must be in
 scope for us to use those methods. Chapter 10 will cover traits in detail.
 -->
 
-次に、別の`use`行を追加しています: `use rand::Rng`ですね。`Rng`トレイトは乱数生成器が実装するメソッドを定義していて、
+まず、`use`行を追加しています: `use rand::Rng`ですね。`Rng`トレイトは乱数生成器が実装するメソッドを定義していて、
 このトレイトがスコープにないと、メソッドを使用できないのです。トレイトについて詳しくは、
 第10章で解説します。
 
 <!--
-Also, we’re adding two more lines in the middle. The `rand::thread_rng` function
+Next, we’re adding two lines in the middle. The `rand::thread_rng` function
 will give us the particular random number generator that we’re going to use:
 one that is local to the current thread of execution and seeded by the
-operating system. Next, we call the `gen_range` method on the random number
+operating system. Then we call the `gen_range` method on the random number
 generator. This method is defined by the `Rng` trait that we brought into
 scope with the `use rand::Rng` statement. The `gen_range` method takes two
 numbers as arguments and generates a random number between them. It’s inclusive
@@ -1034,8 +1024,8 @@ on the lower bound but exclusive on the upper bound, so we need to specify `1`
 and `101` to request a number between 1 and 100.
 -->
 
-また、途中に2行追加もしています。`rand::thread_rng`関数は、これから使う特定の乱数生成器を返してくれます: この乱数生成器は、実行スレッドに固有で、OSにより、シード値を与えられています。
-次に、この乱数生成器の`gen_range`メソッドを呼び出しています。このメソッドは、
+次に、途中に2行を追加しています。`rand::thread_rng`関数は、これから使う特定の乱数生成器を返してくれます: この乱数生成器は、実行スレッドに固有で、OSにより、シード値を与えられています。
+そして、この乱数生成器の`gen_range`メソッドを呼び出しています。このメソッドは、
 `use rand::Rng`文でスコープに導入した`Rng`トレイトで定義されています。`gen_range`メソッドは二つの数字を引数に取り、
 それらの間の乱数を生成してくれます。範囲は下限値を含み、上限値を含まないため、`1`と`101`と指定しないと1から100の範囲の数字は得られません。
 
@@ -1119,8 +1109,6 @@ will explain.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-extern crate rand;
-
 use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
@@ -1730,11 +1718,9 @@ secret number. Listing 2-6 shows the final code:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-extern crate rand;
-
-use std::io;
-use std::cmp::Ordering;
 use rand::Rng;
+use std::cmp::Ordering;
+use std::io;
 
 fn main() {
     println!("Guess the number!");
@@ -1746,7 +1732,8 @@ fn main() {
 
         let mut guess = String::new();
 
-        io::stdin().read_line(&mut guess)
+        io::stdin()
+            .read_line(&mut guess)
             .expect("Failed to read line");
 
         let guess: u32 = match guess.trim().parse() {

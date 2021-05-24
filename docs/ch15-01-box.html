@@ -5,22 +5,36 @@
         <meta charset="UTF-8">
         <title>ヒープのデータを指すBox&lt;T&gt;を使用する - The Rust Programming Language 日本語版</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
         <link rel="shortcut icon" href="favicon.png">
+        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
+        
         <link rel="stylesheet" href="css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -42,7 +56,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -86,8 +100,8 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language 日本語版</a></li><li class="expanded affix "><a href="foreword.html">まえがき</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">導入</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 事始め</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 一般的なプログラミングの概念</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と可変性</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> フロー制御</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権を理解する</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とは？</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス型</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使ったプログラム例</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumを定義する</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> matchフロー制御演算子</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letで簡潔なフロー制御</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> パッケージとクレート</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> モジュールを定義して、スコープとプライバシーを制御する</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> モジュールツリーの要素を示すためのパス</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> useキーワードでパスをスコープに持ち込む</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> モジュールを複数のファイルに分割する</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 一般的なコレクション</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> ベクタで一連の値を保持する</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 文字列でUTF-8でエンコードされたテキストを保持する</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> キーとそれに紐づいた値をハッシュマップに格納する</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト：共通の振る舞いを定義する</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を検証する</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 自動テストを書く</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストの記述法</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストの実行のされ方を制御する</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト：コマンドラインプログラムを構築する</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> コマンドライン引数を受け付ける</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> ファイルを読み込む</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> リファクタリンクしてモジュール性とエラー処理を向上させる</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> テスト駆動開発でライブラリの機能を開発する</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 環境変数を取り扱う</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 標準出力ではなく標準エラーにエラーメッセージを書き込む</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 関数型言語の機能：イテレータとクロージャ</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> クロージャ：環境をキャプチャできる匿名関数</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 一連の要素をイテレータで処理する</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 入出力プロジェクトを改善する</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> パフォーマンス比較：ループVSイテレータ</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> スマートポインタ</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html" class="active"><strong aria-hidden="true">15.1.</strong> ヒープのデータを指すBox<T>を使用する</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Derefトレイトでスマートポインタを普通の参照のように扱う</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Dropトレイトで片付け時にコードを走らせる</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>は、参照カウント方式のスマートポインタ</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T>と内部可変性パターン</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 循環参照は、メモリをリークすることもある</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 恐れるな！並行性</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> スレッドを使用してコードを同時に走らせる</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> メッセージ受け渡しを使ってスレッド間でデータを転送する</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 状態共有並行性</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> SyncとSendトレイトで拡張可能な並行性</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rustのオブジェクト指向プログラミング機能</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> オブジェクト指向言語の特徴</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> トレイトオブジェクトで異なる型の値を許容する</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> オブジェクト指向デザインパターンを実装する</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> パターンとマッチング</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> パターンが使用されることのある箇所全部</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 論駁可能性：パターンが合致しないかどうか</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> パターン記法</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高度な機能</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高度なトレイト</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高度な型</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高度な関数とクロージャ</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> マクロ</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後のプロジェクト：マルチスレッドのWebサーバを構築する</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> シングルスレッドのWebサーバを構築する</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> シングルスレッドサーバをマルチスレッド化する</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 正常なシャットダウンと片付け</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 付録</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> 付録A：キーワード</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> 付録B：演算子と記号</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> 付録C：導出可能なトレイト</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> 付録D：便利な開発ツール</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> 付録E：Edition</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> 付録F：本の翻訳</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> 付録G：Rustの作られ方と“Nightly Rust”</a></li></ol></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">The Rust Programming Language 日本語版</a></li><li class="chapter-item expanded affix "><a href="foreword.html">まえがき</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">導入</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 事始め</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 一般的なプログラミングの概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と可変性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> フロー制御</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権を理解する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス型</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使ったプログラム例</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumを定義する</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> matchフロー制御演算子</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letで簡潔なフロー制御</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> パッケージとクレート</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> モジュールを定義して、スコープとプライバシーを制御する</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> モジュールツリーの要素を示すためのパス</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> useキーワードでパスをスコープに持ち込む</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> モジュールを複数のファイルに分割する</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 一般的なコレクション</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> ベクタで一連の値を保持する</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 文字列でUTF-8でエンコードされたテキストを保持する</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> キーとそれに紐づいた値をハッシュマップに格納する</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト：共通の振る舞いを定義する</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を検証する</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 自動テストを書く</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストの記述法</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストの実行のされ方を制御する</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト：コマンドラインプログラムを構築する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> コマンドライン引数を受け付ける</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> ファイルを読み込む</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> リファクタリングしてモジュール性とエラー処理を向上させる</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> テスト駆動開発でライブラリの機能を開発する</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 環境変数を取り扱う</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 標準出力ではなく標準エラーにエラーメッセージを書き込む</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 関数型言語の機能：イテレータとクロージャ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> クロージャ：環境をキャプチャできる匿名関数</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 一連の要素をイテレータで処理する</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 入出力プロジェクトを改善する</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> パフォーマンス比較：ループVSイテレータ</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> スマートポインタ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html" class="active"><strong aria-hidden="true">15.1.</strong> ヒープのデータを指すBox&lt;T&gt;を使用する</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Derefトレイトでスマートポインタを普通の参照のように扱う</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Dropトレイトで片付け時にコードを走らせる</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc&lt;T&gt;は、参照カウント方式のスマートポインタ</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell&lt;T&gt;と内部可変性パターン</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 循環参照は、メモリをリークすることもある</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 恐れるな！並行性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> スレッドを使用してコードを同時に走らせる</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> メッセージ受け渡しを使ってスレッド間でデータを転送する</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 状態共有並行性</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> SyncとSendトレイトで拡張可能な並行性</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rustのオブジェクト指向プログラミング機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> オブジェクト指向言語の特徴</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> トレイトオブジェクトで異なる型の値を許容する</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> オブジェクト指向デザインパターンを実装する</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> パターンとマッチング</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> パターンが使用されることのある箇所全部</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 論駁可能性：パターンが合致しないかどうか</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> パターン記法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高度な機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高度なトレイト</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高度な型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高度な関数とクロージャ</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> マクロ</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後のプロジェクト：マルチスレッドのWebサーバを構築する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> シングルスレッドのWebサーバを構築する</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> シングルスレッドサーバをマルチスレッド化する</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 正常なシャットダウンと片付け</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 付録</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> 付録A：キーワード</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> 付録B：演算子と記号</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> 付録C：導出可能なトレイト</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> 付録D：便利な開発ツール</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> 付録E：Edition</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> 付録F：本の翻訳</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> 付録G：Rustの作られ方と“Nightly Rust”</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -122,17 +136,21 @@
                     <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
 
                     <div class="right-buttons">
+                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
+                        
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -156,7 +174,7 @@
                         <!--
 ## Using `Box<T>` to Point to Data on the Heap
 -->
-<h2><a class="header" href="#ヒープのデータを指すboxtを使用する" id="ヒープのデータを指すboxtを使用する">ヒープのデータを指す<code>Box&lt;T&gt;</code>を使用する</a></h2>
+<h2 id="ヒープのデータを指すboxtを使用する"><a class="header" href="#ヒープのデータを指すboxtを使用する">ヒープのデータを指す<code>Box&lt;T&gt;</code>を使用する</a></h2>
 <!--
 The most straightforward smart pointer is a *box*, whose type is written
 `Box<T>`. Boxes allow you to store data on the heap rather than the stack. What
@@ -172,7 +190,7 @@ heap instead of on the stack. But they don’t have many extra capabilities
 either. You’ll use them most often in these situations:
 -->
 <p>ボックスは、データをスタックの代わりにヒープに格納する以外は、パフォーマンスのオーバーヘッドはありません。
-しかし、多くのおまけの能力もありません。以下のような場面で最もよく使用するでしょう:</p>
+しかし、特別な能力がたくさんあるわけでもありません。以下のような場面で最もよく使われるでしょう。</p>
 <!--
 * When you have a type whose size can’t be known at compile time and you want
 to use a value of that type in a context that requires an exact size
@@ -183,8 +201,8 @@ implements a particular trait rather than being of a specific type
 -->
 <ul>
 <li>コンパイル時にはサイズを知ることができない型があり、正確なサイズを要求する文脈でその型の値を使用する時</li>
-<li>多くのデータがあり、所有権を転送したいが、その際にデータがコピーされないようにしたい時</li>
-<li>値を所有する必要があり、特定の型ではなく特定のトレイトを実装する型であることのみ気にかけている時</li>
+<li>多くのデータがあり、その所有権を移したいが、その際にデータがコピーされないようにしたい時</li>
+<li>値を所有する必要があり、特定の型であることではなく、特定のトレイトを実装する型であることのみ気にかけている時</li>
 </ul>
 <!--
 最後の行がよくわからない。what ... (that) you'll apply ... なのか？
@@ -203,15 +221,15 @@ to that topic. So what you learn here you’ll apply again in Chapter 17!
 -->
 <p>「ボックスで再帰的な型を可能にする」節で1つ目の場合について実際に説明します。
 2番目の場合、多くのデータの所有権を転送するには、データがスタック上でコピーされるので、長い時間がかかり得ます。
-この場面でパフォーマンスを向上させるには、多くのデータをヒープ上にボックスとして格納することができます。
-そして、参照しているデータはヒープ上の1箇所に留まりつつ、少量のポインタのデータのみをスタック上でコピーするのです。
-3番目のケースは、<em>トレイトオブジェクト</em>として知られ、第17章の「トレイトオブジェクトで異なる型の値を許容する」の節は、
-すべてその話題を説明するためだけのものです。
-従って、ここで学ぶのと同じことが第17章においても適用するでしょう！</p>
+この場面でパフォーマンスを向上させるために、多くのデータをヒープ上にボックスとして格納することができます。
+そして、小さなポインタのデータのみがスタック上でコピーされる一方、それが参照しているデータはヒープ上の1箇所に留まります。
+3番目のケースは<em>トレイトオブジェクト</em>として知られています。第17章の「トレイトオブジェクトで異なる型の値を許容する」の節は、
+すべてその話題に捧げられています。
+従って、ここで学ぶことは第17章でもまた使うことになります！</p>
 <!--
 ### Using a `Box<T>` to Store Data on the Heap
 -->
-<h3><a class="header" href="#boxtを使ってヒープにデータを格納する" id="boxtを使ってヒープにデータを格納する"><code>Box&lt;T&gt;</code>を使ってヒープにデータを格納する</a></h3>
+<h3 id="boxtを使ってヒープにデータを格納する"><a class="header" href="#boxtを使ってヒープにデータを格納する"><code>Box&lt;T&gt;</code>を使ってヒープにデータを格納する</a></h3>
 <!--
 Before we discuss this use case for `Box<T>`, we’ll cover the syntax and how to
 interact with values stored within a `Box<T>`.
@@ -220,12 +238,12 @@ interact with values stored within a `Box<T>`.
 <!--
 Listing 15-1 shows how to use a box to store an `i32` value on the heap:
 -->
-<p>リスト15-1は、ボックスを使用してヒープに<code>i32</code>の値を格納する方法を示しています:</p>
+<p>リスト15-1は、ボックスを使用してヒープに<code>i32</code>の値を格納する方法を示しています。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let b = Box::new(5);
     println!(&quot;b = {}&quot;, b);
 }
@@ -244,10 +262,9 @@ scope, as `b` does at the end of `main`, it will be deallocated. The
 deallocation happens for the box (stored on the stack) and the data it points
 to (stored on the heap).
 -->
-<p>変数<code>b</code>を定義して値<code>5</code>を指す<code>Box</code>の値があって、この値はヒープに確保されています。このプログラムは、
-<code>b = 5</code>と出力するでしょう; この場合、このデータがスタックにあるのと同じような方法でボックスのデータにアクセスできます。
-あらゆる所有された値同様、<code>b</code>が<code>main</code>の終わりでするようにボックスがスコープを抜けたら、
-メモリから解放されます。メモリの解放は(スタックに格納されている)ボックスと(ヒープに格納されている)指しているデータに対して起きます。</p>
+<p>変数<code>b</code>を定義して<code>Box</code>の値を保持します。<code>Box</code>は値<code>5</code>を指し、値<code>5</code>はヒープに確保されています。このプログラムは、<code>b = 5</code>と出力するでしょう。つまりこの場合、このデータがスタックにあるのと同じような方法でボックスのデータにアクセスできます。
+所有された値と全く同じでスコープを抜けるとき、実際<code>b</code>は<code>main</code>の終わりで抜けるのですが、
+ボックスはメモリから解放されます。メモリの解放は（スタックに格納されている）ボックスと（ヒープに格納されている）指しているデータに対して起きます。</p>
 <!--
 Putting a single value on the heap isn’t very useful, so you won’t use boxes by
 themselves in this way very often. Having values like a single `i32` on the
@@ -255,13 +272,13 @@ stack, where they’re stored by default, is more appropriate in the majority of
 situations. Let’s look at a case where boxes allow us to define types that we
 wouldn’t be allowed to if we didn’t have boxes.
 -->
-<p>ヒープに単独の値を置くことはあまり有用ではないので、このように単独でボックスを使用することはあまりありません。
-単独の<code>i32</code>のような値は、既定で格納される場所であるスタックに置くことが、大多数の場合にはより適切です。
-ボックスがなかったら定義することの叶わない型をボックスが定義させてくれる場合を見ましょう。</p>
+<p>ヒープに単独の値を置いても嬉しいことはほとんどないので、このように単独でボックスを使用することはあまりありません。
+単独の<code>i32</code>のような値はデフォルトではスタックに置かれます。ほとんどの場合ではその方が適切です。
+ボックスのおかげで定義できるようになる型を見てみましょう。ボックスがなければそれらの型は定義できません。</p>
 <!--
 ### Enabling Recursive Types with Boxes
 -->
-<h3><a class="header" href="#ボックスで再帰的な型を可能にする" id="ボックスで再帰的な型を可能にする">ボックスで再帰的な型を可能にする</a></h3>
+<h3 id="ボックスで再帰的な型を可能にする"><a class="header" href="#ボックスで再帰的な型を可能にする">ボックスで再帰的な型を可能にする</a></h3>
 <!--
 At compile time, Rust needs to know how much space a type takes up. One type
 whose size can’t be known at compile time is a *recursive type*, where a value
@@ -270,10 +287,10 @@ of values could theoretically continue infinitely, Rust doesn’t know how much
 space a value of a recursive type needs. However, boxes have a known size, so
 by inserting a box in a recursive type definition, you can have recursive types.
 -->
-<p>コンパイル時に、コンパイラは、ある型が取る領域を知る必要があります。コンパイル時にサイズがわからない型の1つは、
-<em>再帰的な型</em>であり、これは、型の一部として同じ型の他の値を持つものです。この値のネストは、
-理論的には無限に続く可能性があるので、コンパイラは再帰的な型の値が必要とする領域を知ることができないのです。
-しかしながら、ボックスは既知のサイズなので、再帰的な型の定義にボックスを挟むことで再帰的な型を存在させることができるのです。</p>
+<p>コンパイル時にコンパイラが知っておかねばならないのは、ある型が占有する領域の大きさです。コンパイル時にサイズがわからない型の1つ
+として
+<em>再帰的な型</em>があります。この型の値は、値の一部として同じ型の他の値を持つ場合があります。値のこうしたネストは、理論的には無限に続く可能性があるので、コンパイラは再帰的な型の値が必要とする領域を知ることができないのです。
+しかしながら、ボックスのサイズはわかっているので、再帰的な型の定義にボックスを挟むことで再帰的な型を作ることができます。</p>
 <!--
 Let’s explore the *cons list*, which is a data type common in functional
 programming languages, as an example of a recursive type. The cons list type
@@ -282,12 +299,12 @@ concepts in the example we’ll work with will be useful any time you get into
 more complex situations involving recursive types.
 -->
 <p><em>コンスリスト</em>は関数型プログラミング言語では一般的なデータ型ですが、これを再帰的な型の例として探究しましょう。
-我々が定義するコンスリストは、再帰を除いて素直です; 故に、これから取り掛かる例の概念は、
-再帰的な型が関わるもっと複雑な場面に遭遇したら必ず役に立つでしょう。</p>
+我々が定義するコンスリストは、再帰を除けば素直です。故に、これから取り掛かる例に現れる概念は、
+再帰的な型が関わるもっと複雑な場面に遭遇したときには必ず役に立つでしょう。</p>
 <!--
 #### More Information About the Cons List
 -->
-<h4><a class="header" href="#コンスリストについてもっと詳しく" id="コンスリストについてもっと詳しく">コンスリストについてもっと詳しく</a></h4>
+<h4 id="コンスリストについてもっと詳しく"><a class="header" href="#コンスリストについてもっと詳しく">コンスリストについてもっと詳しく</a></h4>
 <!--
 A *cons list* is a data structure that comes from the Lisp programming language
 and its dialects. In Lisp, the `cons` function (short for “construct function”)
@@ -295,7 +312,7 @@ constructs a new pair from its two arguments, which usually are a single value
 and another pair. These pairs containing pairs form a list.
 -->
 <p>コンスリストは、Lispプログラミング言語とその方言に由来するデータ構造です。Lispでは、
-<code>cons</code>関数(&quot;construct function&quot;の省略形です)が2つの引数から新しいペアを構成し、
+<code>cons</code>関数（&quot;construct function&quot;の省略形です）は2つの引数から新しいペアを構成します。
 この引数は通常、単独の値と別のペアからなります。これらのペアを含むペアがリストをなすのです。</p>
 <!--
 The cons function concept has made its way into more general functional
@@ -303,8 +320,7 @@ programming jargon: “to cons *x* onto *y*” informally means to construct a n
 container instance by putting the element *x* at the start of this new
 container, followed by the container *y*.
 -->
-<p>cons関数の概念は、より一般的な関数型プログラミングの俗語にもなっています: &quot;to cons <em>x</em> onto <em>y</em>&quot;は、
-俗に要素<em>x</em>をこの新しいコンテナの初めに置き、コンテナ<em>y</em>を続けて新しいコンテナのインスタンスを生成することを意味します。</p>
+<p>cons関数という概念は、より一般的な関数型プログラミングの俗語にもなっています。&quot;to cons <em>x</em> onto <em>y</em>&quot;はコンテナ<em>y</em>の先頭に要素<em>x</em>を置くことで新しいコンテナのインスタンスを生成することを意味します。</p>
 <!--
 Each item in a cons list contains two elements: the value of the current item
 and the next item. The last item in the list contains only a value called `Nil`
@@ -313,9 +329,9 @@ function. The canonical name to denote the base case of the recursion is `Nil`.
 Note that this is not the same as the “null” or “nil” concept in Chapter 6,
 which is an invalid or absent value.
 -->
-<p>コンスリストの各要素は、2つの要素を含みます: 現在の要素の値と次の要素です。リストの最後の要素は、
-次の要素なしに<code>Nil</code>と呼ばれる値だけを含みます。コンスリストは、繰り返し<code>cons</code>関数を呼び出すことで生成されます。
-繰り返しの規範事例を意味する標準的な名前は、<code>Nil</code>です。これは第6章の&quot;null&quot;や&quot;nil&quot;の概念とは異なることに注意してください。
+<p>コンスリストの各要素は、2つの要素を含みます。現在の要素の値と次の要素です。リストの最後の要素は、
+<code>Nil</code>と呼ばれる値だけを含み、次の要素を持ちません。コンスリストは、繰り返し<code>cons</code>関数を呼び出すことで生成されます。
+繰り返しの基底ケースを示すのに標準的に使われる名前は<code>Nil</code>です。これは第6章の&quot;null&quot;や&quot;nil&quot;の概念とは異なることに注意してください。
 &quot;null&quot;や&quot;nil&quot;は、無効だったり存在しない値です。</p>
 <!--
 Although functional programming languages use cons lists frequently, the cons
@@ -325,21 +341,18 @@ complext recursive data types *are* useful in various situations, but by
 starting with the cons list, we can explore how boxes let us define a recursive
 data type without much distraction.
 -->
-<p>関数型プログラミング言語は、頻繁にコンスリストを使用するものの、Rustではあまり使用されないデータ構造です。
-Rustで要素のリストがある場合はほとんどの場合、<code>Vec&lt;T&gt;</code>を使用するのがよりよい選択になります。
-他のより複雑で再帰的なデータ型は、様々な場面で役に立ち<em>ます</em>が、コンスリストから始めることで、
-大して気を散らすことなく再帰的なデータ型をボックスが定義させてくれる方法を探究することができます。</p>
-<!--
-この, whichは短い日本語に訳すのが難しい
--->
+<p>関数型プログラミング言語ではコンスリストは頻繁に使われますが、Rustではあまり使用されないデータ構造です。
+Rustで要素のリストがあるときはほとんど、<code>Vec&lt;T&gt;</code>を使用するのがよりよい選択になります。
+より複雑な他の再帰的なデータ型は様々な場面で役に立ち<em>ます</em>。しかしコンスリストから始めることで、
+ボックスのおかげで再帰的なデータ型を定義できるわけを、あまり気を散らすことなく調べることができるのです。</p>
 <!--
 Listing 15-2 contains an enum definition for a cons list. Note that this code
 won’t compile yet because the `List` type doesn’t have a known size, which
 we’ll demonstrate.
 -->
-<p>リスト15-2には、コンスリストのenum定義が含まれています。このコードは、
-<code>List</code>型が既知のサイズではないため、まだコンパイルできないことに注意してください。
-既知のサイズがないことをこれから模擬します。</p>
+<p>リスト15-2には、コンスリストのenum定義が含まれています。このコードはまだコンパイルできないことに注意してください。
+<code>List</code>型のサイズが分からないからです。
+これについてはこの後説明します。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
@@ -361,14 +374,14 @@ discussed in Chapter 10, to define a cons list type that could store values of
 any type.
 -->
 <blockquote>
-<p>注釈: この例のためだけに<code>i32</code>値だけを保持するコンスリストを実装します。第10章で議論したように、
+<p>注釈: この例のために<code>i32</code>値だけを保持するコンスリストを実装します。第10章で議論したように、
 ジェネリクスを使用してどんな型の値も格納できるコンスリストを定義して実装することもできたでしょう。</p>
 </blockquote>
 <!--
 Using the `List` type to store the list `1, 2, 3` would look like the code in
 Listing 15-3:
 -->
-<p>この<code>List</code>型を使用してリスト<code>1, 2, 3</code>を格納すると、リスト15-3のコードのような見た目になるでしょう:</p>
+<p>この<code>List</code>型を使用してリスト<code>1, 2, 3</code>を格納すると、リスト15-3のコードのような見た目になるでしょう。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
@@ -390,14 +403,14 @@ another `Cons` value that holds `2` and another `List` value. This `List` value
 is one more `Cons` value that holds `3` and a `List` value, which is finally
 `Nil`, the non-recursive variant that signals the end of the list.
 -->
-<p>最初の<code>Cons</code>値は、<code>1</code>と別の<code>List</code>値を保持しています。この<code>List</code>値は、
-<code>2</code>とまた別の<code>List</code>値を保持する別の<code>Cons</code>値です。この<code>List</code>値は、
-<code>3</code>と、ついにリストの終端を通知する非再帰的な列挙子の<code>Nil</code>になる<code>List</code>値を保持するまたまた別の<code>Cons</code>値です。</p>
+<p>最初の<code>Cons</code>値は、<code>1</code>と別の<code>List</code>値を保持しています。この<code>List</code>値は別の<code>Cons</code>値で、
+<code>2</code>とまた別の<code>List</code>値を保持しています。この<code>List</code>値はまたまた別の<code>Cons</code>値で、
+<code>3</code>と<code>List</code>値を保持していますが、この<code>List</code>値でついに<code>Nil</code>になります。<code>Nil</code>はリストの終端を通知する非再帰的な列挙子です。</p>
 <!--
 If we try to compile the code in Listing 15-3, we get the error shown in
 Listing 15-4:
 -->
-<p>リスト15-3のコードをコンパイルしようとすると、リスト15-4に示したエラーが出ます:</p>
+<p>リスト15-3のコードをコンパイルしようとすると、リスト15-4に示したエラーが出ます。</p>
 <pre><code class="language-text">error[E0072]: recursive type `List` has infinite size
 (エラー: 再帰的な型`List`は無限のサイズです)
  --&gt; src/main.rs:1:1
@@ -424,20 +437,20 @@ directly. As a result, Rust can’t figure out how much space it needs to store 
 at how Rust decides how much space it needs to store a value of a non-recursive
 type.
 -->
-<p>エラーは、この型は「無限のサイズである」と表示しています。理由は、再帰的な列挙子を含む<code>List</code>を定義したからです:
-自身の別の値を直接保持しているのです。結果として、コンパイラは、<code>List</code>値を格納するのに必要な領域が計算できないのです。
-このエラーが得られた理由を少し噛み砕きましょう。まず、非再帰的な型の値を格納するのに必要な領域をどうコンパイラが決定しているかを見ましょう。</p>
+<p>エラーは、この型は「無限のサイズである」と表示しています。理由は、再帰的な列挙子を含む<code>List</code>を定義したからです。
+つまり、<code>List</code>は自身の別の値を直接保持しているのです。結果として、コンパイラは<code>List</code>値を格納するのに必要な領域が計算できません。
+このエラーが出た理由を少し噛み砕きましょう。まず、非再帰的な型の値を格納するのに必要な領域をどうコンパイラが決定しているかを見ましょう。</p>
 <!--
 #### Computing the Size of a Non-Recursive Type
 -->
-<h4><a class="header" href="#非再帰的な型のサイズを計算する" id="非再帰的な型のサイズを計算する">非再帰的な型のサイズを計算する</a></h4>
+<h4 id="非再帰的な型のサイズを計算する"><a class="header" href="#非再帰的な型のサイズを計算する">非再帰的な型のサイズを計算する</a></h4>
 <!--
 Recall the `Message` enum we defined in Listing 6-2 when we discussed enum
 definitions in Chapter 6:
 -->
-<p>第6章でenum定義を議論した時にリスト6-2で定義した<code>Message</code> enumを思い出してください:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<p>第6章でenum定義を議論した時にリスト6-2で定義した<code>Message</code> enumを思い出してください。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>enum Message {
     Quit,
@@ -457,7 +470,7 @@ store the largest of its variants.
 -->
 <p><code>Message</code>値一つにメモリを確保するために必要な領域を決定するために、コンパイラは、
 各列挙子を見てどの列挙子が最も領域を必要とするかを確認します。コンパイラは、
-<code>Message::Quit</code>は全く領域を必要とせず、<code>Message::Move</code>は<code>i32</code>値を2つ格納するのに十分な領域が必要などと確かめます。
+<code>Message::Quit</code>は全く領域を必要とせず、<code>Message::Move</code>は<code>i32</code>値を2つ格納するのに十分な領域が必要、などと確かめます。
 ただ1つの列挙子しか使用されないので、<code>Message</code>値一つが必要とする最大の領域は、
 最大の列挙子を格納するのに必要になる領域です。</p>
 <!--
@@ -471,7 +484,7 @@ variant. The `Cons` variant holds a value of type `i32` and a value of type
 `List`, and this process continues infinitely, as shown in Figure 15-1.
 -->
 <p>これをコンパイラがリスト15-2の<code>List</code> enumのような再帰的な型が必要とする領域を決定しようとする時に起こることと比較してください。
-コンパイラは、<code>Cons</code>列挙子を見ることから始め、この列挙子には、型<code>i32</code>値が一つと型<code>List</code>の値が一つ保持されます。
+コンパイラは<code>Cons</code>列挙子を見ることから始めます。この列挙子には、型<code>i32</code>値が一つと型<code>List</code>の値が一つ保持されます。
 故に、<code>Cons</code>は1つの<code>i32</code>と<code>List</code>のサイズに等しい領域を必要とします。<code>List</code>が必要とするメモリ量を計算するのに、
 コンパイラは<code>Cons</code>列挙子から列挙子を観察します。<code>Cons</code>列挙子は型<code>i32</code>を1つと型<code>List</code>の値1つを保持し、
 この過程は無限に続きます。図15-1のようにですね。</p>
@@ -487,14 +500,14 @@ variant. The `Cons` variant holds a value of type `i32` and a value of type
 <!--
 #### Using `Box<T>` to Get a Recursive Type with a Known Size
 -->
-<h4><a class="header" href="#boxtで既知のサイズの再帰的な型を得る" id="boxtで既知のサイズの再帰的な型を得る"><code>Box&lt;T&gt;</code>で既知のサイズの再帰的な型を得る</a></h4>
+<h4 id="boxtで既知のサイズの再帰的な型を得る"><a class="header" href="#boxtで既知のサイズの再帰的な型を得る"><code>Box&lt;T&gt;</code>で既知のサイズの再帰的な型を得る</a></h4>
 <!--
 Rust can’t figure out how much space to allocate for recursively defined types,
 so the compiler gives the error in Listing 15-4. But the error does include
 this helpful suggestion:
 -->
 <p>コンパイラは、再帰的に定義された型に必要なメモリ量を計算できないので、リスト15-4ではエラーを返します。
-しかし、エラーには確かにこの役に立つ提言が含まれています:</p>
+しかし、エラーにはこんな役立つ提案が含まれているのです。</p>
 <pre><code class="language-text">  = help: insert indirection (e.g., a `Box`, `Rc`, or `&amp;`) at some point to
   make `List` representable
 </code></pre>
@@ -503,8 +516,7 @@ In this suggestion, “indirection” means that instead of storing a value
 directly, we’ll change the data structure to store the value indirectly by
 storing a pointer to the value instead.
 -->
-<p>この提言において、「間接参照」は、値を直接格納する代わりに、データ構造を変更して値へのポインタを代わりに格納することで、
-値を間接的に格納することを意味します。</p>
+<p>この提案において「間接参照」は、値を直接格納するのではなく、データ構造を変更して値を間接的に格納することを意味します。これは値の代わりに値へのポインタを格納することによって可能になります。</p>
 <!--
 Because a `Box<T>` is a pointer, Rust always knows how much space a `Box<T>`
 needs: a pointer’s size doesn’t change based on the amount of data it’s
@@ -515,23 +527,22 @@ Conceptually, we still have a list, created with lists “holding” other lists
 but this implementation is now more like placing the items next to one another
 rather than inside one another.
 -->
-<p><code>Box&lt;T&gt;</code>はポインタなので、コンパイラには<code>Box&lt;T&gt;</code>が必要とする領域が必ずわかります: ポインタのサイズは、
-指しているデータの量によって変わることはありません。つまり、別の<code>List</code>値を直接置く代わりに、
+<p><code>Box&lt;T&gt;</code>はポインタなので、コンパイラには<code>Box&lt;T&gt;</code>が必要とする領域が必ずわかります。すなわち、ポインタのサイズは指しているデータの量に左右されません。つまり、別の<code>List</code>値を直接置く代わりに、
 <code>Cons</code>列挙子の中に<code>Box&lt;T&gt;</code>を配置することができます。<code>Box&lt;T&gt;</code>は、
 <code>Cons</code>列挙子の中ではなく、ヒープに置かれる次の<code>List</code>値を指します。概念的には、
-それでも他のリストを「保持する」リストとともに作られたリストがありますが、
-この実装は今では、要素はお互いの中にあるというよりも、隣り合って配置するような感じになります。</p>
+依然として我々のリストは他のリストを「保持する」リストによって作られたものです。
+しかし、今やこの実装は、要素をお互いの中に配置するというより、隣り合うように配置するような感じになります。</p>
 <!--
 We can change the definition of the `List` enum in Listing 15-2 and the usage
 of the `List` in Listing 15-3 to the code in Listing 15-5, which will compile:
 -->
 <p>リスト15-2の<code>List</code> enumの定義とリスト15-3の<code>List</code>の使用をリスト15-5のコードに変更することができ、
-これはコンパイルが通ります:</p>
+これはコンパイルが通ります。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">enum List {
+<pre><pre class="playground"><code class="language-rust">enum List {
     Cons(i32, Box&lt;List&gt;),
     Nil,
 }
@@ -560,9 +571,9 @@ it needs to store a `List` value. Figure 15-2 shows what the `Cons` variant
 looks like now.
 -->
 <p><code>Cons</code>列挙子は、1つの<code>i32</code>のサイズに加えてボックスのポインタデータを格納する領域を必要とするでしょう。
-<code>Nil</code>列挙子は、値を格納しないので、<code>Cons</code>列挙子よりも必要な領域は小さいです。これで、
+<code>Nil</code>列挙子は値を格納しないので、<code>Cons</code>列挙子よりも必要な領域は小さいです。これで、
 どんな<code>List</code>値も<code>i32</code>1つのサイズに加えてボックスのポインタデータのサイズを必要とすることがわかりました。
-ボックスを使うことで、無限の再帰的な繰り返しを破壊したので、コンパイラは、<code>List</code>値を格納するのに必要なサイズを計算できます。
+ボックスを使うことで無限に続く再帰の連鎖を断ち切ったので、コンパイラは<code>List</code>値を格納するのに必要なサイズを計算できます。
 図15-2は、<code>Cons</code>列挙子の今の見た目を示しています。</p>
 <!--
 <img alt="A finite Cons list" src="img/trpl15-02.svg" class="center" />
@@ -581,9 +592,9 @@ capabilities incur, so they can be useful in cases like the cons list where the
 indirection is the only feature we need. We’ll look at more use cases for boxes
 in Chapter 17, too.
 -->
-<p>ボックスは、間接参照とヒープメモリ確保だけを提供します; 他のスマートポインタ型で目撃するような、
-他の特別な能力は何もありません。これらの特別な能力が招くパフォーマンスのオーバーヘッドもないので、
-間接参照だけが必要になる唯一の機能であるコンスリストのような場合に有用になり得ます。
+<p>ボックスは、間接参照とヒープメモリ確保だけを提供します。他のスマートポインタ型に見られるような別の特別な能力は何もありません。
+これらの特別な能力が招くパフォーマンスのオーバーヘッドもないので、
+コンスリストのように間接参照だけが必要な機能である場合には便利でしょう。
 より多くのボックスのユースケースは第17章でもお見かけするでしょう。</p>
 <!--
 The `Box<T>` type is a smart pointer because it implements the `Deref` trait,
@@ -594,11 +605,10 @@ traits in more detail. These two traits will be even more important to the
 functionality provided by the other smart pointer types we’ll discuss in the
 rest of this chapter.
 -->
-<p><code>Box&lt;T&gt;</code>型は、<code>Deref</code>トレイトを実装しているので、スマートポインタであり、
-このトレイトにより<code>Box&lt;T&gt;</code>の値を参照のように扱うことができます。<code>Box&lt;T&gt;</code>値がスコープを抜けると、
-<code>Drop</code>トレイト実装によりボックスが参照しているヒープデータも片付けられます。
-これら2つのトレイトをより詳しく探究しましょう。これら2つのトレイトは、
-この章の残りで議論する他のスマートポインタ型で提供される機能にとってさらに重要でしょう。</p>
+<p><code>Box&lt;T&gt;</code>型がスマートポインタなのは、<code>Deref</code>トレイトを実装しているからです。
+このトレイトにより<code>Box&lt;T&gt;</code>の値を参照のように扱うことができます。
+<code>Box&lt;T&gt;</code>値がスコープを抜けると、ボックスが参照しているヒープデータも片付けられます。これは<code>Drop</code>トレイト実装のおかげです。
+これら2つのトレイトをより詳しく探究しましょう。これら2つのトレイトは、他のスマートポインタ型が提供する機能にとってさらに重要なものです。それらついてはこの章の残りで議論します。</p>
 
                     </main>
 
@@ -642,10 +652,10 @@ rest of this chapter.
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

@@ -495,7 +495,7 @@ pattern `&(x, y)`, so `x` is the value `3` and `y` is the value `5`.
 -->
 
 このコードは`Current location: (3, 5)`と出力します。値`&(3, 5)`はパターン`&(x, y)`と合致するので、
-`x`は値3、`y`は値`5`になります。
+`x`は値`3`、`y`は値`5`になります。
 
 <!--
 We can also use patterns in closure parameter lists in the same way as in

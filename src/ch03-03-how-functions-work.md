@@ -337,15 +337,38 @@ When you run this program, the error you’ll get looks like this:
 ```text
 $ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
+error[E0658]: `let` expressions in this position are experimental
+ --> src/main.rs:2:14
+  |
+2 |     let x = (let y = 6);
+  |              ^^^^^^^^^
+  |
+  = note: see issue #53667 <https://github.com/rust-lang/rust/issues/53667> for more information
+
 error: expected expression, found statement (`let`)
 (エラー: 式を予期しましたが、文が見つかりました (`let`))
  --> src/main.rs:2:14
   |
 2 |     let x = (let y = 6);
-  |              ^^^
+  |              ^^^^^^^^^
   |
   = note: variable declaration using `let` is a statement
     (注釈: `let`を使う変数宣言は、文です)
+
+warning: unnecessary parentheses around assigned value
+ --> src/main.rs:2:13
+  |
+2 |     let x = (let y = 6);
+  |             ^^^^^^^^^^^ help: remove these parentheses
+  |
+  = note: `#[warn(unused_parens)]` on by default
+
+error: aborting due to 2 previous errors; 1 warning emitted
+
+For more information about this error, try `rustc --explain E0658`.
+error: could not compile `functions`
+
+To learn more, run the command again with --verbose.
 ```
 
 <!--
@@ -563,20 +586,26 @@ Running this code produces an error, as follows:
 このコードを実行すると、以下のようにエラーが出ます:
 
 ```text
+$ cargo run
+   Compiling functions v0.1.0 (file:///projects/functions)
 error[E0308]: mismatched types
               (型が合いません)
- --> src/main.rs:7:28
+
+ --> src/main.rs:7:24
   |
-7 |   fn plus_one(x: i32) -> i32 {
-  |  ____________________________^
-8 | |     x + 1;
-  | |          - help: consider removing this semicolon
-9 | | }
-  | |_^ expected i32, found ()
-  |     (i32を予期したのに、()型が見つかりました)
-  |
-  = note: expected type `i32`
-             found type `()`
+7 | fn plus_one(x: i32) -> i32 {
+  |    --------            ^^^ expected `i32`, found `()`
+  |    |
+  |    implicitly returns `()` as its body has no tail or `return` expression
+8 |     x + 1;
+  |          - help: consider removing this semicolon
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `functions`
+
+To learn more, run the command again with --verbose.
 ```
 
 <!--

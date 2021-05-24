@@ -5,22 +5,36 @@
         <meta charset="UTF-8">
         <title>ライフタイムで参照を検証する - The Rust Programming Language 日本語版</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
         <link rel="shortcut icon" href="favicon.png">
+        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
+        
         <link rel="stylesheet" href="css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -42,7 +56,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -86,8 +100,8 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language 日本語版</a></li><li class="expanded affix "><a href="foreword.html">まえがき</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">導入</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 事始め</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 一般的なプログラミングの概念</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と可変性</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> フロー制御</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権を理解する</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とは？</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス型</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使ったプログラム例</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumを定義する</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> matchフロー制御演算子</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letで簡潔なフロー制御</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> パッケージとクレート</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> モジュールを定義して、スコープとプライバシーを制御する</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> モジュールツリーの要素を示すためのパス</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> useキーワードでパスをスコープに持ち込む</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> モジュールを複数のファイルに分割する</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 一般的なコレクション</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> ベクタで一連の値を保持する</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 文字列でUTF-8でエンコードされたテキストを保持する</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> キーとそれに紐づいた値をハッシュマップに格納する</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト：共通の振る舞いを定義する</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html" class="active"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を検証する</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 自動テストを書く</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストの記述法</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストの実行のされ方を制御する</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト：コマンドラインプログラムを構築する</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> コマンドライン引数を受け付ける</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> ファイルを読み込む</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> リファクタリンクしてモジュール性とエラー処理を向上させる</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> テスト駆動開発でライブラリの機能を開発する</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 環境変数を取り扱う</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 標準出力ではなく標準エラーにエラーメッセージを書き込む</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 関数型言語の機能：イテレータとクロージャ</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> クロージャ：環境をキャプチャできる匿名関数</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 一連の要素をイテレータで処理する</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 入出力プロジェクトを改善する</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> パフォーマンス比較：ループVSイテレータ</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> スマートポインタ</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> ヒープのデータを指すBox<T>を使用する</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Derefトレイトでスマートポインタを普通の参照のように扱う</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Dropトレイトで片付け時にコードを走らせる</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>は、参照カウント方式のスマートポインタ</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T>と内部可変性パターン</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 循環参照は、メモリをリークすることもある</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 恐れるな！並行性</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> スレッドを使用してコードを同時に走らせる</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> メッセージ受け渡しを使ってスレッド間でデータを転送する</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 状態共有並行性</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> SyncとSendトレイトで拡張可能な並行性</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rustのオブジェクト指向プログラミング機能</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> オブジェクト指向言語の特徴</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> トレイトオブジェクトで異なる型の値を許容する</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> オブジェクト指向デザインパターンを実装する</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> パターンとマッチング</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> パターンが使用されることのある箇所全部</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 論駁可能性：パターンが合致しないかどうか</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> パターン記法</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高度な機能</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高度なトレイト</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高度な型</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高度な関数とクロージャ</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> マクロ</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後のプロジェクト：マルチスレッドのWebサーバを構築する</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> シングルスレッドのWebサーバを構築する</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> シングルスレッドサーバをマルチスレッド化する</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 正常なシャットダウンと片付け</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 付録</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> 付録A：キーワード</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> 付録B：演算子と記号</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> 付録C：導出可能なトレイト</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> 付録D：便利な開発ツール</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> 付録E：Edition</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> 付録F：本の翻訳</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> 付録G：Rustの作られ方と“Nightly Rust”</a></li></ol></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">The Rust Programming Language 日本語版</a></li><li class="chapter-item expanded affix "><a href="foreword.html">まえがき</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">導入</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 事始め</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 一般的なプログラミングの概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と可変性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> フロー制御</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権を理解する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス型</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使ったプログラム例</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumを定義する</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> matchフロー制御演算子</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letで簡潔なフロー制御</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> パッケージとクレート</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> モジュールを定義して、スコープとプライバシーを制御する</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> モジュールツリーの要素を示すためのパス</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> useキーワードでパスをスコープに持ち込む</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> モジュールを複数のファイルに分割する</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 一般的なコレクション</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> ベクタで一連の値を保持する</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 文字列でUTF-8でエンコードされたテキストを保持する</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> キーとそれに紐づいた値をハッシュマップに格納する</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト：共通の振る舞いを定義する</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html" class="active"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を検証する</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 自動テストを書く</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストの記述法</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストの実行のされ方を制御する</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト：コマンドラインプログラムを構築する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> コマンドライン引数を受け付ける</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> ファイルを読み込む</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> リファクタリングしてモジュール性とエラー処理を向上させる</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> テスト駆動開発でライブラリの機能を開発する</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 環境変数を取り扱う</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 標準出力ではなく標準エラーにエラーメッセージを書き込む</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 関数型言語の機能：イテレータとクロージャ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> クロージャ：環境をキャプチャできる匿名関数</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 一連の要素をイテレータで処理する</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 入出力プロジェクトを改善する</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> パフォーマンス比較：ループVSイテレータ</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> スマートポインタ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> ヒープのデータを指すBox&lt;T&gt;を使用する</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Derefトレイトでスマートポインタを普通の参照のように扱う</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Dropトレイトで片付け時にコードを走らせる</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc&lt;T&gt;は、参照カウント方式のスマートポインタ</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell&lt;T&gt;と内部可変性パターン</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 循環参照は、メモリをリークすることもある</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 恐れるな！並行性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> スレッドを使用してコードを同時に走らせる</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> メッセージ受け渡しを使ってスレッド間でデータを転送する</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 状態共有並行性</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> SyncとSendトレイトで拡張可能な並行性</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rustのオブジェクト指向プログラミング機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> オブジェクト指向言語の特徴</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> トレイトオブジェクトで異なる型の値を許容する</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> オブジェクト指向デザインパターンを実装する</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> パターンとマッチング</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> パターンが使用されることのある箇所全部</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 論駁可能性：パターンが合致しないかどうか</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> パターン記法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高度な機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高度なトレイト</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高度な型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高度な関数とクロージャ</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> マクロ</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後のプロジェクト：マルチスレッドのWebサーバを構築する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> シングルスレッドのWebサーバを構築する</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> シングルスレッドサーバをマルチスレッド化する</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 正常なシャットダウンと片付け</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 付録</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> 付録A：キーワード</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> 付録B：演算子と記号</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> 付録C：導出可能なトレイト</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> 付録D：便利な開発ツール</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> 付録E：Edition</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> 付録F：本の翻訳</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> 付録G：Rustの作られ方と“Nightly Rust”</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -122,17 +136,21 @@
                     <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
 
                     <div class="right-buttons">
+                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
+                        
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -156,7 +174,7 @@
                         <!--
 ## Validating References with Lifetimes
 -->
-<h2><a class="header" href="#ライフタイムで参照を検証する" id="ライフタイムで参照を検証する">ライフタイムで参照を検証する</a></h2>
+<h2 id="ライフタイムで参照を検証する"><a class="header" href="#ライフタイムで参照を検証する">ライフタイムで参照を検証する</a></h2>
 <!--
 One detail we didn’t discuss in the “References and Borrowing” section in
 Chapter 4 is that every reference in Rust has a *lifetime*, which is the scope
@@ -184,13 +202,13 @@ the concepts. See the “Advanced Lifetimes” section in Chapter 19 for more
 detailed information.
 -->
 <p>ライフタイムの概念は、他のプログラミング言語の道具とはどこか異なり、間違いなく、
-Rustで一番際立った機能になっています。この章では、ライフタイムの全てを講義しないものの、
-ライフタイム記法と遭遇する可能性のある一般的な手段を議論するので、その概念に馴染めます。
-もっと詳しく知るには、第19章の「高度なライフタイム」節を参照されたし。</p>
+Rustで一番際立った機能になっています。この章では、ライフタイムの全体を解説することはしませんが、
+ライフタイム記法が必要となる最も一般的な場合について議論しますので、ライフタイムの概念について馴染むことができるでしょう。
+もっと詳しく知るには、第19章の「高度なライフタイム」節を参照してください。</p>
 <!--
 ### Preventing Dangling References with Lifetimes
 -->
-<h3><a class="header" href="#ライフタイムでダングリング参照を回避する" id="ライフタイムでダングリング参照を回避する">ライフタイムでダングリング参照を回避する</a></h3>
+<h3 id="ライフタイムでダングリング参照を回避する"><a class="header" href="#ライフタイムでダングリング参照を回避する">ライフタイムでダングリング参照を回避する</a></h3>
 <!--
 The main aim of lifetimes is to prevent dangling references, which cause a
 program to reference data other than the data it’s intended to reference.
@@ -274,7 +292,7 @@ Rustで、このコードが動くことを許可していたら、<code>r</code
 <!--
 ### The Borrow Checker
 -->
-<h3><a class="header" href="#借用精査機" id="借用精査機">借用精査機</a></h3>
+<h3 id="借用精査機"><a class="header" href="#借用精査機">借用精査機</a></h3>
 <!--
 The Rust compiler has a *borrow checker* that compares scopes to determine
 whether all borrows are valid. Listing 10-18 shows the same code as Listing
@@ -316,8 +334,8 @@ Listing 10-19 fixes the code so it doesn’t have a dangling reference and
 compiles without any errors.
 -->
 <p>リスト10-19でコードを修正したので、ダングリング参照はなくなり、エラーなくコンパイルできます。</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>{
     let x = 5;            // ----------+-- 'b
@@ -351,7 +369,7 @@ lifetimes of parameters and return values in the context of functions.
 <!--
 ### Generic Lifetimes in Functions
 -->
-<h3><a class="header" href="#関数のジェネリックなライフタイム" id="関数のジェネリックなライフタイム">関数のジェネリックなライフタイム</a></h3>
+<h3 id="関数のジェネリックなライフタイム"><a class="header" href="#関数のジェネリックなライフタイム">関数のジェネリックなライフタイム</a></h3>
 <!--
 Let’s write a function that returns the longer of two string slices. This
 function will take two string slices and return a string slice. After we’ve
@@ -467,7 +485,7 @@ perform its analysis.
 <!--
 ### Lifetime Annotation Syntax
 -->
-<h3><a class="header" href="#ライフタイム注釈記法" id="ライフタイム注釈記法">ライフタイム注釈記法</a></h3>
+<h3 id="ライフタイム注釈記法"><a class="header" href="#ライフタイム注釈記法">ライフタイム注釈記法</a></h3>
 <!--
 Lifetime annotations don’t change how long any of the references live. Just
 as functions can accept any type when the signature specifies a generic type
@@ -476,9 +494,9 @@ generic lifetime parameter. Lifetime annotations describe the relationships of
 the lifetimes of multiple references to each other without affecting the
 lifetimes.
 -->
-<p>ライフタイム注釈は、いかなる参照の生存期間も変えることはありません。シグニチャがジェネリックな型引数を指定していると、
-関数があらゆる型を受け入れるのと全く同様に、ジェネリックなライフタイム引数を指定することで関数は、
-あらゆるライフタイムの参照を受け入れるのです。ライフタイム注釈は、ライフタイムに影響することなく、
+<p>ライフタイム注釈は、いかなる参照の生存期間も変えることはありません。シグニチャにジェネリックな型引数を指定された
+関数が、あらゆる型を受け取ることができるのと同様に、ジェネリックなライフタイム引数を指定された関数は、
+あらゆるライフタイムの参照を受け取ることができます。ライフタイム注釈は、ライフタイムに影響することなく、
 複数の参照のライフタイムのお互いの関係を記述します。</p>
 <!--
 Lifetime annotations have a slightly unusual syntax: the names of lifetime
@@ -518,11 +536,11 @@ lifetime.
 お互いにどう関係するかをコンパイラに指示することを意図しているからです。例えば、
 ライフタイム<code>'a</code>付きの<code>i32</code>への参照となる引数<code>first</code>のある関数があるとしましょう。
 この関数にはさらに、<code>'a</code>のライフタイム付きの<code>i32</code>への別の参照となる<code>second</code>という別の引数もあります。
-ライフタイム注釈は、<code>first</code>と<code>second</code>の参照がどちらもジェネリックなライフタイムと同じだけ生きることを示唆します。</p>
+ライフタイム注釈は、<code>first</code>と<code>second</code>の参照がどちらもこのジェネリックなライフタイムと同じだけ生きることを示唆します。</p>
 <!--
 ### Lifetime Annotations in Function Signatures
 -->
-<h3><a class="header" href="#関数シグニチャにおけるライフタイム注釈" id="関数シグニチャにおけるライフタイム注釈">関数シグニチャにおけるライフタイム注釈</a></h3>
+<h3 id="関数シグニチャにおけるライフタイム注釈"><a class="header" href="#関数シグニチャにおけるライフタイム注釈">関数シグニチャにおけるライフタイム注釈</a></h3>
 <!--
 Now let’s examine lifetime annotations in the context of the `longest`
 function. As with generic type parameters, we need to declare generic lifetime
@@ -532,16 +550,16 @@ references in the parameters and the return value must have the same lifetime.
 We’ll name the lifetime `'a` and then add it to each reference, as shown in
 Listing 10-22.
 -->
-<p>さて、<code>longest</code>関数の文脈でライフタイム注釈を調査しましょう。ジェネリックな型引数同様、
-関数名と引数リストの間、山カッコの中にジェネリックなライフタイム引数を宣言する必要があります。
-このシグニチャで表現したい制約は、引数の全参照と戻り値が同じライフタイムになることです。
-ライフタイムを<code>'a</code>と名付け、それから各参照に追記します。リスト10-22に示したように。</p>
+<p>さて、<code>longest</code>関数を例にライフタイム注釈を詳しく見ていきましょう。ジェネリックな型引数同様、
+関数名と引数リストの間の山カッコの中にジェネリックなライフタイム引数を宣言します。
+このシグニチャで表現したい制約は、引数の全ての参照と戻り値が同じライフタイムを持つことです。
+リスト10-22に示すように、ライフタイムを<code>'a</code>と名付け、それを各参照に付与します。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
     if x.len() &gt; y.len() {
@@ -557,7 +575,7 @@ Listing 10-22.
 specifying that all the references in the signature must have the same lifetime
 `'a`</span>
 -->
-<p><span class="caption">リスト10-22: シグニチャの全参照が同じライフタイム<code>'a</code>になると指定した<code>longest</code>関数の定義</span></p>
+<p><span class="caption">リスト10-22: シグニチャの全参照が同じライフタイム<code>'a</code>を持つと指定した<code>longest</code>関数の定義</span></p>
 <!--
 This code should compile and produce the result we want when we use it with the
 `main` function in Listing 10-20.
@@ -579,11 +597,11 @@ that will satisfy this signature.
 <p>これで関数シグニチャは、何らかのライフタイム<code>'a</code>に対して、関数は2つの引数を取り、
 どちらも少なくともライフタイム<code>'a</code>と同じだけ生きる文字列スライスであるとコンパイラに教えるようになりました。
 また、この関数シグニチャは、関数から返る文字列スライスも少なくともライフタイム<code>'a</code>と同じだけ生きると、
-コンパイラに教えています。これらの制約は、コンパイラに強制してほしいものです。
+コンパイラに教えています。これらの制約は、まさに私たちがコンパイラに保証してほしかったものです。
 この関数シグニチャでライフタイム引数を指定する時、渡されたり、返したりした、いかなる値のライフタイムも変更していないことを思い出してください。
 むしろ、借用チェッカーは、これらの制約を守らない値全てを拒否するべきと指定しています。
-<code>longest</code>関数は、正確に<code>x</code>と<code>y</code>の生存期間を知る必要はなく、何かのスコープが<code>'a</code>に代替され、
-このシグニチャを満足することだけ知っている必要があることに注意してください。</p>
+<code>longest</code>関数は、<code>x</code>と<code>y</code>の正確な生存期間を知っている必要はなく、
+このシグニチャを満たすようなスコープを<code>'a</code>に代入できることを知っているだけであることに注意してください。</p>
 <!--
 When annotating lifetimes in functions, the annotations go in the function
 signature, not in the function body. Rust can analyze the code within the
@@ -593,10 +611,10 @@ the lifetimes of the parameters or return values on its own. The lifetimes
 might be different each time the function is called. This is why we need to
 annotate the lifetimes manually.
 -->
-<p>関数でライフタイムを注釈する際、注釈は関数シグニチャに<ruby>嵌<rp>(</rp><rt>はま</rt><rp>)</rp></ruby>り、
-関数本体には嵌りません。コンパイラは、なんの助けもなく、関数内のコードを解析できます。しかしながら、
-関数に、関数外からの参照や、関数外への参照がある場合、コンパイラは引数や戻り値のライフタイムをそれだけで解決することはほとんど不可能になります。
-ライフタイムは、関数が呼び出される度に異なる可能性があります。このために、手動でライフタイムを注釈する必要があるのです。</p>
+<p>関数にライフタイムを注釈するときは、注釈は関数の本体ではなくシグニチャに付与します。
+コンパイラは注釈がなくとも関数内のコードを解析できます。しかしながら、
+関数に関数外からの参照や関数外への参照がある場合、コンパイラが引数や戻り値のライフタイムを自力で解決することはほとんど不可能になります。
+そのライフタイムは、関数が呼び出される度に異なる可能性があります。このために、手動でライフタイムを注釈する必要があるのです。</p>
 <!--
 When we pass concrete references to `longest`, the concrete lifetime that is
 substituted for `'a` is the part of the scope of `x` that overlaps with the
@@ -606,7 +624,7 @@ we’ve annotated the returned reference with the same lifetime parameter `'a`,
 the returned reference will also be valid for the length of the smaller of the
 lifetimes of `x` and `y`.
 -->
-<p>具体的な参照を<code>longest</code>に渡すと、<code>'a</code>を代替する具体的なライフタイムは、<code>y</code>のスコープと被さる<code>x</code>のスコープの一部になります。
+<p>具体的な参照を<code>longest</code>に渡すと、<code>'a</code>に代入される具体的なライフタイムは、<code>x</code>のスコープの一部であって<code>y</code>のスコープと重なる部分となります。
 言い換えると、ジェネリックなライフタイム<code>'a</code>は、<code>x</code>と<code>y</code>のライフタイムのうち、小さい方に等しい具体的なライフタイムになるのです。
 返却される参照を同じライフタイム引数<code>'a</code>で注釈したので、返却される参照も<code>x</code>か<code>y</code>のライフタイムの小さい方と同じだけ有効になるでしょう。</p>
 <!--
@@ -614,13 +632,13 @@ Let’s look at how the lifetime annotations restrict the `longest` function by
 passing in references that have different concrete lifetimes. Listing 10-23 is
 a straightforward example.
 -->
-<p>ライフタイム注釈が異なる具体的なライフタイムになる参照を渡すことで<code>longest</code>関数を制限する方法を見ましょう。
+<p>ライフタイム注釈が異なる具体的なライフタイムを持つ参照を渡すことで<code>longest</code>関数を制限する方法を見ましょう。
 リスト10-23は、率直な例です。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust"><span class="boring">fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;'a str) -&gt; &amp;'a str {
 </span><span class="boring">    if x.len() &gt; y.len() {
 </span><span class="boring">        x
 </span><span class="boring">    } else {
@@ -643,7 +661,7 @@ a straightforward example.
 <span class="caption">Listing 10-23: Using the `longest` function with
 references to `String` values that have different concrete lifetimes</span>
 -->
-<p><span class="caption">リスト10-23: 異なる具体的なライフタイムの<code>String</code>値への参照で<code>longest</code>関数を使用する</span></p>
+<p><span class="caption">リスト10-23: 異なる具体的なライフタイムを持つ<code>String</code>値への参照で<code>longest</code>関数を使用する</span></p>
 <!--
 In this example, `string1` is valid until the end of the outer scope, `string2`
 is valid until the end of the inner scope, and `result` references something
@@ -708,7 +726,7 @@ The error shows that for `result` to be valid for the `println!` statement,
 this because we annotated the lifetimes of the function parameters and return
 values using the same lifetime parameter `'a`.
 -->
-<p>このエラーは、<code>result</code>が<code>println!</code>文に対して有効になるために、<code>string2</code>が外側のスコープの終わりまで有効である必要があることを示しています。
+<p>このエラーは、<code>result</code>が<code>println!</code>文に対して有効であるためには、<code>string2</code>が外側のスコープの終わりまで有効である必要があることを示しています。
 関数引数と戻り値のライフタイムを同じライフタイム引数<code>'a</code>で注釈したので、コンパイラはこのことを知っています。</p>
 <!--
 As humans, we can look at this code and see that `string1` is longer than
@@ -720,11 +738,11 @@ the reference returned by the `longest` function is the same as the smaller of
 the lifetimes of the references passed in. Therefore, the borrow checker
 disallows the code in Listing 10-24 as possibly having an invalid reference.
 -->
-<p>人間からしたら、このコードを見て<code>string1</code>は<code>string2</code>よりも長いことが確認でき、
-故に<code>result</code>は<code>string1</code>への参照を含んでいます。まだ<code>string1</code>はスコープを抜けていないので、
-それでも<code>string1</code>への参照は<code>println!</code>にとって有効でしょう。ですが、コンパイラはこの場合、
+<p>人間からしたら、<code>string1</code>は<code>string2</code>よりも長く、それ故に<code>result</code>が<code>string1</code>への参照を含んでいることは
+コードから明らかです。まだ<code>string1</code>はスコープを抜けていないので、
+<code>string1</code>への参照は<code>println!</code>にとって有効でしょう。ですが、コンパイラはこの場合、
 参照が有効であると見なせません。<code>longest</code>関数から返ってくる参照のライフタイムは、
-渡した参照のうちの小さい方と同じだとコンパイラに指示しました。それ故に、
+渡した参照のうちの小さい方と同じだとコンパイラに指示しました。したがって、
 借用チェッカーは、リスト10-24のコードを無効な参照がある可能性があるとして許可しないのです。</p>
 <!--
 Try designing more experiments that vary the values and lifetimes of the
@@ -737,7 +755,7 @@ borrow checker before you compile; then check to see if you’re right!
 <!--
 ### Thinking in Terms of Lifetimes
 -->
-<h3><a class="header" href="#ライフタイムの観点で思考する" id="ライフタイムの観点で思考する">ライフタイムの観点で思考する</a></h3>
+<h3 id="ライフタイムの観点で思考する"><a class="header" href="#ライフタイムの観点で思考する">ライフタイムの観点で思考する</a></h3>
 <!--
 The way in which you need to specify lifetime parameters depends on what your
 function is doing. For example, if we changed the implementation of the
@@ -745,15 +763,15 @@ function is doing. For example, if we changed the implementation of the
 string slice, we wouldn’t need to specify a lifetime on the `y` parameter. The
 following code will compile:
 -->
-<p>ライフタイム引数を指定する必要のある手段は、関数が行っていることによります。例えば、
+<p>何にライフタイム引数を指定する必要があるかは、関数が行っていることに依存します。例えば、
 <code>longest</code>関数の実装を最長の文字列スライスではなく、常に最初の引数を返すように変更したら、
 <code>y</code>引数に対してライフタイムを指定する必要はなくなるでしょう。以下のコードはコンパイルできます:</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn longest&lt;'a&gt;(x: &amp;'a str, y: &amp;str) -&gt; &amp;'a str {
     x
@@ -836,13 +854,14 @@ parameters and return values of functions. Once they’re connected, Rust has
 enough information to allow memory-safe operations and disallow operations that
 would create dangling pointers or otherwise violate memory safety.
 -->
-<p>究極的にライフタイム記法は、関数のいろんな引数と戻り値のライフタイムを接続することに関するのです。
-一旦、繋がりができたら、メモリ安全な処理を許可するのに十分な情報がコンパイラにはあり、
-ダングリングポインタを生成するであろう処理を不認可し、さもなくばメモリ安全性を侵害するのです。</p>
+<p>究極的にライフタイム記法は、関数のいろんな引数と戻り値のライフタイムを接続することに関するものです。
+一旦それらが繋がれば、メモリ安全な処理を許可し、
+ダングリングポインタを生成したりメモリ安全性を侵害したりする処理を禁止するのに
+十分な情報をコンパイラは得たことになります。</p>
 <!--
 ### Lifetime Annotations in Struct Definitions
 -->
-<h3><a class="header" href="#構造体定義のライフタイム注釈" id="構造体定義のライフタイム注釈">構造体定義のライフタイム注釈</a></h3>
+<h3 id="構造体定義のライフタイム注釈"><a class="header" href="#構造体定義のライフタイム注釈">構造体定義のライフタイム注釈</a></h3>
 <!--
 So far, we’ve only defined structs to hold owned types. It’s possible for
 structs to hold references, but in that case we would need to add a lifetime
@@ -856,7 +875,7 @@ struct named `ImportantExcerpt` that holds a string slice.
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">struct ImportantExcerpt&lt;'a&gt; {
+<pre><pre class="playground"><code class="language-rust">struct ImportantExcerpt&lt;'a&gt; {
     part: &amp;'a str,
 }
 
@@ -901,7 +920,7 @@ the `ImportantExcerpt` goes out of scope, so the reference in the
 <!--
 ### Lifetime Elision
 -->
-<h3><a class="header" href="#ライフタイム省略" id="ライフタイム省略">ライフタイム省略</a></h3>
+<h3 id="ライフタイム省略"><a class="header" href="#ライフタイム省略">ライフタイム省略</a></h3>
 <!--
 You’ve learned that every reference has a lifetime and that you need to specify
 lifetime parameters for functions or structs that use references. However, in
@@ -915,8 +934,8 @@ Chapter 4 we had a function in Listing 4-9, which is shown again in Listing
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fn first_word(s: &amp;str) -&gt; &amp;str {
     let bytes = s.as_bytes();
@@ -1106,7 +1125,7 @@ annotate lifetimes in method signatures very often.
 <!--
 ### Lifetime Annotations in Method Definitions
 -->
-<h3><a class="header" href="#メソッド定義におけるライフタイム注釈" id="メソッド定義におけるライフタイム注釈">メソッド定義におけるライフタイム注釈</a></h3>
+<h3 id="メソッド定義におけるライフタイム注釈"><a class="header" href="#メソッド定義におけるライフタイム注釈">メソッド定義におけるライフタイム注釈</a></h3>
 <!--
 When we implement methods on a struct with lifetimes, we use the same syntax as
 that of generic type parameters shown in Listing 10-11. Where we declare and
@@ -1137,8 +1156,8 @@ First, we’ll use a method named `level` whose only parameter is a reference to
 `self` and whose return value is an `i32`, which is not a reference to anything:
 -->
 <p>まず、唯一の引数が<code>self</code>への参照で戻り値が<code>i32</code>という何かへの参照ではない<code>level</code>というメソッドを使用します:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
 </span><span class="boring">    part: &amp;'a str,
@@ -1162,8 +1181,8 @@ to `self` because of the first elision rule.
 Here is an example where the third lifetime elision rule applies:
 -->
 <p>3番目のライフタイム省略規則が適用される例はこちらです:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct ImportantExcerpt&lt;'a&gt; {
 </span><span class="boring">    part: &amp;'a str,
@@ -1191,7 +1210,7 @@ and all lifetimes have been accounted for.
 <!--
 ### The Static Lifetime
 -->
-<h3><a class="header" href="#静的ライフタイム" id="静的ライフタイム">静的ライフタイム</a></h3>
+<h3 id="静的ライフタイム"><a class="header" href="#静的ライフタイム">静的ライフタイム</a></h3>
 <!--
 One special lifetime we need to discuss is `'static`, which denotes the entire
 duration of the program. All string literals have the `'static` lifetime, which
@@ -1199,8 +1218,8 @@ we can annotate as follows:
 -->
 <p>議論する必要のある1種の特殊なライフタイムが、<code>'static</code>であり、これはプログラム全体の期間を示します。
 文字列リテラルは全て<code>'static</code>ライフタイムになり、次のように注釈できます:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// 静的ライフタイムを持ってるよ
 let s: &amp;'static str = &quot;I have a static lifetime.&quot;;
@@ -1230,14 +1249,14 @@ solution is fixing those problems, not specifying the `'static` lifetime.
 <!--
 ## Generic Type Parameters, Trait Bounds, and Lifetimes Together
 -->
-<h2><a class="header" href="#ジェネリックな型引数トレイト境界ライフタイムを一度に" id="ジェネリックな型引数トレイト境界ライフタイムを一度に">ジェネリックな型引数、トレイト境界、ライフタイムを一度に</a></h2>
+<h2 id="ジェネリックな型引数トレイト境界ライフタイムを一度に"><a class="header" href="#ジェネリックな型引数トレイト境界ライフタイムを一度に">ジェネリックな型引数、トレイト境界、ライフタイムを一度に</a></h2>
 <!--
 Let’s briefly look at the syntax of specifying generic type parameters, trait
 bounds, and lifetimes all in one function!
 -->
 <p>ジェネリックな型引数、トレイト境界、ライフタイムを指定する記法を全て1関数でちょっと眺めましょう！</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::fmt::Display;
 
@@ -1273,7 +1292,7 @@ the declarations of the lifetime parameter `'a` and the generic type parameter
 <!--
 ## Summary
 -->
-<h2><a class="header" href="#まとめ" id="まとめ">まとめ</a></h2>
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
 <!--
 We covered a lot in this chapter! Now that you know about generic type
 parameters, traits and trait bounds, and generic lifetime parameters, you’re
@@ -1344,10 +1363,10 @@ write tests in Rust so you can make sure your code is working the way it should.
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

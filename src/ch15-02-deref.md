@@ -12,9 +12,9 @@ treated like a regular reference, you can write code that operates on
 references and use that code with smart pointers too.
 -->
 
-`Deref`トレイトを実装することで*参照外し演算子*の`*`(掛け算やグロブ演算子とは違います)の振る舞いをカスタマイズすることができます。
-スマートポインタを普通の参照のように扱えるように`Deref`を実装することで、
-参照に対して処理を行うコードを書き、そのコードをスマートポインタとともにも使用できます。
+`Deref`トレイトを実装することで、*参照外し演算子*の`*`（掛け算やグロブ演算子とは違います）の振る舞いをカスタマイズできます。
+`Deref`を実装してスマートポインタを普通の参照みたいに扱えるようにすれば、
+参照に対して処理を行うコードを書いて、そのコードをスマートポインタに対しても使うことができるのです。
 
 <!--
 Let’s first look at how dereference operator works with regular references.
@@ -26,10 +26,10 @@ Rust’s *deref coercion* feature and how it lets us work with either references
 or smart pointers.
 -->
 
-まずは、参照外し演算子が普通の参照に対して動作するところを見ましょう。それから`Box<T>`のように振る舞う独自の型を定義し、
-参照外し演算子が新しく定義した型に対して参照のように動作しない理由を確認しましょう。
-`Deref`トレイトを実装することでスマートポインタが参照と似た方法で動作するようにできる方法を探求します。
-そして、Rustの*参照外し型強制*機能と、それにより参照やスマートポインタと協調できる方法を見ます。
+まずは、参照外し演算子が普通の参照に対して動作するところを見ましょう。それから、`Box<T>`のように振る舞う独自の型を定義してみましょう。
+参照とは異なり、新しく定義した型には参照外し演算子を使えません。その理由を確認します。
+`Deref`トレイトを実装すればスマートポインタは参照と同じように機能するので、そのやり方を調べましょう。
+そして、Rustには*参照外し型強制*という機能があり、その機能のおかげで参照やスマートポインタをうまく使うことができるので、それに目を向けてみましょう。
 
 <!--
 ### Following the Pointer to the Value with the Dereference Operator
@@ -44,8 +44,8 @@ reference to an `i32` value and then use the dereference operator to follow the
 reference to the data:
 -->
 
-普通の参照は1種のポインタであり、ポインタの捉え方の一つが、どこか他の場所に格納された値への矢印としてです。
-リスト15-6で、`i32`値への参照を生成し、それから参照外し演算子を使用して参照をデータまで追いかけています:
+普通の参照は1種のポインタであり、ポインタはどこか他の場所に格納された値への矢印と見なすことができます。
+リスト15-6では、`i32`値への参照を生成してから参照外し演算子を使ってデータまで参照を辿ります。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -79,16 +79,16 @@ we have access to the integer value `y` is pointing to that we can compare with
 `5`.
 -->
 
-変数`x`は`i32`値の`5`を保持しています。`y`を`x`への参照にセットします。`x`は`5`に等しいとアサートできます。
-しかしながら、`y`の値に関するアサートを行いたい場合、`*y`を使用して参照を指している値まで追いかけなければなりません(そのため*参照外し*です)。
-一旦、`y`を参照外ししたら、`y`が指している`5`と比較できる整数値にアクセスできます。
+変数`x`は`i32`値の`5`を保持しています。`y`は`x`への参照として設定します。`x`は`5`に等しいとアサートできます。
+しかしながら、`y`の値に関するアサートを行いたい場合、`*y`を使用して参照が指している値まで追いかけなければなりません（そのため*参照外し*です）。
+一旦`y`の参照を外せば、`y`が指している整数値にアクセスできます。これは`5`と比較可能です。
 
 <!--
 If we tried to write `assert_eq!(5, y);` instead, we would get this compilation
 error:
 -->
 
-代わりに`assert_eq!(5, y);`と書こうとしたら、こんなコンパイルエラーが出るでしょう:
+代わりに`assert_eq!(5, y);`と書こうとしたら、こんなコンパイルエラーが出るでしょう。
 
 ```text
 error[E0277]: the trait bound `{integer}: std::cmp::PartialEq<&{integer}>` is
@@ -110,8 +110,8 @@ different types. We must use the dereference operator to follow the reference
 to the value it's pointing to.
 -->
 
-参照と数値は異なる型なので、比較することは許容されていません。参照外し演算子を使用して、
-参照を指している値まで追いかけなければならないのです。
+数値と数値への参照の比較は許されていません。これらは異なる型だからです。参照外し演算子を使用して、
+参照が指している値まで追いかけなければならないのです。
 
 <!--
 ### Using `Box<T>` Like a Reference
@@ -124,8 +124,8 @@ We can rewrite the code in Listing 15-6 to use a `Box<T>` instead of a
 reference; the dereference operator will work as shown in Listing 15-7:
 -->
 
-リスト15-6のコードを参照の代わりに`Box<T>`を使うように書き直すことができます;
-参照外し演算子は、リスト15-7に示したように動くでしょう:
+リスト15-6のコードを、参照の代わりに`Box<T>`を使うように書き直すことができます。
+参照外し演算子は、リスト15-7に示したように動くでしょう。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -159,10 +159,10 @@ when `y` was a reference. Next, we’ll explore what is special about `Box<T>`
 that enables us to use the dereference operator by defining our own box type.
 -->
 
-リスト15-7とリスト15-6の唯一の違いは、ここでは、`x`の値を指す参照ではなく、
-`x`の値を指すボックスのインスタンスに`y`をセットしていることです。
-最後のアサートで参照外し演算子を使用して`y`が参照だった時のようにボックスのポインタを追いかけることができます。
-次に、独自のボックス型を定義することで参照外し演算子を使用させてくれる`Box<T>`について何が特別なのかを探究します。
+リスト15-7とリスト15-6の唯一の違いは、ここでは`y`が、`x`の値を指す参照ではなく、
+`x`の値を指すボックスのインスタンスとして設定されている点にあります。
+最後のアサートでは、参照外し演算子を使ってボックスのポインタを辿ることができます。これは`y`が参照だった時と同じやり方です。
+参照外し演算子が使える以上`Box<T>`には特別な何かがあるので、次はそれについて調べることにします。そのために、独自にボックス型を定義します。
 
 <!--
 ### Defining Our Own Smart Pointer
@@ -177,8 +177,8 @@ references by default. Then we’ll look at how to add the ability to use the
 dereference operator.
 -->
 
-標準ライブラリが提供している`Box<T>`型に似たスマートポインタを構築して、スマートポインタは既定で
-参照に比べてどう異なって振る舞うのか経験しましょう。それから、参照外し演算子を使う能力を追加する方法に目を向けましょう。
+標準ライブラリが提供している`Box<T>`型に似たスマートポインタを作りましょう。そうすれば、スマートポインタがそのままだと
+参照と同じ様には振る舞わないことがわかります。それから、どうすれば参照外し演算子を使えるようになるのか見てみましょう。
 
 <!--
 The `Box<T>` type is ultimately defined as a tuple struct with one element, so
@@ -186,8 +186,8 @@ Listing 15-8 defines a `MyBox<T>` type in the same way. We’ll also define a
 `new` function to match the `new` function defined on `Box<T>`.
 -->
 
-`Box<T>`型は究極的に1要素のタプル構造体として定義されているので、リスト15-8は、同じように`MyBox<T>`型を定義しています。
-また、`Box<T>`に定義された`new`関数と合致する`new`関数も定義しています。
+`Box<T>`型は突き詰めると（訳註：データがヒープに置かれることを無視すると）1要素のタプル構造体のような定義になります。なのでリスト15-8ではそのように`MyBox<T>`型を定義しています。
+また、`Box<T>`に定義された`new`関数に対応する`new`関数も定義しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -218,9 +218,9 @@ with one element of type `T`. The `MyBox::new` function takes one parameter of
 type `T` and returns a `MyBox` instance that holds the value passed in.
 -->
 
-`MyBox`という構造体を定義し、ジェネリック引数の`T`を宣言しています。自分の型にどんな型の値も保持させたいからです。
-`MyBox`型は、型`T`を1要素持つタプル構造体です。`MyBox::new`関数は型`T`の引数を1つ取り、
-渡した値を保持する`MyBox`インスタンスを返します。
+`MyBox`という構造体を定義し、ジェネリック引数の`T`を宣言しています。この型にどんな型の値も持たせたいからです。
+`MyBox`型は型`T`の要素を1つ持つタプル構造体です。`MyBox::new`関数は型`T`の引数を1つ取り、
+渡した値を持つ`MyBox`のインスタンスを返します。
 
 <!--
 Let’s try adding the `main` function in Listing 15-7 to Listing 15-8 and
@@ -229,7 +229,7 @@ code in Listing 15-9 won’t compile because Rust doesn’t know how to derefere
 `MyBox`.
 -->
 
-試しにリスト15-7の`main`関数をリスト15-8に追加し、`Box<T>`の代わりに定義した`MyBox<T>`型を使うよう変更してみてください。
+試しにリスト15-7の`main`関数をリスト15-8に追加し、定義した`MyBox<T>`型を`Box<T>`の代わりに使うよう変更してみてください。
 コンパイラは`MyBox`を参照外しする方法がわからないので、リスト15-9のコードはコンパイルできません。
 
 <!--
@@ -259,7 +259,7 @@ way we used references and `Box<T>`</span>
 Here’s the resulting compilation error:
 -->
 
-こちらが結果として出るコンパイルエラーです:
+こちらが結果として出るコンパイルエラーです。
 
 ```text
 error[E0614]: type `MyBox<{integer}>` cannot be dereferenced
@@ -276,7 +276,7 @@ ability on our type. To enable dereferencing with the `*` operator, we
 implement the `Deref` trait.
 -->
 
-`MyBox<T>`に参照外しの能力を実装していないので、参照外しできません。`*`演算子で参照外しできるようにするには、
+`MyBox<T>`の参照を外すことはできません。そのための実装を与えていないからです。`*`演算子で参照外しできるようにするには、
 `Deref`トレイトを実装します。
 
 <!--
@@ -293,10 +293,10 @@ borrows `self` and returns a reference to the inner data. Listing 15-10
 contains an implementation of `Deref` to add to the definition of `MyBox`:
 -->
 
-第10章で議論したように、トレイトを実装するには、トレイトの必須メソッドに実装を提供する必要があります。
-`Deref`トレイトは標準ライブラリで提供されていますが、`self`を借用し、
-内部のデータへの参照を返す`deref`という1つのメソッドを実装する必要があります。リスト15-10には、
-`MyBox`の定義に追記する`Deref`の実装が含まれています:
+第10章で議論したように、トレイトを実装するにはトレイトの必須メソッドに実装を与える必要があります。
+`Deref`トレイトは標準ライブラリで提供されており、`deref`という1つのメソッドの実装を要求します。`deref`は`self`を借用し、
+内部のデータへの参照を返すメソッドです。
+リスト15-10には、`MyBox`の定義に付け足す`Deref`の実装が含まれています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -330,8 +330,7 @@ parameter, but you don’t need to worry about them for now; we’ll cover them 
 more detail in Chapter 19.
 -->
 
-`type Target = T;`という記法は、`Deref`トレイトが使用する関連型を定義しています。関連型は、
-ジェネリック引数を宣言する少しだけ異なる方法ですが、今は気にする必要はありません; 第19章でより詳しく講義します。
+`type Target = T;`という記法は、`Deref`トレイトが使用する関連型を定義しています。関連型はまた少し違ったやり方でジェネリック引数を宣言するためのものですが、今は気にする必要はありません。第19章でより詳しく扱います。
 
 <!--
 We fill in the body of the `deref` method with `&self.0` so `deref` returns a
@@ -340,7 +339,7 @@ function in Listing 15-9 that calls `*` on the `MyBox<T>` value now compiles,
 and the assertions pass!
 -->
 
-`deref`メソッドの本体を`&self.0`で埋めているので、`deref`は`*`演算子でアクセスしたい値への参照を返します。
+`deref`メソッドの本体は`&self.0`だけなので、`deref`が返すのは私達が`*`演算子でアクセスしたい値への参照なわけです。
 リスト15-9の`MyBox<T>`に`*`を呼び出す`main`関数はこれでコンパイルでき、アサートも通ります！
 
 <!--
@@ -350,23 +349,20 @@ that implements `Deref` and call the `deref` method to get a `&` reference that
 it knows how to dereference.
 -->
 
-`Deref`がなければ、コンパイラは`&`参照しか参照外しできなくなります。`deref`メソッドによりコンパイラは、
-`Deref`を実装するあらゆる型の値を取り、`deref`メソッドを呼び出して参照外しの仕方を知っている`&`参照を得る能力を獲得するのです。
+`Deref`トレイトがないと、コンパイラは`&`参照しか参照外しできません。
+`deref`メソッドのおかげで、コンパイラは`Deref`を実装している型の値を取り、`deref`メソッドを呼ぶことで、参照外しが可能な`&`参照を得られるようになります。
 
 <!--
 When we entered `*y` in Listing 15-9, behind the scenes Rust actually ran this
 code:
 -->
 
-リスト15-9に`*y`を入力した時、水面下でコンパイラは、実際にはこのようなコードを走らせていました:
+リスト15-9に`*y`を入力した時、水面下でRustは実際にはこのようなコードを走らせていました。
 
 ```rust,ignore
 *(y.deref())
 ```
 
-<!--
-最後の行は、これで合っているのか自信がない・・・
--->
 
 <!--
 Rust substitutes the `*` operator with a call to the `deref` method and then a
@@ -376,9 +372,9 @@ identically whether we have a regular reference or a type that implements
 `Deref`.
 -->
 
-コンパイラは、`*`演算子を`deref`メソッド、それから何の変哲もない参照外しの呼び出しに置き換えるので、
-`deref`メソッドを呼び出す必要があるかどうかを考える必要はないわけです。このRustの機能により、
-普通の参照か`Deref`を実装した型であるかどうかに関わらず、等しく機能するコードを書かせてくれます。
+Rustが`*`演算子を`deref`メソッドの呼び出しと普通の参照外しへと置き換えてくれるので、
+私達は`deref`メソッドを呼び出す必要があるかどうかを考えなくて済むわけです。このRustの機能により、
+普通の参照か`Deref`を実装した型であるかどうかに関わらず、等しく機能するコードを書くことができます。
 
 <!--
 The reason the `deref` method returns a reference to a value and that the plain
@@ -389,13 +385,10 @@ to take ownership of the inner value inside `MyBox<T>` in this case or in most
 cases where we use the dereference operator.
 -->
 
-`deref`メソッドが値への参照を返し、`*(y.deref())`のかっこの外の何の変哲もない参照外しがそれでも必要な理由は、
-所有権システムです。`deref`メソッドが値への参照ではなく、値を直接返したら、値は`self`から外にムーブされてしまいます。
-今回の場合や、参照外し演算子を使用する多くの場合には`MyBox<T>`の中の値の所有権を奪いたくはありません。
+`deref`メソッドが値への参照を返し、`*(y.deref())`のかっこの外にある普通の参照外しがそれでも必要になるのは、
+所有権システムがあるからです。`deref`メソッドが値への参照ではなく値を直接返したら、値は`self`から外にムーブされてしまいます。
+今回もそうですが、参照外し演算子を使用するときはほとんどの場合、`MyBox<T>`の中の値の所有権を奪いたくはありません。
 
-<!--
-2行目、... just once, [each time ...]という構造と思われる
--->
 
 <!--
 Note that the `*` operator is replaced with a call to the `deref` method and
@@ -405,8 +398,8 @@ end up with data of type `i32`, which matches the `5` in `assert_eq!` in
 Listing 15-9.
 -->
 
-`*`演算子は、コードで`*`を打つたびに、ただ1回、`deref`メソッドの呼び出し、そして`*`演算子の呼び出しに置き換えられることに注意してください。
-`*`演算子の置き換えは、無限に繰り返されないので、型`i32`に行き着き、リスト15-9で`assert_eq!`の`5`と合致します。
+`*`演算子が`deref`メソッドの呼び出しと`*`演算子の呼び出しに置き換えられるのは、コード内で`*`を打つ毎にただ1回だけ、という点に注意して下さい。
+`*`演算子の置き換えは無限に繰り返されないので、型`i32`のデータに行き着きます。これはリスト15-9で`assert_eq!`の`5`と合致します。
 
 <!--
 ### Implicit Deref Coercions with Functions and Methods

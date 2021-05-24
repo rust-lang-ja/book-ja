@@ -141,7 +141,7 @@ pub trait Iterator<T> {
 `Iterator` trait using generics</span>
 -->
 
-<span class="caption">ジェネリクスを使用した架空の`Iterator`トレイトの定義</span>
+<span class="caption">リスト19-21: ジェネリクスを使用した架空の`Iterator`トレイトの定義</span>
 
 <!--
 The difference is that when using generics, as in Listing 19-21, we must
