@@ -188,7 +188,7 @@ default type for a generic type is `<PlaceholderType=ConcreteType>` when
 declaring the generic type.
 -->
 
-ジェネリックな型引数を使用する際、ジェネリックな型に対して規定の具体的な型を指定できます。これにより、
+ジェネリックな型引数を使用する際、ジェネリックな型に対して既定の具体的な型を指定できます。これにより、
 既定の型が動くのなら、トレイトを実装する側が具体的な型を指定する必要を排除します。ジェネリックな型に既定の型を指定する記法は、
 ジェネリックな型を宣言する際に`<PlaceholderType=ConcreteType>`です。
 
