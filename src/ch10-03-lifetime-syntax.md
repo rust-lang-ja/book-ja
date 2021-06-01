@@ -245,7 +245,7 @@ longest string is abcd`.
 
 2つの文字列スライスのうち、長い方を返す関数を書きましょう。この関数は、
 2つの文字列スライスを取り、1つの文字列スライスを返します。`longest`関数の実装完了後、
-リスト10-20のコードは、`The logest string is abcd`と出力するはずです。
+リスト10-20のコードは、`The longest string is abcd`と出力するはずです。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
