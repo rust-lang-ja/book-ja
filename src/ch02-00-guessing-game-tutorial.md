@@ -369,7 +369,7 @@ associated function, `stdin`, on `io`:
 -->
 
 プログラムの1行目で、`use std::io`として、標準ライブラリから入/出力機能を取り込んだことを思い出してください。
-今度は、`io`型の`stdin`関連関数を呼び出しましょう:
+今度は、`io`モジュールの`stdin`関数を呼び出しましょう:
 
 ```rust,ignore
 io::stdin().read_line(&mut guess)
