@@ -342,7 +342,7 @@ Cargoは両者をあるバージョンの`rand`に解決し、それを一つの
 ```toml
 [dependencies]
 
-rand = "0.3.14"
+rand = "0.8.3"
 ```
 
 <!--
@@ -358,9 +358,9 @@ will bring in and compile the `rand` crate:
 ```text
 $ cargo build
     Updating registry `https://github.com/rust-lang/crates.io-index`
- Downloading rand v0.3.14
+ Downloading rand v0.8.3
    --snip--
-   Compiling rand v0.3.14
+   Compiling rand v0.8.3
    Compiling add-one v0.1.0 (file:///projects/add/add-one)
    Compiling adder v0.1.0 (file:///projects/add/adder)
     Finished dev [unoptimized + debuginfo] target(s) in 10.18 secs
