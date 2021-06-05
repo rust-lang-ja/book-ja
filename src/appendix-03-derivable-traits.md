@@ -210,10 +210,10 @@ enumに導出すると、enum定義で先に定義された列挙子が、後に
 <!--
 The `PartialOrd` trait is required, for example, for the `gen_range` method
 from the `rand` crate that generates a random value in the range specified by a
-low value and a high value.
+range expression.
 -->
 
-`PartialOrd`トレイトが必要になる例には、低い値と高い値で指定される範囲の乱数を生成する`rand`クレートの`gen_range`メソッドが挙げられます。
+`PartialOrd`トレイトが必要になる例には、指定した範囲で乱数を生成する`rand`クレートの`gen_range`メソッドが挙げられます。
 
 <!--
 The `Ord` trait allows you to know that for any two values of the annotated

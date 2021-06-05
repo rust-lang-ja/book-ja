@@ -707,7 +707,7 @@ you:
 ```toml
 [dependencies]
 
-rand = "0.3.14"
+rand = "0.8.3"
 ```
 
 <!--
@@ -715,18 +715,22 @@ In the *Cargo.toml* file, everything that follows a header is part of a section
 that continues until another section starts. The `[dependencies]` section is
 where you tell Cargo which external crates your project depends on and which
 versions of those crates you require. In this case, we’ll specify the `rand`
-crate with the semantic version specifier `0.3.14`. Cargo understands [Semantic
-Versioning][semver] (sometimes called *SemVer*), which is a
-standard for writing version numbers. The number `0.3.14` is actually shorthand
-for `^0.3.14`, which means “any version that has a public API compatible with
-version 0.3.14.”
+crate with the semantic version specifier `0.8.3`. Cargo understands [Semantic
+Versioning][semver]<!-- ignore --> (sometimes called *SemVer*), which is a
+standard for writing version numbers. The number `0.8.3` is actually shorthand
+for `^0.8.3`, which means any version that is at least `0.8.3` but below
+`0.9.0`. Cargo considers these versions to have public APIs compatible with
+version `0.8.3`, and this specification ensures you'll get the latest patch
+release that will still compile with the code in this chapter. Any version
+`0.9.0` or greater is not guaranteed to have the same API as what the following
+examples use.
 -->
 
 *Cargo.toml*ファイルにおいて、ヘッダに続くものは全て、他のセクションが始まるまで続くセクションの一部になります。
 `[dependecies]`セクションは、プロジェクトが依存する外部クレートと必要とするバージョンを記述するところです。
-ここでは、`rand`クレートで、セマンティックバージョン指定子には`0.3.14`を指定します。Cargoは、
+ここでは、`rand`クレートで、セマンティックバージョン指定子には`0.8.3`を指定します。Cargoは、
 バージョンナンバー記述の標準規格である[セマンティックバージョニング][semver]<!-- ignore --> (時に*SemVer*と呼ばれる)を理解します。
-`0.3.14`という数字は、実際には`^0.3.14`の省略記法で、これは、「バージョン0.3.14と互換性のある公開APIを持つ任意のバージョン」を意味します。
+`0.8.3`という数字は、実際には`^0.8.3`の省略記法で、これは、「`0.8.3`以上`0.9.0`未満のバージョン」を意味します。これらのバージョンは`0.8.3`と互換性のある公開APIを持ち、この章のコードでもコンパイル可能です。`0.9.0`以上のバージョンが以下の例で使用しているものと同じAPIを持っていることは保証されません。
 
 [semver]: http://semver.org
 
@@ -740,10 +744,10 @@ Listing 2-2.
 ```text
 $ cargo build
     Updating registry `https://github.com/rust-lang/crates.io-index` (レジストリを更新しています)
- Downloading rand v0.3.14                                            (rand v0.3.14をダウンロードしています)
+ Downloading rand v0.8.3                                             (rand v0.8.3をダウンロードしています)
  Downloading libc v0.2.14                                            (libc v0.2.14をダウンロードしています)
    Compiling libc v0.2.14                                            (libc v0.2.14をコンパイルしています)
-   Compiling rand v0.3.14                                            (rand v0.3.14をコンパイルしています)
+   Compiling rand v0.8.3                                             (rand v0.8.3をコンパイルしています)
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)   (guessing_game v0.1.0をコンパイルしています)
     Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
 ```
@@ -837,12 +841,13 @@ your part of the code.
 Cargo has a mechanism that ensures you can rebuild the same artifact every time
 you or anyone else builds your code: Cargo will use only the versions of the
 dependencies you specified until you indicate otherwise. For example, what
-happens if next week version 0.3.15 of the `rand` crate comes out and contains
-an important bug fix but also contains a regression that will break your code?
+happens if next week version 0.8.4 of the `rand` crate comes out and
+contains an important bug fix but also contains a regression that will break
+your code?
 -->
 
 Cargoは、プログラマが自分のコードを更新するたびに同じ生成物を再構成することを保証してくれるメカニズムを備えています: Cargoは、プログラマが示唆するまで、指定したバージョンの依存のみを使用します。
-例として、`rand`クレートの次週のバージョン0.3.15が登場し、重要なバグ修正がなされているけれども、
+例として、`rand`クレートの次週のバージョン0.8.4が登場し、重要なバグ修正がなされているけれども、
 自分のコードを破壊してしまう互換性破壊があった場合はどうなるでしょう？
 
 <!--
@@ -854,7 +859,7 @@ the *Cargo.lock* file. When you build your project in the future, Cargo will
 see that the *Cargo.lock* file exists and use the versions specified there
 rather than doing all the work of figuring out versions again. This lets you
 have a reproducible build automatically. In other words, your project will
-remain at `0.3.14` until you explicitly upgrade, thanks to the *Cargo.lock*
+remain at `0.8.3` until you explicitly upgrade, thanks to the *Cargo.lock*
 file.
 -->
 
@@ -864,7 +869,7 @@ Cargoは判断基準(criteria)に合致するよう全ての依存のバージ�
 次にプロジェクトをビルドする際には、Cargoは*Cargo.lock*ファイルが存在することを確かめ、
 再度バージョンの計算の作業を行うのではなく、そこに指定されているバージョンを使用します。
 このことにより、自動的に再現可能なビルドを構成できるのです。つまり、明示的にアップグレードしない限り、
-プロジェクトが使用するバージョンは`0.3.14`に保たれるのです。*Cargo.lock*ファイルのおかげでね。
+プロジェクトが使用するバージョンは`0.8.3`に保たれるのです。*Cargo.lock*ファイルのおかげでね。
 
 <!--
 #### Updating a Crate to Get a New Version
@@ -884,26 +889,26 @@ those versions to the *Cargo.lock* file
 それがうまくいったら、Cargoはそれらのバージョンを*Cargo.lock*ファイルに記述します。
 
 <!--
-But by default, Cargo will only look for versions larger than `0.3.0` and
-smaller than `0.4.0`. If the `rand` crate has released two new versions,
-`0.3.15` and `0.4.0`, you would see the following if you ran `cargo update`:
+But by default, Cargo will only look for versions greater than `0.8.3` and less
+than `0.9.0`. If the `rand` crate has released two new versions, `0.8.4` and
+`0.9.0`, you would see the following if you ran `cargo update`:
 -->
 
-しかし標準でCargoは、`0.3.0`より大きく、`0.4.0`未満のバージョンのみを検索します。
-`rand`クレートの新バージョンが2つリリースされていたら(`0.3.15`と`0.4.0`だとします)、
+しかし標準でCargoは、`0.8.3`より大きく、`0.9.0`未満のバージョンのみを検索します。
+`rand`クレートの新バージョンが2つリリースされていたら(`0.8.4`と`0.9.0`だとします)、
 `cargo update`コマンドを走らせた時に以下のようなメッセージを目の当たりにするでしょう:
 
 ```text
 $ cargo update
     Updating registry `https://github.com/rust-lang/crates.io-index`
     (レジストリ`https://github.com/rust-lang/crates-io-index`を更新しています)
-    Updating rand v0.3.14 -> v0.3.15
-    (randクレートをv0.3.14 -> v0.3.15に更新しています)
+    Updating rand v0.8.3 -> v0.8.4
+    (randクレートをv0.8.3 -> v0.8.4に更新しています)
 ```
 
 <!--
 At this point, you would also notice a change in your *Cargo.lock* file noting
-that the version of the `rand` crate you are now using is `0.3.15`.
+that the version of the `rand` crate you are now using is `0.8.4`.
 -->
 
 <!--
@@ -911,20 +916,20 @@ that the version of the `rand` crate you are now using is `0.3.15`.
 -->
 
 この時点で、*Cargo.lock*ファイルに書かれている現在使用している`rand`クレートのバージョンが、
-`0.3.15`になっていることにも気付くでしょう。
+`0.8.4`になっていることにも気付くでしょう。
 
 <!--
-If you wanted to use `rand` version `0.4.0` or any version in the `0.4.x`
+If you wanted to use `rand` version `0.9.0` or any version in the `0.9.x`
 series, you’d have to update the *Cargo.toml* file to look like this instead:
 -->
 
-`rand`のバージョン`0.4.0`または、`0.4.x`シリーズのどれかを使用したかったら、
+`rand`のバージョン`0.9.0`または、`0.9.x`シリーズのどれかを使用したかったら、
 代わりに*Cargo.toml*ファイルを以下のように更新しなければならないでしょう:
 
 ```toml
 [dependencies]
 
-rand = "0.4.0"
+rand = "0.9.0"
 ```
 
 <!--
@@ -979,7 +984,7 @@ use rand::Rng;
 fn main() {
     println!("Guess the number!");
 
-    let secret_number = rand::thread_rng().gen_range(1, 101);
+    let secret_number = rand::thread_rng().gen_range(1..101);
 
     println!("The secret number is: {}", secret_number);    //秘密の数字は次の通り: {}
 
@@ -1017,17 +1022,19 @@ Next, we’re adding two lines in the middle. The `rand::thread_rng` function
 will give us the particular random number generator that we’re going to use:
 one that is local to the current thread of execution and seeded by the
 operating system. Then we call the `gen_range` method on the random number
-generator. This method is defined by the `Rng` trait that we brought into
-scope with the `use rand::Rng` statement. The `gen_range` method takes two
-numbers as arguments and generates a random number between them. It’s inclusive
-on the lower bound but exclusive on the upper bound, so we need to specify `1`
-and `101` to request a number between 1 and 100.
+generator. This method is defined by the `Rng` trait that we brought into scope
+with the `use rand::Rng` statement. The `gen_range` method takes a range
+expression as an argument and generates a random number in the range. The kind
+of range expression we’re using here takes the form `start..end`. It’s
+inclusive on the lower bound but exclusive on the upper bound, so we need to
+specify `1..101` to request a number between 1 and 100. Alternatively, we could
+pass the range `1..=100`, which is equivalent.
 -->
 
 次に、途中に2行を追加しています。`rand::thread_rng`関数は、これから使う特定の乱数生成器を返してくれます: この乱数生成器は、実行スレッドに固有で、OSにより、シード値を与えられています。
 そして、この乱数生成器の`gen_range`メソッドを呼び出しています。このメソッドは、
-`use rand::Rng`文でスコープに導入した`Rng`トレイトで定義されています。`gen_range`メソッドは二つの数字を引数に取り、
-それらの間の乱数を生成してくれます。範囲は下限値を含み、上限値を含まないため、`1`と`101`と指定しないと1から100の範囲の数字は得られません。
+`use rand::Rng`文でスコープに導入した`Rng`トレイトで定義されています。`gen_range`メソッドは範囲を引数に取り、
+それらの間の乱数を生成します。範囲は下限値を含み、上限値を含まないため、1から100の範囲の数字は得るには`1..101`と指定する必要があります。`1..=100`と指定する方法もあります。
 
 <!--
 Note: You won’t just know which traits to use and which methods and functions
@@ -1725,7 +1732,7 @@ use std::io;
 fn main() {
     println!("Guess the number!");
 
-    let secret_number = rand::thread_rng().gen_range(1, 101);
+    let secret_number = rand::thread_rng().gen_range(1..101);
 
     loop {
         println!("Please input your guess.");
