@@ -326,10 +326,10 @@ immutable
 (エラー: `s`は不変で借用されているので、可変で借用できません)
  --> borrow_thrice.rs:6:19
   |
-4 |     let r1 = &s; // no problem
+4 |     let r1 = &s; // 問題なし
   |               - immutable borrow occurs here
-5 |     let r2 = &s; // no problem
-6 |     let r3 = &mut s; // BIG PROBLEM
+5 |     let r2 = &s; // 問題なし
+6 |     let r3 = &mut s; // 大問題！
   |                   ^ mutable borrow occurs here
 7 | }
   | - immutable borrow ends here
