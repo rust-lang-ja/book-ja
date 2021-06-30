@@ -511,13 +511,10 @@ fn it_adds_two() {
 ```
 
 <!--
-Note that the `mod common;` declaration is the same as the module declarations
-we demonstrated in Listing 7-4. Then in the test function, we can call the
-`common::setup()` function.
+Note that the mod common; declaration is the same as the module declaration we demonstrated in Listing 7-21. Then in the test function, we can call the common::setup() function.
 -->
 
-`mod common;`という宣言は、リスト7-4で模擬したモジュール宣言と同じであることに注意してください。
-それから、テスト関数内で`common::setup()`関数を呼び出すことができます。
+`mod common;`という宣言は、リスト7-21で模擬したモジュール宣言と同じであることに注意してください。それから、テスト関数内で`common::setup()`関数を呼び出すことができます。
 
 <!--
 #### Integration Tests for Binary Crates
