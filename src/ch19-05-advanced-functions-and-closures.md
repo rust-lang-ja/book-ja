@@ -239,27 +239,7 @@ Chapter 17.
 第17章の「トレイトオブジェクトで異なる型の値を許容する」節を参照してください。
 
 <!--
-## Summary
+Next, let’s look at macros!
 -->
 
-## まとめ
-
-<!--
-Whew! Now you have some features of Rust in your toolbox that you won’t use
-often, but you’ll know they’re available in very particular circumstances.
-We’ve introduced several complex topics so that when you encounter them in
-error message suggestions or in other peoples’ code, you’ll be able to
-recognize these concepts and syntax. Use this chapter as a reference to guide
-you to solutions.
--->
-
-ふう！もう道具箱に頻繁には使用しないRustの機能の一部がありますが、非常に限定された状況で利用可能だと知るでしょう。
-エラーメッセージや他の方のコードで遭遇した際に、これらの概念や記法を認識できるように、
-複雑な話題をいくつか紹介しました。この章は、解決策へ導く参考文献としてご活用ください。
-
-<!--
-Next, we’ll put everything we’ve discussed throughout the book into practice
-and do one more project!
--->
-
-次は、本を通して議論してきた全てを実践に配備し、もう1つプロジェクトを<ruby>熟<rp>(</rp><rt>こな</rt><rp>)</rp></ruby>します！
+次は、マクロを見てみましょう！
