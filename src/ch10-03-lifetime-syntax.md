@@ -5,14 +5,16 @@
 ## ライフタイムで参照を検証する
 
 <!--
-One detail we didn’t discuss in the “References and Borrowing” section in
-Chapter 4 is that every reference in Rust has a *lifetime*, which is the scope
-for which that reference is valid. Most of the time, lifetimes are implicit and
-inferred, just like most of the time, types are inferred. We must annotate types
-when multiple types are possible. In a similar way, we must annotate lifetimes
-when the lifetimes of references could be related in a few different ways. Rust
-requires us to annotate the relationships using generic lifetime parameters to
-ensure the actual references used at runtime will definitely be valid.
+One detail we didn’t discuss in the [“References and
+Borrowing”][references-and-borrowing] section in Chapter 4 is
+that every reference in Rust has a *lifetime*, which is the scope for which
+that reference is valid. Most of the time, lifetimes are implicit and
+inferred, just like most of the time, types are inferred. We must annotate
+types when multiple types are possible. In a similar way, we must annotate
+lifetimes when the lifetimes of references could be related in a few different
+ways. Rust requires us to annotate the relationships using generic lifetime
+parameters to ensure the actual references used at runtime will definitely be
+valid.
 -->
 
 第4章の「参照と借用」節で議論しなかった詳細の一つに、Rustにおいて参照は全てライフタイムを保持するということがあります。
@@ -30,8 +32,7 @@ The concept of lifetimes is somewhat different from tools in other programming
 languages, arguably making lifetimes Rust’s most distinctive feature. Although
 we won’t cover lifetimes in their entirety in this chapter, we’ll discuss
 common ways you might encounter lifetime syntax so you can become familiar with
-the concepts. See the “Advanced Lifetimes” section in Chapter 19 for more
-detailed information.
+the concepts.
 -->
 
 ライフタイムの概念は、他のプログラミング言語の道具とはどこか異なり、間違いなく、
@@ -77,9 +78,9 @@ has gone out of scope</span>
 <span class="caption">リスト10-17: 値がスコープを抜けてしまった参照を使用しようとする</span>
 
 <!--
-> Note: The example in Listing 10-17, 10-18, and 10-24 declare variables
+> Note: The examples in Listings 10-17, 10-18, and 10-24 declare variables
 > without giving them an initial value, so the variable name exists in the
-> outer scope. At first glance, this might appear to be in conflict with Rust's
+> outer scope. At first glance, this might appear to be in conflict with Rust’s
 > having no null values. However, if we try to use a variable before giving it
 > a value, we’ll get a compile-time error, which shows that Rust indeed does
 > not allow null values.
@@ -146,7 +147,7 @@ Rustで、このコードが動くことを許可していたら、`r`は`x`が�
 <!--
 The Rust compiler has a *borrow checker* that compares scopes to determine
 whether all borrows are valid. Listing 10-18 shows the same code as Listing
-10-17 but with annotations showing the lifetimes of the variables:
+10-17 but with annotations showing the lifetimes of the variables.
 -->
 
 Rustコンパイラには、スコープを比較して全ての借用が有効であるかを決定する*借用チェッカー*があります。
@@ -274,21 +275,15 @@ function to find the longer of two string slices</span>
 <!--
 Note that we want the function to take string slices, which are references,
 because we don’t want the `longest` function to take ownership of its
-parameters. We want to allow the function to accept slices of a `String` (the
-type stored in the variable `string1`) as well as string literals (which is
-what variable `string2` contains).
+parameters. Refer to the [“String Slices as
+Parameters”][string-slices-as-parameters] section in Chapter 4
+for more discussion about why the parameters we use in Listing 10-20 are the
+ones we want.
 -->
 
 関数に取ってほしい引数が文字列スライス、つまり参照であることに注意してください。
 何故なら、`longest`関数に引数の所有権を奪ってほしくないからです。
 この関数に`String`のスライス(変数`string1`に格納されている型)と文字列リテラル(変数`string2`が含むもの)を受け取らせたいのです。
-
-<!--
-Refer to the “String Slices as Parameters” section in Chapter 4 for more
-discussion about why the parameters we use in Listing 10-20 are the ones we
-want.
--->
-
 リスト10-20で使用している引数が、我々が必要としているものである理由についてもっと詳しい議論は、
 第4章の「引数としての文字列スライス」節をご参照ください。
 
@@ -500,13 +495,15 @@ The function signature now tells Rust that for some lifetime `'a`, the function
 takes two parameters, both of which are string slices that live at least as
 long as lifetime `'a`. The function signature also tells Rust that the string
 slice returned from the function will live at least as long as lifetime `'a`.
-These constraints are what we want Rust to enforce. Remember, when we specify
-the lifetime parameters in this function signature, we’re not changing the
-lifetimes of any values passed in or returned. Rather, we’re specifying that
-the borrow checker should reject any values that don’t adhere to these
-constraints. Note that the `longest` function doesn’t need to know exactly how
-long `x` and `y` will live, only that some scope can be substituted for `'a`
-that will satisfy this signature.
+In practice, it means that the lifetime of the reference returned by the
+`longest` function is the same as the smaller of the lifetimes of the
+references passed in. These constraints are what we want Rust to enforce.
+Remember, when we specify the lifetime parameters in this function signature,
+we’re not changing the lifetimes of any values passed in or returned. Rather,
+we’re specifying that the borrow checker should reject any values that don’t
+adhere to these constraints. Note that the `longest` function doesn’t need to
+know exactly how long `x` and `y` will live, only that some scope can be
+substituted for `'a` that will satisfy this signature.
 -->
 
 これで関数シグニチャは、何らかのライフタイム`'a`に対して、関数は2つの引数を取り、
@@ -965,7 +962,7 @@ After writing a lot of Rust code, the Rust team found that Rust programmers
 were entering the same lifetime annotations over and over in particular
 situations. These situations were predictable and followed a few deterministic
 patterns. The developers programmed these patterns into the compiler’s code so
-the borrow checker could infer the lifetimes in these situations and wouldn't
+the borrow checker could infer the lifetimes in these situations and wouldn’t
 need explicit annotations.
 -->
 
@@ -1021,7 +1018,8 @@ The compiler uses three rules to figure out what lifetimes references have when
 there aren’t explicit annotations. The first rule applies to input lifetimes,
 and the second and third rules apply to output lifetimes. If the compiler gets
 to the end of the three rules and there are still references for which it can’t
-figure out lifetimes, the compiler will stop with an error.
+figure out lifetimes, the compiler will stop with an error. These rules apply
+to `fn` definitions as well as `impl` blocks.
 -->
 
 コンパイラは3つの規則を活用し、明示的な注釈がない時に、参照がどんなライフタイムになるかを計算します。
@@ -1215,7 +1213,7 @@ impl<'a> ImportantExcerpt<'a> {
 ```
 
 <!--
-The lifetime parameter declaration after `impl` and use after the type name
+The lifetime parameter declaration after `impl` and its use after the type name
 are required, but we’re not required to annotate the lifetime of the reference
 to `self` because of the first elision rule.
 -->
@@ -1262,9 +1260,9 @@ and all lifetimes have been accounted for.
 ###  静的ライフタイム
 
 <!--
-One special lifetime we need to discuss is `'static`, which denotes the entire
-duration of the program. All string literals have the `'static` lifetime, which
-we can annotate as follows:
+One special lifetime we need to discuss is `'static`, which means that this
+reference *can* live for the entire duration of the program. All string
+literals have the `'static` lifetime, which we can annotate as follows:
 -->
 
 議論する必要のある1種の特殊なライフタイムが、`'static`であり、これはプログラム全体の期間を示します。
@@ -1276,7 +1274,7 @@ let s: &'static str = "I have a static lifetime.";
 ```
 
 <!--
-The text of this string is stored directly in the binary of your program, which
+The text of this string is stored directly in the program’s binary, which
 is always available. Therefore, the lifetime of all string literals is
 `'static`.
 -->
@@ -1374,12 +1372,21 @@ analysis happens at compile time, which doesn’t affect runtime performance!
 <!--
 Believe it or not, there is much more to learn on the topics we discussed in
 this chapter: Chapter 17 discusses trait objects, which are another way to use
-traits. Chapter 19 covers more complex scenarios involving lifetime annotations
-as well as some advanced type system features. But next, you’ll learn how to
-write tests in Rust so you can make sure your code is working the way it should.
+traits. There are also more complex scenarios involving lifetime annotations
+that you will only need in very advanced scenarios; for those, you should read
+the [Rust Reference][reference]. But next, you’ll learn how to write tests in
+Rust so you can make sure your code is working the way it should.
 -->
 
 信じるかどうかは自由ですが、この章で議論した話題にはもっともっと学ぶべきことがあります:
 第17章ではトレイトオブジェクトを議論します。これはトレイトを使用する別の手段です。
 第19章では、ライフタイム注釈が関わるもっと複雑な筋書きと何か高度な型システムの機能を講義します。
 ですが次は、コードがあるべき通りに動いていることを確かめられるように、Rustでテストを書く方法を学びます。
+
+<!--
+[references-and-borrowing]:
+ch04-02-references-and-borrowing.html#references-and-borrowing
+[string-slices-as-parameters]:
+ch04-03-slices.html#string-slices-as-parameters
+[reference]: ../reference/index.html
+-->
