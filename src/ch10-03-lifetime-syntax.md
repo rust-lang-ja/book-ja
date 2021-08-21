@@ -17,7 +17,8 @@ parameters to ensure the actual references used at runtime will definitely be
 valid.
 -->
 
-第4章の「参照と借用」節で議論しなかった詳細の一つに、Rustにおいて参照は全てライフタイムを保持するということがあります。
+
+第4章の[「参照と借用」][references-and-borrowing]節で議論しなかった詳細の一つに、Rustにおいて参照は全てライフタイムを保持するということがあります。
 ライフタイムとは、その参照が有効になるスコープのことです。多くの場合、型が推論されるように、
 大体の場合、ライフタイムも暗黙的に推論されます。複数の型の可能性があるときには、型を注釈しなければなりません。
 同様に、参照のライフタイムがいくつか異なる方法で関係することがある場合には注釈しなければなりません。
@@ -38,7 +39,6 @@ the concepts.
 ライフタイムの概念は、他のプログラミング言語の道具とはどこか異なり、間違いなく、
 Rustで一番際立った機能になっています。この章では、ライフタイムの全体を解説することはしませんが、
 ライフタイム記法が必要となる最も一般的な場合について議論しますので、ライフタイムの概念について馴染むことができるでしょう。
-もっと詳しく知るには、第19章の「高度なライフタイム」節を参照してください。
 
 <!--
 ### Preventing Dangling References with Lifetimes
@@ -283,9 +283,8 @@ ones we want.
 
 関数に取ってほしい引数が文字列スライス、つまり参照であることに注意してください。
 何故なら、`longest`関数に引数の所有権を奪ってほしくないからです。
-この関数に`String`のスライス(変数`string1`に格納されている型)と文字列リテラル(変数`string2`が含むもの)を受け取らせたいのです。
 リスト10-20で使用している引数が、我々が必要としているものである理由についてもっと詳しい議論は、
-第4章の「引数としての文字列スライス」節をご参照ください。
+第4章の[「引数としての文字列スライス」][string-slices-as-parameters]節をご参照ください。
 
 <!--
 If we try to implement the `longest` function as shown in Listing 10-21, it
@@ -509,7 +508,10 @@ substituted for `'a` that will satisfy this signature.
 これで関数シグニチャは、何らかのライフタイム`'a`に対して、関数は2つの引数を取り、
 どちらも少なくともライフタイム`'a`と同じだけ生きる文字列スライスであるとコンパイラに教えるようになりました。
 また、この関数シグニチャは、関数から返る文字列スライスも少なくともライフタイム`'a`と同じだけ生きると、
-コンパイラに教えています。これらの制約は、まさに私たちがコンパイラに保証してほしかったものです。
+コンパイラに教えています。
+実際には、`longest`関数が返す参照のライフタイムは、渡された参照のうち、小さい方のライフタイムと同じであるという事です。
+これらの制約は、まさに私たちがコンパイラに保証してほしかったものです。
+
 この関数シグニチャでライフタイム引数を指定する時、渡されたり、返したりした、いかなる値のライフタイムも変更していないことを思い出してください。
 むしろ、借用チェッカーは、これらの制約を守らない値全てを拒否するべきと指定しています。
 `longest`関数は、`x`と`y`の正確な生存期間を知っている必要はなく、
@@ -1025,7 +1027,7 @@ to `fn` definitions as well as `impl` blocks.
 コンパイラは3つの規則を活用し、明示的な注釈がない時に、参照がどんなライフタイムになるかを計算します。
 最初の規則は入力ライフタイムに適用され、2番目と3番目の規則は出力ライフタイムに適用されます。
 コンパイラが3つの規則の最後まで到達し、それでもライフタイムを割り出せない参照があったら、
-コンパイラはエラーで停止します。
+コンパイラはエラーで停止します。これらのルールは`fn`の定義にも`impl`ブロックにも適用されます。
 
 <!--
 The first rule is that each parameter that is a reference gets its own lifetime
@@ -1265,7 +1267,7 @@ reference *can* live for the entire duration of the program. All string
 literals have the `'static` lifetime, which we can annotate as follows:
 -->
 
-議論する必要のある1種の特殊なライフタイムが、`'static`であり、これはプログラム全体の期間を示します。
+議論する必要のある1種の特殊なライフタイムが、`'static`であり、これは、この参照がプログラムの全期間生存*できる*事を意味します。
 文字列リテラルは全て`'static`ライフタイムになり、次のように注釈できます:
 
 ```rust
@@ -1378,15 +1380,17 @@ the [Rust Reference][reference]. But next, you’ll learn how to write tests in
 Rust so you can make sure your code is working the way it should.
 -->
 
+
+
+
+
 信じるかどうかは自由ですが、この章で議論した話題にはもっともっと学ぶべきことがあります:
 第17章ではトレイトオブジェクトを議論します。これはトレイトを使用する別の手段です。
-第19章では、ライフタイム注釈が関わるもっと複雑な筋書きと何か高度な型システムの機能を講義します。
+非常に高度な筋書きの場合でのみ必要になる、ライフタイム注釈が関わる、もっと複雑な筋書きもあります。 それらについては、[Rust Reference][reference]をお読みください。 
 ですが次は、コードがあるべき通りに動いていることを確かめられるように、Rustでテストを書く方法を学びます。
 
-<!--
 [references-and-borrowing]:
-ch04-02-references-and-borrowing.html#references-and-borrowing
+ch04-02-references-and-borrowing.html#参照と借用
 [string-slices-as-parameters]:
-ch04-03-slices.html#string-slices-as-parameters
+ch04-03-slices.html#引数としての文字列スライス
 [reference]: ../reference/index.html
--->
