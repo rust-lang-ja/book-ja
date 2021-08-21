@@ -27,13 +27,13 @@ In this chapter, we’ll cover:
 
 <!--
 * Unsafe Rust: how to opt out of some of Rust’s guarantees and take
-responsibility for manually upholding those guarantees
-* Advanced lifetimes: syntax for complex lifetime situations
+  responsibility for manually upholding those guarantees
 * Advanced traits: associated types, default type parameters, fully qualified
-syntax, supertraits, and the newtype pattern in relation to traits
+  syntax, supertraits, and the newtype pattern in relation to traits
 * Advanced types: more about the newtype pattern, type aliases, the never type,
-and dynamically sized types
+  and dynamically sized types
 * Advanced functions and closures: function pointers and returning closures
+* Macros: ways to define code that defines more code at compile time
 -->
 
 * Unsafe Rust: Rustの保証の一部を抜けてその保証を手動で保持する責任を負う方法
