@@ -1393,4 +1393,4 @@ Rust so you can make sure your code is working the way it should.
 ch04-02-references-and-borrowing.html#参照と借用
 [string-slices-as-parameters]:
 ch04-03-slices.html#引数としての文字列スライス
-[reference]: ../reference/index.html
+[reference]: https://doc.rust-lang.org/reference/
