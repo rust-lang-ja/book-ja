@@ -526,7 +526,7 @@ patterns.
 -->
 
 > 注釈: C++では、要素の生存期間の終了地点でリソースを解放するこのパターンを時に、
-> *RAII*(Resource Aquisition Is Initialization: リソースの獲得は、初期化である)と呼んだりします。
+> *RAII*(Resource Acquisition Is Initialization: リソースの獲得は、初期化である)と呼んだりします。
 > Rustの`drop`関数は、あなたがRAIIパターンを使ったことがあれば、馴染み深いものでしょう。
 
 <!--
