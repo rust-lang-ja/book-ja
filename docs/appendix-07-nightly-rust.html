@@ -426,7 +426,7 @@ nightly toolchain as the one `rustup` should use when you’re in that directory
 そうするためには、そのプロジェクトのディレクトリで<code>rustup override</code>を使用して、そのディレクトリにいる時に、
 <code>rustup</code>が使用するべきツールチェーンとしてナイトリ版のものをセットします。</p>
 <pre><code class="language-text">$ cd ~/projects/needs-nightly
-$ rustup override add nightly
+$ rustup override set nightly
 </code></pre>
 <!--
 Now, every time you call `rustc` or `cargo` inside of
