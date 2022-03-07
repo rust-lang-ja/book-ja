@@ -20,7 +20,7 @@ an internet connection for the download.
 > 注釈: なんらかの理由で`rustup`を使用したくない場合、[Rustインストールページ][rust-installation-page]で、
 > 他の選択肢をご覧になってください。
 
-> 訳注：日本語版のthe Rust installation pageは[こちら][rust-installation-page-ja]です。
+> 訳注：日本語版のRustインストールページは[こちら][rust-installation-page-ja]です。
 
 [rust-installation-page]: https://www.rust-lang.org/tools/install/
 [rust-installation-page-ja]: https://www.rust-lang.org/ja/tools/install/
