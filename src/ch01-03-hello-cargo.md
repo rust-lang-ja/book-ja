@@ -123,7 +123,7 @@ code in Listing 1-2.
 [package]
 name = "hello_cargo"
 version = "0.1.0"
-authors = ["Your Name <you@example.com>"]
+edition = "2018"
 
 [dependencies]
 ```
@@ -156,14 +156,12 @@ this file, we’ll add other sections.
 
 <!--
 The next three lines set the configuration information Cargo needs to compile
-your program: the name, the version, and who wrote it. Cargo gets your name and
-email information from your environment, so if that information is not correct,
-fix the information now and then save the file.
+your program: the name, the version, and the edition of Rust to use. We’ll talk
+about the `edition` key in [Appendix E][appendix-e]<!-- ignore -->.
 -->
 
-その後の3行が、Cargoがプログラムをコンパイルするのに必要な設定情報をセットします: 名前、バージョン、誰が書いたかです。
-Cargoは名前とEメールの情報を環境から取得するので、その情報が正しくなければ、
-今修正してそれから保存してください。
+その後の3行が、Cargoがプログラムをコンパイルするのに必要な設定情報をセットします: 名前、バージョン、使用するRustのエディションです。
+`edition`キーについては、[Appendix E][appendix-e]<!-- ignore -->で話題にします。
 
 <!--
 The last line, `[dependencies]`, is the start of a section for you to list any
