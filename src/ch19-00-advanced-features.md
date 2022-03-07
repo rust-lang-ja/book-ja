@@ -34,6 +34,7 @@ syntax, supertraits, and the newtype pattern in relation to traits
 * Advanced types: more about the newtype pattern, type aliases, the never type,
 and dynamically sized types
 * Advanced functions and closures: function pointers and returning closures
+* Macros: ways to define code that defines more code at compile time
 -->
 
 * Unsafe Rust: Rustの保証の一部を抜けてその保証を手動で保持する責任を負う方法
@@ -41,6 +42,7 @@ and dynamically sized types
 * 高度なトレイト: 関連型、デフォルト型引数、フルパス記法、スーパートレイト、トレイトに関連するニュータイプパターン
 * 高度な型: ニュータイプパターンについてもっと、型エイリアス、never型、動的サイズ決定型
 * 高度な関数とクロージャ: 関数ポインタとクロージャの返却
+* マクロ: コンパイル時に、より多くのコードを定義するコードを定義する方法
 
 <!--
 It’s a panoply of Rust features with something for everyone! Let’s dive in!
