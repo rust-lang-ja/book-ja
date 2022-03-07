@@ -269,7 +269,7 @@ code in Listing 1-2.
 <pre><code class="language-toml">[package]
 name = &quot;hello_cargo&quot;
 version = &quot;0.1.0&quot;
-authors = [&quot;Your Name &lt;you@example.com&gt;&quot;]
+edition = &quot;2018&quot;
 
 [dependencies]
 </code></pre>
@@ -293,13 +293,11 @@ this file, we’ll add other sections.
 別のセクションも追加するでしょう。</p>
 <!--
 The next three lines set the configuration information Cargo needs to compile
-your program: the name, the version, and who wrote it. Cargo gets your name and
-email information from your environment, so if that information is not correct,
-fix the information now and then save the file.
--->
-<p>その後の3行が、Cargoがプログラムをコンパイルするのに必要な設定情報をセットします: 名前、バージョン、誰が書いたかです。
-Cargoは名前とEメールの情報を環境から取得するので、その情報が正しくなければ、
-今修正してそれから保存してください。</p>
+your program: the name, the version, and the edition of Rust to use. We’ll talk
+about the `edition` key in [Appendix E][appendix-e]<!-- ignore -->.
+<p>--&gt;</p>
+<p>その後の3行が、Cargoがプログラムをコンパイルするのに必要な設定情報をセットします: 名前、バージョン、使用するRustのエディションです。
+<code>edition</code>キーについては、[Appendix E][appendix-e]<!-- ignore -->で話題にします。</p>
 <!--
 The last line, `[dependencies]`, is the start of a section for you to list any
 of your project’s dependencies. In Rust, packages of code are referred to as
