@@ -17,13 +17,13 @@ an internet connection for the download.
 > installation page](https://www.rust-lang.org/tools/install) for other options.
 -->
 
-> 注釈: なんらかの理由で`rustup`を使用したくない場合、[Rustインストールページ][the Rust installation page]で、
+> 注釈: なんらかの理由で`rustup`を使用したくない場合、[Rustインストールページ][rust-installation-page]で、
 > 他の選択肢をご覧になってください。
 
-> 訳注：日本語版のthe Rust installation pageは[こちら][the Rust installation page-ja]です。
+> 訳注：日本語版のthe Rust installation pageは[こちら][rust-installation-page-ja]です。
 
-[the Rust installation page]: https://www.rust-lang.org/tools/install/
-[the Rust installation page-ja: https://www.rust-lang.org/ja/tools/install/
+[rust-installation-page]: https://www.rust-lang.org/tools/install/
+[rust-installation-page-ja]: https://www.rust-lang.org/ja/tools/install/
 
 <!--
 The following steps install the latest stable version of the Rust compiler.
