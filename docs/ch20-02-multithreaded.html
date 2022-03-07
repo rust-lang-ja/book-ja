@@ -1097,7 +1097,7 @@ function as the queue of jobs, and `execute` will send a job from the
 Here is the plan:
 -->
 <p>第16章でこのユースケースにぴったりであろう<em>チャンネル</em>(2スレッド間コミュニケーションをとる単純な方法)について学びました。
-チャンネルを仕事のキューとして機能させ、<code>execute</code>は<code>ThreadPool</code>から<code>Worker</code>インスタンスに仕事を送り、
+チャンネルをキューの仕事として機能させ、<code>execute</code>は<code>ThreadPool</code>から<code>Worker</code>インスタンスに仕事を送り、
 これが仕事をスレッドに送信します。こちらが計画です:</p>
 <!--
 1. The `ThreadPool` will create a channel and hold on to the sending side of
