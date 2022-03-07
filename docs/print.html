@@ -35675,6 +35675,7 @@ syntax, supertraits, and the newtype pattern in relation to traits
 * Advanced types: more about the newtype pattern, type aliases, the never type,
 and dynamically sized types
 * Advanced functions and closures: function pointers and returning closures
+* Macros: ways to define code that defines more code at compile time
 -->
 <ul>
 <li>Unsafe Rust: Rustの保証の一部を抜けてその保証を手動で保持する責任を負う方法</li>
@@ -35682,6 +35683,7 @@ and dynamically sized types
 <li>高度なトレイト: 関連型、デフォルト型引数、フルパス記法、スーパートレイト、トレイトに関連するニュータイプパターン</li>
 <li>高度な型: ニュータイプパターンについてもっと、型エイリアス、never型、動的サイズ決定型</li>
 <li>高度な関数とクロージャ: 関数ポインタとクロージャの返却</li>
+<li>マクロ: コンパイル時に、より多くのコードを定義するコードを定義する方法</li>
 </ul>
 <!--
 It’s a panoply of Rust features with something for everyone! Let’s dive in!
@@ -38165,25 +38167,9 @@ Chapter 17.
 <p>このコードは、問題なくコンパイルできます。トレイトオブジェクトについて詳しくは、
 第17章の「トレイトオブジェクトで異なる型の値を許容する」節を参照してください。</p>
 <!--
-## Summary
+Next, let’s look at macros!
 -->
-<h2 id="まとめ-18"><a class="header" href="#まとめ-18">まとめ</a></h2>
-<!--
-Whew! Now you have some features of Rust in your toolbox that you won’t use
-often, but you’ll know they’re available in very particular circumstances.
-We’ve introduced several complex topics so that when you encounter them in
-error message suggestions or in other peoples’ code, you’ll be able to
-recognize these concepts and syntax. Use this chapter as a reference to guide
-you to solutions.
--->
-<p>ふう！もう道具箱に頻繁には使用しないRustの機能の一部がありますが、非常に限定された状況で利用可能だと知るでしょう。
-エラーメッセージや他の方のコードで遭遇した際に、これらの概念や記法を認識できるように、
-複雑な話題をいくつか紹介しました。この章は、解決策へ導く参考文献としてご活用ください。</p>
-<!--
-Next, we’ll put everything we’ve discussed throughout the book into practice
-and do one more project!
--->
-<p>次は、本を通して議論してきた全てを実践に配備し、もう1つプロジェクトを<ruby>熟<rp>(</rp><rt>こな</rt><rp>)</rp></ruby>します！</p>
+<p>次は、マクロを見てみましょう！</p>
 <div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
 ## Macros
 -->
@@ -39046,7 +39032,7 @@ generate.
 <!--
 ## Summary
 -->
-<h2 id="まとめ-19"><a class="header" href="#まとめ-19">まとめ</a></h2>
+<h2 id="まとめ-18"><a class="header" href="#まとめ-18">まとめ</a></h2>
 <!--
 Whew! Now you have some Rust features in your toolbox that you won’t use often,
 but you’ll know they’re available in very particular circumstances. We’ve
@@ -42338,7 +42324,7 @@ thread pool we implemented.
 <!--
 ## Summary
 -->
-<h2 id="まとめ-20"><a class="header" href="#まとめ-20">まとめ</a></h2>
+<h2 id="まとめ-19"><a class="header" href="#まとめ-19">まとめ</a></h2>
 <!--
 Well done! You’ve made it to the end of the book! We want to thank you for
 joining us on this tour of Rust. You’re now ready to implement your own Rust
