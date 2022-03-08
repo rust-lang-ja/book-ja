@@ -93,7 +93,7 @@ a > .hljs {
 .menu-title {
     display: inline-block;
     font-weight: 200;
-    font-size: 2rem;
+    font-size: 2.4rem;
     line-height: var(--menu-bar-height);
     text-align: center;
     margin: 0;
@@ -423,7 +423,7 @@ ul#searchresults span.teaser em {
     display: none;
 }
 
-.chapter li.expanded {
+.chapter li.chapter-item {
     line-height: 1.5em;
     margin-top: 0.6em;
 }

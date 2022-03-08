@@ -10,7 +10,7 @@ somewhere. In this chapter, we’ll discuss:
 -->
 
 Rustの旅を始めましょう！学ぶべきことはたくさんありますが、いかなる旅もどこかから始まります。
-この章では、以下のことを議論します:
+この章では、以下のことを説明します:
 
 <!--
 * Installing Rust on Linux, macOS, and Windows
@@ -19,5 +19,5 @@ Rustの旅を始めましょう！学ぶべきことはたくさんあります�
 -->
 
 * RustをLinux、macOS、Windowsにインストールする
-* `Hello, world!`と出力するプログラムを書く
+* `Hello, world!`と表示するプログラムを書く
 * `cargo`というRustのパッケージマネージャ兼ビルドシステムを使用する

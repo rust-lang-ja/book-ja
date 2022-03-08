@@ -3,24 +3,38 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>リファクタリンクしてモジュール性とエラー処理を向上させる - The Rust Programming Language 日本語版</title>
+        <title>リファクタリングしてモジュール性とエラー処理を向上させる - The Rust Programming Language 日本語版</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
         <link rel="shortcut icon" href="favicon.png">
+        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
+        
         <link rel="stylesheet" href="css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -42,7 +56,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -86,8 +100,8 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language 日本語版</a></li><li class="expanded affix "><a href="foreword.html">まえがき</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">導入</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 事始め</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 一般的なプログラミングの概念</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と可変性</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> フロー制御</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権を理解する</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とは？</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス型</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使ったプログラム例</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumを定義する</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> matchフロー制御演算子</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letで簡潔なフロー制御</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> パッケージとクレート</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> モジュールを定義して、スコープとプライバシーを制御する</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> モジュールツリーの要素を示すためのパス</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> useキーワードでパスをスコープに持ち込む</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> モジュールを複数のファイルに分割する</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 一般的なコレクション</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> ベクタで一連の値を保持する</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 文字列でUTF-8でエンコードされたテキストを保持する</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> キーとそれに紐づいた値をハッシュマップに格納する</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト：共通の振る舞いを定義する</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を検証する</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 自動テストを書く</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストの記述法</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストの実行のされ方を制御する</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト：コマンドラインプログラムを構築する</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> コマンドライン引数を受け付ける</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> ファイルを読み込む</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html" class="active"><strong aria-hidden="true">12.3.</strong> リファクタリンクしてモジュール性とエラー処理を向上させる</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> テスト駆動開発でライブラリの機能を開発する</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 環境変数を取り扱う</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 標準出力ではなく標準エラーにエラーメッセージを書き込む</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 関数型言語の機能：イテレータとクロージャ</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> クロージャ：環境をキャプチャできる匿名関数</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 一連の要素をイテレータで処理する</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 入出力プロジェクトを改善する</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> パフォーマンス比較：ループVSイテレータ</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> スマートポインタ</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> ヒープのデータを指すBox<T>を使用する</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Derefトレイトでスマートポインタを普通の参照のように扱う</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Dropトレイトで片付け時にコードを走らせる</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>は、参照カウント方式のスマートポインタ</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T>と内部可変性パターン</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 循環参照は、メモリをリークすることもある</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 恐れるな！並行性</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> スレッドを使用してコードを同時に走らせる</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> メッセージ受け渡しを使ってスレッド間でデータを転送する</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 状態共有並行性</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> SyncとSendトレイトで拡張可能な並行性</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rustのオブジェクト指向プログラミング機能</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> オブジェクト指向言語の特徴</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> トレイトオブジェクトで異なる型の値を許容する</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> オブジェクト指向デザインパターンを実装する</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> パターンとマッチング</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> パターンが使用されることのある箇所全部</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 論駁可能性：パターンが合致しないかどうか</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> パターン記法</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高度な機能</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高度なトレイト</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高度な型</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高度な関数とクロージャ</a></li><li class="expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> マクロ</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後のプロジェクト：マルチスレッドのWebサーバを構築する</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> シングルスレッドのWebサーバを構築する</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> シングルスレッドサーバをマルチスレッド化する</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 正常なシャットダウンと片付け</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 付録</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> 付録A：キーワード</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> 付録B：演算子と記号</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> 付録C：導出可能なトレイト</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> 付録D：便利な開発ツール</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> 付録E：Edition</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> 付録F：本の翻訳</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> 付録G：Rustの作られ方と“Nightly Rust”</a></li></ol></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">The Rust Programming Language 日本語版</a></li><li class="chapter-item expanded affix "><a href="foreword.html">まえがき</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">はじめに</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 事始め</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 一般的なプログラミングの概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と可変性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> フロー制御</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権を理解する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス型</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使ったプログラム例</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumを定義する</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> matchフロー制御演算子</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letで簡潔なフロー制御</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> パッケージとクレート</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> モジュールを定義して、スコープとプライバシーを制御する</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> モジュールツリーの要素を示すためのパス</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> useキーワードでパスをスコープに持ち込む</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> モジュールを複数のファイルに分割する</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 一般的なコレクション</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> ベクタで一連の値を保持する</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 文字列でUTF-8でエンコードされたテキストを保持する</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> キーとそれに紐づいた値をハッシュマップに格納する</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト：共通の振る舞いを定義する</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を検証する</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 自動テストを書く</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストの記述法</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストの実行のされ方を制御する</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト：コマンドラインプログラムを構築する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> コマンドライン引数を受け付ける</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> ファイルを読み込む</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html" class="active"><strong aria-hidden="true">12.3.</strong> リファクタリングしてモジュール性とエラー処理を向上させる</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> テスト駆動開発でライブラリの機能を開発する</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 環境変数を取り扱う</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 標準出力ではなく標準エラーにエラーメッセージを書き込む</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 関数型言語の機能：イテレータとクロージャ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> クロージャ：環境をキャプチャできる匿名関数</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 一連の要素をイテレータで処理する</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 入出力プロジェクトを改善する</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> パフォーマンス比較：ループVSイテレータ</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> スマートポインタ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> ヒープのデータを指すBox&lt;T&gt;を使用する</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Derefトレイトでスマートポインタを普通の参照のように扱う</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Dropトレイトで片付け時にコードを走らせる</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc&lt;T&gt;は、参照カウント方式のスマートポインタ</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell&lt;T&gt;と内部可変性パターン</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 循環参照は、メモリをリークすることもある</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 恐れるな！並行性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> スレッドを使用してコードを同時に走らせる</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> メッセージ受け渡しを使ってスレッド間でデータを転送する</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 状態共有並行性</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> SyncとSendトレイトで拡張可能な並行性</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rustのオブジェクト指向プログラミング機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> オブジェクト指向言語の特徴</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> トレイトオブジェクトで異なる型の値を許容する</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> オブジェクト指向デザインパターンを実装する</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> パターンとマッチング</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> パターンが使用されることのある箇所全部</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 論駁可能性：パターンが合致しないかどうか</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> パターン記法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高度な機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高度なトレイト</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高度な型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高度な関数とクロージャ</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html"><strong aria-hidden="true">19.5.</strong> マクロ</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後のプロジェクト：マルチスレッドのWebサーバを構築する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> シングルスレッドのWebサーバを構築する</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> シングルスレッドサーバをマルチスレッド化する</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 正常なシャットダウンと片付け</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 付録</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> 付録A：キーワード</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> 付録B：演算子と記号</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> 付録C：導出可能なトレイト</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> 付録D：便利な開発ツール</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> 付録E：Edition</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> 付録F：本の翻訳</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> 付録G：Rustの作られ方と“Nightly Rust”</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -122,17 +136,21 @@
                     <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
 
                     <div class="right-buttons">
+                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
+                        
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -156,7 +174,7 @@
                         <!--
 ## Refactoring to Improve Modularity and Error Handling
 -->
-<h2><a class="header" href="#リファクタリングしてモジュール性とエラー処理を向上させる" id="リファクタリングしてモジュール性とエラー処理を向上させる">リファクタリングしてモジュール性とエラー処理を向上させる</a></h2>
+<h2 id="リファクタリングしてモジュール性とエラー処理を向上させる"><a class="header" href="#リファクタリングしてモジュール性とエラー処理を向上させる">リファクタリングしてモジュール性とエラー処理を向上させる</a></h2>
 <!--
 To improve our program, we’ll fix four problems that have to do with the
 program’s structure and how it’s handling potential errors.
@@ -226,7 +244,7 @@ Let’s address these four problems by refactoring our project.
 <!--
 ### Separation of Concerns for Binary Projects
 -->
-<h3><a class="header" href="#バイナリプロジェクトの責任の分離" id="バイナリプロジェクトの責任の分離">バイナリプロジェクトの責任の分離</a></h3>
+<h3 id="バイナリプロジェクトの責任の分離"><a class="header" href="#バイナリプロジェクトの責任の分離">バイナリプロジェクトの責任の分離</a></h3>
 <!--
 The organizational problem of allocating responsibility for multiple tasks to
 the `main` function is common to many binary projects. As a result, the Rust
@@ -235,7 +253,7 @@ separate concerns of a binary program when `main` starts getting large. The
 process has the following steps:
 -->
 <p><code>main</code>関数に複数の仕事の責任を割り当てるという構造上の問題は、多くのバイナリプロジェクトでありふれています。
-結果として、<code>main</code>が肥大化し始めた際にバイナリプログラムの個別の責任を分割するためにガイドラインとして活用できる工程をRustコミニュティは、
+結果として、<code>main</code>が肥大化し始めた際にバイナリプログラムの個別の責任を分割するためにガイドラインとして活用できる工程をRustコミュニティは、
 開発しました。この工程は、以下のような手順になっています:</p>
 <!--
 * Split your program into a *main.rs* and a *lib.rs* and move your program’s
@@ -283,7 +301,7 @@ reading it. Let’s rework our program by following this process.
 <!--
 #### Extracting the Argument Parser
 -->
-<h4><a class="header" href="#引数解析器を抽出する" id="引数解析器を抽出する">引数解析器を抽出する</a></h4>
+<h4 id="引数解析器を抽出する"><a class="header" href="#引数解析器を抽出する">引数解析器を抽出する</a></h4>
 <!--
 We’ll extract the functionality for parsing arguments into a function that
 `main` will call to prepare for moving the command line parsing logic to
@@ -345,7 +363,7 @@ often, to help you identify the cause of problems when they occur.
 <!--
 #### Grouping Configuration Values
 -->
-<h4><a class="header" href="#設定値をまとめる" id="設定値をまとめる">設定値をまとめる</a></h4>
+<h4 id="設定値をまとめる"><a class="header" href="#設定値をまとめる">設定値をまとめる</a></h4>
 <!--
 We can take another small step to improve the `parse_config` function further.
 At the moment, we’re returning a tuple, but then we immediately break that
@@ -385,7 +403,7 @@ Listing 12-6 shows the improvements to the `parse_config` function.
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust should_panic"><span class="boring">use std::env;
+<pre><pre class="playground"><code class="language-rust should_panic"><span class="boring">use std::env;
 </span><span class="boring">use std::fs::File;
 </span><span class="boring">
 </span>fn main() {
@@ -463,7 +481,7 @@ trade-off.
 > now, it’s perfectly acceptable to call `clone`.
 -->
 <blockquote>
-<h3><a class="header" href="#cloneを使用する代償" id="cloneを使用する代償"><code>clone</code>を使用する代償</a></h3>
+<h3 id="cloneを使用する代償"><a class="header" href="#cloneを使用する代償"><code>clone</code>を使用する代償</a></h3>
 <p>実行時コストのために<code>clone</code>を使用して所有権問題を解消するのを避ける傾向が多くのRustaceanにあります。
 第13章で、この種の状況においてより効率的なメソッドの使用法を学ぶでしょう。ですがとりあえずは、
 これらのコピーをするのは1回だけですし、ファイル名とクエリ文字列は非常に小さなものなので、
@@ -490,7 +508,7 @@ named for their purpose.
 <!--
 #### Creating a Constructor for `Config`
 -->
-<h4><a class="header" href="#configのコンストラクタを作成する" id="configのコンストラクタを作成する"><code>Config</code>のコンストラクタを作成する</a></h4>
+<h4 id="configのコンストラクタを作成する"><a class="header" href="#configのコンストラクタを作成する"><code>Config</code>のコンストラクタを作成する</a></h4>
 <!--
 So far, we’ve extracted the logic responsible for parsing the command line
 arguments from `main` and placed it in the `parse_config` function. Doing so
@@ -523,7 +541,7 @@ shows the changes we need to make.
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust should_panic"><span class="boring">use std::env;
+<pre><pre class="playground"><code class="language-rust should_panic"><span class="boring">use std::env;
 </span><span class="boring">
 </span>fn main() {
     let args: Vec&lt;String&gt; = env::args().collect();
@@ -566,7 +584,7 @@ compiling this code again to make sure it works.
 <!--
 ### Fixing the Error Handling
 -->
-<h3><a class="header" href="#エラー処理を修正する" id="エラー処理を修正する">エラー処理を修正する</a></h3>
+<h3 id="エラー処理を修正する"><a class="header" href="#エラー処理を修正する">エラー処理を修正する</a></h3>
 <!--
 Now we’ll work on fixing our error handling. Recall that attempting to access
 the values in the `args` vector at index 1 or index 2 will cause the program to
@@ -594,7 +612,7 @@ happened and what they should do instead. Let’s fix that now.
 <!--
 #### Improving the Error Message
 -->
-<h4><a class="header" href="#エラーメッセージを改善する" id="エラーメッセージを改善する">エラーメッセージを改善する</a></h4>
+<h4 id="エラーメッセージを改善する"><a class="header" href="#エラーメッセージを改善する">エラーメッセージを改善する</a></h4>
 <!--
 In Listing 12-8, we add a check in the `new` function that will verify that the
 slice is long enough before accessing index 1 and 2. If the slice isn’t long
@@ -663,7 +681,7 @@ error.
 <!--
 #### Returning a `Result` from `new` Instead of Calling `panic!`
 -->
-<h4><a class="header" href="#panicを呼び出す代わりにnewからresultを返す" id="panicを呼び出す代わりにnewからresultを返す"><code>panic!</code>を呼び出す代わりに<code>new</code>から<code>Result</code>を返す</a></h4>
+<h4 id="panicを呼び出す代わりにnewからresultを返す"><a class="header" href="#panicを呼び出す代わりにnewからresultを返す"><code>panic!</code>を呼び出す代わりに<code>new</code>から<code>Result</code>を返す</a></h4>
 <!--
 We can instead return a `Result` value that will contain a `Config` instance in
 the successful case and will describe the problem in the error case. When
@@ -733,7 +751,7 @@ more cleanly in the error case.
 <!--
 #### Calling `Config::new` and Handling Errors
 -->
-<h4><a class="header" href="#confignewを呼び出しエラーを処理する" id="confignewを呼び出しエラーを処理する"><code>Config::new</code>を呼び出し、エラーを処理する</a></h4>
+<h4 id="confignewを呼び出しエラーを処理する"><a class="header" href="#confignewを呼び出しエラーを処理する"><code>Config::new</code>を呼び出し、エラーを処理する</a></h4>
 <!--
 To handle the error case and print a user-friendly message, we need to update
 `main` to handle the `Result` being returned by `Config::new`, as shown in
@@ -818,7 +836,7 @@ Great! This output is much friendlier for our users.
 <!--
 ### Extracting Logic from `main`
 -->
-<h3><a class="header" href="#mainからロジックを抽出する" id="mainからロジックを抽出する"><code>main</code>からロジックを抽出する</a></h3>
+<h3 id="mainからロジックを抽出する"><a class="header" href="#mainからロジックを抽出する"><code>main</code>からロジックを抽出する</a></h3>
 <!--
 Now that we’ve finished refactoring the configuration parsing, let’s turn to
 the program’s logic. As we stated in “Separation of Concerns for Binary
@@ -879,7 +897,7 @@ argument.
 <!--
 #### Returning Errors from the `run` Function
 -->
-<h4><a class="header" href="#run関数からエラーを返す" id="run関数からエラーを返す"><code>run</code>関数からエラーを返す</a></h4>
+<h4 id="run関数からエラーを返す"><a class="header" href="#run関数からエラーを返す"><code>run</code>関数からエラーを返す</a></h4>
 <!--
 1行目。ここではwith ...を順接の理由で訳している。with ...は普通、状態を表す表現
 ちょっと意味が強すぎるかもしれない。
@@ -992,7 +1010,7 @@ have some error-handling code here! Let’s rectify that problem now.
 <!--
 #### Handling Errors Returned from `run` in `main`
 -->
-<h4><a class="header" href="#mainでrunから返ってきたエラーを処理する" id="mainでrunから返ってきたエラーを処理する"><code>main</code>で<code>run</code>から返ってきたエラーを処理する</a></h4>
+<h4 id="mainでrunから返ってきたエラーを処理する"><a class="header" href="#mainでrunから返ってきたエラーを処理する"><code>main</code>で<code>run</code>から返ってきたエラーを処理する</a></h4>
 <!--
 We’ll check for errors and handle them using a technique similar to one we used
 with `Config::new` in Listing 12-10, but with a slight difference:
@@ -1036,7 +1054,7 @@ both cases: we print the error and exit.
 <!--
 ### Splitting Code into a Library Crate
 -->
-<h3><a class="header" href="#コードをライブラリクレートに分割する" id="コードをライブラリクレートに分割する">コードをライブラリクレートに分割する</a></h3>
+<h3 id="コードをライブラリクレートに分割する"><a class="header" href="#コードをライブラリクレートに分割する">コードをライブラリクレートに分割する</a></h3>
 <!--
 Our `minigrep` project is looking good so far! Now we’ll split the
 *src/main.rs* file and put some code into the *src/lib.rs* file so we can test
@@ -1201,10 +1219,10 @@ write some tests!
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

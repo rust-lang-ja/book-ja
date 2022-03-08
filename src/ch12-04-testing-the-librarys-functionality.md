@@ -123,12 +123,12 @@ function we wish we had</span>
 <span class="caption">リスト12-15: こうだったらいいなという`search`関数の失敗するテストを作成する</span>
 
 <!--
-This test searches for the string `“duct.”` The text we’re searching is three
-lines, only one of which contains `“duct.”` We assert that the value returned
+This test searches for the string `“duct”`. The text we’re searching is three
+lines, only one of which contains `“duct”`. We assert that the value returned
 from the `search` function contains only the line we expect.
 -->
 
-このテストは、`"duct."`という文字列を検索します。検索対象の文字列は3行で、うち1行だけが`"duct."`を含みます。
+このテストは、`"duct"`という文字列を検索します。検索対象の文字列は3行で、うち1行だけが`"duct"`を含みます。
 `search`関数から返る値が想定している行だけを含むことをアサーションします。
 
 <!--

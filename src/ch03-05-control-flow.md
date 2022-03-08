@@ -706,7 +706,7 @@ fn main() {
 using a `for` loop</span>
 -->
 
-<span class="caption">リスト3-4: `for`ループを使ってコレクションの各要素を覗き見る</span>
+<span class="caption">リスト3-5: `for`ループを使ってコレクションの各要素を覗き見る</span>
 
 <!--
 When we run this code, we’ll see the same output as in Listing 3-4. More

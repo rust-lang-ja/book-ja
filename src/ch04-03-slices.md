@@ -10,7 +10,7 @@ reference a contiguous sequence of elements in a collection rather than the
 whole collection.
 -->
 
-所有権のない別のデータ型は、*スライス*です。スライスにより、コレクション全体というより、
+所有権のない別のデータ型は、*スライス*です。スライスにより、コレクション全体ではなく、
 その内の一連の要素を参照することができます。
 
 <!--
@@ -20,8 +20,8 @@ space in the string, the whole string must be one word, so the entire string
 should be returned.
 -->
 
-ここに小さなプログラミング問題があります: 文字列を受け取って、その文字列中の最初の単語を返す関数を書いてください。
-関数が文字列中に空白を見つけなかったら、文字列全体が一つの単語に違いないので、文字列全体が返されるべきです。
+ちょっとしたプログラミングの問題を考えてみましょう: 文字列を受け取って、その文字列中の最初の単語を返す関数を書いてください。
+関数が文字列中に空白を見つけられなかったら、文字列全体が一つの単語に違いないので、文字列全体が返されるべきです。
 
 <!--
 Let’s think about the signature of this function:
@@ -37,7 +37,7 @@ fn first_word(s: &String) -> ?
 This function, `first_word`, has a `&String` as a parameter. We don’t want
 ownership, so this is fine. But what should we return? We don’t really have a
 way to talk about *part* of a string. However, we could return the index of the
-end of the word. Let’s try that as shown in Listing 4-7.
+end of the word. Let’s try that, as shown in Listing 4-7.
 -->
 
 この関数、`first_word`は引数に`&String`をとります。所有権はいらないので、これで十分です。
@@ -51,17 +51,7 @@ end of the word. Let’s try that as shown in Listing 4-7.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn first_word(s: &String) -> usize {
-    let bytes = s.as_bytes();
-
-    for (i, &item) in bytes.iter().enumerate() {
-        if item == b' ' {
-            return i;
-        }
-    }
-
-    s.len()
-}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:here}}
 ```
 
 <!--
@@ -81,7 +71,7 @@ a value is a space, we’ll convert our `String` to an array of bytes using the
 `as_bytes`メソッドを使って、`String`オブジェクトをバイト配列に変換しています。
 
 ```rust,ignore
-let bytes = s.as_bytes();
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:as_bytes}}
 ```
 
 <!--
@@ -91,7 +81,7 @@ Next, we create an iterator over the array of bytes using the `iter` method:
 次に、そのバイト配列に対して、`iter`メソッドを使用してイテレータを生成しています:
 
 ```rust,ignore
-for (i, &item) in bytes.iter().enumerate() {
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:iter}}
 ```
 
 <!--
@@ -104,8 +94,8 @@ than calculating the index ourselves.
 -->
 
 イテレータについて詳しくは、第13章で議論します。今は、`iter`は、コレクション内の各要素を返すメソッドであること、
-`enumerate`が`iter`の結果を包んで、代わりにタプルの一部として各要素を返すことを知っておいてください。
-`enumerate`から返ってくるタプルの第1要素は、添え字であり、2番目の要素は、(コレクションの)要素への参照になります。
+`enumerate`が`iter`の結果をラップして、（結果をそのまま返す）代わりにタプルの一部として各要素を返すことを知っておいてください。
+`enumerate`から返ってくるタプルの第1要素は、添え字であり、2番目の要素は、(コレクションの）要素への参照になります。
 これは、手動で添え字を計算するよりも少しだけ便利です。
 
 <!--
@@ -121,7 +111,7 @@ from `.iter().enumerate()`, we use `&` in the pattern.
 `.iter().enumerate()`から要素への参照を取得するので、パターンに`&`を使っています。
 
 <!--
-Inside the `for` loop, We search for the byte that represents the space by
+Inside the `for` loop, we search for the byte that represents the space by
 using the byte literal syntax. If we find a space, we return the position.
 Otherwise, we return the length of the string by using `s.len()`:
 -->
@@ -130,12 +120,7 @@ Otherwise, we return the length of the string by using `s.len()`:
 それ以外の場合、`s.len()`を使って文字列の長さを返します。
 
 ```rust,ignore
-    if item == b' ' {
-        return i;
-    }
-}
-
-s.len()
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:inside_for}}
 ```
 
 <!--
@@ -158,73 +143,19 @@ uses the `first_word` function from Listing 4-7.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-<!--
 ```rust
-# fn first_word(s: &String) -> usize {
-#     let bytes = s.as_bytes();
-#
-#     for (i, &item) in bytes.iter().enumerate() {
-#         if item == b' ' {
-#             return i;
-#         }
-#     }
-#
-#     s.len()
-# }
-#
-fn main() {
-let mut s = String::from("hello world");
--->
-
-<!--
-let word = first_word(&s); // word will get the value 5
--->
-
-<!--
-s.clear(); // This empties the String, making it equal to ""
--->
-
-<!--
-// word still has the value 5 here, but there's no more string that
-// we could meaningfully use the value 5 with. word is now totally invalid!
-}
-```
--->
-
-```rust
-# fn first_word(s: &String) -> usize {
-#     let bytes = s.as_bytes();
-#
-#     for (i, &item) in bytes.iter().enumerate() {
-#         if item == b' ' {
-#             return i;
-#         }
-#     }
-#
-#     s.len()
-# }
-#
-fn main() {
-    let mut s = String::from("hello world");
-
-    let word = first_word(&s); // wordの中身は、値5になる
-
-    s.clear(); // Stringを空にする。つまり、""と等しくする
-
-    // wordはまだ値5を保持しているが、もうこの値を有効に使用できる文字列は存在しない。
-    // wordは完全に無効なのだ！
-}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-08/src/main.rs:here}}
 ```
 
 <!--
 <span class="caption">Listing 4-8: Storing the result from calling the
-`first_word` function then changing the `String` contents</span>
+`first_word` function and then changing the `String` contents</span>
 -->
 
 <span class="caption">リスト4-8: `first_word`関数の呼び出し結果を保持し、`String`の中身を変更する</span>
 
 <!--
-This program compiles without any errors and also would if we used `word`
+This program compiles without any errors and would also do so if we used `word`
 after calling `s.clear()`. Because `word` isn’t connected to the state of `s`
 at all, `word` still contains the value `5`. We could use that value `5` with
 the variable `s` to try to extract the first word out, but this would be a bug
@@ -234,7 +165,7 @@ because the contents of `s` have changed since we saved `5` in `word`.
 このプログラムは何のエラーもなくコンパイルが通り、`word`を`s.clear()`の呼び出し後に使用しても、
 コンパイルが通ります。`word`は`s`の状態に全く関連づけられていないので、その中身はまだ値`5`のままです。
 その値`5`を変数`s`に使用し、最初の単語を取り出そうとすることはできますが、これはバグでしょう。
-というのも、`s`の中身は、`5`を`word`に保存してから変わってしまったからです。
+というのも、`s`の中身は、`5`を`word`に保存した後変わってしまったからです。
 
 <!--
 Having to worry about the index in `word` getting out of sync with the data in
@@ -257,8 +188,8 @@ that state at all. We now have three unrelated variables floating around that
 need to be kept in sync.
 -->
 
-今、私たちは開始*と*終端の添え字を追うようになりました。特定の状態のデータから計算されたけど、
-その状態に全く紐付かない値が増えました。いつの間にか変わってしまうので、同期を取る必要のある、関連性のない変数が3つになってしまいました。
+今、私たちは開始*と*終端の添え字を追うようになりました。特定の状態のデータから計算されたが、
+その状態に全く紐付けられていない値がさらに増えました。いつの間にか変わってしまうので、同期を取る必要のある、関連性のない変数が3つになってしまいました。
 
 <!--
 Luckily, Rust has a solution to this problem: string slices.
@@ -279,22 +210,17 @@ A *string slice* is a reference to part of a `String`, and it looks like this:
 *文字列スライス*とは、`String`の一部への参照で、こんな見た目をしています:
 
 ```rust
-let s = String::from("hello world");
-
-let hello = &s[0..5];
-let world = &s[6..11];
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-17-slice/src/main.rs:here}}
 ```
 
 <!--
 This is similar to taking a reference to the whole `String` but with the extra
 `[0..5]` bit. Rather than a reference to the entire `String`, it’s a reference
-to a portion of the `String`. The `start..end` syntax is a range that begins at
-`start` and continues up to, but not including, `end`.
+to a portion of the `String`.
 -->
 
 これは、`String`全体への参照を取ることに似ていますが、余計な`[0..5]`という部分が付いています。
-`String`全体への参照というよりも、`String`の一部への参照です。`開始..終点`という記法は、`開始`から始まり、
-`終点`未満までずっと続く範囲です。
+`String`全体への参照ではなく、`String`の一部への参照です。
 
 <!--
 We can create slices using a range within brackets by specifying
@@ -303,14 +229,14 @@ in the slice and `ending_index` is one more than the last position in the
 slice. Internally, the slice data structure stores the starting position and
 the length of the slice, which corresponds to `ending_index` minus
 `starting_index`. So in the case of `let world = &s[6..11];`, `world` would be
-a slice that contains a pointer to the 7th byte of `s` with a length value of 5.
+a slice that contains a pointer to the 7th byte (counting from 1) of `s` with a length value of 5.
 -->
 
 `[starting_index..ending_index]`と指定することで、角かっこに範囲を使い、スライスを生成できます。
 ここで、`starting_index`はスライスの最初の位置、`ending_index`はスライスの終端位置よりも、
-1大きくなります。内部的には、スライスデータ構造は、開始地点とスライスの長さを保持しており、
+1大きい値です。内部的には、スライスデータ構造は、開始地点とスライスの長さを保持しており、
 スライスの長さは`ending_index`から`starting_index`を引いたものに対応します。以上より、
-`let world = &s[6..11];`の場合には、`world`は`s`の7バイト目へのポインタと5という長さを保持するスライスになるでしょう。
+`let world = &s[6..11];`の場合には、`world`は`s`の（1から数えて）7バイト目へのポインタと5という長さを保持するスライスになるでしょう。
 
 <!--
 Figure 4-6 shows this in a diagram.
@@ -336,7 +262,7 @@ With Rust’s `..` range syntax, if you want to start at the first index (zero),
 you can drop the value before the two periods. In other words, these are equal:
 -->
 
-Rustの`..`という範囲記法で、最初の番号(ゼロ)から始めたければ、2連ピリオドの前に値を書かなければいいのです。
+Rustの`..`という範囲記法で、最初の番号(ゼロ)から始めたければ、2連ピリオドの前に値を書かなければいいです。
 換言すれば、これらは等価です:
 
 ```rust
@@ -351,7 +277,7 @@ By the same token, if your slice includes the last byte of the `String`, you
 can drop the trailing number. That means these are equal:
 -->
 
-同様の意味で、`String`の最後のバイトをスライスが含むのならば、末尾の数値を書かなければいいのです。
+同様の意味で、`String`の最後のバイトをスライスが含むのならば、末尾の数値を書かなければいいです。
 つまり、これらは等価になります:
 
 ```rust
@@ -380,25 +306,25 @@ let slice = &s[..];
 ```
 
 <!--
-Note: String slice range indices must occur at valid UTF-8 character
-boundaries. If you attempt to create a string slice in the middle of a
-multibyte character, your program will exit with an error. For the purposes
-of introducing string slices, we are assuming ASCII only in this section; a
-more thorough discussion of UTF-8 handling is in the “Storing UTF-8 Encoded
-Text with Strings” section of Chapter 8.
+> Note: String slice range indices must occur at valid UTF-8 character
+> boundaries. If you attempt to create a string slice in the middle of a
+> multibyte character, your program will exit with an error. For the purposes
+> of introducing string slices, we are assuming ASCII only in this section; a
+> more thorough discussion of UTF-8 handling is in the [“Storing UTF-8 Encoded
+> Text with Strings”][strings] section of Chapter 8.
 -->
 
 > 注釈: 文字列スライスの範囲添え字は、有効なUTF-8文字境界に置かなければなりません。
 > マルチバイト文字の真ん中で文字列スライスを生成しようとしたら、エラーでプログラムは落ちるでしょう。
-> 文字列スライスを導入する目的で、この節ではASCIIのみを想定しています; UTF-8に関するより徹底した議論は、
-> 第8章の「文字列でUTF-8エンコードされたテキストを格納する」節で行います。
+> この節では文字列スライスを導入することが目的なので、ASCIIのみを想定しています; UTF-8に関するより徹底した議論は、
+> 第8章の[「文字列でUTF-8エンコードされたテキストを格納する」][strings]節で行います。
 
 <!--
 With all this information in mind, let’s rewrite `first_word` to return a
 slice. The type that signifies “string slice” is written as `&str`:
 -->
 
-これら全ての情報を心に留めて、`first_word`を書き直してスライスを返すようにしましょう。
+これらの情報を念頭に、`first_word`を書き直してスライスを返すようにしましょう。
 文字列スライスを意味する型は、`&str`と記述します:
 
 <!--
@@ -408,17 +334,7 @@ slice. The type that signifies “string slice” is written as `&str`:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn first_word(s: &String) -> &str {
-    let bytes = s.as_bytes();
-
-    for (i, &item) in bytes.iter().enumerate() {
-        if item == b' ' {
-            return &s[0..i];
-        }
-    }
-
-    &s[..]
-}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-18-first-word-slice/src/main.rs:here}}
 ```
 
 <!--
@@ -428,7 +344,7 @@ return a string slice using the start of the string and the index of the space
 as the starting and ending indices.
 -->
 
-リスト4-7で取った手段と同じ方法で単語の終端添え字を取得しています。つまり、最初の空白を探すことです。
+リスト4-7で取った方法と同じように、最初の空白を探すことで単語の終端の添え字を取得しています。
 空白を発見したら、文字列の最初を開始地点、空白の添え字を終了地点として使用して文字列スライスを返しています。
 
 <!--
@@ -476,16 +392,8 @@ compile-time error:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let mut s = String::from("hello world");
-
-    let word = first_word(&s);
-
-    s.clear(); // error!    (エラー！)
-
-    println!("the first word is: {}", word);
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/src/main.rs:here}}
 ```
 
 <!--
@@ -494,41 +402,20 @@ Here’s the compiler error:
 
 こちらがコンパイルエラーです:
 
-```text
-$ cargo run
-   Compiling ownership v0.1.0 (file:///projects/ownership)
-error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
-(エラー: 不変として借用されているので、`s`を可変で借用できません)
-  --> src/main.rs:18:5
-   |
-16 |     let word = first_word(&s);
-   |                           -- immutable borrow occurs here (不変借用はここで発生しています)
-17 | 
-18 |     s.clear(); // error!        (エラー！)
-   |     ^^^^^^^^^ mutable borrow occurs here (可変借用はここで発生しています)
-19 | 
-20 |     println!("the first word is: {}", word);
-   |                                       ---- immutable borrow later used here
-                                                (不変借用はその後ここで使われています)
-
-error: aborting due to previous error
-
-For more information about this error, try `rustc --explain E0502`.
-error: could not compile `ownership`.
-
-To learn more, run the command again with --verbose.
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/output.txt}}
 ```
 
 <!--
 Recall from the borrowing rules that if we have an immutable reference to
 something, we cannot also take a mutable reference. Because `clear` needs to
-truncate the `String`, it tries to take a mutable reference, which fails. Not
-only has Rust made our API easier to use, but it has also eliminated an entire
-class of errors at compile time!
+truncate the `String`, it needs to get a mutable reference. Rust disallows
+this, and compilation fails. Not only has Rust made our API easier to use, but
+it has also eliminated an entire class of errors at compile time!
 -->
 
 借用規則から、何かへの不変な参照がある時、さらに可変な参照を得ることはできないことを思い出してください。
-`clear`は`String`を切り詰める必要があるので、可変な参照を得ようとして失敗しているわけです。
+`clear`は`String`を切り詰める必要があるので、可変な参照を得る必要があります。Rustはこれを認めないので、コンパイルが失敗します。
 RustのおかげでAPIが使いやすくなるだけでなく、ある種のエラー全てを完全にコンパイル時に排除してくれるのです！
 
 <!--
@@ -578,15 +465,15 @@ fn first_word(s: &String) -> &str {
 
 <!--
 A more experienced Rustacean would write the signature shown in Listing 4-9
-instead because it allows us to use the same function on both `String` values
+instead because it allows us to use the same function on both `&String` values
 and `&str` values.
 -->
 
 もっと経験を積んだRustaceanなら、代わりにリスト4-9のようなシグニチャを書くでしょう。というのも、こうすると、
-同じ関数を`String`値と`&str`値両方に使えるようになるからです。
+同じ関数を`&String`値と`&str`値両方に使えるようになるからです。
 
 ```rust,ignore
-fn first_word(s: &str) -> &str {
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:here}}
 ```
 
 <!--
@@ -609,72 +496,8 @@ without losing any functionality:
 
 <span class="filename">Filename: src/main.rs</span>
 
-<!--
 ```rust
-# fn first_word(s: &str) -> &str {
-#     let bytes = s.as_bytes();
-#
-#     for (i, &item) in bytes.iter().enumerate() {
-#         if item == b' ' {
-#             return &s[0..i];
-#         }
-#     }
-#
-#     &s[..]
-# }
-fn main() {
-let my_string = String::from("hello world");
--->
-
-<!--
-// first_word works on slices of `String`s
-let word = first_word(&my_string[..]);
--->
-
-<!--
-let my_string_literal = "hello world";
--->
-
-<!--
-// first_word works on slices of string literals
-let word = first_word(&my_string_literal[..]);
--->
-
-<!--
-// Because string literals *are* string slices already,
-// this works too, without the slice syntax!
-let word = first_word(my_string_literal);
-}
-```
--->
-
-```rust
-# fn first_word(s: &str) -> &str {
-#     let bytes = s.as_bytes();
-#
-#     for (i, &item) in bytes.iter().enumerate() {
-#         if item == b' ' {
-#             return &s[0..i];
-#         }
-#     }
-#
-#     &s[..]
-# }
-fn main() {
-    let my_string = String::from("hello world");
-
-    // first_wordは`String`のスライスに対して機能する
-    let word = first_word(&my_string[..]);
-
-    let my_string_literal = "hello world";
-
-    // first_wordは文字列リテラルのスライスに対して機能する
-    let word = first_word(&my_string_literal[..]);
-
-    // 文字列リテラルは、すでに文字列スライス*な*ので、
-    // スライス記法なしでも機能するのだ！
-    let word = first_word(my_string_literal);
-}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:usage}}
 ```
 
 <!--
@@ -697,7 +520,7 @@ let a = [1, 2, 3, 4, 5];
 
 <!--
 Just as we might want to refer to a part of a string, we might want to refer
-to part of an array. We'd do so like this:
+to part of an array. We’d do so like this:
 -->
 
 文字列の一部を参照したくなる可能性があるのと同様、配列の一部を参照したくなる可能性もあります。
@@ -717,9 +540,9 @@ detail when we talk about vectors in Chapter 8.
 -->
 
 このスライスは、`&[i32]`という型になります。これも文字列スライスと同じように動作します。
-つまり、最初の要素への参照と長さを保持することです。他のすべての種類のコレクションに対して、
-この種のスライスは使用するでしょう。これらのコレクションについて詳しくは、
-第8章でベクタについて話すときに議論します。
+つまり、最初の要素への参照と長さを保持するのです。
+この種のスライスは、他のすべての種類のコレクションに対して使用することになるでしょう。
+それらのコレクションについて、詳しくは、第8章でベクタについて話すときに議論します。
 
 <!--
 ## Summary
@@ -730,15 +553,15 @@ detail when we talk about vectors in Chapter 8.
 <!--
 The concepts of ownership, borrowing, and slices ensure memory safety in Rust
 programs at compile time. The Rust language gives you control over your memory
-usage in the same way as like other systems programming languages, but having the
+usage in the same way as other systems programming languages, but having the
 owner of data automatically clean up that data when the owner goes out of scope
 means you don’t have to write and debug extra code to get this control.
 -->
 
-所有権、借用、スライスの概念は、コンパイル時にRustプログラムにおいて、メモリ安全性を保証します。
+所有権、借用、スライスの概念は、Rustプログラムにおいて、コンパイル時にメモリ安全性を保証します。
 Rust言語も他のシステムプログラミング言語と同じように、メモリの使用法について制御させてくれるわけですが、
-所有者がスコープを抜けたときにデータの所有者に自動的にデータを片付けさせることは、この制御を得るために、
-余計なコードを書いてデバッグする必要がないことを意味します。
+データの所有者がスコープを抜けたときに、所有者に自動的にデータを片付けさせることは、この制御をするために、
+余計なコードを書いたりデバッグしたりする必要がないことを意味します。
 
 <!--
 Ownership affects how lots of other parts of Rust work, so we’ll talk about
@@ -748,3 +571,8 @@ Chapter 5 and look at grouping pieces of data together in a `struct`.
 
 所有権は、Rustの他のいろんな部分が動作する方法に影響を与えるので、これ以降もこれらの概念についてさらに語っていく予定です。
 第5章に移って、`struct`でデータをグループ化することについて見ていきましょう。
+
+<!--
+[strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
+-->
+[strings]: ch08-02-strings.html#文字列でutf-8でエンコードされたテキストを保持する

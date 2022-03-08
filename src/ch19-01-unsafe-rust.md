@@ -283,7 +283,7 @@ Creating a pointer does no harm; it’s only when we try to access the value tha
 it points at that we might end up dealing with an invalid value.
 -->
 
-ポインタの生成は害を及ぼしません; 無効な値を扱うことに落ち着く可能性のあるポインタが指している値にアクセスしようとする時のみです。
+ポインタの生成は害を及ぼしません; 問題が起こり得るのはポインタが指している値にアクセスしようとするときのみで、この際に無効な値を扱うことになる可能性があります。
 
 <!--
 Note also that in Listing 19-1 and 19-3, we created `*const i32` and `*mut i32`
