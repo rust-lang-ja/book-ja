@@ -191,7 +191,7 @@ Listing 8-5 shows both methods of accessing a value in a vector, either with
 indexing syntax or the `get` method.
 -->
 
-リスト8-5はベクタの値にアクセスする両方の方法として、添字記法と`get`メソッドが示されています。
+リスト8-5はベクタの値にアクセスする両方の方法として、添え字記法と`get`メソッドが示されています。
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-05/src/main.rs:here}}
@@ -202,7 +202,7 @@ indexing syntax or the `get` method.
 access an item in a vector</span>
 -->
 
-<span class="caption">リスト8-5：添字記法か`get`メソッドを使用してベクタの要素にアクセスする</span>
+<span class="caption">リスト8-5：添え字記法か`get`メソッドを使用してベクタの要素にアクセスする</span>
 
 <!--
 Note two details here. First, we use the index value of `2` to get the third
@@ -212,10 +212,10 @@ or by using the `get` method with the index passed as an argument, which gives
 us an `Option<&T>`.
 -->
 
-ここでは2つことに注目してください。
+ここでは2つのことに注目してください。
 1つ目は、3番目の要素を得るのに`2`という添え字の値を使用していることです。
 ベクタは番号で索引化されますが、その番号は0から始まります。
-2つ目は、3番目の要素を得る2つの方法とは、`&`と`[]`を使用して参照を得るものと、`get`メソッドに引数として添字を渡して`Option<&T>`を得るものだということです。
+2つ目は、3番目の要素を得る2つの方法とは、`&`と`[]`を使用して参照を得るものと、`get`メソッドに引数として添え字を渡して`Option<&T>`を得るものだということです。
 
 <!--
 Rust has two ways to reference an element so you can choose how the program
@@ -225,8 +225,8 @@ that holds five elements and then tries to access an element at index 100, as
 shown in Listing 8-6.
 -->
 
-Rustのベクタには要素を参照する方法が2通りあるので、ベクタに含まれない要素の添字を使おうとしたときのプログラムの振る舞いを選択できます。
-例として、ベクタに5つ要素があるとして、添字100の要素にアクセスを試みた場合、プログラムがどうなるのか確認しましょう。
+Rustのベクタには要素を参照する方法が2通りあるので、ベクタに含まれない要素の添え字を使おうとしたときのプログラムの振る舞いを選択できます。
+例として、ベクタに5つ要素があるとして、添え字100の要素にアクセスを試みた場合、プログラムがどうなるのか確認しましょう。
 リスト8-6に示します。
 
 ```rust,should_panic,panics
@@ -264,12 +264,11 @@ value. That would be more user-friendly than crashing the program due to a typo!
 -->
 
 `get`メソッドがベクタ外の添え字を渡されると、パニックすることなく`None`を返します。
-普通の状況でもベクタの範囲外にアクセスする可能性がある場合に、このメソッドを使用することになるでしょう。
-そうしたら、第6章で議論したように、コードには`Some(&element)`か`None`を扱うロジックが存在することになります。
-例えば、添え字は人間に数値を入力してもらうことで得ているのかもしれません。
-もし大きすぎる値を誤って入力し、プログラムが`None`値を得てしまったら、現在ベクタに幾つ要素があるかをユーザに教え、
-再度正しい値を入力してもらうことができるでしょう。その方が、（ただの）タイプミスでプログラムをクラッシュさせるより、
-ユーザに優しくなるでしょう。
+普通の状況でもベクタの範囲外にアクセスする可能性があるなら、このメソッドを使用することになるでしょう。
+その場合、第6章で説明したように、コードは`Some(&element)`か`None`を扱うロジックを持つことになります。
+例えば、誰かが入力した数値が添え字になるかもしれません。
+もし誤って大きすぎる値を入力し、プログラムが`None`値を得たなら、いまベクタに何要素あるかをユーザに教え、正しい値を再入力してもらうこともできます。
+その方が、ただのタイプミスでプログラムをクラッシュさせるより、ユーザに優しいといえそうです。
 
 <!--
 When the program has a valid reference, the borrow checker enforces the
@@ -281,11 +280,10 @@ the first element in a vector and try to add an element to the end, which won’
 work if we also try to refer to that element later in the function:
 -->
 
-プログラムに有効な参照がある場合、借用チェッカー (borrow checker) は （第4章で解説しましたが）、
-所有権と借用規則を強制し、ベクタの中身へのこの参照や他のいかなる参照も有効であり続けることを保証してくれます。
+プログラムに有効な参照がある場合、借用チェッカー (borrow checker) は、（第4章で解説しましたが）所有権と借用規則を強制し、ベクタの中身へのこの参照や他のいかなる参照も有効であり続けることを保証してくれます。
 同一スコープ上では、可変と不変な参照を同時には存在させられないというルールを思い出してください。
-このルールはリスト8-7でも適用されています。リスト8-7ではベクタの最初の要素への不変参照を保持しつつ、
-終端に要素を追加しようとしています。
+このルールはリスト8-7でも適用されています。
+リスト8-7ではベクタの最初の要素への不変参照を保持しつつ、終端に要素を追加しようとしています。
 関数内のここ以降で、この要素（訳注：`first`のこと）を参照しようとすると失敗します。
 
 ```rust,ignore,does_not_compile
@@ -297,13 +295,13 @@ work if we also try to refer to that element later in the function:
 while holding a reference to an item</span>
 -->
 
-<span class="caption">リスト8-7: 要素への参照を保持しつつ、ベクタに要素を追加しようとする</span>
+<span class="caption">リスト8-7：要素への参照を保持しつつ、ベクタに要素を追加しようとする</span>
 
 <!--
 Compiling this code will result in this error:
 -->
 
-このコードをコンパイルすると、こんなエラーになります:
+このコードをコンパイルすると、こんなエラーになります。
 
 ```console
 {{#include ../listings/ch08-common-collections/listing-08-07/output.txt}}
@@ -320,12 +318,12 @@ element would be pointing to deallocated memory. The borrowing rules prevent
 programs from ending up in that situation.
 -->
 
-リスト8-7のコードは、一見動くはずに見えるかもしれません: なぜ、最初の要素への参照が、
-ベクタの終端への変更を気にかける必要があるのでしょうか？このエラーは、ベクタの動作する仕組みのせいです:
-新規要素をベクタの終端に追加すると、ベクタが現在存在する位置に隣り合って要素を入れるだけの領域がなかった場合に、
-メモリを新規に確保して、古い要素をその新しいスペースにコピーする必要があるかもしれないからです。
+リスト8-7のコードは、一見動きそうに見えるかもしれません。
+なぜ最初の要素への参照が、ベクタの終端への変更を気にかける必要があるのでしょうか？
+このエラーはベクタが動作するしくみによるものです。
+新たな要素をベクタの終端に追加するとき、いまベクタのある場所に全要素を隣り合わせに配置するだけのスペースがないなら、新しいメモリを割り当て、古い要素を新しいスペースにコピーする必要があります。
 その場合、最初の要素を指す参照は、解放されたメモリを指すことになるでしょう。
-借用規則がそのような場面に陥らないよう防いでくれるのです。
+借用規則がそのような状況に陥らないよう防いでくれるのです。
 
 <!--
 > Note: For more on the implementation details of the `Vec<T>` type, see [“The
@@ -340,7 +338,7 @@ programs from ending up in that situation.
 ### Iterating over the Values in a Vector
 -->
 
-### ベクタの値を走査する
+### ベクタ内の値を順に処理する
 
 <!--
 If we want to access each element in a vector in turn, we can iterate through
@@ -350,7 +348,7 @@ in a vector of `i32` values and print them.
 -->
 
 ベクタの要素に順番にアクセスしたいなら、添え字で1要素ごとにアクセスするのではなく、全要素を走査することができます。
-リスト8-8で`for`ループを使い、`i32`のベクタの各要素に対する不変な参照を得て、それらを出力する方法を示しています。
+リスト8-8で`for`ループを使い、`i32`のベクタの各要素に対する不変な参照を得て、それらを表示する方法を示します。
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-08/src/main.rs:here}}
@@ -361,7 +359,7 @@ in a vector of `i32` values and print them.
 iterating over the elements using a `for` loop</span>
 -->
 
-<span class="caption">リスト8-8: `for`ループで要素を走査し、ベクタの各要素を出力する</span>
+<span class="caption">リスト8-8：`for`ループで要素を走査し、ベクタの各要素を表示する</span>
 
 <!--
 We can also iterate over mutable references to each element in a mutable vector
@@ -369,8 +367,8 @@ in order to make changes to all the elements. The `for` loop in Listing 8-9
 will add `50` to each element.
 -->
 
-全要素に変更を加えるために、可変なベクタの各要素への可変な参照を走査することもできます。
-リスト8-9の`for`ループでは、各要素に`50`を足しています。
+また、全要素に変更を加えるために、可変なベクタの各要素への可変な参照を走査することもできます。
+リスト8-9の`for`ループでは各要素に`50`を足しています。
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-09/src/main.rs:here}}
@@ -381,7 +379,7 @@ will add `50` to each element.
 elements in a vector</span>
 -->
 
-<span class="caption">リスト8-9: ベクタの要素への可変な参照を走査する</span>
+<span class="caption">リスト8-9：ベクタの要素への可変な参照を走査する</span>
 
 <!--
 To change the value that the mutable reference refers to, we have to use the
@@ -391,9 +389,8 @@ dereference operator (`*`) to get to the value in `i` before we can use the
 section of Chapter 15.
 -->
 
-可変参照が参照している値を変更するには、`+=`演算子を使用する前に、
-参照外し演算子(`*`)を使用して`i`の値に辿り着かないといけません。
-参照外し演算子については、15章の[「参照外し演算子で値までポインタを追いかける」][deref]節でより詳しく扱います。
+可変参照が参照している値を変更するには、`+=`演算子を使用する前に、参照外し演算子(`*`)を使用して`i`の値にたどり着かないといけません。
+参照外し演算子については、第15章の[「参照外し演算子で値までポインタを追いかける」][deref]節でより詳しく扱います。
 
 <!--
 ### Using an Enum to Store Multiple Types
@@ -409,10 +406,10 @@ variants of an enum are defined under the same enum type, so when we need to
 store elements of a different type in a vector, we can define and use an enum!
 -->
 
-この章の冒頭で、ベクタは同じ型の値しか保持できないと述べました。これは不便なこともあります;
-異なる型の要素を保持する必要性が出てくるユースケースもきっとあります。幸運なことに、
-enumの列挙子は、同じenumの型の中に定義されるので、ベクタに異なる型の要素を保持する必要が出たら、
-enumを定義して使用すればよいというわけです！
+この章の冒頭で、ベクタは同じ型の値しか保持できないと述べました。
+これは不便なこともあります。
+異なる型の要素を保持する必要のあるユースケースは必ず存在します。
+幸運なことに、enumの列挙子は同じenumの型の中に定義されるので、ベクタに異なる型の要素を保持する必要が出たら、enumを定義して使用すればよいのです！
 
 <!--
 For example, say we want to get values from a row in a spreadsheet in which
@@ -423,10 +420,12 @@ that of the enum. Then we can create a vector that holds that enum and so,
 ultimately, holds different types. We’ve demonstrated this in Listing 8-10.
 -->
 
-例えば、スプレッドシートの行から値を得たくなったとしましょう。ここで行の列には、整数を含むものや、
-浮動小数点数を含むもの、文字列を含むものがあります。列挙子が異なる値の型を保持するenumを定義できます。
-そして、このenumの列挙子は全て同じ型、つまりenumの型、と考えられるわけです。というわけでそのenumを保持するベクタを生成でき、
-結果的に異なる型を保持できるようになるわけです。リスト8-10でこれを実演しています。
+例えば、スプレッドシートのある行から値を得ることを考えます。
+ここで、その行の中の列には、整数を含むもの、浮動小数点数を含むもの、文字列を含むものがあるとします。
+列挙子ごとに異なる値の型を保持するenumが定義できます。
+そして、このenumの列挙子は全て同じ型、つまりenumの型、と考えられるわけです。
+ですから、そのenumを保持するベクタを作成でき、結果的に異なる型を保持できるようになるわけです。
+リスト8-10でこれを実演しています。
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-10/src/main.rs:here}}
@@ -437,7 +436,7 @@ ultimately, holds different types. We’ve demonstrated this in Listing 8-10.
 different types in one vector</span>
 -->
 
-<span class="caption">リスト8-10: `enum`を定義して、一つのベクタに異なる型の値を保持する</span>
+<span class="caption">リスト8-10：`enum`を定義して、一つのベクタに異なる型の値を保持する</span>
 
 <!--
 Rust needs to know what types will be in the vector at compile time so it knows
@@ -450,11 +449,10 @@ that Rust will ensure at compile time that every possible case is handled, as
 discussed in Chapter 6.
 -->
 
-各要素を格納するのにヒープ上でズバリどれくらいのメモリが必要になるかがわかるように、
-Rustコンパイラはコンパイル時にベクタに入る型を知る必要があります。また、
-このベクタではどんな型が許容されるのか明示できるという副次的な利点があります。もし、Rustコンパイラが、ベクタがどんな型でも保持できるようにしていたら、
-ベクタの要素に対して行われる処理に対して一つ以上の型がエラーを引き起こす可能性があるでしょう。
-enumに加えて`match`式を使うことは、第6章で議論した通り、あり得るパターン全てに対処していることをRustコンパイラがコンパイル時に保証するということを意味します。
+個々の要素を格納するのにヒープ上で必要となるメモリの量を正確に把握するめに、Rustコンパイラはコンパイル時にベクタに入る型を知る必要があります。
+また、このベクタではどんな型が許容されるのか明示できるという副次的な利点があります。
+もし、Rustコンパイラが、ベクタがどんな型でも保持できるようにしていたら、ベクタの要素に対して行われる処理に対して、いくつかの型がエラーを引き起こすかもしれません。
+enumに加えて`match`式を使うことで、第6章で説明したとおり、あらゆるケースを処理できることを、Rustコンパイラがコンパイル時に保証することになります。
 
 <!--
 When you’re writing a program, if you don’t know the exhaustive set of types
@@ -462,8 +460,9 @@ the program will get at runtime to store in a vector, the enum technique won’t
 work. Instead, you can use a trait object, which we’ll cover in Chapter 17.
 -->
 
-プログラムを書いている時に、プログラムが実行時に受け取り、ベクタに保持するであろう型のすべてを知っているわけではない場合、
-このenumを使ったテクニックはうまくいかないでしょう。代わりにトレイトオブジェクトを使用することができます。こちらは第17章で講義します。
+プログラムを書いている時点で、プログラムが実行時に取得し、ベクタに格納し得る全ての型を網羅できない場合には、このenumを使ったテクニックはうまくいかないでしょう。
+代わりにトレイトオブジェクトを使用できます。
+こちらは第17章で取り上げます。
 
 <!--
 Now that we’ve discussed some of the most common ways to use vectors, be sure
@@ -473,10 +472,10 @@ method removes and returns the last element. Let’s move on to the next
 collection type: `String`!
 -->
 
-今まで議論したのは、ベクタを使用するために最もよく使う方法のいくつか（に過ぎない）です。
-ですので、標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについて、
-[APIドキュメント][vec-api]を必ず確認するようにしてください。例えば、`push`に加えて、`pop`というメソッドがあり、これは最後の要素を削除して返します。
-それでは次のコレクション型に移りましょう: `String`です！
+これまでにベクタの代表的な使い方をいくつか紹介しました。
+標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについて、[APIドキュメント][vec-api]を必ず確認するようにしてください。
+例えば、`push`に加えて、`pop`というメソッドがあり、これは最後の要素を削除して返します。
+それでは次のコレクション型である`String`に移りましょう！
 
 <!--
 [data-types]: ch03-02-data-types.html#data-types
