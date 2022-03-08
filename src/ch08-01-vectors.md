@@ -12,9 +12,10 @@ of the same type. They are useful when you have a list of items, such as the
 lines of text in a file or the prices of items in a shopping cart.
 -->
 
-最初に見るコレクション型は、`Vec<T>`であり、これは*ベクタ*としても知られています。ベクタは、
-メモリ上に値を隣り合わせに並べる単独のデータ構造で、2つ以上の値を保持することができます。
-ベクタには、同じ型の値しか保持できません。要素のリストがある場合にベクタは有用です。
+最初に見るコレクション型は`Vec<T>`であり、これは*ベクタ*としても知られています。
+ベクタは単体のデータ構造でありながら複数の値を保持でき、それらの値をメモリ上に隣り合わせに並べます。
+ベクタには同じ型の値しか保持できません。
+要素のリストがある場合にベクタは有用です。
 例えば、テキストファイルの各行とか、ショッピングカートのアイテムの価格などです。
 
 <!--
@@ -28,7 +29,7 @@ To create a new, empty vector, we can call the `Vec::new` function, as shown in
 Listing 8-1.
 -->
 
-新しい空のベクタを作るには、リスト8-1に示されたように、`Vec::new`関数を呼べばよいです。
+空のベクタを新たに作るには、リスト8-1に示すように`Vec::new`関数を呼びます。
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-01/src/main.rs:here}}
@@ -39,7 +40,7 @@ Listing 8-1.
 of type `i32`</span>
 -->
 
-<span class="caption">リスト8-1: 新しい空のベクタを生成して`i32`型の値を保持する</span>
+<span class="caption">リスト8-1：新しい空のベクタを生成して`i32`型の値を保持する</span>
 
 <!--
 Note that we added a type annotation here. Because we aren’t inserting any
@@ -52,12 +53,13 @@ angle brackets. In Listing 8-1, we’ve told Rust that the `Vec<T>` in `v` will
 hold elements of the `i32` type.
 -->
 
-ここで、型注釈を付けていることに注目してください。このベクタに対して、何も値を挿入していないので、
-コンパイラには、私達がどんなデータを保持させるつもりなのかがわからないのです。これは重要な点です。ベクタは、
-ジェネリクスを使用して実装されているのです; 独自の型でジェネリクスを使用する方法については、
-第10章で解説します。今は、標準ライブラリにより提供されている`Vec<T>`型は、どんな型でも保持でき、
-特定のベクタが特定の型を保持するとき、その型は山かっこ内に指定されることを知っておいてください。
-リスト8-1では、コンパイラに`v`の`Vec<T>`は、`i32`型の要素を保持すると指示しました。
+ここで、型注釈を付けていることに注目してください。
+なぜなら、このベクタに対して何も値を挿入していないので、コンパイラには私たちがどんなデータを保持させるつもりか推測できないからです。
+これは重要な点です。
+ベクタはジェネリクスを使用して実装されています。
+あなた自身の型でどうジェネリクスを使用するかついては第10章で解説します。
+現時点では標準ライブラリで提供される`Vec<T>`型は、どんな型でも保持でき、ある特定のベクタがある型を保持するとき、その型は山かっこ内に指定されることを知っておいてください。
+リスト8-1では、コンパイラに`v`の`Vec<T>`は`i32`型の要素を保持すると指示しました。
 
 <!--
 In more realistic code, Rust can often infer the type of value you want to
@@ -70,11 +72,11 @@ the default integer type, as we discussed in the [“Data Types”][data-types]
 section of Chapter 3.
 -->
 
-より現実的なコードでは、一旦値を挿入したら、コンパイラは保持させたい値の型をしばしば推論できるので、
-この型注釈をすることは滅多にありません。初期値のある`Vec<T>`を生成する方が一般的ですし、
-Rustには、利便性のために`vec!`というマクロも用意されています。このマクロは、
-与えた値を保持する新しいベクタ型を生成します。リスト8-2では、`1`、`2`、`3`という値を持つ新しい`Vec<i32>`を生成しています。
-整数型を`i32`にしているのは、3章の[「データ型」][data-types]節で学んだようにこれが標準の整数型だからです。
+いったん値を挿入すれば、コンパイラは保持させたい値の型を多くの場合で推論できますので、より現実的なコードでは型注釈を付ける必要はほとんどないでしょう。
+また、初期値のある`Vec<T>`を生成する方が一般的ですし、Rustには`vec!`という便利なマクロも用意されています。
+このマクロは与えた値を保持する新しいベクタを生成します。
+リスト8-2では、`1`、`2`、`3`という値を持つ新しい`Vec<i32>`を生成しています。
+整数型を`i32`にしているのは、3章の[「データ型」][data-types]節で学んだように、これが標準の整数型だからです。
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-02/src/main.rs:here}}
@@ -93,8 +95,8 @@ is `Vec<i32>`, and the type annotation isn’t necessary. Next, we’ll look at 
 to modify a vector.
 -->
 
-初期値の`i32`値を与えたので、コンパイラは、`v`の型が`Vec<i32>`であると推論でき、型注釈は必要なくなりました。
-次は、ベクタを変更する方法を見ましょう。
+初期値の`i32`値を与えたので、コンパイラは`v`の型が`Vec<i32>`であると推論でき、型注釈は不要になりました。
+次はベクタを変更する方法を見ましょう。
 
 <!--
 ### Updating a Vector
@@ -107,7 +109,7 @@ To create a vector and then add elements to it, we can use the `push` method,
 as shown in Listing 8-3.
 -->
 
-ベクタを生成し、それから要素を追加するには、リスト8-3に示したように、`push`メソッドを使用できます。
+ベクタを生成し、それから要素を追加するには、リスト8-3に示すように`push`メソッドを使います。
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-03/src/main.rs:here}}
@@ -118,7 +120,7 @@ as shown in Listing 8-3.
 vector</span>
 -->
 
-<span class="caption">リスト8-3: `push`メソッドを使用してベクタ型に値を追加する</span>
+<span class="caption">リスト8-3：`push`メソッドを使用してベクタに値を追加する</span>
 
 <!--
 As with any variable, if we want to be able to change its value, we need to
@@ -127,9 +129,8 @@ we place inside are all of type `i32`, and Rust infers this from the data, so
 we don’t need the `Vec<i32>` annotation.
 -->
 
-あらゆる変数同様、第3章で議論したように、値を変化させたかったら、`mut`キーワードで可変にする必要があります。
-中に配置する数値は全て`i32`型であり、コンパイラはこのことをデータから推論するので、
-`Vec<i32>`という注釈は必要なくなります。
+第3章で説明したとおり、どんな変数でも、その値を変更したかったら`mut`キーワードで可変にする必要があります。
+中に配置する数値は全て`i32`型であり、Rustはこのことをデータから推論するので、`Vec<i32>`という注釈は不要です。
 
 <!--
 ### Dropping a Vector Drops Its Elements
@@ -142,8 +143,8 @@ Like any other `struct`, a vector is freed when it goes out of scope, as
 annotated in Listing 8-4.
 -->
 
-他のあらゆる`struct`（構造体）同様、ベクタもスコープを抜ければ、解放されます。リスト8-4に注釈したようにですね。
-
+他のあらゆる`struct`（構造体）と同様に、ベクタもスコープを抜ければ解放されます。
+その様子をリスト8-4に示します。
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-04/src/main.rs:here}}
@@ -154,7 +155,7 @@ annotated in Listing 8-4.
 are dropped</span>
 -->
 
-<span class="caption">リスト8-4: ベクタとその要素がドロップされる箇所を示す</span>
+<span class="caption">リスト8-4：ベクタとその要素がドロップされる箇所を示す</span>
 
 <!--
 When the vector gets dropped, all of its contents are also dropped, meaning
@@ -163,9 +164,10 @@ straightforward point but can get a bit more complicated when you start to
 introduce references to the elements of the vector. Let’s tackle that next!
 -->
 
-ベクタがドロップされると、その中身もドロップされます。つまり、保持されていた整数値が、
-片付けられるということです。これは一見単純に見えるかもしれませんが、ベクタの要素への参照を導入した途端、
-もうちょっと複雑になる可能性を秘めています。次は、それに挑んでいきましょう！
+ベクタがドロップされると、その中身もドロップされます。
+つまり、保持されていた整数値が片付けられるということです。
+これは一見単純そうですが、ベクタの要素に対する参照を使い始めると少し複雑になり得ます。
+次はそれに挑んでいきましょう！
 
 <!--
 ### Reading Elements of Vectors
@@ -180,16 +182,16 @@ value stored in a vector. In the examples, we’ve annotated the types of the
 values that are returned from these functions for extra clarity.
 -->
 
-ベクタを生成し、更新し、破壊する方法を知ったので、中身を読む方法を次に知ることにしましょう。
-ベクタに保持された値を参照する方法は2つあります。これから示す例では、さらに明確にするため、
-これらの関数から返る値の型を注釈しました。
+ベクタを生成し、更新し、破棄する方法がわかったので、次のステップでは中身を読む方法について学ぶのが良いでしょう。
+ベクタに保持された値を参照する方法は2つあります。
+これから示す例では、理解を助けるために、それらの関数からの戻り値型を注釈します。
 
 <!--
 Listing 8-5 shows both methods of accessing a value in a vector, either with
 indexing syntax or the `get` method.
 -->
 
-リスト8-5に示したのは、両メソッドがベクタの値に対して、添字記法と`get`メソッドによりアクセスするところです。
+リスト8-5はベクタの値にアクセスする両方の方法として、添字記法と`get`メソッドが示されています。
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-05/src/main.rs:here}}
@@ -200,7 +202,7 @@ indexing syntax or the `get` method.
 access an item in a vector</span>
 -->
 
-<span class="caption">リスト8-5: 添字記法か`get`メソッドを使用してベクタの要素にアクセスする</span>
+<span class="caption">リスト8-5：添字記法か`get`メソッドを使用してベクタの要素にアクセスする</span>
 
 <!--
 Note two details here. First, we use the index value of `2` to get the third
@@ -210,9 +212,10 @@ or by using the `get` method with the index passed as an argument, which gives
 us an `Option<&T>`.
 -->
 
-ここでは、2つのことに注目してください。まず、3番目の要素を得るのに`2`という添え字の値を使用していることです:
-ベクタは、数値により順序付けされ、添え字は0から始まります。2番目に、3番目の要素を得る2つの方法とは、
-`&`と`[]`を使用して参照を得るものと、番号を引数として`get`メソッドに渡して、`Option<&T>`を得るものだということです。
+ここでは2つことに注目してください。
+1つ目は、3番目の要素を得るのに`2`という添え字の値を使用していることです。
+ベクタは番号で索引化されますが、その番号は0から始まります。
+2つ目は、3番目の要素を得る2つの方法とは、`&`と`[]`を使用して参照を得るものと、`get`メソッドに引数として添字を渡して`Option<&T>`を得るものだということです。
 
 <!--
 Rust has two ways to reference an element so you can choose how the program
@@ -222,9 +225,9 @@ that holds five elements and then tries to access an element at index 100, as
 shown in Listing 8-6.
 -->
 
-Rustには要素を参照する方法が2通りあるので、ベクタに要素が含まれない番号の値を使用しようとした時に、
-プログラムの振る舞いを選択できます。例として、ベクタに5つ要素があるとして、添え字100の要素にアクセスを試みた場合、
-プログラムがどうなるのか確認しましょう。リスト8-6に示したようにですね。
+Rustのベクタには要素を参照する方法が2通りあるので、ベクタに含まれない要素の添字を使おうとしたときのプログラムの振る舞いを選択できます。
+例として、ベクタに5つ要素があるとして、添字100の要素にアクセスを試みた場合、プログラムがどうなるのか確認しましょう。
+リスト8-6に示します。
 
 ```rust,should_panic,panics
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-06/src/main.rs:here}}
@@ -235,7 +238,7 @@ Rustには要素を参照する方法が2通りあるので、ベクタに要素
 100 in a vector containing five elements</span>
 -->
 
-<span class="caption">リスト8-6: 5つの要素を含むベクタの添え字100の要素にアクセスしようとする</span>
+<span class="caption">リスト8-6：5つの要素を含むベクタの添え字100の要素にアクセスしようとする</span>
 
 <!--
 When we run this code, the first `[]` method will cause the program to panic
@@ -244,8 +247,9 @@ want your program to crash if there’s an attempt to access an element past the
 end of the vector.
 -->
 
-このコードを走らせると、最初の`[]`メソッドはプログラムをパニックさせます。存在しない要素を参照しているからです。
-このメソッドは、ベクタの終端を超えて要素にアクセスしようとした時にプログラムをクラッシュさせたい場合に最適です。
+このコードを走らせると、最初の`[]`メソッドはプログラムをパニックさせます。
+なぜなら存在しない要素を参照しているからです。
+このメソッドは、ベクタの終端を超えて要素にアクセスしようとしたときにプログラムをクラッシュさせたい場合に最適です。
 
 <!--
 When the `get` method is passed an index that is outside the vector, it returns
