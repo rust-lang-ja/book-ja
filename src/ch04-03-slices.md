@@ -236,7 +236,7 @@ a slice that contains a pointer to the 7th byte (counting from 1) of `s` with a 
 ここで、`starting_index`はスライスの最初の位置、`ending_index`はスライスの終端位置よりも、
 1大きい値です。内部的には、スライスデータ構造は、開始地点とスライスの長さを保持しており、
 スライスの長さは`ending_index`から`starting_index`を引いたものに対応します。以上より、
-`let world = &s[6..11];`の場合には、`world`は`s`の（1から数えて）7バイト目へのポインタと5という長さを保持するスライスになるでしょう。
+`let world = &s[6..11];`の場合には、`world`は`s`の添え字6のバイトへのポインタと5という長さを持つスライスになるでしょう。
 
 <!--
 Figure 4-6 shows this in a diagram.
