@@ -108,7 +108,7 @@
     - [Storing Keys with Associated Values in Hash Maps](ch08-03-hash-maps.md)
 -->
 - [一般的なコレクション](ch08-00-common-collections.md)
-    - [ベクタで一連の値を保持する](ch08-01-vectors.md)
+    - [ベクタで値のリストを保持する](ch08-01-vectors.md)
     - [文字列でUTF-8でエンコードされたテキストを保持する](ch08-02-strings.md)
     - [キーとそれに紐づいた値をハッシュマップに格納する](ch08-03-hash-maps.md)
 

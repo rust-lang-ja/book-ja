@@ -2,19 +2,20 @@
 ## Storing Lists of Values with Vectors
 -->
 
-## ベクタで一連の値を保持する
+## ベクタで値のリストを保持する
 
 <!--
 The first collection type we’ll look at is `Vec<T>`, also known as a *vector*.
-Vectors allow us to store more than one value in a single data structure that
+Vectors allow you to store more than one value in a single data structure that
 puts all the values next to each other in memory. Vectors can only store values
 of the same type. They are useful when you have a list of items, such as the
 lines of text in a file or the prices of items in a shopping cart.
 -->
 
-最初に見るコレクションは、`Vec<T>`であり、*ベクタ*としても知られています。ベクタは、
-メモリ上に値を隣り合わせに並べる単独のデータ構造に2つ以上の値を保持させてくれます。
-ベクタには、同じ型の値しか保持できません。要素のリストがある場合に有用です。
+最初に見るコレクション型は`Vec<T>`であり、これは*ベクタ*としても知られています。
+ベクタは単体のデータ構造でありながら複数の値を保持でき、それらの値をメモリ上に隣り合わせに並べます。
+ベクタには同じ型の値しか保持できません。
+要素のリストがある場合にベクタは有用です。
 例えば、テキストファイルの各行とか、ショッピングカートのアイテムの価格などです。
 
 <!--
@@ -28,10 +29,10 @@ To create a new, empty vector, we can call the `Vec::new` function, as shown in
 Listing 8-1.
 -->
 
-新しい空のベクタを作るには、リスト8-1に示されたように、`Vec::new`関数を呼べばよいです。
+空のベクタを新たに作るには、リスト8-1に示すように`Vec::new`関数を呼びます。
 
 ```rust
-let v: Vec<i32> = Vec::new();
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-01/src/main.rs:here}}
 ```
 
 <!--
@@ -39,7 +40,7 @@ let v: Vec<i32> = Vec::new();
 of type `i32`</span>
 -->
 
-<span class="caption">リスト8-1: 新しい空のベクタを生成して`i32`型の値を保持する</span>
+<span class="caption">リスト8-1：新しい空のベクタを生成して`i32`型の値を保持する</span>
 
 <!--
 Note that we added a type annotation here. Because we aren’t inserting any
@@ -52,29 +53,34 @@ angle brackets. In Listing 8-1, we’ve told Rust that the `Vec<T>` in `v` will
 hold elements of the `i32` type.
 -->
 
-ここでは、型注釈を付け足したことに注目してください。このベクタに対して、何も値を挿入していないので、
-コンパイラには、どんなデータを保持させるつもりなのかわからないのです。これは重要な点です。ベクタは、
-ジェネリクスを使用して実装されているのです; 独自の型でジェネリクスを使用する方法については、
-第10章で解説します。今は、標準ライブラリにより提供されている`Vec<T>`型は、どんな型でも保持でき、
-特定のベクタが特定の型を保持するとき、その型は山かっこ内に指定されることを知っておいてください。
-リスト8-1では、コンパイラに`v`の`Vec<T>`は、`i32`型の要素を保持すると指示しました。
+ここで、型注釈を付けていることに注目してください。
+なぜなら、このベクタに対して何も値を挿入していないので、コンパイラには私たちがどんなデータを保持させるつもりか推測できないからです。
+これは重要な点です。
+ベクタはジェネリクスを使用して実装されています。
+あなた自身の型でどうジェネリクスを使用するかついては第10章で解説します。
+現時点では標準ライブラリで提供される`Vec<T>`型は、どんな型でも保持でき、ある特定のベクタがある型を保持するとき、その型は山かっこ内に指定されることを知っておいてください。
+リスト8-1では、コンパイラに`v`の`Vec<T>`は`i32`型の要素を保持すると指示しました。
 
 <!--
 In more realistic code, Rust can often infer the type of value you want to
 store once you insert values, so you rarely need to do this type annotation.
-It's more common to create a `Vec<T>` that has initial values, and Rust
+It’s more common to create a `Vec<T>` that has initial values, and Rust
 provides the `vec!` macro for convenience. The macro will create a new vector
-that holds the values we give it. Listing 8-2 creates a new `Vec<i32>` that
-holds the values `1`, `2`, and `3`.
+that holds the values you give it. Listing 8-2 creates a new `Vec<i32>` that
+holds the values `1`, `2`, and `3`. The integer type is `i32` because that’s
+the default integer type, as we discussed in the [“Data Types”][data-types]
+section of Chapter 3.
 -->
 
-より現実的なコードでは、一旦値を挿入したら、コンパイラは保持させたい値の型をしばしば推論できるので、
-この型注釈をすることは滅多にありません。初期値のある`Vec<T>`を生成する方が一般的ですし、
-Rustには、利便性のために`vec!`というマクロも用意されています。このマクロは、
-与えた値を保持する新しいベクタ型を生成します。リスト8-2では、`1`、`2`、`3`という値を持つ新しい`Vec<i32>`を生成しています。
+いったん値を挿入すると、多くの場合、コンパイラは保持させたい値の型を推論できるようになります。
+ですから、より現実的なコードでは、型注釈を付ける必要はあまりないでしょう。
+また、初期値を持つ`Vec<T>`を生成する方が一般的ですし、Rustには`vec!`という便利なマクロも用意されています。
+このマクロは与えた値を保持する新しいベクタを生成します。
+リスト8-2では、`1`、`2`、`3`という値を持つ新しい`Vec<i32>`を生成しています。
+整数型を`i32`にしているのは、3章の[「データ型」][data-types]節で学んだように、これが標準の整数型だからです。
 
 ```rust
-let v = vec![1, 2, 3];
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-02/src/main.rs:here}}
 ```
 
 <!--
@@ -90,8 +96,8 @@ is `Vec<i32>`, and the type annotation isn’t necessary. Next, we’ll look at 
 to modify a vector.
 -->
 
-初期値の`i32`値を与えたので、コンパイラは、`v`の型が`Vec<i32>`であると推論でき、型注釈は必要なくなりました。
-次は、ベクタを変更する方法を見ましょう。
+初期値の`i32`値を与えたので、コンパイラは`v`の型が`Vec<i32>`であると推論でき、型注釈は不要になりました。
+次はベクタを変更する方法を見ましょう。
 
 <!--
 ### Updating a Vector
@@ -104,15 +110,10 @@ To create a vector and then add elements to it, we can use the `push` method,
 as shown in Listing 8-3.
 -->
 
-ベクタを生成し、それから要素を追加するには、リスト8-3に示したように、`push`メソッドを使用できます。
+ベクタを生成し、それから要素を追加するには、リスト8-3に示すように`push`メソッドを使います。
 
 ```rust
-let mut v = Vec::new();
-
-v.push(5);
-v.push(6);
-v.push(7);
-v.push(8);
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-03/src/main.rs:here}}
 ```
 
 <!--
@@ -120,7 +121,7 @@ v.push(8);
 vector</span>
 -->
 
-<span class="caption">リスト8-3: `push`メソッドを使用してベクタ型に値を追加する</span>
+<span class="caption">リスト8-3：`push`メソッドを使用してベクタに値を追加する</span>
 
 <!--
 As with any variable, if we want to be able to change its value, we need to
@@ -129,9 +130,8 @@ we place inside are all of type `i32`, and Rust infers this from the data, so
 we don’t need the `Vec<i32>` annotation.
 -->
 
-あらゆる変数同様、第3章で議論したように、値を変化させたかったら、`mut`キーワードで可変にする必要があります。
-中に配置する数値は全て`i32`型であり、コンパイラはこのことをデータから推論するので、
-`Vec<i32>`という注釈は必要なくなります。
+第3章で説明したとおり、どんな変数でも、その値を変更したかったら`mut`キーワードで可変にする必要があります。
+中に配置する数値は全て`i32`型であり、Rustはこのことをデータから推論するので、`Vec<i32>`という注釈は不要です。
 
 <!--
 ### Dropping a Vector Drops Its Elements
@@ -144,30 +144,11 @@ Like any other `struct`, a vector is freed when it goes out of scope, as
 annotated in Listing 8-4.
 -->
 
-他のあらゆる`構造体`同様、ベクタもスコープを抜ければ、解放されます。リスト8-4に注釈したようにですね。
-
-<!--
-```rust
-{
-let v = vec![1, 2, 3, 4];
--->
-
-<!--
-// do stuff with v
--->
-
-<!--
-} // <- v goes out of scope and is freed here
-```
--->
+他のあらゆる`struct`（構造体）と同様に、ベクタもスコープを抜ければ解放されます。
+その様子をリスト8-4に示します。
 
 ```rust
-{
-    let v = vec![1, 2, 3, 4];
-
-    // vで作業をする
-
-} // <- vはここでスコープを抜け、解放される
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-04/src/main.rs:here}}
 ```
 
 <!--
@@ -175,18 +156,19 @@ let v = vec![1, 2, 3, 4];
 are dropped</span>
 -->
 
-<span class="caption">リスト8-4: ベクタとその要素がドロップされる箇所を示す</span>
+<span class="caption">リスト8-4：ベクタとその要素がドロップされる箇所を示す</span>
 
 <!--
-When the vector gets dropped, all of its contents will also be dropped, meaning
+When the vector gets dropped, all of its contents are also dropped, meaning
 those integers it holds will be cleaned up. This may seem like a
 straightforward point but can get a bit more complicated when you start to
 introduce references to the elements of the vector. Let’s tackle that next!
 -->
 
-ベクタがドロップされると、その中身もドロップされます。つまり、保持されていた整数値が、
-片付けられるということです。これは一見単純な点に見えるかもしれませんが、ベクタの要素への参照を導入した途端、
-もうちょっと複雑になる可能性を秘めています。次は、それに挑んでいきましょう！
+ベクタがドロップされると、その中身もドロップされます。
+つまり、保持されていた整数値が片付けられるということです。
+これは一見単純そうですが、ベクタの要素に対する参照を使い始めると少し複雑になり得ます。
+次はそれに挑戦しましょう！
 
 <!--
 ### Reading Elements of Vectors
@@ -201,22 +183,19 @@ value stored in a vector. In the examples, we’ve annotated the types of the
 values that are returned from these functions for extra clarity.
 -->
 
-もうベクタを生成し、更新し、破棄する方法を知ったので、中身を読む方法を知るのはいいステップアップです。
-ベクタに保持された値を参照する方法は2つあります。例では、さらなる明瞭性を求めて、
-これらの関数から返る値の型を注釈しました。
+ベクタを生成し、更新し、破棄する方法がわかったので、次のステップでは中身を読む方法について学ぶのが良いでしょう。
+ベクタに保持された値を参照する方法は2つあります。
+これから示す例では、理解を助けるために、それらの関数からの戻り値型を注釈しています。
 
 <!--
 Listing 8-5 shows both methods of accessing a value in a vector, either with
 indexing syntax or the `get` method.
 -->
 
-リスト8-5に示したのは、両メソッドがベクタの値に対して、添字記法と`get`メソッドによりアクセスするところです。
+リスト8-5はベクタの値にアクセスする両方の方法として、添え字記法と`get`メソッドが示されています。
 
 ```rust
-let v = vec![1, 2, 3, 4, 5];
-
-let third: &i32 = &v[2];
-let third: Option<&i32> = v.get(2);
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-05/src/main.rs:here}}
 ```
 
 <!--
@@ -224,7 +203,7 @@ let third: Option<&i32> = v.get(2);
 access an item in a vector</span>
 -->
 
-<span class="caption">リスト8-5: 添字記法か`get`メソッドを使用してベクタの要素にアクセスする</span>
+<span class="caption">リスト8-5：添え字記法か`get`メソッドを使用してベクタの要素にアクセスする</span>
 
 <!--
 Note two details here. First, we use the index value of `2` to get the third
@@ -234,9 +213,10 @@ or by using the `get` method with the index passed as an argument, which gives
 us an `Option<&T>`.
 -->
 
-ここでは、2つのことに注目してください。まず、3番目の要素を得るのに`2`という添え字の値を使用していることです:
-ベクタは、数値により順序付けされ、添え字は0から始まります。2番目に、3番目の要素を得る2つの方法は、
-`&`と`[]`を使用して参照を得るものと、番号を引数として`get`メソッドに渡して、`Option<&T>`を得るものということです。
+ここでは2つのことに注目してください。
+1つ目は、3番目の要素を得るのに`2`という添え字の値を使用していることです。
+ベクタは番号で索引化されますが、その番号は0から始まります。
+2つ目は、3番目の要素を得る2つの方法とは、`&`と`[]`を使用して参照を得るものと、`get`メソッドに引数として添え字を渡して`Option<&T>`を得るものだということです。
 
 <!--
 Rust has two ways to reference an element so you can choose how the program
@@ -246,15 +226,12 @@ that holds five elements and then tries to access an element at index 100, as
 shown in Listing 8-6.
 -->
 
-Rustには要素を参照する方法が2通りあるので、ベクタに要素が含まれない番号の値を使用しようとした時に、
-プログラムの振る舞いを選択できます。例として、ベクタに5つ要素があり、添え字100の要素にアクセスを試みた場合、
-プログラムがすることを確認しましょう。リスト8-6に示したようにですね。
+Rustのベクタには要素を参照する方法が2通りあるので、ベクタに含まれない要素の添え字を使おうとしたときのプログラムの振る舞いを選択できます。
+例として、ベクタに5つ要素があるとして、添え字100の要素にアクセスを試みた場合、プログラムがどうなるのか確認しましょう。
+リスト8-6に示します。
 
-```rust,should_panic
-let v = vec![1, 2, 3, 4, 5];
-
-let does_not_exist = &v[100];
-let does_not_exist = v.get(100);
+```rust,should_panic,panics
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-06/src/main.rs:here}}
 ```
 
 <!--
@@ -262,17 +239,18 @@ let does_not_exist = v.get(100);
 100 in a vector containing five elements</span>
 -->
 
-<span class="caption">リスト8-6: 5つの要素を含むベクタの添え字100の要素にアクセスしようとする</span>
+<span class="caption">リスト8-6：5つの要素を含むベクタの添え字100の要素にアクセスしようとする</span>
 
 <!--
 When we run this code, the first `[]` method will cause the program to panic
 because it references a nonexistent element. This method is best used when you
-want your program to crash if there's an attempt to access an element past the
+want your program to crash if there’s an attempt to access an element past the
 end of the vector.
 -->
 
-このコードを走らせると、最初の`[]`メソッドはプログラムをパニックさせます。存在しない要素を参照しているからです。
-このメソッドは、ベクタの終端を超えて要素にアクセスしようとした時にプログラムをクラッシュさせたい場合に最適です。
+このコードを走らせると、最初の`[]`メソッドはプログラムをパニックさせます。
+なぜなら存在しない要素を参照しているからです。
+このメソッドは、ベクタの終端を超えて要素にアクセスしようとしたときにプログラムをクラッシュさせたい場合に最適です。
 
 <!--
 When the `get` method is passed an index that is outside the vector, it returns
@@ -286,38 +264,31 @@ items are in the current vector and give them another chance to enter a valid
 value. That would be more user-friendly than crashing the program due to a typo!
 -->
 
-`get`メソッドがベクタ外の添え字を渡されると、パニックすることなく`None`を返します。
-普通の状態でも、ベクタの範囲外にアクセスする可能性がある場合に、このメソッドを使用することになるでしょう。
-そうしたら、コードには`Some(&element)`か`None`を扱うロジックが存在することになります。そう、
-第6章で議論したように。例えば、添え字は人間に数値を入力してもらうことで得ることもできます。
-もし大きすぎる値を誤って入力し、プログラムが`None`値を得てしまったら、現在ベクタに幾つ要素があるかをユーザに教え、
-再度正しい値を入力してもらうことができるでしょう。その方が、タイプミスでプログラムをクラッシュさせるより、
-ユーザに優しくなるでしょう。
+`get`メソッドにベクタ外の添え字を渡すと、パニックすることなく`None`を返します。
+普通の状況でもベクタの範囲外にアクセスする可能性があるなら、このメソッドを使用することになるでしょう。
+その場合、第6章で説明したように、コードは`Some(&element)`か`None`を扱うロジックを持つことになります。
+例えば、誰かが入力した数値が添え字になるかもしれません。
+もし誤って大きすぎる値を入力し、プログラムが`None`値を得たなら、いまベクタに何要素あるかをユーザに教え、正しい値を再入力してもらうこともできます。
+その方が、ただのタイプミスでプログラムをクラッシュさせるより、ユーザに優しいといえそうです。
 
 <!--
 When the program has a valid reference, the borrow checker enforces the
 ownership and borrowing rules (covered in Chapter 4) to ensure this reference
 and any other references to the contents of the vector remain valid. Recall the
-rule that states we can’t have mutable and immutable references in the same
+rule that states you can’t have mutable and immutable references in the same
 scope. That rule applies in Listing 8-7, where we hold an immutable reference to
-the first element in a vector and try to add an element to the end, which won't
-work.
+the first element in a vector and try to add an element to the end, which won’t
+work if we also try to refer to that element later in the function:
 -->
 
-プログラムに有効な参照がある場合、借用チェッカー(borrow checker)は(第4章で解説しましたが)、
-所有権と借用規則を強制し、ベクタの中身へのこの参照や他のいかなる参照も有効であり続けることを保証してくれます。
+プログラムに有効な参照がある場合、借用チェッカー (borrow checker) は、（第4章で解説しましたが）所有権と借用規則を強制し、ベクタの中身へのこの参照や他のいかなる参照も有効であり続けることを保証してくれます。
 同一スコープ上では、可変と不変な参照を同時には存在させられないというルールを思い出してください。
-このルールはリスト8-7にも適用され、リスト8-7ではベクタの最初の要素への不変参照を保持し、
-終端に要素を追加しようとしていますが、動きません。
+このルールはリスト8-7でも適用されています。
+リスト8-7ではベクタの最初の要素への不変参照を保持しつつ、終端に要素を追加しようとしています。
+関数内のここ以降で、この要素（訳注：`first`のこと）を参照しようとすると失敗します。
 
-```rust,ignore
-let mut v = vec![1, 2, 3, 4, 5];
-
-let first = &v[0];
-
-v.push(6);
-
-println!("The first element is: {}", first);
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-07/src/main.rs:here}}
 ```
 
 <!--
@@ -325,28 +296,16 @@ println!("The first element is: {}", first);
 while holding a reference to an item</span>
 -->
 
-<span class="caption">リスト8-7: 要素への参照を保持しつつ、ベクタに要素を追加しようとする</span>
+<span class="caption">リスト8-7：要素への参照を保持しつつ、ベクタに要素を追加しようとする</span>
 
 <!--
 Compiling this code will result in this error:
 -->
 
-このコードをコンパイルすると、こんなエラーになります:
+このコードをコンパイルすると、こんなエラーになります。
 
-```text
-error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immutable
-(エラー: 不変としても借用されているので、`v`を可変で借用できません)
-  |
-4 |     let first = &v[0];
-  |                  - immutable borrow occurs here
-  |                  (不変借用はここで発生しています)
-5 |
-6 |     v.push(6);
-  |     ^ mutable borrow occurs here
-  |      (可変借用は、ここで発生しています)
-7 | }
-  | - immutable borrow ends here
-  |   (不変借用はここで終了しています)
+```console
+{{#include ../listings/ch08-common-collections/listing-08-07/output.txt}}
 ```
 
 <!--
@@ -354,51 +313,46 @@ The code in Listing 8-7 might look like it should work: why should a reference
 to the first element care about what changes at the end of the vector? This
 error is due to the way vectors work: adding a new element onto the end of the
 vector might require allocating new memory and copying the old elements to the
-new space if there isn’t enough room to put all the elements next to each
+new space, if there isn’t enough room to put all the elements next to each
 other where the vector currently is. In that case, the reference to the first
 element would be pointing to deallocated memory. The borrowing rules prevent
 programs from ending up in that situation.
 -->
 
-リスト8-7のコードは、一見動くはずのように見えるかもしれません: なぜ、最初の要素への参照が、
-ベクタの終端への変更を気にかける必要があるのでしょうか？このエラーは、ベクタの動作法のせいです:
-新規要素をベクタの終端に追加すると、ベクタが現在存在する位置に隣り合って要素を入れるだけの領域がなかった場合に、
-メモリの新規確保をして古い要素を新しいスペースにコピーする必要があるかもしれないからです。
-その場合、最初の要素を指す参照は、解放されたメモリを指すことになるでしょう。借用規則により、
-そのような場面に陥らないよう回避されるのです。
+リスト8-7のコードは、一見動きそうに見えるかもしれません。
+なぜ最初の要素への参照が、ベクタの終端への変更を気にかける必要があるのでしょうか？
+このエラーはベクタが動作するしくみによるものです。
+新たな要素をベクタの終端に追加するとき、いまベクタのある場所に全要素を隣り合わせに配置するだけのスペースがないなら、新しいメモリを割り当て、古い要素を新しいスペースにコピーする必要があります。
+その場合、最初の要素を指す参照は、解放されたメモリを指すことになるでしょう。
+借用規則がそのような状況に陥らないよう防いでくれるのです。
 
 <!--
-> Note: For more on the implementation details of the `Vec<T>` type, see “The
-> Rustonomicon” at https://doc.rust-lang.org/stable/nomicon/vec.html.
+> Note: For more on the implementation details of the `Vec<T>` type, see [“The
+> Rustonomicon”][nomicon].
 -->
 
-> 注釈: `Vec<T>`の実装に関する詳細については、[“The Rustonomicon”](https://doc.rust-lang.org/stable/nomicon/vec.html)を参照してください。
-
-> 訳注: 日本語版のThe Rustonomiconは[こちら][nomicon-ja-vec]です。
+> 注釈: `Vec<T>`の実装に関する詳細については、[“The Rustonomicon”][nomicon]を参照してください （訳注：日本語版は[こちら][nomicon-ja-vec]です）。
 
 [nomicon-ja-vec]: https://doc.rust-jp.rs/rust-nomicon-ja/vec.html
 
 <!--
-### Iterating Over the Values in a Vector
+### Iterating over the Values in a Vector
 -->
 
-### ベクタの値を走査する
+### ベクタ内の値を順に処理する
 
 <!--
 If we want to access each element in a vector in turn, we can iterate through
-all of the elements rather than use indexes to access one at a time. Listing
+all of the elements rather than use indices to access one at a time. Listing
 8-8 shows how to use a `for` loop to get immutable references to each element
 in a vector of `i32` values and print them.
 -->
 
-ベクタの要素に順番にアクセスしたいなら、添え字で1回に1要素にアクセスするのではなく、全要素を走査することができます。
-リスト8-8で`for`ループを使い、`i32`のベクタの各要素に対する不変な参照を得て、それらを出力する方法を示しています。
+ベクタの要素に順番にアクセスしたいなら、添え字で1要素ごとにアクセスするのではなく、全要素を走査することができます。
+リスト8-8で`for`ループを使い、`i32`のベクタの各要素に対する不変な参照を得て、それらを表示する方法を示します。
 
 ```rust
-let v = vec![100, 32, 57];
-for i in &v {
-    println!("{}", i);
-}
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-08/src/main.rs:here}}
 ```
 
 <!--
@@ -406,7 +360,7 @@ for i in &v {
 iterating over the elements using a `for` loop</span>
 -->
 
-<span class="caption">リスト8-8: `for`ループで要素を走査し、ベクタの各要素を出力する</span>
+<span class="caption">リスト8-8：`for`ループで要素を走査し、ベクタの各要素を表示する</span>
 
 <!--
 We can also iterate over mutable references to each element in a mutable vector
@@ -414,14 +368,11 @@ in order to make changes to all the elements. The `for` loop in Listing 8-9
 will add `50` to each element.
 -->
 
-全要素に変更を加える目的で、可変なベクタの各要素への可変な参照を走査することもできます。
-リスト8-9の`for`ループでは、各要素に`50`を足しています。
+また、全要素に変更を加えるために、可変なベクタの各要素への可変な参照を走査することもできます。
+リスト8-9の`for`ループでは各要素に`50`を足しています。
 
 ```rust
-let mut v = vec![100, 32, 57];
-for i in &mut v {
-    *i += 50;
-}
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-09/src/main.rs:here}}
 ```
 
 <!--
@@ -429,16 +380,18 @@ for i in &mut v {
 elements in a vector</span>
 -->
 
-<span class="caption">リスト8-9: ベクタの要素への可変な参照を走査する</span>
+<span class="caption">リスト8-9：ベクタの要素への可変な参照を走査する</span>
 
 <!--
 To change the value that the mutable reference refers to, we have to use the
 dereference operator (`*`) to get to the value in `i` before we can use the
-`+=` operator.
+`+=` operator. We’ll talk more about the dereference operator in the
+[“Following the Pointer to the Value with the Dereference Operator”][deref]
+section of Chapter 15.
 -->
 
-可変参照が参照している値を変更するには、`+=`演算子を使用する前に、
-参照外し演算子(`*`)を使用して`i`の値に辿り着かないといけません。
+可変参照が参照している値を変更するには、`+=`演算子を使用する前に、参照外し演算子(`*`)を使用して`i`の値にたどり着かないといけません。
+参照外し演算子については、第15章の[「参照外し演算子で値までポインタを追いかける」][deref]節でより詳しく扱います。
 
 <!--
 ### Using an Enum to Store Multiple Types
@@ -454,10 +407,10 @@ variants of an enum are defined under the same enum type, so when we need to
 store elements of a different type in a vector, we can define and use an enum!
 -->
 
-この章の冒頭で、ベクタは同じ型の値しか保持できないと述べました。これは不便なこともあります;
-異なる型の要素を保持する必要性が出てくるユースケースも確かにあるわけです。幸運なことに、
-enumの列挙子は、同じenumの型の元に定義されるので、ベクタに異なる型の要素を保持する必要が出たら、
-enumを定義して使用することができます！
+この章の冒頭で、ベクタは同じ型の値しか保持できないと述べました。
+これは不便なこともあります。
+異なる型の要素を保持する必要のあるユースケースは必ず存在します。
+幸運なことに、enumの列挙子は同じenumの型の中に定義されるので、ベクタに異なる型の要素を保持する必要が出たら、enumを定義して使用すればよいのです！
 
 <!--
 For example, say we want to get values from a row in a spreadsheet in which
@@ -468,23 +421,15 @@ that of the enum. Then we can create a vector that holds that enum and so,
 ultimately, holds different types. We’ve demonstrated this in Listing 8-10.
 -->
 
-例えば、スプレッドシートの行から値を得たくなったとしましょう。ここで行の列には、整数を含むものや、
-浮動小数点数を含むもの、文字列を含むものがあります。列挙子が異なる値の型を保持するenumを定義できます。
-そして、このenumの列挙子は全て同じ型: enumの型と考えられるわけです。それからそのenumを保持するベクタを生成でき、
-結果的に異なる型を保持できるようになるわけです。リスト8-10でこれを模擬しています。
+例えば、スプレッドシートのある行から値を得ることを考えます。
+ここで、その行の中の列には、整数を含むもの、浮動小数点数を含むもの、文字列を含むものがあるとします。
+列挙子ごとに異なる値の型を保持するenumが定義できます。
+そして、このenumの列挙子は全て同じ型、つまりenumの型、と考えられるわけです。
+ですから、そのenumを保持するベクタを作成でき、結果的に異なる型を保持できるようになるわけです。
+リスト8-10でこれを実演しています。
 
 ```rust
-enum SpreadsheetCell {
-    Int(i32),
-    Float(f64),
-    Text(String),
-}
-
-let row = vec![
-    SpreadsheetCell::Int(3),
-    SpreadsheetCell::Text(String::from("blue")),
-    SpreadsheetCell::Float(10.12),
-];
+{{#rustdoc_include ../listings/ch08-common-collections/listing-08-10/src/main.rs:here}}
 ```
 
 <!--
@@ -492,7 +437,7 @@ let row = vec![
 different types in one vector</span>
 -->
 
-<span class="caption">リスト8-10: `enum`を定義して、一つのベクタに異なる型の値を保持する</span>
+<span class="caption">リスト8-10：`enum`を定義して、一つのベクタに異なる型の値を保持する</span>
 
 <!--
 Rust needs to know what types will be in the vector at compile time so it knows
@@ -505,34 +450,42 @@ that Rust will ensure at compile time that every possible case is handled, as
 discussed in Chapter 6.
 -->
 
-各要素を格納するのにヒープ上でズバリどれくらいのメモリが必要になるかをわかるように、
-コンパイラがコンパイル時にベクタに入る型を知る必要があります。副次的な利点は、
-このベクタではどんな型が許容されるのか明示できることです。もしRustでベクタがどんな型でも保持できたら、
-ベクタの要素に対して行われる処理に対して一つ以上の型がエラーを引き起こす可能性があったでしょう。
-enumに加えて`match`式を使うことは、第6章で議論した通り、コンパイル時にありうる場合全てに対処していることをコンパイラが、
-保証できることを意味します。
+個々の要素を格納するのにヒープ上で必要となるメモリの量を正確に把握するめに、Rustコンパイラはコンパイル時にベクタに入る型を知る必要があります。
+また、このベクタではどんな型が許容されるのか明示できるという副次的な利点があります。
+もしRustが、ベクタにどんな型でも保持できることを許していたら、ベクタの要素に対して行われる処理に対して、いくつかの型がエラーを引き起こすかもしれません。
+enumに加えて`match`式を使うことで、第6章で説明したとおり、あらゆるケースが処理できることを、Rustがコンパイル時に保証することになります。
 
 <!--
-When you're writing a program, if you don’t know the exhaustive set of types
+When you’re writing a program, if you don’t know the exhaustive set of types
 the program will get at runtime to store in a vector, the enum technique won’t
 work. Instead, you can use a trait object, which we’ll cover in Chapter 17.
 -->
 
-プログラム記述時にプログラムがベクタに実行時に保持するありとあらゆる一連の型をプログラマが知らない場合、
-このenumテクニックはうまく動かないでしょう。代わりにトレイトオブジェクトを使用することができ、こちらは第17章で講義します。
+プログラムを書いている時点で、プログラムが実行時に取得し、ベクタに格納し得る全ての型を網羅できない場合には、このenumを使ったテクニックはうまくいかないでしょう。
+代わりにトレイトオブジェクトを使用できます。
+こちらは第17章で取り上げます。
 
 <!--
 Now that we’ve discussed some of the most common ways to use vectors, be sure
-to review the API documentation for all the many useful methods defined on
+to review [the API documentation][vec-api] for all the many useful methods defined on
 `Vec<T>` by the standard library. For example, in addition to `push`, a `pop`
 method removes and returns the last element. Let’s move on to the next
 collection type: `String`!
 -->
 
+これまでにベクタの代表的な使い方をいくつか紹介しました。
+標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについて、[APIドキュメント][vec-api]を必ず確認するようにしてください。
+例えば、`push`に加えて、`pop`というメソッドがあり、これは最後の要素を削除して返します。
+それでは次のコレクション型である`String`に移りましょう！
+
 <!--
-1行目、discussed some of を「について触れ、議論した」と訳した
+[data-types]: ch03-02-data-types.html#data-types
+[nomicon]: ../nomicon/vec.html
+[vec-api]: ../std/vec/struct.Vec.html
+[deref]: ch15-02-deref.html#following-the-pointer-to-the-value-with-the-dereference-operator
 -->
 
-今や、ベクタを使用するべき最も一般的な方法について触れ、議論したので、標準ライブラリで`Vec<T>`に定義されている多くの有益なメソッドについては、
-APIドキュメントを確認することを心得てください。例として、`push`に加えて、`pop`メソッドは最後の要素を削除して返します。
-次のコレクション型に移りましょう: `String`です！
+[data-types]: ch03-02-data-types.html#データ型
+[nomicon]: ../nomicon/vec.html
+[vec-api]: ../std/vec/struct.Vec.html
+[deref]: ch15-02-deref.html#参照外し演算子で値までポインタを追いかける
