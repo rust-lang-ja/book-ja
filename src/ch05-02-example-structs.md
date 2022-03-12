@@ -10,7 +10,7 @@ calculates the area of a rectangle. We’ll start with single variables, and the
 refactor the program until we’re using structs instead.
 -->
 
-構造体を使用したくなる可能性のあるケースを理解するために、四角形の面積を求めるプログラムを書きましょう。
+構造体を使用したくなる可能性のあるケースを理解するために、長方形の面積を求めるプログラムを書きましょう。
 単一の変数から始め、代わりに構造体を使うようにプログラムをリファクタリングします。
 
 <!--
@@ -21,7 +21,7 @@ exactly that in our project’s *src/main.rs*.
 -->
 
 Cargoで*rectangles*という新規バイナリプロジェクトを作成しましょう。このプロジェクトは、
-四角形の幅と高さをピクセルで指定し、その面積を求めます。リスト5-8に、プロジェクトの*src/main.rs*で、
+長方形の幅と高さをピクセルで指定し、その面積を求めます。リスト5-8に、プロジェクトの*src/main.rs*で、
 正にそうする一例を短いプログラムとして示しました。
 
 <!--
@@ -36,7 +36,7 @@ fn main() {
     let height1 = 50;
 
     println!(
-        // 四角形の面積は、{}平方ピクセルです
+        // 長方形の面積は、{}平方ピクセルです
         "The area of the rectangle is {} square pixels.",
         area(width1, height1)
     );
@@ -52,7 +52,7 @@ fn area(width: u32, height: u32) -> u32 {
 specified by separate width and height variables</span>
 -->
 
-<span class="caption">リスト5-8: 個別の幅と高さ変数を指定して四角形の面積を求める</span>
+<span class="caption">リスト5-8: 個別の幅と高さ変数を指定して長方形の面積を求める</span>
 
 <!--
 Now, run this program using `cargo run`:
@@ -62,7 +62,7 @@ Now, run this program using `cargo run`:
 
 ```text
 The area of the rectangle is 1500 square pixels.
-(四角形の面積は、1500平方ピクセルです)
+(長方形の面積は、1500平方ピクセルです)
 ```
 
 <!--
@@ -78,8 +78,8 @@ and the height are related to each other because together they describe one
 rectangle.
 -->
 
-リスト5-8のコードはうまく動き、各次元で`area`関数を呼び出すことで四角形の面積を割り出しますが、
-改善点があります。幅と高さは、組み合わせると一つの四角形を表すので、相互に関係があるわけです。
+リスト5-8のコードはうまく動き、各寸法を与えて`area`関数を呼び出すことで長方形の面積を割り出しますが、
+改善点があります。幅と高さは、組み合わせると一つの長方形を表すので、相互に関係があるわけです。
 
 <!--
 The issue with this code is evident in the signature of `area`:
@@ -99,7 +99,7 @@ manageable to group width and height together. We’ve already discussed one way
 we might do that in the "The Tuple Type" section of Chapter 3: by using tuples.
 -->
 
-`area`関数は、1四角形の面積を求めるものと考えられますが、今書いた関数には、引数が2つあります。
+`area`関数は、1長方形の面積を求めるものと考えられますが、今書いた関数には、引数が2つあります。
 引数は関連性があるのに、このプログラム内のどこにもそのことは表現されていません。
 幅と高さを一緒にグループ化する方が、より読みやすく、扱いやすくなるでしょう。
 それをする一つの方法については、第3章の「タプル型」節ですでに議論しました: タプルを使うのです。
@@ -142,7 +142,7 @@ fn area(dimensions: (u32, u32)) -> u32 {
 rectangle with a tuple</span>
 -->
 
-<span class="caption">リスト5-9: タプルで四角形の幅と高さを指定する</span>
+<span class="caption">リスト5-9: タプルで長方形の幅と高さを指定する</span>
 
 <!--
 In one way, this program is better. Tuples let us add a bit of structure, and
@@ -165,7 +165,7 @@ values and cause errors, because we haven’t conveyed the meaning of our data i
 our code.
 -->
 
-面積計算で幅と高さを混在させるのなら問題はないのですが、四角形を画面に描画したいとなると、問題になるのです！
+面積計算で幅と高さを混在させるのなら問題はないのですが、長方形を画面に描画したいとなると、問題になるのです！
 タプルの添え字`0`が`幅`で、添え字`1`が`高さ`であることを肝に銘じておかなければなりません。
 他人がこのコードをいじることになったら、このことを割り出し、同様に肝に銘じなければならないでしょう。
 容易く、このことを忘れたり、これらの値を混ぜこぜにしたりしてエラーを発生させてしまうでしょう。
@@ -183,7 +183,7 @@ we’re using into a data type with a name for the whole as well as names for th
 parts, as shown in Listing 5-10.
 -->
 
-データにラベル付けをして意味付けを行い、構造体を使います。現在使用しているタプルを全体と一部に名前のあるデータ型に、
+データのラベル付けで意味を付与するために構造体を使います。現在使用しているタプルを全体と一部に名前のあるデータ型に、
 変形することができます。そう、リスト5-10に示したように。
 
 <!--
@@ -469,7 +469,7 @@ continue to refactor this code by turning the `area` function into an `area`
 *method* defined on our `Rectangle` type.
 -->
 
-`area`関数は、非常に特殊です: 四角形の面積を算出するだけです。`Rectangle`構造体とこの動作をより緊密に結び付けられると、
+`area`関数は、非常に特殊です: 長方形の面積を算出するだけです。`Rectangle`構造体とこの動作をより緊密に結び付けられると、
 役に立つでしょう。なぜなら、他のどんな型でもうまく動作しなくなるからです。
 `area`関数を`Rectangle`型に定義された`area`*メソッド*に変形することで、
 このコードをリファクタリングし続けられる方法について見ていきましょう。

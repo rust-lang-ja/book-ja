@@ -2,7 +2,7 @@
 # Introduction
 -->
 
-# 導入
+# はじめに
 
 <!--
 > Note: This edition of the book is the same as [The Rust Programming
@@ -82,25 +82,23 @@ Rustはまた、現代的な開発ツールをシステムプログラミング�
 
 <!--
 * Cargo, the included dependency manager and build tool, makes adding,
-compiling, and managing dependencies painless and consistent across the Rust
-ecosystem.
+  compiling, and managing dependencies painless and consistent across the Rust
+  ecosystem.
 * Rustfmt ensures a consistent coding style across developers.
 * The Rust Language Server powers Integrated Development Environment (IDE)
-integration for code completion and inline error messages.
+  integration for code completion and inline error messages.
 -->
 
-* Cargoは、付属の依存マネージャ兼ビルドツールで、依存を追加、コンパイル、管理することを楽かつ、
-  Rustエコシステムを通じて矛盾させません。
-* Rustfmtは開発者の間で矛盾のないコーディングスタイルを保証します。
-* Rust Language ServerはIDE(Intefrated Development Environment)にコード補完とインラインのエラーメッセージの統合の源となります。
+* Cargoは、付属の依存関係管理ツール兼ビルドツールで、依存関係の追加、コンパイル、管理を容易にし、Rustのエコシステム全体で一貫性を持たせます。
+* Rustfmtは開発者の間で一貫したコーディングスタイルを保証します。
+* Rust言語サーバーは、IDE(統合開発環境)との統合により、コード補完やインラインエラーメッセージに対応しています。
 
 <!--
 By using these and other tools in the Rust ecosystem, developers can be
 productive while writing systems-level code.
 -->
 
-これらや他のツールをRustのエコシステムで使用することで、開発者はシステムレベルのコードを記述しつつ、
-生産的になれます。
+これらのツールやRustのエコシステムの他のツールを使用することで、開発者はシステムレベルのコードを書きながら生産性を高めることができます。
 
 <!--
 ### Students
@@ -162,14 +160,10 @@ Rustは、Rustプログラミング言語やコミュニティ、開発者ツー
 ### スピードと安定性に価値を見出す方
 
 <!--
-最後から3行目、zero-cost abstractions, higher-level featuresの繋がりがよくわからない。byが両者にかかっているように訳した
--->
-
-<!--
 Rust is for people who crave speed and stability in a language. By speed, we
 mean the speed of the programs that you can create with Rust and the speed at
 which Rust lets you write them. The Rust compiler’s checks ensure stability
-through feature additions and refactoring. This is contrast to the brittle
+through feature additions and refactoring. This is in contrast to the brittle
 legacy code in languages without these checks, which developers are often
 afraid to modify. By striving for zero-cost abstractions, higher-level features
 that compile to lower-level code as fast as code written manually, Rust
@@ -186,14 +180,14 @@ Rustは安全なコードを高速なコードにもしようと努力してい�
 <!--
 The Rust language hopes to support many other users as well; those mentioned
 here are merely some of the biggest stakeholders. Overall, Rust’s greatest
-ambition is to eliminate trade-offs that programmers have accepted for
-decades: safety *and* productivity, speed *and* ergonomics. Give
-Rust a try, and see if its choices work for you.
+ambition is to eliminate the trade-offs that programmers have accepted for
+decades by providing safety *and* productivity, speed *and* ergonomics. Give
+Rust a try and see if its choices work for you.
 -->
 
 Rust言語は他の多くのユーザのサポートも望んでいます; ここで名前を出した方は、
-ただの最大の出資者の一部です。総合すると、Rustの最大の野望は、プログラマが数十年間受け入れてきた代償を排除することです:
-つまり、安全性*と*生産性、スピード*と*エルゴノミクスです。Rustを試してみて、その選択が自分に合っているか確かめてください。
+ただの最大の出資者の一部です。総合すると、Rustの最大の野望は、プログラマが数十年間受け入れてきた代償を、安全性*と*生産性、
+スピード*と*エルゴノミクスを提供することで排除することです。Rustを試してみて、その選択が自分に合っているか確かめてください。
 
 <!--
 ## Who This Book Is For
@@ -243,21 +237,21 @@ Rustの一面を学ぶでしょう。プロジェクトの章では、それま�
 2、12、20章がプロジェクトの章です。つまり、残りは概念の章です。
 
 <!--
-Chapter 1 explains how to install Rust, how to write a Hello, world! program,
+Chapter 1 explains how to install Rust, how to write a “Hello, world!” program,
 and how to use Cargo, Rust’s package manager and build tool. Chapter 2 is a
-hands-on introduction to the Rust language. We’ll cover concepts at a high
+hands-on introduction to the Rust language. Here we cover concepts at a high
 level, and later chapters will provide additional detail. If you want to get
-your hands dirty right away, Chapter 2 is the one for that. At first, you
+your hands dirty right away, Chapter 2 is the place for that. At first, you
 might even want to skip Chapter 3, which covers Rust features similar to those
-of other programming language, and head straight to Chapter 4 to learn about
+of other programming languages, and head straight to Chapter 4 to learn about
 Rust’s ownership system. However, if you’re a particularly meticulous learner
-who prefers to learn every detail before moving onto the next, you might want
+who prefers to learn every detail before moving on to the next, you might want
 to skip Chapter 2 and go straight to Chapter 3, returning to Chapter 2 when
 you’d like to work on a project applying the details you’ve learned.
 -->
 
-第1章はRustのインストール方法、Hello, world!プログラムの書き方、Rustのパッケージマネージャ兼、
-ビルドツールのCargoの使用方法を説明します。第2章は、Rust言語への実践的な導入です。概念を高度に講義し、後ほどの章で追加の詳細を提供します。
+第1章はRustのインストール方法、“Hello, world!”プログラムの書き方、Rustのパッケージマネージャ兼、
+ビルドツールのCargoの使用方法を説明します。第2章は、Rust言語への実践的な導入です。ここでは概念をざっくりと講義し、後ほどの章で追加の詳細を提供します。
 今すぐRustの世界に飛び込みたいなら、第2章こそがそのためのものです。第3章は他のプログラミング言語の機能に似たRustの機能を講義していますが、
 最初その3章すら飛ばして、まっすぐに第4章に向かい、Rustの所有権システムについて学びたくなる可能性があります。
 しかしながら、あなたが次に進む前に全ての詳細を学ぶことを好む特別に几帳面な学習者なら、
@@ -287,7 +281,7 @@ explores Rust’s error-handling philosophy and techniques.
 <!--
 Chapter 10 digs into generics, traits, and lifetimes, which give you the power
 to define code that applies to multiple types. Chapter 11 is all about testing,
-which even with Rust's safety guarantees is necessary to ensure your program's
+which even with Rust’s safety guarantees is necessary to ensure your program’s
 logic is correct. In Chapter 12, we’ll build our own implementation of a subset
 of functionality from the `grep` command line tool that searches for text
 within files. For this, we’ll use many of the concepts we discussed in the
@@ -324,12 +318,12 @@ principles you might be familiar with.
 <!--
 Chapter 18 is a reference on patterns and pattern matching, which are powerful
 ways of expressing ideas throughout Rust programs. Chapter 19 contains a
-smorgasbord of advanced topics of interest, including unsafe Rust and more
-about lifetimes, traits, types, functions, and closures.
+smorgasbord of advanced topics of interest, including unsafe Rust, macros, and
+more about lifetimes, traits, types, functions, and closures.
 -->
 
 第18章は、パターンとパターンマッチングのリファレンスであり、これらはRustプログラムを通して、
-考えを表現する強力な方法になります。第19章は、unsafe Rustやライフタイム、トレイト、型、関数、クロージャの詳細を含む、
+考えを表現する強力な方法になります。第19章は、unsafe Rustやマクロ、ライフタイム、トレイト、型、関数、クロージャの詳細を含む、
 興味のある高度な話題のスモーガスボード(`訳注`: 日本でいうバイキングのこと)を含みます。
 
 <!--
@@ -343,12 +337,14 @@ multithreaded web server!
 Finally, some appendixes contain useful information about the language in a
 more reference-like format. Appendix A covers Rust’s keywords, Appendix B
 covers Rust’s operators and symbols, Appendix C covers derivable traits
-provided by the standard library, Appendix D covers macros.
+provided by the standard library, Appendix D covers some useful development
+tools, and Appendix E explains Rust editions.
 -->
 
 最後に、言語についての有用な情報をよりリファレンスのような形式で含む付録があります。
 付録AはRustのキーワードを講義し、付録Bは、Rustの演算子と記号、付録Cは、
-標準ライブラリが提供する導出可能なトレイト、付録Dはマクロを講義します。
+標準ライブラリが提供する導出可能なトレイト、付録Dはいくつか便利な開発ツールを講義し、
+付録EではRustのエディションについて説明します。
 
 <!--
 There is no wrong way to read this book: if you want to skip ahead, go for it!
@@ -360,28 +356,52 @@ confusion. But do whatever works for you.
 混乱したら、前の章に戻らなければならない可能性もあります。ですが、自分に合った方法でどうぞ。
 
 <!--
-An important part of the process of learning Rust is learning how to read the
-error messages the compiler displays: these will guide you toward working code.
-As such, we’ll provide many examples of code that doesn’t compile along with
-the error message the compiler will show you in each situation. Know that if
-you enter and run a random example, it may not compile! Make sure you read the
-surrounding text to see whether the example you’re trying to run is meant to
-error. In most situations, we’ll lead you to the correct version of any code
-that doesn’t compile.
+<span id="ferris"></span>
 -->
 
+<span id="ferris"></span>
+
 <!--
-NOTE: docs.rust-lang.orgにあるバージョンだとFerrisに関する追記があるが、2nd editionで必要なのか、確認が必要
+An important part of the process of learning Rust is learning how to read the
+error messages the compiler displays: these will guide you toward working code.
+As such, we’ll provide many examples that don’t compile along with the error
+message the compiler will show you in each situation. Know that if you enter
+and run a random example, it may not compile! Make sure you read the
+surrounding text to see whether the example you’re trying to run is meant to
+error. Ferris will also help you distinguish code that isn’t meant to work:
 -->
 
 Rustを学ぶ過程で重要な部分は、コンパイラが表示するエラーメッセージを読む方法を学ぶことです:
 それは動くコードへと導いてくれます。そのため、各場面でコンパイラが表示するエラーメッセージとともに、
-コンパイルできないコードの例を多く提供します。適当に例を選んで走らせたら、コンパイルできないかもしれないことを知ってください！
+コンパイルできない例を多く提供します。適当に例を選んで走らせたら、コンパイルできないかもしれないことを知ってください！
 周りのテキストを読んで実行しようとしている例がエラーになることを意図しているのか確認することを確かめてください。
+フェリスもコードが動作するとは意図されていないコードを見分けるのを手助けしてくれます:
+
+<!--
+| Ferris                                                                 | Meaning                                          |
+|------------------------------------------------------------------------|--------------------------------------------------|
+| <img src="img/ferris/does_not_compile.svg" class="ferris-explain"/>    | This code does not compile!                      |
+| <img src="img/ferris/panics.svg" class="ferris-explain"/>              | This code panics!                                |
+| <img src="img/ferris/unsafe.svg" class="ferris-explain"/>              | This code block contains unsafe code.            |
+| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain"/>| This code does not produce the desired behavior. |
+-->
+
+| Ferris                                                                 | Meaning                                          |
+|------------------------------------------------------------------------|--------------------------------------------------|
+| <img src="img/ferris/does_not_compile.svg" class="ferris-explain"/>    | このコードはコンパイルできません！               |
+| <img src="img/ferris/panics.svg" class="ferris-explain"/>              | このコードはパニックします！                     |
+| <img src="img/ferris/unsafe.svg" class="ferris-explain"/>              | このコードはアンセーフなコードを含みます。       |
+| <img src="img/ferris/not_desired_behavior.svg" class="ferris-explain"/>| このコードは求められている振る舞いをしません。   |
+
+<!--
+In most situations, we’ll lead you to the correct version of any code that
+doesn’t compile.
+-->
+
 ほとんどの場合、コンパイルできないあらゆるコードの正しいバージョンへと導きます。
 
 <!--
-## Source code
+## Source Code
 -->
 
 ## ソースコード
@@ -395,5 +415,5 @@ The source files from which this book is generated can be found on
 
 > 訳注: 日本語版は[こちら][book-ja]です。
 
-[book]: https://github.com/rust-lang/book/tree/master/second-edition/src
+[book]: https://github.com/rust-lang/book/tree/master/src
 [book-ja]: https://github.com/rust-lang-ja/book-ja

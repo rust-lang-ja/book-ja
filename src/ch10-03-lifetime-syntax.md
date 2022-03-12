@@ -32,8 +32,8 @@ the concepts.
 -->
 
 ライフタイムの概念は、他のプログラミング言語の道具とはどこか異なり、間違いなくRustで一番際立った機能になっています。
-この章でライフタイムの全てを学ぶわけではありませんが、
-ライフタイム記法に遭遇しうる良くある状況について議論することで、その概念にみなさんが馴染めるようにします。
+この章では、ライフタイムの全体を解説することはしませんが、
+ライフタイム記法が必要となる最も一般的な場合について議論しますので、ライフタイムの概念について馴染むことができるでしょう。
 
 <!--
 ### Preventing Dangling References with Lifetimes
@@ -203,7 +203,7 @@ longest string is abcd`.
 
 2つの文字列スライスのうち、長い方を返す関数を書きましょう。この関数は、
 2つの文字列スライスを取り、1つの文字列スライスを返します。`longest`関数の実装完了後、
-リスト10-20のコードは、`The logest string is abcd`と出力するはずです。
+リスト10-20のコードは、`The longest string is abcd`と出力するはずです。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -317,9 +317,9 @@ the lifetimes of multiple references to each other without affecting the
 lifetimes.
 -->
 
-ライフタイム注釈は、いかなる参照の生存期間も変えることはありません。シグニチャがジェネリックな型引数を指定していると、
-関数があらゆる型を受け入れるのと全く同様に、ジェネリックなライフタイム引数を指定することで関数は、
-あらゆるライフタイムの参照を受け入れるのです。ライフタイム注釈は、ライフタイムに影響することなく、
+ライフタイム注釈は、いかなる参照の生存期間も変えることはありません。シグニチャにジェネリックな型引数を指定された
+関数が、あらゆる型を受け取ることができるのと同様に、ジェネリックなライフタイム引数を指定された関数は、
+あらゆるライフタイムの参照を受け取ることができます。ライフタイム注釈は、ライフタイムに影響することなく、
 複数の参照のライフタイムのお互いの関係を記述します。
 
 <!--
@@ -367,7 +367,7 @@ lifetime.
 お互いにどう関係するかをコンパイラに指示することを意図しているからです。例えば、
 ライフタイム`'a`付きの`i32`への参照となる引数`first`のある関数があるとしましょう。
 この関数にはさらに、`'a`のライフタイム付きの`i32`への別の参照となる`second`という別の引数もあります。
-ライフタイム注釈は、`first`と`second`の参照がどちらもそのジェネリックなライフタイムと同じだけ生きることを示唆します。
+ライフタイム注釈は、`first`と`second`の参照がどちらもこのジェネリックなライフタイムと同じだけ生きることを示唆します。
 
 <!--
 ### Lifetime Annotations in Function Signatures
@@ -385,10 +385,10 @@ We’ll name the lifetime `'a` and then add it to each reference, as shown in
 Listing 10-22.
 -->
 
-さて、`longest`関数の文脈でライフタイム注釈を調査しましょう。ジェネリックな型引数同様、
-関数名と引数リストの間、山カッコの中にジェネリックなライフタイム引数を宣言する必要があります。
-このシグニチャで表現したい制約は、引数の全参照と戻り値が同じライフタイムになることです。
-リスト10-22に示すように、ライフタイムを`'a`と名付け、それから各参照に追記します。
+さて、`longest`関数を例にライフタイム注釈を詳しく見ていきましょう。ジェネリックな型引数同様、
+関数名と引数リストの間の山カッコの中にジェネリックなライフタイム引数を宣言します。
+このシグニチャで表現したい制約は、引数の全ての参照と戻り値が同じライフタイムを持つことです。
+リスト10-22に示すように、ライフタイムを`'a`と名付け、それを各参照に付与します。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -406,7 +406,7 @@ specifying that all the references in the signature must have the same lifetime
 `'a`</span>
 -->
 
-<span class="caption">リスト10-22: シグニチャの全参照が同じライフタイム`'a`になると指定した`longest`関数の定義</span>
+<span class="caption">リスト10-22: シグニチャの全参照が同じライフタイム`'a`を持つと指定した`longest`関数の定義</span>
 
 <!--
 This code should compile and produce the result we want when we use it with the
@@ -431,16 +431,17 @@ know exactly how long `x` and `y` will live, only that some scope can be
 substituted for `'a` that will satisfy this signature.
 -->
 
-これで関数シグニチャは、何らかのライフタイム`'a`があって、関数は2つの引数を取り、
+これで関数シグニチャは、何らかのライフタイム`'a`に対して、関数は2つの引数を取り、
 どちらも少なくともライフタイム`'a`と同じだけ生きる文字列スライスであるとコンパイラに教えるようになりました。
 また、この関数シグニチャは、関数から返る文字列スライスも少なくともライフタイム`'a`と同じだけ生きると、
 コンパイラに教えています。
-これは実際のところ、`longest`関数の返す参照のライフタイムは、渡される参照のライフタイムのうち短いほうだ、という意味です。
-これらの制約は、コンパイラに強制してほしいものです。
+実際には、`longest`関数が返す参照のライフタイムは、渡された参照のうち、小さい方のライフタイムと同じであるという事です。
+これらの制約は、まさに私たちがコンパイラに保証してほしかったものです。
+
 この関数シグニチャでライフタイム引数を指定する時、渡されたり、返したりした、いかなる値のライフタイムも変更していないことを思い出してください。
 むしろ、借用チェッカーは、これらの制約を守らない値全てを拒否するべきと指定しています。
-`longest`関数は、正確に`x`と`y`の生存期間を知る必要はなく、
-あるスコープがこのシグニチャを満たすような`'a`に代替できるということさえ分かっていればよいということに注意してください。
+`longest`関数は、`x`と`y`の正確な生存期間を知っている必要はなく、
+このシグニチャを満たすようなスコープを`'a`に代入できることを知っているだけであることに注意してください。
 
 <!--
 When annotating lifetimes in functions, the annotations go in the function
@@ -452,10 +453,10 @@ might be different each time the function is called. This is why we need to
 annotate the lifetimes manually.
 -->
 
-関数でライフタイムを注釈する際、注釈は関数シグニチャに<ruby>嵌<rp>(</rp><rt>はま</rt><rp>)</rp></ruby>り、
-関数本体には嵌りません。コンパイラは、なんの助けもなく、関数内のコードを解析できます。しかしながら、
-関数に、関数外からの参照や、関数外への参照がある場合、コンパイラは引数や戻り値のライフタイムをそれだけで解決することはほとんど不可能になります。
-ライフタイムは、関数が呼び出される度に異なる可能性があります。このために、手動でライフタイムを注釈する必要があるのです。
+関数にライフタイムを注釈するときは、注釈は関数の本体ではなくシグニチャに付与します。
+コンパイラは注釈がなくとも関数内のコードを解析できます。しかしながら、
+関数に関数外からの参照や関数外への参照がある場合、コンパイラが引数や戻り値のライフタイムを自力で解決することはほとんど不可能になります。
+そのライフタイムは、関数が呼び出される度に異なる可能性があります。このために、手動でライフタイムを注釈する必要があるのです。
 
 <!--
 When we pass concrete references to `longest`, the concrete lifetime that is
@@ -467,8 +468,8 @@ the returned reference will also be valid for the length of the smaller of the
 lifetimes of `x` and `y`.
 -->
 
-具体的な参照を`longest`に渡すと、`'a`を代替する具体的なライフタイムは、`y`のスコープと重複する`x`のスコープの一部になります。
-言い換えると、ジェネリックなライフタイム`'a`の具体的なライフタイムは、`x`と`y`のライフタイムのうち、小さい方に等しくなるのです。
+具体的な参照を`longest`に渡すと、`'a`に代入される具体的なライフタイムは、`x`のスコープの一部であって`y`のスコープと重なる部分となります。
+言い換えると、ジェネリックなライフタイム`'a`は、`x`と`y`のライフタイムのうち、小さい方に等しい具体的なライフタイムになるのです。
 返却される参照を同じライフタイム引数`'a`で注釈したので、返却される参照も`x`か`y`のライフタイムの小さい方と同じだけ有効になるでしょう。
 
 <!--
@@ -477,7 +478,7 @@ passing in references that have different concrete lifetimes. Listing 10-23 is
 a straightforward example.
 -->
 
-異なる具体的なライフタイムを持つ参照を渡すことで、ライフタイム注釈が`longest`関数を制限する様子を見てみましょう。
+ライフタイム注釈が異なる具体的なライフタイムを持つ参照を渡すことで`longest`関数を制限する方法を見ましょう。
 リスト10-23はそのシンプルな例です。
 
 <!--
@@ -495,7 +496,7 @@ a straightforward example.
 references to `String` values that have different concrete lifetimes</span>
 -->
 
-<span class="caption">リスト10-23: 異なる具体的なライフタイムの`String`値への参照で`longest`関数を使用する</span>
+<span class="caption">リスト10-23: 異なる具体的なライフタイムを持つ`String`値への参照で`longest`関数を使用する</span>
 
 <!--
 In this example, `string1` is valid until the end of the outer scope, `string2`
@@ -559,7 +560,7 @@ this because we annotated the lifetimes of the function parameters and return
 values using the same lifetime parameter `'a`.
 -->
 
-このエラーは、`result`が`println!`文に対して有効になるために、`string2`が外側のスコープの終わりまで有効である必要があることを示しています。
+このエラーは、`result`が`println!`文に対して有効であるためには、`string2`が外側のスコープの終わりまで有効である必要があることを示しています。
 関数引数と戻り値のライフタイムを同じライフタイム引数`'a`で注釈したので、コンパイラはこのことを知っています。
 
 <!--
@@ -573,11 +574,11 @@ the lifetimes of the references passed in. Therefore, the borrow checker
 disallows the code in Listing 10-24 as possibly having an invalid reference.
 -->
 
-人間からしたら、このコードを見て`string1`は`string2`よりも長いことが確認でき、
-故に`result`は`string1`への参照を含んでいます。まだ`string1`はスコープを抜けていないので、
-それでも`string1`への参照は`println!`にとって有効でしょう。ですが、コンパイラはこの場合、
+人間からしたら、`string1`は`string2`よりも長く、それ故に`result`が`string1`への参照を含んでいることは
+コードから明らかです。まだ`string1`はスコープを抜けていないので、
+`string1`への参照は`println!`にとって有効でしょう。ですが、コンパイラはこの場合、
 参照が有効であると見なせません。`longest`関数から返ってくる参照のライフタイムは、
-渡した参照のうちの小さい方と同じだとコンパイラに指示しました。それ故に、
+渡した参照のうちの小さい方と同じだとコンパイラに指示しました。したがって、
 借用チェッカーは、リスト10-24のコードを無効な参照がある可能性があるとして許可しないのです。
 
 <!--
@@ -604,7 +605,7 @@ string slice, we wouldn’t need to specify a lifetime on the `y` parameter. The
 following code will compile:
 -->
 
-ライフタイム引数を指定する必要のある手段は、関数が行っていることによります。例えば、
+何にライフタイム引数を指定する必要があるかは、関数が行っていることに依存します。例えば、
 `longest`関数の実装を最長の文字列スライスではなく、常に最初の引数を返すように変更したら、
 `y`引数に対してライフタイムを指定する必要はなくなるでしょう。以下のコードはコンパイルできます:
 
@@ -688,8 +689,8 @@ enough information to allow memory-safe operations and disallow operations that
 would create dangling pointers or otherwise violate memory safety.
 -->
 
-つまるところライフタイム記法は、関数のいろんな引数と戻り値のライフタイムを「繋ぐ」ことに関係しているのです。
-それらが「繋がれ」てしまえば、メモリ安全な処理を許可したり、ダングリングポインタを生成するかメモリ安全性を脅かすような処理を不許可するのに十分な情報をコンパイラが持つことができます。
+究極的にライフタイム記法は、関数のいろんな引数と戻り値のライフタイムを接続することに関するものです。
+一旦それらが繋がれば、メモリ安全な処理を許可し、ダングリングポインタを生成したりメモリ安全性を侵害したりする処理を禁止するのに十分な情報をコンパイラは得たことになります。
 
 <!--
 ### Lifetime Annotations in Struct Definitions
@@ -871,7 +872,7 @@ to `fn` definitions as well as `impl` blocks.
 最初の規則は入力ライフタイムに適用され、2番目と3番目の規則は出力ライフタイムに適用されます。
 コンパイラが3つの規則の最後まで到達し、それでもライフタイムを割り出せない参照があったら、
 コンパイラはエラーで停止します。
-これらの規則は`fn`の定義にも`impl`ブロックと同様に適用されます。
+これらのルールは`fn`の定義にも`impl`ブロックにも適用されます。
 
 <!--
 The first rule is that each parameter that is a reference gets its own lifetime
@@ -1093,7 +1094,7 @@ reference *can* live for the entire duration of the program. All string
 literals have the `'static` lifetime, which we can annotate as follows:
 -->
 
-議論する必要のある1種の特殊なライフタイムが、`'static`であり、これはこの参照がプログラム全体において生きて*いられる*ことを表します。
+議論する必要のある1種の特殊なライフタイムが、`'static`であり、これは、この参照がプログラムの全期間生存*できる*事を意味します。
 文字列リテラルは全て`'static`ライフタイムになり、次のように注釈できます:
 
 ```rust
@@ -1196,19 +1197,12 @@ Rust so you can make sure your code is working the way it should.
 
 信じられないかもしれませんが、この章で議論した話題にはもっともっと学ぶべきことがあります:
 第17章ではトレイトオブジェクトを議論します。これはトレイトを使用する別の手段です。
-非常に高度な状況でのみ必要となる、ライフタイム注釈に関する更に複雑な状況もあります；これらについては、[Rustリファレンス][reference]を読んでください。
+非常に高度な筋書きの場合でのみ必要になる、ライフタイム注釈が関わる、もっと複雑な筋書きもあります。
+それらについては、[Rust Reference][reference]をお読みください。 
 ですが次は、コードがあるべき通りに動いていることを確かめられるように、Rustでテストを書く方法を学びます。
-
-<!--
-[references-and-borrowing]:
-ch04-02-references-and-borrowing.html#references-and-borrowing
-[string-slices-as-parameters]:
-ch04-03-slices.html#string-slices-as-parameters
--->
 
 [references-and-borrowing]:
 ch04-02-references-and-borrowing.html#参照と借用
 [string-slices-as-parameters]:
 ch04-03-slices.html#引数としての文字列スライス
-
-[reference]: ../reference/index.html
+[reference]: https://doc.rust-lang.org/reference/

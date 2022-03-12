@@ -10,7 +10,7 @@
 -->
 [The Rust Programming Language 日本語版](title-page.md)
 [まえがき](foreword.md)
-[導入](ch00-00-introduction.md)
+[はじめに](ch00-00-introduction.md)
 
 <!--
 ## Getting started
@@ -108,7 +108,7 @@
     - [Storing Keys with Associated Values in Hash Maps](ch08-03-hash-maps.md)
 -->
 - [一般的なコレクション](ch08-00-common-collections.md)
-    - [ベクタで一連の値を保持する](ch08-01-vectors.md)
+    - [ベクタで値のリストを保持する](ch08-01-vectors.md)
     - [文字列でUTF-8でエンコードされたテキストを保持する](ch08-02-strings.md)
     - [キーとそれに紐づいた値をハッシュマップに格納する](ch08-03-hash-maps.md)
 
@@ -157,7 +157,7 @@
 - [入出力プロジェクト：コマンドラインプログラムを構築する](ch12-00-an-io-project.md)
     - [コマンドライン引数を受け付ける](ch12-01-accepting-command-line-arguments.md)
     - [ファイルを読み込む](ch12-02-reading-a-file.md)
-    - [リファクタリンクしてモジュール性とエラー処理を向上させる](ch12-03-improving-error-handling-and-modularity.md)
+    - [リファクタリングしてモジュール性とエラー処理を向上させる](ch12-03-improving-error-handling-and-modularity.md)
     - [テスト駆動開発でライブラリの機能を開発する](ch12-04-testing-the-librarys-functionality.md)
     - [環境変数を取り扱う](ch12-05-working-with-environment-variables.md)
     - [標準出力ではなく標準エラーにエラーメッセージを書き込む](ch12-06-writing-to-stderr-instead-of-stdout.md)

@@ -48,7 +48,7 @@ the functions annotated with the `test` attribute and reports on whether each
 test function passes or fails.
 -->
 最も単純には、Rustにおけるテストは`test`属性で注釈された関数のことです。属性とは、
-Rustコードの欠片に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した`derive`属性です。
+Rustコードの部品に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した`derive`属性です。
 関数をテスト関数に変えるには、`fn`の前に`#[test]`を付け加えてください。
 `cargo test`コマンドでテストを実行したら、コンパイラは`test`属性で注釈された関数を走らせるテスト用バイナリをビルドし、
 各テスト関数が通過したか失敗したかを報告します。
@@ -397,7 +397,7 @@ has a width of 5 and a height of 1.
 larger rectangle can indeed hold a smaller rectangle</span>
 -->
 
-<span class="caption">リスト11-6: より大きな四角形がより小さな四角形を確かに保持できるかを確認する`can_hold`用のテスト</span>
+<span class="caption">リスト11-6: より大きな長方形がより小さな長方形を確かに保持できるかを確認する`can_hold`用のテスト</span>
 
 <!--
 Note that we’ve added a new line inside the `tests` module: `use super::*;`.
@@ -435,7 +435,7 @@ It does pass! Let’s add another test, this time asserting that a smaller
 rectangle cannot hold a larger rectangle:
 -->
 
-通ります！別のテストを追加しましょう。今回は、小さい四角形は、より大きな四角形を保持できないことをアサーションします。
+通ります！別のテストを追加しましょう。今回は、小さい長方形は、より大きな長方形を保持できないことをアサーションします。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>

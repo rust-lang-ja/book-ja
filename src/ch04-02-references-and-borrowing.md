@@ -265,10 +265,12 @@ fail:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-let mut s = String::from("hello");
+    let mut s = String::from("hello");
 
-let r1 = &mut s;
-let r2 = &mut s;
+    let r1 = &mut s;
+    let r2 = &mut s;
+
+    println!("{}, {}", r1, r2);
 ```
 
 <!--
@@ -278,19 +280,28 @@ Here’s the error:
 これがエラーです:
 
 ```text
+$ cargo run
+   Compiling ownership v0.1.0 (file:///projects/ownership)
 error[E0499]: cannot borrow `s` as mutable more than once at a time
 (エラー: 一度に`s`を可変として2回以上借用することはできません)
- --> borrow_twice.rs:5:19
+ --> src/main.rs:5:14
   |
 4 |     let r1 = &mut s;
-  |                   - first mutable borrow occurs here
+  |              ------ first mutable borrow occurs here
   |                    (最初の可変な参照はここ)
 5 |     let r2 = &mut s;
-  |                   ^ second mutable borrow occurs here
+  |              ^^^^^^ second mutable borrow occurs here
   |                    (二つ目の可変な参照はここ)
-6 | }
-  | - first borrow ends here
-  |   (最初の借用はここで終わり)
+6 | 
+7 |     println!("{}, {}", r1, r2);
+  |                        -- first borrow later used here
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0499`.
+error: could not compile `ownership`
+
+To learn more, run the command again with --verbose.
 ```
 
 <!--

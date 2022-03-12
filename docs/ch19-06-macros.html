@@ -5,22 +5,36 @@
         <meta charset="UTF-8">
         <title>マクロ - The Rust Programming Language 日本語版</title>
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
         <link rel="shortcut icon" href="favicon.png">
+        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
+        
         <link rel="stylesheet" href="css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -42,7 +56,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -86,8 +100,8 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="title-page.html">The Rust Programming Language 日本語版</a></li><li class="expanded affix "><a href="foreword.html">まえがき</a></li><li class="expanded affix "><a href="ch00-00-introduction.html">導入</a></li><li class="expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 事始め</a></li><li><ol class="section"><li class="expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li class="expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li class="expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 一般的なプログラミングの概念</a></li><li><ol class="section"><li class="expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と可変性</a></li><li class="expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li class="expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数</a></li><li class="expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li class="expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> フロー制御</a></li></ol></li><li class="expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権を理解する</a></li><li><ol class="section"><li class="expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とは？</a></li><li class="expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li class="expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス型</a></li></ol></li><li class="expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li class="expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li class="expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使ったプログラム例</a></li><li class="expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li class="expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li class="expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumを定義する</a></li><li class="expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> matchフロー制御演算子</a></li><li class="expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letで簡潔なフロー制御</a></li></ol></li><li class="expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する</a></li><li><ol class="section"><li class="expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> パッケージとクレート</a></li><li class="expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> モジュールを定義して、スコープとプライバシーを制御する</a></li><li class="expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> モジュールツリーの要素を示すためのパス</a></li><li class="expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> useキーワードでパスをスコープに持ち込む</a></li><li class="expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> モジュールを複数のファイルに分割する</a></li></ol></li><li class="expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 一般的なコレクション</a></li><li><ol class="section"><li class="expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> ベクタで一連の値を保持する</a></li><li class="expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 文字列でUTF-8でエンコードされたテキストを保持する</a></li><li class="expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> キーとそれに紐づいた値をハッシュマップに格納する</a></li></ol></li><li class="expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li class="expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li class="expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li class="expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li class="expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li class="expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li class="expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト：共通の振る舞いを定義する</a></li><li class="expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を検証する</a></li></ol></li><li class="expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 自動テストを書く</a></li><li><ol class="section"><li class="expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストの記述法</a></li><li class="expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストの実行のされ方を制御する</a></li><li class="expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li class="expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト：コマンドラインプログラムを構築する</a></li><li><ol class="section"><li class="expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> コマンドライン引数を受け付ける</a></li><li class="expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> ファイルを読み込む</a></li><li class="expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> リファクタリンクしてモジュール性とエラー処理を向上させる</a></li><li class="expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> テスト駆動開発でライブラリの機能を開発する</a></li><li class="expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 環境変数を取り扱う</a></li><li class="expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 標準出力ではなく標準エラーにエラーメッセージを書き込む</a></li></ol></li><li class="expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 関数型言語の機能：イテレータとクロージャ</a></li><li><ol class="section"><li class="expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> クロージャ：環境をキャプチャできる匿名関数</a></li><li class="expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 一連の要素をイテレータで処理する</a></li><li class="expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 入出力プロジェクトを改善する</a></li><li class="expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> パフォーマンス比較：ループVSイテレータ</a></li></ol></li><li class="expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li class="expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li class="expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li class="expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li class="expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li class="expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li class="expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> スマートポインタ</a></li><li><ol class="section"><li class="expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> ヒープのデータを指すBox<T>を使用する</a></li><li class="expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Derefトレイトでスマートポインタを普通の参照のように扱う</a></li><li class="expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Dropトレイトで片付け時にコードを走らせる</a></li><li class="expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>は、参照カウント方式のスマートポインタ</a></li><li class="expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T>と内部可変性パターン</a></li><li class="expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 循環参照は、メモリをリークすることもある</a></li></ol></li><li class="expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 恐れるな！並行性</a></li><li><ol class="section"><li class="expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> スレッドを使用してコードを同時に走らせる</a></li><li class="expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> メッセージ受け渡しを使ってスレッド間でデータを転送する</a></li><li class="expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 状態共有並行性</a></li><li class="expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> SyncとSendトレイトで拡張可能な並行性</a></li></ol></li><li class="expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rustのオブジェクト指向プログラミング機能</a></li><li><ol class="section"><li class="expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> オブジェクト指向言語の特徴</a></li><li class="expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> トレイトオブジェクトで異なる型の値を許容する</a></li><li class="expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> オブジェクト指向デザインパターンを実装する</a></li></ol></li><li class="expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> パターンとマッチング</a></li><li><ol class="section"><li class="expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> パターンが使用されることのある箇所全部</a></li><li class="expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 論駁可能性：パターンが合致しないかどうか</a></li><li class="expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> パターン記法</a></li></ol></li><li class="expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高度な機能</a></li><li><ol class="section"><li class="expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高度なトレイト</a></li><li class="expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高度な型</a></li><li class="expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高度な関数とクロージャ</a></li><li class="expanded "><a href="ch19-06-macros.html" class="active"><strong aria-hidden="true">19.5.</strong> マクロ</a></li></ol></li><li class="expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後のプロジェクト：マルチスレッドのWebサーバを構築する</a></li><li><ol class="section"><li class="expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> シングルスレッドのWebサーバを構築する</a></li><li class="expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> シングルスレッドサーバをマルチスレッド化する</a></li><li class="expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 正常なシャットダウンと片付け</a></li></ol></li><li class="expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 付録</a></li><li><ol class="section"><li class="expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> 付録A：キーワード</a></li><li class="expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> 付録B：演算子と記号</a></li><li class="expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> 付録C：導出可能なトレイト</a></li><li class="expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> 付録D：便利な開発ツール</a></li><li class="expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> 付録E：Edition</a></li><li class="expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> 付録F：本の翻訳</a></li><li class="expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> 付録G：Rustの作られ方と“Nightly Rust”</a></li></ol></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">The Rust Programming Language 日本語版</a></li><li class="chapter-item expanded affix "><a href="foreword.html">まえがき</a></li><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">はじめに</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 事始め</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li class="chapter-item expanded "><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li class="chapter-item expanded "><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li class="chapter-item expanded "><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> 一般的なプログラミングの概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と可変性</a></li><li class="chapter-item expanded "><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li class="chapter-item expanded "><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数</a></li><li class="chapter-item expanded "><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li class="chapter-item expanded "><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> フロー制御</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権を理解する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とは？</a></li><li class="chapter-item expanded "><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li class="chapter-item expanded "><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス型</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li class="chapter-item expanded "><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使ったプログラム例</a></li><li class="chapter-item expanded "><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li class="chapter-item expanded "><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumを定義する</a></li><li class="chapter-item expanded "><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> matchフロー制御演算子</a></li><li class="chapter-item expanded "><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letで簡潔なフロー制御</a></li></ol></li><li class="chapter-item expanded "><a href="ch07-00-managing-growing-projects-with-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> 肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch07-01-packages-and-crates.html"><strong aria-hidden="true">7.1.</strong> パッケージとクレート</a></li><li class="chapter-item expanded "><a href="ch07-02-defining-modules-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> モジュールを定義して、スコープとプライバシーを制御する</a></li><li class="chapter-item expanded "><a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html"><strong aria-hidden="true">7.3.</strong> モジュールツリーの要素を示すためのパス</a></li><li class="chapter-item expanded "><a href="ch07-04-bringing-paths-into-scope-with-the-use-keyword.html"><strong aria-hidden="true">7.4.</strong> useキーワードでパスをスコープに持ち込む</a></li><li class="chapter-item expanded "><a href="ch07-05-separating-modules-into-different-files.html"><strong aria-hidden="true">7.5.</strong> モジュールを複数のファイルに分割する</a></li></ol></li><li class="chapter-item expanded "><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 一般的なコレクション</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> ベクタで値のリストを保持する</a></li><li class="chapter-item expanded "><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> 文字列でUTF-8でエンコードされたテキストを保持する</a></li><li class="chapter-item expanded "><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> キーとそれに紐づいた値をハッシュマップに格納する</a></li></ol></li><li class="chapter-item expanded "><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li class="chapter-item expanded "><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li class="chapter-item expanded "><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li class="chapter-item expanded "><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li class="chapter-item expanded "><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト：共通の振る舞いを定義する</a></li><li class="chapter-item expanded "><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を検証する</a></li></ol></li><li class="chapter-item expanded "><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> 自動テストを書く</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストの記述法</a></li><li class="chapter-item expanded "><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストの実行のされ方を制御する</a></li><li class="chapter-item expanded "><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li class="chapter-item expanded "><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト：コマンドラインプログラムを構築する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> コマンドライン引数を受け付ける</a></li><li class="chapter-item expanded "><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> ファイルを読み込む</a></li><li class="chapter-item expanded "><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> リファクタリングしてモジュール性とエラー処理を向上させる</a></li><li class="chapter-item expanded "><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> テスト駆動開発でライブラリの機能を開発する</a></li><li class="chapter-item expanded "><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> 環境変数を取り扱う</a></li><li class="chapter-item expanded "><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> 標準出力ではなく標準エラーにエラーメッセージを書き込む</a></li></ol></li><li class="chapter-item expanded "><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> 関数型言語の機能：イテレータとクロージャ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> クロージャ：環境をキャプチャできる匿名関数</a></li><li class="chapter-item expanded "><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> 一連の要素をイテレータで処理する</a></li><li class="chapter-item expanded "><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> 入出力プロジェクトを改善する</a></li><li class="chapter-item expanded "><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> パフォーマンス比較：ループVSイテレータ</a></li></ol></li><li class="chapter-item expanded "><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li class="chapter-item expanded "><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li class="chapter-item expanded "><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li class="chapter-item expanded "><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li class="chapter-item expanded "><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li class="chapter-item expanded "><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> スマートポインタ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> ヒープのデータを指すBox&lt;T&gt;を使用する</a></li><li class="chapter-item expanded "><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> Derefトレイトでスマートポインタを普通の参照のように扱う</a></li><li class="chapter-item expanded "><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> Dropトレイトで片付け時にコードを走らせる</a></li><li class="chapter-item expanded "><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc&lt;T&gt;は、参照カウント方式のスマートポインタ</a></li><li class="chapter-item expanded "><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell&lt;T&gt;と内部可変性パターン</a></li><li class="chapter-item expanded "><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> 循環参照は、メモリをリークすることもある</a></li></ol></li><li class="chapter-item expanded "><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> 恐れるな！並行性</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> スレッドを使用してコードを同時に走らせる</a></li><li class="chapter-item expanded "><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> メッセージ受け渡しを使ってスレッド間でデータを転送する</a></li><li class="chapter-item expanded "><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> 状態共有並行性</a></li><li class="chapter-item expanded "><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> SyncとSendトレイトで拡張可能な並行性</a></li></ol></li><li class="chapter-item expanded "><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Rustのオブジェクト指向プログラミング機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> オブジェクト指向言語の特徴</a></li><li class="chapter-item expanded "><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> トレイトオブジェクトで異なる型の値を許容する</a></li><li class="chapter-item expanded "><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> オブジェクト指向デザインパターンを実装する</a></li></ol></li><li class="chapter-item expanded "><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> パターンとマッチング</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> パターンが使用されることのある箇所全部</a></li><li class="chapter-item expanded "><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> 論駁可能性：パターンが合致しないかどうか</a></li><li class="chapter-item expanded "><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> パターン記法</a></li></ol></li><li class="chapter-item expanded "><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> 高度な機能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li class="chapter-item expanded "><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.2.</strong> 高度なトレイト</a></li><li class="chapter-item expanded "><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.3.</strong> 高度な型</a></li><li class="chapter-item expanded "><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.4.</strong> 高度な関数とクロージャ</a></li><li class="chapter-item expanded "><a href="ch19-06-macros.html" class="active"><strong aria-hidden="true">19.5.</strong> マクロ</a></li></ol></li><li class="chapter-item expanded "><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> 最後のプロジェクト：マルチスレッドのWebサーバを構築する</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> シングルスレッドのWebサーバを構築する</a></li><li class="chapter-item expanded "><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> シングルスレッドサーバをマルチスレッド化する</a></li><li class="chapter-item expanded "><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> 正常なシャットダウンと片付け</a></li></ol></li><li class="chapter-item expanded "><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> 付録</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> 付録A：キーワード</a></li><li class="chapter-item expanded "><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> 付録B：演算子と記号</a></li><li class="chapter-item expanded "><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> 付録C：導出可能なトレイト</a></li><li class="chapter-item expanded "><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> 付録D：便利な開発ツール</a></li><li class="chapter-item expanded "><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> 付録E：Edition</a></li><li class="chapter-item expanded "><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> 付録F：本の翻訳</a></li><li class="chapter-item expanded "><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> 付録G：Rustの作られ方と“Nightly Rust”</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -122,17 +136,21 @@
                     <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
 
                     <div class="right-buttons">
+                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
+                        
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -156,46 +174,41 @@
                         <!--
 ## Macros
 -->
-<h2><a class="header" href="#マクロ" id="マクロ">マクロ</a></h2>
+<h2 id="マクロ"><a class="header" href="#マクロ">マクロ</a></h2>
 <!--
-We’ve used macros like `println!` throughout this book but haven’t fully
-explored what a macro is and how it works. This appendix explains macros as
-follows:
+We’ve used macros like `println!` throughout this book, but we haven’t fully
+explored what a macro is and how it works. The term *macro* refers to a family
+of features in Rust: *declarative* macros with `macro_rules!` and three kinds
+of *procedural* macros:
 -->
-<p>本全体で<code>println!</code>のようなマクロを使用してきましたが、マクロがなんなのかや、
-どう動いているのかということは完全には探究していません。この付録は、マクロを以下のように説明します:</p>
+<p>本全体を通じて<code>println!</code>のようなマクロを使用してきましたが、マクロがなんなのかや、
+どう動いているのかということは完全には探究していませんでした。
+Rustにおいて、<em>マクロ</em>という用語はある機能の集合のことを指します：<code>macro_rules!</code>を使った <em>宣言的 (declarative)</em> マクロと、3種類の <em>手続き的 (procedural)</em> マクロ：</p>
 <!--
-* What macros are and how they differ from functions
-* How to define a declarative macro to do metaprogramming
-* How to define a procedural macro to create custom `derive` traits
+* Custom `#[derive]` macros that specify code added with the `derive` attribute
+  used on structs and enums
+* Attribute-like macros that define custom attributes usable on any item
+* Function-like macros that look like function calls but operate on the tokens
+  specified as their argument
 -->
 <ul>
-<li>マクロとはなんなのかと関数とどう違うのか</li>
-<li>宣言的なマクロを定義してメタプログラミングをする方法</li>
-<li>プロシージャルなマクロを定義して独自の<code>derive</code>トレイトを生成する方法</li>
+<li>構造体とenumに<code>derive</code>属性を使ったときに追加されるコードを指定する、カスタムの<code>#[derive]</code>マクロ</li>
+<li>任意の要素に使えるカスタムの属性を定義する、属性風のマクロ</li>
+<li>関数のように見えるが、引数として指定されたトークンに対して作用する関数風のマクロ</li>
 </ul>
+<p>です。</p>
 <!--
-We’re covering the details of macros in an appendix because they’re still
-evolving in Rust. Macros have changed and, in the near future, will change at a
-quicker rate than the rest of the language and standard library since Rust 1.0,
-so this section is more likely to become out-of-date than the rest of the book.
-Due to Rust’s stability guarantees, the code shown here will continue to work
-with future versions, but there may be additional capabilities or easier ways
-to write macros that weren’t available at the time of this publication. Bear
-that in mind when you try to implement anything from this appendix.
+We’ll talk about each of these in turn, but first, let’s look at why we even
+need macros when we already have functions.
 -->
-<p>マクロは今でも、Rustにおいては発展中なので、付録でマクロの詳細を講義します。マクロは変わってきましたし、
-近い将来、Rust1.0からの言語の他の機能や標準ライブラリに比べて速いスピードで変化するので、
-この節は、本の残りの部分よりも時代遅れになる可能性が高いです。Rustの安定性保証により、
-ここで示したコードは、将来のバージョンでも動き続けますが、この本の出版時点では利用可能ではないマクロを書くための追加の能力や、
-より簡単な方法があるかもしれません。この付録から何かを実装しようとする場合には、そのことを肝に銘じておいてください。</p>
+<p>それぞれについて一つずつ話していきますが、その前にまず、どうして関数がすでにあるのにマクロなんてものが必要なのか見てみましょう。</p>
 <!--
 ### The Difference Between Macros and Functions
 -->
-<h3><a class="header" href="#マクロと関数の違い" id="マクロと関数の違い">マクロと関数の違い</a></h3>
+<h3 id="マクロと関数の違い"><a class="header" href="#マクロと関数の違い">マクロと関数の違い</a></h3>
 <!--
 Fundamentally, macros are a way of writing code that writes other code, which
-is known as *metaprogramming*. In Appendix C, we discussed the `derive`
+is known as *metaprogramming*. In Appendix C, we discuss the `derive`
 attribute, which generates an implementation of various traits for you. We’ve
 also used the `println!` and `vec!` macros throughout the book. All of these
 macros *expand* to produce more code than the code you’ve written manually.
@@ -207,7 +220,7 @@ macros *expand* to produce more code than the code you’ve written manually.
 <!--
 Metaprogramming is useful for reducing the amount of code you have to write and
 maintain, which is also one of the roles of functions. However, macros have
-some additional powers that functions don’t have.
+some additional powers that functions don’t.
 -->
 <p>メタプログラミングは、書いて管理しなければならないコード量を減らすのに有用で、これは、関数の役目の一つでもあります。
 ですが、マクロには関数にはない追加の力があります。</p>
@@ -236,72 +249,49 @@ definitions.
 関数定義よりもマクロ定義は複雑になることです。この間接性のために、マクロ定義は一般的に、
 関数定義よりも、読みにくく、わかりにくく、管理しづらいです。</p>
 <!--
-Another difference between macros and functions is that macro definitions
-aren’t namespaced within modules like function definitions are. To prevent
-unexpected name clashes when using external crates, you have to explicitly
-bring the macros into the scope of your project at the same time as you bring
-the external crate into scope, using the `#[macro_use]` annotation. The
-following example would bring all the macros defined in the `serde` crate into
-the scope of the current crate:
+Another important difference between macros and functions is that you must
+define macros or bring them into scope *before* you call them in a file, as
+opposed to functions you can define anywhere and call anywhere.
 -->
-<p>マクロと関数の別の違いは、マクロ定義は、関数定義のようには、モジュール内で名前空間分けされないことです。
-外部クレートを使用する際に予期しない名前衝突を回避するために、<code>#[macro_use]</code>注釈を使用して、
-外部クレートをスコープに導入するのと同時に、自分のプロジェクトのスコープにマクロを明示的に導入しなければなりません。
-以下の例は、<code>serde</code>クレートに定義されているマクロ全部を現在のクレートのスコープに導入するでしょう:</p>
-<pre><code class="language-rust ignore">#[macro_use]
-extern crate serde;
-</code></pre>
-<!--
-If `extern crate` was able to bring macros into scope by default without this
-explicit annotation, you would be prevented from using two crates that happened
-to define macros with the same name. In practice, this conflict doesn’t occur
-often, but the more crates you use, the more likely it is.
--->
-<p>この明示的注釈なしに<code>extern crate</code>が既定でスコープにマクロを導入できたら、偶然同じ名前のマクロを定義している2つのクレートを使用できなくなるでしょう。
-現実的には、この衝突はあまり起きませんが、使用するクレートが増えるほど、可能性は高まります。</p>
-<!--
-There is one last important difference between macros and functions: you must
-define or bring macros into scope *before* you call them in a file, whereas you
-can define functions anywhere and call them anywhere.
--->
-<p>マクロと関数にはもう一つ、重要な違いがあります: ファイル内で呼び出す<em>前</em>にマクロはスコープに導入しなければなりませんが、
+<p>マクロと関数にはもう一つ、重要な違いがあります: ファイル内で呼び出す<em>前</em>にマクロは定義したりスコープに導入しなければなりませんが、
 一方で関数はどこにでも定義でき、どこでも呼び出せます。</p>
 <!--
 ### Declarative Macros with `macro_rules!` for General Metaprogramming
 -->
-<h3><a class="header" href="#一般的なメタプログラミングのためにmacro_rulesで宣言的なマクロ" id="一般的なメタプログラミングのためにmacro_rulesで宣言的なマクロ">一般的なメタプログラミングのために<code>macro_rules!</code>で宣言的なマクロ</a></h3>
+<h3 id="一般的なメタプログラミングのためにmacro_rulesで宣言的なマクロ"><a class="header" href="#一般的なメタプログラミングのためにmacro_rulesで宣言的なマクロ">一般的なメタプログラミングのために<code>macro_rules!</code>で宣言的なマクロ</a></h3>
 <!--
-The most widely used form of macros in Rust are *declarative macros*. These are
-also sometimes referred to as *macros by example*, *`macro_rules!` macros*, or
-just plain *macros*. At their core, declarative macros allow you to write
+The most widely used form of macros in Rust is *declarative macros*. These are
+also sometimes referred to as “macros by example,” “`macro_rules!` macros,” or
+just plain “macros.” At their core, declarative macros allow you to write
 something similar to a Rust `match` expression. As discussed in Chapter 6,
 `match` expressions are control structures that take an expression, compare the
 resulting value of the expression to patterns, and then run the code associated
-with the matching pattern. Macros also compare a value to patterns that have
-code associated with them; in this situation, the value is the literal Rust
-source code passed to the macro, the patterns are compared with the structure
-of that source code, and the code associated with each pattern is the code that
-replaces the code passed to the macro. This all happens during compilation.
+with the matching pattern. Macros also compare a value to patterns that are
+associated with particular code: in this situation, the value is the literal
+Rust source code passed to the macro; the patterns are compared with the
+structure of that source code; and the code associated with each pattern, when
+matched, replaces the code passed to the macro. This all happens during
+compilation.
 -->
 <p>Rustにおいて、最もよく使用される形態のマクロは、<em>宣言的マクロ</em>です。これらは時として、
 <em>例によるマクロ</em>、<em><code>macro_rules!</code>マクロ</em>、あるいはただ単に<em>マクロ</em>とも称されます。
 核となるのは、宣言的マクロは、Rustの<code>match</code>式に似た何かを書けるということです。第6章で議論したように、
 <code>match</code>式は、式を取り、式の結果の値をパターンと比較し、それからマッチしたパターンに紐づいたコードを実行する制御構造です。
-マクロも自身に紐づいたコードがあるパターンと値を比較します; この場面で値とは、
-マクロに渡されたリテラルのRustのソースコードそのもの、パターンは、そのソースコードの構造と比較され、
-各パターンに紐づいたコードは、マクロに渡されたコードを置き換えるコードです。これは全て、コンパイル時に起きます。</p>
+マクロも、あるコードと紐付けられたパターンと値を比較します。ここで、値とは
+マクロに渡されたリテラルのRustのソースコードそのもののこと。パターンがそのソースコードの構造と比較されます。
+各パターンに紐づいたコードは、それがマッチしたときに、マクロに渡されたコードを置き換えます。これは全て、コンパイル時に起きます。</p>
 <!--
 To define a macro, you use the `macro_rules!` construct. Let’s explore how to
 use `macro_rules!` by looking at how the `vec!` macro is defined. Chapter 8
 covered how we can use the `vec!` macro to create a new vector with particular
-values. For example, the following macro creates a new vector with three
-integers inside:
+values. For example, the following macro creates a new vector containing three
+integers:
 -->
 <p>マクロを定義するには、<code>macro_rules!</code>構文を使用します。<code>vec!</code>マクロが定義されている方法を見て、
 <code>macro_rules!</code>を使用する方法を探究しましょう。<code>vec!</code>マクロを使用して特定の値で新しいベクタを生成する方法は、
-第8章で講義しました。例えば、以下のマクロは、3つの整数を中身にする新しいベクタを生成します:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+第8章で講義しました。例えば、以下のマクロは、3つの整数を持つ新しいベクタを生成します:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let v: Vec&lt;u32&gt; = vec![1, 2, 3];
 <span class="boring">}
@@ -314,12 +304,15 @@ because we wouldn’t know the number or type of values up front.
 <p>また、<code>vec!</code>マクロを使用して2整数のベクタや、5つの文字列スライスのベクタなども生成できます。
 同じことを関数を使って行うことはできません。予め、値の数や型がわかっていないからです。</p>
 <!--
-Let’s look at a slightly simplified definition of the `vec!` macro in Listing
-D-1.
+Listing 19-28 shows a slightly simplified definition of the `vec!` macro.
 -->
-<p>リストD-1で<ruby>些<rp>(</rp><rt>いささ</rt><rp>)</rp></ruby>か簡略化された<code>vec!</code>マクロの定義を見かけましょう。</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<p>リスト19-28で<ruby>些<rp>(</rp><rt>いささ</rt><rp>)</rp></ruby>か簡略化された<code>vec!</code>マクロの定義を見かけましょう。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[macro_export]
 macro_rules! vec {
@@ -336,10 +329,10 @@ macro_rules! vec {
 <span class="boring">}
 </span></code></pre></pre>
 <!--
-<span class="caption">Listing D-1: A simplified version of the `vec!` macro
+<span class="caption">Listing 19-28: A simplified version of the `vec!` macro
 definition</span>
 -->
-<p><span class="caption">リストD-1: <code>vec!</code>マクロ定義の簡略化されたバージョン</span></p>
+<p><span class="caption">リスト19-28: <code>vec!</code>マクロ定義の簡略化されたバージョン</span></p>
 <!--
 > Note: The actual definition of the `vec!` macro in the standard library
 > includes code to preallocate the correct amount of memory up front. That code
@@ -347,17 +340,15 @@ definition</span>
 -->
 <blockquote>
 <p>標準ライブラリの<code>vec!</code>マクロの実際の定義は、予め正確なメモリ量を確保するコードを含みます。
-そのコードは、ここでは簡略化のために含まない最適化です。</p>
+その最適化コードは、ここでは簡略化のために含みません。</p>
 </blockquote>
 <!--
 The `#[macro_export]` annotation indicates that this macro should be made
-available whenever the crate in which we’re defining the macro is imported.
-Without this annotation, even if someone depending on this crate uses the
-`#[macro_use]` annotation, the macro wouldn’t be brought into scope.
+available whenever the crate in which the macro is defined is brought into
+scope. Without this annotation, the macro can’t be brought into scope.
 -->
-<p><code>#[macro_export]</code>注釈は、マクロを定義しているクレートがインポートされる度にこのマクロが利用可能になるべきということを示しています。
-この注釈がなければ、このクレートに依存する誰かが<code>#[macro_use]</code>注釈を使用していても、
-このマクロはスコープに導入されないでしょう。</p>
+<p><code>#[macro_export]</code>注釈は、マクロを定義しているクレートがスコープに持ち込まれたなら、無条件でこのマクロが利用可能になるべきということを示しています。
+この注釈がなければ、このマクロはスコープに導入されることができません。</p>
 <!--
 We then start the macro definition with `macro_rules!` and the name of the
 macro we’re defining *without* the exclamation mark. The name, in this case
@@ -371,7 +362,8 @@ expression. Here we have one arm with the pattern `( $( $x:expr ),* )`,
 followed by `=>` and the block of code associated with this pattern. If the
 pattern matches, the associated block of code will be emitted. Given that this
 is the only pattern in this macro, there is only one valid way to match; any
-other will be an error. More complex macros will have more than one arm.
+other pattern will result in an error. More complex macros will have more than
+one arm.
 -->
 <p><code>vec!</code>本体の構造は、<code>match</code>式の構造に類似しています。ここではパターン<code>( $( $x:expr ),* )</code>の1つのアーム、
 <code>=&gt;</code>とこのパターンに紐づくコードのブロックが続きます。パターンが合致すれば、紐づいたコードのブロックが発されます。
@@ -380,30 +372,32 @@ other will be an error. More complex macros will have more than one arm.
 <!--
 Valid pattern syntax in macro definitions is different than the pattern syntax
 covered in Chapter 18 because macro patterns are matched against Rust code
-structure rather than values. Let’s walk through what the pieces of the pattern
-in Listing D-1 mean; for the full macro pattern syntax, see [the reference].
+structure rather than values. Let’s walk through what the pattern pieces in
+Listing 19-28 mean; for the full macro pattern syntax, see [the reference].
 -->
 <p>マクロ定義で合法なパターン記法は、第18章で講義したパターン記法とは異なります。というのも、
-マクロのパターンは値ではなく、Rustコードの構造に対してマッチされるからです。リストD-1のパターンの部品がどんな意味か見ていきましょう;
+マクロのパターンは値ではなく、Rustコードの構造に対してマッチされるからです。リスト19-28のパターンの部品がどんな意味か見ていきましょう;
 マクロパターン記法全ては<a href="https://doc.rust-lang.org/reference/macros.html">参考文献</a>をご覧ください。</p>
 <!--
-First, a set of parentheses encompasses the whole pattern. Next comes a dollar
-sign (`$`) followed by a set of parentheses, which captures values that match
-the pattern within the parentheses for use in the replacement code. Within
-`$()` is `$x:expr`, which matches any Rust expression and gives the expression
-the name `$x`.
+[the reference]: ../reference/macros-by-example.html
+-->
+<!--
+First, a set of parentheses encompasses the whole pattern. A dollar sign (`$`)
+is next, followed by a set of parentheses that captures values that match the
+pattern within the parentheses for use in the replacement code. Within `$()` is
+`$x:expr`, which matches any Rust expression and gives the expression the name
+`$x`.
 -->
 <p>まず、1組のカッコがパターン全体を囲んでいます。次にドル記号(<code>$</code>)、そして1組のカッコが続き、
 このかっこは、置き換えるコードで使用するためにかっこ内でパターンにマッチする値をキャプチャします。
 <code>$()</code>の内部には、<code>$x:expr</code>があり、これは任意のRust式にマッチし、その式に<code>$x</code>という名前を与えます。</p>
 <!--
 The comma following `$()` indicates that a literal comma separator character
-could optionally appear after the code that matches the code captured in `$()`.
-The `*` following the comma specifies that the pattern matches zero or more of
-whatever precedes the `*`.
+could optionally appear after the code that matches the code in `$()`. The `*`
+specifies that the pattern matches zero or more of whatever precedes the `*`.
 -->
 <p><code>$()</code>に続くカンマは、<code>$()</code>にキャプチャされるコードにマッチするコードの後に、区別を意味するリテラルのカンマ文字が現れるという選択肢もあることを示唆しています。
-カンマに続く<code>*</code>は、パターンが<code>*</code>の前にあるもの0個以上にマッチすることを指定しています。</p>
+<code>*</code>は、パターンが<code>*</code>の前にあるもの0個以上にマッチすることを指定しています。</p>
 <!--
 When we call this macro with `vec![1, 2, 3];`, the `$x` pattern matches three
 times with the three expressions `1`, `2`, and `3`.
@@ -411,21 +405,23 @@ times with the three expressions `1`, `2`, and `3`.
 <p>このマクロを<code>vec![1, 2, 3];</code>と呼び出すと、<code>$x</code>パターンは、3つの式<code>1</code>、<code>2</code>、<code>3</code>で3回マッチします。</p>
 <!--
 Now let’s look at the pattern in the body of the code associated with this arm:
-the `temp_vec.push()` code within the `$()*` part is generated for each part
-that matches `$()` in the pattern, zero or more times depending on how many
-times the pattern matches. The `$x` is replaced with each expression matched.
-When we call this macro with `vec![1, 2, 3];`, the code generated that replaces
-this macro call will be the following:
+`temp_vec.push()` within `$()*` is generated for each part that matches `$()`
+in the pattern zero or more times depending on how many times the pattern
+matches. The `$x` is replaced with each expression matched. When we call this
+macro with `vec![1, 2, 3];`, the code generated that replaces this macro call
+will be the following:
 -->
 <p>さて、このアームに紐づくコードの本体のパターンに目を向けましょう: <code>$()*</code>部分内部の<code>temp_vec.push()</code>コードは、
 パターンがマッチした回数に応じて0回以上パターン内で<code>$()</code>にマッチする箇所ごとに生成されます。
 <code>$x</code>はマッチした式それぞれに置き換えられます。このマクロを<code>vec![1, 2, 3];</code>と呼び出すと、
 このマクロ呼び出しを置き換え、生成されるコードは以下のようになるでしょう:</p>
-<pre><code class="language-rust ignore">let mut temp_vec = Vec::new();
-temp_vec.push(1);
-temp_vec.push(2);
-temp_vec.push(3);
-temp_vec
+<pre><code class="language-rust ignore">{
+    let mut temp_vec = Vec::new();
+    temp_vec.push(1);
+    temp_vec.push(2);
+    temp_vec.push(3);
+    temp_vec
+}
 </code></pre>
 <!--
 We’ve defined a macro that can take any number of arguments of any type and can
@@ -433,34 +429,91 @@ generate code to create a vector containing the specified elements.
 -->
 <p>任意の型のあらゆる数の引数を取り、指定した要素を含むベクタを生成するコードを生成できるマクロを定義しました。</p>
 <!--
-Given that most Rust programmers will *use* macros more than *write* macros, we
-won’t discuss `macro_rules!` any further. To learn more about how to write
-macros, consult the online documentation or other resources, such as [“The
-Little Book of Rust Macros”][tlborm].
+There are some strange edge cases with `macro_rules!`. In the future, Rust will
+have a second kind of declarative macro that will work in a similar fashion but
+fix some of these edge cases. After that update, `macro_rules!` will be
+effectively deprecated. With this in mind, as well as the fact that most Rust
+programmers will *use* macros more than *write* macros, we won’t discuss
+`macro_rules!` any further. To learn more about how to write macros, consult
+the online documentation or other resources, such as [“The Little Book of Rust
+Macros”][tlborm].
 -->
-<p>多くのRustプログラマは、マクロを<em>書く</em>よりも<em>使う</em>方が多いことを踏まえて、これ以上<code>macro_rules!</code>を議論しません。
-マクロの書き方をもっと学ぶには、オンラインドキュメンテーションか他のリソース、
-<a href="https://danielkeep.github.io/tlborm/book/index.html">“The Little Book of Rust Macros</a>(<code>訳注</code>: Rustのマクロの小さな本)などを調べてください。</p>
+<p><code>macro_rules!</code>には、いくつかの奇妙なコーナーケースがあります。
+将来、Rustには別種の宣言的マクロが登場する予定です。これは、同じように働くけれども、それらのコーナーケースのうちいくらかを修正します。
+そのアップデート以降、<code>macro_rules!</code>は事実上非推奨 (deprecated) となる予定です。
+この事実と、ほとんどのRustプログラマーはマクロを<em>書く</em>よりも<em>使う</em>ことが多いということを考えて、<code>macro_rules!</code>についてはこれ以上語らないことにします。
+もしマクロの書き方についてもっと知りたければ、オンラインのドキュメントや、<a href="https://danielkeep.github.io/tlborm/book/index.html">“The Little Book of Rust Macros”</a>のようなその他のリソースを参照してください。</p>
 <!--
-### Procedural Macros for Custom `derive`
+### Procedural Macros for Generating Code from Attributes
 -->
-<h3><a class="header" href="#独自のderiveのためのプロシージャルマクロ" id="独自のderiveのためのプロシージャルマクロ">独自の<code>derive</code>のためのプロシージャルマクロ</a></h3>
+<h3 id="属性からコードを生成する手続き的マクロ"><a class="header" href="#属性からコードを生成する手続き的マクロ">属性からコードを生成する手続き的マクロ</a></h3>
 <!--
-The second form of macros is called *procedural macros* because they’re more
-like functions (which are a type of procedure). Procedural macros accept some
-Rust code as an input, operate on that code, and produce some Rust code as an
-output rather than matching against patterns and replacing the code with other
-code as declarative macros do. At the time of this writing, you can only define
-procedural macros to allow your traits to be implemented on a type by
-specifying the trait name in a `derive` annotation.
+The second form of macros is *procedural macros*, which act more like functions
+(and are a type of procedure). Procedural macros accept some code as an input,
+operate on that code, and produce some code as an output rather than matching
+against patterns and replacing the code with other code as declarative macros
+do.
 -->
-<p>2番目の形態のマクロは、より関数(1種の手続きです)に似ているので、<em>プロシージャル・マクロ</em>(procedural macro; <code>訳注</code>:
-手続きマクロ)と呼ばれます。プロシージャルマクロは、宣言的マクロのようにパターンにマッチさせ、
-そのコードを他のコードと置き換えるのではなく、入力として何らかのRustコードを受け付け、そのコードを処理し、
-出力として何らかのRustコードを生成します。これを執筆している時点では、<code>derive</code>注釈にトレイト名を指定することで、
-型に自分のトレイトを実装できるプロシージャルマクロを定義できるだけです。</p>
+<p>2つ目のマクロの形は、<em>手続き的マクロ</em>と呼ばれ、より関数のように働きます（そして一種の手続きです）。
+宣言的マクロがパターンマッチングを行い、マッチしたコードを他のコードで置き換えていたのとは違い、
+手続き的マクロは、コードを入力として受け取り、そのコードに対して作用し、出力としてコードを生成します。</p>
 <!--
-We’ll create a crate named `hello_macro` that defines a trait named
+The three kinds of procedural macros (custom derive, attribute-like, and
+function-like) all work in a similar fashion.
+-->
+<p>3種の手続き的マクロ (カスタムのderiveマクロ, 属性風マクロ、関数風マクロ)はみな同じような挙動をします。</p>
+<!--
+When creating procedural macros, the definitions must reside in their own crate
+with a special crate type. This is for complex technical reasons that we hope
+to eliminate in the future. Using procedural macros looks like the code in
+Listing 19-29, where `some_attribute` is a placeholder for using a specific
+macro.
+-->
+<p>手続き的マクロを作る際は、その定義はそれ専用の特殊なクレート内に置かれる必要があります。
+これは複雑な技術的理由によるものであり、将来的には解消したいです。
+手続き的マクロを使うとListing 19-29のコードのようになります。<code>some_attribute</code>がそのマクロを使うためのプレースホールダーです。</p>
+<!--
+<span class="filename">Filename: src/lib.rs</span>
+-->
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><code class="language-rust ignore">use proc_macro;
+
+#[some_attribute]
+pub fn some_name(input: TokenStream) -&gt; TokenStream {
+}
+</code></pre>
+<!--
+<span class="caption">Listing 19-29: An example of using a procedural
+macro</span>
+-->
+<p><span class="caption">Listing 19-29: 手続き的マクロの使用例</span></p>
+<!--
+The function that defines a procedural macro takes a `TokenStream` as an input
+and produces a `TokenStream` as an output. The `TokenStream` type is defined by
+the `proc_macro` crate that is included with Rust and represents a sequence of
+tokens. This is the core of the macro: the source code that the macro is
+operating on makes up the input `TokenStream`, and the code the macro produces
+is the output `TokenStream`. The function also has an attribute attached to it
+that specifies which kind of procedural macro we’re creating. We can have
+multiple kinds of procedural macros in the same crate.
+-->
+<p>手続き的マクロを定義する関数は<code>TokenStream</code>を入力として受け取り、<code>TokenStream</code>を出力として生成します。
+<code>TokenStream</code>型はRustに内蔵されている<code>proc_macro</code>クレートで定義されており、トークンの列を表します。
+ここがマクロの一番重要なところなのですが、マクロが作用するソースコードは、入力の<code>TokenStream</code>へと変換され、マクロが生成するコードが出力の<code>TokenStream</code>なのです。
+この関数には属性もつけられていますが、これはどの種類の手続き的マクロを作っているのかを指定します。
+同じクレート内に複数の種類の手続き的マクロを持つことも可能です。</p>
+<!--
+Let’s look at the different kinds of procedural macros. We’ll start with a
+custom derive macro and then explain the small dissimilarities that make the
+other forms different.
+-->
+<p>様々な種類の手続き的マクロを見てみましょう。カスタムのderiveマクロから始めて、そのあと他の種類との小さな相違点を説明します。</p>
+<!--
+### How to Write a Custom `derive` Macro
+-->
+<h3 id="カスタムのderive-マクロの書き方"><a class="header" href="#カスタムのderive-マクロの書き方">カスタムの<code>derive</code> マクロの書き方</a></h3>
+<!--
+Let’s create a crate named `hello_macro` that defines a trait named
 `HelloMacro` with one associated function named `hello_macro`. Rather than
 making our crate users implement the `HelloMacro` trait for each of their
 types, we’ll provide a procedural macro so users can annotate their type with
@@ -468,23 +521,21 @@ types, we’ll provide a procedural macro so users can annotate their type with
 function. The default implementation will print `Hello, Macro! My name is
 TypeName!` where `TypeName` is the name of the type on which this trait has
 been defined. In other words, we’ll write a crate that enables another
-programmer to write code like Listing D-2 using our crate.
+programmer to write code like Listing 19-30 using our crate.
 -->
-<p><code>hello_macro</code>という関連関数が1つある<code>HelloMacro</code>というトレイトを定義する<code>hello_macro</code>というクレートを作成します。
+<p><code>hello_macro</code>という名前のクレートを作成してみましょう。
+このクレートは、<code>hello_macro</code>という関連関数が1つある<code>HelloMacro</code>というトレイトを定義します。
 クレートの使用者に使用者の型に<code>HelloMacro</code>トレイトを実装することを強制するのではなく、
 使用者が型を<code>#[derive(HelloMacro)]</code>で注釈して<code>hello_macro</code>関数の既定の実装を得られるように、
-プロシージャルマクロを提供します。既定の実装は、<code>Hello, Macro! My name is TypeName!</code>(<code>訳注</code>: こんにちは、マクロ！僕の名前はTypeNameだよ！)と出力し、
+手続き的マクロを提供します。既定の実装は、<code>Hello, Macro! My name is TypeName!</code>(<code>訳注</code>: こんにちは、マクロ！僕の名前はTypeNameだよ！)と出力し、
 ここで<code>TypeName</code>はこのトレイトが定義されている型の名前です。言い換えると、他のプログラマに我々のクレートを使用して、
-リストD-2のようなコードを書けるようにするクレートを記述します。</p>
+リスト19-30のようなコードを書けるようにするクレートを記述します。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">extern crate hello_macro;
-#[macro_use]
-extern crate hello_macro_derive;
-
-use hello_macro::HelloMacro;
+<pre><code class="language-rust ignore does_not_compile">use hello_macro::HelloMacro;
+use hello_macro_derive::HelloMacro;
 
 #[derive(HelloMacro)]
 struct Pancakes;
@@ -494,17 +545,17 @@ fn main() {
 }
 </code></pre>
 <!--
-<span class="caption">Listing D-2: The code a user of our crate will be able to
-write when using our procedural macro</span>
+<span class="caption">Listing 19-30: The code a user of our crate will be able
+to write when using our procedural macro</span>
 -->
-<p><span class="caption">リストD-2: 我々のプロシージャルマクロを使用した時にクレートの使用者が書けるようになるコード</span></p>
+<p><span class="caption">リスト19-30: 我々の手続き的マクロを使用した時にクレートの使用者が書けるようになるコード</span></p>
 <!--
 This code will print `Hello, Macro! My name is Pancakes!` when we’re done. The
 first step is to make a new library crate, like this:
 -->
 <p>このコードは完成したら、<code>Hello, Macro! My name is Pancakes!</code>(<code>Pancakes</code>: ホットケーキ)と出力します。最初の手順は、
 新しいライブラリクレートを作成することです。このように:</p>
-<pre><code class="language-text">$ cargo new hello_macro --lib
+<pre><code class="language-console">$ cargo new hello_macro --lib
 </code></pre>
 <!--
 Next, we’ll define the `HelloMacro` trait and its associated function:
@@ -514,8 +565,8 @@ Next, we’ll define the `HelloMacro` trait and its associated function:
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: src/lib.rs</span></p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>pub trait HelloMacro {
     fn hello_macro();
@@ -528,9 +579,7 @@ the trait to achieve the desired functionality, like so:
 -->
 <p>トレイトと関数があります。この時点でクレートの使用者は、以下のように、
 このトレイトを実装して所望の機能を達成できるでしょう。</p>
-<pre><code class="language-rust ignore">extern crate hello_macro;
-
-use hello_macro::HelloMacro;
+<pre><code class="language-rust ignore">use hello_macro::HelloMacro;
 
 struct Pancakes;
 
@@ -552,12 +601,12 @@ work.
 <p>しかしながら、使用者は、<code>hello_macro</code>を使用したい型それぞれに実装ブロックを記述する必要があります;
 この作業をしなくても済むようにしたいです。</p>
 <!--
-Additionally, we can’t yet provide a default implementation for the
-`hello_macro` function that will print the name of the type the trait is
-implemented on: Rust doesn’t have reflection capabilities, so it can’t look up
-the type’s name at runtime. We need a macro to generate code at compile time.
+Additionally, we can’t yet provide the `hello_macro` function with default
+implementation that will print the name of the type the trait is implemented
+on: Rust doesn’t have reflection capabilities, so it can’t look up the type’s
+name at runtime. We need a macro to generate code at compile time.
 -->
-<p>さらに、まだトレイトが実装されている型の名前を出力する<code>hello_macro</code>関数に既定の実装を提供することはできません:
+<p>さらに、まだ<code>hello_macro</code>関数にトレイトが実装されている型の名前を出力する既定の実装を提供することはできません:
 Rustにはリフレクションの能力がないので、型の名前を実行時に検索することができないのです。
 コンパイル時にコード生成するマクロが必要です。</p>
 <blockquote>
@@ -573,12 +622,12 @@ follows: for a crate named `foo`, a custom derive procedural macro crate is
 called `foo_derive`. Let’s start a new crate called `hello_macro_derive` inside
 our `hello_macro` project:
 -->
-<p>次の手順は、プロシージャルマクロを定義することです。これを執筆している時点では、プロシージャルマクロは、
+<p>次の手順は、手続き的マクロを定義することです。これを執筆している時点では、手続き的マクロは、
 独自のクレートに存在する必要があります。最終的には、この制限は持ち上げられる可能性があります。
 クレートとマクロクレートを構成する慣習は以下の通りです: <code>foo</code>というクレートに対して、
-独自のderiveプロシージャルマクロクレートは<code>foo_derive</code>と呼ばれます。<code>hello_macro</code>プロジェクト内に、
+カスタムのderive手続き的マクロクレートは<code>foo_derive</code>と呼ばれます。<code>hello_macro</code>プロジェクト内に、
 <code>hello_macro_derive</code>と呼ばれる新しいクレートを開始しましょう:</p>
-<pre><code class="language-text">$ cargo new hello_macro_derive --lib
+<pre><code class="language-console">$ cargo new hello_macro_derive --lib
 </code></pre>
 <!--
 Our two crates are tightly related, so we create the procedural macro crate
@@ -587,24 +636,24 @@ definition in `hello_macro`, we’ll have to change the implementation of the
 procedural macro in `hello_macro_derive` as well. The two crates will need to
 be published separately, and programmers using these crates will need to add
 both as dependencies and bring them both into scope. We could instead have the
-`hello_macro` crate use `hello_macro_derive` as a dependency and reexport the
-procedural macro code. But the way we’ve structured the project makes it
+`hello_macro` crate use `hello_macro_derive` as a dependency and re-export the
+procedural macro code. However, the way we’ve structured the project makes it
 possible for programmers to use `hello_macro` even if they don’t want the
 `derive` functionality.
 -->
-<p>2つのクレートは緊密に関係しているので、<code>hello_macro</code>クレートのディレクトリ内にプロシージャルマクロクレートを作成しています。
-<code>hello_macro</code>のトレイト定義を変更したら、<code>hello_macro_derive</code>のプロシージャルマクロの実装も変更しなければならないでしょう。
+<p>2つのクレートは緊密に関係しているので、<code>hello_macro</code>クレートのディレクトリ内に手続き的マクロクレートを作成しています。
+<code>hello_macro</code>のトレイト定義を変更したら、<code>hello_macro_derive</code>の手続き的マクロの実装も変更しなければならないでしょう。
 2つのクレートは個別に公開される必要があり、これらのクレートを使用するプログラマは、
-両方を依存に追加し、スコープに導入する必要があるでしょう。代わりに、<code>hello_macro</code>クレートに依存として、
-<code>hello_macro_derive</code>を使用させ、プロシージャルマクロのコードを再エクスポートすることもできるでしょう。
-プロジェクトの構造によっては、プログラマが<code>derive</code>機能を使用したくなくても、<code>hello_macro</code>を使用することが可能になります。</p>
+両方を依存に追加し、スコープに導入する必要があるでしょう。<code>hello_macro</code>クレートに依存として、
+<code>hello_macro_derive</code>を使用させ、手続き的マクロのコードを再エクスポートすることもできるかもしれませんが、
+このようなプロジェクトの構造にすることで、プログラマが<code>derive</code>機能を使用したくなくても、<code>hello_macro</code>を使用することが可能になります。</p>
 <!--
 We need to declare the `hello_macro_derive` crate as a procedural macro crate.
 We’ll also need functionality from the `syn` and `quote` crates, as you’ll see
 in a moment, so we need to add them as dependencies. Add the following to the
 *Cargo.toml* file for `hello_macro_derive`:
 -->
-<p><code>hello_macro_derive</code>クレートをプロシージャルマクロクレートとして宣言する必要があります。
+<p><code>hello_macro_derive</code>クレートを手続き的マクロクレートとして宣言する必要があります。
 また、すぐにわかるように、<code>syn</code>と<code>quote</code>クレートの機能も必要になるので、依存として追加する必要があります。
 以下を<code>hello_macro_derive</code>の<em>Cargo.toml</em>ファイルに追加してください:</p>
 <!--
@@ -615,129 +664,120 @@ in a moment, so we need to add them as dependencies. Add the following to the
 proc-macro = true
 
 [dependencies]
-syn = &quot;0.11.11&quot;
-quote = &quot;0.3.15&quot;
+syn = &quot;1.0&quot;
+quote = &quot;1.0&quot;
 </code></pre>
 <!--
-To start defining the procedural macro, place the code in Listing D-3 into your
-*src/lib.rs* file for the `hello_macro_derive` crate. Note that this code won’t
-compile until we add a definition for the `impl_hello_macro` function.
+To start defining the procedural macro, place the code in Listing 19-31 into
+your *src/lib.rs* file for the `hello_macro_derive` crate. Note that this code
+won’t compile until we add a definition for the `impl_hello_macro` function.
 -->
-<p>プロシージャルマクロの定義を開始するために、<code>hello_macro_derive</code>クレートの<em>src/lib.rs</em>ファイルにリストD-3のコードを配置してください。
+<p>手続き的マクロの定義を開始するために、<code>hello_macro_derive</code>クレートの<em>src/lib.rs</em>ファイルにリスト19-31のコードを配置してください。
 <code>impl_hello_macro</code>関数の定義を追加するまでこのコードはコンパイルできないことに注意してください。</p>
 <!--
 <span class="filename">Filename: hello_macro_derive/src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: hello_macro_derive/src/lib.rs</span></p>
-<pre><code class="language-rust ignore">extern crate proc_macro;
-extern crate syn;
-#[macro_use]
-extern crate quote;
+<pre><code class="language-rust ignore does_not_compile">extern crate proc_macro;
 
 use proc_macro::TokenStream;
+use quote::quote;
+use syn;
 
 #[proc_macro_derive(HelloMacro)]
 pub fn hello_macro_derive(input: TokenStream) -&gt; TokenStream {
-    // 型定義の文字列表現を構築する
-    // Construct a string representation of the type definition
-    let s = input.to_string();
+    // 操作可能な構文木としてのRustコードの表現を構築する
+    // Construct a representation of Rust code as a syntax tree
+    // that we can manipulate
+    let ast = syn::parse(input).unwrap();
 
-    // 文字列表現を構文解析する
-    // Parse the string representation
-    let ast = syn::parse_derive_input(&amp;s).unwrap();
-
-    // implを構築する
-    // Build the impl
-    let gen = impl_hello_macro(&amp;ast);
-
-    // 生成されたimplを返す
-    // Return the generated impl
-    gen.parse().unwrap()
+    // トレイトの実装内容を構築
+    // Build the trait implementation
+    impl_hello_macro(&amp;ast)
 }
 </code></pre>
 <!--
-<span class="caption">Listing D-3: Code that most procedural macro crates will
-need to have for processing Rust code</span>
+<span class="caption">Listing 19-31: Code that most procedural macro crates
+will require in order to process Rust code</span>
 -->
-<p><span class="caption">リストD-3: Rustコードを処理するためにほとんどのプロシージャルマクロクレートに必要になるコード</span></p>
+<p><span class="caption">リスト19-31: Rustコードを処理するためにほとんどの手続き的マクロクレートに必要になるコード</span></p>
 <!--
-Notice the way we’ve split the functions in D-3; this will be the same for
-almost every procedural macro crate you see or create, because it makes writing
-a procedural macro more convenient. What you choose to do in the place where
-the `impl_hello_macro` function is called will be different depending on your
-procedural macro’s purpose.
+Notice that we’ve split the code into the `hello_macro_derive` function, which
+is responsible for parsing the `TokenStream`, and the `impl_hello_macro`
+function, which is responsible for transforming the syntax tree: this makes
+writing a procedural macro more convenient. The code in the outer function
+(`hello_macro_derive` in this case) will be the same for almost every
+procedural macro crate you see or create. The code you specify in the body of
+the inner function (`impl_hello_macro` in this case) will be different
+depending on your procedural macro’s purpose.
 -->
-<p>D-3での関数の分け方に注目してください; これは、目撃あるいは作成するほとんどのプロシージャルマクロクレートで同じになるでしょう。
-プロシージャルマクロを書くのが便利になるからです。<code>impl_hello_macro</code>関数が呼ばれる箇所で行うことを選ぶものは、
-プロシージャルマクロの目的によって異なるでしょう。</p>
+<p><code>TokenStream</code>をパースする役割を持つ<code>hello_macro_derive</code>関数と、構文木を変換する役割を持つ<code>impl_hello_macro</code>関数にコードを分割したことに注目してください：これにより手続き的マクロを書くのがより簡単になります。
+外側の関数（今回だと<code>hello_macro_derive</code>）のコードは、あなたが見かけたり作ったりするであろうほとんどすべての手続き的マクロのクレートで同じです。
+内側の関数（今回だと<code>impl_hello_macro</code>）の内部に書き込まれるコードは、手続き的マクロの目的によって異なってくるでしょう。</p>
 <!--
 We’ve introduced three new crates: `proc_macro`, [`syn`], and [`quote`]. The
 `proc_macro` crate comes with Rust, so we didn’t need to add that to the
-dependencies in *Cargo.toml*. The `proc_macro` crate allows us to convert Rust
-code into a string containing that Rust code. The `syn` crate parses Rust code
-from a string into a data structure that we can perform operations on. The
-`quote` crate takes `syn` data structures and turns them back into Rust code.
-These crates make it much simpler to parse any sort of Rust code we might want
-to handle: writing a full parser for Rust code is no simple task.
+dependencies in *Cargo.toml*. The `proc_macro` crate is the compiler’s API that
+allows us to read and manipulate Rust code from our code.
 -->
 <p>3つの新しいクレートを導入しました: <code>proc_macro</code>、<a href="https://crates.io/crates/syn"><code>syn</code></a>、<a href="https://crates.io/crates/quote"><code>quote</code></a>です。<code>proc_macro</code>クレートは、
-Rustに付随してくるので、<em>Cargo.toml</em>の依存に追加する必要はありませんでした。<code>proc_macro</code>クレートにより、
-RustコードをRustコードを含む文字列に変換できます。<code>syn</code>クレートは、文字列からRustコードを構文解析し、
+Rustに付随してくるので、<em>Cargo.toml</em>の依存に追加する必要はありませんでした。<code>proc_macro</code>クレートはコンパイラのAPIで、私達のコードからRustのコードを読んだり操作したりすることを可能にします。</p>
+<!--
+The `syn` crate parses Rust code from a string into a data structure that we
+can perform operations on. The `quote` crate turns `syn` data structures back
+into Rust code. These crates make it much simpler to parse any sort of Rust
+code we might want to handle: writing a full parser for Rust code is no simple
+task.
+-->
+<p><code>syn</code>クレートは、文字列からRustコードを構文解析し、
 処理を行えるデータ構造にします。<code>quote</code>クレートは、<code>syn</code>データ構造を取り、Rustコードに変換し直します。
 これらのクレートにより、扱いたい可能性のあるあらゆる種類のRustコードを構文解析するのがはるかに単純になります:
 Rustコードの完全なパーサを書くのは、単純な作業ではないのです。</p>
 <!--
-The `hello_macro_derive` function will get called when a user of our library
-specifies `#[derive(HelloMacro)]` on a type. The reason is that we’ve annotated
-the `hello_macro_derive` function here with `proc_macro_derive` and specified
-the name, `HelloMacro`, which matches our trait name; that’s the convention
-most procedural macros follow.
+The `hello_macro_derive` function will be called when a user of our library
+specifies `#[derive(HelloMacro)]` on a type. This is possible because we’ve
+annotated the `hello_macro_derive` function here with `proc_macro_derive` and
+specified the name, `HelloMacro`, which matches our trait name; this is the
+convention most procedural macros follow.
 -->
 <p><code>hello_macro_derive</code>関数は、ライブラリの使用者が型に<code>#[derive(HelloMacro)]</code>を指定した時に呼び出されます。
-その理由は、ここで<code>hello_macro_derive</code>関数を<code>proc_macro_derive</code>で注釈し、トレイト名に一致する<code>HelloMacro</code>を指定したからです;
-これは、ほとんどのプロシージャルマクロが倣う慣習です。</p>
+それが可能な理由は、ここで<code>hello_macro_derive</code>関数を<code>proc_macro_derive</code>で注釈し、トレイト名に一致する<code>HelloMacro</code>を指定したからです;
+これは、ほとんどの手続き的マクロが倣う慣習です。</p>
 <!--
-This function first converts the `input` from a `TokenStream` to a `String` by
-calling `to_string`. This `String` is a string representation of the Rust code
-for which we are deriving `HelloMacro`. In the example in Listing D-2, `s` will
-have the `String` value `struct Pancakes;` because that is the Rust code we
-added the `#[derive(HelloMacro)]` annotation to.
+The `hello_macro_derive` function first converts the `input` from a
+`TokenStream` to a data structure that we can then interpret and perform
+operations on. This is where `syn` comes into play. The `parse` function in
+`syn` takes a `TokenStream` and returns a `DeriveInput` struct representing the
+parsed Rust code. Listing 19-32 shows the relevant parts of the `DeriveInput`
+struct we get from parsing the `struct Pancakes;` string:
 -->
-<p>この関数はまず、<code>TokenStream</code>からの<code>input</code>を<code>to_string</code>を呼び出して<code>String</code>に変換します。
-この<code>String</code>は、<code>HelloMacro</code>を導出しているRustコードの文字列表現になります。
-リストD-2の例で、<code>s</code>は<code>struct Pancakes;</code>という<code>String</code>値になります。
-それが<code>#[derive(HelloMacro)]</code>注釈を追加したRustコードだからです。</p>
-<!--
-> Note: At the time of this writing, you can only convert a `TokenStream` to a
-> string. A richer API will exist in the future.
--->
-<blockquote>
-<p>注釈: これを執筆している時点では、<code>TokenStream</code>は文字列にしか変換できません。
-将来的にはよりリッチなAPIになるでしょう。</p>
-</blockquote>
-<!--
-Now we need to parse the Rust code `String` into a data structure that we can
-then interpret and perform operations on. This is where `syn` comes into play.
-The `parse_derive_input` function in `syn` takes a `String` and returns a
-`DeriveInput` struct representing the parsed Rust code. The following code
-shows the relevant parts of the `DeriveInput` struct we get from parsing the
-string `struct Pancakes;`:
--->
-<p>さて、Rustコードの<code>String</code>をそれから解釈して処理を実行できるデータ構造に構文解析する必要があります。
-ここで<code>syn</code>が登場します。<code>syn</code>の<code>parse_derive_input</code>関数は、<code>String</code>を取り、
-構文解析されたRustコードを表す<code>DeriveInput</code>構造体を返します。以下のコードは、
-文字列<code>struct Pancakes;</code>を構文解析して得られる<code>DeriveInput</code>構造体の関係のある部分を表示しています:</p>
+<p>この関数はまず、<code>TokenStream</code>からの<code>input</code>をデータ構造に変換し、解釈したり操作したりできるようにします。
+ここで<code>syn</code>が登場します。
+<code>syn</code>の<code>parse</code>関数は<code>TokenStream</code>を受け取り、パースされたRustのコードを表現する<code>DeriveInput</code>構造体を返します。
+Listing 19-32は<code>struct Pancakes;</code>という文字列をパースすることで得られる<code>DeriveInput</code>構造体の関係ある部分を表しています。</p>
 <pre><code class="language-rust ignore">DeriveInput {
     // --snip--
 
-    ident: Ident(
-        &quot;Pancakes&quot;
-    ),
-    body: Struct(
-        Unit
+    ident: Ident {
+        ident: &quot;Pancakes&quot;,
+        span: #0 bytes(95..103)
+    },
+    data: Struct(
+        DataStruct {
+            struct_token: Struct,
+            fields: Unit,
+            semi_token: Some(
+                Semi
+            )
+        }
     )
 }
 </code></pre>
+<!--
+<span class="caption">Listing 19-32: The `DeriveInput` instance we get when
+parsing the code that has the macro’s attribute in Listing 19-30</span>
+-->
+<p><span class="caption">Listing 19-32: このマクロを使った属性を持つListing 19-30のコードをパースしたときに得られる<code>DeriveInput</code>インスタンス</span></p>
 <!--
 The fields of this struct show that the Rust code we’ve parsed is a unit struct
 with the `ident` (identifier, meaning the name) of `Pancakes`. There are more
@@ -746,76 +786,108 @@ documentation for `DeriveInput`][syn-docs] for more information.
 -->
 <p>この構造体のフィールドは、構文解析したRustコードが<code>Pancakes</code>という<code>ident</code>(識別子、つまり名前)のユニット構造体であることを示しています。
 この構造体にはRustコードのあらゆる部分を記述するフィールドがもっと多くあります;
-<a href="https://docs.rs/syn/0.11.11/syn/struct.DeriveInput.html"><code>DeriveInput</code>の<code>syn</code>ドキュメンテーション</a>で詳細を確認してください。</p>
+<a href="https://docs.rs/syn/1.0/syn/struct.DeriveInput.html"><code>DeriveInput</code>の<code>syn</code>ドキュメンテーション</a>で詳細を確認してください。</p>
 <!--
-At this point, we haven’t defined the `impl_hello_macro` function, which is
-where we’ll build the new Rust code we want to include. But before we do, note
-that the last part of this `hello_macro_derive` function uses the `parse`
-function from the `quote` crate to turn the output of the `impl_hello_macro`
-function back into a `TokenStream`. The returned `TokenStream` is added to the
-code that our crate users write, so when they compile their crate, they’ll get
-extra functionality that we provide.
+Soon we’ll define the `impl_hello_macro` function, which is where we’ll build
+the new Rust code we want to include. But before we do, note that the output
+for our derive macro is also a `TokenStream`. The returned `TokenStream` is
+added to the code that our crate users write, so when they compile their crate,
+they’ll get the extra functionality that we provide in the modified
+`TokenStream`.
 -->
-<p>この時点では、含みたい新しいRustコードを構築する<code>impl_hello_macro</code>関数を定義していません。
-でもその前に、この<code>hello_macro_derive</code>関数の最後の部分で<code>quote</code>クレートの<code>parse</code>関数を使用して、
-<code>impl_hello_macro</code>関数の出力を<code>TokenStream</code>に変換し直していることに注目してください。
+<p>まもなく<code>impl_hello_macro</code>関数を定義し、そこにインクルードしたい新しいRustコードを構築します。
+でもその前に、私達のderiveマクロのための出力もまた<code>TokenStream</code>であることに注目してください。
 返された<code>TokenStream</code>をクレートの使用者が書いたコードに追加しているので、クレートをコンパイルすると、
-我々が提供している追加の機能を得られます。</p>
+我々が修正した<code>TokenStream</code>で提供している追加の機能を得られます。</p>
 <!--
-You might have noticed that we’re calling `unwrap` to panic if the calls to the
-`parse_derive_input` or `parse` functions fail here. Panicking on errors is
-necessary in procedural macro code because `proc_macro_derive` functions must
-return `TokenStream` rather than `Result` to conform to the procedural macro
-API. We’ve chosen to simplify this example by using `unwrap`; in production
-code, you should provide more specific error messages about what went wrong by
-using `panic!` or `expect`.
+You might have noticed that we’re calling `unwrap` to cause the
+`hello_macro_derive` function to panic if the call to the `syn::parse` function
+fails here. It’s necessary for our procedural macro to panic on errors because
+`proc_macro_derive` functions must return `TokenStream` rather than `Result` to
+conform to the procedural macro API. We’ve simplified this example by using
+`unwrap`; in production code, you should provide more specific error messages
+about what went wrong by using `panic!` or `expect`.
 -->
-<p><code>parse_derive_input</code>か<code>parse</code>関数がここで失敗したら、<code>unwrap</code>を呼び出してパニックしていることにお気付きかもしれません。
-エラー時にパニックするのは、プロシージャルマクロコードでは必要なことです。何故なら、
-<code>proc_macro_derive</code>関数は、プロシージャルマクロAPIに従うように<code>Result</code>ではなく、
-<code>TokenStream</code>を返さなければならないからです。<code>unwrap</code>を使用してこの例を簡略化することを選択しました;
+<p>ここで、<code>unwrap</code>を呼び出すことで、<code>syn::parse</code>関数が失敗したときに<code>hello_macro_derive</code>関数をパニックさせていることにお気付きかもしれません。
+エラー時にパニックするのは、手続き的マクロコードでは必要なことです。何故なら、
+<code>proc_macro_derive</code>関数は、手続き的マクロのAPIに従うために、<code>Result</code>ではなく
+<code>TokenStream</code>を返さなければならないからです。この例については、<code>unwrap</code>を使用して簡略化することを選択しました;
 プロダクションコードでは、<code>panic!</code>か<code>expect</code>を使用して何が間違っていたのかより具体的なエラーメッセージを提供すべきです。</p>
 <!--
 Now that we have the code to turn the annotated Rust code from a `TokenStream`
-into a `String` and a `DeriveInput` instance, let’s generate the code that
-implements the `HelloMacro` trait on the annotated type:
+into a `DeriveInput` instance, let’s generate the code that implements the
+`HelloMacro` trait on the annotated type, as shown in Listing 19-33.
 -->
-<p>今や、<code>TokenStream</code>からの注釈されたRustコードを<code>String</code>と<code>DeriveInput</code>インスタンスに変換するコードができたので、
-注釈された型に<code>HelloMacro</code>トレイトを実装するコードを生成しましょう:</p>
+<p>今や、<code>TokenStream</code>からの注釈されたRustコードを<code>DeriveInput</code>インスタンスに変換するコードができたので、
+Listing 19-33のように、注釈された型に<code>HelloMacro</code>トレイトを実装するコードを生成しましょう:</p>
 <!--
 <span class="filename">Filename: hello_macro_derive/src/lib.rs</span>
 -->
 <p><span class="filename">ファイル名: hello_macro_derive/src/lib.rs</span></p>
-<pre><code class="language-rust ignore">fn impl_hello_macro(ast: &amp;syn::DeriveInput) -&gt; quote::Tokens {
+<pre><code class="language-rust ignore"><span class="boring">extern crate proc_macro;
+</span><span class="boring">
+</span><span class="boring">use proc_macro::TokenStream;
+</span><span class="boring">use quote::quote;
+</span><span class="boring">use syn;
+</span><span class="boring">
+</span><span class="boring">#[proc_macro_derive(HelloMacro)]
+</span><span class="boring">pub fn hello_macro_derive(input: TokenStream) -&gt; TokenStream {
+</span><span class="boring">    // Construct a representation of Rust code as a syntax tree
+</span><span class="boring">    // that we can manipulate
+</span><span class="boring">    let ast = syn::parse(input).unwrap();
+</span><span class="boring">
+</span><span class="boring">    // Build the trait implementation
+</span><span class="boring">    impl_hello_macro(&amp;ast)
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn impl_hello_macro(ast: &amp;syn::DeriveInput) -&gt; TokenStream {
     let name = &amp;ast.ident;
-    quote! {
+    let gen = quote! {
         impl HelloMacro for #name {
             fn hello_macro() {
-                println!(&quot;Hello, Macro! My name is {}&quot;, stringify!(#name));
+                println!(&quot;Hello, Macro! My name is {}!&quot;, stringify!(#name));
             }
         }
-    }
+    };
+    gen.into()
 }
 </code></pre>
 <!--
-We get an `Ident` struct instance containing the name (identifier) of the
-annotated type using `ast.ident`. The code in Listing D-2 specifies that the
-`name` will be `Ident("Pancakes")`.
+<span class="caption">Listing 19-33: Implementing the `HelloMacro` trait using
+the parsed Rust code</span>
 -->
-<p><code>ast.ident</code>で注釈された型の名前(識別子)を含む<code>Ident</code>構造体インスタンスを得ています。
-リストD-2のコードは、<code>name</code>が<code>Ident(&quot;Pancakes&quot;)</code>になることを指定しています。</p>
+<p><span class="caption">Listing 19-33: パースされたRustコードを用いて<code>HelloMacro</code>トレイトを実装する</span></p>
 <!--
-The `quote!` macro lets us write the Rust code that we want to return and
-convert it into `quote::Tokens`. This macro also provides some very cool
-templating mechanics; we can write `#name`, and `quote!` will replace it with
-the value in the variable named `name`. You can even do some repetition similar
-to the way regular macros work. Check out [the `quote` crate’s
-docs][quote-docs] for a thorough introduction.
+We get an `Ident` struct instance containing the name (identifier) of the
+annotated type using `ast.ident`. The struct in Listing 19-32 shows that when
+we run the `impl_hello_macro` function on the code in Listing 19-30, the
+`ident` we get will have the `ident` field with a value of `"Pancakes"`. Thus,
+the `name` variable in Listing 19-33 will contain an `Ident` struct instance
+that, when printed, will be the string `"Pancakes"`, the name of the struct in
+Listing 19-30.
 -->
-<p><code>quote!</code>マクロは、返却し<code>quote::Tokens</code>に変換したいRustコードを書かせてくれます。このマクロはまた、
-非常にかっこいいテンプレート機構も提供してくれます; <code>#name</code>と書け、<code>quote!</code>は、
+<p><code>ast.ident</code>を使って、注釈された型の名前(識別子)を含む<code>Ident</code>構造体インスタンスを得ています。
+Listing 19-32の構造体を見ると、<code>impl_hello_macro</code>関数をListing 19-30のコードに実行したときに私達の得る<code>ident</code>は、フィールド<code>ident</code>の値として<code>&quot;Pancakes&quot;</code>を持つだろうとわかります。
+従って、Listing 19-33における変数<code>name</code>は構造体<code>Ident</code>のインスタンスをもちます。このインスタンスは、printされた時は文字列<code>&quot;Pancakes&quot;</code>、即ちListing 19-30の構造体の名前となります。</p>
+<!--
+The `quote!` macro lets us define the Rust code that we want to return. The
+compiler expects something different to the direct result of the `quote!`
+macro’s execution, so we need to convert it to a `TokenStream`. We do this by
+calling the `into` method, which consumes this intermediate representation and
+returns a value of the required `TokenStream` type.
+-->
+<p><code>quote!</code>マクロを使うことで、私達が返したいRustコードを定義することができます。
+ただ、コンパイラが期待しているものは<code>quote!</code>マクロの実行結果とはちょっと違うものです。なので、<code>TokenStream</code>に変換してやる必要があります。
+マクロの出力する直接表現を受け取り、必要とされている<code>TokenStream</code>型の値を返す<code>into</code>メソッドを呼ぶことでこれを行います。</p>
+<!--
+The `quote!` macro also provides some very cool templating mechanics: we can
+enter `#name`, and `quote!` will replace it with the value in the variable
+`name`. You can even do some repetition similar to the way regular macros work.
+Check out [the `quote` crate’s docs][quote-docs] for a thorough introduction.
+-->
+<p>このマクロはまた、非常にかっこいいテンプレート機構も提供してくれます; <code>#name</code>と書くと、<code>quote!</code>は
 それを<code>name</code>という変数の値と置き換えます。普通のマクロが動作するのと似た繰り返しさえ行えます。
-完全なイントロダクションは、<a href="https://docs.rs/quote"><code>quote</code>クレートのdoc</a>をご確認ください。</p>
+本格的に入門したいなら、<a href="https://docs.rs/quote"><code>quote</code>クレートのdoc</a>をご確認ください。</p>
 <!--
 We want our procedural macro to generate an implementation of our `HelloMacro`
 trait for the type the user annotated, which we can get by using `#name`. The
@@ -823,67 +895,162 @@ trait implementation has one function, `hello_macro`, whose body contains the
 functionality we want to provide: printing `Hello, Macro! My name is` and then
 the name of the annotated type.
 -->
-<p>プロシージャルマクロに使用者が注釈した型に対して<code>HelloMacro</code>トレイトの実装を生成してほしく、
+<p>手続き的マクロには使用者が注釈した型に対して<code>HelloMacro</code>トレイトの実装を生成してほしいですが、
 これは<code>#name</code>を使用することで得られます。トレイトの実装には1つの関数<code>hello_macro</code>があり、
 この本体に提供したい機能が含まれています: <code>Hello, Macro! My name is</code>、そして、注釈した型の名前を出力する機能です。</p>
 <!--
 The `stringify!` macro used here is built into Rust. It takes a Rust
 expression, such as `1 + 2`, and at compile time turns the expression into a
 string literal, such as `"1 + 2"`. This is different than `format!` or
-`println!`, which evaluate the expression and then turn the result into a
-`String`. There is a possibility that the `#name` input might be an expression
-to print literally, so we use `stringify!`. Using `stringify!` also saves an
-allocation by converting `#name` to a string literal at compile time.
+`println!`, macros which evaluate the expression and then turn the result into
+a `String`. There is a possibility that the `#name` input might be an
+expression to print literally, so we use `stringify!`. Using `stringify!` also
+saves an allocation by converting `#name` to a string literal at compile time.
 -->
-<p>ここで使用した<code>stringify!</code>マクロは、言語に埋め込まれています。<code>1 + 2</code>などのようなRustの式を取り、
-コンパイル時に<code>&quot;1 + 2&quot;</code>のような文字列リテラルにその式を変換します。これは、<code>format!</code>や<code>println!</code>とは異なります。
-こちらは、式を評価し、そしてその結果を<code>String</code>に変換します。<code>#name</code>入力が文字通り出力される式という可能性もあるので、
-<code>stringify!</code>を使用しています。<code>stringify!</code>を使用すると、コンパイル時に<code>#name</code>を文字列リテラルに変換することで、
-メモリ確保しなくても済みます。</p>
+<p>ここで使用した<code>stringify!</code>マクロは、言語に組み込まれています。<code>1 + 2</code>などのようなRustの式を取り、
+コンパイル時に<code>&quot;1 + 2&quot;</code>のような文字列リテラルにその式を変換します。
+これは、<code>format!</code>や<code>println!</code>のような、式を評価し、そしてその結果を<code>String</code>に変換するマクロとは異なります。
+<code>#name</code>入力が文字通り出力されるべき式という可能性もあるので、<code>stringify!</code>を使用しています。
+<code>stringify!</code>を使用すると、コンパイル時に<code>#name</code>を文字列リテラルに変換することで、メモリ確保しなくても済みます。</p>
 <!--
 At this point, `cargo build` should complete successfully in both `hello_macro`
-and `hello_macro_derive`. Let’s hook up these crates to the code in Listing D-2
-to see the procedural macro in action! Create a new binary project in your
-*projects* directory using `cargo new --bin pancakes`. We need to add
+and `hello_macro_derive`. Let’s hook up these crates to the code in Listing
+19-30 to see the procedural macro in action! Create a new binary project in
+your *projects* directory using `cargo new pancakes`. We need to add
 `hello_macro` and `hello_macro_derive` as dependencies in the `pancakes`
 crate’s *Cargo.toml*. If you’re publishing your versions of `hello_macro` and
-`hello_macro_derive` to *https://crates.io/*, they would be regular
+`hello_macro_derive` to [crates.io](https://crates.io/), they would be regular
 dependencies; if not, you can specify them as `path` dependencies as follows:
 -->
 <p>この時点で、<code>cargo build</code>は<code>hello_macro</code>と<code>hello_macro_derive</code>の両方で成功するはずです。
-これらのクレートをリストD-2のコードにフックして、プロシージャルマクロが動くところを確認しましょう！
-<code>cargo new --bin pancakes</code>で<em>projects</em>ディレクトリに新しいバイナリプロジェクトを作成してください。
+これらのクレートをリスト19-30のコードにフックして、手続き的マクロが動くところを確認しましょう！
+<code>cargo new pancakes</code>であなたの<em>プロジェクトの</em>ディレクトリ（訳注：これまでに作った2つのクレート内ではないということ）に新しいバイナリプロジェクトを作成してください。
 <code>hello_macro</code>と<code>hello_macro_derive</code>を依存として<code>pancakes</code>クレートの<em>Cargo.toml</em>に追加する必要があります。
-自分のバージョンの<code>hello_macro</code>と<code>hello_macro_derive</code>を<em>https://crates.io/</em> に公開するつもりなら、
-普通の依存になるでしょう; そうでなければ、以下のように<code>path</code>依存として指定できます:</p>
+自分のバージョンの<code>hello_macro</code>と<code>hello_macro_derive</code>を<a href="https://crates.io/">crates.io</a> に公開しているなら、
+普通の依存になるでしょう; そうでなければ、以下のように<code>path</code>依存として指定すればよいです:</p>
 <pre><code class="language-toml">[dependencies]
 hello_macro = { path = &quot;../hello_macro&quot; }
 hello_macro_derive = { path = &quot;../hello_macro/hello_macro_derive&quot; }
 </code></pre>
 <!--
-Put the code from Listing D-2 into *src/main.rs*, and run `cargo run`: it
+Put the code in Listing 19-30 into *src/main.rs*, and run `cargo run`: it
 should print `Hello, Macro! My name is Pancakes!` The implementation of the
 `HelloMacro` trait from the procedural macro was included without the
 `pancakes` crate needing to implement it; the `#[derive(HelloMacro)]` added the
 trait implementation.
 -->
-<p>リストD-2のコードを<em>src/main.rs</em>に配置し、<code>cargo run</code>を実行してください: <code>Hello, Macro! My name is Pancakes</code>と出力するはずです。
-プロシージャルマクロの<code>HelloMacro</code>トレイトの実装は、<code>pancakes</code>クレートが実装する必要なく、包含されました;
+<p>リスト19-30のコードを<em>src/main.rs</em>に配置し、<code>cargo run</code>を実行してください: <code>Hello, Macro! My name is Pancakes</code>と出力するはずです。
+手続き的マクロの<code>HelloMacro</code>トレイトの実装は、<code>pancakes</code>クレートが実装する必要なく、包含されました;
 <code>#[derive(HelloMacro)]</code>がトレイトの実装を追加したのです。</p>
 <!--
-### The Future of Macros
+Next, let’s explore how the other kinds of procedural macros differ from custom
+derive macros.
 -->
-<h3><a class="header" href="#マクロの未来" id="マクロの未来">マクロの未来</a></h3>
+<p>続いて、他の種類の手続き的マクロがカスタムのderiveマクロとどのように異なっているか見てみましょう。</p>
 <!--
-In the future, Rust will expand declarative and procedural macros. Rust will
-use a better declarative macro system with the `macro` keyword and will add
-more types of procedural macros for more powerful tasks than just `derive`.
-These systems are still under development at the time of this publication;
-please consult the online Rust documentation for the latest information.
+### Attribute-like macros
 -->
-<p>将来的にRustは、宣言的マクロとプロシージャルマクロを拡張するでしょう。<code>macro</code>キーワードでより良い宣言的マクロシステムを使用し、
-<code>derive</code>だけよりもよりパワフルな作業のより多くの種類のプロシージャルマクロを追加するでしょう。
-この本の出版時点ではこれらのシステムはまだ開発中です; 最新の情報は、オンラインのRustドキュメンテーションをお調べください。</p>
+<h3 id="属性風マクロ"><a class="header" href="#属性風マクロ">属性風マクロ</a></h3>
+<!--
+Attribute-like macros are similar to custom derive macros, but instead of
+generating code for the `derive` attribute, they allow you to create new
+attributes. They’re also more flexible: `derive` only works for structs and
+enums; attributes can be applied to other items as well, such as functions.
+Here’s an example of using an attribute-like macro: say you have an attribute
+named `route` that annotates functions when using a web application framework:
+-->
+<p>属性風マクロはカスタムのderiveマクロと似ていますが、<code>derive</code>属性のためのコードを生成するのではなく、新しい属性を作ることができます。
+また、属性風マクロはよりフレキシブルでもあります：<code>derive</code>は構造体とenumにしか使えませんでしたが、属性は関数のような他の要素に対しても使えるのです。
+属性風マクロを使った例を以下に示しています：webアプリケーションフレームワークを使っているときに、<code>route</code>という関数につける属性名があるとします：</p>
+<pre><code class="language-rust ignore">#[route(GET, &quot;/&quot;)]
+fn index() {
+</code></pre>
+<!--
+This `#[route]` attribute would be defined by the framework as a procedural
+macro. The signature of the macro definition function would look like this:
+-->
+<p>この<code>#[route]</code>属性はそのフレームワークによって手続き的マクロとして定義されたものなのでしょう。
+マクロを定義する関数のシグネチャは以下のようになっているでしょう：</p>
+<pre><code class="language-rust ignore">#[proc_macro_attribute]
+pub fn route(attr: TokenStream, item: TokenStream) -&gt; TokenStream {
+</code></pre>
+<!--
+Here, we have two parameters of type `TokenStream`. The first is for the
+contents of the attribute: the `GET, "/"` part. The second is the body of the
+item the attribute is attached to: in this case, `fn index() {}` and the rest
+of the function’s body.
+-->
+<p>ここで、2つ<code>TokenStream</code>型の引数がありますね。
+1つ目は属性の中身：<code>GET, &quot;/&quot;</code>に対応しており、2つ目は属性が付けられた要素の中身に対応しています。今回だと<code>fn index() {}</code>と関数の本体の残りですね。</p>
+<!--
+Other than that, attribute-like macros work the same way as custom derive
+macros: you create a crate with the `proc-macro` crate type and implement a
+function that generates the code you want!
+-->
+<p>それ以外において、属性風マクロはカスタムのderiveマクロと同じ動きをします：
+クレートタイプとして<code>proc-macro</code>を使ってクレートを作り、あなたのほしいコードを生成してくれる関数を実装すればよいです！</p>
+<!--
+### Function-like macros
+-->
+<h3 id="関数風マクロ"><a class="header" href="#関数風マクロ">関数風マクロ</a></h3>
+<!--
+Function-like macros define macros that look like function calls. Similarly to
+`macro_rules!` macros, they’re more flexible than functions; for example, they
+can take an unknown number of arguments. However, `macro_rules!` macros can be
+defined only using the match-like syntax we discussed in the section
+[“Declarative Macros with `macro_rules!` for General Metaprogramming”][decl]
+earlier. Function-like macros take a `TokenStream` parameter and their
+definition manipulates that `TokenStream` using Rust code as the other two
+types of procedural macros do. An example of a function-like macro is an `sql!`
+macro that might be called like so:
+
+[decl]: #declarative-macros-with-macro_rules-for-general-metaprogramming
+-->
+<p>関数風マクロは、関数呼び出しのように見えるマクロを定義します。
+これらは、<code>macro_rules!</code>マクロのように、関数よりフレキシブルです。
+たとえば、これらは任意の数の引数を取ることができます。
+しかし、<a href="#%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AA%E3%83%A1%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%9F%E3%82%81%E3%81%ABmacro_rules%E3%81%A7%E5%AE%A3%E8%A8%80%E7%9A%84%E3%81%AA%E3%83%9E%E3%82%AF%E3%83%AD">一般的なメタプログラミングのために<code>macro_rules!</code>で宣言的なマクロ</a>で話したように、<code>macro_rules!</code>マクロはmatch風の構文を使ってのみ定義できたのでした。
+関数風マクロは引数として<code>TokenStream</code>をとり、その<code>TokenStream</code>を定義に従って操作します。操作には、他の2つの手続き的マクロと同じように、Rustコードが使われます。
+例えば、<code>sql!</code>マクロという関数風マクロで、以下のように呼び出されるものを考えてみましょう：</p>
+<pre><code class="language-rust ignore">let sql = sql!(SELECT * FROM posts WHERE id=1);
+</code></pre>
+<!--
+This macro would parse the SQL statement inside it and check that it’s
+syntactically correct, which is much more complex processing than a
+`macro_rules!` macro can do. The `sql!` macro would be defined like this:
+-->
+<p>このマクロは、中に入れられたSQL文をパースし、それが構文的に正しいことを確かめます。これは<code>macro_rules!</code>マクロが可能とするよりも遥かに複雑な処理です。
+<code>sql!</code>マクロは以下のように定義することができるでしょう：</p>
+<pre><code class="language-rust ignore">#[proc_macro]
+pub fn sql(input: TokenStream) -&gt; TokenStream {
+</code></pre>
+<!--
+This definition is similar to the custom derive macro’s signature: we receive
+the tokens that are inside the parentheses and return the code we wanted to
+generate.
+-->
+<p>この定義はカスタムのderiveマクロのシグネチャと似ています：カッコの中のトークンを受け取り、生成したいコードを返すのです。</p>
+<!--
+## Summary
+-->
+<h2 id="まとめ"><a class="header" href="#まとめ">まとめ</a></h2>
+<!--
+Whew! Now you have some Rust features in your toolbox that you won’t use often,
+but you’ll know they’re available in very particular circumstances. We’ve
+introduced several complex topics so that when you encounter them in error
+message suggestions or in other peoples’ code, you’ll be able to recognize
+these concepts and syntax. Use this chapter as a reference to guide you to
+solutions.
+-->
+<p>ふう！
+あなたがいま手にしたRustの機能はあまり頻繁に使うものではありませんが、非常に特殊な状況ではその存在を思い出すことになるでしょう。
+たくさんの難しいトピックを紹介しましたが、これは、もしあなたがエラー時の推奨メッセージや他の人のコードでそれらに遭遇した時、その概念と文法を理解できるようになっていてほしいからです。
+この章を、解決策にたどり着くためのリファレンスとして活用してください。</p>
+<!--
+Next, we’ll put everything we’ve discussed throughout the book into practice
+and do one more project!
+-->
+<p>次は、この本で話してきたすべてのことを実際に使って、もう一つプロジェクトをやってみましょう！</p>
 
                     </main>
 
@@ -927,10 +1094,10 @@ please consult the online Rust documentation for the latest information.
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 

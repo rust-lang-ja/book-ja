@@ -16,7 +16,7 @@ associative array, just to name a few.
 一般的なコレクションのトリを飾るのは、*ハッシュマップ*です。型`HashMap<K, V>`は、
 `K`型のキーと`V`型の値の対応関係を保持します。これを*ハッシュ関数*を介して行います。
 ハッシュ関数は、キーと値のメモリ配置方法を決めるものです。多くのプログラミング言語でもこの種のデータ構造はサポートされていますが、
-しばしば名前が違います。hash、map、object、ハッシュテーブル、連想配列など、枚挙に<ruby>暇<rp>(</rp><rt>いとま</rt><rp>)</rp>はありません。
+しばしば名前が違います。hash、map、object、ハッシュテーブル、連想配列など、枚挙に<ruby>暇<rp>(</rp><rt>いとま</rt><rp>)</rp></ruby>はありません。
 
 <!--
 Hash maps are useful when you want to look up data not by an index, as

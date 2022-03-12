@@ -25,7 +25,7 @@ defined as having two variants, `Ok` and `Err`, as follows:
 第2章の[「`Result`型で失敗する可能性に対処する」][handle_failure]で`Result` enumが以下のように、
 `Ok`と`Err`の2列挙子からなるよう定義されていることを思い出してください:
 
-[handle_failure]: ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-the-result-type
+[handle_failure]: ch02-00-guessing-game-tutorial.html#result型で失敗の可能性を扱う
 
 ```rust
 enum Result<T, E> {
