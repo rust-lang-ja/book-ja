@@ -2,14 +2,15 @@
 # Programming a Guessing Game
 -->
 
-# 数当てゲームをプログラムする
+# 数当てゲームのプログラミング
 
 <!--
 Let’s jump into Rust by working through a hands-on project together! This
 chapter introduces you to a few common Rust concepts by showing you how to use
 them in a real program. You’ll learn about `let`, `match`, methods, associated
-functions, external crates, and more! The following chapters will explore these
-ideas in more detail. In this chapter, you’ll practice the fundamentals.
+functions, using external crates, and more! In the following chapters, we’ll
+explore these ideas in more detail. In this chapter, you’ll practice the
+fundamentals.
 -->
 
 実物のプロジェクトに一緒に取り組むことで、Rustの世界へ飛び込みましょう！
@@ -46,15 +47,14 @@ Chapter 1 and make a new project using Cargo, like so:
 Cargoを使って新規プロジェクトを作成します。以下のように:
 
 ```console
-$ cargo new guessing_game --bin
+$ cargo new guessing_game
 $ cd guessing_game
 ```
 
 <!--
 The first command, `cargo new`, takes the name of the project (`guessing_game`)
-as the first argument. The `--bin` flag tells Cargo to make a binary project,
-like to the one in Chapter 1. The second command changes to the new
-project’s directory.
+as the first argument. The second command changes to the new project’s
+directory.
 -->
 
 最初のコマンド`cargo new`は、プロジェクト名を第1引数に取ります(`guessing_game`ですね)。
@@ -78,8 +78,6 @@ Look at the generated *Cargo.toml* file:
 ```
 
 <!--
-If the author information that Cargo obtained from your environment is not
-correct, fix that in the file and save it again.
 -->
 
 もし、Cargoがあなたの環境から取得した作者情報が間違っていたら、
@@ -117,7 +115,7 @@ using the `cargo run` command:
 
 <!--
 The `run` command comes in handy when you need to rapidly iterate on a project,
-as we'll do in this game, quickly testing each iteration before moving on to
+as we’ll do in this game, quickly testing each iteration before moving on to
 the next one.
 -->
 
@@ -140,7 +138,7 @@ Reopen the *src/main.rs* file. You’ll be writing all the code in this file.
 The first part of the guessing game program will ask for user input, process
 that input, and check that the input is in the expected form. To start, we’ll
 allow the player to input a guess. Enter the code in Listing 2-1 into
-*src/main.rs*
+*src/main.rs*.
 -->
 
 数当てプログラムの最初の部分は、ユーザに入力を求め、その入力を処理し、予期した形式になっていることを確認します。
@@ -158,8 +156,8 @@ allow the player to input a guess. Enter the code in Listing 2-1 into
 ```
 
 <!--
-<span class="caption">Listing 2-1: Code that gets a guess from the user and prints
-it</span>
+<span class="caption">Listing 2-1: Code that gets a guess from the user and
+prints it</span>
 -->
 
 <span class="caption">リスト2-1: ユーザに予想を入力してもらい、それを出力するコード</span>
@@ -171,8 +169,8 @@ it</span>
 <!--
 This code contains a lot of information, so let’s go over it line by line. To
 obtain user input and then print the result as output, we need to bring the
-`io` (input/output) library into scope. The `io` library comes from the
-standard library (which is known as `std`):
+`io` input/output library into scope. The `io` library comes from the
+standard library, known as `std`:
 -->
 
 このコードには、たくさんの情報が詰め込まれていますね。なので、行ごとに見ていきましょう。
@@ -184,16 +182,21 @@ standard library (which is known as `std`):
 ```
 
 <!--
-By default, Rust brings only a few types into the scope of every program in
-[the *prelude*][prelude]. If a type you want to use isn’t in the
-prelude, you have to bring that type into scope explicitly with a `use`
-statement. Using the `std::io` library provides you with a number of useful
-features, including the ability to accept user input.
+By default, Rust has a few items defined in the standard library that it brings
+into the scope of every program. This set is called the *prelude*, and you can
+see everything in it [in the standard library documentation][prelude].
 -->
 
 デフォルトでは、[*prelude*][prelude]<!-- ignored -->に存在するいくつかの型のみ使えます。
 もし、使用したい型がpreludeにない場合は、`use`文で明示的にその型をスコープに導入する必要があります。
 `std::io`ライブラリを使用することで、ユーザ入力を受け付ける能力などの実用的な機能の多くを使用することができます。
+
+<!--
+If a type you want to use isn’t in the prelude, you have to bring that type
+into scope explicitly with a `use` statement. Using the `std::io` library
+provides you with a number of useful features, including the ability to accept
+user input.
+-->
 
 [prelude]: https://doc.rust-lang.org/std/prelude/index.html
 
@@ -209,7 +212,7 @@ program:
 ```
 
 <!--
-The `fn` syntax declares a new function, the parentheses, `()`,  indicate there
+The `fn` syntax declares a new function, the parentheses, `()`, indicate there
 are no parameters, and the curly bracket, `{`, starts the body of the function.
 -->
 
@@ -227,8 +230,8 @@ the screen:
 ```
 
 <!--
-This code is printing a prompt stating what the game is and requesting
-input from the user.
+This code is printing a prompt stating what the game is and requesting input
+from the user.
 -->
 
 このコードは、このゲームが何かを出力し、ユーザに入力を求めています。
@@ -240,7 +243,7 @@ input from the user.
 ### 値を変数に保持する
 
 <!--
-Next, we’ll create a place to store the user input, like this:
+Next, we’ll create a *variable* to store the user input, like this:
 -->
 
 次に、ユーザ入力を保持する場所を作りましょう。こんな感じに:
@@ -251,8 +254,7 @@ Next, we’ll create a place to store the user input, like this:
 
 <!--
 Now the program is getting interesting! There’s a lot going on in this little
-line. Notice that this is a `let` statement, which is used to create a
-*variable*. Here’s another example:
+line. We use the `let` statement to create the variable. Here’s another example:
 -->
 
 さあ、プログラムが面白くなってきましたね。このたった1行でいろんなことが起きています。
@@ -260,15 +262,14 @@ line. Notice that this is a `let` statement, which is used to create a
 こちらは、別の例です:
 
 ```rust,ignore
-let foo = bar;
+let apples = 5;
 ```
 
 <!--
-This line will create a new variable named `foo` and binds it to the value `bar`.
-In Rust, variables are immutable by default. We'll discuss this concept in
-detail in the "Variables and Mutability" section in Chapter 3. The following
-example shows how to use `mut` before the variable name to make a variable
-mutable:
+This line creates a new variable named `apples` and binds it to the value 5. In
+Rust, variables are immutable by default. We’ll be discussing this concept in
+detail in the [“Variables and Mutability”][variables-and-mutability] section in Chapter 3. To make a variable mutable, we add `mut` before the
+variable name:
 -->
 
 この行では、`foo`という名前の新しい変数を作成し、`bar`の値に束縛しています。
@@ -277,25 +278,25 @@ Rustでは、変数は標準で不変(immutable)です。この概念につい�
 変数名の前に`mut`をつけて変数を可変にする方法が示されています:
 
 ```rust,ignore
-let foo = 5; // immutable
-let mut bar = 5; // mutable
+let apples = 5; // immutable
+let mut bananas = 5; // mutable
 ```
 
 <!--
-コメント中にコメント終了記号があると、パースに失敗するので、省いています。
 > Note: The `//` syntax starts a comment that continues until the end of the
-> line. Rust ignores everything in comments, which are discussed in more detail
-> in Chapter 3.
+> line. Rust ignores everything in comments. We’ll discuss comments in more
+> detail in [Chapter 3][comments].
 -->
 
 > 注釈: `//`という記法は、行末まで続くコメントを記述します。
 > コンパイラは、コメントを一切無視し、これについても第3章で詳しく議論します。
 
 <!--
-Let’s return to the guessing game program. You now know that `let mut guess`
-will introduce a mutable variable named `guess`. On the other side of the equal
-sign (`=`) is the value that `guess` is bound to, which is the result of
-calling `String::new`, a function that returns a new instance of a `String`.
+Returning to the guessing game program, you now know that `let mut guess` will
+introduce a mutable variable named `guess`. The equal sign (`=`) tells Rust we
+want to bind something to the variable now. On the right of the equals sign is
+the value that `guess` is bound to, which is the result of calling
+`String::new`, a function that returns a new instance of a `String`.
 [`String`][string] is a string type provided by the standard
 library that is a growable, UTF-8 encoded bit of text.
 -->
@@ -309,37 +310,33 @@ library that is a growable, UTF-8 encoded bit of text.
 [string]: https://doc.rust-lang.org/std/string/struct.String.html
 
 <!--
-The `::` syntax in the `::new` line indicates that `new` is an *associated
-function* of the `String` type. An associated function is implemented on a type,
-in this case `String`, rather than on a particular instance of a `String`. Some
-languages call this a *static method*.
+The `::` syntax in the `::new` line indicates that `new` is an associated
+function of the `String` type. An *associated function* is a function that’s
+implemented on a type, in this case `String`. This `new` function creates a
+new, empty string. You’ll find a `new` function on many types, because it’s a
+common name for a function that makes a new value of some kind.
 -->
 
 `::new`行にある`::`という記法は、`new`が`String`型の*関連関数*であることを表しています。
 関連関数とは、`String`型の特定のオブジェクトよりも型(この場合は`String`)に対して
 実装された関数のことであり、*静的(スタティック)メソッド*と呼ばれる言語もあります。
-
-<!--
-This `new` function creates a new, empty string. You’ll find a `new` function
-on many types, because it’s a common name for a function that makes a new value
-of some kind.
--->
-
 この`new`関数は、新しく空の文字列を生成します。`new`関数は、いろんな型に見られます。
 なぜなら、何らかの新規値を生成する関数にとってありふれた名前だからです。
 
 <!--
-To summarize, the `let mut guess = String::new();` line has created a mutable
+In full, the `let mut guess = String::new();` line has created a mutable
 variable that is currently bound to a new, empty instance of a `String`. Whew!
 -->
 
+### Receiving User Input
 まとめると、`let mut guess = String::new();`という行は、現在、新たに空の`String`オブジェクトに束縛されている
 可変変数を作っているわけです。ふう！
 
 <!--
 Recall that we included the input/output functionality from the standard
-library with `use std::io;` on the first line of the program. Now we’ll call an
-associated function, `stdin`, on `io`:
+library with `use std::io;` on the first line of the program. Now we’ll call
+the `stdin` function from the `io` module, which will allow us to handle user
+input:
 -->
 
 プログラムの1行目で、`use std::io`として、標準ライブラリから入/出力機能を取り込んだことを思い出してください。
@@ -350,10 +347,11 @@ associated function, `stdin`, on `io`:
 ```
 
 <!--
-If we hadn't the `use std::io` line at the beginning of the program, we
-could have written this function call as `std::io::stdin`. The `stdin` function
-returns an instance of [`std::io::Stdin`][iostdin], which is a
-type that represents a handle to the standard input for your terminal.
+If we hadn’t imported the `io` library with `use std::io` at the beginning of
+the program, we could still use the function by writing this function call as
+`std::io::stdin`. The `stdin` function returns an instance of
+[`std::io::Stdin`][iostdin], which is a type that represents a
+handle to the standard input for your terminal.
 -->
 
 仮に、プログラムの冒頭で`use std::io`としていなければ、この関数呼び出しは、`std::io::stdin`と記述していたでしょう。
@@ -363,27 +361,22 @@ type that represents a handle to the standard input for your terminal.
 [iostdin]: https://doc.rust-lang.org/std/io/struct.Stdin.html
 
 <!--
-The next part of the code, `.read_line(&mut guess)`, calls the
-[`read_line`][read_line] method on the standard input handle to
-get input from the user. We’re also passing one argument to `read_line`: `&mut
-guess`.
+Next, the line `.read_line(&mut guess)` calls the [`read_line`][read_line] method on the standard input handle to get input from the user.
+We’re also passing `&mut guess` as the argument to `read_line` to tell it what
+string to store the user input in. The full job of `read_line` is to take
+whatever the user types into standard input and append that into a string
+(without overwriting its contents), so we therefore pass that string as an
+argument. The string argument needs to be mutable so the method can change the
+string’s content.
 -->
 
 その次のコード片、`.read_line(&mut guess)`は、標準入力ハンドルの[`read_line`][read_line]<!-- ignore -->
 メソッドを呼び出して、ユーザから入力を受け付けます。また、`read_line`メソッドに対して、`&mut guess`という引数を一つ渡していますね。
-
-[read_line]: https://doc.rust-lang.org/std/io/struct.Stdin.html#method.read_line
-
-<!--
-The job of `read_line` is to take whatever the user types into standard input
-and place that into a string, so it takes that string as an argument. The
-string argument needs to be mutable so the method can change the string’s
-content by adding the user input.
--->
-
 `read_line`メソッドの仕事は、ユーザが標準入力したものすべてを取り出し、文字列に格納することなので、
 格納する文字列を引数として取ります。この文字列引数は、可変である必要があります。
 メソッドがユーザ入力を追記して、文字列の中身を変えられるようにということですね。
+
+[read_line]: https://doc.rust-lang.org/std/io/struct.Stdin.html#method.read_line
 
 <!--
 The `&` indicates that this argument is a *reference*, which gives you a way to
@@ -412,9 +405,9 @@ thoroughly.)
 ### `Result`型で失敗の可能性を扱う
 
 <!--
-We’re not quite done with this line of code. Although what we've discussed so
-far is a single line of text, it’s only the first part of the single logical
-line of code. The second part is this method:
+We’re still working on this line of code. Although we’re now discussing a third
+line of text, it’s still part of a single logical line of code. The next part
+is this method:
 -->
 
 まだ、この行は終わりではありませんよ。ここまでに議論したのはテキストでは1行ですが、コードとしての論理行としては、
@@ -425,9 +418,7 @@ line of code. The second part is this method:
 ```
 
 <!--
-When you call a method with the `.foo()` syntax, it’s often wise to introduce a
-newline and other whitespace to help break up long lines. We could have
-written this code as:
+We could have written this code as:
 -->
 
 `.foo()`という記法で、メソッドを呼び出す時、改行と空白で長い行を分割するのがしばしば賢明です。
@@ -438,47 +429,52 @@ io::stdin().read_line(&mut guess).expect("Failed to read line");
 ```
 
 <!--
-However, one long line is difficult to read, so it’s best to divide it: two
-lines for two method calls. Now let’s discuss what this line does.
+However, one long line is difficult to read, so it’s best to divide it. It’s
+often wise to introduce a newline and other whitespace to help break up long
+lines when you call a method with the `.method_name()` syntax. Now let’s
+discuss what this line does.
 -->
 
 しかし、長い行は読みづらいものです。なので、分割しましょう: 2回のメソッド呼び出しに、2行です。
 さて、この行が何をしているのかについて議論しましょうか。
 
 <!--
-As mentioned earlier, `read_line` puts what the user types into the string
-we're passing it, but it also returns a value—in this case, an
+As mentioned earlier, `read_line` puts whatever the user enters into the string
+we pass to it, but it also returns a value—in this case, an
 [`io::Result`][ioresult]. Rust has a number of types named
-`Result` in its standard library: a generic [`Result`][result] as
-well as specific versions for submodules, such as `io::Result`.
+`Result` in its standard library: a generic [`Result`][result]
+as well as specific versions for submodules, such as `io::Result`. The `Result`
+types are [*enumerations*][enums], often referred to as *enums*,
+which can have a fixed set of possibilities known as *variants*. Enums are
+often used with `match`, a conditional that makes it convenient to execute
+different code based on which variant an enum value is when the conditional is
+evaluated.
 -->
 
 以前にも述べたように、`read_line`メソッドは、渡された文字列にユーザが入力したものを入れ込むだけでなく、
 値も返します(今回は[`io::Result`][ioresult]<!-- ignore -->です)。 Rustには`Result`と名のついた型が、
 標準ライブラリにたくさんあります: 汎用の[`Result`][result]<!-- ignore -->の他、
 `io::Result`などのサブモジュール用に特化したものまで。
+この`Result`型は、[*列挙型*][enums]<!-- ignore -->であり、普通、*enum*(イーナム)と呼ばれます。
+列挙型とは、固定された種類の値を持つ型のことであり、それらの値は、enumの*列挙子*(variant)と呼ばれます。
 
 [ioresult]: https://doc.rust-lang.org/std/io/type.Result.html
 [result]: https://doc.rust-lang.org/std/result/enum.Result.html
 
 <!--
-The `Result` types are [*enumerations*][enums], often referred
-to as *enums*. An enumeration is a type that can have a fixed set of values,
-and those values are called the enum’s *variants*. Chapter 6 will cover enums
-in more detail.
+Chapter 6 will cover enums in more detail. The purpose of these `Result` types
+is to encode error-handling information.
 -->
 
-この`Result`型は、[*列挙型*][enums]<!-- ignore -->であり、普通、*enum*(イーナム)と呼ばれます。
-列挙型とは、固定された種類の値を持つ型のことであり、それらの値は、enumの*列挙子*(variant)と呼ばれます。
 enumについては、第6章で詳しく解説します。
 
 [enums]: ch06-00-enums.html
 
 <!--
-For `Result`, the variants are `Ok` or `Err`. The `Ok` variant indicates
-the operation was successful, and inside `Ok` is the successfully generated value.
-The `Err` variant means the operation failed, and `Err` contains information
-about how and why the operation failed.
+`Result`’s variants are `Ok` and `Err`. The `Ok` variant indicates the operation
+was successful, and inside `Ok` is the successfully generated value. The `Err`
+variant means the operation failed, and `Err` contains information about how or
+why the operation failed.
 -->
 
 `Result`型に関しては、列挙子は`Ok`か`Err`です。`Ok`列挙子は、処理が成功したことを表し、
@@ -486,17 +482,14 @@ about how and why the operation failed.
 理由などの情報を保有します。
 
 <!--
-The purpose of these `Result` types is to encode error handling information.
-Values of the `Result` type, like values of any type, have methods defined on them. An
-instance of `io::Result` has an [`expect` method][expect] that
-you can call. If this instance of `io::Result` is an `Err` value, `expect` will
-cause the program to crash and display the message that you passed as an
-argument to `expect`. If the `read_line` method returns an `Err`, it would
-likely be the result of an error coming from the underlying operating system.
-If this instance of `io::Result` is an `Ok` value, `expect` will take the
-return value that `Ok` is holding and return just that value to you so you
-could use it. In this case, that value is the number of bytes in what the user
-entered into standard input.
+Values of the `Result` type, like values of any type, have methods defined on
+them. An instance of `io::Result` has an [`expect` method][expect] that you can call. If this instance of `io::Result` is an `Err` value,
+`expect` will cause the program to crash and display the message that you
+passed as an argument to `expect`. If the `read_line` method returns an `Err`,
+it would likely be the result of an error coming from the underlying operating
+system. If this instance of `io::Result` is an `Ok` value, `expect` will take
+the return value that `Ok` is holding and return just that value to you so you
+can use it. In this case, that value is the number of bytes in the user’s input.
 -->
 
 これら`Result`型の目的は、エラー処理の情報をコード化することです。`Result`型の値も、他の型同様、
@@ -511,7 +504,7 @@ entered into standard input.
 [expect]: https://doc.rust-lang.org/std/result/enum.Result.html#method.expect
 
 <!--
-If you don’t call `expect`, the program will compile, but we’ll get a warning:
+If you don’t call `expect`, the program will compile, but you’ll get a warning:
 -->
 
 もし、`expect`メソッドを呼び出さなかったら、コンパイルは通るものの、警告が出るでしょう:
@@ -521,7 +514,7 @@ If you don’t call `expect`, the program will compile, but we’ll get a warnin
 ```
 
 <!--
-Rust warns that we haven’t used the `Result` value returned from `read_line`,
+Rust warns that you haven’t used the `Result` value returned from `read_line`,
 indicating that the program hasn’t handled a possible error.
 -->
 
@@ -530,8 +523,9 @@ indicating that the program hasn’t handled a possible error.
 
 <!--
 The right way to suppress the warning is to actually write error handling, but
-because you just want to crash this program when a problem occurs, you can use
-`expect`. You'll learn about recovering from errors in Chapter 9.
+in our case we just want to crash this program when a problem occurs, so we can
+use `expect`. You’ll learn about recovering from errors in [Chapter
+9][recover].
 -->
 
 警告を抑制する正しい手段は、実際にエラー対処コードを書くことですが、今は、
@@ -545,8 +539,8 @@ because you just want to crash this program when a problem occurs, you can use
 ### `println!`マクロのプレースホルダーで値を出力する
 
 <!--
-Aside from the closing curly brackets, there’s only one more line to discuss in
-the code added so far, which is the following:
+Aside from the closing curly bracket, there’s only one more line to discuss in
+the code so far:
 -->
 
 閉じ波かっこを除けば、ここまでに追加されたコードのうち議論すべきものは、残り1行であり、それは以下の通りです:
@@ -556,10 +550,10 @@ the code added so far, which is the following:
 ```
 
 <!--
-This line prints the string we saved the user’s input in. The set of curly
-brackets, `{}`, is a placeholder: think of `{}` as little crab pincers that
-hold a value in place. You can print more than one value using curly brackets:
-the first set of curly brackets holds the first value listed after the format
+This line prints the string that now contains the user’s input. The `{}` set of
+curly brackets is a placeholder: think of `{}` as little crab pincers that hold
+a value in place. You can print more than one value using curly brackets: the
+first set of curly brackets holds the first value listed after the format
 string, the second set holds the second value, and so on. Printing multiple
 values in one call to `println!` would look like this:
 -->
@@ -595,10 +589,11 @@ Let’s test the first part of the guessing game. Run it using `cargo run`:
 
 数当てゲームの最初の部分をテストしてみましょう。`cargo run`でプログラムを走らせてください:
 
+
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 6.44s
      Running `target/debug/guessing_game`
 Guess the number!
 Please input your guess.
@@ -622,9 +617,10 @@ keyboard and then printing it.
 <!--
 Next, we need to generate a secret number that the user will try to guess. The
 secret number should be different every time so the game is fun to play more
-than once. Let’s use a random number between 1 and 100 so the game isn’t too
+than once. We’ll use a random number between 1 and 100 so the game isn’t too
 difficult. Rust doesn’t yet include random number functionality in its standard
-library. However, the Rust team does provide a [`rand` crate][randcrate].
+library. However, the Rust team does provide a [`rand` crate][randcrate] with
+said functionality.
 -->
 
 次に、ユーザが数当てに挑戦する秘密の数字を生成する必要があります。毎回この秘密の数字は、変わるべきです。
@@ -641,9 +637,10 @@ Rustの開発チームが[`rand`クレート][randcrate]を用意してくれて
 ### クレートを使用して機能を追加する
 
 <!--
-Remember that a crate is a package of Rust code. The project we’ve been
-building is a *binary crate*, which is an executable. The `rand` crate is a
-*library crate*, which contains code intended to be used in other programs.
+Remember that a crate is a collection of Rust source code files. The project
+we’ve been building is a *binary crate*, which is an executable. The `rand`
+crate is a *library crate*, which contains code intended to be used in other
+programs, and can’t be executed on its own.
 -->
 
 クレートはRustコードのパッケージであることを思い出してください。私たちがここまで作ってきたプロジェクトは、
@@ -651,16 +648,18 @@ building is a *binary crate*, which is an executable. The `rand` crate is a
 他のプログラムで使用するためのコードが含まれています。
 
 <!--
-Cargo’s use of external crates is where it really shines. Before we can write
-code that uses `rand`, we need to modify the *Cargo.toml* file to include the
-`rand` crate as a dependency. Open that file now and add the following line to
-the bottom beneath the `[dependencies]` section header that Cargo created for
-you:
+Cargo’s coordination of external crates is where Cargo really shines. Before we
+can write code that uses `rand`, we need to modify the *Cargo.toml* file to
+include the `rand` crate as a dependency. Open that file now and add the
+following line to the bottom beneath the `[dependencies]` section header that
+Cargo created for you. Be sure to specify `rand` exactly as we have here, with
+this version number, or the code examples in this tutorial may not work.
 -->
 
 外部クレートを使用する部分は、Cargoがとても輝くところです。`rand`を使ったコードを書ける前に、
 *Cargo.toml*ファイルを編集して、`rand`クレートを依存ファイルとして取り込む必要があります。
 今このファイルを開いて、以下の行をCargoが自動生成した`[dependencies]`セクションヘッダの一番下に追記しましょう:
+
 
 <!--
 <span class="filename">Filename: Cargo.toml</span>
@@ -705,24 +704,29 @@ Listing 2-2.
 
 さて、コードは一切変えずに、リスト2-2のようにプロジェクトをビルドしましょう。
 
+
 ```console
 $ cargo build
-    Updating crates.io index (レジストリを更新しています)
-  Downloaded rand v0.8.3                                             (rand v0.8.3をダウンロードしています)
-  Downloaded libc v0.2.86                                            (libc v0.2.86をダウンロードしています)
-  Downloaded getrandom v0.2.2                                        (getrandom v0.2.2をダウンロードしています)
-  Downloaded cfg-if v1.0.0                                           (cfg-if v1.0.0をダウンロードしています)
-  Downloaded ppv-lite86 v0.2.10                                      (ppv-lite86 v0.2.10をダウンロードしています)
-  Downloaded rand_chacha v0.3.0                                      (rand_chacha v0.3.0をダウンロードしています)
-  Downloaded rand_core v0.6.2                                        (rand_core v0.6.2をダウンロードしています)
-   Compiling rand_core v0.6.2                                        (rand_core v0.6.2をコンパイルしています)
-   Compiling libc v0.2.86                                            (libc v0.2.86をコンパイルしています)
-   Compiling getrandom v0.2.2                                        (getrandom v0.2.2をコンパイルしています)
-   Compiling cfg-if v1.0.0                                           (cfg-if v1.0.0をコンパイルしています)
-   Compiling ppv-lite86 v0.2.10                                      (ppv-lite86 v0.2.10をコンパイルしています)
-   Compiling rand_chacha v0.3.0                                      (rand_chacha v0.3.0をコンパイルしています)
-   Compiling rand v0.8.3                                             (rand v0.8.3をコンパイルしています)
-   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)   (guessing_game v0.1.0をコンパイルしています)
+    Updating crates.io index
+    (crates.ioインデックスを更新しています)
+  Downloaded rand v0.8.3
+  (rand v0.8.3をダウンロードしています)
+  Downloaded libc v0.2.86
+  Downloaded getrandom v0.2.2
+  Downloaded cfg-if v1.0.0
+  Downloaded ppv-lite86 v0.2.10
+  Downloaded rand_chacha v0.3.0
+  Downloaded rand_core v0.6.2
+   Compiling rand_core v0.6.2
+   (rand_core v0.6.2をコンパイルしています)
+   Compiling libc v0.2.86
+   Compiling getrandom v0.2.2
+   Compiling cfg-if v1.0.0
+   Compiling ppv-lite86 v0.2.10
+   Compiling rand_chacha v0.3.0
+   Compiling rand v0.8.3
+   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+   (guessing_game v0.1.0をコンパイルしています)
     Finished dev [unoptimized + debuginfo] target(s) in 2.53s
 ```
 
@@ -734,18 +738,19 @@ adding the rand crate as a dependency</span>
 <span class="caption">リスト2-2: randクレートを依存として追加した後の`cargo build`コマンドの出力</span>
 
 <!--
-You may see different version numbers (but they will all be compatible with
-the code, thanks to SemVer!), and the lines may be in a different order.
+You may see different version numbers (but they will all be compatible with the
+code, thanks to SemVer!), different lines (depending on the operating system),
+and the lines may be in a different order.
 -->
 
 もしかしたら、バージョンナンバーは違うかもしれません(でも、互換性はあります、SemVerのおかげでね！)。
 そして、行の出力順序も違うかもしれません。
 
 <!--
-Now that we have an external dependency, Cargo fetches the latest versions of
-everything from the *registry*, which is a copy of data from
-[Crates.io][cratesio]. Crates.io is where people in the Rust ecosystem post
-their open source Rust projects for others to use.
+When we include an external dependency, Cargo fetches the latest versions of
+everything that dependency needs from the *registry*, which is a copy of data
+from [Crates.io][cratesio]. Crates.io is where people in the Rust ecosystem
+post their open source Rust projects for others to use.
 -->
 
 今や、外部依存を持つようになったので、Cargoは*レジストリ*(registry、登録所)から最新バージョンを拾ってきます。
@@ -756,10 +761,10 @@ their open source Rust projects for others to use.
 
 <!--
 After updating the registry, Cargo checks the `[dependencies]` section and
-downloads any crates you don’t have yet. In this case, although we only listed
-`rand` as a dependency, Cargo also grabbed a copy of `libc`, because `rand`
-depends on `libc` to work. After downloading the crates, Rust compiles them and
-then compiles the project with the dependencies available.
+downloads any crates listed that aren’t already downloaded. In this case,
+although we only listed `rand` as a dependency, Cargo also grabbed other crates
+that `rand` depends on to work. After downloading the crates, Rust compiles
+them and then compiles the project with the dependencies available.
 -->
 
 レジストリの更新後、Cargoは`[dependencies]`セクションをチェックし、まだ取得していないクレートを全部ダウンロードします。
@@ -769,10 +774,10 @@ then compiles the project with the dependencies available.
 
 <!--
 If you immediately run `cargo build` again without making any changes, you
-won't get any output aside from the `Finished` line. Cargo knows it has already
-downloaded and compiled the dependencies, and you haven't changed anything
-about them in your *Cargo.toml* file. Cargo also knows that you haven't changed
-anything about your code, so it doesn't recompile that either. With nothing to
+won’t get any output aside from the `Finished` line. Cargo knows it has already
+downloaded and compiled the dependencies, and you haven’t changed anything
+about them in your *Cargo.toml* file. Cargo also knows that you haven’t changed
+anything about your code, so it doesn’t recompile that either. With nothing to
 do, it simply exits.
 -->
 
@@ -783,10 +788,11 @@ Cargoは、既に全ての依存をダウンロードしてコンパイル済み
 
 <!--
 If you open up the *src/main.rs* file, make a trivial change, and then save it
-and build again, you’ll only see two line of output:
+and build again, you’ll only see two lines of output:
 -->
 
 *src/main.rs*ファイルを開き、些細な変更をし、保存して再度ビルドを行えば、2行だけ出力があるでしょう:
+
 
 ```console
 $ cargo build
@@ -796,9 +802,8 @@ $ cargo build
 
 <!--
 These lines show Cargo only updates the build with your tiny change to the
-*src/main.rs* file. Your dependencies haven't changed, so Cargo knows it can
-reuse what it has already downloaded and compiled for those. It just rebuilds
-your part of the code.
+*src/main.rs* file. Your dependencies haven’t changed, so Cargo knows it can
+reuse what it has already downloaded and compiled for those.
 -->
 
 これらの行は、Cargoが*src/main.rs*ファイルへの取るに足らない変更に対して、ビルドを更新していることを示しています。
@@ -814,30 +819,32 @@ your part of the code.
 <!--
 Cargo has a mechanism that ensures you can rebuild the same artifact every time
 you or anyone else builds your code: Cargo will use only the versions of the
-dependencies you specified until you indicate otherwise. For example, what
-happens if next week version 0.3.15 of the `rand` crate comes out and contains
-an important bug fix but also contains a regression that will break your code?
+dependencies you specified until you indicate otherwise. For example, say that
+next week version 0.8.4 of the `rand` crate comes out, and that version
+contains an important bug fix, but it also contains a regression that will
+break your code. To handle this, Rust creates the *Cargo.lock* file the first
+time you run `cargo build`, so we now have this in the *guessing_game*
+directory.
 -->
 
 Cargoは、プログラマが自分のコードを更新するたびに同じ生成物を再構成することを保証してくれるメカニズムを備えています: Cargoは、プログラマが示唆するまで、指定したバージョンの依存のみを使用します。
 例として、`rand`クレートの次週のバージョン0.3.15が登場し、重要なバグ修正がなされているけれども、
 自分のコードを破壊してしまう互換性破壊があった場合はどうなるでしょう？
+この問題に対する回答は、*Cargo.lock*ファイルであり、このファイルは、初めて`cargo build`コマンドを
+走らせた時に生成され、現在*guessing_game*ディレクトリに存在しています。
 
 <!--
-The answer to this problem is the *Cargo.lock* file, which was created the
-first time you ran `cargo build` and is now in your *guessing_game* directory.
 When you build a project for the first time, Cargo figures out all the
 versions of the dependencies that fit the criteria and then writes them to
 the *Cargo.lock* file. When you build your project in the future, Cargo will
 see that the *Cargo.lock* file exists and use the versions specified there
 rather than doing all the work of figuring out versions again. This lets you
 have a reproducible build automatically. In other words, your project will
-remain at `0.3.14` until you explicitly upgrade, thanks to the *Cargo.lock*
+remain at `0.8.3` until you explicitly upgrade, thanks to the *Cargo.lock*
 file.
 -->
 
-この問題に対する回答は、*Cargo.lock*ファイルであり、このファイルは、初めて`cargo build`コマンドを
-走らせた時に生成され、現在*guessing_game*ディレクトリに存在しています。プロジェクトを初めてビルドする際に、
+プロジェクトを初めてビルドする際に、
 Cargoは判断基準(criteria)に合致するよう全ての依存のバージョンを計算し、*Cargo.lock*ファイルに記述します。
 次にプロジェクトをビルドする際には、Cargoは*Cargo.lock*ファイルが存在することを確かめ、
 再度バージョンの計算の作業を行うのではなく、そこに指定されているバージョンを使用します。
@@ -851,25 +858,22 @@ Cargoは判断基準(criteria)に合致するよう全ての依存のバージ�
 #### クレートを更新して新バージョンを取得する
 
 <!--
-When you *do* want to update a crate, Cargo provides another command, `update`,
+When you *do* want to update a crate, Cargo provides the command `update`,
 which will ignore the *Cargo.lock* file and figure out all the latest versions
-that fit your specifications in *Cargo.toml*. If that works, Cargo will write
-those versions to the *Cargo.lock* file
+that fit your specifications in *Cargo.toml*. Cargo will then write those
+versions to the *Cargo.lock* file. Otherwise, by default, Cargo will only look
+for versions greater than `0.8.3` and less than `0.9.0`. If the `rand` crate
+has released the two new versions `0.8.4` and `0.9.0` you would see the
+following if you ran `cargo update`:
 -->
 
 クレートを*本当に*アップグレードする必要が出てきたら、Cargoは別のコマンド(`update`)を提供します。
 これは、*Cargo.lock*ファイルを無視して、*Cargo.toml*ファイル内の全ての指定に合致する最新バージョンを計算します。
 それがうまくいったら、Cargoはそれらのバージョンを*Cargo.lock*ファイルに記述します。
-
-<!--
-But by default, Cargo will only look for versions larger than `0.3.0` and
-smaller than `0.4.0`. If the `rand` crate has released two new versions,
-`0.3.15` and `0.4.0`, you would see the following if you ran `cargo update`:
--->
-
 しかし標準でCargoは、`0.3.0`より大きく、`0.4.0`未満のバージョンのみを検索します。
 `rand`クレートの新バージョンが2つリリースされていたら(`0.3.15`と`0.4.0`だとします)、
 `cargo update`コマンドを走らせた時に以下のようなメッセージを目の当たりにするでしょう:
+
 
 ```console
 $ cargo update
@@ -880,22 +884,15 @@ $ cargo update
 ```
 
 <!--
-At this point, you would also notice a change in your *Cargo.lock* file noting
-that the version of the `rand` crate you are now using is `0.3.15`.
--->
-
-<!--
-ちょっとこなれた日本語にしづらい英文
+Cargo ignores the `0.9.0` release. At this point, you would also notice a
+change in your *Cargo.lock* file noting that the version of the `rand` crate
+you are now using is `0.8.4`. To use `rand` version `0.9.0` or any version in
+the `0.9.x` series, you’d have to update the *Cargo.toml* file to look like
+this instead:
 -->
 
 この時点で、*Cargo.lock*ファイルに書かれている現在使用している`rand`クレートのバージョンが、
 `0.3.15`になっていることにも気付くでしょう。
-
-<!--
-If you wanted to use `rand` version `0.4.0` or any version in the `0.4.x`
-series, you’d have to update the *Cargo.toml* file to look like this instead:
--->
-
 `rand`のバージョン`0.4.0`または、`0.4.x`シリーズのどれかを使用したかったら、
 代わりに*Cargo.toml*ファイルを以下のように更新しなければならないでしょう:
 
@@ -916,7 +913,7 @@ you have specified.
 
 <!--
 There’s a lot more to say about [Cargo][doccargo] and [its
-ecosystem][doccratesio] which we'll discuss in Chapter 14, but
+ecosystem][doccratesio] which we’ll discuss in Chapter 14, but
 for now, that’s all you need to know. Cargo makes it very easy to reuse
 libraries, so Rustaceans are able to write smaller projects that are assembled
 from a number of packages.
@@ -937,8 +934,8 @@ Rustaceanは数多くのパッケージから構成された小規模のプロ�
 ### 乱数を生成する
 
 <!--
-Now that you've added the `rand` crate to *Cargo.toml*, let's start using
-`rand`. The next step is to update *src/main.rs*, as shown in Listing 2-3.
+Let’s start using `rand` to generate a number to guess. The next step is to
+update *src/main.rs*, as shown in Listing 2-3.
 -->
 
 *Cargo.toml*に`rand`クレートを追加したので、`rand`クレートを使用開始しましょう。
@@ -955,16 +952,16 @@ Now that you've added the `rand` crate to *Cargo.toml*, let's start using
 ```
 
 <!--
-<span class="caption">Listing 2-3: Adding code to generate a
-random number</span>
+<span class="caption">Listing 2-3: Adding code to generate a random
+number</span>
 -->
 
 <span class="caption">リスト2-3: 乱数を生成するコードの追加</span>
 
 <!--
-First, we add a `use` line: `use rand::Rng`. The `Rng` trait defines
-methods that random number generators implement, and this trait must be in
-scope for us to use those methods. Chapter 10 will cover traits in detail.
+First, we add the line `use rand::Rng`. The `Rng` trait defines methods that
+random number generators implement, and this trait must be in scope for us to
+use those methods. Chapter 10 will cover traits in detail.
 -->
 
 まず、`use`行を追加しています: `use rand::Rng`ですね。`Rng`トレイトは乱数生成器が実装するメソッドを定義していて、
@@ -972,15 +969,17 @@ scope for us to use those methods. Chapter 10 will cover traits in detail.
 第10章で解説します。
 
 <!--
-Next, we’re adding two lines in the middle. The `rand::thread_rng` function
-will give us the particular random number generator that we’re going to use:
-one that is local to the current thread of execution and seeded by the
-operating system. Then we call the `gen_range` method on the random number
-generator. This method is defined by the `Rng` trait that we brought into
-scope with the `use rand::Rng` statement. The `gen_range` method takes two
-numbers as arguments and generates a random number between them. It’s inclusive
-on the lower bound but exclusive on the upper bound, so we need to specify `1`
-and `101` to request a number between 1 and 100.
+Next, we’re adding two lines in the middle. In the first line, we call the
+`rand::thread_rng` function that gives us the particular random number
+generator that we’re going to use: one that is local to the current thread of
+execution and seeded by the operating system. Then we call the `gen_range`
+method on the random number generator. This method is defined by the `Rng`
+trait that we brought into scope with the `use rand::Rng` statement. The
+`gen_range` method takes a range expression as an argument and generates a
+random number in the range. The kind of range expression we’re using here takes
+the form `start..end` and is inclusive on the lower bound but exclusive on the
+upper bound, so we need to specify `1..101` to request a number between 1 and
+100. Alternatively, we could pass the range `1..=100`, which is equivalent.
 -->
 
 次に、途中に2行を追加しています。`rand::thread_rng`関数は、これから使う特定の乱数生成器を返してくれます: この乱数生成器は、実行スレッドに固有で、OSにより、シード値を与えられています。
@@ -989,13 +988,13 @@ and `101` to request a number between 1 and 100.
 それらの間の乱数を生成してくれます。範囲は下限値を含み、上限値を含まないため、`1`と`101`と指定しないと1から100の範囲の数字は得られません。
 
 <!--
-Note: You won’t just know which traits to use and which methods and functions
-to call from a crate. Instructions for using a crate are in each crate’s
-documentation. Another neat feature of Cargo is that you can run the `cargo
-doc --open` command, which will build documentation provided by all of your
-dependencies locally and open it in your browser. If you’re interested in
-other functionality in the `rand` crate, for example, run `cargo doc --open`
-and click `rand` in the sidebar on the left.
+> Note: You won’t just know which traits to use and which methods and functions
+> to call from a crate, so each crate has documentation with instructions for
+> using it. Another neat feature of Cargo is that running the `cargo doc
+> --open` command will build documentation provided by all of your dependencies
+> locally and open it in your browser. If you’re interested in other
+> functionality in the `rand` crate, for example, run `cargo doc --open` and
+> click `rand` in the sidebar on the left.
 -->
 
 > 注釈: 単純に使用すべきトレイトと、クレートからどのメソッドと関数を呼び出すか知っているわけではないでしょう。
@@ -1005,33 +1004,36 @@ and click `rand` in the sidebar on the left.
 > 左側のサイドバーから`rand`をクリックしてください。
 
 <!--
-The second line that we added to the code prints the secret number. This is
-useful while we’re developing the program to be able to test it, but we’ll
-delete it from the final version. It’s not much of a game if the program prints
-the answer as soon as it starts!
--->
-
-コードに追加した2行目は、秘密の数字を出力してくれます。これは、プログラムを開発中にはテストするのに役立ちますが、
-最終版からは削除する予定です。プログラムがスタートと同時に答えを出力しちゃったら、ゲームになりませんからね！
-
-<!--
-Try running the program a few times:
 -->
 
 試しに何回かプログラムを走らせてみてください:
 
+<!--
+The second new line prints the secret number. This is useful while we’re
+developing the program to be able to test it, but we’ll delete it from the
+final version. It’s not much of a game if the program prints the answer as soon
+as it starts!
+-->
+
+Try running the program a few times:
+コードに追加した2行目は、秘密の数字を出力してくれます。これは、プログラムを開発中にはテストするのに役立ちますが、
+最終版からは削除する予定です。プログラムがスタートと同時に答えを出力しちゃったら、ゲームになりませんからね！
+
+
+
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53 s
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53s
      Running `target/debug/guessing_game`
-Guess the number!                         (何回も出ているので、ここでは和訳は省略します)
+Guess the number!
 The secret number is: 7
 Please input your guess.
 4
 You guessed: 4
 
 $ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 83
@@ -1055,7 +1057,7 @@ You should get different random numbers, and they should all be numbers between
 
 <!--
 Now that we have user input and a random number, we can compare them. That step
-is shown in Listing 2-4. Note that this code won't compile quite yet, as we
+is shown in Listing 2-4. Note that this code won’t compile quite yet, as we
 will explain.
 -->
 
@@ -1066,6 +1068,7 @@ will explain.
 <span class="filename">Filename: src/main.rs</span>
 -->
 
+```rust,ignore,does_not_compile
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
@@ -1080,11 +1083,10 @@ comparing two numbers</span>
 <span class="caption">リスト2-4: 2値比較の可能性のある返り値を処理する</span>
 
 <!--
-The first new bit here is another `use` statement, bringing a type called
-`std::cmp::Ordering` into scope from the standard library. Like `Result`,
-`Ordering` is another enum, but the variants for `Ordering` are `Less`,
-`Greater`, and `Equal`. These are the three outcomes that are possible when you
-compare two values.
+First we add another `use` statement, bringing a type called
+`std::cmp::Ordering` into scope from the standard library. The `Ordering` type
+is another enum and has the variants `Less`, `Greater`, and `Equal`. These are
+the three outcomes that are possible when you compare two values.
 -->
 
 最初の新しい点は、別の`use`文です。これで、`std::cmp::Ordering`という型を標準ライブラリからスコープに導入しています。
@@ -1120,13 +1122,13 @@ in `guess` and `secret_number`.
 [match]: ch06-02-match.html
 
 <!--
-A `match` expression is made up of *arms*. An arm consists of a *pattern* and
-the code that should be run if the value given to the beginning of the `match`
-expression fits that arm’s pattern. Rust takes the value given to `match` and
-looks through each arm’s pattern in turn. The `match` construct and patterns
-are powerful features in Rust that let you express a variety of situations your
-code might encounter and helps ensure that you handle them all. These features
-will be covered in detail in Chapter 6 and Chapter 18, respectively.
+A `match` expression is made up of *arms*. An arm consists of a *pattern* to
+match against, and the code that should be run if the value given to `match`
+fits that arm’s pattern. Rust takes the value given to `match` and looks
+through each arm’s pattern in turn. Patterns and the `match` construct are
+powerful Rust features that let you express a variety of situations your code
+might encounter and make sure that you handle them all. These features will be
+covered in detail in Chapter 6 and Chapter 18, respectively.
 -->
 
 `match`式は、複数の*アーム*(腕)からできています。一つのアームは、
@@ -1137,16 +1139,16 @@ will be covered in detail in Chapter 6 and Chapter 18, respectively.
 これらの機能は、それぞれ、第6章と第18章で詳しく講義することにします。
 
 <!--
-Let’s walk through an example of what would happen with the `match` expression
-used here. Say that the user has guessed 50 and the randomly generated secret
-number this time is 38. When the code compares 50 to 38, the `cmp` method will
-return `Ordering::Greater`, because 50 is greater than 38. The `match`
-expression gets the `Ordering::Greater value and starts checking each arm's
-pattern. It looks at the first arm's pattern, `Ordering::Less`, and sees that
-the value `Ordering::Greater` does not match `Ordering::Less`, so it ignores
-the code in that arm and moves to the next arm. The next arm’s pattern,
-`Ordering::Greater`, *does* match `Ordering::Greater`! The associated code in
-that arm will execute and print `Too big!` to the screen. The `match`
+Let’s walk through an example with the `match` expression we use here. Say that
+the user has guessed 50 and the randomly generated secret number this time is
+38. When the code compares 50 to 38, the `cmp` method will return
+`Ordering::Greater`, because 50 is greater than 38. The `match` expression gets
+the `Ordering::Greater` value and starts checking each arm’s pattern. It looks
+at the first arm’s pattern, `Ordering::Less`, and sees that the value
+`Ordering::Greater` does not match `Ordering::Less`, so it ignores the code in
+that arm and moves to the next arm. The next arm’s pattern is
+`Ordering::Greater`, which *does* match `Ordering::Greater`! The associated
+code in that arm will execute and print `Too big!` to the screen. The `match`
 expression ends because it has no need to look at the last arm in this scenario.
 -->
 
@@ -1173,14 +1175,14 @@ However, the code in Listing 2-4 won’t compile yet. Let’s try it:
 <!--
 The core of the error states that there are *mismatched types*. Rust has a
 strong, static type system. However, it also has type inference. When we wrote
-`let guess = String::new()`, Rust was able to infer that `guess` should be a
-`String` and didn’t make us write the type. The `secret_number`, on the other
-hand, is a number type. A few number types can have a value between 1 and 100:
-`i32`, a 32-bit number; `u32`, an unsigned 32-bit number; `i64`, a 64-bit
-number; as well as others. Rust defaults to an `i32`, which is the type of
-`secret_number` unless we add type information elsewhere that would cause Rust
-to infer a different numerical type. The reason for the error is that Rust
-cannot compare a string and a number type.
+`let mut guess = String::new()`, Rust was able to infer that `guess` should be
+a `String` and didn’t make us write the type. The `secret_number`, on the other
+hand, is a number type. A few of Rust’s number types can have a value between 1
+and 100: `i32`, a 32-bit number; `u32`, an unsigned 32-bit number; `i64`, a
+64-bit number; as well as others. Unless otherwise specified, Rust defaults to
+an `i32`, which is the type of `secret_number` unless you add type information
+elsewhere that would cause Rust to infer a different numerical type. The reason
+for the error is that Rust cannot compare a string and a number type.
 -->
 
 このエラーの核は、*型の不一致*があると言っています。Rustには、強い静的型システムがあります。
@@ -1193,8 +1195,8 @@ Rustでの標準は、`i32`型であり、型情報をどこかに追加して�
 
 <!--
 Ultimately, we want to convert the `String` the program reads as input into a
-real number type so we can compare it numerically to the guess. We can do that
-by adding the following two lines to the `main` function body:
+real number type so we can compare it numerically to the secret number. We do so
+by adding this line to the `main` function body:
 -->
 
 究極的には、プログラムが入力として読み込む`String`型を現実の数値型に変換し、
@@ -1211,24 +1213,23 @@ by adding the following two lines to the `main` function body:
 ```
 
 <!--
-The two new lines are:
+The line is:
 -->
 
 その2行とは:
 
 ```rust,ignore
-let guess: u32 = guess.trim().parse()
-    .expect("Please type a number!");
+let guess: u32 = guess.trim().parse().expect("Please type a number!");
 ```
 
 <!--
 We create a variable named `guess`. But wait, doesn’t the program already have
-a variable named `guess`? It does, but Rust allows us to *shadow* the previous
-value of `guess` with a new one. This feature is often used in sutuations in
-which you want to convert a value from one type to another type. Shadowing lets
-us reuse the `guess` variable name rather than forcing us to create two unique
-variables, such as `guess_str` and `guess` for example. (Chapter 3 covers
-shadowing in more detail.)
+a variable named `guess`? It does, but helpfully Rust allows us to *shadow* the
+previous value of `guess` with a new one. Shadowing lets us reuse the `guess`
+variable name rather than forcing us to create two unique variables, such as
+`guess_str` and `guess` for example. We’ll cover this in more detail in Chapter
+3, but for now know that this feature is often used when you want to convert a
+value from one type to another type.
 -->
 
 `guess`という名前の変数を生成しています。あれ、でも待って。もうプログラムには`guess`という名前の変数がありませんでしたっけ？
@@ -1238,17 +1239,18 @@ shadowing in more detail.)
 `guess_str`と`guess`みたいなね(シャドーイングについては、第3章でもっと掘り下げます)。
 
 <!--
-We bind `guess` to the expression `guess.trim().parse()`. The `guess` in the
-expression refers to the original `guess` that was a `String` with the input in
-it. The `trim` method on a `String` instance will eliminate any whitespace at
-the beginning and end. Although `u32` can contain only numerical characters,
-the user must press the <span class="keystroke">enter</span> to satisfy
-`read_line`. When the user presses <span class="keystroke">enter</span>, a
-newline character is added to the string. For example, if the user types <span
-class="keystroke">5</span> and presses <span class="keystroke">enter</span>,
-`guess` looks like this: `5\n`. The `\n` represents “newline,” the result of
-pressing <span class="keystroke">enter</span>. The `trim` method eliminates
-`\n`, resulting in just `5`.
+We bind this new variable to the expression `guess.trim().parse()`. The `guess`
+in the expression refers to the original `guess` variable that contained the
+input as a string. The `trim` method on a `String` instance will eliminate any
+whitespace at the beginning and end, which we must do to be able to compare the
+string to the `u32`, which can only contain numerical data. The user must press
+<span class="keystroke">enter</span> to satisfy `read_line` and input their
+guess, which adds a newline character to the string. For example, if the user
+types <span class="keystroke">5</span> and presses <span
+class="keystroke">enter</span>, `guess` looks like this: `5\n`. The `\n`
+represents “newline”. (On Windows, pressing <span
+class="keystroke">enter</span> results in a carriage return and a newline,
+`\r\n`). The `trim` method eliminates `\n` or `\r\n`, resulting in just `5`.
 -->
 
 `guess`を`guess.trim().parse()`という式に束縛しています。この式中の`guess`は、
@@ -1274,6 +1276,7 @@ will infer that `secret_number` should be a `u32` as well. So now the
 comparison will be between two values of the same type!
 -->
 
+The `parse` method will only work on characters that can logically be converted
 [文字列の`parse`メソッド][parse]<!-- ignore -->は、文字列を解析して何らかの数値にします。
 このメソッドは、いろんな数値型を解析できるので、`let guess: u32`としてコンパイラに私たちが求めている型をズバリ示唆する必要があるのです。
 `guess`の後のコロン(`:`)がコンパイラに変数の型を注釈する合図になります。
@@ -1286,11 +1289,11 @@ Rustには、組み込みの数値型がいくつかあります; ここの`u32`
 [parse]: https://doc.rust-lang.org/std/primitive.str.html#method.parse
 
 <!--
-The call to `parse` could easily cause an error. If, for example, the string
+into numbers and so can easily cause errors. If, for example, the string
 contained `A👍%`, there would be no way to convert that to a number. Because it
 might fail, the `parse` method returns a `Result` type, much as the `read_line`
-method does (discussed earlier in “Handling Potential Failure with the Result
-Type”). We’ll treat this `Result` the same way by using the `expect` method
+method does (discussed earlier in [“Handling Potential Failure with the
+`Result` Type”](#handling-potential-failure-with-the-result-type)). We’ll treat this `Result` the same way by using the `expect` method
 again. If `parse` returns an `Err` `Result` variant because it couldn’t create
 a number from the string, the `expect` call will crash the game and print the
 message we give it. If `parse` can successfully convert the string to a number,
@@ -1313,10 +1316,11 @@ Let’s run the program now!
 
 さあ、プログラムを走らせましょう！
 
+
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.43 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.43s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 58
@@ -1352,7 +1356,7 @@ Let’s change that by adding a loop!
 ## ループで複数回の予想を可能にする
 
 <!--
-The `loop` keyword creates an infinite loop. We'll add that now to give users
+The `loop` keyword creates an infinite loop. We’ll add a loop to give users
 more chances at guessing the number:
 -->
 
@@ -1369,11 +1373,10 @@ more chances at guessing the number:
 ```
 
 <!--
-As you can see, we’ve moved everything into a loop from the guess input prompt
-onward. Be sure to indent the lines inside the loop another four spaces each
-and run the program again. Notice that there is a new problem because the
-program is doing exactly what we told it to do: ask for another guess forever!
-It doesn't seem like the user can quit!
+As you can see, we’ve moved everything from the guess input prompt onward into
+a loop. Be sure to indent the lines inside the loop another four spaces each
+and run the program again. The program will now ask for another guess forever,
+which actually introduces a new problem. It doesn’t seem like the user can quit!
 -->
 
 見てわかる通り、予想入力部分以降をループに入れ込みました。ループ内の行にインデントを追加するのを忘れないようにして、
@@ -1382,12 +1385,11 @@ It doesn't seem like the user can quit!
 これでは、ユーザが終了できないようです！
 
 <!--
-The user could always halt the program by using the keyboard shortcut <span
-class="keystroke">ctrl-c</span>. But there’s another way to escape this
-insatiable monster as mentioned in the `parse` discussion in “Comparing the
-Guess to the Secret Number”: if the user enters a non-number answer, the
-program will crash. The user can take advantage of that in order to quit, as
-shown here:
+The user could always interrupt the program by using the keyboard shortcut
+<span class="keystroke">ctrl-c</span>. But there’s another way to escape this
+insatiable monster, as mentioned in the `parse` discussion in [“Comparing the
+Guess to the Secret Number”](#comparing-the-guess-to-the-secret-number): if the user enters a non-number answer, the program will crash. We
+can take advantage of that to allow the user to quit, as shown here:
 -->
 
 ユーザは、<span class="keystroke">ctrl-c</span>というキーボードショートカットを使って、いつでもプログラムを強制終了させられます。
@@ -1395,10 +1397,11 @@ shown here:
 この貪欲なモンスターを回避する別の方法があります: ユーザが数字以外の答えを入力すれば、プログラムはクラッシュするのです。
 ユーザは、その利点を活かして、終了することができます。以下のようにですね:
 
+
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 1.50 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 1.50s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 59
@@ -1416,18 +1419,16 @@ You guessed: 59
 You win!
 Please input your guess.
 quit
-thread 'main' panicked at 'Please type a number!: ParseIntError { kind: InvalidDigit }', src/libcore/result.rs:785
+thread 'main' panicked at 'Please type a number!: ParseIntError { kind: InvalidDigit }', src/main.rs:28:47
 (スレッド'main'は'数字を入力してください！: ParseIntError { kind: InvalidDigit }', src/libcore/result.rs:785でパニックしました)
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 (注釈: `RUST_BACKTRACE=1`で走らせるとバックトレースを見れます)
-error: Process didn't exit successfully: `target/debug/guess` (exit code: 101)
-(エラー: プロセスは予期なく終了しました)
 ```
 
 <!--
-Typing `quit` actually quits the game, but so will any other non-number input.
-However, this is suboptimal to say the least. We want the game to automatically
-stop when the correct number is guessed.
+Typing `quit` will quit the game, but as you’ll notice so will entering any
+other non-number input. This is suboptimal to say the least; we want the game
+to also stop when the correct number is guessed.
 -->
 
 `quit`と入力すれば、実際にゲームを終了できるわけですが、別に他の数字以外の入力でもそうなります。
@@ -1475,7 +1476,7 @@ exiting the program, because the loop is the last part of `main`.
 To further refine the game’s behavior, rather than crashing the program when
 the user inputs a non-number, let’s make the game ignore a non-number so the
 user can continue guessing. We can do that by altering the line where `guess`
-is converted from a `String` to a `u32`, as showin in Listing 2-5.
+is converted from a `String` to a `u32`, as shown in Listing 2-5.
 -->
 
 さらにゲームの振る舞いを改善するために、ユーザが数値以外を入力した時にプログラムをクラッシュさせるのではなく、
@@ -1500,11 +1501,11 @@ another guess instead of crashing the program</span>
 <span class="caption">リスト2-5: 非数値の予想を無視し、プログラムをクラッシュさせるのではなく、もう1回予想してもらう</span>
 
 <!--
-Switching from an `expect` call to a `match` expression is how you generally
-move from crash on an error to handling the error. Remember that `parse`
-returns a `Result` type and `Result` is an enum that has the variants `Ok` or
-`Err`. We’re using a `match` expression here, as we did with the `Ordering`
-result of the `cmp` method.
+We switch from an `expect` call to a `match` expression to move from crashing
+on an error to handling the error. Remember that `parse` returns a `Result`
+type and `Result` is an enum that has the variants `Ok` and `Err`. We’re using a
+`match` expression here, as we did with the `Ordering` result of the `cmp`
+method.
 -->
 
 `expect`メソッドの呼び出しから`match`式に切り替えることは、
@@ -1513,7 +1514,6 @@ result of the `cmp` method.
 ここでは`match`式を使っています。`cmp`メソッドの`Ordering`という結果のような感じですね。
 
 <!--
-最後の行が日本語にしづらい
 -->
 
 <!--
@@ -1531,12 +1531,12 @@ will end up right where we want it in the new `guess` variable we’re creating.
 <!--
 If `parse` is *not* able to turn the string into a number, it will return an
 `Err` value that contains more information about the error. The `Err` value
-does not match the `Ok(num)` pattern in the first `match` arm, but it does match
-the `Err(_)` pattern in the second arm. The underscore, `_`, is a
+does not match the `Ok(num)` pattern in the first `match` arm, but it does
+match the `Err(_)` pattern in the second arm. The underscore, `_`, is a
 catchall value; in this example, we’re saying we want to match all `Err`
 values, no matter what information they have inside them. So the program will
-execute the second arm's code, `continue`, which tells the program to go to the
-next iteration of the `loop` and ask for another guess. So effectively, the
+execute the second arm’s code, `continue`, which tells the program to go to the
+next iteration of the `loop` and ask for another guess. So, effectively, the
 program ignores all errors that `parse` might encounter!
 -->
 
@@ -1554,9 +1554,11 @@ Now everything in the program should work as expected. Let’s try it:
 
 さて、プログラムの全てがうまく予想通りに動くはずです。試しましょう:
 
+
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 4.45s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 61
@@ -1580,7 +1582,7 @@ You win!
 Awesome! With one tiny final tweak, we will finish the guessing game. Recall
 that the program is still printing the secret number. That worked well for
 testing, but it ruins the game. Let’s delete the `println!` that outputs the
-secret number. Listing 2-6 shows the final code:
+secret number. Listing 2-6 shows the final code.
 -->
 
 素晴らしい！最後にひとつまみ変更を加えて、数当てゲームを完了にしましょう。
@@ -1618,13 +1620,12 @@ At this point, you’ve successfully built the guessing game. Congratulations!
 
 <!--
 This project was a hands-on way to introduce you to many new Rust concepts:
-`let`, `match`, methods, associated functions, external crates, and more. In
-the next few chapters, you’ll learn about these concepts in more detail.
-Chapter 3 covers concepts that most programming languages have, such as
-variables, data types, and functions, and shows how to use them in Rust.
-Chapter 4 explores ownership, a feature that makes Rust different from other
-languages. Chapter 5 discusses structs and method syntax, and Chapter 6
-explains how enums work.
+`let`, `match`, functions, the use of external crates, and more. In the next
+few chapters, you’ll learn about these concepts in more detail. Chapter 3
+covers concepts that most programming languages have, such as variables, data
+types, and functions, and shows how to use them in Rust. Chapter 4 explores
+ownership, a feature that makes Rust different from other languages. Chapter 5
+discusses structs and method syntax, and Chapter 6 explains how enums work.
 -->
 
 このプロジェクトは、たくさんの新しいRustの概念に触れる実践的な方法でした:
@@ -1634,3 +1635,43 @@ explains how enums work.
 それらのRustでの使用方法について示します。
 第4章では、所有権について見ます。これにより、Rustは他の言語とかけ離れた存在になっています。
 第5章では、構造体とメソッド記法について議論し、第6章ではenumの動作法を説明します。
+
+<!--
+[prelude]: ../std/prelude/index.html
+[variables-and-mutability]: ch03-01-variables-and-mutability.html#variables-and-mutability
+[comments]: ch03-04-comments.html
+[string]: ../std/string/struct.String.html
+[iostdin]: ../std/io/struct.Stdin.html
+[read_line]: ../std/io/struct.Stdin.html#method.read_line
+[ioresult]: ../std/io/type.Result.html
+[result]: ../std/result/enum.Result.html
+[enums]: ch06-00-enums.html
+[expect]: ../std/result/enum.Result.html#method.expect
+[recover]: ch09-02-recoverable-errors-with-result.html
+[randcrate]: https://crates.io/crates/rand
+[semver]: http://semver.org
+[cratesio]: https://crates.io/
+[doccargo]: http://doc.crates.io
+[doccratesio]: http://doc.crates.io/crates-io.html
+[match]: ch06-02-match.html
+[parse]: ../std/primitive.str.html#method.parse
+-->
+
+[prelude]: ../std/prelude/index.html
+[variables-and-mutability]: ch03-01-variables-and-mutability.html#variables-and-mutability
+[comments]: ch03-04-comments.html
+[string]: ../std/string/struct.String.html
+[iostdin]: ../std/io/struct.Stdin.html
+[read_line]: ../std/io/struct.Stdin.html#method.read_line
+[ioresult]: ../std/io/type.Result.html
+[result]: ../std/result/enum.Result.html
+[enums]: ch06-00-enums.html
+[expect]: ../std/result/enum.Result.html#method.expect
+[recover]: ch09-02-recoverable-errors-with-result.html
+[randcrate]: https://crates.io/crates/rand
+[semver]: http://semver.org
+[cratesio]: https://crates.io/
+[doccargo]: http://doc.crates.io
+[doccratesio]: http://doc.crates.io/crates-io.html
+[match]: ch06-02-match.html
+[parse]: ../std/primitive.str.html#method.parse
