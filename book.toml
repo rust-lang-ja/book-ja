@@ -3,9 +3,6 @@ title = "The Rust Programming Language 日本語版"
 author = "Steve Klabnik and Carol Nichols, with Contributions from the Rust Community"
 language = "ja"
 
-[build]
-build-dir = "docs"
-
 [output.html]
 additional-css = ["ferris.css", "theme/2018-edition.css", "theme/em-to-bold.css"]
 additional-js = ["ferris.js"]
