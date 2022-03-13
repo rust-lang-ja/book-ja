@@ -46,7 +46,7 @@
     - [データ型](ch03-02-data-types.md)
     - [関数](ch03-03-how-functions-work.md)
     - [コメント](ch03-04-comments.md)
-    - [フロー制御](ch03-05-control-flow.md)
+    - [制御フロー](ch03-05-control-flow.md)
 
 <!--
 - [Understanding Ownership](ch04-00-understanding-ownership.md)
@@ -78,8 +78,8 @@
 -->
 - [Enumとパターンマッチング](ch06-00-enums.md)
     - [Enumを定義する](ch06-01-defining-an-enum.md)
-    - [`match`フロー制御演算子](ch06-02-match.md)
-    - [`if let`で簡潔なフロー制御](ch06-03-if-let.md)
+    - [`match`制御フロー演算子](ch06-02-match.md)
+    - [`if let`で簡潔な制御フロー](ch06-03-if-let.md)
 
 <!--
 ## Basic Rust Literacy

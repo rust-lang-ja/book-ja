@@ -340,7 +340,7 @@ At the time, we skipped over some details in this code. In Chapter 6 in “The
 return the same type. So, for example, the following code doesn’t work:
 -->
 
-この時点では、このコードの詳細の一部を飛ばしました。第6章の「`match`フロー制御演算子」節で、
+この時点では、このコードの詳細の一部を飛ばしました。第6章の「`match`制御フロー演算子」節で、
 `match`アームは全て同じ型を返さなければならないと議論しました。従って、例えば以下のコードは動きません:
 
 ```rust,ignore

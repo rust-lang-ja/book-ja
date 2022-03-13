@@ -2,7 +2,7 @@
 ## Control Flow
 -->
 
-## フロー制御
+## 制御フロー
 
 <!--
 Deciding whether or not to run some code depending on if a condition is true

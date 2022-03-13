@@ -52,6 +52,7 @@
 | constant                       | 定数
 | constructor                    | コンストラクタ
 | continuous integration         | 継続的インテグレーション
+| control flow                   | 制御フロー
 | crate                          | クレート
 | dangling                       | ダングリング
 | data race                      | データ競合
