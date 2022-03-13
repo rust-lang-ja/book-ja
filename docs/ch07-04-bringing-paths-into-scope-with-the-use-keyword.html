@@ -516,8 +516,7 @@ added this line to *Cargo.toml*:
 <span class="filename">Filename: Cargo.toml</span>
 -->
 <p><span class="filename">ファイル名: Cargo.toml</span></p>
-<pre><code class="language-toml">[dependencies]
-rand = &quot;0.5.5&quot;
+<pre><code class="language-toml">rand = &quot;0.8.3&quot;
 </code></pre>
 <!--
 Adding `rand` as a dependency in *Cargo.toml* tells Cargo to download the
@@ -540,9 +539,9 @@ into scope and called the `rand::thread_rng` function:
 fn main() {
 <span class="boring">    println!(&quot;Guess the number!&quot;);
 </span><span class="boring">
-</span>    let secret_number = rand::thread_rng().gen_range(1, 101);
+</span>    let secret_number = rand::thread_rng().gen_range(1..101);
 <span class="boring">
-</span><span class="boring">    println!(&quot;The secret number is: {}&quot;, secret_number);
+</span><span class="boring">    println!(&quot;The secret number is: {}&quot;, secret_number);    //秘密の数字は次の通り: {}
 </span><span class="boring">
 </span><span class="boring">    println!(&quot;Please input your guess.&quot;);
 </span><span class="boring">
