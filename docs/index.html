@@ -178,60 +178,14 @@
 <!--
 *by Steve Klabnik and Carol Nichols, with contributions from the Rust Community*
 -->
-<p><em>著：Steve Klabnik, Carol Nichols, 貢献：Rustコミュニティ</em></p>
+<p><em>著：Steve Klabnik、Carol Nichols、貢献：Rustコミュニティ</em></p>
 <!--
-This version of the text assumes you’re using Rust 1.41.0 or later with
-`edition="2018"` in *Cargo.toml* of all projects to use Rust 2018 Edition
-idioms. See the [“Installation” section of Chapter 1][install]
-to install or update Rust, and see the new [Appendix E][editions]
-for information on editions.
+This version of the text assumes you’re using Rust 1.58 (released 2022-01-13)
+or later. See the [“Installation” section of Chapter 1][install]
+to install or update Rust.
 -->
-<p>このテキストのこの版では、Rust 2018 Editionのイディオムを使うため、Rust 1.41.0かそれ以降を使っており、すべてのプロジェクトの <em>Cargo.toml</em> に <code>edition=&quot;2018&quot;</code> とあることを前提にしています。
-Rustをインストールしたりアップデートするには<a href="ch01-01-installation.html">1章の「インストール」節</a>を、editionに関しては<a href="appendix-05-editions.html">付録E</a>を読んでください。</p>
-<!--
-The 2018 Edition of the Rust language includes a number of improvements that
-make Rust more ergonomic and easier to learn. This iteration of the book
-contains a number of changes to reflect those improvements:
--->
-<p>Rust言語の2018 Editionには、Rustをもっと扱いやすく、学びやすくするための多くの改善点があります。
-それらの改善点を反映するために、今回の改版は多くの変更点を含んでいます：</p>
-<!--
-- Chapter 7, “Managing Growing Projects with Packages, Crates, and Modules,”
-  has been mostly rewritten. The module system and the way paths work in the
-  2018 Edition were made more consistent.
-- Chapter 10 has new sections titled “Traits as Parameters” and “Returning
-  Types that Implement Traits” that explain the new `impl Trait` syntax.
-- Chapter 11 has a new section titled “Using `Result<T, E>` in Tests” that
-  shows how to write tests that use the `?` operator.
-- The “Advanced Lifetimes” section in Chapter 19 was removed because compiler
-  improvements have made the constructs in that section even rarer.
-- The previous Appendix D, “Macros,” has been expanded to include procedural
-  macros and was moved to the “Macros” section in Chapter 19.
-- Appendix A, “Keywords,” also explains the new raw identifiers feature that
-  enables code written in the 2015 Edition and the 2018 Edition to interoperate.
-- Appendix D is now titled “Useful Development Tools” and covers recently
-  released tools that help you write Rust code.
-- We fixed a number of small errors and imprecise wording throughout the book.
-  Thank you to the readers who reported them!
--->
-<ul>
-<li>7章「肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する」はほとんど書き直されました。2018 Editionにおいてモジュールシステムとパスの仕組みはより一貫性を持つようになりました。</li>
-<li>10章には、新しい<code>impl Trait</code>構文を説明するために「引数としてのトレイト」と「トレイトを実装している型を返す」という新しい節があります。</li>
-<li>11章には、<code>?</code>演算子を使うテストの書き方を説明する「<code>Result&lt;T, E&gt;</code>をテストで使う」という新しい節があります。</li>
-<li>19章の「高度なライフタイム」節はなくなりました。コンパイラの改善により、この節の内容が現れることはいっそう稀になったからです。</li>
-<li>付録D「マクロ」は、手続き的マクロも説明するようになり、19章の「マクロ」節に移動しました。</li>
-<li>付録A「キーワード」では、2015 Editionと2018 Editionで書かれたコードを一緒に使えるようにしてくれる、生識別子という新しい機能も説明します。</li>
-<li>付録Dは &quot;Useful Development Tools&quot; という名前に変わり、Rustコードを書く手助けになる最近登場したツールを説明します。</li>
-<li>多くの細かい誤りや不正確な言葉遣いを直しました。報告してくれた読者の皆様、ありがとうございます！</li>
-</ul>
-<!--
-Note that any code in earlier iterations of *The Rust Programming Language*
-that compiled will continue to compile without `edition="2018"` in the
-project’s *Cargo.toml*, even as you update the Rust compiler version you’re
-using. That’s Rust’s backward compatibility guarantees at work!
--->
-<p><code>edition=&quot;2018&quot;</code> を <em>Cargo.toml</em> に書かなければ、Rustコンパイラのバージョンをアップデートしたとしても、 <em>The Rust Programming Language</em> のこれまでの版のコードは変わらずコンパイルできるということを知っておいてください。
-Rustの後方互換性の約束は守られています！</p>
+<p>このテキストのこの版ではRust 1.58（2022年1月13日リリース）かそれ以降が使われていることを前提にしています。
+Rustをインストールしたりアップデートしたりするには<a href="ch01-01-installation.html">第1章の「インストール」節</a>を読んでください。</p>
 <!--
 The HTML format is available online at
 [https://doc.rust-lang.org/stable/book/](https://doc.rust-lang.org/stable/book/)
@@ -239,12 +193,20 @@ and offline with installations of Rust made with `rustup`; run `rustup docs
 --book` to open.
 -->
 <p>HTML版は<a href="https://doc.rust-lang.org/stable/book/">https://doc.rust-lang.org/stable/book/</a>で公開されています。
-オフラインで見たい場合は、<code>rustup</code>でインストールしたRustを使って<code>rustup docs --book</code>としてください。</p>
+オフラインのときは、<code>rustup</code>でインストールしたRustを使って<code>rustup docs --book</code>で開けます。</p>
+<blockquote>
+<p>訳注：日本語のHTML版は<a href="https://doc.rust-jp.rs/book-ja/">https://doc.rust-jp.rs/book-ja/</a>で公開されています。
+<code>rustup</code>を使ってオフラインで読むことはできません。</p>
+</blockquote>
+<!--
+Several community [translations] are also available.
+-->
+<p>また、コミュニティによるいくつかの<a href="appendix-06-translation.html">翻訳版</a>もあります。</p>
 <!--
 This text is available in [paperback and ebook format from No Starch
 Press][nsprust].
 -->
-<p>このテキストの<a href="https://nostarch.com/rust">ペーパーバック版と電子書籍版はNo Starch出版</a>から発売されています。</p>
+<p>このテキストの（英語版の）<a href="https://nostarch.com/rust">ペーパーバック版と電子書籍版はNo Starch出版</a>から発売されています。</p>
 
                     </main>
 
