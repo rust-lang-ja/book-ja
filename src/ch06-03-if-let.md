@@ -2,7 +2,7 @@
 ## Concise Control Flow with `if let`
 -->
 
-## `if let`で簡潔なフロー制御
+## `if let`で簡潔な制御フロー
 
 <!--
 The `if let` syntax lets you combine `if` and `let` into a less verbose way to

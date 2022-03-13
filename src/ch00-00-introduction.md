@@ -263,7 +263,7 @@ expressions, and the `if let` control flow construct. You’ll use structs and
 enums to make custom types in Rust.
 -->
 
-第5章は、構造体とメソッドについて議論し、第6章はenum、`match`式、`if let`フロー制御構文を講義します。
+第5章は、構造体とメソッドについて議論し、第6章はenum、`match`式、`if let`制御フロー構文を講義します。
 構造体とenumを使用してRustにおいて独自の型を作成します。
 
 <!--

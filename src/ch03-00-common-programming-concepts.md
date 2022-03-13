@@ -23,7 +23,7 @@ and control flow. These foundations will be in every Rust program, and learning
 them early will give you a strong core to start from.
 -->
 
-具体的には、変数、基本的な型、関数、コメント、そしてフロー制御について学びます。
+具体的には、変数、基本的な型、関数、コメント、そして制御フローについて学びます。
 これらの基礎は全てのRustプログラムに存在するものであり、それらを早期に学ぶことにより、強力な基礎を築くことになるでしょう。
 
 <!--
