@@ -18,7 +18,7 @@ while, all of these tiny changes add up. But from release to release, it can be
 difficult to look back and say, “Wow, between Rust 1.10 and Rust 1.31, Rust has
 changed a lot!”
 -->
-Rust言語とコンパイラは6週間のリリースサイクルを採用しています。つまり、ユーザーにはコンスタントに新しい機能が流れてくるというわけです。
+Rust言語とコンパイラは6週間のリリースサイクルを採用しています。つまり、ユーザにはコンスタントに新しい機能が流れてくるというわけです。
 他のプログラミング言語は、より少ない回数で、より大きなリリースを行いますが、Rustは小さなアップデートを頻繁に行います。
 しばらくすると、これらの小さな変更が溜まっていきます。
 しかし、これらを振り返って、「Rust 1.10とRust 1.31を比較すると、すごく変わったねえ！」などとリリースごとに言うのは難しいです。
