@@ -45,7 +45,7 @@ Chapter 1 and make a new project using Cargo, like so:
 新規プロジェクトを立ち上げるには、第1章で作成した*projects*ディレクトリに行き、
 Cargoを使って新規プロジェクトを作成します。以下のように:
 
-```text
+```console
 $ cargo new guessing_game --bin
 $ cd guessing_game
 ```
@@ -74,12 +74,7 @@ Look at the generated *Cargo.toml* file:
 <span class="filename">ファイル名: Cargo.toml</span>
 
 ```toml
-[package]
-name = "guessing_game"
-version = "0.1.0"
-authors = ["名前 <you@example.com>"]
-
-[dependencies]
+{{#include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/Cargo.toml}}
 ```
 
 <!--
@@ -105,9 +100,7 @@ you. Check out the *src/main.rs* file:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    println!("Hello, world!");
-}
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/src/main.rs}}
 ```
 
 <!--
@@ -118,12 +111,8 @@ using the `cargo run` command:
 さて、この"Hello, world!"プログラムをコンパイルし、`cargo run`コマンドを使用して、
 以前と同じように動かしてみましょう:
 
-```text
-$ cargo run
-   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 1.50 secs
-     Running `target/debug/guessing_game`
-Hello, world!
+```console
+{{#include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/output.txt}}
 ```
 
 <!--
@@ -165,20 +154,7 @@ allow the player to input a guess. Enter the code in Listing 2-1 into
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-use std::io;
-
-fn main() {
-    println!("Guess the number!");          // 数を当ててごらん
-
-    println!("Please input your guess.");   // ほら、予想を入力してね
-
-    let mut guess = String::new();
-
-    io::stdin().read_line(&mut guess)
-        .expect("Failed to read line");     // 行の読み込みに失敗しました
-
-    println!("You guessed: {}", guess);     // 次のように予想しました: {}
-}
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:all}}
 ```
 
 <!--
@@ -204,7 +180,7 @@ standard library (which is known as `std`):
 `io`ライブラリは、標準ライブラリ(`std`として知られています)に存在します:
 
 ```rust,ignore
-use std::io;
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:io}}
 ```
 
 <!--
@@ -229,7 +205,7 @@ program:
 第1章で見た通り、`main`関数がプログラムへのエントリーポイント(`脚注`: スタート地点)になります:
 
 ```rust,ignore
-fn main() {
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:main}}
 ```
 
 <!--
@@ -247,9 +223,7 @@ the screen:
 また、第1章で学んだように、`println!`は、文字列を画面に表示するマクロになります:
 
 ```rust,ignore
-println!("Guess the number!");
-
-println!("Please input your guess.");
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:print}}
 ```
 
 <!--
@@ -272,7 +246,7 @@ Next, we’ll create a place to store the user input, like this:
 次に、ユーザ入力を保持する場所を作りましょう。こんな感じに:
 
 ```rust,ignore
-let mut guess = String::new();
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:string}}
 ```
 
 <!--
@@ -372,8 +346,7 @@ associated function, `stdin`, on `io`:
 今度は、`io`モジュールの`stdin`関数を呼び出しましょう:
 
 ```rust,ignore
-io::stdin().read_line(&mut guess)
-    .expect("Failed to read line");
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:read}}
 ```
 
 <!--
@@ -448,7 +421,7 @@ line of code. The second part is this method:
 まだ所詮最初の部分でしかないのです。2番目の部分はこのメソッドです:
 
 ```rust,ignore
-.expect("Failed to read line");
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:expect}}
 ```
 
 <!--
@@ -543,17 +516,8 @@ If you don’t call `expect`, the program will compile, but we’ll get a warnin
 
 もし、`expect`メソッドを呼び出さなかったら、コンパイルは通るものの、警告が出るでしょう:
 
-```text
-$ cargo build
-   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-warning: unused `std::result::Result` which must be used
-(警告: 使用されなければならない`std::result::Result`が使用されていません)
-  --> src/main.rs:10:5
-   |
-10 |     io::stdin().read_line(&mut guess);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   |
-   = note: #[warn(unused_must_use)] on by default
+```console
+{{#include ../listings/ch02-guessing-game-tutorial/no-listing-02-without-expect/output.txt}}
 ```
 
 <!--
@@ -588,7 +552,7 @@ the code added so far, which is the following:
 閉じ波かっこを除けば、ここまでに追加されたコードのうち議論すべきものは、残り1行であり、それは以下の通りです:
 
 ```rust,ignore
-println!("You guessed: {}", guess);
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:print_guess}}
 ```
 
 <!--
@@ -631,7 +595,7 @@ Let’s test the first part of the guessing game. Run it using `cargo run`:
 
 数当てゲームの最初の部分をテストしてみましょう。`cargo run`でプログラムを走らせてください:
 
-```text
+```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
@@ -705,28 +669,32 @@ you:
 <span class="filename">ファイル名: Cargo.toml</span>
 
 ```toml
-[dependencies]
-
-rand = "0.3.14"
+{{#include ../listings/ch02-guessing-game-tutorial/listing-02-02/Cargo.toml:9:}}
 ```
 
 <!--
-In the *Cargo.toml* file, everything that follows a header is part of a section
-that continues until another section starts. The `[dependencies]` section is
-where you tell Cargo which external crates your project depends on and which
-versions of those crates you require. In this case, we’ll specify the `rand`
-crate with the semantic version specifier `0.3.14`. Cargo understands [Semantic
+In the *Cargo.toml* file, everything that follows a header is part of that
+section that continues until another section starts. In `[dependencies]` you
+tell Cargo which external crates your project depends on and which versions of
+those crates you require. In this case, we specify the `rand` crate with the
+semantic version specifier `0.8.3`. Cargo understands [Semantic
 Versioning][semver] (sometimes called *SemVer*), which is a
-standard for writing version numbers. The number `0.3.14` is actually shorthand
-for `^0.3.14`, which means “any version that has a public API compatible with
-version 0.3.14.”
+standard for writing version numbers. The number `0.8.3` is actually shorthand
+for `^0.8.3`, which means any version that is at least `0.8.3` but below
+`0.9.0`. Cargo considers these versions to have public APIs compatible with
+version `0.8.3`, and this specification ensures you’ll get the latest patch
+release that will still compile with the code in this chapter. Any version
+`0.9.0` or greater is not guaranteed to have the same API as what the following
+examples use.
 -->
 
 *Cargo.toml*ファイルにおいて、ヘッダに続くものは全て、他のセクションが始まるまで続くセクションの一部になります。
 `[dependecies]`セクションは、プロジェクトが依存する外部クレートと必要とするバージョンを記述するところです。
-ここでは、`rand`クレートで、セマンティックバージョン指定子には`0.3.14`を指定します。Cargoは、
+ここでは、`rand`クレートで、セマンティックバージョン指定子には`0.8.3`を指定します。Cargoは、
 バージョンナンバー記述の標準規格である[セマンティックバージョニング][semver]<!-- ignore --> (時に*SemVer*と呼ばれる)を理解します。
-`0.3.14`という数字は、実際には`^0.3.14`の省略記法で、これは、「バージョン0.3.14と互換性のある公開APIを持つ任意のバージョン」を意味します。
+`0.8.3`という数字は、実際には`^0.8.3`の省略記法で、これは、「バージョン0.8.3と互換性のある公開APIを持つ0.9.0未満の任意のバージョン」を意味します。
+Cargoはこれらのバージョンが「バージョン0.8.3と互換性のある公開APIを持つ」と見なします。この仕様により、この章のコードがコンパイルできるような最新のパッチリリースを取得することができます。
+バージョン0.9.0以降では例示しているコードで使用しているAPIが使用できることは保証されていません。
 
 [semver]: http://semver.org
 
@@ -737,15 +705,25 @@ Listing 2-2.
 
 さて、コードは一切変えずに、リスト2-2のようにプロジェクトをビルドしましょう。
 
-```text
+```console
 $ cargo build
-    Updating registry `https://github.com/rust-lang/crates.io-index` (レジストリを更新しています)
- Downloading rand v0.3.14                                            (rand v0.3.14をダウンロードしています)
- Downloading libc v0.2.14                                            (libc v0.2.14をダウンロードしています)
-   Compiling libc v0.2.14                                            (libc v0.2.14をコンパイルしています)
-   Compiling rand v0.3.14                                            (rand v0.3.14をコンパイルしています)
+    Updating crates.io index (レジストリを更新しています)
+  Downloaded rand v0.8.3                                             (rand v0.8.3をダウンロードしています)
+  Downloaded libc v0.2.86                                            (libc v0.2.86をダウンロードしています)
+  Downloaded getrandom v0.2.2                                        (getrandom v0.2.2をダウンロードしています)
+  Downloaded cfg-if v1.0.0                                           (cfg-if v1.0.0をダウンロードしています)
+  Downloaded ppv-lite86 v0.2.10                                      (ppv-lite86 v0.2.10をダウンロードしています)
+  Downloaded rand_chacha v0.3.0                                      (rand_chacha v0.3.0をダウンロードしています)
+  Downloaded rand_core v0.6.2                                        (rand_core v0.6.2をダウンロードしています)
+   Compiling rand_core v0.6.2                                        (rand_core v0.6.2をコンパイルしています)
+   Compiling libc v0.2.86                                            (libc v0.2.86をコンパイルしています)
+   Compiling getrandom v0.2.2                                        (getrandom v0.2.2をコンパイルしています)
+   Compiling cfg-if v1.0.0                                           (cfg-if v1.0.0をコンパイルしています)
+   Compiling ppv-lite86 v0.2.10                                      (ppv-lite86 v0.2.10をコンパイルしています)
+   Compiling rand_chacha v0.3.0                                      (rand_chacha v0.3.0をコンパイルしています)
+   Compiling rand v0.8.3                                             (rand v0.8.3をコンパイルしています)
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)   (guessing_game v0.1.0をコンパイルしています)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53s
 ```
 
 <!--
@@ -810,7 +788,7 @@ and build again, you’ll only see two line of output:
 
 *src/main.rs*ファイルを開き、些細な変更をし、保存して再度ビルドを行えば、2行だけ出力があるでしょう:
 
-```text
+```console
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
@@ -893,12 +871,12 @@ smaller than `0.4.0`. If the `rand` crate has released two new versions,
 `rand`クレートの新バージョンが2つリリースされていたら(`0.3.15`と`0.4.0`だとします)、
 `cargo update`コマンドを走らせた時に以下のようなメッセージを目の当たりにするでしょう:
 
-```text
+```console
 $ cargo update
-    Updating registry `https://github.com/rust-lang/crates.io-index`
-    (レジストリ`https://github.com/rust-lang/crates-io-index`を更新しています)
-    Updating rand v0.3.14 -> v0.3.15
-    (randクレートをv0.3.14 -> v0.3.15に更新しています)
+    Updating crates.io index
+    (crates.ioインデックスを更新しています)
+    Updating rand v0.8.3 -> v0.8.4
+    (randクレートをv0.8.3 -> v0.8.4に更新しています)
 ```
 
 <!--
@@ -924,7 +902,7 @@ series, you’d have to update the *Cargo.toml* file to look like this instead:
 ```toml
 [dependencies]
 
-rand = "0.4.0"
+rand = "0.9.0"
 ```
 
 <!--
@@ -973,26 +951,7 @@ Now that you've added the `rand` crate to *Cargo.toml*, let's start using
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-use std::io;
-use rand::Rng;
-
-fn main() {
-    println!("Guess the number!");
-
-    let secret_number = rand::thread_rng().gen_range(1, 101);
-
-    println!("The secret number is: {}", secret_number);    //秘密の数字は次の通り: {}
-
-    println!("Please input your guess.");
-
-    let mut guess = String::new();
-
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line");
-
-    println!("You guessed: {}", guess);
-}
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-03/src/main.rs:all}}
 ```
 
 <!--
@@ -1061,16 +1020,17 @@ Try running the program a few times:
 
 試しに何回かプログラムを走らせてみてください:
 
-```text
+```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 2.53 s
      Running `target/debug/guessing_game`
 Guess the number!                         (何回も出ているので、ここでは和訳は省略します)
 The secret number is: 7
 Please input your guess.
 4
 You guessed: 4
+
 $ cargo run
      Running `target/debug/guessing_game`
 Guess the number!
@@ -1109,22 +1069,7 @@ will explain.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-use std::io;
-use std::cmp::Ordering;
-use rand::Rng;
-
-fn main() {
-
-    // ---snip---
-
-    println!("You guessed: {}", guess);
-
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small!"),       //小さすぎ！
-        Ordering::Greater => println!("Too big!"),      //大きすぎ！
-        Ordering::Equal => println!("You win!"),        //やったね！
-    }
-}
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-04/src/main.rs:here}}
 ```
 
 <!--
@@ -1221,21 +1166,8 @@ However, the code in Listing 2-4 won’t compile yet. Let’s try it:
 
 ところが、リスト2-4のコードは、まだコンパイルが通りません。試してみましょう:
 
-```text
-$ cargo build
-   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-error[E0308]: mismatched types          (型が合いません)
-  --> src/main.rs:23:21
-   |
-23 |     match guess.cmp(&secret_number) {
-   |                     ^^^^^^^^^^^^^^ expected struct `std::string::String`, found integral variable
-   |                                    (構造体`std::string::String`を予期したけど、整数型変数が見つかりました)
-   |
-   = note: expected type `&std::string::String`
-   = note:    found type `&{integer}`
-
-error: aborting due to previous error   (先のエラーのため、処理を中断します)
-Could not compile `guessing_game`.      (`guessing_game`をコンパイルできませんでした)
+```console
+{{#include ../listings/ch02-guessing-game-tutorial/listing-02-04/output.txt}}
 ```
 
 <!--
@@ -1275,24 +1207,7 @@ by adding the following two lines to the `main` function body:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-// --snip--
-
-    let mut guess = String::new();
-
-    io::stdin().read_line(&mut guess)
-        .expect("Failed to read line");
-
-    let guess: u32 = guess.trim().parse()
-        .expect("Please type a number!");                 //数値を入力してください！
-
-    println!("You guessed: {}", guess);
-
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small!"),
-        Ordering::Greater => println!("Too big!"),
-        Ordering::Equal => println!("You win!"),
-    }
-}
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/no-listing-03-convert-string-to-number/src/main.rs:here}}
 ```
 
 <!--
@@ -1398,7 +1313,7 @@ Let’s run the program now!
 
 さあ、プログラムを走らせましょう！
 
-```text
+```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 0.43 secs
@@ -1450,22 +1365,7 @@ more chances at guessing the number:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-// --snip--
-
-    println!("The secret number is: {}", secret_number);
-
-    loop {
-        println!("Please input your guess.");
-
-        // --snip--
-
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
-            Ordering::Equal => println!("You win!"),
-        }
-    }
-}
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/no-listing-04-looping/src/main.rs:here}}
 ```
 
 <!--
@@ -1495,7 +1395,7 @@ shown here:
 この貪欲なモンスターを回避する別の方法があります: ユーザが数字以外の答えを入力すれば、プログラムはクラッシュするのです。
 ユーザは、その利点を活かして、終了することができます。以下のようにですね:
 
-```text
+```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
     Finished dev [unoptimized + debuginfo] target(s) in 1.50 secs
@@ -1552,18 +1452,7 @@ Let’s program the game to quit when the user wins by adding a `break` statemen
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-// --snip--
-
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            }
-        }
-    }
-}
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/no-listing-05-quitting/src/main.rs:here}}
 ```
 
 <!--
@@ -1600,19 +1489,7 @@ is converted from a `String` to a `u32`, as showin in Listing 2-5.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-// --snip--
-
-io::stdin().read_line(&mut guess)
-    .expect("Failed to read line");
-
-let guess: u32 = match guess.trim().parse() {
-    Ok(num) => num,
-    Err(_) => continue,
-};
-
-println!("You guessed: {}", guess);
-
-// --snip--
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-05/src/main.rs:here}}
 ```
 
 <!--
@@ -1677,7 +1554,7 @@ Now everything in the program should work as expected. Let’s try it:
 
 さて、プログラムの全てがうまく予想通りに動くはずです。試しましょう:
 
-```text
+```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
      Running `target/debug/guessing_game`
@@ -1718,41 +1595,7 @@ secret number. Listing 2-6 shows the final code:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-use rand::Rng;
-use std::cmp::Ordering;
-use std::io;
-
-fn main() {
-    println!("Guess the number!");
-
-    let secret_number = rand::thread_rng().gen_range(1, 101);
-
-    loop {
-        println!("Please input your guess.");
-
-        let mut guess = String::new();
-
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
-
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-
-        println!("You guessed: {}", guess);
-
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            }
-        }
-    }
-}
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-06/src/main.rs}}
 ```
 
 <!--

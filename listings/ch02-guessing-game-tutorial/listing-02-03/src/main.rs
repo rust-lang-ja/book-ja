@@ -8,10 +8,10 @@ fn main() {
     println!("Guess the number!");
 
     // ANCHOR: ch07-04
-    let secret_number = rand::thread_rng().gen_range(1, 101);
+    let secret_number = rand::thread_rng().gen_range(1..101);
     // ANCHOR_END: ch07-04
 
-    println!("The secret number is: {}", secret_number);
+    println!("The secret number is: {}", secret_number);    //秘密の数字は次の通り: {}
 
     println!("Please input your guess.");
 
