@@ -13,10 +13,11 @@ explore these ideas in more detail. In this chapter, you’ll practice the
 fundamentals.
 -->
 
-実物のプロジェクトに一緒に取り組むことで、Rustの世界へ飛び込みましょう！
-この章では、実際のプログラム内で使用しながらいくつかの一般的なRustの概念に触れます。
-`let`、`match`、メソッド、関連関数、外部クレートの使用などについて学ぶでしょう！
-後ほどの章でこれらの概念について深く知ることになります。この章では、基礎部分だけにしましょう。
+実践的なプロジェクトに一緒に取り組むことで、Rustの世界に飛び込んでみましょう！
+この章ではRustの一般的な概念を、実際のプログラムでの使い方を示しながら紹介します。
+`let`、`match`、メソッド、関連関数、外部クレートの使用などについて学びます！
+後続の章では、これらの概念をより詳しく掘り下げていきます。
+この章では基本的なことを練習します。
 
 <!--
 We’ll implement a classic beginner programming problem: a guessing game. Here’s
@@ -26,11 +27,12 @@ program will indicate whether the guess is too low or too high. If the guess is
 correct, the game will print a congratulatory message and exit.
 -->
 
-古典的な初心者向けのプログラミング問題を実装してみましょう: 数当てゲームです。
-これは以下のように動作します: プログラムは1から100までの乱数整数を生成します。
-そしてプレーヤーに予想を入力するよう促します。予想を入力したら、プログラムは、
-その予想が小さすぎたか大きすぎたかを出力します。予想が当たっていれば、ゲームは祝福メッセージを表示し、
-終了します。
+プログラミング初心者向けの定番問題である「数当てゲーム」を実装してみましょう。
+これは次のように動作します。
+プログラムは1から100までのランダムな整数を生成します。
+そして、プレーヤーに予想（した数字）を入力するように促します。
+予想が入力されると、プログラムはその予想が小さすぎるか大きすぎるかを表示します。
+予想が当たっているなら、お祝いのメッセージを表示し、ゲームを終了します。
 
 <!--
 ## Setting Up a New Project
@@ -43,8 +45,7 @@ To set up a new project, go to the *projects* directory that you created in
 Chapter 1 and make a new project using Cargo, like so:
 -->
 
-新規プロジェクトを立ち上げるには、第1章で作成した*projects*ディレクトリに行き、
-Cargoを使って新規プロジェクトを作成します。以下のように:
+新しいプロジェクトを立ち上げるには、第1章で作成した*projects*ディレクトリに移動し、以下のようにCargoを使って新規プロジェクトを作成します。
 
 ```console
 $ cargo new guessing_game
@@ -57,15 +58,14 @@ as the first argument. The second command changes to the new project’s
 directory.
 -->
 
-最初のコマンド`cargo new`は、プロジェクト名を第1引数に取ります(`guessing_game`ですね)。
-`--bin`というフラグは、Cargoにバイナリ生成プロジェクトを作成させます。第1章のものと似ていますね。
-2番目のコマンドで新規プロジェクトのディレクトリに移動します。
+最初のコマンド`cargo new`は、第1引数としてプロジェクト名 (`guessing_game`) を取ります。
+2番目のコマンドは新規プロジェクトのディレクトリに移動します。
 
 <!--
 Look at the generated *Cargo.toml* file:
 -->
 
-生成された*Cargo.toml*ファイルを見てください:
+生成された*Cargo.toml*ファイルを見てください。
 
 <!--
 <span class="filename">Filename: Cargo.toml</span>
@@ -78,18 +78,12 @@ Look at the generated *Cargo.toml* file:
 ```
 
 <!--
--->
-
-もし、Cargoがあなたの環境から取得した作者情報が間違っていたら、
-ファイルを編集して保存し直してください。
-
-<!--
 As you saw in Chapter 1, `cargo new` generates a “Hello, world!” program for
 you. Check out the *src/main.rs* file:
 -->
 
-第1章でも見かけたように、`cargo new`コマンドは、"Hello, world!"プログラムを生成してくれます。
-*src/main.rs*ファイルをチェックしてみましょう:
+第1章で見たように`cargo new`は「Hello, world!」プログラムを生成してくれます。
+*src/main.rs*ファイルをチェックしてみましょう。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -106,8 +100,7 @@ Now let’s compile this “Hello, world!” program and run it in the same step
 using the `cargo run` command:
 -->
 
-さて、この"Hello, world!"プログラムをコンパイルし、`cargo run`コマンドを使用して、
-以前と同じように動かしてみましょう:
+さて、`cargo run`コマンドを使って、この「Hello, world!」プログラムのコンパイルと実行を一気に行いましょう。
 
 ```console
 {{#include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/output.txt}}
@@ -119,14 +112,22 @@ as we’ll do in this game, quickly testing each iteration before moving on to
 the next one.
 -->
 
-`run`コマンドは、プロジェクトに迅速に段階を踏んで取り掛かる必要がある場合に有用であり、
-次のステップに進む前に各段階を急速にテストして、このゲームではそれを行います。
+このゲーム（の開発）では各イテレーションを素早くテストしてから、次のイテレーションに移ります。
+`run`コマンドは、今回のようにイテレーションを素早く回したいときに便利です。
+
+> 訳注：ここでのイテレーションは、アジャイル開発など、一連の工程を短期間で繰り返す開発手法で用いられている用語です。
+> イテレーションは、短い開発工程の「一回のサイクル」のことです。
+>
+> この章では「実装」→「テスト」のサイクルを繰り返すことで、プログラムに少しずつ機能を追加していきます。
 
 <!--
 Reopen the *src/main.rs* file. You’ll be writing all the code in this file.
 -->
 
-再度*src/main.rs*ファイルを開きましょう。ここにすべてのコードを書いていきます。
+*src/main.rs*ファイルを開き直しましょう。
+このファイルにすべてのコードを書いていきます。
+
+<!-- 2022-03-14 和訳の更新はここまで終了 -->
 
 <!--
 ## Processing a Guess
