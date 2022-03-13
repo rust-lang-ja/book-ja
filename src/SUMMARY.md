@@ -293,6 +293,6 @@
     - [付録B：演算子と記号](appendix-02-operators.md)
     - [付録C：導出可能なトレイト](appendix-03-derivable-traits.md)
     - [付録D：便利な開発ツール](appendix-04-useful-development-tools.md)
-    - [付録E：Edition](appendix-05-editions.md)
+    - [付録E：エディション](appendix-05-editions.md)
     - [付録F：本の翻訳](appendix-06-translation.md)
     - [付録G：Rustの作られ方と“Nightly Rust”](appendix-07-nightly-rust.md)
