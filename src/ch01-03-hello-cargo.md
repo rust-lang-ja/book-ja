@@ -90,15 +90,17 @@ same name.
 Go into the *hello_cargo* directory and list the files. You’ll see that Cargo
 has generated two files and one directory for us: a *Cargo.toml* file and a
 *src* directory with a *main.rs* file inside.
-
-It has also initialized a new Git repository along with a *.gitignore* file.
-Git files won’t be generated if you run `cargo new` within an existing Git
-repository; you can override this behavior by using `cargo new --vcs=git`.
 -->
 
 *hello_cargo*ディレクトリに行き、ファイルの一覧を取得してください。
 Cargoが2つのファイルと1つのディレクトリを生成してくれたことがわかるでしょう。
 *Cargo.toml*ファイルと*src*ディレクトリがあり、*src*の中には*main.rs*ファイルがあります。
+
+<!--
+It has also initialized a new Git repository along with a *.gitignore* file.
+Git files won’t be generated if you run `cargo new` within an existing Git
+repository; you can override this behavior by using `cargo new --vcs=git`.
+-->
 
 また、*.gitignore*ファイルと共に新しいGitリポジトリも初期化されています。
 もし、すでに存在するGitリポジトリの中で`cargo new`を実行したなら、Git関連のファイルは作られません。
@@ -149,9 +151,7 @@ This file is in the [*TOML*](https://toml.io) (*Tom’s Obvious,
 Minimal Language*) format, which is Cargo’s configuration format.
 -->
 
-このファイルは[TOML][toml]（*Tom's Obvious, Minimal Language*、トムの明確な最小限の言語）形式で、Cargoの設定フォーマットです。
-
-[toml]: https://github.com/toml-lang/toml
+このファイルは[TOML](https://toml.io)（*Tom's Obvious, Minimal Language*、トムの明確な最小限の言語）形式で、Cargoの設定フォーマットです。
 
 <!--
 The first line, `[package]`, is a section heading that indicates that the
@@ -170,7 +170,7 @@ about the `edition` key in [Appendix E][appendix-e].
 
 次の3行はCargoがプログラムをコンパイルするのに必要となる設定情報を指定します。
 ここでは、名前、バージョン、使用するRustのエディションを指定しています。
-`edition`キーについては[付録E][appendix-e]<!-- ignore -->で説明されています。
+`edition`キーについては[付録E][appendix-e]で説明されています。
 
 <!--
 The last line, `[dependencies]`, is the start of a section for you to list any
