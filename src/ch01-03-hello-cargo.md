@@ -280,7 +280,7 @@ file is a bit sparse. You won’t ever need to change this file manually; Cargo
 manages its contents for you.
 -->
 
-すべてがうまくいけば、`Hello, world!`がターミナルに表示されるはずです。
+すべてがうまくいけば、ターミナルに`Hello, world!`と表示されるはずです。
 `cargo build`を初めて実行したとき、Cargoは最上位に*Cargo.lock*という新しいファイルを作成します。
 このファイルはプロジェクト内の依存関係の正確なバージョンを記録しています。
 このプロジェクトには依存がないので、このファイルの中は少しまばらです。
@@ -488,7 +488,7 @@ Rust, see Chapter 3 and then return to Chapter 2.
 -->
 
 いまは、より中身のあるプログラムを構築し、Rustコードの読み書きに慣れるのに良いタイミングでしょう。
-そこで第2章では、数当てゲームプログラムを構築しましょう。
+そこで第2章では、数当てゲームプログラムを構築します。
 もし、一般的なプログラミングの概念がRustでどう実現されるか学ぶことから始めたいのであれば、第3章を読んで、それから第2章に戻ってください。
 
 <!--
