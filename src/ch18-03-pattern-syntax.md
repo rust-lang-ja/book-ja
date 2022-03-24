@@ -262,11 +262,11 @@ match x {
 ```
 
 <!--
-Rust can tell that `c` is within the first pattern’s range and prints `early
+Rust can tell that `'c'` is within the first pattern’s range and prints `early
 ASCII letter`.
 -->
 
-コンパイラには`c`が最初のパターンの範囲にあることがわかり、`early ASCII letter`と出力されます。
+コンパイラには`'c'`が最初のパターンの範囲にあることがわかり、`early ASCII letter`と出力されます。
 
 <!--
 ### Destructuring to Break Apart Values
