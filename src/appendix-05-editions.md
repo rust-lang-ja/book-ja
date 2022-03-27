@@ -55,7 +55,7 @@ At the time of this writing, three Rust editions are available: Rust 2015, Rust
 2018, and Rust 2021. This book is written using Rust 2021 edition idioms.
 -->
 この文書を書いている時点（訳注：原文のコミットは2021年12月23日）では、3つのRustのエディションが利用できます。
-Rust 2015、Rust 2018、Rest 2021です。
+Rust 2015、Rust 2018、Rust 2021です。
 この本はRust 2021エディションの慣例に従って書かれています。
 
 <!--
