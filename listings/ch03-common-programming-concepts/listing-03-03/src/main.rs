@@ -7,5 +7,6 @@ fn main() {
         number -= 1;
     }
 
+    // 発射！
     println!("LIFTOFF!!!");
 }

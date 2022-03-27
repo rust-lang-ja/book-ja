@@ -41,17 +41,8 @@ type we want to use:
 ここで型注釈を付けなければ、コンパイラは以下のエラーを表示し、これは可能性のある型のうち、
 どの型を使用したいのかを知るのに、コンパイラがプログラマからもっと情報を得る必要があることを意味します:
 
-```text
-error[E0282]: type annotations needed
-              (型注釈が必要です)
- --> src/main.rs:2:9
-  |
-2 |     let guess = "42".parse().expect("Not a number!");
-  |         ^^^^^ cannot infer type for `_`
-  |               (`_`の型が推論できません)
-  |
-  = note: type annotations or generic parameter binding required
-    (注釈: 型注釈、またはジェネリクス引数束縛が必要です)
+```console
+{{#include ../listings/ch03-common-programming-concepts/output-only-01-no-type-annotations/output.txt}}
 ```
 
 <!--
@@ -240,11 +231,7 @@ Here’s an example that shows floating-point numbers in action:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let x = 2.0; // f64
-
-    let y: f32 = 3.0; // f32
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-06-floating-point/src/main.rs}}
 ```
 
 <!--
@@ -276,44 +263,8 @@ Rustにも全数値型に期待されうる標準的な数学演算が用意さ�
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-<!--
 ```rust
-fn main() {
-// addition
-let sum = 5 + 10;
-
-// subtraction
-let difference = 95.5 - 4.3;
-
-// multiplication
-let product = 4 * 30;
-
-// division
-let quotient = 56.7 / 32.2;
-
-// remainder
-let remainder = 43 % 5;
-}
-```
--->
-
-```rust
-fn main() {
-    // 足し算
-    let sum = 5 + 10;
-
-    // 引き算
-    let difference = 95.5 - 4.3;
-
-    // 掛け算
-    let product = 4 * 30;
-
-    // 割り算
-    let quotient = 56.7 / 32.2;
-
-    // 余り
-    let remainder = 43 % 5;
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-07-numeric-operations/src/main.rs}}
 ```
 
 <!--
@@ -347,21 +298,8 @@ Rustの論理値型は、`bool`と指定されます。
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-<!--
 ```rust
-fn main() {
-let t = true;
-let f: bool = false; // with explicit type annotation
-}
-```
--->
-
-```rust
-fn main() {
-    let t = true;
-
-    let f: bool = false; // 明示的型注釈付きで
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-08-boolean/src/main.rs}}
 ```
 
 <!--
@@ -397,11 +335,7 @@ single quotes, as opposed to strings, which use double quotes.)
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let c = 'z';
-    let z = 'ℤ';
-    let heart_eyed_cat = '😻';    //ハート目の猫
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-09-char/src/main.rs}}
 ```
 
 <!--
@@ -465,9 +399,7 @@ type annotations in this example:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let tup: (i32, f64, u8) = (500, 6.4, 1);
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-10-tuples/src/main.rs}}
 ```
 
 <!--
@@ -486,13 +418,7 @@ use pattern matching to destructure a tuple value, like this:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let tup = (500, 6.4, 1);
-
-    let (x, y, z) = tup;
-
-    println!("The value of y is: {}", y);
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-11-destructuring-tuples/src/main.rs}}
 ```
 
 <!--
@@ -524,15 +450,7 @@ want to access. For example:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let x: (i32, f64, u8) = (500, 6.4, 1);
-
-    let five_hundred = x.0;
-
-    let six_point_four = x.1;
-
-    let one = x.2;
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-12-tuple-indexing/src/main.rs}}
 ```
 
 <!--
@@ -575,9 +493,7 @@ Rustでは、配列に入れる要素は、角かっこ内にカンマ区切り�
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let a = [1, 2, 3, 4, 5];
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-13-arrays/src/main.rs}}
 ```
 
 <!--
@@ -612,6 +528,44 @@ let months = ["January", "February", "March", "April", "May", "June", "July",
 ```
 
 <!--
+You write an array’s type using square brackets with the type of each element,
+a semicolon, and then the number of elements in the array, like so:
+-->
+
+例えば次のように、配列の型は角かっこの中に要素の型とセミコロン、そして配列の要素数を与えます。
+
+```rust
+let a: [i32; 5] = [1, 2, 3, 4, 5];
+```
+
+<!--
+Here, `i32` is the type of each element. After the semicolon, the number `5`
+indicates the array contains five elements.
+-->
+
+ここでの`i32`は要素の型です。セミコロンのあとの`5`という数字は配列の要素が5つあることを表しています。
+
+<!--
+You can also initialize an array to contain the same value for each element by
+specifying the initial value, followed by a semicolon, and then the length of
+the array in square brackets, as shown here:
+-->
+
+次のように、角かっこの中に初期値とセミコロン、そして配列の長さを与えることで、各要素に同じ値を持つように配列を初期化することができます。
+
+```rust
+let a = [3; 5];
+```
+
+<!--
+The array named `a` will contain `5` elements that will all be set to the value
+`3` initially. This is the same as writing `let a = [3, 3, 3, 3, 3];` but in a
+more concise way.
+-->
+
+この`a`という名前の配列は`3`という値が5つあるものです。これは`let a = [3, 3, 3, 3, 3];`と書くのと同じですが、より簡潔になります。
+
+<!--
 ##### Accessing Array Elements
 -->
 
@@ -632,12 +586,7 @@ elements of an array using indexing, like this:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let a = [1, 2, 3, 4, 5];
-
-    let first = a[0];
-    let second = a[1];
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-14-array-indexing/src/main.rs}}
 ```
 
 <!--
@@ -670,33 +619,30 @@ compile but exit with an error when it runs:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let a = [1, 2, 3, 4, 5];
-    let index = 10;
-
-    let element = a[index];
-
-    println!("The value of element is: {}", element);   // 要素の値は{}です
-}
+```rust,ignore,panics
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access/src/main.rs}}
 ```
 
 <!--
-Running this code using `cargo run` produces the following result:
+This code compiles successfully. If you run this code using `cargo run` and
+enter 0, 1, 2, 3, or 4, the program will print out the corresponding value at
+that index in the array. If you instead enter a number past the end of the
+array, such as 10, you’ll see output like this:
 -->
 
-このコードを`cargo run`で走らせると、以下のような結果になります:
+このコードはコンパイルされます。`cargo run`で走らせ、0, 1, 2, 3, または4をこのプログラムに入力すると配列の対応する値を出力します。もし配列の末尾を超えるような、例えば10などの数字を与えると、次のような出力が表示されます。
 
-```text
-$ cargo run
-   Compiling arrays v0.1.0 (file:///projects/arrays)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
-     Running `target/debug/arrays`
-thread '<main>' panicked at 'index out of bounds: the len is 5 but the index is
- 10', src/main.rs:6
-スレッド'<main>'は'範囲外アクセス: 長さは5ですが、添え字は10でした', src/main.rs:6
+<!-- manual-regeneration
+cd listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access
+cargo run
+10
+-->
+
+```console
+thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 10', src/main.rs:19:19
+スレッド'main'は'範囲外アクセス: 長さは5ですが、添え字は10でした', src/main.rs:19:19
 でパニックしました
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
 <!--

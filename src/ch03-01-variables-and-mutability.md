@@ -42,13 +42,8 @@ code with the following code that won't compile just yet:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let x = 5;
-    println!("The value of x is: {}", x);     // xの値は{}です
-    x = 6;
-    println!("The value of x is: {}", x);
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/src/main.rs}}
 ```
 
 <!--
@@ -58,17 +53,8 @@ message, as shown in this output:
 
 これを保存し、`cargo run`コマンドでプログラムを走らせてください。次の出力に示されているようなエラーメッセージを受け取るはずです:
 
-```text
-error[E0384]: cannot assgin twice immutable variable `x`
-              (不変変数`x`に2回代入できません)
- --> src/main.rs:4:5
-  |
-2 |     let x = 5;
-  |         - first assignment to `x`
-  |         (`x`への最初の代入)
-3 |     println!("The value of x is: {}", x);
-4 |     x = 6;
-  |     ^^^^^ cannot assign twice to immutable variable
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/output.txt}}
 ```
 
 <!--
@@ -143,12 +129,7 @@ For example, change *src/main.rs* to the following:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let mut x = 5;
-    println!("The value of x is: {}", x);
-    x = 6;
-    println!("The value of x is: {}", x);
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/src/main.rs}}
 ```
 
 <!--
@@ -157,13 +138,8 @@ When we run the program now, we get this:
 
 今、このプログラムを走らせると、以下のような出力が得られます:
 
-```text
-$ cargo run
-   Compiling variables v0.1.0 (file:///projects/variables)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
-     Running `target/debug/variables`
-The value of x is: 5   (xの値は5です)
-The value of x is: 6
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/output.txt}}
 ```
 
 <!--
@@ -305,36 +281,26 @@ repeating the use of the `let` keyword as follows:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let x = 5;
-
-    let x = x + 1;
-
-    let x = x * 2;
-
-    println!("The value of x is: {}", x);
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/src/main.rs}}
 ```
 
 <!--
 This program first binds `x` to a value of `5`. Then it shadows `x` by
 repeating `let x =`, taking the original value and adding `1` so the value of
-`x` is then `6`. The third `let` statement also shadows `x`, multiplying the
-previous value by `2` to give `x` a final value of `12`. Wehn we run this
-program, it will output the following:
+`x` is then `6`. Then, within an inner scope, the third `let` statement also
+shadows `x`, multiplying the previous value by `2` to give `x` a value of `12`.
+When that scope is over, the inner shadowing ends and `x` returns to being `6`.
+When we run this program, it will output the following:
 -->
 
 このプログラムはまず、`x`を`5`という値に束縛します。それから`let x =`を繰り返すことで`x`を覆い隠し、
 元の値に`1`を加えることになるので、`x`の値は`6`になります。
 3番目の`let`文も`x`を覆い隠し、以前の値に`2`をかけることになるので、`x`の最終的な値は`12`になります。
+括弧を抜けるとシャドーイングは終了し、`x`の値は元の`6`に戻ります。
 このプログラムを走らせたら、以下のように出力するでしょう:
 
-```text
-$ cargo run
-   Compiling variables v0.1.0 (file:///projects/variables)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
-     Running `target/debug/variables`
-The value of x is: 12
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/output.txt}}
 ```
 
 <!--
@@ -363,8 +329,7 @@ inputting space characters, but we really want to store that input as a number:
 ただ、実際にはこの入力を数値として保持したいとしましょう:
 
 ```rust
-let spaces = "   ";
-let spaces = spaces.len();
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-04-shadowing-can-change-types/src/main.rs:here}}
 ```
 
 <!--
@@ -382,9 +347,8 @@ try to use `mut` for this, as shown here, we'll get a compile-time error:
 よりシンプルな`spaces`という名前を再利用できるわけです。一方で、この場合に`mut`を使おうとすると、
 以下に示した通りですが、コンパイルエラーになるわけです:
 
-```rust,ignore
-let mut spaces = "   ";
-spaces = spaces.len();
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/src/main.rs:here}}
 ```
 
 <!--
@@ -394,16 +358,8 @@ type:
 
 変数の型を可変にすることは許されていないと言われているわけです:
 
-```text
-error[E0308]: mismatched types          (型が合いません)
- --> src/main.rs:3:14
-  |
-3 |     spaces = spaces.len();
-  |              ^^^^^^^^^^^^ expected &str, found usize
-  |                           (&str型を予期しましたが、usizeが見つかりました)
-  |
-  = note: expected type `&str`
-             found type `usize`
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/output.txt}}
 ```
 
 <!--

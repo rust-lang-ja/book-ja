@@ -3,6 +3,7 @@ fn main() {
     let mut index = 0;
 
     while index < 5 {
+        // 値は{}です
         println!("the value is: {}", a[index]);
 
         index += 1;
