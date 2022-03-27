@@ -30,7 +30,7 @@ state objects to change its rules or perhaps add more state objects. Let’s loo
 at an example of the state design pattern and how to use it in Rust.
 -->
 
-ステートパターンを使用することは、プログラムの業務用件が変わる時、状態を保持する値のコードや、
+ステートパターンを使用することは、プログラムの業務要件が変わる時、状態を保持する値のコードや、
 値を使用するコードを変更する必要はないことを意味します。ステートオブジェクトの1つのコードを更新して、
 規則を変更したり、あるいはおそらくステートオブジェクトを追加する必要しかないのです。
 ステートデザインパターンの例と、そのRustでの使用方法を見ましょう。
