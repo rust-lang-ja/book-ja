@@ -30,18 +30,7 @@ value:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let s1 = String::from("hello");
-
-    let len = calculate_length(&s1);
-
-    // '{}'の長さは、{}です
-    println!("The length of '{}' is {}.", s1, len);
-}
-
-fn calculate_length(s: &String) -> usize {
-    s.len()
-}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:all}}
 ```
 
 <!--
@@ -92,12 +81,7 @@ Let’s take a closer look at the function call here:
 ここの関数呼び出しについて、もっと詳しく見てみましょう:
 
 ```rust
-# fn calculate_length(s: &String) -> usize {
-#     s.len()
-# }
-let s1 = String::from("hello");
-
-let len = calculate_length(&s1);
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:here}}
 ```
 
 <!--
@@ -117,20 +101,8 @@ the parameter `s` is a reference. Let’s add some explanatory annotations:
 同様に、関数のシグニチャでも、`&`を使用して引数`s`の型が参照であることを示しています。
 説明的な注釈を加えてみましょう:
 
-<!--
 ```rust
-fn calculate_length(s: &String) -> usize { // s is a reference to a String
-s.len()
-} // Here, s goes out of scope. But because it does not have ownership of what
-// it refers to, nothing happens.
-```
--->
-
-```rust
-fn calculate_length(s: &String) -> usize { // sはStringへの参照
-    s.len()
-} // ここで、sはスコープ外になる。けど、参照しているものの所有権を持っているわけではないので
-  // 何も起こらない
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-08-reference-with-annotations/src/main.rs:here}}
 ```
 
 <!--
@@ -168,16 +140,8 @@ Listing 4-6. Spoiler alert: it doesn’t work!
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let s = String::from("hello");
-
-    change(&s);
-}
-
-fn change(some_string: &String) {
-    some_string.push_str(", world");
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-06/src/main.rs}}
 ```
 
 <!--
@@ -192,15 +156,8 @@ Here’s the error:
 
 これがエラーです:
 
-```text
-error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable
-(エラー: 不変な借用をした中身`*some_string`を可変で借用できません)
- --> error.rs:8:5
-  |
-7 | fn change(some_string: &String) {
-  |                        ------- use `&mut String` here to make mutable
-8 |     some_string.push_str(", world");
-  |     ^^^^^^^^^^^ cannot borrow as mutable
+```console
+{{#include ../listings/ch04-understanding-ownership/listing-04-06/output.txt}}
 ```
 
 <!--
@@ -229,15 +186,7 @@ We can fix the error in the code from Listing 4-6 with just a small tweak:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let mut s = String::from("hello");
-
-    change(&mut s);
-}
-
-fn change(some_string: &mut String) {
-    some_string.push_str(", world");
-}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-09-fixes-listing-04-06/src/main.rs}}
 ```
 
 <!--
@@ -264,13 +213,8 @@ fail:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-    let mut s = String::from("hello");
-
-    let r1 = &mut s;
-    let r2 = &mut s;
-
-    println!("{}, {}", r1, r2);
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/src/main.rs:here}}
 ```
 
 <!--
@@ -279,29 +223,8 @@ Here’s the error:
 
 これがエラーです:
 
-```text
-$ cargo run
-   Compiling ownership v0.1.0 (file:///projects/ownership)
-error[E0499]: cannot borrow `s` as mutable more than once at a time
-(エラー: 一度に`s`を可変として2回以上借用することはできません)
- --> src/main.rs:5:14
-  |
-4 |     let r1 = &mut s;
-  |              ------ first mutable borrow occurs here
-  |                    (最初の可変な参照はここ)
-5 |     let r2 = &mut s;
-  |              ^^^^^^ second mutable borrow occurs here
-  |                    (二つ目の可変な参照はここ)
-6 | 
-7 |     println!("{}, {}", r1, r2);
-  |                        -- first borrow later used here
-
-error: aborting due to previous error
-
-For more information about this error, try `rustc --explain E0499`.
-error: could not compile `ownership`
-
-To learn more, run the command again with --verbose.
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/output.txt}}
 ```
 
 <!--
@@ -348,34 +271,8 @@ multiple mutable references, just not *simultaneous* ones:
 
 いつものように、波かっこを使って新しいスコープを生成し、*同時並行*なものでなく、複数の可変な参照を作ることができます。
 
-<!--
 ```rust
-let mut s = String::from("hello");
--->
-
-<!--
-{
-let r1 = &mut s;
--->
-
-<!--
-} // r1 goes out of scope here, so we can make a new reference with no problems.
--->
-
-<!--
-let r2 = &mut s;
-```
--->
-
-```rust
-let mut s = String::from("hello");
-
-{
-    let r1 = &mut s;
-
-} // r1はここでスコープを抜けるので、問題なく新しい参照を作ることができる
-
-let r2 = &mut s;
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-11-muts-in-separate-scopes/src/main.rs:here}}
 ```
 
 <!--
@@ -385,24 +282,8 @@ results in an error:
 
 可変と不変な参照を組み合わせることに関しても、似たような規則が存在しています。このコードはエラーになります:
 
-<!--
-```rust,ignore
-let mut s = String::from("hello");
--->
-
-<!--
-let r1 = &s; // no problem
-let r2 = &s; // no problem
-let r3 = &mut s; // BIG PROBLEM
-```
--->
-
-```rust,ignore
-let mut s = String::from("hello");
-
-let r1 = &s; // 問題なし
-let r2 = &s; // 問題なし
-let r3 = &mut s; // 大問題！
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/src/main.rs:here}}
 ```
 
 <!--
@@ -411,19 +292,8 @@ Here’s the error:
 
 これがエラーです:
 
-```text
-error[E0502]: cannot borrow `s` as mutable because it is also borrowed as
-immutable
-(エラー: `s`は不変で借用されているので、可変で借用できません)
- --> borrow_thrice.rs:6:19
-  |
-4 |     let r1 = &s; // no problem
-  |               - immutable borrow occurs here
-5 |     let r2 = &s; // no problem
-6 |     let r3 = &mut s; // BIG PROBLEM
-  |                   ^ mutable borrow occurs here
-7 | }
-  | - immutable borrow ends here
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/output.txt}}
 ```
 
 <!--
@@ -437,6 +307,33 @@ the data.
 ふう！*さらに*不変な参照をしている間は、可変な参照をすることはできません。不変参照の使用者は、
 それ以降に値が突然変わることなんて予想してません！しかしながら、複数の不変参照をすることは可能です。
 データを読み込んでいるだけの人に、他人がデータを読み込むことに対して影響を与える能力はないからです。
+
+<!--
+Note that a reference’s scope starts from where it is introduced and continues
+through the last time that reference is used. For instance, this code will
+compile because the last usage of the immutable references, the `println!`,
+occurs before the mutable reference is introduced:
+-->
+
+参照のスコープは代入されたときに始まり、最後に使用されたときまで続くことに注意してください。例えば次のコードは、`println!`で不変参照が使い終わったあとに可変参照に代入されるため、コンパイルできます。
+
+```rust,edition2021
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-13-reference-scope-ends/src/main.rs:here}}
+```
+
+<!--
+The scopes of the immutable references `r1` and `r2` end after the `println!`
+where they are last used, which is before the mutable reference `r3` is
+created. These scopes don’t overlap, so this code is allowed. The ability of
+the compiler to tell that a reference is no longer being used at a point before
+the end of the scope is called *Non-Lexical Lifetimes* (NLL for short), and you
+can read more about it in [The Edition Guide][nll].
+-->
+
+不変参照`r1`・`r2`のスコープは最後に使われた`println!`のあと、つまり可変参照`r3`が使われる直前で終わります。
+これらのスコープは重複しないのでこのコードは許容されます。
+参照がスコープの終了する前までに使われなくなることをコンパイラが通知する機能は*Non-Lexical Lifetimes* (NLL)と呼ばれ、詳しくは[The Edition Guide][nll]で読むことができます。
+
 
 <!--
 Even though these errors may be frustrating at times, remember that it’s the
@@ -483,16 +380,8 @@ compile-time error:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let reference_to_nothing = dangle();
-}
-
-fn dangle() -> &String {
-    let s = String::from("hello");
-
-    &s
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-14-dangling-reference/src/main.rs}}
 ```
 
 <!--
@@ -501,19 +390,8 @@ Here’s the error:
 
 こちらがエラーです:
 
-```text
-error[E0106]: missing lifetime specifier
-(エラー: ライフタイム指定子がありません)
- --> main.rs:5:16
-  |
-5 | fn dangle() -> &String {
-  |                ^ expected lifetime parameter
-  |
-  = help: this function's return type contains a borrowed value, but there is no
-    value for it to be borrowed from
-    (助言: この関数の戻り値型は、借用した値を含んでいますが、借用される値がどこにもありません)
-  = help: consider giving it a 'static lifetime
-  ('staticライフタイムを与えることを考慮してみてください)
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-14-dangling-reference/output.txt}}
 ```
 
 <!--
@@ -538,36 +416,10 @@ Let’s take a closer look at exactly what’s happening at each stage of our
 
 `dangle`コードの各段階で一体何が起きているのかを詳しく見ていきましょう:
 
-<!--
-```rust,ignore
-fn dangle() -> &String { // dangle returns a reference to a String
--->
-
-<!--
-let s = String::from("hello"); // s is a new String
--->
-
-<!--
-&s // we return a reference to the String, s
-} // Here, s goes out of scope, and is dropped. Its memory goes away.
-// Danger!
-```
--->
-
-<!--
-<span class="filename">Filename: src/main.rs</span>
--->
-
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn dangle() -> &String { // dangleはStringへの参照を返す
-
-    let s = String::from("hello"); // sは新しいString
-
-    &s // String sへの参照を返す
-} // ここで、sはスコープを抜け、ドロップされる。そのメモリは消される。
-  // 危険だ
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-15-dangling-reference-annotated/src/main.rs:here}}
 ```
 
 <!--
@@ -588,11 +440,7 @@ The solution here is to return the `String` directly:
 ここでの解決策は、`String`を直接返すことです:
 
 ```rust
-fn no_dangle() -> String {
-    let s = String::from("hello");
-
-    s
-}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-16-no-dangle/src/main.rs:here}}
 ```
 
 <!--
@@ -628,3 +476,5 @@ Next, we’ll look at a different kind of reference: slices.
 -->
 
 次は、違う種類の参照を見ていきましょう: スライスです。
+
+[nll]: https://doc.rust-lang.org/edition-guide/rust-2018/ownership-and-lifetimes/non-lexical-lifetimes.html

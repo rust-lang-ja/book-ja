@@ -6,6 +6,7 @@ fn main() {
     let len = calculate_length(&s1);
     // ANCHOR_END: here
 
+    // '{}'の長さは、{}です
     println!("The length of '{}' is {}.", s1, len);
 }
 

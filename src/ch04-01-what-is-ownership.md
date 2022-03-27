@@ -254,24 +254,8 @@ comments annotating where the variable `s` is valid.
 この変数は、宣言された地点から、現在の*スコープ*の終わりまで有効になります。リスト4-1には、
 変数`s`が有効な場所に関する注釈がコメントで付記されています。
 
-<!--
 ```rust
-{                      // s is not valid here, it’s not yet declared
-let s = "hello";   // s is valid from this point forward
--->
-
-<!--
-// do stuff with s
-}                      // this scope is now over, and s is no longer valid
-```
--->
-
-```rust
-{                      // sは、ここでは有効ではない。まだ宣言されていない
-    let s = "hello";   // sは、ここから有効になる
-
-    // sで作業をする
-}                      // このスコープは終わり。もうsは有効ではない
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-01/src/main.rs:here}}
 ```
 
 <!-- <span class="caption">Listing 4-1: A variable and the scope in which it is
@@ -374,26 +358,8 @@ This kind of string *can* be mutated:
 
 この種の文字列は、可変化することが*できます*:
 
-<!--
 ```rust
-let mut s = String::from("hello");
--->
-
-<!--
-s.push_str(", world!"); // push_str() appends a literal to a String
--->
-
-<!--
-println!("{}", s); // This will print `hello, world!`
-```
--->
-
-```rust
-let mut s = String::from("hello");
-
-s.push_str(", world!"); // push_str()関数は、リテラルをStringに付け加える
-
-println!("{}", s); // これは`hello, world!`と出力する
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-01-can-mutate-string/src/main.rs:here}}
 ```
 
 <!--
@@ -484,26 +450,8 @@ Rustは、異なる道を歩んでいます: ひとたび、メモリを所有�
 メモリは自動的に返還されます。こちらの例は、
 リスト4-1のスコープ例を文字列リテラルから`String`型を使うものに変更したバージョンになります:
 
-<!--
 ```rust
-{
-let s = String::from("hello"); // s is valid from this point forward
--->
-
-<!--
-// do stuff with s
-}                                 // this scope is now over, and s is no
-// longer valid
-```
--->
-
-```rust
-{
-    let s = String::from("hello"); // sはここから有効になる
-
-    // sで作業をする
-}                                  // このスコープはここでおしまい。sは
-                                   // もう有効ではない
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-02-string-scope/src/main.rs:here}}
 ```
 
 <!--
@@ -555,8 +503,7 @@ Rustにおいては、複数の変数が同じデータに対して異なる手�
 整数を使用したリスト4-2の例を見てみましょう。
 
 ```rust
-let x = 5;
-let y = x;
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-02/src/main.rs:here}}
 ```
 
 <!-- <span class="caption">Listing 4-2: Assigning the integer value of variable `x`
@@ -584,8 +531,7 @@ Now let’s look at the `String` version:
 では、`String`バージョンを見ていきましょう:
 
 ```rust
-let s1 = String::from("hello");
-let s2 = s1;
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-03-string-move/src/main.rs:here}}
 ```
 
 <!--
@@ -712,11 +658,8 @@ use `s1` after `s2` is created, it won't work:
 故に`s1`がスコープを抜けた際に何も解放する必要がなくなるわけです。`s2`の生成後に`s1`を使用しようとしたら、
 どうなるかを確認してみましょう。動かないでしょう:
 
-```rust,ignore
-let s1 = String::from("hello");
-let s2 = s1;
-
-println!("{}, world!", s1);
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/src/main.rs:here}}
 ```
 
 <!--
@@ -726,22 +669,8 @@ invalidated reference:
 
 コンパイラが無効化された参照は使用させてくれないので、以下のようなエラーが出るでしょう:
 
-```text
-error[E0382]: use of moved value: `s1`
-              (ムーブされた値の使用: `s1`)
- --> src/main.rs:5:28
-  |
-3 |     let s2 = s1;
-  |         -- value moved here
-4 |
-5 |     println!("{}, world!", s1);
-  |                            ^^ value used here after move
-  |                               (ムーブ後にここで使用されています)
-  |
-  = note: move occurs because `s1` has type `std::string::String`, which does
-  not implement the `Copy` trait
-    (注釈: ムーブが起きたのは、`s1`が`std::string::String`という
-    `Copy`トレイトを実装していない型だからです)
+```console
+{{#include ../listings/ch04-understanding-ownership/no-listing-04-cant-use-after-move/output.txt}}
 ```
 
 <!--
@@ -812,10 +741,7 @@ Here’s an example of the `clone` method in action:
 これは、`clone`メソッドの動作例です:
 
 ```rust
-let s1 = String::from("hello");
-let s2 = s1.clone();
-
-println!("s1 = {}, s2 = {}", s1, s2);
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-05-clone/src/main.rs:here}}
 ```
 
 <!--
@@ -850,10 +776,7 @@ part of which was shown in Listing 4-2, works and is valid:
 この整数を使用したコードは、一部をリスト4-2で示しましたが、うまく動作する有効なものです:
 
 ```rust
-let x = 5;
-let y = x;
-
-println!("x = {}, y = {}", x, y);
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-06-copy/src/main.rs:here}}
 ```
 
 <!--
@@ -948,70 +871,8 @@ showing where variables go into and out of scope.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-<!--
 ```rust
-fn main() {
-let s = String::from("hello");  // s comes into scope
--->
-
-<!--
-takes_ownership(s);             // s's value moves into the function...
-// ... and so is no longer valid here
--->
-
-<!--
-let x = 5;                      // x comes into scope
--->
-
-<!--
-makes_copy(x);                  // x would move into the function,
-// but i32 is Copy, so it’s okay to still
-// use x afterward
--->
-
-<!--
-} // Here, x goes out of scope, then s. But since s's value was moved, nothing
-// special happens.
--->
-
-<!--
-fn takes_ownership(some_string: String) { // some_string comes into scope.
-println!("{}", some_string);
-} // Here, some_string goes out of scope and `drop` is called. The backing
-// memory is freed.
--->
-
-<!--
-fn makes_copy(some_integer: i32) { // some_integer comes into scope
-println!("{}", some_integer);
-} // Here, some_integer goes out of scope. Nothing special happens.
-```
--->
-
-```rust
-fn main() {
-    let s = String::from("hello");  // sがスコープに入る
-
-    takes_ownership(s);             // sの値が関数にムーブされ...
-                                    // ... ここではもう有効ではない
-
-    let x = 5;                      // xがスコープに入る
-
-    makes_copy(x);                  // xも関数にムーブされるが、
-                                    // i32はCopyなので、この後にxを使っても
-                                    // 大丈夫
-
-} // ここでxがスコープを抜け、sもスコープを抜ける。ただし、sの値はムーブされているので、何も特別なことは起こらない。
-  //
-
-fn takes_ownership(some_string: String) { // some_stringがスコープに入る。
-    println!("{}", some_string);
-} // ここでsome_stringがスコープを抜け、`drop`が呼ばれる。後ろ盾してたメモリが解放される。
-  // 
-
-fn makes_copy(some_integer: i32) { // some_integerがスコープに入る
-    println!("{}", some_integer);
-} // ここでsome_integerがスコープを抜ける。何も特別なことはない。
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-03/src/main.rs}}
 ```
 
 <!-- <span class="caption">Listing 4-3: Functions with ownership and scope
@@ -1049,80 +910,8 @@ similar annotations to those in Listing 4-3.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-<!--
 ```rust
-fn main() {
-let s1 = gives_ownership();         // gives_ownership moves its return
-// value into s1
--->
-
-<!--
-let s2 = String::from("hello");     // s2 comes into scope
--->
-
-<!--
-let s3 = takes_and_gives_back(s2);  // s2 is moved into
-// takes_and_gives_back, which also
-// moves its return value into s3
-} // Here, s3 goes out of scope and is dropped. s2 goes out of scope but was
-// moved, so nothing happens. s1 goes out of scope and is dropped.
--->
-
-<!--
-fn gives_ownership() -> String {             // gives_ownership will move its
-// return value into the function
-// that calls it
--->
-
-<!--
-let some_string = String::from("hello"); // some_string comes into scope
--->
-
-<!--
-some_string                              // some_string is returned and
-// moves out to the calling
-// function
-}
--->
-
-<!--
-// takes_and_gives_back will take a String and return one.
-fn takes_and_gives_back(a_string: String) -> String { // a_string comes into
-// scope
--->
-
-<!--
-a_string  // a_string is returned and moves out to the calling function
-}
-```
--->
-
-```rust
-fn main() {
-    let s1 = gives_ownership();         // gives_ownershipは、戻り値をs1に
-                                        // ムーブする
-
-    let s2 = String::from("hello");     // s2がスコープに入る
-
-    let s3 = takes_and_gives_back(s2);  // s2はtakes_and_gives_backにムーブされ
-                                        // 戻り値もs3にムーブされる
-} // ここで、s3はスコープを抜け、ドロップされる。s2もスコープを抜けるが、ムーブされているので、
-  // 何も起きない。s1もスコープを抜け、ドロップされる。
-
-fn gives_ownership() -> String {             // gives_ownershipは、戻り値を
-                                             // 呼び出した関数にムーブする
-
-    let some_string = String::from("hello"); // some_stringがスコープに入る
-
-    some_string                              // some_stringが返され、呼び出し元関数に
-                                             // ムーブされる
-}
-
-// takes_and_gives_backは、Stringを一つ受け取り、返す。
-fn takes_and_gives_back(a_string: String) -> String { // a_stringがスコープに入る。
-
-    a_string  // a_stringが返され、呼び出し元関数にムーブされる
-}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-04/src/main.rs}}
 ```
 
 <!--
@@ -1168,47 +957,8 @@ It’s possible to return multiple values using a tuple, as shown in Listing 4-5
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-<!--
 ```rust
-fn main() {
-let s1 = String::from("hello");
--->
-
-<!--
-let (s2, len) = calculate_length(s1);
--->
-
-<!--
-println!("The length of '{}' is {}.", s2, len);
-}
--->
-
-<!--
-fn calculate_length(s: String) -> (String, usize) {
-let length = s.len(); // len() returns the length of a String
--->
-
-<!--
-(s, length)
-}
-```
--->
-
-```rust
-fn main() {
-    let s1 = String::from("hello");
-
-    let (s2, len) = calculate_length(s1);
-
-    //'{}'の長さは、{}です
-    println!("The length of '{}' is {}.", s2, len);
-}
-
-fn calculate_length(s: String) -> (String, usize) {
-    let length = s.len(); // len()メソッドは、Stringの長さを返します
-
-    (s, length)
-}
+{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-05/src/main.rs}}
 ```
 
 <!--
