@@ -108,4 +108,4 @@ Let’s move on and talk about the module system!
 では、モジュールシステムの話に移りましょう！
 
 [modules]: ch07-02-defining-modules-to-control-scope-and-privacy.html
-[rand]: ch02-00-guessing-game-tutorial.html#generating-a-random-number
+[rand]: ch02-00-guessing-game-tutorial.html#乱数を生成する

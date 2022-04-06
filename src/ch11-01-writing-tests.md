@@ -1007,7 +1007,7 @@ test`.
 [concatenation-with-the--operator-or-the-format-macro]:
 ch08-02-strings.html#%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%BE%E3%81%9F%E3%81%AFformat%E3%83%9E%E3%82%AF%E3%83%AD%E3%81%A7%E9%80%A3%E7%B5%90
 [controlling-how-tests-are-run]:
-ch11-02-running-tests.html#controlling-how-tests-are-run
+ch11-02-running-tests.html#テストの実行のされ方を制御する
 [derivable-traits]: appendix-03-derivable-traits.html
-[doc-comments]: ch14-02-publishing-to-crates-io.html#documentation-comments-as-tests
+[doc-comments]: ch14-02-publishing-to-crates-io.html#テストとしてのドキュメンテーションコメント
 [paths-for-referring-to-an-item-in-the-module-tree]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html

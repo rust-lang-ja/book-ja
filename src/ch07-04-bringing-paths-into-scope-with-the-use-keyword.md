@@ -499,5 +499,5 @@ for more information on that pattern.
 glob演算子はしばしば、テストの際、テストされるあらゆるものを`tests`モジュールに持ち込むために使われます。これについては11章[テストの書き方][writing-tests]の節で話します。
 glob演算子はプレリュードパターンの一部としても使われることがあります：そのようなパターンについて、より詳しくは[標準ライブラリのドキュメント](https://doc.rust-lang.org/std/prelude/index.html#other-preludes)をご覧ください。
 
-[rand]: ch02-00-guessing-game-tutorial.html#generating-a-random-number
-[writing-tests]: ch11-01-writing-tests.html#how-to-write-tests
+[rand]: ch02-00-guessing-game-tutorial.html#乱数を生成する
+[writing-tests]: ch11-01-writing-tests.html#テストの記述法
