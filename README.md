@@ -71,7 +71,7 @@ $ mdbook test
 We'd love your help! Please see [CONTRIBUTING.md][contrib] to learn about the
 kinds of contributions we're looking for.
 
-[contrib]: https://github.com/rust-lang/book/blob/master/CONTRIBUTING.md
+[contrib]: https://github.com/rust-lang/book/blob/main/CONTRIBUTING.md
 
 ### Translations
 
