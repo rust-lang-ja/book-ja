@@ -219,18 +219,16 @@ between.
 スペースを1つあけて、開き波括弧を関数宣言と同じ行に配置するのがいいスタイルです。
 
 <!--
-At the time of this writing, an automatic formatter tool called `rustfmt` is
-under development. If you want to stick to a standard style across Rust
-projects, `rustfmt` will format your code in a particular style. The Rust team
-plans to eventually include this tool with the standard Rust distribution, like
-`rustc`. So depending on when you read this book, it might already be installed
-on your computer! Check the online documentation for more details.
+If you want to stick to a standard style across Rust projects, you can use an
+automatic formatter tool called `rustfmt` to format your code in a particular
+style. The Rust team has included this tool with the standard Rust distribution,
+like `rustc`, so it should already be installed on your computer! Check the
+online documentation for more details.
 -->
 
-これを執筆している時点では、`rustfmt`と呼ばれる自動整形ツールは開発中です。複数のRustプロジェクトに渡って、
-標準的なスタイルに固執したいなら、`rustfmt`は特定のスタイルにコードを整形してくれます。Rustチームは、
-最終的に`rustc`のように標準的なRustの配布にこのツールを含むことを計画しています。従って、この本を読んだ時期によっては、
-既にコンピュータにインストールされている可能性もあります！詳細は、オンラインのドキュメンテーションを確認してください。
+複数のRustプロジェクトに渡って標準的なスタイルにこだわりたいなら、`rustfmt`を使うことでコードを決まったスタイルに整形できるでしょう。
+Rustチームは、`rustc`のように標準的なRustの配布にこのツールを含んでいるため、既にコンピューターにインストールされているはずです！
+詳細は、オンラインのドキュメンテーションを確認してください。
 
 <!--
 Inside the `main` function is the following code:
