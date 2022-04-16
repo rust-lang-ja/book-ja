@@ -16,8 +16,7 @@ fundamentals.
 実践的なプロジェクトに一緒に取り組むことで、Rustの世界に飛び込んでみましょう！
 この章ではRustの一般的な概念を、実際のプログラムでの使い方を示しながら紹介します。
 `let`、`match`、メソッド、関連関数、外部クレートの使用などについて学びます！
-後続の章では、これらの概念をより詳しく掘り下げていきます。
-この章では基本的なことを練習します。
+それらの詳細については後続の章で取り上げますので、この章では基礎部分だけを練習しましょう。
 
 <!--
 We’ll implement a classic beginner programming problem: a guessing game. Here’s
@@ -113,10 +112,10 @@ the next one.
 -->
 
 このゲーム（の開発）では各イテレーションを素早くテストしてから、次のイテレーションに移ります。
-`run`コマンドは、今回のようにイテレーションを素早く回したいときに便利です。
+`run`コマンドは、今回のようにプロジェクトのイテレーションを素早く回したいときに便利です。
 
 > 訳注：ここでのイテレーションは、アジャイル開発など、一連の工程を短期間で繰り返す開発手法で用いられている用語です。
-> イテレーションは、短い開発工程の「一回のサイクル」のことです。
+> イテレーションとは、開発工程の「一回のサイクル」のことです。
 >
 > この章では「実装」→「テスト」のサイクルを繰り返すことで、プログラムに少しずつ機能を追加していきます。
 
@@ -273,10 +272,10 @@ detail in the [“Variables and Mutability”][variables-and-mutability] section
 variable name:
 -->
 
-この行では、`foo`という名前の新しい変数を作成し、`bar`の値に束縛しています。
-Rustでは、変数は標準で不変(immutable)です。この概念について詳しくは、
-第3章の「変数と可変性」節で議論します。以下の例には、
-変数名の前に`mut`をつけて変数を可変にする方法が示されています:
+この行では`apples`という名前の新しい変数を作成し、`5`という値に束縛しています。
+Rustでは、変数は標準で不変（immutable）です。
+この概念について詳しくは、第3章の[「変数と可変性」][variables-and-mutability]の節で議論します。
+以下の例には、変数名の前に`mut`をつけて変数を可変にする方法が示されています:
 
 ```rust,ignore
 let apples = 5; // immutable
@@ -868,13 +867,11 @@ has released the two new versions `0.8.4` and `0.9.0` you would see the
 following if you ran `cargo update`:
 -->
 
-クレートを*本当に*アップグレードする必要が出てきたら、Cargoは別のコマンド(`update`)を提供します。
-これは、*Cargo.lock*ファイルを無視して、*Cargo.toml*ファイル内の全ての指定に合致する最新バージョンを計算します。
-それがうまくいったら、Cargoはそれらのバージョンを*Cargo.lock*ファイルに記述します。
-しかし標準でCargoは、`0.3.0`より大きく、`0.4.0`未満のバージョンのみを検索します。
-`rand`クレートの新バージョンが2つリリースされていたら(`0.3.15`と`0.4.0`だとします)、
-`cargo update`コマンドを走らせた時に以下のようなメッセージを目の当たりにするでしょう:
-
+クレートを*本当に*アップグレードしたくなったときのために、Cargoは`update`コマンドを提供します。
+このコマンドは、*Cargo.lock*ファイルを無視して、*Cargo.toml*ファイル内の全ての指定に適合する最新バージョンを算出します。
+それがうまくいったら、Cargoはそれらのバージョンを*Cargo.lock*ファイルに記録します。
+ただし、デフォルトでCargoは、`0.8.3`以上、`0.9.0`未満のバージョンのみを検索します。
+もし`rand`クレートの新しいバージョンとして`0.8.4`と`0.9.0`の二つがリリースされていたなら、`cargo update`を実行したときに以下のようなメッセージが表示されるでしょう。
 
 ```console
 $ cargo update
@@ -892,10 +889,9 @@ the `0.9.x` series, you’d have to update the *Cargo.toml* file to look like
 this instead:
 -->
 
-この時点で、*Cargo.lock*ファイルに書かれている現在使用している`rand`クレートのバージョンが、
-`0.3.15`になっていることにも気付くでしょう。
-`rand`のバージョン`0.4.0`または、`0.4.x`シリーズのどれかを使用したかったら、
-代わりに*Cargo.toml*ファイルを以下のように更新しなければならないでしょう:
+Cargoは`0.9.0`リリースを無視します。
+またそのとき、*Cargo.lock*ファイルに、現在使用している`rand`クレートのバージョンが`0.8.4`であることを示す変更があることにも気づくでしょう。
+そうではなく、`rand`のバージョン`0.9.0`または、`0.9.x`系のどれかを使用するには、*Cargo.toml*ファイルを以下のように変更する必要があるでしょう。
 
 ```toml
 [dependencies]
@@ -909,8 +905,7 @@ available and reevaluate your `rand` requirements according to the new version
 you have specified.
 -->
 
-次回、`cargo build`コマンドを走らせたら、Cargoは利用可能なクレートのレジストリを更新し、
-`rand`クレートの必要条件を指定した新しいバージョンに従って再評価します。
+次に`cargo build`コマンドを実行したとき、Cargoは利用可能なクレートのレジストリを更新し、あなたが指定した新しいバージョンに従って`rand`の要件を再評価します。
 
 <!--
 There’s a lot more to say about [Cargo][doccargo] and [its
@@ -1658,16 +1653,16 @@ discusses structs and method syntax, and Chapter 6 explains how enums work.
 [parse]: ../std/primitive.str.html#method.parse
 -->
 
-[prelude]: ../std/prelude/index.html
-[variables-and-mutability]: ch03-01-variables-and-mutability.html#variables-and-mutability
+[prelude]: https://doc.rust-lang.org/stable/std/prelude/index.html
+[variables-and-mutability]: ch03-01-variables-and-mutability.html#変数と可変性
 [comments]: ch03-04-comments.html
-[string]: ../std/string/struct.String.html
-[iostdin]: ../std/io/struct.Stdin.html
-[read_line]: ../std/io/struct.Stdin.html#method.read_line
-[ioresult]: ../std/io/type.Result.html
-[result]: ../std/result/enum.Result.html
+[string]: https://doc.rust-lang.org/stable/std/string/struct.String.html
+[iostdin]: https://doc.rust-lang.org/stable/std/io/struct.Stdin.html
+[read_line]: https://doc.rust-lang.org/stable/std/io/struct.Stdin.html#method.read_line
+[ioresult]: https://doc.rust-lang.org/stable/std/io/type.Result.html
+[result]: https://doc.rust-lang.org/stable/std/result/enum.Result.html
 [enums]: ch06-00-enums.html
-[expect]: ../std/result/enum.Result.html#method.expect
+[expect]: https://doc.rust-lang.org/stable/std/result/enum.Result.html#method.expect
 [recover]: ch09-02-recoverable-errors-with-result.html
 [randcrate]: https://crates.io/crates/rand
 [semver]: http://semver.org
@@ -1675,4 +1670,4 @@ discusses structs and method syntax, and Chapter 6 explains how enums work.
 [doccargo]: http://doc.crates.io
 [doccratesio]: http://doc.crates.io/crates-io.html
 [match]: ch06-02-match.html
-[parse]: ../std/primitive.str.html#method.parse
+[parse]: https://doc.rust-lang.org/stable/std/primitive.str.html#method.parse
