@@ -16,7 +16,7 @@ fundamentals.
 実践的なプロジェクトに一緒に取り組むことで、Rustの世界に飛び込んでみましょう！
 この章ではRustの一般的な概念を、実際のプログラムでの使い方を示しながら紹介します。
 `let`、`match`、メソッド、関連関数、外部クレートの使用などについて学びます！
-それらの詳細については後続の章で取り上げますので、この章では基礎部分だけを練習しましょう。
+それらの詳細については後続の章で取り上げますので、この章では基礎部分だけを練習します。
 
 <!--
 We’ll implement a classic beginner programming problem: a guessing game. Here’s
@@ -44,7 +44,8 @@ To set up a new project, go to the *projects* directory that you created in
 Chapter 1 and make a new project using Cargo, like so:
 -->
 
-新しいプロジェクトを立ち上げるには、第1章で作成した*projects*ディレクトリに移動し、以下のようにCargoを使って新規プロジェクトを作成します。
+新しいプロジェクトを立ち上げましょう。
+第1章で作成した*projects*ディレクトリに移動し、以下のようにCargoを使って新規プロジェクトを作成します。
 
 ```console
 $ cargo new guessing_game
@@ -64,7 +65,7 @@ directory.
 Look at the generated *Cargo.toml* file:
 -->
 
-生成された*Cargo.toml*ファイルを見てください。
+生成された*Cargo.toml*ファイルを見てみましょう。
 
 <!--
 <span class="filename">Filename: Cargo.toml</span>
@@ -114,7 +115,7 @@ the next one.
 このゲーム（の開発）では各イテレーションを素早くテストしてから、次のイテレーションに移ります。
 `run`コマンドは、今回のようにプロジェクトのイテレーションを素早く回したいときに便利です。
 
-> 訳注：ここでのイテレーションは、アジャイル開発など、一連の工程を短期間で繰り返す開発手法で用いられている用語です。
+> 訳注：ここでのイテレーションは、アジャイル開発など、一連の工程を短期間で繰り返す開発手法で用いられている用語にあたります。
 > イテレーションとは、開発工程の「一回のサイクル」のことです。
 >
 > この章では「実装」→「テスト」のサイクルを繰り返すことで、プログラムに少しずつ機能を追加していきます。
@@ -125,8 +126,6 @@ Reopen the *src/main.rs* file. You’ll be writing all the code in this file.
 
 *src/main.rs*ファイルを開き直しましょう。
 このファイルにすべてのコードを書いていきます。
-
-<!-- 2022-03-14 和訳の更新はここまで終了 -->
 
 <!--
 ## Processing a Guess
@@ -141,7 +140,7 @@ allow the player to input a guess. Enter the code in Listing 2-1 into
 *src/main.rs*.
 -->
 
-数当てプログラムの最初の部分は、ユーザに入力を求め、その入力を処理し、予期した形式になっていることを確認します。
+数当てゲームプログラムの最初の部分は、ユーザに入力を求め、その入力を処理し、予期した形式になっていることを確認することになります。
 手始めに、プレーヤーが予想を入力できるようにしましょう。
 リスト2-1のコードを*src/main.rs*に入力してください。
 
@@ -160,11 +159,7 @@ allow the player to input a guess. Enter the code in Listing 2-1 into
 prints it</span>
 -->
 
-<span class="caption">リスト2-1: ユーザに予想を入力してもらい、それを出力するコード</span>
-
-> 注釈: The programming language Rust第1版の翻訳者によると、
-> ソースコードのコメント中以外に日本語文字があるとコンパイルに失敗することがあるそうなので、文字列の英語は、コメントに和訳を載せます。
-> また、重複する内容の場合には、最初の1回だけ掲載するようにします。
+<span class="caption">リスト2-1：ユーザに予想を入力してもらい、それを出力するコード</span>
 
 <!--
 This code contains a lot of information, so let’s go over it line by line. To
@@ -173,9 +168,10 @@ obtain user input and then print the result as output, we need to bring the
 standard library, known as `std`:
 -->
 
-このコードには、たくさんの情報が詰め込まれていますね。なので、行ごとに見ていきましょう。
-ユーザ入力を受け付け、結果を出力するためには、`io`(入/出力)ライブラリをスコープに導入する必要があります。
-`io`ライブラリは、標準ライブラリ(`std`として知られています)に存在します:
+このコードには多くの情報が詰め込まれていますね。
+行ごとに見ていきましょう。
+ユーザ入力を受け付け、結果を出力するためには、`io`（入/出力）ライブラリをスコープに入れる必要があります。
+`io`ライブラリは、標準ライブラリ（`std`として知られています）に含まれています。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:io}}
@@ -187,9 +183,8 @@ into the scope of every program. This set is called the *prelude*, and you can
 see everything in it [in the standard library documentation][prelude].
 -->
 
-デフォルトでは、[*prelude*][prelude]<!-- ignored -->に存在するいくつかの型のみ使えます。
-もし、使用したい型がpreludeにない場合は、`use`文で明示的にその型をスコープに導入する必要があります。
-`std::io`ライブラリを使用することで、ユーザ入力を受け付ける能力などの実用的な機能の多くを使用することができます。
+Rustはデフォルトで、標準ライブラリに定義されているいくつかのアイテムを、すべてのプログラムのスコープに取り込みます。
+このセットは*prelude*（プレリュード）を呼ばれ、[標準ライブラリのドキュメント][prelude]でその中のすべてを見ることができます。
 
 <!--
 If a type you want to use isn’t in the prelude, you have to bring that type
@@ -198,6 +193,9 @@ provides you with a number of useful features, including the ability to accept
 user input.
 -->
 
+使いたい型がpreludeにない場合は、その型を`use`文で明示的にスコープに入れる必要があります。
+`std::io`ライブラリを`use`すると、ユーザ入力を受け付ける機能など、多くの便利な機能が利用できるようになります。
+
 [prelude]: https://doc.rust-lang.org/std/prelude/index.html
 
 <!--
@@ -205,7 +203,7 @@ As you saw in Chapter 1, the `main` function is the entry point into the
 program:
 -->
 
-第1章で見た通り、`main`関数がプログラムへのエントリーポイント(`脚注`: スタート地点)になります:
+第1章で見たとおり、`main`関数がプログラムへのエントリーポイント（訳注：スタート地点）になります。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:main}}
@@ -216,14 +214,15 @@ The `fn` syntax declares a new function, the parentheses, `()`, indicate there
 are no parameters, and the curly bracket, `{`, starts the body of the function.
 -->
 
-`fn`構文が関数を新しく宣言し、かっこの`()`は引数がないことを示し、波括弧の`{`が関数本体のスタート地点になります。
+`fn`構文は関数を新しく宣言し、かっこの`()`は引数がないことを示し、波括弧の`{`は関数の本体を開始します。
 
 <!--
 As you also learned in Chapter 1, `println!` is a macro that prints a string to
 the screen:
 -->
 
-また、第1章で学んだように、`println!`は、文字列を画面に表示するマクロになります:
+また、第1章で学んだように、`println!`は画面に文字列を表示するマクロです.
+
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:print}}
@@ -234,7 +233,7 @@ This code is printing a prompt stating what the game is and requesting input
 from the user.
 -->
 
-このコードは、このゲームが何かを出力し、ユーザに入力を求めています。
+このコードは、ゲームの内容などを示すプロンプトを表示し、ユーザに入力を求めています。
 
 <!--
 ### Storing Values with Variables
@@ -246,7 +245,8 @@ from the user.
 Next, we’ll create a *variable* to store the user input, like this:
 -->
 
-次に、ユーザ入力を保持する場所を作りましょう。こんな感じに:
+次に、ユーザの入力を格納するための*変数*を作りましょう。
+こんな感じです。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:string}}
@@ -257,9 +257,10 @@ Now the program is getting interesting! There’s a lot going on in this little
 line. We use the `let` statement to create the variable. Here’s another example:
 -->
 
-さあ、プログラムが面白くなってきましたね。このたった1行でいろんなことが起きています。
-これが`let`文であることに注目してください。これを使用して*変数*を生成しています。
-こちらは、別の例です:
+さあ、プログラムが面白くなってきましたね。
+この小さな行の中でいろいろなことが起きています。
+`let`文を使って変数を作っています。
+別の例も見てみましょう。
 
 ```rust,ignore
 let apples = 5;
@@ -273,13 +274,15 @@ variable name:
 -->
 
 この行では`apples`という名前の新しい変数を作成し、`5`という値に束縛しています。
-Rustでは、変数は標準で不変（immutable）です。
-この概念について詳しくは、第3章の[「変数と可変性」][variables-and-mutability]の節で議論します。
-以下の例には、変数名の前に`mut`をつけて変数を可変にする方法が示されています:
+Rustでは、変数はデフォルトで不変（immutable）になります。
+この概念については第3章の[「変数と可変性」][variables-and-mutability]の節で詳しく説明します。
+変数を可変（mutable）にするには、変数名の前に`mut`をつけます。
 
 ```rust,ignore
 let apples = 5; // immutable
+                // 不変
 let mut bananas = 5; // mutable
+                     // 可変
 ```
 
 <!--
@@ -288,8 +291,8 @@ let mut bananas = 5; // mutable
 > detail in [Chapter 3][comments].
 -->
 
-> 注釈: `//`という記法は、行末まで続くコメントを記述します。
-> コンパイラは、コメントを一切無視し、これについても第3章で詳しく議論します。
+> 注：`//`構文は行末まで続くコメントを開始し、Rustはコメント内のすべて無視します。
+> コメントについては[第3章][comments]で詳しく説明します。
 
 <!--
 Returning to the guessing game program, you now know that `let mut guess` will
@@ -301,11 +304,12 @@ the value that `guess` is bound to, which is the result of calling
 library that is a growable, UTF-8 encoded bit of text.
 -->
 
-数当てゲームのプログラムに戻りましょう。さあ、`let mut guess`が`guess`という名前の可変変数を導入するとわかりましたね。
-イコール記号(`=`)の反対側には、変数`guess`が束縛される値があります。この値は、
-`String::new`関数の呼び出し結果であり、この関数は、`String`型のオブジェクトを返します。
-[`String`][string]<!-- ignore -->型は、標準ライブラリによって提供される文字列型で、
-サイズ可変、UTF-8エンコードされたテキスト破片になります。
+数当てゲームのプログラムに戻りましょう。
+ここまでの話で`let mut guess`が`guess`という名前の可変変数を導入することがわかったと思います。
+等号記号（`=`）はRustに、いまこの変数を何かに束縛したいことを伝えます。
+等号記号の右側には`guess`が束縛される値があります。
+これは`String::new`関数を呼び出すことで得られた値で、この関数は`String`型の新しいインスタンスを返します。
+[`String`][string]は標準ライブラリによって提供される文字列型で、サイズが拡張可能な、UTF-8でエンコードされたテキスト片になります。
 
 [string]: https://doc.rust-lang.org/std/string/struct.String.html
 
@@ -317,20 +321,27 @@ new, empty string. You’ll find a `new` function on many types, because it’s 
 common name for a function that makes a new value of some kind.
 -->
 
-`::new`行にある`::`という記法は、`new`が`String`型の*関連関数*であることを表しています。
-関連関数とは、`String`型の特定のオブジェクトよりも型(この場合は`String`)に対して
-実装された関数のことであり、*静的(スタティック)メソッド*と呼ばれる言語もあります。
-この`new`関数は、新しく空の文字列を生成します。`new`関数は、いろんな型に見られます。
-なぜなら、何らかの新規値を生成する関数にとってありふれた名前だからです。
+`::new`の行にある`::`構文は`new`が`String`型の関連関数であることを示しています。
+*関連関数*とは、ある型（ここでは`String`）に対して実装される関数のことです。
+この`new`関数は新しい空の文字列を作成します。
+`new`関数は多くの型に見られます。
+なぜなら、何らかの新しい値を作成する関数によくある名前だからです。
 
 <!--
 In full, the `let mut guess = String::new();` line has created a mutable
 variable that is currently bound to a new, empty instance of a `String`. Whew!
 -->
 
+つまり`let mut guess = String::new();`という行は可変変数を作成し、その変数は現時点では新しい空の`String`のインスタンスに束縛されているわけです。
+ふう！
+
+<!-- ここまで翻訳済み -->
+
+<!--
 ### Receiving User Input
-まとめると、`let mut guess = String::new();`という行は、現在、新たに空の`String`オブジェクトに束縛されている
-可変変数を作っているわけです。ふう！
+-->
+
+### ユーザの入力を受け取る
 
 <!--
 Recall that we included the input/output functionality from the standard
