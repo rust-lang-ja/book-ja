@@ -335,7 +335,6 @@ variable that is currently bound to a new, empty instance of a `String`. Whew!
 つまり`let mut guess = String::new();`という行は可変変数を作成し、その変数は現時点では新しい空の`String`のインスタンスに束縛されているわけです。
 ふう！
 
-<!-- ここまで翻訳済み -->
 
 <!--
 ### Receiving User Input
@@ -463,8 +462,9 @@ evaluated.
 前述したように、`read_line`メソッドは、渡された文字列にユーザが入力したものを入れます。
 しかし、同時に値（この場合は[`io::Result`][ioresult]）も返します。
 Rustの標準ライブラリには`Result`という名前の型がいくつかあります。
-汎用の[`Result`][result]と、`io::Result`といったサブモジュール用の特殊な型などがあります。
-`Result`型は[*列挙型*][enums]で、よく*enum*と呼ばれ、取りうる値として決まった数の*列挙子*（variant）を持ちます。
+汎用の[`Result`][result]と、`io::Result`といったサブモジュール用の特殊な型などです。
+これらの`Result`型は[*列挙型*][enums]になります。
+列挙型は*enum*とも呼ばれ、取りうる値として決まった数の*列挙子*（variant）を持ちます。
 列挙型はよく`match`と一緒に使われます。
 これは条件式の一種で、評価時に、列挙型の値がどの列挙子であるかに基づいて異なるコードを実行できるという便利なものです。
 
@@ -507,7 +507,8 @@ can use it. In this case, that value is the number of bytes in the user’s inpu
 `io::Result`のインスタンスには[`expect`メソッド][expect]がありますので、これを呼び出せます。
 この`io::Result`インスタンスが`Err`の値の場合、`expect`メソッドはプログラムをクラッシュさせ、引数として渡されたメッセージを表示します。
 `read_line`メソッドが`Err`を返したら、それはおそらく基礎となるオペレーティング・システムに起因するものでしょう。
-もしこの`io::Result`オブジェクトが`Ok`値の場合、`expect`メソッドは`Ok`列挙子が保持する戻り値を取り出して、その値だけを返してくれますので、（呼び出し元では）その値を使うことができます。
+もしこの`io::Result`オブジェクトが`Ok`値の場合、`expect`メソッドは`Ok`列挙子が保持する戻り値を取り出して、その値だけを返してくれます。
+こうして私たちはその値を使うことができるわけです。
 今回の場合、その値はユーザ入力のバイト数になります。
 
 [expect]: https://doc.rust-lang.org/std/result/enum.Result.html#method.expect
@@ -516,7 +517,7 @@ can use it. In this case, that value is the number of bytes in the user’s inpu
 If you don’t call `expect`, the program will compile, but you’ll get a warning:
 -->
 
-もし、`expect`メソッドを呼び出さなかったら、コンパイルできるものの、警告が出るでしょう。
+もし`expect`メソッドを呼び出さなかったら、コンパイルできるものの、警告が出るでしょう。
 
 ```console
 {{#include ../listings/ch02-guessing-game-tutorial/no-listing-02-without-expect/output.txt}}
@@ -536,21 +537,22 @@ use `expect`. You’ll learn about recovering from errors in [Chapter
 9][recover].
 -->
 
-警告を抑制する正しい方法は実際にエラー処理を書くことですが、今回の場合は問題が起きたときにこのプログラムをクラッシュさせたいだけなので、`expect`が使えるわけです。
+警告を抑制する正しい方法は実際にエラー処理を書くことです。
+しかし、今回は問題が起きたときにこのプログラムをクラッシュさせたいだけなので、`expect`が使えるわけです。
 エラーからの回復については第9章で学びます。
 
 <!--
 ### Printing Values with `println!` Placeholders
 -->
 
-### `println!`マクロのプレースホルダーで値を出力する
+### `println!`マクロのプレースホルダーで値を表示する
 
 <!--
 Aside from the closing curly bracket, there’s only one more line to discuss in
 the code so far:
 -->
 
-閉じ波かっこを除けば、ここまでに追加されたコードのうち議論すべきものは、残り1行であり、それは以下の通りです:
+閉じ波かっこを除けば、ここまでのコードで説明するのは残り1行だけです。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:print_guess}}
@@ -565,11 +567,12 @@ string, the second set holds the second value, and so on. Printing multiple
 values in one call to `println!` would look like this:
 -->
 
-この行は、ユーザ入力を保存した文字列の中身を出力します。1組の波括弧の`{}`は、プレースホルダーの役目を果たします:
-`{}`は値を所定の場所に保持する小さなカニのはさみと考えてください。波括弧を使って一つ以上の値を出力できます:
-最初の波括弧の組は、フォーマット文字列の後に列挙された最初の値に対応し、
-2組目は、2つ目の値、とそんな感じで続いていきます。1回の`println!`の呼び出しで複数の値を出力するコードは、
-以下のような感じになります:
+この行は、現在はユーザの入力を保存している文字列を表示します。
+一組の波括弧の`{}`はプレースホルダーです。
+`{}`は値を所定の場所に保持する小さなカニのはさみだと考えてください。
+波括弧をいくつか使えば複数の値を表示できます。
+最初の波括弧の組はフォーマット文字列のあとに並んだ最初の値に対応し、2組目は2番目の値、というように続いていきます。
+一回の`println!`の呼び出しで複数の値を表示するなら、次のようになります。
 
 ```rust
 let x = 5;
@@ -582,7 +585,7 @@ println!("x = {} and y = {}", x, y);
 This code would print `x = 5 and y = 10`.
 -->
 
-このコードは、`x = 5 and y = 10`と出力するでしょう.
+このコードは`x = 5 and y = 10`と表示するでしょう。
 
 <!--
 ### Testing the First Part
@@ -594,7 +597,8 @@ This code would print `x = 5 and y = 10`.
 Let’s test the first part of the guessing game. Run it using `cargo run`:
 -->
 
-数当てゲームの最初の部分をテストしてみましょう。`cargo run`でプログラムを走らせてください:
+数当てゲームの最初の部分をテストしてみましょう。
+`cargo run`で走らせてください。
 
 
 ```console
@@ -613,7 +617,7 @@ At this point, the first part of the game is done: we’re getting input from th
 keyboard and then printing it.
 -->
 
-ここまでで、ゲームの最初の部分は完成になります: キーボードからの入力を受け付け、出力できています。
+これで、キーボードからの入力を得て、それを表示するという、ゲームの最初の部分は完成になります。
 
 <!--
 ## Generating a Secret Number
@@ -630,12 +634,15 @@ library. However, the Rust team does provide a [`rand` crate][randcrate] with
 said functionality.
 -->
 
-次に、ユーザが数当てに挑戦する秘密の数字を生成する必要があります。毎回この秘密の数字は、変わるべきです。
-ゲームが何回も楽しめるようにですね。ゲームが難しくなりすぎないように、1から100までの乱数を使用しましょう。
-Rustの標準ライブラリには、乱数機能はまだ含まれていません。ですが、実は、
-Rustの開発チームが[`rand`クレート][randcrate]を用意してくれています。
+次に、ユーザが数当てに挑戦する秘密の数字を生成する必要があります。
+この数字を毎回変えることで何度やっても楽しいゲームになります。
+ゲームが難しくなりすぎないように1から100までの乱数を使用しましょう。
+Rustの標準ライブラリには、まだ乱数の機能は含まれていません。
+ですが、Rustの開発チームがこの機能を持つ[`rand`クレート][randcrate]を提供してくれています。
 
 [randcrate]: https://crates.io/crates/rand
+
+<!-- ここまで翻訳済み -->
 
 <!--
 ### Using a Crate to Get More Functionality
