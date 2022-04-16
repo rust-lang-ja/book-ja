@@ -350,8 +350,8 @@ the `stdin` function from the `io` module, which will allow us to handle user
 input:
 -->
 
-プログラムの1行目で、`use std::io`として、標準ライブラリから入/出力機能を取り込んだことを思い出してください。
-今度は、`io`モジュールの`stdin`関数を呼び出しましょう:
+プログラムの最初の行に`use std::io`と書いて、標準ライブラリの入出力機能を取り込んだことを思い出してください。
+ここで`io`モジュールの`stdin`関数を呼び出して、ユーザ入力を処理できるようにしましょう。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:read}}
@@ -365,9 +365,8 @@ the program, we could still use the function by writing this function call as
 handle to the standard input for your terminal.
 -->
 
-仮に、プログラムの冒頭で`use std::io`としていなければ、この関数呼び出しは、`std::io::stdin`と記述していたでしょう。
-この`stdin`関数は、 [`std::io::Stdin`][iostdin]<!-- ignore -->オブジェクトを返し、この型は、
-ターミナルの標準入力へのハンドルを表す型になります。
+もし、プログラムの最初に`use std::io`と書いて`io`ライブラリをインポートしていなかったとしても、`std::io::stdin`のように呼び出せば、この関数を利用できます。
+`stdin`関数は、ターミナルの標準入力へのハンドルを表す型である[`std::io::Stdin`][iostdin]のインスタンスを返します。
 
 [iostdin]: https://doc.rust-lang.org/std/io/struct.Stdin.html
 
@@ -381,11 +380,10 @@ argument. The string argument needs to be mutable so the method can change the
 string’s content.
 -->
 
-その次のコード片、`.read_line(&mut guess)`は、標準入力ハンドルの[`read_line`][read_line]<!-- ignore -->
-メソッドを呼び出して、ユーザから入力を受け付けます。また、`read_line`メソッドに対して、`&mut guess`という引数を一つ渡していますね。
-`read_line`メソッドの仕事は、ユーザが標準入力したものすべてを取り出し、文字列に格納することなので、
-格納する文字列を引数として取ります。この文字列引数は、可変である必要があります。
-メソッドがユーザ入力を追記して、文字列の中身を変えられるようにということですね。
+次の`.read_line(&mut guess)`行は、標準入力ハンドルの[`read_line`][read_line]メソッドを呼び出し、ユーザからの入力を得ています。
+また、`read_line`の引数として`&mut guess`を渡し、ユーザ入力をどの文字列に格納するかを指示しています。
+`read_line`メソッドの仕事は、ユーザが標準入力に入力したものを文字列に（その内容を上書きすることなく）追加することですので、文字列を引数として渡しているわけです。
+引数の文字列は、その内容をメソッドが変更できるように、可変である必要があります。
 
 [read_line]: https://doc.rust-lang.org/std/io/struct.Stdin.html#method.read_line
 
@@ -401,19 +399,18 @@ immutable by default. Hence, you need to write `&mut guess` rather than
 thoroughly.)
 -->
 
-`&`という記号は、この引数が*参照*であることを表し、これのおかげで、データを複数回メモリにコピーせずとも、
-コードの複数箇所で同じデータにアクセスできるようになるわけです。参照は複雑な機能であり、
-とても安全かつ簡単に参照を使うことができることは、Rustの主要な利点の一つでもあります。
-そのような詳細を知らなくても、このプログラムを完成させることはできます。
-現時点では、変数のように、参照も標準で不変であることを知っておけばいいでしょう。
-故に、`&guess`と書くのではなく、`&mut guess`と書いて、可変にする必要があるのです。
-(第4章で参照についてより詳細に説明します)
+この`&`は、この引数が*参照*であることを示し、これにより、コードの複数の部分が同じデータにアクセスする際に、そのデータを何度もメモリにコピーせずに済みます。
+参照は複雑な機能ですが、Rustの大きな利点の一つは参照を安全かつ簡単に使用できることです。
+このプログラムを完成させるのに、そのような詳細を知る必要はないしょう。
+とりあえず知っておいてほしいのは、変数のように、参照もデフォルトで不変であることです。
+したがって、`&guess`ではなく`&mut guess`と書いて、可変にする必要があります。
+（第4章では参照についてより詳しく説明します）
 
 <!--
 ### Handling Potential Failure with the `Result` Type
 -->
 
-### `Result`型で失敗の可能性を扱う
+### `Result`型で失敗の可能性をあつかう
 
 <!--
 We’re still working on this line of code. Although we’re now discussing a third
@@ -421,8 +418,9 @@ line of text, it’s still part of a single logical line of code. The next part
 is this method:
 -->
 
-まだ、この行は終わりではありませんよ。ここまでに議論したのはテキストでは1行ですが、コードとしての論理行としては、
-まだ所詮最初の部分でしかないのです。2番目の部分はこのメソッドです:
+まだ、このコードの行は終わりではありませんよ。
+これから説明するのはテキスト上は3行目になりますが、まだ1つの論理的な行の一部です。
+次のパートはこのメソッドです。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:expect}}
@@ -432,8 +430,7 @@ is this method:
 We could have written this code as:
 -->
 
-`.foo()`という記法で、メソッドを呼び出す時、改行と空白で長い行を分割するのがしばしば賢明です。
-今回の場合、こう書くこともできますよね:
+このコードは、こう書くこともできました。
 
 ```rust,ignore
 io::stdin().read_line(&mut guess).expect("Failed to read line");
@@ -446,8 +443,9 @@ lines when you call a method with the `.method_name()` syntax. Now let’s
 discuss what this line does.
 -->
 
-しかし、長い行は読みづらいものです。なので、分割しましょう: 2回のメソッド呼び出しに、2行です。
-さて、この行が何をしているのかについて議論しましょうか。
+しかし、長い行は読みづらいので、分割したほうがよいでしょう。
+`.method_name()`構文でメソッドを呼び出すとき、改行と空白で長い行を分割するのが賢明なことがよくあります。
+それでは、この行が何をするのか説明します。
 
 <!--
 As mentioned earlier, `read_line` puts whatever the user enters into the string
@@ -462,12 +460,13 @@ different code based on which variant an enum value is when the conditional is
 evaluated.
 -->
 
-以前にも述べたように、`read_line`メソッドは、渡された文字列にユーザが入力したものを入れ込むだけでなく、
-値も返します(今回は[`io::Result`][ioresult]<!-- ignore -->です)。 Rustには`Result`と名のついた型が、
-標準ライブラリにたくさんあります: 汎用の[`Result`][result]<!-- ignore -->の他、
-`io::Result`などのサブモジュール用に特化したものまで。
-この`Result`型は、[*列挙型*][enums]<!-- ignore -->であり、普通、*enum*(イーナム)と呼ばれます。
-列挙型とは、固定された種類の値を持つ型のことであり、それらの値は、enumの*列挙子*(variant)と呼ばれます。
+前述したように、`read_line`メソッドは、渡された文字列にユーザが入力したものを入れます。
+しかし、同時に値（この場合は[`io::Result`][ioresult]）も返します。
+Rustの標準ライブラリには`Result`という名前の型がいくつかあります。
+汎用の[`Result`][result]と、`io::Result`といったサブモジュール用の特殊な型などがあります。
+`Result`型は[*列挙型*][enums]で、よく*enum*と呼ばれ、取りうる値として決まった数の*列挙子*（variant）を持ちます。
+列挙型はよく`match`と一緒に使われます。
+これは条件式の一種で、評価時に、列挙型の値がどの列挙子であるかに基づいて異なるコードを実行できるという便利なものです。
 
 [ioresult]: https://doc.rust-lang.org/std/io/type.Result.html
 [result]: https://doc.rust-lang.org/std/result/enum.Result.html
@@ -477,7 +476,8 @@ Chapter 6 will cover enums in more detail. The purpose of these `Result` types
 is to encode error-handling information.
 -->
 
-enumについては、第6章で詳しく解説します。
+enumについては第6章で詳しく説明します。
+これらの`Result`型の目的は、エラー処理に関わる情報を符号化（エンコード）することです。
 
 [enums]: ch06-00-enums.html
 
@@ -488,9 +488,9 @@ variant means the operation failed, and `Err` contains information about how or
 why the operation failed.
 -->
 
-`Result`型に関しては、列挙子は`Ok`か`Err`です。`Ok`列挙子は、処理が成功したことを表し、
-中に生成された値を保持します。`Err`列挙子は、処理が失敗したことを意味し、`Err`は、処理が失敗した過程や、
-理由などの情報を保有します。
+`Result`の列挙子は`Ok`か`Err`です。
+`Ok`列挙子は処理が成功したことを示し、`Ok`の中には正常に生成された値が入っています。
+`Err`列挙子は処理が失敗したことを意味し、`Err`には処理が失敗した過程や理由についての情報が含まれています。
 
 <!--
 Values of the `Result` type, like values of any type, have methods defined on
@@ -503,14 +503,12 @@ the return value that `Ok` is holding and return just that value to you so you
 can use it. In this case, that value is the number of bytes in the user’s input.
 -->
 
-これら`Result`型の目的は、エラー処理の情報をコード化することです。`Result`型の値も、他の型同様、
-メソッドが定義されています。`io::Result`オブジェクトには、呼び出し可能な[`expect`メソッド][expect]<!-- ignore -->があります。
-この`io::Result`オブジェクトが`Err`値の場合、`expect`メソッドはプログラムをクラッシュさせ、
-引数として渡されたメッセージを表示します。`read_line`メソッドが`Err`を返したら、
-恐らく根底にあるOSによるエラーに起因するのでしょう。
-この`io::Result`オブジェクトが`Ok`値の場合、`expect`メソッドは、`Ok`列挙子が保持する
-返り値を取り出して、ただその値を返すので、これを使用することができるでしょう。
-今回の場合、その返り値とは、ユーザが標準入力に入力したデータのバイト数になります。
+`Result`型の値にも、他の型と同様にメソッドが定義されています。
+`io::Result`のインスタンスには[`expect`メソッド][expect]がありますので、これを呼び出せます。
+この`io::Result`インスタンスが`Err`の値の場合、`expect`メソッドはプログラムをクラッシュさせ、引数として渡されたメッセージを表示します。
+`read_line`メソッドが`Err`を返したら、それはおそらく基礎となるオペレーティング・システムに起因するものでしょう。
+もしこの`io::Result`オブジェクトが`Ok`値の場合、`expect`メソッドは`Ok`列挙子が保持する戻り値を取り出して、その値だけを返してくれますので、（呼び出し元では）その値を使うことができます。
+今回の場合、その値はユーザ入力のバイト数になります。
 
 [expect]: https://doc.rust-lang.org/std/result/enum.Result.html#method.expect
 
@@ -518,7 +516,7 @@ can use it. In this case, that value is the number of bytes in the user’s inpu
 If you don’t call `expect`, the program will compile, but you’ll get a warning:
 -->
 
-もし、`expect`メソッドを呼び出さなかったら、コンパイルは通るものの、警告が出るでしょう:
+もし、`expect`メソッドを呼び出さなかったら、コンパイルできるものの、警告が出るでしょう。
 
 ```console
 {{#include ../listings/ch02-guessing-game-tutorial/no-listing-02-without-expect/output.txt}}
@@ -529,8 +527,7 @@ Rust warns that you haven’t used the `Result` value returned from `read_line`,
 indicating that the program hasn’t handled a possible error.
 -->
 
-コンパイラは、私たちが`read_line`メソッドから返ってきた`Result`値を使用していないと警告してきており、
-これは、プログラムがエラーの可能性に対処していないことを示します。
+Rustは、私たちが`read_line`から返された`Result`値を使用していないことを警告し、これは、プログラムがエラーの可能性に対処していないことを示します。
 
 <!--
 The right way to suppress the warning is to actually write error handling, but
@@ -539,9 +536,8 @@ use `expect`. You’ll learn about recovering from errors in [Chapter
 9][recover].
 -->
 
-警告を抑制する正しい手段は、実際にエラー対処コードを書くことですが、今は、
-問題が起きた時にプログラムをクラッシュさせたいので、`expect`を使用できるわけです。
-エラーから復旧する方法については、第9章で学ぶでしょう。
+警告を抑制する正しい方法は実際にエラー処理を書くことですが、今回の場合は問題が起きたときにこのプログラムをクラッシュさせたいだけなので、`expect`が使えるわけです。
+エラーからの回復については第9章で学びます。
 
 <!--
 ### Printing Values with `println!` Placeholders
