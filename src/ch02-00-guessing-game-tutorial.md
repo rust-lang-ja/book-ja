@@ -16,7 +16,7 @@ fundamentals.
 実践的なプロジェクトに一緒に取り組むことで、Rustの世界に飛び込んでみましょう！
 この章ではRustの一般的な概念を、実際のプログラムでの使い方を示しながら紹介します。
 `let`、`match`、メソッド、関連関数、外部クレートの使用などについて学びます！
-それらの詳細については後続の章で取り上げますので、この章では基礎部分だけを練習します。
+これらについての詳細は後続の章で取り上げますので、この章では基礎部分だけを練習します。
 
 <!--
 We’ll implement a classic beginner programming problem: a guessing game. Here’s
@@ -115,10 +115,12 @@ the next one.
 このゲーム（の開発）では各イテレーションを素早くテストしてから、次のイテレーションに移ります。
 `run`コマンドは、今回のようにプロジェクトのイテレーションを素早く回したいときに便利です。
 
-> 訳注：ここでのイテレーションは、アジャイル開発など、一連の工程を短期間で繰り返す開発手法で用いられている用語にあたります。
-> イテレーションとは、開発工程の「一回のサイクル」のことです。
+> 訳注：ここでのイテレーションは、アジャイルな開発手法で用いられている用語にあたります。
 >
-> この章では「実装」→「テスト」のサイクルを繰り返すことで、プログラムに少しずつ機能を追加していきます。
+> イテレーションとは開発工程の「一回のサイクル」のことで、サイクルには、設計、実装、テスト、改善（リリース後の振り返り）が含まれます。
+> アジャイル開発では、イテレーションを数週間の短いスパンで一通り回し、それを繰り返しながら開発を進めていきます。
+> 
+> この章では「実装」→「テスト」のごく短いサイクルを繰り返すことで、プログラムに少しずつ機能を追加していきます。
 
 <!--
 Reopen the *src/main.rs* file. You’ll be writing all the code in this file.
@@ -168,7 +170,7 @@ obtain user input and then print the result as output, we need to bring the
 standard library, known as `std`:
 -->
 
-このコードには多くの情報が詰め込まれていますね。
+このコードには多くの情報が詰め込まれています。
 行ごとに見ていきましょう。
 ユーザ入力を受け付け、結果を出力するためには、`io`（入/出力）ライブラリをスコープに入れる必要があります。
 `io`ライブラリは、標準ライブラリ（`std`として知られています）に含まれています。
@@ -183,7 +185,7 @@ into the scope of every program. This set is called the *prelude*, and you can
 see everything in it [in the standard library documentation][prelude].
 -->
 
-Rustはデフォルトで、標準ライブラリに定義されているいくつかのアイテムを、すべてのプログラムのスコープに取り込みます。
+Rustはデフォルトで、標準ライブラリに定義されているいくつかのアイテム（をセットにしたもの）を、すべてのプログラムのスコープに取り込みます。
 このセットは*prelude*（プレリュード）を呼ばれ、[標準ライブラリのドキュメント][prelude]でその中のすべてを見ることができます。
 
 <!--
@@ -233,7 +235,7 @@ This code is printing a prompt stating what the game is and requesting input
 from the user.
 -->
 
-このコードは、ゲームの内容などを示すプロンプトを表示し、ユーザに入力を求めています。
+このコードはゲームの内容などを示すプロンプトを表示し、ユーザに入力を求めています。
 
 <!--
 ### Storing Values with Variables
@@ -257,7 +259,7 @@ Now the program is getting interesting! There’s a lot going on in this little
 line. We use the `let` statement to create the variable. Here’s another example:
 -->
 
-さあ、プログラムが面白くなってきましたね。
+プログラムが少し興味深いものになってきました。
 この小さな行の中でいろいろなことが起きています。
 `let`文を使って変数を作っています。
 別の例も見てみましょう。
@@ -273,8 +275,8 @@ detail in the [“Variables and Mutability”][variables-and-mutability] section
 variable name:
 -->
 
-この行では`apples`という名前の新しい変数を作成し、`5`という値に束縛しています。
-Rustでは、変数はデフォルトで不変（immutable）になります。
+この行では`apples`という名前の新しい変数を作成し`5`という値に束縛しています。
+Rustでは変数はデフォルトで不変（immutable）になります。
 この概念については第3章の[「変数と可変性」][variables-and-mutability]の節で詳しく説明します。
 変数を可変（mutable）にするには、変数名の前に`mut`をつけます。
 
@@ -365,7 +367,7 @@ handle to the standard input for your terminal.
 -->
 
 もし、プログラムの最初に`use std::io`と書いて`io`ライブラリをインポートしていなかったとしても、`std::io::stdin`のように呼び出せば、この関数を利用できます。
-`stdin`関数は、ターミナルの標準入力へのハンドルを表す型である[`std::io::Stdin`][iostdin]のインスタンスを返します。
+`stdin`関数はターミナルの標準入力へのハンドルを表す型である[`std::io::Stdin`][iostdin]のインスタンスを返します。
 
 [iostdin]: https://doc.rust-lang.org/std/io/struct.Stdin.html
 
@@ -398,11 +400,11 @@ immutable by default. Hence, you need to write `&mut guess` rather than
 thoroughly.)
 -->
 
-この`&`は、この引数が*参照*であることを示し、これにより、コードの複数の部分が同じデータにアクセスする際に、そのデータを何度もメモリにコピーせずに済みます。
-参照は複雑な機能ですが、Rustの大きな利点の一つは参照を安全かつ簡単に使用できることです。
+この`&`は、この引数が*参照*であることを示し、これによりコードの複数の部分が同じデータにアクセスしても、そのデータを何度もメモリにコピーしなくて済みます。
+参照は複雑な機能（訳注：一部のプログラム言語では正しく使うのが難しい機能）ですが、Rustの大きな利点の一つは参照を安全かつ簡単に使用できることです。
 このプログラムを完成させるのに、そのような詳細を知る必要はないしょう。
 とりあえず知っておいてほしいのは、変数のように、参照もデフォルトで不変であることです。
-したがって、`&guess`ではなく`&mut guess`と書いて、可変にする必要があります。
+したがって、`&guess`ではなく`&mut guess`と書いて可変にする必要があります。
 （第4章では参照についてより詳しく説明します）
 
 <!--
@@ -417,9 +419,9 @@ line of text, it’s still part of a single logical line of code. The next part
 is this method:
 -->
 
-まだ、このコードの行は終わりではありませんよ。
-これから説明するのはテキスト上は3行目になりますが、まだ1つの論理的な行の一部です。
-次のパートはこのメソッドです。
+まだ、このコードの行は終わってませんよ。
+これから説明するのはテキスト上は3行目になりますが、まだ一つの論理的な行の一部分です。
+次の部分はこのメソッドです。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:expect}}
@@ -442,8 +444,8 @@ lines when you call a method with the `.method_name()` syntax. Now let’s
 discuss what this line does.
 -->
 
-しかし、長い行は読みづらいので、分割したほうがよいでしょう。
-`.method_name()`構文でメソッドを呼び出すとき、改行と空白で長い行を分割するのが賢明なことがよくあります。
+しかし、長い行は読みづらいので分割したほうがよいでしょう。
+`.method_name()`構文でメソッドを呼び出すとき、長い行を改行と空白で分割するのが賢明なことがよくあります。
 それでは、この行が何をするのか説明します。
 
 <!--
@@ -528,7 +530,7 @@ Rust warns that you haven’t used the `Result` value returned from `read_line`,
 indicating that the program hasn’t handled a possible error.
 -->
 
-Rustは、私たちが`read_line`から返された`Result`値を使用していないことを警告し、これは、プログラムがエラーの可能性に対処していないことを示します。
+Rustは私たちが`read_line`から返された`Result`値を使用していないことを警告し、これはプログラムがエラーの可能性に対処していないことを示します。
 
 <!--
 The right way to suppress the warning is to actually write error handling, but
@@ -642,8 +644,6 @@ Rustの標準ライブラリには、まだ乱数の機能は含まれていま�
 
 [randcrate]: https://crates.io/crates/rand
 
-<!-- ここまで翻訳済み -->
-
 <!--
 ### Using a Crate to Get More Functionality
 -->
@@ -657,9 +657,10 @@ crate is a *library crate*, which contains code intended to be used in other
 programs, and can’t be executed on its own.
 -->
 
-クレートはRustコードのパッケージであることを思い出してください。私たちがここまで作ってきたプロジェクトは、
-*バイナリクレート*であり、これは実行可能形式になります。`rand`クレートは*ライブラリクレート*であり、
-他のプログラムで使用するためのコードが含まれています。
+クレートはRustソースコードを集めたものであることを思い出してください。
+私たちがここまで作ってきたプロジェクトは*バイナリクレート*であり、これは実行可能ファイルになります。
+`rand`クレートは*ライブラリクレート*です。
+他のプログラムで使用するためのコードが含まれており、単独で実行することはできません。
 
 <!--
 Cargo’s coordination of external crates is where Cargo really shines. Before we
@@ -670,9 +671,11 @@ Cargo created for you. Be sure to specify `rand` exactly as we have here, with
 this version number, or the code examples in this tutorial may not work.
 -->
 
-外部クレートを使用する部分は、Cargoがとても輝くところです。`rand`を使ったコードを書ける前に、
-*Cargo.toml*ファイルを編集して、`rand`クレートを依存ファイルとして取り込む必要があります。
-今このファイルを開いて、以下の行をCargoが自動生成した`[dependencies]`セクションヘッダの一番下に追記しましょう:
+Cargoが光り輝くのは、外部クレートと連携するときです。
+`rand`を使ったコードを書く前に、*Cargo.toml*ファイルを編集して`rand`クレートを依存関係に含める必要があります。
+そのファイルを開いて、Cargoが作ってくれた`[dependencies]`セクションヘッダの下に、次の行を追加してください。
+バージョンナンバーを含め、ここに書かれているとおり正確に`rand`を指定してください。
+そうしないと、このチュートリアルのコード例は動作しないかもしれません。
 
 
 <!--
@@ -701,13 +704,16 @@ release that will still compile with the code in this chapter. Any version
 examples use.
 -->
 
-*Cargo.toml*ファイルにおいて、ヘッダに続くものは全て、他のセクションが始まるまで続くセクションの一部になります。
-`[dependecies]`セクションは、プロジェクトが依存する外部クレートと必要とするバージョンを記述するところです。
-ここでは、`rand`クレートで、セマンティックバージョン指定子には`0.8.3`を指定します。Cargoは、
-バージョンナンバー記述の標準規格である[セマンティックバージョニング][semver]<!-- ignore --> (時に*SemVer*と呼ばれる)を理解します。
-`0.8.3`という数字は、実際には`^0.8.3`の省略記法で、これは、「バージョン0.8.3と互換性のある公開APIを持つ0.9.0未満の任意のバージョン」を意味します。
-Cargoはこれらのバージョンが「バージョン0.8.3と互換性のある公開APIを持つ」と見なします。この仕様により、この章のコードがコンパイルできるような最新のパッチリリースを取得することができます。
-バージョン0.9.0以降では例示しているコードで使用しているAPIが使用できることは保証されていません。
+*Cargo.toml*ファイルでは、ヘッダに続くものは全て、他のセクションが始まるまで続くセクションの一部になります。
+（訳注：Cargo.tomlファイル内には複数のセクションがあり、各セクションは`[ ]`で囲まれたヘッダ行から始まります）
+
+`[dependecies]`はプロジェクトが依存する外部クレートと必要とするバージョンをCargoに伝えます。
+今回は`rand`クレートを`0.8.3`というセマンティックバージョン指定子で指定します。
+Cargoは[セマンティックバージョニング][semver]（*SemVer*と呼ばれることもあります）を理解しており、これはバージョンナンバーを記述するための標準です。
+`0.8.3`という数字は実際には`^0.8.3`の省略記法で、`0.8.3`以上`0.9.0`未満の任意のバージョンを意味します。
+Cargoはこれらのバージョンを、バージョン`0.8.3`と互換性のある公開APIを持つものとみなします。
+この仕様により、この章のコードがコンパイルできるような最新のパッチリリースを取得できるようになります。
+0.9.0以降のバージョンは、以下の例で使用しているものと同じAPIであることを保証しません。
 
 [semver]: http://semver.org
 
@@ -716,8 +722,7 @@ Now, without changing any of the code, let’s build the project, as shown in
 Listing 2-2.
 -->
 
-さて、コードは一切変えずに、リスト2-2のようにプロジェクトをビルドしましょう。
-
+さて、コードを一切変えずに、次のリスト2-2のようにプロジェクトをビルドしてみましょう。
 
 ```console
 $ cargo build
@@ -757,8 +762,9 @@ code, thanks to SemVer!), different lines (depending on the operating system),
 and the lines may be in a different order.
 -->
 
-もしかしたら、バージョンナンバーは違うかもしれません(でも、互換性はあります、SemVerのおかげでね！)。
-そして、行の出力順序も違うかもしれません。
+もしかしたら、異なるバージョンナンバー（でも、SemVerのおかげですべてのコードに互換性があります）や、
+異なる行（オペレーティングシステムに依存します）が表示されるかもしれません。
+また、行の順序も違うかもしれません。
 
 <!--
 When we include an external dependency, Cargo fetches the latest versions of
@@ -767,9 +773,9 @@ from [Crates.io][cratesio]. Crates.io is where people in the Rust ecosystem
 post their open source Rust projects for others to use.
 -->
 
-今や、外部依存を持つようになったので、Cargoは*レジストリ*(registry、登録所)から最新バージョンを拾ってきます。
-*レジストリ*とは、[Crates.io][cratesio]のデータのコピーです。Crates.ioとは、Rustのエコシステムにいる人間が、
-他の人が使えるように自分のオープンソースのRustプロジェクトを投稿する場所です。
+外部依存を持つようになると、Cargoはその依存関係が必要とするすべてについて最新のバージョンを*レジストリ*から取得します。
+レジストリとは[Crates.io][cratesio]のデータのコピーです。
+Crates.ioは、Rustのエコシステムの人々が、他の人が使えるように、オープンソースのRustプロジェクトを投稿する場所です。
 
 [cratesio]: https://crates.io
 
@@ -781,10 +787,9 @@ that `rand` depends on to work. After downloading the crates, Rust compiles
 them and then compiles the project with the dependencies available.
 -->
 
-レジストリの更新後、Cargoは`[dependencies]`セクションをチェックし、まだ取得していないクレートを全部ダウンロードします。
-今回の場合、`rand`しか依存ファイルには列挙していませんが、Cargoは`libc`のコピーも拾ってきます。
-`rand`クレートが`libc`に依存しているからですね。クレートのダウンロード完了後、コンパイラは依存ファイルをコンパイルし、
-依存が利用可能な状態でプロジェクトをコンパイルします。
+レジストリの更新後、Cargoは`[dependencies]`セクションにリストアップされているクレートをチェックし、まだ取得していないものをダウンロードします。
+ここでは依存関係として`rand`しか書いていませんが、`rand`が動作するために依存している他のクレートも取り込まれています。
+クレートをダウンロードしたあと、Rustはそれらをコンパイルし、依存関係が利用可能な状態でプロジェクトをコンパイルします。
 
 <!--
 If you immediately run `cargo build` again without making any changes, you
@@ -795,18 +800,17 @@ anything about your code, so it doesn’t recompile that either. With nothing to
 do, it simply exits.
 -->
 
-何も変更せず即座に`cargo build`コマンドを走らせたら、`Finished`行を除いて何も出力されないでしょう。
-Cargoは、既に全ての依存をダウンロードしてコンパイル済みであることも、
-あなたが*Cargo.toml*ファイルを弄ってないことも知っているからです。さらに、Cargoはプログラマがコードを変更していないことも検知するので、
-再度コンパイルすることもありません。することがないので、ただ単に終了します。
+何も変更せずにすぐに`cargo build`コマンドを再度実行すると、`Finished`の行以外は何も出力されないでしょう。
+Cargoはすでに依存関係をダウンロードしてコンパイル済みであることを認識しており、また、あなたが*Cargo.toml*ファイルを変更していないことも知っているからです。
+また、Cargoはあなたがコードを何も変更していないことも知っているので、再コンパイルも行いません。
+何もすることがないので、単に終了します。
 
 <!--
 If you open up the *src/main.rs* file, make a trivial change, and then save it
 and build again, you’ll only see two lines of output:
 -->
 
-*src/main.rs*ファイルを開き、些細な変更をし、保存して再度ビルドを行えば、2行だけ出力があるでしょう:
-
+*src/main.rs*ファイルを開いて些細な変更を加え、それを保存して再度ビルドすると、2行しか表示されません。
 
 ```console
 $ cargo build
@@ -820,9 +824,10 @@ These lines show Cargo only updates the build with your tiny change to the
 reuse what it has already downloaded and compiled for those.
 -->
 
-これらの行は、Cargoが*src/main.rs*ファイルへの取るに足らない変更に対して、ビルドを更新していることを示しています。
-依存は変更していないので、Cargoは、既にダウンロードしてコンパイルまで済ませてある依存を使用できると検知します。
-自分で書いたコードのみ再ビルドをかけるわけです。
+これらの行はCargoが*src/main.rs*ファイルへの小さな変更に対して、ビルドを更新していることを示しています。
+依存関係は変わっていないので、Cargoは既にダウンロードしてコンパイルしたものが再利用できることを知っています。
+
+<!-- ここまで翻訳済み -->
 
 <!--
 #### Ensuring Reproducible Builds with the *Cargo.lock* File
