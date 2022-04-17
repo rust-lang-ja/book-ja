@@ -71,7 +71,7 @@ Look at the generated *Cargo.toml* file:
 <span class="filename">Filename: Cargo.toml</span>
 -->
 
-<span class="filename">ファイル名: Cargo.toml</span>
+<span class="filename">ファイル名：Cargo.toml</span>
 
 ```toml
 {{#include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/Cargo.toml}}
@@ -89,7 +89,7 @@ you. Check out the *src/main.rs* file:
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/no-listing-01-cargo-new/src/main.rs}}
@@ -150,7 +150,7 @@ allow the player to input a guess. Enter the code in Listing 2-1 into
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:all}}
@@ -671,7 +671,7 @@ Cargo created for you. Be sure to specify `rand` exactly as we have here, with
 this version number, or the code examples in this tutorial may not work.
 -->
 
-Cargoが光り輝くのは、外部クレートと連携するときです。
+Cargoが光り輝くのは外部クレートと連携するときです。
 `rand`を使ったコードを書く前に、*Cargo.toml*ファイルを編集して`rand`クレートを依存関係に含める必要があります。
 そのファイルを開いて、Cargoが作ってくれた`[dependencies]`セクションヘッダの下に、次の行を追加してください。
 バージョンナンバーを含め、ここに書かれているとおり正確に`rand`を指定してください。
@@ -682,7 +682,7 @@ Cargoが光り輝くのは、外部クレートと連携するときです。
 <span class="filename">Filename: Cargo.toml</span>
 -->
 
-<span class="filename">ファイル名: Cargo.toml</span>
+<span class="filename">ファイル名：Cargo.toml</span>
 
 ```toml
 {{#include ../listings/ch02-guessing-game-tutorial/listing-02-02/Cargo.toml:9:}}
@@ -754,7 +754,7 @@ $ cargo build
 adding the rand crate as a dependency</span>
 -->
 
-<span class="caption">リスト2-2: randクレートを依存として追加した後の`cargo build`コマンドの出力</span>
+<span class="caption">リスト2-2：randクレートを依存として追加した後の`cargo build`コマンドの出力</span>
 
 <!--
 You may see different version numbers (but they will all be compatible with the
@@ -827,13 +827,11 @@ reuse what it has already downloaded and compiled for those.
 これらの行はCargoが*src/main.rs*ファイルへの小さな変更に対して、ビルドを更新していることを示しています。
 依存関係は変わっていないので、Cargoは既にダウンロードしてコンパイルしたものが再利用できることを知っています。
 
-<!-- ここまで翻訳済み -->
-
 <!--
 #### Ensuring Reproducible Builds with the *Cargo.lock* File
 -->
 
-#### *Cargo.lock*ファイルで再現可能なビルドを保証する
+#### *Cargo.lock*ファイルで再現可能なビルドを確保する
 
 <!--
 Cargo has a mechanism that ensures you can rebuild the same artifact every time
@@ -846,11 +844,10 @@ time you run `cargo build`, so we now have this in the *guessing_game*
 directory.
 -->
 
-Cargoは、プログラマが自分のコードを更新するたびに同じ生成物を再構成することを保証してくれるメカニズムを備えています: Cargoは、プログラマが示唆するまで、指定したバージョンの依存のみを使用します。
-例として、`rand`クレートの次週のバージョン0.3.15が登場し、重要なバグ修正がなされているけれども、
-自分のコードを破壊してしまう互換性破壊があった場合はどうなるでしょう？
-この問題に対する回答は、*Cargo.lock*ファイルであり、このファイルは、初めて`cargo build`コマンドを
-走らせた時に生成され、現在*guessing_game*ディレクトリに存在しています。
+Cargoはあなたや他の人があなたのコードをビルドするたびに、同じ生成物をリビルドできるようにするしくみを備えています。
+Cargoは何も指示されない限り、指定したバージョンの依存のみを使用します。
+たとえば来週`rand`クレートのバージョン0.8.4が出て、そのバージョンには重要なバグ修正が含まれていますが、同時にあなたのコードを破壊するリグレッションも含まれているとします。
+これに対応するため、Rustは`cargo build`を最初に実行したとき*Cargo.lock*ファイルを作成するので、現在は*guessing_game*ディレクトリにそれが置かれています。
 
 <!--
 When you build a project for the first time, Cargo figures out all the
@@ -863,12 +860,10 @@ remain at `0.8.3` until you explicitly upgrade, thanks to the *Cargo.lock*
 file.
 -->
 
-プロジェクトを初めてビルドする際に、
-Cargoは判断基準(criteria)に合致するよう全ての依存のバージョンを計算し、*Cargo.lock*ファイルに記述します。
-次にプロジェクトをビルドする際には、Cargoは*Cargo.lock*ファイルが存在することを確かめ、
-再度バージョンの計算の作業を行うのではなく、そこに指定されているバージョンを使用します。
-このことにより、自動的に再現可能なビルドを構成できるのです。つまり、明示的にアップグレードしない限り、
-プロジェクトが使用するバージョンは`0.3.14`に保たれるのです。*Cargo.lock*ファイルのおかげでね。
+プロジェクトを初めてビルドするとき、Cargoは条件に合うすべての依存関係のバージョンを計算し*Cargo.lock*ファイルに書き込みます。
+次にプロジェクトをビルドする際には、Cargoは*Cargo.lock*ファイルが存在することを確認し、バージョンを把握するすべての作業を再度行う代わりに、そこに指定されているバージョンを使います。
+これにより再現性のあるビルドを自動的に行えます。
+言い換えれば、*Cargo.lock*ファイルのおかげで、あなたが明示的にアップグレードするまで、プロジェクトが使うのは`0.8.3`のままになります。
 
 <!--
 #### Updating a Crate to Get a New Version
@@ -934,10 +929,9 @@ libraries, so Rustaceans are able to write smaller projects that are assembled
 from a number of packages.
 -->
 
-まだ第14章で議論する[Cargo][doccargo]<!-- ignore -->と[そのエコシステム][doccratesio]<!-- ignore -->については述べたいことが山ほどありますが、
-とりあえずは、これで知っておくべきことは全てです。
-Cargoのおかげでライブラリはとても簡単に再利用ができるので、
-Rustaceanは数多くのパッケージから構成された小規模のプロジェクトを書くことができるのです。
+[Cargo][doccargo]と[そのエコシステム][doccratesio]については、まだ伝えたいことが山ほどありますが、それらについては第14章で説明します。
+いまのところは、これだけ知っていれば十分です。
+Cargoはライブラリの再利用をとても簡単にしてくれるので、Rustaceanは数多くのパッケージから構成された小さなプロジェクトを書くことができます。
 
 [doccargo]: http://doc.crates.io
 [doccratesio]: http://doc.crates.io/crates-io.html
@@ -953,14 +947,14 @@ Let’s start using `rand` to generate a number to guess. The next step is to
 update *src/main.rs*, as shown in Listing 2-3.
 -->
 
-*Cargo.toml*に`rand`クレートを追加したので、`rand`クレートを使用開始しましょう。
+`rang`クレートを使って予想する数字を生成しましょう。
 次のステップは、リスト2-3のように*src/main.rs*ファイルを更新することです。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-03/src/main.rs:all}}
@@ -971,7 +965,7 @@ update *src/main.rs*, as shown in Listing 2-3.
 number</span>
 -->
 
-<span class="caption">リスト2-3: 乱数を生成するコードの追加</span>
+<span class="caption">リスト2-3：乱数を生成するコードの追加</span>
 
 <!--
 First, we add the line `use rand::Rng`. The `Rng` trait defines methods that
@@ -979,9 +973,9 @@ random number generators implement, and this trait must be in scope for us to
 use those methods. Chapter 10 will cover traits in detail.
 -->
 
-まず、`use`行を追加しています: `use rand::Rng`ですね。`Rng`トレイトは乱数生成器が実装するメソッドを定義していて、
-このトレイトがスコープにないと、メソッドを使用できないのです。トレイトについて詳しくは、
-第10章で解説します。
+まず、`use rand::Ring`という行を追加します。
+`Rng`トレイトは乱数生成器が実装するメソッドを定義しており、それらのメソッドを使用するには、このトレイトがスコープ内になければなりません。
+トレイトについて詳しくは第10章で解説します。
 
 <!--
 Next, we’re adding two lines in the middle. In the first line, we call the
@@ -997,10 +991,15 @@ upper bound, so we need to specify `1..101` to request a number between 1 and
 100. Alternatively, we could pass the range `1..=100`, which is equivalent.
 -->
 
-次に、途中に2行を追加しています。`rand::thread_rng`関数は、これから使う特定の乱数生成器を返してくれます: この乱数生成器は、実行スレッドに固有で、OSにより、シード値を与えられています。
-そして、この乱数生成器の`gen_range`メソッドを呼び出しています。このメソッドは、
-`use rand::Rng`文でスコープに導入した`Rng`トレイトで定義されています。`gen_range`メソッドは二つの数字を引数に取り、
-それらの間の乱数を生成してくれます。範囲は下限値を含み、上限値を含まないため、`1`と`101`と指定しないと1から100の範囲の数字は得られません。
+次に、途中に2行を追加しています。
+最初の行では`rand::thread_rng`関数を呼び出して、これから使う特定の乱数生成器を取得しています。
+なお、この乱数生成器は現在のスレッドに固有で、オペレーティングシステムからシード値を得ています。
+そして、この乱数生成器の`gen_range`メソッドを呼び出しています。
+このメソッドは`use rand::Rng`文でスコープに導入した`Rng`トレイトで定義されています。
+`gen_range`メソッドは範囲式を引数にとり、その範囲内の乱数を生成してくれます。
+ここで使っている範囲式の種類は`開始..終了`という形式で、下限値は含みますが上限値は含みません。
+そのため、1から100までの数をリクエストするには`1..101`と指定する必要があります。
+あるいは、これと同等の`1..=100`という範囲を渡すこともできます。
 
 <!--
 > Note: You won’t just know which traits to use and which methods and functions
@@ -1012,16 +1011,9 @@ upper bound, so we need to specify `1..101` to request a number between 1 and
 > click `rand` in the sidebar on the left.
 -->
 
-> 注釈: 単純に使用すべきトレイトと、クレートからどのメソッドと関数を呼び出すか知っているわけではないでしょう。
-> クレートの使用方法は、各クレートのドキュメントにあります。Cargoの別の素晴らしい機能は、
-> `cargo doc --open`コマンドを走らせてローカルに存在する依存すべてのドキュメントをビルドし、ブラウザで閲覧できる機能です。
-> 例えば、`rand`クレートの他の機能に興味があるなら、`cargo doc --open`コマンドを走らせて、
-> 左側のサイドバーから`rand`をクリックしてください。
-
-<!--
--->
-
-試しに何回かプログラムを走らせてみてください:
+> 注：クレートのどのトレイトを`use`するかや、どのメソッドや関数を呼び出すかを知るために、各クレートにはその使い方を説明したドキュメントが用意されています。
+> Cargoのもう一つの素晴らしい機能は、`cargo doc --open`コマンドを走らせると、すべての依存クレートが提供するドキュメントをローカルでビルドして、ブラウザで開いてくれることです。
+> たとえば`rand`クレートの他の機能に興味があるなら、`cargo doc --open`コマンドを実行して、左側のサイドバーにある`rand`をクリックしてください。
 
 <!--
 The second new line prints the secret number. This is useful while we’re
@@ -1030,11 +1022,15 @@ final version. It’s not much of a game if the program prints the answer as soo
 as it starts!
 -->
 
+コードに追加した2行目は秘密の数字を表示します。
+これは、プログラムを開発している間のテストに便利ですが、最終版からは削除する予定です。
+プログラムが始まってすぐに答え表示されるのでは、ゲームになりませんからね！
+
+<!--
 Try running the program a few times:
-コードに追加した2行目は、秘密の数字を出力してくれます。これは、プログラムを開発中にはテストするのに役立ちますが、
-最終版からは削除する予定です。プログラムがスタートと同時に答えを出力しちゃったら、ゲームになりませんからね！
+-->
 
-
+試しに何回かプログラムを走らせてみてください。
 
 ```console
 $ cargo run
@@ -1062,7 +1058,8 @@ You should get different random numbers, and they should all be numbers between
 1 and 100. Great job!
 -->
 
-毎回異なる乱数が出て、その数字はすべて1から100の範囲になるはずです。よくやりました！
+毎回異なる乱数を取得し、それらはすべて1から100の範囲内の数字になるはずです。
+よくやりました！
 
 <!--
 ## Comparing the Guess to the Secret Number
@@ -1076,17 +1073,17 @@ is shown in Listing 2-4. Note that this code won’t compile quite yet, as we
 will explain.
 -->
 
-今や、ユーザ入力と乱数生成ができるようになったので、比較することができますね。
-このステップはリスト2-4に示されています。これから説明するように、このコードは現状ではコンパイルできないことに注意してください。
+さて、ユーザ入力と乱数が揃ったので、両者を比較してみましょう。
+このステップをリスト2-4に示します。
+これから説明するように、このコードはまだコンパイルできないことに注意してください。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-```rust,ignore,does_not_compile
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
-```rust,ignore
+```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-04/src/main.rs:here}}
 ```
 
@@ -1095,7 +1092,7 @@ will explain.
 comparing two numbers</span>
 -->
 
-<span class="caption">リスト2-4: 2値比較の可能性のある返り値を処理する</span>
+<span class="caption">リスト2-4：二つの数値を比較したときに返される可能性のある値を処理する</span>
 
 <!--
 First we add another `use` statement, bringing a type called
@@ -1104,9 +1101,9 @@ is another enum and has the variants `Less`, `Greater`, and `Equal`. These are
 the three outcomes that are possible when you compare two values.
 -->
 
-最初の新しい点は、別の`use`文です。これで、`std::cmp::Ordering`という型を標準ライブラリからスコープに導入しています。
-`Result`と同じく`Ordering`もenumです。ただ、`Ordering`の列挙子は、
-`Less`、`Greater`、`Equal`です。これらは、2値比較した時に発生しうる3種類の結果です。
+まず`use`文を追加して、標準ライブラリから`std::cmp::Ordering`という型をスコープに導入しています。
+`Ordering`もenumの一つで`Less`、`Greater`、`Equal`という列挙子を持っています。
+これらは、二つの値を比較したときに得られる3種類の結果です。
 
 ```rust,ignore
 match guess.cmp(&secret_number) {
@@ -1127,12 +1124,11 @@ which variant of `Ordering` was returned from the call to `cmp` with the values
 in `guess` and `secret_number`.
 -->
 
-それから、一番下に新しく5行追加して`Ordering`型を使用しています。`cmp`メソッドは、
-2値を比較し、比較できるものに対してなら何に対しても呼び出せます。このメソッドは、
-比較したいものへの参照を取ります: ここでは、`guess`変数と`secret_number`変数を比較しています。
-それからこのメソッドは`use`文でスコープに導入した`Ordering`列挙型の値を返します。
-[`match`][match]<!-- ignore -->式を使用して、`guess`変数と`secret_number`を`cmp`に渡して返ってきた`Ordering`の列挙子に基づき、
-次の動作を決定しています。
+それから、`Ordering`型を使用する新しい5行をいちばん下に追加してしています。
+`cmp`メソッドは二つの値を比較し、比較できるものになら何に対しても呼び出せます。
+比較対象への参照をとり、ここでは`guess`と`secret_number`を比較しています。
+そして、`use`文でスコープに導入した`Ordering`列挙型の列挙子を返します。
+ここでは[`match`][match]式を使用しており、`guess`と`secret_number`の値に対して`cmp`を呼んだ結果返された`Ordering`の列挙子に基づいて次の動作を決定しています。
 
 [match]: ch06-02-match.html
 
@@ -1146,12 +1142,11 @@ might encounter and make sure that you handle them all. These features will be
 covered in detail in Chapter 6 and Chapter 18, respectively.
 -->
 
-`match`式は、複数の*アーム*(腕)からできています。一つのアームは、
-パターンとそのパターンに`match`式の冒頭で与えた値がマッチした時に走るコードから構成されています。Rustは、
-`match`に与えられた値を取り、各アームのパターンを順番に照合していきます。`match`式とパターンは、
-コードを書く際に出くわす様々なシチュエーションを表現させてくれ、
-すべてのシチュエーションに対処していることを保証するのを手助けしてくれるRustの強力な機能です。
-これらの機能は、それぞれ、第6章と第18章で詳しく講義することにします。
+`match`式は複数の*アーム*（腕）で構成されます。
+各アームはマッチさせる*パターン*と、`match`に与えられた値がそのアームのパターンにマッチしたときに実行されるコードで構成されます。
+Rustは`match`に与えられた値を受け取って、各アームのパターンを順に照合していきます。
+パターンと`match`式はRustの強力な機能で、コードか遭遇する可能性のあるさまざまな状況を表現し、それらすべてを確実に処理できるようにします。
+これらの機能については、それぞれ第6章と第18章で詳しく説明します。
 
 <!--
 Let’s walk through an example with the `match` expression we use here. Say that
@@ -1167,21 +1162,22 @@ code in that arm will execute and print `Too big!` to the screen. The `match`
 expression ends because it has no need to look at the last arm in this scenario.
 -->
 
-ここで使われている`match`式でどんなことが起こるかの例をじっくり観察してみましょう！例えば、
-ユーザは50と予想し、ランダム生成された秘密の数字は今回、38だったとしましょう。コードが50と38を比較すると、
-`cmp`メソッドは`Ordering::Greater`を返します。50は38よりも大きいからですね。
-`match`式に`Ordering::Greater`が与えられ、各アームのパターンを吟味し始めます。まず、
-最初のアームのパターンと照合します(`Ordering::Less`ですね)。しかし、
-値の`Ordering::Greater`と`Ordering::Less`はマッチしないため、このアームのコードは無視され、
-次のアームに移ります。次のアームのパターン、`Ordering::Greater`は*見事に*`Ordering::Greater`とマッチします！
-このアームに紐づけられたコードが実行され、画面に`Too big!`が表示されます。
-これで`match`式の実行は終わりになります。この筋書きでは、最後のアームと照合する必要はもうないからですね。
+ここで使われている`match`式に対して、例をとおして順に見ていきましょう。
+たとえばユーザが50と予想し、今回ランダムに生成された秘密の数字は38だったとしましょう。
+コードが50と38を比較すると、50は38よりも大きいので`cmp`メソッドは`Ordering::Greater`を返します。
+`match`式は`Ordering::Greater`の値を取得し、各アームのパターンを吟味し始めます。
+まず最初のアームのパターンである`Ordering::Less`を見て、`Ordering::Greater`の値と`Ordering::Less`がマッチしないことがわかります。
+したがって、このアームのコードは無視して、次のアームに移ります。
+次のアームのパターンは`Ordering::Greater`で、これは*見事に*`Ordering::Greater`とマッチします！
+このアームに関連するコードが実行され、画面に`Too big!`と表示されます。
+このシナリオでは最後のアームと照合する必要がないため`match`式（の評価）は終了します。
 
 <!--
 However, the code in Listing 2-4 won’t compile yet. Let’s try it:
 -->
 
-ところが、リスト2-4のコードは、まだコンパイルが通りません。試してみましょう:
+ところが、リスト2-4のコードはまだコンパイルできません。
+試してみましょう。
 
 ```console
 {{#include ../listings/ch02-guessing-game-tutorial/listing-02-04/output.txt}}
@@ -1200,13 +1196,14 @@ elsewhere that would cause Rust to infer a different numerical type. The reason
 for the error is that Rust cannot compare a string and a number type.
 -->
 
-このエラーの核は、*型の不一致*があると言っています。Rustには、強い静的型システムがあります。
-しかし、型推論にも対応しています。`let guess = String::new()`と書いた時、コンパイラは、
-`guess`が`String`型であるはずと推論してくれ、その型を明示させられることはありませんでした。
-一方で、`secret_number`変数は、数値型です。1から100を表すことができる数値型はいくつかあります:
-`i32`は32ビットの数字; `u32`は32ビットの非負数字; `i64`は64ビットの数字などです。
-Rustでの標準は、`i32`型であり、型情報をどこかに追加して、コンパイラに異なる数値型だと推論させない限り、
-`secret_number`の型はこれになります。エラーの原因は、Rustでは、文字列と数値型を比較できないことです。
+このエラーの核心は*型の不一致*があると述べていることです。
+Rustは強い静的型システムを持ちます。
+しかし、型推論も備えています。
+`let guess = String::new()`と書いたとき、Rustは`guess`が`String`型であるべきだと推論し、私たちにその型を書かせたりしませんでした。
+一方で`secret_number`は数値型です。
+Rustのいくつかの数値型は1から100までの値を表現でき、32ビット数値の`i32`、符号なしの32ビット数値の`u32`、64ビット数値の`i64`などがあります。
+Rustのデフォルトは`i32`型で、型情報をどこかに追加してRustに異なる数値型だと推論させない限り、`secret_number`の型はこれになります。
+エラーの原因はRustが文字列と数値型を比較できないためです。
 
 <!--
 Ultimately, we want to convert the `String` the program reads as input into a
@@ -1214,14 +1211,14 @@ real number type so we can compare it numerically to the secret number. We do so
 by adding this line to the `main` function body:
 -->
 
-究極的には、プログラムが入力として読み込む`String`型を現実の数値型に変換し、
-予想と数値として比較できるようにしたいわけです。これは、以下の2行を`main`関数の本体に追記することでできます:
+最終的にはプログラムが入力として読み込んだ`String`を実数型に変換して、秘密の数字と数値的に比較できるようにしたいわけです。
+そのためには`main`関数の本体に次の行を追加します。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/no-listing-03-convert-string-to-number/src/main.rs:here}}
@@ -1231,7 +1228,7 @@ by adding this line to the `main` function body:
 The line is:
 -->
 
-その2行とは:
+その行とは、
 
 ```rust,ignore
 let guess: u32 = guess.trim().parse().expect("Please type a number!");
@@ -1247,11 +1244,11 @@ variable name rather than forcing us to create two unique variables, such as
 value from one type to another type.
 -->
 
-`guess`という名前の変数を生成しています。あれ、でも待って。もうプログラムには`guess`という名前の変数がありませんでしたっけ？
-確かにありますが、Rustでは、新しい値で`guess`の値を*覆い隠す*(shadow)ことが許されているのです。
-この機能は、値を別の型に変換したいシチュエーションでよく使われます。
-シャドーイング(shadowing)のおかげで別々の変数を2つ作らされることなく、`guess`という変数名を再利用することができるのです。
-`guess_str`と`guess`みたいなね(シャドーイングについては、第3章でもっと掘り下げます)。
+`guess`という名前の変数を作成しています。
+しかし待ってください、このプログラムには既に`guess`という名前の変数がありませんでしたか？
+たしかにありますが、Rustでは`guess`の前の値を新しい値で*覆い隠す*（shadowする）ことが許されているのです。
+シャドーイング（shadowing）は、`guess_str`と`guess`のようなユニークな変数を二つ作る代わりに、`guess`という変数名を再利用させてくれるのです。
+これについては第3章で詳しく説明しますが、今のところ、この機能はある型から別の型に値を変換するときによく使われることを知っておいてください。
 
 <!--
 We bind this new variable to the expression `guess.trim().parse()`. The `guess`
@@ -1268,15 +1265,16 @@ class="keystroke">enter</span> results in a carriage return and a newline,
 `\r\n`). The `trim` method eliminates `\n` or `\r\n`, resulting in just `5`.
 -->
 
-`guess`を`guess.trim().parse()`という式に束縛しています。この式中の`guess`は、
-入力が入った`String`型の元々の`guess`を指しています。`String`オブジェクトの`trim`メソッドは、
-両端の空白をすべて除去します。`u32`型は、数字しか含むことができませんが、ユーザは、
-`read_line`の処理を終えるために<span class="keystroke">エンター</span>を押さなければなりません。
-ユーザが<span class="keystroke">エンター</span>を押したら、改行文字が文字列に追加されます。
-具体例として、ユーザが<span class="keystroke">5</span>を入力して、
-<span class="keystroke">エンター</span>を押せば、`guess`は次のようになります: `5\n`。
-この`\n`が「改行」、つまりエンターキーを押した結果を表しているわけです。
-`trim`メソッドは、`\n`を削除するので、ただの`5`になります。
+この新しい変数を`guess.trim().parse()`という式に束縛しています。
+式の中にある`guess`は、入力が文字列として格納されたオリジナルの`guess`変数を指しています。
+`String`インスタンスの`trim`メソッドは文字列の先頭と末尾の空白をすべて削除します。
+これは数値データのみを表現できる`u32`型とこの文字列を比較するために（準備として）行う必要があります。
+ユーザは予想を入力したら、`read_line`の処理を終えるために<span class="keystroke">Enterキー</span>を押す必要がありますが、これにより文字列に改行文字が追加されます。
+たとえばユーザが<span class="keystroke">5</span>と入力して<span class="keystroke">Enterキー</span>を押すと、`guess`は`5\n`になります。
+この`\n`は「改行」を表しています。（WindowsではEnterキーを押すとキャリッジリターンと改行が入り`\r\n`となります）
+`trim`メソッドは`\n`や`\r\n`を削除するので、その結果`5`だけになります。
+
+<!-- ここまで翻訳済み -->
 
 <!--
 The [`parse` method on strings][parse] parses a string into some
@@ -1291,7 +1289,6 @@ will infer that `secret_number` should be a `u32` as well. So now the
 comparison will be between two values of the same type!
 -->
 
-The `parse` method will only work on characters that can logically be converted
 [文字列の`parse`メソッド][parse]<!-- ignore -->は、文字列を解析して何らかの数値にします。
 このメソッドは、いろんな数値型を解析できるので、`let guess: u32`としてコンパイラに私たちが求めている型をズバリ示唆する必要があるのです。
 `guess`の後のコロン(`:`)がコンパイラに変数の型を注釈する合図になります。
@@ -1304,6 +1301,7 @@ Rustには、組み込みの数値型がいくつかあります; ここの`u32`
 [parse]: https://doc.rust-lang.org/std/primitive.str.html#method.parse
 
 <!--
+The `parse` method will only work on characters that can logically be converted
 into numbers and so can easily cause errors. If, for example, the string
 contained `A👍%`, there would be no way to convert that to a number. Because it
 might fail, the `parse` method returns a `Result` type, much as the `read_line`
