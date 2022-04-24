@@ -380,7 +380,7 @@ compile and run your program. Everything is a trade-off in language design.
 RubyやPython、JavaScriptなどの動的言語により造詣が深いなら、プログラムのコンパイルと実行を個別の手順で行うことに慣れていない可能性があります。
 Rustは*AOTコンパイル*(ahead-of-time; `訳注`: 予め)言語です。つまり、プログラムをコンパイルし、
 実行可能ファイルを誰かにあげ、あげた人がRustをインストールしていなくても実行できるわけです。
-誰かに *.rb*、*.py*、*.js*ファイルをあげたら、それぞれRuby、Python、JavaScriptの実装がインストールされている必要があります。
+誰かに *.rb*、*.py*、*.js*ファイルをあげたら、それぞれRuby、Python、JavaScriptの処理系がインストールされている必要があります。
 ですが、そのような言語では、プログラムをコンパイルし実行するには、1コマンドしか必要ないのです。
 全ては言語設計においてトレードオフなのです。
 
