@@ -13,10 +13,10 @@ explore these ideas in more detail. In this chapter, you’ll practice the
 fundamentals.
 -->
 
-実践的なプロジェクトに一緒に取り組むことで、Rustの世界に飛び込んでみましょう！&nbsp;
+ハンズオン形式のプロジェクトに一緒に取り組むことで、Rustの世界に飛び込んでみましょう！&nbsp;
 この章ではRustの一般的な概念を、実際のプログラムでの使い方を示しながら紹介します。
-`let`、`match`、メソッド、関連関数、外部クレートの使用などについて学びます！&nbsp;
-これらについての詳細は後続の章で取り上げますので、この章では基礎部分だけを練習します。
+`let`、`match`、メソッド、関連関数、外部クレートの使いかたなどについて学びます！&nbsp;
+これらについての詳細は後続の章で取り上げますので、この章では基本的なところを練習します。
 
 <!--
 We’ll implement a classic beginner programming problem: a guessing game. Here’s
@@ -118,7 +118,7 @@ the next one.
 > 訳注：ここでのイテレーションは、アジャイルな開発手法で用いられている用語にあたります。
 >
 > イテレーションとは開発工程の「一回のサイクル」のことで、サイクルには、設計、実装、テスト、改善（リリース後の振り返り）が含まれます。
-> アジャイル開発では、イテレーションを数週間の短いスパンで一通り回し、それを繰り返しながら開発を進めていきます。
+> アジャイル開発ではイテレーションを数週間の短いスパンで一通り回し、それを繰り返すことで開発を進めていきます。
 > 
 > この章では「実装」→「テスト」のごく短いサイクルを繰り返すことで、プログラムに少しずつ機能を追加していきます。
 
@@ -142,7 +142,7 @@ allow the player to input a guess. Enter the code in Listing 2-1 into
 *src/main.rs*.
 -->
 
-数当てゲームプログラムの最初の部分は、ユーザに入力を求め、その入力を処理し、予期した形式になっていることを確認することになります。
+数当てゲームプログラムの最初の部分は、ユーザに入力を求め、その入力を処理し、期待した形式（訳注：数値データ）になっていることを確認することです。
 手始めに、プレーヤーが予想を入力できるようにしましょう。
 リスト2-1のコードを*src/main.rs*に入力してください。
 
@@ -172,8 +172,8 @@ standard library, known as `std`:
 
 このコードには多くの情報が詰め込まれています。
 行ごとに見ていきましょう。
-ユーザ入力を受け付け、結果を出力するためには、`io`（入/出力）ライブラリをスコープに入れる必要があります。
-`io`ライブラリは、標準ライブラリ（`std`として知られています）に含まれています。
+ユーザ入力を受け付け、結果を出力するためには`io`（入出力）ライブラリをスコープに入れる必要があります。
+`io`ライブラリは、`std`と呼ばれる標準ライブラリに含まれています。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:io}}
@@ -185,8 +185,8 @@ into the scope of every program. This set is called the *prelude*, and you can
 see everything in it [in the standard library documentation][prelude].
 -->
 
-Rustはデフォルトで、標準ライブラリに定義されているいくつかのアイテム（をセットにしたもの）を、すべてのプログラムのスコープに取り込みます。
-このセットは*prelude*（プレリュード）を呼ばれ、[標準ライブラリのドキュメント][prelude]でその中のすべてを見ることができます。
+Rustはデフォルトで、標準ライブラリで定義されているアイテムの中のいくつかを、すべてのプログラムのスコープに取り込みます。
+このセットは*prelude*（プレリュード）と呼ばれ、[標準ライブラリのドキュメント][prelude]でその中のすべてを見ることができます。
 
 <!--
 If a type you want to use isn’t in the prelude, you have to bring that type
@@ -196,7 +196,7 @@ user input.
 -->
 
 使いたい型がpreludeにない場合は、その型を`use`文で明示的にスコープに入れる必要があります。
-`std::io`ライブラリを`use`すると、ユーザ入力を受け付ける機能など、多くの便利な機能が利用できるようになります。
+`std::io`ライブラリを`use`すると、ユーザ入力を受け付ける機能など（入出力に関する）多くの便利な機能が利用できるようになります。
 
 [prelude]: https://doc.rust-lang.org/std/prelude/index.html
 
@@ -383,7 +383,7 @@ string’s content.
 
 次の`.read_line(&mut guess)`行は、標準入力ハンドルの[`read_line`][read_line]メソッドを呼び出し、ユーザからの入力を得ています。
 また、`read_line`の引数として`&mut guess`を渡し、ユーザ入力をどの文字列に格納するかを指示しています。
-`read_line`メソッドの仕事は、ユーザが標準入力に入力したものを文字列に（その内容を上書きすることなく）追加することですので、文字列を引数として渡しているわけです。
+`read_line`メソッドの仕事は、ユーザが標準入力に入力したものを文字列に（いまの内容を上書きせずに）追加することですので、文字列を引数として渡しているわけです。
 引数の文字列は、その内容をメソッドが変更できるように、可変である必要があります。
 
 [read_line]: https://doc.rust-lang.org/std/io/struct.Stdin.html#method.read_line
@@ -419,8 +419,8 @@ line of text, it’s still part of a single logical line of code. The next part
 is this method:
 -->
 
-まだ、このコードの行は終わってませんよ。
-これから説明するのはテキスト上は3行目になりますが、まだ一つの論理的な行の一部分です。
+まだ、このコードの行は終わってません。
+これから説明するのはテキスト上は3行目になりますが、まだ一つの論理的な行の一部分に過ぎません。
 次の部分はこのメソッドです。
 
 ```rust,ignore
@@ -461,7 +461,7 @@ different code based on which variant an enum value is when the conditional is
 evaluated.
 -->
 
-前述したように、`read_line`メソッドは、渡された文字列にユーザが入力したものを入れます。
+前述したように、`read_line`メソッドは渡された文字列にユーザが入力したものを入れます。
 しかし、同時に値（この場合は[`io::Result`][ioresult]）も返します。
 Rustの標準ライブラリには`Result`という名前の型がいくつかあります。
 汎用の[`Result`][result]と、`io::Result`といったサブモジュール用の特殊な型などです。
@@ -519,7 +519,7 @@ can use it. In this case, that value is the number of bytes in the user’s inpu
 If you don’t call `expect`, the program will compile, but you’ll get a warning:
 -->
 
-もし`expect`メソッドを呼び出さなかったら、コンパイルできるものの、警告が出るでしょう。
+もし`expect`メソッドを呼び出さなかったら、コンパイルはできるものの警告が出るでしょう。
 
 ```console
 {{#include ../listings/ch02-guessing-game-tutorial/no-listing-02-without-expect/output.txt}}
@@ -540,7 +540,7 @@ use `expect`. You’ll learn about recovering from errors in [Chapter
 -->
 
 警告を抑制する正しい方法は実際にエラー処理を書くことです。
-しかし、今回は問題が起きたときにこのプログラムをクラッシュさせたいだけなので、`expect`が使えるわけです。
+しかし、現時点では問題が起きたときにこのプログラムをクラッシュさせたいだけなので、`expect`が使えるわけです。
 エラーからの回復については第9章で学びます。
 
 <!--
@@ -704,7 +704,7 @@ release that will still compile with the code in this chapter. Any version
 examples use.
 -->
 
-*Cargo.toml*ファイルでは、ヘッダに続くものは全て、他のセクションが始まるまで続くセクションの一部になります。
+*Cargo.toml*ファイルでは、ヘッダに続くものはすべて、他のセクションが始まるまで続くセクションの一部になります。
 （訳注：Cargo.tomlファイル内には複数のセクションがあり、各セクションは`[ ]`で囲まれたヘッダ行から始まります）
 
 `[dependecies]`はプロジェクトが依存する外部クレートと必要とするバージョンをCargoに伝えます。
@@ -712,8 +712,8 @@ examples use.
 Cargoは[セマンティックバージョニング][semver]（*SemVer*と呼ばれることもあります）を理解しており、これはバージョンナンバーを記述するための標準です。
 `0.8.3`という数字は実際には`^0.8.3`の省略記法で、`0.8.3`以上`0.9.0`未満の任意のバージョンを意味します。
 Cargoはこれらのバージョンを、バージョン`0.8.3`と互換性のある公開APIを持つものとみなします。
-この仕様により、この章のコードがコンパイルできるような最新のパッチリリースを取得できるようになります。
-0.9.0以降のバージョンは、以下の例で使用しているものと同じAPIであることを保証しません。
+この仕様により、この章のコードが引き続きコンパイルできるようにしつつ、最新のパッチリリースを取得できるようになります。
+0.9.0以降のバージョンは、以下の例で使用しているものと同じAPIを持つことを保証しません。
 
 [semver]: http://semver.org
 
@@ -847,8 +847,8 @@ directory.
 Cargoはあなたや他の人があなたのコードをビルドするたびに、同じ生成物をリビルドできるようにするしくみを備えています。
 Cargoは何も指示されない限り、指定したバージョンの依存のみを使用します。
 たとえば来週`rand`クレートのバージョン0.8.4が出て、そのバージョンには重要なバグ修正が含まれていますが、同時にあなたのコードを破壊するリグレッションも含まれているとします。
-これに対応するため、Rustは`cargo build`を最初に実行したとき*Cargo.lock*ファイルを作成します。
-なので、いま*guessing_game*ディレクトリにそれがあります。
+これに対応するため、Rustは`cargo build`を最初に実行したときに*Cargo.lock*ファイルを作成します。
+（いまの*guessing_game*ディレクトリにもあるはずです）
 
 <!--
 When you build a project for the first time, Cargo figures out all the
@@ -862,7 +862,7 @@ file.
 -->
 
 プロジェクトを初めてビルドするとき、Cargoは条件に合うすべての依存関係のバージョンを計算し*Cargo.lock*ファイルに書き込みます。
-次にプロジェクトをビルドする際は、Cargoは*Cargo.lock*ファイルが存在することを確認し、バージョンを把握するすべての作業を再度行う代わりに、そこに指定されているバージョンを使います。
+次にプロジェクトをビルドすると、Cargoは*Cargo.lock*ファイルが存在することを確認し、バージョンを把握するすべての作業を再び行う代わりに、そこで指定されているバージョンを使います。
 これにより再現性のあるビルドを自動的に行えます。
 言い換えれば、*Cargo.lock*ファイルのおかげで、あなたが明示的にアップグレードするまで、プロジェクトは`0.8.3`を使い続けます。
 
@@ -906,7 +906,7 @@ this instead:
 
 Cargoは`0.9.0`リリースを無視します。
 またそのとき、*Cargo.lock*ファイルが変更され、`rand`クレートの現在使用中のバージョンが`0.8.4`になったことにも気づくでしょう。
-そうではなく、`rand`のバージョン`0.9.0`か、`0.9.x`系のどれかを使用するには、*Cargo.toml*ファイルを以下のように変更する必要があるでしょう。
+そうではなく、`rand`のバージョン`0.9.0`か、`0.9.x`系のどれかを使用するには、*Cargo.toml*ファイルを以下のように変更する必要があります。
 
 ```toml
 [dependencies]
@@ -975,7 +975,7 @@ use those methods. Chapter 10 will cover traits in detail.
 -->
 
 まず`use rand::Ring`という行を追加します。
-`Rng`トレイトは乱数生成器が実装するメソッドを定義しており、それらのメソッドを使用するには、このトレイトがスコープ内になければなりません。
+`Rng`トレイトは乱数生成器が実装すべきメソッドを定義しており、それらのメソッドを使用するには、このトレイトがスコープ内になければなりません。
 トレイトについて詳しくは第10章で解説します。
 
 <!--
@@ -993,7 +993,7 @@ upper bound, so we need to specify `1..101` to request a number between 1 and
 -->
 
 次に、途中に2行を追加しています。
-最初の行では`rand::thread_rng`関数を呼び出して、これから使う特定の乱数生成器を取得しています。
+最初の行では`rand::thread_rng`関数を呼び出して、これから使う、ある特定の乱数生成器を取得しています。
 なお、この乱数生成器は現在のスレッドに固有で、オペレーティングシステムからシード値を得ています。
 そして、この乱数生成器の`gen_range`メソッドを呼び出しています。
 このメソッドは`use rand::Rng`文でスコープに導入した`Rng`トレイトで定義されています。
@@ -1025,13 +1025,13 @@ as it starts!
 
 コードに追加した2行目は秘密の数字を表示します。
 これはプログラムを開発している間のテストに便利ですが、最終版からは削除する予定です。
-プログラムが始まってすぐに答え表示されたらゲームになりませんからね！
+プログラムが始まってすぐに答えが表示されたらゲームになりませんからね！
 
 <!--
 Try running the program a few times:
 -->
 
-試しに何回かプログラムを走らせてみてください。
+試しにプログラムを何回か走らせてみてください。
 
 ```console
 $ cargo run
@@ -1169,7 +1169,7 @@ expression ends because it has no need to look at the last arm in this scenario.
 `match`式は`Ordering::Greater`の値を取得し、各アームのパターンを吟味し始めます。
 まず最初のアームのパターンである`Ordering::Less`を見て、`Ordering::Greater`の値と`Ordering::Less`がマッチしないことがわかります。
 そのため、このアームのコードは無視して、次のアームに移ります。
-次のアームのパターンは`Ordering::Greater`で、これは*見事に*`Ordering::Greater`とマッチします！&nbsp;
+次のアームのパターンは`Ordering::Greater`で、これは`Ordering::Greater`と*マッチ*します！&nbsp;
 このアームに関連するコードが実行され、画面に`Too big!`と表示されます。
 このシナリオでは最後のアームと照合する必要がないため`match`式（の評価）は終了します。
 
@@ -1228,7 +1228,7 @@ by adding this line to the `main` function body:
 The line is:
 -->
 
-その行とは、
+その行とはこれのことです。
 
 ```rust,ignore
 let guess: u32 = guess.trim().parse().expect("Please type a number!");
@@ -1355,7 +1355,7 @@ We have most of the game working now, but the user can make only one guess.
 Let’s change that by adding a loop!
 -->
 
-現在、ゲームの大部分は動作していますが、まだユーザは1回しか予想できません。
+現在、ゲームの大半は動作していますが、まだユーザは1回しか予想できません。
 ループを追加して、その部分を変更しましょう！
 
 <!--
@@ -1431,7 +1431,7 @@ quit
 thread 'main' panicked at 'Please type a number!: ParseIntError { kind: InvalidDigit }', src/main.rs:28:47
 (スレッド'main'は'数字を入力してください！：ParseIntError { kind: InvalidDigit }', src/libcore/result.rs:785でパニックしました)
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-(注意：`RUST_BACKTRACE=1`で走らせるとバックトレースを見れます)
+(注：`RUST_BACKTRACE=1`で走らせるとバックトレースを見れます)
 ```
 
 <!--
@@ -1636,7 +1636,7 @@ ownership, a feature that makes Rust different from other languages. Chapter 5
 discusses structs and method syntax, and Chapter 6 explains how enums work.
 -->
 
-このプロジェクトでは実践的な手法を通して、`let`、`match`、メソッド、関連関数、外部クレートの使用など、多くの新しいRustの概念に触れることができました。
+このプロジェクトではハンズオンを通して、`let`、`match`、メソッド、関連関数、外部クレートの使いかたなど、多くの新しいRustの概念に触れました。
 以降の章では、これらの概念についてより詳しく学びます。
 第3章では変数、データ型、関数など多くのプログラミング言語が持つ概念を取り上げ、Rustでの使い方を説明します。
 第4章ではRustを他の言語とは異なるものに特徴づける、所有権について説明します。
