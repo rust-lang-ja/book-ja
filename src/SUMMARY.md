@@ -31,7 +31,7 @@
 <!--
 - [Programming a Guessing Game](ch02-00-guessing-game-tutorial.md)
 -->
-- [数当てゲームをプログラムする](ch02-00-guessing-game-tutorial.md)
+- [数当てゲームのプログラミング](ch02-00-guessing-game-tutorial.md)
 
 <!--
 - [Common Programming Concepts](ch03-00-common-programming-concepts.md)
