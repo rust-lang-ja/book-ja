@@ -4,39 +4,26 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>The Rust Programming Language 日本語版</title>
-        
         <meta name="robots" content="noindex" />
-        
-        
 
 
         <!-- Custom HTML head -->
         
-
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="favicon.svg">
-        
-        
         <link rel="shortcut icon" href="favicon.png">
-        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
-        
         <link rel="stylesheet" href="css/print.css" media="print">
-        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="fonts/fonts.css">
-        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -44,15 +31,10 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
         <link rel="stylesheet" href="ferris.css">
-        
         <link rel="stylesheet" href="theme/2018-edition.css">
-        
         <link rel="stylesheet" href="theme/em-to-bold.css">
-        
 
-        
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -111,8 +93,7 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -128,28 +109,21 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">The Rust Programming Language 日本語版</h1>
 
                     <div class="right-buttons">
-                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
-                        
-                        
 
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
                         <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
@@ -160,7 +134,6 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
@@ -209,7 +182,7 @@ This text is available in [paperback and ebook format from No Starch
 Press][nsprust].
 -->
 <p>このテキストの（英語版の）<a href="https://nostarch.com/rust">ペーパーバック版と電子書籍版はNo Starch出版</a>から発売されています。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Foreword
 -->
 <h1 id="まえがき"><a class="header" href="#まえがき">まえがき</a></h1>
@@ -283,7 +256,7 @@ general. So dive in, get ready to learn—and welcome to the Rust community!
 <ul>
 <li>ニコラス・マットサキス(Nicholas Matsakis)とアーロン・チューロン(Aaron Turon)</li>
 </ul>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Introduction
 -->
 <h1 id="はじめに"><a class="header" href="#はじめに">はじめに</a></h1>
@@ -620,7 +593,7 @@ The source files from which this book is generated can be found on
 <blockquote>
 <p>訳注: 日本語版は<a href="https://github.com/rust-lang-ja/book-ja">こちら</a>です。</p>
 </blockquote>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Getting Started
 -->
 <h1 id="事始め"><a class="header" href="#事始め">事始め</a></h1>
@@ -640,7 +613,7 @@ somewhere. In this chapter, we’ll discuss:
 <li><code>Hello, world!</code>と表示するプログラムを書く</li>
 <li><code>cargo</code>というRustのパッケージマネージャ兼ビルドシステムを使用する</li>
 </ul>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Installation
 -->
 <h2 id="インストール"><a class="header" href="#インストール">インストール</a></h2>
@@ -829,7 +802,7 @@ sure what it does or how to use it, use the application programming interface
 (API) documentation to find out!
 -->
 <p>標準ライブラリにより提供される型や関数がなんなのかや、それをどう使えば良いのかがよくわからないときは、いつでもAPIのドキュメンテーションを検索してみてください！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Hello, World!
 -->
 <h2 id="hello-world"><a class="header" href="#hello-world">Hello, World!</a></h2>
@@ -1131,7 +1104,7 @@ real-world Rust programs.
 <p>簡単なプログラムなら<code>rustc</code>でコンパイルするだけでも十分ですが、プロジェクトが肥大化してくると、
 オプションを全て管理し、自分のコードを簡単に共有したくなるでしょう。次は、Cargoツールを紹介します。
 これは、現実世界のRustプログラムを書く手助けをしてくれるでしょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Hello, Cargo!
 -->
 <h2 id="hello-cargo"><a class="header" href="#hello-cargo">Hello, Cargo!</a></h2>
@@ -1524,7 +1497,7 @@ Rust, see Chapter 3 and then return to Chapter 2.
 [installation]: ch01-01-installation.html#installation
 [appendix-e]: appendix-05-editions.html
 -->
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Programming a Guessing Game
 -->
 <h1 id="数当てゲームをプログラムする"><a class="header" href="#数当てゲームをプログラムする">数当てゲームをプログラムする</a></h1>
@@ -3200,7 +3173,7 @@ explains how enums work.
 それらのRustでの使用方法について示します。
 第4章では、所有権について見ます。これにより、Rustは他の言語とかけ離れた存在になっています。
 第5章では、構造体とメソッド記法について議論し、第6章ではenumの動作法を説明します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Common Programming Concepts
 -->
 <h1 id="一般的なプログラミングの概念"><a class="header" href="#一般的なプログラミングの概念">一般的なプログラミングの概念</a></h1>
@@ -3241,7 +3214,7 @@ them early will give you a strong core to start from.
 いくつかは、紐付けられた機能がないものの、将来Rustに追加されるかもしれない機能用に予約されています。
 キーワードの一覧は、付録Aで確認できます。</p>
 </blockquote>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Variables and Mutability
 -->
 <h2 id="変数と可変性"><a class="header" href="#変数と可変性">変数と可変性</a></h2>
@@ -3576,7 +3549,7 @@ Now that we’ve explored how variables work, let’s look at more data types th
 can have.
 -->
 <p>さあ、変数が動作する方法を見てきたので、今度は変数が取りうるデータ型について見ていきましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Data Types
 -->
 <h2 id="データ型"><a class="header" href="#データ型">データ型</a></h2>
@@ -4155,7 +4128,7 @@ continuing. Chapter 9 discusses more of Rust’s error handling.
 この種のチェックは行われないため、間違った添え字を与えると、無効なメモリにアクセスできてしまいます。
 Rustでは、メモリアクセスを許可し、処理を継続する代わりに即座にプログラムを終了することで、
 この種のエラーからプログラマを保護しています。Rustのエラー処理については、第9章でもっと議論します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Functions
 -->
 <h2 id="関数"><a class="header" href="#関数">関数</a></h2>
@@ -4655,7 +4628,7 @@ would fix the error.
 <code>()</code>、つまり空のタプルとして表現されています。それゆえに、何も戻り値がなく、これが関数定義と矛盾するので、
 結果としてエラーになるわけです。この出力内で、コンパイラは問題を修正する手助けになりそうなメッセージも出していますね: 
 セミコロンを削除するよう提言しています。そして、そうすれば、エラーは直るわけです。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Comments
 -->
 <h2 id="コメント"><a class="header" href="#コメント">コメント</a></h2>
@@ -4721,7 +4694,7 @@ Rust also has another kind of comment, documentation comments, which we’ll
 discuss in Chapter 14.
 -->
 <p>Rustには他の種類のコメント、ドキュメントコメントもあり、それについては第14章で議論します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Control Flow
 -->
 <h2 id="制御フロー"><a class="header" href="#制御フロー">制御フロー</a></h2>
@@ -5357,7 +5330,7 @@ When you’re ready to move on, we’ll talk about a concept in Rust that *doesn
 commonly exist in other programming languages: ownership.
 -->
 <p>次に進む準備ができたら、他の言語にはあまり存在<em>しない</em>Rustの概念について話しましょう: 所有権です。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Understanding Ownership
 -->
 <h1 id="所有権を理解する"><a class="header" href="#所有権を理解する">所有権を理解する</a></h1>
@@ -5371,7 +5344,7 @@ and how Rust lays data out in memory.
 <p>所有権はRustの最もユニークな機能であり、これのおかげでガベージコレクタなしで安全性担保を行うことができるのです。
 故に、Rustにおいて、所有権がどう動作するのかを理解するのは重要です。この章では、所有権以外にも、関連する機能を
 いくつか話していきます: 借用、スライス、そして、コンパイラがデータをメモリにどう配置するかです。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## What Is Ownership?
 -->
 <h2 id="所有権とは"><a class="header" href="#所有権とは">所有権とは？</a></h2>
@@ -6402,7 +6375,7 @@ common. Luckily for us, Rust has a feature for this concept, called
 -->
 <p>でも、これでは、大袈裟すぎますし、ありふれているはずの概念に対して、作業量が多すぎます。
 私たちにとって幸運なことに、Rustにはこの概念に対する機能があり、<em>参照</em>と呼ばれます。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## References and Borrowing
 -->
 <h2 id="参照と借用"><a class="header" href="#参照と借用">参照と借用</a></h2>
@@ -6913,7 +6886,7 @@ number of immutable references.
 Next, we’ll look at a different kind of reference: slices.
 -->
 <p>次は、違う種類の参照を見ていきましょう: スライスです。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## The Slice Type
 -->
 <h2 id="スライス型"><a class="header" href="#スライス型">スライス型</a></h2>
@@ -7558,7 +7531,7 @@ Chapter 5 and look at grouping pieces of data together in a `struct`.
 <!--
 [strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
 -->
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Using Structs to Structure Related Data
 -->
 <h1 id="構造体を使用して関係のあるデータを構造化する"><a class="header" href="#構造体を使用して関係のあるデータを構造化する">構造体を使用して関係のあるデータを構造化する</a></h1>
@@ -7578,7 +7551,7 @@ time type checking.
 この章では、タプルと構造体を対照的に比較し、構造体の使用法をデモし、メソッドや関連関数を定義して、
 構造体のデータに紐付く振る舞いを指定する方法について議論します。構造体と<em>enum</em>(第6章で議論します)は、
 自分のプログラム領域で新しい型を定義し、Rustのコンパイル時型精査機能をフル活用する構成要素になります。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Defining and Instantiating Structs
 -->
 <h2 id="構造体を定義しインスタンス化する"><a class="header" href="#構造体を定義しインスタンス化する">構造体を定義し、インスタンス化する</a></h2>
@@ -7940,7 +7913,7 @@ individual value, and so on.
 <!--
 ### Unit-Like Structs without Any Fields
 -->
-<h3 id="フィールドのないユニットruby様rprprtようrtrprpruby構造体"><a class="header" href="#フィールドのないユニットruby様rprprtようrtrprpruby構造体">フィールドのないユニット<ruby>様<rp>(</rp><rt>よう</rt><rp>)</rp></ruby>構造体</a></h3>
+<h3 id="フィールドのないユニット様よう構造体"><a class="header" href="#フィールドのないユニット様よう構造体">フィールドのないユニット<ruby>様<rp>(</rp><rt>よう</rt><rp>)</rp></ruby>構造体</a></h3>
 <!--
 We can also define structs that don’t have any fields! These are called
 *unit-like structs* because they behave similarly to `()`, the unit type.
@@ -8051,7 +8024,7 @@ error[E0106]: missing lifetime specifier
 <p>第10章で、これらのエラーを解消して構造体に参照を保持する方法について議論しますが、
 当面、今回のようなエラーは、<code>&amp;str</code>のような参照の代わりに、<code>String</code>のような所有された型を使うことで修正します。</p>
 </blockquote>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## An Example Program Using Structs
 -->
 <h2 id="構造体を使ったプログラム例"><a class="header" href="#構造体を使ったプログラム例">構造体を使ったプログラム例</a></h2>
@@ -8421,7 +8394,7 @@ continue to refactor this code by turning the `area` function into an `area`
 役に立つでしょう。なぜなら、他のどんな型でもうまく動作しなくなるからです。
 <code>area</code>関数を<code>Rectangle</code>型に定義された<code>area</code><em>メソッド</em>に変形することで、
 このコードをリファクタリングし続けられる方法について見ていきましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Method Syntax
 -->
 <h2 id="メソッド記法"><a class="header" href="#メソッド記法">メソッド記法</a></h2>
@@ -8851,7 +8824,7 @@ Rust’s enum feature to add another tool to our toolbox.
 -->
 <p>しかし、構造体だけが独自の型を作成する手段ではありません: Rustのenum機能に目を向けて、
 別の道具を道具箱に追加しましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Enums and Pattern Matching
 -->
 <h1 id="enumとパターンマッチング"><a class="header" href="#enumとパターンマッチング">Enumとパターンマッチング</a></h1>
@@ -8882,7 +8855,7 @@ languages like F#, OCaml, and Haskell.
 -->
 <p>enumは多くの言語に存在する機能ですが、その能力は言語ごとに異なります。Rustのenumは、F#、OCaml、Haskellなどの、
 関数型言語に存在する<em>代数的データ型</em>に最も酷似しています。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Defining an Enum
 -->
 <h2 id="enumを定義する"><a class="header" href="#enumを定義する">Enumを定義する</a></h2>
@@ -9512,7 +9485,7 @@ value.
 <code>None</code>値があった場合に走る別のコードが欲しくなり、そちらのコードは<code>T</code>値は使用できない状態になります。
 <code>match</code>式が、enumとともに使用した時にこれだけの動作をする制御フロー文法要素になります:
 enumの列挙子によって、違うコードが走り、そのコードがマッチした値の中のデータを使用できるのです。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## The `match` Control Flow Operator
 -->
 <h2 id="match制御フロー演算子"><a class="header" href="#match制御フロー演算子"><code>match</code>制御フロー演算子</a></h2>
@@ -9956,7 +9929,7 @@ care about only *one* of the cases. For this situation, Rust provides `if let`.
 -->
 <p>ですが、<em>一つ</em>のケースにしか興味がないような場面では、<code>match</code>式はちょっと長ったらしすぎます。
 このような場面用に、Rustには、<code>if let</code>が用意されています。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Concise Control Flow with `if let`
 -->
 <h2 id="if-letで簡潔な制御フロー"><a class="header" href="#if-letで簡潔な制御フロー"><code>if let</code>で簡潔な制御フロー</a></h2>
@@ -10132,7 +10105,7 @@ Rust’s modules.
 -->
 <p>使用するのに率直な整理整頓されたAPIをユーザに提供し、ユーザが必要とするものだけを公開するために、
 今度は、Rustのモジュールに目を向けてみましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Managing Growing Projects with Packages, Crates, and Modules
 -->
 <h1 id="肥大化していくプロジェクトをパッケージクレートモジュールを利用して管理する"><a class="header" href="#肥大化していくプロジェクトをパッケージクレートモジュールを利用して管理する">肥大化していくプロジェクトをパッケージ、クレート、モジュールを利用して管理する</a></h1>
@@ -10217,7 +10190,7 @@ understanding of the module system and be able to work with scopes like a pro!
 -->
 <p>この章では、これらの機能をすべて学び、これらがどう相互作用するかについて議論し、これらをどう使ってスコープを制御するのかについて説明します。
 この章を読み終わる頃には、モジュールシステムをしっかりと理解し、熟練者のごとくスコープを扱うことができるようになっているでしょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Packages and Crates
 -->
 <h2 id="パッケージとクレート"><a class="header" href="#パッケージとクレート">パッケージとクレート</a></h2>
@@ -10314,7 +10287,7 @@ our crate, it refers to the `struct Rng` that we defined. We would access the
 Let’s move on and talk about the module system!
 -->
 <p>では、モジュールシステムの話に移りましょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Defining Modules to Control Scope and Privacy
 -->
 <h2 id="モジュールを定義してスコープとプライバシーを制御する"><a class="header" href="#モジュールを定義してスコープとプライバシーを制御する">モジュールを定義して、スコープとプライバシーを制御する</a></h2>
@@ -10463,7 +10436,7 @@ need a way to find our modules.
 <p>モジュールツリーを見ていると、コンピュータのファイルシステムのディレクトリツリーを思い出すかもしれません。その喩えはとても適切です！
 ファイルシステムのディレクトリのように、モジュールはコードをまとめるのに使われるのです。
 そしてディレクトリからファイルを見つけるように、目的のモジュールを見つけ出す方法が必要になります。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Paths for Referring to an Item in the Module Tree
 -->
 <h2 id="モジュールツリーの要素を示すためのパス"><a class="header" href="#モジュールツリーの要素を示すためのパス">モジュールツリーの要素を示すためのパス</a></h2>
@@ -11008,7 +10981,7 @@ first, and then we’ll show how to combine `pub` and `use`.
 -->
 <p>まだ勉強していない、<code>pub</code>の関わるシチュエーションがもう一つあります。モジュールシステムの最後の機能、<code>use</code>キーワードです。
 <code>use</code>自体の勉強をした後、<code>pub</code>と<code>use</code>を組み合わせる方法についてお見せします。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Bringing Paths into Scope with the `use` Keyword
 -->
 <h2 id="useキーワードでパスをスコープに持ち込む"><a class="header" href="#useキーワードでパスをスコープに持ち込む"><code>use</code>キーワードでパスをスコープに持ち込む</a></h2>
@@ -11607,7 +11580,7 @@ for more information on that pattern.
 -->
 <p>glob演算子はしばしば、テストの際、テストされるあらゆるものを<code>tests</code>モジュールに持ち込むために使われます。これについては11章<a href="ch11-01-writing-tests.html#%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A8%98%E8%BF%B0%E6%B3%95">テストの書き方</a>の節で話します。
 glob演算子はプレリュードパターンの一部としても使われることがあります：そのようなパターンについて、より詳しくは<a href="https://doc.rust-lang.org/std/prelude/index.html#other-preludes">標準ライブラリのドキュメント</a>をご覧ください。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Separating Modules into Different Files
 -->
 <h2 id="モジュールを複数のファイルに分割する"><a class="header" href="#モジュールを複数のファイルに分割する">モジュールを複数のファイルに分割する</a></h2>
@@ -11733,7 +11706,7 @@ In the next chapter, we’ll look at some collection data structures in the
 standard library that you can use in your neatly organized code.
 -->
 <p>次の章では、きちんと整理されたあなたのコードで使うことができる、標準ライブラリのいくつかのコレクションデータ構造を見ていきます。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Common Collections
 -->
 <h1 id="一般的なコレクション"><a class="header" href="#一般的なコレクション">一般的なコレクション</a></h1>
@@ -11779,7 +11752,7 @@ We’ll discuss how to create and update vectors, strings, and hash maps, as wel
 as what makes each special.
 -->
 <p>ベクタ型、文字列、ハッシュマップの生成と更新方法や、各々が特別な点について議論していきましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Storing Lists of Values with Vectors
 -->
 <h2 id="ベクタで値のリストを保持する"><a class="header" href="#ベクタで値のリストを保持する">ベクタで値のリストを保持する</a></h2>
@@ -12242,7 +12215,7 @@ collection type: `String`!
 [vec-api]: ../std/vec/struct.Vec.html
 [deref]: ch15-02-deref.html#following-the-pointer-to-the-value-with-the-dereference-operator
 -->
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Storing UTF-8 Encoded Text with Strings
 -->
 <h2 id="文字列でutf-8でエンコードされたテキストを保持する"><a class="header" href="#文字列でutf-8でエンコードされたテキストを保持する">文字列でUTF-8でエンコードされたテキストを保持する</a></h2>
@@ -12955,7 +12928,7 @@ ASCII以外の文字に関するエラーを開発の後半で扱わなければ
 Let’s switch to something a bit less complex: hash maps!
 -->
 <p>もう少し複雑でないものに切り替えていきましょう: ハッシュマップです！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Storing Keys Associated with Values in Hash Maps
 -->
 <h2 id="キーとそれに紐づいた値をハッシュマップに格納する"><a class="header" href="#キーとそれに紐づいた値をハッシュマップに格納する">キーとそれに紐づいた値をハッシュマップに格納する</a></h2>
@@ -13425,7 +13398,7 @@ a perfect time to discuss error handling. We'll do that next!
 -->
 <p>処理が失敗することもあるような、より複雑なプログラムに入り込んできています; ということは、
 エラーの処理法について議論するのにぴったりということです。次はそれをします！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Error Handling
 -->
 <h1 id="エラー処理"><a class="header" href="#エラー処理">エラー処理</a></h1>
@@ -13467,7 +13440,7 @@ Rustには例外が存在しません。代わりに、回復可能なエラー�
 プログラムが回復不能なエラーに遭遇した時には、実行を中止する<code>panic!</code>マクロがあります。
 この章では、まず<code>panic!</code>の呼び出しを講義し、それから<code>Result&lt;T, E&gt;</code>を戻り値にする話をします。
 加えて、エラーからの回復を試みるか、実行を中止するか決定する際に考慮すべき事項についても、探究しましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Unrecoverable Errors with `panic!`
 -->
 <h2 id="panicで回復不能なエラー"><a class="header" href="#panicで回復不能なエラー"><code>panic!</code>で回復不能なエラー</a></h2>
@@ -13745,7 +13718,7 @@ in this chapter. Next, we’ll look at how to recover from an error using
 -->
 <p>この章の後ほど、「<code>panic!</code>するか<code>panic!</code>するまいか」節で<code>panic!</code>とエラー状態を扱うのに<code>panic!</code>を使うべき時と使わぬべき時に戻ってきます。
 次は、<code>Result</code>を使用してエラーから回復する方法を見ましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Recoverable Errors with `Result`
 -->
 <h2 id="resultで回復可能なエラー"><a class="header" href="#resultで回復可能なエラー"><code>Result</code>で回復可能なエラー</a></h2>
@@ -14438,7 +14411,7 @@ cases.
 -->
 <p>さて、<code>panic!</code>呼び出しや<code>Result</code>を返す詳細について議論し終えたので、
 どんな場合にどちらを使うのが適切か決める方法についての話に戻りましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## To `panic!` or Not to `panic!`
 -->
 <h2 id="panicすべきかするまいか"><a class="header" href="#panicすべきかするまいか"><code>panic!</code>すべきかするまいか</a></h2>
@@ -14839,7 +14812,7 @@ can use them in your code.
 -->
 <p>今や、標準ライブラリが<code>Option</code>や<code>Result</code> enumなどでジェネリクスを有効活用するところを目の当たりにしたので、
 ジェネリクスの動作法と自分のコードでの使用方法について語りましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Generic Types, Traits, and Lifetimes
 -->
 <h1 id="ジェネリック型トレイトライフタイム"><a class="header" href="#ジェネリック型トレイトライフタイム">ジェネリック型、トレイト、ライフタイム</a></h1>
@@ -15087,7 +15060,7 @@ values. How would we eliminate that duplication? Let’s find out!
 -->
 <p>例えば、関数が2つあるとしましょう: 1つは<code>i32</code>値のスライスから最大の要素を探し、1つは<code>char</code>値のスライスから最大要素を探します。
 この重複はどう排除するのでしょうか？答えを見つけましょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Generic Data Types
 -->
 <h2 id="ジェネリックなデータ型"><a class="header" href="#ジェネリックなデータ型">ジェネリックなデータ型</a></h2>
@@ -15721,7 +15694,7 @@ runtime.
 ジェネリクスを使用することに対して実行時コストを払うことはありません。コードを実行すると、
 それぞれの定義を手作業で複製した時のように振る舞います。単相化の過程により、
 Rustのジェネリクスは実行時に究極的に効率的になるのです。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Traits: Defining Shared Behavior
 -->
 <h2 id="トレイト-共通の振る舞いを定義する"><a class="header" href="#トレイト-共通の振る舞いを定義する">トレイト: 共通の振る舞いを定義する</a></h2>
@@ -16822,7 +16795,7 @@ ch04-01-what-is-ownership.html#stack-only-data-copy
 [using-trait-objects-that-allow-for-values-of-different-types]:
 ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
 -->
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Validating References with Lifetimes
 -->
 <h2 id="ライフタイムで参照を検証する"><a class="header" href="#ライフタイムで参照を検証する">ライフタイムで参照を検証する</a></h2>
@@ -18077,7 +18050,7 @@ Rust so you can make sure your code is working the way it should.
 非常に高度な筋書きの場合でのみ必要になる、ライフタイム注釈が関わる、もっと複雑な筋書きもあります。
 それらについては、<a href="https://doc.rust-lang.org/reference/">Rust Reference</a>をお読みください。 
 ですが次は、コードがあるべき通りに動いていることを確かめられるように、Rustでテストを書く方法を学びます。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Writing Automated Tests
 -->
 <h1 id="自動テストを書く"><a class="header" href="#自動テストを書く">自動テストを書く</a></h1>
@@ -18139,7 +18112,7 @@ tests, and how to organize tests into unit tests and integration tests.
 <p>テストは、複雑なスキルです: いいテストの書き方をあらゆる方面から講義することは1章だけではできないのですが、
 Rustのテスト機構のメカニズムについて議論します。テストを書く際に利用可能になるアノテーションとマクロについて、
 テストを実行するのに提供されているオプションと標準の動作、さらにテストをユニットテストや統合テストに体系化する方法について語ります。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## How to Write Tests
 -->
 <h2 id="テストの記述法"><a class="header" href="#テストの記述法">テストの記述法</a></h2>
@@ -19525,7 +19498,7 @@ test`.
 -->
 <p>今やテスト記法を複数知ったので、テストを走らせる際に起きていることに目を向け、
 <code>cargo test</code>で使用できるいろんなオプションを探究しましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Controlling How Tests Are Run
 -->
 <h2 id="テストの実行のされ方を制御する"><a class="header" href="#テストの実行のされ方を制御する">テストの実行のされ方を制御する</a></h2>
@@ -19944,7 +19917,7 @@ of the `ignored` tests and you have time to wait for the results, you can run
 <p>どのテストを走らせるか制御することで、結果が早く出ることを確かめることができるのです。
 <code>ignored</code>テストの結果を確認することが道理に合い、結果を待つだけの時間ができたときに、
 代わりに<code>cargo test -- --ignored</code>を走らせることができます。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Test Organization
 -->
 <h2 id="テストの体系化"><a class="header" href="#テストの体系化">テストの体系化</a></h2>
@@ -20432,7 +20405,7 @@ Let’s combine the knowledge you learned in this chapter and in previous
 chapters and work on a project!
 -->
 <p>この章と以前の章で学んだ知識を結集して、とあるプロジェクトに取り掛かりましょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # An I/O Project: Building a Command Line Program
 -->
 <h1 id="入出力プロジェクト-コマンドラインプログラムを構築する"><a class="header" href="#入出力プロジェクト-コマンドラインプログラムを構築する">入出力プロジェクト: コマンドラインプログラムを構築する</a></h1>
@@ -20505,7 +20478,7 @@ We’ll also briefly introduce closures, iterators, and trait objects, which
 Chapters 13 and 17 will cover in detail.
 -->
 <p>さらに、クロージャ、イテレータ、トレイトオブジェクトなど、第13章、17章で詳しく講義するものもちょっとだけ紹介します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Accepting Command Line Arguments
 -->
 <h2 id="コマンドライン引数を受け付ける"><a class="header" href="#コマンドライン引数を受け付ける">コマンドライン引数を受け付ける</a></h2>
@@ -20728,7 +20701,7 @@ capabilities instead.
 <p>素晴らしい、プログラムは動作しています！必要な引数の値が、正しい変数に保存されています。後ほど、
 何らかのエラー処理を加えて、ユーザが引数を提供しなかった場合など、可能性のある特定のエラー状況に対処します;
 今は、そのような状況はないものとし、代わりにファイル読み取り能力を追加することに取り組みます。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Reading a File
 -->
 <h2 id="ファイルを読み込む"><a class="header" href="#ファイルを読み込む">ファイルを読み込む</a></h2>
@@ -20894,7 +20867,7 @@ much easier to refactor smaller amounts of code. We’ll do that next.
 まだプログラムが小規模なので、これらの欠陥は大きな問題にはなりませんが、プログラムが大規模になるにつれ、
 それを綺麗に解消するのは困難になっていきます。プログラムを開発する際に早い段階でリファクタリングを行うのは、
 良い戦術です。リファクタリングするコードの量が少なければ、はるかに簡単になりますからね。次は、それを行いましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Refactoring to Improve Modularity and Error Handling
 -->
 <h2 id="リファクタリングしてモジュール性とエラー処理を向上させる"><a class="header" href="#リファクタリングしてモジュール性とエラー処理を向上させる">リファクタリングしてモジュール性とエラー処理を向上させる</a></h2>
@@ -21899,7 +21872,7 @@ write some tests!
 -->
 <p>古いコードでは大変だけれども、新しいコードでは楽なことをして新発見のモジュール性を活用しましょう:
 テストを書くのです！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Developing the Library’s Functionality with Test Driven Development
 -->
 <h2 id="テスト駆動開発でライブラリの機能を開発する"><a class="header" href="#テスト駆動開発でライブラリの機能を開発する">テスト駆動開発でライブラリの機能を開発する</a></h2>
@@ -22379,7 +22352,7 @@ useful when you’re writing command line programs.
 -->
 <p>このプロジェクトをまとめ上げるために、環境変数を扱う方法と標準エラー出力に出力する方法を少しだけデモします。
 これらはどちらも、コマンドラインプログラムを書く際に有用です。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Working with Environment Variables
 -->
 <h2 id="環境変数を取り扱う"><a class="header" href="#環境変数を取り扱う">環境変数を取り扱う</a></h2>
@@ -22809,7 +22782,7 @@ environment variables: check out its documentation to see what is available.
 -->
 <p><code>std::env</code>モジュールは、環境変数を扱うもっと多くの有用な機能を有しています:
 ドキュメンテーションを確認して、何が利用可能か確かめてください。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Writing Error Messages to Standard Error Instead of Standard Output
 -->
 <h2 id="標準出力ではなく標準エラーにエラーメッセージを書き込む"><a class="header" href="#標準出力ではなく標準エラーにエラーメッセージを書き込む">標準出力ではなく標準エラーにエラーメッセージを書き込む</a></h2>
@@ -22984,7 +22957,7 @@ Next, we’ll explore some Rust features that were influenced by functional
 languages: closures and iterators.
 -->
 <p>次は、関数型言語に影響されたRust機能を一部探究します: クロージャとイテレータです。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Functional Language Features: Iterators and Closures
 -->
 <h1 id="関数型言語の機能-イテレータとクロージャ"><a class="header" href="#関数型言語の機能-イテレータとクロージャ">関数型言語の機能: イテレータとクロージャ</a></h1>
@@ -23031,7 +23004,7 @@ code, so we’ll devote this entire chapter to them.
 <p>パターンマッチングやenumなど、他のRustの機能も関数型に影響されていますが、他の章で講義してきました。
 クロージャとイテレータをマスターすることは、慣用的で速いRustコードを書くことの重要な部分なので、
 この章を丸ごと捧げます。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Closures: Anonymous Functions that Can Capture Their Environment
 -->
 <h2 id="クロージャ-環境をキャプチャできる匿名関数"><a class="header" href="#クロージャ-環境をキャプチャできる匿名関数">クロージャ: 環境をキャプチャできる匿名関数</a></h2>
@@ -24232,7 +24205,7 @@ To illustrate situations where closures that can capture their environment are
 useful as function parameters, let’s move on to our next topic: iterators.
 -->
 <p>環境をキャプチャできるクロージャが関数の引数として有用な場面を説明するために、次のトピックに移りましょう: イテレータです。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Processing a Series of Items with Iterators
 -->
 <h2 id="一連の要素をイテレータで処理する"><a class="header" href="#一連の要素をイテレータで処理する">一連の要素をイテレータで処理する</a></h2>
@@ -24956,7 +24929,7 @@ other methods that call `next`.
 -->
 <p><code>next</code>メソッドの動作方法を指定し、標準ライブラリが<code>next</code>を呼び出す他のメソッドにデフォルト実装を提供しているので、
 これらのメソッド呼び出しは全て可能です。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Improving Our I/O Project
 -->
 <h2 id="入出力プロジェクトを改善する"><a class="header" href="#入出力プロジェクトを改善する">入出力プロジェクトを改善する</a></h2>
@@ -25303,7 +25276,7 @@ performance.
 -->
 <p>ですが、本当に2つの実装は等価なのでしょうか？直観的な仮説は、より低レベルのループの方がより高速ということかもしれません。
 パフォーマンスに触れましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Comparing Performance: Loops vs. Iterators
 -->
 <h2 id="パフォーマンス比較-ループvsイテレータ"><a class="header" href="#パフォーマンス比較-ループvsイテレータ">パフォーマンス比較: ループVSイテレータ</a></h2>
@@ -25451,7 +25424,7 @@ some more features of `cargo` that will help us share the project with the
 world.
 -->
 <p>今や入出力プロジェクトの表現力を改善したので、プロジェクトを世界と共有するのに役に立つ<code>cargo</code>の機能にもっと目を向けましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # More About Cargo and Crates.io
 -->
 <h1 id="cargoとcratesioについてより詳しく"><a class="header" href="#cargoとcratesioについてより詳しく">CargoとCrates.ioについてより詳しく</a></h1>
@@ -25484,7 +25457,7 @@ documentation](https://doc.rust-lang.org/cargo/).
 -->
 <p>また、Cargoはこの章で講義する以上のこともできるので、機能の全解説を見るには、
 <a href="https://doc.rust-lang.org/cargo/">ドキュメンテーション</a>を参照されたし。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Customizing Builds with Release Profiles
 -->
 <h2 id="リリースプロファイルでビルドをカスタマイズする"><a class="header" href="#リリースプロファイルでビルドをカスタマイズする">リリースプロファイルでビルドをカスタマイズする</a></h2>
@@ -25591,7 +25564,7 @@ For the full list of configuration options and defaults for each profile, see
 [Cargo’s documentation](https://doc.rust-lang.org/cargo/).
 -->
 <p>設定の選択肢と各プロファイルのデフォルト設定の一覧は、<a href="https://doc.rust-lang.org/cargo/">Cargoのドキュメンテーション</a>を参照されたし。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Publishing a Crate to Crates.io
 -->
 <h2 id="cratesioにクレートを公開する"><a class="header" href="#cratesioにクレートを公開する">Crates.ioにクレートを公開する</a></h2>
@@ -26368,7 +26341,7 @@ reset those secrets immediately.
 -->
 <p>取り下げは、コードの削除は一切し<em>ません</em>。例として、取り下げ機能は、誤ってアップロードされた秘密鍵を削除するためのものではありません。
 もしそうなってしまったら、即座に秘密鍵をリセットしなければなりません。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Cargo Workspaces
 -->
 <h2 id="cargoのワークスペース"><a class="header" href="#cargoのワークスペース">Cargoのワークスペース</a></h2>
@@ -26811,7 +26784,7 @@ often changed at the same time.
 <p>プロジェクトが肥大化してきたら、ワークスペースの使用を考えてみてください: 大きな一つのコードの塊よりも、
 微細で個別のコンポーネントの方が理解しやすいです。またワークスペースにクレートを保持することは、
 同時に変更されることが多いのなら、協調しやすくなることにも繋がります。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Installing Binaries from Crates.io with `cargo install`
 -->
 <h2 id="cargo-installでcratesioからバイナリをインストールする"><a class="header" href="#cargo-installでcratesioからバイナリをインストールする"><code>cargo install</code>でCrates.ioからバイナリをインストールする</a></h2>
@@ -26868,7 +26841,7 @@ directory is in your `$PATH`, as mentioned previously, you can then run `rg
 <p>出力の最後の行が、インストールされたバイナリの位置と名前を示していて、<code>ripgrep</code>の場合、<code>rg</code>です。
 インストールディレクトリが<code>$PATH</code>に存在する限り、前述したように、<code>rg --help</code>を走らせて、
 より高速でRustらしいファイル検索ツールを使用し始めることができます！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Extending Cargo with Custom Commands
 -->
 <h2 id="独自のコマンドでcargoを拡張する"><a class="header" href="#独自のコマンドでcargoを拡張する">独自のコマンドでCargoを拡張する</a></h2>
@@ -26902,7 +26875,7 @@ Rustのエコシステムを多くの異なる作業に有用にするものの�
 小さく安定的ですが、クレートは共有および使用しやすく、言語とは異なるタイムラインで進化します。
 積極的に<a href="https://crates.io">crates.io</a>で自分にとって有用なコードを共有してください;
 他の誰かにとっても、役に立つものであることでしょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Smart Pointers
 -->
 <h1 id="スマートポインタ"><a class="header" href="#スマートポインタ">スマートポインタ</a></h1>
@@ -27000,7 +26973,7 @@ type exposes an API for mutating an interior value. We’ll also discuss
 Let’s dive in!
 -->
 <p>さあ、飛び込みましょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Using `Box<T>` to Point to Data on the Heap
 -->
 <h2 id="ヒープのデータを指すboxtを使用する"><a class="header" href="#ヒープのデータを指すboxtを使用する">ヒープのデータを指す<code>Box&lt;T&gt;</code>を使用する</a></h2>
@@ -27438,7 +27411,7 @@ rest of this chapter.
 このトレイトにより<code>Box&lt;T&gt;</code>の値を参照のように扱うことができます。
 <code>Box&lt;T&gt;</code>値がスコープを抜けると、ボックスが参照しているヒープデータも片付けられます。これは<code>Drop</code>トレイト実装のおかげです。
 これら2つのトレイトをより詳しく探究しましょう。これら2つのトレイトは、他のスマートポインタ型が提供する機能にとってさらに重要なものです。それらついてはこの章の残りで議論します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Treating Smart Pointers Like Regular References with the `Deref` Trait
 -->
 <h2 id="derefトレイトでスマートポインタを普通の参照のように扱う"><a class="header" href="#derefトレイトでスマートポインタを普通の参照のように扱う"><code>Deref</code>トレイトでスマートポインタを普通の参照のように扱う</a></h2>
@@ -27988,7 +27961,7 @@ an immutable reference to a mutable reference is possible.
 1つの可変参照を1つの不変参照に変換することは、借用規則を絶対に破壊しません。
 不変参照を可変参照にするには、そのデータへの不変参照がたった1つしかないことが必要ですが、
 借用規則はそれを保証してくれません。故に、不変参照を可変参照に変換することが可能であるという前提を敷けません。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Running Code on Cleanup with the `Drop` Trait
 -->
 <h2 id="dropトレイトで片付け時にコードを走らせる"><a class="header" href="#dropトレイトで片付け時にコードを走らせる"><code>Drop</code>トレイトで片付け時にコードを走らせる</a></h2>
@@ -28268,7 +28241,7 @@ pointers, let’s look at a few other smart pointers defined in the standard
 library.
 -->
 <p>これで<code>Box&lt;T&gt;</code>とスマートポインタの特徴の一部を調査したので、標準ライブラリに定義されている他のスマートポインタをいくつか見ましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## `Rc<T>`, the Reference Counted Smart Pointer
 -->
 <h2 id="rctは参照カウント方式のスマートポインタ"><a class="header" href="#rctは参照カウント方式のスマートポインタ"><code>Rc&lt;T&gt;</code>は、参照カウント方式のスマートポインタ</a></h2>
@@ -28593,7 +28566,7 @@ immutability restriction.
 同じ場所への複数の可変借用は、データ競合や矛盾を引き起こすことがあるのです。しかし、
 データを可変化する能力はとても有用です！次の節では、内部可変性パターンと、
 <code>Rc&lt;T&gt;</code>と絡めて使用してこの不変性制限を手がけられる<code>RefCell&lt;T&gt;</code>型について議論します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## `RefCell<T>` and the Interior Mutability Pattern
 -->
 <h2 id="refcelltと内部可変性パターン"><a class="header" href="#refcelltと内部可変性パターン"><code>RefCell&lt;T&gt;</code>と内部可変性パターン</a></h2>
@@ -29301,7 +29274,7 @@ more details on the differences between these types.
 値は<code>Cell&lt;T&gt;</code>の内部や外部へコピーされる点を除き似ています。また<code>Mutex&lt;T&gt;</code>もあり、
 これはスレッド間で使用するのが安全な内部可変性を提供します; 第16章でその使いみちについて議論しましょう。
 これらの型の違いをより詳しく知るには、標準ライブラリのドキュメンテーションをチェックしてください。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Reference Cycles Can Leak Memory
 -->
 <h2 id="循環参照はメモリをリークすることもある"><a class="header" href="#循環参照はメモリをリークすることもある">循環参照は、メモリをリークすることもある</a></h2>
@@ -30005,7 +29978,7 @@ Next, we’ll talk about concurrency in Rust. You’ll even learn about a few ne
 smart pointers.
 -->
 <p>次は、Rustでの並行性について語ります。もういくつか新しいスマートポインタについてさえも学ぶでしょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Fearless Concurrency
 -->
 <h1 id="恐れるな並行性"><a class="header" href="#恐れるな並行性">恐れるな！並行性</a></h1>
@@ -30095,7 +30068,7 @@ user-defined types as well as types provided by the standard library
 <li>複数のスレッドが何らかのデータにアクセスする<em>状態共有</em>並行性</li>
 <li>標準ライブラリが提供する型だけでなく、ユーザが定義した型に対してもRustの並行性の安全保証を拡張する<code>Sync</code>と<code>Send</code>トレイト</li>
 </ul>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Using Threads to Run Code Simultaneously
 -->
 <h2 id="スレッドを使用してコードを同時に走らせる"><a class="header" href="#スレッドを使用してコードを同時に走らせる">スレッドを使用してコードを同時に走らせる</a></h2>
@@ -30642,7 +30615,7 @@ With a basic understanding of threads and the thread API, let’s look at what w
 can *do* with threads.
 -->
 <p>スレッドとスレッドAPIの基礎知識を得たので、スレッドで<em>できる</em>ことを見ていきましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Using Message Passing to Transfer Data Between Threads
 -->
 <h2 id="メッセージ受け渡しを使ってスレッド間でデータを転送する"><a class="header" href="#メッセージ受け渡しを使ってスレッド間でデータを転送する">メッセージ受け渡しを使ってスレッド間でデータを転送する</a></h2>
@@ -31150,7 +31123,7 @@ Now that we’ve looked at how channels work, let’s look at a different method
 concurrency.
 -->
 <p>チャンネルの動作方法を見たので、他の並行性に目を向けましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Shared-State Concurrency
 -->
 <h2 id="状態共有並行性"><a class="header" href="#状態共有並行性">状態共有並行性</a></h2>
@@ -31758,7 +31731,7 @@ We’ll round out this chapter by talking about the `Send` and `Sync` traits and
 how we can use them with custom types.
 -->
 <p><code>Send</code>と<code>Sync</code>トレイトと、それらを独自の型で使用する方法について語って、この章を締めくくります。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Extensible Concurrency with the `Sync` and `Send` Traits
 -->
 <h2 id="syncとsendトレイトで拡張可能な並行性"><a class="header" href="#syncとsendトレイトで拡張可能な並行性"><code>Sync</code>と<code>Send</code>トレイトで拡張可能な並行性</a></h2>
@@ -31919,7 +31892,7 @@ relate to those you might be familiar with from object oriented programming.
 -->
 <p>次は、Rustプログラムが肥大化するにつれて問題をモデル化し、解決策を構造化する慣例的な方法について話します。
 さらに、Rustのイディオムがオブジェクト指向プログラミングで馴染み深いかもしれないイディオムにどのように関連しているかについても議論します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Object-Oriented Programming Features of Rust
 -->
 <h1 id="rustのオブジェクト指向プログラミング機能"><a class="header" href="#rustのオブジェクト指向プログラミング機能">Rustのオブジェクト指向プログラミング機能</a></h1>
@@ -31944,7 +31917,7 @@ strengths instead.
 しない定義もあります。この章では、広くオブジェクト指向と捉えられる特定の特徴と、
 それらの特徴がこなれたRustでどう表現されるかを探究します。それからオブジェクト指向のデザインパターンをRustで実装する方法を示し、
 そうすることとRustの強みを活用して代わりの解決策を実装する方法の代償を議論します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Characteristics of Object-Oriented Languages
 -->
 <h2 id="オブジェクト指向言語の特徴"><a class="header" href="#オブジェクト指向言語の特徴">オブジェクト指向言語の特徴</a></h2>
@@ -32244,7 +32217,7 @@ of inheritance. Let’s look at how trait objects enable polymorphism in Rust.
 -->
 <p>これらの理由により、継承ではなくトレイトオブジェクトを使用してRustは異なるアプローチを取っています。
 Rustにおいて、トレイトオブジェクトがどう多相性を可能にするかを見ましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Using Trait Objects that Allow for Values of Different Types
 -->
 <h2 id="トレイトオブジェクトで異なる型の値を許容する"><a class="header" href="#トレイトオブジェクトで異なる型の値を許容する">トレイトオブジェクトで異なる型の値を許容する</a></h2>
@@ -32883,7 +32856,7 @@ you’re interested in more details on object safety, see [Rust RFC 255].
 -->
 <p>このエラーは、このようにこのトレイトをトレイトオブジェクトとして使用することはできないことを意味しています。
 オブジェクト安全性についての詳細に興味があるのなら、<a href="https://github.com/rust-lang/rfcs/blob/master/text/0255-object-safety.md">Rust RFC 255</a>を参照されたし。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Implementing an Object-Oriented Design Pattern
 -->
 <h2 id="オブジェクト指向デザインパターンを実装する"><a class="header" href="#オブジェクト指向デザインパターンを実装する">オブジェクト指向デザインパターンを実装する</a></h2>
@@ -33977,7 +33950,7 @@ haven’t seen their full capability yet. Let’s go!
 -->
 <p>次は、パターンを見ます。パターンも多くの柔軟性を可能にするRustの別の機能です。
 本全体を通して僅かに見かけましたが、まだその全能力は目の当たりにしていません。さあ、行きましょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Patterns and Matching
 -->
 <h1 id="パターンとマッチング"><a class="header" href="#パターンとマッチング">パターンとマッチング</a></h1>
@@ -34032,7 +34005,7 @@ a clear way.
 <ruby>論駁<rp>(</rp><rt>ろんばく</rt><rp>)</rp></ruby>可能と論駁不可能なパターンの違い、
 目撃する可能性のある色々な種類のパターン記法を講義します。章の終わりまでに、
 パターンを使用して多くの概念をはっきり表現する方法を知るでしょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## All the Places Patterns Can Be Used
 -->
 <h2 id="パターンが使用されることのある箇所全部"><a class="header" href="#パターンが使用されることのある箇所全部">パターンが使用されることのある箇所全部</a></h2>
@@ -34454,7 +34427,7 @@ these two concepts next.
 -->
 <p>この時点で、パターンを使用する方法をいくつか見てきましたが、パターンを使用できる箇所全部で同じ動作をするわけではありません。
 パターンが論駁不可能でなければならない箇所もあります。他の状況では、論駁可能にもなり得ます。この2つの概念を次に議論します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Refutability: Whether a Pattern Might Fail to Match
 -->
 <h2 id="論駁可能性-パターンが合致しないかどうか"><a class="header" href="#論駁可能性-パターンが合致しないかどうか">論駁可能性: パターンが合致しないかどうか</a></h2>
@@ -34602,7 +34575,7 @@ patterns.
 -->
 <p>今やパターンを使用すべき箇所と論駁可能と論駁不可能なパターンの違いを知ったので、
 パターンを生成するために使用できる全ての記法を講義しましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Pattern Syntax
 -->
 <h2 id="パターン記法"><a class="header" href="#パターン記法">パターン記法</a></h2>
@@ -35979,7 +35952,7 @@ Next, for the penultimate chapter of the book, we’ll look at some advanced
 aspects of a variety of Rust’s features.
 -->
 <p>次の本書の末尾から2番目の章では、Rustの多彩な機能の高度な視点に目を向けます。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Advanced Features
 -->
 <h1 id="高度な機能"><a class="header" href="#高度な機能">高度な機能</a></h1>
@@ -36021,7 +35994,7 @@ In this chapter, we’ll cover:
 It’s a panoply of Rust features with something for everyone! Let’s dive in!
 -->
 <p>皆さんのための何かがあるRustの機能の盛大な儀式です！さあ、飛び込みましょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Unsafe Rust
 -->
 <h2 id="unsafe-rust"><a class="header" href="#unsafe-rust">Unsafe Rust</a></h2>
@@ -36850,7 +36823,7 @@ annotation makes it easier to track down the source of problems if they occur.
 ですが、<code>unsafe</code>コードを正しくするのは、より巧妙なことでしょう。コンパイラがメモリ安全性を保持する手助けをできないからです。
 <code>unsafe</code>コードを使用する理由があるなら、そうすることができ、明示的に<code>unsafe</code>注釈をすることで問題が起きたら、
 その原因を追求するのが容易になります。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Advanced Traits
 -->
 <h2 id="高度なトレイト"><a class="header" href="#高度なトレイト">高度なトレイト</a></h2>
@@ -37792,7 +37765,7 @@ at some advanced ways to interact with Rust’s type system.
 -->
 <p>もう、トレイトに関してニュータイプパターンが使用される方法を知りました; トレイトが関連しなくても、
 有用なパターンでもあります。焦点を変更して、Rustの型システムと相互作用する一部の高度な方法を見ましょう。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Advanced Types
 -->
 <h2 id="高度な型"><a class="header" href="#高度な型">高度な型</a></h2>
@@ -38299,7 +38272,7 @@ pointer. In this case, we’ve chosen a reference.
 Next, we’ll talk about functions and closures!
 -->
 <p>次は、関数とクロージャについて語ります！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Advanced Functions and Closures
 -->
 <h2 id="高度な関数とクロージャ"><a class="header" href="#高度な関数とクロージャ">高度な関数とクロージャ</a></h2>
@@ -38502,7 +38475,7 @@ Chapter 17.
 Next, let’s look at macros!
 -->
 <p>次は、マクロを見てみましょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Macros
 -->
 <h2 id="マクロ"><a class="header" href="#マクロ">マクロ</a></h2>
@@ -39382,7 +39355,7 @@ Next, we’ll put everything we’ve discussed throughout the book into practice
 and do one more project!
 -->
 <p>次は、この本で話してきたすべてのことを実際に使って、もう一つプロジェクトをやってみましょう！</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Final Project: Building a Multithreaded Web Server
 -->
 <h1 id="最後のプロジェクト-マルチスレッドのwebサーバを構築する"><a class="header" href="#最後のプロジェクト-マルチスレッドのwebサーバを構築する">最後のプロジェクト: マルチスレッドのWebサーバを構築する</a></h1>
@@ -39444,7 +39417,7 @@ the crates you might use in the future.
 Rustはシステムプログラミング言語なので、取りかかる抽象度を選ぶことができ、
 他の言語で可能だったり実践的だったりするよりも低レベルまで行くことができます。一般的な考えと将来使う可能性のあるクレートの背後にある技術を学べるように、
 手動で基本的なHTTPサーバとスレッドプールを書きます。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Building a Single-Threaded Web Server
 -->
 <h2 id="シングルスレッドのwebサーバを構築する"><a class="header" href="#シングルスレッドのwebサーバを構築する">シングルスレッドのWebサーバを構築する</a></h2>
@@ -40317,7 +40290,7 @@ once.
 <p>現状、このサーバは、シングルスレッドで実行されます。つまり、1回に1つのリクエストしか捌けないということです。
 何か遅いリクエストをシミュレーションすることで、それが問題になる可能性を調査しましょう。
 それから1度にサーバが複数のリクエストを扱えるように修正します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Turning Our Single-Threaded Server into a Multithreaded Server
 -->
 <h2 id="シングルスレッドサーバをマルチスレッド化する"><a class="header" href="#シングルスレッドサーバをマルチスレッド化する">シングルスレッドサーバをマルチスレッド化する</a></h2>
@@ -41936,7 +41909,7 @@ held during the call to `recv`, but it is released before the call to
 <code>lock</code>メソッドが返す<code>MutexGuard</code>は<code>let job</code>文が終わると同時にドロップされます。
 これにより、複数のリクエストを並行で提供し、ロックは<code>recv</code>の呼び出しの間は保持されるけれども、
 <code>job.call_box</code>の呼び出しの前には解放されることを保証します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Graceful Shutdown and Cleanup
 -->
 <h2 id="正常なシャットダウンと片付け"><a class="header" href="#正常なシャットダウンと片付け">正常なシャットダウンと片付け</a></h2>
@@ -42667,7 +42640,7 @@ challenges you encounter on your Rust journey.
 <p>よくやりました！本の最後に到達しました！Rustのツアーに参加していただき、感謝の辞を述べたいです。
 もう、ご自身のRustプロジェクトや他の方のプロジェクトのお手伝いをする準備ができています。
 あなたがこれからのRustの旅で遭遇する、あらゆる困難の手助けを是非とも行いたいRustaceanたちの温かいコミュニティがあることを心に留めておいてくださいね。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Appendix
 -->
 <h1 id="付録"><a class="header" href="#付録">付録</a></h1>
@@ -42676,7 +42649,7 @@ The following sections contain reference material you may find useful in your
 Rust journey.
 -->
 <p>以下の節は、Rustの旅で役に立つと思えるかもしれない参考資料を含んでいます。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Appendix A: Keywords
 -->
 <h2 id="付録a-キーワード"><a class="header" href="#付録a-キーワード">付録A: キーワード</a></h2>
@@ -42903,7 +42876,7 @@ E][appendix-e] for more information on editions.
 たとえば、<code>try</code>は2015 editionではキーワードではありませんでしたが、2018 editionではキーワードです。
 もし、2015 editionで書かれており、<code>try</code>関数を持っているライブラリに依存している場合、あなたの2018 editionのコードからその関数を呼び出すためには、生識別子構文を使う必要がでてくるでしょう。今回なら<code>r#try</code>ですね。
 editionに関して、より詳しくは<a href="appendix-05-editions.html">付録 E</a>を見てください。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Appendix B: Operators and Symbols
 -->
 <h2 id="付録b-演算子と記号"><a class="header" href="#付録b-演算子と記号">付録B: 演算子と記号</a></h2>
@@ -43310,7 +43283,7 @@ Table B-10 shows the contexts in which square brackets are used.
 <tr><td><code>expr[expr]</code></td><td>コレクション添え字アクセス。オーバーロード可能 (<code>Index</code>, <code>IndexMut</code>)</td></tr>
 <tr><td><code>expr[..]</code>, <code>expr[a..]</code>, <code>expr[..b]</code>, <code>expr[a..b]</code></td><td><code>Range</code>、<code>RangeFrom</code>、<code>RangeTo</code>、<code>RangeFull</code>を「添え字」として使用してコレクション・スライシングの振りをするコレクション添え字アクセス</td></tr>
 </tbody></table>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Appendix C: Derivable Traits
 -->
 <h2 id="付録c-導出可能なトレイト"><a class="header" href="#付録c-導出可能なトレイト">付録C: 導出可能なトレイト</a></h2>
@@ -43623,7 +43596,7 @@ The `Default` trait is required when you use the method `unwrap_or_default` on
 -->
 <p>例えば、<code>Default</code>トレイトは、<code>Option&lt;T&gt;</code>インスタンスに対してメソッド<code>unwrap_or_default</code>を使用する時に必要になります。
 <code>Option&lt;T&gt;</code>が<code>None</code>ならば、メソッド<code>unwrap_or_default</code>は、<code>Option&lt;T&gt;</code>に格納された型<code>T</code>に対して<code>Default::default</code>の結果を返します。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Appendix D - Useful Development Tools
 -->
 <h2 id="付録d---便利な開発ツール"><a class="header" href="#付録d---便利な開発ツール">付録D - 便利な開発ツール</a></h2>
@@ -43845,7 +43818,7 @@ abilities such as autocompletion, jump to definition, and inline errors.
 For more information on the `rls`, see [its documentation][rls].
 -->
 <p><code>rls</code>についてより詳しく知るには<a href="https://github.com/rust-lang/rls">ドキュメント</a>を読んでください。</p>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Appendix E - Editions
 -->
 <h2 id="付録eエディション"><a class="header" href="#付録eエディション">付録E：エディション</a></h2>
@@ -43952,7 +43925,7 @@ how to automatically upgrade your code to a new edition via `cargo fix`.
 <blockquote>
 <p>訳注：日本語版のエディションガイドは<a href="https://doc.rust-jp.rs/edition-guide/">こちら</a>にあります。</p>
 </blockquote>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 ## Appendix F: Translations of the Book
 -->
 <h2 id="付録f-本の翻訳"><a class="header" href="#付録f-本の翻訳">付録F: 本の翻訳</a></h2>
@@ -43984,7 +43957,7 @@ For resources in languages other than English. Most are still in progress; see
 <li><a href="https://github.com/pomokhtari/rust-book-fa">Farsi</a></li>
 <li><a href="https://github.com/rust-lang-de/rustbook-de">Deutsch</a></li>
 </ul>
-<div id="chapter_begin" style="break-before: page; page-break-before: always;"></div><!--
+<div style="break-before: page; page-break-before: always;"></div><!--
 # Appendix G - How Rust is Made and “Nightly Rust”
 -->
 <h2 id="付録g-rustの作られ方とnightly-rust"><a class="header" href="#付録g-rustの作られ方とnightly-rust">付録G: Rustの作られ方と“Nightly Rust”</a></h2>
@@ -44301,9 +44274,7 @@ Rustの新しい安定版リリースまで、列車に乗っているのです�
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
 
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -44311,51 +44282,35 @@ Rustの新しい安定版リリースまで、列車に乗っているのです�
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
 
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
 
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
         <script type="text/javascript" src="ferris.js"></script>
-        
 
-        
-        
         <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
-        
-        
 
     </body>
 </html>
