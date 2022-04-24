@@ -142,7 +142,7 @@ allow the player to input a guess. Enter the code in Listing 2-1 into
 *src/main.rs*.
 -->
 
-数当てゲームプログラムの最初の部分は、ユーザに入力を求め、その入力を処理し、期待した形式（訳注：数値データ）になっていることを確認することです。
+数当てゲームプログラムの最初の部分は、ユーザに入力を求め、その入力を処理し、期待した形式になっていることを確認することです。
 手始めに、プレーヤーが予想を入力できるようにしましょう。
 リスト2-1のコードを*src/main.rs*に入力してください。
 
@@ -446,7 +446,7 @@ discuss what this line does.
 
 しかし、長い行は読みづらいので分割したほうがよいでしょう。
 `.method_name()`構文でメソッドを呼び出すとき、長い行を改行と空白で分割するのが賢明なことがよくあります。
-それでは、この行が何をするのか説明します。
+それでは、この行（`expect()`メソッド）が何をするのか説明します。
 
 <!--
 As mentioned earlier, `read_line` puts whatever the user enters into the string
