@@ -948,7 +948,7 @@ Let’s start using `rand` to generate a number to guess. The next step is to
 update *src/main.rs*, as shown in Listing 2-3.
 -->
 
-`rang`クレートを使って予想する数字を生成しましょう。
+`rand`クレートを使って予想する数字を生成しましょう。
 次のステップは*src/main.rs*ファイルをリスト2-3のように更新することです。
 
 <!--
@@ -974,7 +974,7 @@ random number generators implement, and this trait must be in scope for us to
 use those methods. Chapter 10 will cover traits in detail.
 -->
 
-まず`use rand::Ring`という行を追加します。
+まず`use rand::Rng`という行を追加します。
 `Rng`トレイトは乱数生成器が実装すべきメソッドを定義しており、それらのメソッドを使用するには、このトレイトがスコープ内になければなりません。
 トレイトについて詳しくは第10章で解説します。
 
