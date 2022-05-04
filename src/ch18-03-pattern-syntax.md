@@ -196,18 +196,18 @@ This code prints `one or two`.
 このコードは、`one or two`を出力します。
 
 <!--
-### Matching Ranges of Values with `...`
+### Matching Ranges of Values with `..=`
 -->
 
-### `...`で値の範囲に合致させる
+### `..=`で値の範囲に合致させる
 
 <!--
-The `...` syntax allows us to match to an inclusive range of values. In the
+The `..=` syntax allows us to match to an inclusive range of values. In the
 following code, when a pattern matches any of the values within the range, that
 arm will execute:
 -->
 
-`...`記法により、限度値を含む値の範囲にマッチさせることができます。以下のコードでは、
+`..=`記法により、限度値を含む値の範囲にマッチさせることができます。以下のコードでは、
 パターンが範囲内のどれかの値に合致すると、そのアームが実行されます:
 
 ```rust
@@ -215,7 +215,7 @@ let x = 5;
 
 match x {
     // 1から5まで
-    1 ... 5 => println!("one through five"),
+    1..=5 => println!("one through five"),
     // それ以外
     _ => println!("something else"),
 }
@@ -223,14 +223,14 @@ match x {
 
 <!--
 If `x` is 1, 2, 3, 4, or 5, the first arm will match. This syntax is more
-convenient than using the `|` operator to express the same idea; instead of `1
-... 5`, we would have to specify `1 | 2 | 3 | 4 | 5` if we used `|`. Specifying
+convenient than using the `|` operator to express the same idea; instead of `1..=5`,
+we would have to specify `1 | 2 | 3 | 4 | 5` if we used `|`. Specifying
 a range is much shorter, especially if we want to match, say, any number
 between 1 and 1,000!
 -->
 
 `x`が1、2、3、4か5なら、最初のアームが合致します。この記法は、`|`演算子を使用して同じ考えを表現するより便利です;
-`1 ... 5`ではなく、`|`を使用したら、`1 | 2 | 3 | 4 | 5`と指定しなければならないでしょう。
+`1..=5`ではなく、`|`を使用したら、`1 | 2 | 3 | 4 | 5`と指定しなければならないでしょう。
 範囲を指定する方が遥かに短いのです。特に1から1000までの値と合致させたいとかなら！
 
 <!--
@@ -253,9 +253,9 @@ let x = 'c';
 
 match x {
     // ASCII文字前半
-    'a' ... 'j' => println!("early ASCII letter"),
+    'a'..='j' => println!("early ASCII letter"),
     // ASCII文字後半
-    'k' ... 'z' => println!("late ASCII letter"),
+    'k'..='z' => println!("late ASCII letter"),
     // それ以外
     _ => println!("something else"),
 }
@@ -1544,14 +1544,14 @@ were applied only to the final value in the list of values specified using the
 The *at* operator (`@`) lets us create a variable that holds a value at the
 same time we’re testing that value to see whether it matches a pattern. Listing
 18-32 shows an example where we want to test that a `Message::Hello` `id` field
-is within the range `3...7`. But we also want to bind the value to the variable
+is within the range `3..=7`. But we also want to bind the value to the variable
 `id_variable` so we can use it in the code associated with the arm. We could
 name this variable `id`, the same as the field, but for this example we’ll use
 a different name.
 -->
 
 *at*演算子(`@`)により、値を保持する変数を生成するのと同時にその値がパターンに一致するかを調べることができます。
-リスト18-32は、`Message::Hello`の`id`フィールドが範囲`3...7`にあるかを確かめたいという例です。
+リスト18-32は、`Message::Hello`の`id`フィールドが範囲`3..=7`にあるかを確かめたいという例です。
 しかし、アームに紐づいたコードで使用できるように変数`id_variable`に値を束縛もしたいです。この変数をフィールドと同じ、
 `id`と名付けることもできますが、この例では異なる名前にします。
 
@@ -1563,11 +1563,11 @@ enum Message {
 let msg = Message::Hello { id: 5 };
 
 match msg {
-    Message::Hello { id: id_variable @ 3...7 } => {
+    Message::Hello { id: id_variable @ 3..=7 } => {
         // 範囲内のidが見つかりました: {}
         println!("Found an id in range: {}", id_variable)
     },
-    Message::Hello { id: 10...12 } => {
+    Message::Hello { id: 10..=12 } => {
         // 別の範囲内のidが見つかりました
         println!("Found an id in another range")
     },
@@ -1587,11 +1587,11 @@ while also testing it</span>
 
 <!--
 This example will print `Found an id in range: 5`. By specifying `id_variable
-@` before the range `3...7`, we’re capturing whatever value matched the range
+@` before the range `3..=7`, we’re capturing whatever value matched the range
 while also testing that the value matched the range pattern.
 -->
 
-この例は、`Found an id in range: 5`と出力します。範囲`3...7`の前に`id_variable @`と指定することで、
+この例は、`Found an id in range: 5`と出力します。範囲`3..=7`の前に`id_variable @`と指定することで、
 値が範囲パターンに一致することを確認しつつ、範囲にマッチしたどんな値も捕捉しています。
 
 <!--
