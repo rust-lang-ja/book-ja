@@ -34767,15 +34767,15 @@ This code prints `one or two`.
 -->
 <p>このコードは、<code>one or two</code>を出力します。</p>
 <!--
-### Matching Ranges of Values with `...`
+### Matching Ranges of Values with `..=`
 -->
-<h3 id="で値の範囲に合致させる"><a class="header" href="#で値の範囲に合致させる"><code>...</code>で値の範囲に合致させる</a></h3>
+<h3 id="で値の範囲に合致させる"><a class="header" href="#で値の範囲に合致させる"><code>..=</code>で値の範囲に合致させる</a></h3>
 <!--
-The `...` syntax allows us to match to an inclusive range of values. In the
+The `..=` syntax allows us to match to an inclusive range of values. In the
 following code, when a pattern matches any of the values within the range, that
 arm will execute:
 -->
-<p><code>...</code>記法により、限度値を含む値の範囲にマッチさせることができます。以下のコードでは、
+<p><code>..=</code>記法により、限度値を含む値の範囲にマッチさせることができます。以下のコードでは、
 パターンが範囲内のどれかの値に合致すると、そのアームが実行されます:</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
@@ -34784,7 +34784,7 @@ arm will execute:
 
 match x {
     // 1から5まで
-    1 ... 5 =&gt; println!(&quot;one through five&quot;),
+    1..=5 =&gt; println!(&quot;one through five&quot;),
     // それ以外
     _ =&gt; println!(&quot;something else&quot;),
 }
@@ -34792,13 +34792,13 @@ match x {
 </span></code></pre></pre>
 <!--
 If `x` is 1, 2, 3, 4, or 5, the first arm will match. This syntax is more
-convenient than using the `|` operator to express the same idea; instead of `1
-... 5`, we would have to specify `1 | 2 | 3 | 4 | 5` if we used `|`. Specifying
+convenient than using the `|` operator to express the same idea; instead of `1..=5`,
+we would have to specify `1 | 2 | 3 | 4 | 5` if we used `|`. Specifying
 a range is much shorter, especially if we want to match, say, any number
 between 1 and 1,000!
 -->
 <p><code>x</code>が1、2、3、4か5なら、最初のアームが合致します。この記法は、<code>|</code>演算子を使用して同じ考えを表現するより便利です;
-<code>1 ... 5</code>ではなく、<code>|</code>を使用したら、<code>1 | 2 | 3 | 4 | 5</code>と指定しなければならないでしょう。
+<code>1..=5</code>ではなく、<code>|</code>を使用したら、<code>1 | 2 | 3 | 4 | 5</code>と指定しなければならないでしょう。
 範囲を指定する方が遥かに短いのです。特に1から1000までの値と合致させたいとかなら！</p>
 <!--
 Ranges are only allowed with numeric values or `char` values, because the
@@ -34818,9 +34818,9 @@ Here is an example using ranges of `char` values:
 
 match x {
     // ASCII文字前半
-    'a' ... 'j' =&gt; println!(&quot;early ASCII letter&quot;),
+    'a'..='j' =&gt; println!(&quot;early ASCII letter&quot;),
     // ASCII文字後半
-    'k' ... 'z' =&gt; println!(&quot;late ASCII letter&quot;),
+    'k'..='z' =&gt; println!(&quot;late ASCII letter&quot;),
     // それ以外
     _ =&gt; println!(&quot;something else&quot;),
 }
@@ -35885,13 +35885,13 @@ were applied only to the final value in the list of values specified using the
 The *at* operator (`@`) lets us create a variable that holds a value at the
 same time we’re testing that value to see whether it matches a pattern. Listing
 18-32 shows an example where we want to test that a `Message::Hello` `id` field
-is within the range `3...7`. But we also want to bind the value to the variable
+is within the range `3..=7`. But we also want to bind the value to the variable
 `id_variable` so we can use it in the code associated with the arm. We could
 name this variable `id`, the same as the field, but for this example we’ll use
 a different name.
 -->
 <p><em>at</em>演算子(<code>@</code>)により、値を保持する変数を生成するのと同時にその値がパターンに一致するかを調べることができます。
-リスト18-32は、<code>Message::Hello</code>の<code>id</code>フィールドが範囲<code>3...7</code>にあるかを確かめたいという例です。
+リスト18-32は、<code>Message::Hello</code>の<code>id</code>フィールドが範囲<code>3..=7</code>にあるかを確かめたいという例です。
 しかし、アームに紐づいたコードで使用できるように変数<code>id_variable</code>に値を束縛もしたいです。この変数をフィールドと同じ、
 <code>id</code>と名付けることもできますが、この例では異なる名前にします。</p>
 <pre><pre class="playground"><code class="language-rust">
@@ -35904,11 +35904,11 @@ a different name.
 let msg = Message::Hello { id: 5 };
 
 match msg {
-    Message::Hello { id: id_variable @ 3...7 } =&gt; {
+    Message::Hello { id: id_variable @ 3..=7 } =&gt; {
         // 範囲内のidが見つかりました: {}
         println!(&quot;Found an id in range: {}&quot;, id_variable)
     },
-    Message::Hello { id: 10...12 } =&gt; {
+    Message::Hello { id: 10..=12 } =&gt; {
         // 別の範囲内のidが見つかりました
         println!(&quot;Found an id in another range&quot;)
     },
@@ -35926,10 +35926,10 @@ while also testing it</span>
 <p><span class="caption"><code>@</code>を使用してテストしつつ、パターンの値に束縛する</span></p>
 <!--
 This example will print `Found an id in range: 5`. By specifying `id_variable
-@` before the range `3...7`, we’re capturing whatever value matched the range
+@` before the range `3..=7`, we’re capturing whatever value matched the range
 while also testing that the value matched the range pattern.
 -->
-<p>この例は、<code>Found an id in range: 5</code>と出力します。範囲<code>3...7</code>の前に<code>id_variable @</code>と指定することで、
+<p>この例は、<code>Found an id in range: 5</code>と出力します。範囲<code>3..=7</code>の前に<code>id_variable @</code>と指定することで、
 値が範囲パターンに一致することを確認しつつ、範囲にマッチしたどんな値も捕捉しています。</p>
 <!--
 In the second arm, where we only have a range specified in the pattern, the code
