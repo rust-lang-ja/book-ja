@@ -1004,7 +1004,7 @@ Cargoはライブラリの再利用をとても簡単にしてくれるので、
 Let’s start using `rand` to generate a number to guess. The next step is to
 update *src/main.rs*, as shown in Listing 2-3.
 -->
-<p><code>rang</code>クレートを使って予想する数字を生成しましょう。
+<p><code>rand</code>クレートを使って予想する数字を生成しましょう。
 次のステップは<em>src/main.rs</em>ファイルをリスト2-3のように更新することです。</p>
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -1041,7 +1041,7 @@ First, we add the line `use rand::Rng`. The `Rng` trait defines methods that
 random number generators implement, and this trait must be in scope for us to
 use those methods. Chapter 10 will cover traits in detail.
 -->
-<p>まず<code>use rand::Ring</code>という行を追加します。
+<p>まず<code>use rand::Rng</code>という行を追加します。
 <code>Rng</code>トレイトは乱数生成器が実装すべきメソッドを定義しており、それらのメソッドを使用するには、このトレイトがスコープ内になければなりません。
 トレイトについて詳しくは第10章で解説します。</p>
 <!--
