@@ -120,16 +120,6 @@ look like in Rust:
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-17-functions-with-parameters/src/main.rs}}
 ```
 
-```rust
-fn main() {
-    another_function(5);
-}
-
-fn another_function(x: i32) {
-    println!("The value of x is: {}", x);   // xの値は{}です
-}
-```
-
 <!--
 Try running this program; you should get the following output:
 -->

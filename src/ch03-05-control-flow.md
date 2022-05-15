@@ -381,13 +381,6 @@ like this:
 ```rust,ignore
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-loop/src/main.rs}}
 ```
-```rust,ignore
-fn main() {
-    loop {
-        println!("again!");   // また
-    }
-}
-```
 
 <!--
 When we run this program, we’ll see `again!` printed over and over continuously
