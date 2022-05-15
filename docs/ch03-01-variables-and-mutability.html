@@ -179,9 +179,9 @@ code with the following code that won't compile just yet:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore does_not_compile">fn main() {
     let x = 5;
-    println!(&quot;The value of x is: {}&quot;, x);     // xの値は{}です
+    println!(&quot;The value of x is: {}&quot;, x);;     // xの値は{}です
     x = 6;
     println!(&quot;The value of x is: {}&quot;, x);
 }
@@ -191,16 +191,24 @@ Save and run the program using `cargo run`. You should receive an error
 message, as shown in this output:
 -->
 <p>これを保存し、<code>cargo run</code>コマンドでプログラムを走らせてください。次の出力に示されているようなエラーメッセージを受け取るはずです:</p>
-<pre><code class="language-text">error[E0384]: cannot assgin twice immutable variable `x`
+<pre><code class="language-console">$ cargo run
+   Compiling variables v0.1.0 (file:///projects/variables)
+error[E0384]: cannot assign twice to immutable variable `x`
               (不変変数`x`に2回代入できません)
  --&gt; src/main.rs:4:5
   |
 2 |     let x = 5;
-  |         - first assignment to `x`
+  |         -
+  |         |
+  |         first assignment to `x`
   |         (`x`への最初の代入)
+  |         help: consider making this binding mutable: `mut x`
 3 |     println!(&quot;The value of x is: {}&quot;, x);
 4 |     x = 6;
   |     ^^^^^ cannot assign twice to immutable variable
+
+For more information about this error, try `rustc --explain E0384`.
+error: could not compile `variables` due to previous error
 </code></pre>
 <!--
 This example shows how the compiler helps you find errors in your programs.
@@ -270,9 +278,9 @@ For example, change *src/main.rs* to the following:
 When we run the program now, we get this:
 -->
 <p>今、このプログラムを走らせると、以下のような出力が得られます:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30s
      Running `target/debug/variables`
 The value of x is: 5   (xの値は5です)
 The value of x is: 6
@@ -394,7 +402,10 @@ repeating the use of the `let` keyword as follows:
 
     let x = x + 1;
 
-    let x = x * 2;
+    {
+        let x = x * 2;
+        println!(&quot;The value of x in the inner scope is: {}&quot;, x);
+    }
 
     println!(&quot;The value of x is: {}&quot;, x);
 }
@@ -402,19 +413,22 @@ repeating the use of the `let` keyword as follows:
 <!--
 This program first binds `x` to a value of `5`. Then it shadows `x` by
 repeating `let x =`, taking the original value and adding `1` so the value of
-`x` is then `6`. The third `let` statement also shadows `x`, multiplying the
-previous value by `2` to give `x` a final value of `12`. Wehn we run this
-program, it will output the following:
+`x` is then `6`. Then, within an inner scope, the third `let` statement also
+shadows `x`, multiplying the previous value by `2` to give `x` a value of `12`.
+When that scope is over, the inner shadowing ends and `x` returns to being `6`.
+When we run this program, it will output the following:
 -->
 <p>このプログラムはまず、<code>x</code>を<code>5</code>という値に束縛します。それから<code>let x =</code>を繰り返すことで<code>x</code>を覆い隠し、
 元の値に<code>1</code>を加えることになるので、<code>x</code>の値は<code>6</code>になります。
 3番目の<code>let</code>文も<code>x</code>を覆い隠し、以前の値に<code>2</code>をかけることになるので、<code>x</code>の最終的な値は<code>12</code>になります。
+括弧を抜けるとシャドーイングは終了し、<code>x</code>の値は元の<code>6</code>に戻ります。
 このプログラムを走らせたら、以下のように出力するでしょう:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31s
      Running `target/debug/variables`
-The value of x is: 12
+The value of x in the inner scope is: 12
+The value of x is: 6
 </code></pre>
 <!--
 Shadowing is different than marking a variable as `mut`, because we’ll get a
@@ -437,11 +451,9 @@ inputting space characters, but we really want to store that input as a number:
 値の型を変えつつ、同じ変数名を使いまわせることです。例えば、
 プログラムがユーザに何らかのテキストに対して空白文字を入力することで何個分のスペースを表示したいかを尋ねますが、
 ただ、実際にはこの入力を数値として保持したいとしましょう:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let spaces = &quot;   &quot;;
-let spaces = spaces.len();
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>    let spaces = &quot;   &quot;;
+    let spaces = spaces.len();
 <span class="boring">}
 </span></code></pre></pre>
 <!--
@@ -457,23 +469,29 @@ try to use `mut` for this, as shown here, we'll get a compile-time error:
 異なる名前を思いつく必要がなくなるわけです。<code>spaces_str</code>と<code>spaces_num</code>などですね; 代わりに、
 よりシンプルな<code>spaces</code>という名前を再利用できるわけです。一方で、この場合に<code>mut</code>を使おうとすると、
 以下に示した通りですが、コンパイルエラーになるわけです:</p>
-<pre><code class="language-rust ignore">let mut spaces = &quot;   &quot;;
-spaces = spaces.len();
-</code></pre>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span>    let mut spaces = &quot;   &quot;;
+    spaces = spaces.len();
+<span class="boring">}
+</span></code></pre>
 <!--
 The error says we’re not allowed to mutate a variable’s
 type:
 -->
 <p>変数の型を可変にすることは許されていないと言われているわけです:</p>
-<pre><code class="language-text">error[E0308]: mismatched types          (型が合いません)
+<pre><code class="language-console">$ cargo run
+   Compiling variables v0.1.0 (file:///projects/variables)
+error[E0308]: mismatched types          (型が合いません)
  --&gt; src/main.rs:3:14
   |
+2 |     let mut spaces = &quot;   &quot;;
+  |                      ----- expected due to this value
 3 |     spaces = spaces.len();
-  |              ^^^^^^^^^^^^ expected &amp;str, found usize
+  |              ^^^^^^^^^^^^ expected `&amp;str`, found `usize`
   |                           (&amp;str型を予期しましたが、usizeが見つかりました)
-  |
-  = note: expected type `&amp;str`
-             found type `usize`
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `variables` due to previous error
 </code></pre>
 <!--
 Now that we’ve explored how variables work, let’s look at more data types they

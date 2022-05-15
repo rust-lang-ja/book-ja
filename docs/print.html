@@ -3274,9 +3274,9 @@ code with the following code that won't compile just yet:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore does_not_compile">fn main() {
     let x = 5;
-    println!(&quot;The value of x is: {}&quot;, x);     // xの値は{}です
+    println!(&quot;The value of x is: {}&quot;, x);;     // xの値は{}です
     x = 6;
     println!(&quot;The value of x is: {}&quot;, x);
 }
@@ -3286,16 +3286,24 @@ Save and run the program using `cargo run`. You should receive an error
 message, as shown in this output:
 -->
 <p>これを保存し、<code>cargo run</code>コマンドでプログラムを走らせてください。次の出力に示されているようなエラーメッセージを受け取るはずです:</p>
-<pre><code class="language-text">error[E0384]: cannot assgin twice immutable variable `x`
+<pre><code class="language-console">$ cargo run
+   Compiling variables v0.1.0 (file:///projects/variables)
+error[E0384]: cannot assign twice to immutable variable `x`
               (不変変数`x`に2回代入できません)
  --&gt; src/main.rs:4:5
   |
 2 |     let x = 5;
-  |         - first assignment to `x`
+  |         -
+  |         |
+  |         first assignment to `x`
   |         (`x`への最初の代入)
+  |         help: consider making this binding mutable: `mut x`
 3 |     println!(&quot;The value of x is: {}&quot;, x);
 4 |     x = 6;
   |     ^^^^^ cannot assign twice to immutable variable
+
+For more information about this error, try `rustc --explain E0384`.
+error: could not compile `variables` due to previous error
 </code></pre>
 <!--
 This example shows how the compiler helps you find errors in your programs.
@@ -3365,9 +3373,9 @@ For example, change *src/main.rs* to the following:
 When we run the program now, we get this:
 -->
 <p>今、このプログラムを走らせると、以下のような出力が得られます:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30s
      Running `target/debug/variables`
 The value of x is: 5   (xの値は5です)
 The value of x is: 6
@@ -3489,7 +3497,10 @@ repeating the use of the `let` keyword as follows:
 
     let x = x + 1;
 
-    let x = x * 2;
+    {
+        let x = x * 2;
+        println!(&quot;The value of x in the inner scope is: {}&quot;, x);
+    }
 
     println!(&quot;The value of x is: {}&quot;, x);
 }
@@ -3497,19 +3508,22 @@ repeating the use of the `let` keyword as follows:
 <!--
 This program first binds `x` to a value of `5`. Then it shadows `x` by
 repeating `let x =`, taking the original value and adding `1` so the value of
-`x` is then `6`. The third `let` statement also shadows `x`, multiplying the
-previous value by `2` to give `x` a final value of `12`. Wehn we run this
-program, it will output the following:
+`x` is then `6`. Then, within an inner scope, the third `let` statement also
+shadows `x`, multiplying the previous value by `2` to give `x` a value of `12`.
+When that scope is over, the inner shadowing ends and `x` returns to being `6`.
+When we run this program, it will output the following:
 -->
 <p>このプログラムはまず、<code>x</code>を<code>5</code>という値に束縛します。それから<code>let x =</code>を繰り返すことで<code>x</code>を覆い隠し、
 元の値に<code>1</code>を加えることになるので、<code>x</code>の値は<code>6</code>になります。
 3番目の<code>let</code>文も<code>x</code>を覆い隠し、以前の値に<code>2</code>をかけることになるので、<code>x</code>の最終的な値は<code>12</code>になります。
+括弧を抜けるとシャドーイングは終了し、<code>x</code>の値は元の<code>6</code>に戻ります。
 このプログラムを走らせたら、以下のように出力するでしょう:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31s
      Running `target/debug/variables`
-The value of x is: 12
+The value of x in the inner scope is: 12
+The value of x is: 6
 </code></pre>
 <!--
 Shadowing is different than marking a variable as `mut`, because we’ll get a
@@ -3532,11 +3546,9 @@ inputting space characters, but we really want to store that input as a number:
 値の型を変えつつ、同じ変数名を使いまわせることです。例えば、
 プログラムがユーザに何らかのテキストに対して空白文字を入力することで何個分のスペースを表示したいかを尋ねますが、
 ただ、実際にはこの入力を数値として保持したいとしましょう:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let spaces = &quot;   &quot;;
-let spaces = spaces.len();
+<pre><pre class="playground"><code class="language-rust"><span class="boring">fn main() {
+</span>    let spaces = &quot;   &quot;;
+    let spaces = spaces.len();
 <span class="boring">}
 </span></code></pre></pre>
 <!--
@@ -3552,23 +3564,29 @@ try to use `mut` for this, as shown here, we'll get a compile-time error:
 異なる名前を思いつく必要がなくなるわけです。<code>spaces_str</code>と<code>spaces_num</code>などですね; 代わりに、
 よりシンプルな<code>spaces</code>という名前を再利用できるわけです。一方で、この場合に<code>mut</code>を使おうとすると、
 以下に示した通りですが、コンパイルエラーになるわけです:</p>
-<pre><code class="language-rust ignore">let mut spaces = &quot;   &quot;;
-spaces = spaces.len();
-</code></pre>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span>    let mut spaces = &quot;   &quot;;
+    spaces = spaces.len();
+<span class="boring">}
+</span></code></pre>
 <!--
 The error says we’re not allowed to mutate a variable’s
 type:
 -->
 <p>変数の型を可変にすることは許されていないと言われているわけです:</p>
-<pre><code class="language-text">error[E0308]: mismatched types          (型が合いません)
+<pre><code class="language-console">$ cargo run
+   Compiling variables v0.1.0 (file:///projects/variables)
+error[E0308]: mismatched types          (型が合いません)
  --&gt; src/main.rs:3:14
   |
+2 |     let mut spaces = &quot;   &quot;;
+  |                      ----- expected due to this value
 3 |     spaces = spaces.len();
-  |              ^^^^^^^^^^^^ expected &amp;str, found usize
+  |              ^^^^^^^^^^^^ expected `&amp;str`, found `usize`
   |                           (&amp;str型を予期しましたが、usizeが見つかりました)
-  |
-  = note: expected type `&amp;str`
-             found type `usize`
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `variables` due to previous error
 </code></pre>
 <!--
 Now that we’ve explored how variables work, let’s look at more data types they
@@ -3612,16 +3630,18 @@ type we want to use:
 -->
 <p>ここで型注釈を付けなければ、コンパイラは以下のエラーを表示し、これは可能性のある型のうち、
 どの型を使用したいのかを知るのに、コンパイラがプログラマからもっと情報を得る必要があることを意味します:</p>
-<pre><code class="language-text">error[E0282]: type annotations needed
+<pre><code class="language-console">$ cargo build
+   Compiling no_type_annotations v0.1.0 (file:///projects/no_type_annotations)
+error[E0282]: type annotations needed
               (型注釈が必要です)
  --&gt; src/main.rs:2:9
   |
 2 |     let guess = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);
-  |         ^^^^^ cannot infer type for `_`
-  |               (`_`の型が推論できません)
-  |
-  = note: type annotations or generic parameter binding required
-    (注釈: 型注釈、またはジェネリクス引数束縛が必要です)
+  |         ^^^^^ consider giving `guess` a type
+  |               (`guess`に型を与えることを検討してください)
+
+For more information about this error, try `rustc --explain E0282`.
+error: could not compile `no_type_annotations` due to previous error
 </code></pre>
 <!--
 You’ll see different type annotations for other data types.
@@ -3799,39 +3819,26 @@ The following code shows how you’d use each one in a `let` statement:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<!--
-```rust
-fn main() {
-// addition
-let sum = 5 + 10;
-
-// subtraction
-let difference = 95.5 - 4.3;
-
-// multiplication
-let product = 4 * 30;
-
-// division
-let quotient = 56.7 / 32.2;
-
-// remainder
-let remainder = 43 % 5;
-}
-```
--->
 <pre><pre class="playground"><code class="language-rust">fn main() {
+    // addition
     // 足し算
     let sum = 5 + 10;
 
+    // subtraction
     // 引き算
     let difference = 95.5 - 4.3;
 
+    // multiplication
     // 掛け算
     let product = 4 * 30;
 
+    // division
     // 割り算
     let quotient = 56.7 / 32.2;
+    let floored = 2 / 3; // Results in 0
+                         // 結果は0
 
+    // remainder
     // 余り
     let remainder = 43 % 5;
 }
@@ -3859,18 +3866,11 @@ Rustの論理値型は、<code>bool</code>と指定されます。
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<!--
-```rust
-fn main() {
-let t = true;
-let f: bool = false; // with explicit type annotation
-}
-```
--->
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let t = true;
 
-    let f: bool = false; // 明示的型注釈付きで
+    let f: bool = false; // with explicit type annotation
+                         // 明示的型注釈付きで
 }
 </code></pre></pre>
 <!--
@@ -4067,6 +4067,40 @@ an array because you know it will always contain 12 items:
 <span class="boring">}
 </span></code></pre></pre>
 <!--
+You write an array’s type using square brackets with the type of each element,
+a semicolon, and then the number of elements in the array, like so:
+-->
+<p>例えば次のように、配列の型は角かっこの中に要素の型とセミコロン、そして配列の要素数を与えます。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: [i32; 5] = [1, 2, 3, 4, 5];
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Here, `i32` is the type of each element. After the semicolon, the number `5`
+indicates the array contains five elements.
+-->
+<p>ここでの<code>i32</code>は要素の型です。セミコロンのあとの<code>5</code>という数字は配列の要素が5つあることを表しています。</p>
+<!--
+You can also initialize an array to contain the same value for each element by
+specifying the initial value, followed by a semicolon, and then the length of
+the array in square brackets, as shown here:
+-->
+<p>次のように、角かっこの中に初期値とセミコロン、そして配列の長さを与えることで、各要素に同じ値を持つように配列を初期化することができます。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = [3; 5];
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+The array named `a` will contain `5` elements that will all be set to the value
+`3` initially. This is the same as writing `let a = [3, 3, 3, 3, 3];` but in a
+more concise way.
+-->
+<p>この<code>a</code>という名前の配列は<code>3</code>という値が5つあるものです。これは<code>let a = [3, 3, 3, 3, 3];</code>と書くのと同じですが、より簡潔になります。</p>
+<!--
 ##### Accessing Array Elements
 -->
 <h5 id="配列の要素にアクセスする"><a class="header" href="#配列の要素にアクセスする">配列の要素にアクセスする</a></h5>
@@ -4109,28 +4143,52 @@ compile but exit with an error when it runs:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore panics">use std::io;
+
+fn main() {
     let a = [1, 2, 3, 4, 5];
-    let index = 10;
+
+    println!(&quot;Please enter an array index.&quot;);
+           // 配列の何番目の要素にアクセスするか指定してください
+
+    let mut index = String::new();
+
+    io::stdin()
+        .read_line(&amp;mut index)
+        .expect(&quot;Failed to read line&quot;);
+              // 値の読み込みに失敗しました
+
+    let index: usize = index
+        .trim()
+        .parse()
+        .expect(&quot;Index entered was not a number&quot;);
+        　　　// 入力された値は数字ではありません
 
     let element = a[index];
 
-    println!(&quot;The value of element is: {}&quot;, element);   // 要素の値は{}です
+    println!(
+        &quot;The value of the element at index {} is: {}&quot;,
+        // {}番目の要素の値は{}です
+        index, element
+    );
 }
 </code></pre>
 <!--
-Running this code using `cargo run` produces the following result:
+This code compiles successfully. If you run this code using `cargo run` and
+enter 0, 1, 2, 3, or 4, the program will print out the corresponding value at
+that index in the array. If you instead enter a number past the end of the
+array, such as 10, you’ll see output like this:
 -->
-<p>このコードを<code>cargo run</code>で走らせると、以下のような結果になります:</p>
-<pre><code class="language-text">$ cargo run
-   Compiling arrays v0.1.0 (file:///projects/arrays)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
-     Running `target/debug/arrays`
-thread '&lt;main&gt;' panicked at 'index out of bounds: the len is 5 but the index is
- 10', src/main.rs:6
-スレッド'&lt;main&gt;'は'範囲外アクセス: 長さは5ですが、添え字は10でした', src/main.rs:6
+<p>このコードはコンパイルされます。<code>cargo run</code>で走らせ、0, 1, 2, 3, または4をこのプログラムに入力すると配列の対応する値を出力します。もし配列の末尾を超えるような、例えば10などの数字を与えると、次のような出力が表示されます。</p>
+<!-- manual-regeneration
+cd listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access
+cargo run
+10
+-->
+<pre><code class="language-console">thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 10', src/main.rs:19:19
+スレッド'main'は'範囲外アクセス: 長さは5ですが、添え字は10でした', src/main.rs:19:19
 でパニックしました
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 </code></pre>
 <!--
 The compilation didn’t produce any errors, but the program results in a
@@ -4217,9 +4275,9 @@ should see the following output:
 <p><em>functions</em>という名前の新しいバイナリ生成プロジェクトを始めて、関数についてさらに深く探究していきましょう。
 <code>another_function</code>の例を<em>src/main.rs</em>ファイルに配置して、走らせてください。
 以下のような出力が得られるはずです:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.28 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.28s
      Running `target/debug/functions`
 Hello, world!
 Another function.
@@ -4269,9 +4327,9 @@ fn another_function(x: i32) {
 Try running this program; you should get the following output:
 -->
 <p>このプログラムを走らせてみてください; 以下のような出力が得られるはずです:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 1.21 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 1.21s
      Running `target/debug/functions`
 The value of x is: 5
 </code></pre>
@@ -4304,12 +4362,11 @@ declarations with commas, like this:
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    another_function(5, 6);
+    print_labeled_measurement(5, 'h');
 }
 
-fn another_function(x: i32, y: i32) {
-    println!(&quot;The value of x is: {}&quot;, x);
-    println!(&quot;The value of y is: {}&quot;, y);
+fn print_labeled_measurement(value: i32, unit_label: char) {
+    println!(&quot;The measurement is: {}{}&quot;, value, unit_label);
 }
 </code></pre></pre>
 <!--
@@ -4328,12 +4385,11 @@ run`:
 -->
 <p>このコードを走らせてみましょう。今、<em>function</em>プロジェクトの<em>src/main.rs</em>ファイルに記載されているプログラムを先ほどの例と置き換えて、
 <code>cargo run</code>で走らせてください:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31s
      Running `target/debug/functions`
-The value of x is: 5
-The value of y is: 6
+The measurement is: 5h
 </code></pre>
 <!--
 Because we called the function with `5` as the value for `x` and `6` is passed
@@ -4404,7 +4460,7 @@ to another variable, as the following code tries to do; you'll get an error:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore does_not_compile">fn main() {
     let x = (let y = 6);
 }
 </code></pre>
@@ -4412,16 +4468,8 @@ to another variable, as the following code tries to do; you'll get an error:
 When you run this program, the error you’ll get looks like this:
 -->
 <p>このプログラムを実行すると、以下のようなエラーが出るでしょう:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-error[E0658]: `let` expressions in this position are experimental
- --&gt; src/main.rs:2:14
-  |
-2 |     let x = (let y = 6);
-  |              ^^^^^^^^^
-  |
-  = note: see issue #53667 &lt;https://github.com/rust-lang/rust/issues/53667&gt; for more information
-
 error: expected expression, found statement (`let`)
 (エラー: 式を予期しましたが、文が見つかりました (`let`))
  --&gt; src/main.rs:2:14
@@ -4432,20 +4480,31 @@ error: expected expression, found statement (`let`)
   = note: variable declaration using `let` is a statement
     (注釈: `let`を使う変数宣言は、文です)
 
+error[E0658]: `let` expressions in this position are experimental
+ --&gt; src/main.rs:2:14
+  |
+2 |     let x = (let y = 6);
+  |              ^^^^^^^^^
+  |
+  = note: see issue #53667 &lt;https://github.com/rust-lang/rust/issues/53667&gt; for more information
+  = help: you can write `matches!(&lt;expr&gt;, &lt;pattern&gt;)` instead of `let &lt;pattern&gt; = &lt;expr&gt;`
+
 warning: unnecessary parentheses around assigned value
  --&gt; src/main.rs:2:13
   |
 2 |     let x = (let y = 6);
-  |             ^^^^^^^^^^^ help: remove these parentheses
+  |             ^         ^
   |
   = note: `#[warn(unused_parens)]` on by default
-
-error: aborting due to 2 previous errors; 1 warning emitted
+help: remove these parentheses
+  |
+2 -     let x = (let y = 6);
+2 +     let x = let y = 6;
+  | 
 
 For more information about this error, try `rustc --explain E0658`.
-error: could not compile `functions`
-
-To learn more, run the command again with --verbose.
+warning: `functions` (bin &quot;functions&quot;) generated 1 warning
+error: could not compile `functions` due to 2 previous errors; 1 warning emitted
 </code></pre>
 <!--
 The `let y = 6` statement does not return a value, so there isn’t anything for
@@ -4476,8 +4535,6 @@ new scopes, `{}`, is an expression, for example:
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    let x = 5;
-
     let y = {
         let x = 3;
         x + 1
@@ -4547,9 +4604,9 @@ running this code; the output should look like this:
 <p><code>five</code>関数内には、関数呼び出しもマクロ呼び出しも、<code>let</code>文でさえ存在しません。数字の5が単独であるだけです。
 これは、Rustにおいて、完璧に問題ない関数です。関数の戻り値型が<code>-&gt; i32</code>と指定されていることにも注目してください。
 このコードを実行してみましょう; 出力はこんな感じになるはずです:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30s
      Running `target/debug/functions`
 The value of x is: 5
 </code></pre>
@@ -4605,7 +4662,7 @@ expression to a statement, we'll get an error:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore does_not_compile">fn main() {
     let x = plus_one(5);
 
     println!(&quot;The value of x is: {}&quot;, x);
@@ -4619,11 +4676,10 @@ fn plus_one(x: i32) -&gt; i32 {
 Running this code produces an error, as follows:
 -->
 <p>このコードを実行すると、以下のようにエラーが出ます:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
 error[E0308]: mismatched types
               (型が合いません)
-
  --&gt; src/main.rs:7:24
   |
 7 | fn plus_one(x: i32) -&gt; i32 {
@@ -4633,12 +4689,8 @@ error[E0308]: mismatched types
 8 |     x + 1;
   |          - help: consider removing this semicolon
 
-error: aborting due to previous error
-
 For more information about this error, try `rustc --explain E0308`.
-error: could not compile `functions`
-
-To learn more, run the command again with --verbose.
+error: could not compile `functions` due to previous error
 </code></pre>
 <!--
 The main error message, “mismatched types,” reveals the core issue with this
@@ -4797,9 +4849,9 @@ to the next bit of code.
 Try running this code; you should see the following output:
 -->
 <p>このコードを走らせてみましょう; 以下のような出力を目の当たりにするはずです:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31s
      Running `target/debug/branches`
 condition was true
 </code></pre>
@@ -4808,15 +4860,23 @@ Let’s try changing the value of `number` to a value that makes the condition
 `false` to see what happens:
 -->
 <p><code>number</code>の値を条件が<code>false</code>になるような値に変更してどうなるか確かめてみましょう:</p>
-<pre><code class="language-rust ignore">let number = 7;
-</code></pre>
+<pre><code class="language-rust ignore"><span class="boring">fn main() {
+</span>    let number = 7;
+<span class="boring">
+</span><span class="boring">    if number &lt; 5 {
+</span><span class="boring">        println!(&quot;condition was true&quot;);
+</span><span class="boring">    } else {
+</span><span class="boring">        println!(&quot;condition was false&quot;);
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre>
 <!--
 Run the program again, and look at the output:
 -->
 <p>再度プログラムを実行して、出力に注目してください:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31s
      Running `target/debug/branches`
 condition was false
 </code></pre>
@@ -4831,7 +4891,7 @@ following code:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore does_not_compile">fn main() {
     let number = 3;
 
     if number {
@@ -4844,16 +4904,18 @@ The `if` condition evaluates to a value of `3` this time, and Rust throws an
 error:
 -->
 <p>今回、<code>if</code>の条件式は<code>3</code>という値に評価され、コンパイラがエラーを投げます:</p>
-<pre><code class="language-text">error[E0308]: mismatched types
+<pre><code class="language-console">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+error[E0308]: mismatched types
               (型が合いません)
  --&gt; src/main.rs:4:8
   |
 4 |     if number {
-  |        ^^^^^^ expected bool, found integral variable
+  |        ^^^^^^ expected `bool`, found integer
   |               (bool型を予期したのに、整数変数が見つかりました)
-  |
-  = note: expected type `bool`
-             found type `{integer}`
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `branches` due to previous error
 </code></pre>
 <!--
 The error indicates that Rust expected a `bool` but got an integer. Unlike
@@ -4919,9 +4981,9 @@ This program has four possible paths it can take. After running it, you should
 see the following output:
 -->
 <p>このプログラムには、通り道が4つあります。実行後、以下のような出力を目の当たりにするはずです:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31s
      Running `target/debug/branches`
 number is divisible by 3
 </code></pre>
@@ -4961,11 +5023,7 @@ statement, as in Listing 3-2.
 <p><span class="filename">ファイル名: src/main.rs</span></p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let condition = true;
-    let number = if condition {
-        5
-    } else {
-        6
-    };
+    let number = if condition { 5 } else { 6 };
 
     // numberの値は、{}です
     println!(&quot;The value of number is: {}&quot;, number);
@@ -4979,9 +5037,9 @@ The `number` variable will be bound to a value based on the outcome of the `if`
 expression. Run this code to see what happens:
 -->
 <p>この<code>number</code>変数は、<code>if</code>式の結果に基づいた値に束縛されます。このコードを走らせてどうなるか確かめてください:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30s
      Running `target/debug/branches`
 The value of number is: 5
 </code></pre>
@@ -5003,14 +5061,10 @@ example, we'll get an error:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore does_not_compile">fn main() {
     let condition = true;
 
-    let number = if condition {
-        5
-    } else {
-        &quot;six&quot;
-    };
+    let number = if condition { 5 } else { &quot;six&quot; };
 
     println!(&quot;The value of number is: {}&quot;, number);
 }
@@ -5022,21 +5076,20 @@ find the problem in the program:
 -->
 <p>このコードをコンパイルしようとすると、エラーになります。<code>if</code>と<code>else</code>アームは互換性のない値の型になり、
 コンパイラがプログラム内で問題の見つかった箇所をスバリ指摘してくれます:</p>
-<pre><code class="language-text">error[E0308]: if and else have incompatible types
+<pre><code class="language-console">$ cargo run
+   Compiling branches v0.1.0 (file:///projects/branches)
+error[E0308]: `if` and `else` have incompatible types
               (ifとelseの型に互換性がありません)
- --&gt; src/main.rs:4:18
+ --&gt; src/main.rs:4:44
   |
-4 |       let number = if condition {
-  |  __________________^
-5 | |         5
-6 | |     } else {
-7 | |         &quot;six&quot;
-8 | |     };
-  | |_____^ expected integral variable, found &amp;str
-  |         (整数変数を予期しましたが、&amp;strが見つかりました)
-  |
-  = note: expected type `{integer}`
-             found type `&amp;str`
+4 |     let number = if condition { 5 } else { &quot;six&quot; };
+  |                                 -          ^^^^^ expected integer, found `&amp;str`
+  |                                                 (整数変数を予期しましたが、&amp;strが見つかりました)
+  |                                 |
+  |                                 expected because of this
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `branches` due to previous error
 </code></pre>
 <!--
 The expression in the `if` block evaluates to an integer, and the expression in
@@ -5105,7 +5158,7 @@ continual loop. Give it a try:
 <p>このプログラムを実行すると、プログラムを手動で止めるまで、何度も何度も続けて<code>again!</code>と出力するでしょう。
 ほとんどの端末で<span class="keystroke">ctrl-c</span>というショートカットが使え、
 永久ループに囚われてしまったプログラムを終了させられます。試しにやってみましょう:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
     Finished dev [unoptimized + debuginfo] target(s) in 0.29 secs
      Running `target/debug/loops`
@@ -5133,6 +5186,68 @@ the user won the game by guessing the correct number.
 ループ内に<code>break</code>キーワードを配置することで、プログラムに実行を終了すべきタイミングを教えることができます。
 第2章の「正しい予想をした後に終了する」節の数当てゲーム内でこれをして、ユーザが予想を的中させ、
 ゲームに勝った時にプログラムを終了させたことを思い出してください。</p>
+<!--
+We also used `continue` in the guessing game, which in a loop tells the program
+to skip over any remaining code in this iteration of the loop and go to the
+next iteration.
+-->
+<p>数当てゲームで<code>continue</code>を使用しました。<code>continue</code>はループの中で残っているコードをスキップして次のループに移るためのものです。</p>
+<!--
+If you have loops within loops, `break` and `continue` apply to the innermost
+loop at that point. You can optionally specify a *loop label* on a loop that we
+can then use with `break` or `continue` to specify that those keywords apply to
+the labeled loop instead of the innermost loop. Here’s an example with two
+nested loops:
+-->
+<p>ループ内にループがある場合、<code>break</code>と<code>continue</code>は最も内側のループに適用されます。
+<em>ループラベル</em>を使用することで、<code>break</code>や<code>continue</code>が適用されるループを指定することができます。
+以下に例を示します。</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut count = 0;
+    'counting_up: loop {
+        println!(&quot;count = {}&quot;, count);
+        let mut remaining = 10;
+
+        loop {
+            println!(&quot;remaining = {}&quot;, remaining);
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+
+        count += 1;
+    }
+    println!(&quot;End count = {}&quot;, count);
+}
+</code></pre></pre>
+<!--
+The outer loop has the label `'counting_up`, and it will count up from 0 to 2.
+The inner loop without a label counts down from 10 to 9. The first `break` that
+doesn’t specify a label will exit the inner loop only. The `break
+'counting_up;` statement will exit the outer loop. This code prints:
+-->
+<p>外側のループには<code>'counting_up</code>というラベルがついていて、0から2まで数え上げます。
+内側のラベルのないループは10から9までカウントダウンします。最初のラベルの無い<code>break</code>は内側のループを終了させます。
+<code>break 'counting_up;</code>は外側のループを終了させます。
+このコードは以下のような出力をします。</p>
+<pre><code class="language-console">$ cargo run
+   Compiling loops v0.1.0 (file:///projects/loops)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.58s
+     Running `target/debug/loops`
+count = 0
+remaining = 10
+remaining = 9
+count = 1
+remaining = 10
+remaining = 9
+count = 2
+remaining = 10
+End count = 2
+</code></pre>
 <!--
 #### Conditional Loops with `while`
 -->
@@ -5167,7 +5282,7 @@ another message and exits:
     while number != 0 {
         println!(&quot;{}!&quot;, number);
 
-        number = number - 1;
+        number -= 1;
     }
 
     // 発射！
@@ -5207,7 +5322,7 @@ such as an array. For example, let's look at Listing 3-4.
         // 値は{}です
         println!(&quot;the value is: {}&quot;, a[index]);
 
-        index = index + 1;
+        index += 1;
     }
 }
 </code></pre></pre>
@@ -5225,9 +5340,9 @@ in the array:
 <p>ここで、コードは配列の要素を順番にカウントアップして覗いています。番号0から始まり、
 配列の最終番号に到達するまでループします(つまり、<code>index &lt; 5</code>が真でなくなる時です)。
 このコードを走らせると、配列内の全要素が出力されます:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.32s
      Running `target/debug/loops`
 the value is: 10
 the value is: 20
@@ -5264,8 +5379,7 @@ for each item in a collection. A `for` loop looks like this code in Listing 3-5.
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let a = [10, 20, 30, 40, 50];
 
-    for element in a.iter() {
-        // 値は{}です
+    for element in a {
         println!(&quot;the value is: {}&quot;, element);
     }
 }

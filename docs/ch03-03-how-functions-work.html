@@ -208,9 +208,9 @@ should see the following output:
 <p><em>functions</em>という名前の新しいバイナリ生成プロジェクトを始めて、関数についてさらに深く探究していきましょう。
 <code>another_function</code>の例を<em>src/main.rs</em>ファイルに配置して、走らせてください。
 以下のような出力が得られるはずです:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.28 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.28s
      Running `target/debug/functions`
 Hello, world!
 Another function.
@@ -260,9 +260,9 @@ fn another_function(x: i32) {
 Try running this program; you should get the following output:
 -->
 <p>このプログラムを走らせてみてください; 以下のような出力が得られるはずです:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 1.21 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 1.21s
      Running `target/debug/functions`
 The value of x is: 5
 </code></pre>
@@ -295,12 +295,11 @@ declarations with commas, like this:
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    another_function(5, 6);
+    print_labeled_measurement(5, 'h');
 }
 
-fn another_function(x: i32, y: i32) {
-    println!(&quot;The value of x is: {}&quot;, x);
-    println!(&quot;The value of y is: {}&quot;, y);
+fn print_labeled_measurement(value: i32, unit_label: char) {
+    println!(&quot;The measurement is: {}{}&quot;, value, unit_label);
 }
 </code></pre></pre>
 <!--
@@ -319,12 +318,11 @@ run`:
 -->
 <p>このコードを走らせてみましょう。今、<em>function</em>プロジェクトの<em>src/main.rs</em>ファイルに記載されているプログラムを先ほどの例と置き換えて、
 <code>cargo run</code>で走らせてください:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31s
      Running `target/debug/functions`
-The value of x is: 5
-The value of y is: 6
+The measurement is: 5h
 </code></pre>
 <!--
 Because we called the function with `5` as the value for `x` and `6` is passed
@@ -395,7 +393,7 @@ to another variable, as the following code tries to do; you'll get an error:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore does_not_compile">fn main() {
     let x = (let y = 6);
 }
 </code></pre>
@@ -403,16 +401,8 @@ to another variable, as the following code tries to do; you'll get an error:
 When you run this program, the error you’ll get looks like this:
 -->
 <p>このプログラムを実行すると、以下のようなエラーが出るでしょう:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-error[E0658]: `let` expressions in this position are experimental
- --&gt; src/main.rs:2:14
-  |
-2 |     let x = (let y = 6);
-  |              ^^^^^^^^^
-  |
-  = note: see issue #53667 &lt;https://github.com/rust-lang/rust/issues/53667&gt; for more information
-
 error: expected expression, found statement (`let`)
 (エラー: 式を予期しましたが、文が見つかりました (`let`))
  --&gt; src/main.rs:2:14
@@ -423,20 +413,31 @@ error: expected expression, found statement (`let`)
   = note: variable declaration using `let` is a statement
     (注釈: `let`を使う変数宣言は、文です)
 
+error[E0658]: `let` expressions in this position are experimental
+ --&gt; src/main.rs:2:14
+  |
+2 |     let x = (let y = 6);
+  |              ^^^^^^^^^
+  |
+  = note: see issue #53667 &lt;https://github.com/rust-lang/rust/issues/53667&gt; for more information
+  = help: you can write `matches!(&lt;expr&gt;, &lt;pattern&gt;)` instead of `let &lt;pattern&gt; = &lt;expr&gt;`
+
 warning: unnecessary parentheses around assigned value
  --&gt; src/main.rs:2:13
   |
 2 |     let x = (let y = 6);
-  |             ^^^^^^^^^^^ help: remove these parentheses
+  |             ^         ^
   |
   = note: `#[warn(unused_parens)]` on by default
-
-error: aborting due to 2 previous errors; 1 warning emitted
+help: remove these parentheses
+  |
+2 -     let x = (let y = 6);
+2 +     let x = let y = 6;
+  | 
 
 For more information about this error, try `rustc --explain E0658`.
-error: could not compile `functions`
-
-To learn more, run the command again with --verbose.
+warning: `functions` (bin &quot;functions&quot;) generated 1 warning
+error: could not compile `functions` due to 2 previous errors; 1 warning emitted
 </code></pre>
 <!--
 The `let y = 6` statement does not return a value, so there isn’t anything for
@@ -467,8 +468,6 @@ new scopes, `{}`, is an expression, for example:
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    let x = 5;
-
     let y = {
         let x = 3;
         x + 1
@@ -538,9 +537,9 @@ running this code; the output should look like this:
 <p><code>five</code>関数内には、関数呼び出しもマクロ呼び出しも、<code>let</code>文でさえ存在しません。数字の5が単独であるだけです。
 これは、Rustにおいて、完璧に問題ない関数です。関数の戻り値型が<code>-&gt; i32</code>と指定されていることにも注目してください。
 このコードを実行してみましょう; 出力はこんな感じになるはずです:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30s
      Running `target/debug/functions`
 The value of x is: 5
 </code></pre>
@@ -596,7 +595,7 @@ expression to a statement, we'll get an error:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore does_not_compile">fn main() {
     let x = plus_one(5);
 
     println!(&quot;The value of x is: {}&quot;, x);
@@ -610,11 +609,10 @@ fn plus_one(x: i32) -&gt; i32 {
 Running this code produces an error, as follows:
 -->
 <p>このコードを実行すると、以下のようにエラーが出ます:</p>
-<pre><code class="language-text">$ cargo run
+<pre><code class="language-console">$ cargo run
    Compiling functions v0.1.0 (file:///projects/functions)
 error[E0308]: mismatched types
               (型が合いません)
-
  --&gt; src/main.rs:7:24
   |
 7 | fn plus_one(x: i32) -&gt; i32 {
@@ -624,12 +622,8 @@ error[E0308]: mismatched types
 8 |     x + 1;
   |          - help: consider removing this semicolon
 
-error: aborting due to previous error
-
 For more information about this error, try `rustc --explain E0308`.
-error: could not compile `functions`
-
-To learn more, run the command again with --verbose.
+error: could not compile `functions` due to previous error
 </code></pre>
 <!--
 The main error message, “mismatched types,” reveals the core issue with this

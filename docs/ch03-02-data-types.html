@@ -182,16 +182,18 @@ type we want to use:
 -->
 <p>ここで型注釈を付けなければ、コンパイラは以下のエラーを表示し、これは可能性のある型のうち、
 どの型を使用したいのかを知るのに、コンパイラがプログラマからもっと情報を得る必要があることを意味します:</p>
-<pre><code class="language-text">error[E0282]: type annotations needed
+<pre><code class="language-console">$ cargo build
+   Compiling no_type_annotations v0.1.0 (file:///projects/no_type_annotations)
+error[E0282]: type annotations needed
               (型注釈が必要です)
  --&gt; src/main.rs:2:9
   |
 2 |     let guess = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);
-  |         ^^^^^ cannot infer type for `_`
-  |               (`_`の型が推論できません)
-  |
-  = note: type annotations or generic parameter binding required
-    (注釈: 型注釈、またはジェネリクス引数束縛が必要です)
+  |         ^^^^^ consider giving `guess` a type
+  |               (`guess`に型を与えることを検討してください)
+
+For more information about this error, try `rustc --explain E0282`.
+error: could not compile `no_type_annotations` due to previous error
 </code></pre>
 <!--
 You’ll see different type annotations for other data types.
@@ -369,39 +371,26 @@ The following code shows how you’d use each one in a `let` statement:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<!--
-```rust
-fn main() {
-// addition
-let sum = 5 + 10;
-
-// subtraction
-let difference = 95.5 - 4.3;
-
-// multiplication
-let product = 4 * 30;
-
-// division
-let quotient = 56.7 / 32.2;
-
-// remainder
-let remainder = 43 % 5;
-}
-```
--->
 <pre><pre class="playground"><code class="language-rust">fn main() {
+    // addition
     // 足し算
     let sum = 5 + 10;
 
+    // subtraction
     // 引き算
     let difference = 95.5 - 4.3;
 
+    // multiplication
     // 掛け算
     let product = 4 * 30;
 
+    // division
     // 割り算
     let quotient = 56.7 / 32.2;
+    let floored = 2 / 3; // Results in 0
+                         // 結果は0
 
+    // remainder
     // 余り
     let remainder = 43 % 5;
 }
@@ -429,18 +418,11 @@ Rustの論理値型は、<code>bool</code>と指定されます。
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<!--
-```rust
-fn main() {
-let t = true;
-let f: bool = false; // with explicit type annotation
-}
-```
--->
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let t = true;
 
-    let f: bool = false; // 明示的型注釈付きで
+    let f: bool = false; // with explicit type annotation
+                         // 明示的型注釈付きで
 }
 </code></pre></pre>
 <!--
@@ -637,6 +619,40 @@ an array because you know it will always contain 12 items:
 <span class="boring">}
 </span></code></pre></pre>
 <!--
+You write an array’s type using square brackets with the type of each element,
+a semicolon, and then the number of elements in the array, like so:
+-->
+<p>例えば次のように、配列の型は角かっこの中に要素の型とセミコロン、そして配列の要素数を与えます。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: [i32; 5] = [1, 2, 3, 4, 5];
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+Here, `i32` is the type of each element. After the semicolon, the number `5`
+indicates the array contains five elements.
+-->
+<p>ここでの<code>i32</code>は要素の型です。セミコロンのあとの<code>5</code>という数字は配列の要素が5つあることを表しています。</p>
+<!--
+You can also initialize an array to contain the same value for each element by
+specifying the initial value, followed by a semicolon, and then the length of
+the array in square brackets, as shown here:
+-->
+<p>次のように、角かっこの中に初期値とセミコロン、そして配列の長さを与えることで、各要素に同じ値を持つように配列を初期化することができます。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = [3; 5];
+<span class="boring">}
+</span></code></pre></pre>
+<!--
+The array named `a` will contain `5` elements that will all be set to the value
+`3` initially. This is the same as writing `let a = [3, 3, 3, 3, 3];` but in a
+more concise way.
+-->
+<p>この<code>a</code>という名前の配列は<code>3</code>という値が5つあるものです。これは<code>let a = [3, 3, 3, 3, 3];</code>と書くのと同じですが、より簡潔になります。</p>
+<!--
 ##### Accessing Array Elements
 -->
 <h5 id="配列の要素にアクセスする"><a class="header" href="#配列の要素にアクセスする">配列の要素にアクセスする</a></h5>
@@ -679,28 +695,52 @@ compile but exit with an error when it runs:
 <span class="filename">Filename: src/main.rs</span>
 -->
 <p><span class="filename">ファイル名: src/main.rs</span></p>
-<pre><code class="language-rust ignore">fn main() {
+<pre><code class="language-rust ignore panics">use std::io;
+
+fn main() {
     let a = [1, 2, 3, 4, 5];
-    let index = 10;
+
+    println!(&quot;Please enter an array index.&quot;);
+           // 配列の何番目の要素にアクセスするか指定してください
+
+    let mut index = String::new();
+
+    io::stdin()
+        .read_line(&amp;mut index)
+        .expect(&quot;Failed to read line&quot;);
+              // 値の読み込みに失敗しました
+
+    let index: usize = index
+        .trim()
+        .parse()
+        .expect(&quot;Index entered was not a number&quot;);
+        　　　// 入力された値は数字ではありません
 
     let element = a[index];
 
-    println!(&quot;The value of element is: {}&quot;, element);   // 要素の値は{}です
+    println!(
+        &quot;The value of the element at index {} is: {}&quot;,
+        // {}番目の要素の値は{}です
+        index, element
+    );
 }
 </code></pre>
 <!--
-Running this code using `cargo run` produces the following result:
+This code compiles successfully. If you run this code using `cargo run` and
+enter 0, 1, 2, 3, or 4, the program will print out the corresponding value at
+that index in the array. If you instead enter a number past the end of the
+array, such as 10, you’ll see output like this:
 -->
-<p>このコードを<code>cargo run</code>で走らせると、以下のような結果になります:</p>
-<pre><code class="language-text">$ cargo run
-   Compiling arrays v0.1.0 (file:///projects/arrays)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
-     Running `target/debug/arrays`
-thread '&lt;main&gt;' panicked at 'index out of bounds: the len is 5 but the index is
- 10', src/main.rs:6
-スレッド'&lt;main&gt;'は'範囲外アクセス: 長さは5ですが、添え字は10でした', src/main.rs:6
+<p>このコードはコンパイルされます。<code>cargo run</code>で走らせ、0, 1, 2, 3, または4をこのプログラムに入力すると配列の対応する値を出力します。もし配列の末尾を超えるような、例えば10などの数字を与えると、次のような出力が表示されます。</p>
+<!-- manual-regeneration
+cd listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access
+cargo run
+10
+-->
+<pre><code class="language-console">thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 10', src/main.rs:19:19
+スレッド'main'は'範囲外アクセス: 長さは5ですが、添え字は10でした', src/main.rs:19:19
 でパニックしました
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 </code></pre>
 <!--
 The compilation didn’t produce any errors, but the program results in a
