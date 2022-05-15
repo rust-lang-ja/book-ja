@@ -77,7 +77,7 @@ happen.
 
 メソッド呼び出しがテスト内で失敗したら、そのメソッドがテスト下に置かれた機能ではなかったとしても、
 テスト全体が失敗してほしいでしょう。`panic!`が、テストが失敗と印づけられる手段なので、
-`unwrap`や`expect`の呼び出しはスバリ起こるべきことです。
+`unwrap`や`expect`の呼び出しはズバリ起こるべきことです。
 
 <!--
 ### Cases in Which You Have More Information Than the Compiler
