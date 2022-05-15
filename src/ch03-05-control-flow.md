@@ -304,7 +304,7 @@ find the problem in the program:
 -->
 
 このコードをコンパイルしようとすると、エラーになります。`if`と`else`アームは互換性のない値の型になり、
-コンパイラがプログラム内で問題の見つかった箇所をスバリ指摘してくれます:
+コンパイラがプログラム内で問題の見つかった箇所をズバリ指摘してくれます:
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/output.txt}}
