@@ -32,15 +32,7 @@ Rustの関数と変数の命名規則は、*スネークケース*(`訳注`: som
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    println!("Hello, world!");
-
-    another_function();
-}
-
-fn another_function() {
-    println!("Another function.");  // 別の関数
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-16-functions/src/main.rs}}
 ```
 
 <!--
@@ -77,13 +69,8 @@ should see the following output:
 `another_function`の例を*src/main.rs*ファイルに配置して、走らせてください。
 以下のような出力が得られるはずです:
 
-```text
-$ cargo run
-   Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.28 secs
-     Running `target/debug/functions`
-Hello, world!
-Another function.
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-16-functions/output.txt}}
 ```
 
 <!--
@@ -130,13 +117,7 @@ look like in Rust:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    another_function(5);
-}
-
-fn another_function(x: i32) {
-    println!("The value of x is: {}", x);   // xの値は{}です
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-17-functions-with-parameters/src/main.rs}}
 ```
 
 <!--
@@ -145,12 +126,8 @@ Try running this program; you should get the following output:
 
 このプログラムを走らせてみてください; 以下のような出力が得られるはずです:
 
-```text
-$ cargo run
-   Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 1.21 secs
-     Running `target/debug/functions`
-The value of x is: 5
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-17-functions-with-parameters/output.txt}}
 ```
 
 <!--
@@ -190,14 +167,7 @@ declarations with commas, like this:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    another_function(5, 6);
-}
-
-fn another_function(x: i32, y: i32) {
-    println!("The value of x is: {}", x);
-    println!("The value of y is: {}", y);
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-18-functions-with-multiple-parameters/src/main.rs}}
 ```
 
 <!--
@@ -220,13 +190,8 @@ run`:
 このコードを走らせてみましょう。今、*function*プロジェクトの*src/main.rs*ファイルに記載されているプログラムを先ほどの例と置き換えて、
 `cargo run`で走らせてください:
 
-```text
-$ cargo run
-   Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
-     Running `target/debug/functions`
-The value of x is: 5
-The value of y is: 6
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-18-functions-with-multiple-parameters/output.txt}}
 ```
 
 <!--
@@ -286,9 +251,7 @@ statement. In Listing 3-1, `let y = 6;` is a statement.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let y = 6;
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-01/src/main.rs}}
 ```
 
 <!--
@@ -322,10 +285,8 @@ to another variable, as the following code tries to do; you'll get an error:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let x = (let y = 6);
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-19-statements-vs-expressions/src/main.rs}}
 ```
 
 <!--
@@ -334,41 +295,9 @@ When you run this program, the error you’ll get looks like this:
 
 このプログラムを実行すると、以下のようなエラーが出るでしょう:
 
-```text
-$ cargo run
-   Compiling functions v0.1.0 (file:///projects/functions)
-error[E0658]: `let` expressions in this position are experimental
- --> src/main.rs:2:14
-  |
-2 |     let x = (let y = 6);
-  |              ^^^^^^^^^
-  |
-  = note: see issue #53667 <https://github.com/rust-lang/rust/issues/53667> for more information
 
-error: expected expression, found statement (`let`)
-(エラー: 式を予期しましたが、文が見つかりました (`let`))
- --> src/main.rs:2:14
-  |
-2 |     let x = (let y = 6);
-  |              ^^^^^^^^^
-  |
-  = note: variable declaration using `let` is a statement
-    (注釈: `let`を使う変数宣言は、文です)
-
-warning: unnecessary parentheses around assigned value
- --> src/main.rs:2:13
-  |
-2 |     let x = (let y = 6);
-  |             ^^^^^^^^^^^ help: remove these parentheses
-  |
-  = note: `#[warn(unused_parens)]` on by default
-
-error: aborting due to 2 previous errors; 1 warning emitted
-
-For more information about this error, try `rustc --explain E0658`.
-error: could not compile `functions`
-
-To learn more, run the command again with --verbose.
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-19-statements-vs-expressions/output.txt}}
 ```
 
 <!--
@@ -406,16 +335,7 @@ new scopes, `{}`, is an expression, for example:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let x = 5;
-
-    let y = {
-        let x = 3;
-        x + 1
-    };
-
-    println!("The value of y is: {}", y);
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-20-blocks-are-expressions/src/main.rs}}
 ```
 
 <!--
@@ -473,15 +393,7 @@ returns a value:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn five() -> i32 {
-    5
-}
-
-fn main() {
-    let x = five();
-
-    println!("The value of x is: {}", x);
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-21-function-return-values/src/main.rs}}
 ```
 
 <!--
@@ -495,12 +407,8 @@ running this code; the output should look like this:
 これは、Rustにおいて、完璧に問題ない関数です。関数の戻り値型が`-> i32`と指定されていることにも注目してください。
 このコードを実行してみましょう; 出力はこんな感じになるはずです:
 
-```text
-$ cargo run
-   Compiling functions v0.1.0 (file:///projects/functions)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
-     Running `target/debug/functions`
-The value of x is: 5
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-21-function-return-values/output.txt}}
 ```
 
 <!--
@@ -541,15 +449,7 @@ Let's look at another example:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let x = plus_one(5);
-
-    println!("The value of x is: {}", x);
-}
-
-fn plus_one(x: i32) -> i32 {
-    x + 1
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-22-function-parameter-and-return/src/main.rs}}
 ```
 
 <!--
@@ -567,16 +467,8 @@ expression to a statement, we'll get an error:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let x = plus_one(5);
-
-    println!("The value of x is: {}", x);
-}
-
-fn plus_one(x: i32) -> i32 {
-    x + 1;
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/src/main.rs}}
 ```
 
 <!--
@@ -585,27 +477,8 @@ Running this code produces an error, as follows:
 
 このコードを実行すると、以下のようにエラーが出ます:
 
-```text
-$ cargo run
-   Compiling functions v0.1.0 (file:///projects/functions)
-error[E0308]: mismatched types
-              (型が合いません)
-
- --> src/main.rs:7:24
-  |
-7 | fn plus_one(x: i32) -> i32 {
-  |    --------            ^^^ expected `i32`, found `()`
-  |    |
-  |    implicitly returns `()` as its body has no tail or `return` expression
-8 |     x + 1;
-  |          - help: consider removing this semicolon
-
-error: aborting due to previous error
-
-For more information about this error, try `rustc --explain E0308`.
-error: could not compile `functions`
-
-To learn more, run the command again with --verbose.
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-23-statements-dont-return-values/output.txt}}
 ```
 
 <!--

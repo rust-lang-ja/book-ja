@@ -1,14 +1,12 @@
 $ cargo run
    Compiling branches v0.1.0 (file:///projects/branches)
 error[E0308]: mismatched types
+              (型が合いません)
  --> src/main.rs:4:8
   |
 4 |     if number {
   |        ^^^^^^ expected `bool`, found integer
-
-error: aborting due to previous error
+  |               (bool型を予期したのに、整数変数が見つかりました)
 
 For more information about this error, try `rustc --explain E0308`.
-error: could not compile `branches`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `branches` due to previous error

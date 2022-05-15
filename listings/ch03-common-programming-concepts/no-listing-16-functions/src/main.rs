@@ -5,5 +5,5 @@ fn main() {
 }
 
 fn another_function() {
-    println!("Another function.");
+    println!("Another function.");  // 別の関数
 }

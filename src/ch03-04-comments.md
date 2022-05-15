@@ -51,9 +51,7 @@ Comments can also be placed at the end of lines containing code:
 <span class="filename">Filename: src/main.rs</span>
 
 ```rust
-fn main() {
-    let lucky_number = 7; // I’m feeling lucky today(今日はラッキーな気がするよ)
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-24-comments-end-of-line/src/main.rs}}
 ```
 
 <!--
@@ -66,11 +64,7 @@ separate line above the code it's annotating:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    // I’m feeling lucky today
-    // 今日はラッキーな気がするよ
-    let lucky_number = 7;
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-25-comments-above-line/src/main.rs}}
 ```
 
 <!--

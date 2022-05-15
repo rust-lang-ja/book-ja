@@ -46,15 +46,7 @@ the `if` expression. In the *src/main.rs* file, input the following:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let number = 3;
-
-    if number < 5 {
-        println!("condition was true");       // 条件は真でした
-    } else {
-        println!("condition was false");      // 条件は偽でした
-    }
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-26-if-true/src/main.rs}}
 ```
 
 <!--
@@ -96,12 +88,8 @@ Try running this code; you should see the following output:
 
 このコードを走らせてみましょう; 以下のような出力を目の当たりにするはずです:
 
-```text
-$ cargo run
-   Compiling branches v0.1.0 (file:///projects/branches)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
-     Running `target/debug/branches`
-condition was true
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-26-if-true/output.txt}}
 ```
 
 <!--
@@ -112,7 +100,7 @@ Let’s try changing the value of `number` to a value that makes the condition
 `number`の値を条件が`false`になるような値に変更してどうなるか確かめてみましょう:
 
 ```rust,ignore
-let number = 7;
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/src/main.rs:here}}
 ```
 
 <!--
@@ -121,12 +109,8 @@ Run the program again, and look at the output:
 
 再度プログラムを実行して、出力に注目してください:
 
-```text
-$ cargo run
-   Compiling branches v0.1.0 (file:///projects/branches)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
-     Running `target/debug/branches`
-condition was false
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/output.txt}}
 ```
 
 <!--
@@ -144,14 +128,8 @@ following code:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let number = 3;
-
-    if number {
-        println!("number was three");     // 数値は3です
-    }
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/src/main.rs}}
 ```
 
 <!--
@@ -161,17 +139,8 @@ error:
 
 今回、`if`の条件式は`3`という値に評価され、コンパイラがエラーを投げます:
 
-```text
-error[E0308]: mismatched types
-              (型が合いません)
- --> src/main.rs:4:8
-  |
-4 |     if number {
-  |        ^^^^^^ expected bool, found integral variable
-  |               (bool型を予期したのに、整数変数が見つかりました)
-  |
-  = note: expected type `bool`
-             found type `{integer}`
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/output.txt}}
 ```
 
 <!--
@@ -195,13 +164,7 @@ RubyやJavaScriptなどの言語とは異なり、Rustでは、論理値以外�
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let number = 3;
-
-    if number != 0 {
-        println!("number was something other than zero");   // 数値は0以外の何かです
-    }
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-29-if-not-equal-0/src/main.rs}}
 ```
 
 <!--
@@ -230,23 +193,7 @@ expression. For example:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let number = 6;
-
-    if number % 4 == 0 {
-        // 数値は4で割り切れます
-        println!("number is divisible by 4");
-    } else if number % 3 == 0 {
-        // 数値は3で割り切れます
-        println!("number is divisible by 3");
-    } else if number % 2 == 0 {
-        // 数値は2で割り切れます
-        println!("number is divisible by 2");
-    } else {
-        // 数値は4、3、2で割り切れません
-        println!("number is not divisible by 4, 3, or 2");
-    }
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-30-else-if/src/main.rs}}
 ```
 
 <!--
@@ -256,12 +203,8 @@ see the following output:
 
 このプログラムには、通り道が4つあります。実行後、以下のような出力を目の当たりにするはずです:
 
-```text
-$ cargo run
-   Compiling branches v0.1.0 (file:///projects/branches)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
-     Running `target/debug/branches`
-number is divisible by 3
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-30-else-if/output.txt}}
 ```
 
 <!--
@@ -309,17 +252,7 @@ statement, as in Listing 3-2.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let condition = true;
-    let number = if condition {
-        5
-    } else {
-        6
-    };
-
-    // numberの値は、{}です
-    println!("The value of number is: {}", number);
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-02/src/main.rs}}
 ```
 
 <!-- <span class="caption">Listing 3-2: Assigning the result of an `if` expression
@@ -334,12 +267,8 @@ expression. Run this code to see what happens:
 
 この`number`変数は、`if`式の結果に基づいた値に束縛されます。このコードを走らせてどうなるか確かめてください:
 
-```text
-$ cargo run
-   Compiling branches v0.1.0 (file:///projects/branches)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
-     Running `target/debug/branches`
-The value of number is: 5
+```console
+{{#include ../listings/ch03-common-programming-concepts/listing-03-02/output.txt}}
 ```
 
 <!--
@@ -364,18 +293,8 @@ example, we'll get an error:
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let condition = true;
-
-    let number = if condition {
-        5
-    } else {
-        "six"
-    };
-
-    println!("The value of number is: {}", number);
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/src/main.rs}}
 ```
 
 <!--
@@ -387,22 +306,8 @@ find the problem in the program:
 このコードをコンパイルしようとすると、エラーになります。`if`と`else`アームは互換性のない値の型になり、
 コンパイラがプログラム内で問題の見つかった箇所をスバリ指摘してくれます:
 
-```text
-error[E0308]: if and else have incompatible types
-              (ifとelseの型に互換性がありません)
- --> src/main.rs:4:18
-  |
-4 |       let number = if condition {
-  |  __________________^
-5 | |         5
-6 | |     } else {
-7 | |         "six"
-8 | |     };
-  | |_____^ expected integral variable, found &str
-  |         (整数変数を予期しましたが、&strが見つかりました)
-  |
-  = note: expected type `{integer}`
-             found type `&str`
+```console
+{{#include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/output.txt}}
 ```
 
 <!--
@@ -474,11 +379,7 @@ like this:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-fn main() {
-    loop {
-        println!("again!");   // また
-    }
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-loop/src/main.rs}}
 ```
 
 <!--
@@ -492,7 +393,7 @@ continual loop. Give it a try:
 ほとんどの端末で<span class="keystroke">ctrl-c</span>というショートカットが使え、
 永久ループに囚われてしまったプログラムを終了させられます。試しにやってみましょう:
 
-```text
+```console
 $ cargo run
    Compiling loops v0.1.0 (file:///projects/loops)
     Finished dev [unoptimized + debuginfo] target(s) in 0.29 secs
@@ -525,6 +426,49 @@ the user won the game by guessing the correct number.
 ループ内に`break`キーワードを配置することで、プログラムに実行を終了すべきタイミングを教えることができます。
 第2章の「正しい予想をした後に終了する」節の数当てゲーム内でこれをして、ユーザが予想を的中させ、
 ゲームに勝った時にプログラムを終了させたことを思い出してください。
+
+<!--
+We also used `continue` in the guessing game, which in a loop tells the program
+to skip over any remaining code in this iteration of the loop and go to the
+next iteration.
+-->
+
+数当てゲームで`continue`を使用しました。`continue`はループの中で残っているコードをスキップして次のループに移るためのものです。
+
+<!--
+If you have loops within loops, `break` and `continue` apply to the innermost
+loop at that point. You can optionally specify a *loop label* on a loop that we
+can then use with `break` or `continue` to specify that those keywords apply to
+the labeled loop instead of the innermost loop. Here’s an example with two
+nested loops:
+-->
+
+ループ内にループがある場合、`break`と`continue`は最も内側のループに適用されます。
+*ループラベル*を使用することで、`break`や`continue`が適用されるループを指定することができます。
+以下に例を示します。
+
+
+```rust
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/src/main.rs}}
+```
+
+<!--
+The outer loop has the label `'counting_up`, and it will count up from 0 to 2.
+The inner loop without a label counts down from 10 to 9. The first `break` that
+doesn’t specify a label will exit the inner loop only. The `break
+'counting_up;` statement will exit the outer loop. This code prints:
+-->
+
+外側のループには`'counting_up`というラベルがついていて、0から2まで数え上げます。
+内側のラベルのないループは10から9までカウントダウンします。最初のラベルの無い`break`は内側のループを終了させます。
+`break 'counting_up;`は外側のループを終了させます。
+このコードは以下のような出力をします。
+
+```console
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/output.txt}}
+```
+
+
 
 <!--
 #### Conditional Loops with `while`
@@ -563,18 +507,7 @@ another message and exits:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let mut number = 3;
-
-    while number != 0 {
-        println!("{}!", number);
-
-        number = number - 1;
-    }
-
-    // 発射！
-    println!("LIFTOFF!!!");
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-03/src/main.rs}}
 ```
 
 <!--
@@ -613,17 +546,7 @@ such as an array. For example, let's look at Listing 3-4.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let a = [10, 20, 30, 40, 50];
-    let mut index = 0;
-
-    while index < 5 {
-        // 値は{}です
-        println!("the value is: {}", a[index]);
-
-        index = index + 1;
-    }
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-04/src/main.rs}}
 ```
 
 <!--
@@ -644,16 +567,8 @@ in the array:
 配列の最終番号に到達するまでループします(つまり、`index < 5`が真でなくなる時です)。
 このコードを走らせると、配列内の全要素が出力されます:
 
-```text
-$ cargo run
-   Compiling loops v0.1.0 (file:///projects/loops)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
-     Running `target/debug/loops`
-the value is: 10
-the value is: 20
-the value is: 30
-the value is: 40
-the value is: 50
+```console
+{{#include ../listings/ch03-common-programming-concepts/listing-03-04/output.txt}}
 ```
 
 <!--
@@ -691,14 +606,7 @@ for each item in a collection. A `for` loop looks like this code in Listing 3-5.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let a = [10, 20, 30, 40, 50];
-
-    for element in a.iter() {
-        // 値は{}です
-        println!("the value is: {}", element);
-    }
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-05/src/main.rs}}
 ```
 
 <!--
@@ -760,12 +668,7 @@ we’ve not yet talked about, `rev`, to reverse the range:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    for number in (1..4).rev() {
-        println!("{}!", number);
-    }
-    println!("LIFTOFF!!!");
-}
+{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-34-for-range/src/main.rs}}
 ```
 
 <!--
