@@ -177,9 +177,9 @@ function parameters don't all need to be the same type, they just happen to be
 in this example.
 -->
 
-この例では、2引数の関数を生成しています。そして、引数はどちらも`i32`型です。それからこの関数は、
-仮引数の値を両方出力します。関数引数は、全てが同じ型である必要はありません。今回は、
-偶然同じになっただけです。
+この例では、2引数の関数を生成しています。この例では、2 引数の関数を生成しています。1 つ目の引数は`value`という名前で、型は`i32`と指定されています。2 つ目の引数は`unit_label`という名前で、型は`char`と指定されています。それからこの関数は、
+仮引数の値を両方出力します。関数引数は、全てが同じ型である必要はありません。。それからこの関数は、
+仮引数の値を両方出力します。関数引数は、全てが同じ型である必要はありません。
 
 <!--
 Let’s try running this code. Replace the program currently in your *functions*
@@ -199,7 +199,7 @@ Because we called the function with `5` as the value for `x` and `6` is passed
 as the value for `y`, the two strings are printed with these values.
 -->
 
-`x`に対して値`5`、`y`に対して値`6`を渡して関数を呼び出したので、この二つの文字列は、
+`value`に対して値`5`、`unit_label`に対して値`h`を渡して関数を呼び出したので、この二つの文字列は、
 この値で出力されました。
 
 <!--
