@@ -927,7 +927,7 @@ execution. We’ll also give each worker an `id` so we can distinguish between
 the different workers in the pool when logging or debugging.
 -->
 
-スレッドプールに`JoinHanlde<()>`インスタンスのベクタを格納する代わりに、`Worker`構造体のインスタンスを格納します。
+スレッドプールに`JoinHandle<()>`インスタンスのベクタを格納する代わりに、`Worker`構造体のインスタンスを格納します。
 各`Worker`が単独の`JoinHandle<()>`インスタンスを格納します。そして、`Worker`に実行するコードのクロージャを取り、
 既に走っているスレッドに実行してもらうために送信するメソッドを実装します。ログを取ったり、デバッグする際にプールの異なるワーカーを区別できるように、
 各ワーカーに`id`も付与します。
