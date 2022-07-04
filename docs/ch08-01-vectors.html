@@ -579,7 +579,7 @@ on the elements of the vector. Using an enum plus a `match` expression means
 that Rust will ensure at compile time that every possible case is handled, as
 discussed in Chapter 6.
 -->
-<p>個々の要素を格納するのにヒープ上で必要となるメモリの量を正確に把握するめに、Rustコンパイラはコンパイル時にベクタに入る型を知る必要があります。
+<p>個々の要素を格納するのにヒープ上で必要となるメモリの量を正確に把握するために、Rustコンパイラはコンパイル時にベクタに入る型を知る必要があります。
 また、このベクタではどんな型が許容されるのか明示できるという副次的な利点があります。
 もしRustが、ベクタにどんな型でも保持できることを許していたら、ベクタの要素に対して行われる処理に対して、いくつかの型がエラーを引き起こすかもしれません。
 enumに加えて<code>match</code>式を使うことで、第6章で説明したとおり、あらゆるケースが処理できることを、Rustがコンパイル時に保証することになります。</p>
