@@ -266,7 +266,8 @@ directory. You can run the executable with this command:
 以下のコマンドで実行ファイルを実行できます。
 
 ```console
-$ ./target/debug/hello_cargo # Windowsでは .\target\debug\hello_cargo.exe
+$ ./target/debug/hello_cargo # or .\target\debug\hello_cargo.exe on Windows
+$                              # Windowsでは .\target\debug\hello_cargo.exe
 Hello, world!
 ```
 
