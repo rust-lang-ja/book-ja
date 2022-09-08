@@ -267,7 +267,7 @@ directory. You can run the executable with this command:
 
 ```console
 $ ./target/debug/hello_cargo # or .\target\debug\hello_cargo.exe on Windows
-                             # Windowsなでは .\target\debug\hello_cargo.exe
+                             # Windowsでは .\target\debug\hello_cargo.exe
 Hello, world!
 ```
 
