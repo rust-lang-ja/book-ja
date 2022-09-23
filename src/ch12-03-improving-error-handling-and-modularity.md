@@ -910,7 +910,7 @@ use std::error::Error;
 
 // --snip--
 
-fn run(config: Config) -> Result<(), Box<Error>> {
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let mut f = File::open(config.filename)?;
 
     let mut contents = String::new();
@@ -931,29 +931,29 @@ fn run(config: Config) -> Result<(), Box<Error>> {
 
 <!--
 We’ve made three significant changes here. First, we changed the return type of
-the `run` function to `Result<(), Box<Error>>`. This function previously
+the `run` function to `Result<(), Box<dyn Error>>`. This function previously
 returned the unit type, `()`, and we keep that as the value returned in the
 `Ok` case.
 -->
 
-ここでは、3つの大きな変更を行いました。まず、`run`関数の戻り値を`Result<(), Box<Error>>`に変えました。
+ここでは、3つの大きな変更を行いました。まず、`run`関数の戻り値を`Result<(), Box<dyn Error>>`に変えました。
 この関数は、以前はユニット型、`()`を返していて、それを`Ok`の場合に返される値として残しました。
 
 <!--
-For the error type, we used the *trait object* `Box<Error>` (and we’ve brought
-`std::error::Error` into scope with a `use` statement at the top). We’ll cover
-trait objects in Chapter 17. For now, just know that `Box<Error>` means the
-function will return a type that implements the `Error` trait, but we don’t
-have to specify what particular type the return value will be. This gives us
-flexibility to return error values that may be of different types in different
-error cases.
+For the error type, we used the *trait object* `Box<dyn Error>` (and we’ve
+brought `std::error::Error` into scope with a `use` statement at the top).
+We’ll cover trait objects in Chapter 17. For now, just know that `Box<dyn
+Error>` means the function will return a type that implements the `Error`
+trait, but we don’t have to specify what particular type the return value will
+be. This gives us flexibility to return error values that may be of different
+types in different error cases. The `dyn` keyword is short for “dynamic.”
 -->
 
-エラー型については、*トレイトオブジェクト*の`Box<Error>`を使用しました(同時に冒頭で`use`文により、
+エラー型については、*トレイトオブジェクト*の`Box<dyn Error>`を使用しました(同時に冒頭で`use`文により、
 `std::error::Error`をスコープに導入しています)。トレイトオブジェクトについては、第17章で講義します。
-とりあえず、`Box<Error>`は、関数が`Error`トレイトを実装する型を返すことを意味しますが、
+とりあえず、`Box<dyn Error>`は、関数が`Error`トレイトを実装する型を返すことを意味しますが、
 戻り値の型を具体的に指定しなくても良いことを知っておいてください。これにより、
-エラーケースによって異なる型のエラー値を返す柔軟性を得ます。
+エラーケースによって異なる型のエラー値を返す柔軟性を得ます。`dyn` キーワードは、"dynamic"の略です。
 
 <!--
 Second, we’ve removed the calls to `expect` in favor of the `?` operator, as we
@@ -1131,7 +1131,7 @@ impl Config {
     }
 }
 
-pub fn run(config: Config) -> Result<(), Box<Error>> {
+pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // --snip--
 }
 ```
