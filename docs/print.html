@@ -1890,7 +1890,7 @@ thoroughly.)
 -->
 <p>この<code>&amp;</code>は、この引数が<em>参照</em>であることを示し、これによりコードの複数の部分が同じデータにアクセスしても、そのデータを何度もメモリにコピーしなくて済みます。
 参照は複雑な機能（訳注：一部のプログラム言語では正しく使うのが難しい機能）ですが、Rustの大きな利点の一つは参照を安全かつ簡単に使用できることです。
-このプログラムを完成させるのに、そのような詳細を知る必要はないしょう。
+このプログラムを完成させるのに、そのような詳細を知る必要はないでしょう。
 とりあえず知っておいてほしいのは、変数のように参照もデフォルトで不変であることです。
 したがって、<code>&amp;guess</code>ではなく<code>&amp;mut guess</code>と書いて可変にする必要があります。
 （参照については第4章でより詳しく説明します）</p>
@@ -9597,7 +9597,7 @@ the safety of Rust code.
 <p>不正確にnullでない値を想定する心配をしなくてもよいということは、コード内でより自信を持てることになります。
 nullになる可能性のある値を保持するには、その値の型を<code>Option&lt;T&gt;</code>にすることで明示的に同意しなければなりません。
 それからその値を使用する際には、値がnullである場合を明示的に処理する必要があります。
-値が<code>Option&lt;T&gt;</code>以外の型であるとこ全てにおいて、値がnullでないと安全に想定することが<em>できます</em>。
+値が<code>Option&lt;T&gt;</code>以外の型であるところ全てにおいて、値がnullでないと安全に想定することが<em>できます</em>。
 これは、Rustにとって、意図的な設計上の決定であり、nullの普遍性を制限し、Rustコードの安全性を向上させます。</p>
 <!--
 So, how do you get the `T` value out of a `Some` variant when you have a value
@@ -10939,7 +10939,7 @@ the `..` syntax. Why would we want to do this?
 -->
 <p>親モジュールから始まる相対パスなら、<code>super</code>を最初につけることで構成できます。
 ファイルシステムパスを<code>..</code>構文で始めるのに似ています。
-どのようなときのこの機能が使いたくなるのでしょう？</p>
+どのようなときにこの機能が使いたくなるのでしょう？</p>
 <!--
 Consider the code in Listing 7-8 that models the situation in which a chef
 fixes an incorrect order and personally brings it out to the customer. The
