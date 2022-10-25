@@ -322,7 +322,7 @@ the `..` syntax. Why would we want to do this?
 -->
 親モジュールから始まる相対パスなら、`super`を最初につけることで構成できます。
 ファイルシステムパスを`..`構文で始めるのに似ています。
-どのようなときのこの機能が使いたくなるのでしょう？
+どのようなときにこの機能が使いたくなるのでしょう？
 
 <!--
 Consider the code in Listing 7-8 that models the situation in which a chef
