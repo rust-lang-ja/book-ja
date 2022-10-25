@@ -1,19 +1,18 @@
 $ cargo run
    Compiling ownership v0.1.0 (file:///projects/ownership)
 error[E0382]: borrow of moved value: `s1`
+              (ムーブされた値の使用: `s1`)
  --> src/main.rs:5:28
   |
 2 |     let s1 = String::from("hello");
-  |         -- move occurs because `s1` has type `std::string::String`, which does not implement the `Copy` trait
+  |         -- move occurs because `s1` has type `String`, which does not implement the `Copy` trait
+  |            (ムーブが起きたのは、`s1`が`std::string::String`という`Copy`トレイトを実装していない型だからです)
 3 |     let s2 = s1;
   |              -- value moved here
 4 | 
 5 |     println!("{}, world!", s1);
   |                            ^^ value borrowed here after move
-
-error: aborting due to previous error
+  |                               (ムーブ後にここで使用されています)
 
 For more information about this error, try `rustc --explain E0382`.
-error: could not compile `ownership`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `ownership` due to previous error
