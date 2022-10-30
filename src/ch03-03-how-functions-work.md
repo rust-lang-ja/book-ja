@@ -171,9 +171,10 @@ declarations with commas, like this:
 ```
 
 <!--
-This example creates a function named print_labeled_measurement with two parameters. The first
-parameter is named value and is an i32. The second is named unit_label and is type char. The
-function then prints text containing both the value and the unit_label.
+This example creates a function named `print_labeled_measurement` with two
+parameters. The first parameter is named `value` and is an `i32`. The second is
+named `unit_label` and is type `char`. The function then prints text containing
+both the `value` and the `unit_label`.
 -->
 
 この例では、2つの引数を持つ関数を生成しています。最初の引数は `value`という名前で、`i32`です。
@@ -194,8 +195,8 @@ run`:
 ```
 
 <!--
-Because we called the function with 5 as the value for value and 'h' as the value for
-unit_label, the program output contains those values.
+Because we called the function with `5` as the value for `value` and `'h'` as
+the value for `unit_label`, the program output contains those values.
 -->
 
 `value`に対して`5`、`unit_label`に対して`h`を渡して関数を呼び出したので、
