@@ -177,9 +177,9 @@ named `unit_label` and is type `char`. The function then prints text containing
 both the `value` and the `unit_label`.
 -->
 
-この例では、2つの引数を持つ関数を生成しています。最初の引数は `value`という名前で、`i32`です。
-次は `unit_label`と言う名前で、`char`型です。
-関数は `value`と`unit_label`の両方を含むテキストを出力します。
+この例では、2つの引数を持つ関数を生成しています。最初の引数は`value`という名前で、`i32`です。
+次は`unit_label`と言う名前で、`char`型です。
+関数は`value`と`unit_label`の両方を含むテキストを出力します。
 
 <!--
 Let’s try running this code. Replace the program currently in your *functions*
