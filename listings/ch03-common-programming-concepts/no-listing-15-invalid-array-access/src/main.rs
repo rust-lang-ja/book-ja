@@ -17,7 +17,7 @@ fn main() {
         .trim()
         .parse()
         .expect("Index entered was not a number");
-        　　　// 入力された値は数字ではありません
+              // 入力された値は数字ではありません
 
     let element = a[index];
 
