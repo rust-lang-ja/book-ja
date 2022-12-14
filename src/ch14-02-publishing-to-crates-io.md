@@ -73,9 +73,10 @@ for an `add_one` function in a crate named `my_crate`:
 /// # Examples
 ///
 /// ```
-/// let five = 5;
+/// let arg = 5;
+/// let answer = my_crate::add_one(arg);
 ///
-/// assert_eq!(6, my_crate::add_one(5));
+/// assert_eq!(6, answer);
 /// ```
 pub fn add_one(x: i32) -> i32 {
     x + 1
@@ -409,7 +410,7 @@ pub mod kinds {
 }
 
 pub mod utils {
-    use kinds::*;
+    use crate::kinds::*;
 
     /// Combines two primary colors in equal amounts to create
     /// a secondary color.
