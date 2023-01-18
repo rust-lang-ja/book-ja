@@ -10,8 +10,8 @@ Chapter 10, but as with lifetimes, we didn’t discuss the more advanced details
 Now that you know more about Rust, we can get into the nitty-gritty.
 -->
 
-最初にトレイトについて講義したのは、第10章の「トレイト: 共通の振る舞いを定義する」節でしたが、
-ライフタイム同様、より高度な詳細は議論しませんでした。今や、Rustに詳しくなったので、核心に迫れるでしょう。
+最初にトレイトについて講義したのは、第 10 章の「トレイト：共通の振る舞いを定義する」節でしたが、
+ライフタイム同様、より高度な詳細は議論しませんでした。今や、Rust に詳しくなったので、核心に迫れるでしょう。
 
 <!--
 ### Specifying Placeholder Types in Trait Definitions with Associated Types
@@ -33,7 +33,7 @@ trait is implemented.
 なんらかの型を使用するトレイトをトレイトを実装するまでその型が一体なんであるかを知る必要なく定義できます。
 
 <!--
-3行目、the rest of the bookとあるが、これ以降の章という意味での残りではなく、ここまでに見かけてきた章のことと思われるため
+3 行目、the rest of the book とあるが、これ以降の章という意味での残りではなく、ここまでに見かけてきた章のことと思われるため
 -->
 
 <!--
@@ -43,7 +43,7 @@ than features explained in the rest of the book but more commonly than many of
 the other features discussed in this chapter.
 -->
 
-この章のほとんどの高度な機能は、稀にしか必要にならないと解説しました。関連型はその中間にあります:
+この章のほとんどの高度な機能は、稀にしか必要にならないと解説しました。関連型はその中間にあります：
 本の他の部分で説明される機能よりは使用されるのが稀ですが、この章で議論される他の多くの機能よりは頻繁に使用されます。
 
 <!--
@@ -56,8 +56,8 @@ shown in Listing 19-20.
 -->
 
 関連型があるトレイトの一例は、標準ライブラリが提供する`Iterator`トレイトです。その関連型は`Item`と名付けられ、
-`Iterator`トレイトを実装している型が走査している値の型の代役を務めます。第13章の「`Iterator`トレイトと`next`メソッド」節で、
-`Iterator`トレイトの定義は、リスト19-20に示したようなものであることに触れました。
+`Iterator`トレイトを実装している型が走査している値の型の代役を務めます。第 13 章の「`Iterator`トレイトと`next`メソッド」節で、
+`Iterator`トレイトの定義は、リスト 19-20 に示したようなものであることに触れました。
 
 ```rust
 pub trait Iterator {
@@ -72,7 +72,7 @@ pub trait Iterator {
 that has an associated type `Item`</span>
 -->
 
-<span class="caption">リスト19-20: 関連型`Item`がある`Iterator`トレイトの定義</span>
+<span class="caption">リスト 19-20: 関連型`Item`がある`Iterator`トレイトの定義</span>
 
 <!--
 The type `Item` is a placeholder type, and the `next` method’s definition shows
@@ -87,7 +87,7 @@ method will return an `Option` containing a value of that concrete type.
 
 <!--
 ジェネリクスはこうという話をしているのに、似ていると言っているのがどうも引っかかる
-1行目終わり、the latter allowsと思われるが、直っていない
+1 行目終わり、the latter allows と思われるが、直っていない
 -->
 
 <!--
@@ -105,14 +105,14 @@ Chapter 13 that implements the `Iterator` trait on the `Counter` struct. In
 Listing 13-21, we specified that the `Item` type was `u32`:
 -->
 
-2つの概念の違いを第13章から`Counter`構造体に`Iterator`トレイトを実装する例で調査しましょう。
-リスト13-21で、`Item`型は`u32`だと指定しました:
+2 つの概念の違いを第 13 章から`Counter`構造体に`Iterator`トレイトを実装する例で調査しましょう。
+リスト 13-21 で、`Item`型は`u32`だと指定しました：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 impl Iterator for Counter {
@@ -127,7 +127,7 @@ This syntax seems comparable to that of generics. So why not just define the
 `Iterator` trait with generics, as shown in Listing 19-21?
 -->
 
-この記法は、ジェネリクスと比較可能に思えます。では、何故単純にリスト19-21のように、
+この記法は、ジェネリクスと比較可能に思えます。では、何故単純にリスト 19-21 のように、
 `Iterator`トレイトをジェネリクスで定義しないのでしょうか？
 
 ```rust
@@ -141,7 +141,7 @@ pub trait Iterator<T> {
 `Iterator` trait using generics</span>
 -->
 
-<span class="caption">リスト19-21: ジェネリクスを使用した架空の`Iterator`トレイトの定義</span>
+<span class="caption">リスト 19-21: ジェネリクスを使用した架空の`Iterator`トレイトの定義</span>
 
 <!--
 The difference is that when using generics, as in Listing 19-21, we must
@@ -154,7 +154,7 @@ the concrete types of the generic type parameters each time. When we use the
 indicate which implementation of `Iterator` we want to use.
 -->
 
-差異は、リスト19-21のようにジェネリクスを使用すると、各実装で型を注釈しなければならないことです;
+差異は、リスト 19-21 のようにジェネリクスを使用すると、各実装で型を注釈しなければならないことです;
 `Iterator<String> for Counter`や他のどんな型にも実装することができるので、
 `Counter`の`Iterator`の実装が複数できるでしょう。換言すれば、トレイトにジェネリックな引数があると、
 毎回ジェネリックな型引数の具体的な型を変更してある型に対して複数回実装できるということです。
@@ -170,8 +170,8 @@ that we call `next` on `Counter`.
 -->
 
 関連型なら、同じ型に対してトレイトを複数回実装できないので、型を注釈する必要はありません。
-関連型を使用する定義があるリスト19-20では、`Item`の型は1回しか選択できませんでした。
-1つしか`impl Iterator for Counter`がないからです。`Counter`に`next`を呼び出す度に、
+関連型を使用する定義があるリスト 19-20 では、`Item`の型は 1 回しか選択できませんでした。
+1 つしか`impl Iterator for Counter`がないからです。`Counter`に`next`を呼び出す度に、
 `u32`値のイテレータが欲しいと指定しなくてもよいわけです。
 
 <!--
@@ -199,7 +199,7 @@ overloading. *Operator overloading* is customizing the behavior of an operator
 -->
 
 このテクニックが有用になる場面の好例が、演算子オーバーロードです。*演算子オーバーロード*とは、
-特定の状況で演算子(`+`など)の振る舞いをカスタマイズすることです。
+特定の状況で演算子 (`+`など) の振る舞いをカスタマイズすることです。
 
 <!--
 Rust doesn’t allow you to create your own operators or overload arbitrary
@@ -210,16 +210,16 @@ instances together. We do this by implementing the `Add` trait on a `Point`
 struct:
 -->
 
-Rustでは、独自の演算子を作ったり、任意の演算子をオーバーロードすることはできません。しかし、
+Rust では、独自の演算子を作ったり、任意の演算子をオーバーロードすることはできません。しかし、
 演算子に紐づいたトレイトを実装することで`std::ops`に列挙された処理と対応するトレイトをオーバーロードできます。
-例えば、リスト19-22で`+`演算子をオーバーロードして2つの`Point`インスタンスを足し合わせています。
+例えば、リスト 19-22 で`+`演算子をオーバーロードして 2 つの`Point`インスタンスを足し合わせています。
 `Point`構造体に`Add`トレイトを実装することでこれを行なっています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::ops::Add;
@@ -252,7 +252,7 @@ fn main() {
 the `+` operator for `Point` instances</span>
 -->
 
-<span class="caption">リスト19-22: `Add`トレイトを実装して`Point`インスタンス用に`+`演算子をオーバーロードする</span>
+<span class="caption">リスト 19-22: `Add`トレイトを実装して`Point`インスタンス用に`+`演算子をオーバーロードする</span>
 
 <!--
 The `add` method adds the `x` values of two `Point` instances and the `y`
@@ -261,7 +261,7 @@ associated type named `Output` that determines the type returned from the `add`
 method.
 -->
 
-`add`メソッドは2つの`Point`インスタンスの`x`値と2つの`Point`インスタンスの`y`値を足します。
+`add`メソッドは 2 つの`Point`インスタンスの`x`値と 2 つの`Point`インスタンスの`y`値を足します。
 `Add`トレイトには、`add`メソッドから返却される型を決定する`Output`という関連型があります。
 
 <!--
@@ -269,7 +269,7 @@ The default generic type in this code is within the `Add` trait. Here is its
 definition:
 -->
 
-このコードの既定のジェネリック型は、`Add`トレイト内にあります。こちらがその定義です:
+このコードの既定のジェネリック型は、`Add`トレイト内にあります。こちらがその定義です：
 
 ```rust
 trait Add<RHS=Self> {
@@ -289,9 +289,9 @@ of `RHS` will default to `Self`, which will be the type we’re implementing
 `Add` on.
 -->
 
-このコードは一般的に馴染みがあるはずです: 1つのメソッドと関連型が1つあるトレイトです。
-新しい部分は、`RHS=Self`です: この記法は、*デフォルト型引数*と呼ばれます。
-RHSというジェネリックな型引数("right hand side": 右辺の省略形)が、`add`メソッドの`rhs`引数の型を定義しています。
+このコードは一般的に馴染みがあるはずです：1 つのメソッドと関連型が 1 つあるトレイトです。
+新しい部分は、`RHS=Self`です：この記法は、*デフォルト型引数*と呼ばれます。
+RHS というジェネリックな型引数 ("right hand side": 右辺の省略形) が、`add`メソッドの`rhs`引数の型を定義しています。
 `Add`トレイトを実装する際に`RHS`の具体的な型を指定しなければ、`RHS`の型は標準で`Self`になり、
 これは`Add`を実装している型になります。
 
@@ -302,7 +302,7 @@ the `Add` trait where we want to customize the `RHS` type rather than using the
 default.
 -->
 
-`Point`に`Add`を実装する際、2つの`Point`インスタンスを足したかったので、`RHS`の規定を使用しました。
+`Point`に`Add`を実装する際、2 つの`Point`インスタンスを足したかったので、`RHS`の規定を使用しました。
 既定を使用するのではなく、`RHS`の型をカスタマイズしたくなる`Add`トレイトの実装例に目を向けましょう。
 
 <!--
@@ -312,15 +312,15 @@ implementation of `Add` do the conversion correctly. We can implement `Add` for
 `Millimeters` with `Meters` as the `RHS`, as shown in Listing 19-23.
 -->
 
-異なる単位で値を保持する構造体、`Millimeters`と`Meters`(それぞれ`ミリメートル`と`メートル`)が2つあります。
+異なる単位で値を保持する構造体、`Millimeters`と`Meters`(それぞれ`ミリメートル`と`メートル`) が 2 つあります。
 ミリメートルの値をメートルの値に足し、`Add`の実装に変換を正しくしてほしいです。
-`Add`を`RHS`に`Meters`のある`Millimeters`に実装することができます。リスト19-23のように:
+`Add`を`RHS`に`Meters`のある`Millimeters`に実装することができます。リスト 19-23 のように：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 use std::ops::Add;
@@ -342,7 +342,7 @@ impl Add<Meters> for Millimeters {
 `Millimeters` to add `Millimeters` to `Meters`</span>
 -->
 
-<span class="caption">リスト19-23: `Millimeters`に`Add`トレイトを実装して、`Meters`に`Millimeters`を足す</span>
+<span class="caption">リスト 19-23: `Millimeters`に`Add`トレイトを実装して、`Meters`に`Millimeters`を足す</span>
 
 <!--
 To add `Millimeters` and `Meters`, we specify `impl Add<Meters>` to set the
@@ -356,7 +356,7 @@ value of the `RHS` type parameter instead of using the default of `Self`.
 You'll use default type parameters in two main ways:
 -->
 
-主に2通りの方法でデフォルト型引数を使用します:
+主に 2 通りの方法でデフォルト型引数を使用します：
 
 <!--
 * To extend a type without breaking existing code
@@ -375,7 +375,7 @@ time. In other words, a bit of implementation boilerplate isn’t needed, making
 it easier to use the trait.
 -->
 
-標準ライブラリの`Add`トレイトは、2番目の目的の例です: 通常、2つの似た型を足しますが、
+標準ライブラリの`Add`トレイトは、2 番目の目的の例です：通常、2 つの似た型を足しますが、
 `Add`トレイトはそれ以上にカスタマイズする能力を提供します。`Add`トレイト定義でデフォルト型引数を使用することは、
 ほとんどの場合、追加の引数を指定しなくてもよいことを意味します。つまり、トレイトを使いやすくして、
 ちょっとだけ実装の定型コードが必要なくなるのです。
@@ -387,14 +387,14 @@ extension of the functionality of the trait without breaking the existing
 implementation code.
 -->
 
-最初の目的は2番目に似ていますが、逆です: 既存のトレイトに型引数を追加したいなら、既定を与えて、
+最初の目的は 2 番目に似ていますが、逆です：既存のトレイトに型引数を追加したいなら、既定を与えて、
 既存の実装コードを破壊せずにトレイトの機能を拡張できるのです。
 
 <!--
 ### Fully Qualified Syntax for Disambiguation: Calling Methods with the Same Name
 -->
 
-### 明確化のためのフルパス記法: 同じ名前のメソッドを呼ぶ
+### 明確化のためのフルパス記法：同じ名前のメソッドを呼ぶ
 
 <!--
 Nothing in Rust prevents a trait from having a method with the same name as
@@ -403,7 +403,7 @@ on one type. It’s also possible to implement a method directly on the type wit
 the same name as methods from traits.
 -->
 
-Rustにおいて、別のトレイトのメソッドと同じ名前のメソッドがトレイトにあったり、両方のトレイトを1つの型に実装することを妨げるものは何もありません。
+Rust において、別のトレイトのメソッドと同じ名前のメソッドがトレイトにあったり、両方のトレイトを 1 つの型に実装することを妨げるものは何もありません。
 トレイトのメソッドと同じ名前のメソッドを直接型に実装することも可能です。
 
 <!--
@@ -414,16 +414,16 @@ both traits on a type `Human` that already has a method named `fly` implemented
 on it. Each `fly` method does something different.
 -->
 
-同じ名前のメソッドを呼ぶ際、コンパイラにどれを使用したいのか教える必要があるでしょう。両方とも`fly`というメソッドがある2つのトレイト、
-`Pilot`と`Wizard`(`訳注`: パイロットと魔法使い)を定義したリスト19-24のコードを考えてください。
-それから両方のトレイトを既に`fly`というメソッドが実装されている型`Human`(`訳注`: 人間)に実装します。
+同じ名前のメソッドを呼ぶ際、コンパイラにどれを使用したいのか教える必要があるでしょう。両方とも`fly`というメソッドがある 2 つのトレイト、
+`Pilot`と`Wizard`(`訳注`: パイロットと魔法使い) を定義したリスト 19-24 のコードを考えてください。
+それから両方のトレイトを既に`fly`というメソッドが実装されている型`Human`(`訳注`: 人間) に実装します。
 各`fly`メソッドは異なることをします。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 trait Pilot {
@@ -464,7 +464,7 @@ method and are implemented on the `Human` type, and a `fly` method is
 implemented on `Human` directly</span>
 -->
 
-<span class="caption">リスト19-24: 2つのトレイトに`fly`があるように定義され、`Human`に実装されつつ、
+<span class="caption">リスト 19-24: 2 つのトレイトに`fly`があるように定義され、`Human`に実装されつつ、
     `fly`メソッドは`Human`に直接にも実装されている</span>
 
 <!--
@@ -473,13 +473,13 @@ the method that is directly implemented on the type, as shown in Listing 19-25.
 -->
 
 `Human`のインスタンスに対して`fly`を呼び出すと、コンパイラは型に直接実装されたメソッドを標準で呼び出します。
-リスト19-25のようにですね:
+リスト 19-25 のようにですね：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # trait Pilot {
@@ -521,7 +521,7 @@ fn main() {
 `Human`</span>
 -->
 
-<span class="caption">リスト19-25: `Human`のインスタンスに対して`fly`を呼び出す</span>
+<span class="caption">リスト 19-25: `Human`のインスタンスに対して`fly`を呼び出す</span>
 
 <!--
 Running this code will print `*waving arms furiously*`, showing that Rust
@@ -538,13 +538,13 @@ Listing 19-26 demonstrates this syntax.
 
 `Pilot`トレイトか、`Wizard`トレイトの`fly`メソッドを呼ぶためには、
 より明示的な記法を使用して、どの`fly`メソッドを意図しているか指定する必要があります。
-リスト19-26は、この記法をデモしています。
+リスト 19-26 は、この記法をデモしています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # trait Pilot {
@@ -588,7 +588,7 @@ fn main() {
 want to call</span>
 -->
 
-<span class="caption">リスト19-26: どのトレイトの`fly`メソッドを呼び出したいか指定する</span>
+<span class="caption">リスト 19-26: どのトレイトの`fly`メソッドを呼び出したいか指定する</span>
 
 <!--
 Specifying the trait name before the method name clarifies to Rust which
@@ -599,14 +599,14 @@ disambiguate.
 -->
 
 メソッド名の前にトレイト名を指定すると、コンパイラにどの`fly`の実装を呼び出したいか明確化できます。
-また、`Human::fly(&person)`と書くこともでき、リスト19-26で使用した`person.fly()`と等価ですが、
+また、`Human::fly(&person)`と書くこともでき、リスト 19-26 で使用した`person.fly()`と等価ですが、
 こちらの方は明確化する必要がないなら、ちょっと記述量が増えます。
 
 <!--
 Running this code prints the following:
 -->
 
-このコードを実行すると、こんな出力がされます:
+このコードを実行すると、こんな出力がされます：
 
 ```text
 This is your captain speaking.
@@ -620,7 +620,7 @@ both implement one *trait*, Rust could figure out which implementation of a
 trait to use based on the type of `self`.
 -->
 
-`fly`メソッドは`self`引数を取るので、1つの*トレイト*を両方実装する*型*が2つあれば、
+`fly`メソッドは`self`引数を取るので、1 つの*トレイト*を両方実装する*型*が 2 つあれば、
 コンパイラには、`self`の型に基づいてどのトレイトの実装を使うべきかわかるでしょう。
 
 <!--
@@ -632,16 +632,16 @@ example, the `Animal` trait in Listing 19-27 has the associated function
 associated function `baby_name` defined on `Dog` directly.
 -->
 
-しかしながら、トレイトの一部になる関連関数には`self`引数がありません。同じスコープの2つの型がそのトレイトを実装する場合、
-*フルパス記法*(fully qualified syntax)を使用しない限り、どの型を意図しているかコンパイラは推論できません。例えば、
-リスト19-27の`Animal`トレイトには、関連関数`baby_name`、構造体`Dog`の`Animal`の実装、
+しかしながら、トレイトの一部になる関連関数には`self`引数がありません。同じスコープの 2 つの型がそのトレイトを実装する場合、
+*フルパス記法*(fully qualified syntax) を使用しない限り、どの型を意図しているかコンパイラは推論できません。例えば、
+リスト 19-27 の`Animal`トレイトには、関連関数`baby_name`、構造体`Dog`の`Animal`の実装、
 `Dog`に直接定義された関連関数`baby_name`があります。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 trait Animal {
@@ -652,7 +652,7 @@ struct Dog;
 
 impl Dog {
     fn baby_name() -> String {
-        // スポット(Wikipediaによると、飼い主の事故死後もその人の帰りを待つ忠犬の名前の模様)
+        // スポット (Wikipedia によると、飼い主の事故死後もその人の帰りを待つ忠犬の名前の模様)
         String::from("Spot")
     }
 }
@@ -676,7 +676,7 @@ type with an associated function of the same name that also implements the
 trait</span>
 -->
 
-<span class="caption">リスト19-27: 関連関数のあるトレイトとそのトレイトも実装し、同じ名前の関連関数がある型</span>
+<span class="caption">リスト 19-27: 関連関数のあるトレイトとそのトレイトも実装し、同じ名前の関連関数がある型</span>
 
 <!--
 This code is for an animal shelter that wants to name all puppies Spot, which
@@ -687,7 +687,7 @@ is expressed in the implementation of the `Animal` trait on `Dog` in the
 `baby_name` function associated with the `Animal` trait.
 -->
 
-このコードは、全ての子犬をスポットと名付けたいアニマル・シェルター(`訳注`: 身寄りのないペットを保護する保健所みたいなところ)用で、
+このコードは、全ての子犬をスポットと名付けたいアニマル・シェルター(`訳注`: 身寄りのないペットを保護する保健所みたいなところ) 用で、
 `Dog`に定義された`baby_name`関連関数で実装されています。`Dog`型は、トレイト`Animal`も実装し、
 このトレイトは全ての動物が持つ特徴を記述します。赤ちゃん犬は子犬と呼ばれ、
 それが`Dog`の`Animal`トレイトの実装の`Animal`トレイトと紐づいた`base_name`関数で表現されています。
@@ -698,7 +698,7 @@ function defined on `Dog` directly. This code prints the following:
 -->
 
 `main`で、`Dog::baby_name`関数を呼び出し、直接`Dog`に定義された関連関数を呼び出しています。
-このコードは以下のような出力をします:
+このコードは以下のような出力をします：
 
 ```text
 A baby dog is called a Spot
@@ -713,14 +713,14 @@ Listing 19-28, we’ll get a compilation error.
 -->
 
 この出力は、欲しかったものではありません。`Dog`に実装した`Animal`トレイトの一部の`baby_name`関数を呼び出したいので、
-コードは`A baby dog is called a puppy`と出力します。リスト19-26で使用したトレイト名を指定するテクニックは、
-ここでは役に立ちません; `main`をリスト19-28のようなコードに変更したら、コンパイルエラーになるでしょう。
+コードは`A baby dog is called a puppy`と出力します。リスト 19-26 で使用したトレイト名を指定するテクニックは、
+ここでは役に立ちません; `main`をリスト 19-28 のようなコードに変更したら、コンパイルエラーになるでしょう。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -734,7 +734,7 @@ function from the `Animal` trait, but Rust doesn’t know which implementation t
 use</span>
 -->
 
-<span class="caption">リスト19-28: `Animal`トレイトの`baby_name`関数を呼び出そうとするも、コンパイラにはどの実装を使うべきかわからない</span>
+<span class="caption">リスト 19-28: `Animal`トレイトの`baby_name`関数を呼び出そうとするも、コンパイラにはどの実装を使うべきかわからない</span>
 
 <!--
 Because `Animal::baby_name` is an associated function rather than a method, and
@@ -743,18 +743,18 @@ implementation of `Animal::baby_name` we want. We’ll get this compiler error:
 -->
 
 `Animal::baby_name`はメソッドではなく関連関数であり、故に`self`引数がないので、どの`Animal::baby_name`が欲しいのか、
-コンパイラには推論できません。こんなコンパイルエラーが出るでしょう:
+コンパイラには推論できません。こんなコンパイルエラーが出るでしょう：
 
 ```text
 error[E0283]: type annotations required: cannot resolve `_: Animal`
-(エラー: 型注釈が必要です: `_: Animal`を解決できません)
+(エラー: 型注釈が必要です：`_: Animal`を解決できません)
   --> src/main.rs:20:43
    |
 20 |     println!("A baby dog is called a {}", Animal::baby_name());
    |                                           ^^^^^^^^^^^^^^^^^
    |
    = note: required by `Animal::baby_name`
-   (注釈: `Animal::baby_name`に必要です)
+   (注釈：`Animal::baby_name`に必要です)
 ```
 
 <!--
@@ -764,13 +764,13 @@ demonstrates how to use fully qualified syntax.
 -->
 
 `Dog`に対して`Animal`実装を使用したいと明確化し、コンパイラに指示するには、フルパス記法を使う必要があります。
-リスト19-29は、フルパス記法を使用する方法をデモしています。
+リスト 19-29 は、フルパス記法を使用する方法をデモしています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # trait Animal {
@@ -802,7 +802,7 @@ that we want to call the `baby_name` function from the `Animal` trait as
 implemented on `Dog`</span>
 -->
 
-<span class="caption">リスト19-29: フルパス記法を使って`Dog`に実装されているように、
+<span class="caption">リスト 19-29: フルパス記法を使って`Dog`に実装されているように、
     `Animal`トレイトからの`baby_name`関数を呼び出したいと指定する</span>
 
 <!--
@@ -814,7 +814,7 @@ implemented on `Dog` by saying that we want to treat the `Dog` type as an
 
 コンパイラに山カッコ内で型注釈を提供し、これは、この関数呼び出しでは`Dog`型を`Animal`として扱いたいと宣言することで、
 `Dog`に実装されたように、`Animal`トレイトの`baby_name`メソッドを呼び出したいと示唆しています。
-もうこのコードは、望み通りの出力をします:
+もうこのコードは、望み通りの出力をします：
 
 ```text
 A baby dog is called a puppy
@@ -824,7 +824,7 @@ A baby dog is called a puppy
 In general, fully qualified syntax is defined as follows:
 -->
 
-一般的に、フルパス記法は、以下のように定義されています:
+一般的に、フルパス記法は、以下のように定義されています：
 
 ```rust,ignore
 <Type as Trait>::function(receiver_if_method, next_arg, ...);
@@ -840,7 +840,7 @@ implementations that use the same name and Rust needs help to identify which
 implementation you want to call.
 -->
 
-関連関数では、`receiver`がないでしょう: 他の引数のリストがあるだけでしょう。関数やメソッドを呼び出す箇所全部で、
+関連関数では、`receiver`がないでしょう：他の引数のリストがあるだけでしょう。関数やメソッドを呼び出す箇所全部で、
 フルパス記法を使用することもできるでしょうが、プログラムの他の情報からコンパイラが推論できるこの記法のどの部分も省略することが許容されています。
 同じ名前を使用する実装が複数あり、どの実装を呼び出したいかコンパイラが特定するのに助けが必要な場合だけにこのより冗長な記法を使用する必要があるのです。
 
@@ -869,7 +869,7 @@ call `outline_print` on a `Point` instance that has `1` for `x` and `3` for
 
 例えば、アスタリスクをフレームにする値を出力する`outline_print`メソッドがある`OutlinePrint`トレイトを作りたくなったとしましょう。
 つまり、`Display`を実装し、`(x, y)`という結果になる`Point`構造体が与えられて、
-`x`が`1`、`y`が`3`の`Point`インスタンスに対して`outline_print`を呼び出すと、以下のような出力をするはずです:
+`x`が`1`、`y`が`3`の`Point`インスタンスに対して`outline_print`を呼び出すと、以下のような出力をするはずです：
 
 ```text
 **********
@@ -891,13 +891,13 @@ the trait. Listing 19-30 shows an implementation of the `OutlinePrint` trait.
 `outline_print`の実装では、`Display`トレイトの機能を使用したいです。故に、`Display`も実装する型に対してだけ`OutlinePrint`が動くと指定し、
 `OutlinePrint`が必要とする機能を提供する必要があるわけです。トレイト定義で`OutlinePrint: Display`と指定することで、
 そうすることができます。このテクニックは、トレイトにトレイト境界を追加することに似ています。
-リスト19-30は、`OutlinePrint`トレイトの実装を示しています。
+リスト 19-30 は、`OutlinePrint`トレイトの実装を示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::fmt;
@@ -920,7 +920,7 @@ trait OutlinePrint: fmt::Display {
 requires the functionality from `Display`</span>
 -->
 
-<span class="caption">リスト19-30: `Display`からの機能を必要とする`OutlinePrint`トレイトを実装する</span>
+<span class="caption">リスト 19-30: `Display`からの機能を必要とする`OutlinePrint`トレイトを実装する</span>
 
 <!--
 Because we’ve specified that `OutlinePrint` requires the `Display` trait, we
@@ -940,13 +940,13 @@ Let’s see what happens when we try to implement `OutlinePrint` on a type that
 doesn’t implement `Display`, such as the `Point` struct:
 -->
 
-`Display`を実装しない型、`Point`構造体などに`OutlinePrint`を実装しようとしたら、何が起きるか確認しましょう:
+`Display`を実装しない型、`Point`構造体などに`OutlinePrint`を実装しようとしたら、何が起きるか確認しましょう：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # trait OutlinePrint {}
@@ -962,7 +962,7 @@ impl OutlinePrint for Point {}
 We get an error saying that `Display` is required but not implemented:
 -->
 
-`Display`が必要だけれども、実装されていないというエラーが出ます:
+`Display`が必要だけれども、実装されていないというエラーが出ます：
 
 ```text
 error[E0277]: the trait bound `Point: std::fmt::Display` is not satisfied
@@ -981,13 +981,13 @@ To fix this, we implement `Display` on `Point` and satisfy the constraint that
 -->
 
 これを修正するために、`Point`に`Display`を実装し、`OutlinePrint`が必要とする制限を満たします。
-こんな感じで:
+こんな感じで：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # struct Point {
@@ -1033,12 +1033,12 @@ from the Haskell programming language. There is no runtime performance penalty
 for using this pattern, and the wrapper type is elided at compile time.
 -->
 
-第10章の「型にトレイトを実装する」節で、トレイトか型がクレートにローカルな限り、型にトレイトを実装できると述べるオーファンルールについて触れました。
+第 10 章の「型にトレイトを実装する」節で、トレイトか型がクレートにローカルな限り、型にトレイトを実装できると述べるオーファンルールについて触れました。
 *ニュータイプパターン*を使用してこの制限を回避することができ、タプル構造体に新しい型を作成することになります。
-(タプル構造体については、第5章の「異なる型を生成する名前付きフィールドのないタプル構造体を使用する」節で講義しました。)
-タプル構造体は1つのフィールドを持ち、トレイトを実装したい型の薄いラッパになるでしょう。そして、
+(タプル構造体については、第 5 章の「異なる型を生成する名前付きフィールドのないタプル構造体を使用する」節で講義しました。)
+タプル構造体は 1 つのフィールドを持ち、トレイトを実装したい型の薄いラッパになるでしょう。そして、
 ラッパの型はクレートにローカルなので、トレイトをラッパに実装できます。*ニュータイプ*という用語は、
-Haskellプログラミング言語に端を発しています。このパターンを使用するのに実行時のパフォーマンスを犠牲にすることはなく、
+Haskell プログラミング言語に端を発しています。このパターンを使用するのに実行時のパフォーマンスを犠牲にすることはなく、
 ラッパ型はコンパイル時に省かれます。
 
 <!--
@@ -1051,13 +1051,13 @@ that holds an instance of `Vec<T>`; then we can implement `Display` on
 
 例として、`Vec<T>`に`Display`を実装したいとしましょう。`Display`トレイトも`Vec<T>`型もクレートの外で定義されているので、
 直接それを行うことはオーファンルールにより妨げられます。`Vec<T>`のインスタンスを保持する`Wrapper`構造体を作成できます;
-そして、`Wrapper`に`Display`を実装し、`Vec<T>`値を使用できます。リスト19-31のように。
+そして、`Wrapper`に`Display`を実装し、`Vec<T>`値を使用できます。リスト 19-31 のように。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::fmt;
@@ -1081,7 +1081,7 @@ fn main() {
 `Vec<String>` to implement `Display`</span>
 -->
 
-<span class="caption">リスト19-31: `Vec<String>`の周りに`Wrapper`を作成して`Display`を実装する</span>
+<span class="caption">リスト 19-31: `Vec<String>`の周りに`Wrapper`を作成して`Display`を実装する</span>
 
 <!--
 The implementation of `Display` uses `self.0` to access the inner `Vec<T>`,
@@ -1090,7 +1090,7 @@ tuple. Then we can use the functionality of the `Display` type on `Wrapper`.
 -->
 
 `Display`の実装は、`self.0`で中身の`Vec<T>`にアクセスしています。`Wrapper`はタプル構造体で、
-`Vec<T>`がタプルの添え字0の要素だからです。それから、`Wrapper`に対して`Display`型の機能を使用できます。
+`Vec<T>`がタプルの添え字 0 の要素だからです。それから、`Wrapper`に対して`Display`型の機能を使用できます。
 
 <!--
 The downside of using this technique is that `Wrapper` is a new type, so it
@@ -1109,8 +1109,8 @@ methods we do want manually.
 このテクニックを使用する欠点は、`Wrapper`が新しい型なので、保持している値のメソッドがないことです。
 `self.0`に委譲して、`Wrapper`を`Vec<T>`と全く同様に扱えるように、`Wrapper`に直接`Vec<T>`の全てのメソッドを実装しなければならないでしょう。
 内部の型が持つ全てのメソッドを新しい型に持たせたいなら、
-`Deref`トレイト(第15章の「`Deref`トレイトでスマートポインタを普通の参照のように扱う」節で議論しました)を`Wrapper`に実装して、
-内部の型を返すことは解決策の1つでしょう。内部の型のメソッド全部を`Wrapper`型に持たせたくない(例えば、`Wrapper`型の機能を制限するなど)なら、
+`Deref`トレイト (第 15 章の「`Deref`トレイトでスマートポインタを普通の参照のように扱う」節で議論しました) を`Wrapper`に実装して、
+内部の型を返すことは解決策の 1 つでしょう。内部の型のメソッド全部を`Wrapper`型に持たせたくない (例えば、`Wrapper`型の機能を制限するなど) なら、
 本当に欲しいメソッドだけを手動で実装しなければならないでしょう。
 
 <!--
@@ -1120,4 +1120,4 @@ at some advanced ways to interact with Rust’s type system.
 -->
 
 もう、トレイトに関してニュータイプパターンが使用される方法を知りました; トレイトが関連しなくても、
-有用なパターンでもあります。焦点を変更して、Rustの型システムと相互作用する一部の高度な方法を見ましょう。
+有用なパターンでもあります。焦点を変更して、Rust の型システムと相互作用する一部の高度な方法を見ましょう。

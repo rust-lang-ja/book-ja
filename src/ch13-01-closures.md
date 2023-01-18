@@ -2,7 +2,7 @@
 ## Closures: Anonymous Functions that Can Capture Their Environment
 -->
 
-## クロージャ: 環境をキャプチャできる匿名関数
+## クロージャ：環境をキャプチャできる匿名関数
 
 <!--
 Rust’s closures are anonymous functions you can save in a variable or pass as
@@ -13,7 +13,7 @@ demonstrate how these closure features allow for code reuse and behavior
 customization.
 -->
 
-Rustのクロージャは、変数に保存したり、引数として他の関数に渡すことのできる匿名関数です。
+Rust のクロージャは、変数に保存したり、引数として他の関数に渡すことのできる匿名関数です。
 ある場所でクロージャを生成し、それから別の文脈でクロージャを呼び出して評価することができます。
 関数と異なり、呼び出されたスコープの値をクロージャは、キャプチャすることができます。
 これらのクロージャの機能がコードの再利用や、動作のカスタマイズを行わせてくれる方法を模擬しましょう。
@@ -44,11 +44,11 @@ few seconds. We want to call this algorithm only when we need to and only call
 it once so we don’t make the user wait more than necessary.
 -->
 
-以下のような架空の場面を考えてください: カスタマイズされたエクササイズのトレーニングプランを生成するアプリを作るスタートアップで働くことになりました。
-バックエンドはRustで記述され、トレーニングプランを生成するアルゴリズムは、アプリユーザの年齢や、
+以下のような架空の場面を考えてください：カスタマイズされたエクササイズのトレーニングプランを生成するアプリを作るスタートアップで働くことになりました。
+バックエンドは Rust で記述され、トレーニングプランを生成するアルゴリズムは、アプリユーザの年齢や、
 BMI、運動の好み、最近のトレーニング、指定された強弱値などの多くの要因を考慮します。
 実際に使用されるアルゴリズムは、この例では重要ではありません; 重要なのは、この計算が数秒要することです。
-必要なときだけこのアルゴリズムを呼び出し、1回だけ呼び出したいので、必要以上にユーザを待たせないことになります。
+必要なときだけこのアルゴリズムを呼び出し、1 回だけ呼び出したいので、必要以上にユーザを待たせないことになります。
 
 <!--
 We’ll simulate calling this hypothetical algorithm with the
@@ -57,14 +57,14 @@ We’ll simulate calling this hypothetical algorithm with the
 we passed in.
 -->
 
-リスト13-1に示した`simulated_expensive_calculation`関数でこの仮定のアルゴリズムを呼び出すことをシミュレートし、
-この関数は`calculating slowly`と出力し、2秒待ってから、渡した数値をなんでも返します。
+リスト 13-1 に示した`simulated_expensive_calculation`関数でこの仮定のアルゴリズムを呼び出すことをシミュレートし、
+この関数は`calculating slowly`と出力し、2 秒待ってから、渡した数値をなんでも返します。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::thread;
@@ -83,7 +83,7 @@ fn simulated_expensive_calculation(intensity: u32) -> u32 {
 calculation that takes about 2 seconds to run</span>
 -->
 
-<span class="caption">リスト13-1: 実行に約2秒かかる架空の計算の代役を務める関数</span>
+<span class="caption">リスト 13-1: 実行に約 2 秒かかる架空の計算の代役を務める関数</span>
 
 <!--
 Next is the `main` function that contains the parts of the workout app
@@ -102,7 +102,7 @@ representing inputs to our program and print the outputs.
 The required inputs are these:
 -->
 
-必要な入力は以下の通りです:
+必要な入力は以下の通りです：
 
 <!--
 * An intensity number from the user, which is specified when they request
@@ -120,13 +120,13 @@ The output will be the recommended workout plan. Listing 13-2 shows the `main`
 function we’ll use.
 -->
 
-出力は、推奨されるトレーニングプランになります。リスト13-2は使用する`main`関数を示しています。
+出力は、推奨されるトレーニングプランになります。リスト 13-2 は使用する`main`関数を示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 fn main() {
@@ -146,7 +146,7 @@ fn main() {
 simulate user input and random number generation</span>
 -->
 
-<span class="caption">リスト13-2: ユーザ入力や乱数生成をシミュレートするハードコードされた値がある`main`関数</span>
+<span class="caption">リスト 13-2: ユーザ入力や乱数生成をシミュレートするハードコードされた値がある`main`関数</span>
 
 <!--
 We’ve hardcoded the variable `simulated_user_specified_value` as 10 and the
@@ -157,8 +157,8 @@ example in Chapter 2. The `main` function calls a `generate_workout` function
 with the simulated input values.
 -->
 
-簡潔性のために、変数`simulated_user_specified_value`は10、変数`simulated_random_number`は7とハードコードしました;
-実際のプログラムにおいては、強弱値はアプリのフロントエンドから取得し、乱数の生成には、第2章の数当てゲームの例のように、`rand`クレートを使用するでしょう。
+簡潔性のために、変数`simulated_user_specified_value`は 10、変数`simulated_random_number`は 7 とハードコードしました;
+実際のプログラムにおいては、強弱値はアプリのフロントエンドから取得し、乱数の生成には、第 2 章の数当てゲームの例のように、`rand`クレートを使用するでしょう。
 `main`関数は、シミュレートされた入力値とともに`generate_workout`関数を呼び出します。
 
 <!--
@@ -168,15 +168,15 @@ app that we’re most concerned with in this example. The rest of the code
 changes in this example will be made to this function.
 -->
 
-今や文脈ができたので、アルゴリズムに取り掛かりましょう。リスト13-3の`generate_workout`関数は、
+今や文脈ができたので、アルゴリズムに取り掛かりましょう。リスト 13-3 の`generate_workout`関数は、
 この例で最も気にかかるアプリのビジネスロジックを含んでいます。この例での残りの変更は、
-この関数に対して行われるでしょう:
+この関数に対して行われるでしょう：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::thread;
@@ -223,7 +223,7 @@ plans based on the inputs and calls to the `simulated_expensive_calculation`
 function</span>
 -->
 
-<span class="caption">リスト13-3: 入力に基づいてトレーニングプランを出力するビジネスロジックと、
+<span class="caption">リスト 13-3: 入力に基づいてトレーニングプランを出力するビジネスロジックと、
 `simulated_expensive_calculation`関数の呼び出し</span>
 
 <!--
@@ -233,9 +233,9 @@ inside the outer `else` doesn’t call it at all, and the code inside the
 second `else` case calls it once.
 -->
 
-リスト13-3のコードには、遅い計算を行う関数への呼び出しが複数あります。最初の`if`ブロックが、
-`simulated_expensive_calculation`を2回呼び出し、外側の`else`内の`if`は全く呼び出さず、
-2番目の`else`ケースの内側にあるコードは1回呼び出しています。
+リスト 13-3 のコードには、遅い計算を行う関数への呼び出しが複数あります。最初の`if`ブロックが、
+`simulated_expensive_calculation`を 2 回呼び出し、外側の`else`内の`if`は全く呼び出さず、
+2 番目の`else`ケースの内側にあるコードは 1 回呼び出しています。
 
 <!--
 NEXT PARAGRAPH WRAPPED WEIRD INTENTIONALLY SEE #199
@@ -247,8 +247,8 @@ whether the user wants a low-intensity workout (indicated by a number less
 than 25) or a high-intensity workout (a number of 25 or greater).
 -->
 
-`generate_workout`関数の期待される振る舞いは、まずユーザが低強度のトレーニング(25より小さい数値で表される)か、
-高強度のトレーニング(25以上の数値)を欲しているか確認することです。
+`generate_workout`関数の期待される振る舞いは、まずユーザが低強度のトレーニング (25 より小さい数値で表される) か、
+高強度のトレーニング (25 以上の数値) を欲しているか確認することです。
 
 <!--
 Low-intensity workout plans will recommend a number of push-ups and sit-ups
@@ -265,7 +265,7 @@ will recommend a break and hydration. If not, the user will get a number of
 minutes of running based on the complex algorithm.
 -->
 
-ユーザが高強度のトレーニングを欲していれば、追加のロジックがあります: アプリが生成した乱数がたまたま3なら、
+ユーザが高強度のトレーニングを欲していれば、追加のロジックがあります：アプリが生成した乱数がたまたま 3 なら、
 アプリは休憩と水分補給を勧めます。そうでなければ、ユーザは複雑なアルゴリズムに基づいて数分間のランニングをします。
 
 <!--
@@ -281,10 +281,10 @@ to call it if the result isn’t needed, and we still want to call it only once.
 
 このコードは現在、ビジネスのほしいままに動くでしょうが、データサイエンスチームが、
 `simulated_expensive_calculation`関数を呼び出す方法に何らかの変更を加える必要があると決定したとしましょう。
-そのような変更が起きた時に更新を簡略化するため、`simulated_expensive_calculation`関数を1回だけ呼び出すように、
-このコードをリファクタリングしたいです。また、その過程でその関数への呼び出しを増やすことなく無駄に2回、
+そのような変更が起きた時に更新を簡略化するため、`simulated_expensive_calculation`関数を 1 回だけ呼び出すように、
+このコードをリファクタリングしたいです。また、その過程でその関数への呼び出しを増やすことなく無駄に 2 回、
 この関数を現時点で呼んでいるところを切り捨てたくもあります。要するに、結果が必要なければ関数を呼び出したくなく、
-それでも1回だけ呼び出したいのです。
+それでも 1 回だけ呼び出したいのです。
 
 <!--
 #### Refactoring Using Functions
@@ -299,13 +299,13 @@ function into a variable, as shown in Listing 13-4.
 -->
 
 多くの方法でトレーニングプログラムを再構築することもできます。
-1番目に`simulated_expensive_calculation`関数への重複した呼び出しを変数に抽出しようとしましょう。リスト13-4に示したように。
+1 番目に`simulated_expensive_calculation`関数への重複した呼び出しを変数に抽出しようとしましょう。リスト 13-4 に示したように。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::thread;
@@ -349,7 +349,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 `expensive_result` variable</span>
 -->
 
-<span class="caption">リスト13-4: 複数の`simulated_expensive_calculation`の呼び出しを1箇所に抽出し、
+<span class="caption">リスト 13-4: 複数の`simulated_expensive_calculation`の呼び出しを 1 箇所に抽出し、
 結果を`expensive_result`変数に保存する</span>
 
 <!--
@@ -361,7 +361,7 @@ result value at all.
 -->
 
 この変更により`simulated_expensive_calculation`の呼び出しが単一化され、
-最初の`if`ブロックが無駄に関数を2回呼んでいた問題を解決します。不幸なことに、これでは、
+最初の`if`ブロックが無駄に関数を 2 回呼んでいた問題を解決します。不幸なことに、これでは、
 あらゆる場合にこの関数を呼び出し、その結果を待つことになり、結果値を全く使用しない内側の`if`ブロックでもそうしてしまいます。
 
 <!--
@@ -369,7 +369,7 @@ We want to define code in one place in our program, but only *execute* that
 code where we actually need the result. This is a use case for closures!
 -->
 
-プログラムの1箇所でコードを定義したいですが、結果が本当に必要なところでだけコードを*実行*します。
+プログラムの 1 箇所でコードを定義したいですが、結果が本当に必要なところでだけコードを*実行*します。
 これは、クロージャのユースケースです！
 
 <!--
@@ -387,14 +387,14 @@ the closure we’re introducing here.
 -->
 
 `if`ブロックの前にいつも`simulated_expensive_calculation`関数を呼び出す代わりに、
-クロージャを定義し、関数呼び出しの結果を保存するのではなく、その*クロージャ*を変数に保存できます。リスト13-5のようにですね。
+クロージャを定義し、関数呼び出しの結果を保存するのではなく、その*クロージャ*を変数に保存できます。リスト 13-5 のようにですね。
 `simulated_expensive_calculation`の本体全体を実際に、ここで導入しているクロージャ内に移すことができます。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::thread;
@@ -413,7 +413,7 @@ let expensive_closure = |num| {
 `expensive_closure` variable</span>
 -->
 
-<span class="caption">リスト13-5: クロージャを定義し、`expensive_closure`変数に保存する</span>
+<span class="caption">リスト 13-5: クロージャを定義し、`expensive_closure`変数に保存する</span>
 
 <!--
 The closure definition comes after the `=` to assign it to the variable
@@ -425,8 +425,8 @@ parameter, we would separate them with commas, like `|param1, param2|`.
 -->
 
 クロージャ定義が`=`に続き、変数`expensive_closure`に代入されています。クロージャを定義するには、
-1組の縦棒から始め、その内部にクロージャの仮引数を指定します; この記法は、SmalltalkやRubyのクロージャ定義と類似していることから、
-選択されました。このクロージャには、`num`という引数が1つあります: 2つ以上引数があるなら、
+1 組の縦棒から始め、その内部にクロージャの仮引数を指定します; この記法は、Smalltalk や Ruby のクロージャ定義と類似していることから、
+選択されました。このクロージャには、`num`という引数が 1 つあります：2 つ以上引数があるなら、
 `|param1, param2|`のように、カンマで区切ります。
 
 <!--
@@ -438,8 +438,8 @@ of the closure, after the curly brackets, needs a semicolon to complete the
 that line doesn’t end in a semicolon; just as in function bodies.
 -->
 
-引数の後に、クロージャの本体を保持する波括弧を配置します(これはクロージャ本体が式一つなら省略可能です)。
-波括弧の後、クロージャのお尻には、セミコロンが必要で、`let`文を完成させます。クロージャ本体の最後の行から返る値(`num`)が、
+引数の後に、クロージャの本体を保持する波括弧を配置します (これはクロージャ本体が式一つなら省略可能です)。
+波括弧の後、クロージャのお尻には、セミコロンが必要で、`let`文を完成させます。クロージャ本体の最後の行から返る値 (`num`) が、
 呼び出された時にクロージャから返る値になります。その行がセミコロンで終わっていないからです;
 ちょうど関数の本体みたいですね。
 
@@ -453,11 +453,11 @@ the code we want to call is now stored in `expensive_closure`.
 
 この`let`文は、`expensive_closure`が、匿名関数を呼び出した*結果の値*ではなく、
 匿名関数の*定義*を含むことを意味することに注意してください。コードを定義して、
-1箇所で呼び出し、そのコードを保存し、後々、それを呼び出したいがためにクロージャを使用していることを思い出してください;
+1 箇所で呼び出し、そのコードを保存し、後々、それを呼び出したいがためにクロージャを使用していることを思い出してください;
 呼び出したいコードは、現在、`expensive_closure`に保存されています。
 
 <!--
-この冒頭のwithも順接の理由にしている。やはり強すぎるか？
+この冒頭の with も順接の理由にしている。やはり強すぎるか？
 -->
 
 <!--
@@ -469,14 +469,14 @@ want to use, as shown in Listing 13-6.
 -->
 
 クロージャが定義されたので、`if`ブロックのコードを変更して、そのコードを実行するクロージャを呼び出し、結果値を得ることができます。
-クロージャは、関数のように呼び出せます: クロージャ定義を含む変数名を指定し、使用したい引数値を含むかっこを続けます。
-リスト13-6に示したようにですね。
+クロージャは、関数のように呼び出せます：クロージャ定義を含む変数名を指定し、使用したい引数値を含むかっこを続けます。
+リスト 13-6 に示したようにですね。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::thread;
@@ -516,10 +516,10 @@ fn generate_workout(intensity: u32, random_number: u32) {
 defined</span>
 -->
 
-<span class="caption">リスト13-6: 定義した`expensive_closure`を呼び出す</span>
+<span class="caption">リスト 13-6: 定義した`expensive_closure`を呼び出す</span>
 
 <!--
-2行目最後は、今の通りにも(at) whereのようにも取れるか？
+2 行目最後は、今の通りにも (at) where のようにも取れるか？
 -->
 
 <!--
@@ -527,7 +527,7 @@ Now the expensive calculation is called in only one place, and we’re only
 executing that code where we need the results.
 -->
 
-今では、重い計算はたった1箇所でのみ呼び出され、その結果が必要なコードを実行するだけになりました。
+今では、重い計算はたった 1 箇所でのみ呼び出され、その結果が必要なコードを実行するだけになりました。
 
 <!--
 However, we’ve reintroduced one of the problems from Listing 13-3: we’re still
@@ -540,8 +540,8 @@ why there aren’t type annotations in the closure definition and the traits
 involved with closures.
 -->
 
-ところが、リスト13-3の問題の一つを再浮上させてしまいました: それでも、最初の`if`ブロックでクロージャを2回呼んでいて、
-そうすると、重いコードを2回呼び出し、必要な分の2倍ユーザを待たせてしまいます。その`if`ブロックのみに属する変数を生成して、
+ところが、リスト 13-3 の問題の一つを再浮上させてしまいました：それでも、最初の`if`ブロックでクロージャを 2 回呼んでいて、
+そうすると、重いコードを 2 回呼び出し、必要な分の 2 倍ユーザを待たせてしまいます。その`if`ブロックのみに属する変数を生成して、
 クロージャの呼び出し結果を保持するその`if`ブロックに固有の変数を生成することでこの問題を解消することもできますが、
 クロージャは他の解決法も用意してくれます。その解決策については、もう少し先で語りましょう。でもまずは、
 クロージャ定義に型注釈がない理由とクロージャに関わるトレイトについて話しましょう。
@@ -565,7 +565,7 @@ naming them and exposing them to users of our library.
 クロージャでは、`fn`関数のように引数の型や戻り値の型を注釈する必要はありません。関数では、
 型注釈は必要です。ユーザに露出する明示的なインターフェイスの一部だからです。このインターフェイスを堅実に定義することは、
 関数が使用したり、返したりする値の型についてみんなが合意していることを保証するために重要なのです。
-しかし、クロージャはこのような露出するインターフェイスには使用されません: 変数に保存され、
+しかし、クロージャはこのような露出するインターフェイスには使用されません：変数に保存され、
 名前付けしたり、ライブラリの使用者に晒されることなく、使用されます。
 
 <!--
@@ -595,13 +595,13 @@ would look like the definition shown in Listing 13-7.
 -->
 
 本当に必要な以上に冗長になることと引き換えに、明示性と明瞭性を向上させたいなら、変数に型注釈を加えることもできます;
-リスト13-5で定義したクロージャに型を注釈するなら、リスト13-7に示した定義のようになるでしょう。
+リスト 13-5 で定義したクロージャに型を注釈するなら、リスト 13-7 に示した定義のようになるでしょう。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::thread;
@@ -619,7 +619,7 @@ let expensive_closure = |num: u32| -> u32 {
 parameter and return value types in the closure</span>
 -->
 
-<span class="caption">リスト13-7: クロージャの引数と戻り値の省略可能な型注釈を追加する</span>
+<span class="caption">リスト 13-7: クロージャの引数と戻り値の省略可能な型注釈を追加する</span>
 
 <!--
 With type annotations added, the syntax of closures looks more similar to the
@@ -630,7 +630,7 @@ This illustrates how closure syntax is similar to function syntax except for
 the use of pipes and the amount of syntax that is optional:
 -->
 
-型注釈を付け加えると、クロージャの記法は、関数の記法により酷似して見えます。以下が、引数に1を加える関数の定義と、
+型注釈を付け加えると、クロージャの記法は、関数の記法により酷似して見えます。以下が、引数に 1 を加える関数の定義と、
 同じ振る舞いをするクロージャの定義の記法を縦に比べたものです。
 空白を追加して、関連のある部分を並べています。これにより、縦棒の使用と省略可能な記法の量を除いて、
 クロージャ記法が関数記法に似ているところを説明しています。
@@ -650,9 +650,9 @@ optional because the closure body has only one expression. These are all valid
 definitions that will produce the same behavior when they’re called.
 -->
 
-1行目が関数定義を示し、2行目がフルに注釈したクロージャ定義を示しています。
-3行目は、クロージャ定義から型注釈を取り除き、4行目は、かっこを取り除いていて、
-かっこはクロージャの本体がただ1つの式からなるので、省略可能です。これらは全て、
+1 行目が関数定義を示し、2 行目がフルに注釈したクロージャ定義を示しています。
+3 行目は、クロージャ定義から型注釈を取り除き、4 行目は、かっこを取り除いていて、
+かっこはクロージャの本体がただ 1 つの式からなるので、省略可能です。これらは全て、
 呼び出された時に同じ振る舞いになる合法な定義です。
 
 <!--
@@ -666,16 +666,16 @@ first time and a `u32` the second time, we’ll get an error.
 -->
 
 クロージャ定義には、引数それぞれと戻り値に対して推論される具体的な型が一つあります。例えば、
-リスト13-8に引数として受け取った値を返すだけの短いクロージャの定義を示しました。
+リスト 13-8 に引数として受け取った値を返すだけの短いクロージャの定義を示しました。
 このクロージャは、この例での目的以外には有用ではありません。この定義には、
-何も型注釈を加えていないことに注意してください: それから1回目に`String`を引数に、
-2回目に`u32`を引数に使用してこのクロージャを2回呼び出そうとしたら、エラーになります。
+何も型注釈を加えていないことに注意してください：それから 1 回目に`String`を引数に、
+2 回目に`u32`を引数に使用してこのクロージャを 2 回呼び出そうとしたら、エラーになります。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 let example_closure = |x| x;
@@ -689,13 +689,13 @@ let n = example_closure(5);
 are inferred with two different types</span>
 -->
 
-<span class="caption">リスト13-8: 2つの異なる型で型が推論されるクロージャの呼び出しを試みる</span>
+<span class="caption">リスト 13-8: 2 つの異なる型で型が推論されるクロージャの呼び出しを試みる</span>
 
 <!--
 The compiler gives us this error:
 -->
 
-コンパイラは、次のエラーを返します:
+コンパイラは、次のエラーを返します：
 
 ```text
 error[E0308]: mismatched types
@@ -735,7 +735,7 @@ instead of calling the closure again. However, this method could result in a
 lot of repeated code.
 -->
 
-トレーニング生成アプリに戻りましょう。リスト13-6において、まだコードは必要以上の回数、重い計算のクロージャを呼んでいました。
+トレーニング生成アプリに戻りましょう。リスト 13-6 において、まだコードは必要以上の回数、重い計算のクロージャを呼んでいました。
 この問題を解決する一つの選択肢は、重いクロージャの結果を再利用できるように変数に保存し、クロージャを再度呼ぶ代わりに、
 結果が必要になる箇所それぞれでその変数を使用することです。しかしながら、この方法は同じコードを大量に繰り返す可能性があります。
 
@@ -750,11 +750,11 @@ responsible for saving and reusing the result. You may know this pattern as
 
 運のいいことに、別の解決策もあります。クロージャやクロージャの呼び出し結果の値を保持する構造体を作れるのです。
 結果の値が必要な場合のみにその構造体はクロージャを実行し、その結果の値をキャッシュするので、残りのコードは、
-結果を保存し、再利用する責任を負わなくて済むのです。このパターンは、*メモ化*(memoization)または、
-*遅延評価*(lazy evaluation)として知っているかもしれません。
+結果を保存し、再利用する責任を負わなくて済むのです。このパターンは、*メモ化*(memoization) または、
+*遅延評価*(lazy evaluation) として知っているかもしれません。
 
 <!--
-5行目、structs, enumsにthatがかかるか曖昧だが、この訳の方が自然と思われる
+5 行目、structs, enums に that がかかるか曖昧だが、この訳の方が自然と思われる
 -->
 
 <!--
@@ -768,8 +768,8 @@ we use generics and trait bounds, as we discussed in Chapter 10.
 
 クロージャを保持する構造体を作成するために、クロージャの型を指定する必要があります。
 構造体定義は、各フィールドの型を把握しておく必要がありますからね。各クロージャインスタンスには、
-独自の匿名の型があります: つまり、たとえ2つのクロージャが全く同じシグニチャでも、その型はそれでも違うものと考えられるということです。
-クロージャを使用する構造体、enum、関数引数を定義するには、第10章で議論したように、
+独自の匿名の型があります：つまり、たとえ 2 つのクロージャが全く同じシグニチャでも、その型はそれでも違うものと考えられるということです。
+クロージャを使用する構造体、enum、関数引数を定義するには、第 10 章で議論したように、
 ジェネリクスとトレイト境界を使用します。
 
 <!--
@@ -779,7 +779,7 @@ difference between these traits in the "Capturing the Environment with
 Closures" section; in this example, we can use the `Fn` trait.
 -->
 
-`Fn`トレイトは、標準ライブラリで用意されています。全てのクロージャは、以下のいずれかのトレイトを実装しています:
+`Fn`トレイトは、標準ライブラリで用意されています。全てのクロージャは、以下のいずれかのトレイトを実装しています：
 `Fn`、`FnMut`または、`FnOnce`です。「クロージャで環境をキャプチャする」節で、これらのトレイト間の差異を議論します;
 この例では、`Fn`トレイトを使えます。
 
@@ -798,13 +798,13 @@ Listing 13-9 shows the definition of the `Cacher` struct that holds a closure
 and an optional result value.
 -->
 
-リスト13-9は、クロージャとオプションの結果値を保持する`Cacher`構造体の定義を示しています。
+リスト 13-9 は、クロージャとオプションの結果値を保持する`Cacher`構造体の定義を示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 struct Cacher<T>
@@ -820,7 +820,7 @@ struct Cacher<T>
 closure in `calculation` and an optional result in `value`</span>
 -->
 
-<span class="caption">リスト13-9: クロージャを`calculation`に、オプションの結果値を`value`に保持する`Cacher`構造体を定義する</span>
+<span class="caption">リスト 13-9: クロージャを`calculation`に、オプションの結果値を`value`に保持する`Cacher`構造体を定義する</span>
 
 <!--
 The `Cacher` struct has a `calculation` field of the generic type `T`. The
@@ -832,7 +832,7 @@ parameter (specified within the parentheses after `Fn`) and must return a
 
 `Cacher`構造体は、ジェネリックな型`T`の`calculation`フィールドを持ちます。`T`のトレイト境界は、
 `Fn`トレイトを使うことでクロージャであると指定しています。`calculation`フィールドに保存したいクロージャは全て、
-1つの`u32`引数(`Fn`の後の括弧内で指定されている)を取り、`u32`(`->`の後に指定されている)を返さなければなりません。
+1 つの`u32`引数 (`Fn`の後の括弧内で指定されている) を取り、`u32`(`->`の後に指定されている) を返さなければなりません。
 
 <!--
 > Note: Functions implement all three of the `Fn` traits too. If what we want
@@ -841,7 +841,7 @@ parameter (specified within the parentheses after `Fn`) and must return a
 > trait.
 -->
 
-> 注釈: 関数も3つの`Fn`トレイト全部を実装します。もし環境から値をキャプチャする必要がなければ、
+> 注釈：関数も 3 つの`Fn`トレイト全部を実装します。もし環境から値をキャプチャする必要がなければ、
 > `Fn`トレイトを実装する何かが必要になるクロージャではなく、関数を使用できます。
 
 <!--
@@ -863,13 +863,13 @@ The logic around the `value` field we’ve just described is defined in Listing
 13-10.
 -->
 
-たった今解説した`value`フィールド周りのロジックは、リスト13-10で定義されています。
+たった今解説した`value`フィールド周りのロジックは、リスト 13-10 で定義されています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # struct Cacher<T>
@@ -906,7 +906,7 @@ impl<T> Cacher<T>
 <span class="caption">Listing 13-10: The caching logic of `Cacher`</span>
 -->
 
-<span class="caption">リスト13-10: `Cacher`のキャッシュ機構</span>
+<span class="caption">リスト 13-10: `Cacher`のキャッシュ機構</span>
 
 <!--
 We want `Cacher` to manage the struct fields’ values rather than letting the
@@ -956,13 +956,13 @@ Listing 13-11 shows how we can use this `Cacher` struct in the function
 `generate_workout` from Listing 13-6.
 -->
 
-リスト13-11は、リスト13-6の関数`generate_workout`でこの`Cacher`構造体を使用する方法を示しています。
+リスト 13-11 は、リスト 13-6 の関数`generate_workout`でこの`Cacher`構造体を使用する方法を示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::thread;
@@ -1031,7 +1031,7 @@ fn generate_workout(intensity: u32, random_number: u32) {
 function to abstract away the caching logic</span>
 -->
 
-<span class="caption">リスト13-11: `generate_workout`関数内で`Cacher`を使用し、キャッシュ機構を抽象化する</span>
+<span class="caption">リスト 13-11: `generate_workout`関数内で`Cacher`を使用し、キャッシュ機構を抽象化する</span>
 
 <!--
 Instead of saving the closure in a variable directly, we save a new instance of
@@ -1043,7 +1043,7 @@ calculation will be run a maximum of once.
 
 クロージャを変数に直接保存する代わりに、クロージャを保持する`Cacher`の新規インスタンスを保存しています。
 そして、結果が必要な場所それぞれで、その`Cacher`インスタンスに対して`value`メソッドを呼び出しています。
-必要なだけ`value`メソッドを呼び出したり、全く呼び出さないこともでき、重い計算は最大でも1回しか走りません。
+必要なだけ`value`メソッドを呼び出したり、全く呼び出さないこともでき、重い計算は最大でも 1 回しか走りません。
 
 <!--
 Try running this program with the `main` function from Listing 13-2. Change the
@@ -1055,9 +1055,9 @@ expensive calculation more than we need to so `generate_workout` can focus on
 the business logic.
 -->
 
-リスト13-2の`main`関数とともにこのプログラムを走らせてみてください。
+リスト 13-2 の`main`関数とともにこのプログラムを走らせてみてください。
 `simulated_user_specified_value`と`simulated_random_number`変数の値を変えて、
-いろんな`if`や`else`ブロックの場合全てで、`calculating slowly`は1回だけ、必要な時にのみ出現することを実証してください。
+いろんな`if`や`else`ブロックの場合全てで、`calculating slowly`は 1 回だけ、必要な時にのみ出現することを実証してください。
 必要以上に重い計算を呼び出さないことを保証するのに必要なロジックの面倒を`Cacher`は見るので、
 `generate_workout`はビジネスロジックに集中できるのです。
 
@@ -1075,7 +1075,7 @@ in different contexts difficult.
 -->
 
 値をキャッシュすることは、コードの他の部分でも異なるクロージャで行いたくなる可能性のある一般的に有用な振る舞いです。
-しかし、現在の`Cacher`の実装には、他の文脈で再利用することを困難にしてしまう問題が2つあります。
+しかし、現在の`Cacher`の実装には、他の文脈で再利用することを困難にしてしまう問題が 2 つあります。
 
 <!--
 The first problem is that a `Cacher` instance assumes it will always get the
@@ -1083,8 +1083,8 @@ same value for the parameter `arg` to the `value` method. That is, this test of
 `Cacher` will fail:
 -->
 
-1番目の問題は、`Cacher`インスタンスが、常に`value`メソッドの引数`arg`に対して同じ値になると想定していることです。
-言い換えると、`Cacher`のこのテストは、失敗するでしょう:
+1 番目の問題は、`Cacher`インスタンスが、常に`value`メソッドの引数`arg`に対して同じ値になると想定していることです。
+言い換えると、`Cacher`のこのテストは、失敗するでしょう：
 
 ```rust,ignore
 #[test]
@@ -1106,16 +1106,16 @@ passed into it. We call the `value` method on this `Cacher` instance with an
 -->
 
 このテストは、渡された値を返すクロージャを伴う`Cacher`インスタンスを新しく生成しています。
-この`Cacher`インスタンスに対して1という`arg`値で呼び出し、それから2という`arg`値で呼び出し、
-2という`arg`値の`value`呼び出しは2を返すべきと期待しています。
+この`Cacher`インスタンスに対して 1 という`arg`値で呼び出し、それから 2 という`arg`値で呼び出し、
+2 という`arg`値の`value`呼び出しは 2 を返すべきと期待しています。
 
 <!--
 Run this test with the `Cacher` implementation in Listing 13-9 and Listing
 13-10, and the test will fail on the `assert_eq!` with this message:
 -->
 
-このテストをリスト13-9とリスト13-10の`Cacher`実装で動かすと、`assert_eq`からこんなメッセージが出て、
-テストは失敗します:
+このテストをリスト 13-9 とリスト 13-10 の`Cacher`実装で動かすと、`assert_eq`からこんなメッセージが出て、
+テストは失敗します：
 
 ```text
 thread 'call_with_different_values' panicked at 'assertion failed: `(left == right)`
@@ -1129,8 +1129,8 @@ instance saved `Some(1)` in `self.value`. Thereafter, no matter what we pass in
 to the `value` method, it will always return 1.
 -->
 
-問題は、初めて`c.value`を1で呼び出した時に、`Cacher`インスタンスは`self.value`に`Some(1)`を保存したことです。
-その後`value`メソッドに何を渡しても、常に1を返すわけです。
+問題は、初めて`c.value`を 1 で呼び出した時に、`Cacher`インスタンスは`self.value`に`Some(1)`を保存したことです。
+その後`value`メソッドに何を渡しても、常に 1 を返すわけです。
 
 <!--
 Try modifying `Cacher` to hold a hash map rather than a single value. The keys
@@ -1156,7 +1156,7 @@ might want to cache the results of closures that take a string slice and return
 parameters to increase the flexibility of the `Cacher` functionality.
 -->
 
-現在の`Cacher`実装の2番目の問題は、引数の型に`u32`を一つ取り、`u32`を返すクロージャしか受け付けないことです。
+現在の`Cacher`実装の 2 番目の問題は、引数の型に`u32`を一つ取り、`u32`を返すクロージャしか受け付けないことです。
 例えば、文字列スライスを取り、`usize`を返すクロージャの結果をキャッシュしたくなるかもしれません。
 この問題を修正するには、`Cacher`機能の柔軟性を向上させるためによりジェネリックな引数を導入してみてください。
 
@@ -1174,7 +1174,7 @@ which they’re defined.
 -->
 
 トレーニング生成の例においては、クロージャをインラインの匿名関数として使っただけでした。しかし、
-クロージャには、関数にはない追加の能力があります: 環境をキャプチャし、
+クロージャには、関数にはない追加の能力があります：環境をキャプチャし、
 自分が定義されたスコープの変数にアクセスできるのです。
 
 <!--
@@ -1182,13 +1182,13 @@ Listing 13-12 has an example of a closure stored in the `equal_to_x` variable
 that uses the `x` variable from the closure’s surrounding environment.
 -->
 
-リスト13-12は、`equal_to_x`変数に保持されたクロージャを囲む環境から`x`変数を使用するクロージャの例です。
+リスト 13-12 は、`equal_to_x`変数に保持されたクロージャを囲む環境から`x`変数を使用するクロージャの例です。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 fn main() {
@@ -1207,7 +1207,7 @@ fn main() {
 variable in its enclosing scope</span>
 -->
 
-<span class="caption">リスト13-12: 内包するスコープの変数を参照するクロージャの例</span>
+<span class="caption">リスト 13-12: 内包するスコープの変数を参照するクロージャの例</span>
 
 <!--
 Here, even though `x` is not one of the parameters of `equal_to_x`, the
@@ -1223,13 +1223,13 @@ We can’t do the same with functions; if we try with the following example, our
 code won’t compile:
 -->
 
-同じことを関数では行うことができません; 以下の例で試したら、コードはコンパイルできません:
+同じことを関数では行うことができません; 以下の例で試したら、コードはコンパイルできません：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -1247,12 +1247,12 @@ fn main() {
 We get an error:
 -->
 
-エラーが出ます:
+エラーが出ます：
 
 ```text
 error[E0434]: can't capture dynamic environment in a fn item; use the || { ...
 } closure form instead
-(エラー: fn要素では動的な環境をキャプチャできません; 代わりに|| { ... }のクロージャ形式を
+(エラー: fn 要素では動的な環境をキャプチャできません; 代わりに|| { ... }のクロージャ形式を
 使用してください)
  --> src/main.rs
   |
@@ -1285,8 +1285,8 @@ ownership, borrowing mutably, and borrowing immutably. These are encoded in the
 three `Fn` traits as follows:
 -->
 
-クロージャは、3つの方法で環境から値をキャプチャでき、この方法は関数が引数を取れる3つの方法に直に対応します:
-所有権を奪う、可変で借用する、不変で借用するです。これらは、以下のように3つの`Fn`トレイトでコード化されています:
+クロージャは、3 つの方法で環境から値をキャプチャでき、この方法は関数が引数を取れる 3 つの方法に直に対応します：
+所有権を奪う、可変で借用する、不変で借用するです。これらは、以下のように 3 つの`Fn`トレイトでコード化されています：
 
 <!--
 * `FnOnce` consumes the variables it captures from its enclosing scope, known
@@ -1302,7 +1302,7 @@ only be called one time.
 * `FnOnce`は、クロージャの*環境*として知られている内包されたスコープからキャプチャした変数を消費します。
 キャプチャした変数を消費するために、定義された際にクロージャはこれらの変数の所有権を奪い、
 自身にムーブするのです。名前のうち、`Once`の部分は、
-このクロージャは同じ変数の所有権を2回以上奪うことができないという事実を表しているので、1回しか呼ぶことができないのです。
+このクロージャは同じ変数の所有権を 2 回以上奪うことができないという事実を表しているので、1 回しか呼ぶことができないのです。
 * `FnMut`は、可変で値を借用するので、環境を変更することができます。
 * `Fn`は、環境から値を不変で借用します。
 
@@ -1317,9 +1317,9 @@ because the body of the closure only needs to read the value in `x`.
 -->
 
 クロージャを生成する時、クロージャが環境を使用する方法に基づいて、コンパイラはどのトレイトを使用するか推論します。
-少なくとも1回は呼び出されるので、全てのクロージャは`FnOnce`を実装しています。キャプチャした変数をムーブしないクロージャは、
+少なくとも 1 回は呼び出されるので、全てのクロージャは`FnOnce`を実装しています。キャプチャした変数をムーブしないクロージャは、
 `FnMut`も実装し、キャプチャした変数に可変でアクセスする必要のないクロージャは、`Fn`も実装しています。
-リスト13-12では、`equal_to_x`クロージャは`x`を不変で借用しています(ゆえに`equal_to_x`は`Fn`トレイトです)。
+リスト 13-12 では、`equal_to_x`クロージャは`x`を不変で借用しています (ゆえに`equal_to_x`は`Fn`トレイトです)。
 クロージャの本体は、`x`を読む必要しかないからです。
 
 <!--
@@ -1341,15 +1341,15 @@ because integers can be copied rather than moved; note that this code will not
 yet compile.
 -->
 
-並行性について語る第16章で、`move`クロージャの例はもっと多く出てきます。とりあえず、
-こちらが`move`キーワードがクロージャ定義に追加され、整数の代わりにベクタを使用するリスト13-12からのコードです。
+並行性について語る第 16 章で、`move`クロージャの例はもっと多く出てきます。とりあえず、
+こちらが`move`キーワードがクロージャ定義に追加され、整数の代わりにベクタを使用するリスト 13-12 からのコードです。
 整数はムーブではなく、コピーされてしまいますからね; このコードはまだコンパイルできないことに注意してください。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -1357,7 +1357,7 @@ fn main() {
 
     let equal_to_x = move |z| z == x;
 
-    // ここでは、xを使用できません: {:?}
+    // ここでは、x を使用できません：{:?}
     println!("can't use x here: {:?}", x);
 
     let y = vec![1, 2, 3];
@@ -1370,11 +1370,11 @@ fn main() {
 We receive the following error:
 -->
 
-以下のようなエラーを受けます:
+以下のようなエラーを受けます：
 
 ```text
 error[E0382]: use of moved value: `x`
-(エラー: ムーブされた値の使用: `x`)
+(エラー: ムーブされた値の使用：`x`)
  --> src/main.rs:6:40
   |
 4 |     let equal_to_x = move |z| z == x;
@@ -1387,7 +1387,7 @@ error[E0382]: use of moved value: `x`
   |
   = note: move occurs because `x` has type `std::vec::Vec<i32>`, which does not
   implement the `Copy` trait
-  (注釈: `x`が`std::vec::Vec<i32>`という`Copy`トレイトを実装しない型のため、ムーブが起きました)
+  (注釈：`x`が`std::vec::Vec<i32>`という`Copy`トレイトを実装しない型のため、ムーブが起きました)
 ```
 
 <!--
@@ -1415,4 +1415,4 @@ To illustrate situations where closures that can capture their environment are
 useful as function parameters, let’s move on to our next topic: iterators.
 -->
 
-環境をキャプチャできるクロージャが関数の引数として有用な場面を説明するために、次のトピックに移りましょう: イテレータです。
+環境をキャプチャできるクロージャが関数の引数として有用な場面を説明するために、次のトピックに移りましょう：イテレータです。

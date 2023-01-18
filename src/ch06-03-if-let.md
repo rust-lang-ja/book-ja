@@ -12,7 +12,7 @@ execute code if the value is 3.
 -->
 
 `if let`記法で`if`と`let`をより冗長性の少ない方法で組み合わせ、残りを無視しつつ、一つのパターンにマッチする値を扱うことができます。
-`Option<u8>`にマッチするけれど、値が3の時にだけコードを実行したい、リスト6-6のプログラムを考えてください。
+`Option<u8>`にマッチするけれど、値が 3 の時にだけコードを実行したい、リスト 6-6 のプログラムを考えてください。
 
 ```rust
 let some_u8_value = Some(0u8);
@@ -27,7 +27,7 @@ match some_u8_value {
 code when the value is `Some(3)`</span>
 -->
 
-<span class="caption">リスト6-6: 値が`Some(3)`の時だけコードを実行する`match`</span>
+<span class="caption">リスト 6-6: 値が`Some(3)`の時だけコードを実行する`match`</span>
 
 <!--
 We want to do something with the `Some(3)` match but do nothing with any other
@@ -46,7 +46,7 @@ code behaves the same as the `match` in Listing 6-6:
 -->
 
 その代わり、`if let`を使用してもっと短く書くことができます。以下のコードは、
-リスト6-6の`match`と同じように振る舞います:
+リスト 6-6 の`match`と同じように振る舞います：
 
 ```rust
 # let some_u8_value = Some(0u8);
@@ -96,9 +96,9 @@ expression like this:
 
 `if let`では、`else`を含むこともできます。`else`に入るコードブロックは、
 `if let`と`else`に等価な`match`式の`_`の場合に入るコードブロックと同じになります。
-リスト6-4の`Coin` enum定義を思い出してください。ここでは、`Quarter`列挙子は、
+リスト 6-4 の`Coin` enum 定義を思い出してください。ここでは、`Quarter`列挙子は、
 `UsState`の値も保持していましたね。クォーターコインの状態を告げつつ、
-見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式で実現することができるでしょう:
+見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式で実現することができるでしょう：
 
 ```rust
 # #[derive(Debug)]
@@ -126,7 +126,7 @@ match coin {
 Or we could use an `if let` and `else` expression like this:
 -->
 
-または、以下のように`if let`と`else`を使うこともできるでしょう:
+または、以下のように`if let`と`else`を使うこともできるでしょう：
 
 ```rust
 # #[derive(Debug)]
@@ -156,7 +156,7 @@ express using a `match`, remember that `if let` is in your Rust toolbox as well.
 -->
 
 `match`を使って表現するには冗長的すぎるロジックがプログラムにあるようなシチュエーションに遭遇したら、
-`if let`もRust道具箱にあることを思い出してください。
+`if let`も Rust 道具箱にあることを思い出してください。
 
 <!--
 ## Summary
@@ -172,9 +172,9 @@ data inside them, you can use `match` or `if let` to extract and use those
 values, depending on how many cases you need to handle.
 -->
 
-これで、enumを使用してワンセットの列挙された値のどれかになりうる独自の型を生成する方法を講義しました。
+これで、enum を使用してワンセットの列挙された値のどれかになりうる独自の型を生成する方法を講義しました。
 標準ライブラリの`Option<T>`が型システムを使用して、エラーを回避する際に役立つ方法についても示しました。
-enumの値がデータを内部に含む場合、処理すべきケースの数に応じて、`match`か`if let`を使用して値を取り出し、
+enum の値がデータを内部に含む場合、処理すべきケースの数に応じて、`match`か`if let`を使用して値を取り出し、
 使用できます。
 
 <!--
@@ -184,8 +184,8 @@ compiler will make certain your functions get only values of the type each
 function expects.
 -->
 
-もうRustプログラムで構造体とenumを使用して、自分の領域の概念を表現できます。API内で使用するために独自の型を生成することで、
-型安全性を保証することができます: コンパイラが、各関数の予期する型の値のみを関数が得ることを確かめてくれるのです。
+もう Rust プログラムで構造体と enum を使用して、自分の領域の概念を表現できます。API 内で使用するために独自の型を生成することで、
+型安全性を保証することができます：コンパイラが、各関数の予期する型の値のみを関数が得ることを確かめてくれるのです。
 
 <!--
 In order to provide a well-organized API to your users that is straightforward
@@ -193,5 +193,5 @@ to use and only exposes exactly what your users will need, let’s now turn to
 Rust’s modules.
 -->
 
-使用するのに率直な整理整頓されたAPIをユーザに提供し、ユーザが必要とするものだけを公開するために、
-今度は、Rustのモジュールに目を向けてみましょう。
+使用するのに率直な整理整頓された API をユーザに提供し、ユーザが必要とするものだけを公開するために、
+今度は、Rust のモジュールに目を向けてみましょう。

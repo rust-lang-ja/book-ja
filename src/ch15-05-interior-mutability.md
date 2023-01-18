@@ -16,11 +16,11 @@ the compiler can’t guarantee that. The `unsafe` code involved is then wrapped
 in a safe API, and the outer type is still immutable.
 -->
 
-内部可変性は、そのデータへの不変参照がある時でさえもデータを可変化できるRustでのデザインパターンです:
+内部可変性は、そのデータへの不変参照がある時でさえもデータを可変化できる Rust でのデザインパターンです：
 普通、この行動は借用規則により許可されません。データを可変化するために、このパターンは、データ構造内で`unsafe`コードを使用して、
-可変性と借用を支配するRustの通常の規則を捻じ曲げています。まだ、unsafeコードについては講義していません;
-第19章で行います。たとえ、コンパイラが保証できなくても、借用規則に実行時に従うことが保証できる時、
-内部可変性パターンを使用した型を使用できます。関係する`unsafe`コードはそうしたら、安全なAPIにラップされ、
+可変性と借用を支配する Rust の通常の規則を捻じ曲げています。まだ、unsafe コードについては講義していません;
+第 19 章で行います。たとえ、コンパイラが保証できなくても、借用規則に実行時に従うことが保証できる時、
+内部可変性パターンを使用した型を使用できます。関係する`unsafe`コードはそうしたら、安全な API にラップされ、
 外側の型は、それでも不変です。
 
 <!--
@@ -43,7 +43,7 @@ Recall the borrowing rules you learned in Chapter 4:
 -->
 
 `Rc<T>`と異なり、`RefCell<T>`型は、保持するデータに対して単独の所有権を表します。では、
-どうして`RefCell<T>`が`Box<T>`のような型と異なるのでしょうか？第4章で学んだ借用規則を思い出してください:
+どうして`RefCell<T>`が`Box<T>`のような型と異なるのでしょうか？第 4 章で学んだ借用規則を思い出してください：
 
 <!--
 * At any given time, you can have *either* (but not both of) one mutable
@@ -51,7 +51,7 @@ reference or any number of immutable references.
 * References must always be valid.
 -->
 
-* いかなる時も(以下の両方ではなく、)1つの可変参照かいくつもの不変参照の*どちらか*が可能になる
+* いかなる時も (以下の両方ではなく、)1 つの可変参照かいくつもの不変参照の*どちらか*が可能になる
 * 参照は常に有効でなければならない。
 
 <!--
@@ -66,7 +66,7 @@ With references, if you break these rules, you’ll get a compiler error. With
 `RefCell<T>`でこれらの規則を破ったら、プログラムはパニックし、終了します。
 
 <!--
-1行目、are that がどこまでかかるか不明だが、3行目最後、For those reasonsとあるので、最後までかかるように訳す
+1 行目、are that がどこまでかかるか不明だが、3 行目最後、For those reasons とあるので、最後までかかるように訳す
 -->
 
 <!--
@@ -79,7 +79,7 @@ majority of cases, which is why this is Rust’s default.
 
 コンパイル時に借用規則を精査することの利点は、エラーが開発過程の早い段階で捕捉されることと、
 あらかじめ全ての分析が終わるので、実行パフォーマンスへの影響がないことです。それらの理由により、
-多くの場合でコンパイル時に借用規則を精査することが最善の選択肢であり、これがRustの既定になっているのです。
+多くの場合でコンパイル時に借用規則を精査することが最善の選択肢であり、これが Rust の既定になっているのです。
 
 <!--
 The advantage of checking the borrowing rules at runtime instead is that
@@ -91,7 +91,7 @@ of this book but is an interesting topic to research.
 -->
 
 借用規則を実行時に代わりに精査する利点は、コンパイル時の精査では許容されない特定のメモリ安全な筋書きが許容されることです。
-Rustコンパイラのような静的解析は、本質的に保守的です。コードの特性には、コードを解析するだけでは検知できないものもあります:
+Rust コンパイラのような静的解析は、本質的に保守的です。コードの特性には、コードを解析するだけでは検知できないものもあります：
 最も有名な例は停止性問題であり、この本の範疇を超えていますが、調べると面白い話題です。
 
 <!--
@@ -105,7 +105,7 @@ code follows the borrowing rules but the compiler is unable to understand and
 guarantee that.
 -->
 
-不可能な分析もあるので、Rustのコンパイラが、コードが所有権規則に応じていると確証を得られない場合、
+不可能な分析もあるので、Rust のコンパイラが、コードが所有権規則に応じていると確証を得られない場合、
 正しいプログラムを拒否する可能性があります; このように、保守的なのです。コンパイラが不正なプログラムを受け入れたら、
 ユーザは、コンパイラが行う保証を信じることはできなくなるでしょう。しかしながら、
 コンパイラが正当なプログラムを拒否するのなら、プログラマは不便に思うでしょうが、悲劇的なことは何も起こり得ません。
@@ -121,13 +121,13 @@ multithreaded program in Chapter 16.
 
 `Rc<T>`と類似して、`RefCell<T>`もシングルスレッドの筋書きで使用するためのものであり、
 試しにマルチスレッドの文脈で使ってみようとすると、コンパイルエラーを出します。
-`RefCell<T>`の機能をマルチスレッドのプログラムで得る方法については、第16章で語ります。
+`RefCell<T>`の機能をマルチスレッドのプログラムで得る方法については、第 16 章で語ります。
 
 <!--
 Here is a recap of the reasons to choose `Box<T>`, `Rc<T>`, or `RefCell<T>`:
 -->
 
-こちらに`Box<T>`, `Rc<T>`, `RefCell<T>`を選択する理由を要約しておきます:
+こちらに`Box<T>`, `Rc<T>`, `RefCell<T>`を選択する理由を要約しておきます：
 
 <!--
 * `Rc<T>` enables multiple owners of the same data; `Box<T>` and `RefCell<T>`
@@ -159,7 +159,7 @@ examine how it’s possible.
 ### Interior Mutability: A Mutable Borrow to an Immutable Value
 -->
 
-### 内部可変性: 不変値への可変借用
+### 内部可変性：不変値への可変借用
 
 <!--
 A consequence of the borrowing rules is that when you have an immutable value,
@@ -167,7 +167,7 @@ you can’t borrow it mutably. For example, this code won’t compile:
 -->
 
 借用規則の結果は、不変値がある時、可変で借用することはできないということです。
-例えば、このコードはコンパイルできません:
+例えば、このコードはコンパイルできません：
 
 ```rust,ignore
 fn main() {
@@ -180,7 +180,7 @@ fn main() {
 If you tried to compile this code, you'd get the following error:
 -->
 
-このコードをコンパイルしようとしたら、以下のようなエラーが出るでしょう:
+このコードをコンパイルしようとしたら、以下のようなエラーが出るでしょう：
 
 ```text
 error[E0596]: cannot borrow immutable local variable `x` as mutable
@@ -206,8 +206,8 @@ a compiler error.
 
 ですが、メソッド内で値が自身を可変化するけれども、他のコードにとっては、
 不変に見えることが有用な場面もあります。その値のメソッドの外のコードは、その値を可変化することはできないでしょう。
-`RefCell<T>`を使うことは、内部可変性を取得する能力を得る1つの方法です。しかし、
-`RefCell<T>`は借用規則を完全に回避するものではありません: コンパイラの借用チェッカーは、内部可変性を許可し、
+`RefCell<T>`を使うことは、内部可変性を取得する能力を得る 1 つの方法です。しかし、
+`RefCell<T>`は借用規則を完全に回避するものではありません：コンパイラの借用チェッカーは、内部可変性を許可し、
 借用規則は代わりに実行時に精査されます。この規則を侵害したら、コンパイルエラーではなく`panic!`になるでしょう。
 
 <!--
@@ -221,7 +221,7 @@ an immutable value and see why that is useful.
 #### A Use Case for Interior Mutability: Mock Objects
 -->
 
-#### 内部可変性のユースケース: モックオブジェクト
+#### 内部可変性のユースケース：モックオブジェクト
 
 <!--
 A *test double* is the general programming concept for a type used in place of
@@ -243,7 +243,7 @@ as some other languages do. However, you can definitely create a struct that
 will serve the same purposes as a mock object.
 -->
 
-Rustには、他の言語でいうオブジェクトは存在せず、また、他の言語のように標準ライブラリにモックオブジェクトの機能が組み込まれてもいません。
+Rust には、他の言語でいうオブジェクトは存在せず、また、他の言語のように標準ライブラリにモックオブジェクトの機能が組み込まれてもいません。
 ですが、同じ目的をモックオブジェクトとして提供する構造体を作成することは確実にできます。
 
 <!--
@@ -253,8 +253,8 @@ value the current value is. This library could be used to keep track of a
 user’s quota for the number of API calls they’re allowed to make, for example.
 -->
 
-以下が、テストを行う筋書きです: 値を最大値に対して追跡し、現在値がどれくらい最大値に近いかに基づいてメッセージを送信するライブラリを作成します。
-このライブラリは、ユーザが行うことのできるAPIコールの数の割り当てを追跡するのに使用することができるでしょう。
+以下が、テストを行う筋書きです：値を最大値に対して追跡し、現在値がどれくらい最大値に近いかに基づいてメッセージを送信するライブラリを作成します。
+このライブラリは、ユーザが行うことのできる API コールの数の割り当てを追跡するのに使用することができるでしょう。
 
 <!--
 Our library will only provide the functionality of tracking how close to the
@@ -267,16 +267,16 @@ called `Messenger`. Listing 15-20 shows the library code:
 -->
 
 作成するライブラリは、値がどれくらい最大に近いかと、いつどんなメッセージになるべきかを追いかける機能を提供するだけです。
-このライブラリを使用するアプリケーションは、メッセージを送信する機構を提供すると期待されるでしょう:
+このライブラリを使用するアプリケーションは、メッセージを送信する機構を提供すると期待されるでしょう：
 アプリケーションは、アプリケーションにメッセージを置いたり、メールを送ったり、テキストメッセージを送るなどできるでしょう。
 ライブラリはその詳細を知る必要はありません。必要なのは、提供する`Messenger`と呼ばれるトレイトを実装している何かなのです。
-リスト15-20は、ライブラリのコードを示しています:
+リスト 15-20 は、ライブラリのコードを示しています：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 pub trait Messenger {
@@ -305,10 +305,10 @@ impl<'a, T> LimitTracker<'a, T>
         let percentage_of_max = self.value as f64 / self.max as f64;
 
         if percentage_of_max >= 0.75 && percentage_of_max < 0.9 {
-            // 警告: 割り当ての75％以上を使用してしまいました
+            // 警告：割り当ての 75％以上を使用してしまいました
             self.messenger.send("Warning: You've used up over 75% of your quota!");
         } else if percentage_of_max >= 0.9 && percentage_of_max < 1.0 {
-            // 切迫した警告: 割り当ての90%以上を使用してしまいました
+            // 切迫した警告：割り当ての 90% 以上を使用してしまいました
             self.messenger.send("Urgent warning: You've used up over 90% of your quota!");
         } else if percentage_of_max >= 1.0 {
             // エラー: 割り当てを超えています
@@ -323,7 +323,7 @@ impl<'a, T> LimitTracker<'a, T>
 value is to a maximum value and warn when the value is at certain levels</span>
 -->
 
-<span class="caption">リスト15-20: 値が最大値にどれくらい近いかを追跡し、特定のレベルの時に警告するライブラリ</span>
+<span class="caption">リスト 15-20: 値が最大値にどれくらい近いかを追跡し、特定のレベルの時に警告するライブラリ</span>
 
 <!--
 One important part of this code is that the `Messenger` trait has one method
@@ -338,8 +338,8 @@ different numbers for `value`, the messenger is told to send the appropriate
 messages.
 -->
 
-このコードの重要な部分の1つは、`Messenger`トレイトには、`self`への不変参照とメッセージのテキストを取る`send`というメソッドが1つあることです。
-これが、モックオブジェクトが持つ必要のあるインターフェイスなのです。もう1つの重要な部分は、
+このコードの重要な部分の 1 つは、`Messenger`トレイトには、`self`への不変参照とメッセージのテキストを取る`send`というメソッドが 1 つあることです。
+これが、モックオブジェクトが持つ必要のあるインターフェイスなのです。もう 1 つの重要な部分は、
 `LimitTracker`の`set_value`メソッドの振る舞いをテストしたいということです。`value`引数に渡すものを変えることができますが、
 `set_value`はアサートを行えるものは何も返してくれません。`LimitTracker`を`Messenger`トレイトを実装する何かと、
 `max`の特定の値で生成したら、`value`に異なる数値を渡した時にメッセンジャーは適切なメッセージを送ると指示されると言えるようになりたいです。
@@ -356,13 +356,13 @@ implement a mock object to do just that, but the borrow checker won’t allow it
 `send`を呼び出す時にメールやテキストメッセージを送る代わりに送ると指示されたメッセージを追跡するだけのモックオブジェクトが必要です。
 モックオブジェクトの新規インスタンスを生成し、モックオブジェクトを使用する`LimitTracker`を生成し、
 `LimitTracker`の`set_value`を呼び出し、それからモックオブジェクトに期待しているメッセージがあることを確認できます。
-リスト15-21は、それだけをするモックオブジェクトを実装しようとするところを示しますが、借用チェッカーが許可してくれません:
+リスト 15-21 は、それだけをするモックオブジェクトを実装しようとするところを示しますが、借用チェッカーが許可してくれません：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 #[cfg(test)]
@@ -402,7 +402,7 @@ mod tests {
 that isn’t allowed by the borrow checker</span>
 -->
 
-<span class="caption">リスト15-21: 借用チェッカーが許可してくれない`MockMessenger`を実装しようとする</span>
+<span class="caption">リスト 15-21: 借用チェッカーが許可してくれない`MockMessenger`を実装しようとする</span>
 
 <!--
 This test code defines a `MockMessenger` struct that has a `sent_messages`
@@ -431,17 +431,17 @@ we assert that the list of messages that the `MockMessenger` is keeping track
 of should now have one message in it.
 -->
 
-テストでは、`max`値の75%以上になる何かに`value`をセットしろと`LimitTracker`が指示される時に起きることをテストしています。
+テストでは、`max`値の 75% 以上になる何かに`value`をセットしろと`LimitTracker`が指示される時に起きることをテストしています。
 まず、新しい`MockMessenger`を生成し、空のメッセージリストから始まります。そして、
-新しい`LimitTracker`を生成し、新しい`MockMessenger`の参照と100という`max`値を与えます。
-`LimitTracker`の`set_value`メソッドは80という値で呼び出し、これは100の75%を上回っています。
-そして、`MockMessenger`が追いかけているメッセージのリストが、今は1つのメッセージを含んでいるはずとアサートします。
+新しい`LimitTracker`を生成し、新しい`MockMessenger`の参照と 100 という`max`値を与えます。
+`LimitTracker`の`set_value`メソッドは 80 という値で呼び出し、これは 100 の 75% を上回っています。
+そして、`MockMessenger`が追いかけているメッセージのリストが、今は 1 つのメッセージを含んでいるはずとアサートします。
 
 <!--
 However, there’s one problem with this test, as shown here:
 -->
 
-ところが、以下のようにこのテストには1つ問題があります:
+ところが、以下のようにこのテストには 1 つ問題があります：
 
 ```text
 error[E0596]: cannot borrow immutable field `self.sent_messages` as mutable
@@ -464,7 +464,7 @@ definition (feel free to try and see what error message you get).
 
 `send`メソッドは`self`への不変参照を取るので、`MockMessenger`を変更してメッセージを追跡できないのです。
 代わりに`&mut self`を使用するというエラーテキストからの提言を選ぶこともできないのです。
-そうしたら、`send`のシグニチャが、`Messenger`トレイト定義のシグニチャと一致しなくなるからです(気軽に試してエラーメッセージを確認してください)。
+そうしたら、`send`のシグニチャが、`Messenger`トレイト定義のシグニチャと一致しなくなるからです (気軽に試してエラーメッセージを確認してください)。
 
 <!--
 This is a situation in which interior mutability can help! We’ll store the
@@ -475,13 +475,13 @@ shows what that looks like:
 
 これは、内部可変性が役に立つ場面なのです！`sent_messages`を`RefCell<T>`内部に格納し、
 そうしたら`send`メッセージは、`sent_messages`を変更して見かけたメッセージを格納できるようになるでしょう。
-リスト15-22は、それがどんな感じかを示しています:
+リスト 15-22 は、それがどんな感じかを示しています：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 #[cfg(test)]
@@ -522,7 +522,7 @@ mod tests {
 value while the outer value is considered immutable</span>
 -->
 
-<span class="caption">リスト15-22: 外側の値は不変と考えられる一方で`RefCell<T>`で内部の値を可変化する</span>
+<span class="caption">リスト 15-22: 外側の値は不変と考えられる一方で`RefCell<T>`で内部の値を可変化する</span>
 
 <!--
 The `sent_messages` field is now of type `RefCell<Vec<String>>` instead of
@@ -553,7 +553,7 @@ in the inner vector, we call `borrow` on the `RefCell<Vec<String>>` to get an
 immutable reference to the vector.
 -->
 
-行わなければならない最後の変更は、アサート内部にあります: 内部のベクタにある要素の数を確認するため、
+行わなければならない最後の変更は、アサート内部にあります：内部のベクタにある要素の数を確認するため、
 `RefCell<Vec<String>>`に`borrow`を呼び出し、ベクタへの不変参照を得ています。
 
 <!--
@@ -578,7 +578,7 @@ can treat them like regular references.
 -->
 
 不変および可変参照を作成する時、それぞれ`&`と`&mut`記法を使用します。`RefCell<T>`では、
-`borrow`と`borrow_mut`メソッドを使用し、これらは`RefCell<T>`に所属する安全なAPIの一部です。
+`borrow`と`borrow_mut`メソッドを使用し、これらは`RefCell<T>`に所属する安全な API の一部です。
 `borrow`メソッドは、スマートポインタ型の`Ref<T>`を返し、`borrow_mut`はスマートポインタ型の`RefMut<T>`を返します。
 どちらの型も`Deref`を実装しているので、普通の参照のように扱うことができます。
 
@@ -593,8 +593,8 @@ borrows or one mutable borrow at any point in time.
 
 `RefCell<T>`は、現在活動中の`Ref<T>`と`RefMut<T>`スマートポインタの数を追いかけます。
 `borrow`を呼び出す度に、`RefCell<T>`は活動中の不変参照の数を増やします。`Ref<T>`の値がスコープを抜けたら、
-不変参照の数は1下がります。コンパイル時の借用規則と全く同じように、`RefCell<T>`はいかなる時も、
-複数の不変借用または1つの可変借用を持たせてくれるのです。
+不変参照の数は 1 下がります。コンパイル時の借用規則と全く同じように、`RefCell<T>`はいかなる時も、
+複数の不変借用または 1 つの可変借用を持たせてくれるのです。
 
 <!--
 If we try to violate these rules, rather than getting a compiler error as we
@@ -606,14 +606,14 @@ at runtime.
 -->
 
 これらの規則を侵害しようとすれば、参照のようにコンパイルエラーになるのではなく、
-`RefCell<T>`の実装は実行時にパニックするでしょう。リスト15-23は、リスト15-22の`send`実装に対する変更を示しています。
-同じスコープで2つの可変借用が活動するようわざと生成し、`RefCell<T>`が実行時にこれをすることを阻止してくれるところを説明しています。
+`RefCell<T>`の実装は実行時にパニックするでしょう。リスト 15-23 は、リスト 15-22 の`send`実装に対する変更を示しています。
+同じスコープで 2 つの可変借用が活動するようわざと生成し、`RefCell<T>`が実行時にこれをすることを阻止してくれるところを説明しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 impl Messenger for MockMessenger {
@@ -632,7 +632,7 @@ impl Messenger for MockMessenger {
 same scope to see that `RefCell<T>` will panic</span>
 -->
 
-<span class="caption">リスト15-23: 同じスコープで2つの可変参照を生成して`RefCell<T>`がパニックすることを確かめる</span>
+<span class="caption">リスト 15-23: 同じスコープで 2 つの可変参照を生成して`RefCell<T>`がパニックすることを確かめる</span>
 
 <!--
 We create a variable `one_borrow` for the `RefMut<T>` smart pointer returned
@@ -643,16 +643,16 @@ which isn’t allowed. When we run the tests for our library, the code in Listin
 -->
 
 `borrow_mut`から返ってきた`RefMut<T>`スマートポインタに対して変数`one_borrow`を生成しています。
-そして、同様にして変数`two_borrow`にも別の可変借用を生成しています。これにより同じスコープで2つの可変参照ができ、
-これは許可されないことです。このテストを自分のライブラリ用に走らせると、リスト15-23のコードはエラーなくコンパイルできますが、
-テストは失敗するでしょう:
+そして、同様にして変数`two_borrow`にも別の可変借用を生成しています。これにより同じスコープで 2 つの可変参照ができ、
+これは許可されないことです。このテストを自分のライブラリ用に走らせると、リスト 15-23 のコードはエラーなくコンパイルできますが、
+テストは失敗するでしょう：
 
 ```text
 ---- tests::it_sends_an_over_75_percent_warning_message stdout ----
 	thread 'tests::it_sends_an_over_75_percent_warning_message' panicked at
 'already borrowed: BorrowMutError', src/libcore/result.rs:906:4
   (スレッド'tests::it_sends_an_over_75_percent_warning_message'は、
-'すでに借用されています: BorrowMutError', src/libcore/result.rs:906:4でパニックしました)
+'すでに借用されています：BorrowMutError', src/libcore/result.rs:906:4でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
@@ -711,16 +711,16 @@ change the values in the lists. Listing 15-24 shows that by using a
 the lists:
 -->
 
-例を挙げれば、`Rc<T>`を使用して複数のリストに別のリストの所有権を共有させたリスト15-18のコンスリストの例を思い出してください。
+例を挙げれば、`Rc<T>`を使用して複数のリストに別のリストの所有権を共有させたリスト 15-18 のコンスリストの例を思い出してください。
 `Rc<T>`は不変値だけを抱えるので、一旦生成したら、リストの値はどれも変更できません。`RefCell<T>`を含めて、
 リストの値を変更する能力を得ましょう。`RefCell<T>`を`Cons`定義で使用することで、
-リスト全てに格納されている値を変更できることをリスト15-24は示しています:
+リスト全てに格納されている値を変更できることをリスト 15-24 は示しています：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 #[derive(Debug)]
@@ -754,7 +754,7 @@ fn main() {
 `List` that we can mutate</span>
 -->
 
-<span class="caption">リスト15-24: `Rc<RefCell<i32>>`で可変化できる`List`を生成する</span>
+<span class="caption">リスト 15-24: `Rc<RefCell<i32>>`で可変化できる`List`を生成する</span>
 
 <!--
 We create a value that is an instance of `Rc<RefCell<i32>>` and store it in a
@@ -776,7 +776,7 @@ can both refer to `a`, which is what we did in Listing 15-18.
 -->
 
 リスト`a`を`Rc<T>`に包んでいるので、リスト`b`と`c`を生成する時に、どちらも`a`を参照できます。
-リスト15-18ではそうしていました。
+リスト 15-18 ではそうしていました。
 
 <!--
 After we’ve created the lists in `a`, `b`, and `c`, we add 10 to the value in
@@ -787,8 +787,8 @@ automatic dereferencing feature we discussed in Chapter 5 (see the section
 pointer, and we use the dereference operator on it and change the inner value.
 -->
 
-`a`、`b`、`c`のリストを作成した後、`value`の値に10を足しています。これを`value`の`borrow_mut`を呼び出すことで行い、
-これは、第5章で議論した自動参照外し機能(「`->`演算子はどこに行ったの？」節をご覧ください)を使用して、
+`a`、`b`、`c`のリストを作成した後、`value`の値に 10 を足しています。これを`value`の`borrow_mut`を呼び出すことで行い、
+これは、第 5 章で議論した自動参照外し機能 (「`->`演算子はどこに行ったの？」節をご覧ください) を使用して、
 `Rc<T>`を内部の`RefCell<T>`値に参照外ししています。`borrow_mut`メソッドは、
 `RefMut<T>`スマートポインタを返し、それに対して参照外し演算子を使用し、中の値を変更します。
 
@@ -797,7 +797,7 @@ When we print `a`, `b`, and `c`, we can see that they all have the modified
 value of 15 rather than 5:
 -->
 
-`a`、`b`、`c`を出力すると、全て5ではなく、変更された15という値になっていることがわかります。
+`a`、`b`、`c`を出力すると、全て 5 ではなく、変更された 15 という値になっていることがわかります。
 
 ```text
 a after = Cons(RefCell { value: 15 }, Nil)
@@ -829,5 +829,5 @@ more details on the differences between these types.
 
 標準ライブラリには、`Cell<T>`などの内部可変性を提供する他の型もあり、この型は、内部値への参照を与える代わりに、
 値は`Cell<T>`の内部や外部へコピーされる点を除き似ています。また`Mutex<T>`もあり、
-これはスレッド間で使用するのが安全な内部可変性を提供します; 第16章でその使いみちについて議論しましょう。
+これはスレッド間で使用するのが安全な内部可変性を提供します; 第 16 章でその使いみちについて議論しましょう。
 これらの型の違いをより詳しく知るには、標準ライブラリのドキュメンテーションをチェックしてください。

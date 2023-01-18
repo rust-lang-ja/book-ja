@@ -18,13 +18,13 @@ crate root file so it contains the code shown in Listing 7-21. In this case,
 the crate root file is *src/lib.rs*, but this procedure also works with binary
 crates whose crate root file is *src/main.rs*.
 -->
-例えば、Listing 7-17 のコードからはじめましょう。クレートルートのファイルをListing 7-21 のコードを持つように変更して、`front_of_house`モジュールをそれ専用のファイル`src/front_of_house.rs`に動かしましょう。
+例えば、Listing 7-17 のコードからはじめましょう。クレートルートのファイルを Listing 7-21 のコードを持つように変更して、`front_of_house`モジュールをそれ専用のファイル`src/front_of_house.rs`に動かしましょう。
 今回、クレートルートファイルは`src/lib.rs`ですが、この手続きはクレートルートファイルが`src/main.rs`であるバイナリクレートでもうまく行きます。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-21-and-22/src/lib.rs}}
@@ -40,12 +40,12 @@ body will be in *src/front_of_house.rs*</span>
 And *src/front_of_house.rs* gets the definitions from the body of the
 `front_of_house` module, as shown in Listing 7-22.
 -->
-そして、 Listing 7-22 のように、*src/front_of_house.rs* には`front_of_house` モジュールの中身の定義を与えます。
+そして、Listing 7-22 のように、*src/front_of_house.rs* には`front_of_house` モジュールの中身の定義を与えます。
 
 <!--
 <span class="filename">Filename: src/front_of_house.rs</span>
 -->
-<span class="filename">ファイル名: src/front_of_house.rs</span>
+<span class="filename">ファイル名：src/front_of_house.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-21-and-22/src/front_of_house.rs}}
@@ -64,13 +64,13 @@ the module. To continue with our example and extract the `hosting` module to
 its own file as well, we change *src/front_of_house.rs* to contain only the
 declaration of the `hosting` module:
 -->
-`mod front_of_house`の後にブロックではなくセミコロンを使うと、Rustにモジュールの中身をモジュールと同じ名前をした別のファイルから読み込むように命令します。
+`mod front_of_house`の後にブロックではなくセミコロンを使うと、Rust にモジュールの中身をモジュールと同じ名前をした別のファイルから読み込むように命令します。
 私達の例で、つづけて`hosting`モジュールをそれ専用のファイルに抽出するには、`src/front_of_house.rs`が`hosting`モジュールの宣言のみを含むように変更します：
 
 <!--
 <span class="filename">Filename: src/front_of_house.rs</span>
 -->
-<span class="filename">ファイル名: src/front_of_house.rs</span>
+<span class="filename">ファイル名：src/front_of_house.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/no-listing-02-extracting-hosting/src/front_of_house.rs}}
@@ -86,7 +86,7 @@ Then we create a *src/front_of_house* directory and a file
 <!--
 <span class="filename">Filename: src/front_of_house/hosting.rs</span>
 -->
-<span class="filename">ファイル名: src/front_of_house/hosting.rs</span>
+<span class="filename">ファイル名：src/front_of_house/hosting.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/no-listing-02-extracting-hosting/src/front_of_house/hosting.rs}}
@@ -109,7 +109,7 @@ looks in a file with the same name as the module for the code that goes into
 that module.
 -->
 *src/lib.rs* における`pub use crate::front_of_house::hosting` という文も変わっていないし、`use`はどのファイルがクレートの一部としてコンパイルされるかになんの影響も与えないということに注意してください。
-`mod`キーワードがモジュールを宣言したなら、Rustはそのモジュールに挿入するためのコードを求めて、モジュールと同じ名前のファイルの中を探すというわけです。
+`mod`キーワードがモジュールを宣言したなら、Rust はそのモジュールに挿入するためのコードを求めて、モジュールと同じ名前のファイルの中を探すというわけです。
 
 <!--
 ## Summary
@@ -124,7 +124,7 @@ scope with a `use` statement so you can use a shorter path for multiple uses of
 the item in that scope. Module code is private by default, but you can make
 definitions public by adding the `pub` keyword.
 -->
-Rustでは、パッケージを複数のクレートに、そしてクレートを複数のモジュールに分割して、あるモジュールで定義された要素を他のモジュールから参照することができます。
+Rust では、パッケージを複数のクレートに、そしてクレートを複数のモジュールに分割して、あるモジュールで定義された要素を他のモジュールから参照することができます。
 これは絶対パスか相対パスを指定することで行なえます。
 これらのパスは`use`文でスコープに持ち込むことができ、こうすると、そのスコープで要素を複数回使う時に、より短いパスで済むようになります。
 モジュールのコードは標準では非公開ですが、`pub`キーワードを追加することで定義を公開することができます。

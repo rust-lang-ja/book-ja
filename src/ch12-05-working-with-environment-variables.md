@@ -13,9 +13,9 @@ environment variable. Doing so allows our users to set the environment variable
 once and have all their searches be case insensitive in that terminal session.
 -->
 
-おまけの機能を追加して`minigrep`を改善します: 環境変数でユーザがオンにできる大文字小文字無視の検索用のオプションです。
+おまけの機能を追加して`minigrep`を改善します：環境変数でユーザがオンにできる大文字小文字無視の検索用のオプションです。
 この機能をコマンドラインオプションにして、適用したい度にユーザが入力しなければならないようにすることもできますが、
-代わりに環境変数を使用します。そうすることでユーザは1回環境変数をセットすれば、そのターミナルセッションの間は、
+代わりに環境変数を使用します。そうすることでユーザは 1 回環境変数をセットすれば、そのターミナルセッションの間は、
 大文字小文字無視の検索を行うことができるようになるわけです。
 
 <!--
@@ -36,13 +36,13 @@ tests, as shown in Listing 12-20.
 環境変数がオンの場合に呼び出す`search_case_insensitive`関数を新しく追加したいです。テスト駆動開発の過程に従い続けるので、
 最初の手順は、今回も失敗するテストを書くことです。新しい`search_case_insensitive`関数用の新規テストを追加し、
 古いテストを`one_result`から`case_sensitive`に名前変更して、二つのテストの差異を明確化します。
-リスト12-20に示したようにですね。
+リスト 12-20 に示したようにですね。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 #[cfg(test)]
@@ -92,7 +92,7 @@ Trust me.";
 case-insensitive function we’re about to add</span>
 -->
 
-<span class="caption">リスト12-20: 追加しようとしている大文字小文字を区別しない関数用の失敗するテストを新しく追加する</span>
+<span class="caption">リスト 12-20: 追加しようとしている大文字小文字を区別しない関数用の失敗するテストを新しく追加する</span>
 
 <!--
 Note that we’ve edited the old test’s `contents` too. We’ve added a new line
@@ -104,7 +104,7 @@ and should continue to pass as we work on the case-insensitive search.
 -->
 
 古いテストの`contents`も変更していることに注意してください。大文字小文字を区別する検索を行う際に、
-`"duct"`というクエリに合致しないはずの大文字Dを使用した`"Duct tape"`(ガムテープ)という新しい行を追加しました。
+`"duct"`というクエリに合致しないはずの大文字 D を使用した`"Duct tape"`(ガムテープ) という新しい行を追加しました。
 このように古いテストを変更することで、既に実装済みの大文字小文字を区別する検索機能を誤って壊してしまわないことを保証する助けになります。
 このテストはもう通り、大文字小文字を区別しない検索に取り掛かっても通り続けるはずです。
 
@@ -121,9 +121,9 @@ for the `search` function in Listing 12-16 to see the test compile and fail.
 
 大文字小文字を区別*しない*検索の新しいテストは、クエリに"rUsT"を使用しています。
 追加直前の`search_case_insensitive`関数では、"rUsT"というクエリは、
-両方ともクエリとは大文字小文字が異なるのに、大文字Rの"Rust:"を含む行と、
+両方ともクエリとは大文字小文字が異なるのに、大文字 R の"Rust:"を含む行と、
 `“Trust me.”`という行にもマッチするはずです。これが失敗するテストであり、まだ`search_case_insensitive`関数を定義していないので、
-コンパイルは失敗するでしょう。リスト12-16の`search`関数で行ったのと同様に空のベクタを常に返すような仮実装を追加し、テストがコンパイルされるものの、失敗する様をご自由に確認してください。
+コンパイルは失敗するでしょう。リスト 12-16 の`search`関数で行ったのと同様に空のベクタを常に返すような仮実装を追加し、テストがコンパイルされるものの、失敗する様をご自由に確認してください。
 
 <!--
 ### Implementing the `search_case_insensitive` Function
@@ -138,7 +138,7 @@ the `query` and each `line` so whatever the case of the input arguments,
 they’ll be the same case when we check whether the line contains the query.
 -->
 
-`search_case_insensitive`関数は、リスト12-21に示しましたが、`search`関数とほぼ同じです。
+`search_case_insensitive`関数は、リスト 12-21 に示しましたが、`search`関数とほぼ同じです。
 唯一の違いは、`query`と各`line`を小文字化していることなので、入力引数の大文字小文字によらず、
 行がクエリを含んでいるか確認する際には、同じになるわけです。
 
@@ -146,7 +146,7 @@ they’ll be the same case when we check whether the line contains the query.
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
@@ -168,7 +168,7 @@ pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a st
 function to lowercase the query and the line before comparing them</span>
 -->
 
-<span class="caption">リスト12-21: 比較する前にクエリと行を小文字化するよう、`search_case_insensitive`関数を定義する</span>
+<span class="caption">リスト 12-21: 比較する前にクエリと行を小文字化するよう、`search_case_insensitive`関数を定義する</span>
 
 <!--
 First, we lowercase the `query` string and store it in a shadowed variable with
@@ -193,12 +193,12 @@ a string slice.
 
 `query`は最早、文字列スライスではなく`String`であることに注意してください。というのも、
 `to_lowercase`を呼び出すと、既存のデータを参照するというよりも、新しいデータを作成するからです。
-例として、クエリは`"rUsT"`だとしましょう: その文字列スライスは、小文字の`u`や`t`を使えるように含んでいないので、
+例として、クエリは`"rUsT"`だとしましょう：その文字列スライスは、小文字の`u`や`t`を使えるように含んでいないので、
 `"rust"`を含む新しい`String`のメモリを確保しなければならないのです。今、`contains`メソッドに引数として`query`を渡すと、
 アンド記号を追加する必要があります。`contains`のシグニチャは、文字列スライスを取るよう定義されているからです。
 
 <!--
-2行目真ん中、to lowercase ...がかかる先が微妙。今の訳の通りなら、beforeの前にtoを記述する気もする
+2 行目真ん中、to lowercase ...がかかる先が微妙。今の訳の通りなら、before の前に to を記述する気もする
 -->
 
 <!--
@@ -215,7 +215,7 @@ query is.
 Let’s see if this implementation passes the tests:
 -->
 
-この実装がテストを通過するか確認しましょう:
+この実装がテストを通過するか確認しましょう：
 
 ```text
 running 2 tests
@@ -234,14 +234,14 @@ this field anywhere yet:
 -->
 
 素晴らしい！どちらも通りました。では、`run`関数から新しい`search_case_insensitive`関数を呼び出しましょう。
-1番目に大文字小文字の区別を切り替えられるよう、`Config`構造体に設定オプションを追加します。
-まだどこでも、このフィールドの初期化をしていないので、追加するとコンパイルエラーが起きます:
+1 番目に大文字小文字の区別を切り替えられるよう、`Config`構造体に設定オプションを追加します。
+まだどこでも、このフィールドの初期化をしていないので、追加するとコンパイルエラーが起きます：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 pub struct Config {
@@ -261,13 +261,13 @@ won’t compile yet.
 
 論理値を持つ`case_sensitive`フィールドを追加したことに注意してください。次に、`run`関数に、
 `case_sensitive`フィールドの値を確認し、`search`関数か`search_case_insensitive`関数を呼ぶかを決定するのに使ってもらう必要があります。
-リスト12-22のようにですね。それでも、これはまだコンパイルできないことに注意してください。
+リスト 12-22 のようにですね。それでも、これはまだコンパイルできないことに注意してください。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # use std::error::Error;
@@ -313,7 +313,7 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
 `search_case_insensitive` based on the value in `config.case_sensitive`</span>
 -->
 
-<span class="caption">リスト12-22: `config.case_sensitive`の値に基づいて`search`か`search_case_insensitive`を呼び出す</span>
+<span class="caption">リスト 12-22: `config.case_sensitive`の値に基づいて`search`か`search_case_insensitive`を呼び出す</span>
 
 <!--
 Finally, we need to check for the environment variable. The functions for
@@ -327,13 +327,13 @@ in Listing 12-23.
 最後に、環境変数を確認する必要があります。環境変数を扱う関数は、標準ライブラリの`env`モジュールにあるので、
 `use std::env;`行で*src/lib.rs*の冒頭でそのモジュールをスコープに持ってくる必要があります。そして、
 `env`モジュールから`var`関数を使用して`CASE_INSENSITIVE`という環境変数のチェックを行います。
-リスト12-23のようにですね。
+リスト 12-23 のようにですね。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 use std::env;
@@ -366,7 +366,7 @@ impl Config {
 `CASE_INSENSITIVE`</span>
 -->
 
-<span class="caption">リスト12-23: `CASE_INSENSITIVE`という環境変数のチェックを行う</span>
+<span class="caption">リスト 12-23: `CASE_INSENSITIVE`という環境変数のチェックを行う</span>
 
 <!--
 Here, we create a new variable `case_sensitive`. To set its value, we call the
@@ -394,7 +394,7 @@ of the other methods we’ve seen on `Result`.
 
 `Result`の`is_err`メソッドを使用して、エラーでありゆえに、セットされていないことを確認しています。
 これは大文字小文字を区別する検索をす*べき*ことを意味します。`CASE_INSENSITIVE`環境変数が何かにセットされていれば、
-`is_err`はfalseを返し、プログラムは大文字小文字を区別しない検索を実行するでしょう。環境変数の*値*はどうでもよく、
+`is_err`は false を返し、プログラムは大文字小文字を区別しない検索を実行するでしょう。環境変数の*値*はどうでもよく、
 セットされているかどうかだけ気にするので、`unwrap`や`expect`あるいは、他のここまで見かけた`Result`のメソッドではなく、
 `is_err`をチェックしています。
 
@@ -404,7 +404,7 @@ the `run` function can read that value and decide whether to call `search` or
 `search_case_insensitive`, as we implemented in Listing 12-22.
 -->
 
-`case_sensitive`変数の値を`Config`インスタンスに渡しているので、リスト12-22で実装したように、
+`case_sensitive`変数の値を`Config`インスタンスに渡しているので、リスト 12-22 で実装したように、
 `run`関数はその値を読み取り、`search`か`search_case_insensitive`を呼び出すか決定できるのです。
 
 <!--
@@ -430,14 +430,14 @@ Looks like that still works! Now, let’s run the program with `CASE_INSENSITIVE
 set to `1` but with the same query `to`.
 -->
 
-まだ機能しているようです！では、`CASE_INSENSITIVE`を1にしつつ、同じクエリの`to`でプログラムを実行しましょう。
+まだ機能しているようです！では、`CASE_INSENSITIVE`を 1 にしつつ、同じクエリの`to`でプログラムを実行しましょう。
 
 <!--
 If you’re using PowerShell, you will need to set the environment variable and
 run the program in two commands rather than one:
 -->
 
-PowerShellを使用しているなら、1コマンドではなく、2コマンドで環境変数をセットし、プログラムを実行する必要があるでしょう:
+PowerShell を使用しているなら、1 コマンドではなく、2 コマンドで環境変数をセットし、プログラムを実行する必要があるでしょう：
 
 ```text
 $ $env:CASE_INSENSITIVE=1
@@ -448,7 +448,7 @@ $ cargo run to poem.txt
 We should get lines that contain “to” that might have uppercase letters:
 -->
 
-大文字も含む可能性のある"to"を含有する行が得られるはずです:
+大文字も含む可能性のある"to"を含有する行が得られるはずです：
 
 ```text
 $ CASE_INSENSITIVE=1 cargo run to poem.txt
@@ -492,5 +492,5 @@ The `std::env` module contains many more useful features for dealing with
 environment variables: check out its documentation to see what is available.
 -->
 
-`std::env`モジュールは、環境変数を扱うもっと多くの有用な機能を有しています:
+`std::env`モジュールは、環境変数を扱うもっと多くの有用な機能を有しています：
 ドキュメンテーションを確認して、何が利用可能か確かめてください。

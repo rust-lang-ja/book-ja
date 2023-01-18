@@ -2,7 +2,7 @@
 ## Appendix C: Derivable Traits
 -->
 
-## 付録C: 導出可能なトレイト
+## 付録 C: 導出可能なトレイト
 
 <!--
 In various places in the book, we’ve discussed the `derive` attribute, which
@@ -11,7 +11,7 @@ code that will implement a trait with its own default implementation on the
 type you’ve annotated with the `derive` syntax.
 -->
 
-本のいろんな箇所で`derive`属性について議論しました。これは構造体や、enum定義に適用できます。
+本のいろんな箇所で`derive`属性について議論しました。これは構造体や、enum 定義に適用できます。
 `derive`属性は、`derive`記法で注釈した型に対して独自の既定の実装でトレイトを実装するコードを生成します。
 
 <!--
@@ -19,7 +19,7 @@ In this appendix, we provide a reference of all the traits in the standard
 library that you can use with `derive`. Each section covers:
 -->
 
-この付録では、標準ライブラリの`derive`と共に使用できる全トレイトの参照を提供します。各節は以下を講義します:
+この付録では、標準ライブラリの`derive`と共に使用できる全トレイトの参照を提供します。各節は以下を講義します：
 
 <!--
 * What operators and methods deriving this trait will enable
@@ -66,7 +66,7 @@ it can’t provide appropriate default behavior for you.
 
 導出できないトレイトの例は`Display`で、これはエンドユーザ向けのフォーマットを扱います。常に、エンドユーザ向けに型を表示する適切な方法について、
 考慮すべきです。型のどの部分をエンドユーザは見ることができるべきでしょうか？どの部分を関係があると考えるでしょうか？
-どんな形式のデータがエンドユーザにとって最も関係があるでしょうか？Rustコンパイラには、
+どんな形式のデータがエンドユーザにとって最も関係があるでしょうか？Rust コンパイラには、
 この見識がないため、適切な既定動作を提供してくれないのです。
 
 <!--
@@ -76,9 +76,9 @@ traits you can use `derive` with truly open-ended. Implementing `derive`
 involves using a procedural macro, which is covered in Appendix D.
 -->
 
-この付録で提供される導出可能なトレイトのリストは、包括的ではありません: ライブラリは、自身のトレイトに`derive`を実装でき、
+この付録で提供される導出可能なトレイトのリストは、包括的ではありません：ライブラリは、自身のトレイトに`derive`を実装でき、
 `derive`と共に使用できるトレイトのリストが実に限りのないものになってしまうのです。`derive`の実装には、
-プロシージャルなマクロが関連します。マクロについては、付録Dで講義します。
+プロシージャルなマクロが関連します。マクロについては、付録 D で講義します。
 
 <!--
 ### `Debug` for Programmer Output
@@ -110,7 +110,7 @@ assertion fails so programmers can see why the two instances weren’t equal.
 -->
 
 `Debug`トレイトは、例えば、`assert_eq!`マクロを使用する際などに必要になります。
-このマクロは、プログラマがどうして2つのインスタンスが等価でなかったのか確認できるように、
+このマクロは、プログラマがどうして 2 つのインスタンスが等価でなかったのか確認できるように、
 等価アサートが失敗したら、引数として与えられたインスタンスの値を出力します。
 
 <!--
@@ -134,8 +134,8 @@ each variant is equal to itself and not equal to the other variants.
 -->
 
 `PartialEq`を導出すると、`eq`メソッドを実装します。構造体に`PartialEq`を導出すると、
-*全*フィールドが等しい時のみ2つのインスタンスは等価になり、いずれかのフィールドが等価でなければ、
-インスタンスは等価ではなくなります。enumに導出すると、各列挙子は、自身には等価ですが、他の列挙子には等価ではありません。
+*全*フィールドが等しい時のみ 2 つのインスタンスは等価になり、いずれかのフィールドが等価でなければ、
+インスタンスは等価ではなくなります。enum に導出すると、各列挙子は、自身には等価ですが、他の列挙子には等価ではありません。
 
 <!--
 The `PartialEq` trait is required, for example, with the use of the
@@ -144,7 +144,7 @@ for equality.
 -->
 
 `PartialEq`トレイトは例えば、`assert_eq!`マクロを使用する際に必要になります。
-これは、等価性のためにとある型の2つのインスタンスを比較できる必要があります。
+これは、等価性のためにとある型の 2 つのインスタンスを比較できる必要があります。
 
 <!--
 The `Eq` trait has no methods. Its purpose is to signal that for every value of
@@ -157,15 +157,15 @@ instances of the not-a-number (`NaN`) value are not equal to each other.
 
 `Eq`トレイトにはメソッドはありません。その目的は、注釈された型の全値に対して、値が自身と等しいことを通知することです。
 `Eq`トレイトは、`PartialEq`を実装する全ての型が`Eq`を実装できるわけではないものの、
-`PartialEq`も実装する型に対してのみ適用できます。これの一例は、浮動小数点数型です: 
-浮動小数点数の実装により、非数字(`NaN`)値の2つのインスタンスはお互いに等価ではないことが宣言されます。
+`PartialEq`も実装する型に対してのみ適用できます。これの一例は、浮動小数点数型です：
+浮動小数点数の実装により、非数字 (`NaN`) 値の 2 つのインスタンスはお互いに等価ではないことが宣言されます。
 
 <!--
 An example of when `Eq` is required is for keys in a `HashMap<K, V>` so the
 `HashMap<K, V>` can tell whether two keys are the same.
 -->
 
-`Eq`が必要になる一例が、`HashMap<K, V>`のキーで、`HashMap<K, V>`が、2つのキーが同じであると判定できます。
+`Eq`が必要になる一例が、`HashMap<K, V>`のキーで、`HashMap<K, V>`が、2 つのキーが同じであると判定できます。
 
 <!--
 ### `PartialOrd` and `Ord` for Ordering Comparisons
@@ -194,7 +194,7 @@ floating point value will return `None`.
 -->
 
 `PartialOrd`を導出すると、`partial_cmp`メソッドを実装し、これは、与えられた値が順序付けられない時に`None`になる`Option<Ordering>`を返します。
-その型のほとんどの値は比較できるものの、順序付けできない値の例として、非数字(`NaN`)浮動小数点値が挙げられます。
+その型のほとんどの値は比較できるものの、順序付けできない値の例として、非数字 (`NaN`) 浮動小数点値が挙げられます。
 `partial_cmp`をあらゆる浮動小数点数と`NaN`浮動小数点数で呼び出すと、`None`が返るでしょう。
 
 <!--
@@ -204,8 +204,8 @@ definition. When derived on enums, variants of the enum declared earlier in the
 enum definition are considered less than the variants listed later.
 -->
 
-構造体に導出すると、フィールドが構造体定義で現れる順番で各フィールドの値を比較することで2つのインスタンスを比較します。
-enumに導出すると、enum定義で先に定義された列挙子が、後に列挙された列挙子よりも小さいと考えられます。
+構造体に導出すると、フィールドが構造体定義で現れる順番で各フィールドの値を比較することで 2 つのインスタンスを比較します。
+enum に導出すると、enum 定義で先に定義された列挙子が、後に列挙された列挙子よりも小さいと考えられます。
 
 <!--
 The `PartialOrd` trait is required, for example, for the `gen_range` method
@@ -225,10 +225,10 @@ derived on structs and enums, `cmp` behaves the same way as the derived
 implementation for `partial_cmp` does with `PartialOrd`.
 -->
 
-`Ord`トレイトにより、注釈した型のあらゆる2つの値に対して、合法な順序付けが行えることがわかります。
+`Ord`トレイトにより、注釈した型のあらゆる 2 つの値に対して、合法な順序付けが行えることがわかります。
 `Ord`トレイトは`cmp`メソッドを実装し、これは、常に合法な順序付けが可能なので、`Option<Ordering>`ではなく、
-`Ordering`を返します。`PartialOrd`と`Eq`(`Eq`は`PartialEq`も必要とします)も実装している型にしか、
-`Ord`トレイトを適用することはできません。構造体とenumで導出したら、`PartialOrd`で、
+`Ordering`を返します。`PartialOrd`と`Eq`(`Eq`は`PartialEq`も必要とします) も実装している型にしか、
+`Ord`トレイトを適用することはできません。構造体と enum で導出したら、`PartialOrd`で、
 `partial_cmp`の導出した実装と同じように`cmp`は振る舞います。
 
 <!--
@@ -254,7 +254,7 @@ for more information on `Clone`.
 
 `Clone`トレイトにより値のディープコピーを明示的に行うことができ、複製のプロセスは、任意のコードを実行し、
 ヒープデータをコピーすることに関係がある可能性があります。`Clone`について詳しくは、
-第4章の「変数とデータの相互作用法: Clone」節を参照されたし。
+第 4 章の「変数とデータの相互作用法：Clone」節を参照されたし。
 
 <!--
 Deriving `Clone` implements the `clone` method, which when implemented for the
@@ -284,7 +284,7 @@ section in Chapter 4 for more information on `Copy`.
 -->
 
 `Copy`トレイトにより、スタックに格納されたビットをコピーするだけで値を複製できます; 任意のコードは必要ありません。
-`Copy`について詳しくは、第4章の「スタックのみのデータ: Copy」を参照されたし。
+`Copy`について詳しくは、第 4 章の「スタックのみのデータ：Copy」を参照されたし。
 
 <!--
 The `Copy` trait doesn’t define any methods to prevent programmers from
@@ -377,7 +377,7 @@ struct and then set and use a default value for the rest of the fields by using
 -->
 
 `Default::default`関数は、
-第5章の「構造体更新記法で他のインスタンスからインスタンスを生成する」節で議論した構造体更新記法と組み合わせてよく使用されます。
+第 5 章の「構造体更新記法で他のインスタンスからインスタンスを生成する」節で議論した構造体更新記法と組み合わせてよく使用されます。
 構造体のいくつかのフィールドをカスタマイズし、それから`..Default::default()`を使用して、
 残りのフィールドに対して既定値をセットし使用することができます。
 

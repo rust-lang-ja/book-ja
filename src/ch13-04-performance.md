@@ -2,7 +2,7 @@
 ## Comparing Performance: Loops vs. Iterators
 -->
 
-## パフォーマンス比較: ループVSイテレータ
+## パフォーマンス比較：ループ VS イテレータ
 
 <!--
 To determine whether to use loops or iterators, you need to know which version
@@ -10,7 +10,7 @@ of our `search` functions is faster: the version with an explicit `for` loop or
 the version with iterators.
 -->
 
-ループを使うべきかイテレータを使うべきか決定するために、`search`関数のうち、どちらのバージョンが速いか知る必要があります:
+ループを使うべきかイテレータを使うべきか決定するために、`search`関数のうち、どちらのバージョンが速いか知る必要があります：
 明示的な`for`ループがあるバージョンと、イテレータのバージョンです。
 
 <!--
@@ -20,8 +20,8 @@ word *the* in the contents. Here are the results of the benchmark on the
 version of `search` using the `for` loop and the version using iterators:
 -->
 
-サー・アーサー・コナン・ドイル(Sir Arthur Conan Doyle)の、
-*シャーロックホームズの冒険*(The Adventures of Sherlock Homes)全体を`String`に読み込み、
+サー・アーサー・コナン・ドイル (Sir Arthur Conan Doyle) の、
+*シャーロックホームズの冒険*(The Adventures of Sherlock Homes) 全体を`String`に読み込み、
 そのコンテンツで*the*という単語を検索することでベンチマークを行いました。
 こちらが、`for`を使用した`search`関数のバージョンと、イテレータを使用したバージョンに関するベンチマーク結果です。
 
@@ -38,8 +38,8 @@ performance-wise.
 -->
 
 イテレータバージョンの方が<ruby>些<rp>(</rp><rt>いささ</rt><rp>)</rp></ruby>か高速ですね！ここでは、ベンチマークのコードは説明しません。
-なぜなら、要点は、2つのバージョンが等価であることを証明することではなく、
-これら2つの実装がパフォーマンス的にどう比較されるかを大まかに把握することだからです。
+なぜなら、要点は、2 つのバージョンが等価であることを証明することではなく、
+これら 2 つの実装がパフォーマンス的にどう比較されるかを大まかに把握することだからです。
 
 <!--
 For a more comprehensive benchmark, you should check various texts of
@@ -54,11 +54,11 @@ Stroustrup, the original designer and implementor of C++, defines
 -->
 
 より包括的なベンチマークとするためには、いろんなサイズの様々なテキストを`contents`として、異なる単語、異なる長さの単語を`query`として、
-他のあらゆる種類のバリエーションを確認するべきです。重要なのは: イテレータは、
+他のあらゆる種類のバリエーションを確認するべきです。重要なのは：イテレータは、
 高度な抽象化にも関わらず、低レベルのコードを自身で書いているかのように、ほぼ同じコードにコンパイルされることです。
-イテレータは、Rustの*ゼロコスト抽象化*の一つであり、これは、抽象化を使うことが追加の実行時オーバーヘッドを生まないことを意味しています。
-このことは、C++の元の設計者であり実装者のビャーネ・ストロヴストルップ(Bjarne Stroustrup)が、
-*ゼロオーバーヘッド*を「C++の基礎(2012)」で定義したのと類似しています。
+イテレータは、Rust の*ゼロコスト抽象化*の一つであり、これは、抽象化を使うことが追加の実行時オーバーヘッドを生まないことを意味しています。
+このことは、C++の元の設計者であり実装者のビャーネ・ストロヴストルップ (Bjarne Stroustrup) が、
+*ゼロオーバーヘッド*を「C++の基礎 (2012)」で定義したのと類似しています。
 
 <!--
 > In general, C++ implementations obey the zero-overhead principle: What you
@@ -66,8 +66,8 @@ Stroustrup, the original designer and implementor of C++, defines
 > code any better.
 -->
 
-> 一般的に、C++の実装は、ゼロオーバーヘッド原則を遵守します: 使用しないものには、支払わなくてよい。
-> さらに: 実際に使っているものに対して、コードをそれ以上うまく渡すことはできない。
+> 一般的に、C++の実装は、ゼロオーバーヘッド原則を遵守します：使用しないものには、支払わなくてよい。
+> さらに：実際に使っているものに対して、コードをそれ以上うまく渡すことはできない。
 
 <!--
 As another example, the following code is taken from an audio decoder. The
@@ -83,10 +83,10 @@ translates high-level ideas to low-level code:
 
 別の例として、以下のコードは、オーディオデコーダから取ってきました。デコードアルゴリズムは、
 線形予測数学演算を使用して、以前のサンプルの線形関数に基づいて未来の値を予測します。このコードは、
-イテレータ連結をしてスコープにある3つの変数に計算を行っています: `buffer`というデータのスライス、
-12の`coefficients`(係数)の配列、`qlp_shift`でデータをシフトする量です。この例の中で変数を宣言しましたが、
+イテレータ連結をしてスコープにある 3 つの変数に計算を行っています：`buffer`というデータのスライス、
+12 の`coefficients`(係数) の配列、`qlp_shift`でデータをシフトする量です。この例の中で変数を宣言しましたが、
 値は与えていません; このコードは、文脈の外では大して意味を持ちませんが、
-それでもRustが高レベルな考えを低レベルなコードに翻訳する簡潔で現実的な例になっています:
+それでも Rust が高レベルな考えを低レベルなコードに翻訳する簡潔で現実的な例になっています：
 
 ```rust,ignore
 let buffer: &mut [i32];
@@ -111,8 +111,8 @@ multiply the values together, sum all the results, and shift the bits in the
 sum `qlp_shift` bits to the right.
 -->
 
-`prediction`の値を算出するために、このコードは、`coefficients`の12の値を繰り返し、`zip`メソッドを使用して、
-係数値を前の`buffer`の12の値と組にします。それから各組について、その値をかけ合わせ、結果を全て合計し、
+`prediction`の値を算出するために、このコードは、`coefficients`の 12 の値を繰り返し、`zip`メソッドを使用して、
+係数値を前の`buffer`の 12 の値と組にします。それから各組について、その値をかけ合わせ、結果を全て合計し、
 合計のビットを`qlp_shift`ビット分だけ右にシフトさせます。
 
 <!--
@@ -128,10 +128,10 @@ the loop.
 -->
 
 オーディオデコーダのようなアプリケーションの計算は、しばしばパフォーマンスに最も重きを置きます。
-ここでは、イテレータを作成し、2つのアダプタを使用し、それから値を消費しています。
-このRustコードは、どんな機械語コードにコンパイルされるのでしょうか？えー、執筆時点では、
-手作業で書いたものと同じ機械語にコンパイルされます。`coefficients`の値の繰り返しに対応するループは全く存在しません:
-コンパイラは、12回繰り返しがあることを把握しているので、ループを「展開」します。
+ここでは、イテレータを作成し、2 つのアダプタを使用し、それから値を消費しています。
+この Rust コードは、どんな機械語コードにコンパイルされるのでしょうか？えー、執筆時点では、
+手作業で書いたものと同じ機械語にコンパイルされます。`coefficients`の値の繰り返しに対応するループは全く存在しません：
+コンパイラは、12 回繰り返しがあることを把握しているので、ループを「展開」します。
 *ループの展開*は、ループ制御コードのオーバーヘッドを除去し、代わりにループの繰り返しごとに同じコードを生成する最適化です。
 
 <!--
@@ -162,9 +162,9 @@ iterators are such that runtime performance is not affected. This is part of
 Rust’s goal to strive to provide zero-cost abstractions.
 -->
 
-クロージャとイテレータは、関数型言語の考えに着想を得たRustの機能です。低レベルのパフォーマンスで、
-高レベルの考えを明確に表現するというRustの能力に貢献しています。クロージャとイテレータの実装は、
-実行時のパフォーマンスが影響されないようなものです。これは、ゼロ代償抽象化を提供するのに努力を惜しまないRustの目標の一部です。
+クロージャとイテレータは、関数型言語の考えに着想を得た Rust の機能です。低レベルのパフォーマンスで、
+高レベルの考えを明確に表現するという Rust の能力に貢献しています。クロージャとイテレータの実装は、
+実行時のパフォーマンスが影響されないようなものです。これは、ゼロ代償抽象化を提供するのに努力を惜しまない Rust の目標の一部です。
 
 <!--
 Now that we’ve improved the expressiveness of our I/O project, let’s look at

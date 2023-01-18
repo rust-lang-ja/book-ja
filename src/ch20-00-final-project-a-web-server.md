@@ -2,7 +2,7 @@
 # Final Project: Building a Multithreaded Web Server
 -->
 
-# 最後のプロジェクト: マルチスレッドのWebサーバを構築する
+# 最後のプロジェクト：マルチスレッドの Web サーバを構築する
 
 <!--
 It’s been a long journey, but we’ve reached the end of the book. In this
@@ -19,7 +19,7 @@ For our final project, we’ll make a web server that says “hello” and looks
 Figure 20-1 in a web browser.
 -->
 
-最後のプロジェクトでは、`hello`と話すWebサーバを作り、Webブラウザでは、図20-1のような見た目になります。
+最後のプロジェクトでは、`hello`と話す Web サーバを作り、Web ブラウザでは、図 20-1 のような見た目になります。
 
 ![hello from rust](img/trpl20-01.png)
 
@@ -27,13 +27,13 @@ Figure 20-1 in a web browser.
 <span class="caption">Figure 20-1: Our final shared project</span>
 -->
 
-<span class="caption">図20-1: 最後の共有されたプロジェクト</span>
+<span class="caption">図 20-1: 最後の共有されたプロジェクト</span>
 
 <!--
 Here is the plan to build the web server:
 -->
 
-こちらがWebサーバを構築するプランです:
+こちらが Web サーバを構築するプランです：
 
 <!--
 1. Learn a bit about TCP and HTTP.
@@ -43,10 +43,10 @@ Here is the plan to build the web server:
 5. Improve the throughput of our server with a thread pool.
 -->
 
-1. TCPとHTTPについて少し学ぶ。
-2. ソケットでTCP接続をリッスンする。
-3. 少量のHTTPリクエストを構文解析する。
-4. 適切なHTTPレスポンスを生成する。
+1. TCP と HTTP について少し学ぶ。
+2. ソケットで TCP 接続をリッスンする。
+3. 少量の HTTP リクエストを構文解析する。
+4. 適切な HTTP レスポンスを生成する。
 5. スレッドプールでサーバのスループットを強化する。
 
 <!--
@@ -56,9 +56,9 @@ production-ready crates are available on *https://crates.io/* that provide more
 complete web server and thread pool implementations than we’ll build.
 -->
 
-ですが、取り掛かる前に、ある小さな事実に触れなければなりません:
-わたしたちがこれから行うやり方は、RustでWebサーバを構築する最善の方法ではないだろうということです。
-これから構築するよりもより完全なWebサーバとスレッドプールの実装を提供する製品利用可能な多くのクレートが、
+ですが、取り掛かる前に、ある小さな事実に触れなければなりません：
+わたしたちがこれから行うやり方は、Rust で Web サーバを構築する最善の方法ではないだろうということです。
+これから構築するよりもより完全な Web サーバとスレッドプールの実装を提供する製品利用可能な多くのクレートが、
 *https://crates.io/* で利用可能なのです。
 
 <!--
@@ -71,6 +71,6 @@ the crates you might use in the future.
 -->
 
 しかしながら、この章での意図は、学習を手助けすることであり、簡単なやり方を選ぶことではありません。
-Rustはシステムプログラミング言語なので、取りかかる抽象度を選ぶことができ、
+Rust はシステムプログラミング言語なので、取りかかる抽象度を選ぶことができ、
 他の言語で可能だったり実践的だったりするよりも低レベルまで行くことができます。一般的な考えと将来使う可能性のあるクレートの背後にある技術を学べるように、
-手動で基本的なHTTPサーバとスレッドプールを書きます。
+手動で基本的な HTTP サーバとスレッドプールを書きます。

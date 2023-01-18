@@ -2,7 +2,7 @@
 ## Appendix F: Translations of the Book
 -->
 
-## 付録F: 本の翻訳
+## 付録 F: 本の翻訳
 
 <!--
 For resources in languages other than English. Most are still in progress; see
@@ -11,7 +11,7 @@ For resources in languages other than English. Most are still in progress; see
 
 英語以外の言語の資料についてです。ほとんどはまだ翻訳中です。
 手助けいただける際や、新しい翻訳について教えていただける際は、
-[Translationsラベル][label]を確認してください！
+[Translations ラベル][label]を確認してください！
 
 [label]: https://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslations
 

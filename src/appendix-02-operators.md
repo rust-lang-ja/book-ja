@@ -2,7 +2,7 @@
 ## Appendix B: Operators and Symbols
 -->
 
-## 付録B: 演算子と記号
+## 付録 B: 演算子と記号
 
 <!--
 This appendix contains a glossary of Rust’s syntax, including operators and
@@ -11,7 +11,7 @@ trait bounds, macros, attributes, comments, tuples, and brackets.
 -->
 
 この付録は、演算子や、単独で現れたり、パス、ジェネリクス、トレイト境界、マクロ、属性、コメント、タプル、
-かっこの文脈で現れる他の記号を含むRustの記法の用語集を含んでいます。
+かっこの文脈で現れる他の記号を含む Rust の記法の用語集を含んでいます。
 
 <!--
 ### Operators
@@ -26,14 +26,14 @@ overloadable. If an operator is overloadable, the relevant trait to use to
 overload that operator is listed.
 -->
 
-表B-1は、Rustの演算子、演算子が文脈で現れる例、短い説明、その演算子がオーバーロード可能かどうかを含んでいます。
+表 B-1 は、Rust の演算子、演算子が文脈で現れる例、短い説明、その演算子がオーバーロード可能かどうかを含んでいます。
 演算子がオーバーロード可能ならば、オーバーロードするのに使用する関係のあるトレイトも列挙されています。
 
 <!--
 <span class="caption">Table B-1: Operators</span>
 -->
 
-<span class="caption">表B-1: 演算子</span>
+<span class="caption">表 B-1: 演算子</span>
 
 <!--
 | Operator | Example | Explanation | Overloadable? |
@@ -102,9 +102,9 @@ overload that operator is listed.
 | `%=`              | `var %= expr`                                    | 余り演算後に代入            | `RemAssign` |
 | `&`               | `&expr`, `&mut expr`                             | 借用                      ||
 | `&`               | `&type`, `&mut type`, `&'a type`, `&'a mut type` | 借用されたポインタ型        ||
-| `&`               | `expr & expr`                                    | ビットAND                 | `BitAnd` |
-| `&=`              | `var &= expr`                                    | ビットAND後に代入          | `BitAndAssign` |
-| `&&`              | `expr && expr`                                   | 論理AND                   ||
+| `&`               | `expr & expr`                                    | ビット AND                 | `BitAnd` |
+| `&=`              | `var &= expr`                                    | ビット AND 後に代入          | `BitAndAssign` |
+| `&&`              | `expr && expr`                                   | 論理 AND                   ||
 | `*`               | `expr * expr`                                    | 掛け算                    | `Mul` |
 | `*`               | `*expr`                                          | 参照外し                  ||
 | `*`               | `*const type`, `*mut type`                       | 生ポインタ                ||
@@ -121,7 +121,7 @@ overload that operator is listed.
 | `..`              | `..`, `expr..`, `..expr`, `expr..expr`           | 未満範囲リテラル            ||
 | `..`              | `..expr`                                         | 構造体リテラル更新記法       ||
 | `..`              | `variant(x, ..)`, `struct_type { x, .. }`        | 「残り全部」パターン束縛     ||
-| `...`             | `expr...expr`                                    | パターンで: 以下範囲パターン ||
+| `...`             | `expr...expr`                                    | パターンで：以下範囲パターン ||
 | `/`               | `expr / expr`                                    | 割り算                    | `Div` |
 | `/=`              | `var /= expr`                                    | 割り算後に代入             | `DivAssign` |
 | `:`               | `pat: type`, `ident: type`                       | 型制約                    ||
@@ -135,19 +135,19 @@ overload that operator is listed.
 | `<=`              | `expr <= expr`                                   | 以下比較                  | `PartialOrd` |
 | `=`               | `var = expr`, `ident = type`                     | 代入/等価                 ||
 | `==`              | `expr == expr`                                   | 等価比較                  | `PartialEq` |
-| `=>`              | `pat => expr`                                    | matchアーム記法の一部      ||
+| `=>`              | `pat => expr`                                    | match アーム記法の一部      ||
 | `>`               | `expr > expr`                                    | より大きい比較             | `PartialOrd` |
 | `>=`              | `expr >= expr`                                   | 以上比較                  | `PartialOrd` |
 | `>>`              | `expr >> expr`                                   | 右シフト                  | `Shr` |
 | `>>=`             | `var >>= expr`                                   | 右シフト後に代入           | `ShrAssign` |
 | `@`               | `ident @ pat`                                    | パターン束縛              ||
-| `^`               | `expr ^ expr`                                    | ビットXOR                | `BitXor` |
-| `^=`              | `var ^= expr`                                    | ビットXOR後に代入         | `BitXorAssign` |
-| <code>\|</code>   | <code>pat \| pat</code>                          | パターンOR               ||
+| `^`               | `expr ^ expr`                                    | ビット XOR                | `BitXor` |
+| `^=`              | `var ^= expr`                                    | ビット XOR 後に代入         | `BitXorAssign` |
+| <code>\|</code>   | <code>pat \| pat</code>                          | パターン OR               ||
 | <code>\|</code>   | <code>\|…\| expr</code>                          | クロージャ               ||
-| <code>\|</code>   | <code>expr \| expr</code>                        | ビットOR                 | `BitOr` |
-| <code>\|=</code>  | <code>var \|= expr</code>                        | ビットOR後に代入          | `BitOrAssign`|
-| <code>\|\|</code> | <code>expr \|\| expr</code>                      | 論理OR                   ||
+| <code>\|</code>   | <code>expr \| expr</code>                        | ビット OR                 | `BitOr` |
+| <code>\|=</code>  | <code>var \|= expr</code>                        | ビット OR 後に代入          | `BitOrAssign`|
+| <code>\|\|</code> | <code>expr \|\| expr</code>                      | 論理 OR                   ||
 | `?`               | `expr?`                                          | エラー委譲                ||
 
 <!--
@@ -169,13 +169,13 @@ Table B-2 shows symbols that appear on their own and are valid in a variety of
 locations.
 -->
 
-表B-2は、単独で出現し、いろんな箇所で合法になる記号を示しています。
+表 B-2 は、単独で出現し、いろんな箇所で合法になる記号を示しています。
 
 <!--
 <span class="caption">Table B-2: Stand-Alone Syntax</span>
 -->
 
-<span class="caption">表B-2: スタンドアローン記法</span>
+<span class="caption">表 B-2: スタンドアローン記法</span>
 
 <!--
 | Symbol | Explanation |
@@ -202,23 +202,23 @@ locations.
 | `b"..."`                                        | バイト文字列リテラル、文字列の代わりに`[u8]`を構築します |
 | `br"..."`, `br#"..."#`, `br##"..."##`など       | 生バイト文字列リテラル、生文字列とバイト文字列の組み合わせ |
 | `'...'`                                         | 文字リテラル |
-| `b'...'`                                        | ASCIIバイトリテラル |
+| `b'...'`                                        | ASCII バイトリテラル |
 | <code>\|...\| expr</code>                       | クロージャ |
 | `!`                                             | 常に発散関数の空のボトム型 |
-| `_`                                             | 「無視」パターン束縛: 整数リテラルを見やすくするのにも使われる|
+| `_`                                             | 「無視」パターン束縛：整数リテラルを見やすくするのにも使われる|
 
 <!--
 Table B-3 shows symbols that appear in the context of a path through the module
 hierarchy to an item.
 -->
 
-表B-3は、要素へのモジュール階層を通したパスの文脈で出現する記号を示しています。
+表 B-3 は、要素へのモジュール階層を通したパスの文脈で出現する記号を示しています。
 
 <!--
 <span class="caption">Table B-3: Path-Related Syntax</span>
 -->
 
-<span class="caption">表B-3: パス関連記法</span>
+<span class="caption">表 B-3: パス関連記法</span>
 
 <!--
 | Symbol | Explanation |
@@ -237,11 +237,11 @@ hierarchy to an item.
 | シンボル                                 | 説明 |
 |-----------------------------------------|------|
 | `ident::ident`                          | 名前空間パス |
-| `::path`                                | クレートルートに相対的なパス(すなわち、明示的な絶対パス) |
-| `self::path`                            | 現在のモジュールに相対的なパス(すなわち、明示的な相対パス) |
+| `::path`                                | クレートルートに相対的なパス (すなわち、明示的な絶対パス) |
+| `self::path`                            | 現在のモジュールに相対的なパス (すなわち、明示的な相対パス) |
 | `super::path`                           | 現在のモジュールの親モジュールに相対的なパス |
 | `type::ident`, `<type as trait>::ident` | 関連定数、関数、型 |
-| `<type>::...`                           | 直接名前付けできない型の関連要素(例, `<&T>::...`, `<[T]>::...`など) |
+| `<type>::...`                           | 直接名前付けできない型の関連要素 (例，`<&T>::...`, `<[T]>::...`など) |
 | `trait::method(...)`                    | 定義したトレイトを名指ししてメソッド呼び出しを明確化する |
 | `type::method(...)`                     | 定義されている型を名指ししてメソッド呼び出しを明確化する |
 | `<type as trait>::method(...)`          | トレイト*と*型を名指ししてメソッド呼び出しを明確化する|
@@ -251,13 +251,13 @@ Table B-4 shows symbols that appear in the context of using generic type
 parameters.
 -->
 
-表B-4は、ジェネリックな型引数の文脈で出現する記号を示しています。
+表 B-4 は、ジェネリックな型引数の文脈で出現する記号を示しています。
 
 <!--
 <span class="caption">Table B-4: Generics</span>
 -->
 
-<span class="caption">表B-4: ジェネリクス</span>
+<span class="caption">表 B-4: ジェネリクス</span>
 
 <!--
 | Symbol | Explanation |
@@ -274,27 +274,27 @@ parameters.
 
 | シンボル                        | 説明 |
 |--------------------------------|-----|
-| `path<...>`                    | 型の内部のジェネリック型への引数を指定する(例、`Vec<u8>`) |
-| `path::<...>`, `method::<...>` | 式中のジェネリックな型、関数、メソッドへの引数を指定する。しばしばターボ・フィッシュ(turbofish)と称される。(例、`"42".parse::<i32>()`) |
+| `path<...>`                    | 型の内部のジェネリック型への引数を指定する (例、`Vec<u8>`) |
+| `path::<...>`, `method::<...>` | 式中のジェネリックな型、関数、メソッドへの引数を指定する。しばしばターボ・フィッシュ (turbofish) と称される。(例、`"42".parse::<i32>()`) |
 | `fn ident<...> ...`            | ジェネリックな関数を定義する |
 | `struct ident<...> ...`        | ジェネリックな構造体を定義する |
 | `enum ident<...> ...`          | ジェネリックな列挙型を定義する |
 | `impl<...> ...`                | ジェネリックな実装を定義する |
 | `for<...> type`                | 高階ライフタイム境界 |
-| `type<ident=type>`             | 1つ以上の関連型に代入されたジェネリックな型(例、`Iterator<Item=T>`) |
+| `type<ident=type>`             | 1 つ以上の関連型に代入されたジェネリックな型 (例、`Iterator<Item=T>`) |
 
 <!--
 Table B-5 shows symbols that appear in the context of constraining generic type
 parameters with trait bounds.
 -->
 
-表B-5は、ジェネリック型引数をトレイト境界で制約する文脈で出現する記号を示しています。
+表 B-5 は、ジェネリック型引数をトレイト境界で制約する文脈で出現する記号を示しています。
 
 <!--
 <span class="caption">Table B-5: Trait Bound Constraints</span>
 -->
 
-<span class="caption">表B-5: トレイト境界制約</span>
+<span class="caption">表 B-5: トレイト境界制約</span>
 
 <!--
 | Symbol | Explanation |
@@ -321,13 +321,13 @@ Table B-6 shows symbols that appear in the context of calling or defining
 macros and specifying attributes on an item.
 -->
 
-表B-6は、マクロの呼び出しや定義、要素に属性を指定する文脈で出現する記号を示しています。
+表 B-6 は、マクロの呼び出しや定義、要素に属性を指定する文脈で出現する記号を示しています。
 
 <!--
 <span class="caption">Table B-6: Macros and Attributes</span>
 -->
 
-<span class="caption">表B-6: マクロと属性</span>
+<span class="caption">表 B-6: マクロと属性</span>
 
 <!--
 | Symbol | Explanation |
@@ -351,13 +351,13 @@ macros and specifying attributes on an item.
 Table B-7 shows symbols that create comments.
 -->
 
-表B-7は、コメントを生成する記号を示しています。
+表 B-7 は、コメントを生成する記号を示しています。
 
 <!--
 <span class="caption">Table B-7: Comments</span>
 -->
 
-<span class="caption">表B-7: コメント</span>
+<span class="caption">表 B-7: コメント</span>
 
 <!--
 | Symbol | Explanation |
@@ -373,11 +373,11 @@ Table B-7 shows symbols that create comments.
 | シンボル    | 説明 |
 |------------|-----|
 | `//`       | 行コメント |
-| `//!`      | 内部行docコメント |
-| `///`      | 外部行docコメント |
+| `//!`      | 内部行 doc コメント |
+| `///`      | 外部行 doc コメント |
 | `/*...*/`  | ブロックコメント |
-| `/*!...*/` | 内部ブロックdocコメント |
-| `/**...*/` | 外部ブロックdocコメント |
+| `/*!...*/` | 内部ブロック doc コメント |
+| `/**...*/` | 外部ブロック doc コメント |
 
 <!--
 #### Tuples
@@ -389,13 +389,13 @@ Table B-7 shows symbols that create comments.
 Table B-8 shows symbols that appear in the context of using tuples.
 -->
 
-表B-8は、タプルの文脈で出現する記号を示しています。
+表 B-8 は、タプルの文脈で出現する記号を示しています。
 
 <!--
 <span class="caption">Table B-8: Tuples</span>
 -->
 
-<span class="caption">表B-8: タプル</span>
+<span class="caption">表 B-8: タプル</span>
 
 <!--
 | Symbol | Explanation |
@@ -415,8 +415,8 @@ Table B-8 shows symbols that appear in the context of using tuples.
 |---------------------------------------------|-----|
 | `()`                                        | 空のタプル (ユニットとしても知られる)、リテラル、型両方 |
 | `(expr)`                                    | 括弧付きの式 |
-| `(expr,)`                                   | 1要素タプル式 |
-| `(type,)`                                   | 1要素タプル型 |
+| `(expr,)`                                   | 1 要素タプル式 |
+| `(type,)`                                   | 1 要素タプル型 |
 | `(expr, ...)`                               | タプル式 |
 | `(type, ...)`                               | タプル型 |
 | `expr(expr, ...)`                           | 関数呼び出し式; タプル`struct`やタプル`enum`列挙子を初期化するのにも使用される |
@@ -427,13 +427,13 @@ Table B-8 shows symbols that appear in the context of using tuples.
 Table B-9 shows the contexts in which curly braces are used.
 -->
 
-表B-9は、波括弧が使用される文脈を表示しています。
+表 B-9 は、波括弧が使用される文脈を表示しています。
 
 <!--
 <span class="caption">Table B-9: Curly Brackets</span>
 -->
 
-<span class="caption">表B-9: 波括弧</span>
+<span class="caption">表 B-9: 波括弧</span>
 
 <!--
 | Context | Explanation |
@@ -451,13 +451,13 @@ Table B-9 shows the contexts in which curly braces are used.
 Table B-10 shows the contexts in which square brackets are used.
 -->
 
-表B-10は、角括弧が使用される文脈を表示しています。
+表 B-10 は、角括弧が使用される文脈を表示しています。
 
 <!--
 <span class="caption">Table B-10: Square Brackets</span>
 -->
 
-<span class="caption">表B-10: 角括弧</span>
+<span class="caption">表 B-10: 角括弧</span>
 
 <!--
 | Context | Explanation |

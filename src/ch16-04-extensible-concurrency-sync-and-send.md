@@ -12,7 +12,7 @@ concurrency are not limited to the language or the standard library; you can
 write your own concurrency features or use those written by others.
 -->
 
-面白いことに、Rust言語には、*寡*少な並行性機能があります。この章でここまでに語った並行性機能のほとんどは、
+面白いことに、Rust 言語には、*寡*少な並行性機能があります。この章でここまでに語った並行性機能のほとんどは、
 標準ライブラリの一部であり、言語ではありません。並行性を扱う選択肢は、言語や標準ライブラリに制限されません;
 独自の並行性機能を書いたり、他人が書いたものを利用したりできるのです。
 
@@ -21,7 +21,7 @@ However, two concurrency concepts are embedded in the language: the
 `std::marker` traits `Sync` and `Send`.
 -->
 
-ですが、2つの並行性概念が言語に埋め込まれています: `std::marker`トレイトの`Sync`と`Send`です。
+ですが、2 つの並行性概念が言語に埋め込まれています：`std::marker`トレイトの`Sync`と`Send`です。
 
 <!--
 ### Allowing Transference of Ownership Between Threads with `Send`
@@ -30,7 +30,7 @@ However, two concurrency concepts are embedded in the language: the
 ### `Send`でスレッド間の所有権の転送を許可する
 
 <!--
-最後から2行目、single-threaded situationsのsituationsを環境と訳すのが自然なのでそうしている
+最後から 2 行目、single-threaded situations の situations を環境と訳すのが自然なのでそうしている
 -->
 
 <!--
@@ -44,7 +44,7 @@ where you don’t want to pay the thread-safe performance penalty.
 -->
 
 `Send`マーカートレイトは、`Send`を実装した型の所有権をスレッド間で転送できることを示唆します。
-Rustのほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外があります: この型は、`Rc<T>`の値をクローンし、
+Rust のほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外があります：この型は、`Rc<T>`の値をクローンし、
 クローンしたものの所有権を別のスレッドに転送しようとしたら、両方のスレッドが同時に参照カウントを更新できてしまうので、
 `Send`になり得ません。このため、`Rc<T>`はスレッド安全性のためのパフォーマンスの犠牲を支払わなくても済む、
 シングルスレッド環境で使用するために実装されているわけです。
@@ -57,8 +57,8 @@ Rc<Mutex<i32>>`. When we switched to `Arc<T>`, which is `Send`, the code
 compiled.
 -->
 
-故に、Rustの型システムとトレイト境界により、`Rc<T>`の値を不安全にスレッド間で誤って送信することが絶対ないよう保証してくれるのです。
-リスト16-14でこれを試みた時には、`the trait Send is not implemented for Rc<Mutex<i32>>`というエラーが出ました。
+故に、Rust の型システムとトレイト境界により、`Rc<T>`の値を不安全にスレッド間で誤って送信することが絶対ないよう保証してくれるのです。
+リスト 16-14 でこれを試みた時には、`the trait Send is not implemented for Rc<Mutex<i32>>`というエラーが出ました。
 `Send`の`Arc<T>`に切り替えたら、コードはコンパイルできたわけです。
 
 <!--
@@ -68,7 +68,7 @@ we’ll discuss in Chapter 19.
 -->
 
 完全に`Send`の型からなる型も全て自動的に`Send`と印付けされます。生ポインタを除くほとんどの基本型も`Send`で、
-生ポインタについては第19章で議論します。
+生ポインタについては第 19 章で議論します。
 
 <!--
 ### Allowing Access from Multiple Threads with `Sync`
@@ -85,7 +85,7 @@ and types composed entirely of types that are `Sync` are also `Sync`.
 -->
 
 `Sync`マーカートレイトは、`Sync`を実装した型は、複数のスレッドから参照されても安全であることを示唆します。
-言い換えると、`&T`(`T`への参照)が`Send`なら、型`T`は`Sync`であり、参照が他のスレッドに安全に送信できることを意味します。
+言い換えると、`&T`(`T`への参照) が`Send`なら、型`T`は`Sync`であり、参照が他のスレッドに安全に送信できることを意味します。
 `Send`同様、基本型は`Sync`であり、`Sync`の型からのみ構成される型もまた`Sync`です。
 
 <!--
@@ -99,7 +99,7 @@ section.
 -->
 
 `Send`ではなかったのと同じ理由で、スマートポインタの`Rc<T>`もまた`Sync`ではありません。
-`RefCell<T>`型(これについては第15章で話しました)と関連する`Cell<T>`系についても`Sync`ではありません。
+`RefCell<T>`型 (これについては第 15 章で話しました) と関連する`Cell<T>`系についても`Sync`ではありません。
 `RefCell<T>`が実行時に行う借用チェックの実装は、スレッド安全ではないのです。
 スマートポインタの`Mutex<T>`は`Sync`で、「複数のスレッド間で`Mutex<T>`を共有する」節で見たように、
 複数のスレッドでアクセスを共有するのに使用することができます。
@@ -130,13 +130,13 @@ information is that building new concurrent types not made up of `Send` and
 uphold them.
 -->
 
-これらのトレイトを手動で実装するには、unsafeなRustコードを実装することが関わってきます。
-unsafeなRustコードを使用することについては第19章で語ります; とりあえず、重要な情報は、
+これらのトレイトを手動で実装するには、unsafe な Rust コードを実装することが関わってきます。
+unsafe な Rust コードを使用することについては第 19 章で語ります; とりあえず、重要な情報は、
 `Send`と`Sync`ではない部品からなる新しい並行な型を構成するには、安全性保証を保持するために、
 注意深い思考が必要になるということです。[The Rustonomicon]には、
 これらの保証とそれを保持する方法についての情報がより多くあります。
 
-> 訳注: 日本語版のThe Rustonomiconは[こちら][nomicon-ja]です。
+> 訳注：日本語版の The Rustonomicon は[こちら][nomicon-ja]です。
 
 [The Rustonomicon]: https://doc.rust-lang.org/stable/nomicon/
 [nomicon-ja]: https://doc.rust-jp.rs/rust-nomicon-ja/index.html
@@ -153,11 +153,11 @@ Chapter 20 will use the concepts in this chapter in a more realistic situation
 than the smaller examples discussed here.
 -->
 
-この本において並行性を見かけるのは、これで最後ではありません: 第20章のプロジェクトでは、
+この本において並行性を見かけるのは、これで最後ではありません：第 20 章のプロジェクトでは、
 この章の概念をここで議論した微小な例よりもより現実的な場面で使用するでしょう。
 
 <!--
-最後はmutithreaded situationsとなっているが、situationを環境と訳した方が自然なので、そうしている
+最後は mutithreaded situations となっているが、situation を環境と訳した方が自然なので、そうしている
 -->
 
 <!--
@@ -168,7 +168,7 @@ online for the current, state-of-the-art crates to use in multithreaded
 situations.
 -->
 
-前述のように、Rustによる並行性の取扱いのごく一部のみが言語仕様なので、多くの並行性の解決策は
+前述のように、Rust による並行性の取扱いのごく一部のみが言語仕様なので、多くの並行性の解決策は
 クレートとして実装されています。これらは標準ライブラリよりも迅速に進化するので、
 マルチスレッド環境で使用すべき現在の最先端のクレートを必ずネットで検索してください。
 
@@ -183,11 +183,11 @@ other languages. Concurrent programming is no longer a concept to be afraid of:
 go forth and make your programs concurrent, fearlessly!
 -->
 
-Rustの標準ライブラリは、メッセージ受け渡しにチャンネルを、並行の文脈で安全に使用できる、
+Rust の標準ライブラリは、メッセージ受け渡しにチャンネルを、並行の文脈で安全に使用できる、
 `Mutex<T>`や`Arc<T>`などのスマートポインタ型を提供しています。型システムと借用チェッカーにより、
 これらの解決策を使用するコードがデータ競合や無効な参照に行き着かないことを保証してくれます。
 一旦コードをコンパイルすることができたら、他の言語ではありふれている追跡困難な類のバグなしに、
-複数のスレッドでも喜んで動くので安心できます。並行プログラミングは、もはや恐れるべき概念ではありません:
+複数のスレッドでも喜んで動くので安心できます。並行プログラミングは、もはや恐れるべき概念ではありません：
 恐れることなく前進し、プログラムを並行にしてください！
 
 <!--
@@ -196,5 +196,5 @@ as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idio
 relate to those you might be familiar with from object oriented programming.
 -->
 
-次は、Rustプログラムが肥大化するにつれて問題をモデル化し、解決策を構造化する慣例的な方法について話します。
-さらに、Rustのイディオムがオブジェクト指向プログラミングで馴染み深いかもしれないイディオムにどのように関連しているかについても議論します。
+次は、Rust プログラムが肥大化するにつれて問題をモデル化し、解決策を構造化する慣例的な方法について話します。
+さらに、Rust のイディオムがオブジェクト指向プログラミングで馴染み深いかもしれないイディオムにどのように関連しているかについても議論します。

@@ -14,9 +14,9 @@ respectively), and their first parameter is always `self`, which represents the
 instance of the struct the method is being called on.
 -->
 
-*メソッド*は関数に似ています: `fn`キーワードと名前で宣言されるし、引数と返り値があるし、
+*メソッド*は関数に似ています：`fn`キーワードと名前で宣言されるし、引数と返り値があるし、
 どこか別の場所で呼び出された時に実行されるコードを含みます。ところが、
-メソッドは構造体の文脈(あるいはenumかトレイトオブジェクトの。これらについては各々第6章と17章で解説します)で定義されるという点で、
+メソッドは構造体の文脈 (あるいは enum かトレイトオブジェクトの。これらについては各々第 6 章と 17 章で解説します) で定義されるという点で、
 関数とは異なり、最初の引数は必ず`self`になり、これはメソッドが呼び出されている構造体インスタンスを表します。
 
 <!--
@@ -32,13 +32,13 @@ in Listing 5-13.
 -->
 
 `Rectangle`インスタンスを引数に取る`area`関数を変え、代わりに`Rectangle`構造体上に`area`メソッドを作りましょう。
-リスト5-13に示した通りですね。
+リスト 5-13 に示した通りですね。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 #[derive(Debug)]
@@ -68,7 +68,7 @@ fn main() {
 `Rectangle` struct</span>
 -->
 
-<span class="caption">リスト5-13: `Rectangle`構造体上に`area`メソッドを定義する</span>
+<span class="caption">リスト 5-13: `Rectangle`構造体上に`area`メソッドを定義する</span>
 
 <!--
 To define the function within the context of `Rectangle`, we start an `impl`
@@ -81,10 +81,10 @@ The method syntax goes after an instance: we add a dot followed by the method
 name, parentheses, and any arguments.
 -->
 
-`Rectangle`の文脈内で関数を定義するには、`impl`(implementation; 実装)ブロックを始めます。
-それから`area`関数を`impl`の波かっこ内に移動させ、最初の(今回は唯一の)引数をシグニチャ内と本体内全てで`self`に変えます。
+`Rectangle`の文脈内で関数を定義するには、`impl`(implementation; 実装) ブロックを始めます。
+それから`area`関数を`impl`の波かっこ内に移動させ、最初の (今回は唯一の) 引数をシグニチャ内と本体内全てで`self`に変えます。
 `area`関数を呼び出し、`rect1`を引数として渡す`main`では、代替としてメソッド記法を使用して、
-`Rectangle`インスタンスの`area`メソッドを呼び出せます。メソッド記法は、インスタンスの後に続きます:
+`Rectangle`インスタンスの`area`メソッドを呼び出せます。メソッド記法は、インスタンスの後に続きます：
 ドット、メソッド名、かっこ、そして引数と続くわけです。
 
 <!--
@@ -114,10 +114,10 @@ usually used when the method transforms `self` into something else and we want
 to prevent the caller from using the original instance after the transformation.
 -->
 
-ここで`&self`を選んでいるのは、関数バージョンで`&Rectangle`を使用していたのと同様の理由です:
+ここで`&self`を選んでいるのは、関数バージョンで`&Rectangle`を使用していたのと同様の理由です：
 所有権はいらず、構造体のデータを読み込みたいだけで、書き込む必要はないわけです。
-メソッドの一部でメソッドを呼び出したインスタンスを変更したかったら、第1引数に`&mut self`を使用するでしょう。
-`self`だけを第1引数にしてインスタンスの所有権を奪うメソッドを定義することは稀です; このテクニックは通常、
+メソッドの一部でメソッドを呼び出したインスタンスを変更したかったら、第 1 引数に`&mut self`を使用するでしょう。
+`self`だけを第 1 引数にしてインスタンスの所有権を奪うメソッドを定義することは稀です; このテクニックは通常、
 メソッドが`self`を何か別のものに変形し、変形後に呼び出し元が元のインスタンスを使用できないようにしたい場合に使用されます。
 
 <!--
@@ -185,18 +185,18 @@ making ownership ergonomic in practice.
 
 > ### `->`演算子はどこに行ったの？
 >
-> CとC++では、メソッド呼び出しには2種類の異なる演算子が使用されます:
+> C と C++では、メソッド呼び出しには 2 種類の異なる演算子が使用されます：
 > オブジェクトに対して直接メソッドを呼び出すのなら、`.`を使用するし、オブジェクトのポインタに対してメソッドを呼び出し、
 > 先にポインタを参照外しする必要があるなら、`->`を使用するわけです。
 > 言い換えると、`object`がポインタなら、`object->something()`は、`(*object).something()`と同等なのです。
 >
-> Rustには`->`演算子の代わりとなるようなものはありません; その代わり、Rustには、
-> *自動参照および参照外し*という機能があります。Rustにおいてメソッド呼び出しは、
+> Rust には`->`演算子の代わりとなるようなものはありません; その代わり、Rust には、
+> *自動参照および参照外し*という機能があります。Rust においてメソッド呼び出しは、
 > この動作が行われる数少ない箇所なのです。
 >
-> 動作方法はこうです: `object.something()`とメソッドを呼び出すと、
+> 動作方法はこうです：`object.something()`とメソッドを呼び出すと、
 > コンパイラは`object`がメソッドのシグニチャと合致するように、自動で`&`か`&mut`、`*`を付与するのです。
-> 要するに、以下のコードは同じものです:
+> 要するに、以下のコードは同じものです：
 >
 > ```rust
 > # #[derive(Debug,Copy,Clone)]
@@ -219,10 +219,10 @@ making ownership ergonomic in practice.
 > (&p1).distance(&p2);
 > ```
 >
-> 前者の方がずっと明確です。メソッドには自明な受け手(`self`の型)がいるので、この自動参照機能は動作するのです。
-> 受け手とメソッド名が与えられれば、コンパイラは確実にメソッドが読み込み専用(`&self`)か、書き込みもする(`&mut self`)のか、
-> 所有権を奪う(`self`)のか判断できるわけです。メソッドの受け手に関して借用が明示されないというのが、
-> 所有権を実際に使うのがRustにおいて簡単である大きな理由です。
+> 前者の方がずっと明確です。メソッドには自明な受け手 (`self`の型) がいるので、この自動参照機能は動作するのです。
+> 受け手とメソッド名が与えられれば、コンパイラは確実にメソッドが読み込み専用 (`&self`) か、書き込みもする (`&mut self`) のか、
+> 所有権を奪う (`self`) のか判断できるわけです。メソッドの受け手に関して借用が明示されないというのが、
+> 所有権を実際に使うのが Rust において簡単である大きな理由です。
 
 <!--
 ### Methods with More Parameters
@@ -239,16 +239,16 @@ to write the program shown in Listing 5-14, once we’ve defined the `can_hold`
 method.
 -->
 
-`Rectangle`構造体に2番目のメソッドを実装して、メソッドを使う鍛錬をしましょう。今回は、`Rectangle`のインスタンスに、
-別の`Rectangle`のインスタンスを取らせ、2番目の`Rectangle`が`self`に完全にはめ込まれたら、`true`を返すようにしたいのです;
+`Rectangle`構造体に 2 番目のメソッドを実装して、メソッドを使う鍛錬をしましょう。今回は、`Rectangle`のインスタンスに、
+別の`Rectangle`のインスタンスを取らせ、2 番目の`Rectangle`が`self`に完全にはめ込まれたら、`true`を返すようにしたいのです;
 そうでなければ、`false`を返すべきです。つまり、一旦`can_hold`メソッドを定義したら、
-リスト5-14のようなプログラムを書けるようになりたいのです。
+リスト 5-14 のようなプログラムを書けるようになりたいのです。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -256,7 +256,7 @@ fn main() {
     let rect2 = Rectangle { width: 10, height: 40 };
     let rect3 = Rectangle { width: 60, height: 45 };
 
-    // rect1にrect2ははまり込む？
+    // rect1 に rect2 ははまり込む？
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 }
@@ -267,7 +267,7 @@ fn main() {
 method</span>
 -->
 
-<span class="caption">リスト5-14: まだ書いていない`can_hold`メソッドを使用する</span>
+<span class="caption">リスト 5-14: まだ書いていない`can_hold`メソッドを使用する</span>
 
 <!--
 And the expected output would look like the following, because both dimensions
@@ -276,7 +276,7 @@ of `rect2` are smaller than the dimensions of `rect1` but `rect3` is wider than
 -->
 
 そして、予期される出力は以下のようになります。なぜなら、`rect2`の各寸法は`rect1`よりも小さいものの、
-`rect3`は`rect1`より幅が広いからです:
+`rect3`は`rect1`より幅が広いからです：
 
 ```text
 Can rect1 hold rect2? true
@@ -301,19 +301,19 @@ Listing 5-13, shown in Listing 5-15.
 
 メソッドを定義したいことはわかっているので、`impl Rectangle`ブロック内での話になります。
 メソッド名は、`can_hold`になり、引数として別の`Rectangle`を不変借用で取るでしょう。
-メソッドを呼び出すコードを見れば、引数の型が何になるかわかります: `rect1.can_hold(&rect2)`は、
+メソッドを呼び出すコードを見れば、引数の型が何になるかわかります：`rect1.can_hold(&rect2)`は、
 `&rect2`、`Rectangle`のインスタンスである`rect2`への不変借用を渡しています。
-これは道理が通っています。なぜなら、`rect2`を読み込む(書き込みではなく。この場合、可変借用が必要になります)だけでよく、
+これは道理が通っています。なぜなら、`rect2`を読み込む (書き込みではなく。この場合、可変借用が必要になります) だけでよく、
 `can_hold`メソッドを呼び出した後にも`rect2`が使えるよう、所有権を`main`に残したままにしたいからです。
-`can_hold`の返り値は、booleanになり、メソッドの中身は、`self`の幅と高さがもう一つの`Rectangle`の幅と高さよりも、
-それぞれ大きいことを確認します。リスト5-13の`impl`ブロックに新しい`can_hold`メソッドを追記しましょう。
-リスト5-15に示した通りです。
+`can_hold`の返り値は、boolean になり、メソッドの中身は、`self`の幅と高さがもう一つの`Rectangle`の幅と高さよりも、
+それぞれ大きいことを確認します。リスト 5-13 の`impl`ブロックに新しい`can_hold`メソッドを追記しましょう。
+リスト 5-15 に示した通りです。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # #[derive(Debug)]
@@ -338,7 +338,7 @@ impl Rectangle {
 `Rectangle` that takes another `Rectangle` instance as a parameter</span>
 -->
 
-<span class="caption">リスト5-15: 別の`Rectangle`のインスタンスを引数として取る`can_hold`メソッドを、
+<span class="caption">リスト 5-15: 別の`Rectangle`のインスタンスを引数として取る`can_hold`メソッドを、
 `Rectangle`に実装する</span>
 
 <!--
@@ -348,7 +348,7 @@ signature after the `self` parameter, and those parameters work just like
 parameters in functions.
 -->
 
-このコードをリスト5-14の`main`関数と合わせて実行すると、望み通りの出力が得られます。
+このコードをリスト 5-14 の`main`関数と合わせて実行すると、望み通りの出力が得られます。
 メソッドは、`self`引数の後にシグニチャに追加した引数を複数取ることができ、
 その引数は、関数の引数と同様に動作するのです。
 
@@ -380,14 +380,14 @@ specify the same value twice:
 -->
 
 関連関数は、構造体の新規インスタンスを返すコンストラクタによく使用されます。例えば、一つの寸法を引数に取り、
-長さと幅両方に使用する関連関数を提供することができ、その結果、同じ値を2回指定する必要なく、
+長さと幅両方に使用する関連関数を提供することができ、その結果、同じ値を 2 回指定する必要なく、
 正方形の`Rectangle`を生成しやすくすることができます。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # #[derive(Debug)]
@@ -411,8 +411,8 @@ namespaces created by modules. We’ll discuss modules in Chapter 7.
 -->
 
 この関連関数を呼び出すために、構造体名と一緒に`::`記法を使用します; 一例は`let sq = Rectangle::square(3);`です。
-この関数は、構造体によって名前空間分けされています: `::`という記法は、関連関数とモジュールによって作り出される名前空間両方に使用されます。
-モジュールについては第7章で議論します。
+この関数は、構造体によって名前空間分けされています：`::`という記法は、関連関数とモジュールによって作り出される名前空間両方に使用されます。
+モジュールについては第 7 章で議論します。
 
 <!--
 ### Multiple `impl` Blocks
@@ -426,8 +426,8 @@ Each struct is allowed to have multiple `impl` blocks. For example, Listing
 in its own `impl` block.
 -->
 
-各構造体には、複数の`impl`ブロックを存在させることができます。例えば、リスト5-15はリスト5-16に示したコードと等価で、
-リスト5-16では、各メソッドごとに`impl`ブロックを用意しています。
+各構造体には、複数の`impl`ブロックを存在させることができます。例えば、リスト 5-15 はリスト 5-16 に示したコードと等価で、
+リスト 5-16 では、各メソッドごとに`impl`ブロックを用意しています。
 
 ```rust
 # #[derive(Debug)]
@@ -454,7 +454,7 @@ impl Rectangle {
 blocks</span>
 -->
 
-<span class="caption">リスト5-16: 複数の`impl`ブロックを使用してリスト5-15を書き直す</span>
+<span class="caption">リスト 5-16: 複数の`impl`ブロックを使用してリスト 5-15 を書き直す</span>
 
 <!--
 There’s no reason to separate these methods into multiple `impl` blocks here,
@@ -463,7 +463,7 @@ useful in Chapter 10, where we discuss generic types and traits.
 -->
 
 ここでこれらのメソッドを個々の`impl`ブロックに分ける理由はないのですが、合法な書き方です。
-複数の`impl`ブロックが有用になるケースは第10章で見ますが、そこではジェネリック型と、トレイトについて議論します。
+複数の`impl`ブロックが有用になるケースは第 10 章で見ますが、そこではジェネリック型と、トレイトについて議論します。
 
 <!--
 ## Summary
@@ -490,5 +490,5 @@ But structs aren’t the only way we can create custom types: let’s turn to
 Rust’s enum feature to add another tool to our toolbox.
 -->
 
-しかし、構造体だけが独自の型を作成する手段ではありません: Rustのenum機能に目を向けて、
+しかし、構造体だけが独自の型を作成する手段ではありません：Rust の enum 機能に目を向けて、
 別の道具を道具箱に追加しましょう。

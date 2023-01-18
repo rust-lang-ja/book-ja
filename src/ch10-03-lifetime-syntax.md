@@ -17,7 +17,7 @@ parameters to ensure the actual references used at runtime will definitely be
 valid.
 -->
 
-第4章の[「参照と借用」][references-and-borrowing]節で議論しなかった詳細の一つに、Rustにおいて参照は全てライフタイムを保持するということがあります。
+第 4 章の[「参照と借用」][references-and-borrowing]節で議論しなかった詳細の一つに、Rustにおいて参照は全てライフタイムを保持するということがあります。
 ライフタイムとは、その参照が有効になるスコープのことです。多くの場合、型が推論されるように、
 大体の場合、ライフタイムも暗黙的に推論されます。複数の型の可能性があるときには、型を注釈しなければなりません。
 同様に、参照のライフタイムがいくつか異なる方法で関係することがある場合には注釈しなければなりません。
@@ -31,7 +31,7 @@ common ways you might encounter lifetime syntax so you can become familiar with
 the concepts.
 -->
 
-ライフタイムの概念は、他のプログラミング言語の道具とはどこか異なり、間違いなくRustで一番際立った機能になっています。
+ライフタイムの概念は、他のプログラミング言語の道具とはどこか異なり、間違いなく Rust で一番際立った機能になっています。
 この章では、ライフタイムの全体を解説することはしませんが、
 ライフタイム記法が必要となる最も一般的な場合について議論しますので、ライフタイムの概念について馴染むことができるでしょう。
 
@@ -49,7 +49,7 @@ scope.
 -->
 
 ライフタイムの主な目的は、ダングリング参照を回避することです。ダングリング参照によりプログラムは、
-参照するつもりだったデータ以外のデータを参照してしまいます。リスト10-17のプログラムを考えてください。
+参照するつもりだったデータ以外のデータを参照してしまいます。リスト 10-17 のプログラムを考えてください。
 これには、外側のスコープと内側のスコープが含まれています。
 
 ```rust,ignore,does_not_compile
@@ -61,7 +61,7 @@ scope.
 has gone out of scope</span>
 -->
 
-<span class="caption">リスト10-17: 値がスコープを抜けてしまった参照を使用しようとする</span>
+<span class="caption">リスト 10-17: 値がスコープを抜けてしまった参照を使用しようとする</span>
 
 <!--
 > Note: The examples in Listings 10-17, 10-18, and 10-24 declare variables
@@ -72,10 +72,10 @@ has gone out of scope</span>
 > not allow null values.
 -->
 
-> 注釈: リスト10-17や10-18、10-24では、変数に初期値を与えずに宣言しているので、変数名は外側のスコープに存在します。
-> 初見では、これはRustにはnull値が存在しないということと衝突しているように見えるかもしれません。
+> 注釈：リスト 10-17 や 10-18、10-24 では、変数に初期値を与えずに宣言しているので、変数名は外側のスコープに存在します。
+> 初見では、これは Rust には null 値が存在しないということと衝突しているように見えるかもしれません。
 > しかしながら、値を与える前に変数を使用しようとすれば、コンパイルエラーになり、
-> 確かにRustではnull値は許可されていないことがわかります。
+> 確かに Rust では null 値は許可されていないことがわかります。
 
 <!--
 The outer scope declares a variable named `r` with no initial value, and the
@@ -86,10 +86,10 @@ compile because the value `r` is referring to has gone out of scope before we
 try to use it. Here is the error message:
 -->
 
-外側のスコープで初期値なしの`r`という変数を宣言し、内側のスコープで初期値5の`x`という変数を宣言しています。
+外側のスコープで初期値なしの`r`という変数を宣言し、内側のスコープで初期値 5 の`x`という変数を宣言しています。
 内側のスコープ内で、`r`の値を`x`への参照にセットしようとしています。それから内側のスコープが終わり、
 `r`の値を出力しようとしています。`r`が参照している値が使おうとする前にスコープを抜けるので、
-このコードはコンパイルできません。こちらがエラーメッセージです:
+このコードはコンパイルできません。こちらがエラーメッセージです：
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-17/output.txt}}
@@ -105,9 +105,9 @@ wouldn’t work correctly. So how does Rust determine that this code is invalid?
 It uses a borrow checker.
 -->
 
-変数`x`の「生存期間が短すぎます」。原因は、内側のスコープが7行目で終わった時点で`x`がスコープを抜けるからです。
+変数`x`の「生存期間が短すぎます」。原因は、内側のスコープが 7 行目で終わった時点で`x`がスコープを抜けるからです。
 ですが、`r`はまだ、外側のスコープに対して有効です; スコープが大きいので、「長生きする」と言います。
-Rustで、このコードが動くことを許可していたら、`r`は`x`がスコープを抜けた時に解放されるメモリを参照していることになり、
+Rust で、このコードが動くことを許可していたら、`r`は`x`がスコープを抜けた時に解放されるメモリを参照していることになり、
 `r`で行おうとするいかなることもちゃんと動作しないでしょう。では、どうやってコンパイラはこのコードが無効であると決定しているのでしょうか？
 それは、借用チェッカーを使用しているのです。
 
@@ -123,8 +123,8 @@ whether all borrows are valid. Listing 10-18 shows the same code as Listing
 10-17 but with annotations showing the lifetimes of the variables.
 -->
 
-Rustコンパイラには、スコープを比較して全ての借用が有効であるかを決定する*借用チェッカー*があります。
-リスト10-18は、リスト10-17と同じコードを示していますが、変数のライフタイムを表示する注釈が付いています。
+Rust コンパイラには、スコープを比較して全ての借用が有効であるかを決定する*借用チェッカー*があります。
+リスト 10-18 は、リスト 10-17 と同じコードを示していますが、変数のライフタイムを表示する注釈が付いています。
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-18/src/main.rs:here}}
@@ -135,7 +135,7 @@ Rustコンパイラには、スコープを比較して全ての借用が有効�
 `x`, named `'a` and `'b`, respectively</span>
 -->
 
-<span class="caption">リスト10-18: それぞれ`'a`と`'b`と名付けられた`r`と`x`のライフタイムの注釈</span>
+<span class="caption">リスト 10-18: それぞれ`'a`と`'b`と名付けられた`r`と`x`のライフタイムの注釈</span>
 
 <!--
 Here, we’ve annotated the lifetime of `r` with `'a` and the lifetime of `x`
@@ -148,8 +148,8 @@ with a lifetime of `'b`. The program is rejected because `'b` is shorter than
 
 ここで、`r`のライフタイムは`'a`、`x`のライフタイムは`'b`で注釈しました。ご覧の通り、
 内側の`'b`ブロックの方が、外側の`'a`ライフタイムブロックよりはるかに小さいです。
-コンパイル時に、コンパイラは2つのライフタイムのサイズを比較し、`r`は`'a`のライフタイムだけれども、
-`'b`のライフタイムのメモリを参照していると確認します。`'b`は`'a`よりも短いので、プログラムは拒否されます:
+コンパイル時に、コンパイラは 2 つのライフタイムのサイズを比較し、`r`は`'a`のライフタイムだけれども、
+`'b`のライフタイムのメモリを参照していると確認します。`'b`は`'a`よりも短いので、プログラムは拒否されます：
 参照の対象が参照ほど長生きしないのです。
 
 <!--
@@ -157,7 +157,7 @@ Listing 10-19 fixes the code so it doesn’t have a dangling reference and
 compiles without any errors.
 -->
 
-リスト10-19でコードを修正したので、ダングリング参照はなくなり、エラーなくコンパイルできます。
+リスト 10-19 でコードを修正したので、ダングリング参照はなくなり、エラーなくコンパイルできます。
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-19/src/main.rs:here}}
@@ -168,7 +168,7 @@ compiles without any errors.
 longer lifetime than the reference</span>
 -->
 
-<span class="caption">リスト10-19: データのライフタイムが参照より長いので、有効な参照</span>
+<span class="caption">リスト 10-19: データのライフタイムが参照より長いので、有効な参照</span>
 
 <!--
 Here, `x` has the lifetime `'b`, which in this case is larger than `'a`. This
@@ -201,15 +201,15 @@ implemented the `longest` function, the code in Listing 10-20 should print `The
 longest string is abcd`.
 -->
 
-2つの文字列スライスのうち、長い方を返す関数を書きましょう。この関数は、
-2つの文字列スライスを取り、1つの文字列スライスを返します。`longest`関数の実装完了後、
-リスト10-20のコードは、`The longest string is abcd`と出力するはずです。
+2 つの文字列スライスのうち、長い方を返す関数を書きましょう。この関数は、
+2 つの文字列スライスを取り、1 つの文字列スライスを返します。`longest`関数の実装完了後、
+リスト 10-20 のコードは、`The longest string is abcd`と出力するはずです。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-20/src/main.rs}}
@@ -220,7 +220,7 @@ longest string is abcd`.
 function to find the longer of two string slices</span>
 -->
 
-<span class="caption">リスト10-20: `longest`関数を呼び出して2つの文字列スライスのうち長い方を探す`main`関数</span>
+<span class="caption">リスト 10-20: `longest`関数を呼び出して 2 つの文字列スライスのうち長い方を探す`main`関数</span>
 
 <!--
 Note that we want the function to take string slices, which are references,
@@ -233,21 +233,21 @@ ones we want.
 
 関数に取ってほしい引数が文字列スライス、つまり参照であることに注意してください。
 何故なら、`longest`関数に引数の所有権を奪ってほしくないからです。
-リスト10-20で使用している引数が、我々が必要としているものである理由についてもっと詳しい議論は、
-第4章の[「引数としての文字列スライス」][string-slices-as-parameters]節をご参照ください。
+リスト 10-20 で使用している引数が、我々が必要としているものである理由についてもっと詳しい議論は、
+第 4 章の[「引数としての文字列スライス」][string-slices-as-parameters]節をご参照ください。
 
 <!--
 If we try to implement the `longest` function as shown in Listing 10-21, it
 won’t compile.
 -->
 
-リスト10-21に示すように`longest`関数を実装しようとしたら、コンパイルできないでしょう。
+リスト 10-21 に示すように`longest`関数を実装しようとしたら、コンパイルできないでしょう。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/src/main.rs:here}}
@@ -259,13 +259,13 @@ function that returns the longer of two string slices but does not yet
 compile</span>
 -->
 
-<span class="caption">リスト10-21: 2つの文字列スライスのうち長い方を返すけれども、コンパイルできない`longest`関数の実装</span>
+<span class="caption">リスト 10-21: 2 つの文字列スライスのうち長い方を返すけれども、コンパイルできない`longest`関数の実装</span>
 
 <!--
 Instead, we get the following error that talks about lifetimes:
 -->
 
-代わりに、以下のようなライフタイムに言及するエラーが出ます:
+代わりに、以下のようなライフタイムに言及するエラーが出ます：
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-21/output.txt}}
@@ -298,7 +298,7 @@ perform its analysis.
 -->
 
 この関数を定義する際、この関数に渡される具体的な値がわからないので、`if`ケースと`else`ケースのどちらが実行されるかわからないのです。
-また、リスト10-18と10-19で、返す参照が常に有効であるかを決定したときのようにスコープを見ることも、渡される参照の具体的なライフタイムがわからないのでできないのです。
+また、リスト 10-18 と 10-19 で、返す参照が常に有効であるかを決定したときのようにスコープを見ることも、渡される参照の具体的なライフタイムがわからないのでできないのです。
 借用チェッカーもこれを決定することはできません。`x`と`y`のライフタイムがどう戻り値のライフタイムと関係するかわからないからです。
 このエラーを修正するために、借用チェッカーが解析を実行できるように、参照間の関係を定義するジェネリックなライフタイム引数を追加しましょう。
 
@@ -330,9 +330,9 @@ lifetime parameter annotations after the `&` of a reference, using a space to
 separate the annotation from the reference’s type.
 -->
 
-ライフタイム注釈は、少し不自然な記法です: ライフタイム引数の名前はアポストロフィー(`'`)で始まらなければならず、
+ライフタイム注釈は、少し不自然な記法です：ライフタイム引数の名前はアポストロフィー(`'`) で始まらなければならず、
 通常全部小文字で、ジェネリック型のようにとても短いです。多くの人は、`'a`という名前を使います。
-ライフタイム引数注釈は、参照の`&`の後に配置し、注釈と参照の型を区別するために空白を1つ使用します。
+ライフタイム引数注釈は、参照の`&`の後に配置し、注釈と参照の型を区別するために空白を 1 つ使用します。
 
 <!--
 Here are some examples: a reference to an `i32` without a lifetime parameter, a
@@ -340,12 +340,12 @@ reference to an `i32` that has a lifetime parameter named `'a`, and a mutable
 reference to an `i32` that also has the lifetime `'a`.
 -->
 
-例を挙げましょう: ライフタイム引数なしの`i32`への参照、`'a`というライフタイム引数付きの`i32`への参照、
+例を挙げましょう：ライフタイム引数なしの`i32`への参照、`'a`というライフタイム引数付きの`i32`への参照、
 そして同じくライフタイム`'a`を持つ`i32`への可変参照です。
 
 ```rust,ignore
 &i32        // a reference
-            // (ただの)参照
+            // (ただの) 参照
 &'a i32     // a reference with an explicit lifetime
             // 明示的なライフタイム付きの参照
 &'a mut i32 // a mutable reference with an explicit lifetime
@@ -363,7 +363,7 @@ that the references `first` and `second` must both live as long as that generic
 lifetime.
 -->
 
-1つのライフタイム注釈それだけでは、大して意味はありません。注釈は、複数の参照のジェネリックなライフタイム引数が、
+1 つのライフタイム注釈それだけでは、大して意味はありません。注釈は、複数の参照のジェネリックなライフタイム引数が、
 お互いにどう関係するかをコンパイラに指示することを意図しているからです。例えば、
 ライフタイム`'a`付きの`i32`への参照となる引数`first`のある関数があるとしましょう。
 この関数にはさらに、`'a`のライフタイム付きの`i32`への別の参照となる`second`という別の引数もあります。
@@ -388,13 +388,13 @@ Listing 10-22.
 さて、`longest`関数を例にライフタイム注釈を詳しく見ていきましょう。ジェネリックな型引数同様、
 関数名と引数リストの間の山カッコの中にジェネリックなライフタイム引数を宣言します。
 このシグニチャで表現したい制約は、引数の全ての参照と戻り値が同じライフタイムを持つことです。
-リスト10-22に示すように、ライフタイムを`'a`と名付け、それを各参照に付与します。
+リスト 10-22 に示すように、ライフタイムを`'a`と名付け、それを各参照に付与します。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-22/src/main.rs:here}}
@@ -406,14 +406,14 @@ specifying that all the references in the signature must have the same lifetime
 `'a`</span>
 -->
 
-<span class="caption">リスト10-22: シグニチャの全参照が同じライフタイム`'a`を持つと指定した`longest`関数の定義</span>
+<span class="caption">リスト 10-22: シグニチャの全参照が同じライフタイム`'a`を持つと指定した`longest`関数の定義</span>
 
 <!--
 This code should compile and produce the result we want when we use it with the
 `main` function in Listing 10-20.
 -->
 
-このコードはコンパイルでき、リスト10-20の`main`関数とともに使用したら、欲しい結果になるはずです。
+このコードはコンパイルでき、リスト 10-20 の`main`関数とともに使用したら、欲しい結果になるはずです。
 
 <!--
 The function signature now tells Rust that for some lifetime `'a`, the function
@@ -431,7 +431,7 @@ know exactly how long `x` and `y` will live, only that some scope can be
 substituted for `'a` that will satisfy this signature.
 -->
 
-これで関数シグニチャは、何らかのライフタイム`'a`に対して、関数は2つの引数を取り、
+これで関数シグニチャは、何らかのライフタイム`'a`に対して、関数は 2 つの引数を取り、
 どちらも少なくともライフタイム`'a`と同じだけ生きる文字列スライスであるとコンパイラに教えるようになりました。
 また、この関数シグニチャは、関数から返る文字列スライスも少なくともライフタイム`'a`と同じだけ生きると、
 コンパイラに教えています。
@@ -479,13 +479,13 @@ a straightforward example.
 -->
 
 ライフタイム注釈が異なる具体的なライフタイムを持つ参照を渡すことで`longest`関数を制限する方法を見ましょう。
-リスト10-23はそのシンプルな例です。
+リスト 10-23 はそのシンプルな例です。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-23/src/main.rs:here}}
@@ -496,7 +496,7 @@ a straightforward example.
 references to `String` values that have different concrete lifetimes</span>
 -->
 
-<span class="caption">リスト10-23: 異なる具体的なライフタイムを持つ`String`値への参照で`longest`関数を使用する</span>
+<span class="caption">リスト 10-23: 異なる具体的なライフタイムを持つ`String`値への参照で`longest`関数を使用する</span>
 
 <!--
 In this example, `string1` is valid until the end of the outer scope, `string2`
@@ -521,16 +521,16 @@ scope, after the inner scope has ended. The code in Listing 10-24 will not
 compile.
 -->
 
-次に、`result`の参照のライフタイムが2つの引数の小さい方のライフタイムになることを示す例を試しましょう。
+次に、`result`の参照のライフタイムが 2 つの引数の小さい方のライフタイムになることを示す例を試しましょう。
 `result`変数の宣言を内側のスコープの外に移すものの、`result`変数への代入は`string2`のスコープ内に残したままにします。
 それから`result`を使用する`println!`を内側のスコープの外、内側のスコープが終わった後に移動します。
-リスト10-24のコードはコンパイルできません。
+リスト 10-24 のコードはコンパイルできません。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-24/src/main.rs:here}}
@@ -541,13 +541,13 @@ compile.
 has gone out of scope</span>
 -->
 
-<span class="caption">リスト10-24: `string2`がスコープを抜けてから`result`を使用しようとする</span>
+<span class="caption">リスト 10-24: `string2`がスコープを抜けてから`result`を使用しようとする</span>
 
 <!--
 When we try to compile this code, we’ll get this error:
 -->
 
-このコードのコンパイルを試みると、こんなエラーになります:
+このコードのコンパイルを試みると、こんなエラーになります：
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-24/output.txt}}
@@ -579,7 +579,7 @@ disallows the code in Listing 10-24 as possibly having an invalid reference.
 `string1`への参照は`println!`にとって有効でしょう。ですが、コンパイラはこの場合、
 参照が有効であると見なせません。`longest`関数から返ってくる参照のライフタイムは、
 渡した参照のうちの小さい方と同じだとコンパイラに指示しました。したがって、
-借用チェッカーは、リスト10-24のコードを無効な参照がある可能性があるとして許可しないのです。
+借用チェッカーは、リスト 10-24 のコードを無効な参照がある可能性があるとして許可しないのです。
 
 <!--
 Try designing more experiments that vary the values and lifetimes of the
@@ -607,13 +607,13 @@ following code will compile:
 
 何にライフタイム引数を指定する必要があるかは、関数が行っていることに依存します。例えば、
 `longest`関数の実装を最長の文字列スライスではなく、常に最初の引数を返すように変更したら、
-`y`引数に対してライフタイムを指定する必要はなくなるでしょう。以下のコードはコンパイルできます:
+`y`引数に対してライフタイムを指定する必要はなくなるでしょう。以下のコードはコンパイルできます：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-08-only-one-reference-with-lifetime/src/main.rs:here}}
@@ -640,13 +640,13 @@ this attempted implementation of the `longest` function that won’t compile:
 関数から参照を返す際、戻り値型のライフタイム引数は、引数のうちどれかのライフタイム引数と一致する必要があります。
 返される参照が引数のどれかを参照*していない*ならば、この関数内で生成された値を参照しているはずです。
 すると、その値は関数の末端でスコープを抜けるので、これはダングリング参照になるでしょう。
-以下に示す、コンパイルできない`longest`関数の未完成の実装を考えてください:
+以下に示す、コンパイルできない`longest`関数の未完成の実装を考えてください：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/src/main.rs:here}}
@@ -661,7 +661,7 @@ error message we get:
 
 ここでは、たとえ、戻り値型にライフタイム引数`'a`を指定していても、戻り値のライフタイムは、
 引数のライフタイムと全く関係がないので、この実装はコンパイルできないでしょう。
-こちらが、得られるエラーメッセージです:
+こちらが、得られるエラーメッセージです：
 
 ```console
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-09-unrelated-lifetime/output.txt}}
@@ -707,13 +707,13 @@ struct named `ImportantExcerpt` that holds a string slice.
 
 ここまで、所有された型を保持する構造体だけを定義してきました。構造体に参照を保持させることもできますが、
 その場合、構造体定義の全参照にライフタイム注釈を付け加える必要があるでしょう。
-リスト10-25には、文字列スライスを保持する`ImportantExcerpt`(重要な一節)という構造体があります。
+リスト 10-25 には、文字列スライスを保持する`ImportantExcerpt`(重要な一節) という構造体があります。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-25/src/main.rs}}
@@ -724,7 +724,7 @@ struct named `ImportantExcerpt` that holds a string slice.
 definition needs a lifetime annotation</span>
 -->
 
-<span class="caption">リスト10-25: 参照を含む構造体なので、定義にライフタイム注釈が必要</span>
+<span class="caption">リスト 10-25: 参照を含む構造体なので、定義にライフタイム注釈が必要</span>
 
 <!--
 This struct has one field, `part`, that holds a string slice, which is a
@@ -735,7 +735,7 @@ annotation means an instance of `ImportantExcerpt` can’t outlive the reference
 it holds in its `part` field.
 -->
 
-この構造体には文字列スライスを保持する1つのフィールド、`part`があり、これは参照です。
+この構造体には文字列スライスを保持する 1 つのフィールド、`part`があり、これは参照です。
 ジェネリックなデータ型同様、構造体名の後、山カッコの中にジェネリックなライフタイム引数の名前を宣言するので、
 構造体定義の本体でライフタイム引数を使用できます。この注釈は、`ImportantExcerpt`のインスタンスが、
 `part`フィールドに保持している参照よりも長生きしないことを意味します。
@@ -768,13 +768,13 @@ Chapter 4 we had a function in Listing 4-9, which is shown again in Listing
 -->
 
 全参照にはライフタイムがあり、参照を使用する関数や構造体にはライフタイム引数を指定する必要があることを学びました。
-しかし、リスト4-9にあった関数（リスト10-26に再度示しました）はライフタイム注釈なしでコンパイルできました。
+しかし、リスト 4-9 にあった関数（リスト 10-26 に再度示しました）はライフタイム注釈なしでコンパイルできました。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-26/src/main.rs:here}}
@@ -786,7 +786,7 @@ compiled without lifetime annotations, even though the parameter and return
 type are references</span>
 -->
 
-<span class="caption">リスト10-26: リスト4-9で定義した、引数と戻り値型が参照であるにも関わらず、ライフタイム注釈なしでコンパイルできた関数</span>
+<span class="caption">リスト 10-26: リスト 4-9 で定義した、引数と戻り値型が参照であるにも関わらず、ライフタイム注釈なしでコンパイルできた関数</span>
 
 <!--
 The reason this function compiles without lifetime annotations is historical:
@@ -795,9 +795,9 @@ every reference needed an explicit lifetime. At that time, the function
 signature would have been written like this:
 -->
 
-この関数がライフタイム注釈なしでコンパイルできる理由には、Rustの歴史が関わっています: 昔のバージョンのRust(1.0以前)では、
+この関数がライフタイム注釈なしでコンパイルできる理由には、Rust の歴史が関わっています：昔のバージョンの Rust(1.0 以前) では、
 全参照に明示的なライフタイムが必要だったので、このコードはコンパイルできませんでした。
-その頃、関数シグニチャはこのように記述されていたのです:
+その頃、関数シグニチャはこのように記述されていたのです：
 
 ```rust,ignore
 fn first_word<'a>(s: &'a str) -> &'a str {
@@ -812,7 +812,7 @@ the borrow checker could infer the lifetimes in these situations and wouldn’t
 need explicit annotations.
 -->
 
-多くのRustコードを書いた後、Rustチームは、Rustプログラマが、
+多くの Rust コードを書いた後、Rust チームは、Rust プログラマが、
 特定の場面で何度も同じライフタイム注釈を入力していることを発見しました。これらの場面は予測可能で、
 いくつかの決まりきったパターンに従っていました。開発者はこのパターンをコンパイラのコードに落とし込んだので、
 このような場面には借用チェッカーがライフタイムを推論できるようになり、明示的な注釈を必要としなくなったのです。
@@ -823,7 +823,7 @@ deterministic patterns will emerge and be added to the compiler. In the future,
 even fewer lifetime annotations might be required.
 -->
 
-ここで、このRustの歴史話が関係しているのは、他にも決まりきったパターンが出現し、コンパイラに追加されることもあり得るからです。
+ここで、この Rust の歴史話が関係しているのは、他にも決まりきったパターンが出現し、コンパイラに追加されることもあり得るからです。
 将来的に、さらに少数のライフタイム注釈しか必要にならない可能性もあります。
 
 <!--
@@ -868,9 +868,9 @@ figure out lifetimes, the compiler will stop with an error. These rules apply
 to `fn` definitions as well as `impl` blocks.
 -->
 
-コンパイラは3つの規則を活用し、明示的な注釈がない時に、参照がどんなライフタイムになるかを計算します。
-最初の規則は入力ライフタイムに適用され、2番目と3番目の規則は出力ライフタイムに適用されます。
-コンパイラが3つの規則の最後まで到達し、それでもライフタイムを割り出せない参照があったら、
+コンパイラは 3 つの規則を活用し、明示的な注釈がない時に、参照がどんなライフタイムになるかを計算します。
+最初の規則は入力ライフタイムに適用され、2 番目と 3 番目の規則は出力ライフタイムに適用されます。
+コンパイラが 3 つの規則の最後まで到達し、それでもライフタイムを割り出せない参照があったら、
 コンパイラはエラーで停止します。
 これらのルールは`fn`の定義にも`impl`ブロックにも適用されます。
 
@@ -883,8 +883,8 @@ on.
 -->
 
 最初の規則は、参照である各引数は、独自のライフタイム引数を得るというものです。換言すれば、
-1引数の関数は、1つのライフタイム引数を得るということです: `fn foo<'a>(x: &'a i32)`;
-2つ引数のある関数は、2つの個別のライフタイム引数を得ます: `fn foo<'a, 'b>(x: &'a i32, y: &'b i32)`;
+1 引数の関数は、1 つのライフタイム引数を得るということです：`fn foo<'a>(x: &'a i32)`;
+2 つ引数のある関数は、2 つの個別のライフタイム引数を得ます：`fn foo<'a, 'b>(x: &'a i32, y: &'b i32)`;
 以下同様。
 
 <!--
@@ -893,7 +893,7 @@ lifetime is assigned to all output lifetime parameters: `fn foo<'a>(x: &'a i32)
 -> &'a i32`.
 -->
 
-2番目の規則は、1つだけ入力ライフタイム引数があるなら、そのライフタイムが全ての出力ライフタイム引数に代入されるというものです:
+2 番目の規則は、1 つだけ入力ライフタイム引数があるなら、そのライフタイムが全ての出力ライフタイム引数に代入されるというものです：
 `fn foo<'a>(x: &'a i32) -> &'a i32`。
 
 <!--
@@ -903,9 +903,9 @@ is assigned to all output lifetime parameters. This third rule makes methods
 much nicer to read and write because fewer symbols are necessary.
 -->
 
-3番目の規則は、複数の入力ライフタイム引数があるけれども、メソッドなのでそのうちの一つが`&self`や`&mut self`だったら、
+3 番目の規則は、複数の入力ライフタイム引数があるけれども、メソッドなのでそのうちの一つが`&self`や`&mut self`だったら、
 `self`のライフタイムが全出力ライフタイム引数に代入されるというものです。
-この3番目の規則により、必要なシンボルの数が減るので、メソッドが遥かに読み書きしやすくなります。
+この 3 番目の規則により、必要なシンボルの数が減るので、メソッドが遥かに読み書きしやすくなります。
 
 <!--
 Let’s pretend we’re the compiler. We’ll apply these rules to figure out what
@@ -914,8 +914,8 @@ in Listing 10-26 are. The signature starts without any lifetimes associated
 with the references:
 -->
 
-コンパイラの立場になってみましょう。これらの規則を適用して、リスト10-26の`first_word`関数のシグニチャの参照のライフタイムが何か計算します。
-シグニチャは、参照に紐づけられるライフタイムがない状態から始まります:
+コンパイラの立場になってみましょう。これらの規則を適用して、リスト 10-26 の`first_word`関数のシグニチャの参照のライフタイムが何か計算します。
+シグニチャは、参照に紐づけられるライフタイムがない状態から始まります：
 
 ```rust,ignore
 fn first_word(s: &str) -> &str {
@@ -928,7 +928,7 @@ this:
 -->
 
 そうして、コンパイラは最初の規則を適用し、各引数が独自のライフタイムを得ると指定します。
-それを通常通り`'a`と呼ぶので、シグニチャはこうなります:
+それを通常通り`'a`と呼ぶので、シグニチャはこうなります：
 
 ```rust,ignore
 fn first_word<'a>(s: &'a str) -> &str {
@@ -940,8 +940,8 @@ rule specifies that the lifetime of the one input parameter gets assigned to
 the output lifetime, so the signature is now this:
 -->
 
-1つだけ入力ライフタイムがあるので、2番目の規則を適用します。2番目の規則は、1つの入力引数のライフタイムが、
-出力引数に代入されると指定するので、シグニチャはこうなります:
+1 つだけ入力ライフタイムがあるので、2 番目の規則を適用します。2 番目の規則は、1 つの入力引数のライフタイムが、
+出力引数に代入されると指定するので、シグニチャはこうなります：
 
 ```rust,ignore
 fn first_word<'a>(s: &'a str) -> &'a str {
@@ -961,7 +961,7 @@ Let’s look at another example, this time using the `longest` function that had
 no lifetime parameters when we started working with it in Listing 10-21:
 -->
 
-別の例に目を向けましょう。今回は、リスト10-21で取り掛かったときにはライフタイム引数がなかった`longest`関数です:
+別の例に目を向けましょう。今回は、リスト 10-21 で取り掛かったときにはライフタイム引数がなかった`longest`関数です：
 
 ```rust,ignore
 fn longest(x: &str, y: &str) -> &str {
@@ -972,8 +972,8 @@ Let’s apply the first rule: each parameter gets its own lifetime. This time we
 have two parameters instead of one, so we have two lifetimes:
 -->
 
-最初の規則を適用しましょう: 各引数が独自のライフタイムを得るのです。今回は、
-1つではなく2つ引数があるので、ライフタイムも2つです:
+最初の規則を適用しましょう：各引数が独自のライフタイムを得るのです。今回は、
+1 つではなく 2 つ引数があるので、ライフタイムも 2 つです：
 
 ```rust,ignore
 fn longest<'a, 'b>(x: &'a str, y: &'b str) -> &str {
@@ -989,9 +989,9 @@ Listing 10-21: the compiler worked through the lifetime elision rules but still
 couldn’t figure out all the lifetimes of the references in the signature.
 -->
 
-2つ以上入力ライフタイムがあるので、2番目の規則は適用されないとわかります。また3番目の規則も適用されません。
-`longest`はメソッドではなく関数なので、どの引数も`self`ではないのです。3つの規則全部を適用した後でも、
-まだ戻り値型のライフタイムが判明していません。このために、リスト10-21でこのコードをコンパイルしようとしてエラーになったのです:
+2 つ以上入力ライフタイムがあるので、2 番目の規則は適用されないとわかります。また 3 番目の規則も適用されません。
+`longest`はメソッドではなく関数なので、どの引数も`self`ではないのです。3 つの規則全部を適用した後でも、
+まだ戻り値型のライフタイムが判明していません。このために、リスト 10-21 でこのコードをコンパイルしようとしてエラーになったのです：
 コンパイラは、ライフタイム省略規則全てを適用したけれども、シグニチャの参照全部のライフタイムを計算できなかったのです。
 
 <!--
@@ -1000,8 +1000,8 @@ lifetimes in that context next to see why the third rule means we don’t have t
 annotate lifetimes in method signatures very often.
 -->
 
-実際のところ、3番目の規則はメソッドのシグニチャにしか適用されません。ですので、次はその文脈においてライフタイムを観察し、
-3番目の規則のおかげで、メソッドシグニチャであまり頻繁にライフタイムを注釈しなくても済む理由を確認します。
+実際のところ、3 番目の規則はメソッドのシグニチャにしか適用されません。ですので、次はその文脈においてライフタイムを観察し、
+3 番目の規則のおかげで、メソッドシグニチャであまり頻繁にライフタイムを注釈しなくても済む理由を確認します。
 
 <!--
 ### Lifetime Annotations in Method Definitions
@@ -1016,7 +1016,7 @@ use the lifetime parameters depends on whether they’re related to the struct
 fields or the method parameters and return values.
 -->
 
-構造体にライフタイムのあるメソッドを実装する際、リスト10-11で示したジェネリックな型引数と同じ記法を使用します。
+構造体にライフタイムのあるメソッドを実装する際、リスト 10-11 で示したジェネリックな型引数と同じ記法を使用します。
 ライフタイム引数を宣言し使用する場所は、構造体フィールドかメソッド引数と戻り値に関係するかによります。
 
 <!--
@@ -1038,14 +1038,14 @@ struct named `ImportantExcerpt` that we defined in Listing 10-25.
 
 `impl`ブロック内のメソッドシグニチャでは、参照は構造体のフィールドの参照のライフタイムに紐づいている可能性と、
 独立している可能性があります。加えて、ライフタイム省略規則により、メソッドシグニチャでライフタイム注釈が必要なくなることがよくあります。
-リスト10-25で定義した`ImportantExcerpt`という構造体を使用した例をいくつか見てみましょう。
+リスト 10-25 で定義した`ImportantExcerpt`という構造体を使用した例をいくつか見てみましょう。
 
 <!--
 First, we’ll use a method named `level` whose only parameter is a reference to
 `self` and whose return value is an `i32`, which is not a reference to anything:
 -->
 
-まず、唯一の引数が`self`への参照で戻り値が`i32`という何かへの参照ではない`level`というメソッドを使用します:
+まず、唯一の引数が`self`への参照で戻り値が`i32`という何かへの参照ではない`level`というメソッドを使用します：
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-10-lifetimes-on-methods/src/main.rs:1st}}
@@ -1064,7 +1064,7 @@ to `self` because of the first elision rule.
 Here is an example where the third lifetime elision rule applies:
 -->
 
-3番目のライフタイム省略規則が適用される例はこちらです:
+3 番目のライフタイム省略規則が適用される例はこちらです：
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-10-lifetimes-on-methods/src/main.rs:3rd}}
@@ -1077,9 +1077,9 @@ one of the parameters is `&self`, the return type gets the lifetime of `&self`,
 and all lifetimes have been accounted for.
 -->
 
-2つ入力ライフタイムがあるので、コンパイラは最初のライフタイム省略規則を適用し、
+2 つ入力ライフタイムがあるので、コンパイラは最初のライフタイム省略規則を適用し、
 `&self`と`announcement`に独自のライフタイムを与えます。それから、
-引数の1つが`&self`なので、戻り値型は`&self`のライフタイムを得て、
+引数の 1 つが`&self`なので、戻り値型は`&self`のライフタイムを得て、
 全てのライフタイムが説明されました。
 
 <!--
@@ -1094,8 +1094,8 @@ reference *can* live for the entire duration of the program. All string
 literals have the `'static` lifetime, which we can annotate as follows:
 -->
 
-議論する必要のある1種の特殊なライフタイムが、`'static`であり、これは、この参照がプログラムの全期間生存*できる*事を意味します。
-文字列リテラルは全て`'static`ライフタイムになり、次のように注釈できます:
+議論する必要のある 1 種の特殊なライフタイムが、`'static`であり、これは、この参照がプログラムの全期間生存*できる*事を意味します。
+文字列リテラルは全て`'static`ライフタイムになり、次のように注釈できます：
 
 ```rust
 // 僕は静的ライフタイムを持ってるよ
@@ -1138,7 +1138,7 @@ Let’s briefly look at the syntax of specifying generic type parameters, trait
 bounds, and lifetimes all in one function!
 -->
 
-ジェネリックな型引数、トレイト境界、ライフタイム指定の構文のすべてを1つの関数で簡単に見てみましょう！
+ジェネリックな型引数、トレイト境界、ライフタイム指定の構文のすべてを 1 つの関数で簡単に見てみましょう！
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-11-generics-traits-and-lifetimes/src/main.rs:here}}
@@ -1155,7 +1155,7 @@ the declarations of the lifetime parameter `'a` and the generic type parameter
 `T` go in the same list inside the angle brackets after the function name.
 -->
 
-これがリスト10-22からの2つの文字列のうち長い方を返す`longest`関数ですが、
+これがリスト 10-22 からの 2 つの文字列のうち長い方を返す`longest`関数ですが、
 ジェネリックな型`T`の`ann`という追加の引数があり、これは`where`節で指定されているように、
 `Display`トレイトを実装するあらゆる型で埋めることができます。
 この追加の引数は、関数が文字列スライスの長さを比較する前に出力されるので、
@@ -1195,11 +1195,11 @@ the [Rust Reference][reference]. But next, you’ll learn how to write tests in
 Rust so you can make sure your code is working the way it should.
 -->
 
-信じられないかもしれませんが、この章で議論した話題にはもっともっと学ぶべきことがあります:
-第17章ではトレイトオブジェクトを議論します。これはトレイトを使用する別の手段です。
+信じられないかもしれませんが、この章で議論した話題にはもっともっと学ぶべきことがあります：
+第 17 章ではトレイトオブジェクトを議論します。これはトレイトを使用する別の手段です。
 非常に高度な筋書きの場合でのみ必要になる、ライフタイム注釈が関わる、もっと複雑な筋書きもあります。
 それらについては、[Rust Reference][reference]をお読みください。 
-ですが次は、コードがあるべき通りに動いていることを確かめられるように、Rustでテストを書く方法を学びます。
+ですが次は、コードがあるべき通りに動いていることを確かめられるように、Rust でテストを書く方法を学びます。
 
 [references-and-borrowing]:
 ch04-02-references-and-borrowing.html#参照と借用

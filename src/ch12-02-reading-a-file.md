@@ -15,16 +15,16 @@ Who are you?”
 -->
 
 では、`filename`コマンドライン引数で指定されたファイルを読み込む機能を追加しましょう。
-まず、テスト実行するためのサンプルファイルが必要ですね: `minigrep`が動作していることを確かめるために使用するのに最適なファイルは、
-複数行にわたって同じ単語の繰り返しのある少量のテキストです。リスト12-3は、
-うまくいくであろうエミリー・ディキンソン(Emily Dickinson)の詩です！
+まず、テスト実行するためのサンプルファイルが必要ですね：`minigrep`が動作していることを確かめるために使用するのに最適なファイルは、
+複数行にわたって同じ単語の繰り返しのある少量のテキストです。リスト 12-3 は、
+うまくいくであろうエミリー・ディキンソン (Emily Dickinson) の詩です！
 プロジェクトのルート階層に*poem.txt*というファイルを作成し、この詩「私は誰でもない！あなたは誰？」を入力してください。
 
 <!--
 <span class="filename">Filename: poem.txt</span>
 -->
 
-<span class="filename">ファイル名: poem.txt</span>
+<span class="filename">ファイル名：poem.txt</span>
 
 ```text
 I'm nobody! Who are you?
@@ -44,7 +44,7 @@ To an admiring bog!
 
 誰かでいるなんて侘しいじゃない！
 カエルみたいで公すぎるじゃない。
-自分の名を長い1日に告げるのなんて。
+自分の名を長い 1 日に告げるのなんて。
 感服するような沼地にね！
 ```
 
@@ -53,7 +53,7 @@ To an admiring bog!
 case</span>
 -->
 
-<span class="caption">リスト12-3: エミリー・ディキンソンの詩は、いいテストケースになる</span>
+<span class="caption">リスト 12-3: エミリー・ディキンソンの詩は、いいテストケースになる</span>
 
 <!--
 With the text in place, edit *src/main.rs* and add code to open the file, as
@@ -61,13 +61,13 @@ shown in Listing 12-4.
 -->
 
 テキストを適当な場所に置いて、*src/main.rs*を編集し、ファイルを開くコードを追加してください。
-リスト12-4に示したようにですね。
+リスト 12-4 に示したようにですね。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,should_panic
 use std::env;
@@ -102,7 +102,7 @@ fn main() {
 by the second argument</span>
 -->
 
-<span class="caption">リスト12-4: 第2引数で指定されたファイルの中身を読み込む</span>
+<span class="caption">リスト 12-4: 第 2 引数で指定されたファイルの中身を読み込む</span>
 
 <!--
 First, we add some more `use` statements to bring in relevant parts of the
@@ -115,7 +115,7 @@ the default prelude, we must explicitly add a `use` statement for the
 prelude from `std::io`.
 -->
 
-最初に、もう何個か`use`文を追記して、標準ライブラリの関係のある箇所を持ってきています:
+最初に、もう何個か`use`文を追記して、標準ライブラリの関係のある箇所を持ってきています：
 ファイルを扱うのに`std::fs::File`が必要ですし、
 `std::io::prelude::*`はファイル入出力を含む入出力処理をするのに有用なトレイトを色々含んでいます。
 言語が一般的な初期化処理で特定の型や関数を自動的にスコープに導入するように、
@@ -131,7 +131,7 @@ read it in. Third, we call `read_to_string` on our file handle and pass a
 mutable reference to `contents` as an argument.
 -->
 
-`main`に3文を追記しました: 一つ目が、`File::open`関数を呼んで`filename`変数の値に渡して、
+`main`に 3 文を追記しました：一つ目が、`File::open`関数を呼んで`filename`変数の値に渡して、
 ファイルへの可変なハンドルを得る処理です。二つ目が、`contents`という名の変数を生成して、
 可変で空の`String`を割り当てる処理です。この変数が、ファイル読み込み後に中身を保持します。
 三つ目が、ファイルハンドルに対して`read_to_string`を呼び出し、引数として`contents`への可変参照を渡す処理です。
@@ -151,8 +151,8 @@ we haven’t implemented the searching part yet) and the *poem.txt* file as the
 second argument:
 -->
 
-第1コマンドライン引数には適当な文字列(まだ検索する箇所は実装してませんからね)を、第2引数に*poem.txt*ファイルを入れて、
-このコードを実行しましょう:
+第 1 コマンドライン引数には適当な文字列 (まだ検索する箇所は実装してませんからね) を、第 2 引数に*poem.txt*ファイルを入れて、
+このコードを実行しましょう：
 
 ```text
 $ cargo run the poem.txt
@@ -174,7 +174,7 @@ To an admiring bog!
 ```
 
 <!--
-4行目の冒頭は、末端のone ideaをあえて訳していない。こちらの方が日本語としては自然と思われる
+4 行目の冒頭は、末端の one idea をあえて訳していない。こちらの方が日本語としては自然と思われる
 -->
 
 <!--
@@ -189,7 +189,7 @@ much easier to refactor smaller amounts of code. We’ll do that next.
 -->
 
 素晴らしい！コードがファイルの中身を読み込み、出力するようになりました。しかし、このコードにはいくつか欠陥があります。
-`main`関数が複数の責任を受け持っています: 一般に、各関数がただ一つの責任だけを持つようになれば、
+`main`関数が複数の責任を受け持っています：一般に、各関数がただ一つの責任だけを持つようになれば、
 関数は明確かつ、管理しやすくなります。もう一つの問題点は、できうる限りのエラー処理を怠っていることです。
 まだプログラムが小規模なので、これらの欠陥は大きな問題にはなりませんが、プログラムが大規模になるにつれ、
 それを綺麗に解消するのは困難になっていきます。プログラムを開発する際に早い段階でリファクタリングを行うのは、

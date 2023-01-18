@@ -31,7 +31,7 @@ can use after the separator `--`.
 -->
 
 コマンドラインオプションの中には`cargo test`にかかるものや、出来上がったテストバイナリにかかるものがあります。
-この2種の引数を区別するために、`cargo test`にかかる引数を`--`という区分記号の後に列挙し、
+この 2 種の引数を区別するために、`cargo test`にかかる引数を`--`という区分記号の後に列挙し、
 それからテストバイナリにかかる引数を列挙します。`cargo test --help`を走らせると、`cargo test`で使用できるオプションが表示され、
 `cargo test -- --help`を走らせると、`--`という区分記号の後に使えるオプションが表示されます。
 
@@ -71,7 +71,7 @@ solution is to run the tests one at a time.
 そして、各テストはそのファイルのデータを読み取り、ファイルが特定の値を含んでいるとアサーションし、
 その値は各テストで異なります。テストが同時に走るので、あるテストが、
 他のテストが書き込んだり読み込んだりする間隙にファイルを上書きするかもしれません。
-それから2番目のテストが失敗します。コードが不正だからではなく、
+それから 2 番目のテストが失敗します。コードが不正だからではなく、
 並行に実行されている間にテストがお互いに邪魔をしてしまったせいです。
 各テストが異なるファイルに書き込むことを確かめるのが一つの解決策です; 別の解決策では、
 一度に一つのテストを実行します。
@@ -85,7 +85,7 @@ the following example:
 
 並行にテストを実行したくなかったり、使用されるスレッド数をよりきめ細かく制御したい場合、
 `--test-threads`フラグと使用したいスレッド数をテストバイナリに送ることができます。
-以下の例に目を向けてください:
+以下の例に目を向けてください：
 
 ```text
 $ cargo test -- --test-threads=1
@@ -99,7 +99,7 @@ state.
 -->
 
 テストスレッドの数を`1`にセットし、並行性を使用しないようにプログラムに指示しています。
-1スレッドのみを使用してテストを実行すると、並行に実行するより時間がかかりますが、
+1 スレッドのみを使用してテストを実行すると、並行に実行するより時間がかかりますが、
 状態を共有していても、お互いに邪魔をすることはありません。
 
 <!--
@@ -116,7 +116,7 @@ line that indicates the test passed. If a test fails, we’ll see whatever was
 printed to standard output with the rest of the failure message.
 -->
 
-標準では、テストが通ると、Rustのテストライブラリは標準出力に出力されたものを全てキャプチャします。例えば、
+標準では、テストが通ると、Rust のテストライブラリは標準出力に出力されたものを全てキャプチャします。例えば、
 テストで`println!`を呼び出してテストが通ると、`println!`の出力は、端末に表示されません;
 テストが通ったことを示す行しか見られないでしょう。テストが失敗すれば、
 残りの失敗メッセージと共に、標準出力に出力されたものが全て見えるでしょう。
@@ -126,13 +126,13 @@ As an example, Listing 11-10 has a silly function that prints the value of its
 parameter and returns 10, as well as a test that passes and a test that fails.
 -->
 
-例として、リスト11-10は引数の値を出力し、10を返す馬鹿げた関数と通過するテスト1つ、失敗するテスト1つです。
+例として、リスト 11-10 は引数の値を出力し、10 を返す馬鹿げた関数と通過するテスト 1 つ、失敗するテスト 1 つです。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 fn prints_and_returns_10(a: i32) -> i32 {
@@ -164,13 +164,13 @@ mod tests {
 `println!`</span>
 -->
 
-<span class="caption">リスト11-10: `println!`を呼び出す関数用のテスト</span>
+<span class="caption">リスト 11-10: `println!`を呼び出す関数用のテスト</span>
 
 <!--
 When we run these tests with `cargo test`, we’ll see the following output:
 -->
 
-これらのテストを`cargo test`で実行すると、以下のような出力を目の当たりにするでしょう:
+これらのテストを`cargo test`で実行すると、以下のような出力を目の当たりにするでしょう：
 
 ```text
 running 2 tests
@@ -209,7 +209,7 @@ If we want to see printed values for passing tests as well, we can disable the
 output capture behavior by using the `--nocapture` flag:
 -->
 
-通過するテストについても出力される値が見たかったら、出力キャプチャ機能を`--nocapture`フラグで無効化することができます:
+通過するテストについても出力される値が見たかったら、出力キャプチャ機能を`--nocapture`フラグで無効化することができます：
 
 ```text
 $ cargo test -- --nocapture
@@ -220,7 +220,7 @@ When we run the tests in Listing 11-10 again with the `--nocapture` flag, we
 see the following output:
 -->
 
-リスト11-10のテストを`--nocapture`フラグと共に再度実行したら、以下のような出力を目の当たりにします:
+リスト 11-10 のテストを`--nocapture`フラグと共に再度実行したら、以下のような出力を目の当たりにします：
 
 ```text
 running 2 tests
@@ -275,14 +275,14 @@ To demonstrate how to run a subset of tests, we’ll create three tests for our
 `add_two` function, as shown in Listing 11-11, and choose which ones to run.
 -->
 
-テストの一部を走らせる方法を模擬するために、リスト11-11に示したように、
-`add_two`関数用に3つテストを作成し、走らせるテストを選択します。
+テストの一部を走らせる方法を模擬するために、リスト 11-11 に示したように、
+`add_two`関数用に 3 つテストを作成し、走らせるテストを選択します。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 pub fn add_two(a: i32) -> i32 {
@@ -315,14 +315,14 @@ mod tests {
 names</span>
 -->
 
-<span class="caption">リスト11-11: 異なる名前の3つのテスト</span>
+<span class="caption">リスト 11-11: 異なる名前の 3 つのテスト</span>
 
 <!--
 If we run the tests without passing any arguments, as we saw earlier, all the
 tests will run in parallel:
 -->
 
-以前見かけたように、引数なしでテストを走らせたら、全テストが並行に走ります:
+以前見かけたように、引数なしでテストを走らせたら、全テストが並行に走ります：
 
 ```text
 running 3 tests
@@ -343,7 +343,7 @@ test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 We can pass the name of any test function to `cargo test` to run only that test:
 -->
 
-あらゆるテスト関数の名前を`cargo test`に渡して、そのテストのみを実行することができます:
+あらゆるテスト関数の名前を`cargo test`に渡して、そのテストのみを実行することができます：
 
 ```text
 $ cargo test one_hundred
@@ -362,7 +362,7 @@ that name. The test output lets us know we had more tests than what this
 command ran by displaying `2 filtered out` at the end of the summary line.
 -->
 
-`one_hundred`という名前のテストだけが走りました; 他の2つのテストはその名前に合致しなかったのです。
+`one_hundred`という名前のテストだけが走りました; 他の 2 つのテストはその名前に合致しなかったのです。
 まとめ行の最後に`2 filtered out`と表示することでテスト出力は、このコマンドが走らせた以上のテストがあることを知らせてくれています。
 
 <!--
@@ -386,7 +386,7 @@ run those two by running `cargo test add`:
 -->
 
 テスト名の一部を指定でき、その値に合致するあらゆるテストが走ります。例えば、
-我々のテストの2つが`add`という名前を含むので、`cargo test add`を実行することで、その二つを走らせることができます:
+我々のテストの 2 つが`add`という名前を含むので、`cargo test add`を実行することで、その二つを走らせることができます：
 
 ```text
 $ cargo test add
@@ -433,7 +433,7 @@ here:
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 #[test]
@@ -444,7 +444,7 @@ fn it_works() {
 #[test]
 #[ignore]
 fn expensive_test() {
-    // 実行に1時間かかるコード
+    // 実行に 1 時間かかるコード
     // code that takes an hour to run
 }
 ```
@@ -455,7 +455,7 @@ when we run our tests, `it_works` runs, but `expensive_test` doesn’t:
 -->
 
 `#[test]`の後の除外したいテストに`#[ignore]`行を追加しています。これで、
-テストを実行したら、`it_works`は実行されるものの、`expensive_test`は実行されません:
+テストを実行したら、`it_works`は実行されるものの、`expensive_test`は実行されません：
 
 ```text
 $ cargo test
@@ -476,7 +476,7 @@ the ignored tests, we can use `cargo test -- --ignored`:
 -->
 
 `expensive_test`関数は、`ignored`と列挙されています。無視されるテストのみを実行したかったら、
-`cargo test -- --ignored`を使うことができます:
+`cargo test -- --ignored`を使うことができます：
 
 ```text
 $ cargo test -- --ignored
@@ -490,7 +490,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out
 ```
 
 <!--
-1行目後半、"make sure ..."のところを「結果が早く出る」と訳しているが、この書き方では「結果が早い」としか読めない。どうしたものか
+1 行目後半、"make sure ..."のところを「結果が早く出る」と訳しているが、この書き方では「結果が早い」としか読めない。どうしたものか
 -->
 
 <!--

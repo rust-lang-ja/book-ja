@@ -14,9 +14,9 @@ solution when our interchangeable items are a fixed set of types that we know
 when our code is compiled.
 -->
 
-第8章で、ベクタの1つの制限は、たった1つの型の要素を保持することしかできないことだと述べました。
-リスト8-10で整数、浮動小数点数、テキストを保持する列挙子のある`SpreadsheetCell` enumを定義して、
-これを回避しました。つまり、各セルに異なる型のデータを格納しつつ、1行のセルを表すベクタを保持するということです。
+第 8 章で、ベクタの 1 つの制限は、たった 1 つの型の要素を保持することしかできないことだと述べました。
+リスト 8-10 で整数、浮動小数点数、テキストを保持する列挙子のある`SpreadsheetCell` enum を定義して、
+これを回避しました。つまり、各セルに異なる型のデータを格納しつつ、1 行のセルを表すベクタを保持するということです。
 コンパイル時にわかるある固定されたセットの型にしか取り替え可能な要素がならない場合には、
 完璧な解決策です。
 
@@ -35,10 +35,10 @@ instance, one programmer might add an `Image` and another might add a
 
 ところが、時として、ライブラリの使用者が特定の場面で合法になる型のセットを拡張できるようにしたくなることがあります。
 これをどう実現する可能性があるか示すために、各アイテムに`draw`メソッドを呼び出してスクリーンに描画するという、
-GUIツールで一般的なテクニックをしてあるリストの要素を走査する例のGUIツールを作ります。
-GUIライブラリの構造を含む`gui`と呼ばれるライブラリクレートを作成します。
+GUI ツールで一般的なテクニックをしてあるリストの要素を走査する例の GUI ツールを作ります。
+GUI ライブラリの構造を含む`gui`と呼ばれるライブラリクレートを作成します。
 このクレートには、他人が使用できる`Button`や`TextField`などの型が包含されるかもしれません。
-さらに、`gui`の使用者は、描画可能な独自の型を作成したくなるでしょう: 例えば、
+さらに、`gui`の使用者は、描画可能な独自の型を作成したくなるでしょう：例えば、
 ある人は`Image`を追加し、別の人は`SelectBox`を追加するかもしれません。
 
 <!--
@@ -51,7 +51,7 @@ doesn’t need to know exactly what will happen when we call the `draw` method,
 just that the value will have that method available for us to call.
 -->
 
-この例のために本格的なGUIライブラリは実装するつもりはありませんが、部品がどう組み合わさるかは示します。
+この例のために本格的な GUI ライブラリは実装するつもりはありませんが、部品がどう組み合わさるかは示します。
 ライブラリの記述時点では、他のプログラマが作成したくなる可能性のある型全てを知る由もなければ、定義することもできません。
 しかし、`gui`は異なる型の多くの値を追いかけ、この異なる型の値に対して`draw`メソッドを呼び出す必要があることは、
 確かにわかっています。`draw`メソッドを呼び出した時に正確に何が起きるかを知っている必要はありません。
@@ -72,7 +72,7 @@ allow users to extend it with new types.
 `Button`、`Image`、`SelectBox`などの他のクラスは、`Component`を継承し、故に`draw`メソッドを継承します。
 個々に`draw`メソッドをオーバーライドして、独自の振る舞いを定義するものの、フレームワークは、
 `Component`インスタンスであるかのようにその型全部を扱い、この型に対して`draw`を呼び出します。
-ですが、Rustに継承は存在しないので、使用者に新しい型で拡張してもらうために`gui`ライブラリを構成する他の方法が必要です。
+ですが、Rust に継承は存在しないので、使用者に新しい型で拡張してもらうために`gui`ライブラリを構成する他の方法が必要です。
 
 <!--
 ### Defining a Trait for Common Behavior
@@ -94,13 +94,13 @@ value used in that context will implement the trait object’s trait.
 Consequently, we don’t need to know all the possible types at compile time.
 -->
 
-`gui`に欲しい振る舞いを実装するには、`draw`という1つのメソッドを持つ`Draw`というトレイトを定義します。
+`gui`に欲しい振る舞いを実装するには、`draw`という 1 つのメソッドを持つ`Draw`というトレイトを定義します。
 それから*トレイトオブジェクト*を取るベクタを定義できます。トレイトオブジェクトは、
 指定したトレイトを実装するある型のインスタンスを指します。`&`参照や`Box<T>`スマートポインタなどの、
-何らかのポインタを指定し、それから関係のあるトレイトを指定する(トレイトオブジェクトがポインタを使用しなければならない理由については、
-第19章の「動的サイズ決定型とSizedトレイト」節で語ります)ことでトレイトオブジェクトを作成します。
+何らかのポインタを指定し、それから関係のあるトレイトを指定する (トレイトオブジェクトがポインタを使用しなければならない理由については、
+第 19 章の「動的サイズ決定型と Sized トレイト」節で語ります) ことでトレイトオブジェクトを作成します。
 ジェネリックまたは具体的な型があるところにトレイトオブジェクトは使用できます。どこでトレイトオブジェクトを使用しようと、
-Rustの型システムは、コンパイル時にその文脈で使用されているあらゆる値がそのトレイトオブジェクトのトレイトを実装していることを保証します。
+Rust の型システムは、コンパイル時にその文脈で使用されているあらゆる値がそのトレイトオブジェクトのトレイトを実装していることを保証します。
 結果としてコンパイル時に可能性のある型を全て知る必要はなくなるのです。
 
 <!--
@@ -116,12 +116,12 @@ languages: their specific purpose is to allow abstraction across common
 behavior.
 -->
 
-Rustでは、構造体とenumを他の言語のオブジェクトと区別するために「オブジェクト」と呼ぶことを避けていることに触れましたね。
-構造体やenumにおいて、構造体のフィールドのデータや`impl`ブロックの振る舞いは区分けされているものの、
-他の言語では1つの概念に押し込められるデータと振る舞いは、しばしばオブジェクトと分類されます。
+Rust では、構造体と enum を他の言語のオブジェクトと区別するために「オブジェクト」と呼ぶことを避けていることに触れましたね。
+構造体や enum において、構造体のフィールドのデータや`impl`ブロックの振る舞いは区分けされているものの、
+他の言語では 1 つの概念に押し込められるデータと振る舞いは、しばしばオブジェクトと分類されます。
 しかしながら、トレイトオブジェクトは、データと振る舞いをごちゃ混ぜにするという観点で他の言語のオブジェクトに近い*です*。
 しかし、トレイトオブジェクトは、データを追加できないという点で伝統的なオブジェクトと異なっています。
-トレイトオブジェクトは、他の言語のオブジェクトほど一般的に有用ではありません:
+トレイトオブジェクトは、他の言語のオブジェクトほど一般的に有用ではありません：
 その特定の目的は、共通の振る舞いに対して抽象化を行うことです。
 
 <!--
@@ -129,13 +129,13 @@ Listing 17-3 shows how to define a trait named `Draw` with one method named
 `draw`:
 -->
 
-リスト17-3は、`draw`という1つのメソッドを持つ`Draw`というトレイトを定義する方法を示しています:
+リスト 17-3 は、`draw`という 1 つのメソッドを持つ`Draw`というトレイトを定義する方法を示しています：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 pub trait Draw {
@@ -147,7 +147,7 @@ pub trait Draw {
 <span class="caption">Listing 17-3: Definition of the `Draw` trait</span>
 -->
 
-<span class="caption">リスト17-3: `Draw`トレイトの定義</span>
+<span class="caption">リスト 17-3: `Draw`トレイトの定義</span>
 
 <!--
 This syntax should look familiar from our discussions on how to define traits
@@ -157,15 +157,15 @@ in Chapter 10. Next comes some new syntax: Listing 17-4 defines a struct named
 `Box` that implements the `Draw` trait.
 -->
 
-この記法は、第10章のトレイトの定義方法に関する議論で馴染み深いはずです。その次は、新しい記法です:
-リスト17-4では、`components`というベクタを保持する`Screen`という名前の構造体を定義しています。
+この記法は、第 10 章のトレイトの定義方法に関する議論で馴染み深いはずです。その次は、新しい記法です：
+リスト 17-4 では、`components`というベクタを保持する`Screen`という名前の構造体を定義しています。
 このベクタの型は`Box<Draw>`で、これはトレイトオブジェクトです; `Draw`トレイトを実装する`Box`内部の任意の型に対する代役です。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # pub trait Draw {
@@ -183,7 +183,7 @@ pub struct Screen {
 trait</span>
 -->
 
-<span class="caption">リスト17-4: `Draw`トレイトを実装するトレイトオブジェクトのベクタを保持する`components`フィールドがある
+<span class="caption">リスト 17-4: `Draw`トレイトを実装するトレイトオブジェクトのベクタを保持する`components`フィールドがある
 `Screen`構造体の定義</span>
 
 <!--
@@ -192,13 +192,13 @@ On the `Screen` struct, we’ll define a method named `run` that will call the
 -->
 
 `Screen`構造体に、`components`の各要素に対して`draw`メソッドを呼び出す`run`というメソッドを定義します。
-リスト17-5のようにですね:
+リスト 17-5 のようにですね：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # pub trait Draw {
@@ -223,7 +223,7 @@ impl Screen {
 `draw` method on each component</span>
 -->
 
-<span class="caption">リスト17-5: 各コンポーネントに対して`draw`メソッドを呼び出す`Screen`の`run`メソッド</span>
+<span class="caption">リスト 17-5: 各コンポーネントに対して`draw`メソッドを呼び出す`Screen`の`run`メソッド</span>
 
 <!--
 This works differently than defining a struct that uses a generic type
@@ -235,15 +235,15 @@ as in Listing 17-6:
 -->
 
 これは、トレイト境界を伴うジェネリックな型引数を使用する構造体を定義するのとは異なる動作をします。
-ジェネリックな型引数は、一度に1つの具体型にしか置き換えられないのに対して、トレイトオブジェクトは、
+ジェネリックな型引数は、一度に 1 つの具体型にしか置き換えられないのに対して、トレイトオブジェクトは、
 実行時にトレイトオブジェクトに対して複数の具体型で埋めることができます。例として、
-ジェネリックな型とトレイト境界を使用してリスト17-6のように`Screen`構造体を定義することもできました:
+ジェネリックな型とトレイト境界を使用してリスト 17-6 のように`Screen`構造体を定義することもできました：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # pub trait Draw {
@@ -269,7 +269,7 @@ impl<T> Screen<T>
 struct and its `run` method using generics and trait bounds</span>
 -->
 
-<span class="caption">リスト17-6: ジェネリクスとトレイト境界を使用した`Screen`構造体と`run`メソッドの対立的な実装</span>
+<span class="caption">リスト 17-6: ジェネリクスとトレイト境界を使用した`Screen`構造体と`run`メソッドの対立的な実装</span>
 
 <!--
 This restricts us to a `Screen` instance that has a list of components all of
@@ -289,7 +289,7 @@ can hold a `Vec<T>` that contains a `Box<Button>` as well as a
 runtime performance implications.
 -->
 
-一方で、メソッドがトレイトオブジェクトを使用すると、1つの`Screen`インスタンスが、
+一方で、メソッドがトレイトオブジェクトを使用すると、1 つの`Screen`インスタンスが、
 `Box<Button>`と`Box<TextField>`を含む`Vec<T>`を保持できます。
 この動作方法を見、それから実行時性能の裏の意味について語りましょう。
 
@@ -307,16 +307,16 @@ body. To imagine what the implementation might look like, a `Button` struct
 might have fields for `width`, `height`, and `label`, as shown in Listing 17-7:
 -->
 
-さて、`Draw`トレイトを実装する型を追加しましょう。`Button`型を提供します。ここも、実際にGUIライブラリを実装することは、
+さて、`Draw`トレイトを実装する型を追加しましょう。`Button`型を提供します。ここも、実際に GUI ライブラリを実装することは、
 この本の範疇を超えているので、`draw`メソッドの本体は、何も有用な実装はしません。実装がどんな感じになるか想像するために、
 `Button`構造体は、`width`、`height`、`label`フィールドを持っている可能性があります。
-リスト17-7に示したようにですね:
+リスト 17-7 に示したようにですね：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # pub trait Draw {
@@ -342,7 +342,7 @@ impl Draw for Button {
 `Draw` trait</span>
 -->
 
-<span class="caption">リスト17-7: `Draw`トレイトを実装するある`Button`構造体</span>
+<span class="caption">リスト 17-7: `Draw`トレイトを実装するある`Button`構造体</span>
 
 <!--
 The `width`, `height`, and `label` fields on `Button` will differ from the
@@ -359,7 +359,7 @@ methods won’t apply to types like `TextField`.
 `Button`の`width`、`height`、`label`フィールドは、`TextField`型のように、
 それらのフィールドプラス`placeholder`フィールドを代わりに持つ可能性のある他のコンポーネントのフィールドとは異なるでしょう。
 スクリーンに描画したい型のコンポーネントはそれぞれ`Draw`トレイトを実装しますが、
-`Button`がここでしているように、`draw`メソッドでは異なるコードを使用してその特定の型を描画する方法を定義しています(実際のGUIコードは、
+`Button`がここでしているように、`draw`メソッドでは異なるコードを使用してその特定の型を描画する方法を定義しています (実際の GUI コードは、
 この章の範疇を超えるのでありませんが)。例えば、`Button`には、ユーザがボタンをクリックした時に起こることに関連するメソッドを含む、
 追加の`impl`ブロックがある可能性があります。この種のメソッドは、`TextField`のような型には適用されません。
 
@@ -370,13 +370,13 @@ If someone using our library decides to implement a `SelectBox` struct that has
 -->
 
 ライブラリの使用者が、`width`、`height`、`options`フィールドのある`SelectBox`構造体を実装しようと決めたら、
-`SelectBox`型にも`Draw`トレイトを実装します。リスト17-8のようにですね:
+`SelectBox`型にも`Draw`トレイトを実装します。リスト 17-8 のようにですね：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 extern crate gui;
@@ -401,7 +401,7 @@ impl Draw for SelectBox {
 the `Draw` trait on a `SelectBox` struct</span>
 -->
 
-<span class="caption">リスト17-8: `gui`を使用し、`SelectBox`構造体に`Draw`トレイトを実装する別のクレート</span>
+<span class="caption">リスト 17-8: `gui`を使用し、`SelectBox`構造体に`Draw`トレイトを実装する別のクレート</span>
 
 <!--
 Our library’s user can now write their `main` function to create a `Screen`
@@ -414,13 +414,13 @@ components. Listing 17-9 shows this implementation:
 ライブラリの使用者はもう、`main`関数を書き、`Screen`インスタンスを生成できます。`Screen`インスタンスには、
 それぞれを`Box<T>`に放り込んでトレイトオブジェクト化して`SelectBox`と`Button`を追加できます。
 それから`Screen`インスタンスに対して`run`メソッドを呼び出すことができ、そうすると各コンポーネントの`draw`が呼び出されます。
-リスト17-9は、この実装を示しています:
+リスト 17-9 は、この実装を示しています：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 use gui::{Screen, Button};
@@ -458,7 +458,7 @@ fn main() {
 different types that implement the same trait</span>
 -->
 
-<span class="caption">リスト17-9: トレイトオブジェクトを使って同じトレイトを実装する異なる型の値を格納する</span>
+<span class="caption">リスト 17-9: トレイトオブジェクトを使って同じトレイトを実装する異なる型の値を格納する</span>
 
 <!--
 When we wrote the library, we didn’t know that someone might add the
@@ -484,20 +484,20 @@ It doesn’t check whether a component is an instance of a `Button` or a
 -->
 
 この値の具体的な型ではなく、値が応答したメッセージにのみ関係するという概念は、
-動的型付け言語の*ダックタイピング*に似た概念です: アヒルのように歩き、鳴くならば、
-アヒルに違いないのです！リスト17-5の`Screen`の`run`の実装では、`run`は、
+動的型付け言語の*ダックタイピング*に似た概念です：アヒルのように歩き、鳴くならば、
+アヒルに違いないのです！リスト 17-5 の`Screen`の`run`の実装では、`run`は、
 各コンポーネントの実際の型がなんであるか知る必要はありません。コンポーネントが、
 `Button`や`SelectBox`のインスタンスであるかを確認することはなく、コンポーネントの`draw`メソッドを呼び出すだけです。
 `components`ベクタで`Box<Draw>`を値の型として指定することで、`Screen`を、
 `draw`メソッドを呼び出せる値を必要とするように定義できたのです。
 
-> #### 注釈: ダックタイピングについて
+> #### 注釈：ダックタイピングについて
 >
-> ご存知かもしれませんが、ダックタイピングについて補足です。ダックタイピングとは、動的型付け言語やC++のテンプレートで使用される、
+> ご存知かもしれませんが、ダックタイピングについて補足です。ダックタイピングとは、動的型付け言語や C++のテンプレートで使用される、
 > 特定のフィールドやメソッドがあることを想定してコンパイルを行い、実行時に実際にあることを確かめるというプログラミング手法です。
 > ダック・テストという思考法に由来するそうです。
 >
-> ダックタイピングの利点は、XMLやJSONなど、厳密なスキーマがないことが多い形式を扱いやすくなること、
+> ダックタイピングの利点は、XML や JSON など、厳密なスキーマがないことが多い形式を扱いやすくなること、
 > 欠点は、実行してみるまで動くかどうかわからないことでしょう。
 
 <!--
@@ -508,7 +508,7 @@ if a value doesn’t implement a method but we call it anyway. Rust won’t comp
 our code if the values don’t implement the traits that the trait objects need.
 -->
 
-トレイトオブジェクトとRustの型システムを使用してダックタイピングを活用したコードに似たコードを書くことの利点は、
+トレイトオブジェクトと Rust の型システムを使用してダックタイピングを活用したコードに似たコードを書くことの利点は、
 実行時に値が特定のメソッドを実装しているか確認したり、値がメソッドを実装していない時にエラーになることを心配したりする必要は絶対になく、
 とにかく呼び出せることです。コンパイラは、値が、トレイトオブジェクトが必要としているトレイトを実装していなければ、
 コンパイルを通さないのです。
@@ -518,13 +518,13 @@ For example, Listing 17-10 shows what happens if we try to create a `Screen`
 with a `String` as a component:
 -->
 
-例えば、リスト17-10は、コンポーネントに`String`のある`Screen`を作成しようとした時に起こることを示しています:
+例えば、リスト 17-10 は、コンポーネントに`String`のある`Screen`を作成しようとした時に起こることを示しています：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 extern crate gui;
@@ -546,13 +546,13 @@ fn main() {
 implement the trait object’s trait</span>
 -->
 
-<span class="caption">リスト17-10: トレイトオブジェクトのトレイトを実装しない型の使用を試みる</span>
+<span class="caption">リスト 17-10: トレイトオブジェクトのトレイトを実装しない型の使用を試みる</span>
 
 <!--
 We’ll get this error because `String` doesn’t implement the `Draw` trait:
 -->
 
-`String`は`Draw`トレイトを実装していないので、このようなエラーが出ます:
+`String`は`Draw`トレイトを実装していないので、このようなエラーが出ます：
 
 ```text
 error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
@@ -566,7 +566,7 @@ error[E0277]: the trait bound `std::string::String: gui::Draw` is not satisfied
 ```
 
 <!--
-2行目はandだが、順接の理由で訳している
+2 行目は and だが、順接の理由で訳している
 -->
 
 <!--
@@ -597,8 +597,8 @@ dispatch cases, the compiler emits code that at runtime will figure out which
 method to call.
 -->
 
-第10章の「ジェネリクスを使用したコードのパフォーマンス」節でジェネリクスに対してトレイト境界を使用した時に、
-コンパイラが行う単相化過程の議論を思い出してください: コンパイラは、関数やメソッドのジェネリックでない実装を、
+第 10 章の「ジェネリクスを使用したコードのパフォーマンス」節でジェネリクスに対してトレイト境界を使用した時に、
+コンパイラが行う単相化過程の議論を思い出してください：コンパイラは、関数やメソッドのジェネリックでない実装を、
 ジェネリックな型引数の箇所に使用している具体的な型に対して生成するのでした。単相化の結果吐かれるコードは、
 *スタティックディスパッチ*を行い、これは、コンパイル時にコンパイラがどのメソッドを呼び出しているかわかる時のことです。
 これは、*ダイナミックディスパッチ*とは対照的で、この時、コンパイラは、コンパイル時にどのメソッドを呼び出しているのかわかりません。
@@ -622,8 +622,8 @@ to consider.
 どの型に実装されたどのメソッドを呼び出すかわからないのです。代わりに実行時に、トレイトオブジェクト内でポインタを使用して、
 コンパイラは、どのメソッドを呼ぶか知ります。スタティックディスパッチでは行われないこの検索が起きる時には、
 実行時コストがあります。また、ダイナミックディスパッチは、コンパイラがメソッドのコードをインライン化することも妨げ、
-そのため、ある種の最適化が不可能になります。ですが、リスト17-5で記述し、
-リスト17-9ではサポートできたコードで追加の柔軟性を確かに得られたので、考慮すべき代償です。
+そのため、ある種の最適化が不可能になります。ですが、リスト 17-5 で記述し、
+リスト 17-9 ではサポートできたコードで追加の柔軟性を確かに得られたので、考慮すべき代償です。
 
 <!--
 ### Object Safety Is Required for Trait Objects
@@ -639,7 +639,7 @@ the trait have the following properties:
 -->
 
 トレイトオブジェクトには、*オブジェクト安全*なトレイトしか作成できません。
-トレイトオブジェクトを安全にする特性全てを司る複雑な規則がありますが、実際には、2つの規則だけが関係があります。
+トレイトオブジェクトを安全にする特性全てを司る複雑な規則がありますが、実際には、2 つの規則だけが関係があります。
 トレイトは、トレイト内で定義されているメソッド全てに以下の特性があれば、オブジェクト安全になります。
 
 <!--
@@ -667,7 +667,7 @@ generic type parameters with.
 一旦、トレイトオブジェクトを使用したら、コンパイラにはそのトレイトを実装している具体的な型を知りようがないので、
 オブジェクト安全でなければなりません。トレイトメソッドが具体的な`Self`型を返すのに、
 トレイトオブジェクトが`Self`の具体的な型を忘れてしまったら、メソッドが元の具体的な型を使用できる手段はなくなってしまいます。
-同じことがトレイトを使用する時に具体的な型引数で埋められるジェネリックな型引数に対しても言えます:
+同じことがトレイトを使用する時に具体的な型引数で埋められるジェネリックな型引数に対しても言えます：
 具体的な型がトレイトを実装する型の一部になるのです。トレイトオブジェクトの使用を通して型が忘却されたら、
 そのジェネリックな型引数を埋める型がなんなのか知る術はないのです。
 
@@ -678,7 +678,7 @@ trait looks like this:
 -->
 
 メソッドがオブジェクト安全でないトレイトの例は、標準ライブラリの`Clone`トレイトです。
-`Clone`トレイトの`clone`メソッドのシグニチャは以下のような感じです:
+`Clone`トレイトの`clone`メソッドのシグニチャは以下のような感じです：
 
 ```rust
 pub trait Clone {
@@ -707,8 +707,8 @@ implement the `Clone` trait instead of the `Draw` trait, like this:
 -->
 
 コンパイラは、トレイトオブジェクトに関していつオブジェクト安全の規則を侵害するようなことを試みているかを示唆します。
-例えば、リスト17-4で`Screen`構造体を実装して`Draw`トレイトではなく、
-`Clone`トレイトを実装した型を保持しようとしたとしましょう。こんな感じで:
+例えば、リスト 17-4 で`Screen`構造体を実装して`Draw`トレイトではなく、
+`Clone`トレイトを実装した型を保持しようとしたとしましょう。こんな感じで：
 
 ```rust,ignore
 pub struct Screen {
@@ -720,7 +720,7 @@ pub struct Screen {
 We would get this error:
 -->
 
-こんなエラーになるでしょう:
+こんなエラーになるでしょう：
 
 ```text
 error[E0038]: the trait `std::clone::Clone` cannot be made into an object
@@ -732,7 +732,7 @@ error[E0038]: the trait `std::clone::Clone` cannot be made into an object
 made into an object
   |
   = note: the trait cannot require that `Self : Sized`
-  (注釈: このトレイトは、`Self : Sized`を満たせません)
+  (注釈：このトレイトは、`Self : Sized`を満たせません)
 ```
 
 <!--

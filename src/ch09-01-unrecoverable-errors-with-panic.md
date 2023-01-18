@@ -13,7 +13,7 @@ been detected, and it’s not clear to the programmer how to handle the error.
 -->
 
 時として、コードで悪いことが起きるものです。そして、それに対してできることは何もありません。
-このような場面で、Rustには`panic!`マクロが用意されています。`panic!`マクロが実行されると、
+このような場面で、Rust には`panic!`マクロが用意されています。`panic!`マクロが実行されると、
 プログラムは失敗のメッセージを表示し、スタックを巻き戻し掃除して、終了します。これが最もありふれて起こるのは、
 何らかのバグが検出された時であり、プログラマには、どうエラーを処理すればいいか明確ではありません。
 
@@ -42,10 +42,10 @@ been detected, and it’s not clear to the programmer how to handle the error.
 > 標準では、パニックが発生すると、プログラムは*巻き戻し*を始めます。つまり、言語がスタックを遡り、
 > 遭遇した各関数のデータを片付けるということです。しかし、この遡りと片付けはすべきことが多くなります。
 > 対立案は、即座に異常終了し、片付けをせずにプログラムを終了させることです。そうなると、プログラムが使用していたメモリは、
-> OSが片付ける必要があります。プロジェクトにおいて、実行可能ファイルを極力小さくする必要があれば、
+> OS が片付ける必要があります。プロジェクトにおいて、実行可能ファイルを極力小さくする必要があれば、
 > *Cargo.toml*ファイルの適切な`[profile]`欄に`panic = 'abort'`を追記することで、
 > パニック時に巻き戻しから異常終了するように切り替えることができます。例として、
-> リリースモード時に異常終了するようにしたければ、以下を追記してください:
+> リリースモード時に異常終了するようにしたければ、以下を追記してください：
 >
 > ```toml
 > [profile.release]
@@ -56,13 +56,13 @@ been detected, and it’s not clear to the programmer how to handle the error.
 Let’s try calling `panic!` in a simple program:
 -->
 
-単純なプログラムで`panic!`の呼び出しを試してみましょう:
+単純なプログラムで`panic!`の呼び出しを試してみましょう：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,should_panic
 fn main() {
@@ -74,7 +74,7 @@ fn main() {
 When you run the program, you’ll see something like this:
 -->
 
-このプログラムを実行すると、以下のような出力を目の当たりにするでしょう:
+このプログラムを実行すると、以下のような出力を目の当たりにするでしょう：
 
 ```text
 $ cargo run
@@ -82,7 +82,7 @@ $ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.25 secs
      Running `target/debug/panic`
 thread 'main' panicked at 'crash and burn', src/main.rs:2:4
-('main'スレッドはsrc/main.rs:2:4の「クラッシュして炎上」でパニックしました)
+('main'スレッドは src/main.rs:2:4 の「クラッシュして炎上」でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
@@ -93,8 +93,8 @@ the panic occurred: *src/main.rs:2:4* indicates that it’s the second line,
 fourth character of our *src/main.rs* file.
 -->
 
-`panic!`の呼び出しが、最後の2行に含まれるエラーメッセージを発生させているのです。
-1行目にパニックメッセージとソースコード中でパニックが発生した箇所を示唆しています:
+`panic!`の呼び出しが、最後の 2 行に含まれるエラーメッセージを発生させているのです。
+1 行目にパニックメッセージとソースコード中でパニックが発生した箇所を示唆しています：
 *src/main.rs:2:4*は、*src/main.rs*ファイルの2行目4文字目であることを示しています。
 
 <!--
@@ -128,14 +128,14 @@ element by index in a vector.
 -->
 
 別の例を眺めて、自分のコードでマクロを直接呼び出す代わりに、コードに存在するバグにより、
-ライブラリで`panic!`呼び出しが発生するとどんな感じなのか確かめてみましょう。リスト9-1は、
+ライブラリで`panic!`呼び出しが発生するとどんな感じなのか確かめてみましょう。リスト 9-1 は、
 添え字でベクタの要素にアクセスを試みる何らかのコードです。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,should_panic
 fn main() {
@@ -150,7 +150,7 @@ fn main() {
 end of a vector, which will cause a call to `panic!`</span>
 -->
 
-<span class="caption">リスト9-1: ベクタの境界を超えて要素へのアクセスを試み、`panic!`の呼び出しを発生させる</span>
+<span class="caption">リスト 9-1: ベクタの境界を超えて要素へのアクセスを試み、`panic!`の呼び出しを発生させる</span>
 
 <!--
 Here, we’re attempting to access the 100th element of our vector (which is at
@@ -160,9 +160,9 @@ you pass an invalid index, there’s no element that Rust could return here that
 would be correct.
 -->
 
-ここでは、ベクタの100番目の要素(添え字は0始まりなので添え字99)にアクセスを試みていますが、ベクタには3つしか要素がありません。
-この場面では、Rustはパニックします。`[]`の使用は、要素を返すと想定されるものの、
-無効な添え字を渡せば、ここでRustが返せて正しいと思われる要素は何もないわけです。
+ここでは、ベクタの 100 番目の要素 (添え字は 0 始まりなので添え字 99) にアクセスを試みていますが、ベクタには 3 つしか要素がありません。
+この場面では、Rust はパニックします。`[]`の使用は、要素を返すと想定されるものの、
+無効な添え字を渡せば、ここで Rust が返せて正しいと思われる要素は何もないわけです。
 
 <!--
 Other languages, like C, will attempt to give you exactly what you asked for in
@@ -174,9 +174,9 @@ manipulate the index in such a way as to read data they shouldn’t be allowed t
 that is stored after the array.
 -->
 
-他の言語(Cなど)では、この場面で欲しいものではないにもかかわらず、まさしく要求したものを返そうとしてきます:
+他の言語 (C など) では、この場面で欲しいものではないにもかかわらず、まさしく要求したものを返そうとしてきます：
 メモリがベクタに属していないにもかかわらず、ベクタ内のその要素に対応するメモリ上の箇所にあるものを何か返してくるのです。
-これは、*バッファー外読み出し*(buffer overread; `訳注`: バッファー読みすぎとも解釈できるか)と呼ばれ、
+これは、*バッファー外読み出し*(buffer overread; `訳注`: バッファー読みすぎとも解釈できるか) と呼ばれ、
 攻撃者が、配列の後に格納された読めるべきでないデータを読み出せるように添え字を操作できたら、
 セキュリティ脆弱性につながる可能性があります。
 
@@ -187,7 +187,7 @@ continue. Let’s try it and see:
 -->
 
 この種の脆弱性からプログラムを保護するために、存在しない添え字の要素を読もうとしたら、
-Rustは実行を中止し、継続を拒みます。試して確認してみましょう:
+Rust は実行を中止し、継続を拒みます。試して確認してみましょう：
 
 ```text
 $ cargo run
@@ -196,8 +196,8 @@ $ cargo run
      Running `target/debug/panic`
 thread 'main' panicked at 'index out of bounds: the len is 3 but the index is
 99', /checkout/src/liballoc/vec.rs:1555:10
-('main'スレッドは、/checkout/src/liballoc/vec.rs:1555:10の
-「境界外番号: 長さは3なのに、添え字は99です」でパニックしました)
+('main'スレッドは、/checkout/src/liballoc/vec.rs:1555:10 の
+「境界外番号：長さは 3 なのに、添え字は 99 です」でパニックしました)
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
@@ -228,12 +228,12 @@ Listing 9-2 shows output similar to what you’ll see.
 
 その次の注釈行は、`RUST_BACKTRACE`環境変数をセットして、まさしく何が起き、
 エラーが発生したのかのバックトレースを得られることを教えてくれています。
-*バックトレース*とは、ここに至るまでに呼び出された全関数の一覧です。Rustのバックトレースも、
-他の言語同様に動作します: バックトレースを読むコツは、頭からスタートして自分のファイルを見つけるまで読むことです。
+*バックトレース*とは、ここに至るまでに呼び出された全関数の一覧です。Rust のバックトレースも、
+他の言語同様に動作します：バックトレースを読むコツは、頭からスタートして自分のファイルを見つけるまで読むことです。
 そこが、問題の根源になるのです。自分のファイルを言及している箇所以前は、自分のコードで呼び出したコードになります;
-以後は、自分のコードを呼び出しているコードになります。これらの行には、Rustの核となるコード、標準ライブラリのコード、
-使用しているクレートなどが含まれるかもしれません。`RUST_BACKTRACE`環境変数を0以外の値にセットして、
-バックトレースを出力してみましょう。リスト9-2のような出力が得られるでしょう。
+以後は、自分のコードを呼び出しているコードになります。これらの行には、Rust の核となるコード、標準ライブラリのコード、
+使用しているクレートなどが含まれるかもしれません。`RUST_BACKTRACE`環境変数を 0 以外の値にセットして、
+バックトレースを出力してみましょう。リスト 9-2 のような出力が得られるでしょう。
 
 ```text
 $ RUST_BACKTRACE=1 cargo run
@@ -282,7 +282,7 @@ stack backtrace:
 `panic!` displayed when the environment variable `RUST_BACKTRACE` is set</span>
 -->
 
-<span class="caption">リスト9-2: `RUST_BACKTRACE`環境変数をセットした時に表示される、
+<span class="caption">リスト 9-2: `RUST_BACKTRACE`環境変数をセットした時に表示される、
 `panic!`呼び出しが生成するバックトレース</span>
 
 <!--
@@ -293,7 +293,7 @@ default when using `cargo build` or `cargo run` without the `--release` flag,
 as we have here.
 -->
 
-出力が多いですね！OSやRustのバージョンによって、出力の詳細は変わる可能性があります。この情報とともに、
+出力が多いですね！OS や Rust のバージョンによって、出力の詳細は変わる可能性があります。この情報とともに、
 バックトレースを得るには、デバッグシンボルを有効にしなければなりません。デバッグシンボルは、
 `--release`オプションなしで`cargo build`や`cargo run`を使用していれば、標準で有効になり、
 ここではそうなっています。
@@ -311,11 +311,11 @@ you’ll need to figure out what action the code is taking with what values to
 cause the panic and what the code should do instead.
 -->
 
-リスト9-2の出力で、バックトレースの11行目が問題発生箇所を指し示しています: *src/main.rs*の4行目です。
+リスト 9-2 の出力で、バックトレースの 11 行目が問題発生箇所を指し示しています：*src/main.rs*の 4 行目です。
 プログラムにパニックしてほしくなければ、自分のファイルについて言及している最初の行で示されている箇所が、
 どのようにパニックを引き起こす値でこの箇所にたどり着いたか割り出すために調査を開始すべき箇所になります。
-バックトレースの使用法を模擬するためにわざとパニックするコードを書いたリスト9-1において、
-パニックを解消する方法は、3つしか要素のないベクタの添え字99の要素を要求しないことです。
+バックトレースの使用法を模擬するためにわざとパニックするコードを書いたリスト 9-1 において、
+パニックを解消する方法は、3 つしか要素のないベクタの添え字 99 の要素を要求しないことです。
 将来コードがパニックしたら、パニックを引き起こすどんな値でコードがどんな動作をしているのかと、
 代わりにコードは何をすべきなのかを算出する必要があるでしょう。
 

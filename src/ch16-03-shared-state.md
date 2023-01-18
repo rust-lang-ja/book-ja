@@ -11,7 +11,7 @@ one. Consider this part of the slogan from the Go language documentation again:
 -->
 
 メッセージ受け渡しは、並行性を扱う素晴らしい方法ですが、唯一の方法ではありません。
-Go言語ドキュメンテーションのスローガンのこの部分を再び考えてください:
+Go 言語ドキュメンテーションのスローガンのこの部分を再び考えてください：
 「メモリを共有することでやり取りする。」
 
 <!--
@@ -36,20 +36,20 @@ for shared memory.
 
 ある意味では、どんなプログラミング言語のチャンネルも単独の所有権に類似しています。
 一旦チャンネルに値を転送したら、その値は最早使用することがないからです。
-メモリ共有並行性は、複数の所有権に似ています: 複数のスレッドが同時に同じメモリ位置にアクセスできるのです。
-第15章でスマートポインタが複数の所有権を可能にするのを目の当たりにしたように、
+メモリ共有並行性は、複数の所有権に似ています：複数のスレッドが同時に同じメモリ位置にアクセスできるのです。
+第 15 章でスマートポインタが複数の所有権を可能にするのを目の当たりにしたように、
 異なる所有者を管理する必要があるので、複数の所有権は複雑度を増させます。
-Rustの型システムと所有権規則は、この管理を正しく行う大きな助けになります。
+Rust の型システムと所有権規則は、この管理を正しく行う大きな助けになります。
 例として、メモリ共有を行うより一般的な並行性の基本型の一つであるミューテックスを見てみましょう。
 
 <!--
 ### Using Mutexes to Allow Access to Data from One Thread at a Time
 -->
 
-### ミューテックスを使用して一度に1つのスレッドからデータにアクセスすることを許可する
+### ミューテックスを使用して一度に 1 つのスレッドからデータにアクセスすることを許可する
 
 <!--
-1行目、as in,が肝だが、inの後は普通名詞に相当するものが来るはずだが、文になっている
+1 行目、as in，が肝だが、in の後は普通名詞に相当するものが来るはずだが、文になっている
 -->
 
 <!--
@@ -61,18 +61,18 @@ keeps track of who currently has exclusive access to the data. Therefore, the
 mutex is described as *guarding* the data it holds via the locking system.
 -->
 
-ミューテックスは、どんな時も1つのスレッドにしかなんらかのデータへのアクセスを許可しないというように、
-"mutual exclusion"(相互排他)の省略形です。ミューテックスにあるデータにアクセスするには、
+ミューテックスは、どんな時も 1 つのスレッドにしかなんらかのデータへのアクセスを許可しないというように、
+"mutual exclusion"(相互排他) の省略形です。ミューテックスにあるデータにアクセスするには、
 ミューテックスのロックを所望することでアクセスしたいことをまず、スレッドは通知しなければなりません。
 ロックとは、現在誰がデータへの排他的アクセスを行なっているかを追跡するミューテックスの一部をなすデータ構造です。
-故に、ミューテックスはロックシステム経由で保持しているデータを*死守する*(guarding)と解説されます。
+故に、ミューテックスはロックシステム経由で保持しているデータを*死守する*(guarding) と解説されます。
 
 <!--
 Mutexes have a reputation for being difficult to use because you have to
 remember two rules:
 -->
 
-ミューテックスは、2つの規則を覚えておく必要があるため、難しいという評判があります:
+ミューテックスは、2 つの規則を覚えておく必要があるため、難しいという評判があります：
 
 <!--
 * You must attempt to acquire the lock before using the data.
@@ -95,7 +95,7 @@ speak. If management of the shared microphone goes wrong, the panel won’t work
 as planned!
 -->
 
-ミューテックスを現実世界の物で例えるなら、マイクが1つしかない会議のパネルディスカッションを思い浮かべてください。
+ミューテックスを現実世界の物で例えるなら、マイクが 1 つしかない会議のパネルディスカッションを思い浮かべてください。
 パネリストが発言できる前に、マイクを使用したいと申し出たり、通知しなければなりません。マイクを受け取ったら、
 話したいだけ話し、それから次に発言を申し出たパネリストにマイクを手渡します。パネリストが発言し終わった時に、
 マイクを手渡すのを忘れていたら、誰も他の人は発言できません。共有されているマイクの管理がうまくいかなければ、
@@ -108,13 +108,13 @@ system and ownership rules, you can’t get locking and unlocking wrong.
 -->
 
 ミューテックスの管理は、正しく行うのに著しく技巧を要することがあるので、多くの人がチャンネルに熱狂的になるわけです。
-しかしながら、Rustの型システムと所有権規則のおかげで、ロックとアンロックをおかしくすることはありません。
+しかしながら、Rust の型システムと所有権規則のおかげで、ロックとアンロックをおかしくすることはありません。
 
 <!--
 #### The API of `Mutex<T>`
 -->
 
-#### `Mutex<T>`のAPI
+#### `Mutex<T>`の API
 
 <!--
 As an example of how to use a mutex, let’s start by using a mutex in a
@@ -122,13 +122,13 @@ single-threaded context, as shown in Listing 16-12:
 -->
 
 ミューテックスの使用方法の例として、ミューテックスをシングルスレッドの文脈で使うことから始めましょう。
-リスト16-12のようにですね:
+リスト 16-12 のようにですね：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::sync::Mutex;
@@ -150,7 +150,7 @@ fn main() {
 single-threaded context for simplicity</span>
 -->
 
-<span class="caption">リスト16-12: 簡潔性のために`Mutex<T>`のAPIをシングルスレッドの文脈で探究する</span>
+<span class="caption">リスト 16-12: 簡潔性のために`Mutex<T>`の API をシングルスレッドの文脈で探究する</span>
 
 <!--
 As with many types, we create a `Mutex<T>` using the associated function `new`.
@@ -182,7 +182,7 @@ can’t forget; the type system won’t let us access the inner `i32` otherwise.
 -->
 
 ロックを獲得した後、今回の場合、`num`と名付けられていますが、戻り値を中に入っているデータへの可変参照として扱うことができます。
-型システムにより、`m`の値を使用する前にロックを獲得していることが確認されます: `Mutex<i32>`は`i32`ではないので、
+型システムにより、`m`の値を使用する前にロックを獲得していることが確認されます：`Mutex<i32>`は`i32`ではないので、
 `i32`を使用できるようにするには、ロックを獲得し*なければならない*のです。忘れることはあり得ません;
 型システムにより、それ以外の場合に内部の`i32`にアクセスすることは許されません。
 
@@ -200,7 +200,7 @@ automatically.
 お察しかもしれませんが、`Mutex<T>`はスマートポインタです。より正確を期すなら、
 `lock`の呼び出しが`MutexGuard`というスマートポインタを*返却*します。このスマートポインタが、
 内部のデータを指す`Deref`を実装しています; このスマートポインタはさらに`MutexGuard`がスコープを外れた時に、
-自動的にロックを解除する`Drop`実装もしていて、これがリスト16-12の内部スコープの終わりで発生します。
+自動的にロックを解除する`Drop`実装もしていて、これがリスト 16-12 の内部スコープの終わりで発生します。
 結果として、ロックの解除が自動的に行われるので、ロックの解除を忘れ、
 ミューテックスが他のスレッドで使用されるのを阻害するリスクを負いません。
 
@@ -209,7 +209,7 @@ After dropping the lock, we can print the mutex value and see that we were able
 to change the inner `i32` to 6.
 -->
 
-ロックをドロップした後、ミューテックスの値を出力し、内部の`i32`の値を6に変更できたことが確かめられるのです。
+ロックをドロップした後、ミューテックスの値を出力し、内部の`i32`の値を 6 に変更できたことが確かめられるのです。
 
 <!--
 #### Sharing a `Mutex<T>` Between Multiple Threads
@@ -226,16 +226,16 @@ compiler errors, and we’ll use those errors to learn more about using
 starting example:
 -->
 
-さて、`Mutex<T>`を使って複数のスレッド間で値を共有してみましょう。10個のスレッドを立ち上げ、
-各々カウンタの値を1ずつインクリメントさせるので、カウンタは0から10まで上がります。
+さて、`Mutex<T>`を使って複数のスレッド間で値を共有してみましょう。10 個のスレッドを立ち上げ、
+各々カウンタの値を 1 ずつインクリメントさせるので、カウンタは 0 から 10 まで上がります。
 以下の数例は、コンパイルエラーになることに注意し、そのエラーを使用して`Mutex<T>`の使用法と、
-コンパイラがそれを正しく活用する手助けをしてくれる方法について学びます。リスト16-13が最初の例です:
+コンパイラがそれを正しく活用する手助けをしてくれる方法について学びます。リスト 16-13 が最初の例です：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 use std::sync::Mutex;
@@ -267,7 +267,7 @@ fn main() {
 guarded by a `Mutex<T>`</span>
 -->
 
-<span class="caption">リスト16-13: `Mutex<T>`により死守されているカウンタを10個のスレッドがそれぞれインクリメントする</span>
+<span class="caption">リスト 16-13: `Mutex<T>`により死守されているカウンタを 10 個のスレッドがそれぞれインクリメントする</span>
 
 <!--
 We create a `counter` variable to hold an `i32` inside a `Mutex<T>`, as we
@@ -279,10 +279,10 @@ thread finishes running its closure, `num` will go out of scope and release the
 lock so another thread can acquire it.
 -->
 
-リスト16-12のように、`counter`変数を生成して`Mutex<T>`の内部に`i32`を保持しています。
-次に、数値の範囲をマッピングして10個のスレッドを生成しています。`thread::spawn`を使用して、
+リスト 16-12 のように、`counter`変数を生成して`Mutex<T>`の内部に`i32`を保持しています。
+次に、数値の範囲をマッピングして 10 個のスレッドを生成しています。`thread::spawn`を使用して、
 全スレッドに同じクロージャを与えています。このクロージャは、スレッド内にカウンタをムーブし、
-`lock`メソッドを呼ぶことで`Mutex<T>`のロックを獲得し、それからミューテックスの値に1を足します。
+`lock`メソッドを呼ぶことで`Mutex<T>`のロックを獲得し、それからミューテックスの値に 1 を足します。
 スレッドがクロージャを実行し終わったら、`num`はスコープ外に出てロックを解除するので、
 他のスレッドが獲得できるわけです。
 
@@ -293,7 +293,7 @@ that point, the main thread will acquire the lock and print the result of this
 program.
 -->
 
-メインスレッドで全てのjoinハンドルを収集します。それからリスト16-2のように、各々に対して`join`を呼び出し、
+メインスレッドで全ての join ハンドルを収集します。それからリスト 16-2 のように、各々に対して`join`を呼び出し、
 全スレッドが終了するのを確かめています。その時点で、メインスレッドはロックを獲得し、このプログラムの結果を出力します。
 
 <!--
@@ -304,7 +304,7 @@ We hinted that this example wouldn’t compile. Now let’s find out why!
 
 ```text
 error[E0382]: capture of moved value: `counter`
-(エラー: ムーブされた値をキャプチャしています: `counter`)
+(エラー: ムーブされた値をキャプチャしています：`counter`)
   --> src/main.rs:10:27
    |
 9  |         let handle = thread::spawn(move || {
@@ -328,7 +328,7 @@ error[E0382]: use of moved value: `counter`
    which does not implement the `Copy` trait
 
 error: aborting due to 2 previous errors
-(エラー: 前述の2つのエラーによりアボート)
+(エラー: 前述の 2 つのエラーによりアボート)
 ```
 
 <!--
@@ -346,9 +346,9 @@ in a `for` loop, let’s just make two threads without a loop and see what
 happens. Replace the first `for` loop in Listing 16-13 with this code instead:
 -->
 
-プログラムを単純化してこれを理解しましょう。`for`ループで10個スレッドを生成する代わりに、
-ループなしで2つのスレッドを作るだけにしてどうなるか確認しましょう。
-リスト16-13の最初の`for`ループを代わりにこのコードと置き換えてください:
+プログラムを単純化してこれを理解しましょう。`for`ループで 10 個スレッドを生成する代わりに、
+ループなしで 2 つのスレッドを作るだけにしてどうなるか確認しましょう。
+リスト 16-13 の最初の`for`ループを代わりにこのコードと置き換えてください：
 
 ```rust,ignore
 use std::sync::Mutex;
@@ -386,8 +386,8 @@ to `handle2` and `num2`. When we run the code this time, compiling gives us the
 following:
 -->
 
-2つのスレッドを生成し、2番目のスレッドの変数名を`handle2`と`num2`に変更しています。
-今回このコードを走らせると、コンパイラは以下の出力をします:
+2 つのスレッドを生成し、2 番目のスレッドの変数名を`handle2`と`num2`に変更しています。
+今回このコードを走らせると、コンパイラは以下の出力をします：
 
 ```text
 error[E0382]: capture of moved value: `counter`
@@ -429,11 +429,11 @@ method we discussed in Chapter 15.
 -->
 
 なるほど！最初のエラーメッセージは、`handle`に紐づけられたスレッドのクロージャに`counter`がムーブされていることを示唆しています。
-そのムーブにより、それに対して`lock`を呼び出し、結果を2番目のスレッドの`num2`に保持しようとした時に、
+そのムーブにより、それに対して`lock`を呼び出し、結果を 2 番目のスレッドの`num2`に保持しようとした時に、
 `counter`をキャプチャすることを妨げています！ゆえに、コンパイラは、`counter`の所有権を複数のスレッドに移すことはできないと教えてくれています。
 これは、以前では確認しづらかったことです。なぜなら、スレッドはループの中にあり、
 ループの違う繰り返しにある違うスレッドをコンパイラは指し示せないからです。
-第15章で議論した複数所有権メソッドによりコンパイルエラーを修正しましょう。
+第 15 章で議論した複数所有権メソッドによりコンパイルエラーを修正しましょう。
 
 <!--
 #### Multiple Ownership with Multiple Threads
@@ -450,8 +450,8 @@ errors, we’ll also switch back to using the `for` loop, and we’ll keep the
 `move` keyword with the closure.
 -->
 
-第15章で、スマートポインタの`Rc<T>`を使用して参照カウントの値を作ることで、1つの値に複数の所有者を与えました。
-同じことをここでもして、どうなるか見ましょう。リスト16-14で`Rc<T>`に`Mutex<T>`を包含し、
+第 15 章で、スマートポインタの`Rc<T>`を使用して参照カウントの値を作ることで、1 つの値に複数の所有者を与えました。
+同じことをここでもして、どうなるか見ましょう。リスト 16-14 で`Rc<T>`に`Mutex<T>`を包含し、
 所有権をスレッドに移す前に`Rc<T>`をクローンします。今やエラーを確認したので、
 `for`ループの使用に立ち戻り、クロージャに`move`キーワードを使用し続けます。
 
@@ -459,7 +459,7 @@ errors, we’ll also switch back to using the `for` loop, and we’ll keep the
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 use std::rc::Rc;
@@ -493,7 +493,7 @@ fn main() {
 multiple threads to own the `Mutex<T>`</span>
 -->
 
-<span class="caption">リスト16-14: `Rc<T>`を使用して複数のスレッドに`Mutex<T>`を所有させようとする</span>
+<span class="caption">リスト 16-14: `Rc<T>`を使用して複数のスレッドに`Mutex<T>`を所有させようとする</span>
 
 <!--
 Once again, we compile and get... different errors! The compiler is teaching us
@@ -540,12 +540,12 @@ section: it’s one of the traits that ensures the types we use with threads are
 meant for use in concurrent situations.
 -->
 
-おお、このエラーメッセージはとても長ったらしいですね！こちらが、注目すべき重要な部分です:
+おお、このエラーメッセージはとても長ったらしいですね！こちらが、注目すべき重要な部分です：
 最初のインラインエラーは`` `std::rc::Rc<std::sync::Mutex<i32>>` cannot be sent
 between threads safely``と述べています。この理由は、エラーメッセージの次に注目すべき重要な部分にあります。
 洗練されたエラーメッセージは、`` the trait bound `Send` is not satisfied``と述べています。
-`Send`については、次の節で語ります:
-スレッドとともに使用している型が並行な場面で使われることを意図したものであることを保証するトレイトの1つです。
+`Send`については、次の節で語ります：
+スレッドとともに使用している型が並行な場面で使われることを意図したものであることを保証するトレイトの 1 つです。
 
 <!--
 Unfortunately, `Rc<T>` is not safe to share across threads. When `Rc<T>`
@@ -582,7 +582,7 @@ across threads.
 
 幸いなことに、`Arc<T>`は`Rc<T>`のような並行な状況で安全に使用できる型*です*。
 *a*は*atomic*を表し、原子的に参照カウントする型を意味します。アトミックは、
-ここでは詳しく講義しない並行性の別の基本型です: 詳細は、
+ここでは詳しく講義しない並行性の別の基本型です：詳細は、
 `std::sync::atomic`の標準ライブラリドキュメンテーションを参照されたし。現時点では、
 アトミックは、基本型のように動くけれども、スレッド間で共有しても安全なことだけ知っていれば良いです。
 
@@ -605,14 +605,14 @@ our program by changing the `use` line, the call to `new`, and the call to
 `clone`. The code in Listing 16-15 will finally compile and run:
 -->
 
-例に回帰しましょう: `Arc<T>`と`Rc<T>`のAPIは同じなので、`use`行と`new`の呼び出しと`clone`の呼び出しを変更して、
-プログラムを修正します。リスト16-15は、ようやくコンパイルでき、動作します:
+例に回帰しましょう：`Arc<T>`と`Rc<T>`の API は同じなので、`use`行と`new`の呼び出しと`clone`の呼び出しを変更して、
+プログラムを修正します。リスト 16-15 は、ようやくコンパイルでき、動作します：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::sync::{Mutex, Arc};
@@ -645,13 +645,13 @@ fn main() {
 to be able to share ownership across multiple threads</span>
 -->
 
-<span class="caption">リスト16-15: `Arc<T>`を使用して`Mutex<T>`をラップし、所有権を複数のスレッド間で共有できるようにする</span>
+<span class="caption">リスト 16-15: `Arc<T>`を使用して`Mutex<T>`をラップし、所有権を複数のスレッド間で共有できるようにする</span>
 
 <!--
 This code will print the following:
 -->
 
-このコードは、以下のように出力します:
+このコードは、以下のように出力します：
 
 ```text
 Result: 10
@@ -666,7 +666,7 @@ parts, split those parts across threads, and then use a `Mutex<T>` to have each
 thread update the final result with its part.
 -->
 
-やりました！0から10まで数え上げました。これは、あまり印象的ではないように思えるかもしれませんが、
+やりました！0 から 10 まで数え上げました。これは、あまり印象的ではないように思えるかもしれませんが、
 本当に`Mutex<T>`とスレッド安全性についていろんなことを教えてくれました。このプログラムの構造を使用して、
 カウンタをインクリメントする以上の複雑な処理を行うこともできるでしょう。この手法を使えば、
 計算を独立した部分に小分けにし、その部分をスレッドに分割し、それから`Mutex<T>`を使用して、
@@ -688,7 +688,7 @@ to mutate contents inside an `Arc<T>`.
 
 `counter`は不変なのに、その内部にある値への可変参照を得ることができたことに気付いたでしょうか;
 つまり、`Mutex<T>`は、`Cell`系のように内部可変性を提供するわけです。
-第15章で`RefCell<T>`を使用して`Rc<T>`の内容を可変化できるようにしたのと同様に、
+第 15 章で`RefCell<T>`を使用して`Rc<T>`の内容を可変化できるようにしたのと同様に、
 `Mutex<T>`を使用して`Arc<T>`の内容を可変化しているのです。
 
 <!--
@@ -706,13 +706,13 @@ useful information.
 -->
 
 気付いておくべき別の詳細は、`Mutex<T>`を使用する際にあらゆる種類のロジックエラーからは、
-コンパイラは保護してくれないということです。第15章で`Rc<T>`は、循環参照を生成してしまうリスクを伴い、
-そうすると、2つの`Rc<T>`の値がお互いを参照し合い、メモリリークを引き起こしてしまうことを思い出してください。
-同様に、`Mutex<T>`は*デッドロック*を生成するリスクを伴っています。これは、処理が2つのリソースをロックする必要があり、
-2つのスレッドがそれぞれにロックを1つ獲得して永久にお互いを待ちあってしまうときに起こります。
-デッドロックに興味があるのなら、デッドロックのあるRustプログラムを組んでみてください;
+コンパイラは保護してくれないということです。第 15 章で`Rc<T>`は、循環参照を生成してしまうリスクを伴い、
+そうすると、2 つの`Rc<T>`の値がお互いを参照し合い、メモリリークを引き起こしてしまうことを思い出してください。
+同様に、`Mutex<T>`は*デッドロック*を生成するリスクを伴っています。これは、処理が 2 つのリソースをロックする必要があり、
+2 つのスレッドがそれぞれにロックを 1 つ獲得して永久にお互いを待ちあってしまうときに起こります。
+デッドロックに興味があるのなら、デッドロックのある Rust プログラムを組んでみてください;
 それからどんな言語でもいいので、ミューテックスに対してデッドロックを緩和する方法を調べて、
-Rustで是非、それを実装してみてください。`Mutex<T>`と`MutexGuard`に関する標準ライブラリのAPIドキュメンテーションは、
+Rust で是非、それを実装してみてください。`Mutex<T>`と`MutexGuard`に関する標準ライブラリの API ドキュメンテーションは、
 役に立つ情報を提供してくれます。
 
 <!--

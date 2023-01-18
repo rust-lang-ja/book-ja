@@ -10,8 +10,8 @@ the expected manner. The bodies of test functions typically perform these three
 actions:
 -->
 
-テストは、テスト以外のコードが想定された方法で機能していることを実証するRustの関数です。
-テスト関数の本体は、典型的には以下の3つの動作を行います:
+テストは、テスト以外のコードが想定された方法で機能していることを実証する Rust の関数です。
+テスト関数の本体は、典型的には以下の 3 つの動作を行います：
 
 <!--
 1. Set up any needed data or state.
@@ -29,7 +29,7 @@ take these actions, which include the `test` attribute, a few macros, and the
 `should_panic` attribute.
 -->
 
-Rustが、特にこれらの動作を行うテストを書くために用意している機能を見ていきましょう。
+Rust が、特にこれらの動作を行うテストを書くために用意している機能を見ていきましょう。
 これには、`test`属性、いくつかのマクロ、`should_panic`属性が含まれます。
 
 <!--
@@ -47,8 +47,8 @@ tests with the `cargo test` command, Rust builds a test runner binary that runs
 the functions annotated with the `test` attribute and reports on whether each
 test function passes or fails.
 -->
-最も単純には、Rustにおけるテストは`test`属性で注釈された関数のことです。属性とは、
-Rustコードの部品に関するメタデータです; 一例を挙げれば、構造体とともに第5章で使用した`derive`属性です。
+最も単純には、Rust におけるテストは`test`属性で注釈された関数のことです。属性とは、
+Rust コードの部品に関するメタデータです; 一例を挙げれば、構造体とともに第 5 章で使用した`derive`属性です。
 関数をテスト関数に変えるには、`fn`の前に`#[test]`を付け加えてください。
 `cargo test`コマンドでテストを実行したら、コンパイラは`test`属性で注釈された関数を走らせるテスト用バイナリをビルドし、
 各テスト関数が通過したか失敗したかを報告します。
@@ -60,7 +60,7 @@ writing your tests so you don’t have to look up the exact structure and syntax
 of test functions every time you start a new project. You can add as many
 additional test functions and as many test modules as you want!
 -->
-新しいライブラリプロジェクトをCargoで作ると、テスト関数付きのテストモジュールが自動的に生成されます。
+新しいライブラリプロジェクトを Cargo で作ると、テスト関数付きのテストモジュールが自動的に生成されます。
 このモジュールのおかげで、新しいプロジェクトを始めるたびにテスト関数の正しい構造とか文法をいちいち検索しなくてすみます。
 ここに好きな数だけテスト関数やテストモジュールを追加すればいいというわけです！
 
@@ -78,7 +78,7 @@ behavior is correct.
 Let’s create a new library project called `adder`:
 -->
 
-`adder`という新しいライブラリプロジェクトを生成しましょう:
+`adder`という新しいライブラリプロジェクトを生成しましょう：
 
 ```console
 $ cargo new adder --lib
@@ -91,13 +91,13 @@ The contents of the *src/lib.rs* file in your `adder` library should look like
 Listing 11-1.
 -->
 
-`adder`ライブラリの*src/lib.rs*ファイルの中身は、リスト11-1のような見た目のはずです。
+`adder`ライブラリの*src/lib.rs*ファイルの中身は、リスト 11-1 のような見た目のはずです。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-01/src/lib.rs:here}}
@@ -108,7 +108,7 @@ Listing 11-1.
 automatically by `cargo new`</span>
 -->
 
-<span class="caption">リスト11-1: `cargo new`で自動生成されたテストモジュールと関数</span>
+<span class="caption">リスト 11-1: `cargo new`で自動生成されたテストモジュールと関数</span>
 
 <!--
 For now, let’s ignore the top two lines and focus on the function to see how it
@@ -119,8 +119,8 @@ to help set up common scenarios or perform common operations, so we need to
 indicate which functions are tests by using the `#[test]` attribute.
 -->
 
-とりあえず、最初の2行は無視し、関数に集中してその動作法を見ましょう。
-`fn`行の`#[test]`注釈に注目してください: この属性は、これがテスト関数であることを示すので、
+とりあえず、最初の 2 行は無視し、関数に集中してその動作法を見ましょう。
+`fn`行の`#[test]`注釈に注目してください：この属性は、これがテスト関数であることを示すので、
 テスト実行機はこの関数をテストとして扱うとわかるのです。さらに、`tests`モジュール内にはテスト関数以外の関数を入れ、
 一般的なシナリオをセットアップしたり、共通の処理を行う手助けをしたりもできるので、
 `#[test]`属性でどの関数がテストかを示す必要があるのです。
@@ -131,15 +131,15 @@ This assertion serves as an example of the format for a typical test. Let’s ru
 it to see that this test passes.
 -->
 
-関数本体は、`assert_eq!`マクロを使用して、2 + 2が4に等しいことをアサーションしています。
-このアサーションは、典型的なテストのフォーマット例をなしているわけです。走らせてこのテストが通る（訳注：テストが成功する、の意味。英語でpassということから、このように表現される）ことを確かめましょう。
+関数本体は、`assert_eq!`マクロを使用して、2 + 2 が 4 に等しいことをアサーションしています。
+このアサーションは、典型的なテストのフォーマット例をなしているわけです。走らせてこのテストが通る（訳注：テストが成功する、の意味。英語で pass ということから、このように表現される）ことを確かめましょう。
 
 <!--
 The `cargo test` command runs all tests in our project, as shown in Listing
 11-2.
 -->
 
-`cargo test`コマンドでプロジェクトにあるテストが全て実行されます。リスト11-2に示したようにですね。
+`cargo test`コマンドでプロジェクトにあるテストが全て実行されます。リスト 11-2 に示したようにですね。
 
 
 ```console
@@ -151,7 +151,7 @@ The `cargo test` command runs all tests in our project, as shown in Listing
 generated test</span>
 -->
 
-<span class="caption">リスト11-2: 自動生成されたテストを走らせた出力</span>
+<span class="caption">リスト 11-2: 自動生成されたテストを走らせた出力</span>
 
 <!--
 Cargo compiled and ran the test. After the `Compiling`, `Finished`, and
@@ -162,7 +162,7 @@ text `test result: ok.` means that all the tests passed, and the portion that
 reads `1 passed; 0 failed` totals the number of tests that passed or failed.
 -->
 
-Cargoがテストをコンパイルし、走らせました。`Compiling`, `Finished`, `Running`の行の後に`running 1 test`の行があります。
+Cargo がテストをコンパイルし、走らせました。`Compiling`, `Finished`, `Running`の行の後に`running 1 test`の行があります。
 次行が、生成されたテスト関数の`it_works`という名前とこのテストの実行結果、`ok`を示しています。
 テスト実行の総合的なまとめが次に出現します。`test result:ok.`というテキストは、
 全テストが通ったことを意味し、`1 passed; 0 failed`と読める部分は、通過または失敗したテストの数を合計しているのです。
@@ -186,7 +186,7 @@ Benchmark tests are, as of this writing, only available in nightly Rust. See
 -->
 
 `0 measured`という統計は、パフォーマンスを測定するベンチマークテスト用です。
-ベンチマークテストは、本書記述の時点では、nightly版のRustでのみ利用可能です。
+ベンチマークテストは、本書記述の時点では、nightly 版の Rust でのみ利用可能です。
 詳しくは、[ベンチマークテストのドキュメンテーション][bench]を参照されたし。
 
 [bench]: https://doc.rust-lang.org/unstable-book/library-features/test.html
@@ -202,9 +202,9 @@ ignore the `Doc-tests` output.
 -->
 
 テスト出力の次の部分、つまり`Doc-tests adder`で始まる部分は、ドキュメンテーションテストの結果用のものです。
-まだドキュメンテーションテストは何もないものの、コンパイラは、APIドキュメントに現れるどんなコード例もコンパイルできます。
+まだドキュメンテーションテストは何もないものの、コンパイラは、API ドキュメントに現れるどんなコード例もコンパイルできます。
 この機能により、ドキュメントとコードを同期することができるわけです。ドキュメンテーションテストの書き方については、
-第14章の[テストとしてのドキュメンテーションコメント][doc-comments]節で議論しましょう。今は、`Doc-tests`出力は無視します。
+第 14 章の[テストとしてのドキュメンテーションコメント][doc-comments]節で議論しましょう。今は、`Doc-tests`出力は無視します。
 
 <!--
 Let’s change the name of our test to see how that changes the test output.
@@ -213,13 +213,13 @@ so:
 -->
 
 テストの名前を変更してどうテスト出力が変わるか確かめましょう。`it_works`関数を違う名前、`exploration`などに変えてください。
-そう、以下のように:
+そう、以下のように：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-01-changing-test-name/src/lib.rs:here}}
@@ -230,7 +230,7 @@ Then run `cargo test` again. The output now shows `exploration` instead of
 `it_works`:
 -->
 
-そして、`cargo test`を再度走らせます。これで出力が`it_works`の代わりに`exploration`と表示しています:
+そして、`cargo test`を再度走らせます。これで出力が`it_works`の代わりに`exploration`と表示しています：
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-01-changing-test-name/output.txt}}
@@ -247,15 +247,15 @@ which is to call the `panic!` macro. Enter the new test, `another`, so your
 
 別のテストを追加しますが、今回は失敗するテストにしましょう！テスト関数内の何かがパニックすると、
 テストは失敗します。各テストは、新規スレッドで実行され、メインスレッドが、テストスレッドが死んだと確認した時、
-テストは失敗と印づけられます。第9章でパニックを引き起こす最も単純な方法について語りました。
-そう、`panic!`マクロを呼び出すことですね。*src/lib.rs*ファイルがリスト11-3のような見た目になるよう、
+テストは失敗と印づけられます。第 9 章でパニックを引き起こす最も単純な方法について語りました。
+そう、`panic!`マクロを呼び出すことですね。*src/lib.rs*ファイルがリスト 11-3 のような見た目になるよう、
 新しいテスト`another`を入力してください。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,panics
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-03/src/lib.rs:here}}
@@ -266,14 +266,14 @@ which is to call the `panic!` macro. Enter the new test, `another`, so your
 we call the `panic!` macro</span>
 -->
 
-<span class="caption">リスト11-3: `panic!`マクロを呼び出したために失敗する2番目のテストを追加する</span>
+<span class="caption">リスト 11-3: `panic!`マクロを呼び出したために失敗する 2 番目のテストを追加する</span>
 
 <!--
 Run the tests again using `cargo test`. The output should look like Listing
 11-4, which shows that our `exploration` test passed and `another` failed.
 -->
 
-`cargo test`で再度テストを走らせてください。出力はリスト11-4のようになるはずであり、
+`cargo test`で再度テストを走らせてください。出力はリスト 11-4 のようになるはずであり、
 `exploration`テストは通り、`another`は失敗したと表示されます。
 
 ```text
@@ -285,7 +285,7 @@ Run the tests again using `cargo test`. The output should look like Listing
 test fails</span>
 -->
 
-<span class="caption">リスト11-4: 一つのテストが通り、一つが失敗するときのテスト結果</span>
+<span class="caption">リスト 11-4: 一つのテストが通り、一つが失敗するときのテスト結果</span>
 
 <!--
 Instead of `ok`, the line `test tests::another` shows `FAILED`. Two new
@@ -301,9 +301,9 @@ section.
 -->
 
 `ok`の代わりに`test test::another`の行は、`FAILED`を表示しています。個々の結果とまとめの間に、
-2つ新たな区域ができました: 最初の区域は、失敗したテスト各々の具体的な理由を表示しています。
+2 つ新たな区域ができました：最初の区域は、失敗したテスト各々の具体的な理由を表示しています。
 今回の場合、`another`は`'Make this test fail'でパニックした`ために失敗し、
-これは、*src/lib.rs*ファイルの10行で起きました。次の区域は失敗したテストの名前だけを列挙しています。
+これは、*src/lib.rs*ファイルの 10 行で起きました。次の区域は失敗したテストの名前だけを列挙しています。
 これは、テストがたくさんあり、失敗したテストの詳細がたくさん表示されるときに有用になります。
 失敗したテストの名前を使用してそのテストだけを実行し、より簡単にデバッグすることができます。
 テストの実行方法については、[テストの実行され方を制御する][controlling-how-tests-are-run]節でもっと語りましょう。
@@ -313,7 +313,7 @@ The summary line displays at the end: overall, our test result is `FAILED`.
 We had one test pass and one test fail.
 -->
 
-サマリー行が最後に出力されています: 総合的に言うと、テスト結果は`FAILED`でした。
+サマリー行が最後に出力されています：総合的に言うと、テスト結果は`FAILED`でした。
 一つのテストが通り、一つが失敗したわけです。
 
 <!--
@@ -350,14 +350,14 @@ method, which are repeated here in Listing 11-5. Let’s put this code in the
 *src/lib.rs* file and write some tests for it using the `assert!` macro.
 -->
 
-第5章のリスト5-15で、`Rectangle`構造体と`can_hold`メソッドを使用しました。リスト11-5でもそれを繰り返しています。
+第 5 章のリスト 5-15 で、`Rectangle`構造体と`can_hold`メソッドを使用しました。リスト 11-5 でもそれを繰り返しています。
 このコードを*src/lib.rs*ファイルに放り込み、`assert!`マクロでそれ用のテストを何か書いてみましょう。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-05/src/lib.rs:here}}
@@ -368,7 +368,7 @@ method, which are repeated here in Listing 11-5. Let’s put this code in the
 `can_hold` method from Chapter 5</span>
 -->
 
-<span class="caption">リスト11-5: 第5章から`Rectangle`構造体とその`can_hold`メソッドを使用する</span>
+<span class="caption">リスト 11-5: 第 5 章から`Rectangle`構造体とその`can_hold`メソッドを使用する</span>
 
 <!--
 The `can_hold` method returns a Boolean, which means it’s a perfect use case
@@ -379,14 +379,14 @@ has a width of 5 and a height of 1.
 -->
 
 `can_hold`メソッドは論理値を返すので、`assert!`マクロの完璧なユースケースになるわけです。
-リスト11-6で、幅が8、高さが7の`Rectangle`インスタンスを生成し、これが幅5、
-高さ1の別の`Rectangle`インスタンスを保持できるとアサーションすることで`can_hold`を用いるテストを書きます。
+リスト 11-6 で、幅が 8、高さが 7 の`Rectangle`インスタンスを生成し、これが幅 5、
+高さ 1 の別の`Rectangle`インスタンスを保持できるとアサーションすることで`can_hold`を用いるテストを書きます。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-06/src/lib.rs:here}}
@@ -397,7 +397,7 @@ has a width of 5 and a height of 1.
 larger rectangle can indeed hold a smaller rectangle</span>
 -->
 
-<span class="caption">リスト11-6: より大きな長方形がより小さな長方形を確かに保持できるかを確認する`can_hold`用のテスト</span>
+<span class="caption">リスト 11-6: より大きな長方形がより小さな長方形を確かに保持できるかを確認する`can_hold`用のテスト</span>
 
 <!--
 Note that we’ve added a new line inside the `tests` module: `use super::*;`.
@@ -410,10 +410,10 @@ a glob here so anything we define in the outer module is available to this
 `tests` module.
 -->
 
-`tests`モジュール内に新しい行を加えたことに注目してください: `use super::*`です。
-`tests`モジュールは、第7章の[モジュールツリーの要素を示すためのパス][paths-for-referring-to-an-item-in-the-module-tree]節で講義した通常の公開ルールに従う普通のモジュールです。
+`tests`モジュール内に新しい行を加えたことに注目してください：`use super::*`です。
+`tests`モジュールは、第 7 章の[モジュールツリーの要素を示すためのパス][paths-for-referring-to-an-item-in-the-module-tree]節で講義した通常の公開ルールに従う普通のモジュールです。
 `tests`モジュールは、内部モジュールなので、外部モジュール内のテスト配下にあるコードを内部モジュールのスコープに持っていく必要があります。
-ここではglobを使用して、外部モジュールで定義したもの全てがこの`tests`モジュールでも使用可能になるようにしています。
+ここでは glob を使用して、外部モジュールで定義したもの全てがこの`tests`モジュールでも使用可能になるようにしています。
 
 <!--
 We’ve named our test `larger_can_hold_smaller`, and we’ve created the two
@@ -422,7 +422,7 @@ passed it the result of calling `larger.can_hold(&smaller)`. This expression
 is supposed to return `true`, so our test should pass. Let’s find out!
 -->
 
-テストは`larger_can_hold_smaller`と名付け、必要な`Rectangle`インスタンスを2つ生成しています。
+テストは`larger_can_hold_smaller`と名付け、必要な`Rectangle`インスタンスを 2 つ生成しています。
 そして、`assert!`マクロを呼び出し、`larger.can_hold(&smaller)`の呼び出し結果を渡しました。
 この式は、`true`を返すと考えられるので、テストは通るはずです。確かめましょう！
 
@@ -441,7 +441,7 @@ rectangle cannot hold a larger rectangle:
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-02-adding-another-rectangle-test/src/lib.rs:here}}
@@ -466,8 +466,8 @@ introduce a bug in our code. Let’s change the implementation of the `can_hold`
 method by replacing the greater than sign with a less than sign when it
 compares the widths:
 -->
-通るテストが2つ！さて、コードにバグを導入したらテスト結果がどうなるか確認してみましょう。
-幅を比較する大なり記号を小なり記号で置き換えて`can_hold`メソッドの実装を変更しましょう:
+通るテストが 2 つ！さて、コードにバグを導入したらテスト結果がどうなるか確認してみましょう。
+幅を比較する大なり記号を小なり記号で置き換えて`can_hold`メソッドの実装を変更しましょう：
 
 ```rust,not_desired_behavior
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-03-introducing-a-bug/src/lib.rs:here}}
@@ -476,7 +476,7 @@ compares the widths:
 <!--
 Running the tests now produces the following:
 -->
-テストを実行すると、以下のような出力をします:
+テストを実行すると、以下のような出力をします：
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-03-introducing-a-bug/output.txt}}
@@ -488,8 +488,8 @@ Our tests caught the bug! Because `larger.width` is 8 and `smaller.width` is
 less than 5.
 -->
 
-テストによりバグが捕捉されました！`larger.width`が8、`smaller.width`が5なので、
-`can_hold`内の幅の比較が今は`false`を返すようになったのです: 8は5より小さくないですからね。
+テストによりバグが捕捉されました！`larger.width`が 8、`smaller.width`が 5 なので、
+`can_hold`内の幅の比較が今は`false`を返すようになったのです：8 は 5 より小さくないですからね。
 
 <!--
 ### Testing Equality with the `assert_eq!` and `assert_ne!` Macros
@@ -512,7 +512,7 @@ expression, not the values that lead to the `false` value.
 
 機能をテストする一般的な方法は、テスト下にあるコードの結果をコードが返すと期待される値と比較して、
 等しいと確かめることです。これを`assert`マクロを使用して`==`演算子を使用した式を渡すことで行うこともできます。
-しかしながら、これはありふれたテストなので、標準ライブラリには1組のマクロ(`assert_eq!`と`assert_ne!`)が提供され、
+しかしながら、これはありふれたテストなので、標準ライブラリには 1 組のマクロ (`assert_eq!`と`assert_ne!`) が提供され、
 このテストをより便利に行うことができます。これらのマクロはそれぞれ、二つの引数を比べ、等しいかと等しくないかを確かめます。
 また、アサーションが失敗したら二つの値の出力もし、テストが失敗した*原因*を確認しやすくなります。
 一方で`assert!`マクロは、`==`式の値が`false`になったことしか示さず、`false`になった原因の値は出力しません。
@@ -523,14 +523,14 @@ parameter and returns the result. Then we test this function using the
 `assert_eq!` macro.
 -->
 
-リスト11-7において、引数に`2`を加えて結果を返す`add_two`という名前の関数を書いています。
+リスト 11-7 において、引数に`2`を加えて結果を返す`add_two`という名前の関数を書いています。
 そして、`assert_eq!`マクロでこの関数をテストしています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-07/src/lib.rs:here}}
@@ -541,7 +541,7 @@ parameter and returns the result. Then we test this function using the
 `assert_eq!` macro</span>
 -->
 
-<span class="caption">リスト11-7: `assert_eq!`マクロで`add_two`関数をテストする</span>
+<span class="caption">リスト 11-7: `assert_eq!`マクロで`add_two`関数をテストする</span>
 
 <!--
 Let’s check that it passes!
@@ -557,7 +557,7 @@ result of calling `add_two(2)`. The line for this test is `test
 tests::it_adds_two ... ok`, and the `ok` text indicates that our test passed!
 -->
 
-`assert_eq!`マクロに与えた第1引数の`4`は、`add_two(2)`の呼び出し結果と等しいです。
+`assert_eq!`マクロに与えた第 1 引数の`4`は、`add_two(2)`の呼び出し結果と等しいです。
 このテストの行は`test tests::it_adds_two ... ok`であり、`ok`というテキストはテストが通ったことを示しています！
 
 <!--
@@ -567,7 +567,7 @@ instead add `3`:
 -->
 
 コードにバグを仕込んで、`assert_eq!`を使ったテストが失敗した時にどんな見た目になるのか確認してみましょう。
-`add_two`関数の実装を代わりに`3`を足すように変えてください:
+`add_two`関数の実装を代わりに`3`を足すように変えてください：
 
 ```rust,not_desired_behavior
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-04-bug-in-add-two/src/lib.rs:here}}
@@ -576,7 +576,7 @@ instead add `3`:
 <!--
 Run the tests again:
 -->
-テストを再度実行します:
+テストを再度実行します：
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-04-bug-in-add-two/output.txt}}
@@ -591,7 +591,7 @@ had `add_two(2)`, was `5`.
 -->
 
 テストがバグを捕捉しました！`it_adds_two`のテストは失敗し、`` assertion failed: `(left == right)` ``というメッセージを表示し、
-`left`は`4`で、`right`は`5`だったと示しています。このメッセージは有用で、デバッグを開始する助けになります:
+`left`は`4`で、`right`は`5`だったと示しています。このメッセージは有用で、デバッグを開始する助けになります：
 `assert_eq!`の`left`引数は`4`だったが、`add_two(2)`がある`right`引数は`5`だったことを意味しています。
 
 <!--
@@ -607,7 +607,7 @@ right)` `` and that `left` was `5` and `right` was `4`.
 
 二つの値が等しいとアサーションを行う関数の引数を
 `expected`と`actual`と呼び、引数を指定する順序が問題になる言語やテストフレームワークもあることに注意してください。
-ですがRustでは、`left`と`right`と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は
+ですが Rust では、`left`と`right`と呼ばれ、期待する値とテスト下のコードが生成する値を指定する順序は
 問題になりません。今回のテストのアサーションを`assert_eq!(add_two(2), 4)`と書くこともでき、
 そうすると失敗メッセージは、`` assertion failed: `(left == right)` ``となり、
 `left`が`5`で`right`が`4`と表示されるでしょう。
@@ -622,7 +622,7 @@ is changed depends on the day of the week that we run our tests, the best thing
 to assert might be that the output of the function is not equal to the input.
 -->
 
-`assert_ne!`マクロは、与えた2つの値が等しくなければ通り、等しければ失敗します。
+`assert_ne!`マクロは、与えた 2 つの値が等しくなければ通り、等しければ失敗します。
 このマクロは、値が何になる*だろう*か確信が持てないけれども、コードが意図した通りに動いていれば、
 確実にこの値にはなら*ないだろう*とわかっているような場合に最も有用になります。例えば、
 入力を何らかの手段で変え（て出力す）ることが保証されているけれども、入力の変え方がテストを実行する曜日に依存する関数をテストしているなら、
@@ -647,12 +647,12 @@ for more details about these and other derivable traits.
 アサーションが失敗すると、これらのマクロは引数をデバッグフォーマットを使用してプリントするので、
 比較対象の値は`PartialEq`と`Debug`トレイトを実装していなければなりません。
 すべての組み込み型と、ほぼすべての標準ライブラリの型はこれらのトレイトを実装しています。
-自分で定義した構造体やenumについては、
+自分で定義した構造体や enum については、
 その型の値が等しいか等しくないかをアサーションするために、`PartialEq`を実装する必要があるでしょう。
 それが失敗した時にその値をプリントできるように、`Debug`を実装する必要もあるでしょう。
-第5章のリスト5-12で触れたように、どちらのトレイトも導出可能なトレイトなので、
-これは通常、単純に構造体やenum定義に`#[derive(PartialEq, Debug)]`という注釈を追加するだけですみます。
-これらやその他の導出可能なトレイトに関する詳細については、付録C、[導出可能なトレイト][derivable-traits]をご覧ください。
+第 5 章のリスト 5-12 で触れたように、どちらのトレイトも導出可能なトレイトなので、
+これは通常、単純に構造体や enum 定義に`#[derive(PartialEq, Debug)]`という注釈を追加するだけですみます。
+これらやその他の導出可能なトレイトに関する詳細については、付録 C、[導出可能なトレイト][derivable-traits]をご覧ください。
 
 <!--
 ### Adding Custom Failure Messages
@@ -673,9 +673,9 @@ what an assertion means; when a test fails, you’ll have a better idea of what
 the problem is with the code.
 -->
 さらに、`assert!`、`assert_eq!`、`assert_ne!`の追加引数として、失敗メッセージと共にカスタムのメッセージが表示されるよう、
-追加することもできます。`assert!`の1つの必須引数の後に、
-あるいは`assert_eq!`と`assert_ne!`の2つの必須引数の後に指定された引数はすべて`format!`マクロに渡されるので、
-（format!マクロについては第8章の[`+`演算子、または`format!`マクロで連結][concatenation-with-the--operator-or-the-format-macro]節で議論しました）、
+追加することもできます。`assert!`の 1 つの必須引数の後に、
+あるいは`assert_eq!`と`assert_ne!`の 2 つの必須引数の後に指定された引数はすべて`format!`マクロに渡されるので、
+（format! マクロについては第 8 章の[`+`演算子、または`format!`マクロで連結][concatenation-with-the--operator-or-the-format-macro]節で議論しました）、
 `{}`プレースホルダーを含むフォーマット文字列とこのプレースホルダーに置き換えられる値を渡すことができます。
 カスタムメッセージは、アサーションがどんな意味を持つかドキュメント化するのに役に立ちます;
 もしテストが失敗した時、コードにどんな問題があるのかをよりしっかり把握できるはずです。
@@ -684,13 +684,13 @@ the problem is with the code.
 For example, let’s say we have a function that greets people by name and we
 want to test that the name we pass into the function appears in the output:
 -->
-例として、人々に名前で挨拶をする関数があり、関数に渡した名前が出力に出現することをテストしたいとしましょう:
+例として、人々に名前で挨拶をする関数があり、関数に渡した名前が出力に出現することをテストしたいとしましょう：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-05-greeter/src/lib.rs:here}}
@@ -714,7 +714,7 @@ Let’s introduce a bug into this code by changing `greeting` to not include
 `name` to see what this test failure looks like:
 -->
 
-`greeting`が`name`を含まないように変更してこのコードにバグを仕込み、このテストの失敗がどんな風になるのか確かめましょう:
+`greeting`が`name`を含まないように変更してこのコードにバグを仕込み、このテストの失敗がどんな風になるのか確かめましょう：
 
 ```rust,not_desired_behavior
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-06-greeter-with-bug/src/lib.rs:here}}
@@ -724,7 +724,7 @@ Let’s introduce a bug into this code by changing `greeting` to not include
 Running this test produces the following:
 -->
 
-このテストを実行すると、以下のように出力されます:
+このテストを実行すると、以下のように出力されます：
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-06-greeter-with-bug/output.txt}}
@@ -751,7 +751,7 @@ filled in with the actual value we got from the `greeting` function:
 Now when we run the test, we’ll get a more informative error message:
 -->
 
-これでテストを実行したら、より有益なエラーメッセージが得られるでしょう:
+これでテストを実行したら、より有益なエラーメッセージが得られるでしょう：
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-07-custom-failure-message/output.txt}}
@@ -782,8 +782,8 @@ range panics.
 -->
 
 期待する正しい値をコードが返すことを確認することに加えて、想定通りにコードがエラー状態を扱っていることを確認するのも重要です。
-例えば、第9章のリスト9-10で生成した`Guess`型を考えてください。`Guess`を使用する他のコードは、
-`Guess`のインスタンスは1から100の範囲の値しか含まないという保証に依存しています。
+例えば、第 9 章のリスト 9-10 で生成した`Guess`型を考えてください。`Guess`を使用する他のコードは、
+`Guess`のインスタンスは 1 から 100 の範囲の値しか含まないという保証に依存しています。
 その範囲外の値で`Guess`インスタンスを生成しようとするとパニックすることを確認するテストを書くことができます。
 
 <!--
@@ -801,13 +801,13 @@ Listing 11-8 shows a test that checks that the error conditions of `Guess::new`
 happen when we expect them to.
 -->
 
-リスト11-8は、予想どおりに`Guess::new`のエラー条件が発生していることを確認するテストを示しています。
+リスト 11-8 は、予想どおりに`Guess::new`のエラー条件が発生していることを確認するテストを示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-08/src/lib.rs:here}}
@@ -818,7 +818,7 @@ happen when we expect them to.
 `panic!`</span>
 -->
 
-<span class="caption">リスト11-8: 状況が`panic!`を引き起こすとテストする</span>
+<span class="caption">リスト 11-8: 状況が`panic!`を引き起こすとテストする</span>
 
 <!--
 We place the `#[should_panic]` attribute after the `#[test]` attribute and
@@ -827,7 +827,7 @@ passes:
 -->
 
 `#[test]`属性の後、適用するテスト関数の前に`#[should_panic]`属性を配置しています。
-このテストが通るときの結果を見ましょう:
+このテストが通るときの結果を見ましょう：
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-08/output.txt}}
@@ -837,7 +837,7 @@ passes:
 Looks good! Now let’s introduce a bug in our code by removing the condition
 that the `new` function will panic if the value is greater than 100:
 -->
-よさそうですね！では、値が100より大きいときに`new`関数がパニックするという条件を除去することでコードにバグを導入しましょう:
+よさそうですね！では、値が 100 より大きいときに`new`関数がパニックするという条件を除去することでコードにバグを導入しましょう：
 
 ```rust,not_desired_behavior
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-08-guess-with-bug/src/lib.rs:here}}
@@ -847,7 +847,7 @@ that the `new` function will panic if the value is greater than 100:
 When we run the test in Listing 11-8, it will fail:
 -->
 
-リスト11-8のテストを実行すると、失敗するでしょう:
+リスト 11-8 のテストを実行すると、失敗するでしょう：
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-08-guess-with-bug/output.txt}}
@@ -878,14 +878,14 @@ different messages depending on whether the value is too small or too large.
 `should_panic`のテストは、起きると想定していたもの以外の理由でテストがパニックしても通ってしまうのです。
 `should_panic`のテストの正確を期すために、`should_panic`属性に`expected`引数を追加することもできます。
 このテストハーネスは、失敗メッセージに与えられたテキストが含まれていることを確かめてくれます。
-例えば、リスト11-9の修正された`Guess`のコードを考えてください。ここでは、
+例えば、リスト 11-9 の修正された`Guess`のコードを考えてください。ここでは、
 `new`関数は、値が大きすぎるか小さすぎるかによって異なるメッセージでパニックします。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-09/src/lib.rs:here}}
@@ -896,7 +896,7 @@ different messages depending on whether the value is too small or too large.
 `panic!` with a particular panic message</span>
 -->
 
-<span class="caption">リスト11-9: 状況が特定のパニックメッセージで`panic!`を引き起こすことをテストする</span>
+<span class="caption">リスト 11-9: 状況が特定のパニックメッセージで`panic!`を引き起こすことをテストする</span>
 
 <!--
 This test will pass because the value we put in the `should_panic` attribute’s
@@ -923,7 +923,7 @@ fails, let’s again introduce a bug into our code by swapping the bodies of the
 `if value < 1` and the `else if value > 100` blocks:
 -->
 `expected`メッセージありの`should_panic`テストが失敗すると何が起きるのが確かめるために、
-`if value < 1`と`else if value > 100`ブロックの本体を入れ替えることで再度コードにバグを仕込みましょう:
+`if value < 1`と`else if value > 100`ブロックの本体を入れ替えることで再度コードにバグを仕込みましょう：
 
 ```rust,ignore,not_desired_behavior
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-09-guess-with-panic-msg-bug/src/lib.rs:here}}
@@ -933,7 +933,7 @@ fails, let’s again introduce a bug into our code by swapping the bodies of the
 This time when we run the `should_panic` test, it will fail:
 -->
 
-`should_panic`テストを実行すると、今回は失敗するでしょう:
+`should_panic`テストを実行すると、今回は失敗するでしょう：
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/no-listing-09-guess-with-panic-msg-bug/output.txt}}
@@ -964,7 +964,7 @@ that use `Result<T, E>`! Here’s the test from Listing 11-1, rewritten to use
 -->
 これまでは、失敗するとパニックするようなテストを書いてきましたが、
 `Result<T, E>`を使うようなテストを書くこともできます！
-以下は、Listing 11-1のテストを、`Result<T, E>`を使い、パニックする代わりに`Err`を返すように書き直したものです：
+以下は、Listing 11-1 のテストを、`Result<T, E>`を使い、パニックする代わりに`Err`を返すように書き直したものです：
 
 ```rust
 {{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-10-result-in-tests/src/lib.rs}}

@@ -1,7 +1,7 @@
 <!--
 # The Rust Programming Language
 -->
-# Rustプログラミング言語
+# Rust プログラミング言語
 
 <!--
 [The Rust Programming Language](title-page.md)
@@ -76,15 +76,15 @@
     - [The `match` Control Flow Operator](ch06-02-match.md)
     - [Concise Control Flow with `if let`](ch06-03-if-let.md)
 -->
-- [Enumとパターンマッチング](ch06-00-enums.md)
-    - [Enumを定義する](ch06-01-defining-an-enum.md)
+- [Enum とパターンマッチング](ch06-00-enums.md)
+    - [Enum を定義する](ch06-01-defining-an-enum.md)
     - [`match`制御フロー演算子](ch06-02-match.md)
     - [`if let`で簡潔な制御フロー](ch06-03-if-let.md)
 
 <!--
 ## Basic Rust Literacy
 -->
-## 基本的なRustリテラシー
+## 基本的な Rust リテラシー
 
 <!--
 - [Managing Growing Projects with Packages, Crates, and Modules](ch07-00-managing-growing-projects-with-packages-crates-and-modules.md)
@@ -109,7 +109,7 @@
 -->
 - [一般的なコレクション](ch08-00-common-collections.md)
     - [ベクタで値のリストを保持する](ch08-01-vectors.md)
-    - [文字列でUTF-8でエンコードされたテキストを保持する](ch08-02-strings.md)
+    - [文字列で UTF-8 でエンコードされたテキストを保持する](ch08-02-strings.md)
     - [キーとそれに紐づいた値をハッシュマップに格納する](ch08-03-hash-maps.md)
 
 <!--
@@ -165,7 +165,7 @@
 <!--
 ## Thinking in Rust
 -->
-## Rustで思考する
+## Rust で思考する
 
 <!--
 - [Functional Language Features: Iterators and Closures](ch13-00-functional-features.md)
@@ -178,7 +178,7 @@
     - [クロージャ：環境をキャプチャできる匿名関数](ch13-01-closures.md)
     - [一連の要素をイテレータで処理する](ch13-02-iterators.md)
     - [入出力プロジェクトを改善する](ch13-03-improving-our-io-project.md)
-    - [パフォーマンス比較：ループVSイテレータ](ch13-04-performance.md)
+    - [パフォーマンス比較：ループ VS イテレータ](ch13-04-performance.md)
 
 <!--
 - [More about Cargo and Crates.io](ch14-00-more-about-cargo.md)
@@ -188,12 +188,12 @@
     - [Installing Binaries from Crates.io with `cargo install`](ch14-04-installing-binaries.md)
     - [Extending Cargo with Custom Commands](ch14-05-extending-cargo.md)
 -->
-- [CargoとCrates.ioについてより詳しく](ch14-00-more-about-cargo.md)
+- [Cargo と Crates.io についてより詳しく](ch14-00-more-about-cargo.md)
     - [リリースプロファイルでビルドをカスタマイズする](ch14-01-release-profiles.md)
-    - [Crates.ioにクレートを公開する](ch14-02-publishing-to-crates-io.md)
-    - [Cargoのワークスペース](ch14-03-cargo-workspaces.md)
-    - [`cargo install`でCrates.ioからバイナリをインストールする](ch14-04-installing-binaries.md)
-    - [独自のコマンドでCargoを拡張する](ch14-05-extending-cargo.md)
+    - [Crates.io にクレートを公開する](ch14-02-publishing-to-crates-io.md)
+    - [Cargo のワークスペース](ch14-03-cargo-workspaces.md)
+    - [`cargo install`で Crates.io からバイナリをインストールする](ch14-04-installing-binaries.md)
+    - [独自のコマンドで Cargo を拡張する](ch14-05-extending-cargo.md)
 
 <!--
 - [Smart Pointers](ch15-00-smart-pointers.md)
@@ -231,7 +231,7 @@
     - [Using Trait Objects That Allow for Values of Different Types](ch17-02-trait-objects.md)
     - [Implementing an Object-Oriented Design Pattern](ch17-03-oo-design-patterns.md)
 -->
-- [Rustのオブジェクト指向プログラミング機能](ch17-00-oop.md)
+- [Rust のオブジェクト指向プログラミング機能](ch17-00-oop.md)
     - [オブジェクト指向言語の特徴](ch17-01-what-is-oo.md)
     - [トレイトオブジェクトで異なる型の値を許容する](ch17-02-trait-objects.md)
     - [オブジェクト指向デザインパターンを実装する](ch17-03-oo-design-patterns.md)
@@ -273,8 +273,8 @@
     - [Turning Our Single-Threaded Server into a Multithreaded Server](ch20-02-multithreaded.md)
     - [Graceful Shutdown and Cleanup](ch20-03-graceful-shutdown-and-cleanup.md)
 -->
-- [最後のプロジェクト：マルチスレッドのWebサーバを構築する](ch20-00-final-project-a-web-server.md)
-    - [シングルスレッドのWebサーバを構築する](ch20-01-single-threaded.md)
+- [最後のプロジェクト：マルチスレッドの Web サーバを構築する](ch20-00-final-project-a-web-server.md)
+    - [シングルスレッドの Web サーバを構築する](ch20-01-single-threaded.md)
     - [シングルスレッドサーバをマルチスレッド化する](ch20-02-multithreaded.md)
     - [正常なシャットダウンと片付け](ch20-03-graceful-shutdown-and-cleanup.md)
 
@@ -289,10 +289,10 @@
     - [G - How Rust is Made and “Nightly Rust”](appendix-07-nightly-rust.md)
 -->
 - [付録](appendix-00.md)
-    - [付録A：キーワード](appendix-01-keywords.md)
-    - [付録B：演算子と記号](appendix-02-operators.md)
-    - [付録C：導出可能なトレイト](appendix-03-derivable-traits.md)
-    - [付録D：便利な開発ツール](appendix-04-useful-development-tools.md)
-    - [付録E：エディション](appendix-05-editions.md)
-    - [付録F：本の翻訳](appendix-06-translation.md)
-    - [付録G：Rustの作られ方と“Nightly Rust”](appendix-07-nightly-rust.md)
+    - [付録 A：キーワード](appendix-01-keywords.md)
+    - [付録 B：演算子と記号](appendix-02-operators.md)
+    - [付録 C：導出可能なトレイト](appendix-03-derivable-traits.md)
+    - [付録 D：便利な開発ツール](appendix-04-useful-development-tools.md)
+    - [付録 E：エディション](appendix-05-editions.md)
+    - [付録 F：本の翻訳](appendix-06-translation.md)
+    - [付録 G：Rust の作られ方と“Nightly Rust”](appendix-07-nightly-rust.md)

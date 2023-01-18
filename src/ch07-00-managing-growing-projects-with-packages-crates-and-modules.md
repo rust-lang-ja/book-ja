@@ -25,11 +25,11 @@ that evolve together, Cargo provides workspaces, which we’ll cover in the
 -->
 私達がこれまでに書いてきたプログラムは、一つのファイル内の一つのモジュール内にありました。
 プロジェクトが大きくなるにつれて、これを複数のモジュールに、ついで複数のファイルに分割することで、プログラムを整理することができます。
-パッケージは複数のバイナリクレートからなり、またライブラリクレートを1つもつこともできます。
+パッケージは複数のバイナリクレートからなり、またライブラリクレートを 1 つもつこともできます。
 パッケージが大きくなるにつれて、その一部を抜き出して分離したクレートにし、外部依存とするのもよいでしょう。
 この章ではそれらのテクニックすべてを学びます。
 相互に関係し合い、同時に成長するパッケージの集まりからなる巨大なプロジェクトには、
-Cargoがワークスペースという機能を提供します。これは14章の[Cargoワークスペース][workspaces]<!-- ignore -->で解説します。
+Cargo がワークスペースという機能を提供します。これは 14 章の[Cargo ワークスペース][workspaces]<!-- ignore -->で解説します。
 
 <!--
 In addition to grouping functionality, encapsulating implementation details
@@ -58,7 +58,7 @@ same name in the same scope; tools are available to resolve name conflicts.
 コードが記述されているネストされた文脈には、「スコープ内」として定義される名前の集合があります。
 コードを読んだり書いたりコンパイルしたりする時には、プログラマーやコンパイラは特定の場所にある特定の名前が、変数・関数・構造体・enum・モジュール・定数・その他のどの要素を表すのか、そしてその要素は何を意味するのかを知る必要があります。
 そこでスコープを作り、どの名前がスコープ内/スコープ外にあるのかを変更することができます。
-同じ名前のものを2つ同じスコープ内に持つことはできません。そこで、名前の衝突を解決するための方法があります。
+同じ名前のものを 2 つ同じスコープ内に持つことはできません。そこで、名前の衝突を解決するための方法があります。
 
 <!--
 Rust has a number of features that allow you to manage your code’s
@@ -66,7 +66,7 @@ organization, including which details are exposed, which details are private,
 and what names are in each scope in your programs. These features, sometimes
 collectively referred to as the *module system*, include:
 -->
-Rustには、どの詳細を公開するか、どの詳細を非公開にするか、どの名前がプログラムのそれぞれのスコープにあるか、といったコードのまとまりを保つためのたくさんの機能があります。
+Rust には、どの詳細を公開するか、どの詳細を非公開にするか、どの名前がプログラムのそれぞれのスコープにあるか、といったコードのまとまりを保つためのたくさんの機能があります。
 これらの機能は、まとめて「モジュールシステム」と呼ばれることがあり、以下のようなものが含まれます。
 
 <!--
@@ -76,10 +76,10 @@ Rustには、どの詳細を公開するか、どの詳細を非公開にする�
   privacy of paths
 * **Paths:** A way of naming an item, such as a struct, function, or module
 -->
-* **パッケージ:** クレートをビルドし、テストし、共有することができるCargoの機能
-* **クレート:** ライブラリか実行可能ファイルを生成する、木構造をしたモジュール群
+* **パッケージ：** クレートをビルドし、テストし、共有することができる Cargo の機能
+* **クレート：** ライブラリか実行可能ファイルを生成する、木構造をしたモジュール群
 * **モジュール** と **use:** これを使うことで、パスの構成、スコープ、公開するか否かを決定できます
-* **パス:** 要素（例えば構造体や関数やモジュール）に名前をつける方法
+* **パス：** 要素（例えば構造体や関数やモジュール）に名前をつける方法
 
 <!--
 In this chapter, we’ll cover all these features, discuss how they interact, and

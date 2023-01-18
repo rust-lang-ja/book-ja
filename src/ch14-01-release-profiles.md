@@ -11,7 +11,7 @@ various options for compiling code. Each profile is configured independently of
 the others.
 -->
 
-Rustにおいて、*リリースプロファイル*とは、プログラマがコードのコンパイルオプションについてより制御可能にしてくれる、
+Rust において、*リリースプロファイル*とは、プログラマがコードのコンパイルオプションについてより制御可能にしてくれる、
 定義済みのカスタマイズ可能なプロファイルです。各プロファイルは、それぞれ独立して設定されます。
 
 <!--
@@ -21,7 +21,7 @@ build` and the `release` profile Cargo uses when you run `cargo build
 and the `release` profile has good defaults for release builds.
 -->
 
-Cargoには2つの主なプロファイルが存在します: `dev`プロファイルは、`cargo build`コマンドを実行したときに使用され、
+Cargo には 2 つの主なプロファイルが存在します：`dev`プロファイルは、`cargo build`コマンドを実行したときに使用され、
 `release`プロファイルは、`cargo build --release`コマンドを実行したときに使用されます。
 `dev`プロファイルは、開発中に役に立つデフォルト設定がなされており、`release`プロファイルは、
 リリース用の設定がなされています。
@@ -30,7 +30,7 @@ Cargoには2つの主なプロファイルが存在します: `dev`プロファ�
 These profile names might be familiar from the output of your builds:
 -->
 
-これらのプロファイル名は、ビルドの出力で馴染みのある可能性があります:
+これらのプロファイル名は、ビルドの出力で馴染みのある可能性があります：
 
 ```text
 $ cargo build
@@ -55,14 +55,14 @@ for the `opt-level` setting for the `dev` and `release` profiles:
 -->
 
 プロジェクトの*Cargo.toml*ファイルに`[profile.*]`セクションが存在しない際に適用される各プロファイル用のデフォルト設定が、
-Cargoには存在します。カスタマイズしたいプロファイル用の`[profile.*]`セクションを追加することで、
-デフォルト設定の一部を上書きすることができます。例えば、こちらが`dev`と`release`プロファイルの`opt-level`設定のデフォルト値です:
+Cargo には存在します。カスタマイズしたいプロファイル用の`[profile.*]`セクションを追加することで、
+デフォルト設定の一部を上書きすることができます。例えば、こちらが`dev`と`release`プロファイルの`opt-level`設定のデフォルト値です：
 
 <!--
 <span class="filename">Filename: Cargo.toml</span>
 -->
 
-<span class="filename">ファイル名: Cargo.toml</span>
+<span class="filename">ファイル名：Cargo.toml</span>
 
 ```toml
 [profile.dev]
@@ -73,7 +73,7 @@ opt-level = 3
 ```
 
 <!--
-4行目最後、唯一の理由と言っているのは、the reasonになっているから
+4 行目最後、唯一の理由と言っているのは、the reason になっているから
 -->
 
 <!--
@@ -88,12 +88,12 @@ release mode trades longer compile time for code that runs faster. That is why
 the default `opt-level` for the `release` profile is `3`.
 -->
 
-`opt-level`設定は、0から3の範囲でコンパイラがコードに適用する最適化の度合いを制御します。
+`opt-level`設定は、0 から 3 の範囲でコンパイラがコードに適用する最適化の度合いを制御します。
 最適化を多くかけると、コンパイル時間が延びるので、開発中に頻繁にコードをコンパイルするのなら、
 たとえ出力結果のコードの動作速度が遅くなっても早くコンパイルが済んでほしいですよね。
 これが、`dev`の`opt-level`のデフォルト設定が`0`になっている唯一の理由です。
 コードのリリース準備ができたら、より長い時間をコンパイルにかけるのが最善の策です。
-リリースモードでコンパイルするのはたった1回ですが、コンパイル結果のプログラムは何度も実行するので、
+リリースモードでコンパイルするのはたった 1 回ですが、コンパイル結果のプログラムは何度も実行するので、
 リリースモードでは、長いコンパイル時間と引き換えに、生成したコードが速く動作します。
 そのため、`release`の`opt-level`のデフォルト設定が`3`になっているのです。
 
@@ -105,13 +105,13 @@ file:
 -->
 
 デフォルト設定に対して`Cargo.toml`で異なる値を追加すれば、上書きすることができます。
-例として、開発用プロファイルで最適化レベル1を使用したければ、以下の2行をプロジェクトの*Cargo.toml*ファイルに追加できます:
+例として、開発用プロファイルで最適化レベル 1 を使用したければ、以下の 2 行をプロジェクトの*Cargo.toml*ファイルに追加できます：
 
 <!--
 <span class="filename">Filename: Cargo.toml</span>
 -->
 
-<span class="filename">ファイル名: Cargo.toml</span>
+<span class="filename">ファイル名：Cargo.toml</span>
 
 ```toml
 [profile.dev]
@@ -126,12 +126,12 @@ optimizations than the default, but not as many as in a release build.
 -->
 
 このコードは、デフォルト設定の`0`を上書きします。こうすると、`cargo build`を実行したときに、
-`dev`プロファイル用のデフォルト設定に加えて、Cargoは`opt-level`の変更を適用します。
-`opt-level`を`1`に設定したので、Cargoはデフォルトよりは最適化を行いますが、リリースビルドほどではありません。
+`dev`プロファイル用のデフォルト設定に加えて、Cargo は`opt-level`の変更を適用します。
+`opt-level`を`1`に設定したので、Cargo はデフォルトよりは最適化を行いますが、リリースビルドほどではありません。
 
 <!--
 For the full list of configuration options and defaults for each profile, see
 [Cargo’s documentation](https://doc.rust-lang.org/cargo/).
 -->
 
-設定の選択肢と各プロファイルのデフォルト設定の一覧は、[Cargoのドキュメンテーション](https://doc.rust-lang.org/cargo/)を参照されたし。
+設定の選択肢と各プロファイルのデフォルト設定の一覧は、[Cargo のドキュメンテーション](https://doc.rust-lang.org/cargo/)を参照されたし。

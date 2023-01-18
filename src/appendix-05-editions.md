@@ -1,13 +1,13 @@
 <!--
 ## Appendix E - Editions
 -->
-## 付録E：エディション
+## 付録 E：エディション
 
 <!--
 In Chapter 1, you saw that `cargo new` adds a bit of metadata to your
 *Cargo.toml* file about an edition. This appendix talks about what that means!
 -->
-第1章で、`cargo new`が エディションに関するちょっとしたメタデータを *Cargo.toml* に追加しているのを見ましたね。
+第 1 章で、`cargo new`が エディションに関するちょっとしたメタデータを *Cargo.toml* に追加しているのを見ましたね。
 この付録ではその意味についてお話します！
 
 <!--
@@ -18,10 +18,10 @@ while, all of these tiny changes add up. But from release to release, it can be
 difficult to look back and say, “Wow, between Rust 1.10 and Rust 1.31, Rust has
 changed a lot!”
 -->
-Rust言語とコンパイラは6週間のリリースサイクルを採用しています。つまり、ユーザにはコンスタントに新しい機能が流れてくるというわけです。
-他のプログラミング言語は、より少ない回数で、より大きなリリースを行いますが、Rustは小さなアップデートを頻繁に行います。
+Rust 言語とコンパイラは 6 週間のリリースサイクルを採用しています。つまり、ユーザにはコンスタントに新しい機能が流れてくるというわけです。
+他のプログラミング言語は、より少ない回数で、より大きなリリースを行いますが、Rust は小さなアップデートを頻繁に行います。
 しばらくすると、これらの小さな変更が溜まっていきます。
-しかし、これらを振り返って、「Rust 1.10とRust 1.31を比較すると、すごく変わったねえ！」などとリリースごとに言うのは難しいです。
+しかし、これらを振り返って、「Rust 1.10 と Rust 1.31 を比較すると、すごく変わったねえ！」などとリリースごとに言うのは難しいです。
 
 <!--
 Every two or three years, the Rust team produces a new Rust *edition*. Each
@@ -29,9 +29,9 @@ edition brings together the features that have landed into a clear package with
 fully updated documentation and tooling. New editions ship as part of the usual
 six-week release process.
 -->
-2、3年ごとに、RustチームはRustの新しい *エディション* を作ります。
-それぞれのエディションには、それまでにRustにやってきた新しい機能が、完全に更新されたドキュメントとツール群とともに、一つのパッケージとなってまとめられています。
-新しいエディションは通常の6週間ごとのリリースの一部として配布されます。
+2、3 年ごとに、Rust チームは Rust の新しい *エディション* を作ります。
+それぞれのエディションには、それまでに Rust にやってきた新しい機能が、完全に更新されたドキュメントとツール群とともに、一つのパッケージとなってまとめられています。
+新しいエディションは通常の 6 週間ごとのリリースの一部として配布されます。
 
 <!--
 Editions serve different purposes for different people:
@@ -46,17 +46,17 @@ Editions serve different purposes for different people:
 * For those developing Rust, a new edition provides a rallying point for the
   project as a whole.
 -->
-* アクティブなRustユーザにとっては、新しいエディションは、少しずつ増えてきた変更点を理解しやすいパッケージにしてまとめるものです。
-* Rustユーザでない人にとっては、新しいエディションは、何かしら大きな達成がなされたことを示します。Rustには今一度目を向ける価値があると感じさせるかもしれません。
-* Rustを開発している人にとっては、新しいエディションは、プロジェクト全体の目標地点となります。
+* アクティブな Rust ユーザにとっては、新しいエディションは、少しずつ増えてきた変更点を理解しやすいパッケージにしてまとめるものです。
+* Rust ユーザでない人にとっては、新しいエディションは、何かしら大きな達成がなされたことを示します。Rust には今一度目を向ける価値があると感じさせるかもしれません。
+* Rust を開発している人にとっては、新しいエディションは、プロジェクト全体の目標地点となります。
 
 <!--
 At the time of this writing, three Rust editions are available: Rust 2015, Rust
 2018, and Rust 2021. This book is written using Rust 2021 edition idioms.
 -->
-この文書を書いている時点（訳注：原文のコミットは2021年12月23日）では、3つのRustのエディションが利用できます。
-Rust 2015、Rust 2018、Rust 2021です。
-この本はRust 2021エディションの慣例に従って書かれています。
+この文書を書いている時点（訳注：原文のコミットは 2021 年 12 月 23 日）では、3 つの Rust のエディションが利用できます。
+Rust 2015、Rust 2018、Rust 2021 です。
+この本は Rust 2021 エディションの慣例に従って書かれています。
 
 <!--
 The `edition` key in *Cargo.toml* indicates which edition the compiler should
@@ -64,7 +64,7 @@ use for your code. If the key doesn’t exist, Rust uses `2015` as the edition
 value for backward compatibility reasons.
 -->
 *Cargo.toml* における`edition`キーは、コードに対してコンパイラがどのエディションを適用すべきかを示しています。
-もしキーが存在しなければ、Rustは後方互換性のため`2015`をエディションの値として使います。
+もしキーが存在しなければ、Rust は後方互換性のため`2015`をエディションの値として使います。
 
 <!--
 Each project can opt in to an edition other than the default 2015 edition.
@@ -73,9 +73,9 @@ conflicts with identifiers in code. However, unless you opt in to those
 changes, your code will continue to compile even as you upgrade the Rust
 compiler version you use.
 -->
-標準の2015エディション以外のエディションを使うという選択はそれぞれのプロジェクトですることができます。
+標準の 2015 エディション以外のエディションを使うという選択はそれぞれのプロジェクトですることができます。
 エディションには、コード内の識別子と衝突してしまう新しいキーワードの導入など、互換性のない変更が含まれる可能性があります。
-しかし、それらの変更を選択しない限り、Rustのコンパイラのバージョンを更新しても、コードは変わらずコンパイルできます。
+しかし、それらの変更を選択しない限り、Rust のコンパイラのバージョンを更新しても、コードは変わらずコンパイルできます。
 
 <!--
 All Rust compiler versions support any edition that existed prior to that
@@ -86,10 +86,10 @@ Rust 2018, your project will compile and be able to use that dependency. The
 opposite situation, where your project uses Rust 2018 and a dependency uses
 Rust 2015, works as well.
 -->
-Rustコンパイラは全バージョンにおいて、そのコンパイラのリリースまでに存在したすべてのエディションをサポートしており、またサポートされているエディションのクレートはすべてリンクできます。
+Rust コンパイラは全バージョンにおいて、そのコンパイラのリリースまでに存在したすべてのエディションをサポートしており、またサポートされているエディションのクレートはすべてリンクできます。
 エディションの変更はコンパイラが最初にコードを構文解析するときにのみ影響します。
-なので、あなたがRust 2015を使っていて、依存先にRust 2018を使うものがあったとしても、あなたのプロジェクトはコンパイルでき、その依存先を使うことができます。
-逆に、あなたのプロジェクトがRust 2018を、依存先がRust 2015を使っていても、同じく問題はありません。
+なので、あなたが Rust 2015 を使っていて、依存先に Rust 2018 を使うものがあったとしても、あなたのプロジェクトはコンパイルでき、その依存先を使うことができます。
+逆に、あなたのプロジェクトが Rust 2018 を、依存先が Rust 2015 を使っていても、同じく問題はありません。
 
 <!--
 To be clear: most features will be available on all editions. Developers using
@@ -99,7 +99,7 @@ features might only be available in later editions. You will need to switch
 editions if you want to take advantage of such features.
 -->
 まあ実のところ、ほとんどの機能はすべてのエディションで利用可能でしょう。
-どのRustエディションを使っている開発者も、新しい安定リリースが出ると改善したなと感じるのは変わらないでしょう。
+どの Rust エディションを使っている開発者も、新しい安定リリースが出ると改善したなと感じるのは変わらないでしょう。
 しかし、場合によって（多くは新しいキーワードが追加されたとき）は、新機能が新しいエディションでしか利用できないことがあるかもしれません。
 そのような機能を利用したいなら、エディションを切り替える必要があるでしょう。
 

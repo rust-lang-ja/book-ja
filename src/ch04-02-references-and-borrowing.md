@@ -11,7 +11,7 @@ call to `calculate_length`, because the `String` was moved into
 `calculate_length`.
 -->
 
-リスト4-5のタプルコードの問題は、`String`型を呼び出し元の関数に戻さないと、`calculate_length`を呼び出した後に、
+リスト 4-5 のタプルコードの問題は、`String`型を呼び出し元の関数に戻さないと、`calculate_length`を呼び出した後に、
 `String`オブジェクトが使えなくなることであり、これは`String`オブジェクトが`calculate_length`にムーブされてしまうためでした。
 
 <!--
@@ -21,13 +21,13 @@ value:
 -->
 
 ここで、値の所有権をもらう代わりに引数としてオブジェクトへの参照を取る`calculate_length`関数を定義し、
-使う方法を見てみましょう:
+使う方法を見てみましょう：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 fn main() {
@@ -52,7 +52,7 @@ function return value is gone. Second, note that we pass `&s1` into
 -->
 
 まず、変数宣言と関数の戻り値にあったタプルコードは全てなくなったことに気付いてください。
-2番目に、`&s1`を`calcuate_length`に渡し、その定義では、`String`型ではなく、`&String`を受け取っていることに注目してください。
+2 番目に、`&s1`を`calcuate_length`に渡し、その定義では、`String`型ではなく、`&String`を受け取っていることに注目してください。
 
 <!--
 These ampersands are *references*, and they allow you to refer to some value
@@ -60,7 +60,7 @@ without taking ownership of it. Figure 4-5 shows a diagram.
 -->
 
 これらのアンド記号が参照であり、これのおかげで所有権をもらうことなく値を参照することができるのです。
-図4-5はその図解です。
+図 4-5 はその図解です。
 
 <!--
 <img alt="&String s pointing at String s1" src="img/trpl04-05.svg" class="center" />
@@ -73,7 +73,7 @@ without taking ownership of it. Figure 4-5 shows a diagram.
 s1`</span>
 -->
 
-<span class="caption">図4-5: `String s1`を指す`&String s`の図表</span>
+<span class="caption">図 4-5: `String s1`を指す`&String s`の図表</span>
 
 <!--
 Note: The opposite of referencing by using `&` is *dereferencing*, which is
@@ -82,14 +82,14 @@ dereference operator in Chapter 8 and discuss details of dereferencing in
 Chapter 15.
 -->
 
-> 注釈: `&`による参照の逆は、*参照外し*であり、参照外し演算子の`*`で達成できます。
-> 第8章で参照外し演算子の使用例を眺め、第15章で参照外しについて詳しく議論します。
+> 注釈：`&`による参照の逆は、*参照外し*であり、参照外し演算子の`*`で達成できます。
+> 第 8 章で参照外し演算子の使用例を眺め、第 15 章で参照外しについて詳しく議論します。
 
 <!--
 Let’s take a closer look at the function call here:
 -->
 
-ここの関数呼び出しについて、もっと詳しく見てみましょう:
+ここの関数呼び出しについて、もっと詳しく見てみましょう：
 
 ```rust
 # fn calculate_length(s: &String) -> usize {
@@ -115,7 +115,7 @@ the parameter `s` is a reference. Let’s add some explanatory annotations:
 -->
 
 同様に、関数のシグニチャでも、`&`を使用して引数`s`の型が参照であることを示しています。
-説明的な注釈を加えてみましょう:
+説明的な注釈を加えてみましょう：
 
 <!--
 ```rust
@@ -127,9 +127,9 @@ s.len()
 -->
 
 ```rust
-fn calculate_length(s: &String) -> usize { // sはStringへの参照
+fn calculate_length(s: &String) -> usize { // s は String への参照
     s.len()
-} // ここで、sはスコープ外になる。けど、参照しているものの所有権を持っているわけではないので
+} // ここで、s はスコープ外になる。けど、参照しているものの所有権を持っているわけではないので
   // 何も起こらない
 ```
 
@@ -159,14 +159,14 @@ So what happens if we try to modify something we’re borrowing? Try the code in
 Listing 4-6. Spoiler alert: it doesn’t work!
 -->
 
-では、借用した何かを変更しようとしたら、どうなるのでしょうか？リスト4-6のコードを試してください。
-ネタバレ注意: 動きません！
+では、借用した何かを変更しようとしたら、どうなるのでしょうか？リスト 4-6 のコードを試してください。
+ネタバレ注意：動きません！
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -184,13 +184,13 @@ fn change(some_string: &String) {
 <span class="caption">Listing 4-6: Attempting to modify a borrowed value</span>
 -->
 
-<span class="caption">リスト4-6: 借用した値を変更しようと試みる</span>
+<span class="caption">リスト 4-6: 借用した値を変更しようと試みる</span>
 
 <!--
 Here’s the error:
 -->
 
-これがエラーです:
+これがエラーです：
 
 ```text
 error[E0596]: cannot borrow immutable borrowed content `*some_string` as mutable
@@ -220,13 +220,13 @@ allowed to modify something we have a reference to.
 We can fix the error in the code from Listing 4-6 with just a small tweak:
 -->
 
-一捻り加えるだけでリスト4-6のコードのエラーは解決します:
+一捻り加えるだけでリスト 4-6 のコードのエラーは解決します：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 fn main() {
@@ -255,14 +255,14 @@ reference to a particular piece of data in a particular scope. This code will
 fail:
 -->
 
-ところが、可変な参照には大きな制約が一つあります: 特定のスコープで、ある特定のデータに対しては、
-一つしか可変な参照を持てないことです。こちらのコードは失敗します:
+ところが、可変な参照には大きな制約が一つあります：特定のスコープで、ある特定のデータに対しては、
+一つしか可変な参照を持てないことです。こちらのコードは失敗します：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
     let mut s = String::from("hello");
@@ -277,13 +277,13 @@ fail:
 Here’s the error:
 -->
 
-これがエラーです:
+これがエラーです：
 
 ```text
 $ cargo run
    Compiling ownership v0.1.0 (file:///projects/ownership)
 error[E0499]: cannot borrow `s` as mutable more than once at a time
-(エラー: 一度に`s`を可変として2回以上借用することはできません)
+(エラー: 一度に`s`を可変として 2 回以上借用することはできません)
  --> src/main.rs:5:14
   |
 4 |     let r1 = &mut s;
@@ -310,7 +310,7 @@ something that new Rustaceans struggle with, because most languages let you
 mutate whenever you’d like.
 -->
 
-この制約は、可変化を許可するものの、それを非常に統制の取れた形で行えます。これは、新たなRustaceanにとっては、
+この制約は、可変化を許可するものの、それを非常に統制の取れた形で行えます。これは、新たな Rustacean にとっては、
 壁です。なぜなら、多くの言語では、いつでも好きな時に可変化できるからです。
 
 <!--
@@ -320,7 +320,7 @@ these three behaviors occur:
 -->
 
 この制約がある利点は、コンパイラがコンパイル時にデータ競合を防ぐことができる点です。
-データ競合とは、競合条件と類似していて、これら3つの振る舞いが起きる時に発生します:
+データ競合とは、競合条件と類似していて、これら 3 つの振る舞いが起きる時に発生します：
 
 <!--
 * Two or more pointers access the same data at the same time.
@@ -328,7 +328,7 @@ these three behaviors occur:
 * There’s no mechanism being used to synchronize access to the data.
 -->
 
-* 2つ以上のポインタが同じデータに同時にアクセスする。
+* 2 つ以上のポインタが同じデータに同時にアクセスする。
 * 少なくとも一つのポインタがデータに書き込みを行っている。
 * データへのアクセスを同期する機構が使用されていない。
 
@@ -339,7 +339,7 @@ from happening because it won’t even compile code with data races!
 -->
 
 データ競合は未定義の振る舞いを引き起こし、実行時に追いかけようとした時に特定し解決するのが難しい問題です。
-しかし、Rustは、データ競合が起こるコードをコンパイルさえしないので、この問題が発生しないようにしてくれるわけです。
+しかし、Rust は、データ競合が起こるコードをコンパイルさえしないので、この問題が発生しないようにしてくれるわけです。
 
 <!--
 As always, we can use curly brackets to create a new scope, allowing for
@@ -373,7 +373,7 @@ let mut s = String::from("hello");
 {
     let r1 = &mut s;
 
-} // r1はここでスコープを抜けるので、問題なく新しい参照を作ることができる
+} // r1 はここでスコープを抜けるので、問題なく新しい参照を作ることができる
 
 let r2 = &mut s;
 ```
@@ -383,7 +383,7 @@ A similar rule exists for combining mutable and immutable references. This code
 results in an error:
 -->
 
-可変と不変な参照を組み合わせることに関しても、似たような規則が存在しています。このコードはエラーになります:
+可変と不変な参照を組み合わせることに関しても、似たような規則が存在しています。このコードはエラーになります：
 
 <!--
 ```rust,ignore
@@ -409,7 +409,7 @@ let r3 = &mut s; // 大問題！
 Here’s the error:
 -->
 
-これがエラーです:
+これがエラーです：
 
 ```text
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as
@@ -445,7 +445,7 @@ at runtime) and showing you exactly where the problem is. Then you don't have
 to track down why your data isn’t what you thought it was.
 -->
 
-これらのエラーは、時としてイライラするものではありますが、Rustコンパイラがバグの可能性を早期に指摘してくれ(それも実行時ではなくコンパイル時に)、
+これらのエラーは、時としてイライラするものではありますが、Rust コンパイラがバグの可能性を早期に指摘してくれ (それも実行時ではなくコンパイル時に)、
 問題の発生箇所をズバリ示してくれるのだと覚えておいてください。そうして想定通りにデータが変わらない理由を追いかける必要がなくなります。
 
 <!--
@@ -466,8 +466,8 @@ reference to the data does.
 
 ポインタのある言語では、誤ってダングリングポインタを生成してしまいやすいです。ダングリングポインタとは、
 他人に渡されてしまった可能性のあるメモリを指すポインタのことであり、その箇所へのポインタを保持している間に、
-メモリを解放してしまうことで発生します。対照的にRustでは、コンパイラが、
-参照がダングリング参照に絶対ならないよう保証してくれます: つまり、何らかのデータへの参照があったら、
+メモリを解放してしまうことで発生します。対照的に Rust では、コンパイラが、
+参照がダングリング参照に絶対ならないよう保証してくれます：つまり、何らかのデータへの参照があったら、
 コンパイラは参照がスコープを抜けるまで、データがスコープを抜けることがないよう確認してくれるわけです。
 
 <!--
@@ -475,13 +475,13 @@ Let’s try to create a dangling reference, which Rust will prevent with a
 compile-time error:
 -->
 
-ダングリング参照作りを試してみますが、コンパイラはこれをコンパイルエラーで阻止します:
+ダングリング参照作りを試してみますが、コンパイラはこれをコンパイルエラーで阻止します：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -499,7 +499,7 @@ fn dangle() -> &String {
 Here’s the error:
 -->
 
-こちらがエラーです:
+こちらがエラーです：
 
 ```text
 error[E0106]: missing lifetime specifier
@@ -513,7 +513,7 @@ error[E0106]: missing lifetime specifier
     value for it to be borrowed from
     (助言: この関数の戻り値型は、借用した値を含んでいますが、借用される値がどこにもありません)
   = help: consider giving it a 'static lifetime
-  ('staticライフタイムを与えることを考慮してみてください)
+  ('static ライフタイムを与えることを考慮してみてください)
 ```
 
 <!--
@@ -522,9 +522,9 @@ discuss lifetimes in detail in Chapter 10. But, if you disregard the parts
 about lifetimes, the message does contain the key to why this code is a problem:
 -->
 
-このエラーメッセージは、まだ講義していない機能について触れています: *ライフタイム*です。
-ライフタイムについては第10章で詳しく議論しますが、ライフタイムに関する部分を無視すれば、
-このメッセージは、確かにこのコードが問題になる理由に関する鍵を握っています:
+このエラーメッセージは、まだ講義していない機能について触れています：*ライフタイム*です。
+ライフタイムについては第 10 章で詳しく議論しますが、ライフタイムに関する部分を無視すれば、
+このメッセージは、確かにこのコードが問題になる理由に関する鍵を握っています：
 
 ```text
 this function's return type contains a borrowed value, but there is no value
@@ -536,7 +536,7 @@ Let’s take a closer look at exactly what’s happening at each stage of our
 `dangle` code:
 -->
 
-`dangle`コードの各段階で一体何が起きているのかを詳しく見ていきましょう:
+`dangle`コードの各段階で一体何が起きているのかを詳しく見ていきましょう：
 
 <!--
 ```rust,ignore
@@ -558,15 +558,15 @@ let s = String::from("hello"); // s is a new String
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
-fn dangle() -> &String { // dangleはStringへの参照を返す
+fn dangle() -> &String { // dangle は String への参照を返す
 
-    let s = String::from("hello"); // sは新しいString
+    let s = String::from("hello"); // s は新しい String
 
-    &s // String sへの参照を返す
-} // ここで、sはスコープを抜け、ドロップされる。そのメモリは消される。
+    &s // String s への参照を返す
+} // ここで、s はスコープを抜け、ドロップされる。そのメモリは消される。
   // 危険だ
 ```
 
@@ -585,7 +585,7 @@ won’t let us do this.
 The solution here is to return the `String` directly:
 -->
 
-ここでの解決策は、`String`を直接返すことです:
+ここでの解決策は、`String`を直接返すことです：
 
 ```rust
 fn no_dangle() -> String {
@@ -612,7 +612,7 @@ deallocated.
 Let’s recap what we’ve discussed about references:
 -->
 
-参照について議論したことを再確認しましょう:
+参照について議論したことを再確認しましょう：
 
 <!--
 * At any given time, you can have *either* one mutable reference *or* any
@@ -627,4 +627,4 @@ number of immutable references.
 Next, we’ll look at a different kind of reference: slices.
 -->
 
-次は、違う種類の参照を見ていきましょう: スライスです。
+次は、違う種類の参照を見ていきましょう：スライスです。

@@ -13,10 +13,10 @@ encourages you to favor immutability and why sometimes you might want to opt
 out.
 -->
 
-第2章で触れた通り、変数は標準で不変になります。これは、
-Rustが提供する安全性や簡便な並行性の利点を享受する形でコードを書くための選択の1つです。
+第 2 章で触れた通り、変数は標準で不変になります。これは、
+Rust が提供する安全性や簡便な並行性の利点を享受する形でコードを書くための選択の 1 つです。
 ところが、まだ変数を可変にするという選択肢も残されています。
-どのように、そしてなぜRustは不変性を推奨するのか、さらには、なぜそれとは違う道を選びたくなることがあるのか見ていきましょう。
+どのように、そしてなぜ Rust は不変性を推奨するのか、さらには、なぜそれとは違う道を選びたくなることがあるのか見ていきましょう。
 
 <!--
 When a variable is immutable, once a value is bound to a name, you can't change
@@ -34,13 +34,13 @@ code with the following code that won't compile just yet:
 -->
 
 それから、新規作成した*variables*ディレクトリで、*src/main.rs*ファイルを開き、
-その中身を以下のコードに置き換えましょう。このコードはまだコンパイルできません:
+その中身を以下のコードに置き換えましょう。このコードはまだコンパイルできません：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/src/main.rs}}
@@ -51,7 +51,7 @@ Save and run the program using `cargo run`. You should receive an error
 message, as shown in this output:
 -->
 
-これを保存し、`cargo run`コマンドでプログラムを走らせてください。次の出力に示されているようなエラーメッセージを受け取るはずです:
+これを保存し、`cargo run`コマンドでプログラムを走らせてください。次の出力に示されているようなエラーメッセージを受け取るはずです：
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/output.txt}}
@@ -67,7 +67,7 @@ not a good programmer! Experienced Rustaceans still get compiler errors.
 この例では、コンパイラがプログラムに潜むエラーを見つけ出す手助けをしてくれることが示されています。
 コンパイルエラーは、イライラすることもあるものですが、まだプログラムにしてほしいことを安全に行えていないだけということなのです。
 エラーが出るからといって、あなたがいいプログラマではないという意味ではあり*ません*！
-経験豊富なRustaceanでも、コンパイルエラーを出すことはあります。
+経験豊富な Rustacean でも、コンパイルエラーを出すことはあります。
 
 <!--
 The error message indicates that the cause of the error is that you `cannot
@@ -91,7 +91,7 @@ especially when the second piece of code changes the value only *sometimes*.
 なぜなら、この状況はまさしく、バグに繋がるからです。コードのある部分は、
 値が変わることはないという前提のもとに処理を行い、別の部分がその値を変更していたら、
 最初の部分が目論見通りに動いていない可能性があるのです。このようなバグは、発生してしまってからでは原因が追いかけづらいものです。
-特に第2のコード片が、値を*時々*しか変えない場合、尚更です。
+特に第 2 のコード片が、値を*時々*しか変えない場合、尚更です。
 
 <!--
 In Rust the compiler guarantees that when you state that a value won’t change,
@@ -100,7 +100,7 @@ you don’t have to keep track of how and where a value might change. Your code
 is thus easier to reason through.
 -->
 
-Rustでは、値が不変であると宣言したら、本当に変わらないことをコンパイラが担保してくれます。
+Rust では、値が不変であると宣言したら、本当に変わらないことをコンパイラが担保してくれます。
 つまり、コードを読み書きする際に、どこでどうやって値が変化しているかを追いかける必要がなくなります。
 故にコードを通して正しいことを確認するのが簡単になるのです。
 
@@ -113,20 +113,20 @@ will be changing this variable value.
 -->
 
 しかし、可変性は時として非常に有益なこともあります。変数は、標準でのみ、不変です。つまり、
-第2章のように変数名の前に`mut`キーワードを付けることで、可変にできるわけです。この値が変化できるようにするとともに、
+第 2 章のように変数名の前に`mut`キーワードを付けることで、可変にできるわけです。この値が変化できるようにするとともに、
 `mut`により、未来の読者に対してコードの別の部分がこの変数の値を変える可能性を示すことで、その意図を汲ませることができるのです。
 
 <!--
 For example, change *src/main.rs* to the following:
 -->
 
-例として、*src/main.rs*ファイルを以下のように書き換えてください:
+例として、*src/main.rs*ファイルを以下のように書き換えてください：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/src/main.rs}}
@@ -136,7 +136,7 @@ For example, change *src/main.rs* to the following:
 When we run the program now, we get this:
 -->
 
-今、このプログラムを走らせると、以下のような出力が得られます:
+今、このプログラムを走らせると、以下のような出力が得られます：
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/output.txt}}
@@ -169,7 +169,7 @@ performance might be a worthwhile penalty for gaining that clarity.
 ### Differences Between Variables and Constants
 -->
 
-### 変数と定数(constants)の違い
+### 変数と定数 (constants) の違い
 
 <!--
 Being unable to change the value of a variable might have reminded you of
@@ -179,7 +179,7 @@ allowed to change, but there are a few differences between constants and
 variables.
 -->
 
-変数の値を変更できないようにするといえば、他の多くの言語も持っている別のプログラミング概念を思い浮かべるかもしれません:
+変数の値を変更できないようにするといえば、他の多くの言語も持っている別のプログラミング概念を思い浮かべるかもしれません：
 *定数*です。不変変数のように、定数は名前に束縛され、変更することが叶わない値のことですが、
 定数と変数の間にはいくつかの違いがあります。
 
@@ -188,7 +188,7 @@ First, we aren’t allowed to use `mut` with constants. Constants aren't just
 immutable by default-they're always immutable.
 -->
 
-まず、定数には`mut`キーワードは使えません: 定数は標準で不変であるだけでなく、常に不変なのです。
+まず、定数には`mut`キーワードは使えません：定数は標準で不変であるだけでなく、常に不変なのです。
 
 <!--
 You declare constants using the `const` keyword instead of the `let` keyword,
@@ -223,7 +223,7 @@ Here's an example of a constant declaration where the constant's name is
 constants is to use all upper case with underscores between words):
 -->
 
-定数の名前が`MAX_POINTS`で、値が100,000にセットされた定数定義の例をご覧ください。(Rustの定数の命名規則は、
+定数の名前が`MAX_POINTS`で、値が 100,000 にセットされた定数定義の例をご覧ください。(Rust の定数の命名規則は、
 全て大文字でアンダースコアで単語区切りすることです):
 
 ```rust
@@ -251,7 +251,7 @@ hardcoded value needed to be updated in the future.
 
 プログラム中で使用されるハードコードされた値に対して、定数として名前付けすることは、
 コードの将来的な管理者にとって値の意味を汲むのに役に立ちます。将来、ハードコードされた値を変える必要が出た時に、
-たった1箇所を変更するだけで済むようにもしてくれます。
+たった 1 箇所を変更するだけで済むようにもしてくれます。
 
 <!--
 ### Shadowing
@@ -269,16 +269,16 @@ is used. We can shadow a variable by using the same variable’s name and
 repeating the use of the `let` keyword as follows:
 -->
 
-第2章の数当てゲームのチュートリアル、「予想と秘密の数字を比較する」節で見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
-新しい変数は、前の変数を覆い隠します。Rustaceanはこれを最初の変数は、
-2番目の変数に*覆い隠さ*れたと言い、この変数を使用した際に、2番目の変数の値が現れるということです。
-以下のようにして、同じ変数名を用いて変数を覆い隠し、`let`キーワードの使用を繰り返します:
+第 2 章の数当てゲームのチュートリアル、「予想と秘密の数字を比較する」節で見たように、前に定義した変数と同じ名前の変数を新しく宣言でき、
+新しい変数は、前の変数を覆い隠します。Rustacean はこれを最初の変数は、
+2 番目の変数に*覆い隠さ*れたと言い、この変数を使用した際に、2 番目の変数の値が現れるということです。
+以下のようにして、同じ変数名を用いて変数を覆い隠し、`let`キーワードの使用を繰り返します：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/src/main.rs}}
@@ -295,9 +295,9 @@ When we run this program, it will output the following:
 
 このプログラムはまず、`x`を`5`という値に束縛します。それから`let x =`を繰り返すことで`x`を覆い隠し、
 元の値に`1`を加えることになるので、`x`の値は`6`になります。
-3番目の`let`文も`x`を覆い隠し、以前の値に`2`をかけることになるので、`x`の最終的な値は`12`になります。
+3 番目の`let`文も`x`を覆い隠し、以前の値に`2`をかけることになるので、`x`の最終的な値は`12`になります。
 括弧を抜けるとシャドーイングは終了し、`x`の値は元の`6`に戻ります。
-このプログラムを走らせたら、以下のように出力するでしょう:
+このプログラムを走らせたら、以下のように出力するでしょう：
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/output.txt}}
@@ -326,7 +326,7 @@ inputting space characters, but we really want to store that input as a number:
 `mut`と上書きのもう一つの違いは、再度`let`キーワードを使用したら、実効的には新しい変数を生成していることになるので、
 値の型を変えつつ、同じ変数名を使いまわせることです。例えば、
 プログラムがユーザに何らかのテキストに対して空白文字を入力することで何個分のスペースを表示したいかを尋ねますが、
-ただ、実際にはこの入力を数値として保持したいとしましょう:
+ただ、実際にはこの入力を数値として保持したいとしましょう：
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-04-shadowing-can-change-types/src/main.rs:here}}
@@ -341,11 +341,11 @@ from having to come up with different names, like `spaces_str` and
 try to use `mut` for this, as shown here, we'll get a compile-time error:
 -->
 
-この文法要素は、容認されます。というのも、最初の`spaces`変数は文字列型であり、2番目の`spaces`変数は、
+この文法要素は、容認されます。というのも、最初の`spaces`変数は文字列型であり、2 番目の`spaces`変数は、
 たまたま最初の変数と同じ名前になったまっさらな変数のわけですが、数値型になるからです。故に、シャドーイングのおかげで、
 異なる名前を思いつく必要がなくなるわけです。`spaces_str`と`spaces_num`などですね; 代わりに、
 よりシンプルな`spaces`という名前を再利用できるわけです。一方で、この場合に`mut`を使おうとすると、
-以下に示した通りですが、コンパイルエラーになるわけです:
+以下に示した通りですが、コンパイルエラーになるわけです：
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/src/main.rs:here}}
@@ -356,7 +356,7 @@ The error says we’re not allowed to mutate a variable’s
 type:
 -->
 
-変数の型を可変にすることは許されていないと言われているわけです:
+変数の型を可変にすることは許されていないと言われているわけです：
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/output.txt}}

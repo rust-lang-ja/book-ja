@@ -15,10 +15,10 @@ Rust supports them.
 -->
 
 言語がオブジェクト指向と考えられるのになければならない機能について、プログラミングコミュニティ内での総意はありません。
-RustはOOPを含めた多くのプログラミングパラダイムに影響を受けています; 例えば、
-第13章で関数型プログラミングに由来する機能を探究しました。議論はあるかもしれませんが、
-OOP言語は特定の一般的な特徴を共有しています。具体的には、オブジェクトやカプセル化、
-継承などです。それらの個々の特徴が意味するものとRustがサポートしているかを見ましょう。
+Rust は OOP を含めた多くのプログラミングパラダイムに影響を受けています; 例えば、
+第 13 章で関数型プログラミングに由来する機能を探究しました。議論はあるかもしれませんが、
+OOP 言語は特定の一般的な特徴を共有しています。具体的には、オブジェクトやカプセル化、
+継承などです。それらの個々の特徴が意味するものと Rust がサポートしているかを見ましょう。
 
 <!--
 ### Objects Contain Data and Behavior
@@ -33,11 +33,11 @@ Professional, 1994) colloquially referred to as *The Gang of Four book*, is a
 catlog of object-oriented design patterns. It defines OOP this way:
 -->
 
-エーリヒ・ガンマ(Enoch Gamma)、リチャード・ヘルム(Richard Helm)、ラルフ・ジョンソン(Ralph Johnson)、
-ジョン・ブリシディース(John Vlissides)(アディソン・ワズリー・プロ)により、
-1994年に書かれた*デザインパターン: 再利用可能なオブジェクト指向ソフトウェアの要素*という本は、
-俗に*4人のギャングの本*(`訳注`: the Gang of Four book; GoFとよく略される)と呼ばれ、オブジェクト指向デザインパターンのカタログです。
-そこでは、OOPは以下のように定義されています:
+エーリヒ・ガンマ (Enoch Gamma)、リチャード・ヘルム (Richard Helm)、ラルフ・ジョンソン (Ralph Johnson)、
+ジョン・ブリシディース (John Vlissides)(アディソン・ワズリー・プロ) により、
+1994 年に書かれた*デザインパターン：再利用可能なオブジェクト指向ソフトウェアの要素*という本は、
+俗に*4 人のギャングの本*(`訳注`: the Gang of Four book; GoF とよく略される) と呼ばれ、オブジェクト指向デザインパターンのカタログです。
+そこでは、OOP は以下のように定義されています：
 
 <!--
 > Object-oriented programs are made up of objects. An *object* packages both
@@ -56,9 +56,9 @@ enums with methods aren’t *called* objects, they provide the same
 functionality, according to the Gang of Four’s definition of objects.
 -->
 
-この定義を使用すれば、Rustはオブジェクト指向です: 構造体とenumにはデータがありますし、
-`impl`ブロックが構造体とenumにメソッドを提供します。メソッドのある構造体とenumは、
-オブジェクトとは呼ばれないものの、GoFのオブジェクト定義によると、同じ機能を提供します。
+この定義を使用すれば、Rust はオブジェクト指向です：構造体と enum にはデータがありますし、
+`impl`ブロックが構造体と enum にメソッドを提供します。メソッドのある構造体と enum は、
+オブジェクトとは呼ばれないものの、GoF のオブジェクト定義によると、同じ機能を提供します。
 
 <!--
 ### Encapsulation that Hides Implementation Details
@@ -76,9 +76,9 @@ programmer to change and refactor an object’s internals without needing to
 change the code that uses the object.
 -->
 
-OOPとよく紐づけられる別の側面は、カプセル化の思想です。これは、オブジェクトの実装詳細は、
+OOP とよく紐づけられる別の側面は、カプセル化の思想です。これは、オブジェクトの実装詳細は、
 そのオブジェクトを使用するコードにはアクセスできないことを意味します。故に、
-オブジェクトと相互作用する唯一の手段は、その公開APIを通してです; オブジェクトを使用するコードは、
+オブジェクトと相互作用する唯一の手段は、その公開 API を通してです; オブジェクトを使用するコードは、
 オブジェクトの内部に到達して、データや振る舞いを直接変更できるべきではありません。
 このために、プログラマはオブジェクトの内部をオブジェクトを使用するコードを変更する必要なく、
 変更しリファクタリングできます。
@@ -95,19 +95,19 @@ cache the calculated average for us. Listing 17-1 has the definition of the
 `AveragedCollection` struct:
 -->
 
-カプセル化を制御する方法は、第7章で議論しました: `pub`キーワードを使用して、
+カプセル化を制御する方法は、第 7 章で議論しました：`pub`キーワードを使用して、
 自分のコードのどのモジュールや型、関数、メソッドを公開するか決められ、
 既定ではそれ以外のものは全て非公開になります。例えば、
 `i32`値のベクタを含むフィールドのある`AveragedCollection`という構造体を定義できます。
 この構造体はさらに、ベクタの値の平均を含むフィールドを持てます。つまり、平均は誰かが必要とする度に、
 オンデマンドで計算する必要はないということです。言い換えれば、`AveragedCollection`は、
-計算した平均をキャッシュしてくれるわけです。リスト17-1には、`AveragedCollection`構造体の定義があります:
+計算した平均をキャッシュしてくれるわけです。リスト 17-1 には、`AveragedCollection`構造体の定義があります：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 pub struct AveragedCollection {
@@ -122,7 +122,7 @@ maintains a list of integers and the average of the items in the
 collection</span>
 -->
 
-<span class="caption">リスト17-1: 整数のリストとコレクションの要素の平均を管理する`AveragedCollection`構造体</span>
+<span class="caption">リスト 17-1: 整数のリストとコレクションの要素の平均を管理する`AveragedCollection`構造体</span>
 
 <!--
 The struct is marked `pub` so that other code can use it, but the fields within
@@ -134,13 +134,13 @@ on the struct, as shown in Listing 17-2:
 
 構造体は、他のコードが使用できるように`pub`で印づけされていますが、構造体のフィールドは非公開のままです。
 値が追加されたりリストから削除される度に、平均も更新されることを保証したいので、今回の場合重要です。
-`add`や`remove`、`average`メソッドを構造体に実装することでこれをします。リスト17-2のようにですね:
+`add`や`remove`、`average`メソッドを構造体に実装することでこれをします。リスト 17-2 のようにですね：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # pub struct AveragedCollection {
@@ -180,7 +180,7 @@ impl AveragedCollection {
 `add`, `remove`, and `average` on `AveragedCollection`</span>
 -->
 
-<span class="caption">リスト17-2: `AveragedCollection`の`add`、`remove`、`average`公開メソッドの実装</span>
+<span class="caption">リスト 17-2: `AveragedCollection`の`add`、`remove`、`average`公開メソッドの実装</span>
 
 <!--
 The public methods `add`, `remove`, and `average` are the only ways to modify
@@ -222,7 +222,7 @@ likely have to change if it were modifying `list` directly.
 構造体`AveragedCollection`の実装詳細をカプセル化したので、データ構造などの側面を将来容易に変更することができます。
 例を挙げれば、`list`フィールドに`Vec<i32>`ではなく`HashSet<i32>`を使うこともできます。
 `add`、`remove`、`average`といった公開メソッドのシグニチャが同じである限り、`AveragedCollection`を使用するコードは変更する必要がないでしょう。
-代わりに`list`を公開にしたら、必ずしもこうはならないでしょう: `HashSet<i32>`と`Vec<i32>`は、
+代わりに`list`を公開にしたら、必ずしもこうはならないでしょう：`HashSet<i32>`と`Vec<i32>`は、
 要素の追加と削除に異なるメソッドを持っているので、外部コードが直接`list`を変更しているなら、
 外部コードも変更しなければならない可能性が高いでしょう。
 
@@ -232,7 +232,7 @@ oriented, then Rust meets that requirement. The option to use `pub` or not for
 different parts of code enables encapsulation of implementation details.
 -->
 
-カプセル化が、言語がオブジェクト指向と考えられるのに必要な側面ならば、Rustはその条件を満たしています。
+カプセル化が、言語がオブジェクト指向と考えられるのに必要な側面ならば、Rust はその条件を満たしています。
 コードの異なる部分で`pub`を使用するかしないかという選択肢のおかげで、実装詳細をカプセル化することが可能になります。
 
 <!--
@@ -258,10 +258,10 @@ inheritance in your programming toolbox, you can use other solutions in Rust,
 depending on your reason for reaching for inheritance in the first place.
 -->
 
-言語がオブジェクト指向言語であるために継承がなければならないのならば、Rustは違います。
+言語がオブジェクト指向言語であるために継承がなければならないのならば、Rust は違います。
 親構造体のフィールドとメソッドの実装を受け継ぐ構造体を定義する方法はありません。しかしながら、
 継承がプログラミング道具箱にあることに慣れていれば、そもそも継承に手を伸ばす理由によって、
-Rustで他の解決策を使用することができます。
+Rust で他の解決策を使用することができます。
 
 <!--
 You choose inheritance for two main reasons. One is for reuse of code: you can
@@ -278,9 +278,9 @@ default implementation of the `summarize` method when we implement the
 implementation of a method inherited from a parent class.
 -->
 
-継承を選択する理由は主に2つあります。1つ目は、コードの再利用です: ある型に特定の振る舞いを実装し、
+継承を選択する理由は主に 2 つあります。1 つ目は、コードの再利用です：ある型に特定の振る舞いを実装し、
 継承により、その実装を他の型にも再利用できるわけです。デフォルトのトレイトメソッド実装を代わりに使用して、
-Rustコードを共有でき、これは、リスト10-14で`Summary`トレイトに`summarize`メソッドのデフォルト実装を追加した時に見かけました。
+Rust コードを共有でき、これは、リスト 10-14 で`Summary`トレイトに`summarize`メソッドのデフォルト実装を追加した時に見かけました。
 `Summary`トレイトを実装する型は全て、追加のコードなく`summarize`メソッドが使用できます。
 これは、親クラスにメソッドの実装があり、継承した子クラスにもそのメソッドの実装があることと似ています。
 また、`Summary`トレイトを実装する時に、`summarize`メソッドのデフォルト実装を上書きすることもでき、
@@ -293,8 +293,8 @@ called *polymorphism*, which means that you can substitute multiple objects for
 each other at runtime if they share certain characteristics.
 -->
 
-継承を使用するもう1つの理由は、型システムに関連しています: 親の型と同じ箇所で子供の型を使用できるようにです。
-これは、*多相性*(polymorphism)とも呼ばれ、複数のオブジェクトが特定の特徴を共有しているなら、
+継承を使用するもう 1 つの理由は、型システムに関連しています：親の型と同じ箇所で子供の型を使用できるようにです。
+これは、*多相性*(polymorphism) とも呼ばれ、複数のオブジェクトが特定の特徴を共有しているなら、
 実行時にお互いに代用できることを意味します。
 
 <!--
@@ -314,8 +314,8 @@ each other at runtime if they share certain characteristics.
 > 多くの人にとって、多相性は、継承の同義語です。ですが、実際には複数の型のデータを取り扱えるコードを指すより一般的な概念です。
 > 継承について言えば、それらの型は一般的にはサブクラスです。
 >
-> Rustは代わりにジェネリクスを使用して様々な可能性のある型を抽象化し、トレイト境界を使用してそれらの型が提供するものに制約を課します。
-> これは時に、*パラメータ境界多相性*(bounded parametric polymorphism)と呼ばれます。
+> Rust は代わりにジェネリクスを使用して様々な可能性のある型を抽象化し、トレイト境界を使用してそれらの型が提供するものに制約を課します。
+> これは時に、*パラメータ境界多相性*(bounded parametric polymorphism) と呼ばれます。
 
 <!--
 Inheritance has recently fallen out of favor as a programming design solution
@@ -334,12 +334,12 @@ design.
 必ずしも親クラスの特徴を全て共有するべきではないのに、継承ではそうなってしまうのです。
 これにより、プログラムの設計の柔軟性を失わせることもあります。また、道理に合わなかったり、メソッドがサブクラスには適用されないために、
 エラーを発生させるようなサブクラスのメソッドの呼び出しを引き起こす可能性が出てくるのです。
-さらに、サブクラスに1つのクラスからだけ継承させる言語もあり、さらにプログラムの設計の柔軟性が制限されます。
+さらに、サブクラスに 1 つのクラスからだけ継承させる言語もあり、さらにプログラムの設計の柔軟性が制限されます。
 
 <!--
 For these reasons, Rust takes a different approach, using trait objects instead
 of inheritance. Let’s look at how trait objects enable polymorphism in Rust.
 -->
 
-これらの理由により、継承ではなくトレイトオブジェクトを使用してRustは異なるアプローチを取っています。
-Rustにおいて、トレイトオブジェクトがどう多相性を可能にするかを見ましょう。
+これらの理由により、継承ではなくトレイトオブジェクトを使用して Rust は異なるアプローチを取っています。
+Rust において、トレイトオブジェクトがどう多相性を可能にするかを見ましょう。

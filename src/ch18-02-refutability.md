@@ -2,7 +2,7 @@
 ## Refutability: Whether a Pattern Might Fail to Match
 -->
 
-## 論駁可能性: パターンが合致しないかどうか
+## 論駁可能性：パターンが合致しないかどうか
 
 <!--
 Patterns come in two forms: refutable and irrefutable. Patterns that will match
@@ -14,7 +14,7 @@ a_value`; because if the value in `a_value` variable is `None` rather than
 `Some`, the `Some(x)` pattern will not match.
 -->
 
-パターンには2つの形態があります: 論駁可能なものと論駁不可能なものです。渡される可能性のあるあらゆる値に合致するパターンは、
+パターンには 2 つの形態があります：論駁可能なものと論駁不可能なものです。渡される可能性のあるあらゆる値に合致するパターンは、
 *論駁不可能*なものです。文`let x = 5;`の`x`は一例でしょう。`x`は何にでも合致し、故に合致に失敗することがあり得ないからです。
 なんらかの可能性のある値に対して合致しないことがあるパターンは、*論駁可能*なものです。
 一例は、式`if let Some(x) = a_value`の`Some(x)`になるでしょう; `a_value`変数の値が`Some`ではなく、
@@ -31,7 +31,7 @@ differently depending on success or failure.
 
 関数の引数、`let`文、`for`ループは、値が合致しなかったら何も意味のあることをプログラムが実行できないので、
 論駁不可能なパターンしか受け付けられません。`if let`と`while let`式は、定義により失敗する可能性を処理することを意図したものなので、
-論駁可能なパターンのみを受け付けます: 条件式の機能は、成功か失敗によって異なる振る舞いをする能力にあるのです。
+論駁可能なパターンのみを受け付けます：条件式の機能は、成功か失敗によって異なる振る舞いをする能力にあるのです。
 
 <!--
 In general, you shouldn’t have to worry about the distinction between refutable
@@ -53,7 +53,7 @@ pattern. As you might expect, this code will not compile.
 -->
 
 コンパイラが論駁不可能なパターンを必要とする箇所で論駁可能なパターンを使用しようとしたら、何が起きるかとその逆の例を見ましょう。
-リスト18-8は`let`文を示していますが、パターンには`Some(x)`と指定し、論駁可能なパターンです。
+リスト 18-8 は`let`文を示していますが、パターンには`Some(x)`と指定し、論駁可能なパターンです。
 ご想像通りかもしれませんが、このコードはコンパイルできません。
 
 ```rust,ignore
@@ -65,7 +65,7 @@ let Some(x) = some_option_value;
 `let`</span>
 -->
 
-<span class="caption">リスト18-8: `let`で論駁可能なパターンを使用しようとする</span>
+<span class="caption">リスト 18-8: `let`で論駁可能なパターンを使用しようとする</span>
 
 <!--
 If `some_option_value` was a `None` value, it would fail to match the pattern
@@ -77,11 +77,11 @@ use a refutable pattern where an irrefutable pattern is required:
 
 `some_option_value`が`None`値だったなら、パターン`Some(x)`に合致しないことになり、パターンが論駁可能であることを意味します。
 ですが、`let`文は論駁不可能なパターンしか受け付けられません。`None`値に対してコードができる合法なことは何もないからです。
-コンパイル時にコンパイラは、論駁不可能なパターンが必要な箇所に論駁可能なパターンを使用しようとしたと文句を言うでしょう:
+コンパイル時にコンパイラは、論駁不可能なパターンが必要な箇所に論駁可能なパターンを使用しようとしたと文句を言うでしょう：
 
 ```text
 error[E0005]: refutable pattern in local binding: `None` not covered
-(エラー: ローカル束縛に論駁可能なパターン: `None`がカバーされていません)
+(エラー: ローカル束縛に論駁可能なパターン：`None`がカバーされていません)
  -->
   |
 3 | let Some(x) = some_option_value;
@@ -93,7 +93,7 @@ Because we didn’t cover (and couldn’t cover!) every valid value with the
 pattern `Some(x)`, Rust rightfully produces a compiler error.
 -->
 
-パターン`Some(x)`で全ての合法な値をカバーしなかった(できませんでした！)ので、
+パターン`Some(x)`で全ての合法な値をカバーしなかった (できませんでした！) ので、
 コンパイラは当然、コンパイルエラーを生成します。
 
 <!--
@@ -104,9 +104,9 @@ will just skip the code in the curly brackets, giving it a way to continue
 validly. Listing 18-9 shows how to fix the code in Listing 18-8.
 -->
 
-論駁不可能なパターンが必要な箇所に論駁可能なパターンがある問題を修正するには、パターンを使用するコードを変えればいいのです:
+論駁不可能なパターンが必要な箇所に論駁可能なパターンがある問題を修正するには、パターンを使用するコードを変えればいいのです：
 `let`の代わりに`if let`を使用できます。そして、パターンが合致しなかったら、コードは合法に継続する手段を残して、
-波括弧内のコードを飛ばすだけでしょう。リスト18-9は、リスト18-8のコードの修正方法を示しています。
+波括弧内のコードを飛ばすだけでしょう。リスト 18-9 は、リスト 18-8 のコードの修正方法を示しています。
 
 ```rust
 # let some_option_value: Option<i32> = None;
@@ -120,7 +120,7 @@ if let Some(x) = some_option_value {
 patterns instead of `let`</span>
 -->
 
-<span class="caption">リスト18-9: `let`ではなく、`if let`と論駁可能なパターンを含むブロックを使用する</span>
+<span class="caption">リスト 18-9: `let`ではなく、`if let`と論駁可能なパターンを含むブロックを使用する</span>
 
 <!--
 We’ve given the code an out! This code is perfectly valid, although it means we
@@ -130,7 +130,7 @@ it will not compile.
 -->
 
 コードに逃げ道を与えました！このコードは完全に合法ですが、エラーを受け取らないで論駁不可能なパターンを使用することはできないことを意味します。
-リスト18-10のように、`x`のような常にマッチするパターンを`if let`に与えたら、コンパイルできないでしょう。
+リスト 18-10 のように、`x`のような常にマッチするパターンを`if let`に与えたら、コンパイルできないでしょう。
 
 ```rust,ignore
 if let x = 5 {
@@ -143,18 +143,18 @@ if let x = 5 {
 with `if let`</span>
 -->
 
-<span class="caption">リスト18-10: `if let`で論駁不可能なパターンを使用してみる</span>
+<span class="caption">リスト 18-10: `if let`で論駁不可能なパターンを使用してみる</span>
 
 <!--
 Rust complains that it doesn’t make sense to use `if let` with an irrefutable
 pattern:
 -->
 
-コンパイラは、論駁不可能なパターンと`if let`を使用するなんて道理が通らないと文句を言います:
+コンパイラは、論駁不可能なパターンと`if let`を使用するなんて道理が通らないと文句を言います：
 
 ```text
 error[E0162]: irrefutable if-let pattern
-(エラー: 論駁不可能なif-letパターン)
+(エラー: 論駁不可能な if-let パターン)
  --> <anon>:2:8
   |
 2 | if let x = 5 {
@@ -170,7 +170,7 @@ this syntax isn’t particularly useful and could be replaced with a simpler
 -->
 
 このため、マッチアームは、論駁不可能なパターンで残りのあらゆる値に合致すべき最後のアームを除いて、
-論駁可能なパターンを使用しなければなりません。コンパイラは、たった1つしかアームのない`match`で論駁不可能なパターンを使用させてくれますが、
+論駁可能なパターンを使用しなければなりません。コンパイラは、たった 1 つしかアームのない`match`で論駁不可能なパターンを使用させてくれますが、
 この記法は特別有用なわけではなく、より単純な`let`文に置き換えることもできるでしょう。
 
 <!--

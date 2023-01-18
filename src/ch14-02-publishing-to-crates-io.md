@@ -2,7 +2,7 @@
 ## Publishing a Crate to Crates.io
 -->
 
-## Crates.ioにクレートを公開する
+## Crates.io にクレートを公開する
 
 <!--
 We’ve used packages from [crates.io](https://crates.io) as
@@ -23,7 +23,7 @@ people to use and to find in the first place. We’ll talk about some of these
 features next and then explain how to publish a package.
 -->
 
-RustとCargoは、公開したパッケージを人が使用し、そもそも見つけやすくしてくれる機能を有しています。
+Rust と Cargo は、公開したパッケージを人が使用し、そもそも見つけやすくしてくれる機能を有しています。
 これらの機能の一部を次に語り、そして、パッケージの公開方法を説明します。
 
 <!--
@@ -44,10 +44,10 @@ your crate is *implemented*.
 -->
 
 パッケージを正確にドキュメントすることで、他のユーザがパッケージを使用する方法や、いつ使用すべきかを理解する手助けをすることになるので、
-ドキュメンテーションを書くことに時間を費やす価値があります。第3章で、2連スラッシュ、`//`でRustのコードにコメントをつける方法を議論しました。
-Rustには、ドキュメンテーション用のコメントも用意されていて、便利なことに*ドキュメンテーションコメント*として知られ、
-HTMLドキュメントを生成します。クレートの*実装*法とは対照的にクレートの*使用*法を知ることに興味のあるプログラマ向けの、
-公開API用のドキュメンテーションコメントの中身をこのHTMLは表示します。
+ドキュメンテーションを書くことに時間を費やす価値があります。第 3 章で、2 連スラッシュ、`//`で Rust のコードにコメントをつける方法を議論しました。
+Rust には、ドキュメンテーション用のコメントも用意されていて、便利なことに*ドキュメンテーションコメント*として知られ、
+HTML ドキュメントを生成します。クレートの*実装*法とは対照的にクレートの*使用*法を知ることに興味のあるプログラマ向けの、
+公開 API 用のドキュメンテーションコメントの中身をこの HTML は表示します。
 
 <!--
 Documentation comments use three slashes, `///`, instead of two and support
@@ -56,19 +56,19 @@ before the item they’re documenting. Listing 14-1 shows documentation comments
 for an `add_one` function in a crate named `my_crate`:
 -->
 
-ドキュメンテーションコメントは、2つではなく、3連スラッシュ、`///`を使用し、テキストを整形するMarkdown記法もサポートしています。
+ドキュメンテーションコメントは、2 つではなく、3 連スラッシュ、`///`を使用し、テキストを整形する Markdown 記法もサポートしています。
 ドキュメント対象の要素の直前にドキュメンテーションコメントを配置してください。
-リスト14-1は、`my_crate`という名のクレートの`add_one`関数用のドキュメンテーションコメントを示しています:
+リスト 14-1 は、`my_crate`という名のクレートの`add_one`関数用のドキュメンテーションコメントを示しています：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 /// Adds one to the number given.
-/// 与えられた数値に1を足す。
+/// 与えられた数値に 1 を足す。
 ///
 /// # Examples
 ///
@@ -727,11 +727,11 @@ $ cargo publish
     Updating registry `https://github.com/rust-lang/crates.io-index`
 warning: manifest has no description, license, license-file, documentation,
 homepage or repository.
-(警告: マニフェストに説明、ライセンス、ライセンスファイル、ドキュメンテーション、ホームページ、
+(警告：マニフェストに説明、ライセンス、ライセンスファイル、ドキュメンテーション、ホームページ、
 リポジトリがありません)
 --snip--
 error: api errors: missing or empty metadata fields: description, license.
-(エラー: APIエラー: 存在しないメタデータフィールド: description, license)
+(エラー: API エラー: 存在しないメタデータフィールド：description, license)
 ```
 
 <!--

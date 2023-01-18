@@ -1,15 +1,15 @@
 <!--
 ## Appendix D - Useful Development Tools
 -->
-## 付録D - 便利な開発ツール
+## 付録 D - 便利な開発ツール
 
 <!--
 In this appendix, we talk about some useful development tools that the Rust
 project provides. We’ll look at automatic formatting, quick ways to apply
 warning fixes, a linter, and integrating with IDEs.
 -->
-この付録では、Rustプロジェクトの提供する便利な開発ツールについていくつかお話します。
-自動フォーマット、警告に対する修正をすばやく適用する方法、lintツール、そしてIDEとの統合について見ていきます。
+この付録では、Rust プロジェクトの提供する便利な開発ツールについていくつかお話します。
+自動フォーマット、警告に対する修正をすばやく適用する方法、lint ツール、そして IDE との統合について見ていきます。
 
 <!--
 ### Automatic Formatting with `rustfmt`
@@ -23,7 +23,7 @@ Many collaborative projects use `rustfmt` to prevent arguments about which
 style to use when writing Rust: everyone formats their code using the tool.
 -->
 `rustfmt`というツールは、コミュニティのコードスタイルに合わせてあなたのコードをフォーマットしてくれます。
-Rustを書くときにどのスタイルを使うかで揉めないように、多くの共同で行われるプロジェクトが`rustfmt`を使っています：全員がこのツールでコードをフォーマットするのです。
+Rust を書くときにどのスタイルを使うかで揉めないように、多くの共同で行われるプロジェクトが`rustfmt`を使っています：全員がこのツールでコードをフォーマットするのです。
 
 <!--
 To install `rustfmt`, enter the following:
@@ -39,7 +39,7 @@ This command gives you `rustfmt` and `cargo-fmt`, similar to how Rust gives you
 both `rustc` and `cargo`. To format any Cargo project, enter the following:
 -->
 これで`rustfmt`と`cargo-fmt`が使えるようになります。これは`rustc`と`cargo`の両方のコマンドがあるのと似たようなものです。
-どんなCargoのプロジェクトも、次を入力するとフォーマットできます：
+どんな Cargo のプロジェクトも、次を入力するとフォーマットできます：
 
 ```console
 $ cargo fmt
@@ -50,7 +50,7 @@ Running this command reformats all the Rust code in the current crate. This
 should only change the code style, not the code semantics. For more information
 on `rustfmt`, see [its documentation][rustfmt].
 -->
-このコマンドを実行すると、現在のクレートのあらゆるRustコードをフォーマットし直します。
+このコマンドを実行すると、現在のクレートのあらゆる Rust コードをフォーマットし直します。
 これを行うと、コードのスタイルのみが変わり、コードの意味は変わりません。
 `rustfmt`についてより詳しく知るには[ドキュメント][rustfmt]を読んでください。
 
@@ -66,8 +66,8 @@ The rustfix tool is included with Rust installations and can automatically fix
 some compiler warnings. If you’ve written code in Rust, you’ve probably seen
 compiler warnings. For example, consider this code:
 -->
-rustfixというツールはRustをインストールすると同梱されており、コンパイラの警告 (warning) を自動で直してくれます。
-Rustでコードを書いたことがある人なら、コンパイラの警告を見たことがあるでしょう。
+rustfix というツールは Rust をインストールすると同梱されており、コンパイラの警告 (warning) を自動で直してくれます。
+Rust でコードを書いたことがある人なら、コンパイラの警告を見たことがあるでしょう。
 たとえば、下のコードを考えます：
 
 <span class="filename">Filename: src/main.rs</span>
@@ -86,8 +86,8 @@ fn main() {
 Here, we’re calling the `do_something` function 100 times, but we never use the
 variable `i` in the body of the `for` loop. Rust warns us about that:
 -->
-ここで、`do_something`関数を100回呼んでいますが、`for`ループの内部で変数`i`を一度も使っていません。
-Rustはこれについて警告します：
+ここで、`do_something`関数を 100 回呼んでいますが、`for`ループの内部で変数`i`を一度も使っていません。
+Rust はこれについて警告します：
 
 ```console
 $ cargo build
@@ -146,24 +146,24 @@ The `for` loop variable is now named `_i`, and the warning no longer appears.
 You can also use the `cargo fix` command to transition your code between
 different Rust editions. Editions are covered in Appendix E.
 -->
-`cargo fix`コマンドを使うと、異なるRust editionの間でコードを変換することもできます。
-editionについては付録Eに書いています。
+`cargo fix`コマンドを使うと、異なる Rust edition の間でコードを変換することもできます。
+edition については付録 E に書いています。
 
 <!--
 ### More Lints with Clippy
 -->
-### Clippyでもっとlintを
+### Clippy でもっと lint を
 
 <!--
 The Clippy tool is a collection of lints to analyze your code so you can catch
 common mistakes and improve your Rust code.
 -->
-Clippyというツールは、コードを分析することで、よくある間違いを見つけ、Rustのコードを改善させてくれるlintを集めたものです（訳注：いわゆる静的解析ツール）。
+Clippy というツールは、コードを分析することで、よくある間違いを見つけ、Rust のコードを改善させてくれる lint を集めたものです（訳注：いわゆる静的解析ツール）。
 
 <!--
 To install Clippy, enter the following:
 -->
-Clippyをインストールするには、次を入力してください：
+Clippy をインストールするには、次を入力してください：
 
 ```console
 $ rustup component add clippy
@@ -172,7 +172,7 @@ $ rustup component add clippy
 <!--
 To run Clippy’s lints on any Cargo project, enter the following:
 -->
-Clippyのlintは、次のコマンドでどんなCargoプロジェクトに対しても実行できます：
+Clippy の lint は、次のコマンドでどんな Cargo プロジェクトに対しても実行できます：
 
 ```console
 $ cargo clippy
@@ -187,7 +187,7 @@ mathematical constant, such as pi, as this program does:
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 fn main() {
@@ -219,14 +219,14 @@ that your program would be more correct if you used the constant instead. You
 would then change your code to use the `PI` constant. The following code
 doesn’t result in any errors or warnings from Clippy:
 -->
-あなたは、このエラーのおかげで、Rustにはより正確に定義された定数がすでにあり、これを代わりに使うとプログラムがより正しくなるかもしれないと気づくことができます。
+あなたは、このエラーのおかげで、Rust にはより正確に定義された定数がすでにあり、これを代わりに使うとプログラムがより正しくなるかもしれないと気づくことができます。
 なので、あなたはコードを定数`PI`を使うように変更するでしょう。
-以下のコードはもうClippyからエラーや警告は受けません。
+以下のコードはもう Clippy からエラーや警告は受けません。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 fn main() {
@@ -239,14 +239,14 @@ fn main() {
 <!--
 For more information on Clippy, see [its documentation][clippy].
 -->
-Clippyについてより詳しく知るには、[ドキュメント][clippy]を読んでください。
+Clippy についてより詳しく知るには、[ドキュメント][clippy]を読んでください。
 
 [clippy]: https://github.com/rust-lang/rust-clippy
 
 <!--
 ### IDE Integration Using the Rust Language Server
 -->
-### Rust Language Serverを使ってIDEと統合する
+### Rust Language Server を使って IDE と統合する
 
 <!--
 To help IDE integration, the Rust project distributes the *Rust Language
@@ -255,9 +255,9 @@ Protocol][lsp], which is a specification for IDEs and programming
 languages to communicate with each other. Different clients can use the `rls`,
 such as [the Rust plug-in for Visual Studio Code][vscode].
 -->
-IDEでの開発の助けになるよう、Rustプロジェクトは *Rust Language Server* (`rls`)を配布しています。
+IDE での開発の助けになるよう、Rust プロジェクトは *Rust Language Server* (`rls`) を配布しています。
 このツールは、[Language Server Protocol][lsp]という、IDEとプログラミング言語が対話するための仕様に対応しています。
-[Visual Studio CodeのRustプラグイン][vscode]をはじめ、様々なクライアントが`rls`を使うことができます。
+[Visual Studio Code の Rust プラグイン][vscode]をはじめ、様々なクライアントが`rls`を使うことができます。
 
 [lsp]: http://langserver.org/
 [vscode]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust
@@ -275,7 +275,7 @@ $ rustup component add rls
 Then install the language server support in your particular IDE; you’ll gain
 abilities such as autocompletion, jump to definition, and inline errors.
 -->
-つづけて、あなたのIDE向けのlanguage serverサポートをインストールしてください。
+つづけて、あなたの IDE 向けの language server サポートをインストールしてください。
 すると、自動補完、定義へのジャンプ、インラインのエラー表示などの機能が得られるはずです。
 
 <!--

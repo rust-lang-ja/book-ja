@@ -2,7 +2,7 @@
 ## Storing UTF-8 Encoded Text with Strings
 -->
 
-## 文字列でUTF-8でエンコードされたテキストを保持する
+## 文字列で UTF-8 でエンコードされたテキストを保持する
 
 <!--
 We talked about strings in Chapter 4, but we’ll look at them in more depth now.
@@ -13,9 +13,9 @@ UTF-8. These factors combine in a way that can seem difficult when you’re
 coming from other programming languages.
 -->
 
-第4章で文字列について語りましたが、今度はより掘り下げていきましょう。新参者のRustaceanは、
-3つの概念の組み合わせにより、文字列でよく行き詰まります: Rustのありうるエラーを晒す性質、
-多くのプログラマが思っている以上に文字列が複雑なデータ構造であること、そしてUTF-8です。
+第 4 章で文字列について語りましたが、今度はより掘り下げていきましょう。新参者の Rustacean は、
+3 つの概念の組み合わせにより、文字列でよく行き詰まります：Rust のありうるエラーを晒す性質、
+多くのプログラマが思っている以上に文字列が複雑なデータ構造であること、そして UTF-8 です。
 これらの要因が、他のプログラミング言語から移ってきた場合、一見困難に見えるように絡み合うわけです。
 
 <!--
@@ -49,9 +49,9 @@ literals, for example, are stored in the binary output of the program and are
 therefore string slices.
 -->
 
-まずは、*文字列*という用語の意味を定義しましょう。Rustには、言語の核として1種類しか文字列型が存在しません。
-文字列スライスの`str`で、通常借用された形態`&str`で見かけます。第4章で、*文字列スライス*について語りました。
-これは、別の場所に格納されたUTF-8エンコードされた文字列データへの参照です。例えば、文字列リテラルは、
+まずは、*文字列*という用語の意味を定義しましょう。Rust には、言語の核として 1 種類しか文字列型が存在しません。
+文字列スライスの`str`で、通常借用された形態`&str`で見かけます。第 4 章で、*文字列スライス*について語りました。
+これは、別の場所に格納された UTF-8 エンコードされた文字列データへの参照です。例えば、文字列リテラルは、
 プログラムのバイナリ出力に格納されるので、文字列スライスになります。
 
 <!--
@@ -63,11 +63,11 @@ Although this section is largely about `String`, both types are used heavily in
 Rust's standard library, and both `String` and string slices are UTF-8 encoded.
 -->
 
-`String`型は、言語の核として組み込まれるのではなく、Rustの標準ライブラリで提供されますが、伸長可能、
-可変、所有権のあるUTF-8エンコードされた文字列型です。RustaceanがRustにおいて「文字列」を指したら、
+`String`型は、言語の核として組み込まれるのではなく、Rust の標準ライブラリで提供されますが、伸長可能、
+可変、所有権のある UTF-8 エンコードされた文字列型です。Rustacean が Rust において「文字列」を指したら、
 どちらかではなく、`String`と文字列スライスの`&str`のことを通常意味します。この節は、大方、
-`String`についてですが、どちらの型もRustの標準ライブラリで重宝されており、
-どちらもUTF-8エンコードされています。
+`String`についてですが、どちらの型も Rust の標準ライブラリで重宝されており、
+どちらも UTF-8 エンコードされています。
 
 <!--
 Rust’s standard library also includes a number of other string types, such as
@@ -80,12 +80,12 @@ example. We won’t discuss these other string types in this chapter; see their
 API documentation for more about how to use them and when each is appropriate.
 -->
 
-また、Rustの標準ライブラリには、他の文字列型も含まれています。`OsString`、`OsStr`、`CString`、`CStr`などです。
+また、Rust の標準ライブラリには、他の文字列型も含まれています。`OsString`、`OsStr`、`CString`、`CStr`などです。
 ライブラリクレートにより、文字列データを格納する選択肢はさらに増えます。
 それらの名前が全て`String`か`Str`で終わっているのがわかりますか？所有権ありと借用されたバージョンを指しているのです。
 ちょうど以前見かけた`String`と`&str`のようですね。例えば、これらの文字列型は、異なるエンコード方法でテキストを格納していたり、
 メモリ上の表現が異なったりします。この章では、これらの他の種類の文字列については議論しません;
-使用方法やどれが最適かについては、APIドキュメントを参照してください。
+使用方法やどれが最適かについては、API ドキュメントを参照してください。
 
 <!--
 ### Creating a New String
@@ -100,7 +100,7 @@ as well, starting with the `new` function to create a string, shown in Listing
 -->
 
 `Vec<T>`で使用可能な処理の多くが`String`でも使用できます。文字列を生成する`new`関数から始めましょうか。
-リスト8-11に示したようにですね。
+リスト 8-11 に示したようにですね。
 
 ```rust
 let mut s = String::new();
@@ -110,7 +110,7 @@ let mut s = String::new();
 <span class="caption">Listing 8-11: Creating a new, empty `String`</span>
 -->
 
-<span class="caption">リスト8-11: 新しい空の`String`を生成する</span>
+<span class="caption">リスト 8-11: 新しい空の`String`を生成する</span>
 
 <!--
 This line creates a new empty string called `s`, which we can then load data
@@ -123,7 +123,7 @@ two examples.
 この行は、新しい空の`s`という文字列を生成しています。それからここにデータを読み込むことができるわけです。
 だいたい、文字列の初期値を決めるデータがあるでしょう。そのために、`to_string`メソッドを使用します。
 このメソッドは、文字列リテラルのように、`Display`トレイトを実装する型ならなんでも使用できます。
-リスト8-12に2例、示しています。
+リスト 8-12 に 2 例、示しています。
 
 ```rust
 let data = "initial contents";
@@ -139,13 +139,13 @@ let s = "initial contents".to_string();
 `String` from a string literal</span>
 -->
 
-<span class="caption">リスト8-12: `to_string`メソッドを使用して文字列リテラルから`String`を生成する</span>
+<span class="caption">リスト 8-12: `to_string`メソッドを使用して文字列リテラルから`String`を生成する</span>
 
 <!--
 This code creates a string containing `initial contents`.
 -->
 
-このコードは、`initial contents`(初期値)を含む文字列を生成します。
+このコードは、`initial contents`(初期値) を含む文字列を生成します。
 
 <!--
 We can also use the function `String::from` to create a `String` from a string
@@ -154,7 +154,7 @@ that uses `to_string`.
 -->
 
 さらに、`String::from`関数を使っても、文字列リテラルから`String`を生成することができます。
-リスト8-13のコードは、`to_string`を使用するリスト8-12のコードと等価です。
+リスト 8-13 のコードは、`to_string`を使用するリスト 8-12 のコードと等価です。
 
 ```rust
 let s = String::from("initial contents");
@@ -165,7 +165,7 @@ let s = String::from("initial contents");
 a `String` from a string literal</span>
 -->
 
-<span class="caption">リスト8-13: `String::from`関数を使って文字列リテラルから`String`を作る</span>
+<span class="caption">リスト 8-13: `String::from`関数を使って文字列リテラルから`String`を作る</span>
 
 <!--
 Because strings are used for so many things, we can use many different generic
@@ -174,7 +174,7 @@ redundant, but they all have their place! In this case, `String::from` and
 `to_string` do the same thing, so which you choose is a matter of style.
 -->
 
-文字列は、非常に多くのものに使用されるので、多くの異なる一般的なAPIを使用でき、たくさんの選択肢があるわけです。
+文字列は、非常に多くのものに使用されるので、多くの異なる一般的な API を使用でき、たくさんの選択肢があるわけです。
 冗長に思われるものもありますが、適材適所です！今回の場合、`String::from`と`to_string`は全く同じことをします。
 従って、どちらを選ぶかは、スタイル次第です。
 
@@ -183,8 +183,8 @@ Remember that strings are UTF-8 encoded, so we can include any properly encoded
 data in them, as shown in Listing 8-14.
 -->
 
-文字列はUTF-8エンコードされていることを覚えていますか？要するに文字列には、適切にエンコードされていればどんなものでも含めます。
-リスト8-14に示したように。
+文字列は UTF-8 エンコードされていることを覚えていますか？要するに文字列には、適切にエンコードされていればどんなものでも含めます。
+リスト 8-14 に示したように。
 
 ```rust
 let hello = String::from("السلام عليكم");
@@ -205,7 +205,7 @@ let hello = String::from("Hola");
 strings</span>
 -->
 
-<span class="caption">リスト8-14: いろんな言語の挨拶を文字列に保持する</span>
+<span class="caption">リスト 8-14: いろんな言語の挨拶を文字列に保持する</span>
 
 <!--
 All of these are valid `String` values.
@@ -240,7 +240,7 @@ as shown in Listing 8-15.
 -->
 
 `push_str`メソッドで文字列スライスを追記することで、`String`を伸ばすことができます。
-リスト8-15の通りです。
+リスト 8-15 の通りです。
 
 ```rust
 let mut s = String::from("foo");
@@ -252,7 +252,7 @@ s.push_str("bar");
 using the `push_str` method</span>
 -->
 
-<span class="caption">リスト8-15: `push_str`メソッドで`String`に文字列スライスを追記する</span>
+<span class="caption">リスト 8-15: `push_str`メソッドで`String`に文字列スライスを追記する</span>
 
 <!--
 After these two lines, `s` will contain `foobar`. The `push_str` method takes a
@@ -261,8 +261,8 @@ parameter. For example, the code in Listing 8-16 shows that it would be
 unfortunate if we weren’t able to use `s2` after appending its contents to `s1`.
 -->
 
-この2行の後、`s`は`foobar`を含むことになります。`push_str`メソッドは、必ずしも引数の所有権を得なくていいので、
-文字列スライスを取ります。例えば、リスト8-16のコードは、中身を`s1`に追加した後、
+この 2 行の後、`s`は`foobar`を含むことになります。`push_str`メソッドは、必ずしも引数の所有権を得なくていいので、
+文字列スライスを取ります。例えば、リスト 8-16 のコードは、中身を`s1`に追加した後、
 `s2`を使えなかったら残念だということを示しています。
 
 ```rust
@@ -277,7 +277,7 @@ println!("s2 is {}", s2);
 contents to a `String`</span>
 -->
 
-<span class="caption">リスト8-16: 中身を`String`に追加した後に、文字列スライスを使用する</span>
+<span class="caption">リスト 8-16: 中身を`String`に追加した後に、文字列スライスを使用する</span>
 
 <!--
 If the `push_str` method took ownership of `s2`, we wouldn’t be able to print
@@ -293,7 +293,7 @@ The `push` method takes a single character as a parameter and adds it to the
 the `push` method.
 -->
 
-`push`メソッドは、1文字を引数として取り、`String`に追加します。リスト8-15は、
+`push`メソッドは、1 文字を引数として取り、`String`に追加します。リスト 8-15 は、
 `push`メソッドで*l*を`String`に追加するコードを呈示しています。
 
 ```rust
@@ -306,7 +306,7 @@ s.push('l');
 using `push`</span>
 -->
 
-<span class="caption">リスト8-17: `push`で`String`値に1文字を追加する</span>
+<span class="caption">リスト 8-17: `push`で`String`値に 1 文字を追加する</span>
 
 <!--
 As a result of this code, `s` will contain `lol`.
@@ -314,7 +314,7 @@ As a result of this code, `s` will contain `lol`.
 
 このコードの結果、`s`は`lol`を含むことになるでしょう。
 
-> 編者注: `lol`は`laughing out loud`(大笑いする)の頭文字からできたスラングです。
+> 編者注：`lol`は`laughing out loud`(大笑いする) の頭文字からできたスラングです。
 > 日本語の`www`みたいなものですね。
 
 <!--
@@ -328,7 +328,7 @@ Often, you’ll want to combine two existing strings. One way is to use the `+`
 operator, as shown in Listing 8-18.
 -->
 
-2つのすでにある文字列を組み合わせたくなることがよくあります。リスト8-18に示したように、
+2 つのすでにある文字列を組み合わせたくなることがよくあります。リスト 8-18 に示したように、
 一つ目の方法は、`+`演算子を使用することです。
 
 <!--
@@ -342,7 +342,7 @@ let s3 = s1 + &s2; // note that s1 has been moved here and can no longer be used
 ```rust
 let s1 = String::from("Hello, ");
 let s2 = String::from("world!");
-let s3 = s1 + &s2; // s1はムーブされ、もう使用できないことに注意
+let s3 = s1 + &s2; // s1 はムーブされ、もう使用できないことに注意
 ```
 
 <!--
@@ -350,7 +350,7 @@ let s3 = s1 + &s2; // s1はムーブされ、もう使用できないことに�
 `String` values into a new `String` value</span>
 -->
 
-<span class="caption">リスト8-18: `+`演算子を使用して二つの`String`値を新しい`String`値にする</span>
+<span class="caption">リスト 8-18: `+`演算子を使用して二つの`String`値を新しい`String`値にする</span>
 
 <!--
 The string `s3` will contain `Hello, world!` as a result of this code. The
@@ -363,7 +363,7 @@ signature looks something like this:
 このコードの結果、`s3`という文字列は、`Hello, world!`を含むことになるでしょう。
 追記の後、`s1`がもう有効でなくなった理由と、`s2`への参照を使用した理由は、
 `+`演算子を使用した時に呼ばれるメソッドのシグニチャと関係があります。`+`演算子は、`add`メソッドを使用し、
-そのシグニチャは以下のような感じです:
+そのシグニチャは以下のような感じです：
 
 ```rust,ignore
 fn add(self, s: &str) -> String {
@@ -378,9 +378,9 @@ in Chapter 10. This signature gives us the clues we need to understand the
 tricky bits of the `+` operator.
 -->
 
-これは、標準ライブラリにあるシグニチャそのものではありません: 標準ライブラリでは、`add`はジェネリクスで定義されています。
+これは、標準ライブラリにあるシグニチャそのものではありません：標準ライブラリでは、`add`はジェネリクスで定義されています。
 ここでは、ジェネリックな型を具体的な型に置き換えた`add`のシグニチャを見ており、これは、
-このメソッドを`String`値とともに呼び出した時に起こることです。ジェネリクスについては、第10章で議論します。
+このメソッドを`String`値とともに呼び出した時に起こることです。ジェネリクスについては、第 10 章で議論します。
 このシグニチャが、`+`演算子の巧妙な部分を理解するのに必要な手がかりになるのです。
 
 <!--
@@ -391,10 +391,10 @@ together. But wait-the type of `&s2` is `&String`, not `&str`, as specified in
 the second parameter to `add`. So why does Listing 8-18 compile?
 -->
 
-まず、`s2`には`&`がついてます。つまり、`add`関数の`s`引数のために最初の文字列に2番目の文字列の参照を追加するということです:
-`String`には`&str`を追加することしかできません。要するに2つの`String`値を追加することはできないのです。
-でも待ってください。`add`の第2引数で指定されているように、`&s2`の型は、`&str`ではなく、
-`&String`ではないですか。では、なぜ、リスト8-18は、コンパイルできるのでしょうか？
+まず、`s2`には`&`がついてます。つまり、`add`関数の`s`引数のために最初の文字列に 2 番目の文字列の参照を追加するということです：
+`String`には`&str`を追加することしかできません。要するに 2 つの`String`値を追加することはできないのです。
+でも待ってください。`add`の第 2 引数で指定されているように、`&s2`の型は、`&str`ではなく、
+`&String`ではないですか。では、なぜ、リスト 8-18 は、コンパイルできるのでしょうか？
 
 <!--
 The reason we’re able to use `&s2` in the call to `add` is that the compiler
@@ -407,7 +407,7 @@ after this operation.
 
 `add`呼び出しで`&s2`を使える理由は、コンパイラが`&String`引数を`&str`に*型強制*してくれるためです。
 `add`メソッド呼び出しの際、コンパイラは、*参照外し型強制*というものを使用し、ここでは、
-`&s2`を`&s2[..]`に変えるものと考えることができます。参照外し型強制について詳しくは、第15章で議論します。
+`&s2`を`&s2[..]`に変えるものと考えることができます。参照外し型強制について詳しくは、第 15 章で議論します。
 `add`が`s`引数の所有権を奪わないので、この処理後も`s2`が有効な`String`になるわけです。
 
 <!--
@@ -421,8 +421,8 @@ it’s making a lot of copies but isn’t; the implementation is more efficient
 than copying.
 -->
 
-2番目に、シグニチャから`add`は`self`の所有権をもらうことがわかります。`self`には`&`がついてい*ない*からです。
-これはつまり、リスト8-18において`s1`は`add`呼び出しにムーブされ、その後は有効ではなくなるということです。
+2 番目に、シグニチャから`add`は`self`の所有権をもらうことがわかります。`self`には`&`がついてい*ない*からです。
+これはつまり、リスト 8-18 において`s1`は`add`呼び出しにムーブされ、その後は有効ではなくなるということです。
 故に、`s3 = s1 + &s2;`は両文字列をコピーして新しいものを作るように見えますが、
 この文は実際には`s1`の所有権を奪い、`s2`の中身のコピーを追記し、結果の所有権を返すのです。言い換えると、
 たくさんのコピーをしているように見えますが、違います; 実装は、コピーよりも効率的です。
@@ -432,7 +432,7 @@ If we need to concatenate multiple strings, the behavior of `+` operator
 gets unwieldy:
 -->
 
-複数の文字列を連結する必要が出ると、`+`演算子の振る舞いは扱いにくくなります:
+複数の文字列を連結する必要が出ると、`+`演算子の振る舞いは扱いにくくなります：
 
 ```rust
 let s1 = String::from("tic");
@@ -449,7 +449,7 @@ combining, we can use the `format!` macro:
 -->
 
 ここで、`s`は`tic-tac-toe`になるでしょう。`+`と`"`文字のせいで何が起きているのかわかりにくいです。
-もっと複雑な文字列の連結には、`format!`マクロを使用することができます:
+もっと複雑な文字列の連結には、`format!`マクロを使用することができます：
 
 ```rust
 let s1 = String::from("tic");
@@ -484,8 +484,8 @@ get an error. Consider the invalid code in Listing 8-19.
 -->
 
 他の多くのプログラミング言語では、文字列中の文字に、添え字で参照してアクセスすることは、有効なコードであり、
-一般的な処理です。しかしながら、Rustにおいて、添え字記法で`String`の一部にアクセスしようとすると、
-エラーが発生するでしょう。リスト8-19の非合法なコードを考えてください。
+一般的な処理です。しかしながら、Rust において、添え字記法で`String`の一部にアクセスしようとすると、
+エラーが発生するでしょう。リスト 8-19 の非合法なコードを考えてください。
 
 ```rust,ignore
 let s1 = String::from("hello");
@@ -497,13 +497,13 @@ let h = s1[0];
 String</span>
 -->
 
-<span class="caption">リスト8-19: 文字列に対して添え字記法を試みる</span>
+<span class="caption">リスト 8-19: 文字列に対して添え字記法を試みる</span>
 
 <!--
 This code will result in the following error:
 -->
 
-このコードは、以下のようなエラーに落ち着きます:
+このコードは、以下のようなエラーに落ち着きます：
 
 ```text
 error[E0277]: the trait bound `std::string::String: std::ops::Index<{Integer}>` is not satisfied
@@ -513,7 +513,7 @@ error[E0277]: the trait bound `std::string::String: std::ops::Index<{Integer}>` 
   |>             ^^^^^ the type `std::string::String` cannot be indexed by `{Integer}`
   |>                   (型`std::string::String`は`{Integer}`で添え字アクセスできません)
   = help: the trait `std::ops::Index<{Integer}>` is not implemented for `std::string::String`
-  (ヘルプ: `std::ops::Index<{Integer}>`というトレイトが`std::string::String`に対して実装されていません)
+  (ヘルプ：`std::ops::Index<{Integer}>`というトレイトが`std::string::String`に対して実装されていません)
 ```
 
 <!--
@@ -522,8 +522,8 @@ why not? To answer that question, we need to discuss how Rust stores strings in
 memory.
 -->
 
-エラーと注釈が全てを物語っています: Rustの文字列は、添え字アクセスをサポートしていないのです。
-でも、なぜでしょうか？その疑問に答えるには、Rustがメモリにどのように文字列を保持しているかについて議論する必要があります。
+エラーと注釈が全てを物語っています：Rust の文字列は、添え字アクセスをサポートしていないのです。
+でも、なぜでしょうか？その疑問に答えるには、Rust がメモリにどのように文字列を保持しているかについて議論する必要があります。
 
 <!--
 #### Internal Representation
@@ -536,8 +536,8 @@ A `String` is a wrapper over a `Vec<u8>`. Let’s look at some of our properly
 encoded UTF-8 example strings from Listing 8-14. First, this one:
 -->
 
-`String`は`Vec<u8>`のラッパです。リスト8-14から適切にUTF-8でエンコードされた文字列の例をご覧ください。
-まずは、これ:
+`String`は`Vec<u8>`のラッパです。リスト 8-14 から適切に UTF-8 でエンコードされた文字列の例をご覧ください。
+まずは、これ：
 
 ```rust
 let len = String::from("Hola").len();
@@ -550,9 +550,9 @@ what about the following line? (Note that this string begins with the capital
 Cyrillic letter Ze, not the Arabic number 3.)
 -->
 
-この場合、`len`は4になり、これは、文字列"Hola"を保持するベクタの長さが4バイトであることを意味します。
-これらの各文字は、UTF-8でエンコードすると、1バイトになるのです。しかし、以下の行ではどうでしょうか？
-(この文字列は大文字のキリル文字Zeで始まり、アラビア数字の3では始まっていないことに注意してください)
+この場合、`len`は 4 になり、これは、文字列"Hola"を保持するベクタの長さが 4 バイトであることを意味します。
+これらの各文字は、UTF-8 でエンコードすると、1 バイトになるのです。しかし、以下の行ではどうでしょうか？
+(この文字列は大文字のキリル文字 Ze で始まり、アラビア数字の 3 では始まっていないことに注意してください)
 
 ```rust
 let len = String::from("Здравствуйте").len();
@@ -566,10 +566,10 @@ the string’s bytes will not always correlate to a valid Unicode scalar value.
 To demonstrate, consider this invalid Rust code:
 -->
 
-文字列の長さはと問われたら、あなたは12と答えるかもしれません。ところが、Rustの答えは、24です:
-“Здравствуйте”をUTF-8でエンコードすると、この長さになります。各Unicodeスカラー値は、2バイトの領域を取るからです。
-それ故に、文字列のバイトの添え字は、必ずしも有効なUnicodeのスカラー値とは相互に関係しないのです。
-デモ用に、こんな非合法なRustコードを考えてください:
+文字列の長さはと問われたら、あなたは 12 と答えるかもしれません。ところが、Rust の答えは、24 です：
+“Здравствуйте”を UTF-8 でエンコードすると、この長さになります。各 Unicode スカラー値は、2 バイトの領域を取るからです。
+それ故に、文字列のバイトの添え字は、必ずしも有効な Unicode のスカラー値とは相互に関係しないのです。
+デモ用に、こんな非合法な Rust コードを考えてください：
 
 ```rust,ignore
 let hello = "Здравствуйте";
@@ -590,13 +590,13 @@ Rust doesn’t compile this code at all and prevents misunderstandings early in
 the development process.
 -->
 
-`answer`の値は何になるべきでしょうか？最初の文字の`З`になるべきでしょうか？UTF-8エンコードされた時、
-`З`の最初のバイトは`208`、2番目は`151`になるので、`answer`は実際、`208`になるべきですが、
+`answer`の値は何になるべきでしょうか？最初の文字の`З`になるべきでしょうか？UTF-8 エンコードされた時、
+`З`の最初のバイトは`208`、2 番目は`151`になるので、`answer`は実際、`208`になるべきですが、
 `208`は単独では有効な文字ではありません。この文字列の最初の文字を求めている場合、`208`を返すことは、
-ユーザの望んでいるものではないでしょう; しかしながら、Rustには、バイト添え字0の位置には、そのデータしかないのです。
-文字列がラテン文字のみを含む場合でも、ユーザは一般的にバイト値が返ることを望みません:
+ユーザの望んでいるものではないでしょう; しかしながら、Rust には、バイト添え字 0 の位置には、そのデータしかないのです。
+文字列がラテン文字のみを含む場合でも、ユーザは一般的にバイト値が返ることを望みません：
 `&"hello"[0]`がバイト値を返す有効なコードだったら、`h`ではなく、`104`を返すでしょう。
-予期しない値を返し、すぐには判明しないバグを引き起こさないために、Rustはこのコードを全くコンパイルせず、
+予期しない値を返し、すぐには判明しないバグを引き起こさないために、Rust はこのコードを全くコンパイルせず、
 開発過程の早い段階で誤解を防いでくれるのです。
 
 <!--
@@ -611,16 +611,16 @@ look at strings from Rust’s perspective: as bytes, scalar values, and grapheme
 clusters (the closest thing to what we would call *letters*).
 -->
 
-UTF-8について別の要点は、実際Rustの観点から文字列を見るには3つの関連した方法があるということです:
-バイトとして、スカラー値として、そして、書記素クラスタ(人間が*文字*と呼ぶものに一番近い)としてです。
+UTF-8 について別の要点は、実際 Rust の観点から文字列を見るには 3 つの関連した方法があるということです：
+バイトとして、スカラー値として、そして、書記素クラスタ (人間が*文字*と呼ぶものに一番近い) としてです。
 
 <!--
 If we look at the Hindi word “नमस्ते” written in the Devanagari script, it is
 stored as a vector of `u8` values that looks like this:
 -->
 
-ヒンディー語の単語、“नमस्ते”をデーヴァナーガリー(`訳注`: サンスクリット語とヒンディー語を書くときに使われる書記法)で表記したものを見たら、
-以下のような見た目の`u8`値のベクタとして保持されます:
+ヒンディー語の単語、“नमस्ते”をデーヴァナーガリー(`訳注`: サンスクリット語とヒンディー語を書くときに使われる書記法) で表記したものを見たら、
+以下のような見た目の`u8`値のベクタとして保持されます：
 
 ```text
 [224, 164, 168, 224, 164, 174, 224, 164, 184, 224, 165, 141, 224, 164, 164,
@@ -633,8 +633,8 @@ them as Unicode scalar values, which are what Rust’s `char` type is, those
 bytes look like this:
 -->
 
-18バイトになり、このようにしてコンピュータは最終的にこのデータを保持しているわけです。これをUnicodeスカラー値として見たら
-（Rustの`char`型はこれなのですが）このバイトは以下のような見た目になります:
+18 バイトになり、このようにしてコンピュータは最終的にこのデータを保持しているわけです。これを Unicode スカラー値として見たら
+（Rust の`char`型はこれなのですが）このバイトは以下のような見た目になります：
 
 ```text
 ['न', 'म', 'स', '्', 'त', 'े']
@@ -647,8 +647,8 @@ them as grapheme clusters, we’d get what a person would call the four letters
 that make up the Hindi word:
 -->
 
-ここでは、6つ`char`値がありますが、4番目と6番目は文字ではありません: 単独では意味をなさないダイアクリティックです。
-最後に、書記素クラスタとして見たら、このヒンディー語の単語を作り上げる人間が4文字と呼ぶであろうものが得られます:
+ここでは、6 つ`char`値がありますが、4 番目と 6 番目は文字ではありません：単独では意味をなさないダイアクリティックです。
+最後に、書記素クラスタとして見たら、このヒンディー語の単語を作り上げる人間が 4 文字と呼ぶであろうものが得られます：
 
 ```text
 ["न", "म", "स्", "ते"]
@@ -660,7 +660,7 @@ store so that each program can choose the interpretation it needs, no matter
 what human language the data is in.
 -->
 
-Rustには、データが表す自然言語に関わらず、各プログラムが必要な解釈方法を選択できるように、
+Rust には、データが表す自然言語に関わらず、各プログラムが必要な解釈方法を選択できるように、
 コンピュータが保持する生の文字列データを解釈する方法がいろいろ用意されています。
 
 <!--
@@ -671,8 +671,8 @@ because Rust would have to walk through the contents from the beginning to the
 index to determine how many valid characters there were.
 -->
 
-Rustで文字を得るのに`String`に添え字アクセスすることが許されない最後の理由は、
-添え字アクセスという処理が常に定数時間(O(1))になると期待されるからです。
+Rust で文字を得るのに`String`に添え字アクセスすることが許されない最後の理由は、
+添え字アクセスという処理が常に定数時間 (O(1)) になると期待されるからです。
 しかし、`String`でそのパフォーマンスを保証することはできません。というのも、
 合法な文字がいくつあるか決定するのに、最初から添え字まで中身を走査する必要があるからです。
 
@@ -692,11 +692,11 @@ rather than indexing using `[]` with a single number, you can use `[]` with a
 range to create a string slice containing particular bytes:
 -->
 
-文字列に添え字アクセスするのは、しばしば悪い考えです。文字列添え字処理の戻り値の型が明瞭ではないからです:
+文字列に添え字アクセスするのは、しばしば悪い考えです。文字列添え字処理の戻り値の型が明瞭ではないからです：
 バイト値、文字、書記素クラスタ、あるいは文字列スライスにもなります。故に、文字列スライスを生成するのに、
 添え字を使う必要が本当に出た場合にコンパイラは、もっと特定するよう求めてきます。添え字アクセスを特定し、
-文字列スライスが欲しいと示唆するためには、`[]`で1つの数値により添え字アクセスするのではなく、
-範囲とともに`[]`を使って、特定のバイトを含む文字列スライスを作ることができます:
+文字列スライスが欲しいと示唆するためには、`[]`で 1 つの数値により添え字アクセスするのではなく、
+範囲とともに`[]`を使って、特定のバイトを含む文字列スライスを作ることができます：
 
 ```rust
 let hello = "Здравствуйте";
@@ -710,7 +710,7 @@ Earlier, we mentioned that each of these characters was 2 bytes, which means
 `s` will be `Зд`.
 -->
 
-ここで、`s`は文字列の最初の4バイトを含む`&str`になります。先ほど、これらの文字は各々2バイトになると指摘しましたから、
+ここで、`s`は文字列の最初の 4 バイトを含む`&str`になります。先ほど、これらの文字は各々 2 バイトになると指摘しましたから、
 `s`は`Зд`になります。
 
 <!--
@@ -718,12 +718,12 @@ What would happen if we used `&hello[0..1]`? The answer: Rust would panic at
 runtime in the same way as if an invalid index were accessed in a vector:
 -->
 
-`&hello[0..1]`と使用したら、何が起きるでしょうか？答え: Rustはベクタの非合法な添え字にアクセスしたかのように、
-実行時にパニックするでしょう:
+`&hello[0..1]`と使用したら、何が起きるでしょうか？答え：Rust はベクタの非合法な添え字にアクセスしたかのように、
+実行時にパニックするでしょう：
 
 ```text
 thread 'main' panicked at 'byte index 1 is not a char boundary; it is inside 'З' (bytes 0..2) of `Здравствуйте`', src/libcore/str/mod.rs:2188:4
-('main'スレッドは「バイト添え字1は文字の境界ではありません; `Здравствуйте`の'З'(バイト番号0から2)の中です」でパニックしました)
+('main'スレッドは「バイト添え字 1 は文字の境界ではありません; `Здравствуйте`の'З'(バイト番号 0 から 2) の中です」でパニックしました)
 ```
 
 <!--
@@ -752,9 +752,9 @@ out and returns six values of type `char`, and you can iterate over the result
 to access each element:
 -->
 
-もし、個々のUnicodeスカラー値に対して処理を行う必要があったら、最適な方法は`chars`メソッドを使用するものです。
-“नमस्ते”に対して`chars`を呼び出したら、分解して6つの`char`型の値を返すので、各要素にアクセスするには、
-その結果を走査すればいいわけです:
+もし、個々の Unicode スカラー値に対して処理を行う必要があったら、最適な方法は`chars`メソッドを使用するものです。
+“नमस्ते”に対して`chars`を呼び出したら、分解して 6 つの`char`型の値を返すので、各要素にアクセスするには、
+その結果を走査すればいいわけです：
 
 ```rust
 for c in "नमस्ते".chars() {
@@ -766,7 +766,7 @@ for c in "नमस्ते".chars() {
 This code will print the following:
 -->
 
-このコードは、以下のように出力します:
+このコードは、以下のように出力します：
 
 ```text
 न
@@ -782,7 +782,7 @@ The `bytes` method returns each raw byte, which might be appropriate for your
 domain:
 -->
 
-`bytes`メソッドは、各バイトをそのまま返すので、最適になることもあるかもしれません:
+`bytes`メソッドは、各バイトをそのまま返すので、最適になることもあるかもしれません：
 
 ```rust
 for b in "नमस्ते".bytes() {
@@ -794,7 +794,7 @@ for b in "नमस्ते".bytes() {
 This code will print the 18 bytes that make up this `String`:
 -->
 
-このコードは、`String`をなす18バイトを出力します:
+このコードは、`String`をなす 18 バイトを出力します：
 
 ```text
 224
@@ -809,7 +809,7 @@ But be sure to remember that valid Unicode scalar values may be made up of more
 than 1 byte.
 -->
 
-ですが、合法なUnicodeスカラー値は、2バイト以上からなる場合もあることは心得ておいてください。
+ですが、合法な Unicode スカラー値は、2 バイト以上からなる場合もあることは心得ておいてください。
 
 <!--
 Getting grapheme clusters from strings is complex, so this functionality is not
@@ -838,13 +838,13 @@ development life cycle.
 -->
 
 まとめると、文字列は込み入っています。プログラミング言語ごとにこの複雑性をプログラマに提示する方法は違います。
-Rustでは、`String`データを正しく扱うことが、全てのRustプログラムにとっての既定動作になっているわけであり、
-これは、プログラマがUTF-8データを素直に扱う際に、よりしっかり考えないといけないことを意味します。
+Rust では、`String`データを正しく扱うことが、全ての Rust プログラムにとっての既定動作になっているわけであり、
+これは、プログラマが UTF-8 データを素直に扱う際に、よりしっかり考えないといけないことを意味します。
 このトレードオフにより、他のプログラミング言語で見えるよりも文字列の複雑性がより露出していますが、
-ASCII以外の文字に関するエラーを開発の後半で扱わなければならない可能性が排除されているのです。
+ASCII 以外の文字に関するエラーを開発の後半で扱わなければならない可能性が排除されているのです。
 
 <!--
 Let’s switch to something a bit less complex: hash maps!
 -->
 
-もう少し複雑でないものに切り替えていきましょう: ハッシュマップです！
+もう少し複雑でないものに切り替えていきましょう：ハッシュマップです！

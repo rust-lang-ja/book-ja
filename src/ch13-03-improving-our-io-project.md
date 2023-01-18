@@ -5,8 +5,8 @@
 ## 入出力プロジェクトを改善する
 
 <!--
-ここでは、withを条件のように訳している。(今まではなかったのに、)今はある状態で -> ...があればという意訳である
-やはりwithは状態を表すだけなので、強すぎる気がしなくもない
+ここでは、with を条件のように訳している。(今まではなかったのに、) 今はある状態で -> ...があればという意訳である
+やはり with は状態を表すだけなので、強すぎる気がしなくもない
 -->
 
 <!--
@@ -17,7 +17,7 @@ concise. Let’s look at how iterators can improve our implementation of the
 -->
 
 このイテレータに関する新しい知識があれば、イテレータを使用してコードのいろんな場所をより明確で簡潔にすることで、
-第12章の入出力プロジェクトを改善することができます。イテレータが`Config::new`関数と`search`関数の実装を改善する方法に目を向けましょう。
+第 12 章の入出力プロジェクトを改善することができます。イテレータが`Config::new`関数と`search`関数の実装を改善する方法に目を向けましょう。
 
 <!--
 ### Removing a `clone` Using an Iterator
@@ -33,15 +33,15 @@ we’ve reproduced the implementation of the `Config::new` function as it was in
 Listing 12-23:
 -->
 
-リスト12-6において、スライスに添え字アクセスして値をクローンすることで、`Config`構造体に値を所有させながら、
-`String`値のスライスを取り、`Config`構造体のインスタンスを作るコードを追記しました。リスト13-24では、
-リスト12-23のような`Config::new`の実装を再現しました:
+リスト 12-6 において、スライスに添え字アクセスして値をクローンすることで、`Config`構造体に値を所有させながら、
+`String`値のスライスを取り、`Config`構造体のインスタンスを作るコードを追記しました。リスト 13-24 では、
+リスト 12-23 のような`Config::new`の実装を再現しました：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 impl Config {
@@ -65,7 +65,7 @@ impl Config {
 from Listing 12-23</span>
 -->
 
-<span class="caption">リスト13-24: リスト12-23から`Config::new`関数の再現</span>
+<span class="caption">リスト 13-24: リスト 12-23 から`Config::new`関数の再現</span>
 
 <!--
 At the time, we said not to worry about the inefficient `clone` calls because
@@ -122,13 +122,13 @@ operations that borrow, we can move the `String` values from the iterator into
 Open your I/O project’s *src/main.rs* file, which should look like this:
 -->
 
-入出力プロジェクトの*src/main.rs*ファイルを開いてください。こんな見た目のはずです:
+入出力プロジェクトの*src/main.rs*ファイルを開いてください。こんな見た目のはずです：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -149,14 +149,14 @@ the code in Listing 13-25. This won’t compile until we update `Config::new` as
 well.
 -->
 
-リスト12-24のような`main`関数の冒頭をリスト13-25のコードに変更します。
+リスト 12-24 のような`main`関数の冒頭をリスト 13-25 のコードに変更します。
 これは、`Config::new`も更新するまでコンパイルできません。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -174,7 +174,7 @@ fn main() {
 `Config::new`</span>
 -->
 
-<span class="caption">リスト13-25: `env::args`の戻り値を`Config::new`に渡す</span>
+<span class="caption">リスト 13-25: `env::args`の戻り値を`Config::new`に渡す</span>
 
 <!--
 The `env::args` function returns an iterator! Rather than collecting the
@@ -194,14 +194,14 @@ body.
 -->
 
 次に、`Config::new`の定義を更新する必要があります。入出力プロジェクトの*src/lib.rs*ファイルで、
-`Config::new`のシグニチャをリスト13-26のように変えましょう。関数本体を更新する必要があるので、
+`Config::new`のシグニチャをリスト 13-26 のように変えましょう。関数本体を更新する必要があるので、
 それでもコンパイルはできません。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 impl Config {
@@ -214,7 +214,7 @@ impl Config {
 expect an iterator</span>
 -->
 
-<span class="caption">リスト13-26: `Config::new`のシグニチャをイテレータを期待するように更新する</span>
+<span class="caption">リスト 13-26: `Config::new`のシグニチャをイテレータを期待するように更新する</span>
 
 <!--
 The standard library documentation for the `env::args` function shows that the
@@ -245,14 +245,14 @@ Listing 12-23 to use the `next` method:
 
 次に、`Config::new`の本体を修正しましょう。標準ライブラリのドキュメントは、
 `std::env::Args`が`Iterator`トレイトを実装していることにも言及しているので、
-それに対して`next`メソッドを呼び出せることがわかります！リスト13-27は、
-リスト12-23のコードを`next`メソッドを使用するように更新したものです:
+それに対して`next`メソッドを呼び出せることがわかります！リスト 13-27 は、
+リスト 12-23 のコードを`next`メソッドを使用するように更新したものです：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -292,10 +292,10 @@ impl Config {
 iterator methods</span>
 -->
 
-<span class="caption">リスト13-27: `Config::new`の本体をイテレータメソッドを使うように変更する</span>
+<span class="caption">リスト 13-27: `Config::new`の本体をイテレータメソッドを使うように変更する</span>
 
 <!--
-6行目真ん中のandを順接の理由で訳している。
+6 行目真ん中の and を順接の理由で訳している。
 -->
 
 <!--
@@ -308,8 +308,8 @@ not enough arguments were given and we return early with an `Err` value. We do
 the same thing for the `filename` value.
 -->
 
-`env::args`の戻り値の1番目の値は、プログラム名であることを思い出してください。それは無視し、
-次の値を取得したいので、まず`next`を呼び出し、戻り値に対して何もしません。2番目に、
+`env::args`の戻り値の 1 番目の値は、プログラム名であることを思い出してください。それは無視し、
+次の値を取得したいので、まず`next`を呼び出し、戻り値に対して何もしません。2 番目に、
 `next`を呼び出して`Config`の`query`フィールドに置きたい値を得ます。`next`が`Some`を返したら、
 `match`を使用してその値を抜き出します。`None`を返したら、十分な引数が与えられなかったということなので、
 `Err`値で早期リターンします。`filename`値に対しても同じことをします。
@@ -325,13 +325,13 @@ We can also take advantage of iterators in the `search` function in our I/O
 project, which is reproduced here in Listing 13-28 as it was in Listing 12-19:
 -->
 
-入出力プロジェクトの`search`関数でも、イテレータを活用することができます。その関数はリスト12-19に示していますが、以下のリスト13-28に再掲します。
+入出力プロジェクトの`search`関数でも、イテレータを活用することができます。その関数はリスト 12-19 に示していますが、以下のリスト 13-28 に再掲します。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
@@ -352,7 +352,7 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 function from Listing 12-19</span>
 -->
 
-<span class="caption">リスト13-28: リスト12-19の`search`関数の実装</span>
+<span class="caption">リスト 13-28: リスト 12-19 の`search`関数の実装</span>
 
 <!--
 We can write this code in a more concise way using iterator adaptor methods.
@@ -367,13 +367,13 @@ concurrent access to the `results` vector. Listing 13-29 shows this change:
 可変な中間の`results`ベクタをなくすこともできます。関数型プログラミングスタイルは、可変な状態の量を最小化することを好み、
 コードを明瞭化します。可変な状態を除去すると、検索を同時並行に行うという将来的な改善をするのが、
 可能になる可能性があります。なぜなら、`results`ベクタへの同時アクセスを管理する必要がなくなるからです。
-リスト13-29は、この変更を示しています:
+リスト 13-29 は、この変更を示しています：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
@@ -388,7 +388,7 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 implementation of the `search` function</span>
 -->
 
-<span class="caption">リスト13-29: `search`関数の実装でイテレータアダプタのメソッドを使用する</span>
+<span class="caption">リスト 13-29: `search`関数の実装でイテレータアダプタのメソッドを使用する</span>
 
 <!--
 Recall that the purpose of the `search` function is to return all lines in
@@ -401,7 +401,7 @@ well.
 -->
 
 `search`関数の目的は、`query`を含む`contents`の行全てを返すことであることを思い出してください。
-リスト13-19の`filter`例に酷似して、このコードは`filter`アダプタを使用して`line.contains(query)`が真を返す行だけを残すことができます。
+リスト 13-19 の`filter`例に酷似して、このコードは`filter`アダプタを使用して`line.contains(query)`が真を返す行だけを残すことができます。
 それから、合致した行を別のベクタに`collect`で集結させます。ずっと単純です！ご自由に、
 同じ変更を行い、`search_case_insensitive`関数でもイテレータメソッドを使うようにしてください。
 
@@ -418,8 +418,8 @@ that are unique to this code, such as the filtering condition each element in
 the iterator must pass.
 -->
 
-次の論理的な疑問は、自身のコードでどちらのスタイルを選ぶかと理由です: リスト13-28の元の実装とリスト13-29のイテレータを使用するバージョンです。
-多くのRustプログラマは、イテレータスタイルを好みます。とっかかりが少し困難ですが、
+次の論理的な疑問は、自身のコードでどちらのスタイルを選ぶかと理由です：リスト 13-28 の元の実装とリスト 13-29 のイテレータを使用するバージョンです。
+多くの Rust プログラマは、イテレータスタイルを好みます。とっかかりが少し困難ですが、
 いろんなイテレータアダプタとそれがすることの感覚を一度掴めれば、イテレータの方が理解しやすいこともあります。
 いろんなループを少しずつもてあそんだり、新しいベクタを構築する代わりに、コードは、ループの高難度の目的に集中できるのです。
 これは、ありふれたコードの一部を抽象化するので、イテレータの各要素が通過しなければならないふるい条件など、
@@ -431,5 +431,5 @@ might be that the more low-level loop will be faster. Let’s talk about
 performance.
 -->
 
-ですが、本当に2つの実装は等価なのでしょうか？直観的な仮説は、より低レベルのループの方がより高速ということかもしれません。
+ですが、本当に 2 つの実装は等価なのでしょうか？直観的な仮説は、より低レベルのループの方がより高速ということかもしれません。
 パフォーマンスに触れましょう。

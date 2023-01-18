@@ -15,11 +15,11 @@ other in a cycle. This creates memory leaks because the reference count of each
 item in the cycle will never reach 0, and the values will never be dropped.
 -->
 
-Rustのメモリ安全保証により誤って絶対に片付けられることのないメモリ(*メモリリーク*として知られています)を生成してしまいにくくなりますが、
+Rust のメモリ安全保証により誤って絶対に片付けられることのないメモリ (*メモリリーク*として知られています) を生成してしまいにくくなりますが、
 不可能にはなりません。コンパイル時にデータ競合を防ぐのと同じようにメモリリークを完全に回避することは、
-Rustの保証の一つではなく、メモリリークはRustにおいてはメモリ安全であることを意味します。
-Rustでは、`Rc<T>`と`RefCell<T>`を使用してメモリリークを許可するとわかります:
-要素がお互いに循環して参照する参照を生成することも可能ということです。循環の各要素の参照カウントが絶対に0にならないので、
+Rust の保証の一つではなく、メモリリークは Rust においてはメモリ安全であることを意味します。
+Rust では、`Rc<T>`と`RefCell<T>`を使用してメモリリークを許可するとわかります：
+要素がお互いに循環して参照する参照を生成することも可能ということです。循環の各要素の参照カウントが絶対に 0 にならないので、
 これはメモリリークを起こし、値は絶対にドロップされません。
 
 <!--
@@ -34,13 +34,13 @@ starting with the definition of the `List` enum and a `tail` method in Listing
 15-25:
 -->
 
-リスト15-25の`List` enumの定義と`tail`メソッドから始めて、どう循環参照が起こる可能性があるのかとその回避策を見ましょう:
+リスト 15-25 の`List` enum の定義と`tail`メソッドから始めて、どう循環参照が起こる可能性があるのかとその回避策を見ましょう：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 <!-- Hidden fn main is here to disable the automatic wrapping in fn main that
 doc tests do; the `use List` fails if this listing is put within a main -->
@@ -72,7 +72,7 @@ impl List {
 `RefCell<T>` so we can modify what a `Cons` variant is referring to</span>
 -->
 
-<span class="caption">リスト15-25: `Cons`列挙子が参照しているものを変更できるように`RefCell<T>`を抱えているコンスリストの定義</span>
+<span class="caption">リスト 15-25: `Cons`列挙子が参照しているものを変更できるように`RefCell<T>`を抱えているコンスリストの定義</span>
 
 <!--
 We’re using another variation of the `List` definition in Listing 15-5. The
@@ -83,9 +83,9 @@ We're also adding a `tail` method to make it convenient for us to access the
 second item if we have a `Cons` variant.
 -->
 
-リスト15-5の`List`定義の別バリエーションを使用しています。`Cons`列挙子の2番目の要素はこれで`RefCell<Rc<List>>`になり、
-リスト15-24のように`i32`値を変更する能力があるのではなく、`Cons`列挙子が指している`List`値の先を変えたいということです。
-また、`tail`メソッドを追加して`Cons`列挙子があるときに2番目の要素にアクセスするのが便利になるようにしています。
+リスト 15-5 の`List`定義の別バリエーションを使用しています。`Cons`列挙子の 2 番目の要素はこれで`RefCell<Rc<List>>`になり、
+リスト 15-24 のように`i32`値を変更する能力があるのではなく、`Cons`列挙子が指している`List`値の先を変えたいということです。
+また、`tail`メソッドを追加して`Cons`列挙子があるときに 2 番目の要素にアクセスするのが便利になるようにしています。
 
 <!--
 In Listing 15-26, we’re adding a `main` function that uses the definitions in
@@ -95,7 +95,7 @@ reference cycle. There are `println!` statements along the way to show what the
 reference counts are at various points in this process.
 -->
 
-リスト15-26でリスト15-25の定義を使用する`main`関数を追加しています。このコードは、`a`にリストを、
+リスト 15-26 でリスト 15-25 の定義を使用する`main`関数を追加しています。このコードは、`a`にリストを、
 `b`に`a`のリストを指すリストを作成します。それから`a`のリストを変更して`b`を指し、循環参照させます。
 その流れの中に過程のいろんな場所での参照カウントを示す`println!`文が存在しています。
 
@@ -103,7 +103,7 @@ reference counts are at various points in this process.
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use List::{Cons, Nil};
@@ -127,33 +127,33 @@ reference counts are at various points in this process.
 fn main() {
     let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
 
-    // aの最初の参照カウント = {}
+    // a の最初の参照カウント = {}
     println!("a initial rc count = {}", Rc::strong_count(&a));
-    // aの次の要素は = {:?}
+    // a の次の要素は = {:?}
     println!("a next item = {:?}", a.tail());
 
     let b = Rc::new(Cons(10, RefCell::new(Rc::clone(&a))));
 
-    // b作成後のaの参照カウント = {}
+    // b 作成後の a の参照カウント = {}
     println!("a rc count after b creation = {}", Rc::strong_count(&a));
-    // bの最初の参照カウント = {}
+    // b の最初の参照カウント = {}
     println!("b initial rc count = {}", Rc::strong_count(&b));
-    // bの次の要素 = {:?}
+    // b の次の要素 = {:?}
     println!("b next item = {:?}", b.tail());
 
     if let Some(link) = a.tail() {
         *link.borrow_mut() = Rc::clone(&b);
     }
 
-    // aを変更後のbの参照カウント = {}
+    // a を変更後の b の参照カウント = {}
     println!("b rc count after changing a = {}", Rc::strong_count(&b));
-    // aを変更後のaの参照カウント = {}
+    // a を変更後の a の参照カウント = {}
     println!("a rc count after changing a = {}", Rc::strong_count(&a));
 
     // Uncomment the next line to see that we have a cycle;
     // it will overflow the stack
     // 次の行のコメントを外して循環していると確認してください; スタックオーバーフローします
-    // println!("a next item = {:?}", a.tail());        // aの次の要素 = {:?}
+    // println!("a next item = {:?}", a.tail());        // a の次の要素 = {:?}
 }
 ```
 
@@ -162,7 +162,7 @@ fn main() {
 values pointing to each other</span>
 -->
 
-<span class="caption">リスト15-26: 2つの`List`値がお互いを指して循環参照する</span>
+<span class="caption">リスト 15-26: 2 つの`List`値がお互いを指して循環参照する</span>
 
 <!--
 in the variable `a` or `b`がかかる先が不明瞭だが、コード例を見る限り、この訳が合っているようだ
@@ -176,7 +176,7 @@ points to the list in `a`.
 -->
 
 最初のリストが`5, Nil`の`List`値を保持する`Rc<List>`インスタンスを変数`a`に生成します。
-そして、値10と`a`のリストを指す別の`List`値を保持する`Rc<List>`インスタンスを変数`b`に生成します。
+そして、値 10 と`a`のリストを指す別の`List`値を保持する`Rc<List>`インスタンスを変数`b`に生成します。
 
 <!--
 We modify `a` so it points to `b` instead of `Nil`, creating a cycle. We
@@ -196,7 +196,7 @@ When we run this code, keeping the last `println!` commented out for the
 moment, we’ll get this output:
 -->
 
-最後の`println!`を今だけコメントアウトしたまま、このコードを実行すると、こんな出力が得られます:
+最後の`println!`を今だけコメントアウトしたまま、このコードを実行すると、こんな出力が得られます：
 
 ```text
 a initial rc count = 1
@@ -215,8 +215,8 @@ will try to drop `b` first, which will decrease the count in each of the
 `Rc<List>` instances in `a` and `b` by 1.
 -->
 
-`a`のリストを`b`を指すように変更した後の`a`と`b`の`Rc<List>`インスタンスの参照カウントは2です。
-`main`の終端で、コンパイラはまず`b`をドロップしようとし、`a`と`b`の各`Rc<List>`インスタンスのカウントを1減らします。
+`a`のリストを`b`を指すように変更した後の`a`と`b`の`Rc<List>`インスタンスの参照カウントは 2 です。
+`main`の終端で、コンパイラはまず`b`をドロップしようとし、`a`と`b`の各`Rc<List>`インスタンスのカウントを 1 減らします。
 
 <!--
 However, because `a` is still referencing the `Rc<List>` that was in `b`, that
@@ -226,9 +226,9 @@ forever. To visualize this reference cycle, we’ve created a diagram in Figure
 15-4:
 -->
 
-しかしながら、それでも`a`は`b`にあった`Rc<List>`を参照しているので、その`Rc<List>`のカウントは0ではなく1になり、
-その`Rc<List>`がヒープに確保していたメモリはドロップされません。メモリはただ、カウント1のままそこに永遠に居座るのです。
-この循環参照を可視化するために、図15-4に図式を作成しました:
+しかしながら、それでも`a`は`b`にあった`Rc<List>`を参照しているので、その`Rc<List>`のカウントは 0 ではなく 1 になり、
+その`Rc<List>`がヒープに確保していたメモリはドロップされません。メモリはただ、カウント 1 のままそこに永遠に居座るのです。
+この循環参照を可視化するために、図 15-4 に図式を作成しました：
 
 <!--
 <img alt="Reference cycle of lists" src="img/trpl15-04.svg" class="center" />
@@ -241,7 +241,7 @@ forever. To visualize this reference cycle, we’ve created a diagram in Figure
 pointing to each other</span>
 -->
 
-<span class="caption">図15-4: お互いを指すリスト`a`と`b`の循環参照</span>
+<span class="caption">図 15-4: お互いを指すリスト`a`と`b`の循環参照</span>
 
 <!--
 If you uncomment the last `println!` and run the program, Rust will try to
@@ -293,14 +293,14 @@ reference cycles.
 
 循環参照を回避する別の解決策は、ある参照は所有権を表現して他の参照はしないというようにデータ構造を再構成することです。
 結果として、所有権のある関係と所有権のない関係からなる循環ができ、所有権のある関係だけが、値がドロップされうるかどうかに影響します。
-リスト15-25では、常に`Cons`列挙子にリストを所有してほしいので、データ構造を再構成することはできません。
+リスト 15-25 では、常に`Cons`列挙子にリストを所有してほしいので、データ構造を再構成することはできません。
 親ノードと子ノードからなるグラフを使った例に目を向けて、どんな時に所有権のない関係が循環参照を回避するのに適切な方法になるか確認しましょう。
 
 <!--
 ### Preventing Reference Cycles: Turning an `Rc<T>` into a `Weak<T>`
 -->
 
-### 循環参照を回避する: `Rc<T>`を`Weak<T>`に変換する
+### 循環参照を回避する：`Rc<T>`を`Weak<T>`に変換する
 
 <!--
 So far, we’ve demonstrated that calling `Rc::clone` increases the
@@ -316,12 +316,12 @@ doesn’t need to be 0 for the `Rc<T>` instance to be cleaned up.
 -->
 
 ここまで、`Rc::clone`を呼び出すと`Rc<T>`インスタンスの`strong_count`が増えることと、
-`strong_count`が0になった時に`Rc<T>`インスタンスは片付けられることをデモしてきました。
-`Rc::downgrade`を呼び出し、`Rc<T>`への参照を渡すことで、`Rc<T>`インスタンス内部の値への*弱い参照*(weak reference)を作ることもできます。
+`strong_count`が 0 になった時に`Rc<T>`インスタンスは片付けられることをデモしてきました。
+`Rc::downgrade`を呼び出し、`Rc<T>`への参照を渡すことで、`Rc<T>`インスタンス内部の値への*弱い参照*(weak reference) を作ることもできます。
 `Rc::downgrade`を呼び出すと、型`Weak<T>`のスマートポインタが得られます。
-`Rc<T>`インスタンスの`strong_count`を1増やす代わりに、`Rc::downgrade`を呼び出すと、`weak_count`が1増えます。
+`Rc<T>`インスタンスの`strong_count`を 1 増やす代わりに、`Rc::downgrade`を呼び出すと、`weak_count`が 1 増えます。
 `strong_count`同様、`Rc<T>`型は`weak_count`を使用して、幾つの`Weak<T>`参照が存在しているかを追跡します。
-違いは、`Rc<T>`が片付けられるのに、`weak_count`が0である必要はないということです。
+違いは、`Rc<T>`が片付けられるのに、`weak_count`が 0 である必要はないということです。
 
 <!--
 Strong references are how you can share ownership of an `Rc<T>` instance. Weak
@@ -331,7 +331,7 @@ once the strong reference count of values involved is 0.
 -->
 
 強い参照は、`Rc<T>`インスタンスの所有権を共有する方法です。弱い参照は、所有権関係を表現しません。
-ひとたび、関係する値の強い参照カウントが0になれば、弱い参照が関わる循環はなんでも破壊されるので、
+ひとたび、関係する値の強い参照カウントが 0 になれば、弱い参照が関わる循環はなんでも破壊されるので、
 循環参照にはなりません。
 
 <!--
@@ -363,7 +363,7 @@ their parent items.
 #### Creating a Tree Data Structure: a `Node` with Child Nodes
 -->
 
-#### 木データ構造を作る: 子ノードのある`Node`
+#### 木データ構造を作る：子ノードのある`Node`
 
 <!--
 To start, we’ll build a tree with nodes that know about their child nodes.
@@ -371,13 +371,13 @@ We’ll create a struct named `Node` that holds its own `i32` value as well as
 references to its children `Node` values:
 -->
 
-手始めに子ノードを知っているノードのある木を構成します。独自の`i32`値と子供の`Node`値への参照を抱える`Node`という構造体を作ります:
+手始めに子ノードを知っているノードのある木を構成します。独自の`i32`値と子供の`Node`値への参照を抱える`Node`という構造体を作ります：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::rc::Rc;
@@ -408,15 +408,15 @@ Next, we’ll use our struct definition and create one `Node` instance named
 with the value 5 and `leaf` as one of its children, as shown in Listing 15-27:
 -->
 
-次にこの構造体定義を使って値3と子供なしの`leaf`という1つの`Node`インスタンスと、
-値5と`leaf`を子要素の一つとして持つ`branch`という別のインスタンスを作成します。
-リスト15-27のようにですね:
+次にこの構造体定義を使って値 3 と子供なしの`leaf`という 1 つの`Node`インスタンスと、
+値 5 と`leaf`を子要素の一つとして持つ`branch`という別のインスタンスを作成します。
+リスト 15-27 のようにですね：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::rc::Rc;
@@ -446,7 +446,7 @@ fn main() {
 and a `branch` node with `leaf` as one of its children</span>
 -->
 
-<span class="caption">リスト15-27: 子供なしの`leaf`ノードと`leaf`を子要素に持つ`branch`ノードを作る</span>
+<span class="caption">リスト 15-27: 子供なしの`leaf`ノードと`leaf`を子要素に持つ`branch`ノードを作る</span>
 
 <!--
 We clone the `Rc<Node>` in `leaf` and store that in `branch`, meaning the
@@ -457,7 +457,7 @@ doesn’t know they’re related. We want `leaf` to know that `branch` is its
 parent. We’ll do that next.
 -->
 
-`leaf`の`Rc<Node>`をクローンし、`branch`に格納しているので、`leaf`の`Node`は`leaf`と`branch`という2つの所有者を持つことになります。
+`leaf`の`Rc<Node>`をクローンし、`branch`に格納しているので、`leaf`の`Node`は`leaf`と`branch`という 2 つの所有者を持つことになります。
 `branch.children`を通して`branch`から`leaf`へ辿ることはできるものの、`leaf`から`branch`へ辿る方法はありません。
 理由は、`leaf`には`branch`への参照がなく、関係していることを知らないからです。`leaf`に`branch`が親であることを知ってほしいです。
 次はそれを行います。
@@ -480,7 +480,7 @@ values to never be 0.
 子供に親の存在を気付かせるために、`Node`構造体定義に`parent`フィールドを追加する必要があります。
 `parent`の型を決める際に困ったことになります。`Rc<T>`を含むことができないのはわかります。
 そうしたら、`leaf.parent`が`branch`を指し、`branch.children`が`leaf`を指して循環参照になり、
-`strong_count`値が絶対に0にならなくなってしまうからです。
+`strong_count`値が絶対に 0 にならなくなってしまうからです。
 
 <!--
 Thinking about the relationships another way, a parent node should own its
@@ -489,8 +489,8 @@ well. However, a child should not own its parent: if we drop a child node, the
 parent should still exist. This is a case for weak references!
 -->
 
-この関係を別の方法で捉えると、親ノードは子供を所有すべきです: 親ノードがドロップされたら、
-子ノードもドロップされるべきなのです。ですが、子供は親を所有するべきではありません:
+この関係を別の方法で捉えると、親ノードは子供を所有すべきです：親ノードがドロップされたら、
+子ノードもドロップされるべきなのです。ですが、子供は親を所有するべきではありません：
 子ノードをドロップしても、親はまだ存在するべきです。弱い参照を使う場面ですね！
 
 <!--
@@ -500,13 +500,13 @@ like this:
 -->
 
 従って、`Rc<T>`の代わりに`parent`の型を`Weak<T>`を使ったもの、具体的には`RefCell<Weak<Node>>`にします。
-さあ、`Node`構造体定義はこんな見た目になりました:
+さあ、`Node`構造体定義はこんな見た目になりました：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::rc::{Rc, Weak};
@@ -526,14 +526,14 @@ In Listing 15-28, we update `main` to use this new definition so the `leaf`
 node will have a way to refer to its parent, `branch`:
 -->
 
-ノードは親ノードを参照できるものの、所有はしないでしょう。リスト15-28で、
-`leaf`ノードが親の`branch`を参照できるよう、この新しい定義を使用するように`main`を更新します:
+ノードは親ノードを参照できるものの、所有はしないでしょう。リスト 15-28 で、
+`leaf`ノードが親の`branch`を参照できるよう、この新しい定義を使用するように`main`を更新します：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::rc::{Rc, Weak};
@@ -553,7 +553,7 @@ fn main() {
         children: RefCell::new(vec![]),
     });
 
-    // leafの親 = {:?}
+    // leaf の親 = {:?}
     println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
 
     let branch = Rc::new(Node {
@@ -573,7 +573,7 @@ fn main() {
 parent node `branch`</span>
 -->
 
-<span class="caption">リスト15-28: 親ノードの`branch`への弱い参照がある`leaf`ノード</span>
+<span class="caption">リスト 15-28: 親ノードの`branch`への弱い参照がある`leaf`ノード</span>
 
 <!--
 Creating the `leaf` node looks similar to how creating the `leaf` node looked
@@ -581,7 +581,7 @@ in Listing 15-27 with the exception of the `parent` field: `leaf` starts out
 without a parent, so we create a new, empty `Weak<Node>` reference instance.
 -->
 
-`leaf`ノードを作成することは、`parent`フィールドの例外を除いてリスト15-27での`leaf`ノードの作成法の見た目に似ています:
+`leaf`ノードを作成することは、`parent`フィールドの例外を除いてリスト 15-27 での`leaf`ノードの作成法の見た目に似ています：
 `leaf`は親なしで始まるので、新しく空の`Weak<Node>`参照インスタンスを作ります。
 
 <!--
@@ -591,7 +591,7 @@ first `println!` statement:
 -->
 
 この時点で`upgrade`メソッドを使用して`leaf`の親への参照を得ようとすると、`None`値になります。
-このことは、最初の`println!`文の出力でわかります:
+このことは、最初の`println!`文の出力でわかります：
 
 ```text
 leaf parent = None
@@ -621,9 +621,9 @@ also avoid the cycle that eventually ended in a stack overflow like we had in
 Listing 15-26; the `Weak<Node>` references are printed as `(Weak)`:
 -->
 
-再度`leaf`の親を出力すると、今度は`branch`を保持する`Some`列挙子が得られます: これで`leaf`が親にアクセスできるようになったのです！
-`leaf`を出力すると、リスト15-26で起こっていたような最終的にスタックオーバーフローに行き着く循環を避けることもできます;
-`Weak<Node>`参照は、`(Weak)`と出力されます:
+再度`leaf`の親を出力すると、今度は`branch`を保持する`Some`列挙子が得られます：これで`leaf`が親にアクセスできるようになったのです！
+`leaf`を出力すると、リスト 15-26 で起こっていたような最終的にスタックオーバーフローに行き着く循環を避けることもできます;
+`Weak<Node>`参照は、`(Weak)`と出力されます：
 
 ```text
 leaf parent = Some(Node { value: 5, parent: RefCell { value: (Weak) },
@@ -657,13 +657,13 @@ in Listing 15-29:
 新しい内部スコープを作り、`branch`の作成をそのスコープに移動することで、
 `Rc<Node>`インスタンスの`strong_count`と`weak_count`値がどう変化するかを眺めましょう。
 そうすることで、`branch`が作成され、それからスコープを抜けてドロップされる時に起こることが確認できます。
-変更は、リスト15-29に示してあります:
+変更は、リスト 15-29 に示してあります：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::rc::{Rc, Weak};
@@ -684,7 +684,7 @@ fn main() {
     });
 
     println!(
-        // leafのstrong_count = {}, weak_count = {}
+        // leaf の strong_count = {}, weak_count = {}
         "leaf strong = {}, weak = {}",
         Rc::strong_count(&leaf),
         Rc::weak_count(&leaf),
@@ -700,7 +700,7 @@ fn main() {
         *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
 
         println!(
-            // branchのstrong_count = {}, weak_count = {}
+            // branch の strong_count = {}, weak_count = {}
             "branch strong = {}, weak = {}",
             Rc::strong_count(&branch),
             Rc::weak_count(&branch),
@@ -727,11 +727,11 @@ fn main() {
 examining strong and weak reference counts</span>
 -->
 
-<span class="caption">リスト15-29: 内側のスコープで`branch`を作成し、強弱参照カウントを調査する</span>
+<span class="caption">リスト 15-29: 内側のスコープで`branch`を作成し、強弱参照カウントを調査する</span>
 
 <!--
-4行目後半、カッコ内、forは接続詞の用法かと思ったが、文ではなかった。for S to Vのように訳した
-通常forの後は、名詞が来るため、そう書いているだけだろうか
+4 行目後半、カッコ内、for は接続詞の用法かと思ったが、文ではなかった。for S to V のように訳した
+通常 for の後は、名詞が来るため、そう書いているだけだろうか
 -->
 
 <!--
@@ -745,12 +745,12 @@ it will have a strong count of 2, because `branch` now has a clone of the
 count of 0.
 -->
 
-`leaf`作成後、その`Rc<Node>`の強カウントは1、弱カウントは0になります。内側のスコープで`branch`を作成し、
-`leaf`に紐付け、この時点でカウントを出力すると、`branch`の`Rc<Node>`の強カウントは1、
-弱カウントも1になります(`leaf.parent`が`Weak<Node>`で`branch`を指しているため)。
-`leaf`のカウントを出力すると、強カウントが2になっていることがわかります。`branch`が今は、
+`leaf`作成後、その`Rc<Node>`の強カウントは 1、弱カウントは 0 になります。内側のスコープで`branch`を作成し、
+`leaf`に紐付け、この時点でカウントを出力すると、`branch`の`Rc<Node>`の強カウントは 1、
+弱カウントも 1 になります (`leaf.parent`が`Weak<Node>`で`branch`を指しているため)。
+`leaf`のカウントを出力すると、強カウントが 2 になっていることがわかります。`branch`が今は、
 `branch.children`に格納された`leaf`の`Rc<Node>`のクローンを持っているからですが、
-それでも弱カウントは0でしょう。
+それでも弱カウントは 0 でしょう。
 
 <!--
 When the inner scope ends, `branch` goes out of scope and the strong count of
@@ -759,8 +759,8 @@ from `leaf.parent` has no bearing on whether or not `Node` is dropped, so we
 don’t get any memory leaks!
 -->
 
-内側のスコープが終わると、`branch`はスコープを抜け、`Rc<Node>`の強カウントは0に減るので、
-この`Node`はドロップされます。`leaf.parent`からの弱カウント1は、`Node`がドロップされるか否かには関係ないので、
+内側のスコープが終わると、`branch`はスコープを抜け、`Rc<Node>`の強カウントは 0 に減るので、
+この`Node`はドロップされます。`leaf.parent`からの弱カウント 1 は、`Node`がドロップされるか否かには関係ないので、
 メモリリークはしないのです！
 
 <!--
@@ -771,7 +771,7 @@ reference to the `Rc<Node>` again.
 -->
 
 このスコープの終端以後に`leaf`の親にアクセスしようとしたら、再び`None`が得られます。
-プログラムの終端で`leaf`の`Rc<Node>`の強カウントは1、弱カウントは0です。
+プログラムの終端で`leaf`の`Rc<Node>`の強カウントは 1、弱カウントは 0 です。
 変数`leaf`が今では`Rc<Node>`への唯一の参照に再度なったからです。
 
 <!--
@@ -804,7 +804,7 @@ need to change an inner value of that type; it also enforces the borrowing
 rules at runtime instead of at compile time.
 -->
 
-この章は、スマートポインタを使用してRustが既定で普通の参照に対して行うのと異なる保証や代償を行う方法を講義しました。
+この章は、スマートポインタを使用して Rust が既定で普通の参照に対して行うのと異なる保証や代償を行う方法を講義しました。
 `Box<T>`型は、既知のサイズで、ヒープに確保されたデータを指します。`Rc<T>`型は、ヒープのデータへの参照の数を追跡するので、
 データは複数の所有者を保有できます。内部可変性のある`RefCell<T>`型は、不変型が必要だけれども、
 その型の中の値を変更する必要がある時に使用できる型を与えてくれます; また、コンパイル時ではなく実行時に借用規則を強制します。
@@ -827,7 +827,7 @@ information.
 この章で興味をそそられ、独自のスマートポインタを実装したくなったら、もっと役に立つ情報を求めて、
 [“The Rustonomicon”][nomicon]をチェックしてください。
 
-> 訳注: 日本語版のThe Rustonomiconは[こちら][nomicon-ja]です。
+> 訳注：日本語版の The Rustonomicon は[こちら][nomicon-ja]です。
 
 [nomicon]: https://doc.rust-lang.org/stable/nomicon/
 [nomicon-ja]: https://doc.rust-jp.rs/rust-nomicon-ja/index.html
@@ -837,4 +837,4 @@ Next, we’ll talk about concurrency in Rust. You’ll even learn about a few ne
 smart pointers.
 -->
 
-次は、Rustでの並行性について語ります。もういくつか新しいスマートポインタについてさえも学ぶでしょう。
+次は、Rust での並行性について語ります。もういくつか新しいスマートポインタについてさえも学ぶでしょう。

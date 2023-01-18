@@ -14,7 +14,7 @@ screen.
 -->
 
 現時点では、すべての出力を`println!`関数を使用して端末に書き込んでいます。多くの端末は、
-2種類の出力を提供します: 普通の情報用の*標準出力*(`stdout`)とエラーメッセージ用の*標準エラー出力*(`stderr`)です。
+2 種類の出力を提供します：普通の情報用の*標準出力*(`stdout`) とエラーメッセージ用の*標準エラー出力*(`stderr`) です。
 この差異のおかげで、ユーザは、エラーメッセージを画面に表示しつつ、
 プログラムの成功した出力をファイルにリダイレクトすることを選択できます。
 
@@ -54,7 +54,7 @@ we’re about to see that it saves the error message output to a file instead!
 
 コマンドラインプログラムは、エラーメッセージを標準エラー出力に送信していると期待されているので、
 標準出力ストリームをファイルにリダイレクトしても、画面にエラーメッセージが見られます。
-我々のプログラムは、現状、いい振る舞いをしていません: 代わりにファイルにエラーメッセージ出力を保存するところを、
+我々のプログラムは、現状、いい振る舞いをしていません：代わりにファイルにエラーメッセージ出力を保存するところを、
 目撃するところです！
 
 <!--
@@ -64,7 +64,7 @@ We won’t pass any arguments, which should cause an error:
 -->
 
 この動作をデモする方法は、`>`と標準出力ストリームをリダイレクトする先のファイル名、*output.txt*でプログラムを走らせることによります。
-引数は何も渡さず、そうするとエラーが起きるはずです:
+引数は何も渡さず、そうするとエラーが起きるはずです：
 
 ```text
 $ cargo run > output.txt
@@ -79,7 +79,7 @@ file. This is what *output.txt* contains:
 
 `>`記法により、標準出力の中身を画面の代わりに*output.txt*に書き込むようシェルは指示されます。
 画面に出力されると期待していたエラーメッセージは見られないので、ファイルに入っているということでしょう。
-以下が*output.txt*が含んでいる内容です:
+以下が*output.txt*が含んでいる内容です：
 
 ```text
 Problem parsing arguments: not enough arguments
@@ -109,16 +109,16 @@ the two places we were calling `println!` to print errors to use `eprintln!`
 instead.
 -->
 
-リスト12-24のコードを使用して、エラーメッセージの出力の仕方を変更します。この章の前で行ったリファクタリングのため、
-エラーメッセージを出力するコードはすべて1関数、`main`にあります。標準ライブラリは、
+リスト 12-24 のコードを使用して、エラーメッセージの出力の仕方を変更します。この章の前で行ったリファクタリングのため、
+エラーメッセージを出力するコードはすべて 1 関数、`main`にあります。標準ライブラリは、
 標準エラーストリームに出力する`eprintln!`マクロを提供しているので、
-`println!`を呼び出してエラーを出力していた2箇所を代わりに`eprintln!`を使うように変更しましょう。
+`println!`を呼び出してエラーを出力していた 2 箇所を代わりに`eprintln!`を使うように変更しましょう。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -142,7 +142,7 @@ fn main() {
 instead of standard output using `eprintln!`</span>
 -->
 
-<span class="caption">リスト12-24: `eprintln!`を使って標準出力ではなく、標準エラーにエラーメッセージを書き込む</span>
+<span class="caption">リスト 12-24: `eprintln!`を使って標準出力ではなく、標準エラーにエラーメッセージを書き込む</span>
 
 <!--
 After changing `println!` to `eprintln!`, let’s run the program again in the
@@ -150,7 +150,7 @@ same way, without any arguments and redirecting standard output with `>`:
 -->
 
 `println!`を`eprintln!`に変えてから、再度同じようにプログラムを実行しましょう。
-引数なしかつ、標準出力を`>`でリダイレクトしてね:
+引数なしかつ、標準出力を`>`でリダイレクトしてね：
 
 ```text
 $ cargo run > output.txt
@@ -169,7 +169,7 @@ Let’s run the program again with arguments that don’t cause an error but sti
 redirect standard output to a file, like so:
 -->
 
-再度、標準出力をファイルにリダイレクトしてエラーは起こさない引数でプログラムを走らせましょう。以下のようにですね:
+再度、標準出力をファイルにリダイレクトしてエラーは起こさない引数でプログラムを走らせましょう。以下のようにですね：
 
 ```text
 $ cargo run to poem.txt > output.txt
@@ -180,13 +180,13 @@ We won’t see any output to the terminal, and *output.txt* will contain our
 results:
 -->
 
-ターミナルには出力は見られず、*output.txt*に結果が含まれます:
+ターミナルには出力は見られず、*output.txt*に結果が含まれます：
 
 <!--
 <span class="filename">Filename: output.txt</span>
 -->
 
-<span class="filename">ファイル名: output.txt</span>
+<span class="filename">ファイル名：output.txt</span>
 
 ```text
 Are you nobody, too?
@@ -216,7 +216,7 @@ effectively in the appropriate data structures, handle errors nicely, and be
 well tested.
 -->
 
-この章では、ここまでに学んできた主要な概念の一部を念押しし、Rustで入出力処理を行う方法を講義しました。
+この章では、ここまでに学んできた主要な概念の一部を念押しし、Rust で入出力処理を行う方法を講義しました。
 コマンドライン引数、ファイル、環境変数、そしてエラー出力に`eprintln!`マクロを使用することで、
 もう、コマンドラインアプリケーションを書く準備ができています。以前の章の概念を使用することで、
 コードはうまく体系化され、適切なデータ構造に効率的にデータを保存し、エラーをうまく扱い、
@@ -227,4 +227,4 @@ Next, we’ll explore some Rust features that were influenced by functional
 languages: closures and iterators.
 -->
 
-次は、関数型言語に影響されたRust機能を一部探究します: クロージャとイテレータです。
+次は、関数型言語に影響された Rust 機能を一部探究します：クロージャとイテレータです。

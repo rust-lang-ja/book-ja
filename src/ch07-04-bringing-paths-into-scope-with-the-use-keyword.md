@@ -28,7 +28,7 @@ Listing 7-11 では、`crate::front_of_house::hosting`モジュールを`eat_at_
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-11/src/lib.rs:here}}
@@ -57,12 +57,12 @@ You can also bring an item into scope with `use` and a relative path. Listing
 Listing 7-11.
 -->
 `use`と相対パスで要素をスコープに持ち込むこともできます。
-Listing 7-12 はListing 7-11 と同じふるまいを得るためにどう相対パスを書けば良いかを示しています。
+Listing 7-12 は Listing 7-11 と同じふるまいを得るためにどう相対パスを書けば良いかを示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-12/src/lib.rs:here}}
@@ -90,7 +90,7 @@ Listing 7-11 を見て、なぜ`use crate::front_of_house::hosting`と書いて`
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-13/src/lib.rs:here}}
@@ -120,14 +120,14 @@ it’s idiomatic to specify the full path. Listing 7-14 shows the idiomatic way
 to bring the standard library’s `HashMap` struct into the scope of a binary
 crate.
 -->
-一方で、構造体やenumその他の要素を`use`で持ち込むときは、フルパスを書くのが慣例的です。
+一方で、構造体や enum その他の要素を`use`で持ち込むときは、フルパスを書くのが慣例的です。
 Listing 7-14 は標準ライブラリの`HashMap`構造体をバイナリクレートのスコープに持ち込む慣例的なやり方を示しています。
 
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-14/src/main.rs}}
@@ -143,7 +143,7 @@ idiomatic way</span>
 There’s no strong reason behind this idiom: it’s just the convention that has
 emerged, and folks have gotten used to reading and writing Rust code this way.
 -->
-こちらの慣例の背後には、はっきりとした理由はありません。自然に発生した慣習であり、みんなRustのコードをこのやり方で読み書きするのに慣れてしまったというだけです。
+こちらの慣例の背後には、はっきりとした理由はありません。自然に発生した慣習であり、みんな Rust のコードをこのやり方で読み書きするのに慣れてしまったというだけです。
 
 <!--
 The exception to this idiom is if we’re bringing two items with the same name
@@ -151,13 +151,13 @@ into scope with `use` statements, because Rust doesn’t allow that. Listing 7-1
 shows how to bring two `Result` types into scope that have the same name but
 different parent modules and how to refer to them.
 -->
-同じ名前の2つの要素を`use`でスコープに持ち込むのはRustでは許されないので、そのときこの慣例は例外的に不可能です。
-Listing 7-15は、同じ名前を持つけれど異なる親モジュールを持つ2つの`Result`型をスコープに持ち込み、それらを参照するやり方を示しています。
+同じ名前の 2 つの要素を`use`でスコープに持ち込むのは Rust では許されないので、そのときこの慣例は例外的に不可能です。
+Listing 7-15 は、同じ名前を持つけれど異なる親モジュールを持つ 2 つの`Result`型をスコープに持ち込み、それらを参照するやり方を示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-15/src/lib.rs:here}}
@@ -167,7 +167,7 @@ Listing 7-15は、同じ名前を持つけれど異なる親モジュールを�
 <span class="caption">Listing 7-15: Bringing two types with the same name into
 the same scope requires using their parent modules.</span>
 -->
-<span class="caption">Listing 7-15: 同じ名前を持つ2つの型を同じスコープに持ち込むには親モジュールを使わないといけない。</span>
+<span class="caption">Listing 7-15: 同じ名前を持つ 2 つの型を同じスコープに持ち込むには親モジュールを使わないといけない。</span>
 
 <!--
 As you can see, using the parent modules distinguishes the two `Result` types.
@@ -175,8 +175,8 @@ If instead we specified `use std::fmt::Result` and `use std::io::Result`, we’d
 have two `Result` types in the same scope and Rust wouldn’t know which one we
 meant when we used `Result`.
 -->
-このように、親モジュールを使うことで2つの`Result`型を区別できます。
-もし`use std::fmt::Result` と `use std::io::Result`と書いていたとしたら、2つの`Result`型が同じスコープに存在することになり、私達が`Result`を使ったときにどちらのことを意味しているのかRustはわからなくなってしまいます。
+このように、親モジュールを使うことで 2 つの`Result`型を区別できます。
+もし`use std::fmt::Result` と `use std::io::Result`と書いていたとしたら、2 つの`Result`型が同じスコープに存在することになり、私達が`Result`を使ったときにどちらのことを意味しているのか Rust はわからなくなってしまいます。
 
 <!--
 ### Providing New Names with the `as` Keyword
@@ -189,13 +189,13 @@ into the same scope with `use`: after the path, we can specify `as` and a new
 local name, or alias, for the type. Listing 7-16 shows another way to write the
 code in Listing 7-15 by renaming one of the two `Result` types using `as`.
 -->
-同じ名前の2つの型を`use`を使って同じスコープに持ち込むという問題には、もう一つ解決策があります。パスの後に、`as`と型の新しいローカル名、即ちエイリアスを指定すればよいのです。
-Listing 7-16 は、Listing 7-15 のコードを、2つの`Result`型のうち一つを`as`を使ってリネームするという別のやり方で書いたものを表しています。
+同じ名前の 2 つの型を`use`を使って同じスコープに持ち込むという問題には、もう一つ解決策があります。パスの後に、`as`と型の新しいローカル名、即ちエイリアスを指定すればよいのです。
+Listing 7-16 は、Listing 7-15 のコードを、2 つの`Result`型のうち一つを`as`を使ってリネームするという別のやり方で書いたものを表しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-16/src/lib.rs:here}}
@@ -213,8 +213,8 @@ In the second `use` statement, we chose the new name `IoResult` for the
 that we’ve also brought into scope. Listing 7-15 and Listing 7-16 are
 considered idiomatic, so the choice is up to you!
 -->
-2つめの`use`文では、`std::io::Result`に、`IoResult`という新たな名前を選んでやります。`std::fmt`の`Result`もスコープに持ち込んでいますが、この名前はこれとは衝突しません。
-Listing 7-15もListing 7-16も慣例的とみなされているので、どちらを使っても構いませんよ！
+2 つめの`use`文では、`std::io::Result`に、`IoResult`という新たな名前を選んでやります。`std::fmt`の`Result`もスコープに持ち込んでいますが、この名前はこれとは衝突しません。
+Listing 7-15 も Listing 7-16 も慣例的とみなされているので、どちらを使っても構いませんよ！
 
 <!--
 ### Re-exporting Names with `pub use`
@@ -242,7 +242,7 @@ Listing 7-17 は Listing 7-11 のコードのルートモジュールでの`use`
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-17/src/lib.rs:here}}
@@ -289,7 +289,7 @@ In Chapter 2, we programmed a guessing game project that used an external
 package called `rand` to get random numbers. To use `rand` in our project, we
 added this line to *Cargo.toml*:
 -->
-2章で、乱数を得るために`rand`という外部パッケージを使って、数当てゲームをプログラムしました。
+2 章で、乱数を得るために`rand`という外部パッケージを使って、数当てゲームをプログラムしました。
 `rand`を私達のプロジェクトで使うために、次の行を *Cargo.toml* に書き加えましたね：
 
 <!-- When updating the version of `rand` used, also update the version of
@@ -301,7 +301,7 @@ added this line to *Cargo.toml*:
 <!--
 <span class="filename">Filename: Cargo.toml</span>
 -->
-<span class="filename">ファイル名: Cargo.toml</span>
+<span class="filename">ファイル名：Cargo.toml</span>
 
 ```toml
 {{#include ../listings/ch02-guessing-game-tutorial/listing-02-02/Cargo.toml:9:}}
@@ -312,7 +312,7 @@ Adding `rand` as a dependency in *Cargo.toml* tells Cargo to download the
 `rand` package and any dependencies from [crates.io](https://crates.io/) and
 make `rand` available to our project.
 -->
-`rand`を依存 (dependency) として *Cargo.toml* に追加すると、`rand`パッケージとそのすべての依存を[crates.io](https://crates.io/)からダウンロードして、私達のプロジェクトで`rand`が使えるようにするようCargoに命令します。
+`rand`を依存 (dependency) として *Cargo.toml* に追加すると、`rand`パッケージとそのすべての依存を[crates.io](https://crates.io/)からダウンロードして、私達のプロジェクトで`rand`が使えるようにするよう Cargo に命令します。
 
 <!--
 Then, to bring `rand` definitions into the scope of our package, we added a
@@ -322,7 +322,7 @@ Number”][rand] section in Chapter 2, we brought the `Rng` trait
 into scope and called the `rand::thread_rng` function:
 -->
 そして、`rand`の定義を私達のパッケージのスコープに持ち込むために、クレートの名前である`rand`から始まる`use`の行を追加し、そこにスコープに持ち込みたい要素を並べました。
-2章の[乱数を生成する][rand]の節で、`Rng`トレイトをスコープに持ち込み`rand::thread_rng`関数を呼び出したことを思い出してください。
+2 章の[乱数を生成する][rand]の節で、`Rng`トレイトをスコープに持ち込み`rand::thread_rng`関数を呼び出したことを思い出してください。
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-03/src/main.rs:ch07-04}}
@@ -334,7 +334,7 @@ Members of the Rust community have made many packages available at
 involves these same steps: listing them in your package’s *Cargo.toml* file and
 using `use` to bring items from their crates into scope.
 -->
-Rustコミュニティに所属する人々が[crates.io](https://crates.io/)でたくさんのパッケージを利用できるようにしてくれており、上と同じステップを踏めばそれらをあなたのパッケージに取り込むことができます：あなたのパッケージの *Cargo.toml* ファイルにそれらを書き並べ、`use`を使って要素をクレートからスコープへと持ち込めばよいのです。
+Rust コミュニティに所属する人々が[crates.io](https://crates.io/)でたくさんのパッケージを利用できるようにしてくれており、上と同じステップを踏めばそれらをあなたのパッケージに取り込むことができます：あなたのパッケージの *Cargo.toml* ファイルにそれらを書き並べ、`use`を使って要素をクレートからスコープへと持ち込めばよいのです。
 
 <!--
 Note that the standard library (`std`) is also a crate that’s external to our
@@ -344,7 +344,7 @@ it with `use` to bring items from there into our package’s scope. For example,
 with `HashMap` we would use this line:
 -->
 標準ライブラリ (`std`) も、私達のパッケージの外部にあるクレートだということに注意してください。
-標準ライブラリはRust言語に同梱されているので、 *Cargo.toml* を `std`を含むように変更する必要はありません。
+標準ライブラリは Rust 言語に同梱されているので、 *Cargo.toml* を `std`を含むように変更する必要はありません。
 しかし、その要素をそこから私達のパッケージのスコープに持ち込むためには、`use`を使って参照する必要はあります。
 例えば、`HashMap`には次の行を使います。
 
@@ -370,12 +370,12 @@ files. For example, these two `use` statements we had in the Guessing Game in
 Listing 2-4 bring items from `std` into scope:
 -->
 同じクレートか同じモジュールで定義された複数の要素を使おうとする時、それぞれの要素を一行一行並べると、縦に大量のスペースを取ってしまいます。
-例えば、Listing 2-4の数当てゲームで使った次の2つの`use`文が`std`からスコープへ要素を持ち込みました。
+例えば、Listing 2-4 の数当てゲームで使った次の 2 つの`use`文が`std`からスコープへ要素を持ち込みました。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/no-listing-01-use-std-unnested/src/main.rs:here}}
@@ -387,13 +387,13 @@ line. We do this by specifying the common part of the path, followed by two
 colons, and then curly brackets around a list of the parts of the paths that
 differ, as shown in Listing 7-18.
 -->
-代わりに、ネストしたパスを使うことで、同じ一連の要素を1行でスコープに持ち込めます。
-これをするには、Listing 7-18 に示されるように、パスの共通部分を書き、2つのコロンを続け、そこで波括弧で互いに異なる部分のパスのリストを囲みます。
+代わりに、ネストしたパスを使うことで、同じ一連の要素を 1 行でスコープに持ち込めます。
+これをするには、Listing 7-18 に示されるように、パスの共通部分を書き、2 つのコロンを続け、そこで波括弧で互いに異なる部分のパスのリストを囲みます。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-18/src/main.rs:here}}
@@ -418,13 +418,13 @@ two `use` statements that share a subpath. For example, Listing 7-19 shows two
 `use` statements: one that brings `std::io` into scope and one that brings
 `std::io::Write` into scope.
 -->
-ネストしたパスはパスのどの階層においても使うことができます。これはサブパスを共有する2つの`use`文を合体させるときに有用です。
-例えば、Listing 7-19 は2つの`use`文を示しています：1つは`std::io`をスコープに持ち込み、もう一つは`std::io::Write`をスコープに持ち込んでいます。
+ネストしたパスはパスのどの階層においても使うことができます。これはサブパスを共有する 2 つの`use`文を合体させるときに有用です。
+例えば、Listing 7-19 は 2 つの`use`文を示しています：1 つは`std::io`をスコープに持ち込み、もう一つは`std::io::Write`をスコープに持ち込んでいます。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-19/src/lib.rs}}
@@ -434,19 +434,19 @@ two `use` statements that share a subpath. For example, Listing 7-19 shows two
 <span class="caption">Listing 7-19: Two `use` statements where one is a subpath
 of the other</span>
 -->
-<span class="caption">Listing 7-19: 片方がもう片方のサブパスである2つの`use`文</span>
+<span class="caption">Listing 7-19: 片方がもう片方のサブパスである 2 つの`use`文</span>
 
 <!--
 The common part of these two paths is `std::io`, and that’s the complete first
 path. To merge these two paths into one `use` statement, we can use `self` in
 the nested path, as shown in Listing 7-20.
 -->
-これらの2つのパスの共通部分は`std::io`であり、そしてこれは最初のパスにほかなりません。これらの2つのパスを1つの`use`文へと合体させるには、Listing 7-20 に示されるように、ネストしたパスに`self`を使いましょう。
+これらの 2 つのパスの共通部分は`std::io`であり、そしてこれは最初のパスにほかなりません。これらの 2 つのパスを 1 つの`use`文へと合体させるには、Listing 7-20 に示されるように、ネストしたパスに`self`を使いましょう。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-20/src/lib.rs}}
@@ -466,13 +466,13 @@ This line brings `std::io` and `std::io::Write` into scope.
 <!--
 ### The Glob Operator
 -->
-### glob演算子
+### glob 演算子
 
 <!--
 If we want to bring *all* public items defined in a path into scope, we can
 specify that path followed by `*`, the glob operator:
 -->
-パスにおいて定義されているすべての公開要素をスコープに持ち込みたいときは、glob演算子 `*` をそのパスの後ろに続けて書きましょう：
+パスにおいて定義されているすべての公開要素をスコープに持ち込みたいときは、glob 演算子 `*` をそのパスの後ろに続けて書きましょう：
 
 ```rust
 use std::collections::*;
@@ -485,8 +485,8 @@ harder to tell what names are in scope and where a name used in your program
 was defined.
 -->
 この`use`文は`std::collections`のすべての公開要素を現在のスコープに持ち込みます。
-glob演算子を使う際にはご注意を！
-globをすると、どの名前がスコープ内にあり、プログラムで使われている名前がどこで定義されたのか分かりづらくなります。
+glob 演算子を使う際にはご注意を！
+glob をすると、どの名前がスコープ内にあり、プログラムで使われている名前がどこで定義されたのか分かりづらくなります。
 
 <!--
 The glob operator is often used when testing to bring everything under test
@@ -496,8 +496,8 @@ is also sometimes used as part of the prelude pattern: see [the standard
 library documentation](../std/prelude/index.html#other-preludes)
 for more information on that pattern.
 -->
-glob演算子はしばしば、テストの際、テストされるあらゆるものを`tests`モジュールに持ち込むために使われます。これについては11章[テストの書き方][writing-tests]の節で話します。
-glob演算子はプレリュードパターンの一部としても使われることがあります：そのようなパターンについて、より詳しくは[標準ライブラリのドキュメント](https://doc.rust-lang.org/std/prelude/index.html#other-preludes)をご覧ください。
+glob 演算子はしばしば、テストの際、テストされるあらゆるものを`tests`モジュールに持ち込むために使われます。これについては 11 章[テストの書き方][writing-tests]の節で話します。
+glob 演算子はプレリュードパターンの一部としても使われることがあります：そのようなパターンについて、より詳しくは[標準ライブラリのドキュメント](https://doc.rust-lang.org/std/prelude/index.html#other-preludes)をご覧ください。
 
 [rand]: ch02-00-guessing-game-tutorial.html#乱数を生成する
 [writing-tests]: ch11-01-writing-tests.html#テストの記述法

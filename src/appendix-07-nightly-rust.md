@@ -2,7 +2,7 @@
 # Appendix G - How Rust is Made and “Nightly Rust”
 -->
 
-## 付録G: Rustの作られ方と“Nightly Rust”
+## 付録 G: Rust の作られ方と“Nightly Rust”
 
 <!--
 This appendix is about how Rust is made and how that affects you as a Rust
@@ -12,9 +12,9 @@ stable version of Rust greater than that. This section is to explain how we
 ensure this is true!
 -->
 
-この付録は、Rustのでき方と、それがRust開発者としてあなたにどう影響するかについてです。
-この本の出力は安定版Rust 1.21.0で生成されていますが、コンパイルできるいかなる例も、
-それより新しいRustのどんな安定版でもコンパイルでき続けられるはずということに触れました。
+この付録は、Rust のでき方と、それが Rust 開発者としてあなたにどう影響するかについてです。
+この本の出力は安定版 Rust 1.21.0 で生成されていますが、コンパイルできるいかなる例も、
+それより新しい Rust のどんな安定版でもコンパイルでき続けられるはずということに触れました。
 この節は、これが本当のことであると保証する方法を説明します！
 
 <!--
@@ -31,7 +31,7 @@ experiment with new features, we may not find out important flaws until after
 their release, when we can no longer change things.
 -->
 
-言語として、Rustはコードの安定性について*大い*に注意しています。Rustには、その上に建築できる岩のように硬い基礎であってほしく、
+言語として、Rust はコードの安定性について*大い*に注意しています。Rust には、その上に建築できる岩のように硬い基礎であってほしく、
 物事が定期的に変わっていたら、それは実現できません。同時に新しい機能で実験できなければ、もはや何も変更できないリリースの時まで、
 重大な<ruby>瑕疵<rp>(</rp><rt>かし</rt><rp>)</rp></ruby>を発見できなくなるかもしれません。
 
@@ -42,8 +42,8 @@ new version of stable Rust. Each upgrade should be painless, but should also
 bring you new features, fewer bugs, and faster compile times.
 -->
 
-この問題に対する我々の解決策は「停滞なしの安定性」と呼ばれるもので、ガイドの原則は以下の通りです:
-安定版Rustの新しいバージョンにアップグレードするのを恐れる必要は何もないはずです。各アップグレードは痛みのないもののはずですが、
+この問題に対する我々の解決策は「停滞なしの安定性」と呼ばれるもので、ガイドの原則は以下の通りです：
+安定版 Rust の新しいバージョンにアップグレードするのを恐れる必要は何もないはずです。各アップグレードは痛みのないもののはずですが、
 新しい機能、より少ないバグ、高速なコンパイル時間も齎すべきです。
 
 <!--
@@ -59,12 +59,12 @@ release train model, which has been used by Cisco IOS and other software
 projects. There are three *release channels* for Rust:
 -->
 
-Rust開発は、*電車のダイヤ*に合わせて処理されます。つまり、全開発はRustリポジトリの`master`ブランチで行われます。
-リリースはソフトウェアのリリーストレインモデル(software release train model)に従い、これはCisco IOSや他のソフトウェアプロジェクトで活用されています。
-Rustには*リリースチャンネル*が3つあります:
+Rust 開発は、*電車のダイヤ*に合わせて処理されます。つまり、全開発は Rust リポジトリの`master`ブランチで行われます。
+リリースはソフトウェアのリリーストレインモデル (software release train model) に従い、これは Cisco IOS や他のソフトウェアプロジェクトで活用されています。
+Rust には*リリースチャンネル*が 3 つあります：
 
-> 注釈: software release train modelとは、あるバージョンのソフトウェアリリースの順番を列車に見立て、
-> 列車のダイヤのように、決まった間隔でリリースに持って行く手法のことの模様。一つの列車は、Rustの場合、
+> 注釈：software release train model とは、あるバージョンのソフトウェアリリースの順番を列車に見立て、
+> 列車のダイヤのように、決まった間隔でリリースに持って行く手法のことの模様。一つの列車は、Rust の場合、
 > ナイトリー、ベータ、安定版の順に「駅」に停車していくものと思われる。
 
 <!--
@@ -82,7 +82,7 @@ Most Rust developers primarily use the stable channel, but those who want to
 try out experimental new features may use nightly or beta.
 -->
 
-多くのRust開発者は主に安定版チャンネルを使用しますが、新しい実験的な機能を試したい方は、
+多くの Rust 開発者は主に安定版チャンネルを使用しますが、新しい実験的な機能を試したい方は、
 ナイトリーやベータを使用するかもしれません。
 
 <!--
@@ -95,11 +95,11 @@ release day, and these releases are created by our release infrastructure
 automatically. So as time passes, our releases look like this, once a night:
 -->
 
-こちらが、開発とリリースプロセスの動き方の例です: RustチームがRust1.5のリリースに取り掛かっていると想定しましょう。
-そのリリースは、2015年の11月に発生しましたが、現実的なバージョンナンバーを与えてくれるでしょう。
-新しい機能がRustに追加されます: 新しいコミットが`master`ブランチに着地します。毎晩、新しいナイトリ版のRustが生成されます。
+こちらが、開発とリリースプロセスの動き方の例です：Rust チームが Rust1.5 のリリースに取り掛かっていると想定しましょう。
+そのリリースは、2015 年の 11 月に発生しましたが、現実的なバージョンナンバーを与えてくれるでしょう。
+新しい機能が Rust に追加されます：新しいコミットが`master`ブランチに着地します。毎晩、新しいナイトリ版の Rust が生成されます。
 毎日がリリース日で、これらのリリースは、リリースインフラにより自動で作成されます。故に、
-時間が経てばリリースは、毎晩1回、以下のような見た目になります:
+時間が経てばリリースは、毎晩 1 回、以下のような見た目になります：
 
 ```text
 nightly: * - - * - - *
@@ -111,8 +111,8 @@ Rust repository branches off from the `master` branch used by nightly. Now,
 there are two releases:
 -->
 
-6週間ごとに、新しいリリースを準備するタイミングになります！Rustリポジトリの`beta`ブランチが、
-ナイトリで使用される`master`ブランチから枝分かれします。さて、リリースが二つになりました:
+6 週間ごとに、新しいリリースを準備するタイミングになります！Rust リポジトリの`beta`ブランチが、
+ナイトリで使用される`master`ブランチから枝分かれします。さて、リリースが二つになりました：
 
 ```text
 nightly: * - - * - - *
@@ -126,10 +126,10 @@ their CI system to help Rust discover possible regressions. In the meantime,
 there’s still a nightly release every night:
 -->
 
-ほとんどのRustユーザはベータリリースを積極的には使用しませんが、自身のCIシステム内でベータに対してテストを行い、
-Rustが不具合の可能性を発見するのを手伝います。その間も、やはりナイトリリリースは毎晩あります:
+ほとんどの Rust ユーザはベータリリースを積極的には使用しませんが、自身の CI システム内でベータに対してテストを行い、
+Rust が不具合の可能性を発見するのを手伝います。その間も、やはりナイトリリリースは毎晩あります：
 
-> 注釈: CIはContinuous Integration(継続統合といったところか)のことと思われる。開発者のコードを1日に何度も、
+> 注釈：CI は Continuous Integration(継続統合といったところか) のことと思われる。開発者のコードを 1 日に何度も、
 > メインのブランチに統合することらしい。
 
 ```text
@@ -147,7 +147,7 @@ to `master`, so that nightly is fixed, and then the fix is backported to the
 
 不具合が見つかったとしましょう。よいことに、不具合が安定版のリリースにこっそり持ち込まれる前にベータリリースをテストする時間がありました！
 修正が`master`に適用されるので、ナイトリは修正され、それから修正が`beta`ブランチにバックポートされ、
-ベータの新しいリリースが生成されます:
+ベータの新しいリリースが生成されます：
 
 ```text
 nightly: * - - * - - * - - * - - * - - *
@@ -160,7 +160,7 @@ Six weeks after the first beta was created, it’s time for a stable release! Th
 `stable` branch is produced from the `beta` branch:
 -->
 
-最初のベータが作成されてから6週間後、安定版のリリースの時間です！`stable`ブランチが`beta`ブランチから生成されます:
+最初のベータが作成されてから 6 週間後、安定版のリリースの時間です！`stable`ブランチが`beta`ブランチから生成されます：
 
 ```text
 nightly: * - - * - - * - - * - - * - - * - * - *
@@ -177,9 +177,9 @@ So after `stable` branches off of `beta`, the next version of `beta` branches
 off of `nightly` again:
 -->
 
-やりました！Rust1.5が完了しました！ですが、1つ忘れていることがあります: 6週間が経過したので、
-*次*のバージョンのRust(1.6)の新しいベータも必要です。従って、`stable`が`beta`から枝分かれした後に、
-次のバージョンの`beta`が`nightly`から再度枝分かれします:
+やりました！Rust1.5 が完了しました！ですが、1 つ忘れていることがあります：6 週間が経過したので、
+*次*のバージョンの Rust(1.6) の新しいベータも必要です。従って、`stable`が`beta`から枝分かれした後に、
+次のバージョンの`beta`が`nightly`から再度枝分かれします：
 
 ```text
 nightly: * - - * - - * - - * - - * - - * - * - *
@@ -195,7 +195,7 @@ station”, but still has to take a journey through the beta channel before it
 arrives as a stable release.
 -->
 
-これが「トレイン・モデル」と呼ばれます。6週間ごとにリリースが「駅を出発する」からですが、
+これが「トレイン・モデル」と呼ばれます。6 週間ごとにリリースが「駅を出発する」からですが、
 安定版リリースとして到着する前にベータチャンネルの旅をそれでもしなければなりません。
 
 <!--
@@ -207,9 +207,9 @@ to worry: another one is happening in a short time! This helps reduce pressure
 to sneak possibly unpolished features in close to the release deadline.
 -->
 
-Rustは6週間ごとに時計仕掛けのようにリリースされます。あるRustリリースの日付を知っていれば、
-次のリリースの日付もわかります: 6週間後です。6週間ごとにリリースを組むことのいい側面は、次の列車がすぐにやってくることです。
-ある機能が偶然、特定のリリースを逃しても、心配する必要はありません: 別のリリースがすぐに起きます！
+Rust は 6 週間ごとに時計仕掛けのようにリリースされます。ある Rust リリースの日付を知っていれば、
+次のリリースの日付もわかります：6 週間後です。6 週間ごとにリリースを組むことのいい側面は、次の列車がすぐにやってくることです。
+ある機能が偶然、特定のリリースを逃しても、心配する必要はありません：別のリリースがすぐに起きます！
 これにより、リリースの締め切りが近い洗練されていない可能性のある機能をこっそり持ち込むプレッシャーが減る助けになるのです。
 
 <!--
@@ -220,7 +220,7 @@ next stable release happens! Breakage in a beta release is relatively rare, but
 `rustc` is still a piece of software, and bugs do exist.
 -->
 
-このプロセスのおかげで、Rustの次のビルドを常に確認し、アップグレードするのが容易であると自身に対して確かめることができます:
+このプロセスのおかげで、Rust の次のビルドを常に確認し、アップグレードするのが容易であると自身に対して確かめることができます：
 ベータリリースが予想した通りに動かなければ、チームに報告して、次の安定版のリリースが起きる前に直してもらうことができるのです！
 ベータリリースでの破損はどちらかといえば稀ですが、`rustc`もソフトウェアの一種であり、バグは確実に存在します。
 
@@ -240,10 +240,10 @@ using a nightly release of Rust and annotate your source code with the
 appropriate flag to opt in.
 -->
 
-このリリースモデルにはもう一つ掴み所があります: 安定しない機能です。Rustは「機能フラグ」と呼ばれるテクニックを使用して、
+このリリースモデルにはもう一つ掴み所があります：安定しない機能です。Rust は「機能フラグ」と呼ばれるテクニックを使用して、
 あるリリースで有効にする機能を決定します。新しい機能が活発に開発中なら、`master`に着地し、
 故にナイトリーでは*機能フラグ*の背後に存在します。ユーザとして、絶賛作業中の機能を試したいとお望みならば、
-可能ですが、ナイトリリリースのRustを使用し、ソースコードに適切なフラグを注釈して同意しなければなりません。
+可能ですが、ナイトリリリースの Rust を使用し、ソースコードに適切なフラグを注釈して同意しなければなりません。
 
 <!--
 If you’re using a beta or stable release of Rust, you can’t use any feature
@@ -253,7 +253,7 @@ edge can do so, and those who want a rock-solid experience can stick with
 stable and know that their code won’t break. Stability without stagnation.
 -->
 
-ベータか安定リリースのRustを使用しているなら、機能フラグは使用できません。これが、永遠に安定であると宣言する前に、
+ベータか安定リリースの Rust を使用しているなら、機能フラグは使用できません。これが、永遠に安定であると宣言する前に、
 新しい機能を実用に供することができる鍵になっています。最先端を選択するのをお望みの方はそうすることができ、
 岩のように硬い経験をお望みの方は、安定版に執着し自分のコードが壊れることはないとわかります。停滞なしの安定性です。
 
@@ -272,7 +272,7 @@ documentation for nightly-only features online.
 ### Rustup and the Role of Rust Nightly
 -->
 
-### RustupとRustナイトリの役目
+### Rustup と Rust ナイトリの役目
 
 <!--
 Rustup makes it easy to change between different release channels of Rust, on a
@@ -280,8 +280,8 @@ global or per-project basis. By default, you’ll have stable Rust installed. To
 install nightly, for example:
 -->
 
-rustupは、グローバルかプロジェクトごとにRustのリリースチャンネルを変更しやすくしてくれます。
-標準では、安定版のRustがインストールされます。例えば、ナイトリをインストールするには:
+rustup は、グローバルかプロジェクトごとに Rust のリリースチャンネルを変更しやすくしてくれます。
+標準では、安定版の Rust がインストールされます。例えば、ナイトリをインストールするには：
 
 ```text
 $ rustup install nightly
@@ -293,8 +293,8 @@ components) you have installed with `rustup` as well. Here’s an example on one
 of your authors’ Windows computer:
 -->
 
-`rustup`でインストールした全ツールチェーン(Rustのリリースと関連するコンポーネント)も確認できます。
-こちらは、著者の一人のWindowsコンピュータの例です:
+`rustup`でインストールした全ツールチェーン (Rust のリリースと関連するコンポーネント) も確認できます。
+こちらは、著者の一人の Windows コンピュータの例です：
 
 ```powershell
 > rustup toolchain list
@@ -311,7 +311,7 @@ To do so, you can use `rustup override` in that project’s directory to set the
 nightly toolchain as the one `rustup` should use when you’re in that directory:
 -->
 
-おわかりのように、安定版のツールチェーンが標準です。ほとんどのRustユーザは、ほとんどの場合、安定版を使用します。
+おわかりのように、安定版のツールチェーンが標準です。ほとんどの Rust ユーザは、ほとんどの場合、安定版を使用します。
 あなたもほとんどの場合安定版を使用したい可能性がありますが、最前線の機能が気になるので、特定のプロジェクトではナイトリを使用したいかもしれません。
 そうするためには、そのプロジェクトのディレクトリで`rustup override`を使用して、そのディレクトリにいる時に、
 `rustup`が使用するべきツールチェーンとしてナイトリ版のものをセットします。
@@ -328,14 +328,14 @@ Rust, rather than your default of stable Rust. This comes in handy when you
 have a lot of Rust projects!
 -->
 
-これで *~/projects/needs-nightly*内で`rustc`や`cargo`を呼び出す度に、`rustup`は既定の安定版のRustではなく、
-ナイトリRustを使用していることを確かめます。Rustプロジェクトが大量にある時には、重宝します。
+これで *~/projects/needs-nightly*内で`rustc`や`cargo`を呼び出す度に、`rustup`は既定の安定版の Rust ではなく、
+ナイトリ Rust を使用していることを確かめます。Rust プロジェクトが大量にある時には、重宝します。
 
 <!--
 ### The RFC Process and Teams
 -->
 
-### RFCプロセスとチーム
+### RFC プロセスとチーム
 
 <!--
 So how do you learn about these new features? Rust’s development model follows
@@ -343,8 +343,8 @@ a *Request For Comments (RFC) process*. If you’d like an improvement in Rust,
 you can write up a proposal, called an RFC.
 -->
 
-では、これらの新しい機能をどう習うのでしょうか？Rustの開発モデルは、*Request For Comments (RFC; コメントの要求)プロセス*に従っています。
-Rustに改善を行いたければ、RFCと呼ばれる提案を書き上げます。
+では、これらの新しい機能をどう習うのでしょうか？Rust の開発モデルは、*Request For Comments (RFC; コメントの要求) プロセス*に従っています。
+Rust に改善を行いたければ、RFC と呼ばれる提案を書き上げます。
 
 <!--
 Anyone can write RFCs to improve Rust, and the proposals are reviewed and
@@ -357,9 +357,9 @@ proposal and the comments, writes some comments of their own, and eventually,
 there’s consensus to accept or reject the feature.
 -->
 
-誰もがRFCを書いてRustを改善でき、提案はRustチームにより査読され議論され、このチームは多くの話題のサブチームから構成されています。
-[RustのWebサイト](https://www.rust-lang.org/en-US/team.html)にはチームの完全なリストがあり、
-プロジェクトの各分野のチームも含みます: 言語設計、コンパイラ実装、インフラ、ドキュメンテーションなどです。
+誰もが RFC を書いて Rust を改善でき、提案は Rust チームにより査読され議論され、このチームは多くの話題のサブチームから構成されています。
+[Rust の Web サイト](https://www.rust-lang.org/en-US/team.html)にはチームの完全なリストがあり、
+プロジェクトの各分野のチームも含みます：言語設計、コンパイラ実装、インフラ、ドキュメンテーションなどです。
 適切なチームが提案とコメントを読み、自身のコメントを書き、最終的にその機能を受け入れるか拒否するかの同意があります。
 
 <!--
@@ -370,7 +370,7 @@ ready, it lands on the `master` branch behind a feature gate, as we discussed
 in the “Unstable Features” section.
 -->
 
-機能が受け入れられれば、Rustリポジトリでissueが開かれ、誰かがそれを実装します。うまく実装できる人は、
+機能が受け入れられれば、Rust リポジトリで issue が開かれ、誰かがそれを実装します。うまく実装できる人は、
 そもそもその機能を提案した人ではないかもしれません！実装の準備ができたら、
 「安定しない機能」節で議論したように、機能ゲートの背後の`master`に着地します。
 
@@ -383,7 +383,7 @@ feature is now considered stable! It rides the trains into a new stable release
 of Rust.
 -->
 
-時間経過後、一旦ナイトリリリースを使用するRust開発者が新しい機能を試すことができたら、チームのメンバーがその機能と、
-ナイトリでどう機能しているかについて議論し、安定版のRustに導入すべきかどうか決定します。
+時間経過後、一旦ナイトリリリースを使用する Rust 開発者が新しい機能を試すことができたら、チームのメンバーがその機能と、
+ナイトリでどう機能しているかについて議論し、安定版の Rust に導入すべきかどうか決定します。
 決定が進行させることだったら、機能ゲートは取り除かれ、その機能はもう安定と考えられます！
-Rustの新しい安定版リリースまで、列車に乗っているのです。
+Rust の新しい安定版リリースまで、列車に乗っているのです。

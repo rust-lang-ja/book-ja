@@ -10,8 +10,8 @@ data is being specified so it knows how to work with that data. We'll look at
 two data type subsets: scalar and compound.
 -->
 
-Rustにおける値は全て、何らかの*データ型*になり、コンパイラがどんなデータが指定されているか知れるので、
-そのデータの取り扱い方も把握できるというわけです。2種のデータ型のサブセットを見ましょう: スカラー型と複合型です。
+Rust における値は全て、何らかの*データ型*になり、コンパイラがどんなデータが指定されているか知れるので、
+そのデータの取り扱い方も把握できるというわけです。2 種のデータ型のサブセットを見ましょう：スカラー型と複合型です。
 
 <!--
 Keep in mind that Rust is a *statically typed* language, which means that it
@@ -22,11 +22,11 @@ type using `parse` in the “Comparing the Guess to the Secret Number” section
 Chapter 2, we must add a type annotation, like this:
 -->
 
-Rustは*静的型付き*言語であることを弁えておいてください。つまり、
+Rust は*静的型付き*言語であることを弁えておいてください。つまり、
 コンパイル時に全ての変数の型が判明している必要があるということです。コンパイラは通常、値と使用方法に基づいて、
 使用したい型を推論してくれます。複数の型が推論される可能性がある場合、例えば、
-第2章の「予想と秘密の数字を比較する」節で`parse`メソッドを使って`String`型を数値型に変換した時のように、
-複数の型が可能な場合には、型注釈をつけなければいけません。以下のようにですね:
+第 2 章の「予想と秘密の数字を比較する」節で`parse`メソッドを使って`String`型を数値型に変換した時のように、
+複数の型が可能な場合には、型注釈をつけなければいけません。以下のようにですね：
 
 ```rust
 let guess: u32 = "42".parse().expect("Not a number!");    // 数字ではありません！
@@ -39,7 +39,7 @@ type we want to use:
 -->
 
 ここで型注釈を付けなければ、コンパイラは以下のエラーを表示し、これは可能性のある型のうち、
-どの型を使用したいのかを知るのに、コンパイラがプログラマからもっと情報を得る必要があることを意味します:
+どの型を使用したいのかを知るのに、コンパイラがプログラマからもっと情報を得る必要があることを意味します：
 
 ```console
 {{#include ../listings/ch03-common-programming-concepts/output-only-01-no-type-annotations/output.txt}}
@@ -63,9 +63,9 @@ integers, floating-point numbers, Booleans, and characters. You may recognize
 these from other programming languages. Let’s jump into how they work in Rust.
 -->
 
-スカラー型は、単独の値を表します。Rustには主に4つのスカラー型があります:
+スカラー型は、単独の値を表します。Rust には主に 4 つのスカラー型があります：
 整数、浮動小数点数、論理値、最後に文字です。他のプログラミング言語でも、これらの型を見かけたことはあるでしょう。
-Rustでの動作方法に飛び込みましょう。
+Rust での動作方法に飛び込みましょう。
 
 <!--
 #### Integer Types
@@ -83,16 +83,16 @@ columns (for example, `i16`) can be used to declare the type of an integer
 value.
 -->
 
-整数とは、小数部分のない数値のことです。第2章で一つの整数型を使用しましたね。`u32`型です。
-この型定義は、紐付けられる値が、符号なし整数(符号付き整数は`u`ではなく、`i`で始まります)になり、
-これは、32ビット分のサイズを取ります。表3-1は、Rustの組み込み整数型を表示しています。
-符号付きと符号なし欄の各バリアント(例: `i16`)を使用して、整数値の型を宣言することができます。
+整数とは、小数部分のない数値のことです。第 2 章で一つの整数型を使用しましたね。`u32`型です。
+この型定義は、紐付けられる値が、符号なし整数 (符号付き整数は`u`ではなく、`i`で始まります) になり、
+これは、32 ビット分のサイズを取ります。表 3-1 は、Rust の組み込み整数型を表示しています。
+符号付きと符号なし欄の各バリアント (例：`i16`) を使用して、整数値の型を宣言することができます。
 
 <!--
 <span class="caption">Table 3-1: Integer Types in Rust</span>
 -->
 
-<span class="caption">表3-1: Rustの整数型</span>
+<span class="caption">表 3-1: Rust の整数型</span>
 
 <!--
 | Length | Signed  | Unsigned |
@@ -126,11 +126,11 @@ the scope of this book).
 -->
 
 各バリアントは、符号付きか符号なしかを選べ、明示的なサイズを持ちます。*符号付き*と*符号なし*は、
-数値が正負を持つかどうかを示します。つまり、数値が符号を持つ必要があるかどうか(符号付き)、または、
-絶対に正数にしかならず符号なしで表現できるかどうか(符号なし)です。これは、数値を紙に書き下すのと似ています:
+数値が正負を持つかどうかを示します。つまり、数値が符号を持つ必要があるかどうか (符号付き)、または、
+絶対に正数にしかならず符号なしで表現できるかどうか (符号なし) です。これは、数値を紙に書き下すのと似ています：
 符号が問題になるなら、数値はプラス記号、またはマイナス記号とともに表示されます; しかしながら、
 その数値が正数であると仮定することが安全なら、符号なしで表示できるわけです。符号付き数値は、
-2の補数表現で保持されます(これが何なのか確信を持てないのであれば、ネットで検索することができます。
+2 の補数表現で保持されます (これが何なのか確信を持てないのであれば、ネットで検索することができます。
 まあ要するに、この解説は、この本の範疇外というわけです)。
 
 <!--
@@ -141,10 +141,10 @@ Each signed variant can store numbers from -(2<sup>n - 1</sup>) to 2<sup>n -
 so a `u8` can store numbers from 0 to 2<sup>8</sup> - 1, which equals 0 to 255.
 -->
 
-各符号付きバリアントは、-(2<sup>n - 1</sup>)以上2<sup>n - 1</sup> - 1以下の数値を保持でき、
-ここで*n*はこのバリアントが使用するビット数です。以上から、`i8`型は-(2<sup>7</sup>)から2<sup>7</sup> - 1まで、
-つまり、-128から127までを保持できます。符号なしバリアントは、0以上2<sup>n</sup> - 1以下を保持できるので、
-`u8`型は、0から2<sup>8</sup> - 1までの値、つまり、0から255までを保持できることになります。
+各符号付きバリアントは、-(2<sup>n - 1</sup>) 以上 2<sup>n - 1</sup> - 1 以下の数値を保持でき、
+ここで*n*はこのバリアントが使用するビット数です。以上から、`i8`型は-(2<sup>7</sup>) から 2<sup>7</sup> - 1 まで、
+つまり、-128 から 127 までを保持できます。符号なしバリアントは、0 以上 2<sup>n</sup> - 1 以下を保持できるので、
+`u8`型は、0 から 2<sup>8</sup> - 1 までの値、つまり、0 から 255 までを保持できることになります。
 
 <!--
 Additionally, the `isize` and `usize` types depend on the kind of computer your
@@ -152,8 +152,8 @@ program is running on: 64-bits if you’re on a 64-bit architecture and 32-bits
 if you’re on a 32-bit architecture.
 -->
 
-加えて、`isize`と`usize`型は、プログラムが動作しているコンピュータの種類に依存します:
-64ビットアーキテクチャなら、64ビットですし、32ビットアーキテクチャなら、32ビットになります。
+加えて、`isize`と`usize`型は、プログラムが動作しているコンピュータの種類に依存します：
+64 ビットアーキテクチャなら、64 ビットですし、32 ビットアーキテクチャなら、32 ビットになります。
 
 <!--
 You can write integer literals in any of the forms shown in Table 3-2. Note
@@ -161,15 +161,15 @@ that all number literals except the byte literal allow a type suffix, such as
 `57u8`, and `_` as a visual separator, such as `1_000`.
 -->
 
-整数リテラル(`訳注`: リテラルとは、見たままの値ということ)は、表3-2に示すどの形式でも記述することができます。
+整数リテラル (`訳注`: リテラルとは、見たままの値ということ) は、表 3-2 に示すどの形式でも記述することができます。
 バイトリテラルを除く数値リテラルは全て、
-型接尾辞(例えば、`57u8`)と`_`を見た目の区切り記号(例えば、`1_000`)に付加することができます。
+型接尾辞 (例えば、`57u8`) と`_`を見た目の区切り記号 (例えば、`1_000`) に付加することができます。
 
 <!--
 <span class="caption">Table 3-2: Integer Literals in Rust</span>
 -->
 
-<span class="caption">表3-2: Rustの整数リテラル</span>
+<span class="caption">表 3-2: Rust の整数リテラル</span>
 
 <!--
 | Number literals  | Example       |
@@ -183,10 +183,10 @@ that all number literals except the byte literal allow a type suffix, such as
 
 | 数値リテラル       | 例            |
 |------------------|---------------|
-| 10進数            | `98_222`      |
-| 16進数            | `0xff`        |
-| 8進数             | `0o77`        |
-| 2進数             | `0b1111_0000` |
+| 10 進数            | `98_222`      |
+| 16 進数            | `0xff`        |
+| 8 進数             | `0o77`        |
+| 2 進数             | `0b1111_0000` |
 | バイト (`u8`だけ)  | `b'A'`        |
 
 <!--
@@ -197,7 +197,7 @@ which you’d use `isize` or `usize` is when indexing some sort of collection.
 -->
 
 では、どの整数型を使うべきかはどう把握すればいいのでしょうか？もし確信が持てないのならば、
-Rustの基準型は一般的にいい選択肢になります。整数型の基準は`i32`型です: 64ビットシステム上でも、
+Rust の基準型は一般的にいい選択肢になります。整数型の基準は`i32`型です：64 ビットシステム上でも、
 この型が普通最速になります。`isize`と`usize`を使う主な状況は、何らかのコレクションにアクセスすることです。
 
 <!--
@@ -214,21 +214,21 @@ because on modern CPUs it’s roughly the same speed as `f32` but is capable of
 more precision.
 -->
 
-Rustにはさらに、*浮動小数点数*に対しても、2種類の基本型があり、浮動小数点数とは数値に小数点がついたもののことです。
-Rustの浮動小数点型は、`f32`と`f64`で、それぞれ32ビットと64ビットサイズです。基準型は`f64`です。
-なぜなら、現代のCPUでは、`f32`とほぼ同スピードにもかかわらず、より精度が高くなるからです。
+Rust にはさらに、*浮動小数点数*に対しても、2 種類の基本型があり、浮動小数点数とは数値に小数点がついたもののことです。
+Rust の浮動小数点型は、`f32`と`f64`で、それぞれ 32 ビットと 64 ビットサイズです。基準型は`f64`です。
+なぜなら、現代の CPU では、`f32`とほぼ同スピードにもかかわらず、より精度が高くなるからです。
 
 <!--
 Here’s an example that shows floating-point numbers in action:
 -->
 
-実際に動作している浮動小数点数の例をご覧ください:
+実際に動作している浮動小数点数の例をご覧ください：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-06-floating-point/src/main.rs}}
@@ -239,7 +239,7 @@ Floating-point numbers are represented according to the IEEE-754 standard. The
 `f32` type is a single-precision float, and `f64` has double precision.
 -->
 
-浮動小数点数は、IEEE-754規格に従って表現されています。`f32`が単精度浮動小数点数、
+浮動小数点数は、IEEE-754 規格に従って表現されています。`f32`が単精度浮動小数点数、
 `f64`が倍精度浮動小数点数です。
 
 <!--
@@ -254,14 +254,14 @@ number types: addition, subtraction, multiplication, division, and remainder.
 The following code shows how you’d use each one in a `let` statement:
 -->
 
-Rustにも全数値型に期待されうる標準的な数学演算が用意されています: 足し算、引き算、掛け算、割り算、余りです。
-以下の例では、`let`文での各演算の使用方法をご覧になれます:
+Rust にも全数値型に期待されうる標準的な数学演算が用意されています：足し算、引き算、掛け算、割り算、余りです。
+以下の例では、`let`文での各演算の使用方法をご覧になれます：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-07-numeric-operations/src/main.rs}}
@@ -274,7 +274,7 @@ list of all operators that Rust provides.
 -->
 
 これらの文の各式は、数学演算子を使用しており、一つの値に評価され、そして、変数に束縛されます。
-付録BにRustで使える演算子の一覧が載っています。
+付録 B に Rust で使える演算子の一覧が載っています。
 
 <!--
 #### The Boolean Type
@@ -288,15 +288,15 @@ values: `true` and `false`. The boolean type in Rust is specified using `bool`.
 For example:
 -->
 
-他の多くの言語同様、Rustの論理値型も取りうる値は二つしかありません: `true`と`false`です。
-Rustの論理値型は、`bool`と指定されます。
-例です:
+他の多くの言語同様、Rust の論理値型も取りうる値は二つしかありません：`true`と`false`です。
+Rust の論理値型は、`bool`と指定されます。
+例です：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-08-boolean/src/main.rs}}
@@ -308,7 +308,7 @@ expression. We’ll cover how `if` expressions work in Rust in the “Control Fl
 section.
 -->
 
-論理値を使う主な手段は、条件式です。例えば、`if`式などですね。`if`式のRustでの動作方法については、
+論理値を使う主な手段は、条件式です。例えば、`if`式などですね。`if`式の Rust での動作方法については、
 「制御フロー」節で講義します。
 
 <!--
@@ -324,7 +324,7 @@ code shows one way to use it. (Note that the `char` type is specified with
 single quotes, as opposed to strings, which use double quotes.)
 -->
 
-ここまで、数値型のみ扱ってきましたが、Rustには文字も用意されています。Rustの`char`型は、
+ここまで、数値型のみ扱ってきましたが、Rust には文字も用意されています。Rust の`char`型は、
 言語の最も基本的なアルファベット型であり、以下のコードでその使用方法の一例を見ることができます。
 (`char`は、ダブルクォーテーションマークを使用する文字列に対して、シングルクォートで指定されることに注意してください。)
 
@@ -332,7 +332,7 @@ single quotes, as opposed to strings, which use double quotes.)
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-09-char/src/main.rs}}
@@ -348,12 +348,12 @@ so your human intuition for what a “character” is may not match up with what
 `char` is in Rust. We’ll discuss this topic in detail in the “Strings” in Chapter 8.
 -->
 
-Rustの`char`型は、ユニコードのスカラー値を表します。これはつまり、アスキーよりもずっとたくさんのものを表せるということです。
+Rust の`char`型は、ユニコードのスカラー値を表します。これはつまり、アスキーよりもずっとたくさんのものを表せるということです。
 アクセント文字; 中国語、日本語、韓国語文字;
-絵文字; ゼロ幅スペースは、全てRustでは、有効な`char`型になります。ユニコードスカラー値は、
+絵文字; ゼロ幅スペースは、全て Rust では、有効な`char`型になります。ユニコードスカラー値は、
 `U+0000`から`U+D7FF`までと`U+E000`から`U+10FFFF`までの範囲になります。
 ところが、「文字」は実はユニコードの概念ではないので、文字とは何かという人間としての直観は、
-Rustにおける`char`値が何かとは合致しない可能性があります。この話題については、第8章の「文字列」で詳しく議論しましょう。
+Rust における`char`値が何かとは合致しない可能性があります。この話題については、第 8 章の「文字列」で詳しく議論しましょう。
 
 <!--
 ### Compound Types
@@ -366,8 +366,8 @@ Rustにおける`char`値が何かとは合致しない可能性があります�
 primitive compound types: tuples and arrays.
 -->
 
-*複合型*により、複数の値を一つの型にまとめることができます。Rustには、
-2種類の基本的な複合型があります: タプルと配列です。
+*複合型*により、複数の値を一つの型にまとめることができます。Rust には、
+2 種類の基本的な複合型があります：タプルと配列です。
 
 <!--
 #### The Tuple type
@@ -390,13 +390,13 @@ type annotations in this example:
 -->
 
 タプルは、丸かっこの中にカンマ区切りの値リストを書くことで生成します。タプルの位置ごとに型があり、
-タプル内の値はそれぞれ全てが同じ型である必要はありません。今回の例では、型注釈をあえて追加しました:
+タプル内の値はそれぞれ全てが同じ型である必要はありません。今回の例では、型注釈をあえて追加しました：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-10-tuples/src/main.rs}}
@@ -409,13 +409,13 @@ use pattern matching to destructure a tuple value, like this:
 -->
 
 変数`tup`は、タプル全体に束縛されています。なぜなら、タプルは、一つの複合要素と考えられるからです。
-タプルから個々の値を取り出すには、パターンマッチングを使用して分解することができます。以下のように:
+タプルから個々の値を取り出すには、パターンマッチングを使用して分解することができます。以下のように：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-11-destructuring-tuples/src/main.rs}}
@@ -430,7 +430,7 @@ the single tuple into three parts. Finally, the program prints the value of
 -->
 
 このプログラムは、まずタプルを生成し、それを変数`tup`に束縛しています。
-それから`let`とパターンを使って`tup`変数の中身を3つの個別の変数(`x`、`y`、`z`ですね)に変換しています。
+それから`let`とパターンを使って`tup`変数の中身を 3 つの個別の変数 (`x`、`y`、`z`ですね) に変換しています。
 この過程は、*分配*と呼ばれます。単独のタプルを破壊して三分割しているからです。最後に、
 プログラムは`y`変数の値を出力し、`6.4`と表示されます。
 
@@ -440,14 +440,14 @@ element directly by using a period (`.`) followed by the index of the value we
 want to access. For example:
 -->
 
-パターンマッチングを通しての分配の他にも、アクセスしたい値の番号をピリオド(`.`)に続けて書くことで、
-タプルの要素に直接アクセスすることもできます。例です:
+パターンマッチングを通しての分配の他にも、アクセスしたい値の番号をピリオド (`.`) に続けて書くことで、
+タプルの要素に直接アクセスすることもできます。例です：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-12-tuple-indexing/src/main.rs}}
@@ -460,7 +460,7 @@ index in a tuple is 0.
 -->
 
 このプログラムは、新しいタプル`x`を作成し、添え字アクセスで各要素に対して新しい変数も作成しています。
-多くのプログラミング言語同様、タプルの最初の添え字は0です。
+多くのプログラミング言語同様、タプルの最初の添え字は 0 です。
 
 <!--
 #### The Array Type
@@ -476,21 +476,21 @@ fixed length: once declared, they cannot grow or shrink in size.
 -->
 
 *配列*によっても、複数の値のコレクションを得ることができます。タプルと異なり、配列の全要素は、
-同じ型でなければなりません。Rustの配列は、他の言語と異なっています。Rustの配列は、
-固定長なのです: 一度宣言されたら、サイズを伸ばすことも縮めることもできません。
+同じ型でなければなりません。Rust の配列は、他の言語と異なっています。Rust の配列は、
+固定長なのです：一度宣言されたら、サイズを伸ばすことも縮めることもできません。
 
 <!--
 In Rust, the values going into an array are written as a comma-separated list
 inside square brackets:
 -->
 
-Rustでは、配列に入れる要素は、角かっこ内にカンマ区切りリストとして記述します:
+Rust では、配列に入れる要素は、角かっこ内にカンマ区切りリストとして記述します：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-13-arrays/src/main.rs}}
@@ -506,11 +506,11 @@ If you’re unsure whether to use an array or a vector, you should probably use 
 vector. Chapter 8 discusses vectors in more detail.
 -->
 
-配列は、ヒープよりもスタック(スタックとヒープについては第4章で<ruby>詳<rp>(</rp><rt>つまび</rt><rp>)</rp></ruby>らかに議論します)にデータのメモリを確保したい時、
+配列は、ヒープよりもスタック (スタックとヒープについては第 4 章で<ruby>詳<rp>(</rp><rt>つまび</rt><rp>)</rp></ruby>らかに議論します) にデータのメモリを確保したい時、
 または、常に固定長の要素があることを確認したい時に有効です。
 ただ、配列は、ベクタ型ほど柔軟ではありません。ベクタは、標準ライブラリによって提供されている配列と似たようなコレクション型で、
 こちらは、サイズを伸縮させることが*できます*。配列とベクタ型、どちらを使うべきか確信が持てない時は、
-おそらくベクタ型を使うべきです。第8章でベクタについて詳細に議論します。
+おそらくベクタ型を使うべきです。第 8 章でベクタについて詳細に議論します。
 
 <!--
 An example of when you might want to use an array rather than a vector is in a
@@ -519,8 +519,8 @@ unlikely that such a program will need to add or remove months, so you can use
 an array because you know it will always contain 12 items:
 -->
 
-ベクタ型よりも配列を使いたくなるかもしれない例は、1年の月の名前を扱うプログラムです。そのようなプログラムで、
-月を追加したり削除したりすることまずないので、配列を使用できます。常に12個要素があることもわかってますからね:
+ベクタ型よりも配列を使いたくなるかもしれない例は、1 年の月の名前を扱うプログラムです。そのようなプログラムで、
+月を追加したり削除したりすることまずないので、配列を使用できます。常に 12 個要素があることもわかってますからね：
 
 ```rust
 let months = ["January", "February", "March", "April", "May", "June", "July",
@@ -543,7 +543,7 @@ Here, `i32` is the type of each element. After the semicolon, the number `5`
 indicates the array contains five elements.
 -->
 
-ここでの`i32`は要素の型です。セミコロンのあとの`5`という数字は配列の要素が5つあることを表しています。
+ここでの`i32`は要素の型です。セミコロンのあとの`5`という数字は配列の要素が 5 つあることを表しています。
 
 <!--
 You can also initialize an array to contain the same value for each element by
@@ -563,7 +563,7 @@ The array named `a` will contain `5` elements that will all be set to the value
 more concise way.
 -->
 
-この`a`という名前の配列は`3`という値が5つあるものです。これは`let a = [3, 3, 3, 3, 3];`と書くのと同じですが、より簡潔になります。
+この`a`という名前の配列は`3`という値が 5 つあるものです。これは`let a = [3, 3, 3, 3, 3];`と書くのと同じですが、より簡潔になります。
 
 <!--
 ##### Accessing Array Elements
@@ -577,13 +577,13 @@ elements of an array using indexing, like this:
 -->
 
 配列は、スタック上に確保される一塊のメモリです。添え字によって、
-配列の要素にこのようにアクセスすることができます:
+配列の要素にこのようにアクセスすることができます：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-14-array-indexing/src/main.rs}}
@@ -611,13 +611,13 @@ compile but exit with an error when it runs:
 -->
 
 配列の終端を越えて要素にアクセスしようとしたら、どうなるでしょうか？
-先ほどの例を以下のように変えたとすると、コンパイルは通りますが、実行するとエラーで終了します:
+先ほどの例を以下のように変えたとすると、コンパイルは通りますが、実行するとエラーで終了します：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore,panics
 {{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access/src/main.rs}}
@@ -630,7 +630,7 @@ that index in the array. If you instead enter a number past the end of the
 array, such as 10, you’ll see output like this:
 -->
 
-このコードはコンパイルされます。`cargo run`で走らせ、0, 1, 2, 3, または4をこのプログラムに入力すると配列の対応する値を出力します。もし配列の末尾を超えるような、例えば10などの数字を与えると、次のような出力が表示されます。
+このコードはコンパイルされます。`cargo run`で走らせ、0, 1, 2, 3, または 4 をこのプログラムに入力すると配列の対応する値を出力します。もし配列の末尾を超えるような、例えば 10 などの数字を与えると、次のような出力が表示されます。
 
 <!-- manual-regeneration
 cd listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access
@@ -656,7 +656,7 @@ than the array length. If the index is greater than the length, Rust will
 コンパイルでは何もエラーが出なかったものの、プログラムは*実行時*エラーに陥り、
 正常終了しませんでした。要素に添え字アクセスを試みると、言語は、
 指定されたその添え字が配列長よりも小さいかを確認してくれます。添え字が配列長よりも大きければ、言語は*パニック*します。
-パニックとは、プログラムがエラーで終了したことを表すRust用語です。
+パニックとは、プログラムがエラーで終了したことを表す Rust 用語です。
 
 <!--
 This is the first example of Rust’s safety principles in action. In many
@@ -666,7 +666,7 @@ kind of error by immediately exiting instead of allowing the memory access and
 continuing. Chapter 9 discusses more of Rust’s error handling.
 -->
 
-これは、実際に稼働しているRustの安全機構の最初の例になります。低レベル言語の多くでは、
+これは、実際に稼働している Rust の安全機構の最初の例になります。低レベル言語の多くでは、
 この種のチェックは行われないため、間違った添え字を与えると、無効なメモリにアクセスできてしまいます。
-Rustでは、メモリアクセスを許可し、処理を継続する代わりに即座にプログラムを終了することで、
-この種のエラーからプログラマを保護しています。Rustのエラー処理については、第9章でもっと議論します。
+Rust では、メモリアクセスを許可し、処理を継続する代わりに即座にプログラムを終了することで、
+この種のエラーからプログラマを保護しています。Rust のエラー処理については、第 9 章でもっと議論します。

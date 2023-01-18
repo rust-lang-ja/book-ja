@@ -11,7 +11,7 @@ of *procedural* macros:
 -->
 本全体を通じて`println!`のようなマクロを使用してきましたが、マクロがなんなのかや、
 どう動いているのかということは完全には探究していませんでした。
-Rustにおいて、*マクロ*という用語はある機能の集合のことを指します：`macro_rules!`を使った *宣言的 (declarative)* マクロと、3種類の *手続き的 (procedural)* マクロ：
+Rust において、*マクロ*という用語はある機能の集合のことを指します：`macro_rules!`を使った *宣言的 (declarative)* マクロと、3 種類の *手続き的 (procedural)* マクロ：
 
 <!--
 * Custom `#[derive]` macros that specify code added with the `derive` attribute
@@ -20,7 +20,7 @@ Rustにおいて、*マクロ*という用語はある機能の集合のこと�
 * Function-like macros that look like function calls but operate on the tokens
   specified as their argument
 -->
-* 構造体とenumに`derive`属性を使ったときに追加されるコードを指定する、カスタムの`#[derive]`マクロ
+* 構造体と enum に`derive`属性を使ったときに追加されるコードを指定する、カスタムの`#[derive]`マクロ
 * 任意の要素に使えるカスタムの属性を定義する、属性風のマクロ
 * 関数のように見えるが、引数として指定されたトークンに対して作用する関数風のマクロ
 
@@ -47,7 +47,7 @@ macros *expand* to produce more code than the code you’ve written manually.
 -->
 
 基本的に、マクロは、他のコードを記述するコードを書く術であり、これは*メタプログラミング*として知られています。
-付録Cで、`derive`属性を議論し、これは、色々なトレイトの実装を生成してくれるのでした。
+付録 C で、`derive`属性を議論し、これは、色々なトレイトの実装を生成してくれるのでした。
 また、本を通して`println!`や`vec!`マクロを使用してきました。これらのマクロは全て、*展開*され、
 手で書いたよりも多くのコードを生成します。
 
@@ -70,8 +70,8 @@ example, implement a trait on a given type. A function can’t, because it gets
 called at runtime and a trait needs to be implemented at compile time.
 -->
 
-関数シグニチャは、関数の引数の数と型を宣言しなければなりません。一方、マクロは可変長の引数を取れます:
-`println!("hello")`のように1引数で呼んだり、`println!("hello {}", name)`のように2引数で呼んだりできるのです。
+関数シグニチャは、関数の引数の数と型を宣言しなければなりません。一方、マクロは可変長の引数を取れます：
+`println!("hello")`のように 1 引数で呼んだり、`println!("hello {}", name)`のように 2 引数で呼んだりできるのです。
 また、マクロは、コンパイラがコードの意味を解釈する前に展開されるので、例えば、
 与えられた型にトレイトを実装できます。関数ではできません。何故なら、関数は実行時に呼ばれ、
 トレイトはコンパイル時に実装される必要があるからです。
@@ -84,7 +84,7 @@ generally more difficult to read, understand, and maintain than function
 definitions.
 -->
 
-関数ではなくマクロを実装する欠点は、Rustコードを記述するRustコードを書いているので、
+関数ではなくマクロを実装する欠点は、Rust コードを記述する Rust コードを書いているので、
 関数定義よりもマクロ定義は複雑になることです。この間接性のために、マクロ定義は一般的に、
 関数定義よりも、読みにくく、わかりにくく、管理しづらいです。
 
@@ -94,7 +94,7 @@ define macros or bring them into scope *before* you call them in a file, as
 opposed to functions you can define anywhere and call anywhere.
 -->
 
-マクロと関数にはもう一つ、重要な違いがあります: ファイル内で呼び出す*前*にマクロは定義したりスコープに導入しなければなりませんが、
+マクロと関数にはもう一つ、重要な違いがあります：ファイル内で呼び出す*前*にマクロは定義したりスコープに導入しなければなりませんが、
 一方で関数はどこにでも定義でき、どこでも呼び出せます。
 
 <!--
@@ -118,12 +118,12 @@ matched, replaces the code passed to the macro. This all happens during
 compilation.
 -->
 
-Rustにおいて、最もよく使用される形態のマクロは、*宣言的マクロ*です。これらは時として、
+Rust において、最もよく使用される形態のマクロは、*宣言的マクロ*です。これらは時として、
 *例によるマクロ*、*`macro_rules!`マクロ*、あるいはただ単に*マクロ*とも称されます。
-核となるのは、宣言的マクロは、Rustの`match`式に似た何かを書けるということです。第6章で議論したように、
+核となるのは、宣言的マクロは、Rust の`match`式に似た何かを書けるということです。第 6 章で議論したように、
 `match`式は、式を取り、式の結果の値をパターンと比較し、それからマッチしたパターンに紐づいたコードを実行する制御構造です。
 マクロも、あるコードと紐付けられたパターンと値を比較します。ここで、値とは
-マクロに渡されたリテラルのRustのソースコードそのもののこと。パターンがそのソースコードの構造と比較されます。
+マクロに渡されたリテラルの Rust のソースコードそのもののこと。パターンがそのソースコードの構造と比較されます。
 各パターンに紐づいたコードは、それがマッチしたときに、マクロに渡されたコードを置き換えます。これは全て、コンパイル時に起きます。
 
 <!--
@@ -136,7 +136,7 @@ integers:
 
 マクロを定義するには、`macro_rules!`構文を使用します。`vec!`マクロが定義されている方法を見て、
 `macro_rules!`を使用する方法を探究しましょう。`vec!`マクロを使用して特定の値で新しいベクタを生成する方法は、
-第8章で講義しました。例えば、以下のマクロは、3つの整数を持つ新しいベクタを生成します:
+第 8 章で講義しました。例えば、以下のマクロは、3 つの整数を持つ新しいベクタを生成します：
 
 ```rust
 let v: Vec<u32> = vec![1, 2, 3];
@@ -147,18 +147,18 @@ We could also use the `vec!` macro to make a vector of two integers or a vector
 of five string slices. We wouldn’t be able to use a function to do the same
 because we wouldn’t know the number or type of values up front.
 -->
-また、`vec!`マクロを使用して2整数のベクタや、5つの文字列スライスのベクタなども生成できます。
+また、`vec!`マクロを使用して 2 整数のベクタや、5 つの文字列スライスのベクタなども生成できます。
 同じことを関数を使って行うことはできません。予め、値の数や型がわかっていないからです。
 
 <!--
 Listing 19-28 shows a slightly simplified definition of the `vec!` macro.
 -->
-リスト19-28で<ruby>些<rp>(</rp><rt>いささ</rt><rp>)</rp></ruby>か簡略化された`vec!`マクロの定義を見かけましょう。
+リスト 19-28 で<ruby>些<rp>(</rp><rt>いささ</rt><rp>)</rp></ruby>か簡略化された`vec!`マクロの定義を見かけましょう。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-28/src/lib.rs}}
@@ -169,7 +169,7 @@ Listing 19-28 shows a slightly simplified definition of the `vec!` macro.
 definition</span>
 -->
 
-<span class="caption">リスト19-28: `vec!`マクロ定義の簡略化されたバージョン</span>
+<span class="caption">リスト 19-28: `vec!`マクロ定義の簡略化されたバージョン</span>
 
 <!--
 > Note: The actual definition of the `vec!` macro in the standard library
@@ -208,10 +208,10 @@ other pattern will result in an error. More complex macros will have more than
 one arm.
 -->
 
-`vec!`本体の構造は、`match`式の構造に類似しています。ここではパターン`( $( $x:expr ),* )`の1つのアーム、
+`vec!`本体の構造は、`match`式の構造に類似しています。ここではパターン`( $( $x:expr ),* )`の 1 つのアーム、
 `=>`とこのパターンに紐づくコードのブロックが続きます。パターンが合致すれば、紐づいたコードのブロックが発されます。
 これがこのマクロの唯一のパターンであることを踏まえると、合致する合法的な方法は一つしかありません;
-それ以外は、全部エラーになるでしょう。より複雑なマクロには、2つ以上のアームがあるでしょう。
+それ以外は、全部エラーになるでしょう。より複雑なマクロには、2 つ以上のアームがあるでしょう。
 
 <!--
 Valid pattern syntax in macro definitions is different than the pattern syntax
@@ -220,8 +220,8 @@ structure rather than values. Let’s walk through what the pattern pieces in
 Listing 19-28 mean; for the full macro pattern syntax, see [the reference].
 -->
 
-マクロ定義で合法なパターン記法は、第18章で講義したパターン記法とは異なります。というのも、
-マクロのパターンは値ではなく、Rustコードの構造に対してマッチされるからです。リスト19-28のパターンの部品がどんな意味か見ていきましょう;
+マクロ定義で合法なパターン記法は、第 18 章で講義したパターン記法とは異なります。というのも、
+マクロのパターンは値ではなく、Rust コードの構造に対してマッチされるからです。リスト 19-28 のパターンの部品がどんな意味か見ていきましょう;
 マクロパターン記法全ては[参考文献]をご覧ください。
 
 <!--
@@ -238,9 +238,9 @@ pattern within the parentheses for use in the replacement code. Within `$()` is
 `$x`.
 -->
 
-まず、1組のカッコがパターン全体を囲んでいます。次にドル記号(`$`)、そして1組のカッコが続き、
+まず、1 組のカッコがパターン全体を囲んでいます。次にドル記号 (`$`)、そして 1 組のカッコが続き、
 このかっこは、置き換えるコードで使用するためにかっこ内でパターンにマッチする値をキャプチャします。
-`$()`の内部には、`$x:expr`があり、これは任意のRust式にマッチし、その式に`$x`という名前を与えます。
+`$()`の内部には、`$x:expr`があり、これは任意の Rust 式にマッチし、その式に`$x`という名前を与えます。
 
 <!--
 The comma following `$()` indicates that a literal comma separator character
@@ -249,14 +249,14 @@ specifies that the pattern matches zero or more of whatever precedes the `*`.
 -->
 
 `$()`に続くカンマは、`$()`にキャプチャされるコードにマッチするコードの後に、区別を意味するリテラルのカンマ文字が現れるという選択肢もあることを示唆しています。
-`*`は、パターンが`*`の前にあるもの0個以上にマッチすることを指定しています。
+`*`は、パターンが`*`の前にあるもの 0 個以上にマッチすることを指定しています。
 
 <!--
 When we call this macro with `vec![1, 2, 3];`, the `$x` pattern matches three
 times with the three expressions `1`, `2`, and `3`.
 -->
 
-このマクロを`vec![1, 2, 3];`と呼び出すと、`$x`パターンは、3つの式`1`、`2`、`3`で3回マッチします。
+このマクロを`vec![1, 2, 3];`と呼び出すと、`$x`パターンは、3 つの式`1`、`2`、`3`で 3 回マッチします。
 
 <!--
 Now let’s look at the pattern in the body of the code associated with this arm:
@@ -267,10 +267,10 @@ macro with `vec![1, 2, 3];`, the code generated that replaces this macro call
 will be the following:
 -->
 
-さて、このアームに紐づくコードの本体のパターンに目を向けましょう: `$()*`部分内部の`temp_vec.push()`コードは、
-パターンがマッチした回数に応じて0回以上パターン内で`$()`にマッチする箇所ごとに生成されます。
+さて、このアームに紐づくコードの本体のパターンに目を向けましょう：`$()*`部分内部の`temp_vec.push()`コードは、
+パターンがマッチした回数に応じて 0 回以上パターン内で`$()`にマッチする箇所ごとに生成されます。
 `$x`はマッチした式それぞれに置き換えられます。このマクロを`vec![1, 2, 3];`と呼び出すと、
-このマクロ呼び出しを置き換え、生成されるコードは以下のようになるでしょう:
+このマクロ呼び出しを置き換え、生成されるコードは以下のようになるでしょう：
 
 ```rust,ignore
 {
@@ -300,9 +300,9 @@ the online documentation or other resources, such as [“The Little Book of Rust
 Macros”][tlborm].
 -->
 `macro_rules!`には、いくつかの奇妙なコーナーケースがあります。
-将来、Rustには別種の宣言的マクロが登場する予定です。これは、同じように働くけれども、それらのコーナーケースのうちいくらかを修正します。
+将来、Rust には別種の宣言的マクロが登場する予定です。これは、同じように働くけれども、それらのコーナーケースのうちいくらかを修正します。
 そのアップデート以降、`macro_rules!`は事実上非推奨 (deprecated) となる予定です。
-この事実と、ほとんどのRustプログラマーはマクロを*書く*よりも*使う*ことが多いということを考えて、`macro_rules!`についてはこれ以上語らないことにします。
+この事実と、ほとんどの Rust プログラマーはマクロを*書く*よりも*使う*ことが多いということを考えて、`macro_rules!`についてはこれ以上語らないことにします。
 もしマクロの書き方についてもっと知りたければ、オンラインのドキュメントや、[“The Little Book of Rust Macros”][tlborm]のようなその他のリソースを参照してください。
 
 [tlborm]: https://danielkeep.github.io/tlborm/book/index.html
@@ -319,7 +319,7 @@ operate on that code, and produce some code as an output rather than matching
 against patterns and replacing the code with other code as declarative macros
 do.
 -->
-2つ目のマクロの形は、*手続き的マクロ*と呼ばれ、より関数のように働きます（そして一種の手続きです）。
+2 つ目のマクロの形は、*手続き的マクロ*と呼ばれ、より関数のように働きます（そして一種の手続きです）。
 宣言的マクロがパターンマッチングを行い、マッチしたコードを他のコードで置き換えていたのとは違い、
 手続き的マクロは、コードを入力として受け取り、そのコードに対して作用し、出力としてコードを生成します。
 
@@ -327,7 +327,7 @@ do.
 The three kinds of procedural macros (custom derive, attribute-like, and
 function-like) all work in a similar fashion.
 -->
-3種の手続き的マクロ (カスタムのderiveマクロ, 属性風マクロ、関数風マクロ)はみな同じような挙動をします。
+3 種の手続き的マクロ (カスタムの derive マクロ，属性風マクロ、関数風マクロ) はみな同じような挙動をします。
 
 
 <!--
@@ -339,12 +339,12 @@ macro.
 -->
 手続き的マクロを作る際は、その定義はそれ専用の特殊なクレート内に置かれる必要があります。
 これは複雑な技術的理由によるものであり、将来的には解消したいです。
-手続き的マクロを使うとListing 19-29のコードのようになります。`some_attribute`がそのマクロを使うためのプレースホールダーです。
+手続き的マクロを使うと Listing 19-29 のコードのようになります。`some_attribute`がそのマクロを使うためのプレースホールダーです。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 use proc_macro;
@@ -372,7 +372,7 @@ multiple kinds of procedural macros in the same crate.
 -->
 
 手続き的マクロを定義する関数は`TokenStream`を入力として受け取り、`TokenStream`を出力として生成します。
-`TokenStream`型はRustに内蔵されている`proc_macro`クレートで定義されており、トークンの列を表します。
+`TokenStream`型は Rust に内蔵されている`proc_macro`クレートで定義されており、トークンの列を表します。
 ここがマクロの一番重要なところなのですが、マクロが作用するソースコードは、入力の`TokenStream`へと変換され、マクロが生成するコードが出力の`TokenStream`なのです。
 この関数には属性もつけられていますが、これはどの種類の手続き的マクロを作っているのかを指定します。
 同じクレート内に複数の種類の手続き的マクロを持つことも可能です。
@@ -382,7 +382,7 @@ Let’s look at the different kinds of procedural macros. We’ll start with a
 custom derive macro and then explain the small dissimilarities that make the
 other forms different.
 -->
-様々な種類の手続き的マクロを見てみましょう。カスタムのderiveマクロから始めて、そのあと他の種類との小さな相違点を説明します。
+様々な種類の手続き的マクロを見てみましょう。カスタムの derive マクロから始めて、そのあと他の種類との小さな相違点を説明します。
 
 <!--
 ### How to Write a Custom `derive` Macro
@@ -402,17 +402,17 @@ programmer to write code like Listing 19-30 using our crate.
 -->
 
 `hello_macro`という名前のクレートを作成してみましょう。
-このクレートは、`hello_macro`という関連関数が1つある`HelloMacro`というトレイトを定義します。
+このクレートは、`hello_macro`という関連関数が 1 つある`HelloMacro`というトレイトを定義します。
 クレートの使用者に使用者の型に`HelloMacro`トレイトを実装することを強制するのではなく、
 使用者が型を`#[derive(HelloMacro)]`で注釈して`hello_macro`関数の既定の実装を得られるように、
-手続き的マクロを提供します。既定の実装は、`Hello, Macro! My name is TypeName!`(`訳注`: こんにちは、マクロ！僕の名前はTypeNameだよ！)と出力し、
+手続き的マクロを提供します。既定の実装は、`Hello, Macro! My name is TypeName!`(`訳注`: こんにちは、マクロ！僕の名前は TypeName だよ！) と出力し、
 ここで`TypeName`はこのトレイトが定義されている型の名前です。言い換えると、他のプログラマに我々のクレートを使用して、
-リスト19-30のようなコードを書けるようにするクレートを記述します。
+リスト 19-30 のようなコードを書けるようにするクレートを記述します。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-30/src/main.rs}}
@@ -423,14 +423,14 @@ programmer to write code like Listing 19-30 using our crate.
 to write when using our procedural macro</span>
 -->
 
-<span class="caption">リスト19-30: 我々の手続き的マクロを使用した時にクレートの使用者が書けるようになるコード</span>
+<span class="caption">リスト 19-30: 我々の手続き的マクロを使用した時にクレートの使用者が書けるようになるコード</span>
 
 <!--
 This code will print `Hello, Macro! My name is Pancakes!` when we’re done. The
 first step is to make a new library crate, like this:
 -->
-このコードは完成したら、`Hello, Macro! My name is Pancakes!`(`Pancakes`: ホットケーキ)と出力します。最初の手順は、
-新しいライブラリクレートを作成することです。このように:
+このコードは完成したら、`Hello, Macro! My name is Pancakes!`(`Pancakes`: ホットケーキ) と出力します。最初の手順は、
+新しいライブラリクレートを作成することです。このように：
 
 ```console
 $ cargo new hello_macro --lib
@@ -440,13 +440,13 @@ $ cargo new hello_macro --lib
 Next, we’ll define the `HelloMacro` trait and its associated function:
 -->
 
-次に`HelloMacro`トレイトと関連関数を定義します:
+次に`HelloMacro`トレイトと関連関数を定義します：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch19-advanced-features/no-listing-20-impl-hellomacro-for-pancakes/hello_macro/src/lib.rs}}
@@ -480,13 +480,13 @@ on: Rust doesn’t have reflection capabilities, so it can’t look up the type�
 name at runtime. We need a macro to generate code at compile time.
 -->
 
-さらに、まだ`hello_macro`関数にトレイトが実装されている型の名前を出力する既定の実装を提供することはできません:
-Rustにはリフレクションの能力がないので、型の名前を実行時に検索することができないのです。
+さらに、まだ`hello_macro`関数にトレイトが実装されている型の名前を出力する既定の実装を提供することはできません：
+Rust にはリフレクションの能力がないので、型の名前を実行時に検索することができないのです。
 コンパイル時にコード生成するマクロが必要です。
 
-> 注釈: リフレクションとは、実行時に型名や関数の中身などを取得する機能のことです。
+> 注釈：リフレクションとは、実行時に型名や関数の中身などを取得する機能のことです。
 > 言語によって提供されていたりいなかったりしますが、実行時にメタデータがないと取得できないので、
-> RustやC++のようなアセンブリコードに翻訳され、パフォーマンスを要求される高級言語では、提供されないのが一般的と思われます。
+> Rust や C++のようなアセンブリコードに翻訳され、パフォーマンスを要求される高級言語では、提供されないのが一般的と思われます。
 
 <!--
 The next step is to define the procedural macro. At the time of this writing,
@@ -499,9 +499,9 @@ our `hello_macro` project:
 
 次の手順は、手続き的マクロを定義することです。これを執筆している時点では、手続き的マクロは、
 独自のクレートに存在する必要があります。最終的には、この制限は持ち上げられる可能性があります。
-クレートとマクロクレートを構成する慣習は以下の通りです: `foo`というクレートに対して、
-カスタムのderive手続き的マクロクレートは`foo_derive`と呼ばれます。`hello_macro`プロジェクト内に、
-`hello_macro_derive`と呼ばれる新しいクレートを開始しましょう:
+クレートとマクロクレートを構成する慣習は以下の通りです：`foo`というクレートに対して、
+カスタムの derive 手続き的マクロクレートは`foo_derive`と呼ばれます。`hello_macro`プロジェクト内に、
+`hello_macro_derive`と呼ばれる新しいクレートを開始しましょう：
 
 ```console
 $ cargo new hello_macro_derive --lib
@@ -520,9 +520,9 @@ possible for programmers to use `hello_macro` even if they don’t want the
 `derive` functionality.
 -->
 
-2つのクレートは緊密に関係しているので、`hello_macro`クレートのディレクトリ内に手続き的マクロクレートを作成しています。
+2 つのクレートは緊密に関係しているので、`hello_macro`クレートのディレクトリ内に手続き的マクロクレートを作成しています。
 `hello_macro`のトレイト定義を変更したら、`hello_macro_derive`の手続き的マクロの実装も変更しなければならないでしょう。
-2つのクレートは個別に公開される必要があり、これらのクレートを使用するプログラマは、
+2 つのクレートは個別に公開される必要があり、これらのクレートを使用するプログラマは、
 両方を依存に追加し、スコープに導入する必要があるでしょう。`hello_macro`クレートに依存として、
 `hello_macro_derive`を使用させ、手続き的マクロのコードを再エクスポートすることもできるかもしれませんが、
 このようなプロジェクトの構造にすることで、プログラマが`derive`機能を使用したくなくても、`hello_macro`を使用することが可能になります。
@@ -536,13 +536,13 @@ in a moment, so we need to add them as dependencies. Add the following to the
 
 `hello_macro_derive`クレートを手続き的マクロクレートとして宣言する必要があります。
 また、すぐにわかるように、`syn`と`quote`クレートの機能も必要になるので、依存として追加する必要があります。
-以下を`hello_macro_derive`の*Cargo.toml*ファイルに追加してください:
+以下を`hello_macro_derive`の*Cargo.toml*ファイルに追加してください：
 
 <!--
 <span class="filename">Filename: hello_macro_derive/Cargo.toml</span>
 -->
 
-<span class="filename">ファイル名: hello_macro_derive/Cargo.toml</span>
+<span class="filename">ファイル名：hello_macro_derive/Cargo.toml</span>
 
 ```toml
 {{#include ../listings/ch19-advanced-features/listing-19-31/hello_macro/hello_macro_derive/Cargo.toml:7:12}}
@@ -554,13 +554,13 @@ your *src/lib.rs* file for the `hello_macro_derive` crate. Note that this code
 won’t compile until we add a definition for the `impl_hello_macro` function.
 -->
 
-手続き的マクロの定義を開始するために、`hello_macro_derive`クレートの*src/lib.rs*ファイルにリスト19-31のコードを配置してください。
+手続き的マクロの定義を開始するために、`hello_macro_derive`クレートの*src/lib.rs*ファイルにリスト 19-31 のコードを配置してください。
 `impl_hello_macro`関数の定義を追加するまでこのコードはコンパイルできないことに注意してください。
 
 <!--
 <span class="filename">Filename: hello_macro_derive/src/lib.rs</span>
 -->
-<span class="filename">ファイル名: hello_macro_derive/src/lib.rs</span>
+<span class="filename">ファイル名：hello_macro_derive/src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-31/hello_macro/hello_macro_derive/src/lib.rs}}
@@ -571,7 +571,7 @@ won’t compile until we add a definition for the `impl_hello_macro` function.
 will require in order to process Rust code</span>
 -->
 
-<span class="caption">リスト19-31: Rustコードを処理するためにほとんどの手続き的マクロクレートに必要になるコード</span>
+<span class="caption">リスト 19-31: Rust コードを処理するためにほとんどの手続き的マクロクレートに必要になるコード</span>
 
 <!--
 Notice that we’ve split the code into the `hello_macro_derive` function, which
@@ -595,8 +595,8 @@ dependencies in *Cargo.toml*. The `proc_macro` crate is the compiler’s API tha
 allows us to read and manipulate Rust code from our code.
 -->
 
-3つの新しいクレートを導入しました: `proc_macro`、[`syn`]、[`quote`]です。`proc_macro`クレートは、
-Rustに付随してくるので、*Cargo.toml*の依存に追加する必要はありませんでした。`proc_macro`クレートはコンパイラのAPIで、私達のコードからRustのコードを読んだり操作したりすることを可能にします。
+3 つの新しいクレートを導入しました：`proc_macro`、[`syn`]、[`quote`]です。`proc_macro`クレートは、
+Rust に付随してくるので、*Cargo.toml*の依存に追加する必要はありませんでした。`proc_macro`クレートはコンパイラの API で、私達のコードから Rust のコードを読んだり操作したりすることを可能にします。
 
 [`syn`]: https://crates.io/crates/syn
 [`quote`]: https://crates.io/crates/quote
@@ -608,10 +608,10 @@ into Rust code. These crates make it much simpler to parse any sort of Rust
 code we might want to handle: writing a full parser for Rust code is no simple
 task.
 -->
-`syn`クレートは、文字列からRustコードを構文解析し、
-処理を行えるデータ構造にします。`quote`クレートは、`syn`データ構造を取り、Rustコードに変換し直します。
-これらのクレートにより、扱いたい可能性のあるあらゆる種類のRustコードを構文解析するのがはるかに単純になります:
-Rustコードの完全なパーサを書くのは、単純な作業ではないのです。
+`syn`クレートは、文字列から Rust コードを構文解析し、
+処理を行えるデータ構造にします。`quote`クレートは、`syn`データ構造を取り、Rust コードに変換し直します。
+これらのクレートにより、扱いたい可能性のあるあらゆる種類の Rust コードを構文解析するのがはるかに単純になります：
+Rust コードの完全なパーサを書くのは、単純な作業ではないのです。
 
 <!--
 The `hello_macro_derive` function will be called when a user of our library
@@ -635,8 +635,8 @@ struct we get from parsing the `struct Pancakes;` string:
 
 この関数はまず、`TokenStream`からの`input`をデータ構造に変換し、解釈したり操作したりできるようにします。
 ここで`syn`が登場します。
-`syn`の`parse`関数は`TokenStream`を受け取り、パースされたRustのコードを表現する`DeriveInput`構造体を返します。
-Listing 19-32は`struct Pancakes;`という文字列をパースすることで得られる`DeriveInput`構造体の関係ある部分を表しています。
+`syn`の`parse`関数は`TokenStream`を受け取り、パースされた Rust のコードを表現する`DeriveInput`構造体を返します。
+Listing 19-32 は`struct Pancakes;`という文字列をパースすることで得られる`DeriveInput`構造体の関係ある部分を表しています。
 
 ```rust,ignore
 DeriveInput {
@@ -662,7 +662,7 @@ DeriveInput {
 <span class="caption">Listing 19-32: The `DeriveInput` instance we get when
 parsing the code that has the macro’s attribute in Listing 19-30</span>
 -->
-<span class="caption">Listing 19-32: このマクロを使った属性を持つListing 19-30のコードをパースしたときに得られる`DeriveInput`インスタンス</span>
+<span class="caption">Listing 19-32: このマクロを使った属性を持つ Listing 19-30 のコードをパースしたときに得られる`DeriveInput`インスタンス</span>
 
 <!--
 The fields of this struct show that the Rust code we’ve parsed is a unit struct
@@ -673,8 +673,8 @@ documentation for `DeriveInput`][syn-docs] for more information.
 
 [syn-docs]: https://docs.rs/syn/1.0/syn/struct.DeriveInput.html
 
-この構造体のフィールドは、構文解析したRustコードが`Pancakes`という`ident`(識別子、つまり名前)のユニット構造体であることを示しています。
-この構造体にはRustコードのあらゆる部分を記述するフィールドがもっと多くあります;
+この構造体のフィールドは、構文解析した Rust コードが`Pancakes`という`ident`(識別子、つまり名前) のユニット構造体であることを示しています。
+この構造体には Rust コードのあらゆる部分を記述するフィールドがもっと多くあります;
 [`DeriveInput`の`syn`ドキュメンテーション][syn-docs]で詳細を確認してください。
 
 
@@ -687,8 +687,8 @@ they’ll get the extra functionality that we provide in the modified
 `TokenStream`.
 -->
 
-まもなく`impl_hello_macro`関数を定義し、そこにインクルードしたい新しいRustコードを構築します。
-でもその前に、私達のderiveマクロのための出力もまた`TokenStream`であることに注目してください。
+まもなく`impl_hello_macro`関数を定義し、そこにインクルードしたい新しい Rust コードを構築します。
+でもその前に、私達の derive マクロのための出力もまた`TokenStream`であることに注目してください。
 返された`TokenStream`をクレートの使用者が書いたコードに追加しているので、クレートをコンパイルすると、
 我々が修正した`TokenStream`で提供している追加の機能を得られます。
 
@@ -704,7 +704,7 @@ about what went wrong by using `panic!` or `expect`.
 
 ここで、`unwrap`を呼び出すことで、`syn::parse`関数が失敗したときに`hello_macro_derive`関数をパニックさせていることにお気付きかもしれません。
 エラー時にパニックするのは、手続き的マクロコードでは必要なことです。何故なら、
-`proc_macro_derive`関数は、手続き的マクロのAPIに従うために、`Result`ではなく
+`proc_macro_derive`関数は、手続き的マクロの API に従うために、`Result`ではなく
 `TokenStream`を返さなければならないからです。この例については、`unwrap`を使用して簡略化することを選択しました;
 プロダクションコードでは、`panic!`か`expect`を使用して何が間違っていたのかより具体的なエラーメッセージを提供すべきです。
 
@@ -714,14 +714,14 @@ into a `DeriveInput` instance, let’s generate the code that implements the
 `HelloMacro` trait on the annotated type, as shown in Listing 19-33.
 -->
 
-今や、`TokenStream`からの注釈されたRustコードを`DeriveInput`インスタンスに変換するコードができたので、
-Listing 19-33のように、注釈された型に`HelloMacro`トレイトを実装するコードを生成しましょう:
+今や、`TokenStream`からの注釈された Rust コードを`DeriveInput`インスタンスに変換するコードができたので、
+Listing 19-33 のように、注釈された型に`HelloMacro`トレイトを実装するコードを生成しましょう：
 
 <!--
 <span class="filename">Filename: hello_macro_derive/src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: hello_macro_derive/src/lib.rs</span>
+<span class="filename">ファイル名：hello_macro_derive/src/lib.rs</span>
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-33/hello_macro/hello_macro_derive/src/lib.rs:here}}
@@ -731,7 +731,7 @@ Listing 19-33のように、注釈された型に`HelloMacro`トレイトを実�
 <span class="caption">Listing 19-33: Implementing the `HelloMacro` trait using
 the parsed Rust code</span>
 -->
-<span class="caption">Listing 19-33: パースされたRustコードを用いて`HelloMacro`トレイトを実装する</span>
+<span class="caption">Listing 19-33: パースされた Rust コードを用いて`HelloMacro`トレイトを実装する</span>
 
 <!--
 We get an `Ident` struct instance containing the name (identifier) of the
@@ -743,9 +743,9 @@ that, when printed, will be the string `"Pancakes"`, the name of the struct in
 Listing 19-30.
 -->
 
-`ast.ident`を使って、注釈された型の名前(識別子)を含む`Ident`構造体インスタンスを得ています。
-Listing 19-32の構造体を見ると、`impl_hello_macro`関数をListing 19-30のコードに実行したときに私達の得る`ident`は、フィールド`ident`の値として`"Pancakes"`を持つだろうとわかります。
-従って、Listing 19-33における変数`name`は構造体`Ident`のインスタンスをもちます。このインスタンスは、printされた時は文字列`"Pancakes"`、即ちListing 19-30の構造体の名前となります。
+`ast.ident`を使って、注釈された型の名前 (識別子) を含む`Ident`構造体インスタンスを得ています。
+Listing 19-32 の構造体を見ると、`impl_hello_macro`関数を Listing 19-30 のコードに実行したときに私達の得る`ident`は、フィールド`ident`の値として`"Pancakes"`を持つだろうとわかります。
+従って、Listing 19-33 における変数`name`は構造体`Ident`のインスタンスをもちます。このインスタンスは、print された時は文字列`"Pancakes"`、即ち Listing 19-30 の構造体の名前となります。
 
 <!--
 The `quote!` macro lets us define the Rust code that we want to return. The
@@ -755,7 +755,7 @@ calling the `into` method, which consumes this intermediate representation and
 returns a value of the required `TokenStream` type.
 -->
 
-`quote!`マクロを使うことで、私達が返したいRustコードを定義することができます。
+`quote!`マクロを使うことで、私達が返したい Rust コードを定義することができます。
 ただ、コンパイラが期待しているものは`quote!`マクロの実行結果とはちょっと違うものです。なので、`TokenStream`に変換してやる必要があります。
 マクロの出力する直接表現を受け取り、必要とされている`TokenStream`型の値を返す`into`メソッドを呼ぶことでこれを行います。
 
@@ -768,7 +768,7 @@ Check out [the `quote` crate’s docs][quote-docs] for a thorough introduction.
 
 このマクロはまた、非常にかっこいいテンプレート機構も提供してくれます; `#name`と書くと、`quote!`は
 それを`name`という変数の値と置き換えます。普通のマクロが動作するのと似た繰り返しさえ行えます。
-本格的に入門したいなら、[`quote`クレートのdoc][quote-docs]をご確認ください。
+本格的に入門したいなら、[`quote`クレートの doc][quote-docs]をご確認ください。
 
 [quote-docs]: https://docs.rs/quote
 
@@ -781,8 +781,8 @@ the name of the annotated type.
 -->
 
 手続き的マクロには使用者が注釈した型に対して`HelloMacro`トレイトの実装を生成してほしいですが、
-これは`#name`を使用することで得られます。トレイトの実装には1つの関数`hello_macro`があり、
-この本体に提供したい機能が含まれています: `Hello, Macro! My name is`、そして、注釈した型の名前を出力する機能です。
+これは`#name`を使用することで得られます。トレイトの実装には 1 つの関数`hello_macro`があり、
+この本体に提供したい機能が含まれています：`Hello, Macro! My name is`、そして、注釈した型の名前を出力する機能です。
 
 <!--
 The `stringify!` macro used here is built into Rust. It takes a Rust
@@ -794,7 +794,7 @@ expression to print literally, so we use `stringify!`. Using `stringify!` also
 saves an allocation by converting `#name` to a string literal at compile time.
 -->
 
-ここで使用した`stringify!`マクロは、言語に組み込まれています。`1 + 2`などのようなRustの式を取り、
+ここで使用した`stringify!`マクロは、言語に組み込まれています。`1 + 2`などのような Rust の式を取り、
 コンパイル時に`"1 + 2"`のような文字列リテラルにその式を変換します。
 これは、`format!`や`println!`のような、式を評価し、そしてその結果を`String`に変換するマクロとは異なります。
 `#name`入力が文字通り出力されるべき式という可能性もあるので、`stringify!`を使用しています。
@@ -812,11 +812,11 @@ dependencies; if not, you can specify them as `path` dependencies as follows:
 -->
 
 この時点で、`cargo build`は`hello_macro`と`hello_macro_derive`の両方で成功するはずです。
-これらのクレートをリスト19-30のコードにフックして、手続き的マクロが動くところを確認しましょう！
-`cargo new pancakes`であなたの*プロジェクトの*ディレクトリ（訳注：これまでに作った2つのクレート内ではないということ）に新しいバイナリプロジェクトを作成してください。
+これらのクレートをリスト 19-30 のコードにフックして、手続き的マクロが動くところを確認しましょう！
+`cargo new pancakes`であなたの*プロジェクトの*ディレクトリ（訳注：これまでに作った 2 つのクレート内ではないということ）に新しいバイナリプロジェクトを作成してください。
 `hello_macro`と`hello_macro_derive`を依存として`pancakes`クレートの*Cargo.toml*に追加する必要があります。
 自分のバージョンの`hello_macro`と`hello_macro_derive`を[crates.io](https://crates.io/) に公開しているなら、
-普通の依存になるでしょう; そうでなければ、以下のように`path`依存として指定すればよいです:
+普通の依存になるでしょう; そうでなければ、以下のように`path`依存として指定すればよいです：
 
 ```toml
 {{#include ../listings/ch19-advanced-features/no-listing-21-pancakes/pancakes/Cargo.toml:7:9}}
@@ -830,7 +830,7 @@ should print `Hello, Macro! My name is Pancakes!` The implementation of the
 trait implementation.
 -->
 
-リスト19-30のコードを*src/main.rs*に配置し、`cargo run`を実行してください: `Hello, Macro! My name is Pancakes`と出力するはずです。
+リスト 19-30 のコードを*src/main.rs*に配置し、`cargo run`を実行してください：`Hello, Macro! My name is Pancakes`と出力するはずです。
 手続き的マクロの`HelloMacro`トレイトの実装は、`pancakes`クレートが実装する必要なく、包含されました;
 `#[derive(HelloMacro)]`がトレイトの実装を追加したのです。
 
@@ -838,7 +838,7 @@ trait implementation.
 Next, let’s explore how the other kinds of procedural macros differ from custom
 derive macros.
 -->
-続いて、他の種類の手続き的マクロがカスタムのderiveマクロとどのように異なっているか見てみましょう。
+続いて、他の種類の手続き的マクロがカスタムの derive マクロとどのように異なっているか見てみましょう。
 
 <!--
 ### Attribute-like macros
@@ -853,9 +853,9 @@ enums; attributes can be applied to other items as well, such as functions.
 Here’s an example of using an attribute-like macro: say you have an attribute
 named `route` that annotates functions when using a web application framework:
 -->
-属性風マクロはカスタムのderiveマクロと似ていますが、`derive`属性のためのコードを生成するのではなく、新しい属性を作ることができます。
-また、属性風マクロはよりフレキシブルでもあります：`derive`は構造体とenumにしか使えませんでしたが、属性は関数のような他の要素に対しても使えるのです。
-属性風マクロを使った例を以下に示しています：webアプリケーションフレームワークを使っているときに、`route`という関数につける属性名があるとします：
+属性風マクロはカスタムの derive マクロと似ていますが、`derive`属性のためのコードを生成するのではなく、新しい属性を作ることができます。
+また、属性風マクロはよりフレキシブルでもあります：`derive`は構造体と enum にしか使えませんでしたが、属性は関数のような他の要素に対しても使えるのです。
+属性風マクロを使った例を以下に示しています：web アプリケーションフレームワークを使っているときに、`route`という関数につける属性名があるとします：
 
 ```rust,ignore
 #[route(GET, "/")]
@@ -880,15 +880,15 @@ contents of the attribute: the `GET, "/"` part. The second is the body of the
 item the attribute is attached to: in this case, `fn index() {}` and the rest
 of the function’s body.
 -->
-ここで、2つ`TokenStream`型の引数がありますね。
-1つ目は属性の中身：`GET, "/"`に対応しており、2つ目は属性が付けられた要素の中身に対応しています。今回だと`fn index() {}`と関数の本体の残りですね。
+ここで、2 つ`TokenStream`型の引数がありますね。
+1 つ目は属性の中身：`GET, "/"`に対応しており、2 つ目は属性が付けられた要素の中身に対応しています。今回だと`fn index() {}`と関数の本体の残りですね。
 
 <!--
 Other than that, attribute-like macros work the same way as custom derive
 macros: you create a crate with the `proc-macro` crate type and implement a
 function that generates the code you want!
 -->
-それ以外において、属性風マクロはカスタムのderiveマクロと同じ動きをします：
+それ以外において、属性風マクロはカスタムの derive マクロと同じ動きをします：
 クレートタイプとして`proc-macro`を使ってクレートを作り、あなたのほしいコードを生成してくれる関数を実装すればよいです！
 
 <!--
@@ -913,7 +913,7 @@ macro that might be called like so:
 これらは、`macro_rules!`マクロのように、関数よりフレキシブルです。
 たとえば、これらは任意の数の引数を取ることができます。
 しかし、[一般的なメタプログラミングのために`macro_rules!`で宣言的なマクロ][decl]で話したように、`macro_rules!`マクロはmatch風の構文を使ってのみ定義できたのでした。
-関数風マクロは引数として`TokenStream`をとり、その`TokenStream`を定義に従って操作します。操作には、他の2つの手続き的マクロと同じように、Rustコードが使われます。
+関数風マクロは引数として`TokenStream`をとり、その`TokenStream`を定義に従って操作します。操作には、他の 2 つの手続き的マクロと同じように、Rust コードが使われます。
 例えば、`sql!`マクロという関数風マクロで、以下のように呼び出されるものを考えてみましょう：
 
 [decl]: #%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AA%E3%83%A1%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%9F%E3%82%81%E3%81%ABmacro_rules%E3%81%A7%E5%AE%A3%E8%A8%80%E7%9A%84%E3%81%AA%E3%83%9E%E3%82%AF%E3%83%AD
@@ -927,7 +927,7 @@ This macro would parse the SQL statement inside it and check that it’s
 syntactically correct, which is much more complex processing than a
 `macro_rules!` macro can do. The `sql!` macro would be defined like this:
 -->
-このマクロは、中に入れられたSQL文をパースし、それが構文的に正しいことを確かめます。これは`macro_rules!`マクロが可能とするよりも遥かに複雑な処理です。
+このマクロは、中に入れられた SQL 文をパースし、それが構文的に正しいことを確かめます。これは`macro_rules!`マクロが可能とするよりも遥かに複雑な処理です。
 `sql!`マクロは以下のように定義することができるでしょう：
 
 ```rust,ignore
@@ -940,7 +940,7 @@ This definition is similar to the custom derive macro’s signature: we receive
 the tokens that are inside the parentheses and return the code we wanted to
 generate.
 -->
-この定義はカスタムのderiveマクロのシグネチャと似ています：カッコの中のトークンを受け取り、生成したいコードを返すのです。
+この定義はカスタムの derive マクロのシグネチャと似ています：カッコの中のトークンを受け取り、生成したいコードを返すのです。
 
 <!--
 ## Summary
@@ -956,7 +956,7 @@ these concepts and syntax. Use this chapter as a reference to guide you to
 solutions.
 -->
 ふう！
-あなたがいま手にしたRustの機能はあまり頻繁に使うものではありませんが、非常に特殊な状況ではその存在を思い出すことになるでしょう。
+あなたがいま手にした Rust の機能はあまり頻繁に使うものではありませんが、非常に特殊な状況ではその存在を思い出すことになるでしょう。
 たくさんの難しいトピックを紹介しましたが、これは、もしあなたがエラー時の推奨メッセージや他の人のコードでそれらに遭遇した時、その概念と文法を理解できるようになっていてほしいからです。
 この章を、解決策にたどり着くためのリファレンスとして活用してください。
 

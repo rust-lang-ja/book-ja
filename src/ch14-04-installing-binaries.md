@@ -2,7 +2,7 @@
 ## Installing Binaries from Crates.io with `cargo install`
 -->
 
-## `cargo install`でCrates.ioからバイナリをインストールする
+## `cargo install`で Crates.io からバイナリをインストールする
 
 <!--
 The `cargo install` command allows you to install and use binary crates
@@ -19,7 +19,7 @@ binary target, or both.
 
 `cargo install`コマンドにより、バイナリクレートをローカルにインストールし、使用することができます。
 これは、システムパッケージを置き換えることを意図したものではありません。<ruby>即<rp>(</rp><rt>すなわ</rt><rp>)</rp></ruby>ち、
-Rustの開発者が、他人が[crates.io](https://crates.io)に共有したツールをインストールするのに便利な方法を意味するのです。
+Rust の開発者が、他人が[crates.io](https://crates.io)に共有したツールをインストールするのに便利な方法を意味するのです。
 バイナリターゲットを持つパッケージのみインストールできることに注意してください。バイナリターゲットとは、
 クレートが*src/main.rs*ファイルやバイナリとして指定された他のファイルを持つ場合に生成される実行可能なプログラムのことであり、
 単独では実行不可能なものの、他のプログラムに含むのには適しているライブラリターゲットとは一線を画します。
@@ -34,7 +34,7 @@ directory is in your `$PATH` to be able to run programs you’ve installed with
 -->
 
 `cargo install`でインストールされるバイナリは全て、インストールのルートの*bin*フォルダに保持されます。
-Rustを`rustup`を使用し、独自の設定を何も行なっていなければ、このディレクトリは、*$HOME/.cargo/bin*になります。
+Rust を`rustup`を使用し、独自の設定を何も行なっていなければ、このディレクトリは、*$HOME/.cargo/bin*になります。
 `cargo install`でインストールしたプログラムを実行できるようにするためには、そのディレクトリが`$PATH`に含まれていることを確かめてください。
 
 <!--
@@ -43,8 +43,8 @@ the `grep` tool called `ripgrep` for searching files. If we want to install
 `ripgrep`, we can run the following:
 -->
 
-例えば、第12章で、ファイルを検索する`ripgrep`という`grep`ツールのRust版があることに触れました。
-`ripgrep`をインストールしたかったら、以下を実行することができます:
+例えば、第 12 章で、ファイルを検索する`ripgrep`という`grep`ツールの Rust 版があることに触れました。
+`ripgrep`をインストールしたかったら、以下を実行することができます：
 
 ```text
 $ cargo install ripgrep
@@ -65,4 +65,4 @@ directory is in your `$PATH`, as mentioned previously, you can then run `rg
 
 出力の最後の行が、インストールされたバイナリの位置と名前を示していて、`ripgrep`の場合、`rg`です。
 インストールディレクトリが`$PATH`に存在する限り、前述したように、`rg --help`を走らせて、
-より高速でRustらしいファイル検索ツールを使用し始めることができます！
+より高速で Rust らしいファイル検索ツールを使用し始めることができます！

@@ -14,8 +14,8 @@ that describes how to build those crates.
 -->
 最初に学ぶモジュールシステムの要素は、パッケージとクレートです。
 クレートはバイナリかライブラリのどちらかです。
-*クレートルート (crate root)* とは、Rustコンパイラの開始点となり、クレートのルートモジュールを作るソースファイルのことです（モジュールについて詳しくは[「モジュールを定義して、スコープとプライバシーを制御する」][modules]<!-- ignore -->のセクションで説明します）。
-*パッケージ* はある機能群を提供する1つ以上のクレートです。
+*クレートルート (crate root)* とは、Rust コンパイラの開始点となり、クレートのルートモジュールを作るソースファイルのことです（モジュールについて詳しくは[「モジュールを定義して、スコープとプライバシーを制御する」][modules]<!-- ignore -->のセクションで説明します）。
+*パッケージ* はある機能群を提供する 1 つ以上のクレートです。
 パッケージは *Cargo.toml* という、それらのクレートをどのようにビルドするかを説明するファイルを持っています。
 
 <!--
@@ -25,8 +25,8 @@ as you’d like, but it must contain at least one crate (either library or
 binary).
 -->
 パッケージが何を持ってよいかはいくつかのルールで決まっています。
-パッケージは0個か1個のライブラリクレートを持っていないといけません。それ以上は駄目です。
-バイナリクレートはいくらでも持って良いですが、少なくとも（ライブラリでもバイナリでも良いですが）1つのクレートを持っていないといけません。
+パッケージは 0 個か 1 個のライブラリクレートを持っていないといけません。それ以上は駄目です。
+バイナリクレートはいくらでも持って良いですが、少なくとも（ライブラリでもバイナリでも良いですが）1 つのクレートを持っていないといけません。
 
 <!--
 Let’s walk through what happens when we create a package. First, we enter the
@@ -55,10 +55,10 @@ a library crate with the same name as the package, and *src/lib.rs* is its
 crate root. Cargo passes the crate root files to `rustc` to build the library
 or binary.
 -->
-このコマンドを入力したとき、Cargoは *Cargo.toml* ファイルを作り、パッケージを作ってくれました。
-*Cargo.toml* の中身を見ても、*src/main.rs* については何も書いてありません。これは、Cargoは *src/main.rs* が、パッケージと同じ名前を持つバイナリクレートのクレートルートであるという慣習に従っているためです。
-同じように、Cargoはパッケージディレクトリに *src/lib.rs* が含まれていたら、パッケージにはパッケージと同じ名前のライブラリクレートが含まれており、*src/lib.rs* がそのクレートルートなのだと判断します。
-Cargoはクレートルートファイルを `rustc`に渡し、ライブラリやバイナリをビルドします。
+このコマンドを入力したとき、Cargo は *Cargo.toml* ファイルを作り、パッケージを作ってくれました。
+*Cargo.toml* の中身を見ても、*src/main.rs* については何も書いてありません。これは、Cargo は *src/main.rs* が、パッケージと同じ名前を持つバイナリクレートのクレートルートであるという慣習に従っているためです。
+同じように、Cargo はパッケージディレクトリに *src/lib.rs* が含まれていたら、パッケージにはパッケージと同じ名前のライブラリクレートが含まれており、*src/lib.rs* がそのクレートルートなのだと判断します。
+Cargo はクレートルートファイルを `rustc`に渡し、ライブラリやバイナリをビルドします。
 
 <!--
 Here, we have a package that only contains *src/main.rs*, meaning it only
@@ -68,7 +68,7 @@ name as the package. A package can have multiple binary crates by placing files
 in the *src/bin* directory: each file will be a separate binary crate.
 -->
 今、このパッケージには *src/main.rs* しか含まれておらず、つまりこのパッケージは`my-project`という名前のバイナリクレートのみを持っているということです。
-もしパッケージが *src/main.rs* と *src/lib.rs* を持っていたら、クレートは2つになります：どちらもパッケージと同じ名前を持つ、ライブラリクレートとバイナリクレートです。
+もしパッケージが *src/main.rs* と *src/lib.rs* を持っていたら、クレートは 2 つになります：どちらもパッケージと同じ名前を持つ、ライブラリクレートとバイナリクレートです。
 ファイルを *src/bin* ディレクトリに置くことで、パッケージは複数のバイナリクレートを持つことができます。それぞれのファイルが別々のバイナリクレートになります。
 
 
@@ -82,7 +82,7 @@ functionality provided by the `rand` crate is accessible through the crate’s
 name, `rand`.
 -->
 クレートは、関連した機能を一つのスコープにまとめることで、その機能が複数のプロジェクト間で共有しやすいようにします。
-例えば、[2章][rand]で使った`rand`クレートは、乱数を生成する機能を提供します。
+例えば、[2 章][rand]で使った`rand`クレートは、乱数を生成する機能を提供します。
 `rand`クレートを私達のプロジェクトのスコープに持ち込むことで、この機能を私達のプロジェクトで使うことができます。
 `rand`クレートが提供する機能にはすべて、クレートの名前`rand`を使ってアクセスできます。
 

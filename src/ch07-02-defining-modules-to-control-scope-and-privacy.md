@@ -13,7 +13,7 @@ focus on modules!
 この節では、モジュールと、その他のモジュールシステムの要素
 ――すなわち、要素に名前をつけるための *パス* 、パスをスコープに持ち込む`use`キーワード、要素を公開する`pub`キーワード――
 について学びます。
-また、`as`キーワード、外部パッケージ、glob演算子についても話します。
+また、`as`キーワード、外部パッケージ、glob 演算子についても話します。
 とりあえず、今はモジュールに集中しましょう！
 
 <!--
@@ -56,7 +56,7 @@ Listing 7-1 into *src/lib.rs* to define some modules and function signatures.
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-01/src/lib.rs:here}}
@@ -78,7 +78,7 @@ in Listing 7-1—functions.
 -->
 モジュールは、`mod`キーワードを書き、次にモジュールの名前（今回の場合、`front_of_house`）を指定することで定義されます。
 モジュールの中には、今回だと`hosting`と`serving`のように、他のモジュールをおくこともできます。
-モジュールにはその他の要素の定義も置くことができます。例えば、構造体、enum、定数、トレイト、そして（Listing 7-1のように）関数です。
+モジュールにはその他の要素の定義も置くことができます。例えば、構造体、enum、定数、トレイト、そして（Listing 7-1 のように）関数です。
 
 <!--
 By using modules, we can group related definitions together and name why
@@ -99,12 +99,12 @@ files form a module named `crate` at the root of the crate’s module structure,
 known as the *module tree*.
 -->
 以前、 *src/main.rs* と *src/lib.rs* はクレートルートと呼ばれていると言いました。
-この名前のわけは、 *モジュールツリー* と呼ばれるクレートのモジュール構造の根っこ （ルート）にこれら2つのファイルの中身が`crate`というモジュールを形成するからです。
+この名前のわけは、 *モジュールツリー* と呼ばれるクレートのモジュール構造の根っこ（ルート）にこれら 2 つのファイルの中身が`crate`というモジュールを形成するからです。
 
 <!--
 Listing 7-2 shows the module tree for the structure in Listing 7-1.
 -->
-Listing 7-2は、Listing 7-1の構造のモジュールツリーを示しています。
+Listing 7-2 は、Listing 7-1 の構造のモジュールツリーを示しています。
 
 ```text
 crate
@@ -136,7 +136,7 @@ Notice that the entire module tree is rooted under the implicit module named
 -->
 このツリーを見ると、どのモジュールがどのモジュールの中にネストしているのかがわかります（例えば、`hosting`は`front_of_house`の中にネストしています）。
 また、いくつかのモジュールはお互いに *兄弟* の関係にある、つまり、同じモジュール内で定義されていることもわかります（例えば`hosting`と`serving`は`front_of_house`で定義されています）。
-他にも、家族関係の比喩を使って、モジュールAがモジュールBの中に入っている時、AはBの *子* であるといい、BはAの *親* であるといいます。
+他にも、家族関係の比喩を使って、モジュール A がモジュール B の中に入っている時、A は B の *子* であるといい、B は A の *親* であるといいます。
 モジュールツリー全体が、暗黙のうちに作られた`crate`というモジュールの下にあることにも注目してください。
 
 <!--

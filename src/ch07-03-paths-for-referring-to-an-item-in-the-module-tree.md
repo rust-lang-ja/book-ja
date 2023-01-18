@@ -8,13 +8,13 @@ To show Rust where to find an item in a module tree, we use a path in the same
 way we use a path when navigating a filesystem. If we want to call a function,
 we need to know its path.
 -->
-ファイルシステムの中を移動する時と同じように、Rustにモジュールツリー内の要素を見つけるためにはどこを探せばいいのか教えるためにパスを使います。
+ファイルシステムの中を移動する時と同じように、Rust にモジュールツリー内の要素を見つけるためにはどこを探せばいいのか教えるためにパスを使います。
 関数を呼び出したいなら、そのパスを知っていなければなりません。
 
 <!--
 A path can take two forms:
 -->
-パスは2つの形を取ることができます：
+パスは 2 つの形を取ることができます：
 
 <!--
 * An *absolute path* starts from a crate root by using a crate name or a
@@ -29,7 +29,7 @@ A path can take two forms:
 Both absolute and relative paths are followed by one or more identifiers
 separated by double colons (`::`).
 -->
-絶対パスも相対パスも、その後に一つ以上の識別子がダブルコロン(`::`)で仕切られて続きます。
+絶対パスも相対パスも、その後に一つ以上の識別子がダブルコロン (`::`) で仕切られて続きます。
 
 <!--
 Let’s return to the example in Listing 7-1. How do we call the
@@ -43,19 +43,19 @@ the `pub` Keyword”][pub] section, we’ll go into more detail
 about `pub`. Note that this example won’t compile just yet; we’ll explain why
 in a bit.
 -->
-Listing 7-1の例に戻ってみましょう。
+Listing 7-1 の例に戻ってみましょう。
 `add_to_waitlist`関数をどうやって呼べばいいでしょうか？
 すなわち、`add_to_waitlist`のパスは何でしょうか？
 Listing 7-3 は、モジュールと関数をいくつか取り除いてコードをやや簡潔にしています。
-これを使って、クレートルートに定義された新しい`eat_at_restaurant`という関数から、`add_to_waitlist`関数を呼びだす2つの方法を示しましょう。
-`eat_at_restaurant`関数はこのライブラリクレートの公開 (public) APIの1つなので、`pub`キーワードをつけておきます。
+これを使って、クレートルートに定義された新しい`eat_at_restaurant`という関数から、`add_to_waitlist`関数を呼びだす 2 つの方法を示しましょう。
+`eat_at_restaurant`関数はこのライブラリクレートの公開 (public) API の 1 つなので、`pub`キーワードをつけておきます。
 `pub`については、[パスを`pub`キーワードで公開する][pub]<!-- ignore -->の節でより詳しく学びます。
 この例はまだコンパイルできないことに注意してください。理由はすぐに説明します。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-03/src/lib.rs}}
@@ -95,7 +95,7 @@ filesystem equivalent would be using the path
 `front_of_house/hosting/add_to_waitlist`. Starting with a name means that the
 path is relative.
 -->
-`eat_at_restaurant`で2回目に`add_to_waitlist`関数を呼び出す時、相対パスを使っています。
+`eat_at_restaurant`で 2 回目に`add_to_waitlist`関数を呼び出す時、相対パスを使っています。
 パスは、モジュールツリーにおいて`eat_at_restaurant`と同じ階層で定義されているモジュールである`front_of_house`からスタートします。
 これはファイルシステムで`front_of_house/hosting/add_to_waitlist`というパスを使っているのに相当します。
 名前から始めるのは、パスが相対パスであることを意味します。
@@ -124,7 +124,7 @@ Let’s try to compile Listing 7-3 and find out why it won’t compile yet! The
 error we get is shown in Listing 7-4.
 -->
 では、Listing 7-3 をコンパイルしてみて、どうしてこれはまだコンパイルできないのか考えてみましょう！
-エラーをListing 7-4 に示しています。
+エラーを Listing 7-4 に示しています。
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-03/output.txt}}
@@ -134,7 +134,7 @@ error we get is shown in Listing 7-4.
 <span class="caption">Listing 7-4: Compiler errors from building the code in
 Listing 7-3</span>
 -->
-<span class="caption">Listing 7-4: Listing 7-3のコードをビルドしたときのコンパイルエラー</span>
+<span class="caption">Listing 7-4: Listing 7-3 のコードをビルドしたときのコンパイルエラー</span>
 
 <!--
 The error messages say that module `hosting` is private. In other words, we
@@ -143,7 +143,7 @@ function, but Rust won’t let us use them because it doesn’t have access to t
 private sections.
 -->
 エラーメッセージは、`hosting`は非公開 (private) だ、と言っています。
-言い換えるなら、`hosting`モジュールと`add_to_waitlist`関数へのパスは正しいが、非公開な部分へのアクセスは許可されていないので、Rustがそれを使わせてくれないということです。
+言い換えるなら、`hosting`モジュールと`add_to_waitlist`関数へのパスは正しいが、非公開な部分へのアクセスは許可されていないので、Rust がそれを使わせてくれないということです。
 
 <!--
 Modules aren’t useful only for organizing your code. They also define Rust’s
@@ -152,7 +152,7 @@ external code isn’t allowed to know about, call, or rely on. So, if you want t
 make an item like a function or struct private, you put it in a module.
 -->
 モジュールはコードの整理に役立つだけではありません。
-モジュールはRustの *プライバシー境界* も定義します。これは、外部のコードが知ったり、呼び出したり、依存したりしてはいけない実装の詳細をカプセル化する線引きです。
+モジュールは Rust の *プライバシー境界* も定義します。これは、外部のコードが知ったり、呼び出したり、依存したりしてはいけない実装の詳細をカプセル化する線引きです。
 なので、関数や構造体といった要素を非公開にしたければ、モジュールに入れればよいのです。
 
 <!--
@@ -166,7 +166,7 @@ think of the privacy rules as being like the back office of a restaurant: what
 goes on in there is private to restaurant customers, but office managers can
 see and do everything in the restaurant in which they operate.
 -->
-Rustにおけるプライバシーは、「あらゆる要素（関数、メソッド、構造体、enum、モジュールおよび定数）は標準では非公開」というやり方で動いています。
+Rust におけるプライバシーは、「あらゆる要素（関数、メソッド、構造体、enum、モジュールおよび定数）は標準では非公開」というやり方で動いています。
 親モジュールの要素は子モジュールの非公開要素を使えませんが、子モジュールの要素はその祖先モジュールの要素を使えます。
 これは、子モジュールは実装の詳細を覆い隠しますが、子モジュールは自分の定義された文脈を見ることができるためです。
 レストランの喩えを続けるなら、レストランの後方部門になったつもりでプライバシーのルールを考えてみてください。レストランの顧客にはそこで何が起こっているのかは非公開ですが、そこで働くオフィスマネージャには、レストランのことは何でも見えるし何でもできるのです。
@@ -178,7 +178,7 @@ inner code you can change without breaking outer code. But you can expose inner
 parts of child modules' code to outer ancestor modules by using the `pub`
 keyword to make an item public.
 -->
-Rustは、内部実装の詳細を隠すことが標準であるようにモジュールシステムを機能させることを選択しました。
+Rust は、内部実装の詳細を隠すことが標準であるようにモジュールシステムを機能させることを選択しました。
 こうすることで、内部のコードのどの部分が、外部のコードを壊すことなく変更できるのかを知ることができます。
 しかし、`pub`キーワードを使って要素を公開することで、子モジュールの内部部品を外部の祖先モジュールに見せることができます。
 
@@ -194,13 +194,13 @@ private. We want the `eat_at_restaurant` function in the parent module to have
 access to the `add_to_waitlist` function in the child module, so we mark the
 `hosting` module with the `pub` keyword, as shown in Listing 7-5.
 -->
-Listing 7-4の、`hosting`モジュールが非公開だと言ってきていたエラーに戻りましょう。
-親モジュールの`eat_at_restaurant`関数が子モジュールの`add_to_waitlist`関数にアクセスできるようにしたいので、`hosting`モジュールに`pub`キーワードをつけます。Listing 7-5のようになります。
+Listing 7-4 の、`hosting`モジュールが非公開だと言ってきていたエラーに戻りましょう。
+親モジュールの`eat_at_restaurant`関数が子モジュールの`add_to_waitlist`関数にアクセスできるようにしたいので、`hosting`モジュールに`pub`キーワードをつけます。Listing 7-5 のようになります。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-05/src/lib.rs}}
@@ -216,7 +216,7 @@ use it from `eat_at_restaurant`</span>
 Unfortunately, the code in Listing 7-5 still results in an error, as shown in
 Listing 7-6.
 -->
-残念ながら、Listing 7-5 のコードもListing 7-6 に示されるようにエラーとなります。
+残念ながら、Listing 7-5 のコードも Listing 7-6 に示されるようにエラーとなります。
 
 ```console
 {{#include ../listings/ch07-managing-growing-projects/listing-07-05/output.txt}}
@@ -258,7 +258,7 @@ keyword before its definition, as in Listing 7-7.
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-07/src/lib.rs:here}}
@@ -336,7 +336,7 @@ the path to `serve_order` starting with `super`:
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-08/src/lib.rs:here}}
@@ -368,7 +368,7 @@ gets moved to a different module.
 <!--
 ### Making Structs and Enums Public
 -->
-### 構造体とenumを公開する
+### 構造体と enum を公開する
 
 <!--
 We can also use `pub` to designate structs and enums as public, but there are a
@@ -382,7 +382,7 @@ decides which fruit accompanies the meal based on what’s in season and in
 stock. The available fruit changes quickly, so customers can’t choose the fruit
 or even see which fruit they’ll get.
 -->
-構造体やenumも`pub`を使って公開するよう指定できますが、追加の細目がいくつかあります。
+構造体や enum も`pub`を使って公開するよう指定できますが、追加の細目がいくつかあります。
 構造体定義の前に`pub`を使うと、構造体は公開されますが、構造体のフィールドは非公開のままなのです。
 それぞれのフィールドを公開するか否かを個々に決められます。
 Listing 7-9 では、公開の`toast`フィールドと、非公開の`seasonal_fruit`フィールドをもつ公開の`back_of_house::Breakfast`構造体を定義しました。
@@ -392,7 +392,7 @@ Listing 7-9 では、公開の`toast`フィールドと、非公開の`seasonal_
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-09/src/lib.rs}}
@@ -430,13 +430,13 @@ have such a function, we couldn’t create an instance of `Breakfast` in
 In contrast, if we make an enum public, all of its variants are then public. We
 only need the `pub` before the `enum` keyword, as shown in Listing 7-10.
 -->
-一方で、enumを公開すると、そのヴァリアントはすべて公開されます。
+一方で、enum を公開すると、そのヴァリアントはすべて公開されます。
 Listing 7-10 に示されているように、`pub`は`enum`キーワードの前にだけおけばよいのです。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-10/src/lib.rs}}
@@ -446,7 +446,7 @@ Listing 7-10 に示されているように、`pub`は`enum`キーワードの�
 <span class="caption">Listing 7-10: Designating an enum as public makes all its
 variants public</span>
 -->
-<span class="caption">Listing 7-10: enumを公開に指定することはそのヴァリアントをすべて公開にする</span>
+<span class="caption">Listing 7-10: enum を公開に指定することはそのヴァリアントをすべて公開にする</span>
 
 <!--
 Because we made the `Appetizer` enum public, we can use the `Soup` and `Salad`
@@ -456,8 +456,8 @@ are public; it would be annoying to have to annotate all enum variants with
 are often useful without their fields being public, so struct fields follow the
 general rule of everything being private by default unless annotated with `pub`.
 -->
-`Appetizer`というenumを公開したので、`Soup`と`Salad`というヴァリアントも`eat_at_restaurant`で使えます。
-enumはヴァリアントが公開されてないとあまり便利ではないのですが、毎回enumのすべてのヴァリアントに`pub`をつけるのは面倒なので、enumのヴァリアントは標準で公開されるようになっているのです。
+`Appetizer`という enum を公開したので、`Soup`と`Salad`というヴァリアントも`eat_at_restaurant`で使えます。
+enum はヴァリアントが公開されてないとあまり便利ではないのですが、毎回 enum のすべてのヴァリアントに`pub`をつけるのは面倒なので、enum のヴァリアントは標準で公開されるようになっているのです。
 構造体はフィールドが公開されていなくても便利なことが多いので、構造体のフィールドは、`pub`がついてない限り標準で非公開という通常のルールに従うわけです。
 
 <!--

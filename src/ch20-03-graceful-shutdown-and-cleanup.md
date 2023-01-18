@@ -14,7 +14,7 @@ threads are stopped immediately as well, even if they’re in the middle of
 serving a request.
 -->
 
-リスト20-21のコードは、意図した通り、スレッドプールの使用を通してリクエストに非同期に応答できます。
+リスト 20-21 のコードは、意図した通り、スレッドプールの使用を通してリクエストに非同期に応答できます。
 直接使用していない`workers`、`id`、`thread`フィールドについて警告が出ます。この警告は、現在のコードは何も片付けていないことを思い出させてくれます。
 優美さに欠ける<span class="keystroke">ctrl-c</span>を使用してメインスレッドを停止させる方法を使用すると、
 リクエストの処理中であっても、他のスレッドも停止します。
@@ -29,7 +29,7 @@ accept only two requests before gracefully shutting down its thread pool.
 
 では、閉じる前に取り掛かっているリクエストを完了できるように、プールの各スレッドに対して`join`を呼び出す`Drop`トレイトを実装します。
 そして、スレッドに新しいリクエストの受付を停止し、終了するように教える方法を実装します。
-このコードが動いているのを確かめるために、サーバを変更して正常にスレッドプールを終了する前に2つしかリクエストを受け付けないようにします。
+このコードが動いているのを確かめるために、サーバを変更して正常にスレッドプールを終了する前に 2 つしかリクエストを受け付けないようにします。
 
 <!--
 ### Implementing the `Drop` Trait on `ThreadPool`
@@ -45,14 +45,14 @@ quite work yet.
 -->
 
 スレッドプールに`Drop`を実装するところから始めましょう。プールがドロップされると、
-スレッドは全てjoinして、作業を完了するのを確かめるべきです。リスト20-23は、`Drop`実装の最初の試みを表示しています;
+スレッドは全て join して、作業を完了するのを確かめるべきです。リスト 20-23 は、`Drop`実装の最初の試みを表示しています;
 このコードはまだ完全には動きません。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 impl Drop for ThreadPool {
@@ -72,7 +72,7 @@ impl Drop for ThreadPool {
 goes out of scope</span>
 -->
 
-<span class="caption">リスト20-23: スレッドプールがスコープを抜けた時にスレッドをjoinさせる</span>
+<span class="caption">リスト 20-23: スレッドプールがスコープを抜けた時にスレッドを join させる</span>
 
 <!--
 First, we loop through each of the thread pool `workers`. We use `&mut` for
@@ -86,13 +86,13 @@ into an ungraceful shutdown.
 まず、スレッドプール`workers`それぞれを走査します。`self`は可変参照であり、`worker`を可変化できる必要もあるので、
 これには`&mut`を使用しています。ワーカーそれぞれに対して、特定のワーカーを終了する旨のメッセージを出力し、
 それから`join`をワーカースレッドに対して呼び出しています。`join`の呼び出しが失敗したら、
-`unwrap`を使用してRustをパニックさせ、正常でないシャットダウンに移行します。
+`unwrap`を使用して Rust をパニックさせ、正常でないシャットダウンに移行します。
 
 <!--
 Here is the error we get when we compile this code:
 -->
 
-こちらが、このコードをコンパイルする際に出るエラーです:
+こちらが、このコードをコンパイルする際に出るエラーです：
 
 ```text
 error[E0507]: cannot move out of borrowed content
@@ -117,7 +117,7 @@ thread to run.
 
 各`worker`の可変参照しかなく、`join`は引数の所有権を奪うためにこのエラーは`join`を呼び出せないと教えてくれています。
 この問題を解決するには、`join`がスレッドを消費できるように、`thread`を所有する`Worker`インスタンスからスレッドをムーブする必要があります。
-これをリスト17-15では行いました: `Worker`が代わりに`Option<thread::JoinHandle<()>>`を保持していれば、
+これをリスト 17-15 では行いました：`Worker`が代わりに`Option<thread::JoinHandle<()>>`を保持していれば、
 `Option`に対して`take`メソッドを呼び出し、`Some`列挙子から値をムーブし、その場所に`None`列挙子を残すことができます。
 言い換えれば、実行中の`Worker`には`thread`に`Some`列挙子があり、`Worker`を片付けたい時には、
 ワーカーが実行するスレッドがないように`Some`を`None`で置き換えるのです。
@@ -126,13 +126,13 @@ thread to run.
 So we know we want to update the definition of `Worker` like this:
 -->
 
-従って、`Worker`の定義を以下のように更新したいことがわかります:
+従って、`Worker`の定義を以下のように更新したいことがわかります：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # use std::thread;
@@ -148,7 +148,7 @@ Checking this code, we get two errors:
 -->
 
 さて、コンパイラを頼りにして他に変更する必要がある箇所を探しましょう。このコードをチェックすると、
-2つのエラーが出ます:
+2 つのエラーが出ます：
 
 ```text
 error[E0599]: no method named `join` found for type
@@ -178,14 +178,14 @@ Let’s address the second error, which points to the code at the end of
 new `Worker`. Make the following changes to fix this error:
 -->
 
-2番目のエラーを扱いましょう。これは、`Worker::new`の最後のコードを指しています; 新しい`Worker`を作成する際に、
-`Some`に`thread`の値を包む必要があります。このエラーを修正するために以下の変更を行なってください:
+2 番目のエラーを扱いましょう。これは、`Worker::new`の最後のコードを指しています; 新しい`Worker`を作成する際に、
+`Some`に`thread`の値を包む必要があります。このエラーを修正するために以下の変更を行なってください：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 impl Worker {
@@ -207,13 +207,13 @@ The following changes will do so:
 -->
 
 最初のエラーは`Drop`実装内にあります。先ほど、`Option`値に対して`take`を呼び出し、
-`thread`を`worker`からムーブする意図があることに触れました。以下の変更がそれを行います:
+`thread`を`worker`からムーブする意図があることに触れました。以下の変更がそれを行います：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 impl Drop for ThreadPool {
@@ -237,7 +237,7 @@ thread is already `None`, we know that worker has already had its thread
 cleaned up, so nothing happens in that case.
 -->
 
-第17章で議論したように、`Option`の`take`メソッドは、`Some`列挙子を取り出し、その箇所に`None`を残します。
+第 17 章で議論したように、`Option`の`take`メソッドは、`Some`列挙子を取り出し、その箇所に`None`を残します。
 `if let`を使用して`Some`を分配し、スレッドを得ています; そして、スレッドに対して`join`を呼び出します。
 ワーカーのスレッドが既に`None`なら、ワーカーはスレッドを既に片付け済みであることがわかるので、
 その場合には何も起きません。
@@ -259,7 +259,7 @@ for the first thread to finish.
 -->
 
 これらの変更によって、コードは警告なしでコンパイルできます。ですが悪い知らせは、このコードが期待したようにはまだ機能しないことです。
-鍵は、`Worker`インスタンスのスレッドで実行されるクロージャのロジックです: 現時点で`join`を呼び出していますが、
+鍵は、`Worker`インスタンスのスレッドで実行されるクロージャのロジックです：現時点で`join`を呼び出していますが、
 仕事を求めて永遠に`loop`するので、スレッドを終了しません。現在の`drop`の実装で`ThreadPool`をドロップしようとしたら、
 最初のスレッドが完了するのを待機してメインスレッドは永遠にブロックされるでしょう。
 
@@ -271,13 +271,13 @@ variants.
 -->
 
 この問題を修正するには、スレッドが、実行すべき`Job`か、リッスンをやめて無限ループを抜ける通知をリッスンするように、
-変更します。`Job`インスタンスの代わりに、チャンネルはこれら2つのenum列挙子の一方を送信します。
+変更します。`Job`インスタンスの代わりに、チャンネルはこれら 2 つの enum 列挙子の一方を送信します。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # struct Job;
@@ -293,7 +293,7 @@ thread should run, or it will be a `Terminate` variant that will cause the
 thread to exit its loop and stop.
 -->
 
-この`Message` enumはスレッドが実行すべき`Job`を保持する`NewJob`列挙子か、スレッドをループから抜けさせ、
+この`Message` enum はスレッドが実行すべき`Job`を保持する`NewJob`列挙子か、スレッドをループから抜けさせ、
 停止させる`Terminate`列挙子のどちらかになります。
 
 <!--
@@ -301,13 +301,13 @@ We need to adjust the channel to use values of type `Message` rather than type
 `Job`, as shown in Listing 20-24.
 -->
 
-チャンネルを調整し、型`Job`ではなく、型`Message`を使用するようにする必要があります。リスト20-24のようにですね。
+チャンネルを調整し、型`Job`ではなく、型`Message`を使用するようにする必要があります。リスト 20-24 のようにですね。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 pub struct ThreadPool {
@@ -369,7 +369,7 @@ impl Worker {
 exiting the loop if a `Worker` receives `Message::Terminate`</span>
 -->
 
-<span class="caption">リスト20-24: `Message`値を送受信し、`Worker`が`Message::Terminate`を受け取ったら、ループを抜ける</span>
+<span class="caption">リスト 20-24: `Message`値を送受信し、`Worker`が`Message::Terminate`を受け取ったら、ループを抜ける</span>
 
 <!--
 To incorporate the `Message` enum, we need to change `Job` to `Message` in two
@@ -381,7 +381,7 @@ received, and the thread will break out of the loop if the `Terminate` variant
 is received.
 -->
 
-`Message` enumを具体化するために、2箇所で`Job`を`Message`に変更する必要があります:
+`Message` enum を具体化するために、2 箇所で`Job`を`Message`に変更する必要があります：
 `ThreadPool`の定義と`Worker::new`のシグニチャです。`ThreadPool`の`execute`メソッドは、
 仕事を`Message::NewJob`列挙子に包んで送信する必要があります。それから、
 `Message`がチャンネルから受け取られる`Worker::new`で、`NewJob`列挙子が受け取られたら、
@@ -394,15 +394,15 @@ creating any messages of the `Terminate` variety. Let’s fix this warning by
 changing our `Drop` implementation to look like Listing 20-25.
 -->
 
-これらの変更と共に、コードはコンパイルでき、リスト20-21の後と同じように機能し続けます。ですが、
+これらの変更と共に、コードはコンパイルでき、リスト 20-21 の後と同じように機能し続けます。ですが、
 `Terminate`のメッセージを何も生成していないので、警告が出るでしょう。
-`Drop`実装をリスト20-25のような見た目に変更してこの警告を修正しましょう。
+`Drop`実装をリスト 20-25 のような見た目に変更してこの警告を修正しましょう。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 impl Drop for ThreadPool {
@@ -433,7 +433,7 @@ impl Drop for ThreadPool {
 workers before calling `join` on each worker thread</span>
 -->
 
-<span class="caption">リスト20-25: 各ワーカースレッドに対して`join`を呼び出す前にワーカーに`Message::Terminate`を送信する</span>
+<span class="caption">リスト 20-25: 各ワーカースレッドに対して`join`を呼び出す前にワーカーに`Message::Terminate`を送信する</span>
 
 <!--
 We’re now iterating over the workers twice: once to send one `Terminate`
@@ -443,8 +443,8 @@ guarantee that the worker in the current iteration would be the one to get the
 message from the channel.
 -->
 
-今では、ワーカーを2回走査しています: 各ワーカーに`Terminate`メッセージを送信するために1回と、
-各ワーカースレッドに`join`を呼び出すために1回です。メッセージ送信と`join`を同じループで即座に行おうとすると、
+今では、ワーカーを 2 回走査しています：各ワーカーに`Terminate`メッセージを送信するために 1 回と、
+各ワーカースレッドに`join`を呼び出すために 1 回です。メッセージ送信と`join`を同じループで即座に行おうとすると、
 現在の繰り返しのワーカーがチャンネルからメッセージを受け取っているものであるか保証できなくなってしまいます。
 
 <!--
@@ -458,11 +458,11 @@ shut down, but it never would because the second thread picked up the terminate
 message. Deadlock!
 -->
 
-2つの個別のループが必要な理由をよりよく理解するために、2つのワーカーがある筋書きを想像してください。
+2 つの個別のループが必要な理由をよりよく理解するために、2 つのワーカーがある筋書きを想像してください。
 単独のループで各ワーカーを走査すると、最初の繰り返しでチャンネルに停止メッセージが送信され、
 `join`が最初のワーカースレッドで呼び出されます。その最初のワーカーが現在、リクエストの処理で忙しければ、
-2番目のワーカーがチャンネルから停止メッセージを受け取り、閉じます。最初のワーカーの終了待ちをしたままですが、
-2番目のスレッドが停止メッセージを拾ってしまったので、終了することは絶対にありません。デッドロックです！
+2 番目のワーカーがチャンネルから停止メッセージを受け取り、閉じます。最初のワーカーの終了待ちをしたままですが、
+2 番目のスレッドが停止メッセージを拾ってしまったので、終了することは絶対にありません。デッドロックです！
 
 <!--
 To prevent this scenario, we first put all of our `Terminate` messages on the
@@ -473,8 +473,8 @@ messages as there are workers, each worker will receive a terminate message
 before `join` is called on its thread.
 -->
 
-この筋書きを回避するために、1つのループでまず、チャンネルに対して全ての`Terminate`メッセージを送信します;
-そして、別のループで全スレッドのjoinを待ちます。一旦停止メッセージを受け取ったら、各ワーカーはチャンネルからのリクエストの受付をやめます。
+この筋書きを回避するために、1 つのループでまず、チャンネルに対して全ての`Terminate`メッセージを送信します;
+そして、別のループで全スレッドの join を待ちます。一旦停止メッセージを受け取ったら、各ワーカーはチャンネルからのリクエストの受付をやめます。
 故に、存在するワーカーと同じ数だけ停止メッセージを送れば、`join`がスレッドに対して呼び出される前に、
 停止メッセージを各ワーカーが受け取ると確信できるわけです。
 
@@ -483,14 +483,14 @@ To see this code in action, let’s modify `main` to accept only two requests
 before gracefully shutting down the server, as shown in Listing 20-26.
 -->
 
-このコードが動いているところを確認するために、`main`を変更してサーバを正常に閉じる前に2つしかリクエストを受け付けないようにしましょう。
-リスト20-26のようにですね。
+このコードが動いているところを確認するために、`main`を変更してサーバを正常に閉じる前に 2 つしかリクエストを受け付けないようにしましょう。
+リスト 20-26 のようにですね。
 
 <!--
 <span class="filename">Filename: src/bin/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/bin/main.rs</span>
+<span class="filename">ファイル名：src/bin/main.rs</span>
 
 ```rust,ignore
 fn main() {
@@ -514,7 +514,7 @@ fn main() {
 requests by exiting the loop</span>
 -->
 
-<span class="caption">リスト20-26: ループを抜けることで、2つのリクエストを処理した後にサーバを閉じる</span>
+<span class="caption">リスト 20-26: ループを抜けることで、2 つのリクエストを処理した後にサーバを閉じる</span>
 
 <!--
 You wouldn’t want a real-world web server to shut down after serving only two
@@ -522,7 +522,7 @@ requests. This code just demonstrates that the graceful shutdown and cleanup is
 in working order.
 -->
 
-現実世界のWebサーバには、たった2つリクエストを受け付けた後にシャットダウンしてほしくはないでしょう。
+現実世界の Web サーバには、たった 2 つリクエストを受け付けた後にシャットダウンしてほしくはないでしょう。
 このコードは、単に正常なシャットダウンとクリーンアップが正しく機能することを示すだけです。
 
 <!--
@@ -531,7 +531,7 @@ to the first two items at most. The `ThreadPool` will go out of scope at the
 end of `main`, and the `drop` implementation will run.
 -->
 
-`take`メソッドは、`Iterator`トレイトで定義されていて、最大でも繰り返しを最初の2つの要素だけに制限します。
+`take`メソッドは、`Iterator`トレイトで定義されていて、最大でも繰り返しを最初の 2 つの要素だけに制限します。
 `ThreadPool`は`main`の末端でスコープを抜け、`drop`実装が実行されます。
 
 <!--
@@ -539,8 +539,8 @@ Start the server with `cargo run`, and make three requests. The third request
 should error, and in your terminal you should see output similar to this:
 -->
 
-`cargo run`でサーバを開始し、3つリクエストを行なってください。3番目のリクエストはエラーになるはずで、
-端末にはこのような出力が目撃できるはずです:
+`cargo run`でサーバを開始し、3 つリクエストを行なってください。3 番目のリクエストはエラーになるはずで、
+端末にはこのような出力が目撃できるはずです：
 
 ```text
 $ cargo run
@@ -572,8 +572,8 @@ The workers each print a message when they see the terminate message, and then
 the thread pool calls `join` to shut down each worker thread.
 -->
 
-ワーカーとメッセージの順番は異なる可能性があります。どうやってこのコードが動くのかメッセージからわかります:
-ワーカー0と3が最初の2つのリクエストを受け付け、そして3番目のリクエストではサーバは接続の受け入れをやめます。
+ワーカーとメッセージの順番は異なる可能性があります。どうやってこのコードが動くのかメッセージからわかります：
+ワーカー0 と 3 が最初の 2 つのリクエストを受け付け、そして 3 番目のリクエストではサーバは接続の受け入れをやめます。
 `main`の最後で`ThreadPool`がスコープを抜ける際、`Drop`実装が割り込み、プールが全ワーカーに停止するよう指示します。
 ワーカーはそれぞれ、停止メッセージを確認した時にメッセージを出力し、それからスレッドプールは各ワーカースレッドを閉じる`join`を呼び出します。
 
@@ -588,10 +588,10 @@ finish. At that point, they had all received the termination message and were
 able to shut down.
 -->
 
-この特定の実行のある面白い側面に注目してください: `ThreadPool`はチャンネルに停止メッセージを送信しますが、
-どのワーカーがそのメッセージを受け取るよりも前に、ワーカー0のjoinを試みています。ワーカー0はまだ停止メッセージを受け取っていなかったので、
-メインスレッドはワーカー0が完了するまで待機してブロックされます。その間に、各ワーカーは停止メッセージを受け取ります。
-ワーカー0が完了したら、メインスレッドは残りのワーカーが完了するのを待機します。その時点で全ワーカーは停止メッセージを受け取った後で、
+この特定の実行のある面白い側面に注目してください：`ThreadPool`はチャンネルに停止メッセージを送信しますが、
+どのワーカーがそのメッセージを受け取るよりも前に、ワーカー0 の join を試みています。ワーカー0 はまだ停止メッセージを受け取っていなかったので、
+メインスレッドはワーカー0 が完了するまで待機してブロックされます。その間に、各ワーカーは停止メッセージを受け取ります。
+ワーカー0 が完了したら、メインスレッドは残りのワーカーが完了するのを待機します。その時点で全ワーカーは停止メッセージを受け取った後で、
 閉じることができたのです。
 
 <!--
@@ -600,20 +600,20 @@ a thread pool to respond asynchronously. We’re able to perform a graceful
 shutdown of the server, which cleans up all the threads in the pool.
 -->
 
-おめでとうございます！プロジェクトを完成させました; スレッドプールを使用して非同期に応答する基本的なWebサーバができました。
+おめでとうございます！プロジェクトを完成させました; スレッドプールを使用して非同期に応答する基本的な Web サーバができました。
 サーバの正常なシャットダウンを行うことができ、プールの全スレッドを片付けます。
 
 <!--
 Here’s the full code for reference:
 -->
 
-参考までに、こちらが全コードです:
+参考までに、こちらが全コードです：
 
 <!--
 <span class="filename">Filename: src/bin/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/bin/main.rs</span>
+<span class="filename">ファイル名：src/bin/main.rs</span>
 
 ```rust,ignore
 extern crate hello;
@@ -674,7 +674,7 @@ fn handle_connection(mut stream: TcpStream) {
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 use std::thread;
@@ -802,7 +802,7 @@ We could do more here! If you want to continue enhancing this project, here are
 some ideas:
 -->
 
-ここでできることはまだあるでしょう！よりこのプロジェクトを改善したいのなら、こちらがアイディアの一部です:
+ここでできることはまだあるでしょう！よりこのプロジェクトを改善したいのなら、こちらがアイディアの一部です：
 
 <!--
 * Add more documentation to `ThreadPool` and its public methods.
@@ -817,9 +817,9 @@ thread pool we implemented.
 * `ThreadPool`とその公開メソッドにもっとドキュメンテーションを追加する。
 * ライブラリの機能のテストを追加する。
 * `unwrap`の呼び出しをもっと頑健なエラー処理に変更する。
-* `ThreadPool`を使用してWebリクエスト以外のなんらかの作業を行う。
-* *https://crates.io* でスレッドプールのクレートを探して、そのクレートを代わりに使用して似たWebサーバを実装する。
-  そして、APIと頑健性を我々が実装したものと比較する。
+* `ThreadPool`を使用して Web リクエスト以外のなんらかの作業を行う。
+* *https://crates.io* でスレッドプールのクレートを探して、そのクレートを代わりに使用して似た Web サーバを実装する。
+  そして、API と頑健性を我々が実装したものと比較する。
 
 <!--
 ## Summary
@@ -835,6 +835,6 @@ welcoming community of other Rustaceans who would love to help you with any
 challenges you encounter on your Rust journey.
 -->
 
-よくやりました！本の最後に到達しました！Rustのツアーに参加していただき、感謝の辞を述べたいです。
-もう、ご自身のRustプロジェクトや他の方のプロジェクトのお手伝いをする準備ができています。
-あなたがこれからのRustの旅で遭遇する、あらゆる困難の手助けを是非とも行いたいRustaceanたちの温かいコミュニティがあることを心に留めておいてくださいね。
+よくやりました！本の最後に到達しました！Rust のツアーに参加していただき、感謝の辞を述べたいです。
+もう、ご自身の Rust プロジェクトや他の方のプロジェクトのお手伝いをする準備ができています。
+あなたがこれからの Rust の旅で遭遇する、あらゆる困難の手助けを是非とも行いたい Rustacean たちの温かいコミュニティがあることを心に留めておいてくださいね。

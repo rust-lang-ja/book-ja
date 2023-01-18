@@ -20,9 +20,9 @@ program with `cargo run`, a string to search for, and a path to a file to
 search in, like so:
 -->
 
-最初の仕事は、`minigrep`を二つの引数を受け付けるようにすることです: ファイル名と検索する文字列ですね。
+最初の仕事は、`minigrep`を二つの引数を受け付けるようにすることです：ファイル名と検索する文字列ですね。
 つまり、`cargo run`で検索文字列と検索を行うファイルへのパスと共にプログラムを実行できるようになりたいということです。
-こんな感じにね:
+こんな感じにね：
 
 ```text
 $ cargo run searchstring example-filename.txt
@@ -57,10 +57,10 @@ the `collect` function on an iterator to turn it into a collection, such as a
 vector, containing all the elements the iterator produces.
 -->
 
-`minigrep`が渡したコマンドライン引数の値を読み取れるようにするために、Rustの標準ライブラリで提供されている関数が必要になり、
+`minigrep`が渡したコマンドライン引数の値を読み取れるようにするために、Rust の標準ライブラリで提供されている関数が必要になり、
 それは、`std::env::args`です。この関数は、`minigrep`に与えられたコマンドライン引数の*イテレータ*を返します。
-イテレータについてはまだ議論していません(完全には第13章で講義します)が、とりあえずイテレータに関しては、
-2つの詳細のみ知っていればいいです: イテレータは一連の値を生成することと、イテレータに対して`collect`関数を呼び出し、
+イテレータについてはまだ議論していません (完全には第 13 章で講義します) が、とりあえずイテレータに関しては、
+2 つの詳細のみ知っていればいいです：イテレータは一連の値を生成することと、イテレータに対して`collect`関数を呼び出し、
 イテレータが生成する要素全部を含むベクタなどのコレクションに変えられることです。
 
 <!--
@@ -68,14 +68,14 @@ Use the code in Listing 12-1 to allow your `minigrep` program to read any
 command line arguments passed to it and then collect the values into a vector.
 -->
 
-リスト12-1のコードを使用して`minigrep`プログラムに渡されたあらゆるコマンドライン引数を読み取れるようにし、
+リスト 12-1 のコードを使用して`minigrep`プログラムに渡されたあらゆるコマンドライン引数を読み取れるようにし、
 それからその値をベクタとして集結させてください。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::env;
@@ -91,7 +91,7 @@ fn main() {
 a vector and printing them</span>
 -->
 
-<span class="caption">リスト12-1: コマンドライン引数をベクタに集結させ、出力する</span>
+<span class="caption">リスト 12-1: コマンドライン引数をベクタに集結させ、出力する</span>
 
 <!--
 First, we bring the `std::env` module into scope with a `use` statement so we
@@ -106,8 +106,8 @@ current module.
 -->
 
 まず、`std::env`モジュールを`use`文でスコープに導入したので、`args`関数が使用できます。
-`std::env::args`関数は、2レベルモジュールがネストされていることに注目してください。
-第7章で議論したように、希望の関数が2モジュール以上ネストされている場合、
+`std::env::args`関数は、2 レベルモジュールがネストされていることに注目してください。
+第 7 章で議論したように、希望の関数が 2 モジュール以上ネストされている場合、
 関数ではなく親モジュールをスコープに導入するのが因習的です。そうすることで、
 `std::env`から別の関数も容易に使用することができます。また、
 `use std::env::args`を追記し、関数を`args`とするだけで呼び出すのに比べて曖昧でもありません。
@@ -145,7 +145,7 @@ isn’t able to infer the kind of collection you want.
 `main`の最初の行で`env::args`を呼び出し、そして即座に`collect`を使用して、
 イテレータをイテレータが生成する値全てを含むベクタに変換しています。
 `collect`関数を使用して多くの種類のコレクションを生成することができるので、
-`args`の型を明示的に注釈して文字列のベクタが欲しいのだと指定しています。Rustにおいて、
+`args`の型を明示的に注釈して文字列のベクタが欲しいのだと指定しています。Rust において、
 型を注釈しなければならない頻度は非常に少ないのですが、`collect`はよく確かに注釈が必要になる一つの関数なのです。
 コンパイラには、あなたが欲しているコレクションの種類が推論できないからです。
 
@@ -155,7 +155,7 @@ the code with no arguments and then with two arguments:
 -->
 
 最後に、デバッグ整形機の`:?`を使用してベクタを出力しています。引数なしでコードを走らせてみて、
-それから引数二つで試してみましょう:
+それから引数二つで試してみましょう：
 
 ```text
 $ cargo run
@@ -178,7 +178,7 @@ chapter, we’ll ignore it and save only the two arguments we need.
 -->
 
 ベクタの最初の値は`"target/debug/minigrep"`であることに注目してください。これはバイナリの名前です。
-これはCの引数リストの振る舞いと合致し、実行時に呼び出された名前をプログラムに使わせてくれるわけです。
+これは C の引数リストの振る舞いと合致し、実行時に呼び出された名前をプログラムに使わせてくれるわけです。
 メッセージで出力したり、プログラムを起動するのに使用されたコマンドラインエイリアスによってプログラムの振る舞いを変えたい場合に、
 プログラム名にアクセスするのにしばしば便利です。ですが、この章の目的には、これを無視し、必要な二つの引数のみを保存します。
 
@@ -197,13 +197,13 @@ throughout the rest of the program. We do that in Listing 12-2.
 
 引数のベクタの値を出力すると、プログラムはコマンドライン引数として指定された値にアクセスできることが説明されました。
 さて、プログラムの残りを通して使用できるように、二つの引数の値を変数に保存する必要があります。
-それをしているのがリスト12-2です。
+それをしているのがリスト 12-2 です。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,should_panic
 use std::env;
@@ -226,7 +226,7 @@ fn main() {
 argument and filename argument</span>
 -->
 
-<span class="caption">リスト12-2: クエリ引数とファイル名引数を保持する変数を生成</span>
+<span class="caption">リスト 12-2: クエリ引数とファイル名引数を保持する変数を生成</span>
 
 <!--
 As we saw when we printed the vector, the program’s name takes up the first
@@ -239,8 +239,8 @@ variable `filename`.
 
 ベクタを出力した時に確認したように、プログラム名がベクタの最初の値、`args[0]`を占めているので、
 添え字`1`から始めます。`minigrep`が取る最初の引数は、検索する文字列なので、
-最初の引数への参照を変数`query`に置きました。2番目の引数はファイル名でしょうから、
-2番目の引数への参照は変数`filename`に置きました。
+最初の引数への参照を変数`query`に置きました。2 番目の引数はファイル名でしょうから、
+2 番目の引数への参照は変数`filename`に置きました。
 
 <!--
 We temporarily print the values of these variables to prove that the code is
@@ -249,7 +249,7 @@ and `sample.txt`:
 -->
 
 一時的にこれらの変数の値を出力して、コードが意図通りに動いていることを証明しています。
-再度このプログラムを`test`と`sample.txt`という引数で実行しましょう:
+再度このプログラムを`test`と`sample.txt`という引数で実行しましょう：
 
 ```text
 $ cargo run test sample.txt

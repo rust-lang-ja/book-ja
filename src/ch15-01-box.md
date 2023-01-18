@@ -13,7 +13,7 @@ review the difference between the stack and the heap.
 
 最も素直なスマートポインタは*ボックス*であり、その型は`Box<T>`と記述されます。
 ボックスにより、スタックではなくヒープにデータを格納することができます。スタックに残るのは、
-ヒープデータへのポインタです。スタックとヒープの違いを再確認するには、第4章を参照されたし。
+ヒープデータへのポインタです。スタックとヒープの違いを再確認するには、第 4 章を参照されたし。
 
 <!--
 Boxes don’t have performance overhead, other than storing their data on the
@@ -54,13 +54,13 @@ section, “Using Trait Objects That Allow for Values of Different Types,” jus
 to that topic. So what you learn here you’ll apply again in Chapter 17!
 -->
 
-「ボックスで再帰的な型を可能にする」節で1つ目の場合について実際に説明します。
-2番目の場合、多くのデータの所有権を転送するには、データがスタック上でコピーされるので、長い時間がかかり得ます。
+「ボックスで再帰的な型を可能にする」節で 1 つ目の場合について実際に説明します。
+2 番目の場合、多くのデータの所有権を転送するには、データがスタック上でコピーされるので、長い時間がかかり得ます。
 この場面でパフォーマンスを向上させるために、多くのデータをヒープ上にボックスとして格納することができます。
-そして、小さなポインタのデータのみがスタック上でコピーされる一方、それが参照しているデータはヒープ上の1箇所に留まります。
-3番目のケースは*トレイトオブジェクト*として知られています。第17章の「トレイトオブジェクトで異なる型の値を許容する」の節は、
+そして、小さなポインタのデータのみがスタック上でコピーされる一方、それが参照しているデータはヒープ上の 1 箇所に留まります。
+3 番目のケースは*トレイトオブジェクト*として知られています。第 17 章の「トレイトオブジェクトで異なる型の値を許容する」の節は、
 すべてその話題に捧げられています。
-従って、ここで学ぶことは第17章でもまた使うことになります！
+従って、ここで学ぶことは第 17 章でもまた使うことになります！
 
 <!--
 ### Using a `Box<T>` to Store Data on the Heap
@@ -79,13 +79,13 @@ interact with values stored within a `Box<T>`.
 Listing 15-1 shows how to use a box to store an `i32` value on the heap:
 -->
 
-リスト15-1は、ボックスを使用してヒープに`i32`の値を格納する方法を示しています。
+リスト 15-1 は、ボックスを使用してヒープに`i32`の値を格納する方法を示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 fn main() {
@@ -99,7 +99,7 @@ fn main() {
 box</span>
 -->
 
-<span class="caption">リスト15-1: ボックスを使用して`i32`の値をヒープに格納する</span>
+<span class="caption">リスト 15-1: ボックスを使用して`i32`の値をヒープに格納する</span>
 
 <!--
 We define the variable `b` to have the value of a `Box` that points to the
@@ -142,7 +142,7 @@ space a value of a recursive type needs. However, boxes have a known size, so
 by inserting a box in a recursive type definition, you can have recursive types.
 -->
 
-コンパイル時にコンパイラが知っておかねばならないのは、ある型が占有する領域の大きさです。コンパイル時にサイズがわからない型の1つ
+コンパイル時にコンパイラが知っておかねばならないのは、ある型が占有する領域の大きさです。コンパイル時にサイズがわからない型の 1 つ
 として
 *再帰的な型*があります。この型の値は、値の一部として同じ型の他の値を持つ場合があります。値のこうしたネストは、理論的には無限に続く可能性があるので、コンパイラは再帰的な型の値が必要とする領域を知ることができないのです。
 しかしながら、ボックスのサイズはわかっているので、再帰的な型の定義にボックスを挟むことで再帰的な型を作ることができます。
@@ -172,8 +172,8 @@ constructs a new pair from its two arguments, which usually are a single value
 and another pair. These pairs containing pairs form a list.
 -->
 
-コンスリストは、Lispプログラミング言語とその方言に由来するデータ構造です。Lispでは、
-`cons`関数（"construct function"の省略形です）は2つの引数から新しいペアを構成します。
+コンスリストは、Lisp プログラミング言語とその方言に由来するデータ構造です。Lisp では、
+`cons`関数（"construct function"の省略形です）は 2 つの引数から新しいペアを構成します。
 この引数は通常、単独の値と別のペアからなります。これらのペアを含むペアがリストをなすのです。
 
 <!--
@@ -183,7 +183,7 @@ container instance by putting the element *x* at the start of this new
 container, followed by the container *y*.
 -->
 
-cons関数という概念は、より一般的な関数型プログラミングの俗語にもなっています。"to cons *x* onto *y*"はコンテナ*y*の先頭に要素*x*を置くことで新しいコンテナのインスタンスを生成することを意味します。
+cons 関数という概念は、より一般的な関数型プログラミングの俗語にもなっています。"to cons *x* onto *y*"はコンテナ*y*の先頭に要素*x*を置くことで新しいコンテナのインスタンスを生成することを意味します。
 
 <!--
 Each item in a cons list contains two elements: the value of the current item
@@ -194,9 +194,9 @@ Note that this is not the same as the “null” or “nil” concept in Chapter
 which is an invalid or absent value.
 -->
 
-コンスリストの各要素は、2つの要素を含みます。現在の要素の値と次の要素です。リストの最後の要素は、
+コンスリストの各要素は、2 つの要素を含みます。現在の要素の値と次の要素です。リストの最後の要素は、
 `Nil`と呼ばれる値だけを含み、次の要素を持ちません。コンスリストは、繰り返し`cons`関数を呼び出すことで生成されます。
-繰り返しの基底ケースを示すのに標準的に使われる名前は`Nil`です。これは第6章の"null"や"nil"の概念とは異なることに注意してください。
+繰り返しの基底ケースを示すのに標準的に使われる名前は`Nil`です。これは第 6 章の"null"や"nil"の概念とは異なることに注意してください。
 "null"や"nil"は、無効だったり存在しない値です。
 
 <!--
@@ -208,8 +208,8 @@ starting with the cons list, we can explore how boxes let us define a recursive
 data type without much distraction.
 -->
 
-関数型プログラミング言語ではコンスリストは頻繁に使われますが、Rustではあまり使用されないデータ構造です。
-Rustで要素のリストがあるときはほとんど、`Vec<T>`を使用するのがよりよい選択になります。
+関数型プログラミング言語ではコンスリストは頻繁に使われますが、Rust ではあまり使用されないデータ構造です。
+Rust で要素のリストがあるときはほとんど、`Vec<T>`を使用するのがよりよい選択になります。
 より複雑な他の再帰的なデータ型は様々な場面で役に立ち*ます*。しかしコンスリストから始めることで、
 ボックスのおかげで再帰的なデータ型を定義できるわけを、あまり気を散らすことなく調べることができるのです。
 
@@ -219,7 +219,7 @@ won’t compile yet because the `List` type doesn’t have a known size, which
 we’ll demonstrate.
 -->
 
-リスト15-2には、コンスリストのenum定義が含まれています。このコードはまだコンパイルできないことに注意してください。
+リスト 15-2 には、コンスリストの enum 定義が含まれています。このコードはまだコンパイルできないことに注意してください。
 `List`型のサイズが分からないからです。
 これについてはこの後説明します。
 
@@ -227,7 +227,7 @@ we’ll demonstrate.
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 enum List {
@@ -241,7 +241,7 @@ enum List {
 represent a cons list data structure of `i32` values</span>
 -->
 
-<span class="caption">リスト15-2: `i32`値のコンスリストデータ構造を表すenumを定義する最初の試行</span>
+<span class="caption">リスト 15-2: `i32`値のコンスリストデータ構造を表す enum を定義する最初の試行</span>
 
 <!--
 Note: We’re implementing a cons list that holds only `i32` values for the
@@ -250,7 +250,7 @@ discussed in Chapter 10, to define a cons list type that could store values of
 any type.
 -->
 
-> 注釈: この例のために`i32`値だけを保持するコンスリストを実装します。第10章で議論したように、
+> 注釈：この例のために`i32`値だけを保持するコンスリストを実装します。第 10 章で議論したように、
 > ジェネリクスを使用してどんな型の値も格納できるコンスリストを定義して実装することもできたでしょう。
 
 <!--
@@ -258,13 +258,13 @@ Using the `List` type to store the list `1, 2, 3` would look like the code in
 Listing 15-3:
 -->
 
-この`List`型を使用してリスト`1, 2, 3`を格納すると、リスト15-3のコードのような見た目になるでしょう。
+この`List`型を使用してリスト`1, 2, 3`を格納すると、リスト 15-3 のコードのような見た目になるでしょう。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 use List::{Cons, Nil};
@@ -279,7 +279,7 @@ fn main() {
 2, 3`</span>
 -->
 
-<span class="caption">リスト15-3: `List` enumを使用してリスト`1, 2, 3`を格納する</span>
+<span class="caption">リスト 15-3: `List` enum を使用してリスト`1, 2, 3`を格納する</span>
 
 <!--
 The first `Cons` value holds `1` and another `List` value. This `List` value is
@@ -297,7 +297,7 @@ If we try to compile the code in Listing 15-3, we get the error shown in
 Listing 15-4:
 -->
 
-リスト15-3のコードをコンパイルしようとすると、リスト15-4に示したエラーが出ます。
+リスト 15-3 のコードをコンパイルしようとすると、リスト 15-4 に示したエラーが出ます。
 
 ```text
 error[E0072]: recursive type `List` has infinite size
@@ -311,7 +311,7 @@ error[E0072]: recursive type `List` has infinite size
   |
   = help: insert indirection (e.g., a `Box`, `Rc`, or `&`) at some point to
   make `List` representable
-  (助言: 間接参照(例: `Box`、`Rc`、あるいは`&`)をどこかに挿入して、`List`を表現可能にしてください)
+  (助言：間接参照 (例：`Box`、`Rc`、あるいは`&`) をどこかに挿入して、`List`を表現可能にしてください)
 ```
 
 <!--
@@ -319,7 +319,7 @@ error[E0072]: recursive type `List` has infinite size
 a recursive enum</span>
 -->
 
-<span class="caption">リスト15-4: 再帰的なenumを定義しようとすると得られるエラー</span>
+<span class="caption">リスト 15-4: 再帰的な enum を定義しようとすると得られるエラー</span>
 
 <!--
 The error shows this type “has infinite size.” The reason is that we’ve defined
@@ -345,7 +345,7 @@ Recall the `Message` enum we defined in Listing 6-2 when we discussed enum
 definitions in Chapter 6:
 -->
 
-第6章でenum定義を議論した時にリスト6-2で定義した`Message` enumを思い出してください。
+第 6 章で enum 定義を議論した時にリスト 6-2 で定義した`Message` enum を思い出してください。
 
 ```rust
 enum Message {
@@ -367,8 +367,8 @@ store the largest of its variants.
 
 `Message`値一つにメモリを確保するために必要な領域を決定するために、コンパイラは、
 各列挙子を見てどの列挙子が最も領域を必要とするかを確認します。コンパイラは、
-`Message::Quit`は全く領域を必要とせず、`Message::Move`は`i32`値を2つ格納するのに十分な領域が必要、などと確かめます。
-ただ1つの列挙子しか使用されないので、`Message`値一つが必要とする最大の領域は、
+`Message::Quit`は全く領域を必要とせず、`Message::Move`は`i32`値を 2 つ格納するのに十分な領域が必要、などと確かめます。
+ただ 1 つの列挙子しか使用されないので、`Message`値一つが必要とする最大の領域は、
 最大の列挙子を格納するのに必要になる領域です。
 
 <!--
@@ -382,11 +382,11 @@ variant. The `Cons` variant holds a value of type `i32` and a value of type
 `List`, and this process continues infinitely, as shown in Figure 15-1.
 -->
 
-これをコンパイラがリスト15-2の`List` enumのような再帰的な型が必要とする領域を決定しようとする時に起こることと比較してください。
+これをコンパイラがリスト 15-2 の`List` enum のような再帰的な型が必要とする領域を決定しようとする時に起こることと比較してください。
 コンパイラは`Cons`列挙子を見ることから始めます。この列挙子には、型`i32`値が一つと型`List`の値が一つ保持されます。
-故に、`Cons`は1つの`i32`と`List`のサイズに等しい領域を必要とします。`List`が必要とするメモリ量を計算するのに、
-コンパイラは`Cons`列挙子から列挙子を観察します。`Cons`列挙子は型`i32`を1つと型`List`の値1つを保持し、
-この過程は無限に続きます。図15-1のようにですね。
+故に、`Cons`は 1 つの`i32`と`List`のサイズに等しい領域を必要とします。`List`が必要とするメモリ量を計算するのに、
+コンパイラは`Cons`列挙子から列挙子を観察します。`Cons`列挙子は型`i32`を 1 つと型`List`の値 1 つを保持し、
+この過程は無限に続きます。図 15-1 のようにですね。
 
 <!--
 <img alt="An infinite Cons list" src="img/trpl15-01.svg" class="center" style="width: 50%;" />
@@ -399,7 +399,7 @@ variant. The `Cons` variant holds a value of type `i32` and a value of type
 `Cons` variants</span>
 -->
 
-<span class="caption">図15-1: 無限の`Cons`列挙子からなる無限の`List`</span>
+<span class="caption">図 15-1: 無限の`Cons`列挙子からなる無限の`List`</span>
 
 <!--
 #### Using `Box<T>` to Get a Recursive Type with a Known Size
@@ -413,7 +413,7 @@ so the compiler gives the error in Listing 15-4. But the error does include
 this helpful suggestion:
 -->
 
-コンパイラは、再帰的に定義された型に必要なメモリ量を計算できないので、リスト15-4ではエラーを返します。
+コンパイラは、再帰的に定義された型に必要なメモリ量を計算できないので、リスト 15-4 ではエラーを返します。
 しかし、エラーにはこんな役立つ提案が含まれているのです。
 
 ```text
@@ -451,14 +451,14 @@ We can change the definition of the `List` enum in Listing 15-2 and the usage
 of the `List` in Listing 15-3 to the code in Listing 15-5, which will compile:
 -->
 
-リスト15-2の`List` enumの定義とリスト15-3の`List`の使用をリスト15-5のコードに変更することができ、
+リスト 15-2 の`List` enum の定義とリスト 15-3 の`List`の使用をリスト 15-5 のコードに変更することができ、
 これはコンパイルが通ります。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 enum List {
@@ -481,7 +481,7 @@ fn main() {
 order to have a known size</span>
 -->
 
-<span class="caption">リスト15-5: 既知のサイズにするために`Box<T>`を使用する`List`の定義</span>
+<span class="caption">リスト 15-5: 既知のサイズにするために`Box<T>`を使用する`List`の定義</span>
 
 <!--
 The `Cons` variant will need the size of an `i32` plus the space to store the
@@ -493,11 +493,11 @@ it needs to store a `List` value. Figure 15-2 shows what the `Cons` variant
 looks like now.
 -->
 
-`Cons`列挙子は、1つの`i32`のサイズに加えてボックスのポインタデータを格納する領域を必要とするでしょう。
+`Cons`列挙子は、1 つの`i32`のサイズに加えてボックスのポインタデータを格納する領域を必要とするでしょう。
 `Nil`列挙子は値を格納しないので、`Cons`列挙子よりも必要な領域は小さいです。これで、
-どんな`List`値も`i32`1つのサイズに加えてボックスのポインタデータのサイズを必要とすることがわかりました。
+どんな`List`値も`i32`1 つのサイズに加えてボックスのポインタデータのサイズを必要とすることがわかりました。
 ボックスを使うことで無限に続く再帰の連鎖を断ち切ったので、コンパイラは`List`値を格納するのに必要なサイズを計算できます。
-図15-2は、`Cons`列挙子の今の見た目を示しています。
+図 15-2 は、`Cons`列挙子の今の見た目を示しています。
 
 <!--
 <img alt="A finite Cons list" src="img/trpl15-02.svg" class="center" />
@@ -510,7 +510,7 @@ looks like now.
 because `Cons` holds a `Box`</span>
 -->
 
-<span class="caption">図15-2: `Cons`が`Box`を保持しているので、無限にサイズがあるわけではない`List`</span>
+<span class="caption">図 15-2: `Cons`が`Box`を保持しているので、無限にサイズがあるわけではない`List`</span>
 
 <!--
 Boxes provide only the indirection and heap allocation; they don’t have any
@@ -524,7 +524,7 @@ in Chapter 17, too.
 ボックスは、間接参照とヒープメモリ確保だけを提供します。他のスマートポインタ型に見られるような別の特別な能力は何もありません。
 これらの特別な能力が招くパフォーマンスのオーバーヘッドもないので、
 コンスリストのように間接参照だけが必要な機能である場合には便利でしょう。
-より多くのボックスのユースケースは第17章でもお見かけするでしょう。
+より多くのボックスのユースケースは第 17 章でもお見かけするでしょう。
 
 <!--
 The `Box<T>` type is a smart pointer because it implements the `Deref` trait,
@@ -539,4 +539,4 @@ rest of this chapter.
 `Box<T>`型がスマートポインタなのは、`Deref`トレイトを実装しているからです。
 このトレイトにより`Box<T>`の値を参照のように扱うことができます。
 `Box<T>`値がスコープを抜けると、ボックスが参照しているヒープデータも片付けられます。これは`Drop`トレイト実装のおかげです。
-これら2つのトレイトをより詳しく探究しましょう。これら2つのトレイトは、他のスマートポインタ型が提供する機能にとってさらに重要なものです。それらついてはこの章の残りで議論します。
+これら 2 つのトレイトをより詳しく探究しましょう。これら 2 つのトレイトは、他のスマートポインタ型が提供する機能にとってさらに重要なものです。それらついてはこの章の残りで議論します。

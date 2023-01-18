@@ -3,7 +3,7 @@
 * カタカナ語のままで違和感のない用語はカタカナ語のまま使う
   + 気持としては「無理矢理和訳」を避けたい。そのための基準。
   + カタカナ語の方が用語として認識しやすい
-* 3音以上のカタカナ語の末尾の長音記号「ー」は省く（[JIS Z 8301:2011](http://kikakurui.com/z8/Z8301-2011-01.html) G.6.2.2 b 表3を参照）
+* 3 音以上のカタカナ語の末尾の長音記号「ー」は省く（[JIS Z 8301:2011](http://kikakurui.com/z8/Z8301-2011-01.html) G.6.2.2 b 表 3 を参照）
 * 構文キーワードなどはそのままアルファベットを使う
 
 # 対訳表
@@ -11,11 +11,11 @@
 | English                        | 日本語
 |:-------------------------------|:-------------
 | abort                          | アボート
-| (lockの) acquire               | 獲得
+| (lock の) acquire               | 獲得
 | aggregate type                 | 合成型
 | alignment                      | アラインメント
-| allocate                       | メモリを確保する(アロケートする)
-| allocation                     | メモリを確保すること(アロケーション)
+| allocate                       | メモリを確保する (アロケートする)
+| allocation                     | メモリを確保すること (アロケーション)
 | allocator                      | アロケータ
 | antipattern                    | アンチパターン
 | application                    | アプリケーション
@@ -59,7 +59,7 @@
 | deadlock                       | デッドロック
 | deallocate                     | デアロケートする
 | declaration statement          | 宣言文
-| (crateの)dependency            | 依存
+| (crate の)dependency            | 依存
 | dereferencing                  | 参照外し
 | destructor                     | デストラクタ
 | destructuring                  | 分配
@@ -89,7 +89,7 @@
 | foreign                        | 他言語
 | free                           | 解放する
 | free-standing function         | フリースタンディングな関数
-| fully qualified (syntax)       | フルパス(記法)
+| fully qualified (syntax)       | フルパス (記法)
 | garbage collector              | ガベージコレクタ
 | generic parameter              | ジェネリックパラメータ
 | generics                       | ジェネリクス
@@ -166,7 +166,7 @@
 | reference count                | 参照カウント
 | regression                     | リグレッション
 | release                        | リリース
-| (lockの) release               | 解放
+| (lock の) release               | 解放
 | to reason                      | 正しいと確認すること
 | return                         | 返す
 | return type                    | リターン型
@@ -211,7 +211,7 @@
 | type inference                 | 型推論
 | type parameter                 | 型パラメータ
 | uninstall                      | アンインストール
-| unit  注: `()` の読み          | ユニット
+| unit  注：`()` の読み          | ユニット
 | Universal Function Call Syntax | 共通の関数呼び出し構文
 | unsafe                         | アンセーフ
 | unsigned                       | 符号無し

@@ -36,7 +36,7 @@ are hiding in the functions defined on `HashMap<K, V>` by the standard library.
 As always, check the standard library documentation for more information.
 -->
 
-この節でハッシュマップの基礎的なAPIを見ていきますが、より多くのグッズが標準ライブラリにより、
+この節でハッシュマップの基礎的な API を見ていきますが、より多くのグッズが標準ライブラリにより、
 `HashMap<K, V>`上に定義された関数に隠されています。いつものように、
 もっと情報が欲しければ、標準ライブラリのドキュメントをチェックしてください。
 
@@ -53,8 +53,8 @@ Blue and Yellow. The Blue team starts with 10 points, and the Yellow team
 starts with 50.
 -->
 
-空のハッシュマップを`new`で作り、要素を`insert`で追加することができます。リスト8-20では、
-名前がブルーとイエローの2チームのスコアを追いかけています。ブルーチームは10点から、イエローチームは50点から始まります。
+空のハッシュマップを`new`で作り、要素を`insert`で追加することができます。リスト 8-20 では、
+名前がブルーとイエローの 2 チームのスコアを追いかけています。ブルーチームは 10 点から、イエローチームは 50 点から始まります。
 
 ```rust
 use std::collections::HashMap;
@@ -70,7 +70,7 @@ scores.insert(String::from("Yellow"), 50);
 keys and values</span>
 -->
 
-<span class="caption">リスト8-20: ハッシュマップを生成してキーと値を挿入する</span>
+<span class="caption">リスト 8-20: ハッシュマップを生成してキーと値を挿入する</span>
 
 <!--
 Note that we need to first `use` the `HashMap` from the collections portion of
@@ -81,7 +81,7 @@ standard library; there's no built-in macro to construct them, for example.
 -->
 
 最初に標準ライブラリのコレクション部分から`HashMap`を`use`する必要があることに注意してください。
-今までの3つの一般的なコレクションの内、これが最も使用頻度が低いので、初期化処理で自動的にスコープに導入される機能には含まれていません。
+今までの 3 つの一般的なコレクションの内、これが最も使用頻度が低いので、初期化処理で自動的にスコープに導入される機能には含まれていません。
 また、標準ライブラリからのサポートもハッシュマップは少ないです; 例えば、生成するための組み込みマクロがありません。
 
 <!--
@@ -92,7 +92,7 @@ must have the same type.
 -->
 
 ベクタと全く同様に、ハッシュマップはデータをヒープに保持します。この`HashMap`はキーが`String`型、
-値は`i32`型です。ベクタのように、ハッシュマップは均質です: キーは全て同じ型でなければならず、
+値は`i32`型です。ベクタのように、ハッシュマップは均質です：キーは全て同じ型でなければならず、
 値も全て同じ型でなければなりません。
 
 <!--
@@ -108,8 +108,8 @@ method to turn that vector of tuples into a hash map, as shown in Listing 8-21.
 ハッシュマップを生成する別の方法は、タプルのベクタに対して`collect`メソッドを使用するものです。
 ここで、各タプルは、キーと値から構成されています。`collect`メソッドはいろんなコレクション型にデータをまとめ上げ、
 そこには`HashMap`も含まれています。例として、チーム名と初期スコアが別々のベクタに含まれていたら、
-`zip`メソッドを使ってタプルのベクタを作り上げることができ、そこでは「ブルー」は10とペアになるなどします。
-リスト8-21に示したように、それから`collect`メソッドを使って、そのタプルのベクタをハッシュマップに変換することができるわけです。
+`zip`メソッドを使ってタプルのベクタを作り上げることができ、そこでは「ブルー」は 10 とペアになるなどします。
+リスト 8-21 に示したように、それから`collect`メソッドを使って、そのタプルのベクタをハッシュマップに変換することができるわけです。
 
 ```rust
 use std::collections::HashMap;
@@ -125,7 +125,7 @@ let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
 and a list of scores</span>
 -->
 
-<span class="caption">リスト8-21: チームのリストとスコアのリストからハッシュマップを作る</span>
+<span class="caption">リスト 8-21: チームのリストとスコアのリストからハッシュマップを作る</span>
 
 <!--
 The type annotation `HashMap<_, _>` is needed here because it’s possible to
@@ -152,7 +152,7 @@ the hash map will be the owner of those values, as demonstrated in Listing 8-22.
 -->
 
 `i32`のような`Copy`トレイトを実装する型について、値はハッシュマップにコピーされます。
-`String`のような所有権のある値なら、値はムーブされ、リスト8-22でデモされているように、
+`String`のような所有権のある値なら、値はムーブされ、リスト 8-22 でデモされているように、
 ハッシュマップはそれらの値の所有者になるでしょう。
 
 ```rust
@@ -165,7 +165,7 @@ let mut map = HashMap::new();
 map.insert(field_name, field_value);
 // field_name and field_value are invalid at this point, try using them and
 // see what compiler error you get!
-// field_nameとfield_valueはこの時点で無効になる。試しに使ってみて
+// field_name と field_value はこの時点で無効になる。試しに使ってみて
 // どんなコンパイルエラーが出るか確認してみて！
 ```
 
@@ -174,7 +174,7 @@ map.insert(field_name, field_value);
 the hash map once they’re inserted</span>
 -->
 
-<span class="caption">リスト8-22: 一旦挿入されたら、キーと値はハッシュマップに所有されることを示す</span>
+<span class="caption">リスト 8-22: 一旦挿入されたら、キーと値はハッシュマップに所有されることを示す</span>
 
 <!--
 We aren’t able to use the variables `field_name` and `field_value` after
@@ -193,7 +193,7 @@ the “Validating References with Lifetimes” section in Chapter 10.
 
 値への参照をハッシュマップに挿入したら、値はハッシュマップにムーブされません。参照が指している値は、
 最低でもハッシュマップが有効な間は、有効でなければなりません。これらの問題について詳細には、
-第10章の「ライフタイムで参照を有効化する」節で語ります。
+第 10 章の「ライフタイムで参照を有効化する」節で語ります。
 
 <!--
 ### Accessing Values in a Hash Map
@@ -206,7 +206,7 @@ We can get a value out of the hash map by providing its key to the `get`
 method, as shown in Listing 8-23.
 -->
 
-リスト8-23に示したように、キーを`get`メソッドに提供することで、ハッシュマップから値を取り出すことができます。
+リスト 8-23 に示したように、キーを`get`メソッドに提供することで、ハッシュマップから値を取り出すことができます。
 
 ```rust
 use std::collections::HashMap;
@@ -225,7 +225,7 @@ let score = scores.get(&team_name);
 stored in the hash map</span>
 -->
 
-<span class="caption">リスト8-23: ハッシュマップに保持されたブルーチームのスコアにアクセスする</span>
+<span class="caption">リスト 8-23: ハッシュマップに保持されたブルーチームのスコアにアクセスする</span>
 
 <!--
 Here, `score` will have the value that’s associated with the Blue team, and the
@@ -237,14 +237,14 @@ of the ways that we covered in Chapter 6.
 
 ここで、`score`はブルーチームに紐づけられた値になり、結果は`Some(&10)`となるでしょう。
 結果は`Some`に包まれます。というのも、`get`は`Option<&V>`を返すからです; キーに対応する値がハッシュマップになかったら、
-`get`は`None`を返すでしょう。プログラムは、この`Option`を第6章で講義した方法のどれかで扱う必要があるでしょう。
+`get`は`None`を返すでしょう。プログラムは、この`Option`を第 6 章で講義した方法のどれかで扱う必要があるでしょう。
 
 <!--
 We can iterate over each key/value pair in a hash map in a similar manner as we
 do with vectors, using a `for` loop:
 -->
 
-ベクタのように、`for`ループでハッシュマップのキーと値のペアを走査することができます:
+ベクタのように、`for`ループでハッシュマップのキーと値のペアを走査することができます：
 
 ```rust
 use std::collections::HashMap;
@@ -263,7 +263,7 @@ for (key, value) in &scores {
 This code will print each pair in an arbitrary order:
 -->
 
-このコードは、各ペアを任意の順番で出力します:
+このコードは、各ペアを任意の順番で出力します：
 
 ```text
 Yellow: 50
@@ -287,7 +287,7 @@ we could combine the old value and the new value. Let’s look at how to do each
 of these!
 -->
 
-キーと値の数は伸長可能なものの、各キーには1回に1つの値しか紐づけることができません。
+キーと値の数は伸長可能なものの、各キーには 1 回に 1 つの値しか紐づけることができません。
 ハッシュマップ内のデータを変えたい時は、すでにキーに値が紐づいている場合の扱い方を決めなければなりません。
 古い値を新しい値で置き換えて、古い値を完全に無視することもできます。古い値を保持して、
 新しい値を無視し、キーにまだ値が*ない*場合に新しい値を追加するだけにすることもできます。
@@ -308,8 +308,8 @@ team’s key both times.
 -->
 
 キーと値をハッシュマップに挿入し、同じキーを異なる値で挿入したら、そのキーに紐づけられている値は置換されます。
-リスト8-24のコードは、`insert`を二度呼んでいるものの、ハッシュマップには一つのキーと値の組しか含まれません。
-なぜなら、ブルーチームキーに対する値を2回とも挿入しているからです。
+リスト 8-24 のコードは、`insert`を二度呼んでいるものの、ハッシュマップには一つのキーと値の組しか含まれません。
+なぜなら、ブルーチームキーに対する値を 2 回とも挿入しているからです。
 
 ```rust
 use std::collections::HashMap;
@@ -327,7 +327,7 @@ println!("{:?}", scores);
 key</span>
 -->
 
-<span class="caption">リスト8-24: 特定のキーで保持された値を置き換える</span>
+<span class="caption">リスト 8-24: 特定のキーで保持された値を置き換える</span>
 
 <!--
 This code will print `{"Blue": 25}`. The original value of `10` has been
@@ -354,10 +354,10 @@ Listing 8-25.
 -->
 
 特定のキーに値があるか確認することは一般的であり、存在しない時に値を挿入することも一般的です。
-ハッシュマップには、これを行う`entry`と呼ばれる特別なAPIがあり、これは、引数としてチェックしたいキーを取ります。
-この`entry`メソッドの戻り値は、`Entry`と呼ばれるenumであり、これは存在したりしなかったりする可能性のある値を表します。
+ハッシュマップには、これを行う`entry`と呼ばれる特別な API があり、これは、引数としてチェックしたいキーを取ります。
+この`entry`メソッドの戻り値は、`Entry`と呼ばれる enum であり、これは存在したりしなかったりする可能性のある値を表します。
 イエローチームに対するキーに値が紐づけられているか否か確認したくなったとしましょう。存在しなかったら、
-50という値を挿入したく、ブルーチームに対しても同様です。`entry`APIを使用すれば、コードはリスト8-25のようになります。
+50 という値を挿入したく、ブルーチームに対しても同様です。`entry`API を使用すれば、コードはリスト 8-25 のようになります。
 
 ```rust
 use std::collections::HashMap;
@@ -376,7 +376,7 @@ println!("{:?}", scores);
 the key does not already have a value</span>
 -->
 
-<span class="caption">リスト8-25: `entry`メソッドを使ってキーに値がない場合だけ挿入する</span>
+<span class="caption">リスト 8-25: `entry`メソッドを使ってキーに値がない場合だけ挿入する</span>
 
 <!--
 The `or_insert` method on `Entry` is defined to return a mutable reference to
@@ -388,7 +388,7 @@ logic ourselves, and in addition, plays more nicely with the borrow checker.
 
 `Entry`上の`or_insert`メソッドは、対応する`Entry`キーが存在した時にそのキーに対する値への可変参照を返すために定義されており、
 もしなかったら、引数をこのキーの新しい値として挿入し、新しい値への可変参照を返します。このテクニックの方が、
-そのロジックを自分で書くよりもはるかに綺麗な上に、borrow checkerとも親和性が高くなります。
+そのロジックを自分で書くよりもはるかに綺麗な上に、borrow checker とも親和性が高くなります。
 
 <!--
 Running the code in Listing 8-25 will print `{"Yellow": 50, "Blue": 10}`. The
@@ -398,9 +398,9 @@ first call to `entry` will insert the key for the Yellow team with the value
 value 10.
 -->
 
-リスト8-25のコードを実行すると、`{"Yellow": 50, "Blue": 10}`と出力するでしょう。
-最初の`entry`呼び出しは、まだイエローチームに対する値がないので、値50でイエローチームのキーを挿入します。
-`entry`の2回目の呼び出しはハッシュマップを変更しません。なぜなら、ブルーチームには既に10という値があるからです。
+リスト 8-25 のコードを実行すると、`{"Yellow": 50, "Blue": 10}`と出力するでしょう。
+最初の`entry`呼び出しは、まだイエローチームに対する値がないので、値 50 でイエローチームのキーを挿入します。
+`entry`の 2 回目の呼び出しはハッシュマップを変更しません。なぜなら、ブルーチームには既に 10 という値があるからです。
 
 <!--
 #### Updating a Value Based on the Old Value
@@ -418,9 +418,9 @@ the value 0:
 -->
 
 ハッシュマップの別の一般的なユースケースは、キーの値を探し、古い値に基づいてそれを更新することです。
-例えば、リスト8-26は、各単語があるテキストに何回出現するかを数え上げるコードを示しています。
+例えば、リスト 8-26 は、各単語があるテキストに何回出現するかを数え上げるコードを示しています。
 キーに単語を入れたハッシュマップを使用し、その単語を何回見かけたか追いかけるために値を増やします。
-ある単語を見かけたのが最初だったら、まず0という値を挿入します:
+ある単語を見かけたのが最初だったら、まず 0 という値を挿入します：
 
 ```rust
 use std::collections::HashMap;
@@ -442,7 +442,7 @@ println!("{:?}", map);
 map that stores words and counts</span>
 -->
 
-<span class="caption">リスト8-26: 単語とカウントを保持するハッシュマップを使って単語の出現数をカウントする</span>
+<span class="caption">リスト 8-26: 単語とカウントを保持するハッシュマップを使って単語の出現数をカウントする</span>
 
 <!--
 This code will print `{"world": 2, "hello": 1, "wonderful": 1}`. The
@@ -454,9 +454,9 @@ loop, so all of these changes are safe and allowed by the borrowing rules.
 -->
 
 このコードは、`{"world": 2, "hello": 1, "wonderful": 1}`と出力するでしょう。
-`or_insert`関数は実際、このキーに対する値への可変参照(`&mut V`)を返すのです。
+`or_insert`関数は実際、このキーに対する値への可変参照 (`&mut V`) を返すのです。
 ここでその可変参照を`count`変数に保持しているので、その値に代入するには、
-まずアスタリスク(`*`)で`count`を参照外ししなければならないのです。この可変参照は、
+まずアスタリスク (`*`) で`count`を参照外ししなければならないのです。この可変参照は、
 `for`ループの終端でスコープを抜けるので、これらの変更は全て安全であり、借用規則により許可されるのです。
 
 <!--
@@ -479,13 +479,13 @@ other Rust users that provide hashers implementing many common hashing
 algorithms.
 -->
 
-標準では、`HashMap`はサービス拒否(DoS)アタックに対して抵抗を示す暗号学的に安全なハッシュ関数を使用します。
+標準では、`HashMap`はサービス拒否 (DoS) アタックに対して抵抗を示す暗号学的に安全なハッシュ関数を使用します。
 これは、利用可能な最速のハッシュアルゴリズムではありませんが、パフォーマンスの欠落と引き換えに安全性を得るというトレードオフは、
 価値があります。自分のコードをプロファイリングして、自分の目的では標準のハッシュ関数は遅すぎると判明したら、
-異なる*hasher*を指定することで別の関数に切り替えることができます。hasherとは、
-`BuildHasher`トレイトを実装する型のことです。トレイトについてとその実装方法については、第10章で語ります。
-必ずしも独自のhasherを1から作り上げる必要はありません; [crates.io](https://crates.io)には、
-他のRustユーザによって共有された多くの一般的なハッシュアルゴリズムを実装したhasherを提供するライブラリがあります。
+異なる*hasher*を指定することで別の関数に切り替えることができます。hasher とは、
+`BuildHasher`トレイトを実装する型のことです。トレイトについてとその実装方法については、第 10 章で語ります。
+必ずしも独自の hasher を 1 から作り上げる必要はありません; [crates.io](https://crates.io)には、
+他の Rust ユーザによって共有された多くの一般的なハッシュアルゴリズムを実装した hasher を提供するライブラリがあります。
 
 <!--
 ## Summary
@@ -500,7 +500,7 @@ some exercises you should now be equipped to solve:
 -->
 
 ベクタ、文字列、ハッシュマップはデータを保持し、アクセスし、変更する必要のあるプログラムで必要になる、
-多くの機能を提供してくれるでしょう。今なら解決可能なはずの練習問題を用意しました:
+多くの機能を提供してくれるでしょう。今なら解決可能なはずの練習問題を用意しました：
 
 <!--
 * Given a list of integers, use a vector and return the mean (the average
@@ -517,14 +517,14 @@ people in a department or all people in the company by department, sorted
 alphabetically.
 -->
 
-* 整数のリストが与えられ、ベクタを使ってmean(平均値)、median(ソートされた時に真ん中に来る値)、
-  mode(最も頻繁に出現する値; ハッシュマップがここでは有効活用できるでしょう)を返してください。
-* 文字列をピッグ・ラテン(`訳注`: 英語の言葉遊びの一つ)に変換してください。各単語の最初の子音は、
+* 整数のリストが与えられ、ベクタを使って mean(平均値)、median(ソートされた時に真ん中に来る値)、
+  mode(最も頻繁に出現する値; ハッシュマップがここでは有効活用できるでしょう) を返してください。
+* 文字列をピッグ・ラテン (`訳注`: 英語の言葉遊びの一つ) に変換してください。各単語の最初の子音は、
   単語の終端に移り、"ay"が足されます。従って、"first"は"irst-fay"になります。ただし、
-  母音で始まる単語には、お尻に"hay"が付け足されます("apple"は"apple-hay"になります)。
-  UTF-8エンコードに関する詳細を心に留めておいてください！
+  母音で始まる単語には、お尻に"hay"が付け足されます ("apple"は"apple-hay"になります)。
+  UTF-8 エンコードに関する詳細を心に留めておいてください！
 * ハッシュマップとベクタを使用して、ユーザに会社の部署に雇用者の名前を追加させられるテキストインターフェイスを作ってください。
-  例えば、"Add Sally to Engineering"(開発部門にサリーを追加)や"Add Amir to Sales"(販売部門にアミールを追加)などです。
+  例えば、"Add Sally to Engineering"(開発部門にサリーを追加) や"Add Amir to Sales"(販売部門にアミールを追加) などです。
   それからユーザに、ある部署にいる人間の一覧や部署ごとにアルファベット順で並べ替えられた会社の全人間の一覧を扱わせてあげてください。
 
 <!--
@@ -532,7 +532,7 @@ The standard library API documentation describes methods that vectors, strings,
 and hash maps have that will be helpful for these exercises!
 -->
 
-標準ライブラリのAPIドキュメントには、この練習問題に有用な、ベクタ、文字列、ハッシュマップのメソッドが解説されています。
+標準ライブラリの API ドキュメントには、この練習問題に有用な、ベクタ、文字列、ハッシュマップのメソッドが解説されています。
 
 <!--
 We’re getting into more complex programs in which operations can fail; so, it’s

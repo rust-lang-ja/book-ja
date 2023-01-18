@@ -15,7 +15,7 @@ smart pointer. For example, `Box<T>` customizes `Drop` to deallocate the space
 on the heap that the box points to.
 -->
 
-スマートポインタパターンにとって重要な2番目のトレイトは、`Drop`であり、
+スマートポインタパターンにとって重要な 2 番目のトレイトは、`Drop`であり、
 これのおかげで値がスコープを抜けそうになった時に起こることをカスタマイズできます。
 どんな型に対しても`Drop`トレイトの実装を提供することができ、指定したコードは、
 ファイルやネットワーク接続などのリソースを解放するのに活用できます。
@@ -33,7 +33,7 @@ a particular type is finished with-you still won’t leak resources!
 -->
 
 ある言語では、プログラマがスマートポインタのインスタンスを使い終わる度にメモリやリソースを解放するコードを呼ばなければなりません。
-忘れてしまったら、システムは詰め込みすぎになりクラッシュする可能性があります。Rustでは、
+忘れてしまったら、システムは詰め込みすぎになりクラッシュする可能性があります。Rust では、
 値がスコープを抜ける度に特定のコードが走るよう指定でき、コンパイラはこのコードを自動的に挿入します。
 結果として、特定の型のインスタンスを使い終わったプログラムの箇所全部にクリーンアップコードを配置するのに配慮する必要はありません。
 それでもリソースをリークすることはありません。
@@ -46,8 +46,8 @@ let's implement `drop` with `println!` statements for now.
 -->
 
 `Drop`トレイトを実装することで値がスコープを抜けた時に走るコードを指定してください。
-`Drop`トレイトは、`self`への可変参照を取る`drop`という1つのメソッドを実装する必要があります。
-いつRustが`drop`を呼ぶのか確認するために、今は`println!`文のある`drop`を実装しましょう。
+`Drop`トレイトは、`self`への可変参照を取る`drop`という 1 つのメソッドを実装する必要があります。
+いつ Rust が`drop`を呼ぶのか確認するために、今は`println!`文のある`drop`を実装しましょう。
 
 <!--
 Listing 15-14 shows a `CustomSmartPointer` struct whose only custom
@@ -56,14 +56,14 @@ instance goes out of scope. This example demonstrates when Rust runs the `drop`
 function.
 -->
 
-リスト15-14は、唯一の独自の機能が、インスタンスがスコープを抜ける時に`Dropping CustomSmartPointer!`と出力するだけの、
+リスト 15-14 は、唯一の独自の機能が、インスタンスがスコープを抜ける時に`Dropping CustomSmartPointer!`と出力するだけの、
 `CustomSmartPointer`構造体です。この例は、コンパイラがいつ`drop`関数を走らせるかをデモしています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 struct CustomSmartPointer {
@@ -72,7 +72,7 @@ struct CustomSmartPointer {
 
 impl Drop for CustomSmartPointer {
     fn drop(&mut self) {
-        // CustomSmartPointerをデータ`{}`とともにドロップするよ
+        // CustomSmartPointer をデータ`{}`とともにドロップするよ
         println!("Dropping CustomSmartPointer with data `{}`!", self.data);
     }
 }
@@ -80,7 +80,7 @@ impl Drop for CustomSmartPointer {
 fn main() {
     let c = CustomSmartPointer { data: String::from("my stuff") };      // 俺のもの
     let d = CustomSmartPointer { data: String::from("other stuff") };   // 別のもの
-    println!("CustomSmartPointers created.");                           // CustomSmartPointerが生成された
+    println!("CustomSmartPointers created.");                           // CustomSmartPointer が生成された
 }
 ```
 
@@ -89,7 +89,7 @@ fn main() {
 implements the `Drop` trait where we would put our cleanup code</span>
 -->
 
-<span class="caption">リスト15-14: クリーンアップコードを配置する`Drop`トレイトを実装する`CustomSmartPointer`構造体</span>
+<span class="caption">リスト 15-14: クリーンアップコードを配置する`Drop`トレイトを実装する`CustomSmartPointer`構造体</span>
 
 <!--
 The `Drop` trait is included in the prelude, so we don’t need to import it. We
@@ -113,7 +113,7 @@ in the `drop` method, printing our final message. Note that we didn’t need to
 call the `drop` method explicitly.
 -->
 
-`main`で、`CustomSmartPointer`のインスタンスを2つ作り、それから`CustomSmartPointers created.`と出力しています。
+`main`で、`CustomSmartPointer`のインスタンスを 2 つ作り、それから`CustomSmartPointers created.`と出力しています。
 `main`の最後で、`CustomSmartPointer`のインスタンスはスコープを抜け、コンパイラは最後のメッセージを出力しながら、
 `drop`メソッドに置いたコードを呼び出します。`drop`メソッドを明示的に呼び出す必要はなかったことに注意してください。
 
@@ -121,7 +121,7 @@ call the `drop` method explicitly.
 When we run this program, we’ll see the following output:
 -->
 
-このプログラムを実行すると、以下のような出力が出ます:
+このプログラムを実行すると、以下のような出力が出ます：
 
 ```text
 CustomSmartPointers created.
@@ -162,8 +162,8 @@ if you want to force a value to be dropped before the end of its scope.
 
 残念ながら、自動的な`drop`機能を無効化することは、単純ではありません。通常、`drop`を無効化する必要はありません;
 `Drop`トレイトの最重要な要点は、自動的に考慮されることです。ですが、時として、値を早期に片付けたくなる可能性があります。
-一例は、ロックを管理するスマートポインタを使用する時です: 同じスコープの他のコードがロックを獲得できるように、
-ロックを解放する`drop`メソッドを強制的に走らせたくなる可能性があります。Rustは、
+一例は、ロックを管理するスマートポインタを使用する時です：同じスコープの他のコードがロックを獲得できるように、
+ロックを解放する`drop`メソッドを強制的に走らせたくなる可能性があります。Rust は、
 `Drop`トレイトの`drop`メソッドを手動で呼ばせてくれません; スコープが終わる前に値を強制的にドロップさせたいなら、
 代わりに標準ライブラリが提供する`std::mem::drop`関数を呼ばなければなりません。
 
@@ -173,21 +173,21 @@ If we try to call the `Drop` trait's `drop` method manually by modifying the
 compiler error:
 -->
 
-リスト15-14の`main`関数を変更して手動で`Drop`トレイトの`drop`メソッドを呼び出そうとしたら、
-コンパイルエラーになるでしょう。リスト15-15のようにですね:
+リスト 15-14 の`main`関数を変更して手動で`Drop`トレイトの`drop`メソッドを呼び出そうとしたら、
+コンパイルエラーになるでしょう。リスト 15-15 のようにですね：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore
 fn main() {
     let c = CustomSmartPointer { data: String::from("some data") };
     println!("CustomSmartPointer created.");
     c.drop();
-    // mainの終端の前にCustomSmartPointerがドロップされた
+    // main の終端の前に CustomSmartPointer がドロップされた
     println!("CustomSmartPointer dropped before the end of main.");
 }
 ```
@@ -197,13 +197,13 @@ fn main() {
 the `Drop` trait manually to clean up early</span>
 -->
 
-<span class="caption">リスト15-15: `Drop`トレイトから`drop`メソッドを手動で呼び出し、早期に片付けようとする</span>
+<span class="caption">リスト 15-15: `Drop`トレイトから`drop`メソッドを手動で呼び出し、早期に片付けようとする</span>
 
 <!--
 When we try to compile this code, we’ll get this error:
 -->
 
-このコードをコンパイルしてみようとすると、こんなエラーが出ます:
+このコードをコンパイルしてみようとすると、こんなエラーが出ます：
 
 ```text
 error[E0040]: explicit use of destructor method
@@ -225,8 +225,8 @@ particular destructor.
 明示的に`drop`を呼び出すことは許されていないことをこのエラーメッセージは述べています。
 エラーメッセージは*デストラクタ*という専門用語を使っていて、これは、
 インスタンスを片付ける関数の一般的なプログラミング専門用語です。*デストラクタ*は、
-*コンストラクタ*に類似していて、これはインスタンスを生成します。Rustの`drop`関数は、
-1種の特定のデストラクタです。
+*コンストラクタ*に類似していて、これはインスタンスを生成します。Rust の`drop`関数は、
+1 種の特定のデストラクタです。
 
 <!--
 Rust doesn’t let us call `drop` explicitly because Rust would still
@@ -236,7 +236,7 @@ twice.
 -->
 
 コンパイラはそれでも、`main`の終端で値に対して自動的に`drop`を呼び出すので、`drop`を明示的に呼ばせてくれません。
-コンパイラが2回同じ値を片付けようとするので、これは*二重解放*エラーになるでしょう。
+コンパイラが 2 回同じ値を片付けようとするので、これは*二重解放*エラーになるでしょう。
 
 <!--
 We can’t disable the automatic insertion of `drop` when a value goes out of
@@ -256,13 +256,13 @@ an argument. The function is in the prelude, so we can modify `main` in Listing
 
 `std::mem::drop`関数は、`Drop`トレイトの`drop`メソッドとは異なります。
 早期に強制的にドロップさせたい値を引数で渡すことで呼びます。この関数は初期化処理に含まれているので、
-リスト15-15の`main`を変更して`drop`関数を呼び出せます。リスト15-16のようにですね:
+リスト 15-15 の`main`を変更して`drop`関数を呼び出せます。リスト 15-16 のようにですね：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # struct CustomSmartPointer {
@@ -279,7 +279,7 @@ fn main() {
     let c = CustomSmartPointer { data: String::from("some data") };
     println!("CustomSmartPointer created.");
     drop(c);
-    // CustomSmartPointerはmainが終わる前にドロップされた
+    // CustomSmartPointer は main が終わる前にドロップされた
     println!("CustomSmartPointer dropped before the end of main.");
 }
 ```
@@ -289,13 +289,13 @@ fn main() {
 drop a value before it goes out of scope</span>
 -->
 
-<span class="caption">リスト15-16: 値がスコープを抜ける前に明示的にドロップするために`std::mem::drop`を呼び出す</span>
+<span class="caption">リスト 15-16: 値がスコープを抜ける前に明示的にドロップするために`std::mem::drop`を呼び出す</span>
 
 <!--
 Running this code will print the following:
 -->
 
-このコードを実行すると、以下のように出力されます:
+このコードを実行すると、以下のように出力されます：
 
 ```text
 CustomSmartPointer created.
@@ -315,7 +315,7 @@ drop `c` at that point.
 `drop`メソッドのコードがその時点で呼び出されて`c`をドロップしたことを示しています。
 
 <!--
-3行目のwithを...があれば、と訳している。多分辞書にも載っている
+3 行目の with を...があれば、と訳している。多分辞書にも載っている
 -->
 
 <!--
@@ -325,8 +325,8 @@ own memory allocator! With the `Drop` trait and Rust’s ownership system, you
 don't have to remember to clean up because Rust does it automatically.
 -->
 
-`Drop`トレイト実装で指定されたコードをいろんな方法で使用し、片付けを便利で安全にすることができます:
-例を挙げれば、これを使用して独自のメモリアロケータを作ることもできるでしょう！`Drop`トレイトとRustの所有権システムがあれば、
+`Drop`トレイト実装で指定されたコードをいろんな方法で使用し、片付けを便利で安全にすることができます：
+例を挙げれば、これを使用して独自のメモリアロケータを作ることもできるでしょう！`Drop`トレイトと Rust の所有権システムがあれば、
 コンパイラが自動的に行うので、片付けを覚えておく必要はなくなります。
 
 <!--
@@ -336,8 +336,8 @@ references are always valid also ensures that `drop` gets called only once when
 the value is no longer being used.
 -->
 
-まだ使用中の値を間違って片付けてしまうことに起因する問題を心配する必要もなくて済みます:
-参照が常に有効であると確認してくれる所有権システムが、値が最早使用されなくなった時に`drop`が1回だけ呼ばれることを保証してくれるのです。
+まだ使用中の値を間違って片付けてしまうことに起因する問題を心配する必要もなくて済みます：
+参照が常に有効であると確認してくれる所有権システムが、値が最早使用されなくなった時に`drop`が 1 回だけ呼ばれることを保証してくれるのです。
 
 <!--
 Now that we’ve examined `Box<T>` and some of the characteristics of smart

@@ -23,8 +23,8 @@ the `iter` method defined on `Vec<T>`. This code by itself doesn’t do anything
 useful.
 -->
 
-Rustにおいて、イテレータは*怠惰*です。つまり、イテレータを使い込んで消費するメソッドを呼ぶまで何の効果もないということです。
-例えば、リスト13-13のコードは、`Vec<T>`に定義された`iter`メソッドを呼ぶことで`v1`ベクタの要素に対するイテレータを生成しています。
+Rust において、イテレータは*怠惰*です。つまり、イテレータを使い込んで消費するメソッドを呼ぶまで何の効果もないということです。
+例えば、リスト 13-13 のコードは、`Vec<T>`に定義された`iter`メソッドを呼ぶことで`v1`ベクタの要素に対するイテレータを生成しています。
 このコード単独では、何も有用なことはしません。
 
 ```rust
@@ -37,7 +37,7 @@ let v1_iter = v1.iter();
 <span class="caption">Listing 13-13: Creating an iterator</span>
 -->
 
-<span class="caption">リスト13-13: イテレータを生成する</span>
+<span class="caption">リスト 13-13: イテレータを生成する</span>
 
 <!--
 Once we’ve created an iterator, we can use it in a variety of ways. In Listing
@@ -45,7 +45,7 @@ Once we’ve created an iterator, we can use it in a variety of ways. In Listing
 each item, although we glossed over what the call to `iter` did until now.
 -->
 
-一旦イテレータを生成したら、いろんな手段で使用することができます。第3章のリスト3-5では、
+一旦イテレータを生成したら、いろんな手段で使用することができます。第 3 章のリスト 3-5 では、
 ここまで`iter`の呼び出しが何をするかごまかしてきましたが、`for`ループでイテレータを使い、
 各要素に何かコードを実行しています。
 
@@ -57,7 +57,7 @@ called using the iterator in `v1_iter`, each element in the iterator is used in
 one iteration of the loop, which prints out each value.
 -->
 
-リスト13-14の例は、イテレータの生成と`for`ループでイテレータを使用することを区別しています。
+リスト 13-14 の例は、イテレータの生成と`for`ループでイテレータを使用することを区別しています。
 イテレータは、`v1_iter`変数に保存され、その時には繰り返しは起きていません。`v1_iter`のイテレータで、
 `for`ループが呼び出された時に、イテレータの各要素がループの繰り返しで使用され、各値が出力されます。
 
@@ -76,7 +76,7 @@ for val in v1_iter {
 <span class="caption">Listing 13-14: Using an iterator in a `for` loop
 -->
 
-<span class="caption">リスト13-14: `for`ループでイテレータを使用する</span>
+<span class="caption">リスト 13-14: `for`ループでイテレータを使用する</span>
 
 <!--
 In languages that don’t have iterators provided by their standard libraries,
@@ -86,7 +86,7 @@ incrementing the variable value in a loop until it reached the total number of
 item in the vector.
 -->
 
-標準ライブラリにより提供されるイテレータが存在しない言語では、変数を添え字0から始め、
+標準ライブラリにより提供されるイテレータが存在しない言語では、変数を添え字 0 から始め、
 その変数でベクタに添え字アクセスして値を得て、ベクタの総要素数に到達するまでループでその変数の値をインクリメントすることで、
 この同じ機能を書く可能性が高いでしょう。
 
@@ -113,7 +113,7 @@ standard library. The definition of the trait looks like this:
 -->
 
 全てのイテレータは、標準ライブラリで定義されている`Iterator`というトレイトを実装しています。
-このトレイトの定義は、以下のようになっています:
+このトレイトの定義は、以下のようになっています：
 
 ```rust
 pub trait Iterator {
@@ -136,8 +136,8 @@ method. In other words, the `Item` type will be the type returned from the
 iterator.
 -->
 
-この定義は新しい記法を使用していることに注目してください: `type Item`と`Self::Item`で、
-これらはこのトレイトとの*関連型*(associated type)を定義しています。関連型についての詳細は、第19章で語ります。
+この定義は新しい記法を使用していることに注目してください：`type Item`と`Self::Item`で、
+これらはこのトレイトとの*関連型*(associated type) を定義しています。関連型についての詳細は、第 19 章で語ります。
 とりあえず、知っておく必要があることは、このコードが`Iterator`トレイトを実装するには、`Item`型も定義する必要があり、
 そして、この`Item`型が`next`メソッドの戻り値の型に使われていると述べていることです。換言すれば、
 `Item`型がイテレータから返ってくる型になるだろうということです。
@@ -148,8 +148,8 @@ The `Iterator` trait only requires implementors to define one method: the
 `Some` and, when iteration is over, returns `None`.
 -->
 
-`Iterator`トレイトは、一つのメソッドを定義することを実装者に要求することだけします: `next`メソッドで、
-これは1度に`Some`に包まれたイテレータの1要素を返し、繰り返しが終わったら、`None`を返します。
+`Iterator`トレイトは、一つのメソッドを定義することを実装者に要求することだけします：`next`メソッドで、
+これは 1 度に`Some`に包まれたイテレータの 1 要素を返し、繰り返しが終わったら、`None`を返します。
 
 <!--
 We can call the `next` method on iterators directly; Listing 13-15 demonstrates
@@ -157,14 +157,14 @@ what values are returned from repeated calls to `next` on the iterator created
 from the vector.
 -->
 
-イテレータに対して直接`next`メソッドを呼び出すこともできます; リスト13-15は、
+イテレータに対して直接`next`メソッドを呼び出すこともできます; リスト 13-15 は、
 ベクタから生成されたイテレータの`next`を繰り返し呼び出した時にどんな値が返るかを模擬しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 #[test]
@@ -185,7 +185,7 @@ fn iterator_demonstration() {
 iterator</span>
 -->
 
-<span class="caption">リスト13-15: イテレータに対して`next`メソッドを呼び出す</span>
+<span class="caption">リスト 13-15: イテレータに対して`next`メソッドを呼び出す</span>
 
 <!--
 Note that we needed to make `v1_iter` mutable: calling the `next` method on an
@@ -196,7 +196,7 @@ to make `v1_iter` mutable when we used a `for` loop because the loop took
 ownership of `v1_iter` and made it mutable behind the scenes.
 -->
 
-`v1_iter`を可変にする必要があったことに注目してください: イテレータの`next`メソッドを呼び出すと、
+`v1_iter`を可変にする必要があったことに注目してください：イテレータの`next`メソッドを呼び出すと、
 今シーケンスのどこにいるかを追いかけるためにイテレータが使用している内部の状態が変わります。
 つまり、このコードはイテレータを*消費*、または使い込むのです。
 `next`の各呼び出しは、イテレータの要素を一つ、食います。`for`ループを使用した時には、
@@ -233,7 +233,7 @@ is why we’re required to implement the `next` method when implementing the
 -->
 
 `Iterator`トレイトには、標準ライブラリが提供してくれているデフォルト実装のある多くの異なるメソッドがあります;
-`Iterator`トレイトの標準ライブラリのAPIドキュメントを検索することで、これらのメソッドについて知ることができます。
+`Iterator`トレイトの標準ライブラリの API ドキュメントを検索することで、これらのメソッドについて知ることができます。
 これらのメソッドの中には、定義内で`next`メソッドを呼ぶものもあり、故に`Iterator`トレイトを実装する際には、
 `next`メソッドを実装する必要があるのです。
 
@@ -246,16 +246,16 @@ total and returns the total when iteration is complete. Listing 13-16 has a
 test illustrating a use of the `sum` method:
 -->
 
-`next`を呼び出すメソッドは、*消費アダプタ*(consuming adaptors)と呼ばれます。呼び出しがイテレータの使い込みになるからです。
+`next`を呼び出すメソッドは、*消費アダプタ*(consuming adaptors) と呼ばれます。呼び出しがイテレータの使い込みになるからです。
 一例は、`sum`メソッドで、これはイテレータの所有権を奪い、`next`を繰り返し呼び出すことで要素を繰り返し、
 故にイテレータを消費するのです。繰り返しが進むごとに、各要素を一時的な合計に追加し、
-繰り返しが完了したら、その合計を返します。リスト13-16は、`sum`の使用を説明したテストです:
+繰り返しが完了したら、その合計を返します。リスト 13-16 は、`sum`の使用を説明したテストです：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 #[test]
@@ -275,7 +275,7 @@ fn iterator_sum() {
 of all items in the iterator</span>
 -->
 
-<span class="caption">リスト13-16: `sum`メソッドを呼び出してイテレータの全要素の合計を得る</span>
+<span class="caption">リスト 13-16: `sum`メソッドを呼び出してイテレータの全要素の合計を得る</span>
 
 <!--
 We aren’t allowed to use `v1_iter` after the call to `sum` because `sum` takes
@@ -298,7 +298,7 @@ way. But because all iterators are lazy, we have to call one of the consuming
 adaptor methods to get results from calls to iterator adaptors.
 -->
 
-`Iterator`トレイトに定義された他のメソッドは、*イテレータアダプタ*(iterator adaptors)として知られていますが、
+`Iterator`トレイトに定義された他のメソッドは、*イテレータアダプタ*(iterator adaptors) として知られていますが、
 イテレータを別の種類のイテレータに変えさせてくれます。イテレータアダプタを複数回呼ぶ呼び出しを連結して、
 複雑な動作を読みやすい形で行うことができます。ですが、全てのイテレータは怠惰なので、消費アダプタメソッドのどれかを呼び出し、
 イテレータアダプタの呼び出しから結果を得なければなりません。
@@ -310,15 +310,15 @@ closure here creates a new iterator in which each item from the vector has been
 incremented by 1. However, this code produces a warning:
 -->
 
-リスト13-17は、イテレータアダプタメソッドの`map`の呼び出し例を示し、各要素に対して呼び出すクロージャを取り、
-新しいイテレータを生成します。ここのクロージャは、ベクタの各要素が1インクリメントされる新しいイテレータを作成します。
-ところが、このコードは警告を発します:
+リスト 13-17 は、イテレータアダプタメソッドの`map`の呼び出し例を示し、各要素に対して呼び出すクロージャを取り、
+新しいイテレータを生成します。ここのクロージャは、ベクタの各要素が 1 インクリメントされる新しいイテレータを作成します。
+ところが、このコードは警告を発します：
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 let v1: Vec<i32> = vec![1, 2, 3];
@@ -331,18 +331,18 @@ v1.iter().map(|x| x + 1);
 create a new iterator</span>
 -->
 
-<span class="caption">リスト13-17: イテレータアダプタの`map`を呼び出して新規イテレータを作成する</span>
+<span class="caption">リスト 13-17: イテレータアダプタの`map`を呼び出して新規イテレータを作成する</span>
 
 <!--
 The warning we get is this:
 -->
 
-出る警告は以下の通りです:
+出る警告は以下の通りです：
 
 ```text
 warning: unused `std::iter::Map` which must be used: iterator adaptors are lazy
 and do nothing unless consumed
-(警告: 使用されねばならない`std::iter::Map`が未使用です: イテレータアダプタは怠惰で、
+(警告：使用されねばならない`std::iter::Map`が未使用です：イテレータアダプタは怠惰で、
 消費されるまで何もしません)
  --> src/main.rs:4:5
   |
@@ -358,7 +358,7 @@ never gets called. The warning reminds us why: iterator adaptors are lazy, and
 we need to consume the iterator here.
 -->
 
-リスト13-17のコードは何もしません; 指定したクロージャは、決して呼ばれないのです。警告が理由を思い出させてくれています:
+リスト 13-17 のコードは何もしません; 指定したクロージャは、決して呼ばれないのです。警告が理由を思い出させてくれています：
 イテレータアダプタは怠惰で、ここでイテレータを消費する必要があるのです。
 
 <!--
@@ -367,7 +367,7 @@ used in Chapter 12 with `env::args` in Listing 12-1. This method consumes the
 iterator and collects the resulting values into a collection data type.
 -->
 
-これを修正し、イテレータを消費するには、`collect`メソッドを使用しますが、これは第12章のリスト12-1で`env::args`とともに使用しました。
+これを修正し、イテレータを消費するには、`collect`メソッドを使用しますが、これは第 12 章のリスト 12-1 で`env::args`とともに使用しました。
 このメソッドはイテレータを消費し、結果の値をコレクションデータ型に集結させます。
 
 <!--
@@ -376,14 +376,14 @@ returned from the call to `map` into a vector. This vector will end up
 containing each item from the original vector incremented by 1.
 -->
 
-リスト13-18において、`map`呼び出しから返ってきたイテレータを繰り返した結果をベクタに集結させています。
-このベクタは、最終的に元のベクタの各要素に1を足したものが含まれます。
+リスト 13-18 において、`map`呼び出しから返ってきたイテレータを繰り返した結果をベクタに集結させています。
+このベクタは、最終的に元のベクタの各要素に 1 を足したものが含まれます。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 let v1: Vec<i32> = vec![1, 2, 3];
@@ -399,7 +399,7 @@ iterator and then calling the `collect` method to consume the new iterator and
 create a vector</span>
 -->
 
-<span class="caption">リスト13-18: `map`メソッドを呼び出して新規イテレータを作成し、
+<span class="caption">リスト 13-18: `map`メソッドを呼び出して新規イテレータを作成し、
 それから`collect`メソッドを呼び出してその新規イテレータを消費し、ベクタを生成する</span>
 
 <!--
@@ -439,14 +439,14 @@ variable from its environment to iterate over a collection of `Shoe` struct
 instances. It will return only shoes that are the specified size.
 -->
 
-リスト13-19では、環境から`shoe_size`変数をキャプチャするクロージャで`filter`を使って、
+リスト 13-19 では、環境から`shoe_size`変数をキャプチャするクロージャで`filter`を使って、
 `Shoe`構造体インスタンスのコレクションを繰り返しています。指定したサイズの靴だけを返すわけです。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 #[derive(PartialEq, Debug)]
@@ -486,7 +486,7 @@ fn filters_by_size() {
 that captures `shoe_size`</span>
 -->
 
-<span class="caption">リスト13-19: `shoe_size`をキャプチャするクロージャで`filter`メソッドを使用する</span>
+<span class="caption">リスト 13-19: `shoe_size`をキャプチャするクロージャで`filter`メソッドを使用する</span>
 
 <!--
 The `shoes_in_my_size` function takes ownership of a vector of shoes and a shoe
@@ -554,7 +554,7 @@ into an iterator by implementing the `Iterator` trait and use the values in
 that implementation.
 -->
 
-デモ用に、絶対に1から5をカウントするだけのイテレータを作成しましょう。まず、値を保持する構造体を生成し、
+デモ用に、絶対に 1 から 5 をカウントするだけのイテレータを作成しましょう。まず、値を保持する構造体を生成し、
 `Iterator`トレイトを実装することでこの構造体をイテレータにし、その実装内の値を使用します。
 
 <!--
@@ -562,13 +562,13 @@ Listing 13-20 has the definition of the `Counter` struct and an associated
 `new` function to create instances of `Counter`:
 -->
 
-リスト13-20は、`Counter`構造体と`Counter`のインスタンスを作る`new`関連関数の定義です:
+リスト 13-20 は、`Counter`構造体と`Counter`のインスタンスを作る`new`関連関数の定義です：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 struct Counter {
@@ -588,7 +588,7 @@ function that creates instances of `Counter` with an initial value of 0 for
 `count`</span>
 -->
 
-<span class="caption">リスト13-20: `Counter`構造体と`count`に対して0という初期値で`Counter`のインスタンスを作る`new`関数を定義する</span>
+<span class="caption">リスト 13-20: `Counter`構造体と`count`に対して 0 という初期値で`Counter`のインスタンスを作る`new`関数を定義する</span>
 
 <!--
 The `Counter` struct has one field named `count`. This field holds a `u32`
@@ -599,8 +599,8 @@ always starting new instances with a value of 0 in the `count` field.
 -->
 
 `Counter`構造体には、`count`というフィールドがあります。このフィールドは、
-1から5までの繰り返しのどこにいるかを追いかける`u32`値を保持しています。`Counter`の実装にその値を管理してほしいので、
-`count`フィールドは非公開です。`count`フィールドは常に0という値から新規インスタンスを開始するという動作を`new`関数は強要します。
+1 から 5 までの繰り返しのどこにいるかを追いかける`u32`値を保持しています。`Counter`の実装にその値を管理してほしいので、
+`count`フィールドは非公開です。`count`フィールドは常に 0 という値から新規インスタンスを開始するという動作を`new`関数は強要します。
 
 <!--
 Next, we’ll implement the `Iterator` trait for our `Counter` type by defining
@@ -609,13 +609,13 @@ iterator is used, as shown in Listing 13-21:
 -->
 
 次に、`next`メソッドの本体をこのイテレータが使用された際に起きてほしいことを指定するように定義して、
-`Counter`型に対して`Iterator`トレイトを実装します。リスト13-21のようにですね:
+`Counter`型に対して`Iterator`トレイトを実装します。リスト 13-21 のようにですね：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # struct Counter {
@@ -642,7 +642,7 @@ impl Iterator for Counter {
 `Counter` struct</span>
 -->
 
-<span class="caption">リスト13-21: `Counter`構造体に`Iterator`トレイトを実装する</span>
+<span class="caption">リスト 13-21: `Counter`構造体に`Iterator`トレイトを実装する</span>
 
 <!--
 We set the associated `Item` type for our iterator to `u32`, meaning the
@@ -651,7 +651,7 @@ yet, we’ll cover them in Chapter 19.
 -->
 
 イテレータの`Item`関連型を`u32`に設定しました。つまり、イテレータは、`u32`の値を返します。
-ここでも、まだ関連型について心配しないでください。第19章で講義します。
+ここでも、まだ関連型について心配しないでください。第 19 章で講義します。
 
 <!--
 We want our iterator to add 1 to the current state, so we initialized `count`
@@ -660,9 +660,9 @@ will return the current value wrapped in `Some`, but if `count` is 6 or higher,
 our iterator will return `None`.
 -->
 
-イテレータに現在の状態に1を足してほしいので、まず1を返すように`count`を0に初期化しました。
-`count`の値が5以下なら、`next`は`Some`に包まれた現在の値を返しますが、
-`count`が6以上なら、イテレータは`None`を返します。
+イテレータに現在の状態に 1 を足してほしいので、まず 1 を返すように`count`を 0 に初期化しました。
+`count`の値が 5 以下なら、`next`は`Some`に包まれた現在の値を返しますが、
+`count`が 6 以上なら、イテレータは`None`を返します。
 
 <!--
 #### Using Our `Counter` Iterator’s `next` Method
@@ -677,15 +677,15 @@ shows a test demonstrating that we can use the iterator functionality of our
 with the iterator created from a vector in Listing 13-15.
 -->
 
-一旦`Iterator`トレイトを実装し終わったら、イテレータの出来上がりです！リスト13-22は、
-リスト13-15のベクタから生成したイテレータと全く同様に、直接`next`メソッドを呼び出すことで、
+一旦`Iterator`トレイトを実装し終わったら、イテレータの出来上がりです！リスト 13-22 は、
+リスト 13-15 のベクタから生成したイテレータと全く同様に、直接`next`メソッドを呼び出すことで、
 `Counter`構造体のイテレータ機能を使用できることをデモするテストを示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # struct Counter {
@@ -724,7 +724,7 @@ fn calling_next_directly() {
 method implementation</span>
 -->
 
-<span class="caption">リスト13-22: `next`メソッド実装の機能をテストする</span>
+<span class="caption">リスト 13-22: `next`メソッド実装の機能をテストする</span>
 
 <!--
 This test creates a new `Counter` instance in the `counter` variable and then
@@ -733,8 +733,8 @@ want this iterator to have: returning the values from 1 to 5.
 -->
 
 このテストは、`counter`変数に新しい`Counter`インスタンスを生成し、
-それからイテレータにほしい動作が実装し終わっていることを実証しながら、`next`を繰り返し呼び出しています:
-1から5の値を返すことです。
+それからイテレータにほしい動作が実装し終わっていることを実証しながら、`next`を繰り返し呼び出しています：
+1 から 5 の値を返すことです。
 
 <!--
 #### Using Other `Iterator` Trait Methods
@@ -760,17 +760,17 @@ together, we could do so, as shown in the test in Listing 13-23:
 -->
 
 例えば、何らかの理由で、`Counter`インスタンスが生成する値を取り、最初の値を飛ばしてから、
-別の`Counter`インスタンスが生成する値と一組にし、各ペアを掛け算し、3で割り切れる結果だけを残し、
-全結果の値を足し合わせたくなったら、リスト13-23のテストに示したように、そうすることができます:
+別の`Counter`インスタンスが生成する値と一組にし、各ペアを掛け算し、3 で割り切れる結果だけを残し、
+全結果の値を足し合わせたくなったら、リスト 13-23 のテストに示したように、そうすることができます：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 <!--
-check to seeは畳語だが、いい訳はあるだろうか
+check to see は畳語だが、いい訳はあるだろうか
 -->
 
 ```rust
@@ -785,12 +785,12 @@ check to seeは畳語だが、いい訳はあるだろうか
 # }
 #
 # impl Iterator for Counter {
-#     // このイテレータはu32を生成します
+#     // このイテレータは u32 を生成します
 #     // Our iterator will produce u32s
 #     type Item = u32;
 #
 #     fn next(&mut self) -> Option<Self::Item> {
-#         // カウントをインクリメントする。故に0から始まる
+#         // カウントをインクリメントする。故に 0 から始まる
 #         // increment our count. This is why we started at zero.
 #         self.count += 1;
 #
@@ -819,7 +819,7 @@ fn using_other_iterator_trait_methods() {
 methods on our `Counter` iterator</span>
 -->
 
-<span class="caption">リスト13-23: `Counter`イテレータに対していろんな`Iterator`トレイトのメソッドを使用する</span>
+<span class="caption">リスト 13-23: `Counter`イテレータに対していろんな`Iterator`トレイトのメソッドを使用する</span>
 
 <!--
 Note that `zip` produces only four pairs; the theoretical fifth pair `(5,
@@ -827,7 +827,7 @@ None)` is never produced because `zip` returns `None` when either of its input
 iterators return `None`.
 -->
 
-`zip`は4組しか生成しないことに注意してください; 理論的な5番目の組の`(5, None)`は、
+`zip`は 4 組しか生成しないことに注意してください; 理論的な 5 番目の組の`(5, None)`は、
 入力イテレータのどちらかが`None`を返したら、`zip`は`None`を返却するため、決して生成されることはありません。
 
 <!--

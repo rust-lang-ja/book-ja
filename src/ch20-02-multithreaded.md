@@ -14,7 +14,7 @@ finished, even if the new requests can be processed quickly. We’ll need to fix
 this, but first, we’ll look at the problem in action.
 -->
 
-現状、サーバはリクエストを順番に処理します。つまり、最初の接続が処理し終わるまで、2番目の接続は処理しないということです。
+現状、サーバはリクエストを順番に処理します。つまり、最初の接続が処理し終わるまで、2 番目の接続は処理しないということです。
 サーバが受け付けるリクエストの量が増えるほど、この連続的な実行は、最適ではなくなるでしょう。
 サーバが処理するのに長い時間がかかるリクエストを受け付けたら、新しいリクエストは迅速に処理できても、
 続くリクエストは長いリクエストが完了するまで待たなければならなくなるでしょう。これを修正する必要がありますが、
@@ -34,13 +34,13 @@ for 5 seconds before responding.
 -->
 
 処理が遅いリクエストが現在のサーバ実装に対して行われる他のリクエストにどう影響するかに目を向けます。
-リスト20-10は、応答する前に5秒サーバをスリープさせる遅いレスポンスをシミュレーションした */sleep*へのリクエストを扱う実装です。
+リスト 20-10 は、応答する前に 5 秒サーバをスリープさせる遅いレスポンスをシミュレーションした */sleep*へのリクエストを扱う実装です。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 use std::thread;
@@ -76,7 +76,7 @@ fn handle_connection(mut stream: TcpStream) {
 */sleep* and sleeping for 5 seconds</span>
 -->
 
-<span class="caption">リスト20-10: */sleep*を認識して5秒間スリープすることで遅いリクエストをシミュレーションする</span>
+<span class="caption">リスト 20-10: */sleep*を認識して 5 秒間スリープすることで遅いリクエストをシミュレーションする</span>
 
 <!--
 This code is a bit messy, but it’s good enough for simulation purposes. We
@@ -86,16 +86,16 @@ request is received, the server will sleep for 5 seconds before rendering the
 successful HTML page.
 -->
 
-このコードはちょっと汚いですが、シミュレーション目的には十分です。2番目のリクエスト`sleep`を作成し、
+このコードはちょっと汚いですが、シミュレーション目的には十分です。2 番目のリクエスト`sleep`を作成し、
 そのデータをサーバは認識します。`if`ブロックの後に`else if`を追加し、*/sleep*へのリクエストを確認しています。
-そのリクエストが受け付けられると、サーバは成功のHTMLページを描画する前に5秒間スリープします。
+そのリクエストが受け付けられると、サーバは成功の HTML ページを描画する前に 5 秒間スリープします。
 
 <!--
 You can see how primitive our server is: real libraries would handle the
 recognition of multiple requests in a much less verbose way!
 -->
 
-我々のサーバがどれだけ基礎的か見て取れます: 本物のライブラリは、もっと冗長でない方法で複数のリクエストの認識を扱うでしょう！
+我々のサーバがどれだけ基礎的か見て取れます：本物のライブラリは、もっと冗長でない方法で複数のリクエストの認識を扱うでしょう！
 
 <!--
 Start the server using `cargo run`. Then open two browser windows: one for
@@ -105,10 +105,10 @@ But if you enter */sleep*, and then load */*, you’ll see that */* waits until
 `sleep` has slept for its full 5 seconds before loading.
 -->
 
-`cargo run`でサーバを開始してください。それから2つブラウザのウインドウを開いてください: 1つは、
-*http://localhost:7878/* 用、そしてもう1つは*http://localhost:7878/sleep* 用です。
-以前のように */* URIを数回入力したら、素早く応答するでしょう。しかし、*/sleep*を入力し、それから */* をロードしたら、
-`sleep`がロードする前にきっかり5秒スリープし終わるまで、*/* は待機するのを目撃するでしょう。
+`cargo run`でサーバを開始してください。それから 2 つブラウザのウインドウを開いてください：1 つは、
+*http://localhost:7878/* 用、そしてもう 1 つは*http://localhost:7878/sleep* 用です。
+以前のように */* URI を数回入力したら、素早く応答するでしょう。しかし、*/sleep*を入力し、それから */* をロードしたら、
+`sleep`がロードする前にきっかり 5 秒スリープし終わるまで、*/* は待機するのを目撃するでしょう。
 
 <!--
 There are multiple ways we could change how our web server works to avoid
@@ -116,7 +116,7 @@ having more requests back up behind a slow request; the one we’ll implement is
 a thread pool.
 -->
 
-より多くのリクエストが遅いリクエストの背後に回ってしまうのを回避するようWebサーバが動く方法を変える方法は複数あります;
+より多くのリクエストが遅いリクエストの背後に回ってしまうのを回避するよう Web サーバが動く方法を変える方法は複数あります;
 これから実装するのは、スレッドプールです。
 
 <!--
@@ -151,8 +151,8 @@ server could create havoc by using up all our server’s resources and grinding
 the processing of requests to a halt.
 -->
 
-プール内のスレッド数は、小さい数字に制限し、DoS(Denial of Service; サービスの拒否)攻撃から保護します; リクエストが来た度に新しいスレッドをプログラムに生成させたら、
-1000万リクエストをサーバに行う誰かが、サーバのリソースを使い尽くし、リクエストの処理を停止に追い込むことで、
+プール内のスレッド数は、小さい数字に制限し、DoS(Denial of Service; サービスの拒否) 攻撃から保護します; リクエストが来た度に新しいスレッドをプログラムに生成させたら、
+1000 万リクエストをサーバに行う誰かが、サーバのリソースを使い尽くし、リクエストの処理を停止に追い込むことで、
 大混乱を招くことができてしまうでしょう。
 
 <!--
@@ -181,9 +181,9 @@ read more about other solutions and try to implement them in Rust; with a
 low-level language like Rust, all of these options are possible.
 -->
 
-このテクニックは、Webサーバのスループットを向上させる多くの方法の1つに過ぎません。探究する可能性のある他の選択肢は、
+このテクニックは、Web サーバのスループットを向上させる多くの方法の 1 つに過ぎません。探究する可能性のある他の選択肢は、
 fork/joinモデルと、シングルスレッドの非同期I/Oモデルです。この話題にご興味があれば、他の解決策についてもっと読み、
-Rustで実装を試みることができます; Rustのような低レベル言語であれば、これらの選択肢全部が可能なのです。
+Rust で実装を試みることができます; Rust のような低レベル言語であれば、これらの選択肢全部が可能なのです。
 
 <!--
 Before we begin implementing a thread pool, let’s talk about what using the
@@ -196,7 +196,7 @@ designing the public API.
 
 スレッドプールを実装し始める前に、プールを使うのはどんな感じになるはずなのかについて語りましょう。コードの設計を試みる際、
 クライアントのインターフェイスをまず書くことは、設計を導く手助けになることがあります。呼び出したいように構成されるよう、
-コードのAPIを記述してください; そして、機能を実装してから公開APIの設計をするのではなく、その構造内で機能を実装してください。
+コードの API を記述してください; そして、機能を実装してから公開 API の設計をするのではなく、その構造内で機能を実装してください。
 
 <!--
 Similar to how we used test-driven development in the project in Chapter 12,
@@ -205,7 +205,7 @@ functions we want, and then we’ll look at errors from the compiler to determin
 what we should change next to get the code to work.
 -->
 
-第12章のプロジェクトでTDDを使用したように、ここではCompiler Driven Development(コンパイラ駆動開発)を使用します。
+第 12 章のプロジェクトで TDD を使用したように、ここでは Compiler Driven Development(コンパイラ駆動開発) を使用します。
 欲しい関数を呼び出すコードを書き、それからコンパイラの出すエラーを見てコードが動くように次に何を変更すべきかを決定します。
 
 <!--
@@ -224,13 +224,13 @@ new thread to handle each stream within the `for` loop.
 
 まず、全接続に対して新しいスレッドを確かに生成した場合にコードがどんな見た目になるかを探究しましょう。
 先ほど述べたように、無制限にスレッドを大量生産する可能性があるという問題のため、これは最終的な計画ではありませんが、
-開始点です。リスト20-11は、新しいスレッドを立ち上げて`for`ループ内で各ストリームを扱うために`main`に行う変更を示しています。
+開始点です。リスト 20-11 は、新しいスレッドを立ち上げて`for`ループ内で各ストリームを扱うために`main`に行う変更を示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,no_run
 # use std::thread;
@@ -257,7 +257,7 @@ fn main() {
 stream</span>
 -->
 
-<span class="caption">リスト20-11: 各ストリームに対して新しいスレッドを立ち上げる</span>
+<span class="caption">リスト 20-11: 各ストリームに対して新しいスレッドを立ち上げる</span>
 
 <!--
 As you learned in Chapter 16, `thread::spawn` will create a new thread and then
@@ -268,8 +268,8 @@ mentioned, this will eventually overwhelm the system because you'd making
 new threads without any limit.
 -->
 
-第16章で学んだように、`thread::spawn`は新しいスレッドを生成し、それからクロージャ内のコードを新しいスレッドで実行します。
-このコードを実行してブラウザで */sleep*をロードし、それからもう2つのブラウザのタブで */* をロードしたら、
+第 16 章で学んだように、`thread::spawn`は新しいスレッドを生成し、それからクロージャ内のコードを新しいスレッドで実行します。
+このコードを実行してブラウザで */sleep*をロードし、それからもう 2 つのブラウザのタブで */* をロードしたら、
 確かに */* へのリクエストは、*/sleep*が完了するのを待機しなくても済むことがわかるでしょう。
 ですが、前述したように、無制限にスレッドを生成することになるので、これは最終的にシステムを参らせてしまうでしょう。
 
@@ -286,15 +286,15 @@ our API. Listing 20-12 shows the hypothetical interface for a `ThreadPool`
 struct we want to use instead of `thread::spawn`.
 -->
 
-スレッドからスレッドプールへの変更にAPIを使用するコードへの大きな変更が必要ないように、
-スレッドプールには似た、馴染み深い方法で動作してほしいです。リスト20-12は、
+スレッドからスレッドプールへの変更に API を使用するコードへの大きな変更が必要ないように、
+スレッドプールには似た、馴染み深い方法で動作してほしいです。リスト 20-12 は、
 `thread::spawn`の代わりに使用したい`ThreadPool`構造体の架空のインターフェイスを表示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,no_run
 # use std::thread;
@@ -327,7 +327,7 @@ fn main() {
 <span class="caption">Listing 20-12: Our ideal `ThreadPool` interface</span>
 -->
 
-<span class="caption">リスト20-12: `ThreadPool`の理想的なインターフェイス</span>
+<span class="caption">リスト 20-12: `ThreadPool`の理想的なインターフェイス</span>
 
 <!--
 We use `ThreadPool::new` to create a new thread pool with a configurable number
@@ -338,7 +338,7 @@ closure and gives it to a thread in the pool to run. This code won’t yet
 compile, but we’ll try so the compiler can guide us in how to fix it.
 -->
 
-`ThreadPool::new`を使用して設定可能なスレッド数で新しいスレッドプールを作成し、今回の場合は4です。
+`ThreadPool::new`を使用して設定可能なスレッド数で新しいスレッドプールを作成し、今回の場合は 4 です。
 それから`for`ループ内で、`pool.execute`は、プールが各ストリームに対して実行すべきクロージャを受け取るという点で、
 `thread::spawn`と似たインターフェイスです。`pool.execute`を実装する必要があるので、
 これはクロージャを取り、実行するためにプール内のスレッドに与えます。このコードはまだコンパイルできませんが、
@@ -356,8 +356,8 @@ compiler errors from `cargo check` to drive our development. Here is the first
 error we get:
 -->
 
-リスト20-12の変更を*src/main.rs*に行い、それから開発を駆動するために`cargo check`からのコンパイラエラーを活用しましょう。
-こちらが得られる最初のエラーです:
+リスト 20-12 の変更を*src/main.rs*に行い、それから開発を駆動するために`cargo check`からのコンパイラエラーを活用しましょう。
+こちらが得られる最初のエラーです：
 
 ```text
 $ cargo check
@@ -383,23 +383,23 @@ library for any work we want to do using a thread pool, not just for serving
 web requests.
 -->
 
-よろしい!このエラーは`ThreadPool`型かモジュールが必要なことを教えてくれているので、今構築します。
-`ThreadPool`の実装は、Webサーバが行う仕事の種類とは独立しています。従って、`hello`クレートをバイナリクレートからライブラリクレートに切り替え、
+よろしい！このエラーは`ThreadPool`型かモジュールが必要なことを教えてくれているので、今構築します。
+`ThreadPool`の実装は、Web サーバが行う仕事の種類とは独立しています。従って、`hello`クレートをバイナリクレートからライブラリクレートに切り替え、
 `ThreadPool`の実装を保持させましょう。ライブラリクレートに変更後、
-個別のスレッドプールライブラリをWebリクエストを提供するためだけではなく、スレッドプールでしたいあらゆる作業にも使用できます。
+個別のスレッドプールライブラリを Web リクエストを提供するためだけではなく、スレッドプールでしたいあらゆる作業にも使用できます。
 
 <!--
 Create a *src/lib.rs* that contains the following, which is the simplest
 definition of a `ThreadPool` struct that we can have for now:
 -->
 
-以下を含む*src/lib.rs*を生成してください。これは、現状存在できる最も単純な`ThreadPool`の定義です:
+以下を含む*src/lib.rs*を生成してください。これは、現状存在できる最も単純な`ThreadPool`の定義です：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 pub struct ThreadPool;
@@ -417,13 +417,13 @@ following code to the top of *src/bin/main.rs*:
 それから新しいディレクトリ、*src/bin*を作成し、*src/main.rs*に根付くバイナリクレートを*src/bin/main.rs*に移動してください。
 そうすると、ライブラリクレートが*hello*ディレクトリ内で主要クレートになります; それでも、
 `cargo run`で*src/bin/main.rs*のバイナリを実行することはできます。*main.rs*ファイルを移動後、
-編集してライブラリクレートを持ち込み、以下のコードを*src/bin/main.rs*の先頭に追記して`ThreadPool`をスコープに導入してください:
+編集してライブラリクレートを持ち込み、以下のコードを*src/bin/main.rs*の先頭に追記して`ThreadPool`をスコープに導入してください：
 
 <!--
 <span class="filename">Filename: src/bin/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/bin/main.rs</span>
+<span class="filename">ファイル名：src/bin/main.rs</span>
 
 ```rust,ignore
 extern crate hello;
@@ -435,7 +435,7 @@ This code still won’t work, but let’s check it again to get the next error t
 we need to address:
 -->
 
-このコードはまだ動きませんが、再度それを確認して扱う必要のある次のエラーを手に入れましょう:
+このコードはまだ動きませんが、再度それを確認して扱う必要のある次のエラーを手に入れましょう：
 
 ```text
 $ cargo check
@@ -459,14 +459,14 @@ characteristics:
 -->
 
 このエラーは、次に、`ThreadPool`に対して`new`という関連関数を作成する必要があることを示唆しています。
-また、`new`には`4`を引数として受け入れる引数1つがあり、`ThreadPool`インスタンスを返すべきということも知っています。
-それらの特徴を持つ最も単純な`new`関数を実装しましょう:
+また、`new`には`4`を引数として受け入れる引数 1 つがあり、`ThreadPool`インスタンスを返すべきということも知っています。
+それらの特徴を持つ最も単純な`new`関数を実装しましょう：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 pub struct ThreadPool;
@@ -486,19 +486,19 @@ negative number of threads doesn’t make any sense. We also know we’ll use th
 -->
 
 `size`引数の型として、`usize`を選択しました。何故なら、マイナスのスレッド数は、何も筋が通らないことを知っているからです。
-また、この4をスレッドのコレクションの要素数として使用し、第3章の「整数型」節で議論したように、これは`usize`のあるべき姿であることも知っています。
+また、この 4 をスレッドのコレクションの要素数として使用し、第 3 章の「整数型」節で議論したように、これは`usize`のあるべき姿であることも知っています。
 
 <!--
 Let’s check the code again:
 -->
 
-コードを再度確認しましょう:
+コードを再度確認しましょう：
 
 ```text
 $ cargo check
    Compiling hello v0.1.0 (file:///projects/hello)
 warning: unused variable: `size`
-(警告: 未使用の変数: `size`)
+(警告：未使用の変数：`size`)
  --> src/lib.rs:4:16
   |
 4 |     pub fn new(size: usize) -> ThreadPool {
@@ -540,11 +540,11 @@ shows us the following:
 -->
 
 `ThreadPool`に`execute`メソッドをクロージャを引数として受け取るように定義します。
-第13章の「ジェネリック引数と`Fn`トレイトを使用してクロージャを保存する」節から、
-3つの異なるトレイトでクロージャを引数として取ることができることを思い出してください: `Fn`、`FnMut`、`FnOnce`です。
+第 13 章の「ジェネリック引数と`Fn`トレイトを使用してクロージャを保存する」節から、
+3 つの異なるトレイトでクロージャを引数として取ることができることを思い出してください：`Fn`、`FnMut`、`FnOnce`です。
 ここでは、どの種類のクロージャを使用するか決定する必要があります。最終的には、
 標準ライブラリの`thread::spawn`実装に似たことをすることがわかっているので、
-`thread::spawn`のシグニチャで引数にどんな境界があるか見ることができます。ドキュメンテーションは、以下のものを示しています:
+`thread::spawn`のシグニチャで引数にどんな境界があるか見ることができます。ドキュメンテーションは、以下のものを示しています：
 
 ```rust,ignore
 pub fn spawn<F, T>(f: F) -> JoinHandle<T>
@@ -566,7 +566,7 @@ request’s closure one time, which matches the `Once` in `FnOnce`.
 `F`型引数がここで関心のあるものです; `T`型引数は戻り値と関係があり、関心はありません。`spawn`は、
 `F`のトレイト境界として`FnOnce`を使用していることが確認できます。これはおそらく、我々が欲しているものでもあるでしょう。
 というのも、最終的には`execute`で得た引数を`spawn`に渡すからです。さらに`FnOnce`は使用したいトレイトであると自信を持つことができます。
-リクエストを実行するスレッドは、そのリクエストのクロージャを1回だけ実行し、これは`FnOnce`の`Once`に合致するからです。
+リクエストを実行するスレッドは、そのリクエストのクロージャを 1 回だけ実行し、これは`FnOnce`の`Once`に合致するからです。
 
 <!--
 The `F` type parameter also has the trait bound `Send` and the lifetime bound
@@ -576,15 +576,15 @@ the thread will take to execute. Let’s create an `execute` method on
 `ThreadPool` that will take a generic parameter of type `F` with these bounds:
 -->
 
-`F`型引数にはまた、トレイト境界の`Send`とライフタイム境界の`'static`もあり、この状況では有用です:
+`F`型引数にはまた、トレイト境界の`Send`とライフタイム境界の`'static`もあり、この状況では有用です：
 あるスレッドから別のスレッドにクロージャを移動するのに`Send`が必要で、スレッドの実行にどれくらいかかるかわからないので、
-`'static`も必要です。`ThreadPool`にこれらの境界のジェネリックな型`F`の引数を取る`execute`メソッドを生成しましょう:
+`'static`も必要です。`ThreadPool`にこれらの境界のジェネリックな型`F`の引数を取る`execute`メソッドを生成しましょう：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # pub struct ThreadPool;
@@ -615,8 +615,8 @@ Again, this is the simplest implementation of the `execute` method: it does
 nothing, but we’re trying only to make our code compile. Let’s check it again:
 -->
 
-またもや、これが`execute`メソッドの最も単純な実装です: 何もしませんが、
-コードがコンパイルできるようにしようとしているだけです。再確認しましょう:
+またもや、これが`execute`メソッドの最も単純な実装です：何もしませんが、
+コードがコンパイルできるようにしようとしているだけです。再確認しましょう：
 
 ```text
 $ cargo check
@@ -659,7 +659,7 @@ actually calling the closure passed to `execute` yet!
 > want.
 -->
 
-> 注釈: HaskellやRustなどの厳密なコンパイラがある言語についての格言として「コードがコンパイルできたら、
+> 注釈：Haskell や Rust などの厳密なコンパイラがある言語についての格言として「コードがコンパイルできたら、
 > 動作する」というものをお聴きになったことがある可能性があります。ですが、この格言は普遍的に当てはまるものではありません。
 > このプロジェクトはコンパイルできますが、全く何もしません！本物の完璧なプロジェクトを構築しようとしているのなら、
 > ここが単体テストを書き始めて、コードがコンパイルでき、*かつ*欲しい振る舞いを保持していることを確認するのに良い機会でしょう。
@@ -684,26 +684,26 @@ as shown in Listing 20-13.
 
 `new`と`execute`の引数で何もしていないので、警告が出続けます。欲しい振る舞いでこれらの関数の本体を実装しましょう。
 まずはじめに、`new`を考えましょう。先刻、`size`引数に非負整数型を選択しました。負のスレッド数のプールは、
-全く道理が通らないからです。しかしながら、0スレッドのプールも全く意味がわかりませんが、0も完全に合法な`usize`です。
-`ThreadPool`インスタンスを返す前に`size`が0よりも大きいことを確認するコードを追加し、リスト20-13に示したように、
-`assert!`マクロを使用することで0を受け取った時にプログラムをパニックさせます。
+全く道理が通らないからです。しかしながら、0 スレッドのプールも全く意味がわかりませんが、0 も完全に合法な`usize`です。
+`ThreadPool`インスタンスを返す前に`size`が 0 よりも大きいことを確認するコードを追加し、リスト 20-13 に示したように、
+`assert!`マクロを使用することで 0 を受け取った時にプログラムをパニックさせます。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # pub struct ThreadPool;
 impl ThreadPool {
-    /// 新しいThreadPoolを生成する。
+    /// 新しい ThreadPool を生成する。
     ///
-    /// sizeがプールのスレッド数です。
+    /// size がプールのスレッド数です。
     ///
     /// # パニック
     ///
-    /// sizeが0なら、`new`関数はパニックします。
+    /// size が 0 なら、`new`関数はパニックします。
     ///
     /// Create a new ThreadPool.
     ///
@@ -727,10 +727,10 @@ impl ThreadPool {
 `size` is zero</span>
 -->
 
-<span class="caption">リスト20-13: `ThreadPool::new`を実装して`size`が0ならパニックする</span>
+<span class="caption">リスト 20-13: `ThreadPool::new`を実装して`size`が 0 ならパニックする</span>
 
 <!--
-2行目後半、calls outを声高に叫ぶとした。叫ぶだけでは何か物足りない気がするので
+2 行目後半、calls out を声高に叫ぶとした。叫ぶだけでは何か物足りない気がするので
 -->
 
 <!--
@@ -741,7 +741,7 @@ Try running `cargo doc --open` and clicking the `ThreadPool` struct to see what
 the generated docs for `new` look like!
 -->
 
-doc commentで`ThreadPool`にドキュメンテーションを追加しました。第14章で議論したように、
+doc comment で`ThreadPool`にドキュメンテーションを追加しました。第 14 章で議論したように、
 関数がパニックすることもある場面を声高に叫ぶセクションを追加することで、
 いいドキュメンテーションの実践に<ruby>倣<rp>(</rp><rt>なら</rt><rp>)</rp></ruby>っていることに注意してください。
 試しに`cargo doc --open`を実行し、`ThreadPool`構造体をクリックして、`new`の生成されるドキュメンテーションがどんな見た目か確かめてください！
@@ -755,9 +755,9 @@ ambitious, try to write a version of `new` with the following signature to
 compare both versions:
 -->
 
-ここでしたように`assert!`マクロを追加する代わりに、リスト12-9のI/Oプロジェクトの`Config::new`のように、
+ここでしたように`assert!`マクロを追加する代わりに、リスト 12-9 の I/O プロジェクトの`Config::new`のように、
 `new`に`Result`を返させることもできるでしょう。しかし、今回の場合、スレッドなしでスレッドプールを作成しようとするのは、
-回復不能なエラーであるべきと決定しました。野心を感じるのなら、以下のシグニチャの`new`も書いてみて、両者を比較してみてください:
+回復不能なエラーであるべきと決定しました。野心を感じるのなら、以下のシグニチャの`new`も書いてみて、両者を比較してみてください：
 
 ```rust,ignore
 pub fn new(size: usize) -> Result<ThreadPool, PoolCreationError> {
@@ -777,7 +777,7 @@ the `thread::spawn` signature:
 -->
 
 今や、プールに格納する合法なスレッド数を知る方法ができたので、`ThreadPool`構造体を返す前にスレッドを作成して格納できます。
-ですが、どのようにスレッドを「格納」するのでしょうか？もう一度、`thread::spawn`シグニチャを眺めてみましょう:
+ですが、どのようにスレッドを「格納」するのでしょうか？もう一度、`thread::spawn`シグニチャを眺めてみましょう：
 
 ```rust,ignore
 pub fn spawn<F, T>(f: F) -> JoinHandle<T>
@@ -805,7 +805,7 @@ We’ve changed the definition of `ThreadPool` to hold a vector of
 returned a `ThreadPool` instance containing them.
 -->
 
-リスト20-14のコードはコンパイルできますが、まだスレッドは何も生成しません。`ThreadPool`の定義を変更して、
+リスト 20-14 のコードはコンパイルできますが、まだスレッドは何も生成しません。`ThreadPool`の定義を変更して、
 `thread::JoinHandle<()>`インスタンスのベクタを保持し、`size`キャパシティのベクタを初期化し、
 スレッドを生成する何らかのコードを実行する`for`ループを設定し、それらを含む`ThreadPool`インスタンスを返します。
 
@@ -813,7 +813,7 @@ returned a `ThreadPool` instance containing them.
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 use std::thread;
@@ -848,7 +848,7 @@ impl ThreadPool {
 the threads</span>
 -->
 
-<span class="caption">リスト20-14: `ThreadPool`にスレッドを保持するベクタを生成する</span>
+<span class="caption">リスト 20-14: `ThreadPool`にスレッドを保持するベクタを生成する</span>
 
 <!--
 We’ve brought `std::thread` into scope in the library crate, because we’re
@@ -871,7 +871,7 @@ inserted.
 
 一旦、合法なサイズを受け取ったら、`ThreadPool`は`size`個の要素を保持できる新しいベクタを生成します。
 この本ではまだ、`with_capacity`関数を使用したことがありませんが、これは`Vec::new`と同じ作業をしつつ、
-重要な違いがあります: ベクタに予めスペースを確保しておくのです。ベクタに`size`個の要素を格納する必要があることはわかっているので、
+重要な違いがあります：ベクタに予めスペースを確保しておくのです。ベクタに`size`個の要素を格納する必要があることはわかっているので、
 このメモリ確保を前もってしておくと、`Vec::new`よりも少しだけ効率的になります。`Vec::new`は、
 要素が挿入されるにつれて、自身のサイズを変更します。
 
@@ -899,7 +899,7 @@ implementation of threads doesn’t include any way to do that; we have to
 implement it manually.
 -->
 
-リスト20-14の`for`ループにスレッドの生成に関するコメントを残しました。ここでは、実際にスレッドを生成する方法に目を向けます。
+リスト 20-14 の`for`ループにスレッドの生成に関するコメントを残しました。ここでは、実際にスレッドを生成する方法に目を向けます。
 標準ライブラリはスレッドを生成する手段として`thread::spawn`を提供し、`thread::spawn`は、
 生成されるとすぐにスレッドが実行すべき何らかのコードを得ることを予期します。ところが、我々の場合、
 スレッドを生成して、後ほど送信するコードを*待機*してほしいです。標準ライブラリのスレッドの実装は、
@@ -915,7 +915,7 @@ for taking those orders and filling them.
 -->
 
 この新しい振る舞いを管理するスレッドと`ThreadPool`間に新しいデータ構造を導入することでこの振る舞いを実装します。
-このデータ構造を`Worker`と呼び、プール実装では一般的な用語です。レストランのキッチンで働く人々を思い浮かべてください:
+このデータ構造を`Worker`と呼び、プール実装では一般的な用語です。レストランのキッチンで働く人々を思い浮かべてください：
 労働者は、お客さんからオーダーが来るまで待機し、それからそれらのオーダーを取り、満たすことに責任を負います。
 
 <!--
@@ -939,7 +939,7 @@ We’ll implement the code that sends the closure to the thread after we have
 -->
 
 `ThreadPool`を生成する際に発生することに以下の変更を加えましょう。このように`Worker`をセットアップした後に、
-スレッドにクロージャを送信するコードを実装します:
+スレッドにクロージャを送信するコードを実装します：
 
 <!--
 1. Define a `Worker` struct that holds an `id` and a `JoinHandle<()>`.
@@ -961,19 +961,19 @@ If you’re up for a challenge, try implementing these changes on your own befor
 looking at the code in Listing 20-15.
 -->
 
-挑戦に積極的ならば、リスト20-15のコードを見る前にご自身でこれらの変更を実装してみてください。
+挑戦に積極的ならば、リスト 20-15 のコードを見る前にご自身でこれらの変更を実装してみてください。
 
 <!--
 Ready? Here is Listing 20-15 with one way to make the preceding modifications.
 -->
 
-いいですか？こちらが先ほどの変更を行う1つの方法を行ったリスト20-15です。
+いいですか？こちらが先ほどの変更を行う 1 つの方法を行ったリスト 20-15 です。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 use std::thread;
@@ -1022,7 +1022,7 @@ impl Worker {
 instances instead of holding threads directly</span>
 -->
 
-<span class="caption">リスト20-15: `ThreadPool`を変更してスレッドを直接保持するのではなく、`Worker`インスタンスを保持する</span>
+<span class="caption">リスト 20-15: `ThreadPool`を変更してスレッドを直接保持するのではなく、`Worker`インスタンスを保持する</span>
 
 <!--
 We’ve changed the name of the field on `ThreadPool` from `threads` to `workers`
@@ -1043,7 +1043,7 @@ so we make the `Worker` struct and its `new` function private. The
 instance that is created by spawning a new thread using an empty closure.
 -->
 
-外部のコード(*src/bin/main.rs*のサーバなど)は、`ThreadPool`内で`Worker`構造体を使用していることに関する実装の詳細を知る必要はないので、
+外部のコード (*src/bin/main.rs*のサーバなど) は、`ThreadPool`内で`Worker`構造体を使用していることに関する実装の詳細を知る必要はないので、
 `Worker`構造体とその`new`関数は非公開にしています。`Worker::new`関数は与えた`id`を使用し、
 空のクロージャを使って新しいスレッドを立ち上げることで生成される`JoinHandle<()>`インスタンスを格納します。
 
@@ -1089,9 +1089,9 @@ function as the queue of jobs, and `execute` will send a job from the
 Here is the plan:
 -->
 
-第16章でこのユースケースにぴったりであろう*チャンネル*(2スレッド間コミュニケーションをとる単純な方法)について学びました。
+第 16 章でこのユースケースにぴったりであろう*チャンネル*(2 スレッド間コミュニケーションをとる単純な方法) について学びました。
 チャンネルをキューの仕事として機能させ、`execute`は`ThreadPool`から`Worker`インスタンスに仕事を送り、
-これが仕事をスレッドに送信します。こちらが計画です:
+これが仕事をスレッドに送信します。こちらが計画です：
 
 <!--
 1. The `ThreadPool` will create a channel and hold on to the sending side of
@@ -1118,14 +1118,14 @@ doesn’t hold anything for now but will be the type of item we’re sending dow
 the channel.
 -->
 
-`ThreadPool::new`内でチャンネルを生成し、`ThreadPool`インスタンスに送信側を保持することから始めましょう。リスト20-16のようにですね。
+`ThreadPool::new`内でチャンネルを生成し、`ThreadPool`インスタンスに送信側を保持することから始めましょう。リスト 20-16 のようにですね。
 今の所、`Job`構造体は何も保持しませんが、チャンネルに送信する種類の要素になります。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # use std::thread;
@@ -1182,7 +1182,7 @@ impl ThreadPool {
 sending end of a channel that sends `Job` instances</span>
 -->
 
-<span class="caption">リスト20-18: `ThreadPool`を変更して`Job`インスタンスを送信するチャンネルの送信側を格納する</span>
+<span class="caption">リスト 20-18: `ThreadPool`を変更して`Job`インスタンスを送信するチャンネルの送信側を格納する</span>
 
 <!--
 In `ThreadPool::new`, we create our new channel and have the pool hold the
@@ -1201,13 +1201,13 @@ the closure. The code in Listing 20-17 won’t quite compile yet.
 
 スレッドプールがワーカーを生成する際に各ワーカーにチャンネルの受信側を試しに渡してみましょう。
 受信側はワーカーが大量生産するスレッド内で使用したいことがわかっているので、クロージャ内で`receiver`引数を参照します。
-リスト20-17のコードはまだ完璧にはコンパイルできません。
+リスト 20-17 のコードはまだ完璧にはコンパイルできません。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 impl ThreadPool {
@@ -1252,20 +1252,20 @@ impl Worker {
 to the workers</span>
 -->
 
-<span class="caption">リスト20-17: チャンネルの受信側をワーカーに渡す</span>
+<span class="caption">リスト 20-17: チャンネルの受信側をワーカーに渡す</span>
 
 <!--
 We’ve made some small and straightforward changes: we pass the receiving end of
 the channel into `Worker::new`, and then we use it inside the closure.
 -->
 
-多少些細で単純な変更を行いました: チャンネルの受信側を`Worker::new`に渡し、それからクロージャの内側で使用しています。
+多少些細で単純な変更を行いました：チャンネルの受信側を`Worker::new`に渡し、それからクロージャの内側で使用しています。
 
 <!--
 When we try to check this code, we get this error:
 -->
 
-このコードのチェックを試みると、このようなエラーが出ます:
+このコードのチェックを試みると、このようなエラーが出ます：
 
 ```text
 $ cargo check
@@ -1290,8 +1290,8 @@ that is not the technique we would want to use; instead, we want to distribute
 the jobs across threads by sharing the single `receiver` among all the workers.
 -->
 
-このコードは、`receiver`を複数の`Worker`インスタンスに渡そうとしています。第16章を思い出すように、これは動作しません:
-Rustが提供するチャンネル実装は、複数の*生成者*、単独の*消費者*です。要するに、
+このコードは、`receiver`を複数の`Worker`インスタンスに渡そうとしています。第 16 章を思い出すように、これは動作しません：
+Rust が提供するチャンネル実装は、複数の*生成者*、単独の*消費者*です。要するに、
 チャンネルの消費側をクローンするだけでこのコードを修正することはできません。たとえできたとしても、
 使用したいテクニックではありません; 代わりに、全ワーカー間で単独の`receiver`を共有することで、
 スレッド間に仕事を分配したいです。
@@ -1304,7 +1304,7 @@ otherwise, we might get race conditions (as covered in Chapter 16).
 
 さらに、チャンネルキューから仕事を取り出すことは、`receiver`を可変化することに関連するので、
 スレッドには、`receiver`を共有して変更する安全な方法が必要です; さもなくば、
-競合状態に陥る可能性があります(第16章で講義しました)。
+競合状態に陥る可能性があります (第 16 章で講義しました)。
 
 <!--
 Recall the thread-safe smart pointers discussed in Chapter 16: to share
@@ -1314,16 +1314,16 @@ receiver, and `Mutex` will ensure that only one worker gets a job from the
 receiver at a time. Listing 20-18 shows the changes we need to make.
 -->
 
-第16章で議論したスレッド安全なスマートポインタを思い出してください: 複数のスレッドで所有権を共有しつつ、
+第 16 章で議論したスレッド安全なスマートポインタを思い出してください：複数のスレッドで所有権を共有しつつ、
 スレッドに値を可変化させるためには、`Arc<Mutex<T>>`を使用する必要があります。`Arc`型は、
-複数のワーカーに受信者を所有させ、`Mutex`により、1度に受信者から1つの仕事をたった1つのワーカーが受け取ることを保証します。
-リスト20-18は、行う必要のある変更を示しています。
+複数のワーカーに受信者を所有させ、`Mutex`により、1 度に受信者から 1 つの仕事をたった 1 つのワーカーが受け取ることを保証します。
+リスト 20-18 は、行う必要のある変更を示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 # use std::thread;
@@ -1387,7 +1387,7 @@ impl Worker {
 among the workers using `Arc` and `Mutex`</span>
 -->
 
-<span class="caption">リスト20-18: `Arc`と`Mutex`を使用してワーカー間でチャンネルの受信側を共有する</span>
+<span class="caption">リスト 20-18: `Arc`と`Mutex`を使用してワーカー間でチャンネルの受信側を共有する</span>
 
 <!--
 In `ThreadPool::new`, we put the receiving end of the channel in an `Arc` and a
@@ -1420,14 +1420,14 @@ types shorter. Look at Listing 20-19.
 
 最後に`ThreadPool`に`execute`メソッドを実装しましょう。
 `Job`も構造体から`execute`が受け取るクロージャの型を保持するトレイトオブジェクトの型エイリアスに変更します。
-第19章の「型エイリアスで型同義語を生成する」節で議論したように、型エイリアスにより長い型を短くできます。
-リスト20-19をご覧ください。
+第 19 章の「型エイリアスで型同義語を生成する」節で議論したように、型エイリアスにより長い型を短くできます。
+リスト 20-19 をご覧ください。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 // --snip--
@@ -1461,7 +1461,7 @@ impl ThreadPool {
 that holds each closure and then sending the job down the channel</span>
 -->
 
-<span class="caption">リスト20-19: 各クロージャを保持する`Box`に対して`Job`型エイリアスを生成し、それからチャンネルに仕事を送信する</span>
+<span class="caption">リスト 20-19: 各クロージャを保持する`Box`に対して`Job`型エイリアスを生成し、それからチャンネルに仕事を送信する</span>
 
 <!--
 After creating a new `Job` instance using the closure we get in `execute`, we
@@ -1477,7 +1477,7 @@ compiler doesn’t know that.
 `execute`で得たクロージャを使用して新しい`Job`インスタンスを生成した後、その仕事をチャンネルの送信側に送信しています。
 送信が失敗した時のために`send`に対して`unwrap`を呼び出しています。これは例えば、全スレッドの実行を停止させるなど、
 受信側が新しいメッセージを受け取るのをやめてしまったときなどに起こる可能性があります。現時点では、
-スレッドの実行を止めることはできません: スレッドは、プールが存在する限り実行し続けます。
+スレッドの実行を止めることはできません：スレッドは、プールが存在する限り実行し続けます。
 `unwrap`を使用している理由は、失敗する場合が起こらないとわかっているからですが、コンパイラにはわかりません。
 
 <!--
@@ -1491,13 +1491,13 @@ shown in Listing 20-20 to `Worker::new`.
 ですが、まだやり終えたわけではありませんよ！ワーカー内で`thread::spawn`に渡されているクロージャは、
 それでもチャンネルの受信側を*参照*しているだけです。その代わりに、クロージャには永遠にループし、
 チャンネルの受信側に仕事を要求し、仕事を得たらその仕事を実行してもらう必要があります。
-リスト20-20に示した変更を`Worker::new`に行いましょう。
+リスト 20-20 に示した変更を`Worker::new`に行いましょう。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 // --snip--
@@ -1528,7 +1528,7 @@ impl Worker {
 worker’s thread</span>
 -->
 
-<span class="caption">リスト20-20: ワーカーのスレッドで仕事を受け取り、実行する</span>
+<span class="caption">リスト 20-20: ワーカーのスレッドで仕事を受け取り、実行する</span>
 
 <!--
 Here, we first call `lock` on the `receiver` to acquire the mutex, and then we
@@ -1564,22 +1564,22 @@ wait until a job becomes available. The `Mutex<T>` ensures that only one
 -->
 
 `recv`の呼び出しはブロックするので、まだ仕事がなければ、現在のスレッドは、仕事が利用可能になるまで待機します。
-`Mutex<T>`により、ただ1つの`Worker`スレッドのみが一度に仕事の要求を試みることを保証します。
+`Mutex<T>`により、ただ 1 つの`Worker`スレッドのみが一度に仕事の要求を試みることを保証します。
 
 <!--
 Theoretically, this code should compile. Unfortunately, the Rust compiler isn’t
 perfect yet, and we get this error:
 -->
 
-理論的には、このコードはコンパイルできるはずです。残念ながら、Rustコンパイラはまだ完全ではなく、
-このようなエラーが出ます:
+理論的には、このコードはコンパイルできるはずです。残念ながら、Rust コンパイラはまだ完全ではなく、
+このようなエラーが出ます：
 
 ```text
 error[E0161]: cannot move a value of type std::ops::FnOnce() +
 std::marker::Send: the size of std::ops::FnOnce() + std::marker::Send cannot be
 statically determined
-(エラー: std::ops::FnOnce() + std::marker::Sendの値をムーブできません:
-std::ops::FnOnce() + std::marker::Sendのサイズを静的に決定できません)
+(エラー: std::ops::FnOnce() + std::marker::Send の値をムーブできません：
+std::ops::FnOnce() + std::marker::Send のサイズを静的に決定できません)
   --> src/lib.rs:63:17
    |
 63 |                 (*job)();
@@ -1597,11 +1597,11 @@ the value inside the `Box<T>` will be: recall in Chapter 15 that we used
 to store in a `Box<T>` to get a value of a known size.
 -->
 
-問題が非常に謎めいているので、エラーも非常に謎めいています。`Box<T>`に格納された`FnOnce`クロージャを呼び出すためには(`Job`型エイリアスがそう)、
+問題が非常に謎めいているので、エラーも非常に謎めいています。`Box<T>`に格納された`FnOnce`クロージャを呼び出すためには (`Job`型エイリアスがそう)、
 呼び出す際にクロージャが`self`の所有権を奪うので、
-クロージャは自身を`Box<T>`*から*ムーブする必要があります。一般的に、Rustは`Box<T>`から値をムーブすることを許可しません。
-コンパイラには、`Box<T>`の内側の値がどれほどの大きさなのか見当がつかないからです: 
-第15章で`Box<T>`に格納して既知のサイズの値を得たい未知のサイズの何かがあるために`Box<T>`を正確に使用したことを思い出してください。
+クロージャは自身を`Box<T>`*から*ムーブする必要があります。一般的に、Rust は`Box<T>`から値をムーブすることを許可しません。
+コンパイラには、`Box<T>`の内側の値がどれほどの大きさなのか見当がつかないからです：
+第 15 章で`Box<T>`に格納して既知のサイズの値を得たい未知のサイズの何かがあるために`Box<T>`を正確に使用したことを思い出してください。
 
 <!--
 As you saw in Listing 17-15, we can write methods that use the syntax `self:
@@ -1613,10 +1613,10 @@ understand that it could use `self: Box<Self>` in this situation to take
 ownership of the closure and move the closure out of the `Box<T>`.
 -->
 
-リスト17-15で見かけたように、記法`self: Box<Self>`を使用するメソッドを書くことができ、
+リスト 17-15 で見かけたように、記法`self: Box<Self>`を使用するメソッドを書くことができ、
 これにより、メソッドは`Box<T>`に格納された`Self`値の所有権を奪うことができます。
-それがまさしくここで行いたいことですが、残念ながらコンパイラはさせてくれません:
-クロージャが呼び出された際に振る舞いを実装するRustの一部は、`self: Box<Self>`を使用して実装されていないのです。
+それがまさしくここで行いたいことですが、残念ながらコンパイラはさせてくれません：
+クロージャが呼び出された際に振る舞いを実装する Rust の一部は、`self: Box<Self>`を使用して実装されていないのです。
 故に、コンパイラはまだこの場面において`self: Box<Self>`を使用してクロージャの所有権を奪い、
 クロージャを`Box<T>`からムーブできることを理解していないのです。
 
@@ -1627,7 +1627,7 @@ People just like you are working to fix this and other issues! After you’ve
 finished this book, we would love for you to join in.
 -->
 
-Rustはまだコンパイラの改善途上にあり、リスト20-20のコードは、
+Rust はまだコンパイラの改善途上にあり、リスト 20-20 のコードは、
 将来的にうまく動くようになるべきです。まさしくあなたのような方がこれや他の問題を修正しています！この本を完了したら、
 是非ともあなたにも参加していただきたいです。
 
@@ -1648,13 +1648,13 @@ shown in Listing 20-21.
 シグニチャに`self: Box<Self>`を使用する`call_box`というメソッドのある新しいトレイト`FnBox`を定義すること、
 `FnOnce()`を実装する任意の型に対して`FnBox`を定義すること、型エイリアスを新しいトレイトを使用するように変更すること、
 `Worker`を`call_box`メソッドを使用するように変更することが関連します。これらの変更は、
-リスト20-21に表示されています。
+リスト 20-21 に表示されています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 trait FnBox {
@@ -1696,7 +1696,7 @@ impl Worker {
 the current limitations of `Box<FnOnce()>`</span>
 -->
 
-<span class="caption">リスト20-21: 新しいトレイト`FnBox`を追加して`Box<FnOnce()>`の現在の制限を回避する</span>
+<span class="caption">リスト 20-21: 新しいトレイト`FnBox`を追加して`Box<FnOnce()>`の現在の制限を回避する</span>
 
 <!--
 First, we create a new trait named `FnBox`. This trait has the one method
@@ -1705,7 +1705,7 @@ except that it takes `self: Box<Self>` to take ownership of `self` and move the
 value out of the `Box<T>`.
 -->
 
-まず、`FnBox`という新しいトレイトを作成します。このトレイトには`call_box`という1つのメソッドがあり、
+まず、`FnBox`という新しいトレイトを作成します。このトレイトには`call_box`という 1 つのメソッドがあり、
 これは、`self: Box<Self>`を取って`self`の所有権を奪い、`Box<T>`から値をムーブする点を除いて、
 他の`Fn*`トレイトの`call`メソッドと類似しています。
 
@@ -1748,7 +1748,7 @@ Give it a `cargo run`, and make some requests:
 -->
 
 このトリックの実装で、スレッドプールは動く状態になります！`cargo run`を実行し、
-リクエストを行なってください:
+リクエストを行なってください：
 
 ```text
 $ cargo run
@@ -1799,7 +1799,7 @@ overloaded if the server receives a lot of requests. If we make a request to
 thread run them.
 -->
 
-成功！もう非同期に接続を実行するスレッドプールができました。絶対に4つ以上のスレッドが生成されないので、
+成功！もう非同期に接続を実行するスレッドプールができました。絶対に 4 つ以上のスレッドが生成されないので、
 サーバが多くのリクエストを受け取っても、システムは過負荷にならないでしょう。*/sleep*にリクエストを行なっても、
 サーバは他のスレッドに実行させることで他のリクエストを提供できるでしょう。
 
@@ -1808,14 +1808,14 @@ After learning about the `while let` loop in Chapter 18, you might be wondering
 why we didn’t write the worker thread code as shown in Listing 20-22.
 -->
 
-第18章で`while let`ループを学んだ後で、なぜリスト20-22に示したようにワーカースレッドのコードを記述しなかったのか、
+第 18 章で`while let`ループを学んだ後で、なぜリスト 20-22 に示したようにワーカースレッドのコードを記述しなかったのか、
 不思議に思っている可能性があります。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust,ignore
 // --snip--
@@ -1843,7 +1843,7 @@ impl Worker {
 `Worker::new` using `while let`</span>
 -->
 
-<span class="caption">リスト20-22: `while let`を使用したもう1つの`Worker::new`の実装</span>
+<span class="caption">リスト 20-22: `while let`を使用したもう 1 つの`Worker::new`の実装</span>
 
 <!--
 This code compiles and runs but doesn’t result in the desired threading
@@ -1860,8 +1860,8 @@ for the duration of the block, the lock remains held for the duration of the
 call to `job.call_box()`, meaning other workers cannot receive jobs.
 -->
 
-このコードはコンパイルでき、動きますが、望み通りのスレッドの振る舞いにはなりません:
-遅いリクエストがそれでも、他のリクエストが処理されるのを待機させてしまうのです。理由はどこか捉えがたいものです:
+このコードはコンパイルでき、動きますが、望み通りのスレッドの振る舞いにはなりません：
+遅いリクエストがそれでも、他のリクエストが処理されるのを待機させてしまうのです。理由はどこか捉えがたいものです：
 `Mutex`構造体には公開の`unlock`メソッドがありません。ロックの所有権が、
 `lock`メソッドが返す`LockResult<MutexGuard<T>>`内の`MutexGuard<T>`のライフタイムに基づくからです。
 コンパイル時には、ロックを保持していない限り、借用チェッカーはそうしたら、`Mutex`に保護されるリソースにはアクセスできないという規則を強制できます。

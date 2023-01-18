@@ -9,8 +9,8 @@ Let’s start your Rust journey! There’s a lot to learn, but every journey sta
 somewhere. In this chapter, we’ll discuss:
 -->
 
-Rustの旅を始めましょう！学ぶべきことはたくさんありますが、いかなる旅もどこかから始まります。
-この章では、以下のことを説明します:
+Rust の旅を始めましょう！学ぶべきことはたくさんありますが、いかなる旅もどこかから始まります。
+この章では、以下のことを説明します：
 
 <!--
 * Installing Rust on Linux, macOS, and Windows
@@ -18,6 +18,6 @@ Rustの旅を始めましょう！学ぶべきことはたくさんあります�
 * Using `cargo`, Rust’s package manager and build system
 -->
 
-* RustをLinux、macOS、Windowsにインストールする
+* Rust を Linux、macOS、Windows にインストールする
 * `Hello, world!`と表示するプログラムを書く
-* `cargo`というRustのパッケージマネージャ兼ビルドシステムを使用する
+* `cargo`という Rust のパッケージマネージャ兼ビルドシステムを使用する

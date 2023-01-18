@@ -30,15 +30,15 @@ similar to that of closures, as shown in Listing 19-35.
 
 クロージャを関数に渡す方法について語りました; 普通の関数を関数に渡すこともできるのです！
 新しいクロージャを定義するのではなく、既に定義した関数を渡したい時にこのテクニックは有用です。
-これを関数ポインタで行うと、関数を引数として他の関数に渡して使用できます。関数は、型`fn`(小文字のfです)に型強制されます。
+これを関数ポインタで行うと、関数を引数として他の関数に渡して使用できます。関数は、型`fn`(小文字の f です) に型強制されます。
 `Fn`クロージャトレイトと混同すべきではありません。`fn`型は、*関数ポインタ*と呼ばれます。
-引数が関数ポインタであると指定する記法は、クロージャのものと似ています。リスト19-35のように。
+引数が関数ポインタであると指定する記法は、クロージャのものと似ています。リスト 19-35 のように。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 fn add_one(x: i32) -> i32 {
@@ -62,7 +62,7 @@ fn main() {
 pointer as an argument</span>
 -->
 
-<span class="caption">リスト19-35: `fn`型を使用して引数として関数ポインタを受け入れる</span>
+<span class="caption">リスト 19-35: `fn`型を使用して引数として関数ポインタを受け入れる</span>
 
 <!--
 This code prints `The answer is: 12`. We specify that the parameter `f` in
@@ -71,7 +71,7 @@ This code prints `The answer is: 12`. We specify that the parameter `f` in
 the function name `add_one` as the first argument to `do_twice`.
 -->
 
-このコードは、`The answer is: 12`と出力します。`do_twice`の引数`f`は、型`i32`の1つの引数を取り、
+このコードは、`The answer is: 12`と出力します。`do_twice`の引数`f`は、型`i32`の 1 つの引数を取り、
 `i32`を返す`fn`と指定しています。それから、`do_twice`の本体で`f`を呼び出すことができます。
 `main`では、関数名の`add_one`を最初の引数として`do_twice`に渡せます。
 
@@ -81,7 +81,7 @@ parameter type directly rather than declaring a generic type parameter with one
 of the `Fn` traits as a trait bound.
 -->
 
-クロージャと異なり、`fn`はトレイトではなく型なので、トレイト境界として`Fn`トレイトの1つでジェネリックな型引数を宣言するのではなく、
+クロージャと異なり、`fn`はトレイトではなく型なので、トレイト境界として`Fn`トレイトの 1 つでジェネリックな型引数を宣言するのではなく、
 直接`fn`を引数の型として指定します。
 
 <!--
@@ -92,9 +92,9 @@ type and one of the closure traits so your functions can accept either
 functions or closures.
 -->
 
-関数ポインタは、クロージャトレイト3つ全て(`Fn`、`FnMut`、`FnOnce`)を実装するので、常に関数ポインタを引数として、
+関数ポインタは、クロージャトレイト 3 つ全て (`Fn`、`FnMut`、`FnOnce`) を実装するので、常に関数ポインタを引数として、
 クロージャを期待する関数に渡すことができます。関数が関数とクロージャどちらも受け入れられるように、
-ジェネリックな型とクロージャトレイトの1つを使用して関数を書くのが最善です。
+ジェネリックな型とクロージャトレイトの 1 つを使用して関数を書くのが最善です。
 
 <!--
 An example of where you would want to only accept `fn` and not closures is when
@@ -102,11 +102,11 @@ interfacing with external code that doesn’t have closures: C functions can
 accept functions as arguments, but C doesn’t have closures.
 -->
 
-クロージャではなく`fn`だけを受け入れたくなる箇所の一例は、クロージャのない外部コードとのインターフェイスです:
-C関数は引数として関数を受け入れられますが、Cにはクロージャがありません。
+クロージャではなく`fn`だけを受け入れたくなる箇所の一例は、クロージャのない外部コードとのインターフェイスです：
+C 関数は引数として関数を受け入れられますが、C にはクロージャがありません。
 
 <!--
-couldだが、でしょうでは文を続けられないので、できるであろうにしている
+could だが、でしょうでは文を続けられないので、できるであろうにしている
 -->
 
 <!--
@@ -116,7 +116,7 @@ vector of numbers into a vector of strings, we could use a closure, like this:
 -->
 
 インラインでクロージャが定義されるか、名前付きの関数を使用できるであろう箇所の例として、`map`の使用に目を向けましょう。
-`map`関数を使用して数字のベクタを文字列のベクタに変換するには、このようにクロージャを使用できるでしょう:
+`map`関数を使用して数字のベクタを文字列のベクタに変換するには、このようにクロージャを使用できるでしょう：
 
 ```rust
 let list_of_numbers = vec![1, 2, 3];
@@ -131,7 +131,7 @@ Or we could name a function as the argument to `map` instead of the closure,
 like this:
 -->
 
-あるいは、このようにクロージャの代わりに`map`に引数として関数を名指しできるでしょう:
+あるいは、このようにクロージャの代わりに`map`に引数として関数を名指しできるでしょう：
 
 ```rust
 let list_of_numbers = vec![1, 2, 3];
@@ -186,7 +186,7 @@ pointer `fn` as a return type, for example.
 The following code tries to return a closure directly, but it won’t compile:
 -->
 
-以下のコードは、クロージャを直接返そうとしていますが、コンパイルできません:
+以下のコードは、クロージャを直接返そうとしていますが、コンパイルできません：
 
 ```rust,ignore
 fn returns_closure() -> Fn(i32) -> i32 {
@@ -198,7 +198,7 @@ fn returns_closure() -> Fn(i32) -> i32 {
 The compiler error is as follows:
 -->
 
-コンパイルエラーは以下の通りです:
+コンパイルエラーは以下の通りです：
 
 ```text
 error[E0277]: the trait bound `std::ops::Fn(i32) -> i32 + 'static:
@@ -221,7 +221,7 @@ We can use a trait object:
 -->
 
 エラーは、再度`Sized`トレイトを参照しています！コンパイラには、クロージャを格納するのに必要なスペースがどれくらいかわからないのです。
-この問題の解決策は先ほど見かけました。トレイトオブジェクトを使えます:
+この問題の解決策は先ほど見かけました。トレイトオブジェクトを使えます：
 
 ```rust
 fn returns_closure() -> Box<Fn(i32) -> i32> {
@@ -236,7 +236,7 @@ Chapter 17.
 -->
 
 このコードは、問題なくコンパイルできます。トレイトオブジェクトについて詳しくは、
-第17章の「トレイトオブジェクトで異なる型の値を許容する」節を参照してください。
+第 17 章の「トレイトオブジェクトで異なる型の値を許容する」節を参照してください。
 
 <!--
 Next, let’s look at macros!

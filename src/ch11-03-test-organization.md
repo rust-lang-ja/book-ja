@@ -16,10 +16,10 @@ multiple modules per test.
 -->
 
 章の初めで触れたように、テストは複雑な鍛錬であり、人によって専門用語や体系化が異なります。
-Rustのコミュニティでは、テストを2つの大きなカテゴリで捉えています: *単体テスト*と*結合テスト*です。
-単体テストは小規模でより集中していて、個別に1回に1モジュールをテストし、非公開のインターフェイスもテストすることがあります。
+Rust のコミュニティでは、テストを 2 つの大きなカテゴリで捉えています：*単体テスト*と*結合テスト*です。
+単体テストは小規模でより集中していて、個別に 1 回に 1 モジュールをテストし、非公開のインターフェイスもテストすることがあります。
 結合テストは、完全にライブラリ外になり、他の外部コード同様に自分のコードを使用し、公開インターフェイスのみ使用し、
-1テストにつき複数のモジュールを用いることもあります。
+1 テストにつき複数のモジュールを用いることもあります。
 
 <!--
 Writing both kinds of tests is important to ensure that the pieces of your
@@ -66,7 +66,7 @@ as the code, we use `#[cfg(test)]` to specify that they shouldn’t be
 included in the compiled result.
 -->
 
-testsモジュールの`#[cfg(test)]`という注釈は、コンパイラに`cargo build`を走らせた時ではなく、`cargo test`を走らせた時にだけ、
+tests モジュールの`#[cfg(test)]`という注釈は、コンパイラに`cargo build`を走らせた時ではなく、`cargo test`を走らせた時にだけ、
 テストコードをコンパイルし走らせるよう指示します。これにより、ライブラリをビルドしたいだけの時にはコンパイルタイムを節約し、
 テストが含まれないので、コンパイル後の成果物のサイズも節約します。結合テストは別のディレクトリに存在することになるので、
 `#[cfg(test)]`注釈は必要ないとわかるでしょう。しかしながら、単体テストはコードと同じファイルに存在するので、
@@ -77,13 +77,13 @@ Recall that when we generated the new `adder` project in the first section of
 this chapter, Cargo generated this code for us:
 -->
 
-この章の最初の節で新しい`adder`プロジェクトを生成した時に、Cargoがこのコードも生成してくれたことを思い出してください:
+この章の最初の節で新しい`adder`プロジェクトを生成した時に、Cargo がこのコードも生成してくれたことを思い出してください：
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 #[cfg(test)]
@@ -110,7 +110,7 @@ annotated with `#[test]`.
 コンパイラに続く要素が、ある特定の設定オプションを与えられたら、含まれるように指示します。
 今回の場合、設定オプションは、`test`であり、言語によって提供されているテストをコンパイルし、
 走らせるためのものです。`cfg`属性を使用することで、`cargo test`で積極的にテストを実行した場合のみ、
-Cargoがテストコードをコンパイルします。これには、このモジュールに含まれるかもしれないヘルパー関数全ても含まれ、
+Cargo がテストコードをコンパイルします。これには、このモジュールに含まれるかもしれないヘルパー関数全ても含まれ、
 `#[test]`で注釈された関数だけにはなりません。
 
 <!--
@@ -129,14 +129,14 @@ Consider the code in Listing 11-12 with the private function `internal_adder`.
 
 テストコミュニティ内で非公開関数を直接テストするべきかについては議論があり、
 他の言語では非公開関数をテストするのは困難だったり、不可能だったりします。
-あなたがどちらのテストイデオロギーを支持しているかに関わらず、Rustの公開性規則により、
-非公開関数をテストすることが確かに可能です。リスト11-12の非公開関数`internal_adder`を含むコードを考えてください。
+あなたがどちらのテストイデオロギーを支持しているかに関わらず、Rust の公開性規則により、
+非公開関数をテストすることが確かに可能です。リスト 11-12 の非公開関数`internal_adder`を含むコードを考えてください。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 pub fn add_two(a: i32) -> i32 {
@@ -162,7 +162,7 @@ mod tests {
 <span class="caption">Listing 11-12: Testing a private function</span>
 -->
 
-<span class="caption">リスト11-12: 非公開関数をテストする</span>
+<span class="caption">リスト 11-12: 非公開関数をテストする</span>
 
 <!--
 Note that the `internal_adder` function is not marked as `pub`, but because
@@ -172,9 +172,9 @@ private functions should be tested, there’s nothing in Rust that will compel
 you to do so.
 -->
 
-`internal_adder`関数は`pub`とマークされていないものの、テストも単なるRustのコードであり、
+`internal_adder`関数は`pub`とマークされていないものの、テストも単なる Rust のコードであり、
 `tests`モジュールもただのモジュールでしかないので、テスト内で`internal_adder`を普通にインポートし呼び出すことができます。
-非公開関数はテストするべきではないとお考えなら、Rustにはそれを強制するものは何もありません。
+非公開関数はテストするべきではないとお考えなら、Rust にはそれを強制するものは何もありません。
 
 <!--
 ### Integration Tests
@@ -192,8 +192,8 @@ coverage of the integrated code is important as well. To create integration
 tests, you first need a *tests* directory.
 -->
 
-Rustにおいて、結合テストは完全にライブラリ外のものです。他のコードと全く同様にあなたのライブラリを使用するので、
-ライブラリの公開APIの一部である関数しか呼び出すことはできません。その目的は、
+Rust において、結合テストは完全にライブラリ外のものです。他のコードと全く同様にあなたのライブラリを使用するので、
+ライブラリの公開 API の一部である関数しか呼び出すことはできません。その目的は、
 ライブラリのいろんな部分が共同で正常に動作しているかをテストすることです。
 単体では正常に動くコードも、結合した状態だと問題を孕む可能性もあるので、
 結合したコードのテストの範囲も同様に重要になるのです。結合テストを作成するには、
@@ -213,9 +213,9 @@ will compile each of the files as an individual crate.
 -->
 
 プロジェクトディレクトリのトップ階層、*src*の隣に*tests*ディレクトリを作成します。
-Cargoは、このディレクトリに結合テストのファイルを探すことを把握しています。
+Cargo は、このディレクトリに結合テストのファイルを探すことを把握しています。
 そして、このディレクトリ内にいくらでもテストファイルを作成することができ、
-Cargoはそれぞれのファイルを個別のクレートとしてコンパイルします。
+Cargo はそれぞれのファイルを個別のクレートとしてコンパイルします。
 
 <!--
 Let’s create an integration test. With the code in Listing 11-12 still in the
@@ -223,15 +223,15 @@ Let’s create an integration test. With the code in Listing 11-12 still in the
 *tests/integration_test.rs*, and enter the code in Listing 11-13.
 -->
 
-結合テストを作成しましょう。リスト11-12のコードが*src/lib.rs*ファイルにあるまま、
+結合テストを作成しましょう。リスト 11-12 のコードが*src/lib.rs*ファイルにあるまま、
 *tests*ディレクトリを作成し、*tests/integration_test.rs*という名前の新しいファイルを生成し、
-リスト11-13のコードを入力してください。
+リスト 11-13 のコードを入力してください。
 
 <!--
 <span class="filename">Filename: tests/integration_test.rs</span>
 -->
 
-<span class="filename">ファイル名: tests/integration_test.rs</span>
+<span class="filename">ファイル名：tests/integration_test.rs</span>
 
 ```rust,ignore
 extern crate adder;
@@ -247,7 +247,7 @@ fn it_adds_two() {
 `adder` crate</span>
 -->
 
-<span class="caption">リスト11-13: `adder`クレートの関数の結合テスト</span>
+<span class="caption">リスト 11-13: `adder`クレートの関数の結合テスト</span>
 
 <!--
 We’ve added `extern crate adder` at the top of the code, which we didn’t need
@@ -266,8 +266,8 @@ in this directory only when we run `cargo test`. Run `cargo test` now:
 -->
 
 *tests/integration_test.rs*のどんなコードも`#[cfg(test)]`で注釈する必要はありません。
-Cargoは`tests`ディレクトリを特別に扱い、`cargo test`を走らせた時にのみこのディレクトリのファイルをコンパイルするのです。
-さあ、`cargo test`を実行してください:
+Cargo は`tests`ディレクトリを特別に扱い、`cargo test`を走らせた時にのみこのディレクトリのファイルをコンパイルするのです。
+さあ、`cargo test`を実行してください：
 
 ```text
 $ cargo test
@@ -301,8 +301,8 @@ seeing: one line for each unit test (one named `internal` that we added in
 Listing 11-12) and then a summary line for the unit tests.
 -->
 
-3つの区域の出力が単体テスト、結合テスト、ドックテストを含んでいます。単体テスト用の最初の区域は、
-今まで見てきたものと同じです: 各単体テストに1行(リスト11-12で追加した`internal`という名前のもの)と、
+3 つの区域の出力が単体テスト、結合テスト、ドックテストを含んでいます。単体テスト用の最初の区域は、
+今まで見てきたものと同じです：各単体テストに 1 行 (リスト 11-12 で追加した`internal`という名前のもの) と、
 単体テストのサマリー行です。
 
 <!--
@@ -314,7 +314,7 @@ test just before the `Doc-tests adder` section starts.
 -->
 
 結合テストの区域は、
-`Running target/debug/deps/integration-test-ce99bcc2479f4607`という行で始まっています(最後のハッシュはあなたの出力とは違うでしょう)。
+`Running target/debug/deps/integration-test-ce99bcc2479f4607`という行で始まっています (最後のハッシュはあなたの出力とは違うでしょう)。
 次に、この結合テストの各テスト関数用の行があり、`Doc-tests adder`区域が始まる直前に、
 結合テストの結果用のサマリー行があります。
 
@@ -340,7 +340,7 @@ followed by the name of the file:
 
 それでも、テスト関数の名前を引数として`cargo test`に指定することで、特定の結合テスト関数を走らせることができます。
 特定の結合テストファイルにあるテストを全て走らせるには、`cargo test`に`--test`引数、
-その後にファイル名を続けて使用してください:
+その後にファイル名を続けて使用してください：
 
 ```text
 $ cargo test --test integration_test
@@ -372,7 +372,7 @@ test functions by the functionality they’re testing. As mentioned earlier, eac
 file in the *tests* directory is compiled as its own separate crate.
 -->
 
-結合テストを追加するにつれて、*tests*ディレクトリに2つ以上のファイルを作成して体系化したくなるかもしれません;
+結合テストを追加するにつれて、*tests*ディレクトリに 2 つ以上のファイルを作成して体系化したくなるかもしれません;
 例えば、テスト対象となる機能でテスト関数をグループ化することができます。前述したように、
 *tests*ディレクトリの各ファイルは、個別のクレートとしてコンパイルされます。
 
@@ -386,7 +386,7 @@ separate code into modules and files.
 
 各結合テストファイルをそれ自身のクレートとして扱うと、
 エンドユーザがあなたのクレートを使用するかのように個別のスコープを生成するのに役立ちます。
-ですが、これは*tests*ディレクトリのファイルが、コードをモジュールとファイルに分ける方法に関して第7章で学んだように、
+ですが、これは*tests*ディレクトリのファイルが、コードをモジュールとファイルに分ける方法に関して第 7 章で学んだように、
 *src*のファイルとは同じ振る舞いを共有しないことを意味します。
 
 <!--
@@ -400,15 +400,15 @@ functions in multiple test files:
 -->
 
 *tests*ディレクトリのファイルの異なる振る舞いは、複数の結合テストファイルで役に立ちそうなヘルパー関数ができ、
-第7章の「モジュールを別のファイルに移動する」節の手順に従って共通モジュールに抽出しようとした時に最も気付きやすくなります。
+第 7 章の「モジュールを別のファイルに移動する」節の手順に従って共通モジュールに抽出しようとした時に最も気付きやすくなります。
 例えば、*tests/common.rs*を作成し、そこに`setup`という名前の関数を配置したら、
-複数のテストファイルの複数のテスト関数から呼び出したい`setup`に何らかのコードを追加することができます:
+複数のテストファイルの複数のテスト関数から呼び出したい`setup`に何らかのコードを追加することができます：
 
 <!--
 <span class="filename">Filename: tests/common.rs</span>
 -->
 
-<span class="filename">ファイル名: tests/common.rs</span>
+<span class="filename">ファイル名：tests/common.rs</span>
 
 ```rust
 pub fn setup() {
@@ -490,13 +490,13 @@ function from the `it_adds_two` test in *tests/integration_test.rs*:
 -->
 
 *tests/common/mod.rs*を作成した後、それをどの結合テストファイルからもモジュールとして使用することができます。
-こちらは、*tests/integration_test.rs*内の`it_adds_two`テストから`setup`関数を呼び出す例です:
+こちらは、*tests/integration_test.rs*内の`it_adds_two`テストから`setup`関数を呼び出す例です：
 
 <!--
 <span class="filename">Filename: tests/integration_test.rs</span>
 -->
 
-<span class="filename">ファイル名: tests/integration_test.rs</span>
+<span class="filename">ファイル名：tests/integration_test.rs</span>
 
 ```rust,ignore
 extern crate adder;
@@ -514,7 +514,7 @@ fn it_adds_two() {
 Note that the mod common; declaration is the same as the module declaration we demonstrated in Listing 7-21. Then in the test function, we can call the common::setup() function.
 -->
 
-`mod common;`という宣言は、リスト7-21で模擬したモジュール宣言と同じであることに注意してください。それから、テスト関数内で`common::setup()`関数を呼び出すことができます。
+`mod common;`という宣言は、リスト 7-21 で模擬したモジュール宣言と同じであることに注意してください。それから、テスト関数内で`common::setup()`関数を呼び出すことができます。
 
 <!--
 #### Integration Tests for Binary Crates
@@ -546,7 +546,7 @@ If the important functionality works, the small amount of code in the
 need to be tested.
 -->
 
-これは、バイナリを提供するRustのプロジェクトに、
+これは、バイナリを提供する Rust のプロジェクトに、
 *src/lib.rs*ファイルに存在するロジックを呼び出す単純な*src/main.rs*ファイルがある一因になっています。
 この構造を使用して結合テストは、`extern crate`を使用して重要な機能を用いることでライブラリクレートをテストすることが*できます*。
 この重要な機能が動作すれば、*src/main.rs*ファイルの少量のコードも動作し、その少量のコードはテストする必要がないわけです。
@@ -568,11 +568,11 @@ ownership rules help prevent some kinds of bugs, tests are still important to
 help reduce logic bugs having to do with how your code is expected to behave.
 -->
 
-Rustのテスト機能は、変更を加えた後でさえ想定通りにコードが機能し続けることを保証して、
+Rust のテスト機能は、変更を加えた後でさえ想定通りにコードが機能し続けることを保証して、
 コードが機能すべき方法を指定する手段を提供します。単体テストはライブラリの異なる部分を個別に用い、
 非公開の実装詳細をテストすることができます。結合テストは、ライブラリのいろんな部分が共同で正常に動作することを確認し、
-ライブラリの公開APIを使用して外部コードが使用するのと同じ方法でコードをテストします。
-Rustの型システムと所有権ルールにより防がれるバグの種類もあるものの、それでもテストは、
+ライブラリの公開 API を使用して外部コードが使用するのと同じ方法でコードをテストします。
+Rust の型システムと所有権ルールにより防がれるバグの種類もあるものの、それでもテストは、
 コードが振る舞うと予想される方法に関するロジックのバグを減らすのに重要なのです。
 
 <!--

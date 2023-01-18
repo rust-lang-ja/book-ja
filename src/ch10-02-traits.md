@@ -2,7 +2,7 @@
 ## Traits: Defining Shared Behavior
 -->
 
-## トレイト: 共通の振る舞いを定義する
+## トレイト：共通の振る舞いを定義する
 
 <!--
 A *trait* tells the Rust compiler about functionality a particular type has and
@@ -11,7 +11,7 @@ abstract way. We can use trait bounds to specify that a generic can be any type
 that has certain behavior.
 -->
 
-*トレイト*は、Rustコンパイラに、特定の型に存在し、他の型と共有できる機能について知らせます。
+*トレイト*は、Rust コンパイラに、特定の型に存在し、他の型と共有できる機能について知らせます。
 トレイトを使用すると、共通の振る舞いを抽象的に定義できます。トレイト境界を使用すると、
 あるジェネリックが、特定の振る舞いをもつあらゆる型になり得ることを指定できます。
 
@@ -20,7 +20,7 @@ that has certain behavior.
 > languages, although with some differences.
 -->
 
-> 注釈: 違いはあるものの、トレイトは他の言語でよくインターフェイスと呼ばれる機能に類似しています。
+> 注釈：違いはあるものの、トレイトは他の言語でよくインターフェイスと呼ばれる機能に類似しています。
 
 <!--
 ### Defining a Trait
@@ -46,8 +46,8 @@ with metadata that indicates whether it was a new tweet, a retweet, or a reply
 to another tweet.
 -->
 
-例えば、いろんな種類や量のテキストを保持する複数の構造体があるとしましょう: 特定の場所から送られる新しいニュースを保持する`NewsArticle`と、
-新規ツイートか、リツイートか、はたまた他のツイートへのリプライなのかを示すメタデータを伴う最大で280文字までの`Tweet`です。
+例えば、いろんな種類や量のテキストを保持する複数の構造体があるとしましょう：特定の場所から送られる新しいニュースを保持する`NewsArticle`と、
+新規ツイートか、リツイートか、はたまた他のツイートへのリプライなのかを示すメタデータを伴う最大で 280 文字までの`Tweet`です。
 
 <!--
 We want to make a media aggregator library that can display summaries of data
@@ -59,13 +59,13 @@ need a summary from each type, and we need to request that summary by calling a
 
 `NewsArticle` または `Tweet` インスタンスに保存されているデータのサマリーを表示できるメディア アグリゲータ ライブラリを作成します。
 これをするには、各型のサマリーが必要で、インスタンスで `summarize` メソッドを呼び出してサマリーを要求する必要があります。
-リスト10-12は、この振る舞いを表現する`Summary`トレイトの定義を表示しています。
+リスト 10-12 は、この振る舞いを表現する`Summary`トレイトの定義を表示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-12/src/lib.rs}}
@@ -76,7 +76,7 @@ need a summary from each type, and we need to request that summary by calling a
 behavior provided by a `summarize` method</span>
 -->
 
-<span class="caption">リスト10-12: `summarize`メソッドで提供される振る舞いからなる`Summary`トレイト</span>
+<span class="caption">リスト 10-12: `summarize`メソッドで提供される振る舞いからなる`Summary`トレイト</span>
 
 <!--
 Here, we declare a trait using the `trait` keyword and then the trait’s name,
@@ -107,7 +107,7 @@ A trait can have multiple methods in its body: the method signatures are listed
 one per line and each line ends in a semicolon.
 -->
 
-トレイトには、本体に複数のメソッドを含むことができます: メソッドシグニチャは行ごとに並べられ、
+トレイトには、本体に複数のメソッドを含むことができます：メソッドシグニチャは行ごとに並べられ、
 各行はセミコロンで終わります。
 
 <!--
@@ -127,14 +127,14 @@ already limited to 280 characters.
 -->
 
 今や `Summary` トレイトを使用して目的の動作を定義できたので、メディア アグリゲータでこれを型に実装できます。
-リスト10-13は、 `Summary` トレイトを `NewsArticle` 構造体上に実装したもので、ヘッドライン、著者、そして地域情報を使って`summarize` の戻り値を作っています。
-`Tweet` 構造体に関しては、ツイートの内容が既に280文字に制限されていると仮定して、ユーザー名の後にツイートのテキスト全体が続くものとして `summarize` を定義します。
+リスト 10-13 は、 `Summary` トレイトを `NewsArticle` 構造体上に実装したもので、ヘッドライン、著者、そして地域情報を使って`summarize` の戻り値を作っています。
+`Tweet` 構造体に関しては、ツイートの内容が既に 280 文字に制限されていると仮定して、ユーザー名の後にツイートのテキスト全体が続くものとして `summarize` を定義します。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-13/src/lib.rs:here}}
@@ -145,7 +145,7 @@ already limited to 280 characters.
 `NewsArticle` and `Tweet` types</span>
 -->
 
-<span class="caption">リスト10-13: `Summary`トレイトを`NewsArticle`と`Tweet`型に実装する</span>
+<span class="caption">リスト 10-13: `Summary`トレイトを`NewsArticle`と`Tweet`型に実装する</span>
 
 <!--
 Implementing a trait on a type is similar to implementing regular methods. The
@@ -169,7 +169,7 @@ After implementing the trait, we can call the methods on instances of
 -->
 
 トレイトを実装後、普通のメソッド同様に`NewsArticle`や`Tweet`のインスタンスに対してこのメソッドを呼び出せます。
-こんな感じで:
+こんな感じで：
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-01-calling-trait-method/src/main.rs:here}}
@@ -195,12 +195,12 @@ another crate to implement it, which it is because we put the `pub` keyword
 before `trait` in Listing 10-12.
 -->
 
-リスト10-13で`Summary`トレイトと`NewArticle`、`Tweet`型を同じ*lib.rs*に定義したので、
+リスト 10-13 で`Summary`トレイトと`NewArticle`、`Tweet`型を同じ*lib.rs*に定義したので、
 全部同じスコープにあることに注目してください。この*lib.rs*を`aggregator`と呼ばれるクレート専用にして、
 誰か他の人が私たちのクレートの機能を活用して自分のライブラリのスコープに定義された構造体に`Summary`トレイトを実装したいとしましょう。
 まず、トレイトをスコープに取り込む必要があるでしょう。`use aggregator::Summary;`と指定してそれを行えば、
 これにより、自分の型に`Summary`を実装することが可能になるでしょう。`Summary`トレイトは、
-他のクレートが実装するためには、公開トレイトである必要があり、ここでは、リスト10-12の`trait`の前に、
+他のクレートが実装するためには、公開トレイトである必要があり、ここでは、リスト 10-12 の`trait`の前に、
 `pub`キーワードを置いたのでそうなっています。
 
 <!--
@@ -213,7 +213,7 @@ implement `Summary` on `Vec<T>` in our `aggregator` crate, because the
 trait `Summary` is local to our `aggregator` crate.
 -->
 
-トレイト実装で注意すべき制限の1つは、トレイトか対象の型が自分のクレートに固有(local)である時のみ、
+トレイト実装で注意すべき制限の 1 つは、トレイトか対象の型が自分のクレートに固有 (local) である時のみ、
 型に対してトレイトを実装できるということです。例えば、`Display`のような標準ライブラリのトレイトを`aggregator`クレートの機能の一部として、
 `Tweet`のような独自の型に実装できます。型`Tweet`が`aggregator`クレートに固有だからです。
 また、`Summary`を`aggregator`クレートで`Vec<T>`に対して実装することもできます。
@@ -234,9 +234,9 @@ implementation to use.
 しかし、外部のトレイトを外部の型に対して実装することはできません。例として、
 `aggregator`クレート内で`Vec<T>`に対して`Display`トレイトを実装することはできません。
 `Display`と`Vec<T>`は標準ライブラリで定義され、`aggregator`クレートに固有ではないからです。
-この制限は、*コヒーレンス*(coherence)、特に*孤児のルール*(orphan rule)と呼ばれるプログラムの特性の一部で、
+この制限は、*コヒーレンス*(coherence)、特に*孤児のルール*(orphan rule) と呼ばれるプログラムの特性の一部で、
 親の型が存在しないためにそう命名されました。この規則により、他の人のコードが自分のコードを壊したり、
-その逆が起きないことを保証してくれます。この規則がなければ、2つのクレートが同じ型に対して同じトレイトを実装できてしまい、
+その逆が起きないことを保証してくれます。この規則がなければ、2 つのクレートが同じ型に対して同じトレイトを実装できてしまい、
 コンパイラはどちらの実装を使うべきかわからなくなってしまうでしょう。
 
 <!--
@@ -261,14 +261,14 @@ of the `Summary` trait instead of only defining the method signature, as we did
 in Listing 10-12.
 -->
 
-リスト10-14は、リスト10-12のように、メソッドシグニチャだけを定義するのではなく、
+リスト 10-14 は、リスト 10-12 のように、メソッドシグニチャだけを定義するのではなく、
 `Summary`トレイトの`summarize`メソッドにデフォルトの文字列を指定する方法を示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-14/src/lib.rs:here}}
@@ -279,7 +279,7 @@ in Listing 10-12.
 default implementation of the `summarize` method</span>
 -->
 
-<span class="caption">リスト10-14: `summarize`メソッドのデフォルト実装がある`Summary`トレイトの定義</span>
+<span class="caption">リスト 10-14: `summarize`メソッドのデフォルト実装がある`Summary`トレイトの定義</span>
 
 <!--
 To use a default implementation to summarize instances of `NewsArticle` instead
@@ -298,7 +298,7 @@ the `summarize` method on an instance of `NewsArticle`, like this:
 もはや`NewsArticle`に直接`summarize`メソッドを定義してはいませんが、私達はデフォルト実装を提供しており、
 `NewsArticle`は`Summary`トレイトを実装すると指定しました。そのため、
 `NewsArticle`のインスタンスに対して`summarize`メソッドを同じように呼び出すことができます。
-このように:
+このように：
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-02-calling-default-impl/src/main.rs:here}}
@@ -318,7 +318,7 @@ as the syntax for implementing a trait method that doesn’t have a default
 implementation.
 -->
 
-`summarize`にデフォルト実装を用意しても、リスト10-13の`Tweet`の`Summary`実装を変える必要はありません。
+`summarize`にデフォルト実装を用意しても、リスト 10-13 の`Tweet`の`Summary`実装を変える必要はありません。
 理由は、デフォルト実装をオーバーライドする記法はデフォルト実装のないトレイトメソッドを実装する記法と同じだからです。
 
 <!--
@@ -334,7 +334,7 @@ a small part of it. For example, we could define the `Summary` trait to have a
 デフォルト実装は、自らのトレイトのデフォルト実装を持たない他のメソッドを呼び出すことができます。
 このようにすれば、トレイトは多くの有用な機能を提供しつつ、実装者は僅かな部分しか指定しなくて済むようになります。
 例えば、`Summary`トレイトを、（実装者が）内容を実装しなければならない`summarize_author`メソッドを持つように定義し、
-それから`summarize_author`メソッドを呼び出すデフォルト実装を持つ`summarize`メソッドを定義することもできます:
+それから`summarize_author`メソッドを呼び出すデフォルト実装を持つ`summarize`メソッドを定義することもできます：
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-03-default-impl-calls-other-methods/src/lib.rs:here}}
@@ -345,7 +345,7 @@ To use this version of `Summary`, we only need to define `summarize_author`
 when we implement the trait on a type:
 -->
 
-このバージョンの`Summary`を使用するために、型にトレイトを実装する際、実装する必要があるのは`summarize_author`だけです:
+このバージョンの`Summary`を使用するために、型にトレイトを実装する際、実装する必要があるのは`summarize_author`だけです：
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-03-default-impl-calls-other-methods/src/lib.rs:impl}}
@@ -400,7 +400,7 @@ the `summarize` method on its `item` parameter, which is of some type that
 implements the `Summary` trait. To do this, we can use the `impl Trait`
 syntax, like this:
 -->
-たとえば、Listing 10-13では、`NewsArticle`と`Tweet`型に`Summary`トレイトを実装しました。
+たとえば、Listing 10-13 では、`NewsArticle`と`Tweet`型に`Summary`トレイトを実装しました。
 ここで、引数の`item`の`summarize`メソッドを呼ぶ関数`notify`を定義することができます。ただし、引数`item`は`Summary`トレイトを実装しているような何らかの型であるとします。
 このようなことをするためには、`impl Trait`構文を使うことができます。
 
@@ -460,7 +460,7 @@ Trait` syntax looks like this:
 -->
 簡単なケースに対し、`impl Trait`構文は便利で、コードを簡潔にしてくれます。
 そうでないケースの場合、トレイト境界構文を使えば複雑な状態を表現できます。
-たとえば、`Summary`を実装する2つのパラメータを持つような関数を考えることができます。
+たとえば、`Summary`を実装する 2 つのパラメータを持つような関数を考えることができます。
 `impl Trait`構文を使うとこのようになるでしょう：
 
 ```rust,ignore
@@ -521,7 +521,7 @@ pub fn notify<T: Summary + Display>(item: &T) {
 With the two trait bounds specified, the body of `notify` can call `summarize`
 and use `{}` to format `item`.
 -->
-これら2つのトレイト境界が指定されていれば、`notify`の中では`summarize`を呼び出すことと、`{}`を使って`item`をフォーマットすることの両方が行なえます。
+これら 2 つのトレイト境界が指定されていれば、`notify`の中では`summarize`を呼び出すことと、`{}`を使って`item`をフォーマットすることの両方が行なえます。
 
 <!--
 #### Clearer Trait Bounds with `where` Clauses
@@ -539,7 +539,7 @@ signature. So instead of writing this:
 あまりたくさんのトレイト境界を使うことには欠点もあります。
 それぞれのジェネリック（な型）がそれぞれのトレイト境界をもつので、複数のジェネリック型の引数をもつ関数は、関数名と引数リストの間に大量のトレイト境界に関する情報を含むことがあります。
 これでは関数のシグネチャが読みにくくなってしまいます。
-このため、Rustはトレイト境界を関数シグネチャの後の`where`句の中で指定するという別の構文を用意しています。
+このため、Rust はトレイト境界を関数シグネチャの後の`where`句の中で指定するという別の構文を用意しています。
 なので、このように書く：
 
 ```rust,ignore
@@ -598,7 +598,7 @@ or types that are very long to specify. The `impl Trait` syntax lets you
 concisely specify that a function returns some type that implements the
 `Iterator` trait without needing to write out a very long type.
 -->
-実装しているトレイトだけで戻り値型を指定できることは、13章で学ぶ、クロージャとイテレータを扱うときに特に便利です。
+実装しているトレイトだけで戻り値型を指定できることは、13 章で学ぶ、クロージャとイテレータを扱うときに特に便利です。
 クロージャとイテレータの作り出す型は、コンパイラだけが知っているものであったり、指定するには長すぎるものであったりします。
 `impl Trait`構文を使えば、非常に長い型を書くことなく、ある関数は`Iterator`トレイトを実装するある型を返すのだ、と簡潔に指定することができます。
 
@@ -622,7 +622,7 @@ Allow for Values of Different
 Types”][using-trait-objects-that-allow-for-values-of-different-types] section of Chapter 17.
 -->
 `NewsArticle`か`Tweet`を返すというのは、コンパイラの`impl Trait`構文の実装まわりの制約により許されていません。
-このような振る舞いをする関数を書く方法は、17章の[トレイトオブジェクトで異なる型の値を許容する][using-trait-objects-that-allow-for-values-of-different-types]節で学びます。
+このような振る舞いをする関数を書く方法は、17 章の[トレイトオブジェクトで異なる型の値を許容する][using-trait-objects-that-allow-for-values-of-different-types]節で学びます。
 
 <!--
 ### Fixing the `largest` Function with Trait Bounds
@@ -635,9 +635,9 @@ type parameter’s bounds, let’s return to Listing 10-5 to fix the definition 
 the `largest` function that uses a generic type parameter! Last time we tried
 to run that code, we received this error:
 -->
-ジェネリックな型引数の境界で使用したい振る舞いを指定する方法がわかったので、リスト10-5に戻って、
+ジェネリックな型引数の境界で使用したい振る舞いを指定する方法がわかったので、リスト 10-5 に戻って、
 ジェネリックな型引数を使用する`largest`関数の定義を修正しましょう！最後にそのコードを実行しようとした時、
-こんなエラーが出ていました:
+こんなエラーが出ていました：
 
 ```text
 {{#include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-05/output.txt}}
@@ -652,11 +652,11 @@ slices of any type that we can compare. We don’t need to bring `PartialOrd`
 into scope because it’s in the prelude. Change the signature of `largest` to
 look like this:
 -->
-`largest`の本体で、大なり演算子(`>`)を使用して型`T`の2つの値を比較しようとしていました。この演算子は、
+`largest`の本体で、大なり演算子 (`>`) を使用して型`T`の 2 つの値を比較しようとしていました。この演算子は、
 標準ライブラリトレイトの`std::cmp::PartialOrd`でデフォルトメソッドとして定義されているので、
 `largest`関数が、比較できるあらゆる型のスライスに対して動くようにするためには、`T`のトレイト境界に`PartialOrd`を指定する必要があります。
-`PartialOrd`はpreludeに含まれているので、これをスコープに導入する必要はありません。
-`largest`のシグニチャを以下のように変えてください:
+`PartialOrd`は prelude に含まれているので、これをスコープに導入する必要はありません。
+`largest`のシグニチャを以下のように変えてください：
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/no-listing-07-fixing-listing-10-05/src/main.rs:here}}
@@ -685,7 +685,7 @@ error.
 -->
 このエラーの鍵となる行は、`cannot move out of type [T], a non-copy slice`です。
 ジェネリックでないバージョンの`largest`関数では、最大の`i32`か`char`を探そうとするだけでした。
-第4章の[スタックのみのデータ: コピー][stack-only-data-copy]節で議論したように、`i32`や`char`のようなサイズが既知の型は
+第 4 章の[スタックのみのデータ：コピー][stack-only-data-copy]節で議論したように、`i32`や`char`のようなサイズが既知の型は
 スタックに格納できるので、`Copy`トレイトを実装しています。しかし、`largest`関数をジェネリックにすると、
 `list`引数が`Copy`トレイトを実装しない型を含む可能性も出てきたのです。結果として、
 `list[0]`から値を`largest`にムーブできず、このエラーに陥ったのです。
@@ -698,12 +698,12 @@ values in the slice that we pass into the function implement the `PartialOrd`
 *and* `Copy` traits, like `i32` and `char` do.
 -->
 このコードを`Copy`トレイトを実装する型だけを使って呼び出すようにしたいなら、`T`のトレイト境界に`Copy`を追加すればよいです！
-リスト10-15は、関数に渡したスライスの値の型が、`i32`や`char`などのように`PartialOrd`*と*`Copy`を実装する限りコンパイルできる、ジェネリックな`largest`関数の完全なコードを示しています。
+リスト 10-15 は、関数に渡したスライスの値の型が、`i32`や`char`などのように`PartialOrd`*と*`Copy`を実装する限りコンパイルできる、ジェネリックな`largest`関数の完全なコードを示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-15/src/main.rs}}
@@ -714,7 +714,7 @@ values in the slice that we pass into the function implement the `PartialOrd`
 function that works on any generic type that implements the `PartialOrd` and
 `Copy` traits</span>
 -->
-<span class="caption">リスト10-15: `PartialOrd`と`Copy`トレイトを実装するあらゆるジェネリックな型に対して動く、
+<span class="caption">リスト 10-15: `PartialOrd`と`Copy`トレイトを実装するあらゆるジェネリックな型に対して動く、
 `largest`関数の実際の定義</span>
 
 <!--
@@ -758,14 +758,14 @@ the `Display` trait that enables printing.
 -->
 ジェネリックな型引数を持つ`impl`ブロックにトレイト境界を与えることで、
 特定のトレイトを実装する型に対するメソッド実装を条件分けできます。例えば、
-リスト10-16の型`Pair<T>`は、常に`new`関数を実装します。しかし、`Pair<T>`は、
+リスト 10-16 の型`Pair<T>`は、常に`new`関数を実装します。しかし、`Pair<T>`は、
 内部の型`T`が比較を可能にする`PartialOrd`トレイト*と*出力を可能にする`Display`トレイトを実装している時のみ、
 `cmp_display`メソッドを実装します。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
-<span class="filename">ファイル名: src/lib.rs</span>
+<span class="filename">ファイル名：src/lib.rs</span>
 
 ```rust
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-16/src/lib.rs}}
@@ -775,7 +775,7 @@ the `Display` trait that enables printing.
 <span class="caption">Listing 10-16: Conditionally implement methods on a
 generic type depending on trait bounds</span>
 -->
-<span class="caption">リスト10-16: トレイト境界によってジェネリックな型に対するメソッド実装を条件分けする</span>
+<span class="caption">リスト 10-16: トレイト境界によってジェネリックな型に対するメソッド実装を条件分けする</span>
 
 <!--
 We can also conditionally implement a trait for any type that implements
@@ -786,10 +786,10 @@ Rust standard library. For example, the standard library implements the
 block in the standard library looks similar to this code:
 -->
 また、別のトレイトを実装するあらゆる型に対するトレイト実装を条件分けすることもできます。
-トレイト境界を満たすあらゆる型にトレイトを実装することは、*ブランケット実装*(blanket implementation)と呼ばれ、
-Rustの標準ライブラリで広く使用されています。例を挙げれば、標準ライブラリは、
+トレイト境界を満たすあらゆる型にトレイトを実装することは、*ブランケット実装*(blanket implementation) と呼ばれ、
+Rust の標準ライブラリで広く使用されています。例を挙げれば、標準ライブラリは、
 `Display`トレイトを実装するあらゆる型に`ToString`トレイトを実装しています。
-標準ライブラリの`impl`ブロックは以下のような見た目です:
+標準ライブラリの`impl`ブロックは以下のような見た目です：
 
 ```rust,ignore
 impl<T: Display> ToString for T {
@@ -805,7 +805,7 @@ the `Display` trait. For example, we can turn integers into their corresponding
 -->
 標準ライブラリにはこのブランケット実装があるので、`Display`トレイトを実装する任意の型に対して、
 `ToString`トレイトで定義された`to_string`メソッドを呼び出せるのです。
-例えば、整数は`Display`を実装するので、このように整数値を対応する`String`値に変換できます:
+例えば、整数は`Display`を実装するので、このように整数値を対応する`String`値に変換できます：
 
 ```rust
 let s = 3.to_string();
@@ -834,7 +834,7 @@ generics.
 そのジェネリックな型に特定の振る舞いが欲しいことを指定するコードを書くことができます。
 それからコンパイラは、トレイト境界の情報を活用してコードに使用された具体的な型が正しい振る舞いを提供しているか確認できます。
 動的型付き言語では、その型に定義されていないメソッドを呼び出せば、実行時 (runtime) にエラーが出るでしょう。
-しかし、Rustはこの種のエラーをコンパイル時に移したので、コードが動かせるようになる以前に問題を修正することを強制されるのです。
+しかし、Rust はこの種のエラーをコンパイル時に移したので、コードが動かせるようになる以前に問題を修正することを強制されるのです。
 加えて、コンパイル時に既に確認したので、実行時の振る舞いを確認するコードを書かなくても済みます。
 そうすることで、ジェネリクスの柔軟性を諦めることなくパフォーマンスを向上させます。
 

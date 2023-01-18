@@ -2,7 +2,7 @@
 ## Building a Single-Threaded Web Server
 -->
 
-## シングルスレッドのWebサーバを構築する
+## シングルスレッドの Web サーバを構築する
 
 <!--
 We’ll start by getting a single-threaded web server working. Before we begin,
@@ -11,7 +11,7 @@ servers. The details of these protocols are beyond the scope of this book, but
 a brief overview will give you the information you need.
 -->
 
-シングルスレッドのWebサーバを動かすところから始めます。始める前に、Webサーバ構築に関係するプロトコルをさっと一覧しましょう。
+シングルスレッドの Web サーバを動かすところから始めます。始める前に、Web サーバ構築に関係するプロトコルをさっと一覧しましょう。
 これらのプロトコルの詳細は、この本の範疇を超えていますが、さっと眺めることで必要な情報が得られるでしょう。
 
 <!--
@@ -23,10 +23,10 @@ client. The contents of those requests and responses are defined by the
 protocols.
 -->
 
-主に2つのプロトコルがWebサーバに関係し、*Hypertext Transfer Protocol* *(HTTP)*(`注釈`: ハイパーテキスト転送プロトコル)と、
-*Transmission Control Protocol* *(TCP)*(`注釈`: 伝送制御プロトコル)です。
-両者のプロトコルは、*リクエスト・レスポンス*プロトコルであり、つまり、*クライアント*がリクエスト(要求)を初期化し、
-*サーバ*はリクエストをリッスンし、クライアントにレスポンス(応答)を提供するということです。
+主に 2 つのプロトコルが Web サーバに関係し、*Hypertext Transfer Protocol* *(HTTP)*(`注釈`: ハイパーテキスト転送プロトコル) と、
+*Transmission Control Protocol* *(TCP)*(`注釈`: 伝送制御プロトコル) です。
+両者のプロトコルは、*リクエスト・レスポンス*プロトコルであり、つまり、*クライアント*がリクエスト (要求) を初期化し、
+*サーバ*はリクエストをリッスンし、クライアントにレスポンス (応答) を提供するということです。
 それらのリクエストとレスポンスの中身は、プロトコルで規定されています。
 
 <!--
@@ -38,16 +38,16 @@ the vast majority of cases, HTTP sends its data over TCP. We’ll work with the
 raw bytes of TCP and HTTP requests and responses.
 -->
 
-TCPは、情報がとあるサーバから別のサーバへどう到達するかの詳細を記述するものの、その情報がなんなのかは指定しない、
-より低レベルのプロトコルです。HTTPはリクエストとレスポンスの中身を定義することでTCPの上に成り立っています。
-技術的にはHTTPを他のプロトコルとともに使用することができますが、大抵の場合、HTTPはTCPの上にデータを送信します。
-TCPとHTTPのリクエストとレスポンスの生のバイトを取り扱います。
+TCP は、情報がとあるサーバから別のサーバへどう到達するかの詳細を記述するものの、その情報がなんなのかは指定しない、
+より低レベルのプロトコルです。HTTP はリクエストとレスポンスの中身を定義することで TCP の上に成り立っています。
+技術的には HTTP を他のプロトコルとともに使用することができますが、大抵の場合、HTTP は TCP の上にデータを送信します。
+TCP と HTTP のリクエストとレスポンスの生のバイトを取り扱います。
 
 <!--
 ### Listening to the TCP Connection
 -->
 
-### TCP接続をリッスンする
+### TCP 接続をリッスンする
 
 <!--
 Our web server needs to listen to a TCP connection, so that’s the first part
@@ -55,8 +55,8 @@ we’ll work on. The standard library offers a `std::net` module that lets us do
 this. Let’s make a new project in the usual fashion:
 -->
 
-WebサーバはTCP接続をリッスンするので、そこが最初に取り掛かる部分になります。標準ライブラリは、
-`std::net`というこれを行うモジュールを用意しています。通常通り、新しいプロジェクトを作りましょう:
+Web サーバは TCP 接続をリッスンするので、そこが最初に取り掛かる部分になります。標準ライブラリは、
+`std::net`というこれを行うモジュールを用意しています。通常通り、新しいプロジェクトを作りましょう：
 
 ```text
 $ cargo new hello --bin
@@ -70,15 +70,15 @@ listen at the address `127.0.0.1:7878` for incoming TCP streams. When it gets
 an incoming stream, it will print `Connection established!`.
 -->
 
-さて、リスト20-1のコードを*src/main.rs*に入力して始めてください。このコードは、
-TCPストリームを受信するため`127.0.0.1:7878`というアドレスをリッスンします。
+さて、リスト 20-1 のコードを*src/main.rs*に入力して始めてください。このコードは、
+TCP ストリームを受信するため`127.0.0.1:7878`というアドレスをリッスンします。
 入力ストリームを得ると、`Connection established!`と出力します。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,no_run
 use std::net::TcpListener;
@@ -100,7 +100,7 @@ fn main() {
 a message when we receive a stream</span>
 -->
 
-<span class="caption">リスト20-1: 入力ストリームをリッスンし、ストリームを受け付けた時にメッセージを出力する</span>
+<span class="caption">リスト 20-1: 入力ストリームをリッスンし、ストリームを受け付けた時にメッセージを出力する</span>
 
 <!--
 Using `TcpListener`, we can listen for TCP connections at the address
@@ -111,10 +111,10 @@ chosen this port for two reasons: HTTP is normally accepted on this port, and
 7878 is “rust” typed on a telephone.
 -->
 
-`TcpListener`により、アドレス`127.0.0.1:7878`でTCP接続をリッスンできます。アドレス内で、
-コロンの前の区域は、自分のコンピュータを表すIPアドレスで(これはどんなコンピュータでも同じで、
-特に著者のコンピュータを表すわけではありません)、`7878`はポートです。このポートを選択した理由は2つあります:
-HTTPは通常このポートで受け付けられることと、7878は電話で“rust”と入力されるからです。
+`TcpListener`により、アドレス`127.0.0.1:7878`で TCP 接続をリッスンできます。アドレス内で、
+コロンの前の区域は、自分のコンピュータを表す IP アドレスで (これはどんなコンピュータでも同じで、
+特に著者のコンピュータを表すわけではありません)、`7878`はポートです。このポートを選択した理由は 2 つあります：
+HTTP は通常このポートで受け付けられることと、7878 は電話で“rust”と入力されるからです。
 
 <!--
 The `bind` function in this scenario works like the `new` function in that it
@@ -125,7 +125,7 @@ will return a new `TcpListener` instance. The reason the function is called
 
 この筋書きでの`bind`関数は、新しい`TcpListener`インスタンスを返すという点で`new`関数のような働きをします。
 この関数が`bind`と呼ばれている理由は、ネットワークにおいて、リッスンすべきポートに接続することは、
-「ポートに束縛する」(binding to a port)こととして知られているからです。
+「ポートに束縛する」(binding to a port) こととして知られているからです。
 
 <!--
 The `bind` function returns a `Result<T, E>`, which indicates that binding
@@ -140,8 +140,8 @@ errors happen.
 -->
 
 `bind`関数は`Result<T, E>`を返し、束縛が失敗することもあることを示しています。例えば、
-ポート80に接続するには管理者権限が必要なので(管理者以外はポート1024以上しかリッスンできません)管理者にならずにポート80に接続を試みたら、
-束縛はうまくいかないでしょう。また、別の例として自分のプログラムを2つ同時に立ち上げて2つのプログラムが同じポートをリッスンしたら、
+ポート 80 に接続するには管理者権限が必要なので (管理者以外はポート 1024 以上しかリッスンできません) 管理者にならずにポート 80 に接続を試みたら、
+束縛はうまくいかないでしょう。また、別の例として自分のプログラムを 2 つ同時に立ち上げて 2 つのプログラムが同じポートをリッスンしたら、
 束縛は機能しないでしょう。学習目的のためだけに基本的なサーバを記述しているので、この種のエラーを扱う心配はしません;
 その代わり、`unwrap`を使用してエラーが発生したら、プログラムを停止します。
 
@@ -157,8 +157,8 @@ this `for` loop will process each connection in turn and produce a series of
 streams for us to handle.
 -->
 
-`TcpListener`の`incoming`メソッドは、一連のストリームを与えるイテレータを返します(具体的には、型`TcpStream`のストリーム)。
-単独の*ストリーム*がクライアント・サーバ間の開かれた接続を表します。*接続*(connection)は、
+`TcpListener`の`incoming`メソッドは、一連のストリームを与えるイテレータを返します (具体的には、型`TcpStream`のストリーム)。
+単独の*ストリーム*がクライアント・サーバ間の開かれた接続を表します。*接続*(connection) は、
 クライアントがサーバに接続し、サーバがレスポンスを生成し、サーバが接続を閉じるというリクエストとレスポンス全体の過程の名前です。
 そのため、`TcpStream`は自身を読み取って、クライアントが送信したことを確認し、それからレスポンスをストリームに記述させてくれます。
 総括すると、この`for`ループは各接続を順番に処理し、我々が扱えるように一連のストリームを生成します。
@@ -181,7 +181,7 @@ connections are closed.
 エラーがなければ、プログラムはメッセージを出力します。次のリストで成功した時にさらに多くの機能を追加します。
 クライアントがサーバに接続する際に`incoming`メソッドからエラーを受け取る可能性がある理由は、
 実際には接続を走査していないからです。代わりに*接続の試行*を走査しています。接続は多くの理由で失敗する可能性があり、
-そのうちの多くは、OS特有です。例を挙げれば、多くのOSには、サポートできる同時に開いた接続数に上限があります;
+そのうちの多くは、OS 特有です。例を挙げれば、多くの OS には、サポートできる同時に開いた接続数に上限があります;
 開かれた接続の一部が閉じられるまでその数字を超えた接続の試行はエラーになります。
 
 <!--
@@ -192,7 +192,7 @@ data. But when you look at your terminal, you should see several messages that
 were printed when the browser connected to the server!
 -->
 
-このコードを試しに実行してみましょう！端末で`cargo run`を呼び出し、それからWebブラウザで*127.0.0.1:7878*をロードしてください。
+このコードを試しに実行してみましょう！端末で`cargo run`を呼び出し、それから Web ブラウザで*127.0.0.1:7878*をロードしてください。
 ブラウザは、「接続がリセットされました」などのエラーメッセージを表示するはずです。サーバが現状、何もデータを返してこないからです。
 ですが、端末に目を向ければ、ブラウザがサーバに接続した際にいくつかメッセージが出力されるのを目の当たりにするはずです。
 
@@ -210,7 +210,7 @@ request for other resources, like the *favicon.ico* icon that appears in the
 browser tab.
 -->
 
-時々、1回のブラウザリクエストで複数のメッセージが出力されるのを目の当たりにするでしょう;
+時々、1 回のブラウザリクエストで複数のメッセージが出力されるのを目の当たりにするでしょう;
 その理由は、ブラウザがページだけでなく、
 ブラウザのタブに出現する*favicon.ico*アイコンなどの他のリソースにもリクエストを行なっているということかもしれません。
 
@@ -226,7 +226,7 @@ factor is that we’ve successfully gotten a handle to a TCP connection!
 サーバが何もデータを送り返してこないので、ブラウザがサーバに何度も接続を試みているということである可能性もあるでしょう。
 `stream`がスコープを抜け、ループの最後でドロップされると、接続は`drop`実装の一部として閉じられます。
 ブラウザは、再試行することで閉じられた接続を扱うことがあります。問題が一時的なものである可能性があるからです。
-重要な要素は、TCP接続へのハンドルを得ることに成功したということです！
+重要な要素は、TCP 接続へのハンドルを得ることに成功したということです！
 
 <!--
 Remember to stop the program by pressing <span class="keystroke">ctrl-c</span>
@@ -255,14 +255,14 @@ look like Listing 20-2.
 -->
 
 ブラウザからリクエストを読み取る機能を実装しましょう！まず接続を得、それから接続に対して何らかの行動を行う責任を分離するために、
-接続を処理する新しい関数を開始します。この新しい`handle_connection`関数において、TCPストリームからデータを読み取り、
-ブラウザからデータが送られていることを確認できるように端末に出力します。コードをリスト20-2のように変更してください。
+接続を処理する新しい関数を開始します。この新しい`handle_connection`関数において、TCP ストリームからデータを読み取り、
+ブラウザからデータが送られていることを確認できるように端末に出力します。コードをリスト 20-2 のように変更してください。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,no_run
 use std::io::prelude::*;
@@ -293,7 +293,7 @@ fn handle_connection(mut stream: TcpStream) {
 the data</span>
 -->
 
-<span class="caption">リスト20-2: `TcpStream`から読み取り、データを出力する</span>
+<span class="caption">リスト 20-2: `TcpStream`から読み取り、データを出力する</span>
 
 <!--
 We bring `std::io::prelude` into scope to get access to certain traits that let
@@ -330,8 +330,8 @@ complicated; we’ll keep it simple for now. We pass the buffer to `stream.read`
 which will read bytes from the `TcpStream` and put them in the buffer.
 -->
 
-次に、実際にストリームから読み取る必要があります。これを2つの手順で行います: まず、
-スタックに読み取ったデータを保持する`buffer`を宣言します。バッファーのサイズは1024バイトにしました。
+次に、実際にストリームから読み取る必要があります。これを 2 つの手順で行います：まず、
+スタックに読み取ったデータを保持する`buffer`を宣言します。バッファーのサイズは 1024 バイトにしました。
 これは、基本的なリクエストには十分な大きさでこの章の目的には必要十分です。任意のサイズのリクエストを扱いたければ、
 バッファーの管理はもっと複雑にする必要があります; 今は、単純に保っておきます。このバッファーを`stream.read`に渡し、
 これが`TcpStream`からバイトを読み取ってバッファーに置きます。
@@ -345,10 +345,10 @@ with `�`, the `U+FFFD REPLACEMENT CHARACTER`. You might see replacement
 characters for characters in the buffer that aren’t filled by request data.
 -->
 
-2番目にバッファーのバイトを文字列に変換し、その文字列を出力します。`String::from_utf8_lossy`関数は、
-`&[u8]`を取り、`String`を生成します。名前の“lossy”の箇所は、無効なUTF-8シーケンスを目の当たりにした際のこの関数の振る舞いを示唆しています:
+2 番目にバッファーのバイトを文字列に変換し、その文字列を出力します。`String::from_utf8_lossy`関数は、
+`&[u8]`を取り、`String`を生成します。名前の“lossy”の箇所は、無効な UTF-8 シーケンスを目の当たりにした際のこの関数の振る舞いを示唆しています：
 無効なシーケンスを`�`、`U+FFFD REPLACEMENT CHARACTER`で置き換えます。
-リクエストデータによって埋められなかったバッファーの部分(`訳注` バッファーとして1024バイトの領域を用意しているが、リクエストデータは1024バイト存在しないことがほとんどなので変数 `buffer` の後ろ部分が埋められないまま放置されることを意図していると思われる) は、置換文字が表示される場合があります。
+リクエストデータによって埋められなかったバッファーの部分 (`訳注` バッファーとして 1024 バイトの領域を用意しているが、リクエストデータは 1024 バイト存在しないことがほとんどなので変数 `buffer` の後ろ部分が埋められないまま放置されることを意図していると思われる) は、置換文字が表示される場合があります。
 
 <!--
 Let’s try this code! Start the program and make a request in a web browser
@@ -356,8 +356,8 @@ again. Note that we’ll still get an error page in the browser, but our
 program’s output in the terminal will now look similar to this:
 -->
 
-このコードを試しましょう！プログラムを開始してWebブラウザで再度リクエストを送ってください。ブラウザではそれでも、
-エラーページが得られるでしょうが、端末のプログラムの出力はこんな感じになっていることに注目してください:
+このコードを試しましょう！プログラムを開始して Web ブラウザで再度リクエストを送ってください。ブラウザではそれでも、
+エラーページが得られるでしょうが、端末のプログラムの出力はこんな感じになっていることに注目してください：
 
 ```text
 $ cargo run
@@ -385,7 +385,7 @@ fetch */* repeatedly because it’s not getting a response from our program.
 -->
 
 ブラウザによって、少し異なる出力になる可能性があります。今やリクエストデータを出力しているので、
-`Request: GET`の後のパスを見ることで1回のブラウザリクエストから複数の接続が得られる理由が確認できます。
+`Request: GET`の後のパスを見ることで 1 回のブラウザリクエストから複数の接続が得られる理由が確認できます。
 繰り返される接続が全て */* を要求しているなら、ブラウザは、我々のプログラムからレスポンスが得られないので、
 繰り返し */* をフェッチしようとしていることがわかります。
 
@@ -400,13 +400,13 @@ our program.
 ### A Closer Look at an HTTP Request
 -->
 
-### HTTPリクエストを詳しく見る
+### HTTP リクエストを詳しく見る
 
 <!--
 HTTP is a text-based protocol, and a request takes this format:
 -->
 
-HTTPはテキストベースのプロトコルで、1つの要求はこのようなフォーマットに則っています:
+HTTP はテキストベースのプロトコルで、1 つの要求はこのようなフォーマットに則っています：
 
 ```text
 Method Request-URI HTTP-Version CRLF
@@ -421,7 +421,7 @@ being used, such as `GET` or `POST`, which describes how the client is making
 this request. Our client used a `GET` request.
 -->
 
-1行目は、クライアントが要求しているものがなんなのかについての情報を保持するリクエスト行です。
+1 行目は、クライアントが要求しているものがなんなのかについての情報を保持するリクエスト行です。
 リクエスト行の最初の部分は使用されている`GET`や`POST`などの*メソッド*を示し、これは、どのようにクライアントがこの要求を行なっているかを記述します。
 クライアントは`GET`リクエストを使用しました。
 
@@ -433,10 +433,10 @@ and URLs isn’t important for our purposes in this chapter, but the HTTP spec
 uses the term URI, so we can just mentally substitute URL for URI here.
 -->
 
-リクエスト行の次の部分は */* で、これはクライアントが要求している*Uniform Resource Identifier* *(URI)*(`注釈`: 統一資源識別子)を示します:
-URIはほぼ*Uniform Resource Locator* *(URL)*(`注釈`: 統一資源位置指定子)と同じですが、完全に同じではありません。
-URIとURLの違いは、この章の目的には重要ではありませんが、HTTPの規格はURIという用語を使用しているので、
-ここでは脳内でURIをURLと読み替えられます。
+リクエスト行の次の部分は */* で、これはクライアントが要求している*Uniform Resource Identifier* *(URI)*(`注釈`: 統一資源識別子) を示します：
+URI はほぼ*Uniform Resource Locator* *(URL)*(`注釈`: 統一資源位置指定子) と同じですが、完全に同じではありません。
+URI と URL の違いは、この章の目的には重要ではありませんが、HTTP の規格は URI という用語を使用しているので、
+ここでは脳内で URI を URL と読み替えられます。
 
 <!--
 The last part is the HTTP version the client uses, and then the request line
@@ -447,10 +447,10 @@ CRLF sequence separates the request line from the rest of the request data.
 Note that when the CRLF is printed, we see a new line start rather than `\r\n`.
 -->
 
-最後の部分は、クライアントが使用しているHTTPのバージョンで、それからリクエスト行は*CRLF*で終了します。
-(CRLFは*carriage return*と*line feed*(無理に日本語でいえば、キャリッジ(紙を固定するシリンダー)が戻ることと行を(コンピュータに)与えること)を表していて、
-これはタイプライター時代からの用語です！)CRLFは`\r\n`とも表記され、`\r`がキャリッジ・リターンで`\n`がライン・フィードです。
-CRLFにより、リクエスト行がリクエストデータの残りと区別されています。CRLFを出力すると、
+最後の部分は、クライアントが使用している HTTP のバージョンで、それからリクエスト行は*CRLF*で終了します。
+(CRLF は*carriage return*と*line feed*(無理に日本語でいえば、キャリッジ (紙を固定するシリンダー) が戻ることと行を (コンピュータに) 与えること) を表していて、
+これはタイプライター時代からの用語です！)CRLF は`\r\n`とも表記され、`\r`がキャリッジ・リターンで`\n`がライン・フィードです。
+CRLF により、リクエスト行がリクエストデータの残りと区別されています。CRLF を出力すると、
 `\r\n`ではなく、新しい行が開始されることに注意してください。
 
 <!--
@@ -459,7 +459,7 @@ we see that `GET` is the method, */* is the request URI, and `HTTP/1.1` is the
 version.
 -->
 
-ここまでプログラムを実行して受け取ったリクエスト行のデータをみると、`GET`がメソッド、*/* が要求URI、
+ここまでプログラムを実行して受け取ったリクエスト行のデータをみると、`GET`がメソッド、*/* が要求 URI、
 `HTTP/1.1`がバージョンであることが確認できます。
 
 <!--
@@ -493,7 +493,7 @@ Now we’ll implement sending data in response to a client request. Responses
 have the following format:
 -->
 
-さて、クライアントのリクエストに対する返答としてデータの送信を実装します。レスポンスは、以下のようなフォーマットです:
+さて、クライアントのリクエストに対する返答としてデータの送信を実装します。レスポンスは、以下のようなフォーマットです：
 
 ```text
 HTTP-Version Status-Code Reason-Phrase CRLF
@@ -509,15 +509,15 @@ CRLF sequence are any headers, another CRLF sequence, and the body of the
 response.
 -->
 
-最初の行は、レスポンスで使用されるHTTPバージョン、リクエストの結果を要約する数値ステータス・コード、そしてステータス・コードのテキスト記述を提供する理由句を含む *ステータス行* です。
-CRLFシーケンスの後には、任意のヘッダ、別のCRLFシーケンス、そしてレスポンスの本体が続きます。
+最初の行は、レスポンスで使用される HTTP バージョン、リクエストの結果を要約する数値ステータス・コード、そしてステータス・コードのテキスト記述を提供する理由句を含む *ステータス行* です。
+CRLF シーケンスの後には、任意のヘッダ、別の CRLF シーケンス、そしてレスポンスの本体が続きます。
 
 <!--
 Here is an example response that uses HTTP version 1.1, has a status code of
 200, an OK reason phrase, no headers, and no body:
 -->
 
-こちらがHTTPバージョン1.1を使用し、ステータスコードが200で、OKフレーズ、ヘッダと本体なしの例のレスポンスです:
+こちらが HTTP バージョン 1.1 を使用し、ステータスコードが 200 で、OK フレーズ、ヘッダと本体なしの例のレスポンスです：
 
 ```text
 HTTP/1.1 200 OK\r\n\r\n
@@ -531,15 +531,15 @@ successful request! From the `handle_connection` function, remove the
 Listing 20-3.
 -->
 
-ステータスコード200は、一般的な成功のレスポンスです。テキストは、<ruby>矮小<rp>(</rp><rt>わいしょう</rt><rp>)</rp></ruby>な成功のHTTPレスポンスです。
+ステータスコード 200 は、一般的な成功のレスポンスです。テキストは、<ruby>矮小<rp>(</rp><rt>わいしょう</rt><rp>)</rp></ruby>な成功の HTTP レスポンスです。
 これを成功したリクエストへの返答としてストリームに書き込みましょう！`handle_connection`関数から、
-リクエストデータを出力していた`println!`を除去し、リスト20-3のコードと置き換えてください。
+リクエストデータを出力していた`println!`を除去し、リスト 20-3 のコードと置き換えてください。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::io::prelude::*;
@@ -561,7 +561,7 @@ fn handle_connection(mut stream: TcpStream) {
 the stream</span>
 -->
 
-<span class="caption">リスト20-3: ストリームに矮小な成功のHTTPレスポンスを書き込む</span>
+<span class="caption">リスト 20-3: ストリームに矮小な成功の HTTP レスポンスを書き込む</span>
 
 <!--
 The first new line defines the `response` variable that holds the success
@@ -585,7 +585,7 @@ buffer to minimize calls to the underlying operating system.
 `write`処理は失敗することもあるので、以前のようにエラーの結果には`unwrap`を使用します。
 今回も、実際のアプリでは、エラー処理をここに追加するでしょう。最後に`flush`は待機し、
 バイトが全て接続に書き込まれるまでプログラムが継続するのを防ぎます; `TcpStream`は内部にバッファーを保持して、
-元となるOSへの呼び出しを最小化します。
+元となる OS への呼び出しを最小化します。
 
 <!--
 With these changes, let’s run our code and make a request. We’re no longer
@@ -596,14 +596,14 @@ and response!
 -->
 
 これらの変更とともに、コードを実行し、リクエストをしましょう。最早、端末にどんなデータも出力していないので、
-Cargoからの出力以外には何も出力はありません。Webブラウザで*127.0.0.1:7878*をロードすると、
-エラーではなく空のページが得られるはずです。HTTPリクエストとレスポンスを手で実装したばかりなのです！
+Cargo からの出力以外には何も出力はありません。Web ブラウザで*127.0.0.1:7878*をロードすると、
+エラーではなく空のページが得られるはずです。HTTP リクエストとレスポンスを手で実装したばかりなのです！
 
 <!--
 ### Returning Real HTML
 -->
 
-### 本物のHTMLを返す
+### 本物の HTML を返す
 
 <!--
 Let’s implement the functionality for returning more than a blank page. Create
@@ -613,14 +613,14 @@ possibility.
 -->
 
 空のページ以上のものを返す機能を実装しましょう。新しいファイル*hello.html*を*src*ディレクトリではなく、
-プロジェクトのルートディレクトリに作成してください。お好きなようにHTMLを書いてください;
-リスト20-4は、一つの可能性を示しています。
+プロジェクトのルートディレクトリに作成してください。お好きなように HTML を書いてください;
+リスト 20-4 は、一つの可能性を示しています。
 
 <!--
 <span class="filename">Filename: hello.html</span>
 -->
 
-<span class="filename">ファイル名: hello.html</span>
+<span class="filename">ファイル名：hello.html</span>
 
 ```html
 <!DOCTYPE html>
@@ -635,7 +635,7 @@ possibility.
 -->
     <h1>Hello!</h1>
 <!--
-Rustからやあ
+Rust からやあ
 -->
     <p>Hi from Rust</p>
   </body>
@@ -647,7 +647,7 @@ Rustからやあ
 response</span>
 -->
 
-<span class="caption">リスト20-4: レスポンスで返すサンプルのHTMLファイル</span>
+<span class="caption">リスト 20-4: レスポンスで返すサンプルの HTML ファイル</span>
 
 <!--
 This is a minimal HTML5 document with a heading and some text. To return this
@@ -656,14 +656,14 @@ shown in Listing 20-5 to read the HTML file, add it to the response as a body,
 and send it.
 -->
 
-これは、ヘッドとテキストのある最低限のHTML5ドキュメントです。リクエストを受け付けた際にこれをサーバから返すには、
-リスト20-5のように`handle_connection`を変更してHTMLファイルを読み込み、本体としてレスポンスに追加して送ります。
+これは、ヘッドとテキストのある最低限の HTML5 ドキュメントです。リクエストを受け付けた際にこれをサーバから返すには、
+リスト 20-5 のように`handle_connection`を変更して HTML ファイルを読み込み、本体としてレスポンスに追加して送ります。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::io::prelude::*;
@@ -692,7 +692,7 @@ fn handle_connection(mut stream: TcpStream) {
 body of the response</span>
 -->
 
-<span class="caption">リスト20-5: レスポンスの本体として*hello.html*の中身を送る</span>
+<span class="caption">リスト 20-5: レスポンスの本体として*hello.html*の中身を送る</span>
 
 <!--
 We’ve added a line at the top to bring the standard library’s `File` into
@@ -717,7 +717,7 @@ should see your HTML rendered!
 -->
 
 このコードを`cargo run`で走らせ、*127.0.0.1:7878*をブラウザでロードしてください;
-HTMLが描画されるのが確認できるはずです！
+HTML が描画されるのが確認できるはずです！
 
 <!--
 Currently, we’re ignoring the request data in `buffer` and just sending back
@@ -728,10 +728,10 @@ do. We want to customize our responses depending on the request and only send
 back the HTML file for a well-formed request to */*.
 -->
 
-現時点では、`buffer`内のリクエストデータは無視し、無条件でHTMLファイルの中身を送り返しているだけです。
+現時点では、`buffer`内のリクエストデータは無視し、無条件で HTML ファイルの中身を送り返しているだけです。
 これはつまり、ブラウザで*127.0.0.1:7878/something-else*をリクエストしても、
-この同じHTMLレスポンスが得られるということです。我々のサーバはかなり限定的で、多くのWebサーバとは異なっています。
-リクエストに基づいてレスポンスをカスタマイズし、*/* への合法なリクエストに対してのみHTMLファイルを送り返したいです。
+この同じ HTML レスポンスが得られるということです。我々のサーバはかなり限定的で、多くの Web サーバとは異なっています。
+リクエストに基づいてレスポンスをカスタマイズし、*/* への合法なリクエストに対してのみ HTML ファイルを送り返したいです。
 
 <!--
 ### Validating the Request and Selectively Responding
@@ -749,9 +749,9 @@ received against what we know a request for */* looks like and adds `if` and
 `else` blocks to treat requests differently.
 -->
 
-現状、このWebサーバはクライアントが何を要求しても、このファイルのHTMLを返します。HTMLファイルを返却する前にブラウザが */* をリクエストしているか確認し、
+現状、この Web サーバはクライアントが何を要求しても、このファイルの HTML を返します。HTML ファイルを返却する前にブラウザが */* をリクエストしているか確認し、
 ブラウザが他のものを要求していたらエラーを返す機能を追加しましょう。このために、
-`handle_connection`をリスト20-6のように変更する必要があります。この新しいコードは、
+`handle_connection`をリスト 20-6 のように変更する必要があります。この新しいコードは、
 */* への要求がどんな見た目になるのか我々が知っていることに対して受け取ったリクエストの中身を検査し、`if`と`else`ブロックを追加して、
 リクエストを異なる形で扱います。
 
@@ -759,7 +759,7 @@ received against what we know a request for */* looks like and adds `if` and
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::io::prelude::*;
@@ -795,7 +795,7 @@ fn handle_connection(mut stream: TcpStream) {
 to */* differently than other requests</span>
 -->
 
-<span class="caption">リスト20-6: リクエストをマッチさせ、*/* へのリクエストを他のリクエストとは異なる形で扱う</span>
+<span class="caption">リスト 20-6: リクエストをマッチさせ、*/* へのリクエストを他のリクエストとは異なる形で扱う</span>
 
 <!--
 First, we hardcode the data corresponding to the */* request into the `get`
@@ -810,7 +810,7 @@ HTML file.
 まず、*/* リクエストに対応するデータを`get`変数にハードコードしています。生のバイトをバッファーに読み込んでいるので、
 `b""`バイト文字列記法を中身のデータの先頭に追記することで、`get`をバイト文字列に変換しています。
 そして、`buffer`が`get`のバイトから始まっているか確認します。もしそうなら、*/* への合法なリクエストを受け取ったことを意味し、
-これが、HTMLファイルの中身を返す`if`ブロックで扱う成功した場合になります。
+これが、HTML ファイルの中身を返す`if`ブロックで扱う成功した場合になります。
 
 <!--
 If `buffer` does *not* start with the bytes in `get`, it means we’ve received
@@ -828,8 +828,8 @@ Run this code now and request *127.0.0.1:7878*; you should get the HTML in
 saw when running the code in Listing 20-1 and Listing 20-2.
 -->
 
-さあ、このコードを走らせて*127.0.0.1:7878*を要求してください; *hello.html*のHTMLが得られるはずです。
-*127.0.0.1:7878/something-else*などの他のリクエストを行うと、リスト20-1や20-2のコードを走らせた時に見かけた接続エラーになるでしょう。
+さあ、このコードを走らせて*127.0.0.1:7878*を要求してください; *hello.html*の HTML が得られるはずです。
+*127.0.0.1:7878/something-else*などの他のリクエストを行うと、リスト 20-1 や 20-2 のコードを走らせた時に見かけた接続エラーになるでしょう。
 
 <!--
 Now let’s add the code in Listing 20-7 to the `else` block to return a response
@@ -838,15 +838,15 @@ not found. We’ll also return some HTML for a page to render in the browser
 indicating the response to the end user.
 -->
 
-では、`else`ブロックにリスト20-7のコードを追記して、ステータスコード404のレスポンスを返しましょう。
+では、`else`ブロックにリスト 20-7 のコードを追記して、ステータスコード 404 のレスポンスを返しましょう。
 これは、リクエストの中身が見つからなかったことを通知します。エンドユーザへのレスポンスを示し、ページをブラウザに描画するよう、
-何かHTMLも返します。
+何か HTML も返します。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::io::prelude::*;
@@ -876,7 +876,7 @@ indicating the response to the end user.
 error page if anything other than */* was requested</span>
 -->
 
-<span class="caption">リスト20-7: */* 以外の何かが要求されたら、ステータスコード404とエラーページで応答する</span>
+<span class="caption">リスト 20-7: */* 以外の何かが要求されたら、ステータスコード 404 とエラーページで応答する</span>
 
 <!--
 Here, our response has a status line with status code 404 and the reason
@@ -886,16 +886,16 @@ response will be the HTML in the file *404.html*. You’ll need to create a
 any HTML you want or use the example HTML in Listing 20-8.
 -->
 
-ここでは、レスポンスにはステータスコード404と理由フレーズ`NOT FOUND`のステータス行があります。
-それでもヘッダは返さず、レスポンスの本体は、ファイル*404.html*のHTMLになります。エラーページのために、
-*hello.html*の隣に*404.html*ファイルを作成する必要があります; 今回も、ご自由にお好きなHTMLにしたり、
-リスト20-8の例のHTMLを使用したりしてください。
+ここでは、レスポンスにはステータスコード 404 と理由フレーズ`NOT FOUND`のステータス行があります。
+それでもヘッダは返さず、レスポンスの本体は、ファイル*404.html*の HTML になります。エラーページのために、
+*hello.html*の隣に*404.html*ファイルを作成する必要があります; 今回も、ご自由にお好きな HTML にしたり、
+リスト 20-8 の例の HTML を使用したりしてください。
 
 <!--
 <span class="filename">Filename: 404.html</span>
 -->
 
-<span class="filename">ファイル名: 404.html</span>
+<span class="filename">ファイル名：404.html</span>
 
 ```html
 <!DOCTYPE html>
@@ -922,7 +922,7 @@ any HTML you want or use the example HTML in Listing 20-8.
 with any 404 response</span>
 -->
 
-<span class="caption">リスト20-8: あらゆる404レスポンスでページが送り返す中身のサンプル</span>
+<span class="caption">リスト 20-8: あらゆる 404 レスポンスでページが送り返す中身のサンプル</span>
 
 <!--
 With these changes, run your server again. Requesting *127.0.0.1:7878*
@@ -931,7 +931,7 @@ should return the contents of *hello.html*, and any other request, like
 -->
 
 これらの変更とともに、もう一度サーバを実行してください。*127.0.0.1:7878*を要求すると、
-*hello.html*の中身が返り、*127.0.0.1:7878/foo*などの他のリクエストには*404.html*からのエラーHTMLが返るはずです。
+*hello.html*の中身が返り、*127.0.0.1:7878/foo*などの他のリクエストには*404.html*からのエラーHTML が返るはずです。
 
 <!--
 ### A Touch of Refactoring
@@ -950,16 +950,16 @@ and write the response. Listing 20-9 shows the resulting code after replacing
 the large `if` and `else` blocks.
 -->
 
-現在、`if`と`else`ブロックには多くの繰り返しがあります: どちらもファイルを読み、ファイルの中身をストリームに書き込んでいます。
+現在、`if`と`else`ブロックには多くの繰り返しがあります：どちらもファイルを読み、ファイルの中身をストリームに書き込んでいます。
 唯一の違いは、ステータス行とファイル名だけです。それらの差異を、ステータス行とファイル名の値を変数に代入する個別の`if`と`else`行に引っ張り出して、
 コードをより簡潔にしましょう; そうしたら、それらの変数を無条件にコードで使用し、ファイルを読んでレスポンスを書き込めます。
-リスト20-9は、大きな`if`と`else`ブロックを置き換えた後の結果のコードを示しています。
+リスト 20-9 は、大きな`if`と`else`ブロックを置き換えた後の結果のコードを示しています。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
 
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 # use std::io::prelude::*;
@@ -997,7 +997,7 @@ fn handle_connection(mut stream: TcpStream) {
 contain only the code that differs between the two cases</span>
 -->
 
-<span class="caption">リスト20-9: 2つの場合で異なるコードだけを含むように、`if`と`else`ブロックをリファクタリングする</span>
+<span class="caption">リスト 20-9: 2 つの場合で異なるコードだけを含むように、`if`と`else`ブロックをリファクタリングする</span>
 
 <!--
 Now the `if` and `else` blocks only return the appropriate values for the
@@ -1007,7 +1007,7 @@ statement, as discussed in Chapter 18.
 -->
 
 これで、`if`と`else`ブロックは、タプルにステータス行とファイル名の適切な値を返すだけになりました; 
-それから、分配を使用してこれら2つの値を第18章で議論したように、`let`文のパターンで`status_line`と`filename`に代入しています。
+それから、分配を使用してこれら 2 つの値を第 18 章で議論したように、`let`文のパターンで`status_line`と`filename`に代入しています。
 
 <!--
 The previously duplicated code is now outside the `if` and `else` blocks and
@@ -1019,9 +1019,9 @@ Listing 20-8.
 -->
 
 前は重複していたコードは、今では`if`と`else`ブロックの外に出て、`status_line`と`filename`変数を使用しています。
-これにより、2つの場合の違いがわかりやすくなり、ファイル読み取りとレスポンス記述の動作法を変更したくなった際に、
-1箇所だけコードを更新すればいいようになったことを意味します。リスト20-9のコードの振る舞いは、
-リスト20-8と同じです。
+これにより、2 つの場合の違いがわかりやすくなり、ファイル読み取りとレスポンス記述の動作法を変更したくなった際に、
+1 箇所だけコードを更新すればいいようになったことを意味します。リスト 20-9 のコードの振る舞いは、
+リスト 20-8 と同じです。
 
 <!--
 Awesome! We now have a simple web server in approximately 40 lines of Rust code
@@ -1029,8 +1029,8 @@ that responds to one request with a page of content and responds to all other
 requests with a 404 response.
 -->
 
-素晴らしい！もう、およそ40行のRustコードで、あるリクエストには中身のあるページで応答し、
-他のあらゆるリクエストには404レスポンスで応答する単純なWebサーバができました。
+素晴らしい！もう、およそ 40 行の Rust コードで、あるリクエストには中身のあるページで応答し、
+他のあらゆるリクエストには 404 レスポンスで応答する単純な Web サーバができました。
 
 <!--
 Currently, our server runs in a single thread, meaning it can only serve one
@@ -1039,6 +1039,6 @@ slow requests. Then we'll fix it so our server can handle multiple requests at
 once.
 -->
 
-現状、このサーバは、シングルスレッドで実行されます。つまり、1回に1つのリクエストしか捌けないということです。
+現状、このサーバは、シングルスレッドで実行されます。つまり、1 回に 1 つのリクエストしか捌けないということです。
 何か遅いリクエストをシミュレーションすることで、それが問題になる可能性を調査しましょう。
-それから1度にサーバが複数のリクエストを扱えるように修正します。
+それから 1 度にサーバが複数のリクエストを扱えるように修正します。

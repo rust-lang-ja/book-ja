@@ -2,7 +2,7 @@
 ## Appendix A: Keywords
 -->
 
-## 付録A: キーワード
+## 付録 A: キーワード
 
 <!--
 The following list contains keywords that are reserved for current or future
@@ -13,7 +13,7 @@ functions, variables, parameters, struct fields, modules, crates, constants,
 macros, static values, attributes, types, traits, or lifetimes.
 -->
 
-以下のリストは、現在、あるいは将来Rust言語により使用されるために予約されているキーワードです。
+以下のリストは、現在、あるいは将来 Rust 言語により使用されるために予約されているキーワードです。
 そのため、識別子として使用することはできません。識別子には、関数名、変数名、引数名、構造体のフィールド名、モジュール名、クレート名、定数名、マクロ名、静的な値の名前、属性名、型名、トレイト名、ライフタイム名などがあります。
 ただし、[生識別子][raw-identifiers]のところで議論する生識別子は例外です。
 
@@ -79,7 +79,7 @@ The following keywords currently have the functionality described.
 -->
 
 <!--
-higher-ranked lifetimeについては議論の余地ありか
+higher-ranked lifetime については議論の余地ありか
 -->
 
 * `as` - 基礎的なキャストの実行、要素を含む特定のトレイトの明確化、`use`や`extern crate`文の要素名を変更する
@@ -92,7 +92,7 @@ higher-ranked lifetimeについては議論の余地ありか
 * `else` - `if`と`if let`制御フロー構文の規定
 * `enum` - 列挙型を定義する
 * `extern` - 外部のクレート、関数、変数をリンクする
-* `false` - bool型のfalseリテラル
+* `false` - bool 型の false リテラル
 * `fn` - 関数か関数ポインタ型を定義する
 * `for` - イテレータの要素を繰り返す、トレイトの実装、高階ライフタイムの指定
 * `if` - 条件式の結果によって条件分岐
@@ -107,15 +107,15 @@ higher-ranked lifetimeについては議論の余地ありか
 * `pub` - 構造体フィールド、`impl`ブロック、モジュールで公開性について言及する
 * `ref` - 参照で束縛する
 * `return` - 関数から帰る
-* `Self` - 定義しようとしている・実装(implement)しようとしている型の型エイリアス
+* `Self` - 定義しようとしている・実装 (implement) しようとしている型の型エイリアス
 * `self` - メソッドの主題、または現在のモジュール
 * `static` - グローバル変数、またはプログラム全体に渡るライフタイム
 * `struct` - 構造体を定義する
 * `super` - 現在のモジュールの親モジュール
 * `trait` - トレイトを定義する
-* `true` - bool型のtrueリテラル
+* `true` - bool 型の true リテラル
 * `type` - 型エイリアスか関連型を定義する
-* `unsafe` - unsafeなコード、関数、トレイト、実装に言及する
+* `unsafe` - unsafe なコード、関数、トレイト、実装に言及する
 * `use` - スコープにシンボルを持ち込む
 * `where` - 型を制限する節に言及する
 * `while` - 式の結果に基づいて条件的にループする
@@ -133,7 +133,7 @@ The following keywords do not have any functionality but are reserved by Rust
 for potential future use.
 -->
 
-以下のキーワードには機能が何もないものの、将来的に使用される可能性があるので、Rustにより予約されています。
+以下のキーワードには機能が何もないものの、将来的に使用される可能性があるので、Rust により予約されています。
 
 <!--
 * `abstract`
@@ -187,13 +187,13 @@ that uses `match` as its name:
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn match(needle: &str, haystack: &str) -> bool {
     haystack.contains(needle)
 }
-// 訳注: 引数名は、"a needle in a haystack" すなわち「干し草の中の針」という、
+// 訳注：引数名は、"a needle in a haystack" すなわち「干し草の中の針」という、
 // 「見つかりそうにない捜し物」を意味する成句からもじった命名。
 // 検索をする関数でよく使われる。
 ```
@@ -222,7 +222,7 @@ identifier syntax, like this:
 <!--
 <span class="filename">Filename: src/main.rs</span>
 -->
-<span class="filename">ファイル名: src/main.rs</span>
+<span class="filename">ファイル名：src/main.rs</span>
 
 ```rust
 fn r#match(needle: &str, haystack: &str) -> bool {
@@ -252,9 +252,9 @@ this case, to call that function from your 2018 edition code. See [Appendix
 E][appendix-e] for more information on editions.
 -->
 生識別子を使えば、仮にそれが予約されたキーワードであろうとも、任意の単語を識別子として使えるようになります。
-更に、あなたのクレートが使っているRustのeditionとは異なるeditionで書かれたライブラリを呼び出すこともできるようになります。
-たとえば、`try`は2015 editionではキーワードではありませんでしたが、2018 editionではキーワードです。
-もし、2015 editionで書かれており、`try`関数を持っているライブラリに依存している場合、あなたの2018 editionのコードからその関数を呼び出すためには、生識別子構文を使う必要がでてくるでしょう。今回なら`r#try`ですね。
-editionに関して、より詳しくは[付録 E][appendix-e]を見てください。
+更に、あなたのクレートが使っている Rust の edition とは異なる edition で書かれたライブラリを呼び出すこともできるようになります。
+たとえば、`try`は 2015 edition ではキーワードではありませんでしたが、2018 edition ではキーワードです。
+もし、2015 edition で書かれており、`try`関数を持っているライブラリに依存している場合、あなたの 2018 edition のコードからその関数を呼び出すためには、生識別子構文を使う必要がでてくるでしょう。今回なら`r#try`ですね。
+edition に関して、より詳しくは[付録 E][appendix-e]を見てください。
 
 [appendix-e]: appendix-05-editions.html
