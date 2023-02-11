@@ -36,10 +36,7 @@ standard output (`stdout`), so, for example, the user can redirect successful
 output to a file while still seeing error messages onscreen.
 -->
 
-その過程で、多くのコマンドラインツールが使用している端末の機能を使用させる方法を示します。
-環境変数の値を読み取ってユーザがこのツールの振る舞いを設定できるようにします。また、
-標準出力(`stdout`)の代わりに、標準エラーに出力(`stderr`)するので、例えば、
-ユーザはエラーメッセージは画面上で確認しつつ、成功した出力はファイルにリダイレクトできます。
+その過程で、他の多くのコマンドラインツールが使用しているターミナルの機能を、私たちのコマンドラインツールにも使用させる方法を紹介します。環境変数の値を読み取ってユーザがツールの振る舞いを設定できるようにするのです。また、エラーメッセージを標準出力(`stdout`)の代わりに、標準エラー(`stderr`)に出力します。これにより、ユーザはエラーメッセージを画面上で確認しながら、成功した出力をファイルにリダイレクトすることができます。
 
 <!--
 One Rust community member, Andrew Gallant, has already created a fully
