@@ -24,12 +24,8 @@ as its arguments a filename and a string. Then it reads the file, finds lines
 in that file that contain the string argument, and prints those lines.
 -->
 
-Rustの速度、安全性、単バイナリ出力、クロスプラットフォームサポートにより、コマンドラインツールを作るのにふさわしい言語なので、
-このプロジェクトでは、独自の伝統的なコマンドラインツールの`grep`(**g**lobally search a **r**egular **e**xpression
-and **p**rint: 正規表現をグローバルで検索し表示する)を作成していきます。最も単純な使用法では、
-`grep`は指定したファイルから指定した文字列を検索します。そうするには、
-`grep`は引数としてファイル名と文字列を受け取ります。それからファイルを読み込んでそのファイル内で文字列引数を含む行を探し、
-検索した行を出力するのです。
+Rustの高速性、安全性、単バイナリ出力、クロスプラットフォームサポートは、コマンドラインツールを作るのに理想的です。そこでこのプロジェクトでは、古典的なコマンドライン検索ツールの`grep`(**g**lobally search a **r**egular **e**xpression and **p**rint: 正規表現をグローバルで検索し表示する)を独自に作成していきます。最も単純な使用法では、
+`grep`は指定したファイルから指定した文字列を検索します。そのために、`grep`は引数としてファイル名と文字列を受け取ります。それからファイルを読み込んでそのファイルの中から引数の文字列を含む行を探し、表示するのです。
 
 <!--
 Along the way, we’ll show how to make our command line tool use features of the
