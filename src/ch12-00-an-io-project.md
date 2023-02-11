@@ -46,9 +46,7 @@ the background knowledge you need to understand a real-world project like
 `ripgrep`.
 -->
 
-Rustコミュニティのあるメンバであるアンドリュー・ガラント(Andrew Gallant)が既に全機能装備の非常に高速な`grep`、
-`ripgrep`と呼ばれるものを作成しました。比較対象として、我々の`grep`はとても単純ですが、
-この章により、`ripgrep`のような現実世界のプロジェクトを理解するのに必要な背景知識の一部を身に付けられるでしょう。
+Rustコミュニティのメンバーの1人であるアンドリュー・ガラント(Andrew Gallant)が、既に`ripgrep`という、非常に高速で完全な機能を持った`grep`のバージョンを作成しています。それに比べると、この章で私たちが作るものはかなりシンプルですが、そこから`ripgrep`のような現実世界のプロジェクトを理解するのに必要な背景知識の一部を身に付けられるでしょう。
 
 <!--
 Our `grep` project will combine a number of concepts you’ve learned so far:
