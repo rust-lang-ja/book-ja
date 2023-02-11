@@ -52,7 +52,7 @@ Rustコミュニティのメンバーの1人であるアンドリュー・ガラ
 Our `grep` project will combine a number of concepts you’ve learned so far:
 -->
 
-この`grep`プロジェクトは、ここまでに学んできた多くの概念を集結させます:
+この`grep`プロジェクトでは、ここまでに学んできた多くの概念を組み合わせていきます:
 
 <!--
 * Organizing code (using what you learned in modules, Chapter 7)
