@@ -13,7 +13,7 @@ on your system.
 いつものように、`cargo new`で新しいプロジェクトを作りましょう。プロジェクトを`minigrep`と名付けて、
 既に自分のシステムに存在するかもしれない`grep`ツールと区別しましょう。
 
-```console
+```text
 $ cargo new minigrep
      Created binary (application) `minigrep` project
 $ cd minigrep
