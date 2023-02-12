@@ -305,7 +305,7 @@ Macros”][tlborm].
 この事実と、ほとんどのRustプログラマーはマクロを*書く*よりも*使う*ことが多いということを考えて、`macro_rules!`についてはこれ以上語らないことにします。
 もしマクロの書き方についてもっと知りたければ、オンラインのドキュメントや、[“The Little Book of Rust Macros”][tlborm]のようなその他のリソースを参照してください。
 
-[tlborm]: https://danielkeep.github.io/tlborm/book/index.html
+[tlborm]: https://veykril.github.io/tlborm/
 
 <!--
 ### Procedural Macros for Generating Code from Attributes
