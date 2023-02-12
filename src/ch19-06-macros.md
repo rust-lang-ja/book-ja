@@ -196,7 +196,7 @@ macro we’re defining *without* the exclamation mark. The name, in this case
 -->
 
 それから、`macro_rules!`でマクロ定義と定義しているマクロの名前をビックリマーク*なしで*始めています。
-名前はこの場合`vec`であり、マクロ定義の本体を意味する波括弧が続いています。
+名前はこの場合`vec`であり、マクロ定義の本体を意味する波かっこが続いています。
 
 <!--
 The structure in the `vec!` body is similar to the structure of a `match`
@@ -919,7 +919,7 @@ This definition is similar to the custom derive macro’s signature: we receive
 the tokens that are inside the parentheses and return the code we wanted to
 generate.
 -->
-この定義はカスタムのderiveマクロのシグネチャと似ています：カッコの中のトークンを受け取り、生成したいコードを返すのです。
+この定義はカスタムのderiveマクロのシグネチャと似ています：かっこの中のトークンを受け取り、生成したいコードを返すのです。
 
 <!--
 ## Summary
