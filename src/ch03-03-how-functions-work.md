@@ -171,15 +171,14 @@ declarations with commas, like this:
 ```
 
 <!--
-This example creates a function with two parameters, both of which are `i32`
-types. The function then prints the values in both of its parameters. Note that
-function parameters don't all need to be the same type, they just happen to be
-in this example.
+This example creates a function named `print_labeled_measurement` with two
+parameters. The first parameter is named `value` and is an `i32`. The second is
+named `unit_label` and is type `char`. The function then prints text containing
+both the `value` and the `unit_label`.
 -->
 
-この例では、2引数の関数を生成しています。そして、引数はどちらも`i32`型です。それからこの関数は、
-仮引数の値を両方出力します。関数引数は、全てが同じ型である必要はありません。今回は、
-偶然同じになっただけです。
+この例では、2引数の関数を生成しています。最初の引数`value`の型は`i32`、次の`unit_lael`の型は`char`です。
+この関数は、`value`と`unit_label`双方の引数を含む値を出力します。
 
 <!--
 Let’s try running this code. Replace the program currently in your *functions*
@@ -195,11 +194,11 @@ run`:
 ```
 
 <!--
-Because we called the function with `5` as the value for `x` and `6` is passed
-as the value for `y`, the two strings are printed with these values.
+Because we called the function with `5` as the value for `value` and `'h'` as
+the value for `unit_label`, the program output contains those values.
 -->
 
-`x`に対して値`5`、`y`に対して値`6`を渡して関数を呼び出したので、この二つの文字列は、
+`x`に対して値`5`、`unit_label`に対して値`h`を渡して関数を呼び出したので、この二つの文字列は、
 この値で出力されました。
 
 <!--
