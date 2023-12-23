@@ -505,7 +505,7 @@ to create multiple threads that all send values to the same receiver. We can do
 so by cloning the transmitting half of the channel, as shown in Listing 16-11:
 -->
 
-`mpsc`は、*mutiple producer, single consumer*の頭字語であると前述しました。
+`mpsc`は、*multiple producer, single consumer*の頭字語であると前述しました。
 `mpsc`を使い、リスト16-10のコードを拡張して、全ての値を同じ受信機に送信する複数のスレッドを生成しましょう。
 チャンネルの転送の片割れをクローンすることでそうすることができます。リスト16-11のようにですね:
 
