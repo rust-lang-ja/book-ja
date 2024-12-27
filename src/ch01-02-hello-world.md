@@ -349,8 +349,7 @@ here, you run the *main* or *main.exe* file, like this:
 *main*か*main.exe*を走らせます。このように:
 
 ```text
-$ ./main # or .\main.exe on Windows
-         # または、Widnowsなら.\main.exe
+$ ./main # または、Windowsなら.\main.exe
 ```
 
 <!--
