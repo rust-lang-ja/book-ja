@@ -146,12 +146,12 @@ order to give back ownership, since we never had ownership.
 所有権をもらわないので、所有権を返す目的で値を返す必要はありません。
 
 <!--
-We call having references as function parameters *borrowing*. As in real life,
-if a person owns something, you can borrow it from them. When you’re done, you
-have to give it back.
+We call the action of creating a reference *borrowing*. As in real life, 
+if a person owns something, you can borrow it from them. When you’re done, you 
+have to give it back. You don’t own it.
 -->
 
-関数の引数に参照を取ることを*借用*と呼びます。現実生活のように、誰かが何かを所有していたら、
+参照を作成する操作を*借用*と呼びます。現実生活のように、誰かが何かを所有していたら、
 それを借りることができます。用が済んだら、返さなきゃいけないわけです。
 
 <!--
