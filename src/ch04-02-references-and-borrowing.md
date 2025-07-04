@@ -151,7 +151,7 @@ if a person owns something, you can borrow it from them. When you’re done, you
 have to give it back. You don’t own it.
 -->
 
-参照を作成する操作を*借用*と呼びます。現実生活のように、誰かが何かを所有していたら、
+参照を作成する行為を*借用*と呼びます。現実生活のように、誰かが何かを所有していたら、
 それを借りることができます。用が済んだら、返さなきゃいけないわけです。
 
 <!--
