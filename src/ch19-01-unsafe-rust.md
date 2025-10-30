@@ -757,7 +757,7 @@ ABIは関数の呼び出し方法をアセンブリレベルで定義します�
 ### Accessing or Modifying a Mutable Static Variable
 -->
 
-### 可変で静的な変数にアクセスしたり、変更する
+### 可変で静的な変数にアクセスしたり、変更したりする
 
 <!--
 Until now, we’ve not talked about *global variables*, which Rust does support
