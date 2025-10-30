@@ -746,7 +746,7 @@ ABIは関数の呼び出し方法をアセンブリレベルで定義します�
 > ```rust
 > #[no_mangle]
 > pub extern "C" fn call_from_c() {
->	  // CからRust関数を呼び出したばかり！
+>	  // CからRust関数を呼び出しただけ！
 >     println!("Just called a Rust function from C!");
 > }
 > ``` 
