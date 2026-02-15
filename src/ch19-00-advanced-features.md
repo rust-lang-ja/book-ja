@@ -7,16 +7,16 @@
 <!--
 By now, you’ve learned the most commonly used parts of the Rust programming
 language. Before we do one more project in Chapter 20, we’ll look at a few
-aspects of the language you might run into every once in a while. You can use
-this chapter as a reference for when you encounter any unknowns when using
-Rust. The features you’ll learn to use in this chapter are useful in very
-specific situations. Although you might not reach for them often, we want to
-make sure you have a grasp of all the features Rust has to offer.
+aspects of the language you might run into every once in a while, but may not
+use every day. You can use this chapter as a reference for when you encounter
+any unknowns. The features covered here are useful in very specific situations.
+Although you might not reach for them often, we want to make sure you have a
+grasp of all the features Rust has to offer.
 -->
 
 今までに、Rustプログラミング言語の最もよく使われる部分を学んできました。第20章でもう1つ別のプロジェクトを行う前に、
-時折遭遇する言語の側面をいくつか見ましょう。この章は、Rustを使用する際に知らないことに遭遇した時に参考にすることができます。
-この章で使用することを学ぶ機能は、かなり限定的な場面でしか役に立ちません。あまり頻繁には手を伸ばすことがない可能性はありますが、
+時折遭遇するが、毎日は使わないような言語の側面をいくつか見ましょう。この章は、知らないことに遭遇した時に参考にすることができます。
+ここで扱う機能は、かなり限定的な場面でしか役に立ちません。あまり頻繁には手を伸ばすことがない可能性はありますが、
 Rustが提供しなければならない機能全ての概要を確かに把握してもらいたいのです。
 
 <!--

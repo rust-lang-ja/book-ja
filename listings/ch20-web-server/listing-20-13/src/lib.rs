@@ -2,6 +2,14 @@ pub struct ThreadPool;
 
 // ANCHOR: here
 impl ThreadPool {
+    /// 新しいThreadPoolを生成する。
+    ///
+    /// sizeがプールのスレッド数です。
+    ///
+    /// # パニック
+    ///
+    /// sizeが0なら、`new`関数はパニックします。
+    ///
     /// Create a new ThreadPool.
     ///
     /// The size is the number of threads in the pool.
@@ -17,7 +25,6 @@ impl ThreadPool {
 
     // --snip--
     // ANCHOR_END: here
-
     pub fn execute<F>(&self, f: F)
     where
         F: FnOnce() + Send + 'static,
@@ -26,5 +33,3 @@ impl ThreadPool {
     // ANCHOR: here
 }
 // ANCHOR_END: here
-
-fn main() {}

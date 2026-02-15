@@ -18,18 +18,20 @@ Rustには、これらのメモリ安全保証を強制しない第2の言語が
 <!--
 Unsafe Rust exists because, by nature, static analysis is conservative. When
 the compiler tries to determine whether or not code upholds the guarantees,
-it’s better for it to reject some valid programs rather than accept some
-invalid programs. Although the code might be okay, as far as Rust is able to
-tell, it’s not! In these cases, you can use unsafe code to tell the compiler,
-“Trust me, I know what I’m doing.” The downside is that you use it at our own
-risk: if you use unsafe code incorrectly, problems due to memory unsafety, such
-as null pointer dereferencing, can occur.
+it’s better for it to reject some valid programs than to accept some invalid
+programs. Although the code *might* be okay, if the Rust compiler doesn’t have
+enough information to be confident, it will reject the code. In these cases,
+you can use unsafe code to tell the compiler, “Trust me, I know what I’m
+doing.” Be warned, however, that you use unsafe Rust at your own risk: if you
+use unsafe code incorrectly, problems can occur due to memory unsafety, such as
+null pointer dereferencing.
 -->
 
 静的解析は原理的に保守的なので、unsafe Rustが存在します。コードが保証を保持しているかコンパイラが決定しようとする際、
-なんらかの不正なプログラムを受け入れるよりも合法なプログラムを拒否したほうがいいのです。コードは大丈夫かもしれないけれど、
-コンパイラにわかる範囲ではダメなのです！このような場合、unsafeコードを使用してコンパイラに「信じて！何をしているかわかってるよ」と教えられます。
-欠点は、自らのリスクで使用することです: unsafeコードを誤って使用したら、
+なんらかの不正なプログラムを受け入れるよりも合法なプログラムを拒否したほうがいいのです。コードは大丈夫*かもしれない*けれど、
+Rustコンパイラが大丈夫と確信するために十分な情報を持っていなければ、コンパイラはそのコードを拒否するでしょう。
+このような場合、unsafeコードを使用してコンパイラに「信じて！何をしているかわかってるよ」と教えられます。
+しかし注意してください、unsafe Rustは自己責任で使用するものです: unsafeコードを誤って使用したら、
 nullポインタ参照外しなどのメモリ非安全に起因する問題が起こることもあるのです。
 
 <!--
@@ -55,13 +57,13 @@ Rustがunsafeな処理を行わせてくれなかったら、特定の仕事を�
 
 <!--
 To switch to unsafe Rust, use the `unsafe` keyword and then start a new block
-that holds the unsafe code. You can take four actions in unsafe Rust, called
-*unsafe superpowers*, that you can’t in safe Rust. Those superpowers include
-the ability to:
+that holds the unsafe code. You can take five actions in unsafe Rust that you
+can’t in safe Rust, which we call *unsafe superpowers*. Those superpowers
+include the ability to:
 -->
 
 unsafe Rustに切り替えるには、`unsafe`キーワードを使用し、それからunsafeコードを保持する新しいブロックを開始してください。
-safe Rustでは行えない4つの行動をunsafe Rustでは行え、これは*unsafe superpowers*と呼ばれます。
+safe Rustでは行えない5つの行動をunsafe Rustでは行うことができ、これは*unsafe superpowers*と呼ばれます。
 そのsuperpowerには、以下の能力が含まれています:
 
 <!--
@@ -69,23 +71,25 @@ safe Rustでは行えない4つの行動をunsafe Rustでは行え、これは*u
 * Call an unsafe function or method
 * Access or modify a mutable static variable
 * Implement an unsafe trait
+* Access fields of `union`s
 -->
 
 * 生ポインタを参照外しすること
 * unsafeな関数やメソッドを呼ぶこと
 * 可変で静的な変数にアクセスしたり変更すること
 * unsafeなトレイトを実装すること
+* `union`のフィールドにアクセスすること
 
 <!--
 It’s important to understand that `unsafe` doesn’t turn off the borrow checker
 or disable any other of Rust’s safety checks: if you use a reference in unsafe
 code, it will still be checked. The `unsafe` keyword only gives you access to
-these four features that are then not checked by the compiler for memory
-safety. You'll still get some degree of safety inside of an unsafe block.
+these five features that are then not checked by the compiler for memory
+safety. You’ll still get some degree of safety inside of an unsafe block.
 -->
 
 `unsafe`は、借用チェッカーや他のRustの安全性チェックを無効にしないことを理解するのは重要なことです:
-unsafeコードで参照を使用しても、チェックはされます。`unsafe`キーワードにより、これら4つの機能にアクセスできるようになり、
+unsafeコードで参照を使用しても、チェックはされます。`unsafe`キーワードにより、これら5つの機能にアクセスできるようになり、
 その場合、コンパイラによってこれらのメモリ安全性は確認されないのです。unsafeブロック内でも、ある程度の安全性は得られます。
 
 <!--
@@ -99,14 +103,14 @@ access memory in a valid way.
 その意図は、プログラマとして`unsafe`ブロック内のコードがメモリに合法的にアクセスすることを保証することです。
 
 <!--
-People are fallible, and mistakes will happen, but by requiring these four
+People are fallible, and mistakes will happen, but by requiring these five
 unsafe operations to be inside blocks annotated with `unsafe` you’ll know that
 any errors related to memory safety must be within an `unsafe` block. Keep
 `unsafe` blocks small; you’ll be thankful later when you investigate memory
 bugs.
 -->
 
-人間は失敗をするもので、間違いも起きますが、これら4つのunsafeな処理を`unsafe`で注釈されたブロックに入れる必要があることで、
+人間は失敗をするもので、間違いも起きますが、これら5つのunsafeな処理を`unsafe`で注釈されたブロックに入れる必要があることで、
 メモリ安全性に関するどんなエラーも`unsafe`ブロック内にあるに違いないと知ります。`unsafe`ブロックは小さくしてください;
 メモリのバグを調査するときに感謝することになるでしょう。
 
@@ -128,11 +132,11 @@ unsafeなコードをできるだけ分離するために、unsafeなコード�
 安全な抽象を使用することは、安全だからです。
 
 <!--
-Let’s look at each of the four unsafe superpowers in turn. We’ll also look at
+Let’s look at each of the five unsafe superpowers in turn. We’ll also look at
 some abstractions that provide a safe interface to unsafe code.
 -->
 
-4つのunsafeなsuperpowerを順に見ていきましょう。unsafeなコードへの安全なインターフェイスを提供する一部の抽象化にも目を向けます。
+5つのunsafeなsuperpowerを順に見ていきましょう。unsafeなコードへの安全なインターフェイスを提供する一部の抽象化にも目を向けます。
 
 <!--
 ### Dereferencing a Raw Pointer
@@ -141,16 +145,17 @@ some abstractions that provide a safe interface to unsafe code.
 ### 生ポインタを参照外しする
 
 <!--
-In Chapter 4, in the “Dangling References” section, we mentioned that the
-compiler ensures references are always valid. Unsafe Rust has two new types
-called *raw pointers* that are similar to references. As with references, raw
-pointers can be immutable or mutable and are written as `*const T` and `*mut
-T`, respectively. The asterisk isn’t the dereference operator; it’s part of the
-type name. In the context of raw pointers, *immutable* means that the pointer
-can’t be directly assigned to after being dereferenced.
+In Chapter 4, in the [“Dangling References”][dangling-references]
+section, we mentioned that the compiler ensures references are always
+valid. Unsafe Rust has two new types called *raw pointers* that are similar to
+references. As with references, raw pointers can be immutable or mutable and
+are written as `*const T` and `*mut T`, respectively. The asterisk isn’t the
+dereference operator; it’s part of the type name. In the context of raw
+pointers, *immutable* means that the pointer can’t be directly assigned to
+after being dereferenced.
 -->
 
-第4章の「ダングリング参照」節で、コンパイラは、参照が常に有効であることを保証することに触れました。
+第4章の[「宙に浮いた参照」][dangling-references]節で、コンパイラは、参照が常に有効であることを保証することに触れました。
 unsafe Rustには参照に類似した*生ポインタ*と呼ばれる2つの新しい型があります。参照同様、
 生ポインタも不変や可変になり得て、それぞれ`*const T`と`*mut T`と表記されます。このアスタリスクは、参照外し演算子ではありません;
 型名の一部です。生ポインタの文脈では、*不変*は、参照外し後に直接ポインタに代入できないことを意味します。
@@ -163,7 +168,7 @@ Different from references and smart pointers, raw pointers:
 
 <!--
 * Are allowed to ignore the borrowing rules by having both immutable and
-mutable pointers or multiple mutable pointers to the same location
+  mutable pointers or multiple mutable pointers to the same location
 * Aren’t guaranteed to point to valid memory
 * Are allowed to be null
 * Don’t implement any automatic cleanup
@@ -176,7 +181,7 @@ mutable pointers or multiple mutable pointers to the same location
 
 <!--
 By opting out of having Rust enforce these guarantees, you can give up
-the guaranteed safety in exchange for greater performance or the ability to
+guaranteed safety in exchange for greater performance or the ability to
 interface with another language or hardware where Rust’s guarantees don’t apply.
 -->
 
@@ -191,10 +196,7 @@ references.
 リスト19-1は、参照から不変と可変な生ポインタを生成する方法を示しています。
 
 ```rust
-let mut num = 5;
-
-let r1 = &num as *const i32;
-let r2 = &mut num as *mut i32;
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-01/src/main.rs:here}}
 ```
 
 <!--
@@ -225,22 +227,22 @@ pointer.
 その前提をあらゆる生ポインタに敷くことはできません。
 
 <!--
-Next, we’ll create a raw pointer whose validity we can’t be so certain of.
-Listing 19-2 shows how to create a raw pointer to an arbitrary location in
-memory. Trying to use arbitrary memory is undefined: there might be data at
-that address or there might not, the compiler might optimize the code so there
-is no memory access, or the program might error with a segmentation fault.
-Usually, there is no good reason to write code like this, but it is possible.
+To demonstrate this, next we’ll create a raw pointer whose validity we can’t be
+so certain of. Listing 19-2 shows how to create a raw pointer to an arbitrary
+location in memory. Trying to use arbitrary memory is undefined: there might be
+data at that address or there might not, the compiler might optimize the code
+so there is no memory access, or the program might error with a segmentation
+fault. Usually, there is no good reason to write code like this, but it is
+possible.
 -->
 
-次に、有効であることが確信できない生ポインタを生成します。リスト19-2は、メモリの任意の箇所を指す生ポインタの生成法を示しています。
+これを示すために、次は、有効であることが確信できない生ポインタを生成します。リスト19-2は、メモリの任意の箇所を指す生ポインタの生成法を示しています。
 任意のメモリを使用しようとすることは未定義です: そのアドレスにデータがある可能性もあるし、ない可能性もあり、
 コンパイラがコードを最適化してメモリアクセスがなくなる可能性もあるし、プログラムがセグメンテーションフォールトでエラーになる可能性もあります。
 通常、このようなコードを書くいい理由はありませんが、可能ではあります。
 
 ```rust
-let address = 0x012345usize;
-let r = address as *const i32;
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-02/src/main.rs:here}}
 ```
 
 <!--
@@ -260,15 +262,7 @@ safeコードで生ポインタを生成できるけれども、生ポインタ�
 リスト19-3では、`unsafe`ブロックが必要になる参照外し演算子の`*`を生ポインタに使っています。
 
 ```rust
-let mut num = 5;
-
-let r1 = &num as *const i32;
-let r2 = &mut num as *mut i32;
-
-unsafe {
-    println!("r1 is: {}", *r1);
-    println!("r2 is: {}", *r2);
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-03/src/main.rs:here}}
 ```
 
 <!--
@@ -306,13 +300,15 @@ Rustの所有権規則により、不変参照と可変参照を同時に存在�
 <!--
 With all of these dangers, why would you ever use raw pointers? One major use
 case is when interfacing with C code, as you’ll see in the next section,
-“Calling an Unsafe Function or Method.” Another case is when building up safe
-abstractions that the borrow checker doesn’t understand. We’ll introduce unsafe
-functions and then look at an example of a safe abstraction that uses unsafe
-code.
+[“Calling an Unsafe Function or
+Method.”](#calling-an-unsafe-function-or-method) Another case is
+when building up safe abstractions that the borrow checker doesn’t understand.
+We’ll introduce unsafe functions and then look at an example of a safe
+abstraction that uses unsafe code.
 -->
 
-これらの危険がありながら、一体何故生ポインタを使うのでしょうか？主なユースケースの1つは、次の節「unsafeな関数やメソッドを呼ぶ」で見るように、
+これらの危険がありながら、一体何故生ポインタを使うのでしょうか？主なユースケースの1つは、
+次の節[「unsafeな関数やメソッドを呼ぶ」](#unsafeな関数やメソッドを呼ぶ)で見るように、
 Cコードとのインターフェイスです。別のユースケースは、借用チェッカーには理解できない安全な抽象を構成する時です。
 unsafeな関数を導入し、それからunsafeコードを使用する安全な抽象の例に目を向けます。
 
@@ -323,17 +319,17 @@ unsafeな関数を導入し、それからunsafeコードを使用する安全�
 ### unsafeな関数やメソッドを呼ぶ
 
 <!--
-The second type of operation that requires an unsafe block is calls to unsafe
-functions. Unsafe functions and methods look exactly like regular functions and
-methods, but they have an extra `unsafe` before the rest of the definition. The
-`unsafe` keyword in this context indicates the function has requirements we
-need to uphold when we call this function, because Rust can’t guarantee we’ve
-met these requirements. By calling an unsafe function within an `unsafe` block,
-we’re saying that we’ve read this function’s documentation and take
-responsibility for upholding the function’s contracts.
+The second type of operation you can perform in an unsafe block is calling
+unsafe functions. Unsafe functions and methods look exactly like regular
+functions and methods, but they have an extra `unsafe` before the rest of the
+definition. The `unsafe` keyword in this context indicates the function has
+requirements we need to uphold when we call this function, because Rust can’t
+guarantee we’ve met these requirements. By calling an unsafe function within an
+`unsafe` block, we’re saying that we’ve read this function’s documentation and
+take responsibility for upholding the function’s contracts.
 -->
 
-unsafeブロックが必要になる2番目の処理は、unsafe関数の呼び出しです。unsafeな関数やメソッドも見た目は、
+unsafeブロック内で行うことができる2番目の処理は、unsafe関数の呼び出しです。unsafeな関数やメソッドも見た目は、
 普通の関数やメソッドと全く同じですが、残りの定義の前に追加の`unsafe`があります。この文脈での`unsafe`キーワードは、
 この関数を呼ぶ際に保持しておく必要のある要求が関数にあることを示唆します。コンパイラには、
 この要求を満たしているか保証できないからです。`unsafe`ブロックでunsafeな関数を呼び出すことで、
@@ -347,11 +343,7 @@ body:
 こちらは、本体で何もしない`dangerous`というunsafeな関数です:
 
 ```rust
-unsafe fn dangerous() {}
-
-unsafe {
-    dangerous();
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-01-unsafe-fn/src/main.rs:here}}
 ```
 
 <!--
@@ -362,23 +354,17 @@ try to call `dangerous` without the `unsafe` block, we’ll get an error:
 個別の`unsafe`ブロックで`dangerous`関数を呼ばなければなりません。`unsafe`ブロックなしで`dangerous`を呼ぼうとすれば、
 エラーになるでしょう:
 
-```text
-error[E0133]: call to unsafe function requires unsafe function or block
-(エラー: unsafe関数の呼び出しには、unsafeな関数かブロックが必要です)
- -->
-  |
-4 |     dangerous();
-  |     ^^^^^^^^^^^ call to unsafe function
+```console
+{{#include ../listings/ch19-advanced-features/output-only-01-missing-unsafe/output.txt}}
 ```
 
 <!--
-By inserting the `unsafe` block around our call to `dangerous`, we’re asserting
-to Rust that we’ve read the function’s documentation, we understand how to use
-it properly, and we’ve verified that we’re fulfilling the contract of the
-function.
+With the `unsafe` block, we’re asserting to Rust that we’ve read the function’s
+documentation, we understand how to use it properly, and we’ve verified that
+we’re fulfilling the contract of the function.
 -->
 
-`dangerous`への呼び出しの周りに`unsafe`ブロックを挿入することで、コンパイラに関数のドキュメンテーションを読み、
+`unsafe`ブロックを使うことで、コンパイラに関数のドキュメンテーションを読み、
 適切に使用する方法を理解したことをアサートし、関数の契約を満たしていると実証しました。
 
 <!--
@@ -399,28 +385,22 @@ unsafe関数の本体は、実効的に`unsafe`ブロックになるので、uns
 <!--
 Just because a function contains unsafe code doesn’t mean we need to mark the
 entire function as unsafe. In fact, wrapping unsafe code in a safe function is
-a common abstraction. As an example, let’s study a function from the standard
-library, `split_at_mut`, that requires some unsafe code and explore how we
-might implement it. This safe method is defined on mutable slices: it takes one
-slice and makes it two by splitting the slice at the index given as an
+a common abstraction. As an example, let’s study the `split_at_mut` function
+from the standard library, which requires some unsafe code. We’ll explore how
+we might implement it. This safe method is defined on mutable slices: it takes
+one slice and makes it two by splitting the slice at the index given as an
 argument. Listing 19-4 shows how to use `split_at_mut`.
 -->
 
 関数がunsafeなコードを含んでいるだけで関数全体をunsafeでマークする必要があることにはなりません。
 事実、安全な関数でunsafeなコードをラップすることは一般的な抽象化です。例として、
-なんらかのunsafeコードが必要になる標準ライブラリの関数`split_at_mut`を学び、その実装方法を探究しましょう。
+なんらかのunsafeコードが必要になる標準ライブラリの`split_at_mut`関数を学びましょう。
+どのように実装することができるのかを探究します。
 この安全なメソッドは、可変なスライスに定義されています: スライスを1つ取り、引数で与えられた添え字でスライスを分割して2つにします。
 リスト19-4は、`split_at_mut`の使用法を示しています。
 
 ```rust
-let mut v = vec![1, 2, 3, 4, 5, 6];
-
-let r = &mut v[..];
-
-let (a, b) = r.split_at_mut(3);
-
-assert_eq!(a, &mut [1, 2, 3]);
-assert_eq!(b, &mut [4, 5, 6]);
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-04/src/main.rs:here}}
 ```
 
 <!--
@@ -440,15 +420,8 @@ of `i32` values rather than for a generic type `T`.
 この関数をsafe Rustだけを使用して実装することはできません。試みは、リスト19-5のようになる可能性がありますが、コンパイルできません。
 簡単のため、`split_at_mut`をメソッドではなく関数として実装し、ジェネリックな型`T`ではなく、`i32`のスライス用に実装します。
 
-```rust,ignore
-fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
-    let len = slice.len();
-
-    assert!(mid <= len);
-
-    (&mut slice[..mid],
-     &mut slice[mid..])
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-05/src/main.rs:here}}
 ```
 
 <!--
@@ -462,12 +435,12 @@ fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
 This function first gets the total length of the slice. Then it asserts that
 the index given as a parameter is within the slice by checking whether it’s
 less than or equal to the length. The assertion means that if we pass an index
-that is greater than the index to split the slice at, the function will panic
+that is greater than the length to split the slice at, the function will panic
 before it attempts to use that index.
 -->
 
 この関数はまず、スライスの全体の長さを得ます。それから引数で与えられた添え字が長さ以下であるかを確認してスライス内にあることをアサートします。
-このアサートは、スライスを分割する添え字よりも大きい添え字を渡したら、その添え字を使用しようとする前に関数がパニックすることを意味します。
+このアサートは、スライスを分割するために長さよりも大きい添え字を渡したら、その添え字を使用しようとする前に関数がパニックすることを意味します。
 
 <!--
 Then we return two mutable slices in a tuple: one from the start of the
@@ -484,17 +457,8 @@ When we try to compile the code in Listing 19-5, we’ll get an error.
 
 リスト19-5のコードのコンパイルを試みると、エラーになるでしょう。
 
-```text
-error[E0499]: cannot borrow `*slice` as mutable more than once at a time
-(エラー: 一度に2回以上、`*slice`を可変で借用できません)
- -->
-  |
-6 |     (&mut slice[..mid],
-  |           ----- first mutable borrow occurs here
-7 |      &mut slice[mid..])
-  |           ^^^^^ second mutable borrow occurs here
-8 | }
-  | - first borrow ends here
+```console
+{{#include ../listings/ch19-advanced-features/listing-19-05/output.txt}}
 ```
 
 <!--
@@ -518,19 +482,7 @@ to unsafe functions to make the implementation of `split_at_mut` work.
 リスト19-6は`unsafe`ブロック、生ポインタ、unsafe関数への呼び出しをして`split_at_mut`の実装が動くようにする方法を示しています。
 
 ```rust
-use std::slice;
-
-fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
-    let len = slice.len();
-    let ptr = slice.as_mut_ptr();
-
-    assert!(mid <= len);
-
-    unsafe {
-        (slice::from_raw_parts_mut(ptr, mid),
-         slice::from_raw_parts_mut(ptr.offset(mid as isize), len - mid))
-    }
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-06/src/main.rs:here}}
 ```
 
 <!--
@@ -541,15 +493,15 @@ the `split_at_mut` function</span>
 <span class="caption">リスト19-6: `split_at_mut`関数の実装でunsafeコードを使用する</span>
 
 <!--
-Recall from “The Slice Type” section in Chapter 4 that slices are a pointer to
-some data and the length of the slice. We use the `len` method to get the
-length of a slice and the `as_mut_ptr` method to access the raw pointer of a
-slice. In this case, because we have a mutable slice to `i32` values,
-`as_mut_ptr` returns a raw pointer with the type `*mut i32`, which we’ve stored
-in the variable `ptr`.
+Recall from [“The Slice Type”][the-slice-type] section in
+Chapter 4 that slices are a pointer to some data and the length of the slice.
+We use the `len` method to get the length of a slice and the `as_mut_ptr`
+method to access the raw pointer of a slice. In this case, because we have a
+mutable slice to `i32` values, `as_mut_ptr` returns a raw pointer with the type
+`*mut i32`, which we’ve stored in the variable `ptr`.
 -->
 
-第4章の「スライス型」節から、スライスはなんらかのデータへのポインタとスライスの長さであることを思い出してください。
+第4章の[「スライス型」][the-slice-type]節から、スライスはなんらかのデータへのポインタとスライスの長さであることを思い出してください。
 `len`メソッドを使用してスライスの長さを得て、`as_mut_ptr`メソッドを使用してスライスの生ポインタにアクセスしています。
 この場合、`i32`値の可変スライスがあるので、`as_mut_ptr`は型`*mut i32`の生ポインタを返し、これを変数`ptr`に格納しました。
 
@@ -557,7 +509,7 @@ in the variable `ptr`.
 We keep the assertion that the `mid` index is within the slice. Then we get to
 the unsafe code: the `slice::from_raw_parts_mut` function takes a raw pointer
 and a length, and it creates a slice. We use this function to create a slice
-that starts from `ptr` and is `mid` items long. Then we call the `offset`
+that starts from `ptr` and is `mid` items long. Then we call the `add`
 method on `ptr` with `mid` as an argument to get a raw pointer that starts at
 `mid`, and we create a slice using that pointer and the remaining number of
 items after `mid` as the length.
@@ -565,15 +517,15 @@ items after `mid` as the length.
 
 `mid`添え字がスライス内にあるかというアサートを残しています。そして、unsafeコードに到達します:
 `slice::from_raw_parts_mut`関数は、生ポインタと長さを取り、スライスを生成します。この関数を使って、
-`ptr`から始まり、`mid`の長さのスライスを生成しています。それから`ptr`に`mid`を引数として`offset`メソッドを呼び出し、
+`ptr`から始まり、`mid`の長さのスライスを生成しています。それから`ptr`に`mid`を引数として`add`メソッドを呼び出し、
 `mid`で始まる生ポインタを得て、そのポインタと`mid`の後の残りの要素数を長さとして使用してスライスを生成しています。
 
 <!--
 The function `slice::from_raw_parts_mut` is unsafe because it takes a raw
-pointer and must trust that this pointer is valid. The `offset` method on raw
+pointer and must trust that this pointer is valid. The `add` method on raw
 pointers is also unsafe, because it must trust that the offset location is also
 a valid pointer. Therefore, we had to put an `unsafe` block around our calls to
-`slice::from_raw_parts_mut` and `offset` so we could call them. By looking at
+`slice::from_raw_parts_mut` and `add` so we could call them. By looking at
 the code and by adding the assertion that `mid` must be less than or equal to
 `len`, we can tell that all the raw pointers used within the `unsafe` block
 will be valid pointers to data within the slice. This is an acceptable and
@@ -581,8 +533,8 @@ appropriate use of `unsafe`.
 -->
 
 関数`slice::from_raw_parts_mut`は、unsafeです。何故なら、生ポインタを取り、このポインタが有効であることを信用しなければならないからです。
-生ポインタの`offset`メソッドもunsafeです。オフセット位置もまた有効なポインタであることを信用しなければならないからです。
-故に、`slice::from_raw_parts_mut`と`offset`を呼べるように、その呼び出しの周りに`unsafe`ブロックを置かなければならなかったのです。
+生ポインタの`add`メソッドもunsafeです。オフセット位置もまた有効なポインタであることを信用しなければならないからです。
+故に、`slice::from_raw_parts_mut`と`add`を呼べるように、その呼び出しの周りに`unsafe`ブロックを置かなければならなかったのです。
 コードを眺めて`mid`が`len`以下でなければならないとするアサートを追加することで、
 `unsafe`ブロック内で使用されている生ポインタが全てスライス内のデータへの有効なポインタであることがわかります。
 これは、受け入れられ、適切な`unsafe`の使用法です。
@@ -602,21 +554,14 @@ data this function has access to.
 <!--
 In contrast, the use of `slice::from_raw_parts_mut` in Listing 19-7 would
 likely crash when the slice is used. This code takes an arbitrary memory
-location and creates a slice 10,000 items long:
+location and creates a slice 10,000 items long.
 -->
 
 対照的に、リスト19-7の`slice::from_raw_parts_mut`の使用は、スライスが使用されるとクラッシュする可能性が高いでしょう。
-このコードは任意のメモリアドレスを取り、10,000要素の長さのスライスを生成します:
+このコードは任意のメモリアドレスを取り、10,000要素の長さのスライスを生成します。
 
 ```rust
-use std::slice;
-
-let address = 0x012345usize;
-let r = address as *mut i32;
-
-let slice = unsafe {
-    slice::from_raw_parts_mut(r, 10000)
-};
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-07/src/main.rs:here}}
 ```
 
 <!--
@@ -629,11 +574,11 @@ location</span>
 <!--
 We don’t own the memory at this arbitrary location, and there is no guarantee
 that the slice this code creates contains valid `i32` values. Attempting to use
-`slice` as though it’s a valid slice results in undefined behavior.
+`values` as though it’s a valid slice results in undefined behavior.
 -->
 
 この任意の場所のメモリは所有していなく、このコードが生成するスライスに有効な`i32`値が含まれる保証もありません。
-`slice`を有効なスライスであるかのように使用しようとすると、未定義動作に陥ります。
+`values`を有効なスライスであるかのように使用しようとすると、未定義動作に陥ります。
 
 <!--
 #### Using `extern` Functions to Call External Code
@@ -643,7 +588,7 @@ that the slice this code creates contains valid `i32` values. Attempting to use
 
 <!--
 Sometimes, your Rust code might need to interact with code written in another
-language. For this, Rust has a keyword, `extern`, that facilitates the creation
+language. For this, Rust has the keyword `extern` that facilitates the creation
 and use of a *Foreign Function Interface (FFI)*. An FFI is a way for a
 programming language to define functions and enable a different (foreign)
 programming language to call those functions.
@@ -674,16 +619,7 @@ responsibility falls on the programmer to ensure safety.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-extern "C" {
-    fn abs(input: i32) -> i32;
-}
-
-fn main() {
-    unsafe {
-        // -3の絶対値は、Cによると{}
-        println!("Absolute value of -3 according to C: {}", abs(-3));
-    }
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-08/src/main.rs}}
 ```
 
 <!--
@@ -709,15 +645,15 @@ ABIは関数の呼び出し方法をアセンブリレベルで定義します�
 > #### Calling Rust Functions from Other Languages
 >
 > We can also use `extern` to create an interface that allows other languages
-> to call Rust functions. Instead of an `extern` block, we add the `extern`
-> keyword and specify the ABI to use just before the `fn` keyword. We also need
-> to add a `#[no_mangle]` annotation to tell the Rust compiler not to mangle
-> the name of this function. *Mangling* is when a compiler changes the name
-> we’ve given a function to a different name that contains more information for
-> other parts of the compilation process to consume but is less human readable.
-> Every programming language compiler mangles names slightly differently, so
-> for a Rust function to be nameable by other languages, we must disable the
-> Rust compiler’s name mangling.
+> to call Rust functions. Instead of creating a whole `extern` block, we add
+> the `extern` keyword and specify the ABI to use just before the `fn` keyword
+> for the relevant function. We also need to add a `#[no_mangle]` annotation to
+> tell the Rust compiler not to mangle the name of this function. *Mangling* is
+> when a compiler changes the name we’ve given a function to a different name
+> that contains more information for other parts of the compilation process to
+> consume but is less human readable. Every programming language compiler
+> mangles names slightly differently, so for a Rust function to be nameable by
+> other languages, we must disable the Rust compiler’s name mangling.
 >
 > In the following example, we make the `call_from_c` function accessible from
 > C code, after it’s compiled to a shared library and linked from C:
@@ -735,7 +671,7 @@ ABIは関数の呼び出し方法をアセンブリレベルで定義します�
 > #### 他の言語からRustの関数を呼び出す
 >
 > また、`extern`を使用して他の言語にRustの関数を呼ばせるインターフェイスを生成することもできます。
-> `extern`ブロックの代わりに、`extern`キーワードを追加し、`fn`キーワードの直前に使用するABIを指定します。
+> `extern`ブロックを作る代わりに、`extern`キーワードを追加し、対象の関数の`fn`キーワードの直前に使用するABIを指定します。
 > さらに、`#[no_mangle]`注釈を追加してRustコンパイラに関数名をマングルしないように指示する必要もあります。
 > *マングル*とは、コンパイラが関数に与えた名前を他のコンパイル過程の情報をより多く含むけれども、人間に読みにくい異なる名前にすることです。
 > 全ての言語のコンパイラは、少々異なる方法でマングルを行うので、Rustの関数が他の言語で名前付けできるように、
@@ -760,12 +696,12 @@ ABIは関数の呼び出し方法をアセンブリレベルで定義します�
 ### 可変で静的な変数にアクセスしたり、変更する
 
 <!--
-Until now, we’ve not talked about *global variables*, which Rust does support
-but can be problematic with Rust’s ownership rules. If two threads are
+In this book, we’ve not yet talked about *global variables*, which Rust does
+support but can be problematic with Rust’s ownership rules. If two threads are
 accessing the same mutable global variable, it can cause a data race.
 -->
 
-今までずっと、*グローバル変数*について語りませんでした。グローバル変数をRustは確かにサポートしていますが、
+この本では、まだ*グローバル変数*について語っていませんでした。グローバル変数をRustは確かにサポートしていますが、
 Rustの所有権規則で問題になることもあります。2つのスレッドが同じ可変なグローバル変数にアクセスしていたら、
 データ競合を起こすこともあります。
 
@@ -785,12 +721,7 @@ Rustでは、グローバル変数は、*static*(静的)変数と呼ばれます
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-static HELLO_WORLD: &str = "Hello, world!";
-
-fn main() {
-	// 名前は: {}
-    println!("name is: {}", HELLO_WORLD);
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-09/src/main.rs}}
 ```
 
 <!--
@@ -802,39 +733,35 @@ variable</span>
 
 <!--
 Static variables are similar to constants, which we discussed in the
-“Differences Between Variables and Constants” section in Chapter 3. The names
-of static variables are in `SCREAMING_SNAKE_CASE` by convention, and we *must*
-annotate the variable’s type, which is `&'static str` in this example. Static
-variables can only store references with the `'static` lifetime, which means
-the Rust compiler can figure out the lifetime; we don’t need to annotate it
-explicitly. Accessing an immutable static variable is safe.
+[“Differences Between Variables and
+Constants”][differences-between-variables-and-constants] section
+in Chapter 3. The names of static variables are in `SCREAMING_SNAKE_CASE` by
+convention. Static variables can only store references with the `'static`
+lifetime, which means the Rust compiler can figure out the lifetime and we
+aren’t required to annotate it explicitly. Accessing an immutable static
+variable is safe.
 -->
 
-静的変数は、定数に似ています。定数については、第3章の「変数と定数の違い」節で議論しました。
-静的変数の名前は慣習で`SCREAMING_SNAKE_CASE`(`直訳`: 叫ぶスネークケース)になり、変数の型を注釈し*なければなりません*。
-この例では`&'static str`です。静的変数は、`'static`ライフタイムの参照のみ格納でき、
-これは、Rustコンパイラがライフタイムを推量できることを意味します; 明示的に注釈する必要はありません。
+静的変数は、定数に似ています。定数については、第3章の[「変数と定数の違い」][differences-between-variables-and-constants]節で議論しました。
+静的変数の名前は慣習で`SCREAMING_SNAKE_CASE`(`直訳`: 叫ぶスネークケース)になります。
+静的変数は`'static`ライフタイムの参照のみ格納でき、
+これは、Rustコンパイラがライフタイムを推量でき、明示的に注釈する必要はないことを意味します。
 不変で静的な変数にアクセスすることは安全です。
 
 <!--
-Constants and immutable static variables might seem similar, but a subtle
-difference is that values in a static variable have a fixed address in memory.
-Using the value will always access the same data. Constants, on the other hand,
-are allowed to duplicate their data whenever they’re used.
--->
-
-定数と不変で静的な変数は、類似して見える可能性がありますが、微妙な差異は、
-静的変数の値は固定されたメモリアドレスになることです。値を使用すると、常に同じデータにアクセスします。
-一方、定数は使用される度にデータを複製させることができます。
-
-<!--
-Another difference between constants and static variables is that static
+A subtle difference between constants and immutable static variables is that
+values in a static variable have a fixed address in memory. Using the value
+will always access the same data. Constants, on the other hand, are allowed to
+duplicate their data whenever they’re used. Another difference is that static
 variables can be mutable. Accessing and modifying mutable static variables is
 *unsafe*. Listing 19-10 shows how to declare, access, and modify a mutable
 static variable named `COUNTER`.
 -->
 
-定数と静的変数の別の違いは、静的変数は可変にもなることです。可変で静的な変数にアクセスし変更することは、unsafeです。
+定数と不変で静的な変数との微妙な差異は、
+静的変数の値は固定されたメモリアドレスになることです。値を使用すると、常に同じデータにアクセスします。
+一方、定数は使用される度にデータを複製させることができます。
+別の違いは、静的変数は可変にもなることです。可変で静的な変数にアクセスし変更することは、unsafeです。
 リスト19-10は、`COUNTER`という可変で静的な変数を宣言し、アクセスし、変更する方法を表示しています。
 
 <!--
@@ -844,21 +771,7 @@ static variable named `COUNTER`.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-static mut COUNTER: u32 = 0;
-
-fn add_to_count(inc: u32) {
-    unsafe {
-        COUNTER += inc;
-    }
-}
-
-fn main() {
-    add_to_count(3);
-
-    unsafe {
-        println!("COUNTER: {}", COUNTER);
-    }
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-10/src/main.rs}}
 ```
 
 <!--
@@ -899,27 +812,20 @@ Rustは可変で静的な変数をunsafeと考えるのです。可能なら、�
 ### unsafeなトレイトを実装する
 
 <!--
-The final action that works only with `unsafe` is implementing an unsafe trait.
-A trait is unsafe when at least one of its methods has some invariant that the
-compiler can’t verify. We can declare that a trait is `unsafe` by adding the
-`unsafe` keyword before `trait` and marking the implementation of the trait as
-`unsafe` too, as shown in Listing 19-11.
+We can use `unsafe` to implement an unsafe trait. A trait is unsafe when at
+least one of its methods has some invariant that the compiler can’t verify. We
+declare that a trait is `unsafe` by adding the `unsafe` keyword before `trait`
+and marking the implementation of the trait as `unsafe` too, as shown in
+Listing 19-11.
 -->
 
-`unsafe`でのみ動く最後の行動は、unsafeなトレイトを実装することです。少なくとも、1つのメソッドにコンパイラが確かめられないなんらかの不変条件があると、
-トレイトはunsafeになります。`trait`の前に`unsafe`キーワードを追加し、トレイトの実装も`unsafe`でマークすることで、
-トレイトが`unsafe`であると宣言できます。リスト19-11のようにですね。
+`unsafe`を使用することで、unsafeなトレイトを実装することができます。トレイトは、
+そのメソッドのうち少なくとも1つにコンパイラが確かめられないなんらかの不変条件があると、
+unsafeになります。`trait`の前に`unsafe`キーワードを追加し、トレイトの実装も`unsafe`でマークすることで、
+トレイトが`unsafe`であると宣言します。リスト19-11のようにですね。
 
 ```rust
-unsafe trait Foo {
-    // methods go here
-    // メソッドがここに来る
-}
-
-unsafe impl Foo for i32 {
-    // method implementations go here
-    // メソッドの実装がここに来る
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-11/src/main.rs}}
 ```
 
 <!--
@@ -938,22 +844,45 @@ the compiler can’t verify.
 
 <!--
 As an example, recall the `Sync` and `Send` marker traits we discussed in the
-“Extensible Concurrency with the `Sync` and `Send` Traits” section in Chapter
-16: the compiler implements these traits automatically if our types are
-composed entirely of `Send` and `Sync` types. If we implement a type that
-contains a type that is not `Send` or `Sync`, such as raw pointers, and we want
-to mark that type as `Send` or `Sync`, we must use `unsafe`. Rust can’t verify
-that our type upholds the guarantees that it can be safely sent across threads
-or accessed from multiple threads; therefore, we need to do those checks
-manually and indicate as such with `unsafe`.
+[“Extensible Concurrency with the `Sync` and `Send`
+Traits”][extensible-concurrency-with-the-sync-and-send-traits]
+section in Chapter 16: the compiler implements these traits automatically if
+our types are composed entirely of `Send` and `Sync` types. If we implement a
+type that contains a type that is not `Send` or `Sync`, such as raw pointers,
+and we want to mark that type as `Send` or `Sync`, we must use `unsafe`. Rust
+can’t verify that our type upholds the guarantees that it can be safely sent
+across threads or accessed from multiple threads; therefore, we need to do
+those checks manually and indicate as such with `unsafe`.
 -->
 
-例として、第16章の「`Sync`と`Send`トレイトで拡張可能な並行性」節で議論した`Sync`と`Send`マーカートレイトを思い出してください:
+例として、第16章の[「`Sync`と`Send`トレイトで拡張可能な並行性」][extensible-concurrency-with-the-sync-and-send-traits]節で議論した`Sync`と`Send`マーカートレイトを思い出してください:
 型が完全に`Send`と`Sync`型だけで構成されていたら、コンパイラはこれらのトレイトを自動的に実装します。
 生ポインタなどの`Send`や`Sync`でない型を含む型を実装し、その型を`Send`や`Sync`でマークしたいなら、
 `unsafe`を使用しなければなりません。コンパイラは、型がスレッド間を安全に送信できたり、
 複数のスレッドから安全にアクセスできるという保証を保持しているか確かめられません; 故に、そのチェックを手動で行い、
 `unsafe`でそのように示唆する必要があります。
+
+<!--
+### Accessing Fields of a Union
+-->
+
+### 共用体のフィールドにアクセスする
+
+<!--
+The final action that works only with `unsafe` is accessing fields of a
+*union*. A `union` is similar to a `struct`, but only one declared field is
+used in a particular instance at one time. Unions are primarily used to
+interface with unions in C code. Accessing union fields is unsafe because Rust
+can’t guarantee the type of the data currently being stored in the union
+instance. You can learn more about unions in [the Rust Reference][reference].
+-->
+
+`unsafe`でのみ動く最後の行動は、*共用体*のフィールドへのアクセスです。
+`union`は`struct`と似ていますが、宣言されたフィールドのうち、特定のインスタンスに対しては1つだけが同時に使用されます。
+共用体は主に、Cコードの共用体とのインターフェースとして使用されます。
+Rustは共用体インスタンスに現在保管されているデータの型を保証することができないので、
+共用体フィールドへのアクセスはunsafeになっています。
+共用体については[Rust Reference][reference]でさらに深く学ぶことができます。
 
 <!--
 ### When to Use Unsafe Code
@@ -962,14 +891,34 @@ manually and indicate as such with `unsafe`.
 ### いつunsafeコードを使用するべきか
 
 <!--
-Using `unsafe` to take one of the four actions (superpowers) just discussed
+Using `unsafe` to take one of the five actions (superpowers) just discussed
 isn’t wrong or even frowned upon. But it is trickier to get `unsafe` code
 correct because the compiler can’t help uphold memory safety. When you have a
 reason to use `unsafe` code, you can do so, and having the explicit `unsafe`
-annotation makes it easier to track down the source of problems if they occur.
+annotation makes it easier to track down the source of problems when they occur.
 -->
 
-`unsafe`を使って議論したばかりの4つの行動(強大な力)のうちの1つを行うのは間違っていたり、認められさえもしないものではありません。
+`unsafe`を使って議論したばかりの5つの行動(強大な力)のうちの1つを行うのは間違っていたり、認められさえもしないものではありません。
 ですが、`unsafe`コードを正しくするのは、より巧妙なことでしょう。コンパイラがメモリ安全性を保持する手助けをできないからです。
-`unsafe`コードを使用する理由があるなら、そうすることができ、明示的に`unsafe`注釈をすることで問題が起きたら、
+`unsafe`コードを使用する理由があるなら、そうすることができ、明示的に`unsafe`注釈をすることで問題が起きたときに、
 その原因を追求するのが容易になります。
+
+<!--
+[dangling-references]:
+ch04-02-references-and-borrowing.html#dangling-references
+[differences-between-variables-and-constants]:
+ch03-01-variables-and-mutability.html#constants
+[extensible-concurrency-with-the-sync-and-send-traits]:
+ch16-04-extensible-concurrency-sync-and-send.html#extensible-concurrency-with-the-sync-and-send-traits
+[the-slice-type]: ch04-03-slices.html#the-slice-type
+[reference]: ../reference/items/unions.html
+-->
+
+[dangling-references]:
+ch04-02-references-and-borrowing.html#宙に浮いた参照
+[differences-between-variables-and-constants]:
+ch03-01-variables-and-mutability.html#定数
+[extensible-concurrency-with-the-sync-and-send-traits]:
+ch16-04-extensible-concurrency-sync-and-send.html#syncとsendトレイトで拡張可能な並行性
+[the-slice-type]: ch04-03-slices.html#スライス型
+[reference]: https://doc.rust-lang.org/reference/items/unions.html

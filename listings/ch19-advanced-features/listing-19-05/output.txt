@@ -1,21 +1,22 @@
 $ cargo run
    Compiling unsafe-example v0.1.0 (file:///projects/unsafe-example)
-error[E0499]: cannot borrow `*slice` as mutable more than once at a time
- --> src/main.rs:6:30
+error[E0499]: cannot borrow `*values` as mutable more than once at a time
+(エラー: 一度に2回以上、`*values`を可変で借用できません)
+ --> src/main.rs:6:31
   |
-1 | fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
-  |                        - let's call the lifetime of this reference `'1`
+1 | fn split_at_mut(values: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
+  |                         - let's call the lifetime of this reference `'1`
+  |                          (この参照のライフタイムを`'1`とします)
 ...
-6 |     (&mut slice[..mid], &mut slice[mid..])
-  |     -------------------------^^^^^--------
-  |     |     |                  |
-  |     |     |                  second mutable borrow occurs here
+6 |     (&mut values[..mid], &mut values[mid..])
+  |     --------------------------^^^^^^--------
+  |     |     |                   |
+  |     |     |                   second mutable borrow occurs here
+  |     |     |                  (2回目の可変参照はここで発生します)
   |     |     first mutable borrow occurs here
-  |     returning this value requires that `*slice` is borrowed for `'1`
-
-error: aborting due to previous error
+  |     |    (1回目の可変参照はここで発生します)
+  |     returning this value requires that `*values` is borrowed for `'1`
+  |    (この値を返すためには`*values`が`'1`の間借用されていることが必要です)
 
 For more information about this error, try `rustc --explain E0499`.
-error: could not compile `unsafe-example`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `unsafe-example` (bin "unsafe-example") due to 1 previous error

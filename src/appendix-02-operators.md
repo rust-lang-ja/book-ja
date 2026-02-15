@@ -40,17 +40,17 @@ overload that operator is listed.
 |----------|---------|-------------|---------------|
 | `!` | `ident!(...)`, `ident!{...}`, `ident![...]` | Macro expansion | |
 | `!` | `!expr` | Bitwise or logical complement | `Not` |
-| `!=` | `var != expr` | Nonequality comparison | `PartialEq` |
+| `!=` | `expr != expr` | Nonequality comparison | `PartialEq` |
 | `%` | `expr % expr` | Arithmetic remainder | `Rem` |
 | `%=` | `var %= expr` | Arithmetic remainder and assignment | `RemAssign` |
 | `&` | `&expr`, `&mut expr` | Borrow | |
 | `&` | `&type`, `&mut type`, `&'a type`, `&'a mut type` | Borrowed pointer type | |
 | `&` | `expr & expr` | Bitwise AND | `BitAnd` |
 | `&=` | `var &= expr` | Bitwise AND and assignment | `BitAndAssign` |
-| `&&` | `expr && expr` | Logical AND | |
+| `&&` | `expr && expr` | Short-circuiting logical AND | |
 | `*` | `expr * expr` | Arithmetic multiplication | `Mul` |
 | `*=` | `var *= expr` | Arithmetic multiplication and assignment | `MulAssign` |
-| `*` | `*expr` | Dereference | |
+| `*` | `*expr` | Dereference | `Deref` |
 | `*` | `*const type`, `*mut type` | Raw pointer | |
 | `+` | `trait + trait`, `'a + trait` | Compound type constraint | |
 | `+` | `expr + expr` | Arithmetic addition | `Add` |
@@ -59,12 +59,13 @@ overload that operator is listed.
 | `-` | `- expr` | Arithmetic negation | `Neg` |
 | `-` | `expr - expr` | Arithmetic subtraction | `Sub` |
 | `-=` | `var -= expr` | Arithmetic subtraction and assignment | `SubAssign` |
-| `->` | `fn(...) -> type`, <code>\|...\| -> type</code> | Function and closure return type | |
+| `->` | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | Function and closure return type | |
 | `.` | `expr.ident` | Member access | |
-| `..` | `..`, `expr..`, `..expr`, `expr..expr` | Right-exclusive range literal | |
+| `..` | `..`, `expr..`, `..expr`, `expr..expr` | Right-exclusive range literal | `PartialOrd` |
+| `..=` | `..=expr`, `expr..=expr` | Right-inclusive range literal | `PartialOrd` |
 | `..` | `..expr` | Struct literal update syntax | |
 | `..` | `variant(x, ..)`, `struct_type { x, .. }` | “And the rest” pattern binding | |
-| `...` | `expr...expr` | In a pattern: inclusive range pattern | |
+| `...` | `expr...expr` | (Deprecated, use `..=` instead) In a pattern: inclusive range pattern | |
 | `/` | `expr / expr` | Arithmetic division | `Div` |
 | `/=` | `var /= expr` | Arithmetic division and assignment | `DivAssign` |
 | `:` | `pat: type`, `ident: type` | Constraints | |
@@ -86,10 +87,10 @@ overload that operator is listed.
 | `@` | `ident @ pat` | Pattern binding | |
 | `^` | `expr ^ expr` | Bitwise exclusive OR | `BitXor` |
 | `^=` | `var ^= expr` | Bitwise exclusive OR and assignment | `BitXorAssign` |
-| <code>\|</code> | <code>pat \| pat</code> | Pattern alternatives | |
-| <code>\|</code> | <code>expr \| expr</code> | Bitwise OR | `BitOr` |
-| <code>\|=</code> | <code>var \|= expr</code> | Bitwise OR and assignment | `BitOrAssign` |
-| <code>\|\|</code> | <code>expr \|\| expr</code> | Logical OR | |
+| <code>&vert;</code> | <code>pat &vert; pat</code> | Pattern alternatives | |
+| <code>&vert;</code> | <code>expr &vert; expr</code> | Bitwise OR | `BitOr` |
+| <code>&vert;=</code> | <code>var &vert;= expr</code> | Bitwise OR and assignment | `BitOrAssign` |
+| <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code> | Short-circuiting logical OR | |
 | `?` | `expr?` | Error propagation | |
 -->
 
@@ -97,18 +98,18 @@ overload that operator is listed.
 |-------------------|--------------------------------------------------|--------------------------|---------------------|
 | `!`               | `ident!(...)`, `ident!{...}`, `ident![...]`      | マクロ展開                ||
 | `!`               | `!expr`                                          | ビット反転、または論理反転   | `Not` |
-| `!=`              | `var != expr`                                    | 非等価比較                 | `PartialEq` |
+| `!=`              | `expr != expr`                                   | 非等価比較                 | `PartialEq` |
 | `%`               | `expr % expr`                                    | 余り演算                   | `Rem` |
 | `%=`              | `var %= expr`                                    | 余り演算後に代入            | `RemAssign` |
 | `&`               | `&expr`, `&mut expr`                             | 借用                      ||
 | `&`               | `&type`, `&mut type`, `&'a type`, `&'a mut type` | 借用されたポインタ型        ||
 | `&`               | `expr & expr`                                    | ビットAND                 | `BitAnd` |
 | `&=`              | `var &= expr`                                    | ビットAND後に代入          | `BitAndAssign` |
-| `&&`              | `expr && expr`                                   | 論理AND                   ||
+| `&&`              | `expr && expr`                                   | 短絡論理AND                ||
 | `*`               | `expr * expr`                                    | 掛け算                    | `Mul` |
-| `*`               | `*expr`                                          | 参照外し                  ||
-| `*`               | `*const type`, `*mut type`                       | 生ポインタ                ||
 | `*=`              | `var *= expr`                                    | 掛け算後に代入             | `MulAssign` |
+| `*`               | `*expr`                                          | 参照外し                  | `Deref` |
+| `*`               | `*const type`, `*mut type`                       | 生ポインタ                ||
 | `+`               | `trait + trait`, `'a + trait`                    | 型制限の複合化             ||
 | `+`               | `expr + expr`                                    | 足し算                    | `Add` |
 | `+=`              | `var += expr`                                    | 足し算後に代入             | `AddAssign` |
@@ -116,12 +117,13 @@ overload that operator is listed.
 | `-`               | `- expr`                                         | 算術否定                  | `Neg` |
 | `-`               | `expr - expr`                                    | 引き算                    | `Sub` |
 | `-=`              | `var -= expr`                                    | 引き算後に代入             | `SubAssign` |
-| `->`              | `fn(...) -> type`, <code>\|...\| -> type</code>  | 関数とクロージャの戻り値型   ||
+| `->`              | `fn(...) -> type`, <code>&vert;...&vert; -> type</code> | 関数とクロージャの戻り値型   ||
 | `.`               | `expr.ident`                                     | メンバーアクセス            ||
-| `..`              | `..`, `expr..`, `..expr`, `expr..expr`           | 未満範囲リテラル            ||
+| `..`              | `..`, `expr..`, `..expr`, `expr..expr`           | 未満範囲リテラル            | `PartialOrd` |
+| `..=`             | `..=expr`, `expr..=expr`                         | 以下範囲リテラル            | `PartialOrd` |
 | `..`              | `..expr`                                         | 構造体リテラル更新記法       ||
 | `..`              | `variant(x, ..)`, `struct_type { x, .. }`        | 「残り全部」パターン束縛     ||
-| `...`             | `expr...expr`                                    | パターンで: 以下範囲パターン ||
+| `...`             | `expr...expr`                                    | (非推奨、代わりに`..=`を使用してください) パターンで: 以下範囲パターン ||
 | `/`               | `expr / expr`                                    | 割り算                    | `Div` |
 | `/=`              | `var /= expr`                                    | 割り算後に代入             | `DivAssign` |
 | `:`               | `pat: type`, `ident: type`                       | 型制約                    ||
@@ -143,11 +145,10 @@ overload that operator is listed.
 | `@`               | `ident @ pat`                                    | パターン束縛              ||
 | `^`               | `expr ^ expr`                                    | ビットXOR                | `BitXor` |
 | `^=`              | `var ^= expr`                                    | ビットXOR後に代入         | `BitXorAssign` |
-| <code>\|</code>   | <code>pat \| pat</code>                          | パターンOR               ||
-| <code>\|</code>   | <code>\|…\| expr</code>                          | クロージャ               ||
-| <code>\|</code>   | <code>expr \| expr</code>                        | ビットOR                 | `BitOr` |
-| <code>\|=</code>  | <code>var \|= expr</code>                        | ビットOR後に代入          | `BitOrAssign`|
-| <code>\|\|</code> | <code>expr \|\| expr</code>                      | 論理OR                   ||
+| <code>&vert;</code>   | <code>pat &vert; pat</code>                  | パターンOR               ||
+| <code>&vert;</code>   | <code>expr &vert; expr</code>                | ビットOR                 | `BitOr` |
+| <code>&vert;=</code>  | <code>var &vert;= expr</code>                | ビットOR後に代入          | `BitOrAssign`|
+| <code>&vert;&vert;</code> | <code>expr &vert;&vert; expr</code>      | 短絡論理OR                   ||
 | `?`               | `expr?`                                          | エラー委譲                ||
 
 <!--
@@ -157,8 +158,8 @@ overload that operator is listed.
 ### 演算子以外のシンボル
 
 <!--
-The following list contains all non-letters that don’t function as operators;
-that is, they don’t behave like a function or method call.
+The following list contains all symbols that don’t function as operators; that
+is, they don’t behave like a function or method call.
 -->
 
 以下のリストは、演算子として機能しない記号全部を含んでいます; つまり、関数やメソッド呼び出しのようには、
@@ -184,11 +185,11 @@ locations.
 | `...u8`, `...i32`, `...f64`, `...usize`, etc. | Numeric literal of specific type |
 | `"..."` | String literal |
 | `r"..."`, `r#"..."#`, `r##"..."##`, etc. | Raw string literal, escape characters not processed |
-| `b"..."` | Byte string literal; constructs a `[u8]` instead of a string |
+| `b"..."` | Byte string literal; constructs an array of bytes instead of a string |
 | `br"..."`, `br#"..."#`, `br##"..."##`, etc. | Raw byte string literal, combination of raw and byte string literal |
 | `'...'` | Character literal |
 | `b'...'` | ASCII byte literal |
-| <code>\|...\| expr</code> | Closure |
+| <code>&vert;...&vert; expr</code> | Closure |
 | `!` | Always empty bottom type for diverging functions |
 | `_` | “Ignored” pattern binding; also used to make integer literals readable |
 -->
@@ -199,11 +200,11 @@ locations.
 | `...u8`, `...i32`, `...f64`, `...usize`など     | 特定の型の数値リテラル |
 | `"..."`                                         | 文字列リテラル|
 | `r"..."`, `r#"..."#`, `r##"..."##`など          | 生文字列リテラル、エスケープ文字は処理されません |
-| `b"..."`                                        | バイト文字列リテラル、文字列の代わりに`[u8]`を構築します |
+| `b"..."`                                        | バイト文字列リテラル、文字列の代わりにバイト列を構築します |
 | `br"..."`, `br#"..."#`, `br##"..."##`など       | 生バイト文字列リテラル、生文字列とバイト文字列の組み合わせ |
 | `'...'`                                         | 文字リテラル |
 | `b'...'`                                        | ASCIIバイトリテラル |
-| <code>\|...\| expr</code>                       | クロージャ |
+| <code>&vert;...&vert; expr</code>               | クロージャ |
 | `!`                                             | 常に発散関数の空のボトム型 |
 | `_`                                             | 「無視」パターン束縛: 整数リテラルを見やすくするのにも使われる|
 
@@ -301,7 +302,7 @@ parameters with trait bounds.
 |--------|-------------|
 | `T: U` | Generic parameter `T` constrained to types that implement `U` |
 | `T: 'a` | Generic type `T` must outlive lifetime `'a` (meaning the type cannot transitively contain any references with lifetimes shorter than `'a`) |
-| `T : 'static` | Generic type `T` contains no borrowed references other than `'static` ones |
+| `T: 'static` | Generic type `T` contains no borrowed references other than `'static` ones |
 | `'b: 'a` | Generic lifetime `'b` must outlive lifetime `'a` |
 | `T: ?Sized` | Allow generic type parameter to be a dynamically sized type |
 | `'a + trait`, `trait + trait` | Compound type constraint |
@@ -311,7 +312,7 @@ parameters with trait bounds.
 |-------------------------------|-----|
 | `T: U`                        | `U`を実装する型に制約されるジェネリック引数`T` |
 | `T: 'a`                       | ライフタイム`'a`よりも長生きしなければならないジェネリック型`T`(型がライフタイムより長生きするとは、`'a`よりも短いライフタイムの参照を何も遷移的に含められないことを意味する)|
-| `T : 'static`                 | ジェネリック型`T`が`'static`なもの以外の借用された参照を何も含まない |
+| `T: 'static`                  | ジェネリック型`T`が`'static`なもの以外の借用された参照を何も含まない |
 | `'b: 'a`                      | ジェネリックなライフタイム`'b`がライフタイム`'a`より長生きしなければならない |
 | `T: ?Sized`                   | ジェネリック型引数が動的サイズ決定型であることを許容する |
 | `'a + trait`, `trait + trait` | 複合型制約 |
@@ -337,6 +338,7 @@ macros and specifying attributes on an item.
 | `$ident` | Macro substitution |
 | `$ident:kind` | Macro capture |
 | `$(…)…` | Macro repetition |
+| `ident!(...)`, `ident!{...}`, `ident![...]` | Macro invocation |
 -->
 
 | シンボル       | 説明 |
@@ -346,6 +348,7 @@ macros and specifying attributes on an item.
 | `$ident`      | マクロ代用 |
 | `$ident:kind` | マクロキャプチャ |
 | `$(…)…`       | マクロの繰り返し |
+| `ident!(...)`, `ident!{...}`, `ident![...]` | マクロ呼び出し |
 
 <!--
 Table B-7 shows symbols that create comments.
@@ -380,12 +383,6 @@ Table B-7 shows symbols that create comments.
 | `/**...*/` | 外部ブロックdocコメント |
 
 <!--
-#### Tuples
--->
-
-#### タプル
-
-<!--
 Table B-8 shows symbols that appear in the context of using tuples.
 -->
 
@@ -407,7 +404,6 @@ Table B-8 shows symbols that appear in the context of using tuples.
 | `(expr, ...)` | Tuple expression |
 | `(type, ...)` | Tuple type |
 | `expr(expr, ...)` | Function call expression; also used to initialize tuple `struct`s and tuple `enum` variants |
-| `ident!(...)`, `ident!{...}`, `ident![...]` | Macro invocation |
 | `expr.0`, `expr.1`, etc. | Tuple indexing |
 -->
 
@@ -420,7 +416,6 @@ Table B-8 shows symbols that appear in the context of using tuples.
 | `(expr, ...)`                               | タプル式 |
 | `(type, ...)`                               | タプル型 |
 | `expr(expr, ...)`                           | 関数呼び出し式; タプル`struct`やタプル`enum`列挙子を初期化するのにも使用される |
-| `ident!(...)`, `ident!{...}`, `ident![...]` | マクロ呼び出し |
 | `expr.0`, `expr.1`, など                     | タプル添え字アクセス |
 
 <!--

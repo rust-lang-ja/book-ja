@@ -8,14 +8,14 @@
 The following list contains keywords that are reserved for current or future
 use by the Rust language. As such, they cannot be used as identifiers (except
 as raw identifiers as we’ll discuss in the “[Raw
-Identifiers][raw-identifiers]” section), including names of
-functions, variables, parameters, struct fields, modules, crates, constants,
+Identifiers][raw-identifiers]” section). Identifiers are names
+of functions, variables, parameters, struct fields, modules, crates, constants,
 macros, static values, attributes, types, traits, or lifetimes.
 -->
 
 以下のリストは、現在、あるいは将来Rust言語により使用されるために予約されているキーワードです。
-そのため、識別子として使用することはできません。識別子には、関数名、変数名、引数名、構造体のフィールド名、モジュール名、クレート名、定数名、マクロ名、静的な値の名前、属性名、型名、トレイト名、ライフタイム名などがあります。
-ただし、[生識別子][raw-identifiers]のところで議論する生識別子は例外です。
+そのため、識別子として使用することはできません(ただし、[生識別子][raw-identifiers]のところで議論する生識別子は例外です)。
+識別子とは、関数、変数、引数、構造体のフィールド、モジュール、クレート、定数、マクロ、静的な値、属性、型、トレイト、またはライフタイムの名前です。
 
 [raw-identifiers]: #raw-identifiers
 
@@ -26,25 +26,25 @@ macros, static values, attributes, types, traits, or lifetimes.
 ### 現在使用されているキーワード
 
 <!--
-The following keywords currently have the functionality described.
+The following is a list of keywords currently in use, with their functionality
+described.
 -->
 
-以下のキーワードは、解説された通りの機能が現状あります。
+以下は現在使用されているキーワードと、その機能の一覧です。
 
 <!--
 * `as` - perform primitive casting, disambiguate the specific trait containing
-  an item, or rename items in `use` and `extern crate` statements
+  an item, or rename items in `use` statements
 * `async` -  return a `Future` instead of blocking the current thread
 * `await` - suspend execution until the result of a `Future` is ready
 * `break` - exit a loop immediately
 * `const` - define constant items or constant raw pointers
 * `continue` - continue to the next loop iteration
-* `crate` - link an external crate or a macro variable representing the crate in
-  which the macro is defined
+* `crate` - in a module path, refers to the crate root
 * `dyn` - dynamic dispatch to a trait object
 * `else` - fallback for `if` and `if let` control flow constructs
 * `enum` - define an enumeration
-* `extern` - link an external crate, function, or variable
+* `extern` - link an external function or variable
 * `false` - Boolean false literal
 * `fn` - define a function or the function pointer type
 * `for` - loop over items from an iterator, implement a trait, or specify a
@@ -69,7 +69,8 @@ The following keywords currently have the functionality described.
 * `trait` - define a trait
 * `true` - Boolean true literal
 * `type` - define a type alias or associated type
-* `union` - define a [union] and is only a keyword when used in a union declaration
+* `union` - define a [union][union]; is only a keyword when used
+  in a union declaration
 * `unsafe` - denote unsafe code, functions, traits, or implementations
 * `use` - bring symbols into scope
 * `where` - denote clauses that constrain a type
@@ -82,16 +83,17 @@ The following keywords currently have the functionality described.
 higher-ranked lifetimeについては議論の余地ありか
 -->
 
-* `as` - 基礎的なキャストの実行、要素を含む特定のトレイトの明確化、`use`や`extern crate`文の要素名を変更する
+* `as` - 基礎的なキャストの実行、要素を含む特定のトレイトの明確化、`use`文の要素名を変更する
 * `async` - 現在のスレッドをブロックする代わりに`Future`を返す
 * `await` - `Future`の結果が準備できるまで実行を停止する
 * `break` - 即座にループを抜ける
 * `const` - 定数要素か定数の生ポインタを定義する
 * `continue` - 次のループの繰り返しに継続する
-* `crate` - 外部のクレートかマクロが定義されているクレートを表すマクロ変数をリンクする
+* `crate` - モジュールパス内で、クレートルートを表す
+* `dyn` - トレイトオブジェクトに対するダイナミックディスパッチ
 * `else` - `if`と`if let`制御フロー構文の規定
 * `enum` - 列挙型を定義する
-* `extern` - 外部のクレート、関数、変数をリンクする
+* `extern` - 外部の関数、変数をリンクする
 * `false` - bool型のfalseリテラル
 * `fn` - 関数か関数ポインタ型を定義する
 * `for` - イテレータの要素を繰り返す、トレイトの実装、高階ライフタイムの指定
@@ -115,6 +117,7 @@ higher-ranked lifetimeについては議論の余地ありか
 * `trait` - トレイトを定義する
 * `true` - bool型のtrueリテラル
 * `type` - 型エイリアスか関連型を定義する
+* `union` - [共用体][union]を定義する; 共用体宣言内で使用される場合のみキーワードです
 * `unsafe` - unsafeなコード、関数、トレイト、実装に言及する
 * `use` - スコープにシンボルを持ち込む
 * `where` - 型を制限する節に言及する
@@ -129,11 +132,11 @@ higher-ranked lifetimeについては議論の余地ありか
 ### 将来的な使用のために予約されているキーワード
 
 <!--
-The following keywords do not have any functionality but are reserved by Rust
-for potential future use.
+The following keywords do not yet have any functionality but are reserved by
+Rust for potential future use.
 -->
 
-以下のキーワードには機能が何もないものの、将来的に使用される可能性があるので、Rustにより予約されています。
+以下のキーワードにはまだ機能が何もないものの、将来的に使用される可能性があるので、Rustにより予約されています。
 
 <!--
 * `abstract`
@@ -243,15 +246,18 @@ name in its definition as well as where the function is called in `main`.
 
 <!--
 Raw identifiers allow you to use any word you choose as an identifier, even if
-that word happens to be a reserved keyword. In addition, raw identifiers allow
-you to use libraries written in a different Rust edition than your crate uses.
-For example, `try` isn’t a keyword in the 2015 edition but is in the 2018
+that word happens to be a reserved keyword. This gives us more freedom to
+choose identifier names, as well as lets us integrate with programs written in
+a language where these words aren’t keywords. In addition, raw identifiers
+allow you to use libraries written in a different Rust edition than your crate
+uses. For example, `try` isn’t a keyword in the 2015 edition but is in the 2018
 edition. If you depend on a library that’s written using the 2015 edition and
 has a `try` function, you’ll need to use the raw identifier syntax, `r#try` in
 this case, to call that function from your 2018 edition code. See [Appendix
 E][appendix-e] for more information on editions.
 -->
 生識別子を使えば、仮にそれが予約されたキーワードであろうとも、任意の単語を識別子として使えるようになります。
+これにより識別子名の選択により大きな自由が与えられ、これらの単語がキーワードではない言語で書かれたプログラムとの統合も可能になります。
 更に、あなたのクレートが使っているRustのeditionとは異なるeditionで書かれたライブラリを呼び出すこともできるようになります。
 たとえば、`try`は2015 editionではキーワードではありませんでしたが、2018 editionではキーワードです。
 もし、2015 editionで書かれており、`try`関数を持っているライブラリに依存している場合、あなたの2018 editionのコードからその関数を呼び出すためには、生識別子構文を使う必要がでてくるでしょう。今回なら`r#try`ですね。

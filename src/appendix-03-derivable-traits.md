@@ -36,24 +36,24 @@ library that you can use with `derive`. Each section covers:
 * そのトレイトが必要になる処理の例
 
 <!--
-If you want different behavior than that provided by the `derive` attribute,
-consult the standard library documentation for each trait for details on how to
-manually implement them.
+If you want different behavior from that provided by the `derive` attribute,
+consult the [standard library documentation](../std/index.html)
+for each trait for details of how to manually implement them.
 -->
 
-`derive`属性が提供する以外の異なる振る舞いが欲しいなら、それらを手動で実装する方法の詳細について、
-各トレイトの標準ライブラリのドキュメンテーションを調べてください。
+`derive`属性が提供するものと異なる振る舞いが欲しいなら、それらを手動で実装する方法の詳細について、
+各トレイトの[標準ライブラリのドキュメンテーション](https://doc.rust-lang.org/std/index.html)を調べてください。
 
 <!--
-The rest of the traits defined in the standard library can’t be implemented on
-your types using `derive`. These traits don’t have sensible default behavior,
-so it’s up to you to implement them in the way that makes sense for what you’re
-trying to accomplish.
+These traits listed here are the only ones defined by the standard library that
+can be implemented on your types using `derive`. Other traits defined in the
+standard library don’t have sensible default behavior, so it’s up to you to
+implement them in the way that makes sense for what you’re trying to accomplish.
 -->
 
-標準ライブラリで定義されている残りのトレイトは、`derive`で自分の型に実装することはできません。
-これらのトレイトには知覚できるほどの既定の振る舞いはないので、自分が達成しようしていることに対して、
-道理が通る方法でそれらを実装するのはあなた次第です。
+ここで列挙したトレイトは、標準ライブラリによって`derive`で自分の型に対して実装できると定義されているもののみです。
+他の標準ライブラリで定義されているトレイトには、分別のあるデフォルトの振る舞いはないので、
+自分が達成しようしていることに対して、道理が通る方法でそれらを実装するのはあなた次第です。
 
 <!--
 An example of a trait that can’t be derived is `Display`, which handles
@@ -73,12 +73,13 @@ it can’t provide appropriate default behavior for you.
 The list of derivable traits provided in this appendix is not comprehensive:
 libraries can implement `derive` for their own traits, making the list of
 traits you can use `derive` with truly open-ended. Implementing `derive`
-involves using a procedural macro, which is covered in Appendix D.
+involves using a procedural macro, which is covered in the
+[“Macros”][macros] section of Chapter 19.
 -->
 
 この付録で提供される導出可能なトレイトのリストは、包括的ではありません: ライブラリは、自身のトレイトに`derive`を実装でき、
 `derive`と共に使用できるトレイトのリストが実に限りのないものになってしまうのです。`derive`の実装には、
-プロシージャルなマクロが関連します。マクロについては、付録Dで講義します。
+プロシージャルなマクロが関連します。マクロについては、第19章の[「マクロ」][macros]で講義します。
 
 <!--
 ### `Debug` for Programmer Output
@@ -210,10 +211,10 @@ enumに導出すると、enum定義で先に定義された列挙子が、後に
 <!--
 The `PartialOrd` trait is required, for example, for the `gen_range` method
 from the `rand` crate that generates a random value in the range specified by a
-low value and a high value.
+range expression.
 -->
 
-`PartialOrd`トレイトが必要になる例には、低い値と高い値で指定される範囲の乱数を生成する`rand`クレートの`gen_range`メソッドが挙げられます。
+`PartialOrd`トレイトが必要になる例には、範囲式で指定される範囲の乱数を生成する`rand`クレートの`gen_range`メソッドが挙げられます。
 
 <!--
 The `Ord` trait allows you to know that for any two values of the annotated
@@ -248,13 +249,14 @@ a data structure that stores data based on the sort order of the values.
 <!--
 The `Clone` trait allows you to explicitly create a deep copy of a value, and
 the duplication process might involve running arbitrary code and copying heap
-data. See the “Ways Variables and Data Interact: Clone” section in Chapter 4
-for more information on `Clone`.
+data. See the [“Ways Variables and Data Interact:
+Clone”][ways-variables-and-data-interact-clone] section in
+Chapter 4 for more information on `Clone`.
 -->
 
 `Clone`トレイトにより値のディープコピーを明示的に行うことができ、複製のプロセスは、任意のコードを実行し、
 ヒープデータをコピーすることに関係がある可能性があります。`Clone`について詳しくは、
-第4章の「変数とデータの相互作用法: Clone」節を参照されたし。
+第4章の[「変数とデータの相互作用法: Clone」][ways-variables-and-data-interact-clone]節を参照されたし。
 
 <!--
 Deriving `Clone` implements the `clone` method, which when implemented for the
@@ -279,12 +281,13 @@ returned from `to_vec` will need to own its instances, so `to_vec` calls
 
 <!--
 The `Copy` trait allows you to duplicate a value by only copying bits stored on
-the stack; no arbitrary code is necessary. See the “Stack-Only Data: Copy”
-section in Chapter 4 for more information on `Copy`.
+the stack; no arbitrary code is necessary. See the [“Stack-Only Data:
+Copy”][stack-only-data-copy] section in Chapter 4 for more
+information on `Copy`.
 -->
 
 `Copy`トレイトにより、スタックに格納されたビットをコピーするだけで値を複製できます; 任意のコードは必要ありません。
-`Copy`について詳しくは、第4章の「スタックのみのデータ: Copy」を参照されたし。
+`Copy`について詳しくは、第4章の[「スタックのみのデータ: Copy」][stack-only-data-copy]を参照されたし。
 
 <!--
 The `Copy` trait doesn’t define any methods to prevent programmers from
@@ -297,14 +300,14 @@ very fast.
 そのため、全プログラマは、値のコピーは非常に高速であることを前提にすることができます。
 
 <!--
-You can derive `Copy` on any type whose parts all implement `Copy`. You can
-only apply the `Copy` trait to types that also implement `Clone`, because a
-type that implements `Copy` has a trivial implementation of `Clone` that
-performs the same task as `Copy`.
+You can derive `Copy` on any type whose parts all implement `Copy`. A type that
+implements `Copy` must also implement `Clone`, because a type that implements
+`Copy` has a trivial implementation of `Clone` that performs the same task as
+`Copy`.
 -->
 
-部品すべてが`Copy`を実装する任意の型に対して`Copy`を導出することができます。`Clone`も実装する型に対してのみ、
-`Copy`トレイトを適用することができます。何故なら、`Copy`を実装する型には、
+部品すべてが`Copy`を実装する任意の型に対して`Copy`を導出することができます。
+`Copy`を実装する型は、`Clone`も実装しなくてはなりません。何故なら、`Copy`を実装する型には、
 `Copy`と同じ作業を行う`Clone`の<ruby>瑣末<rp>(</rp><rt>さまつ</rt><rp>)</rp></ruby>な実装があるからです。
 
 <!--
@@ -361,7 +364,7 @@ The `Default` trait allows you to create a default value for a type. Deriving
 `Default` implements the `default` function. The derived implementation of the
 `default` function calls the `default` function on each part of the type,
 meaning all fields or values in the type must also implement `Default` to
-derive `Default.`
+derive `Default`.
 -->
 
 `Default`トレイトにより、型に対して既定値を生成できます。`Default`を導出すると、`default`関数を実装します。
@@ -370,14 +373,16 @@ derive `Default.`
 
 <!--
 The `Default::default` function is commonly used in combination with the struct
-update syntax discussed in the “Creating Instances From Other Instances With
-Struct Update Syntax” section in Chapter 5. You can customize a few fields of a
-struct and then set and use a default value for the rest of the fields by using
+update syntax discussed in the [“Creating Instances From Other Instances With
+Struct Update
+Syntax”][creating-instances-from-other-instances-with-struct-update-syntax]
+section in Chapter 5. You can customize a few fields of a struct and then
+set and use a default value for the rest of the fields by using
 `..Default::default()`.
 -->
 
 `Default::default`関数は、
-第5章の「構造体更新記法で他のインスタンスからインスタンスを生成する」節で議論した構造体更新記法と組み合わせてよく使用されます。
+第5章の[「構造体更新記法で他のインスタンスからインスタンスを生成する」][creating-instances-from-other-instances-with-struct-update-syntax]節で議論した構造体更新記法と組み合わせてよく使用されます。
 構造体のいくつかのフィールドをカスタマイズし、それから`..Default::default()`を使用して、
 残りのフィールドに対して既定値をセットし使用することができます。
 
@@ -390,3 +395,22 @@ The `Default` trait is required when you use the method `unwrap_or_default` on
 
 例えば、`Default`トレイトは、`Option<T>`インスタンスに対してメソッド`unwrap_or_default`を使用する時に必要になります。
 `Option<T>`が`None`ならば、メソッド`unwrap_or_default`は、`Option<T>`に格納された型`T`に対して`Default::default`の結果を返します。
+
+<!--
+[creating-instances-from-other-instances-with-struct-update-syntax]:
+ch05-01-defining-structs.html#creating-instances-from-other-instances-with-struct-update-syntax
+[stack-only-data-copy]:
+ch04-01-what-is-ownership.html#stack-only-data-copy
+[ways-variables-and-data-interact-clone]:
+ch04-01-what-is-ownership.html#ways-variables-and-data-interact-clone
+[macros]: ch19-06-macros.html#macros
+-->
+
+[creating-instances-from-other-instances-with-struct-update-syntax]:
+ch05-01-defining-structs.html#構造体更新記法で他のインスタンスからインスタンスを生成する
+[stack-only-data-copy]:
+ch04-01-what-is-ownership.html#スタックのみのデータ-コピー
+[ways-variables-and-data-interact-clone]:
+ch04-01-what-is-ownership.html#クローンによる変数とデータの相互作用
+[macros]: ch19-06-macros.html#マクロ
+

@@ -22,12 +22,12 @@ impl ThreadPool {
         let mut threads = Vec::with_capacity(size);
 
         for _ in 0..size {
+            // スレッドを作成してベクタに格納する
             // create some threads and store them in the vector
         }
 
         ThreadPool { threads }
     }
-
     // --snip--
     // ANCHOR_END: here
 

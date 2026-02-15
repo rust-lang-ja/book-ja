@@ -1,15 +1,20 @@
 $ cargo run
    Compiling patterns v0.1.0 (file:///projects/patterns)
-warning: irrefutable if-let pattern
- --> src/main.rs:2:5
+warning: irrefutable `if let` pattern
+(警告: 論駁不可能な`if let`パターン)
+ --> src/main.rs:2:8
   |
-2 | /     if let x = 5 {
-3 | |         println!("{}", x);
-4 | |     };
-  | |_____^
+2 |     if let x = 5 {
+  |        ^^^^^^^^^
   |
+  = note: this pattern will always match, so the `if let` is useless
+   (注釈: このパターンは常にマッチするので`if let`は無意味です)
+  = help: consider replacing the `if let` with a `let`
+   (ヘルプ: `if let`を`let`で置き換えることを検討してください)
   = note: `#[warn(irrefutable_let_patterns)]` on by default
+   (注釈: `#[warn(irrefutable_let_patterns)]`はデフォルトでオンです)
 
+warning: `patterns` (bin "patterns") generated 1 warning
     Finished dev [unoptimized + debuginfo] target(s) in 0.39s
      Running `target/debug/patterns`
 5
