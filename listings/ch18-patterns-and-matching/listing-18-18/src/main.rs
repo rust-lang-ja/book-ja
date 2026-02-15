@@ -5,6 +5,7 @@ fn main() {
 
     match (setting_value, new_setting_value) {
         (Some(_), Some(_)) => {
+            // 既存の値の変更を上書きできません
             println!("Can't overwrite an existing customized value");
         }
         _ => {
@@ -12,6 +13,7 @@ fn main() {
         }
     }
 
+    // 設定は{:?}です
     println!("setting is {:?}", setting_value);
     // ANCHOR_END: here
 }

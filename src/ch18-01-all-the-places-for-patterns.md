@@ -6,7 +6,7 @@
 
 <!--
 Patterns pop up in a number of places in Rust, and you’ve been using them a lot
-without realizing it! This section dicusses all the places where patterns are
+without realizing it! This section discusses all the places where patterns are
 valid.
 -->
 
@@ -39,6 +39,27 @@ match VALUE {
 ```
 
 <!--
+For example, here's the `match` expression from Listing 6-5 that matches on an
+`Option<i32>` value in the variable `x`:
+-->
+
+例えば、以下はリスト6-5の変数`x`内の`Option<i32>`値に対してマッチする`match`式です:
+
+```rust,ignore
+match x {
+    None => None,
+    Some(i) => Some(i + 1),
+}
+```
+
+<!--
+The patterns in this `match` expression are the `None` and `Some(i)` on the
+left of each arrow.
+-->
+
+この`match`式に含まれるパターンは、各矢印の左側にある`Node`と`Some(i)`です。
+
+<!--
 One requirement for `match` expressions is that they need to be *exhaustive* in
 the sense that all possibilities for the value in the `match` expression must
 be accounted for. One way to ensure you’ve covered every possibility is to have
@@ -51,16 +72,17 @@ value can never fail and thus covers every remaining case.
 例えば、どんな値にも合致する変数名は失敗することがあり得ないので、故に残りの全ケースをカバーできます。
 
 <!--
-A particular pattern `_` will match anything, but it never binds to a variable,
-so it’s often used in the last match arm. The `_` pattern can be useful when
-you want to ignore any value not specified, for example. We’ll cover the `_`
-pattern in more detail in the “Ignoring Values in a Pattern” section later in
-this chapter.
+The particular pattern `_` will match anything, but it never binds to a
+variable, so it’s often used in the last match arm. The `_` pattern can be
+useful when you want to ignore any value not specified, for example. We’ll
+cover the `_` pattern in more detail in the [“Ignoring Values in a
+Pattern”][ignoring-values-in-a-pattern] section later in this
+chapter.
 -->
 
 `_`という特定のパターンは何にでもマッチしますが、変数には束縛されないので、よく最後のマッチアームに使用されます。
 例えば、`_`パターンは、指定されていないあらゆる値を無視したい時に有用です。
-`_`パターンについて詳しくは、この章の後ほど、「パターンで値を無視する」節で講義します。
+`_`パターンについて詳しくは、この章の後ほど、[「パターンの値を無視する」][ignoring-values-in-a-pattern]節で講義します。
 
 <!--
 ### Conditional `if let` Expressions
@@ -81,9 +103,9 @@ the pattern in the `if let` doesn’t match.
 <!--
 Listing 18-1 shows that it’s also possible to mix and match `if let`, `else
 if`, and `else if let` expressions. Doing so gives us more flexibility than a
-`match` expression in which we can only express one value to compare with the
-patterns. Also, the conditions in a series of `if let`, `else if`, `else if
-let` arms aren’t required to relate to each other.
+`match` expression in which we can express only one value to compare with the
+patterns. Also, Rust doesn't require that the conditions in a series of `if
+let`, `else if`, `else if let` arms relate to each other.
 -->
 
 リスト18-1は、`if let`、`else if`、`else if let`式を混ぜてマッチさせることもできることを示しています。
@@ -91,13 +113,13 @@ let` arms aren’t required to relate to each other.
 また、一連の`if let`、`else if`、`else if let`アームの条件は、お互いに関連している必要はありません。
 
 <!--
-The code in Listing 18-1 shows a series of checks for several conditions that
-decide what the background color should be. For this example, we've created
+The code in Listing 18-1 determines what color to make your background based on
+a series of checks for several conditions. For this example, we’ve created
 variables with hardcoded values that a real program might receive from user
 input.
 -->
 
-リスト18-1のコードは、背景色が何になるべきかを決定するいくつかの条件を連なって確認するところを示しています。
+リスト18-1のコードは、いくつかの条件を連続してチェックし、それに応じて背景を何色にするかを決定しています。
 この例では、実際のプログラムではユーザ入力を受け付ける可能性のある変数をハードコードされた値で生成しています。
 
 <!--
@@ -107,30 +129,7 @@ input.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let favorite_color: Option<&str> = None;
-    let is_tuesday = false;
-    let age: Result<u8, _> = "34".parse();
-
-    if let Some(color) = favorite_color {
-        // あなたのお気に入りの色、{}を背景色に使用します
-        println!("Using your favorite color, {}, as the background", color);
-    } else if is_tuesday {
-        // 火曜日は緑の日！
-        println!("Tuesday is green day!");
-    } else if let Ok(age) = age {
-        if age > 30 {
-            // 紫を背景色に使用します
-            println!("Using purple as the background color");
-        } else {
-            // オレンジを背景色に使用します
-            println!("Using orange as the background color");
-        }
-    } else {
-        // 青を背景色に使用します
-        println!("Using blue as the background color");
-    }
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-01/src/main.rs}}
 ```
 
 <!--
@@ -141,16 +140,19 @@ and `else`</span>
 <span class="caption">リスト18-1: `if let`、`else if`、`else if let`、`else`を混ぜる</span>
 
 <!--
-If the user specifies a favorite color, that color is the background color. If
-today is Tuesday, the background color is green. If the user specifies
-their age as a string and we can parse it as a number successfully, the color
-is either purple or orange depending on the value of the number. If none of
-these conditions apply, the background color is blue:
+If the user specifies a favorite color, that color is used as the background.
+If no favorite color is specified and today is Tuesday, the background color is
+green. Otherwise, if the user specifies their age as a string and we can parse
+it as a number successfully, the color is either purple or orange depending on
+the value of the number. If none of these conditions apply, the background
+color is blue.
 -->
 
-ユーザがお気に入りの色を指定したら、その色が背景色になります。今日が火曜日なら、背景色は緑です。
-ユーザが年齢を文字列で指定し、数値として解析することができたら、背景色は、その数値の値によって紫かオレンジになります。
-どの条件も適用できなければ、背景色は青になります:
+ユーザがお気に入りの色を指定したら、その色が背景として使われます。
+お気に入りの色が指定されておらず、今日が火曜日なら、背景色は緑です。
+もしそうではなく、ユーザが年齢を文字列で指定し、数値として解析することができたら、
+背景色は、その数値によって紫かオレンジになります。
+どの条件も適用できなければ、背景色は青になります。
 
 <!--
 This conditional structure lets us support complex requirements. With the
@@ -179,7 +181,7 @@ with the curly bracket.
 
 <!--
 The downside of using `if let` expressions is that the compiler doesn’t check
-exhaustiveness, whereas with `match` expressions it does. If we omitted the
+for exhaustiveness, whereas with `match` expressions it does. If we omitted the
 last `else` block and therefore missed handling some cases, the compiler would
 not alert us to the possible logic bug.
 -->
@@ -195,25 +197,17 @@ not alert us to the possible logic bug.
 
 <!--
 Similar in construction to `if let`, the `while let` conditional loop allows a
-`while` loop to run for as long as a pattern continues to match. The example in
-Listing 18-2 shows a `while let` loop that uses a vector as a stack and prints
-the values in the vector in the opposite order in which they were pushed:
+`while` loop to run for as long as a pattern continues to match. In Listing
+18-2 we code a `while let` loop that uses a vector as a stack and prints the
+values in the vector in the opposite order in which they were pushed.
 -->
 
 `if let`と構成が似て、`while let`条件分岐ループは、パターンが合致し続ける限り、`while`ループを走らせます。
-リスト18-2の例は、ベクタをスタックとして使用する`while let`ループを示し、
-ベクタの値をプッシュしたのとは逆順に出力します:
+リスト18-2では、ベクタをスタックとして使用する`while let`ループを書き、
+ベクタの値をプッシュしたのとは逆順に出力します。
 
 ```rust
-let mut stack = Vec::new();
-
-stack.push(1);
-stack.push(2);
-stack.push(3);
-
-while let Some(top) = stack.pop() {
-    println!("{}", top);
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-02/src/main.rs:here}}
 ```
 
 <!--
@@ -242,29 +236,18 @@ use `while let` to pop every element off our stack.
 ### `for`ループ
 
 <!--
-In Chapter 3, we mentioned that the `for` loop is the most common loop
-construction in Rust code, but we haven’t yet discussed the pattern that `for`
-takes. In a `for` loop, the pattern is the value that directly follows the
-keyword `for`, so in `for x in y` the `x` is the pattern.
+In a `for` loop, the value that directly follows the keyword `for` is a
+pattern. For example, in `for x in y` the `x` is the pattern. Listing 18-3
+demonstrates how to use a pattern in a `for` loop to destructure, or break
+apart, a tuple as part of the `for` loop.
 -->
 
-第3章で、Rustコードにおいては、`for`ループが最もありふれたループ構造だと述べましたが、
-`for`が取るパターンについてはまだ議論していませんでした。`for`ループにおいて、
-直接キーワード`for`に続く値がパターンなので、`for x in y`では、`x`がパターンになります。
-
-<!--
-Listing 18-3 demonstrates how to use a pattern in a `for` loop to destructure,
-or break apart, a tuple as part of the `for` loop.
--->
-
+`for`ループにおいて、キーワード`for`の直後に続く値はパターンです。
+例えば、`for x in y`では、`x`がパターンになります。
 リスト18-3は`for`ループでパターンを使用して`for`ループの一部としてタプルを分配あるいは、分解する方法をデモしています。
 
 ```rust
-let v = vec!['a', 'b', 'c'];
-
-for (index, value) in v.iter().enumerate() {
-    println!("{} is at index {}", value, index);
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-03/src/main.rs:here}}
 ```
 
 <!--
@@ -280,22 +263,20 @@ The code in Listing 18-3 will print the following:
 
 リスト18-3のコードは、以下のように出力するでしょう:
 
-```text
-a is at index 0
-b is at index 1
-c is at index 2
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-03/output.txt}}
 ```
 
 <!--
-We use the `enumerate` method to adapt an iterator to produce a value and that
-value’s index in the iterator, placed into a tuple. The first call to
-`enumerate` produces the tuple `(0, 'a')`. When this value is matched to the
-pattern `(index, value)`, `index` will be `0` and `value` will be `'a'`,
-printing the first line of the output.
+We adapt an iterator using the `enumerate` method so it produces a value and
+the index for that value, placed into a tuple. The first value produced is the
+tuple `(0, 'a')`. When this value is matched to the pattern `(index, value)`,
+`index` will be `0` and `value` will be `'a'`, printing the first line of the
+output.
 -->
 
-`enumerate`メソッドを使用してイテレータを改造し、値とその値のイテレータでの添え字をタプルに配置して生成しています。
-`enumerate`の最初の呼び出しは、タプル`(0, 'a')`を生成します。この値がパターン`(index, value)`とマッチさせられると、
+`enumerate`メソッドを使用して、値とその値の添え字をタプルに配置して生成するようにイテレータを調整しています。
+最初に生成される値はタプル`(0, 'a')`です。この値がパターン`(index, value)`とマッチさせられると、
 `index`は`0`、`value`は`'a'`になり、出力の最初の行を出力するのです。
 
 <!--
@@ -319,13 +300,13 @@ let x = 5;
 ```
 
 <!--
-Throughout this book, we’ve used `let` like this hundreds of times, and
-although you might not have realized it, you were using patterns! More
-formally, a `let` statement looks like this:
+Every time you've used a `let` statement like this you've been using patterns,
+although you might not have realized it! More formally, a `let` statement looks
+like this:
 -->
 
-この本を通してこのような`let`を何百回も使用してきて、お気付きではなかったかもしれませんが、
-パターンを使用していたのです！より正式には、`let`文はこんな見た目をしています:
+お気付きではなかったかもしれませんが、このように`let`文を使うときは毎回、パターンを使っていたのです！
+より正式には、`let`文はこんな見た目をしています:
 
 ```text
 let PATTERN = EXPRESSION;
@@ -354,7 +335,7 @@ To see the pattern matching aspect of `let` more clearly, consider Listing
 これは`let`でパターンを使用し、タプルを分配します。
 
 ```rust
-let (x, y, z) = (1, 2, 3);
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-04/src/main.rs:here}}
 ```
 
 <!--
@@ -385,8 +366,8 @@ elements into two variables, which won’t work.
 パターンの要素数がタプルの要素数と一致しない場合、全体の型が一致せず、コンパイルエラーになるでしょう。
 例えば、リスト18-5は、3要素のタプルを2つの変数に分配しようとしているところを表示していて、動きません。
 
-```rust,ignore
-let (x, y) = (1, 2, 3);
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-05/src/main.rs:here}}
 ```
 
 <!--
@@ -402,28 +383,22 @@ Attempting to compile this code results in this type error:
 
 このコードのコンパイルを試みると、このような型エラーに落ち着きます:
 
-```text
-error[E0308]: mismatched types
- --> src/main.rs:2:9
-  |
-2 |     let (x, y) = (1, 2, 3);
-  |         ^^^^^^ expected a tuple with 3 elements, found one with 2 elements
-  |                (3要素のタプルを予期したのに、2要素のタプルが見つかりました)
-  |
-  = note: expected type `({integer}, {integer}, {integer})`
-             found type `(_, _)`
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-05/output.txt}}
 ```
 
 <!--
-If we wanted to ignore one or more of the values in the tuple, we could use `_`
-or `..`, as you’ll see in the “Ignoring Values in a Pattern” section. If the
-problem is that we have too many variables in the pattern, the solution is to
-make the types match by removing variables so the number of variables equals
-the number of elements in the tuple.
+To fix the error, we could ignore one or more of the values in the tuple using
+`_` or `..`, as you’ll see in the [“Ignoring Values in a
+Pattern”][ignoring-values-in-a-pattern] section. If the problem
+is that we have too many variables in the pattern, the solution is to make the
+types match by removing variables so the number of variables equals the number
+of elements in the tuple.
 -->
 
-タプルの値のうち1つ以上を無視したかったら、「パターンで値を無視する」節で見かけるように、
-`_`か`..`を使用できるでしょう。パターンに変数が多すぎるというのが問題なら、変数の数がタプルの要素数と一致するように変数を減らすことで、
+このエラーを修正するには、[「パターンの値を無視する」][ignoring-values-in-a-pattern]節で見ることになりますが、
+`_`か`..`を使用してタプルの値のうち1つ以上を無視することができます。
+パターンに変数が多すぎるというのが問題なら、変数の数がタプルの要素数と一致するように変数を減らすことで、
 型を一致させることが解決策です。
 
 <!--
@@ -442,10 +417,7 @@ declares a function named `foo` that takes one parameter named `x` of type
 これまでに馴染み深くなっているはずです。
 
 ```rust
-fn foo(x: i32) {
-    // コードがここに来る
-    // code goes here
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-06/src/main.rs:here}}
 ```
 
 <!--
@@ -471,15 +443,7 @@ as we pass it to a function.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn print_coordinates(&(x, y): &(i32, i32)) {
-    // 現在の位置: ({}, {})
-    println!("Current location: ({}, {})", x, y);
-}
-
-fn main() {
-    let point = (3, 5);
-    print_coordinates(&point);
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-07/src/main.rs}}
 ```
 
 <!--
@@ -509,9 +473,17 @@ discussed in Chapter 13.
 <!--
 At this point, you’ve seen several ways of using patterns, but patterns don’t
 work the same in every place we can use them. In some places, the patterns must
-be irrefutable; In other circumstances, they can be refutable. We'll discuss
+be irrefutable; in other circumstances, they can be refutable. We’ll discuss
 these two concepts next.
 -->
 
 この時点で、パターンを使用する方法をいくつか見てきましたが、パターンを使用できる箇所全部で同じ動作をするわけではありません。
 パターンが論駁不可能でなければならない箇所もあります。他の状況では、論駁可能にもなり得ます。この2つの概念を次に議論します。
+
+<!--
+[ignoring-values-in-a-pattern]:
+ch18-03-pattern-syntax.html#ignoring-values-in-a-pattern
+-->
+
+[ignoring-values-in-a-pattern]:
+ch18-03-pattern-syntax.html#パターンの値を無視する
