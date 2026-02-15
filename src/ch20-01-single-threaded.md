@@ -254,7 +254,7 @@ print it so we can see the data being sent from the browser. Change the code to
 look like Listing 20-2.
 -->
 
-ブラウザからリクエストを読み取る機能を実装しましょう！まず接続を得、それから接続に対して何らかの行動を行う責任を分離するために、
+ブラウザからリクエストを読み取る機能を実装しましょう！まず接続を取得し、それから接続に対して何らかの行動を行う責任を分離するために、
 接続を処理する新しい関数を開始します。この新しい`handle_connection`関数において、TCPストリームからデータを読み取り、
 ブラウザからデータが送られていることを確認できるように端末に出力します。コードをリスト20-2のように変更してください。
 
@@ -1006,7 +1006,7 @@ two values to `status_line` and `filename` using a pattern in the `let`
 statement, as discussed in Chapter 18.
 -->
 
-これで、`if`と`else`ブロックは、タプルにステータス行とファイル名の適切な値を返すだけになりました; 
+これで、`if`と`else`ブロックは、タプルにステータス行とファイル名の適切な値を返すだけになりました;
 それから、分配を使用してこれら2つの値を第18章で議論したように、`let`文のパターンで`status_line`と`filename`に代入しています。
 
 <!--
