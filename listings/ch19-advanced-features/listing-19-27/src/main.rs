@@ -9,5 +9,6 @@ fn do_twice(f: fn(i32) -> i32, arg: i32) -> i32 {
 fn main() {
     let answer = do_twice(add_one, 5);
 
+    // 答えは: {}
     println!("The answer is: {}", answer);
 }

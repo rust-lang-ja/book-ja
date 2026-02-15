@@ -5,23 +5,16 @@
 ## 高度な型
 
 <!--
-The Rust type system has some features that we’ve mentioned in this book but
-haven’t yet discussed. We’ll start by discussing newtypes in general as we
-examine why newtypes are useful as types. Then we’ll move on to type aliases, a
-feature similar to newtypes but with slightly different semantics. We’ll also
-discuss the `!` type and dynamically sized types.
+The Rust type system has some features that we’ve so far mentioned but haven’t
+yet discussed. We’ll start by discussing newtypes in general as we examine why
+newtypes are useful as types. Then we’ll move on to type aliases, a feature
+similar to newtypes but with slightly different semantics. We’ll also discuss
+the `!` type and dynamically sized types.
 -->
 
-Rustの型システムには、この本で触れたけれども、まだ議論していない機能があります。ニュータイプが何故型として有用なのかを調査するため、
+Rustの型システムには、ここまで触れたけれども、まだ議論していない機能があります。ニュータイプが何故型として有用なのかを調査するため、
 一般化してニュータイプを議論することから始めます。そして、型エイリアスに移ります。ニュータイプに類似しているけれども、
 多少異なる意味を持つ機能です。また、`!`型と動的サイズ決定型も議論します。
-
-<!--
-> Note: The next section assumes you’ve read the earlier section “The Newtype
-> Pattern to Implement External Traits on External Types.”
--->
-
-> 注釈: 次の節は、前節「外部の型に外部のトレイトを実装するニュータイプパターン」を読了済みであることを前提にしています。
 
 <!--
 ### Using the Newtype Pattern for Type Safety and Abstraction
@@ -30,29 +23,37 @@ Rustの型システムには、この本で触れたけれども、まだ議論�
 ### 型安全性と抽象化を求めてニュータイプパターンを使用する
 
 <!--
-The newtype pattern is useful for tasks beyond those we’ve discussed so far,
-including statically enforcing that values are never confused and indicating
-the units of a value. You saw an example of using newtypes to indicate units in
-Listing 19-23: recall that the `Millimeters` and `Meters` structs wrapped `u32`
-values in a newtype. If we wrote a function with a parameter of type
-`Millimeters`, we couldn’t compile a program that accidentally tried to call
-that function with a value of type `Meters` or a plain `u32`.
+> Note: This section assumes you’ve read the earlier section [“Using the
+> Newtype Pattern to Implement External Traits on External
+> Types.”][using-the-newtype-pattern]
+-->
+
+> 注釈: この節は、以前の節[「ニュータイプパターンを使用して外部の型に外部のトレイトを実装する」][using-the-newtype-pattern]を読了済みであることを前提にしています。
+
+<!--
+The newtype pattern is also useful for tasks beyond those we’ve discussed so
+far, including statically enforcing that values are never confused and
+indicating the units of a value. You saw an example of using newtypes to
+indicate units in Listing 19-15: recall that the `Millimeters` and `Meters`
+structs wrapped `u32` values in a newtype. If we wrote a function with a
+parameter of type `Millimeters`, we couldn’t compile a program that
+accidentally tried to call that function with a value of type `Meters` or a
+plain `u32`.
 -->
 
 ここまでに議論した以上の作業についてもニュータイプパターンは有用で、静的に絶対に値を混同しないことを強制したり、
-値の単位を示すことを含みます。ニュータイプを使用して単位を示す例をリスト19-23で見かけました:
+値の単位を示すことを含みます。ニュータイプを使用して単位を示す例をリスト19-15で見かけました:
 `Millimeters`と`Meters`構造体は、`u32`値をニュータイプにラップしていたことを思い出してください。
 型`Millimeters`を引数にする関数を書いたら、誤ってその関数を型`Meters`や普通の`u32`で呼び出そうとするプログラムはコンパイルできないでしょう。
 
 <!--
-Another use of the newtype pattern is in abstracting away some implementation
+We can also use the newtype pattern to abstract away some implementation
 details of a type: the new type can expose a public API that is different from
-the API of the private inner type if we used the new type directly to restrict
-the available functionality, for example.
+the API of the private inner type.
 -->
 
-型の実装の詳細を抽象化する際にニュータイプパターンを使用するでしょう: 例えば、新しい型を直接使用して、
-利用可能な機能を制限したら、非公開の内部の型のAPIとは異なる公開APIを新しい型は露出できます。
+ニュータイプパターンは、型の実装の詳細を抽象化するためにも使用することができます:
+非公開の内部の型のAPIとは異なる公開APIを新しい型は露出できます。
 
 <!--
 Newtypes can also hide internal implementation. For example, we could provide a
@@ -61,8 +62,10 @@ associated with their name. Code using `People` would only interact with the
 public API we provide, such as a method to add a name string to the `People`
 collection; that code wouldn’t need to know that we assign an `i32` ID to names
 internally. The newtype pattern is a lightweight way to achieve encapsulation
-to hide implementation details, which we discussed in the “Encapsulation that
-Hides Implementation Details” section of Chapter 17.
+to hide implementation details, which we discussed in the [“Encapsulation that
+Hides Implementation
+Details”][encapsulation-that-hides-implementation-details]
+section of Chapter 17.
 -->
 
 ニュータイプはまた、内部の実装を<ruby>隠匿<rp>(</rp><rt>いんとく</rt><rp>)</rp></ruby>することもできます。例を挙げれば、`People`型を提供して、
@@ -70,7 +73,7 @@ Hides Implementation Details” section of Chapter 17.
 `People`を使用するコードは、名前の文字列を`People`コレクションに追加するメソッドなど、
 提供している公開APIとだけ相互作用するでしょう; そのコードは、内部で`i32`IDを名前に代入していることを知る必要はないでしょう。
 ニュータイプパターンは、カプセル化を実現して実装の詳細を隠匿する軽い方法であり、
-実装の詳細を隠匿することは、第17章の「カプセル化は実装詳細を隠蔽する」節で議論しましたね。
+実装の詳細を隠匿することは、第17章の[「カプセル化は、実装詳細を隠蔽する」][encapsulation-that-hides-implementation-details]節で議論しましたね。
 
 <!--
 ### Creating Type Synonyms with Type Aliases
@@ -79,46 +82,44 @@ Hides Implementation Details” section of Chapter 17.
 ### 型エイリアスで型同義語を生成する
 
 <!--
-Along with the newtype pattern, Rust provides the ability to declare a *type
-alias* to give an existing type another name. For this we use the `type`
-keyword. For example, we can create the alias `Kilometers` to `i32` like so:
+Rust provides the ability to declare a *type alias* to give an existing type
+another name. For this we use the `type` keyword. For example, we can create
+the alias `Kilometers` to `i32` like so:
 -->
 
-ニュータイプパターンに付随して、Rustでは、既存の型に別の名前を与える*型エイリアス*(type alias: 型別名)を宣言する能力が提供されています。
+Rustでは、既存の型に別の名前を与える*型エイリアス*(type alias: 型別名)を宣言する能力が提供されています。
 このために、`type`キーワードを使用します。例えば、以下のように`i32`に対して`Kilometers`というエイリアスを作れます。
 
 ```rust
-type Kilometers = i32;
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-04-kilometers-alias/src/main.rs:here}}
 ```
 
 <!--
 Now, the alias `Kilometers` is a *synonym* for `i32`; unlike the `Millimeters`
-and `Meters` types we created in Listing 19-23, `Kilometers` is not a separate,
+and `Meters` types we created in Listing 19-15, `Kilometers` is not a separate,
 new type. Values that have the type `Kilometers` will be treated the same as
 values of type `i32`:
 -->
 
-これで、別名の`Kilometers`は`i32`と*同義語*になりました; リスト19-23で生成した`Millimeters`と`Meters`とは異なり、
+これで、別名の`Kilometers`は`i32`と*同義語*になりました; リスト19-15で生成した`Millimeters`と`Meters`とは異なり、
 `Kilometers`は個別の新しい型ではありません。型`Kilometers`の値は、型`i32`の値と同等に扱われます。
 
 ```rust
-type Kilometers = i32;
-
-let x: i32 = 5;
-let y: Kilometers = 5;
-
-println!("x + y = {}", x + y);
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-04-kilometers-alias/src/main.rs:there}}
 ```
 
 <!--
 Because `Kilometers` and `i32` are the same type, we can add values of both
 types and we can pass `Kilometers` values to functions that take `i32`
 parameters. However, using this method, we don’t get the type checking benefits
-that we get from the newtype pattern discussed earlier.
+that we get from the newtype pattern discussed earlier. In other words, if we
+mix up `Kilometers` and `i32` values somewhere, the compiler will not give us
+an error.
 -->
 
 `Kilometers`と`i32`が同じ型なので、両方の型の値を足し合わせたり、`Kilometers`の値を`i32`引数を取る関数に渡せたりします。
 ですが、この方策を使用すると、先ほど議論したニュータイプパターンで得られる型チェックの利便性は得られません。
+つまり、`Kilometers`と`i32`の値をどこかでごちゃ混ぜにしてしまっても、コンパイラはエラーを出してくれないでしょう。
 
 <!--
 The main use case for type synonyms is to reduce repetition. For example, we
@@ -128,67 +129,47 @@ might have a lengthy type like this:
 型同義語の主なユースケースは、繰り返しを減らすことです。例えば、こんな感じの長い型があるかもしれません:
 
 ```rust,ignore
-Box<Fn() + Send + 'static>
+Box<dyn Fn() + Send + 'static>
 ```
 
 <!--
 Writing this lengthy type in function signatures and as type annotations all
 over the code can be tiresome and error prone. Imagine having a project full of
-code like that in Listing 19-32.
+code like that in Listing 19-24.
 -->
 
 この長ったらしい型を関数シグニチャや型注釈としてコードのあちこちで記述するのは、面倒で間違いも起きやすいです。
-リスト19-32のそのようなコードで溢れかえったプロジェクトがあることを想像してください。
+リスト19-24のそのようなコードで溢れかえったプロジェクトがあることを想像してください。
 
 ```rust
-let f: Box<Fn() + Send + 'static> = Box::new(|| println!("hi"));
-
-fn takes_long_type(f: Box<Fn() + Send + 'static>) {
-    // --snip--
-}
-
-fn returns_long_type() -> Box<Fn() + Send + 'static> {
-    // --snip--
-#     Box::new(|| ())
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-24/src/main.rs:here}}
 ```
 
 <!--
-<span class="caption">Listing 19-32: Using a long type in many places</span>
+<span class="caption">Listing 19-24: Using a long type in many places</span>
 -->
 
-<span class="caption">リスト19-32: 長い型を多くの場所で使用する</span>
+<span class="caption">リスト19-24: 長い型を多くの場所で使用する</span>
 
 <!--
 A type alias makes this code more manageable by reducing the repetition. In
-Listing 19-33, we’ve introduced an alias named `Thunk` for the verbose type and
+Listing 19-25, we’ve introduced an alias named `Thunk` for the verbose type and
 can replace all uses of the type with the shorter alias `Thunk`.
 -->
 
-型エイリアスは、繰り返しを減らすことでこのコードをより管理しやすくしてくれます。リスト19-33で、
+型エイリアスは、繰り返しを減らすことでこのコードをより管理しやすくしてくれます。リスト19-25で、
 冗長な型に`Thunk`(`注釈`: 塊)を導入し、その型の使用全部をより短い別名の`Thunk`で置き換えることができます。
 
 ```rust
-type Thunk = Box<Fn() + Send + 'static>;
-
-let f: Thunk = Box::new(|| println!("hi"));
-
-fn takes_long_type(f: Thunk) {
-    // --snip--
-}
-
-fn returns_long_type() -> Thunk {
-    // --snip--
-#     Box::new(|| ())
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/listing-19-25/src/main.rs:here}}
 ```
 
 <!--
-<span class="caption">Listing 19-33: Introducing a type alias `Thunk` to reduce
+<span class="caption">Listing 19-25: Introducing a type alias `Thunk` to reduce
 repetition</span>
 -->
 
-<span class="caption">リスト19-33: 型エイリアスの`Thunk`を導入して繰り返しを減らす</span>
+<span class="caption">リスト19-25: 型エイリアスの`Thunk`を導入して繰り返しを減らす</span>
 
 <!--
 This code is much easier to read and write! Choosing a meaningful name for a
@@ -216,33 +197,24 @@ I/O処理はしばしば、`Result<T, E>`を返して処理がうまく動かな
 全ての可能性のあるI/Oエラーを表す`std::io::Error`構造体があります。`std::io`の関数の多くは、
 `Write`トレイトの以下の関数のように`E`が`std::io::Error`の`Result<T, E>`を返すでしょう:
 
-```rust
-use std::io::Error;
-use std::fmt;
-
-pub trait Write {
-    fn write(&mut self, buf: &[u8]) -> Result<usize, Error>;
-    fn flush(&mut self) -> Result<(), Error>;
-
-    fn write_all(&mut self, buf: &[u8]) -> Result<(), Error>;
-    fn write_fmt(&mut self, fmt: fmt::Arguments) -> Result<(), Error>;
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-05-write-trait/src/lib.rs}}
 ```
 
 <!--
-The `Result<..., Error>` is repeated a lot. As such, `std::io` has this type of
+The `Result<..., Error>` is repeated a lot. As such, `std::io` has this type
 alias declaration:
 -->
 
-`Result<..., Error>`が何度も繰り返されてます。そんな状態なので、`std::io`にはこんな類のエイリアス宣言があります:
+`Result<..., Error>`が何度も繰り返されてます。そんな状態なので、`std::io`にはこんな型エイリアス宣言があります:
 
-```rust,ignore
-type Result<T> = Result<T, std::io::Error>;
+```rust,noplayground
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-06-result-alias/src/lib.rs:here}}
 ```
 
 <!--
 Because this declaration is in the `std::io` module, we can use the fully
-qualified alias `std::io::Result<T>`-that is, a `Result<T, E>` with the `E`
+qualified alias `std::io::Result<T>`; that is, a `Result<T, E>` with the `E`
 filled in as `std::io::Error`. The `Write` trait function signatures end up
 looking like this:
 -->
@@ -251,14 +223,8 @@ looking like this:
 つまり、`E`が`std::io::Error`で埋められた`Result<T, E>`です。その結果、`Write`トレイトの関数シグニチャは、
 以下のような見た目になります:
 
-```rust,ignore
-pub trait Write {
-    fn write(&mut self, buf: &[u8]) -> Result<usize>;
-    fn flush(&mut self) -> Result<()>;
-
-    fn write_all(&mut self, buf: &[u8]) -> Result<()>;
-    fn write_fmt(&mut self, fmt: Arguments) -> Result<()>;
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-06-result-alias/src/lib.rs:there}}
 ```
 
 <!--
@@ -293,10 +259,8 @@ Rustには、`!`という名前の特別な型があります。それは型理�
 関数が値を返すことが決して (never) ない時に戻り値の型を記す場所に使われるので、*never type*(`訳注`: 日本語にはできないので、never型と呼ぶしかないか)と呼ぶのが好きです。
 こちらが例です:
 
-```rust,ignore
-fn bar() -> ! {
-    // --snip--
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-07-never-type/src/lib.rs:here}}
 ```
 
 <!--
@@ -310,55 +274,48 @@ so `bar` can never possibly return.
 
 <!--
 But what use is a type you can never create values for? Recall the code from
-Listing 2-5; we’ve reproduced part of it here in Listing 19-34.
+Listing 2-5, part of the number guessing game; we’ve reproduced a bit of it
+here in Listing 19-26.
 -->
 
-ですが、値を絶対に生成できない型をどう使用するのでしょうか？リスト2-5のコードを思い出してください;
-リスト19-34に一部を再掲します。
+ですが、値を絶対に生成できない型をどう使用するのでしょうか？数当てゲームの一部である、
+リスト2-5のコードを思い出してください; リスト19-26にその一部を再掲します。
 
-```rust
-# let guess = "3";
-# loop {
-let guess: u32 = match guess.trim().parse() {
-    Ok(num) => num,
-    Err(_) => continue,
-};
-# break;
-# }
+
+```rust,ignore
+{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-05/src/main.rs:ch19}}
 ```
 
 <!--
-<span class="caption">Listing 19-34: A `match` with an arm that ends in
+<span class="caption">Listing 19-26: A `match` with an arm that ends in
 `continue`</span>
 -->
 
-<span class="caption">リスト19-34: `continue`になるアームがある`match`</span>
+<span class="caption">リスト19-26: `continue`になるアームがある`match`</span>
 
 <!--
-At the time, we skipped over some details in this code. In Chapter 6 in “The
-`match` Control Flow Operator” section, we discussed that `match` arms must all
-return the same type. So, for example, the following code doesn’t work:
+At the time, we skipped over some details in this code. In Chapter 6 in [“The
+`match` Control Flow Operator”][the-match-control-flow-operator]
+section, we discussed that `match` arms must all return the same type. So, for
+example, the following code doesn’t work:
 -->
 
-この時点では、このコードの詳細の一部を飛ばしました。第6章の「`match`制御フロー演算子」節で、
+この時点では、このコードの詳細の一部を飛ばしました。第6章の[「`match`制御フロー演算子」][the-match-control-flow-operator]節で、
 `match`アームは全て同じ型を返さなければならないと議論しました。従って、例えば以下のコードは動きません:
 
-```rust,ignore
-let guess = match guess.trim().parse() {
-    Ok(_) => 5,
-    Err(_) => "hello",
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-08-match-arms-different-types/src/main.rs:here}}
 ```
 
 <!--
 The type of `guess` in this code would have to be an integer *and* a string,
 and Rust requires that `guess` have only one type. So what does `continue`
 return? How were we allowed to return a `u32` from one arm and have another arm
-that ends with `continue` in Listing 19-34?
+that ends with `continue` in Listing 19-26?
 -->
 
 このコードの`guess`は整数*かつ*文字列にならなければならないでしょうが、Rustでは、`guess`は1つの型にしかならないことを要求されます。
-では、`continue`は何を返すのでしょうか？どうやってリスト19-34で1つのアームからは`u32`を返し、別のアームでは、
+では、`continue`は何を返すのでしょうか？どうやってリスト19-26で1つのアームからは`u32`を返し、別のアームでは、
 `continue`で終わっていたのでしょうか？
 
 <!--
@@ -385,34 +342,27 @@ back to the top of the loop, so in the `Err` case, we never assign a value to
 その代わりに制御をループの冒頭に戻すので、`Err`の場合、`guess`には絶対に値を代入しないのです。
 
 <!--
-The never type is useful with the `panic!` macro as well. Remember the `unwrap`
-function that we call on `Option<T>` values to produce a value or panic? Here
-is its definition:
+The never type is useful with the `panic!` macro as well. Recall the `unwrap`
+function that we call on `Option<T>` values to produce a value or panic with
+this definition:
 -->
 
-never型は、`panic!`マクロとも有用です。`Option<T>`値に対して呼び出して、値かパニックを生成した`unwrap`関数を覚えていますか？
-こちらがその定義です:
+never型は、`panic!`マクロとも有用です。`Option<T>`値に対して呼び出して、
+値かパニックを生成する`unwrap`関数を思い出してください。こちらがその定義です:
 
 ```rust,ignore
-impl<T> Option<T> {
-    pub fn unwrap(self) -> T {
-        match self {
-            Some(val) => val,
-            None => panic!("called `Option::unwrap()` on a `None` value"),
-        }
-    }
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-09-unwrap-definition/src/lib.rs:here}}
 ```
 
 <!--
-In this code, the same thing happens as in the `match` in Listing 19-34: Rust
+In this code, the same thing happens as in the `match` in Listing 19-26: Rust
 sees that `val` has the type `T` and `panic!` has the type `!`, so the result
 of the overall `match` expression is `T`. This code works because `panic!`
-doesn't produce a value; it ends the program. In the `None` case, we won’t be
+doesn’t produce a value; it ends the program. In the `None` case, we won’t be
 returning a value from `unwrap`, so this code is valid.
 -->
 
-このコードにおいて、リスト19-34の`match`と同じことが起きています: コンパイラは、`val`の型は`T`で、
+このコードにおいて、リスト19-26の`match`と同じことが起きています: コンパイラは、`val`の型は`T`で、
 `panic!`の型は`!`なので、`match`式全体の結果は`T`と確認します。`panic!`は値を生成しないので、
 このコードは動きます。つまり、プログラムを終了するのです。`None`の場合、`unwrap`から値は返さないので、
 このコードは合法なのです。
@@ -424,13 +374,7 @@ One final expression that has the type `!` is a `loop`:
 型が`!`の最後の式は、`loop`です:
 
 ```rust,ignore
-// 永遠に
-print!("forever ");
-
-loop {
-    // さらに永遠に
-    print!("and ever ");
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-10-loop-returns-never/src/main.rs:here}}
 ```
 
 <!--
@@ -449,15 +393,17 @@ when it got to the `break`.
 ### 動的サイズ決定型と`Sized`トレイト
 
 <!--
-Due to Rust’s need to know certain details, such as how much space to allocate
-for a value of a particular type, there is a corner of its type system that can
-be confusing: the concept of *dynamically sized types*. Sometimes referred to
-as *DSTs* or *unsized types*, these types let us write code using values whose
-size we can know only at runtime.
+Rust needs to know certain details about its types, such as how much space to
+allocate for a value of a particular type. This leaves one corner of its type
+system a little confusing at first: the concept of *dynamically sized types*.
+Sometimes referred to as *DSTs* or *unsized types*, these types let us write
+code using values whose size we can know only at runtime.
 -->
 
-コンパイラが特定の型の値1つにどれくらいのスペースのメモリを確保するのかなどの特定の詳細を知る必要があるために、
-Rustの型システムには混乱を招きやすい細かな仕様があります: *動的サイズ決定型*の概念です。時として*DST*や*サイズなし型*とも称され、
+コンパイラは、特定の型の値1つにどれくらいのスペースのメモリを確保するのかなど、
+その型についての特定の詳細を知る必要があります。ただしこれには、
+最初は少し混乱しやすい型システムのコーナーケースがあります:
+*動的サイズ決定型*の概念です。時として*DST*や*サイズなし型*とも称され、
 これらの型により、実行時にしかサイズを知ることのできない値を使用するコードを書かせてくれます。
 
 <!--
@@ -473,11 +419,8 @@ we can’t create a variable of type `str`, nor can we take an argument of type
 これは、型`str`の変数を生成したり、型`str`を引数に取ることはできないことを意味します。
 動かない以下のコードを考えてください:
 
-```rust,ignore
-// こんにちは
-let s1: str = "Hello there!";
-// 調子はどう？
-let s2: str = "How's it going?";
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-11-cant-create-str/src/main.rs:here}}
 ```
 
 <!--
@@ -496,18 +439,11 @@ Rustでこのコードを書くことが許容されたら、これら2つの`st
 
 <!--
 So what do we do? In this case, you already know the answer: we make the types
-of `s1` and `s2` a `&str` rather than a `str`. Recall that in the “String
-Slices” section of Chapter 4, we said the slice data structure stores the
-starting position and the length of the slice.
--->
-
-では、どうすればいいのでしょうか？この場合、もう答えはご存知です: `s1`と`s2`の型を`str`ではなく、
-`&str`にすればいいのです。第4章の「文字列スライス」節でスライスデータ構造は、
-開始地点とスライスの長さを格納していると述べたことを思い出してください。
-
-<!--
-So although a `&T` is a single value that stores the memory address of where
-the `T` is located, a `&str` is *two* values: the address of the `str` and its
+of `s1` and `s2` a `&str` rather than a `str`. Recall from the [“String
+Slices”][string-slices] section of Chapter 4 that the slice data
+structure just stores the starting position and the length of the slice. So
+although a `&T` is a single value that stores the memory address of where the
+`T` is located, a `&str` is *two* values: the address of the `str` and its
 length. As such, we can know the size of a `&str` value at compile time: it’s
 twice the length of a `usize`. That is, we always know the size of a `&str`, no
 matter how long the string it refers to is. In general, this is the way in
@@ -517,6 +453,9 @@ dynamically sized types is that we must always put values of dynamically sized
 types behind a pointer of some kind.
 -->
 
+では、どうすればいいのでしょうか？この場合、もう答えはご存知です: `s1`と`s2`の型を`str`ではなく、
+`&str`にすればいいのです。第4章の[「文字列スライス」][string-slices]節で学んだように、
+スライスデータ構造は単に開始地点とスライスの長さを格納したものだということを思い出してください。
 従って、`&T`は、`T`がどこにあるかのメモリアドレスを格納する単独の値だけれども、`&str`は*2つ*の値なのです:
 `str`のアドレスとその長さです。そのため、コンパイル時に`&str`のサイズを知ることができます:
 `usize`の長さの2倍です。要するに、参照している文字列の長さによらず、常に`&str`のサイズがわかります。
@@ -527,34 +466,34 @@ types behind a pointer of some kind.
 We can combine `str` with all kinds of pointers: for example, `Box<str>` or
 `Rc<str>`. In fact, you’ve seen this before but with a different dynamically
 sized type: traits. Every trait is a dynamically sized type we can refer to by
-using the name of the trait. In Chapter 17 in the “Using Trait Objects that
-Allow for Values of Different Types” section, we mentioned that to use traits
-as trait objects, we must put them behind a pointer, such as `&Trait` or
-`Box<Trait>` (`Rc<Trait>` would work too).
+using the name of the trait. In Chapter 17 in the [“Using Trait Objects That
+Allow for Values of Different
+Types”][using-trait-objects-that-allow-for-values-of-different-types]
+section, we mentioned that to use traits as trait objects, we must
+put them behind a pointer, such as `&dyn Trait` or `Box<dyn Trait>` (`Rc<dyn
+Trait>` would work too).
 -->
 
 `str`を全ての種類のポインタと組み合わせられます: 例を挙げれば、`Box<str>`や`Rc<str>`などです。
 実際、これまでに見かけましたが、異なる動的サイズ決定型でした: トレイトです。全てのトレイトは、
-トレイト名を使用して参照できる動的サイズ決定型です。第17章の「トレイトオブジェクトで異なる型の値を許容する」節で、
-トレイトをトレイトオブジェクトとして使用するには、`&Trait`や`Box<Trait>`(`Rc<Trait>`も動くでしょう)など、
+トレイト名を使用して参照できる動的サイズ決定型です。第17章の[「トレイトオブジェクトで異なる型の値を許容する」][using-trait-objects-that-allow-for-values-of-different-types]節で、
+トレイトをトレイトオブジェクトとして使用するには、`&dyn Trait`や`Box<dyn Trait>`(`Rc<dyn Trait>`も動くでしょう)など、
 ポインタの背後に配置しなければならないことに触れました。
 
 <!--
-To work with DSTs, Rust has a particular trait called the `Sized` trait to
-determine whether or not a type’s size is known at compile time. This trait is
-automatically implemented for everything whose size is known at compile time.
-In addition, Rust implicitly adds a bound on `Sized` to every generic function.
-That is, a generic function definition like this:
+To work with DSTs, Rust provides the `Sized` trait to determine whether or not
+a type’s size is known at compile time. This trait is automatically implemented
+for everything whose size is known at compile time. In addition, Rust
+implicitly adds a bound on `Sized` to every generic function. That is, a
+generic function definition like this:
 -->
 
-DSTを扱うために、Rustには`Sized`トレイトと呼ばれる特定のトレイトがあり、型のサイズがコンパイル時にわかるかどうかを決定します。
+DSTを扱うために、Rustは`Sized`トレイトを提供しており、型のサイズがコンパイル時にわかるかどうかを決定します。
 このトレイトは、コンパイル時にサイズの判明する全てのものに自動的に実装されます。加えて、
 コンパイラは暗黙的に全てのジェネリックな関数に`Sized`の境界を追加します。つまり、こんな感じのジェネリック関数定義は:
 
 ```rust,ignore
-fn generic<T>(t: T) {
-    // --snip--
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-12-generic-fn-definition/src/lib.rs}}
 ```
 
 <!--
@@ -564,9 +503,7 @@ is actually treated as though we had written this:
 実際にはこう書いたかのように扱われます:
 
 ```rust,ignore
-fn generic<T: Sized>(t: T) {
-    // --snip--
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-13-generic-implicit-sized-bound/src/lib.rs}}
 ```
 
 <!--
@@ -579,19 +516,20 @@ restriction:
 ですが、以下の特別な記法を用いてこの制限を緩めることができます:
 
 ```rust,ignore
-fn generic<T: ?Sized>(t: &T) {
-    // --snip--
-}
+{{#rustdoc_include ../listings/ch19-advanced-features/no-listing-14-generic-maybe-sized/src/lib.rs}}
 ```
 
 <!--
-A trait bound on `?Sized` is the opposite of a trait bound on `Sized`: we would
-read this as “`T` may or may not be `Sized`.” This syntax is only available for
+A trait bound on `?Sized` means “`T` may or may not be `Sized`” and this
+notation overrides the default that generic types must have a known size at
+compile time. The `?Trait` syntax with this meaning is only available for
 `Sized`, not any other traits.
 -->
 
-`?Sized`のトレイト境界は、`Sized`のトレイト境界の逆になります: これを「`T`は`Sized`かもしれないし、違うかもしれない」と解読するでしょう。
-この記法は、`Sized`にのみ利用可能で、他のトレイトにはありません。
+`?Sized`のトレイト境界は「`T`は`Sized`かもしれないし、違うかもしれない」という意味であり、
+この記法は、ジェネリック型はコンパイル時に既知のサイズを持たなくてはならないという、
+デフォルトの制約を無効化します。この意味を持つ`?Trait`記法は、`Sized`にのみ利用可能で、
+他のトレイトに対しては利用できません。
 
 <!--
 Also note that we switched the type of the `t` parameter from `T` to `&T`.
@@ -607,3 +545,23 @@ Next, we’ll talk about functions and closures!
 -->
 
 次は、関数とクロージャについて語ります！
+
+<!--
+[encapsulation-that-hides-implementation-details]:
+ch17-01-what-is-oo.html#encapsulation-that-hides-implementation-details
+[string-slices]: ch04-03-slices.html#string-slices
+[the-match-control-flow-operator]:
+ch06-02-match.html#the-match-control-flow-operator
+[using-trait-objects-that-allow-for-values-of-different-types]:
+ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
+[using-the-newtype-pattern]: ch19-03-advanced-traits.html#using-the-newtype-pattern-to-implement-external-traits-on-external-types
+-->
+
+[encapsulation-that-hides-implementation-details]:
+ch17-01-what-is-oo.html#カプセル化は実装詳細を隠蔽する
+[string-slices]: ch04-03-slices.html#文字列スライス
+[the-match-control-flow-operator]:
+ch06-02-match.html#match制御フロー構造
+[using-trait-objects-that-allow-for-values-of-different-types]:
+ch17-02-trait-objects.html#トレイトオブジェクトで異なる型の値を許容する
+[using-the-newtype-pattern]: ch19-03-advanced-traits.html#ニュータイプパターンを使用して外部の型に外部のトレイトを実装する

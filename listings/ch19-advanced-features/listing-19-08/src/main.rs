@@ -4,6 +4,7 @@ extern "C" {
 
 fn main() {
     unsafe {
+        // -3の絶対値は、Cによると{}
         println!("Absolute value of -3 according to C: {}", abs(-3));
     }
 }

@@ -1,21 +1,24 @@
 $ cargo run
    Compiling patterns v0.1.0 (file:///projects/patterns)
-error[E0005]: refutable pattern in local binding: `None` not covered
+error[E0005]: refutable pattern in local binding
+(エラー: ローカル束縛に論駁可能なパターン)
  --> src/main.rs:3:9
   |
 3 |     let Some(x) = some_option_value;
   |         ^^^^^^^ pattern `None` not covered
+  |                (パターン`None`がカバーされていません)
   |
   = note: `let` bindings require an "irrefutable pattern", like a `struct` or an `enum` with only one variant
+   (注釈: `let`束縛は`struct`や単一の列挙子を持つ`enum`などの「論駁不可能なパターン」を必要とします)
   = note: for more information, visit https://doc.rust-lang.org/book/ch18-02-refutability.html
-help: you might want to use `if let` to ignore the variant that isn't matched
+   (注釈: さらなる情報についてはhttps://doc.rust-lang.org/book/ch18-02-refutability.htmlを確認してください)
+  = note: the matched value is of type `Option<i32>`
+   (注釈: マッチ対象の値は`Option<i32>`型を持ちます)
+help: you might want to use `let else` to handle the variant that isn't matched
+(ヘルプ: マッチしない列挙子を処理するために`let else`を使用するといいかもしれません)
   |
-3 |     if let Some(x) = some_option_value { /* */ }
-  |
-
-error: aborting due to previous error
+3 |     let Some(x) = some_option_value else { todo!() };
+  |                                     ++++++++++++++++
 
 For more information about this error, try `rustc --explain E0005`.
-error: could not compile `patterns`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `patterns` (bin "patterns") due to 1 previous error
