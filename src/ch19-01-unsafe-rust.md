@@ -746,7 +746,7 @@ ABIは関数の呼び出し方法をアセンブリレベルで定義します�
 > ```rust
 > #[no_mangle]
 > pub extern "C" fn call_from_c() {
->	  // CからRust関数を呼び出したばかり！
+>	  // CからRust関数を呼び出しただけ！
 >     println!("Just called a Rust function from C!");
 > }
 > ``` 
@@ -757,7 +757,7 @@ ABIは関数の呼び出し方法をアセンブリレベルで定義します�
 ### Accessing or Modifying a Mutable Static Variable
 -->
 
-### 可変で静的な変数にアクセスしたり、変更する
+### 可変で静的な変数にアクセスしたり、変更したりする
 
 <!--
 Until now, we’ve not talked about *global variables*, which Rust does support
