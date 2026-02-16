@@ -1,19 +1,22 @@
 $ cargo run
    Compiling traits-example v0.1.0 (file:///projects/traits-example)
-error[E0283]: type annotations needed
+error[E0790]: cannot call associated function on trait without specifying the corresponding `impl` type
+(エラー: 対応する`impl`型を指定せずにトレイト上の関連関数を呼び出すことはできません)
   --> src/main.rs:20:43
    |
 2  |     fn baby_name() -> String;
-   |     ------------------------- required by `Animal::baby_name`
+   |     ------------------------- `Animal::baby_name` defined here
+   |                              (`Animal::baby_name`はここで定義されています)
 ...
 20 |     println!("A baby dog is called a {}", Animal::baby_name());
-   |                                           ^^^^^^^^^^^^^^^^^ cannot infer type
+   |                                           ^^^^^^^^^^^^^^^^^ cannot call associated function of trait
+   |                                                            (トレイトの関連関数を呼び出すことができません)
    |
-   = note: cannot resolve `_: Animal`
+help: use the fully-qualified path to the only available implementation
+(ヘルプ: 利用可能な実装のうち1つを指すフルパスを使用してください)
+   |
+20 |     println!("A baby dog is called a {}", <Dog as Animal>::baby_name());
+   |                                           +++++++       +
 
-error: aborting due to previous error
-
-For more information about this error, try `rustc --explain E0283`.
-error: could not compile `traits-example`.
-
-To learn more, run the command again with --verbose.
+For more information about this error, try `rustc --explain E0790`.
+error: could not compile `traits-example` (bin "traits-example") due to 1 previous error

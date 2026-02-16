@@ -9,11 +9,11 @@
 *著：Steve Klabnik、Carol Nichols、貢献：Rustコミュニティ*
 
 <!--
-This version of the text assumes you’re using Rust 1.58 (released 2022-01-13)
+This version of the text assumes you’re using Rust 1.76.0 (released 2024-02-08)
 or later. See the [“Installation” section of Chapter 1][install]
 to install or update Rust.
 -->
-このテキストのこの版ではRust 1.58（2022年1月13日リリース）かそれ以降が使われていることを前提にしています。
+このテキストのこの版ではRust 1.76.0（2024年2月8日リリース）かそれ以降が使われていることを前提にしています。
 Rustをインストールしたりアップデートしたりするには[第1章の「インストール」節][install]を読んでください。
 
 <!--
@@ -42,5 +42,15 @@ Press][nsprust].
 
 [install]: ch01-01-installation.html
 [editions]: appendix-05-editions.html
-[nsprust]: https://nostarch.com/rust
+[nsprust]: https://nostarch.com/rust-programming-language-2nd-edition
 [translations]: appendix-06-translation.html
+
+<!--
+> **🚨 Want a more interactive learning experience? Try out a different version
+> of the Rust Book, featuring: quizzes, highlighting, visualizations, and
+> more**: <https://rust-book.cs.brown.edu>
+-->
+
+> **🚨 もっと双方向的な学習体験が欲しいですか？ 
+> クイズや蛍光ペン機能、可視化などを備えた、別バージョンの the Rust Book を試してみてください**:
+> <https://rust-book.cs.brown.edu>

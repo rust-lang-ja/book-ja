@@ -5,13 +5,11 @@
 ## パターン記法
 
 <!--
-Throughout the book, you’ve seen examples of many kinds of patterns. In this
-section, we gather all the syntax valid in patterns and discuss why you might
-want to use each of them.
+In this section, we gather all the syntax valid in patterns and discuss why and
+when you might want to use each one.
 -->
 
-本全体で、多くの種類のパターンの例を見かけてきました。この節では、パターンで合法な記法全てを集め、
-それぞれを使用したくなる可能性がある理由について議論します。
+この節ではパターンとして有効な記法をすべて集め、それぞれについて使用するとよい理由と状況について議論します。
 
 <!--
 ### Matching Literals
@@ -27,14 +25,7 @@ following code gives some examples:
 第6章で目撃したように、パターンを直接リテラルに合致させられます。以下のコードが例を挙げています:
 
 ```rust
-let x = 1;
-
-match x {
-    1 => println!("one"),       // 1
-    2 => println!("two"),       // 2
-    3 => println!("three"),     // 3
-    _ => println!("anything"),  // なんでも
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-01-literals/src/main.rs:here}}
 ```
 
 <!--
@@ -77,22 +68,7 @@ running this code or reading further.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let x = Some(5);
-    let y = 10;
-
-    match x {
-        // 50だったよ
-        Some(50) => println!("Got 50"),
-        // マッチしたよ
-        Some(y) => println!("Matched, y = {:?}", y),
-        // 既定のケース
-        _ => println!("Default case, x = {:?}", x),
-    }
-
-    // 最後にはx = {}, y = {}
-    println!("at the end: x = {:?}, y = {:?}", x, y);
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-11/src/main.rs:here}}
 ```
 
 <!--
@@ -151,13 +127,14 @@ the inner `y`. The last `println!` produces `at the end: x = Some(5), y = 10`.
 <!--
 To create a `match` expression that compares the values of the outer `x` and
 `y`, rather than introducing a shadowed variable, we would need to use a match
-guard conditional instead. We’ll talk about match guards later in the “Extra
-Conditionals with Match Guards” section.
+guard conditional instead. We’ll talk about match guards later in the [“Extra
+Conditionals with Match Guards”](#extra-conditionals-with-match-guards)
+section.
 -->
 
 シャドーイングされた変数を導入するのではなく、外側の`x`と`y`の値を比較する`match`式を生成するには、
 代わりにマッチガード条件式を使用する必要があるでしょう。マッチガードについては、後ほど、
-「マッチガードで追加の条件式」節で語ります。
+[「マッチガードで追加の条件式」](#マッチガードで追加の条件式)節で語ります。
 
 <!--
 ### Multiple Patterns
@@ -167,26 +144,17 @@ Conditionals with Match Guards” section.
 
 <!--
 In `match` expressions, you can match multiple patterns using the `|` syntax,
-which means *or*. For example, the following code matches the value of `x`
-against the match arms, the first of which has an *or* option, meaning if the
-value of `x` matches either of the values in that arm, that arm’s code will
-run:
+which is the pattern *or* operator. For example, in the following code we match
+the value of `x` against the match arms, the first of which has an *or* option,
+meaning if the value of `x` matches either of the values in that arm, that
+arm’s code will run:
 -->
 
-`match`式で`|`記法で複数のパターンに合致させることができ、これは*or*を意味します。例えば、以下のコードは`x`の値をマッチアームに合致させ、
+`match`式で`|`記法で複数のパターンに合致させることができ、これがパターン*or*演算子です。例えば、以下のコードでは`x`の値をマッチアームに合致させ、
 最初のマッチアームには*or*選択肢があり、`x`の値がそのアームのどちらかの値に合致したら、そのアームのコードが走ることを意味します:
 
 ```rust
-let x = 1;
-
-match x {
-    // 1か2
-    1 | 2 => println!("one or two"),
-    // 3
-    3 => println!("three"),
-    // なんでも
-    _ => println!("anything"),
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-02-multiple-patterns/src/main.rs:here}}
 ```
 
 <!--
@@ -203,44 +171,38 @@ This code prints `one or two`.
 
 <!--
 The `..=` syntax allows us to match to an inclusive range of values. In the
-following code, when a pattern matches any of the values within the range, that
-arm will execute:
+following code, when a pattern matches any of the values within the given
+range, that arm will execute:
 -->
 
 `..=`記法により、限度値を含む値の範囲にマッチさせることができます。以下のコードでは、
-パターンが範囲内のどれかの値に合致すると、そのアームが実行されます:
+パターンが与えられた範囲内のどれかの値に合致すると、そのアームが実行されます:
 
 ```rust
-let x = 5;
-
-match x {
-    // 1から5まで
-    1..=5 => println!("one through five"),
-    // それ以外
-    _ => println!("something else"),
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-03-ranges/src/main.rs:here}}
 ```
 
 <!--
 If `x` is 1, 2, 3, 4, or 5, the first arm will match. This syntax is more
-convenient than using the `|` operator to express the same idea; instead of `1..=5`,
-we would have to specify `1 | 2 | 3 | 4 | 5` if we used `|`. Specifying
-a range is much shorter, especially if we want to match, say, any number
-between 1 and 1,000!
+convenient for multiple match values than using the `|` operator to express the
+same idea; if we were to use `|` we would have to specify `1 | 2 | 3 | 4 | 5`.
+Specifying a range is much shorter, especially if we want to match, say, any
+number between 1 and 1,000!
 -->
 
-`x`が1、2、3、4か5なら、最初のアームが合致します。この記法は、`|`演算子を使用して同じ考えを表現するより便利です;
-`1..=5`ではなく、`|`を使用したら、`1 | 2 | 3 | 4 | 5`と指定しなければならないでしょう。
+`x`が1、2、3、4か5なら、最初のアームが合致します。複数のマッチ値に対しては、この記法は`|`演算子を使用して同じ考えを表現するより便利です;
+もし`|`を使うとしたら、`1 | 2 | 3 | 4 | 5`と指定しなければならないでしょう。
 範囲を指定する方が遥かに短いのです。特に1から1000までの値と合致させたいとかなら！
 
 <!--
-Ranges are only allowed with numeric values or `char` values, because the
-compiler checks that the range isn’t empty at compile time. The only types for
-which Rust can tell if a range is empty or not are `char` and numeric values.
+The compiler checks that the range isn’t empty at compile time, and because the
+only types for which Rust can tell if a range is empty or not are `char` and
+numeric values, ranges are only allowed with numeric or `char` values.
 -->
 
-範囲は、数値か`char`値でのみ許可されます。コンパイラがコンパイル時に範囲が空でないことを確認しているからです。
-範囲が空かそうでないかコンパイラにわかる唯一の型が`char`か数値なのです。
+コンパイラはコンパイル時に範囲が空でないことを確認します。
+範囲が空かそうでないかコンパイラにわかる型は`char`と数値のみなので、
+範囲は、数値か`char`値でのみ許可されます。
 
 <!--
 Here is an example using ranges of `char` values:
@@ -249,16 +211,7 @@ Here is an example using ranges of `char` values:
 こちらは、`char`値の範囲を使用する例です:
 
 ```rust
-let x = 'c';
-
-match x {
-    // ASCII文字前半
-    'a'..='j' => println!("early ASCII letter"),
-    // ASCII文字後半
-    'k'..='z' => println!("late ASCII letter"),
-    // それ以外
-    _ => println!("something else"),
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-04-ranges-of-char/src/main.rs:here}}
 ```
 
 <!--
@@ -275,11 +228,11 @@ ASCII letter`.
 ### 分配して値を分解する
 
 <!--
-We can also use patterns to destructure structs, enums, tuples, and references
-to use different parts of these values. Let’s walk through each value.
+We can also use patterns to destructure structs, enums, and tuples to use
+different parts of these values. Let’s walk through each value.
 -->
 
-また、パターンを使用して構造体、enum、タプル、参照を分配し、これらの値の異なる部分を使用することもできます。
+また、パターンを使用して構造体、enum、およびタプルを分配し、これらの値の異なる部分を使用することもできます。
 各値を見ていきましょう。
 
 <!--
@@ -302,18 +255,7 @@ break apart using a pattern with a `let` statement.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-struct Point {
-    x: i32,
-    y: i32,
-}
-
-fn main() {
-    let p = Point { x: 0, y: 7 };
-
-    let Point { x: a, y: b } = p;
-    assert_eq!(0, a);
-    assert_eq!(7, b);
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-12/src/main.rs}}
 ```
 
 <!--
@@ -325,29 +267,24 @@ separate variables</span>
 
 <!--
 This code creates the variables `a` and `b` that match the values of the `x`
-and `y` fields of the `p` variable. This example shows that the names of the
-variables in the pattern don’t have to match the field names of the struct. But
-it’s common to want the variable names to match the field names to make it
-easier to remember which variables came from which fields.
+and `y` fields of the `p` struct. This example shows that the names of the
+variables in the pattern don’t have to match the field names of the struct.
+However, it’s common to match the variable names to the field names to make it
+easier to remember which variables came from which fields. Because of this
+common usage, and because writing `let Point { x: x, y: y } = p;` contains a
+lot of duplication, Rust has a shorthand for patterns that match struct fields:
+you only need to list the name of the struct field, and the variables created
+from the pattern will have the same names. Listing 18-13 behaves in the same
+way as the code in Listing 18-12, but the variables created in the `let`
+pattern are `x` and `y` instead of `a` and `b`.
+
 -->
 
-このコードは、`p`変数の`x`と`y`フィールドの値に合致する変数`a`と`b`を生成します。この例は、
+このコードは、`p`構造体の`x`と`y`フィールドの値に合致する変数`a`と`b`を生成します。この例は、
 パターンの変数の名前は、構造体のフィールド名と合致する必要はないことを示しています。しかし、
-変数名をフィールド名と一致させてどの変数がどのフィールド由来のものなのか覚えやすくしたくなることは一般的なことです。
-
-<!--
-Because having variable names match the fields is common and because writing
-`let Point { x: x, y: y } = p;` contains a lot of duplication, there is a
-shorthand for patterns that match struct fields: you only need to list the name
-of the struct field, and the variables created from the pattern will have the
-same names. Listing 18-13 shows code that behaves in the same way as the code
-in Listing 18-12, but the variables created in the `let` pattern are `x` and
-`y` instead of `a` and `b`.
--->
-
-変数名をフィールドに一致させることは一般的であり、`let Point{ x: x, y: y } = p;`と書くことは多くの重複を含むので、
-構造体のフィールドと一致するパターンには省略法があります: 構造体のフィールドの名前を列挙するだけで、
-パターンから生成される変数は同じ名前になるのです。リスト18-13は、リスト18-12と同じ振る舞いをするコードを表示していますが、
+この一般的な用法から、そして`let Point{ x: x, y: y } = p;`と書くことは多くの重複を含むことから、
+Rustには構造体のフィールドと一致するパターンには省略法があります: 構造体のフィールドの名前を列挙するだけで、
+パターンから生成される変数は同じ名前になるのです。リスト18-13は、リスト18-12と同じように振る舞いますが、
 `let`パターンで生成される変数は`a`と`b`ではなく、`x`と`y`です。
 
 <!--
@@ -357,18 +294,7 @@ in Listing 18-12, but the variables created in the `let` pattern are `x` and
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-struct Point {
-    x: i32,
-    y: i32,
-}
-
-fn main() {
-    let p = Point { x: 0, y: 7 };
-
-    let Point { x, y } = p;
-    assert_eq!(0, x);
-    assert_eq!(7, y);
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-13/src/main.rs}}
 ```
 
 <!--
@@ -398,12 +324,12 @@ destructure the other fields.
 そうすることで他のフィールドは分配して変数を生成しつつ、一部のフィールドは特定の値と一致するか確認できます。
 
 <!--
-Listing 18-14 shows a `match` expression that separates `Point` values into
-three cases: points that lie directly on the `x` axis (which is true when `y =
-0`), on the `y` axis (`x = 0`), or neither.
+In Listing 18-14, we have a `match` expression that separates `Point` values
+into three cases: points that lie directly on the `x` axis (which is true when
+`y = 0`), on the `y` axis (`x = 0`), or neither.
 -->
 
-リスト18-14は、`Point`値を3つの場合に区別する`match`式を表示しています: `x`軸上の点(`y = 0`ならそうなる)、
+リスト18-14には、`Point`値を3つの場合に区別する`match`式があります: `x`軸上の点(`y = 0`ならそうなる)、
 `y`軸上の点(`x = 0`)、あるいはどちらでもありません。
 
 <!--
@@ -413,23 +339,7 @@ three cases: points that lie directly on the `x` axis (which is true when `y =
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-# struct Point {
-#     x: i32,
-#     y: i32,
-# }
-#
-fn main() {
-    let p = Point { x: 0, y: 7 };
-
-    match p {
-        // x軸上の{}
-        Point { x, y: 0 } => println!("On the x axis at {}", x),
-        // y軸上の{}
-        Point { x: 0, y } => println!("On the y axis at {}", y),
-        // どちらの軸上でもない: ({}, {})
-        Point { x, y } => println!("On neither axis: ({}, {})", x, y),
-    }
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-14/src/main.rs:here}}
 ```
 
 <!--
@@ -467,22 +377,30 @@ containing a 0, so this code will print `On the y axis at 7`.
 この例で、値`p`は0を含む`x`の力で2番目のアームに一致するので、このコードは`On the y axis at 7`と出力します。
 
 <!--
+Remember that a `match` expression stops checking arms once it has found the
+first matching pattern, so even though `Point { x: 0, y: 0}` is on the `x` axis
+and the `y` axis, this code would only print `On the x axis at 0`.
+-->
+
+`match`式は、マッチする最初のパターンを見つけたら、アームの確認をやめることを思い出してください。
+そのため、`Point { x: 0, y: 0}`は`x`軸上および`y`軸上にありますが、このコードは`On the x axis at 0`を出力するでしょう。
+
+<!--
 #### Destructuring Enums
 -->
 
 #### enumを分配する
 
 <!--
-We’ve destructured enums earlier in this book, for example, when we
-destructured `Option<i32>` in Listing 6-5 in Chapter 6. One detail we haven’t
-mentioned explicitly is that the pattern to destructure an enum should
-correspond to the way the data stored within the enum is defined. As an
+We've destructured enums in this book (for example, Listing 6-5 in Chapter 6),
+but haven’t yet explicitly discussed that the pattern to destructure an enum
+corresponds to the way the data stored within the enum is defined. As an
 example, in Listing 18-15 we use the `Message` enum from Listing 6-2 and write
 a `match` with patterns that will destructure each inner value.
 -->
 
-例えば、第6章のリスト6-5で`Option<i32>`を分配するなどこの本の前半でenumを分配しました。
-明示的に触れなかった詳細の1つは、enumを分配するパターンは、enum内に格納されているデータが定義されている手段に対応すべきということです。
+この本の中でenumを分配してきました(例えば、第6章のリスト6-5)が、
+enumを分配するパターンはenum内に格納されているデータの定義され方に対応する、ということについてはまだ明示的に議論していませんでした。
 例として、リスト18-15では、リスト6-2から`Message` enumを使用し、内部の値それぞれを分配するパターンを伴う`match`を書いています。
 
 <!--
@@ -492,42 +410,7 @@ a `match` with patterns that will destructure each inner value.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-    ChangeColor(i32, i32, i32),
-}
-
-fn main() {
-    let msg = Message::ChangeColor(0, 160, 255);
-
-    match msg {
-        Message::Quit => {
-            // Quit列挙子には分配すべきデータがない
-            println!("The Quit variant has no data to destructure.")
-        },
-        Message::Move { x, y } => {
-            println!(
-                // x方向に{}、y方向に{}だけ動く
-                "Move in the x direction {} and in the y direction {}",
-                x,
-                y
-            );
-        }
-        // テキストメッセージ: {}
-        Message::Write(text) => println!("Text message: {}", text),
-        Message::ChangeColor(r, g, b) => {
-            println!(
-                // 色を赤{}, 緑{}, 青{}に変更
-                "Change the color to red {}, green {}, and blue {}",
-                r,
-                g,
-                b
-            )
-        }
-    }
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-15/src/main.rs}}
 ```
 
 <!--
@@ -579,97 +462,45 @@ matching.
 マッチ対象の列挙子の要素数と一致しなければなりません。
 
 <!--
-#### Destructuring References
+#### Destructuring Nested Structs and Enums
 -->
 
-#### 参照を分配する
+#### ネストされた構造体と列挙体を分配する
 
 <!--
-When the value we’re matching to our pattern contains a reference, we need to
-destructure the reference from the value, which we can do by specifying a `&`
-in the pattern. Doing so lets us get a variable holding the value that the
-reference points to rather than getting a variable that holds the reference.
-This technique is especially useful in closures where we have iterators that
-iterate over references, but we want to use the values in the closure rather
-than the references.
+So far, our examples have all been matching structs or enums one level deep,
+but matching can work on nested items too! For example, we can refactor the
+code in Listing 18-15 to support RGB and HSV colors in the `ChangeColor`
+message, as shown in Listing 18-16.
 -->
-
-パターンとマッチさせている値に参照が含まれる場合、値から参照を分配する必要があり、
-パターンに`&`を指定することでそうすることができます。そうすることで参照を保持する変数を得るのではなく、
-参照が指している値を保持する変数が得られます。このテクニックは、参照を走査するイテレータがあるクロージャで特に役に立ちますが、
-そのクロージャで参照ではなく、値を使用したいです。
-
-<!--
-The example in Listing 18-16 iterates over references to `Point` instances in a
-vector, destructuring the reference and the struct so we can perform
-calculations on the `x` and `y` values easily.
--->
-
-リスト18-16の例は、ベクタの`Point`インスタンスへの参照を走査し、`x`と`y`値に簡単に計算を行えるように、
-参照と構造体を分配します。
+ 
+今のところ、ここでの例はすべて一階層の深さの構造体または列挙体にマッチしていますが、
+マッチングはネストされた要素に対しても行うことができます！例えばリスト18-15のコードは、
+リスト18-16で示すように、`ChangeColor`メッセージでRGBおよびHSV色をサポートするようにリファクタすることができます。
 
 ```rust
-# struct Point {
-#     x: i32,
-#     y: i32,
-# }
-#
-let points = vec![
-    Point { x: 0, y: 0 },
-    Point { x: 1, y: 5 },
-    Point { x: 10, y: -3 },
-];
-
-let sum_of_squares: i32 = points
-    .iter()
-    .map(|&Point { x, y }| x * x + y * y)
-    .sum();
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-16/src/main.rs}}
 ```
 
 <!--
-<span class="caption">Listing 18-16: Destructuring a reference to a struct into
-the struct field values</span>
+<span class="caption">Listing 18-16: Matching on nested enums</span>
 -->
 
-<span class="caption">リスト18-16: 構造体への参照を構造体のフィールド値に分配する</span>
+<span class="caption">リスト 18-16: ネストされたenumにマッチする</span>
 
 <!--
-This code gives us the variable `sum_of_squares` holding the value 135, which
-is the result of squaring the `x` value and the `y` value, adding those
-together, and then adding the result for each `Point` in the `points` vector to
-get one number.
+The pattern of the first arm in the `match` expression matches a
+`Message::ChangeColor` enum variant that contains a `Color::Rgb` variant; then
+the pattern binds to the three inner `i32` values. The pattern of the second
+arm also matches a `Message::ChangeColor` enum variant, but the inner enum
+matches `Color::Hsv` instead. We can specify these complex conditions in one
+`match` expression, even though two enums are involved.
 -->
 
-このコードは、値135を保持する変数`sum_of_squares`を返してきて、これは、`x`値と`y`値を2乗し、足し合わせ、
-`points`ベクタの`Point`それぞれの結果を足して1つの数値にした結果です。
-
-<!--
-If we had not included the `&` in `&Point { x, y }`, we’d get a type mismatch
-error, because `iter` would then iterate over references to the items in the
-vector rather than the actual values. The error would look like this:
--->
-
-`&Point { x, y }`に`&`が含まれていなかったら、型不一致エラーが発生していたでしょう。
-`iter`はそうすると、実際の値ではなく、ベクタの要素への参照を走査するからです。そのエラーはこんな見た目でしょう:
-
-```text
-error[E0308]: mismatched types
-  -->
-   |
-14 |         .map(|Point { x, y }| x * x + y * y)
-   |               ^^^^^^^^^^^^ expected &Point, found struct `Point`
-   |
-   = note: expected type `&Point`
-              found type `Point`
-```
-
-<!--
-This error indicates that Rust was expecting our closure to match `&Point`, but
-we tried to match directly to a `Point` value, not a reference to a `Point`.
--->
-
-このエラーは、コンパイラがクロージャに`&Point`と一致することを期待しているのに、
-`Point`への参照ではなく、`Point`値に直接一致させようとしたことを示唆しています。
+`match`式の最初のアームのパターンは、`Color::Rgb`列挙子を含む`Message::ChangeColor` enum 列挙子にマッチします;
+その後パターンは内側の`i32`値に束縛します。2番目のアームのパターンも`Message::ChangeColor` enum 列挙子にマッチしますが、
+内側のenumは、こちらは`Color::Hsv`にマッチします。2つのenumが関連し合っている場合でも、1つの`match`式内で、
+これらの複合的な条件を指定することができます。
 
 <!--
 #### Destructuring Structs and Tuples
@@ -687,12 +518,7 @@ tuples inside a tuple and destructure all the primitive values out:
 構造体とタプルをタプルにネストし、全ての基本的な値を取り出している複雑な分配を表示しています:
 
 ```rust
-# struct Point {
-#     x: i32,
-#     y: i32,
-# }
-#
-let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/no-listing-05-destructuring-structs-and-tuples/src/main.rs:here}}
 ```
 
 <!--
@@ -738,14 +564,14 @@ parts of a value. Let’s explore how and why to use each of these patterns.
 #### `_`で値全体を無視する
 
 <!--
-We’ve used the underscore (`_`) as a wildcard pattern that will match any value
-but not bind to the value. Although the underscore `_` pattern is especially
-useful as the last arm in a `match` expression, we can use it in any pattern,
-including function parameters, as shown in Listing 18-17.
+We’ve used the underscore as a wildcard pattern that will match any value but
+not bind to the value. This is especially useful as the last arm in a `match`
+expression, but we can also use it in any pattern, including function
+parameters, as shown in Listing 18-17.
 -->
 
-どんな値にも一致するけれども、値を束縛しないワイルドカードパターンとしてアンダースコア、`_`を使用してきました。
-アンダースコア、`_`パターンは特に`match`式の最後のアームとして役に立ちますが、
+どんな値にも一致するけれども、値を束縛しないワイルドカードパターンとしてアンダースコアを使用してきました。
+これは特に`match`式の最後のアームとして役に立ちますが、
 関数の引数も含めてあらゆるパターンで使えます。リスト18-17に示したようにですね。
 
 <!--
@@ -755,14 +581,7 @@ including function parameters, as shown in Listing 18-17.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn foo(_: i32, y: i32) {
-    // このコードは、y引数を使うだけです: {}
-    println!("This code only uses the y parameter: {}", y);
-}
-
-fn main() {
-    foo(3, 4);
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-17/src/main.rs}}
 ```
 
 <!--
@@ -772,7 +591,7 @@ fn main() {
 <span class="caption">リスト18-17: 関数シグニチャで`_`を使用する</span>
 
 <!--
-This code will completely ignore the value passed as the first argument, `3`,
+This code will completely ignore the value `3` passed as the first argument,
 and will print `This code only uses the y parameter: 4`.
 -->
 
@@ -781,17 +600,17 @@ and will print `This code only uses the y parameter: 4`.
 <!--
 In most cases when you no longer need a particular function parameter, you
 would change the signature so it doesn’t include the unused parameter. Ignoring
-a function parameter can be especially useful in some cases, for example, when
-implementing a trait when you need a certain type signature but the function
-body in your implementation doesn’t need one of the parameters. The compiler
-will then not warn about unused function parameters, as it would if you used a
-name instead.
+a function parameter can be especially useful in cases when, for example,
+you're implementing a trait when you need a certain type signature but the
+function body in your implementation doesn’t need one of the parameters. You
+then avoid getting a compiler warning about unused function parameters, as you
+would if you used a name instead.
 -->
 
 特定の関数の引数が最早必要ないほとんどの場合、未使用の引数が含まれないようにシグニチャを変更するでしょう。
 関数の引数を無視することが特に有用なケースもあり、例えば、トレイトを実装する際、
 特定の型シグニチャが必要だけれども、自分の実装の関数本体では引数の1つが必要ない時などです。
-そうすれば、代わりに名前を使った場合のようには、未使用関数引数についてコンパイラが警告することはないでしょう。
+名前を使った場合には未使用関数引数についてのコンパイラ警告が出るでしょうが、こうすればそれをを避けられます。
 
 <!--
 #### Ignoring Parts of a Value with a Nested `_`
@@ -805,32 +624,17 @@ example, when we want to test for only part of a value but have no use for the
 other parts in the corresponding code we want to run. Listing 18-18 shows code
 responsible for managing a setting’s value. The business requirements are that
 the user should not be allowed to overwrite an existing customization of a
-setting but can unset the setting and can give the setting a value if it is
-currently unset.
+setting but can unset the setting and give it a value if it is currently unset.
 -->
 
 また、他のパターンの内部で`_`を使用して、値の一部だけを無視することもでき、例えば、
 値の一部だけを確認したいけれども、走らせたい対応するコードでは他の部分を使用することがない時などです。
 リスト18-18は、設定の値を管理する責任を負ったコードを示しています。業務要件は、
-ユーザが既存の設定の変更を上書きすることはできないべきだけれども、設定を解除し、
-現在設定がされていなければ設定に値を与えられるというものです。
+ユーザが既存の設定の変更を上書きすることはできないべきだけれども、設定を解除することができるべきで、
+現在設定がされていなければそれに値を与えることができるべきというものです。
 
 ```rust
-let mut setting_value = Some(5);
-let new_setting_value = Some(10);
-
-match (setting_value, new_setting_value) {
-    (Some(_), Some(_)) => {
-        // 既存の値の変更を上書きできません
-        println!("Can't overwrite an existing customized value");
-    }
-    _ => {
-        setting_value = new_setting_value;
-    }
-}
-
-// 設定は{:?}です
-println!("setting is {:?}", setting_value);
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-18/src/main.rs:here}}
 ```
 
 <!--
@@ -846,14 +650,14 @@ This code will print `Can't overwrite an existing customized value` and then
 `setting is Some(5)`. In the first match arm, we don’t need to match on or use
 the values inside either `Some` variant, but we do need to test for the case
 when `setting_value` and `new_setting_value` are the `Some` variant. In that
-case, we print why we’re not changing `setting_value`, and it doesn’t get
+case, we print the reason for not changing `setting_value`, and it doesn’t get
 changed.
 -->
 
 このコードは、`Can't overwrite an existing customized value`、そして`setting is Some(5)`と出力するでしょう。
 最初のマッチアームで、どちらの`Some`列挙子内部の値にも合致させたり、使用する必要はありませんが、
 `setting_value`と`new_setting_value`が`Some`列挙子の場合を確かに確認する必要があります。
-その場合、何故`setting_value`を変更しないかを出力し、変更しません。
+その場合、`setting_value`を変更しない理由を出力し、変更しません。
 
 <!--
 In all other cases (if either `setting_value` or `new_setting_value` are
@@ -874,14 +678,7 @@ fourth values in a tuple of five items.
 リスト18-19は、5要素のタプルで2番目と4番目の値を無視する例です。
 
 ```rust
-let numbers = (2, 4, 8, 16, 32);
-
-match numbers {
-    (first, _, third, _, fifth) => {
-        // 何らかの数値: {}, {}, {}
-        println!("Some numbers: {}, {}, {}", first, third, fifth)
-    },
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-19/src/main.rs:here}}
 ```
 
 <!--
@@ -905,19 +702,19 @@ ignored.
 
 <!--
 If you create a variable but don’t use it anywhere, Rust will usually issue a
-warning because that could be a bug. But sometimes it’s useful to create a
-variable you won’t use yet, such as when you’re prototyping or just starting a
-project. In this situation, you can tell Rust not to warn you about the unused
-variable by starting the name of the variable with an underscore. In Listing
-18-20, we create two unused variables, but when we run this code, we should
-only get a warning about one of them.
+warning because an unused variable could be a bug. However, sometimes it’s
+useful to be able to create a variable you won’t use yet, such as when you’re
+prototyping or just starting a project. In this situation, you can tell Rust
+not to warn you about the unused variable by starting the name of the variable
+with an underscore. In Listing 18-20, we create two unused variables, but when
+we compile this code, we should only get a warning about one of them.
 -->
 
-変数を作っているのにどこでも使用していなければ、バグかもしれないのでコンパイラは通常、警告を発します。
-しかし時として、まだ使用しない変数を作るのが有用なこともあります。プロトタイプを開発していたり、
+変数を作っているのにどこでも使用していなければ、未使用変数はバグかもしれないのでコンパイラは通常、警告を発します。
+しかし時として、まだ使用しない変数を作れるほうが有用なこともあります。プロトタイプを開発していたり、
 プロジェクトを始めた直後だったりなどです。このような場面では、変数名をアンダースコアで始めることで、
 コンパイラに未使用変数について警告しないよう指示することができます。リスト18-20で2つの未使用変数を生成していますが、
-このコードを実行すると、そのうちの1つにしか警告が出ないはずです。
+このコードをコンパイルすると、そのうちの1つにしか警告が出ないはずです。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -926,10 +723,7 @@ only get a warning about one of them.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let _x = 5;
-    let y = 10;
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-20/src/main.rs}}
 ```
 
 <!--
@@ -941,10 +735,10 @@ underscore to avoid getting unused variable warnings</span>
 
 <!--
 Here we get a warning about not using the variable `y`, but we don’t get a
-warning about not using the variable preceded by the underscore.
+warning about not using `_x`.
 -->
 
-ここで、変数`y`を使用していないことに対して警告が出ていますが、アンダースコアが接頭辞になっている変数には、
+ここで、変数`y`を使用していないことに対して警告が出ていますが、`_x`には、
 使用していないという警告が出ていません。
 
 <!--
@@ -958,16 +752,8 @@ distinction matters, Listing 18-21 will provide us with an error.
 `_x`記法はそれでも、値を変数に束縛する一方で、`_`は全く束縛しません。この差異が問題になる場合を示すために、
 リスト18-21はエラーを提示するでしょう。
 
-```rust,ignore
-// こんにちは！
-let s = Some(String::from("Hello!"));
-
-if let Some(_s) = s {
-    // 文字列が見つかりました
-    println!("found a string");
-}
-
-println!("{:?}", s);
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-21/src/main.rs:here}}
 ```
 
 <!--
@@ -989,13 +775,7 @@ because `s` doesn’t get moved into `_`.
 `s`が`_`にムーブされないので、リスト18-22はエラーなくコンパイルできます。
 
 ```rust
-let s = Some(String::from("Hello!"));
-
-if let Some(_) = s {
-    println!("found a string");
-}
-
-println!("{:?}", s);
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-22/src/main.rs:here}}
 ```
 
 <!--
@@ -1018,7 +798,7 @@ This code works just fine because we never bind `s` to anything; it isn’t move
 #### `..`で値の残りの部分を無視する
 
 <!--
-With values that have many parts, we can use the `..` syntax to use only a few
+With values that have many parts, we can use the `..` syntax to use specific
 parts and ignore the rest, avoiding the need to list underscores for each
 ignored value. The `..` pattern ignores any parts of a value that we haven’t
 explicitly matched in the rest of the pattern. In Listing 18-23, we have a
@@ -1027,24 +807,14 @@ explicitly matched in the rest of the pattern. In Listing 18-23, we have a
 the values in the `y` and `z` fields.
 -->
 
-多くの部分がある値では、`..`記法を使用していくつかの部分だけを使用して残りを無視し、
+多くの部分がある値では、`..`記法を使用して特定の部分を使用して残りを無視し、
 無視する値それぞれにアンダースコアを列挙する必要性を回避できます。`..`パターンは、
 パターンの残りで明示的にマッチさせていない値のどんな部分も無視します。リスト18-23では、
 3次元空間で座標を保持する`Point`構造体があります。`match`式で`x`座標のみ処理し、
 `y`と`z`フィールドの値は無視したいです。
 
 ```rust
-struct Point {
-    x: i32,
-    y: i32,
-    z: i32,
-}
-
-let origin = Point { x: 0, y: 0, z: 0 };
-
-match origin {
-    Point { x, .. } => println!("x is {}", x),
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-23/src/main.rs:here}}
 ```
 
 <!--
@@ -1078,15 +848,7 @@ shows how to use `..` with a tuple.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let numbers = (2, 4, 8, 16, 32);
-
-    match numbers {
-        (first, .., last) => {
-            println!("Some numbers: {}, {}", first, last);
-        },
-    }
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-24/src/main.rs}}
 ```
 
 <!--
@@ -1120,16 +882,8 @@ compile.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-fn main() {
-    let numbers = (2, 4, 8, 16, 32);
-
-    match numbers {
-        (.., second, ..) => {
-            println!("Some numbers: {}", second)
-        },
-    }
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-25/src/main.rs}}
 ```
 
 <!--
@@ -1145,13 +899,8 @@ When we compile this example, we get this error:
 
 この例をコンパイルすると、こんなエラーが出ます:
 
-```text
-error: `..` can only be used once per tuple or tuple struct pattern
-(エラー: `..`は、タプルやタプル構造体パターン1つにつき、1回しか使用できません)
- --> src/main.rs:5:22
-  |
-5 |         (.., second, ..) => {
-  |                      ^^
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-25/output.txt}}
 ```
 
 <!--
@@ -1171,240 +920,85 @@ compiler error because using `..` in two places like this is ambiguous.
 コンパイルエラーになります。
 
 <!--
-### Creating References in Patterns with `ref` and `ref mut`
--->
-
-### `ref`と`ref mut`でパターンに参照を生成する
-
-<!--
-Let’s look at using `ref` to make references so ownership of the values isn’t
-moved to variables in the pattern. Usually, when you match against a pattern,
-the variables introduced by the pattern are bound to a value. Rust’s ownership
-rules mean the value will be moved into the `match` or wherever you’re using
-the pattern. Listing 18-26 shows an example of a `match` that has a pattern
-with a variable and then usage of the entire value in the `println!` statement
-later, after the `match`. This code will fail to compile because ownership of
-part of the `robot_name` value is transferred to the `name` variable in the
-pattern of the first `match` arm.
--->
-
-`ref`を使用して値の所有権がパターンの変数にムーブされないように、参照を生成することに目を向けましょう。
-通常、パターンにマッチさせると、パターンで導入された変数は値に束縛されます。Rustの所有権規則は、
-その値が`match`などパターンを使用しているあらゆる場所にムーブされることを意味します。
-リスト18-26は、変数があるパターンとそれから`match`の後に値全体を`println!`文で後ほど使用する`match`の例を示しています。
-このコードはコンパイルに失敗します。`robot_name`値の一部の所有権が、
-最初の`match`アームのパターンの`name`変数に移るからです。
-
-```rust,ignore
-let robot_name = Some(String::from("Bors"));
-
-match robot_name {
-    // 名前が見つかりました: {}
-    Some(name) => println!("Found a name: {}", name),
-    None => (),
-}
-
-// robot_nameは: {:?}
-println!("robot_name is: {:?}", robot_name);
-```
-
-<!--
-<span class="caption">Listing 18-26: Creating a variable in a `match` arm
-pattern takes ownership of the value</span>
--->
-
-<span class="caption">リスト18-26: `match`アームパターンで変数を生成すると、値の所有権が奪われる</span>
-
-<!--
-Because ownership of part of `robot_name` has been moved to `name`, we can no
-longer use `robot_name` in the `println!` after the `match` because
-`robot_name` no longer has ownership.
--->
-
-`robot_name`の一部の所有権が`name`にムーブされたので、`robot_name`に最早所有権がないために、
-`match`の後に`println!`で最早`robot_name`を使用することは叶いません。
-
-<!--
-To fix this code, we want to make the `Some(name)` pattern *borrow* that part
-of `robot_name` rather than taking ownership. You’ve already seen that, outside
-of patterns, the way to borrow a value is to create a reference using `&`, so
-you might think the solution is changing `Some(name)` to `Some(&name)`.
--->
-
-このコードを修正するために、`Some(name)`パターンに所有権を奪わせるのではなく、
-`robot_name`のその部分を借用させたいです。パターンの外なら、値を借用する手段は、
-`&`で参照を生成することだと既にご認識でしょうから、解決策は`Some(name)`を`Some(&name)`に変えることだとお考えかもしれませんね。
-
-<!--
-However, as you saw in the “Destructuring to Break Apart Values” section, the
-syntax `&` in patterns does not *create* a reference but *matches* an existing
-reference in the value. Because `&` already has that meaning in patterns, we
-can’t use `&` to create a reference in a pattern.
--->
-
-しかしながら、「分配して値を分解する」節で見かけたように、パターンにおける`&`記法は参照を*生成*せず、
-値の既存の参照に*マッチ*します。パターンにおいて`&`には既にその意味があるので、
-`&`を使用してパターンで参照を生成することはできません。
-
-<!--
-Instead, to create a reference in a pattern, we use the `ref` keyword before
-the new variable, as shown in Listing 18-27.
--->
-
-その代わりに、パターンで参照を生成するには、リスト18-27のように、新しい変数の前に`ref`キーワードを使用します。
-
-```rust
-let robot_name = Some(String::from("Bors"));
-
-match robot_name {
-    Some(ref name) => println!("Found a name: {}", name),
-    None => (),
-}
-
-println!("robot_name is: {:?}", robot_name);
-```
-
-<!--
-<span class="caption">Listing 18-27: Creating a reference so a pattern variable
-does not take ownership of a value</span>
--->
-
-<span class="caption">リスト18-27: パターンの変数が値の所有権を奪わないように参照を生成する</span>
-
-<!--
-This example will compile because the value in the `Some` variant in
-`robot_name` is not moved into the `match`; the `match` only took a reference
-to the data in `robot_name` rather than moving it.
--->
-
-`robot_name`の`Some`列挙子の値が`match`にムーブされないので、この例はコンパイルできます;
-`match`はムーブするのではなく、`robot_name`のデータへの参照を取っただけなのです。
-
-<!--
-To create a mutable reference so we’re able to mutate a value matched in a
-pattern, we use `ref mut` instead of `&mut`. The reason is, again, that in
-patterns, the latter is for matching existing mutable references, not creating
-new ones. Listing 18-28 shows an example of a pattern creating a mutable
-reference.
--->
-
-パターンで合致した値を可変化できるように可変参照を生成するには、`&mut`の代わりに`ref mut`を使用します。
-理由は今度も、パターンにおいて、前者は既存の可変参照にマッチするためにあり、新しい参照を生成しないからです。
-リスト18-28は、可変参照を生成するパターンの例です。
-
-```rust
-let mut robot_name = Some(String::from("Bors"));
-
-match robot_name {
-    // 別の名前
-    Some(ref mut name) => *name = String::from("Another name"),
-    None => (),
-}
-
-println!("robot_name is: {:?}", robot_name);
-```
-
-<!--
-<span class="caption">Listing 18-28: Creating a mutable reference to a value as
-part of a pattern using `ref mut`</span>
--->
-
-<span class="caption">リスト18-28: `ref mut`を使用して、パターンの一部として値への可変参照を生成する</span>
-
-<!--
-This example will compile and print `robot_name is: Some("Another name")`.
-Because `name` is a mutable reference, we need to dereference within the match
-arm code using the `*` operator to mutate the value.
--->
-
-この例はコンパイルが通り、`robot_name is: Some("Another name")`と出力するでしょう。
-`name`は可変参照なので、値を可変化するためにマッチアーム内で`*`演算子を使用して参照外しする必要があります。
-
-<!--
 ### Extra Conditionals with Match Guards
 -->
 
 ### マッチガードで追加の条件式
 
 <!--
-A *match guard* is an additional `if` condition specified after the pattern in
-a `match` arm that must also match, along with the pattern matching, for that
-arm to be chosen. Match guards are useful for expressing more complex ideas
-than a pattern alone allows.
+A *match guard* is an additional `if` condition, specified after the pattern in
+a `match` arm, that must also match for that arm to be chosen. Match guards are
+useful for expressing more complex ideas than a pattern alone allows.
 -->
 
-*マッチガード*は、`match`アームのパターンの後に指定されるパターンマッチングとともに、
+*マッチガード*は、`match`アームのパターンの後に指定される、
 そのアームが選択されるのにマッチしなければならない追加の`if`条件です。マッチガードは、
 1つのパターン単独でできるよりも複雑な考えを表現するのに役に立ちます。
 
 <!--
-The condition can use variables created in the pattern. Listing 18-29 shows a
+The condition can use variables created in the pattern. Listing 18-26 shows a
 `match` where the first arm has the pattern `Some(x)` and also has a match
-guard of `if x < 5`.
+guard of `if x % 2 == 0` (which will be true if the number is even).
 -->
 
-この条件は、パターンで生成された変数を使用できます。リスト18-29は、
-最初のアームにパターン`Some(x)`と`if x < 5`というマッチガードもある`match`を示しています。
+この条件は、パターンで生成された変数を使用できます。リスト18-26は、
+最初のアームにパターン`Some(x)`と`if x % 2 == 0` (数が偶数の場合に真)というマッチガードもある`match`を示しています。
 
 ```rust
-let num = Some(4);
-
-match num {
-    // 5未満です: {}
-    Some(x) if x < 5 => println!("less than five: {}", x),
-    Some(x) => println!("{}", x),
-    None => (),
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-26/src/main.rs:here}}
 ```
 
 <!--
-<span class="caption">Listing 18-29: Adding a match guard to a pattern</span>
+<span class="caption">Listing 18-26: Adding a match guard to a pattern</span>
 -->
 
-<span class="caption">リスト18-29: パターンにマッチガードを追記する</span>
+<span class="caption">リスト18-26: パターンにマッチガードを追記する</span>
 
 <!--
-This example will print `less than five: 4`. When `num` is compared to the
+This example will print `The number 4 is even`. When `num` is compared to the
 pattern in the first arm, it matches, because `Some(4)` matches `Some(x)`. Then
-the match guard checks whether the value in `x` is less than `5`, and because
-it is, the first arm is selected.
+the match guard checks whether the remainder of dividing `x` by 2 is equal to
+0, and because it is, the first arm is selected.
 -->
 
-この例は、`less than five: 4`と出力します。`num`が最初のアームのパターンと比較されると、
-`Some(4)`は`Some(x)`に一致するので、マッチします。そして、マッチガードが`x`の値が`5`未満か確認し、
+この例は、`The number 4 is even`と出力します。`num`が最初のアームのパターンと比較されると、
+`Some(4)`は`Some(x)`に一致するので、マッチします。そして、マッチガードが`x`を2で割った余りが0と等しいか確認し、
 そうなっているので、最初のアームが選択されます。
 
 <!--
-If `num` had been `Some(10)` instead, the match guard in the first arm would
-have been false because 10 is not less than 5. Rust would then go to the second
-arm, which would match because the second arm doesn’t have a match guard and
-therefore matches any `Some` variant.
+If `num` had been `Some(5)` instead, the match guard in the first arm would
+have been false because the remainder of 5 divided by 2 is 1, which is not
+equal to 0. Rust would then go to the second arm, which would match because the
+second arm doesn’t have a match guard and therefore matches any `Some` variant.
 -->
 
-代わりに`num`が`Some(10)`だったなら、最初のアームのマッチガードは偽になったでしょう。
-10は5未満ではないからです。Rustはそうしたら2番目のアームに移動し、マッチするでしょう。
+代わりに`num`が`Some(5)`だったなら、最初のアームのマッチガードは偽になったでしょう。
+5を2で割った余りは1であり、0と等しくないからです。Rustはそうしたら2番目のアームに移動し、マッチするでしょう。
 2番目のアームにはマッチガードがなく、それ故にあらゆる`Some`列挙子に一致するからです。
 
 <!--
-There is no way to express the `if x < 5` condition within a pattern, so the
-match guard gives us the ability to express this logic.
+There is no way to express the `if x % 2 == 0` condition within a pattern, so
+the match guard gives us the ability to express this logic. The downside of
+this additional expressiveness is that the compiler doesn't try to check for
+exhaustiveness when match guard expressions are involved.
 -->
 
-パターン内で`if x < 5`という条件を表現する方法はありませんので、マッチガードにより、
-この論理を表現する能力が得られるのです。
+パターン内で`if x % 2 == 0`という条件を表現する方法はありませんので、マッチガードにより、
+この論理を表現する能力が得られるのです。この追加の表現力の欠点としては、コンパイラは、
+マッチガード式が関連するときに網羅性をチェックしないという点があります。
 
 <!--
 In Listing 18-11, we mentioned that we could use match guards to solve our
-pattern-shadowing problem. Recall that a new variable was created inside the
+pattern-shadowing problem. Recall that we created a new variable inside the
 pattern in the `match` expression instead of using the variable outside the
 `match`. That new variable meant we couldn’t test against the value of the
-outer variable. Listing 18-30 shows how we can use a match guard to fix this
+outer variable. Listing 18-27 shows how we can use a match guard to fix this
 problem.
 -->
 
 リスト18-11において、マッチガードを使用すれば、パターンがシャドーイングする問題を解決できると述べました。
-`match`の外側の変数を使用するのではなく、`match`式のパターン内部では新しい変数が作られることを思い出してください。
-その新しい変数は、外側の変数の値と比較することができないことを意味しました。リスト18-30は、
+`match`の外側の変数を使用するのではなく、`match`式のパターン内部では新しい変数を作成したことを思い出してください。
+その新しい変数は、外側の変数の値と比較することができないことを意味しました。リスト18-27は、
 マッチガードを使ってこの問題を修正する方法を表示しています。
 
 <!--
@@ -1414,26 +1008,15 @@ problem.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
-fn main() {
-    let x = Some(5);
-    let y = 10;
-
-    match x {
-        Some(50) => println!("Got 50"),
-        Some(n) if n == y => println!("Matched, n = {:?}", n),
-        _ => println!("Default case, x = {:?}", x),
-    }
-
-    println!("at the end: x = {:?}, y = {:?}", x, y);
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-27/src/main.rs}}
 ```
 
 <!--
-<span class="caption">Listing 18-30: Using a match guard to test for equality
+<span class="caption">Listing 18-27: Using a match guard to test for equality
 with an outer variable</span>
 -->
 
-<span class="caption">リスト18-30: マッチガードを使用して外側の変数と等しいか確認する</span>
+<span class="caption">リスト18-27: マッチガードを使用して外側の変数と等しいか確認する</span>
 
 <!--
 This code will now print `Default case, x = Some(5)`. The pattern in the second
@@ -1463,35 +1046,27 @@ we can look for a value that has the same value as the outer `y` by comparing
 <!--
 You can also use the *or* operator `|` in a match guard to specify multiple
 patterns; the match guard condition will apply to all the patterns. Listing
-18-31 shows the precedence of combining a match guard with a pattern that uses
-`|`. The important part of this example is that the `if y` match guard applies
-to `4`, `5`, *and* `6`, even though it might look like `if y` only applies to
-`6`.
+18-28 shows the precedence when combining a pattern that uses `|` with a match
+guard. The important part of this example is that the `if y` match guard
+applies to `4`, `5`, *and* `6`, even though it might look like `if y` only
+applies to `6`.
 -->
 
 また、マッチガードで*or*演算子の`|`を使用して複数のパターンを指定することもできます;
-マッチガードの条件は全てのパターンに適用されます。リスト18-31は、
-`|`を使用するパターンとマッチガードを組み合わせる優先度を示しています。この例で重要な部分は、
+マッチガードの条件は全てのパターンに適用されます。リスト18-28は、
+`|`を使用するパターンをマッチガードと組み合わせるときの優先順位を示しています。この例で重要な部分は、
 `if y`は`6`にしか適用されないように見えるのに、`if y`マッチガードが`4`、`5`、*そして*`6`に適用されることです。
 
 ```rust
-let x = 4;
-let y = false;
-
-match x {
-    // はい
-    4 | 5 | 6 if y => println!("yes"),
-    // いいえ
-    _ => println!("no"),
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-28/src/main.rs:here}}
 ```
 
 <!--
-<span class="caption">Listing 18-31: Combining multiple patterns with a match
+<span class="caption">Listing 18-28: Combining multiple patterns with a match
 guard</span>
 -->
 
-<span class="caption">リスト18-31: 複数のパターンとマッチガードを組み合わせる</span>
+<span class="caption">リスト18-28: 複数のパターンとマッチガードを組み合わせる</span>
 
 <!--
 The match condition states that the arm only matches if the value of `x` is
@@ -1541,49 +1116,29 @@ were applied only to the final value in the list of values specified using the
 ### `@`束縛
 
 <!--
-The *at* operator (`@`) lets us create a variable that holds a value at the
-same time we’re testing that value to see whether it matches a pattern. Listing
-18-32 shows an example where we want to test that a `Message::Hello` `id` field
-is within the range `3..=7`. But we also want to bind the value to the variable
-`id_variable` so we can use it in the code associated with the arm. We could
-name this variable `id`, the same as the field, but for this example we’ll use
-a different name.
+The *at* operator `@` lets us create a variable that holds a value at the same
+time as we’re testing that value for a pattern match. In Listing 18-29, we want
+to test that a `Message::Hello` `id` field is within the range `3..=7`. We also
+want to bind the value to the variable `id_variable` so we can use it in the
+code associated with the arm. We could name this variable `id`, the same as the
+field, but for this example we’ll use a different name.
 -->
 
-*at*演算子(`@`)により、値を保持する変数を生成するのと同時にその値がパターンに一致するかを調べることができます。
-リスト18-32は、`Message::Hello`の`id`フィールドが範囲`3..=7`にあるかを確かめたいという例です。
-しかし、アームに紐づいたコードで使用できるように変数`id_variable`に値を束縛もしたいです。この変数をフィールドと同じ、
+*at*演算子`@`により、値のパターンマッチを検査するのと同時に、その値を保持する変数を生成することができます。
+リスト18-29では、`Message::Hello`の`id`フィールドが範囲`3..=7`にあるかを確かめたいです。
+アームに紐づいたコードで使用できるように変数`id_variable`に値を束縛もしたいです。この変数をフィールドと同じ、
 `id`と名付けることもできますが、この例では異なる名前にします。
 
 ```rust
-enum Message {
-    Hello { id: i32 },
-}
-
-let msg = Message::Hello { id: 5 };
-
-match msg {
-    Message::Hello { id: id_variable @ 3..=7 } => {
-        // 範囲内のidが見つかりました: {}
-        println!("Found an id in range: {}", id_variable)
-    },
-    Message::Hello { id: 10..=12 } => {
-        // 別の範囲内のidが見つかりました
-        println!("Found an id in another range")
-    },
-    Message::Hello { id } => {
-        // それ以外のidが見つかりました
-        println!("Found some other id: {}", id)
-    },
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-29/src/main.rs:here}}
 ```
 
 <!--
-<span class="caption">Listing 18-32: Using `@` to bind to a value in a pattern
+<span class="caption">Listing 18-29: Using `@` to bind to a value in a pattern
 while also testing it</span>
 -->
 
-<span class="caption">`@`を使用してテストしつつ、パターンの値に束縛する</span>
+<span class="caption">リスト18-29: `@`を使用してテストしつつ、パターンの値に束縛する</span>
 
 <!--
 This example will print `Found an id in range: 5`. By specifying `id_variable
@@ -1633,15 +1188,15 @@ Using `@` lets us test a value and save it in a variable within one pattern.
 ## まとめ
 
 <!--
-Rust’s patterns are very useful in that they help distinguish between different
-kinds of data. When used in `match` expressions, Rust ensures your patterns
-cover every possible value, or your program won’t compile. Patterns in `let`
-statements and function parameters make those constructs more useful, enabling
-the destructuring of values into smaller parts at the same time as assigning to
+Rust’s patterns are very useful in distinguishing between different kinds of
+data. When used in `match` expressions, Rust ensures your patterns cover every
+possible value, or your program won’t compile. Patterns in `let` statements and
+function parameters make those constructs more useful, enabling the
+destructuring of values into smaller parts at the same time as assigning to
 variables. We can create simple or complex patterns to suit our needs.
 -->
 
-Rustのパターンは、異なる種類のデータを区別するのに役立つという点でとても有用です。`match`式で使用されると、
+Rustのパターンは、異なる種類のデータを区別するのにとても有用です。`match`式で使用されると、
 コンパイラはパターンが全ての可能性を網羅しているか保証し、そうでなければプログラムはコンパイルできません。
 `let`文や関数の引数のパターンは、その構文をより有用にし、値を分配して小さな部品にすると同時に変数に代入できるようにしてくれます。
 単純だったり複雑だったりするパターンを生成してニーズに合わせることができます。

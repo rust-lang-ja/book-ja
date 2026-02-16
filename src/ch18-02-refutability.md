@@ -10,28 +10,32 @@ for any possible value passed are *irrefutable*. An example would be `x` in the
 statement `let x = 5;` because `x` matches anything and therefore cannot fail
 to match. Patterns that can fail to match for some possible value are
 *refutable*. An example would be `Some(x)` in the expression `if let Some(x) =
-a_value`; because if the value in `a_value` variable is `None` rather than
+a_value` because if the value in the `a_value` variable is `None` rather than
 `Some`, the `Some(x)` pattern will not match.
 -->
 
 パターンには2つの形態があります: 論駁可能なものと論駁不可能なものです。渡される可能性のあるあらゆる値に合致するパターンは、
 *論駁不可能*なものです。文`let x = 5;`の`x`は一例でしょう。`x`は何にでも合致し、故に合致に失敗することがあり得ないからです。
 なんらかの可能性のある値に対して合致しないことがあるパターンは、*論駁可能*なものです。
-一例は、式`if let Some(x) = a_value`の`Some(x)`になるでしょう; `a_value`変数の値が`Some`ではなく、
-`None`なら、`Some(x)`パターンは合致しないでしょうから。
+一例は、式`if let Some(x) = a_value`の`Some(x)`になるでしょう。`a_value`変数の値が`Some`ではなく、
+`None`なら、`Some(x)`パターンは合致しないからです。
 
 <!--
 Function parameters, `let` statements, and `for` loops can only accept
 irrefutable patterns, because the program cannot do anything meaningful when
-values don’t match. The `if let` and `while let` expressions only accept
-refutable patterns, because by definition they’re intended to handle possible
+values don’t match. The `if let` and `while let` expressions accept
+refutable and irrefutable patterns, but the compiler warns against
+irrefutable patterns because by definition they’re intended to handle possible
 failure: the functionality of a conditional is in its ability to perform
 differently depending on success or failure.
 -->
 
 関数の引数、`let`文、`for`ループは、値が合致しなかったら何も意味のあることをプログラムが実行できないので、
-論駁不可能なパターンしか受け付けられません。`if let`と`while let`式は、定義により失敗する可能性を処理することを意図したものなので、
-論駁可能なパターンのみを受け付けます: 条件式の機能は、成功か失敗によって異なる振る舞いをする能力にあるのです。
+論駁不可能なパターンしか受け付けられません。
+`if let`と`while let`式は論駁可能なパターンも論駁不可能なパターンも受け付けますが、
+定義により失敗する可能性を処理することを意図したものなので、
+コンパイラは論駁不可能なパターンに対しては警告を発します:
+条件式の機能は、成功か失敗によって異なる振る舞いをする能力にあるのです。
 
 <!--
 In general, you shouldn’t have to worry about the distinction between refutable
@@ -56,8 +60,8 @@ pattern. As you might expect, this code will not compile.
 リスト18-8は`let`文を示していますが、パターンには`Some(x)`と指定し、論駁可能なパターンです。
 ご想像通りかもしれませんが、このコードはコンパイルできません。
 
-```rust,ignore
-let Some(x) = some_option_value;
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-08/src/main.rs:here}}
 ```
 
 <!--
@@ -79,13 +83,8 @@ use a refutable pattern where an irrefutable pattern is required:
 ですが、`let`文は論駁不可能なパターンしか受け付けられません。`None`値に対してコードができる合法なことは何もないからです。
 コンパイル時にコンパイラは、論駁不可能なパターンが必要な箇所に論駁可能なパターンを使用しようとしたと文句を言うでしょう:
 
-```text
-error[E0005]: refutable pattern in local binding: `None` not covered
-(エラー: ローカル束縛に論駁可能なパターン: `None`がカバーされていません)
- -->
-  |
-3 | let Some(x) = some_option_value;
-  |     ^^^^^^^ pattern `None` not covered
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-08/output.txt}}
 ```
 
 <!--
@@ -97,22 +96,19 @@ pattern `Some(x)`, Rust rightfully produces a compiler error.
 コンパイラは当然、コンパイルエラーを生成します。
 
 <!--
-To fix the problem where we have a refutable pattern where an irrefutable
-pattern is needed, we can change the code that uses the pattern: instead of
-using `let`, we can use `if let`. Then if the pattern doesn’t match, the code
-will just skip the code in the curly brackets, giving it a way to continue
-validly. Listing 18-9 shows how to fix the code in Listing 18-8.
+If we have a refutable pattern where an irrefutable pattern is needed, we can
+fix it by changing the code that uses the pattern: instead of using `let`, we
+can use `if let`. Then if the pattern doesn’t match, the code will just skip
+the code in the curly brackets, giving it a way to continue validly. Listing
+18-9 shows how to fix the code in Listing 18-8.
 -->
 
-論駁不可能なパターンが必要な箇所に論駁可能なパターンがある問題を修正するには、パターンを使用するコードを変えればいいのです:
+論駁不可能なパターンが必要な箇所に論駁可能なパターンがある場合は、パターンを使用するコードを変えることで修正することができます:
 `let`の代わりに`if let`を使用できます。そして、パターンが合致しなかったら、コードは合法に継続する手段を残して、
 波括弧内のコードを飛ばすだけでしょう。リスト18-9は、リスト18-8のコードの修正方法を示しています。
 
 ```rust
-# let some_option_value: Option<i32> = None;
-if let Some(x) = some_option_value {
-    println!("{}", x);
-}
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-09/src/main.rs:here}}
 ```
 
 <!--
@@ -126,16 +122,14 @@ patterns instead of `let`</span>
 We’ve given the code an out! This code is perfectly valid, although it means we
 cannot use an irrefutable pattern without receiving an error. If we give `if
 let` a pattern that will always match, such as `x`, as shown in Listing 18-10,
-it will not compile.
+the compiler will give a warning.
 -->
 
 コードに逃げ道を与えました！このコードは完全に合法ですが、エラーを受け取らないで論駁不可能なパターンを使用することはできないことを意味します。
-リスト18-10のように、`x`のような常にマッチするパターンを`if let`に与えたら、コンパイルできないでしょう。
+リスト18-10のように、`x`のような常にマッチするパターンを`if let`に与えたら、コンパイラは警告を発するでしょう。
 
-```rust,ignore
-if let x = 5 {
-    println!("{}", x);
-};
+```rust
+{{#rustdoc_include ../listings/ch18-patterns-and-matching/listing-18-10/src/main.rs:here}}
 ```
 
 <!--
@@ -152,13 +146,8 @@ pattern:
 
 コンパイラは、論駁不可能なパターンと`if let`を使用するなんて道理が通らないと文句を言います:
 
-```text
-error[E0162]: irrefutable if-let pattern
-(エラー: 論駁不可能なif-letパターン)
- --> <anon>:2:8
-  |
-2 | if let x = 5 {
-  |        ^ irrefutable pattern
+```console
+{{#include ../listings/ch18-patterns-and-matching/listing-18-10/output.txt}}
 ```
 
 <!--

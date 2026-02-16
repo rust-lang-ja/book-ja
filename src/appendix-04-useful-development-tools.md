@@ -18,7 +18,7 @@ warning fixes, a linter, and integrating with IDEs.
 
 
 <!--
-The `rustfmt` tool reformats your code according to the community code style.
+The `rustfmt` tool reformats your code according to the community code style.
 Many collaborative projects use `rustfmt` to prevent arguments about which
 style to use when writing Rust: everyone formats their code using the tool.
 -->
@@ -63,11 +63,13 @@ on `rustfmt`, see [its documentation][rustfmt].
 
 <!--
 The rustfix tool is included with Rust installations and can automatically fix
-some compiler warnings. If you’ve written code in Rust, you’ve probably seen
-compiler warnings. For example, consider this code:
+compiler warnings that have a clear way to correct the problem that’s likely
+what you want. It’s likely you’ve seen compiler warnings before. For example,
+consider this code:
 -->
-rustfixというツールはRustをインストールすると同梱されており、コンパイラの警告 (warning) を自動で直してくれます。
-Rustでコードを書いたことがある人なら、コンパイラの警告を見たことがあるでしょう。
+Rustをインストールすると、rustfixというツールが同梱されています。
+rustfixは、問題を修正するために誰でもそうするであろう自明な修正方法があるコンパイラの警告 (warning) を、自動で直してくれます。
+おそらくコンパイラの警告を以前に見たことがあるでしょう。
 たとえば、下のコードを考えます：
 
 <span class="filename">Filename: src/main.rs</span>
@@ -95,7 +97,7 @@ $ cargo build
 warning: unused variable: `i`
  --> src/main.rs:4:9
   |
-4 |     for i in 1..100 {
+4 |     for i in 0..100 {
   |         ^ help: consider using `_i` instead
   |
   = note: #[warn(unused_variables)] on by default
@@ -203,21 +205,22 @@ Running `cargo clippy` on this project results in this error:
 `cargo clippy`をこのプロジェクトに実行すると次のエラーを得ます：
 
 ```text
-error: approximate value of `f{32, 64}::consts::PI` found. Consider using it directly
+error: approximate value of `f{32, 64}::consts::PI` found
  --> src/main.rs:2:13
   |
 2 |     let x = 3.1415;
   |             ^^^^^^
   |
-  = note: #[deny(clippy::approx_constant)] on by default
-  = help: for further information visit https://rust-lang-nursery.github.io/rust-clippy/master/index.html#approx_constant
+  = note: `#[deny(clippy::approx_constant)]` on by default
+  = help: consider using the constant directly
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#approx_constant
 ```
 
 <!--
-This error lets you know that Rust has this constant defined more precisely and
-that your program would be more correct if you used the constant instead. You
-would then change your code to use the `PI` constant. The following code
-doesn’t result in any errors or warnings from Clippy:
+This error lets you know that Rust has this constant defined more precisely
+and that your program would be more correct if you used the constant
+instead. You would then change your code to use the `PI` constant. The
+following code doesn’t result in any errors or warnings from Clippy:
 -->
 あなたは、このエラーのおかげで、Rustにはより正確に定義された定数がすでにあり、これを代わりに使うとプログラムがより正しくなるかもしれないと気づくことができます。
 なので、あなたはコードを定数`PI`を使うように変更するでしょう。
@@ -244,43 +247,34 @@ Clippyについてより詳しく知るには、[ドキュメント][clippy]を�
 [clippy]: https://github.com/rust-lang/rust-clippy
 
 <!--
-### IDE Integration Using the Rust Language Server
+### IDE Integration Using `rust-analyzer`
 -->
-### Rust Language Serverを使ってIDEと統合する
+### `rust-analyzer`を使ってIDEと統合する
 
 <!--
-To help IDE integration, the Rust project distributes the *Rust Language
-Server* (`rls`). This tool speaks the [Language Server
-Protocol][lsp], which is a specification for IDEs and programming
-languages to communicate with each other. Different clients can use the `rls`,
-such as [the Rust plug-in for Visual Studio Code][vscode].
+To help IDE integration, the Rust community recommends using
+[`rust-analyzer`][rust-analyzer]. This tool is a set of
+compiler-centric utilities that speaks the [Language Server Protocol][lsp]
+, which is a specification for IDEs and programming languages to
+communicate with each other. Different clients can use `rust-analyzer`, such as
+[the Rust analyzer plug-in for Visual Studio Code][vscode].
 -->
-IDEでの開発の助けになるよう、Rustプロジェクトは *Rust Language Server* (`rls`)を配布しています。
-このツールは、[Language Server Protocol][lsp]という、IDEとプログラミング言語が対話するための仕様に対応しています。
-[Visual Studio CodeのRustプラグイン][vscode]をはじめ、様々なクライアントが`rls`を使うことができます。
+IDEでの開発の助けになるよう、Rustコミュニティは[`rust-analyzer`][rust-analyzer]の使用を推奨しています。
+このツールは、IDEとプログラミング言語が対話するための仕様である[Language Server Protocol][lsp]に対応した、
+コンパイラを中心としたユーティリティ群です。
+[Visual Studio CodeのRustプラグイン][vscode]をはじめ、様々なクライアントが`rust-analyzer`を使うことができます。
 
 [lsp]: http://langserver.org/
-[vscode]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust
+[vscode]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer
 
 <!--
-To install the `rls`, enter the following:
+Visit the `rust-analyzer` project’s [home page][rust-analyzer]
+for installation instructions, then install the language server support in your
+particular IDE. Your IDE will gain abilities such as autocompletion, jump to
+definition, and inline errors.
 -->
-`rls`をインストールするには、以下を入力してください：
+`rust-analyzer`プロジェクトの[ホームページ][rust-analyzer]でインストール手順を確認し、
+使用中のIDE向けの言語サーバサポートをインストールしてください。
+使用中のIDEに、自動補完、定義へのジャンプ、インラインのエラー表示などの機能が得られるはずです。
 
-```console
-$ rustup component add rls
-```
-
-<!--
-Then install the language server support in your particular IDE; you’ll gain
-abilities such as autocompletion, jump to definition, and inline errors.
--->
-つづけて、あなたのIDE向けのlanguage serverサポートをインストールしてください。
-すると、自動補完、定義へのジャンプ、インラインのエラー表示などの機能が得られるはずです。
-
-<!--
-For more information on the `rls`, see [its documentation][rls].
--->
-`rls`についてより詳しく知るには[ドキュメント][rls]を読んでください。
-
-[rls]: https://github.com/rust-lang/rls
+[rust-analyzer]: https://rust-analyzer.github.io

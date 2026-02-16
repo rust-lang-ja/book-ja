@@ -5,13 +5,14 @@
 # パターンとマッチング
 
 <!--
-Patterns are a special syntax in Rust for matching against the structure of
+*Patterns* are a special syntax in Rust for matching against the structure of
 types, both complex and simple. Using patterns in conjunction with `match`
 expressions and other constructs gives you more control over a program’s
 control flow. A pattern consists of some combination of the following:
 -->
 
-パターンは、複雑であれ、単純であれ、Rustで型の構造に一致する特別な記法です。`match`式や他の構文と組み合わせてパターンを使用すると、
+*パターン*は、型の構造にマッチするためのRustの特別な記法で、複合的なものから単純なものまで様々です。
+`match`式や他の構文と組み合わせてパターンを使用すると、
 プログラムの制御フローをよりコントロールできます。パターンは、以下を組み合わせることで構成されます:
 
 <!--
@@ -29,13 +30,15 @@ control flow. A pattern consists of some combination of the following:
 * プレースホルダー
 
 <!--
-These components describe the shape of the data we’re working with, which we
-then match against values to determine whether our program has the correct data
-to continue running a particular piece of code.
+Some example patterns include `x`, `(a, 3)`, and `Some(Color::Red)`. In the
+contexts in which patterns are valid, these components describe the shape of
+data. Our program then matches values against the patterns to determine whether
+it has the correct shape of data to continue running a particular piece of code.
 -->
 
-これらの要素が取り組んでいるデータの形を説明し、それから値に対してマッチを行い、
-プログラムに正しい値があって特定のコードを実行し続けられるかどうかを決定します。
+パターンの例としては`x`や`(a, 3)`や`Some(Color::Red)`などが含まれます。
+有効なパターンの文脈では、これらの構成要素はデータの形を記述します。
+プログラムは値をパターンとマッチングして、特定のコードを実行し続けるために正しいデータの形を持っているかどうかを判断します。
 
 <!--
 To use a pattern, we compare it to some value. If the pattern matches the
