@@ -231,11 +231,13 @@ Cargoを使うとプロジェクトを整理することができます。
 If you started a project that doesn’t use Cargo, as we did with the “Hello,
 world!” project, you can convert it to a project that does use Cargo. Move the
 project code into the *src* directory and create an appropriate *Cargo.toml*
-file.
+file. One easy way to get that _Cargo.toml_ file is to run `cargo init`, which
+will create it for you automatically.
 -->
 
 「Hello, world!」プロジェクトのようにCargoを使用しないプロジェクトを開始したときでも、Cargoを使用するプロジェクトへと変換できます。
 プロジェクトのコードを*src*ディレクトリに移動し、適切な*Cargo.toml*ファイルを作成すればいいのです。
+この*Cargo.toml*ファイルは、`cargo init`を実行することで自動的に生成することもできます。
 
 <!--
 ### Building and Running a Cargo Project
