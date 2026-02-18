@@ -164,7 +164,7 @@ Rust’s goal to strive to provide zero-cost abstractions.
 
 クロージャとイテレータは、関数型言語の考えに着想を得たRustの機能です。低レベルのパフォーマンスで、
 高レベルの考えを明確に表現するというRustの能力に貢献しています。クロージャとイテレータの実装は、
-実行時のパフォーマンスが影響されないようなものです。これは、ゼロ代償抽象化を提供するのに努力を惜しまないRustの目標の一部です。
+実行時のパフォーマンスが影響されないようなものです。これは、ゼロコスト抽象化を提供するのに努力を惜しまないRustの目標の一部です。
 
 <!--
 Now that we’ve improved the expressiveness of our I/O project, let’s look at
