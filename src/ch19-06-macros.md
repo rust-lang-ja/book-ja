@@ -104,9 +104,9 @@ opposed to functions you can define anywhere and call anywhere.
 ### 一般的なメタプログラミングのために`macro_rules!`で宣言的なマクロ
 
 <!--
-The most widely used form of macros in Rust is *declarative macros*. These are
-also sometimes referred to as “macros by example,” “`macro_rules!` macros,” or
-just plain “macros.” At their core, declarative macros allow you to write
+The most widely used form of macros in Rust is the *declarative macro*. These
+are also sometimes referred to as “macros by example,” “`macro_rules!` macros,”
+or just plain “macros.” At their core, declarative macros allow you to write
 something similar to a Rust `match` expression. As discussed in Chapter 6,
 `match` expressions are control structures that take an expression, compare the
 resulting value of the expression to patterns, and then run the code associated
@@ -160,7 +160,7 @@ Listing 19-28 shows a slightly simplified definition of the `vec!` macro.
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
+```rust,noplayground
 {{#rustdoc_include ../listings/ch19-advanced-features/listing-19-28/src/lib.rs}}
 ```
 
@@ -196,7 +196,7 @@ macro we’re defining *without* the exclamation mark. The name, in this case
 -->
 
 それから、`macro_rules!`でマクロ定義と定義しているマクロの名前をビックリマーク*なしで*始めています。
-名前はこの場合`vec`であり、マクロ定義の本体を意味する波括弧が続いています。
+名前はこの場合`vec`であり、マクロ定義の本体を意味する波かっこが続いています。
 
 <!--
 The structure in the `vec!` body is similar to the structure of a `match`
@@ -217,29 +217,30 @@ one arm.
 Valid pattern syntax in macro definitions is different than the pattern syntax
 covered in Chapter 18 because macro patterns are matched against Rust code
 structure rather than values. Let’s walk through what the pattern pieces in
-Listing 19-28 mean; for the full macro pattern syntax, see [the reference].
+Listing 19-28 mean; for the full macro pattern syntax, see [Rust
+Reference][ref].
 -->
 
 マクロ定義で合法なパターン記法は、第18章で講義したパターン記法とは異なります。というのも、
 マクロのパターンは値ではなく、Rustコードの構造に対してマッチされるからです。リスト19-28のパターンの部品がどんな意味か見ていきましょう;
-マクロパターン記法全ては[参考文献]をご覧ください。
+マクロパターン記法全ては[Rustリファレンス][ref]をご覧ください。
+
+
 
 <!--
-[the reference]: ../reference/macros-by-example.html
+First, we use a set of parentheses to encompass the whole pattern. We use a
+dollar sign (`$`) to declare a variable in the macro system that will contain
+the Rust code matching the pattern. The dollar sign makes it clear this is a
+macro variable as opposed to a regular Rust variable. Next comes a set of
+parentheses that captures values that match the pattern within the parentheses
+for use in the replacement code. Within `$()` is `$x:expr`, which matches any
+Rust expression and gives the expression the name `$x`.
 -->
 
-[参考文献]: https://doc.rust-lang.org/reference/macros.html
-
-<!--
-First, a set of parentheses encompasses the whole pattern. A dollar sign (`$`)
-is next, followed by a set of parentheses that captures values that match the
-pattern within the parentheses for use in the replacement code. Within `$()` is
-`$x:expr`, which matches any Rust expression and gives the expression the name
-`$x`.
--->
-
-まず、1組のカッコがパターン全体を囲んでいます。次にドル記号(`$`)、そして1組のカッコが続き、
-このかっこは、置き換えるコードで使用するためにかっこ内でパターンにマッチする値をキャプチャします。
+まず、1組のかっこがパターン全体を囲んでいます。ドル記号(`$`)を用いて、マクロシステム内の変数を宣言します。
+この変数にはパターンにマッチするRustコードが入ることになります。
+ドル記号によって、これが通常のRustの変数ではなくマクロの変数だということが明確になります。
+次に1組のかっこが来ますが、このかっこは、置き換えるコードで使用するためにかっこ内でパターンにマッチする値をキャプチャします。
 `$()`の内部には、`$x:expr`があり、これは任意のRust式にマッチし、その式に`$x`という名前を与えます。
 
 <!--
@@ -290,22 +291,12 @@ generate code to create a vector containing the specified elements.
 任意の型のあらゆる数の引数を取り、指定した要素を含むベクタを生成するコードを生成できるマクロを定義しました。
 
 <!--
-There are some strange edge cases with `macro_rules!`. In the future, Rust will
-have a second kind of declarative macro that will work in a similar fashion but
-fix some of these edge cases. After that update, `macro_rules!` will be
-effectively deprecated. With this in mind, as well as the fact that most Rust
-programmers will *use* macros more than *write* macros, we won’t discuss
-`macro_rules!` any further. To learn more about how to write macros, consult
-the online documentation or other resources, such as [“The Little Book of Rust
-Macros”][tlborm].
--->
-`macro_rules!`には、いくつかの奇妙なコーナーケースがあります。
-将来、Rustには別種の宣言的マクロが登場する予定です。これは、同じように働くけれども、それらのコーナーケースのうちいくらかを修正します。
-そのアップデート以降、`macro_rules!`は事実上非推奨 (deprecated) となる予定です。
-この事実と、ほとんどのRustプログラマーはマクロを*書く*よりも*使う*ことが多いということを考えて、`macro_rules!`についてはこれ以上語らないことにします。
-もしマクロの書き方についてもっと知りたければ、オンラインのドキュメントや、[“The Little Book of Rust Macros”][tlborm]のようなその他のリソースを参照してください。
+To learn more about how to write macros, consult the online documentation or
+other resources, such as [“The Little Book of Rust Macros”][tlborm] started by
+Daniel Keep and continued by Lukas Wirth.
 
-[tlborm]: https://danielkeep.github.io/tlborm/book/index.html
+-->
+もしマクロの書き方についてもっと知りたければ、オンラインのドキュメントや、Daniel Keep氏によって書き始められLukas Wirth氏が引き継いだ[“The Little Book of Rust Macros”][tlborm]のようなその他のリソースを参照してください。
 
 <!--
 ### Procedural Macros for Generating Code from Attributes
@@ -313,33 +304,28 @@ Macros”][tlborm].
 ### 属性からコードを生成する手続き的マクロ
 
 <!--
-The second form of macros is *procedural macros*, which act more like functions
-(and are a type of procedure). Procedural macros accept some code as an input,
-operate on that code, and produce some code as an output rather than matching
-against patterns and replacing the code with other code as declarative macros
-do.
+The second form of macros is the *procedural macro*, which acts more like a
+function (and is a type of procedure). Procedural macros accept some code as an
+input, operate on that code, and produce some code as an output rather than
+matching against patterns and replacing the code with other code as declarative
+macros do. The three kinds of procedural macros are custom derive,
+attribute-like, and function-like, and all work in a similar fashion.
 -->
 2つ目のマクロの形は、*手続き的マクロ*と呼ばれ、より関数のように働きます（そして一種の手続きです）。
 宣言的マクロがパターンマッチングを行い、マッチしたコードを他のコードで置き換えていたのとは違い、
 手続き的マクロは、コードを入力として受け取り、そのコードに対して作用し、出力としてコードを生成します。
-
-<!--
-The three kinds of procedural macros (custom derive, attribute-like, and
-function-like) all work in a similar fashion.
--->
-3種の手続き的マクロ (カスタムのderiveマクロ, 属性風マクロ、関数風マクロ)はみな同じような挙動をします。
-
+カスタムのderiveマクロ、属性風マクロ、関数風マクロの3種類の手続き的マクロがあり、これらはみな同じような挙動をします。
 
 <!--
 When creating procedural macros, the definitions must reside in their own crate
 with a special crate type. This is for complex technical reasons that we hope
-to eliminate in the future. Using procedural macros looks like the code in
-Listing 19-29, where `some_attribute` is a placeholder for using a specific
-macro.
+to eliminate in the future. In Listing 19-29, we show how to define a
+procedural macro, where `some_attribute` is a placeholder for using a specific
+macro variety.
 -->
 手続き的マクロを作る際は、その定義はそれ専用の特殊なクレート内に置かれる必要があります。
 これは複雑な技術的理由によるものであり、将来的には解消したいです。
-手続き的マクロを使うとListing 19-29のコードのようになります。`some_attribute`がそのマクロを使うためのプレースホールダーです。
+Listing 19-29に、手続き的マクロを定義する方法を示します。`some_attribute`がそのマクロ変種を使うためのプレースホールダーです。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -355,10 +341,10 @@ pub fn some_name(input: TokenStream) -> TokenStream {
 ```
 
 <!--
-<span class="caption">Listing 19-29: An example of using a procedural
+<span class="caption">Listing 19-29: An example of defining a procedural
 macro</span>
 -->
-<span class="caption">Listing 19-29: 手続き的マクロの使用例</span>
+<span class="caption">Listing 19-29: 手続き的マクロの定義例</span>
 
 <!--
 The function that defines a procedural macro takes a `TokenStream` as an input
@@ -392,8 +378,8 @@ other forms different.
 <!--
 Let’s create a crate named `hello_macro` that defines a trait named
 `HelloMacro` with one associated function named `hello_macro`. Rather than
-making our crate users implement the `HelloMacro` trait for each of their
-types, we’ll provide a procedural macro so users can annotate their type with
+making our users implement the `HelloMacro` trait for each of their types,
+we’ll provide a procedural macro so users can annotate their type with
 `#[derive(HelloMacro)]` to get a default implementation of the `hello_macro`
 function. The default implementation will print `Hello, Macro! My name is
 TypeName!` where `TypeName` is the name of the type on which this trait has
@@ -403,7 +389,7 @@ programmer to write code like Listing 19-30 using our crate.
 
 `hello_macro`という名前のクレートを作成してみましょう。
 このクレートは、`hello_macro`という関連関数が1つある`HelloMacro`というトレイトを定義します。
-クレートの使用者に使用者の型に`HelloMacro`トレイトを実装することを強制するのではなく、
+使用者に対して、使用者が定義した型にいちいち`HelloMacro`トレイトを実装することを強制するのではなく、
 使用者が型を`#[derive(HelloMacro)]`で注釈して`hello_macro`関数の既定の実装を得られるように、
 手続き的マクロを提供します。既定の実装は、`Hello, Macro! My name is TypeName!`(`訳注`: こんにちは、マクロ！僕の名前はTypeNameだよ！)と出力し、
 ここで`TypeName`はこのトレイトが定義されている型の名前です。言い換えると、他のプログラマに我々のクレートを使用して、
@@ -448,7 +434,7 @@ Next, we’ll define the `HelloMacro` trait and its associated function:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
+```rust,noplayground
 {{#rustdoc_include ../listings/ch19-advanced-features/no-listing-20-impl-hellomacro-for-pancakes/hello_macro/src/lib.rs}}
 ```
 
@@ -598,9 +584,6 @@ allows us to read and manipulate Rust code from our code.
 3つの新しいクレートを導入しました: `proc_macro`、[`syn`]、[`quote`]です。`proc_macro`クレートは、
 Rustに付随してくるので、*Cargo.toml*の依存に追加する必要はありませんでした。`proc_macro`クレートはコンパイラのAPIで、私達のコードからRustのコードを読んだり操作したりすることを可能にします。
 
-[`syn`]: https://crates.io/crates/syn
-[`quote`]: https://crates.io/crates/quote
-
 <!--
 The `syn` crate parses Rust code from a string into a data structure that we
 can perform operations on. The `quote` crate turns `syn` data structures back
@@ -617,7 +600,7 @@ Rustコードの完全なパーサを書くのは、単純な作業ではない�
 The `hello_macro_derive` function will be called when a user of our library
 specifies `#[derive(HelloMacro)]` on a type. This is possible because we’ve
 annotated the `hello_macro_derive` function here with `proc_macro_derive` and
-specified the name, `HelloMacro`, which matches our trait name; this is the
+specified the name `HelloMacro`, which matches our trait name; this is the
 convention most procedural macros follow.
 -->
 `hello_macro_derive`関数は、ライブラリの使用者が型に`#[derive(HelloMacro)]`を指定した時に呼び出されます。
@@ -670,8 +653,6 @@ with the `ident` (identifier, meaning the name) of `Pancakes`. There are more
 fields on this struct for describing all sorts of Rust code; check the [`syn`
 documentation for `DeriveInput`][syn-docs] for more information.
 -->
-
-[syn-docs]: https://docs.rs/syn/1.0/syn/struct.DeriveInput.html
 
 この構造体のフィールドは、構文解析したRustコードが`Pancakes`という`ident`(識別子、つまり名前)のユニット構造体であることを示しています。
 この構造体にはRustコードのあらゆる部分を記述するフィールドがもっと多くあります;
@@ -770,12 +751,10 @@ Check out [the `quote` crate’s docs][quote-docs] for a thorough introduction.
 それを`name`という変数の値と置き換えます。普通のマクロが動作するのと似た繰り返しさえ行えます。
 本格的に入門したいなら、[`quote`クレートのdoc][quote-docs]をご確認ください。
 
-[quote-docs]: https://docs.rs/quote
-
 <!--
 We want our procedural macro to generate an implementation of our `HelloMacro`
 trait for the type the user annotated, which we can get by using `#name`. The
-trait implementation has one function, `hello_macro`, whose body contains the
+trait implementation has the one function, `hello_macro`, whose body contains the
 functionality we want to provide: printing `Hello, Macro! My name is` and then
 the name of the annotated type.
 -->
@@ -901,13 +880,15 @@ Function-like macros define macros that look like function calls. Similarly to
 `macro_rules!` macros, they’re more flexible than functions; for example, they
 can take an unknown number of arguments. However, `macro_rules!` macros can be
 defined only using the match-like syntax we discussed in the section
-[“Declarative Macros with `macro_rules!` for General Metaprogramming”][decl]
-earlier. Function-like macros take a `TokenStream` parameter and their
-definition manipulates that `TokenStream` using Rust code as the other two
-types of procedural macros do. An example of a function-like macro is an `sql!`
-macro that might be called like so:
+[“Declarative Macros with `macro_rules!` for General
+Metaprogramming”][decl] earlier. Function-like macros take a
+`TokenStream` parameter  and their definition manipulates that `TokenStream`
+using Rust code as the other two types of procedural macros do. An example of a
+function-like macro is an `sql!` macro that might be called like so:
 
 [decl]: #declarative-macros-with-macro_rules-for-general-metaprogramming
+-->
+
 -->
 関数風マクロは、関数呼び出しのように見えるマクロを定義します。
 これらは、`macro_rules!`マクロのように、関数よりフレキシブルです。
@@ -915,8 +896,6 @@ macro that might be called like so:
 しかし、[一般的なメタプログラミングのために`macro_rules!`で宣言的なマクロ][decl]で話したように、`macro_rules!`マクロはmatch風の構文を使ってのみ定義できたのでした。
 関数風マクロは引数として`TokenStream`をとり、その`TokenStream`を定義に従って操作します。操作には、他の2つの手続き的マクロと同じように、Rustコードが使われます。
 例えば、`sql!`マクロという関数風マクロで、以下のように呼び出されるものを考えてみましょう：
-
-[decl]: #%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AA%E3%83%A1%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%9F%E3%82%81%E3%81%ABmacro_rules%E3%81%A7%E5%AE%A3%E8%A8%80%E7%9A%84%E3%81%AA%E3%83%9E%E3%82%AF%E3%83%AD
 
 ```rust,ignore
 let sql = sql!(SELECT * FROM posts WHERE id=1);
@@ -940,7 +919,7 @@ This definition is similar to the custom derive macro’s signature: we receive
 the tokens that are inside the parentheses and return the code we wanted to
 generate.
 -->
-この定義はカスタムのderiveマクロのシグネチャと似ています：カッコの中のトークンを受け取り、生成したいコードを返すのです。
+この定義はカスタムのderiveマクロのシグネチャと似ています：かっこの中のトークンを受け取り、生成したいコードを返すのです。
 
 <!--
 ## Summary
@@ -948,15 +927,15 @@ generate.
 ## まとめ
 
 <!--
-Whew! Now you have some Rust features in your toolbox that you won’t use often,
-but you’ll know they’re available in very particular circumstances. We’ve
-introduced several complex topics so that when you encounter them in error
-message suggestions or in other peoples’ code, you’ll be able to recognize
-these concepts and syntax. Use this chapter as a reference to guide you to
-solutions.
+Whew! Now you have some Rust features in your toolbox that you likely won’t use
+often, but you’ll know they’re available in very particular circumstances.
+We’ve introduced several complex topics so that when you encounter them in
+error message suggestions or in other peoples’ code, you’ll be able to
+recognize these concepts and syntax. Use this chapter as a reference to guide
+you to solutions.
 -->
 ふう！
-あなたがいま手にしたRustの機能はあまり頻繁に使うものではありませんが、非常に特殊な状況ではその存在を思い出すことになるでしょう。
+あなたがいま手にしたRustの機能はおそらくあまり頻繁に使うものではありませんが、非常に特殊な状況ではその存在を思い出すことになるでしょう。
 たくさんの難しいトピックを紹介しましたが、これは、もしあなたがエラー時の推奨メッセージや他の人のコードでそれらに遭遇した時、その概念と文法を理解できるようになっていてほしいからです。
 この章を、解決策にたどり着くためのリファレンスとして活用してください。
 
@@ -965,3 +944,11 @@ Next, we’ll put everything we’ve discussed throughout the book into practice
 and do one more project!
 -->
 次は、この本で話してきたすべてのことを実際に使って、もう一つプロジェクトをやってみましょう！
+
+[ref]: https://doc.rust-lang.org/reference/macros-by-example.html
+[tlborm]: https://veykril.github.io/tlborm/
+[`syn`]: https://crates.io/crates/syn
+[`quote`]: https://crates.io/crates/quote
+[syn-docs]: https://docs.rs/syn/1.0/syn/struct.DeriveInput.html
+[quote-docs]: https://docs.rs/quote
+[decl]: #%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AA%E3%83%A1%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%9F%E3%82%81%E3%81%ABmacro_rules%E3%81%A7%E5%AE%A3%E8%A8%80%E7%9A%84%E3%81%AA%E3%83%9E%E3%82%AF%E3%83%AD
