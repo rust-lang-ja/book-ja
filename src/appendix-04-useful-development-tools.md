@@ -244,43 +244,37 @@ Clippyについてより詳しく知るには、[ドキュメント][clippy]を�
 [clippy]: https://github.com/rust-lang/rust-clippy
 
 <!--
-### IDE Integration Using the Rust Language Server
+### IDE Integration Using `rust-analyzer`
 -->
-### Rust Language Serverを使ってIDEと統合する
+### `rust-analyzer` を使ってIDEと統合する
 
 <!--
-To help IDE integration, the Rust project distributes the *Rust Language
-Server* (`rls`). This tool speaks the [Language Server
-Protocol][lsp], which is a specification for IDEs and programming
-languages to communicate with each other. Different clients can use the `rls`,
-such as [the Rust plug-in for Visual Studio Code][vscode].
+To help IDE integration, the Rust community recommends using
+[`rust-analyzer`][rust-analyzer]. This tool is a set of compiler-centric
+utilities that speaks the [Language Server Protocol][lsp], which is a
+specification for IDEs and programming languages to communicate with each
+other. Different clients can use `rust-analyzer`, such as [the Rust analyzer
+plug-in for Visual Studio Code][vscode].
 -->
-IDEでの開発の助けになるよう、Rustプロジェクトは *Rust Language Server* (`rls`)を配布しています。
-このツールは、[Language Server Protocol][lsp]という、IDEとプログラミング言語が対話するための仕様に対応しています。
-[Visual Studio CodeのRustプラグイン][vscode]をはじめ、様々なクライアントが`rls`を使うことができます。
+IDEでの開発の助けになるよう、Rustコミュニティは [`rust-analyzer`][rust-analyzer] の使用を奨励しています。
+このツールはコンパイラを中心としたユーティリティのセットで、[Language Server Protocol][lsp]という、IDEとプログラミング言語が対話するための仕様に対応しています。
+[Visual Studio CodeのRust analyzerプラグイン][vscode]をはじめ、様々なクライアントが`rust-analyzer`を使うことができます。
 
 [lsp]: http://langserver.org/
-[vscode]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust
+[vscode]: https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer
 
-<!--
-To install the `rls`, enter the following:
--->
-`rls`をインストールするには、以下を入力してください：
+<!-- Visit the `rust-analyzer` project’s [home page][rust-analyzer] for installation
+instructions, then install the language server support in your particular IDE.
+Your IDE will gain abilities such as autocompletion, jump to definition, and
+inline errors. -->
 
-```console
-$ rustup component add rls
-```
-
-<!--
-Then install the language server support in your particular IDE; you’ll gain
-abilities such as autocompletion, jump to definition, and inline errors.
--->
-つづけて、あなたのIDE向けのlanguage serverサポートをインストールしてください。
+`rust-analyzer` プロジェクトの [ホームページ][rust-analyzer] の説明にしたがってインストールを行い、つづけて、あなたのIDE向けのlanguage serverサポートをインストールしてください。
 すると、自動補完、定義へのジャンプ、インラインのエラー表示などの機能が得られるはずです。
 
 <!--
-For more information on the `rls`, see [its documentation][rls].
+For more information on `rust-analyzer`, see [its documentation][rust-analyzer-manual].
 -->
-`rls`についてより詳しく知るには[ドキュメント][rls]を読んでください。
+`rust-analyzer`についてより詳しく知るには[ドキュメント][rust-analyzer-manual]を読んでください。
 
-[rls]: https://github.com/rust-lang/rls
+[rust-analyzer]: https://rust-analyzer.github.io
+[rust-analyzer-manual]: https://rust-analyzer.github.io/manual.html
