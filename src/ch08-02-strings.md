@@ -415,7 +415,7 @@ so that this call doesn’t take ownership of any of its parameters.
 -->
 
 このコードでも、`s`は`tic-tac-toe`になります。`format!`マクロは、`println!`と似た動作をしますが、
-出力をスクリーンに行う代わりに、中身を`String`で返すのです。`format!`を使用したコードの方がはるかに読みやすく、`format!` マクロによって生成されたコードはは参照を使用するので、この呼び出しは引数の所有権を奪いません。
+出力をスクリーンに行う代わりに、中身を`String`で返すのです。`format!`を使用したコードの方がはるかに読みやすく、`format!` マクロによって生成されたコードは参照を使用するので、この呼び出しは引数の所有権を奪いません。
 
 <!--
 ### Indexing into Strings
