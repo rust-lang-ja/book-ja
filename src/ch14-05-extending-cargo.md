@@ -26,16 +26,16 @@ Cargoのサブコマンドであるかのように実行することができま
 ## まとめ
 
 <!--
-Sharing code with Cargo and [crates.io](https://crates.io) is
+Sharing code with Cargo and [crates.io](https://crates.io/) is
 part of what makes the Rust ecosystem useful for many different tasks. Rust’s
 standard library is small and stable, but crates are easy to share, use, and
 improve on a timeline different from that of the language. Don’t be shy about
-sharing code that’s useful to you on [crates.io](https://crates.io);
-it’s likely that it will be useful to someone else as well!
+sharing code that’s useful to you on [crates.io](https://crates.io/)
+; it’s likely that it will be useful to someone else as well!
 -->
 
-Cargoで[crates.io](https://crates.io)とコードを共有することは、
+Cargoで[crates.io](https://crates.io/)とコードを共有することは、
 Rustのエコシステムを多くの異なる作業に有用にするものの一部です。Rustの標準ライブラリは、
 小さく安定的ですが、クレートは共有および使用しやすく、言語とは異なるタイムラインで進化します。
-積極的に[crates.io](https://crates.io)で自分にとって有用なコードを共有してください;
+積極的に[crates.io](https://crates.io/)で自分にとって有用なコードを共有してください;
 他の誰かにとっても、役に立つものであることでしょう！

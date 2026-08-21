@@ -5,6 +5,7 @@ use blog::Post;
 fn main() {
     let mut post = Post::new();
 
+    //            "今日はお昼にサラダを食べた"
     post.add_text("I ate a salad for lunch today");
     assert_eq!("", post.content());
     // ANCHOR_END: here

@@ -1,17 +1,35 @@
 $ cargo run
    Compiling shared-state v0.1.0 (file:///projects/shared-state)
-error[E0277]: `std::rc::Rc<std::sync::Mutex<i32>>` cannot be sent between threads safely
-   --> src/main.rs:11:22
-    |
-11  |         let handle = thread::spawn(move || {
-    |                      ^^^^^^^^^^^^^ `std::rc::Rc<std::sync::Mutex<i32>>` cannot be sent between threads safely
-    |
-    = help: within `[closure@src/main.rs:11:36: 15:10 counter:std::rc::Rc<std::sync::Mutex<i32>>]`, the trait `std::marker::Send` is not implemented for `std::rc::Rc<std::sync::Mutex<i32>>`
-    = note: required because it appears within the type `[closure@src/main.rs:11:36: 15:10 counter:std::rc::Rc<std::sync::Mutex<i32>>]`
-
-error: aborting due to previous error
+error[E0277]: `Rc<Mutex<i32>>` cannot be sent between threads safely
+(エラー: `Rc<Mutex<i32>>`はスレッド間で安全に送信できません)
+  --> src/main.rs:11:36
+   |
+11 |           let handle = thread::spawn(move || {
+   |                        ------------- ^------
+   |                        |             |
+   |  ______________________|_____________within this `{closure@src/main.rs:11:36: 11:43}`
+   | |                      |            (この`{[closure@src/main.rs:11:36: 11:43}`の中で)
+   | |                      |
+   | |                      required by a bound introduced by this call
+   | |                     (この呼び出しによって導入される境界によって必要とされます)
+12 | |             let mut num = counter.lock().unwrap();
+13 | |
+14 | |             *num += 1;
+15 | |         });
+   | |_________^ `Rc<Mutex<i32>>` cannot be sent between threads safely
+   |            (`Rc<Mutex<i32>>`はスレッド間で安全に送信できません)
+   |
+   = help: within `{closure@src/main.rs:11:36: 11:43}`, the trait `Send` is not implemented for `Rc<Mutex<i32>>`
+   =(ヘルプ: `{closure@src/main.rs:11:36: 11:43}`の中で、トレイト`Send`は`Rc<Mutex<i32>>`に対して実装されていません
+note: required because it's used within this closure
+(注釈: このクロージャの中で使用されているので、要求されます)
+  --> src/main.rs:11:36
+   |
+11 |         let handle = thread::spawn(move || {
+   |                                    ^^^^^^^
+note: required by a bound in `spawn`
+(注釈: `spawn`の境界によって要求されます)
+  --> /rustc/07dca489ac2d933c78d3c5158e3f43beefeb02ce/library/std/src/thread/mod.rs:678:1
 
 For more information about this error, try `rustc --explain E0277`.
-error: could not compile `shared-state`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `shared-state` (bin "shared-state") due to 1 previous error

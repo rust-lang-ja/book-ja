@@ -12,21 +12,33 @@ file to make the code easier to navigate.
 モジュールが大きくなる時、コードを読み進めやすくするため、それらの定義を別のファイルへ移動させたくなるかもしれません。
 
 <!--
-For example, let’s start from the code in Listing 7-17 and move the
-`front_of_house` module to its own file *src/front_of_house.rs* by changing the
-crate root file so it contains the code shown in Listing 7-21. In this case,
-the crate root file is *src/lib.rs*, but this procedure also works with binary
-crates whose crate root file is *src/main.rs*.
+For example, let’s start from the code in Listing 7-17 that had multiple
+restaurant modules. We’ll extract modules into files instead of having all the
+modules defined in the crate root file. In this case, the crate root file is
+*src/lib.rs*, but this procedure also works with binary crates whose crate root
+file is *src/main.rs*.
 -->
-例えば、Listing 7-17 のコードからはじめましょう。クレートルートのファイルをListing 7-21 のコードを持つように変更して、`front_of_house`モジュールをそれ専用のファイル`src/front_of_house.rs`に動かしましょう。
+例として、複数のレストランモジュールを持つリスト7-17のコードからはじめましょう。
+すべてのモジュールをクレートルートファイルで定義するのをやめて、複数のファイルにモジュールを抽出することにします。
 今回、クレートルートファイルは`src/lib.rs`ですが、この手続きはクレートルートファイルが`src/main.rs`であるバイナリクレートでもうまく行きます。
+
+<!--
+First, we’ll extract the `front_of_house` module to its own file. Remove the
+code inside the curly brackets for the `front_of_house` module, leaving only
+the `mod front_of_house;` declaration, so that *src/lib.rs* contains the code
+shown in Listing 7-21. Note that this won’t compile until we create the
+*src/front_of_house.rs* file in Listing 7-22.
+-->
+まず、`front_of_house`モジュールをそれ専用のファイルに抽出しましょう。
+`front_of_house`モジュールの波かっこの中のコードを削除し、`mod front_of_house;`宣言だけを残して、 *src/lib.rs* がリスト7-21に示すコードを含むようにしてください。
+リスト7-22で *src/front_of_house.rs* ファイルを作成するまで、このコードはコンパイルできないことに注意してください。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust,ignore
+```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-21-and-22/src/lib.rs}}
 ```
 
@@ -34,13 +46,16 @@ crates whose crate root file is *src/main.rs*.
 <span class="caption">Listing 7-21: Declaring the `front_of_house` module whose
 body will be in *src/front_of_house.rs*</span>
 -->
-<span class="caption">Listing 7-21: `front_of_house`モジュールを宣言する。その中身は`src/front_of_house.rs`内にある</span>
+<span class="caption">リスト7-21: `front_of_house`モジュールを宣言する。その中身は`src/front_of_house.rs`内にある</span>
 
 <!--
-And *src/front_of_house.rs* gets the definitions from the body of the
-`front_of_house` module, as shown in Listing 7-22.
+Next, place the code that was in the curly brackets into a new file named
+*src/front_of_house.rs*, as shown in Listing 7-22. The compiler knows to look
+in this file because it came across the module declaration in the crate root
+with the name `front_of_house`.
 -->
-そして、 Listing 7-22 のように、*src/front_of_house.rs* には`front_of_house` モジュールの中身の定義を与えます。
+次に、リスト7-22に示すように、*src/front_of_house.rs* という名前の新しいファイルに、波かっこの中にあったコードを配置してください。
+コンパイラは、クレートルートで`front_of_house`という名前のモジュール宣言を見つけたときは、このファイルを探せばいいということを知っています。
 
 <!--
 <span class="filename">Filename: src/front_of_house.rs</span>
@@ -55,17 +70,37 @@ And *src/front_of_house.rs* gets the definitions from the body of the
 <span class="caption">Listing 7-22: Definitions inside the `front_of_house`
 module in *src/front_of_house.rs*</span>
 -->
-<span class="caption">Listing 7-22: *src/front_of_house.rs*における、`front_of_house`モジュール内部の定義</span>
+<span class="caption">リスト7-22: *src/front_of_house.rs*における、`front_of_house`モジュール内部の定義</span>
 
 <!--
-Using a semicolon after `mod front_of_house` rather than using a block tells
-Rust to load the contents of the module from another file with the same name as
-the module. To continue with our example and extract the `hosting` module to
-its own file as well, we change *src/front_of_house.rs* to contain only the
+Note that you only need to load a file using a `mod` declaration *once* in your
+module tree. Once the compiler knows the file is part of the project (and knows
+where in the module tree the code resides because of where you’ve put the `mod`
+statement), other files in your project should refer to the loaded file’s code
+using a path to where it was declared, as covered in the [“Paths for Referring
+to an Item in the Module Tree”][paths] section. In other words,
+`mod` is *not* an “include” operation that you may have seen in other
+programming languages.
+-->
+`mod`宣言を使用したファイルのロードは、モジュールツリー内で*一回*のみ行う必要があることに注意してください。
+一度コンパイラが、そのファイルがプロジェクトの一部であることを認識したら（そして、`mod`文を書いた場所に応じてモジュールツリー内のどこにコードがあることになるかを認識したら）、[「モジュールツリーの要素を示すためのパス」][paths]節で扱ったように、プロジェクト内の他のファイルは、モジュールが宣言された場所へのパスを使用してロードされたファイルのコードを参照するべきです。
+別の言い方をすれば、`mod`は他のプログラミング言語で見られるような“include”操作では*ありません*。
+
+<!--
+Next, we’ll extract the `hosting` module to its own file. The process is a bit
+different because `hosting` is a child module of `front_of_house`, not of the
+root module. We’ll place the file for `hosting` in a new directory that will be
+named for its ancestors in the module tree, in this case *src/front_of_house/*.
+-->
+つづけて`hosting`モジュールをそれ専用のファイルに抽出します。
+`hosting`はルートモジュールの子ではなく`front_of_house`の子モジュールなので、このプロセスは少し異なります。
+`hosting`のためのファイルを、モジュールツリー上での祖先に対応して名付けられた新しいディレクトリ（今回の場合は *src/front_of_house/*）内に配置しましょう。
+
+<!--
+To start moving `hosting`, we change *src/front_of_house.rs* to contain only the
 declaration of the `hosting` module:
 -->
-`mod front_of_house`の後にブロックではなくセミコロンを使うと、Rustにモジュールの中身をモジュールと同じ名前をした別のファイルから読み込むように命令します。
-私達の例で、つづけて`hosting`モジュールをそれ専用のファイルに抽出するには、`src/front_of_house.rs`が`hosting`モジュールの宣言のみを含むように変更します：
+`hosting`の移動を開始するために、`src/front_of_house.rs`が`hosting`モジュールの宣言のみを含むように変更します：
 
 <!--
 <span class="filename">Filename: src/front_of_house.rs</span>
@@ -77,28 +112,81 @@ declaration of the `hosting` module:
 ```
 
 <!--
-Then we create a *src/front_of_house* directory and a file
-*src/front_of_house/hosting.rs* to contain the definitions made in the
-`hosting` module:
+Then we create a *src/front_of_house* directory and a file *hosting.rs* to
+contain the definitions made in the `hosting` module:
 -->
-さらに*src/front_of_house* ディレクトリと*src/front_of_house/hosting.rs* ファイルを作って、`hosting`モジュール内でなされていた定義を持つようにします。
+さらに*src/front_of_house* ディレクトリと*hosting.rs* ファイルを作って、`hosting`モジュール内でなされていた定義を持つようにします。
 
 <!--
 <span class="filename">Filename: src/front_of_house/hosting.rs</span>
 -->
 <span class="filename">ファイル名: src/front_of_house/hosting.rs</span>
 
-```rust
+```rust,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/no-listing-02-extracting-hosting/src/front_of_house/hosting.rs}}
 ```
 
 <!--
-The module tree remains the same, and the function calls in `eat_at_restaurant`
-will work without any modification, even though the definitions live in
-different files. This technique lets you move modules to new files as they grow
-in size.
+If we instead put *hosting.rs* in the *src* directory, the compiler would
+expect the *hosting.rs* code to be in a `hosting` module declared in the crate
+root, and not declared as a child of the `front_of_house` module. The
+compiler’s rules for which files to check for which modules’ code means the
+directories and files more closely match the module tree.
 -->
-定義は別のファイルにあるにもかかわらず、モジュールツリーは同じままであり、`eat_at_restaurant`内での関数呼び出しもなんの変更もなくうまく行きます。
+もし*src*ディレクトリ内に*hosting.rs*を置いた場合は、コンパイラは*hosting.rs*のコードは`front_of_house`モジュールの子としてではなく、クレートルート内で宣言された`hosting`モジュールにあると期待するでしょう。
+コンパイラがどのモジュールのコードのためにどのファイルをチェックするかの規則は、ディレクトリとファイルがモジュールツリーと密接に一致することを意味します。
+
+<!--
+> ### Alternate File Paths
+>
+> So far we’ve covered the most idiomatic file paths the Rust compiler uses,
+> but Rust also supports an older style of file path. For a module named
+> `front_of_house` declared in the crate root, the compiler will look for the
+> module’s code in:
+>
+> * *src/front_of_house.rs* (what we covered)
+> * *src/front_of_house/mod.rs* (older style, still supported path)
+>
+> For a module named `hosting` that is a submodule of `front_of_house`, the
+> compiler will look for the module’s code in:
+>
+> * *src/front_of_house/hosting.rs* (what we covered)
+> * *src/front_of_house/hosting/mod.rs* (older style, still supported path)
+>
+> If you use both styles for the same module, you’ll get a compiler error. Using
+> a mix of both styles for different modules in the same project is allowed, but
+> might be confusing for people navigating your project.
+>
+> The main downside to the style that uses files named *mod.rs* is that your
+> project can end up with many files named *mod.rs*, which can get confusing
+> when you have them open in your editor at the same time.
+-->
+> ### 別のファイルパス
+>
+> ここまでRustコンパイラが使用するもっとも慣例的なファイルパスについて扱ってきましたが、Rustは古いスタイルのファイルパスもサポートしています。
+> クレートルート内で宣言された`front_of_house`という名前のモジュールに対して、コンパイラは以下の場所からコードを探します:
+>
+> * *src/front_of_house.rs* （ここまで扱ってきたもの）
+> * *src/front_of_house/mod.rs* （古いスタイルの、今もサポートされているパス）
+>
+> `front_of_house`のサブモジュールである、`hosting`という名前のモジュールに対しては、コンパイラは以下の場所からコードを探します:
+>
+> * *src/front_of_house/hosting.rs* （ここまで扱ってきたもの）
+> * *src/front_of_house/hosting/mod.rs* （古いスタイルの、今もサポートされているパス）
+>
+> 同一のモジュールに対して両方のスタイルを使用するとコンパイルエラーになります。
+> 異なるモジュールに対して両方のスタイルを混ぜて使用することは許可されていますが、プロジェクトを見て回る人たちにとって混乱を招くかもしれません。
+>
+> *mod.rs* という名前のファイルを使用するスタイルの主な欠点は、プロジェクト内に *mod.rs* という名前のファイルが大量にできることになり、エディタで同時に開いたときに混乱を招きやすいことです。
+
+<!--
+We’ve moved each module’s code to a separate file, and the module tree remains
+the same. The function calls in `eat_at_restaurant` will work without any
+modification, even though the definitions live in different files. This
+technique lets you move modules to new files as they grow in size.
+-->
+各モジュールのコードを独立したファイルに移動しましたが、モジュールツリーは同じままです。
+定義が別のファイルにあるにもかかわらず、`eat_at_restaurant`内での関数呼び出しもなんの変更もなくうまく行きます。
 このテクニックのおかげで、モジュールが大きくなってきた段階で新しいファイルへ動かす、ということができます。
 
 <!--
@@ -134,3 +222,5 @@ In the next chapter, we’ll look at some collection data structures in the
 standard library that you can use in your neatly organized code.
 -->
 次の章では、きちんと整理されたあなたのコードで使うことができる、標準ライブラリのいくつかのコレクションデータ構造を見ていきます。
+
+[paths]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html

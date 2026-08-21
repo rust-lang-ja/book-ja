@@ -24,8 +24,7 @@ pub struct Button {
 impl Draw for Button {
     fn draw(&self) {
         // code to actually draw a button
+        // 実際にボタンを描画するコード
     }
 }
 // ANCHOR_END: here
-
-fn main() {}

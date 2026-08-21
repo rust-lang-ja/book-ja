@@ -15,6 +15,7 @@ fn main() {
     };
     println!("CustomSmartPointer created.");
     c.drop();
+    //       "CustomSmartPointerがmainの終端の前でドロップされた。"
     println!("CustomSmartPointer dropped before the end of main.");
 }
 // ANCHOR_END: here

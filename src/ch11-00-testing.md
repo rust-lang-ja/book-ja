@@ -20,29 +20,27 @@ Correctness in our programs is the extent to which our code does what we intend
 it to do. Rust is designed with a high degree of concern about the correctness
 of programs, but correctness is complex and not easy to prove. Rust’s type
 system shoulders a huge part of this burden, but the type system cannot catch
-every kind of incorrectness. As such, Rust includes support for writing
-automated software tests within the language.
+everything. As such, Rust includes support for writing automated software tests.
 -->
 
 プログラムの正当性は、どこまで自分のコードが意図していることをしているかなのです。
 Rustは、プログラムの正当性に重きを置いて設計されていますが、
 正当性は複雑で、単純に証明することはありません。Rustの型システムは、
-この重荷の多くの部分を肩代わりしてくれますが、型システムはあらゆる種類の不当性を捕捉してはくれません。
-ゆえに、Rustでは、言語内で自動化されたソフトウェアテストを書くことをサポートしているのです。
+この重荷の多くの部分を肩代わりしてくれますが、型システムはすべてを捕捉してはくれません。
+ゆえに、Rustでは、自動化されたソフトウェアテストを書くことをサポートしているのです。
 
 <!--
-As an example, say we write a function called `add_two` that adds 2 to whatever
-number is passed to it. This function’s signature accepts an integer as a
-parameter and returns an integer as a result. When we implement and compile
-that function, Rust does all the type checking and borrow checking that you've
-learned so far to ensure that, for instance, we aren’t passing a `String` value
-or an invalid reference to this function. But Rust *can’t* check that this
-function will do precisely what we intend, which is return the parameter plus 2
-rather than, say, the parameter plus 10 or the parameter minus 50! That's where
-tests come in.
+Say we write a function `add_two` that adds 2 to whatever number is passed to
+it. This function’s signature accepts an integer as a parameter and returns an
+integer as a result. When we implement and compile that function, Rust does all
+the type checking and borrow checking that you’ve learned so far to ensure
+that, for instance, we aren’t passing a `String` value or an invalid reference
+to this function. But Rust *can’t* check that this function will do precisely
+what we intend, which is return the parameter plus 2 rather than, say, the
+parameter plus 10 or the parameter minus 50! That’s where tests come in.
 -->
 
-例として、渡された何かの数値に2を足す`add_two`という関数を書くとしましょう。
+渡された何かの数値に2を足す`add_two`関数を書くとしましょう。
 この関数のシグニチャは、引数に整数を取り、結果として整数を返します。
 この関数を実装してコンパイルすると、コンパイラはこれまでに学んできた型チェックと借用チェックを全て行い、
 例えば、`String`の値や無効な参照をこの関数に渡していないかなどを確かめるのです。

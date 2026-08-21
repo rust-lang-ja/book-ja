@@ -1,23 +1,23 @@
 fn main() {
-    let s = String::from("hello");  // s comes into scope
+    let s = String::from("hello");  // sがスコープに入る
 
-    takes_ownership(s);             // s's value moves into the function...
-                                    // ... and so is no longer valid here
+    takes_ownership(s);             // sの値が関数にムーブされ...
+                                    // ... ここではもう有効ではない
 
-    let x = 5;                      // x comes into scope
+    let x = 5;                      // xがスコープに入る
 
-    makes_copy(x);                  // x would move into the function,
-                                    // but i32 is Copy, so it’s okay to still
-                                    // use x afterward
+    makes_copy(x);                  // xも関数にムーブされるが、
+                                    // i32はCopyなので、この後にxを使っても
+                                    // 大丈夫
 
-} // Here, x goes out of scope, then s. But because s's value was moved, nothing
-  // special happens.
+} // ここでxがスコープを抜け、sもスコープを抜ける。ただし、sの値はムーブされているので、
+  // 何も特別なことは起こらない。
 
-fn takes_ownership(some_string: String) { // some_string comes into scope
+fn takes_ownership(some_string: String) { // some_stringがスコープに入る。
     println!("{}", some_string);
-} // Here, some_string goes out of scope and `drop` is called. The backing
-  // memory is freed.
+} // ここでsome_stringがスコープを抜け、`drop`が呼ばれる。後ろ盾してたメモリが解放される。
+  // 後ろ盾してたメモリが解放される。
 
-fn makes_copy(some_integer: i32) { // some_integer comes into scope
+fn makes_copy(some_integer: i32) { // some_integerがスコープに入る
     println!("{}", some_integer);
-} // Here, some_integer goes out of scope. Nothing special happens.
+} // ここでsome_integerがスコープを抜ける。何も特別なことはない。

@@ -1,0 +1,33 @@
+$ cargo run
+   Compiling closure-example v0.1.0 (file:///projects/closure-example)
+error[E0308]: mismatched types
+(エラー: 型が合いません)
+ --> src/main.rs:5:29
+  |
+5 |     let n = example_closure(5);
+  |             --------------- ^- help: try using a conversion method: `.to_string()`
+  |             |               | (ヘルプ: 変換メソッド`.to_string()`を使用してみてください)
+  |             |               |
+  |             |               expected `String`, found integer
+  |             |              (`String`を予期していましたが、整数が見つかりました)
+  |             arguments to this function are incorrect
+  |            (この関数への引数が正しくありません)
+  |
+note: expected because the closure was earlier called with an argument of type `String`
+(注釈: クロージャは以前に型`String`を持つ引数とともに呼ばれているため、これが予期されています)
+ --> src/main.rs:4:29
+  |
+4 |     let s = example_closure(String::from("hello"));
+  |             --------------- ^^^^^^^^^^^^^^^^^^^^^ expected because this argument is of type `String`
+  |             |                                    (この引数が型`String`を持つことから予期されています)
+  |             |
+  |             in this closure call
+  |            (このクロージャ呼び出しで)
+note: closure parameter defined here
+ --> src/main.rs:2:28
+  |
+2 |     let example_closure = |x| x;
+  |                            ^
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `closure-example` (bin "closure-example") due to 1 previous error

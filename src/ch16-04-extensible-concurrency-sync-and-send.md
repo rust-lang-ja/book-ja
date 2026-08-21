@@ -34,16 +34,17 @@ However, two concurrency concepts are embedded in the language: the
 -->
 
 <!--
-The `Send` marker trait indicates that ownership of the type implementing
-`Send` can be transferred between threads. Almost every Rust type is `Send`,
-but there are some exceptions, including `Rc<T>`: this cannot be `Send` because
-if you cloned an `Rc<T>` value and tried to transfer ownership of the clone to
-another thread, both threads might update the reference count at the same time.
-For this reason, `Rc<T>` is implemented for use in single-threaded situations
-where you don’t want to pay the thread-safe performance penalty.
+The `Send` marker trait indicates that ownership of values of the type
+implementing `Send` can be transferred between threads. Almost every Rust type
+is `Send`, but there are some exceptions, including `Rc<T>`: this cannot be
+`Send` because if you cloned an `Rc<T>` value and tried to transfer ownership
+of the clone to another thread, both threads might update the reference count
+at the same time. For this reason, `Rc<T>` is implemented for use in
+single-threaded situations where you don’t want to pay the thread-safe
+performance penalty.
 -->
 
-`Send`マーカートレイトは、`Send`を実装した型の所有権をスレッド間で転送できることを示唆します。
+`Send`マーカートレイトは、`Send`を実装した型を持つ値の所有権をスレッド間で転送できることを示唆します。
 Rustのほとんどの型は`Send`ですが、`Rc<T>`を含めて一部例外があります: この型は、`Rc<T>`の値をクローンし、
 クローンしたものの所有権を別のスレッドに転送しようとしたら、両方のスレッドが同時に参照カウントを更新できてしまうので、
 `Send`になり得ません。このため、`Rc<T>`はスレッド安全性のためのパフォーマンスの犠牲を支払わなくても済む、
@@ -79,13 +80,13 @@ we’ll discuss in Chapter 19.
 <!--
 The `Sync` marker trait indicates that it is safe for the type implementing
 `Sync` to be referenced from multiple threads. In other words, any type `T` is
-`Sync` if `&T` (a reference to `T`) is `Send`, meaning the reference can be
-sent safely to another thread. Similar to `Send`, primitive types are `Sync`,
-and types composed entirely of types that are `Sync` are also `Sync`.
+`Sync` if `&T` (an immutable reference to `T`) is `Send`, meaning the reference
+can be sent safely to another thread. Similar to `Send`, primitive types are
+`Sync`, and types composed entirely of types that are `Sync` are also `Sync`.
 -->
 
 `Sync`マーカートレイトは、`Sync`を実装した型は、複数のスレッドから参照されても安全であることを示唆します。
-言い換えると、`&T`(`T`への参照)が`Send`なら、型`T`は`Sync`であり、参照が他のスレッドに安全に送信できることを意味します。
+言い換えると、`&T`(`T`への不変参照)が`Send`なら、型`T`は`Sync`であり、参照が他のスレッドに安全に送信できることを意味します。
 `Send`同様、基本型は`Sync`であり、`Sync`の型からのみ構成される型もまた`Sync`です。
 
 <!--
@@ -94,14 +95,14 @@ The smart pointer `Rc<T>` is also not `Sync` for the same reasons that it’s no
 family of related `Cell<T>` types are not `Sync`. The implementation of borrow
 checking that `RefCell<T>` does at runtime is not thread-safe. The smart
 pointer `Mutex<T>` is `Sync` and can be used to share access with multiple
-threads as you saw in the “Sharing a `Mutex<T>` Between Multiple Threads”
-section.
+threads as you saw in the [“Sharing a `Mutex<T>` Between Multiple
+Threads”][sharing-a-mutext-between-multiple-threads] section.
 -->
 
 `Send`ではなかったのと同じ理由で、スマートポインタの`Rc<T>`もまた`Sync`ではありません。
 `RefCell<T>`型(これについては第15章で話しました)と関連する`Cell<T>`系についても`Sync`ではありません。
 `RefCell<T>`が実行時に行う借用チェックの実装は、スレッド安全ではないのです。
-スマートポインタの`Mutex<T>`は`Sync`で、「複数のスレッド間で`Mutex<T>`を共有する」節で見たように、
+スマートポインタの`Mutex<T>`は`Sync`で、[「複数のスレッド間で`Mutex<T>`を共有する」][sharing-a-mutext-between-multiple-threads]節で見たように、
 複数のスレッドでアクセスを共有するのに使用することができます。
 
 <!--
@@ -125,20 +126,19 @@ useful for enforcing invariants related to concurrency.
 Manually implementing these traits involves implementing unsafe Rust code.
 We’ll talk about using unsafe Rust code in Chapter 19; for now, the important
 information is that building new concurrent types not made up of `Send` and
-`Sync` parts requires careful thought to uphold the safety guarantees.
-[The Rustonomicon] has more information about these guarantees and how to
+`Sync` parts requires careful thought to uphold the safety guarantees. [“The
+Rustonomicon”][nomicon] has more information about these guarantees and how to
 uphold them.
 -->
 
 これらのトレイトを手動で実装するには、unsafeなRustコードを実装することが関わってきます。
 unsafeなRustコードを使用することについては第19章で語ります; とりあえず、重要な情報は、
 `Send`と`Sync`ではない部品からなる新しい並行な型を構成するには、安全性保証を保持するために、
-注意深い思考が必要になるということです。[The Rustonomicon]には、
+注意深い思考が必要になるということです。[“The Rustonomicon”][nomicon]には、
 これらの保証とそれを保持する方法についての情報がより多くあります。
 
 > 訳注: 日本語版のThe Rustonomiconは[こちら][nomicon-ja]です。
 
-[The Rustonomicon]: https://doc.rust-lang.org/stable/nomicon/
 [nomicon-ja]: https://doc.rust-jp.rs/rust-nomicon-ja/index.html
 
 <!--
@@ -177,7 +177,7 @@ The Rust standard library provides channels for message passing and smart
 pointer types, such as `Mutex<T>` and `Arc<T>`, that are safe to use in
 concurrent contexts. The type system and the borrow checker ensure that the
 code using these solutions won’t end up with data races or invalid references.
-Once you get our code to compile, you can rest assured that it will happily
+Once you get your code to compile, you can rest assured that it will happily
 run on multiple threads without the kinds of hard-to-track-down bugs common in
 other languages. Concurrent programming is no longer a concept to be afraid of:
 go forth and make your programs concurrent, fearlessly!
@@ -193,8 +193,18 @@ Rustの標準ライブラリは、メッセージ受け渡しにチャンネル�
 <!--
 Next, we’ll talk about idiomatic ways to model problems and structure solutions
 as your Rust programs get bigger. In addition, we’ll discuss how Rust’s idioms
-relate to those you might be familiar with from object oriented programming.
+relate to those you might be familiar with from object-oriented programming.
 -->
 
 次は、Rustプログラムが肥大化するにつれて問題をモデル化し、解決策を構造化する慣例的な方法について話します。
 さらに、Rustのイディオムがオブジェクト指向プログラミングで馴染み深いかもしれないイディオムにどのように関連しているかについても議論します。
+
+<!--
+[sharing-a-mutext-between-multiple-threads]:
+ch16-03-shared-state.html#sharing-a-mutext-between-multiple-threads
+[nomicon]: ../nomicon/index.html
+-->
+
+[sharing-a-mutext-between-multiple-threads]:
+ch16-03-shared-state.html#複数のスレッド間でmutextを共有する
+[nomicon]: https://doc.rust-lang.org/stable/nomicon/

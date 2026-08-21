@@ -6,48 +6,66 @@
 
 <!--
 The *state pattern* is an object-oriented design pattern. The crux of the
-pattern is that a value has some internal state, which is represented by a set
-of *state objects*, and the value’s behavior changes based on the internal
-state. The state objects share functionality: in Rust, of course, we use
-structs and traits rather than objects and inheritance. Each state object is
-responsible for its own behavior and for governing when it should change into
-another state. The value that holds a state object knows nothing about the
-different behavior of the states or when to transition between states.
+pattern is that we define a set of states a value can have internally. The
+states are represented by a set of *state objects*, and the value’s behavior
+changes based on its state. We’re going to work through an example of a blog
+post struct that has a field to hold its state, which will be a state object
+from the set "draft", "review", or "published".
 -->
 
-ステートパターンは、オブジェクト指向デザインパターンの1つです。このパターンの肝は、
-値が一連の*ステートオブジェクト*で表されるなんらかの内部状態を持ち、
-その内部の状態に基づいて値の振る舞いが変化するというものです。ステートオブジェクトは、
-機能を共有します: Rustでは、もちろん、オブジェクトと継承ではなく、構造体とトレイトを使用します。
+ステートパターンは、オブジェクト指向デザインパターンの1つです。
+このパターンの肝は、値が内部的に持つことができる状態の集合を定義するということです。
+状態は*ステートオブジェクト*の集合として表現され、その状態に基づいて値の振る舞いが変化します。
+ここでは、自身の状態を保持するフィールドを持つ、ブログ記事構造体の例に取り組んでいきます。
+この構造体のフィールドは「草稿」、「査読」、「公開済み」からなる集合のうちのいずれかの状態オブジェクトになるでしょう。
+
+<!--
+The state objects share functionality: in Rust, of course, we use structs and
+traits rather than objects and inheritance. Each state object is responsible
+for its own behavior and for governing when it should change into another
+state. The value that holds a state object knows nothing about the different
+behavior of the states or when to transition between states.
+-->
+
+ステートオブジェクトは機能を共有します: Rustでは、もちろん、オブジェクトと継承ではなく、構造体とトレイトを使用します。
 各ステートオブジェクトは、自身の振る舞いと別の状態に変化すべき時を司ることに責任を持ちます。
 ステートオブジェクトを保持する値は、状態ごとの異なる振る舞いや、いつ状態が移行するかについては何も知りません。
 
 <!--
-Using the state pattern means when the business requirements of the program
-change, we won’t need to change the code of the value holding the state or the
-code that uses the value. We’ll only need to update the code inside one of the
-state objects to change its rules or perhaps add more state objects. Let’s look
-at an example of the state design pattern and how to use it in Rust.
+The advantage of using the state pattern is that, when the business
+requirements of the program change, we won’t need to change the code of the
+value holding the state or the code that uses the value. We’ll only need to
+update the code inside one of the state objects to change its rules or perhaps
+add more state objects.
 -->
 
-ステートパターンを使用することは、プログラムの業務要件が変わる時、状態を保持する値のコードや、
-値を使用するコードを変更する必要はないことを意味します。ステートオブジェクトの1つのコードを更新して、
+ステートパターンを使用することの利点は、プログラムの業務要件が変わる時、状態を保持する値のコードや、
+値を使用するコードを変更する必要がない点です。ステートオブジェクトの1つのコードを更新して、
 規則を変更したり、あるいはおそらくステートオブジェクトを追加する必要しかないのです。
-ステートデザインパターンの例と、そのRustでの使用方法を見ましょう。
 
 <!--
-We’ll implement a blog post workflow in an incremental way. The blog’s final
-functionality will look like this:
+First, we’re going to implement the state pattern in a more traditional
+object-oriented way, then we’ll use an approach that’s a bit more natural in
+Rust. Let’s dig in to incrementally implementing a blog post workflow using the
+state pattern.
 -->
 
-ブログ記事のワークフローを少しずつ実装していきます。ブログの最終的な機能は以下のような感じになるでしょう:
+まずは、より伝統的なオブジェクト指向の手法でステートパターンを実装し、
+その後、Rustとしてもう少し自然なアプローチを使用します。
+それでは、ステートパターンを利用したブログ記事のワークフローの漸進的な実装に取り組んでいきましょう。
+
+<!--
+The final functionality will look like this:
+-->
+
+最終的な機能は以下のような感じになるでしょう:
 
 <!--
 1. A blog post starts as an empty draft.
 2. When the draft is done, a review of the post is requested.
 3. When the post is approved, it gets published.
 4. Only published blog posts return content to print, so unapproved posts can’t
-accidentally be published.
+   accidentally be published.
 -->
 
 1. ブログ記事は、空の草稿から始まる。
@@ -67,11 +85,11 @@ should remain an unpublished draft.
 <!--
 Listing 17-11 shows this workflow in code form: this is an example usage of the
 API we’ll implement in a library crate named `blog`. This won’t compile yet
-because we haven’t implemented the `blog` crate yet.
+because we haven’t implemented the `blog` crate.
 -->
 
 リスト17-11は、このワークフローをコードの形で示しています: これは、
-`blog`というライブラリクレートに実装するAPIの使用例です。まだ`blog`クレートを実装していないので、
+`blog`というライブラリクレートに実装するAPIの使用例です。`blog`クレートを実装していないので、
 コンパイルはできません。
 
 <!--
@@ -80,23 +98,8 @@ because we haven’t implemented the `blog` crate yet.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-extern crate blog;
-use blog::Post;
-
-fn main() {
-    let mut post = Post::new();
-
-    // 今日はお昼にサラダを食べた
-    post.add_text("I ate a salad for lunch today");
-    assert_eq!("", post.content());
-
-    post.request_review();
-    assert_eq!("", post.content());
-
-    post.approve();
-    assert_eq!("I ate a salad for lunch today", post.content());
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch17-oop/listing-17-11/src/main.rs:all}}
 ```
 
 <!--
@@ -107,18 +110,18 @@ behavior we want our `blog` crate to have</span>
 <span class="caption">リスト17-11: `blog`クレートに欲しい振る舞いをデモするコード</span>
 
 <!--
-We want to allow the user to create a new draft blog post with `Post::new`.
-Then we want to allow text to be added to the blog post while it’s in the draft
-state. If we try to get the post’s content immediately, before approval,
-nothing should happen because the post is still a draft. We’ve added
-`assert_eq!` in the code for demonstration purposes. An excellent unit test for
-this would be to assert that a draft blog post returns an empty string from the
-`content` method, but we’re not going to write tests for this example.
+We want to allow the user to create a new draft blog post with `Post::new`. We
+want to allow text to be added to the blog post. If we try to get the post’s
+content immediately, before approval, we shouldn’t get any text because the
+post is still a draft. We’ve added `assert_eq!` in the code for demonstration
+purposes. An excellent unit test for this would be to assert that a draft blog
+post returns an empty string from the `content` method, but we’re not going to
+write tests for this example.
 -->
 
-ユーザが`Post::new`で新しいブログ記事の草稿を作成できるようにしたいです。それから、
-草稿状態の間にブログ記事にテキストを追加できるようにしたいです。承認前に記事の内容を即座に得ようとしたら、
-記事はまだ草稿なので、何も起きるべきではありません。デモ目的でコードに`assert_eq!`を追加しました。
+ユーザが`Post::new`で新しいブログ記事の草稿を作成できるようにしたいです。
+ブログ記事にテキストを追加できるようにしたいです。承認前に記事の内容を即座に得ようとしたら、
+記事はまだ草稿なので、何のテキストも得られるべきではありません。デモ目的でコードに`assert_eq!`を追加しました。
 これに対する素晴らしい単体テストは、ブログ記事の草稿が`content`メソッドから空の文字列を返すことをアサートすることでしょうが、
 この例に対してテストを書くつもりはありません。
 
@@ -161,15 +164,23 @@ Let’s get started on the implementation of the library! We know we need a
 public `Post` struct that holds some content, so we’ll start with the
 definition of the struct and an associated public `new` function to create an
 instance of `Post`, as shown in Listing 17-12. We’ll also make a private
-`State` trait. Then `Post` will hold a trait object of `Box<State>` inside an
-`Option` in a private field named `state`. You’ll see why the `Option` is
-necessary in a bit.
+`State` trait that will define the behavior that all state objects for a `Post`
+must have.
 -->
 
 ライブラリの実装に取り掛かりましょう！なんらかの内容を保持する公開の`Post`構造体が必要なことはわかるので、
 構造体の定義と、関連する公開の`Post`インスタンスを生成する`new`関数から始めましょう。リスト17-12のようにですね。
-また、非公開の`State`トレイトも作成します。それから、`Post`は`state`という非公開のフィールドに、
-`Option`で`Box<State>`のトレイトオブジェクトを保持します。`Option`が必要な理由はすぐわかります。
+また、`Post`のすべての状態オブジェクトが持たなくてはならない振る舞いを定義する、
+非公開の`State`トレイトも作成します。
+
+<!--
+Then `Post` will hold a trait object of `Box<dyn State>` inside an `Option<T>`
+in a private field named `state` to hold the state object. You’ll see why the
+`Option<T>` is necessary in a bit.
+-->
+
+それから`Post`は、状態オブジェクトを保持するための`state`という非公開のフィールドに、
+`Option<T>`で`Box<dyn State>`のトレイトオブジェクトを保持します。`Option<T>`が必要な理由はすぐわかります。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -177,26 +188,8 @@ necessary in a bit.
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-pub struct Post {
-    state: Option<Box<State>>,
-    content: String,
-}
-
-impl Post {
-    pub fn new() -> Post {
-        Post {
-            state: Some(Box::new(Draft {})),
-            content: String::new(),
-        }
-    }
-}
-
-trait State {}
-
-struct Draft {}
-
-impl State for Draft {}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-12/src/lib.rs}}
 ```
 
 <!--
@@ -209,23 +202,24 @@ struct</span>
 `State`トレイト、`Draft`構造体の定義</span>
 
 <!--
-The `State` trait defines the behavior shared by different post states, and the
-`Draft`, `PendingReview`, and `Published` states will all implement the `State`
-trait. For now, the trait doesn’t have any methods, and we’ll start by defining
-just the `Draft` state because that is the state we want a post to start in.
+The `State` trait defines the behavior shared by different post states. The
+state objects are `Draft`, `PendingReview`, and `Published`, and they will all
+implement the `State` trait. For now, the trait doesn’t have any methods, and
+we’ll start by defining just the `Draft` state because that is the state we
+want a post to start in.
 -->
 
-`State`トレイトは、異なる記事の状態で共有される振る舞いを定義し、`Draft`、`PendingReview`、`Published`状態は全て、
-`State`トレイトを実装します。今は、トレイトにメソッドは何もなく、`Draft`が記事の初期状態にしたい状態なので、
+`State`トレイトは、異なる記事の状態で共有される振る舞いを定義します。状態オブジェクトは`Draft`、`PendingReview`、`Published`で、
+これらはすべて`State`トレイトを実装します。今は、トレイトにメソッドは何もなく、`Draft`が記事の初期状態にしたい状態なので、
 その状態だけを定義することから始めます。
 
 <!--
 When we create a new `Post`, we set its `state` field to a `Some` value that
-holds a `Box`. This `Box` points to a new instance of the `Draft` struct. This
-ensures whenever we create a new instance of `Post`, it will start out as a
-draft. Because the `state` field of `Post` is private, there is no way to
+holds a `Box`. This `Box` points to a new instance of the `Draft` struct.
+This ensures whenever we create a new instance of `Post`, it will start out as
+a draft. Because the `state` field of `Post` is private, there is no way to
 create a `Post` in any other state! In the `Post::new` function, we set the
-`content` field to a new, empty `String`
+`content` field to a new, empty `String`.
 -->
 
 新しい`Post`を作る時、`state`フィールドは、`Box`を保持する`Some`値にセットします。
@@ -240,18 +234,18 @@ create a `Post` in any other state! In the `Post::new` function, we set the
 ### 記事の内容のテキストを格納する
 
 <!--
-Listing 17-11 showed that we want to be able to call a method named
-`add_text` and pass it a `&str` that is then added to the text content of the
-blog post. We implement this as a method rather than exposing the `content`
-field as `pub`. This means we can implement a method later that will control
-how the `content` field’s data is read. The `add_text` method is pretty
+We saw in Listing 17-11 that we want to be able to call a method named
+`add_text` and pass it a `&str` that is then added as the text content of the
+blog post. We implement this as a method, rather than exposing the `content`
+field as `pub`, so that later we can implement a method that will control how
+the `content` field’s data is read. The `add_text` method is pretty
 straightforward, so let’s add the implementation in Listing 17-13 to the `impl
 Post` block:
 -->
 
-リスト17-11は、`add_text`というメソッドを呼び出し、ブログ記事のテキスト内容に追加される`&str`を渡せるようになりたいことを示しました。
-これを`content`フィールドを`pub`にして晒すのではなく、メソッドとして実装しています。
-これは、後ほど`content`フィールドデータの読まれ方を制御するメソッドを実装できることを意味しています。
+リスト17-11で、`add_text`というメソッドを呼び出し、ブログ記事のテキスト内容として追加される`&str`を渡せるようになりたいことを確認しました。
+後ほど`content`フィールドデータの読まれ方を制御するメソッドを実装できるように、
+`content`フィールドを`pub`にして晒すのではなく、これをメソッドとして実装しています。
 `add_text`メソッドは非常に素直なので、リスト17-13の実装を`impl Post`ブロックに追加しましょう:
 
 <!--
@@ -260,17 +254,8 @@ Post` block:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-# pub struct Post {
-#     content: String,
-# }
-#
-impl Post {
-    // --snip--
-    pub fn add_text(&mut self, text: &str) {
-        self.content.push_str(text);
-    }
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-13/src/lib.rs:here}}
 ```
 
 <!--
@@ -304,7 +289,7 @@ support.
 <!--
 Even after we’ve called `add_text` and added some content to our post, we still
 want the `content` method to return an empty string slice because the post is
-still in the draft state, as shown on line 8 of Listing 17-11. For now, let’s
+still in the draft state, as shown on line 7 of Listing 17-11. For now, let’s
 implement the `content` method with the simplest thing that will fulfill this
 requirement: always returning an empty string slice. We’ll change this later
 once we implement the ability to change a post’s state so it can be published.
@@ -314,7 +299,7 @@ be empty. Listing 17-14 shows this placeholder implementation:
 
 `add_text`を呼び出して記事に内容を追加した後でさえ、記事はまだ草稿状態なので、
 それでも`content`メソッドには空の文字列スライスを返してほしいです。
-リスト17-11の8行目で示したようにですね。とりあえず、この要求を実現する最も単純な方法で`content`メソッドを実装しましょう:
+リスト17-11の7行目で示したようにですね。とりあえず、この要求を実現する最も単純な方法で`content`メソッドを実装しましょう:
 常に空の文字列スライスを返すことです。一旦、記事の状態を変更する能力を実装したら、公開できるように、
 これを後ほど変更します。ここまで、記事は草稿状態にしかなり得ないので、記事の内容は常に空のはずです。
 リスト17-14は、この仮の実装を表示しています:
@@ -325,17 +310,8 @@ be empty. Listing 17-14 shows this placeholder implementation:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-# pub struct Post {
-#     content: String,
-# }
-#
-impl Post {
-    // --snip--
-    pub fn content(&self) -> &str {
-        ""
-    }
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-14/src/lib.rs:here}}
 ```
 
 <!--
@@ -346,11 +322,11 @@ the `content` method on `Post` that always returns an empty string slice</span>
 <span class="caption">リスト17-14: `Post`に常に空の文字列スライスを返す`content`の仮の実装を追加する</span>
 
 <!--
-With this added `content` method, everything in Listing 17-11 up to line 8
+With this added `content` method, everything in Listing 17-11 up to line 7
 works as intended.
 -->
 
-この追加された`content`メソッドとともに、リスト17-11の8行目までのコードは、想定通り動きます。
+この追加された`content`メソッドとともに、リスト17-11の7行目までのコードは、想定通り動きます。
 
 <!--
 [Requesting a Review of the Post] Changes ... ともRequesting that [a Review ...]とも読める。どちらがふさわしいだろうか
@@ -377,40 +353,8 @@ change its state from `Draft` to `PendingReview`. Listing 17-15 shows this code:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-# pub struct Post {
-#     state: Option<Box<State>>,
-#     content: String,
-# }
-#
-impl Post {
-    // --snip--
-    pub fn request_review(&mut self) {
-        if let Some(s) = self.state.take() {
-            self.state = Some(s.request_review())
-        }
-    }
-}
-
-trait State {
-    fn request_review(self: Box<Self>) -> Box<State>;
-}
-
-struct Draft {}
-
-impl State for Draft {
-    fn request_review(self: Box<Self>) -> Box<State> {
-        Box::new(PendingReview {})
-    }
-}
-
-struct PendingReview {}
-
-impl State for PendingReview {
-    fn request_review(self: Box<Self>) -> Box<State> {
-        self
-    }
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-15/src/lib.rs:here}}
 ```
 
 <!--
@@ -432,7 +376,7 @@ current state and returns a new state.
 この2番目の`request_review`が現在の状態を消費し、新しい状態を返します。
 
 <!--
-We’ve added the `request_review` method to the `State` trait; all types that
+We add the `request_review` method to the `State` trait; all types that
 implement the trait will now need to implement the `request_review` method.
 Note that rather than having `self`, `&self`, or `&mut self` as the first
 parameter of the method, we have `self: Box<Self>`. This syntax means the
@@ -441,7 +385,7 @@ ownership of `Box<Self>`, invalidating the old state so the state value of the
 `Post` can transform into a new state.
 -->
 
-`State`トレイトに`request_review`メソッドを追加しました; このトレイトを実装する型は全て、
+`State`トレイトに`request_review`メソッドを追加します; このトレイトを実装する型は全て、
 これで`request_review`メソッドを実装する必要があります。メソッドの第1引数に`self`、`&self`、`&mut self`ではなく、
 `self: Box<Self>`としていることに注意してください。この記法は、型を保持する`Box`に対して呼ばれた時のみ、
 このメソッドが合法になることを意味しています。この記法は、`Box<Self>`の所有権を奪い、古い状態を無効化するので、
@@ -475,15 +419,15 @@ we’ve transformed it into a new state.
 `Post`が古い`state`値を使えないことが保証されるのです。
 
 <!--
-The `request_review` method on `Draft` needs to return a new, boxed instance of
-a new `PendingReview` struct, which represents the state when a post is waiting
-for a review. The `PendingReview` struct also implements the `request_review`
-method but doesn’t do any transformations. Rather, it returns itself, because
-when we request a review on a post already in the `PendingReview` state, it
-should stay in the `PendingReview` state.
+The `request_review` method on `Draft` returns a new, boxed instance of a new
+`PendingReview` struct, which represents the state when a post is waiting for a
+review. The `PendingReview` struct also implements the `request_review` method
+but doesn’t do any transformations. Rather, it returns itself, because when we
+request a review on a post already in the `PendingReview` state, it should stay
+in the `PendingReview` state.
 -->
 
-`Draft`の`request_review`メソッドは、新しい`PendingReview`構造体の新しいボックスのインスタンスを返す必要があり、
+`Draft`の`request_review`メソッドは、新しい`PendingReview`構造体の新しいボックスのインスタンスを返し、
 これが、記事が査読待ちの時の状態を表します。`PendingReview`構造体も`request_review`メソッドを実装しますが、
 何も変形はしません。むしろ、自身を返します。というのも、既に`PendingReview`状態にある記事の査読を要求したら、
 `PendingReview`状態に留まるべきだからです。
@@ -501,18 +445,23 @@ state is responsible for its own rules.
 We’ll leave the `content` method on `Post` as is, returning an empty string
 slice. We can now have a `Post` in the `PendingReview` state as well as in the
 `Draft` state, but we want the same behavior in the `PendingReview` state.
-Listing 17-11 now works up to line 11!
+Listing 17-11 now works up to line 10!
 -->
 
 `Post`の`content`メソッドを空の文字列スライスを返してそのままにします。
 これで`Post`は`PendingReview`と`Draft`状態になり得ますが、`PendingReview`状態でも、
-同じ振る舞いが欲しいです。もうリスト17-11は11行目まで動くようになりました！
+同じ振る舞いが欲しいです。もうリスト17-11は10行目まで動くようになりました！
 
+<!-- Old headings. Do not remove or links may break. -->
 <!--
-### Adding the `approve` Method that Changes the Behavior of `content`
+<a id="adding-the-approve-method-that-changes-the-behavior-of-content"></a>
 -->
 
-### `content`の振る舞いを変化させる`approve`メソッドを追加する
+<!--
+### Adding `approve` to Change the Behavior of `content`
+-->
+
+### `content`の振る舞いを変化させる`approve`を追加する
 
 <!--
 The `approve` method will be similar to the `request_review` method: it will
@@ -529,63 +478,8 @@ state is approved, as shown in Listing 17-16:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-# pub struct Post {
-#     state: Option<Box<State>>,
-#     content: String,
-# }
-#
-impl Post {
-    // --snip--
-    pub fn approve(&mut self) {
-        if let Some(s) = self.state.take() {
-            self.state = Some(s.approve())
-        }
-    }
-}
-
-trait State {
-    fn request_review(self: Box<Self>) -> Box<State>;
-    fn approve(self: Box<Self>) -> Box<State>;
-}
-
-struct Draft {}
-
-impl State for Draft {
-#     fn request_review(self: Box<Self>) -> Box<State> {
-#         Box::new(PendingReview {})
-#     }
-#
-    // --snip--
-    fn approve(self: Box<Self>) -> Box<State> {
-        self
-    }
-}
-
-struct PendingReview {}
-
-impl State for PendingReview {
-#     fn request_review(self: Box<Self>) -> Box<State> {
-#         self
-#     }
-#
-    // --snip--
-    fn approve(self: Box<Self>) -> Box<State> {
-        Box::new(Published {})
-    }
-}
-
-struct Published {}
-
-impl State for Published {
-    fn request_review(self: Box<Self>) -> Box<State> {
-        self
-    }
-
-    fn approve(self: Box<Self>) -> Box<State> {
-        self
-    }
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-16/src/lib.rs:here}}
 ```
 
 <!--
@@ -603,28 +497,32 @@ implements `State`, the `Published` state.
 `State`トレイトに`approve`メソッドを追加し、`Published`状態という`State`を実装する新しい構造体を追加します。
 
 <!--
-Similar to `request_review`, if we call the `approve` method on a `Draft`, it
-will have no effect because it will return `self`. When we call `approve` on
-`PendingReview`, it returns a new, boxed instance of the `Published` struct.
-The `Published` struct implements the `State` trait, and for both the
-`request_review` method and the `approve` method, it returns itself, because
-the post should stay in the `Published` state in those cases.
+Similar to the way `request_review` on `PendingReview` works, if we call the
+`approve` method on a `Draft`, it will have no effect because `approve` will
+return `self`. When we call `approve` on `PendingReview`, it returns a new,
+boxed instance of the `Published` struct. The `Published` struct implements the
+`State` trait, and for both the `request_review` method and the `approve`
+method, it returns itself, because the post should stay in the `Published`
+state in those cases.
 -->
 
-`request_review`のように、`Draft`に対して`approve`メソッドを呼び出したら、`self`を返すので、
+`PendingReview`に対して`request_review`が行っているのと同様に、
+`Draft`に対して`approve`メソッドを呼び出しても、`approve`は`self`を返すので、
 何も効果はありません。`PendingReview`に対して`approve`を呼び出すと、
 `Published`構造体の新しいボックス化されたインスタンスを返します。`Published`構造体は`State`トレイトを実装し、
 `request_review`メソッドと`approve`メソッド両方に対して、自身を返します。
 そのような場合に記事は、`Published`状態に留まるべきだからです。
 
 <!--
-Now we need to update the `content` method on `Post`: if the state is
-`Published`, we want to return the value in the post’s `content` field;
-otherwise, we want to return an empty string slice, as shown in Listing 17-17:
+Now we need to update the `content` method on `Post`. We want the value
+returned from `content` to depend on the current state of the `Post`, so we’re
+going to have the `Post` delegate to a `content` method defined on its `state`,
+as shown in Listing 17-17:
 -->
 
-さて、`Post`の`content`メソッドを更新する必要が出てきました: 状態が`Published`なら、
-記事の`content`フィールドの値を返したいのです; それ以外なら、空の文字列スライスを返したいです。
+さて、`Post`の`content`メソッドを更新する必要が出てきました。
+`content`から返される値を`Post`の現在の状態に依存するようにしたいので、
+`Post`は、その`state`に定義された`content`メソッドに委譲するようにします。
 リスト17-17のようにですね:
 
 <!--
@@ -633,22 +531,8 @@ otherwise, we want to return an empty string slice, as shown in Listing 17-17:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-# trait State {
-#     fn content<'a>(&self, post: &'a Post) -> &'a str;
-# }
-# pub struct Post {
-#     state: Option<Box<State>>,
-#     content: String,
-# }
-#
-impl Post {
-    // --snip--
-    pub fn content(&self) -> &str {
-        self.state.as_ref().unwrap().content(&self)
-    }
-    // --snip--
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch17-oop/listing-17-17/src/lib.rs:here}}
 ```
 
 <!--
@@ -661,7 +545,7 @@ delegate to a `content` method on `State`</span>
 <!--
 Because the goal is to keep all these rules inside the structs that implement
 `State`, we call a `content` method on the value in `state` and pass the post
-instance (that is, `self`) as an argument. Then we return the value that is
+instance (that is, `self`) as an argument. Then we return the value that’s
 returned from using the `content` method on the `state` value.
 -->
 
@@ -671,39 +555,40 @@ returned from using the `content` method on the `state` value.
 <!--
 We call the `as_ref` method on the `Option` because we want a reference to the
 value inside the `Option` rather than ownership of the value. Because `state`
-is an `Option<Box<State>>`, when we call `as_ref`, an `Option<&Box<State>>` is
-returned. If we didn’t call `as_ref`, we would get an error because we can’t
-move `state` out of the borrowed `&self` of the function parameter.
+is an `Option<Box<dyn State>>`, when we call `as_ref`, an `Option<&Box<dyn
+State>>` is returned. If we didn’t call `as_ref`, we would get an error because
+we can’t move `state` out of the borrowed `&self` of the function parameter.
 -->
 
 `Option`に対して`as_ref`メソッドを呼び出します。値の所有権ではなく、`Option`内部の値への参照が欲しいからです。
-`state`は`Option<Box<State>>`なので、`as_ref`を呼び出すと、`Option<&Box<State>>`が返ってきます。
+`state`は`Option<Box<dyn State>>`なので、`as_ref`を呼び出すと、`Option<&Box<dyn State>>`が返ってきます。
 `as_ref`を呼ばなければ、`state`を関数引数の借用した`&self`からムーブできないので、エラーになるでしょう。
 
 <!--
 We then call the `unwrap` method, which we know will never panic, because we
 know the methods on `Post` ensure that `state` will always contain a `Some`
 value when those methods are done. This is one of the cases we talked about in
-the “Cases When You Have More Information Than the Compiler” section of Chapter
-9 when we know that a `None` value is never possible, even though the compiler
-isn’t able to understand that.
+the [“Cases In Which You Have More Information Than the
+Compiler”][more-info-than-rustc] section of Chapter 9 when we
+know that a `None` value is never possible, even though the compiler isn’t able
+to understand that.
 -->
 
 さらに`unwrap`メソッドを呼び出し、これは絶対にパニックしないことがわかっています。何故なら、
 `Post`のメソッドが、それらのメソッドが完了した際に`state`は常に`Some`値を含んでいることを保証するからです。
 これは、コンパイラには理解不能であるものの、
-`None`値が絶対にあり得ないとわかる第9章の「コンパイラよりも情報を握っている場合」節で語った一例です。
+`None`値が絶対にあり得ないとわかる第9章の[「コンパイラよりもプログラマがより情報を持っている場合」][more-info-than-rustc]節で語った一例です。
 
 <!--
-At this point, when we call `content` on the `&Box<State>`, deref coercion will
-take effect on the `&` and the `Box` so the `content` method will ultimately be
-called on the type that implements the `State` trait. That means we need to add
-`content` to the `State` trait definition, and that is where we’ll put the
-logic for what content to return depending on which state we have, as shown in
-Listing 17-18:
+At this point, when we call `content` on the `&Box<dyn State>`, deref coercion
+will take effect on the `&` and the `Box` so the `content` method will
+ultimately be called on the type that implements the `State` trait. That means
+we need to add `content` to the `State` trait definition, and that is where
+we’ll put the logic for what content to return depending on which state we
+have, as shown in Listing 17-18:
 -->
 
-この時点で、`&Box<State>`に対して`content`を呼び出すと、参照外し型強制が`&`と`Box`に働くので、
+この時点で、`&Box<dyn State>`に対して`content`を呼び出すと、参照外し型強制が`&`と`Box`に働くので、
 究極的に`content`メソッドが`State`トレイトを実装する型に対して呼び出されることになります。
 つまり、`content`を`State`トレイト定義に追加する必要があり、そこが現在の状態に応じてどの内容を返すべきかというロジックを配置する場所です。
 リスト17-18のようにですね:
@@ -714,26 +599,8 @@ Listing 17-18:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-# pub struct Post {
-#     content: String
-# }
-trait State {
-    // --snip--
-    fn content<'a>(&self, post: &'a Post) -> &'a str {
-        ""
-    }
-}
-
-// --snip--
-struct Published {}
-
-impl State for Published {
-    // --snip--
-    fn content<'a>(&self, post: &'a Post) -> &'a str {
-        &post.content
-    }
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-18/src/lib.rs:here}}
 ```
 
 <!--
@@ -775,6 +642,26 @@ rules lives in the state objects rather than being scattered throughout `Post`.
 その規則に関連するロジックは、`Post`中に散乱するのではなく、ステートオブジェクトに息づいています。
 
 <!--
+> #### Why Not An Enum?
+>
+> You may have been wondering why we didn’t use an `enum` with the different
+> possible post states as variants. That’s certainly a possible solution, try
+> it and compare the end results to see which you prefer! One disadvantage of
+> using an enum is every place that checks the value of the enum will need a
+> `match` expression or similar to handle every possible variant. This could
+> get more repetitive than this trait object solution.
+-->
+
+> #### enumを使えばいいのでは？
+>
+> 可能な記事の状態を列挙子とする`enum`を使わなかったのはなぜか、疑問に感じているかもしれません。
+> それももちろんあり得る解決策です。試してみて、どちらが好みか、最終結果を比較してみてください！
+> enumを使うことの不利な点のひとつは、enumの値をチェックするすべての場所で、
+> `match`式か、それに類似する、すべての可能な列挙子を処理するための方法が必要になるだろうということです。
+> これは、トレイトオブジェクトを使用する解決策と比較して、より煩わしくなることがあります。
+
+
+<!--
 ### Trade-offs of the State Pattern
 -->
 
@@ -799,7 +686,7 @@ Rustにあることを示してきました。`Post`のメソッドは、種々�
 `Published`構造体の`State`トレイトの実装です。
 
 <!--
-FIX: 5行目末尾がよくわからない。The more ..., the more ...のような感じで訳し文脈には合ってそうだが、合ってる自信がない
+FIX: 5-6行目がよくわからない。The more ..., the more ...のような感じで訳し文脈には合ってそうだが、合ってる自信がない
 つまり、This would only increase, the more states we addedのように訳している
 -->
 
@@ -838,11 +725,11 @@ pattern, try a few of these suggestions:
 
 <!--
 * Add a `reject` method that changes the post’s state from `PendingReview` back
-to `Draft`.
+  to `Draft`.
 * Require two calls to `approve` before the state can be changed to `Published`.
 * Allow users to add text content only when a post is in the `Draft` state.
-Hint: have the state object responsible for what might change about the
-content but not responsible for modifying the `Post`.
+  Hint: have the state object responsible for what might change about the
+  content but not responsible for modifying the `Post`.
 -->
 
 * 記事の状態を`PendingReview`から`Draft`に戻す`reject`メソッドを追加する。
@@ -887,12 +774,13 @@ and `approve` methods on `Post`. Both methods delegate to the implementation of
 the same method on the value in the `state` field of `Option` and set the new
 value of the `state` field to the result. If we had a lot of methods on `Post`
 that followed this pattern, we might consider defining a macro to eliminate the
-repetition (see Appendix D for more on Macros).
+repetition (see the [“Macros”][macros] section in Chapter 19).
 -->
 
 他の重複には、`Post`の`request_review`と`approve`メソッドの実装が似ていることが含まれます。
 両メソッドは`Option`の`state`の値に対する同じメソッドの実装に委譲していて、`state`フィールドの新しい値を結果にセットします。
-このパターンに従う`Post`のメソッドが多くあれば、マクロを定義して繰り返しを排除することも考慮する可能性があります(マクロについては付録Dを参照)。
+このパターンに従う`Post`のメソッドが多くあれば、マクロを定義して繰り返しを排除することも考慮する可能性があります
+(第19章の[「マクロ」][macros]節を参照)。
 
 <!--
 By implementing the state pattern exactly as it’s defined for object-oriented
@@ -935,12 +823,7 @@ Let’s consider the first part of `main` in Listing 17-11:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-fn main() {
-    let mut post = Post::new();
-
-    post.add_text("I ate a salad for lunch today");
-    assert_eq!("", post.content());
-}
+{{#rustdoc_include ../listings/ch17-oop/listing-17-11/src/main.rs:here}}
 ```
 
 <!--
@@ -969,32 +852,8 @@ as well as methods on each:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-pub struct Post {
-    content: String,
-}
-
-pub struct DraftPost {
-    content: String,
-}
-
-impl Post {
-    pub fn new() -> DraftPost {
-        DraftPost {
-            content: String::new(),
-        }
-    }
-
-    pub fn content(&self) -> &str {
-        &self.content
-    }
-}
-
-impl DraftPost {
-    pub fn add_text(&mut self, text: &str) {
-        self.content.push_str(text);
-    }
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-19/src/lib.rs}}
 ```
 
 <!--
@@ -1070,36 +929,8 @@ shown in Listing 17-20:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-# pub struct Post {
-#     content: String,
-# }
-#
-# pub struct DraftPost {
-#     content: String,
-# }
-#
-impl DraftPost {
-    // --snip--
-
-    pub fn request_review(self) -> PendingReviewPost {
-        PendingReviewPost {
-            content: self.content,
-        }
-    }
-}
-
-pub struct PendingReviewPost {
-    content: String,
-}
-
-impl PendingReviewPost {
-    pub fn approve(self) -> Post {
-        Post {
-            content: self.content,
-        }
-    }
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-20/src/lib.rs:here}}
 ```
 
 <!--
@@ -1139,7 +970,7 @@ But we also have to make some small changes to `main`. The `request_review` and
 `approve` methods return new instances rather than modifying the struct they’re
 called on, so we need to add more `let post =` shadowing assignments to save
 the returned instances. We also can’t have the assertions about the draft and
-pending review post’s contents be empty strings, nor do we need them: we can’t
+pending review posts’ contents be empty strings, nor do we need them: we can’t
 compile code that tries to use the content of posts in those states any longer.
 The updated code in `main` is shown in Listing 17-21:
 -->
@@ -1157,20 +988,7 @@ The updated code in `main` is shown in Listing 17-21:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-extern crate blog;
-use blog::Post;
-
-fn main() {
-    let mut post = Post::new();
-
-    post.add_text("I ate a salad for lunch today");
-
-    let post = post.request_review();
-
-    let post = post.approve();
-
-    assert_eq!("I ate a salad for lunch today", post.content());
-}
+{{#rustdoc_include ../listings/ch17-oop/listing-17-21/src/main.rs}}
 ```
 
 <!--
@@ -1202,13 +1020,13 @@ as it is, afterで訳した
 -->
 
 <!--
-Try the tasks suggested for additional requirements that we mentioned at the
-start of this section on the `blog` crate as it is after Listing 17-20 to see
-what you think about the design of this version of the code. Note that some of
-the tasks might be completed already in this design.
+Try the tasks suggested at the start of this section on the `blog` crate as it
+is after Listing 17-21 to see what you think about the design of this version
+of the code. Note that some of the tasks might be completed already in this
+design.
 -->
 
-`blog`クレートに関してこの節の冒頭で触れた追加の要求に提言される作業をそのままリスト17-20の後に試してみて、
+`blog`クレートに関してこの節の冒頭で提言される作業をそのままリスト17-21の後に試してみて、
 このバージョンのコードについてどう思うか確かめてください。この設計では、
 既に作業の一部が達成されている可能性があることに注意してください。
 
@@ -1262,3 +1080,11 @@ haven’t seen their full capability yet. Let’s go!
 
 次は、パターンを見ます。パターンも多くの柔軟性を可能にするRustの別の機能です。
 本全体を通して僅かに見かけましたが、まだその全能力は目の当たりにしていません。さあ、行きましょう！
+
+<!--
+[more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#cases-in-which-you-have-more-information-than-the-compiler
+[macros]: ch19-06-macros.html#macros
+-->
+
+[more-info-than-rustc]: ch09-03-to-panic-or-not-to-panic.html#コンパイラよりもプログラマがより情報を持っている場合
+[macros]: ch19-06-macros.html#マクロ

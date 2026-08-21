@@ -2,7 +2,7 @@
 enum UsState {
     Alabama,
     Alaska,
-    // --snip--
+    // --略--
 }
 
 enum Coin {

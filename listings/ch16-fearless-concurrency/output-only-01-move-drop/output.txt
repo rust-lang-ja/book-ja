@@ -1,22 +1,23 @@
 $ cargo run
    Compiling threads v0.1.0 (file:///projects/threads)
 error[E0382]: use of moved value: `v`
+(エラー: ムーブされた値の使用: `v`)
   --> src/main.rs:10:10
    |
 4  |     let v = vec![1, 2, 3];
-   |         - move occurs because `v` has type `std::vec::Vec<i32>`, which does not implement the `Copy` trait
-5  | 
+   |         - move occurs because `v` has type `Vec<i32>`, which does not implement the `Copy` trait
+   |          (`v`は`Copy`トレイトを実装しない`Vec<i32>`型を持つので、ムーブが発生します)
+5  |
 6  |     let handle = thread::spawn(move || {
    |                                ------- value moved into closure here
+   |                                       (値はここでクロージャ内にムーブされます)
 7  |         println!("Here's a vector: {:?}", v);
    |                                           - variable moved due to use in closure
+   |                                            (変数はクロージャ内で使用されているためムーブされます)
 ...
 10 |     drop(v); // oh no!
    |          ^ value used here after move
-
-error: aborting due to previous error
+   |           (値はここでムーブ後に使用されています)
 
 For more information about this error, try `rustc --explain E0382`.
-error: could not compile `threads`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `threads` (bin "threads") due to 1 previous error

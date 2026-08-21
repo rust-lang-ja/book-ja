@@ -6,6 +6,7 @@ fn main() {
     let (tx, rx) = mpsc::channel();
 
     thread::spawn(move || {
+    	// スレッドからやあ (hi from the thread)
         let vals = vec![
             String::from("hi"),
             String::from("from"),

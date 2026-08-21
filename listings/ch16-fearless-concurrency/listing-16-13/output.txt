@@ -1,19 +1,20 @@
 $ cargo run
    Compiling shared-state v0.1.0 (file:///projects/shared-state)
-error[E0382]: use of moved value: `counter`
-  --> src/main.rs:9:36
+error[E0382]: borrow of moved value: `counter`
+(エラー: ムーブされた値の借用: `counter`)
+  --> src/main.rs:21:29
    |
 5  |     let counter = Mutex::new(0);
-   |         ------- move occurs because `counter` has type `std::sync::Mutex<i32>`, which does not implement the `Copy` trait
+   |         ------- move occurs because `counter` has type `Mutex<i32>`, which does not implement the `Copy` trait
+   |                (`counter`は`Copy`トレイトを実装しない`Mutex<i32>`型を持つので、ムーブが発生します)
 ...
 9  |         let handle = thread::spawn(move || {
-   |                                    ^^^^^^^ value moved into closure here, in previous iteration of loop
-10 |             let mut num = counter.lock().unwrap();
-   |                           ------- use occurs due to use in closure
-
-error: aborting due to previous error
+   |                                    ------- value moved into closure here, in previous iteration of loop
+   |                                           (値は、ループの前回の反復時に、ここでクロージャ内にムーブされます)
+...
+21 |     println!("Result: {}", *counter.lock().unwrap());
+   |                             ^^^^^^^ value borrowed here after move
+   |                                    (値はここでムーブ後に借用されています)
 
 For more information about this error, try `rustc --explain E0382`.
-error: could not compile `shared-state`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `shared-state` (bin "shared-state") due to 1 previous error

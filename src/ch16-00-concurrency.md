@@ -46,11 +46,11 @@ Rustのこの方向性を*恐れるな！並行性*とニックネーム付け�
 新しいバグを導入することなく簡単にリファクタリングできるコードを書くことができます。
 
 <!--
-Note: For simplicity’s sake, we’ll refer to many of the problems as
-*concurrent* rather than being more precise by saying *concurrent and/or
-parallel*. If this book were about concurrency and/or parallelism, we'd be
-more specific. For this chapter, please mentally substitute *concurrent
-and/or parallel* whenever we use *concurrent*.
+> Note: For simplicity’s sake, we’ll refer to many of the problems as
+> *concurrent* rather than being more precise by saying *concurrent and/or
+> parallel*. If this book were about concurrency and/or parallelism, we’d be
+> more specific. For this chapter, please mentally substitute *concurrent
+> and/or parallel* whenever we use *concurrent*.
 -->
 
 > 注釈: 簡潔性のため、並行または並列と述べることで正確を期するのではなく、
@@ -88,9 +88,9 @@ Here are the topics we’ll cover in this chapter:
 * How to create threads to run multiple pieces of code at the same time
 * *Message-passing* concurrency, where channels send messages between threads
 * *Shared-state* concurrency, where multiple threads have access to some piece
-of data
+  of data
 * The `Sync` and `Send` traits, which extend Rust’s concurrency guarantees to
-user-defined types as well as types provided by the standard library
+  user-defined types as well as types provided by the standard library
 -->
 
 * スレッドを生成して、複数のコードを同時に走らせる方法

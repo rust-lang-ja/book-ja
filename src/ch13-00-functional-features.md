@@ -34,23 +34,23 @@ More specifically, we’ll cover:
 <!--
 * *Closures*, a function-like construct you can store in a variable
 * *Iterators*, a way of processing a series of elements
-* How to use these two features to improve the I/O project in Chapter 12
-* The performance of these two features (Spoiler alert: they’re faster than you
-might think!)
+* How to use closures and iterators to improve the I/O project in Chapter 12
+* The performance of closures and iterators (Spoiler alert: they’re faster than
+  you might think!)
 -->
 
 * *クロージャ*、変数に保存できる関数に似た文法要素
 * *イテレータ*、一連の要素を処理する方法
-* これら2つの機能を使用して第12章の入出力プロジェクトを改善する方法
-* これら2つの機能のパフォーマンス(ネタバレ: 思ったよりも速いです)
+* クロージャとイテレータを使用して第12章の入出力プロジェクトを改善する方法
+* クロージャとイテレータのパフォーマンス(ネタバレ: 思ったよりも速いです)
 
 <!--
-Other Rust features, such as pattern matching and enums, which we've covered in
-other chapters, are influenced by the functional style as well. Mastering
+We’ve already covered some other Rust features, such as pattern matching and
+enums, that are also influenced by the functional style. Because mastering
 closures and iterators is an important part of writing idiomatic, fast Rust
-code, so we’ll devote this entire chapter to them.
+code, we’ll devote this entire chapter to them.
 -->
 
-パターンマッチングやenumなど、他のRustの機能も関数型に影響されていますが、他の章で講義してきました。
+パターンマッチングやenumなども関数型スタイルに影響を受けた他のRustの機能ですが、これらについてはすでに他の章で講義してきました。
 クロージャとイテレータをマスターすることは、慣用的で速いRustコードを書くことの重要な部分なので、
 この章を丸ごと捧げます。

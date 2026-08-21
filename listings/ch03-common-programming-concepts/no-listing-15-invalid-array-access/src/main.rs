@@ -21,9 +21,6 @@ fn main() {
 
     let element = a[index];
 
-    println!(
-        "The value of the element at index {} is: {}",
-        // {}番目の要素の値は{}です
-        index, element
-    );
+    println!("The value of the element at index {index} is: {element}");
+           // {index}番目の要素の値は{element}です
 }

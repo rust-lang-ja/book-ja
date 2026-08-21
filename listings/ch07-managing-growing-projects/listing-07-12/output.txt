@@ -1,0 +1,28 @@
+$ cargo build
+   Compiling restaurant v0.1.0 (file:///projects/restaurant)
+error[E0433]: failed to resolve: use of undeclared crate or module `hosting`
+(エラー: 名前解決に失敗しました: 宣言されていないクレートまたはモジュール`hosting`の使用)
+  --> src/lib.rs:11:9
+   |
+11 |         hosting::add_to_waitlist();
+   |         ^^^^^^^ use of undeclared crate or module `hosting`
+   |                 (宣言されていないクレートまたはモジュール`hosting`の使用)
+   |
+help: consider importing this module through its public re-export
+(ヘルプ: 公開再エクスポートからこのモジュールをインポートすることを検討してください)
+   |
+10 +     use crate::hosting;
+   |
+
+warning: unused import: `crate::front_of_house::hosting`
+(警告: 未使用のインポート: `crate::front_of_house::hosting`)
+ --> src/lib.rs:7:5
+  |
+7 | use crate::front_of_house::hosting;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+For more information about this error, try `rustc --explain E0433`.
+warning: `restaurant` (lib) generated 1 warning
+error: could not compile `restaurant` (lib) due to 1 previous error; 1 warning emitted

@@ -8,7 +8,7 @@ fn main() {
 
     let (tx, rx) = mpsc::channel();
 
-    let tx1 = mpsc::Sender::clone(&tx);
+    let tx1 = tx.clone();
     thread::spawn(move || {
         let vals = vec![
             String::from("hi"),
@@ -24,6 +24,7 @@ fn main() {
     });
 
     thread::spawn(move || {
+        // 君のためにもっとメッセージを (more messages for you)
         let vals = vec![
             String::from("more"),
             String::from("messages"),

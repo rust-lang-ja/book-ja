@@ -14,8 +14,8 @@ fn main() {
     // division
     // 割り算
     let quotient = 56.7 / 32.2;
-    let floored = 2 / 3; // Results in 0
-                         // 結果は0
+    let truncated = -5 / 3; // Results in -1
+                            // 結果は-1
 
     // remainder
     // 余り

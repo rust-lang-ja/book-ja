@@ -1,17 +1,28 @@
 $ cargo run
    Compiling deref-example v0.1.0 (file:///projects/deref-example)
 error[E0277]: can't compare `{integer}` with `&{integer}`
+(エラー: `{integer}`を`&{integer}`と比較することはできません)
  --> src/main.rs:6:5
   |
 6 |     assert_eq!(5, y);
-  |     ^^^^^^^^^^^^^^^^^ no implementation for `{integer} == &{integer}`
+  |     ^^^^^^^^^^^^^^^^ no implementation for `{integer} == &{integer}`
+  |                     (`{integer} == &{integer}`のための実装はありません)
   |
-  = help: the trait `std::cmp::PartialEq<&{integer}>` is not implemented for `{integer}`
-  = note: this error originates in a macro outside of the current crate (in Nightly builds, run with -Z external-macro-backtrace for more info)
-
-error: aborting due to previous error
+  = help: the trait `PartialEq<&{integer}>` is not implemented for `{integer}`
+   (ヘルプ: トレイト`PartialEq<&{integer}>`は`{integer}`に対して実装されていません)
+  = help: the following other types implement trait `PartialEq<Rhs>`:
+   (ヘルプ: 以下の型であればトレイト`PartialEq<Rhs>`を実装しています:)
+            isize
+            i8
+            i16
+            i32
+            i64
+            i128
+            usize
+            u8
+          and 6 others
+  = note: this error originates in the macro `assert_eq` (in Nightly builds, run with -Z macro-backtrace for more info)
+    (注釈: このエラーはマクロ`assert_eq`に由来します (nightlyビルドでは、詳細を得るには-Z macro-bactraceを実行してください))
 
 For more information about this error, try `rustc --explain E0277`.
-error: could not compile `deref-example`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `deref-example` (bin "deref-example") due to 1 previous error

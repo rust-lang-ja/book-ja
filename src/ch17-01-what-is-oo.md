@@ -6,12 +6,12 @@
 
 <!--
 There is no consensus in the programming community about what features a
-language must have to be considered object oriented. Rust is influenced by many
+language must have to be considered object-oriented. Rust is influenced by many
 programming paradigms, including OOP; for example, we explored the features
 that came from functional programming in Chapter 13. Arguably, OOP languages
 share certain common characteristics, namely objects, encapsulation, and
-inheritance. Let’s look at what each of those characteristics mean and whether
-Rust supports them.
+inheritance. Let’s look at what each of those characteristics means and whether
+Rust supports it.
 -->
 
 言語がオブジェクト指向と考えられるのになければならない機能について、プログラミングコミュニティ内での総意はありません。
@@ -28,15 +28,14 @@ OOP言語は特定の一般的な特徴を共有しています。具体的に�
 
 <!--
 The book *Design Patterns: Elements of Reusable Object-Oriented Software* by
-Enoch Gamma, Richard Helm, Ralph Johnson, and John Vlissides (Addison-Wasley
-Professional, 1994) colloquially referred to as *The Gang of Four book*, is a
-catlog of object-oriented design patterns. It defines OOP this way:
+Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides (Addison-Wesley
+Professional, 1994), colloquially referred to as *The Gang of Four* book, is a
+catalog of object-oriented design patterns. It defines OOP this way:
 -->
 
-エーリヒ・ガンマ(Enoch Gamma)、リチャード・ヘルム(Richard Helm)、ラルフ・ジョンソン(Ralph Johnson)、
-ジョン・ブリシディース(John Vlissides)(アディソン・ワズリー・プロ)により、
-1994年に書かれた*デザインパターン: 再利用可能なオブジェクト指向ソフトウェアの要素*という本は、
-俗に*4人のギャングの本*(`訳注`: the Gang of Four book; GoFとよく略される)と呼ばれ、オブジェクト指向デザインパターンのカタログです。
+エーリヒ・ガンマ(Erich Gamma)、リチャード・ヘルム(Richard Helm)、ラルフ・ジョンソン(Ralph Johnson)、
+ジョン・ブリシディース(John Vlissides)による本*Design Patterns: Elements of Reusable Object-Oriented Software* (Addison-Wesley Professional, 1994)は、
+俗に*4人のギャング*の本と呼ばれる、オブジェクト指向デザインパターンのカタログです。
 そこでは、OOPは以下のように定義されています:
 
 <!--
@@ -50,7 +49,7 @@ catlog of object-oriented design patterns. It defines OOP this way:
 > 典型的に*メソッド*または*オペレーション*と呼ばれる。
 
 <!--
-Using this definition, Rust is object oriented: structs and enums have data,
+Using this definition, Rust is object-oriented: structs and enums have data,
 and `impl` blocks provide methods on structs and enums. Even though structs and
 enums with methods aren’t *called* objects, they provide the same
 functionality, according to the Gang of Four’s definition of objects.
@@ -109,11 +108,8 @@ cache the calculated average for us. Listing 17-1 has the definition of the
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-pub struct AveragedCollection {
-    list: Vec<i32>,
-    average: f64,
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-01/src/lib.rs}}
 ```
 
 <!--
@@ -142,37 +138,8 @@ on the struct, as shown in Listing 17-2:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-# pub struct AveragedCollection {
-#     list: Vec<i32>,
-#     average: f64,
-# }
-impl AveragedCollection {
-    pub fn add(&mut self, value: i32) {
-        self.list.push(value);
-        self.update_average();
-    }
-
-    pub fn remove(&mut self) -> Option<i32> {
-        let result = self.list.pop();
-        match result {
-            Some(value) => {
-                self.update_average();
-                Some(value)
-            },
-            None => None,
-        }
-    }
-
-    pub fn average(&self) -> f64 {
-        self.average
-    }
-
-    fn update_average(&mut self) {
-        let total: i32 = self.list.iter().sum();
-        self.average = total as f64 / self.list.len() as f64;
-    }
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch17-oop/listing-17-02/src/lib.rs:here}}
 ```
 
 <!--
@@ -183,23 +150,23 @@ impl AveragedCollection {
 <span class="caption">リスト17-2: `AveragedCollection`の`add`、`remove`、`average`公開メソッドの実装</span>
 
 <!--
-The public methods `add`, `remove`, and `average` are the only ways to modify
-an instance of `AveragedCollection`. When an item is added to `list` using the
-`add` method or removed using the `remove` method, the implementations of each
-call the private `update_average` method that handles updating the `average`
-field as well.
+The public methods `add`, `remove`, and `average` are the only ways to access
+or modify data in an instance of `AveragedCollection`. When an item is added
+to `list` using the `add` method or removed using the `remove` method, the
+implementations of each call the private `update_average` method that handles
+updating the `average` field as well.
 -->
 
-`add`、`remove`、`average`の公開メソッドが`AveragedCollection`のインスタンスを変更する唯一の方法になります。
-要素が`add`メソッドを使用して`list`に追加されたり、`remove`メソッドを使用して削除されたりすると、
+`add`、`remove`、`average`の公開メソッドが、`AveragedCollection`のインスタンス内のデータにアクセスまたは変更するための、
+唯一の方法になります。要素が`add`メソッドを使用して`list`に追加されたり、`remove`メソッドを使用して削除されたりすると、
 各メソッドの実装が`average`フィールドの更新を扱う非公開の`update_average`メソッドも呼び出します。
 
 <!--
 We leave the `list` and `average` fields private so there is no way for
-external code to add or remove items to the `list` field directly; otherwise,
-the `average` field might become out of sync when the `list` changes. The
-`average` method returns the value in the `average` field, allowing external
-code to read the `average` but not modify it.
+external code to add or remove items to or from the `list` field directly;
+otherwise, the `average` field might become out of sync when the `list`
+changes. The `average` method returns the value in the `average` field,
+allowing external code to read the `average` but not modify it.
 -->
 
 `list`と`average`フィールドを非公開のままにしているので、外部コードが要素を`list`フィールドに直接追加したり削除したりする方法はありません;
@@ -211,7 +178,7 @@ code to read the `average` but not modify it.
 Because we’ve encapsulated the implementation details of the struct
 `AveragedCollection`, we can easily change aspects, such as the data structure,
 in the future. For instance, we could use a `HashSet<i32>` instead of a
-`Vec<i32>` for the `list` field. As long as the signatures of the `add`
+`Vec<i32>` for the `list` field. As long as the signatures of the `add`,
 `remove`, and `average` public methods stay the same, code using
 `AveragedCollection` wouldn’t need to change. If we made `list` public instead,
 this wouldn’t necessarily be the case: `HashSet<i32>` and `Vec<i32>` have
@@ -227,9 +194,9 @@ likely have to change if it were modifying `list` directly.
 外部コードも変更しなければならない可能性が高いでしょう。
 
 <!--
-If encapsulation is a required aspect for a language to be considered object
-oriented, then Rust meets that requirement. The option to use `pub` or not for
-different parts of code enables encapsulation of implementation details.
+If encapsulation is a required aspect for a language to be considered
+object-oriented, then Rust meets that requirement. The option to use `pub` or
+not for different parts of code enables encapsulation of implementation details.
 -->
 
 カプセル化が、言語がオブジェクト指向と考えられるのに必要な側面ならば、Rustはその条件を満たしています。
@@ -242,45 +209,51 @@ different parts of code enables encapsulation of implementation details.
 ### 型システム、およびコード共有としての継承
 
 <!--
-*Inheritance* is a mechanism whereby an object can inherit from another
-object’s definition, thus gaining the parent object’s data and behavior without
-you having to define them again.
+*Inheritance* is a mechanism whereby an object can inherit elements from
+another object’s definition, thus gaining the parent object’s data and behavior
+without you having to define them again.
 -->
 
-*継承*は、それによってオブジェクトが他のオブジェクトの定義から受け継ぐことができる機構であり、
+*継承*は、それによってオブジェクトが他のオブジェクトの定義から要素を受け継ぐことができる機構であり、
 それ故に、再定義する必要なく、親オブジェクトのデータと振る舞いを得ます。
 
 <!--
 If a language must have inheritance to be an object-oriented language, then
 Rust is not one. There is no way to define a struct that inherits the parent
-struct’s fields and method implementations. However, if you’re used to having
-inheritance in your programming toolbox, you can use other solutions in Rust,
-depending on your reason for reaching for inheritance in the first place.
+struct’s fields and method implementations without using a macro.
 -->
 
 言語がオブジェクト指向言語であるために継承がなければならないのならば、Rustは違います。
-親構造体のフィールドとメソッドの実装を受け継ぐ構造体を定義する方法はありません。しかしながら、
-継承がプログラミング道具箱にあることに慣れていれば、そもそも継承に手を伸ばす理由によって、
-Rustで他の解決策を使用することができます。
+親構造体のフィールドとメソッドの実装を受け継ぐ構造体をマクロを使わずに定義する方法はありません。
 
 <!--
-You choose inheritance for two main reasons. One is for reuse of code: you can
-implement particular behavior for one type, and inheritance enables you to
-reuse that implementation for a different type. You can share Rust code using
-default trait method implementations instead, which you saw in Listing 10-14
-when we added a default implementation of the `summarize` method on the
-`Summary` trait. Any type implementing the `Summary` trait would have the
-`summarize` method available on it without any further code. This is similar to
-a parent class having an implementation of a method and an inheriting child
-class also having the implementation of the method. We can also override the
-default implementation of the `summarize` method when we implement the
-`Summary` trait, which is similar to a child class overriding the
+However, if you’re used to having inheritance in your programming toolbox, you
+can use other solutions in Rust, depending on your reason for reaching for
+inheritance in the first place.
+-->
+
+しかしながら、継承がプログラミング道具箱にあることに慣れていれば、
+そもそも継承に手を伸ばす理由によって、Rustで他の解決策を使用することができます。
+
+<!--
+You would choose inheritance for two main reasons. One is for reuse of code:
+you can implement particular behavior for one type, and inheritance enables you
+to reuse that implementation for a different type. You can do this in a limited
+way in Rust code using default trait method implementations, which you saw in
+Listing 10-14 when we added a default implementation of the `summarize` method
+on the `Summary` trait. Any type implementing the `Summary` trait would have
+the `summarize` method available on it without any further code. This is
+similar to a parent class having an implementation of a method and an
+inheriting child class also having the implementation of the method. We can
+also override the default implementation of the `summarize` method when we
+implement the `Summary` trait, which is similar to a child class overriding the
 implementation of a method inherited from a parent class.
 -->
 
 継承を選択する理由は主に2つあります。1つ目は、コードの再利用です: ある型に特定の振る舞いを実装し、
-継承により、その実装を他の型にも再利用できるわけです。デフォルトのトレイトメソッド実装を代わりに使用して、
-Rustコードを共有でき、これは、リスト10-14で`Summary`トレイトに`summarize`メソッドのデフォルト実装を追加した時に見かけました。
+継承により、その実装を他の型にも再利用できるわけです。Rustコードでは、
+デフォルトのトレイトメソッド実装を使用することで、限定された形でこれを行うことができ、
+これは、リスト10-14で`Summary`トレイトに`summarize`メソッドのデフォルト実装を追加した時に見かけました。
 `Summary`トレイトを実装する型は全て、追加のコードなく`summarize`メソッドが使用できます。
 これは、親クラスにメソッドの実装があり、継承した子クラスにもそのメソッドの実装があることと似ています。
 また、`Summary`トレイトを実装する時に、`summarize`メソッドのデフォルト実装を上書きすることもでき、
@@ -324,9 +297,9 @@ than necessary. Subclasses shouldn’t always share all characteristics of their
 parent class but will do so with inheritance. This can make a program’s design
 less flexible. It also introduces the possibility of calling methods on
 subclasses that don’t make sense or that cause errors because the methods don’t
-apply to the subclass. Some languages will also only allow a subclass
-to inherit from one class, further restricting the flexibility of a program’s
-design.
+apply to the subclass. In addition, some languages will only allow single
+inheritance (meaning a subclass can only inherit from one class), further
+restricting the flexibility of a program’s design.
 -->
 
 継承は、近年、多くのプログラミング言語において、プログラムの設計解決策としては軽んじられています。
@@ -334,12 +307,13 @@ design.
 必ずしも親クラスの特徴を全て共有するべきではないのに、継承ではそうなってしまうのです。
 これにより、プログラムの設計の柔軟性を失わせることもあります。また、道理に合わなかったり、メソッドがサブクラスには適用されないために、
 エラーを発生させるようなサブクラスのメソッドの呼び出しを引き起こす可能性が出てくるのです。
-さらに、サブクラスに1つのクラスからだけ継承させる言語もあり、さらにプログラムの設計の柔軟性が制限されます。
+さらに、単一継承のみを許可する(サブクラスは1つのクラスからのみ継承できる)言語もあり、さらにプログラムの設計の柔軟性が制限されます。
 
 <!--
-For these reasons, Rust takes a different approach, using trait objects instead
-of inheritance. Let’s look at how trait objects enable polymorphism in Rust.
+For these reasons, Rust takes the different approach of using trait objects
+instead of inheritance. Let’s look at how trait objects enable polymorphism in
+Rust.
 -->
 
-これらの理由により、継承ではなくトレイトオブジェクトを使用してRustは異なるアプローチを取っています。
+これらの理由によりRustは、継承ではなくトレイトオブジェクトを使用するという異なるアプローチを取っています。
 Rustにおいて、トレイトオブジェクトがどう多相性を可能にするかを見ましょう。

@@ -1,5 +1,5 @@
 <!--
-## Developing the Library’s Functionality with Test Driven Development
+## Developing the Library’s Functionality with Test-Driven Development
 -->
 
 ## テスト駆動開発でライブラリの機能を開発する
@@ -9,30 +9,26 @@ Now that we’ve extracted the logic into *src/lib.rs* and left the argument
 collecting and error handling in *src/main.rs*, it’s much easier to write tests
 for the core functionality of our code. We can call functions directly with
 various arguments and check return values without having to call our binary
-from the command line. Feel free to write some tests for the functionality in
-the `Config::new` and `run` functions on your own.
+from the command line.
 -->
 
 今や、ロジックを*src/lib.rs*に抜き出し、引数集めとエラー処理を*src/main.rs*に残したので、
 コードの核となる機能のテストを書くのが非常に容易になりました。いろんな引数で関数を直接呼び出し、
-コマンドラインからバイナリを呼び出す必要なく戻り値を確認できます。ご自由に`Config::new`や`run`関数の機能のテストは、
-ご自身でお書きください。
+コマンドラインからバイナリを呼び出す必要なく戻り値を確認できます。
 
 <!--
-In this section, we’ll add the searching logic to the `minigrep` program by
-using the Test Driven Development (TDD) process. This software development
-technique follows these steps:
+In this section, we’ll add the searching logic to the `minigrep` program
+using the test-driven development (TDD) process with the following steps:
 -->
 
-この節では、テスト駆動開発(TDD)過程を活用して`minigrep`プログラムに検索ロジックを追加します。
-このソフトウェア開発テクニックは、以下の手順に従います:
+この節では、以下の手順に従ってテスト駆動開発(TDD)プロセスを活用して、`minigrep`プログラムに検索ロジックを追加します:
 
 <!--
-1. Write a test that fails, and run it to make sure it fails for the reason you
-expected.
+1. Write a test that fails and run it to make sure it fails for the reason you
+   expect.
 2. Write or modify just enough code to make the new test pass.
 3. Refactor the code you just added or changed and make sure the tests
-continue to pass.
+   continue to pass.
 4. Repeat from step 1!
 -->
 
@@ -42,12 +38,12 @@ continue to pass.
 4. 手順1から繰り返す！
 
 <!--
-This process is just one of many ways to write software, but TDD can help drive
-code design as well. Writing the test before you write the code that makes the
-test pass helps to maintain high test coverage throughout the process.
+Though it’s just one of many ways to write software, TDD can help drive code
+design. Writing the test before you write the code that makes the test pass
+helps to maintain high test coverage throughout the process.
 -->
 
-この過程は、ソフトウェアを書く多くの方法のうちの一つに過ぎませんが、TDDによりコードデザインも駆動することができます。
+TDDはソフトウェアを書く多くの方法のうちの一つに過ぎませんが、コードデザインを駆動するために役立てることができます。
 テストを通過させるコードを書く前にテストを書くことで、過程を通して高いテストカバー率を保つ助けになります。
 
 <!--
@@ -69,16 +65,16 @@ lines that match the query. We’ll add this functionality in a function called
 <!--
 Because we don’t need them anymore, let’s remove the `println!` statements from
 *src/lib.rs* and *src/main.rs* that we used to check the program’s behavior.
-Then, in *src/lib.rs*, we’ll add a `test` module with a test function, as we
-did in Chapter 11. The test function specifies the behavior we want the
-`search` function to have: it will take a query and the text to search for the
-query in, and will return only the lines from the text that contain the
-query. Listing 12-15 shows this test, which won't compile yet.
+Then, in *src/lib.rs*, add a `tests` module with a test function, as we did in
+[Chapter 11][ch11-anatomy]. The test function specifies the
+behavior we want the `search` function to have: it will take a query and the
+text to search, and it will return only the lines from the text that contain
+the query. Listing 12-15 shows this test, which won’t compile yet.
 -->
 
 もう必要ないので、プログラムの振る舞いを確認していた`println!`文を*src/lib.rs*と*src/main.rs*から削除しましょう。
-それから*src/lib.rs*で、テスト関数のある`test`モジュールを追加します。第11章のようにですね。
-このテスト関数が`search`関数に欲しい振る舞いを指定します: クエリとそれを検索するテキストを受け取り、
+それから*src/lib.rs*で、テスト関数のある`tests`モジュールを追加してください。[第11章][ch11-anatomy]のようにですね。
+このテスト関数が`search`関数に欲しい振る舞いを指定します: クエリと検索対象のテキストを受け取り、
 クエリを含む行だけをテキストから返します。リスト12-15にこのテストを示していますが、まだコンパイルは通りません。
 
 <!--
@@ -87,32 +83,8 @@ query. Listing 12-15 shows this test, which won't compile yet.
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-# fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-#      vec![]
-# }
-#
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn one_result() {
-        let query = "duct";
-        // Rustは
-        // 安全で速く生産性も高い。
-        // 3つ選んで。
-        let contents = "\
-Rust:
-safe, fast, productive.
-Pick three.";
-
-        assert_eq!(
-            vec!["safe, fast, productive."],
-            search(query, contents)
-        );
-    }
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-15/src/lib.rs:here}}
 ```
 
 <!--
@@ -123,25 +95,30 @@ function we wish we had</span>
 <span class="caption">リスト12-15: こうだったらいいなという`search`関数の失敗するテストを作成する</span>
 
 <!--
-This test searches for the string `“duct”`. The text we’re searching is three
-lines, only one of which contains `“duct”`. We assert that the value returned
-from the `search` function contains only the line we expect.
+This test searches for the string `"duct"`. The text we’re searching is three
+lines, only one of which contains `"duct"` (Note that the backslash after the
+opening double quote tells Rust not to put a newline character at the beginning
+of the contents of this string literal). We assert that the value returned from
+the `search` function contains only the line we expect.
 -->
 
-このテストは、`"duct"`という文字列を検索します。検索対象の文字列は3行で、うち1行だけが`"duct"`を含みます。
+このテストは、`"duct"`という文字列を検索します。検索対象の文字列は3行で、うち1行だけが`"duct"`を含みます
+(開き二重引用符の後のバックスラッシュは、この文字列リテラルの内容の先頭に改行文字を置かないように、
+コンパイラに指示しているということに注意してください)。
 `search`関数から返る値が想定している行だけを含むことをアサーションします。
 
 <!--
-We aren’t able to run this test and watch it fail because the test doesn’t even
-compile: the `search` function doesn’t exist yet! So now we’ll add just enough
-code to get the test to compile and run by adding a definition of the `search`
-function that always returns an empty vector, as shown in Listing 12-16. Then
-the test should compile and fail because an empty vector doesn’t match a vector
-containing the line `"safe, fast, productive."`.
+We aren’t yet able to run this test and watch it fail because the test doesn’t
+even compile: the `search` function doesn’t exist yet! In accordance with TDD
+principles, we’ll add just enough code to get the test to compile and run by
+adding a definition of the `search` function that always returns an empty
+vector, as shown in Listing 12-16. Then the test should compile and fail
+because an empty vector doesn’t match a vector containing the line `"safe,
+fast, productive."`
 -->
 
-このテストを走らせ、失敗するところを観察することはできません。このテストはコンパイルもできないからです:
-まだ`search`関数が存在していません！ゆえに今度は、空のベクタを常に返す`search`関数の定義を追加することで、
+このテストを走らせ、失敗するところを観察することは、まだできません。このテストはコンパイルもできないからです:
+まだ`search`関数が存在していません！TDDの原則に従って、空のベクタを常に返す`search`関数の定義を追加することで、
 テストをコンパイルし走らせるだけのコードを追記します。リスト12-16に示したようにですね。そうすれば、
 テストはコンパイルでき、失敗するはずです。なぜなら、空のベクタは、
 `"safe, fast, productive."`という行を含むベクタとは合致しないからです。
@@ -152,10 +129,8 @@ containing the line `"safe, fast, productive."`.
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    vec![]
-}
+```rust,noplayground
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-16/src/lib.rs:here}}
 ```
 
 <!--
@@ -170,16 +145,17 @@ function so our test will compile</span>
 -->
 
 <!--
-Notice that we need an explicit lifetime `'a` defined in the signature of
-`search` and used with the `contents` argument and the return value. Recall in
-Chapter 10 that the lifetime parameters specify which argument lifetime is
-connected to the lifetime of the return value. In this case, we indicate that
-the returned vector should contain string slices that reference slices of the
-argument `contents` (rather than the argument `query`).
+Notice that we need to define an explicit lifetime `'a` in the signature of
+`search` and use that lifetime with the `contents` argument and the return
+value. Recall in [Chapter 10][ch10-lifetimes] that the lifetime
+parameters specify which argument lifetime is connected to the lifetime of the
+return value. In this case, we indicate that the returned vector should contain
+string slices that reference slices of the argument `contents` (rather than the
+argument `query`).
 -->
 
-明示的なライフタイムの`'a`が`search`のシグニチャで定義され、`contents`引数と戻り値で使用されていることに注目してください。
-第10章からライフタイム仮引数は、どの実引数のライフタイムが戻り値のライフタイムに関連づけられているかを指定することを思い出してください。
+`search`のシグニチャ内で、明示的なライフタイム`'a`を定義し、そのライフタイムを`contents`引数と戻り値で使用していることに注目してください。
+[第10章][ch10-lifetimes]からライフタイム仮引数は、どの実引数のライフタイムが戻り値のライフタイムに関連づけられているかを指定することを思い出してください。
 この場合、返却されるベクタは、
 (`query`引数ではなく)`contents`引数のスライスを参照する文字列スライスを含むべきと示唆しています。
 
@@ -205,41 +181,32 @@ get this error:
 
 ライフタイム注釈を忘れてこの関数をコンパイルしようとすると、こんなエラーが出ます:
 
-```text
-error[E0106]: missing lifetime specifier
-(エラー: ライフタイム指定子が欠けています)
- --> src/lib.rs:5:51
-  |
-5 | pub fn search(query: &str, contents: &str) -> Vec<&str> {
-  |                                                   ^ expected lifetime
-parameter
-  |
-  = help: this function's return type contains a borrowed value, but the
-  signature does not say whether it is borrowed from `query` or `contents`
-  (助言: この関数の戻り値は、借用された値を含んでいますが、シグニチャにはそれが、
-  `query`か`contents`から借用されたものであるかが示されていません)
+```console
+{{#include ../listings/ch12-an-io-project/output-only-02-missing-lifetimes/output.txt}}
 ```
 
 <!--
 Rust can’t possibly know which of the two arguments we need, so we need to tell
-it. Because `contents` is the argument that contains all of our text and we
-want to return the parts of that text that match, we know `contents` is the
-argument that should be connected to the return value using the lifetime syntax.
+it explicitly. Because `contents` is the argument that contains all of our text
+and we want to return the parts of that text that match, we know `contents` is
+the argument that should be connected to the return value using the lifetime
+syntax.
 -->
 
-コンパイラには、二つの引数のどちらが必要なのか知る由がないので、教えてあげる必要があるのです。
+コンパイラには、二つの引数のどちらが必要なのか知る由がないので、明示的に教えてあげる必要があるのです。
 `contents`がテキストを全て含む引数で、合致するそのテキストの一部を返したいので、
 `contents`がライフタイム記法で戻り値に関連づくはずの引数であることをプログラマは知っています。
 
 <!--
 Other programming languages don’t require you to connect arguments to return
-values in the signature. Although this might seem strange, it will get easier
-over time. You might want to compare this example with “Validating
-References with Lifetimes” section in Chapter 10.
+values in the signature, but this practice will get easier over time. You might
+want to compare this example with the [“Validating References with
+Lifetimes”][validating-references-with-lifetimes] section in
+Chapter 10.
 -->
 
-他のプログラミング言語では、シグニチャで引数と戻り値を関連づける必要はありません。これは奇妙に思えるかもしれませんが、
-時間とともに楽になっていきます。この例を第10章、「ライフタイムで参照を有効化する」節と比較したくなるかもしれません。
+他のプログラミング言語では、シグニチャで引数と戻り値を関連づける必要はありませんが、この実践は時間とともに楽になっていくでしょう。
+この例を第10章の[「ライフタイムで参照を検証する」][validating-references-with-lifetimes]節と比較してみるといいかもしれません。
 
 <!--
 Now let’s run the test:
@@ -247,32 +214,8 @@ Now let’s run the test:
 
 さあ、テストを実行しましょう:
 
-```text
-$ cargo test
-   Compiling minigrep v0.1.0 (file:///projects/minigrep)
---warnings--
-    Finished dev [unoptimized + debuginfo] target(s) in 0.43 secs
-     Running target/debug/deps/minigrep-abcabcabc
-
-running 1 test
-test test::one_result ... FAILED
-
-failures:
-
----- test::one_result stdout ----
-        thread 'test::one_result' panicked at 'assertion failed: `(left ==
-right)`
-left: `["safe, fast, productive."]`,
-right: `[]`)', src/lib.rs:48:8
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
-
-
-failures:
-    test::one_result
-
-test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
-
-error: test failed, to rerun pass '--lib'
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-16/output.txt}}
 ```
 
 <!--
@@ -336,13 +279,8 @@ Rustには、文字列を行ごとに繰り返す役立つメソッドがあり�
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust,ignore
-pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    for line in contents.lines() {
-        // 行に対して何かする
-        // do something with line
-    }
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-17/src/lib.rs:here}}
 ```
 
 <!--
@@ -354,13 +292,13 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 
 <!--
 The `lines` method returns an iterator. We’ll talk about iterators in depth in
-Chapter 13, but recall that you saw this way of using an iterator in Listing
-3-5, where we used a `for` loop with an iterator to run some code on each item
-in a collection.
+[Chapter 13][ch13-iterators], but recall that you saw this way
+of using an iterator in [Listing 3-5][ch3-iter], where we used a
+`for` loop with an iterator to run some code on each item in a collection.
 -->
 
-`lines`メソッドはイテレータを返します。イテレータについて詳しくは、第13章で話しますが、
-リスト3-5でこのようなイテレータの使用法は見かけたことを思い出してください。
+`lines`メソッドはイテレータを返します。イテレータについて詳しくは、[第13章][ch13-iterators]で話しますが、
+[リスト3-5][ch3-iter]でこのようなイテレータの使用法は見かけたことを思い出してください。
 そこでは、イテレータに`for`ループを使用してコレクションの各要素に対して何らかのコードを走らせていました。
 
 <!--
@@ -387,14 +325,8 @@ Listing 12-18. Note this still won’t compile yet.
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust,ignore
-pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    for line in contents.lines() {
-        if line.contains(query) {
-            // do something with line
-        }
-    }
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-18/src/lib.rs:here}}
 ```
 
 <!--
@@ -405,19 +337,28 @@ line contains the string in `query`</span>
 <span class="caption">リスト12-18: 行が`query`の文字列を含むか確認する機能を追加する</span>
 
 <!--
+At the moment, we’re building up functionality. To get it to compile, we need
+to return a value from the body as we indicated we would in the function
+signature.
+-->
+
+ここまでで機能を組み上げてきました。これをコンパイルできるようにするためには、
+関数のシグネチャでそうすると示したように、本体から値を返す必要があります。
+
+<!--
 #### Storing Matching Lines
 -->
 
 #### 合致した行を保存する
 
 <!--
-We also need a way to store the lines that contain our query string. For that,
-we can make a mutable vector before the `for` loop and call the `push` method
-to store a `line` in the vector. After the `for` loop, we return the vector, as
-shown in Listing 12-19.
+To finish this function, we need a way to store the matching lines that we want
+to return. For that, we can make a mutable vector before the `for` loop and
+call the `push` method to store a `line` in the vector. After the `for` loop,
+we return the vector, as shown in Listing 12-19.
 -->
 
-また、クエリ文字列を含む行を保存する方法が必要です。そのために、`for`ループの前に可変なベクタを生成し、
+この関数を完成させるには、返そうとしている、合致した行を保存する方法が必要です。そのために、`for`ループの前に可変なベクタを生成し、
 `push`メソッドを呼び出して`line`をベクタに保存することができます。`for`ループの後でベクタを返却します。
 リスト12-19のようにですね。
 
@@ -428,17 +369,7 @@ shown in Listing 12-19.
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust,ignore
-pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    let mut results = Vec::new();
-
-    for line in contents.lines() {
-        if line.contains(query) {
-            results.push(line);
-        }
-    }
-
-    results
-}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-19/src/lib.rs:here}}
 ```
 
 <!--
@@ -456,13 +387,8 @@ and our test should pass. Let’s run the test:
 これで`search`関数は、`query`を含む行だけを返すはずであり、テストも通るはずです。
 テストを実行しましょう:
 
-```text
-$ cargo test
---snip--
-running 1 test
-test test::one_result ... ok
-
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-19/output.txt}}
 ```
 
 <!--
@@ -476,13 +402,13 @@ At this point, we could consider opportunities for refactoring the
 implementation of the search function while keeping the tests passing to
 maintain the same functionality. The code in the search function isn’t too bad,
 but it doesn’t take advantage of some useful features of iterators. We’ll
-return to this example in Chapter 13, where we’ll explore iterators in detail,
-and look at how to improve it.
+return to this example in [Chapter 13][ch13-iterators], where
+we’ll explore iterators in detail, and look at how to improve it.
 -->
 
 ここで、テストが通過するよう保ったまま、同じ機能を保持しながら、検索関数の実装をリファクタリングする機会を考えることもできます。
 検索関数のコードは悪すぎるわけではありませんが、イテレータの有用な機能の一部を活用していません。
-この例には第13章で再度触れ、そこでは、イテレータをより深く探究し、さらに改善する方法に目を向けます。
+この例には[第13章][ch13-iterators]で再度触れ、そこでは、イテレータをより深く探究し、さらに改善する方法に目を向けます。
 
 <!--
 #### Using the `search` Function in the `run` Function
@@ -508,18 +434,7 @@ will print each line returned from `search`:
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust,ignore
-pub fn run(config: Config) -> Result<(), Box<Error>> {
-    let mut f = File::open(config.filename)?;
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)?;
-
-    for line in search(&config.query, &contents) {
-        println!("{}", line);
-    }
-
-    Ok(())
-}
+{{#rustdoc_include ../listings/ch12-an-io-project/no-listing-02-using-search-in-run/src/lib.rs:here}}
 ```
 
 <!--
@@ -536,12 +451,8 @@ should return exactly one line from the Emily Dickinson poem, “frog”:
 さて、プログラム全体が動くはずです！試してみましょう。まずはエミリー・ディキンソンの詩から、
 ちょうど1行だけを返すはずの言葉から。"frog"です:
 
-```text
-$ cargo run frog poem.txt
-   Compiling minigrep v0.1.0 (file:///projects/minigrep)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.38 secs
-     Running `target/debug/minigrep frog poem.txt`
-How public, like a frog
+```console
+{{#include ../listings/ch12-an-io-project/no-listing-02-using-search-in-run/output.txt}}
 ```
 
 <!--
@@ -550,13 +461,8 @@ Cool! Now let’s try a word that will match multiple lines, like “body”:
 
 かっこいい！今度は、複数行にマッチするであろう言葉を試しましょう。"body"とかね:
 
-```text
-$ cargo run body poem.txt
-    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
-     Running `target/debug/minigrep body poem.txt`
-I’m nobody! Who are you?
-Are you nobody, too?
-How dreary to be somebody!
+```console
+{{#include ../listings/ch12-an-io-project/output-only-03-multiple-matches/output.txt}}
 ```
 
 <!--
@@ -567,10 +473,8 @@ word that isn’t anywhere in the poem, such as “monomorphization”:
 そして最後に、詩のどこにも現れない単語を探したときに、何も出力がないことを確かめましょう。
 "monomorphization"などね:
 
-```text
-$ cargo run monomorphization poem.txt
-    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
-     Running `target/debug/minigrep monomorphization poem.txt`
+```console
+{{#include ../listings/ch12-an-io-project/output-only-04-no-matches/output.txt}}
 ```
 
 <!--
@@ -590,3 +494,19 @@ useful when you’re writing command line programs.
 
 このプロジェクトをまとめ上げるために、環境変数を扱う方法と標準エラー出力に出力する方法を少しだけデモします。
 これらはどちらも、コマンドラインプログラムを書く際に有用です。
+
+<!--
+[validating-references-with-lifetimes]:
+ch10-03-lifetime-syntax.html#validating-references-with-lifetimes
+[ch11-anatomy]: ch11-01-writing-tests.html#the-anatomy-of-a-test-function
+[ch10-lifetimes]: ch10-03-lifetime-syntax.html
+[ch3-iter]: ch03-05-control-flow.html#looping-through-a-collection-with-for
+[ch13-iterators]: ch13-02-iterators.html
+-->
+
+[validating-references-with-lifetimes]:
+ch10-03-lifetime-syntax.html#ライフタイムで参照を検証する
+[ch11-anatomy]: ch11-01-writing-tests.html#テスト関数の構成
+[ch10-lifetimes]: ch10-03-lifetime-syntax.html
+[ch3-iter]: ch03-05-control-flow.html#forでコレクションを覗き見る
+[ch13-iterators]: ch13-02-iterators.html

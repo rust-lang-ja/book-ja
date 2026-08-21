@@ -1,16 +1,21 @@
 $ cargo run
    Compiling enums v0.1.0 (file:///projects/enums)
-error[E0277]: cannot add `std::option::Option<i8>` to `i8`
+error[E0277]: cannot add `Option<i8>` to `i8`
+(エラー: `Option<i8>`を`i8`に足すことはできません)
  --> src/main.rs:5:17
   |
 5 |     let sum = x + y;
-  |                 ^ no implementation for `i8 + std::option::Option<i8>`
+  |                 ^ no implementation for `i8 + Option<i8>`
+                      (`i8 + `Option<i8>`のための実装がありません)
   |
-  = help: the trait `std::ops::Add<std::option::Option<i8>>` is not implemented for `i8`
-
-error: aborting due to previous error
+  = help: the trait `Add<Option<i8>>` is not implemented for `i8`
+    (ヘルプ: トレイト`Add<Option<i8>`が`i8`に対して実装されていません)
+  = help: the following other types implement trait `Add<Rhs>`:
+    (ヘルプ: 以下の型であればトレイト`Add<Rhs>`を実装しています:)
+            <i8 as Add>
+            <i8 as Add<&i8>>
+            <&'a i8 as Add<i8>>
+            <&i8 as Add<&i8>>
 
 For more information about this error, try `rustc --explain E0277`.
-error: could not compile `enums`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `enums` (bin "enums") due to 1 previous error

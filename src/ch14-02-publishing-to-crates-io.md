@@ -5,25 +5,25 @@
 ## Crates.ioにクレートを公開する
 
 <!--
-We’ve used packages from [crates.io](https://crates.io) as
+We’ve used packages from [crates.io](https://crates.io/) as
 dependencies of our project, but you can also share your code with other people
 by publishing your own packages. The crate registry at
-[crates.io](https://crates.io) distributes the source code of
+[crates.io](https://crates.io/) distributes the source code of
 your packages, so it primarily hosts code that is open source.
 -->
 
-プロジェクトの依存として[crates.io](https://crates.io)のパッケージを使用しましたが、
+プロジェクトの依存として[crates.io](https://crates.io/)のパッケージを使用しましたが、
 自分のパッケージを公開することで他の人とコードを共有することもできます。
-[crates.io](https://crates.io)のクレート登録所は、自分のパッケージのソースコードを配布するので、
+[crates.io](https://crates.io/)のクレートレジストリは、自分のパッケージのソースコードを配布するので、
 主にオープンソースのコードをホストします。
 
 <!--
-Rust and Cargo have features that help make your published package easier for
-people to use and to find in the first place. We’ll talk about some of these
-features next and then explain how to publish a package.
+Rust and Cargo have features that make your published package easier for people
+to find and use. We’ll talk about some of these features next and then explain
+how to publish a package.
 -->
 
-RustとCargoは、公開したパッケージを人が使用し、そもそも見つけやすくしてくれる機能を有しています。
+RustとCargoは、公開されたパッケージを人々が見つけやすく、使いやすくしてくれる機能を有しています。
 これらの機能の一部を次に語り、そして、パッケージの公開方法を説明します。
 
 <!--
@@ -36,8 +36,8 @@ RustとCargoは、公開したパッケージを人が使用し、そもそも�
 Accurately documenting your packages will help other users know how and when to
 use them, so it’s worth investing the time to write documentation. In Chapter
 3, we discussed how to comment Rust code using two slashes, `//`. Rust also has
-a paticular kind of comment for documentation, known conveniently as
-a *documentation comment*, that will generate HTML documentation. The HTML
+a particular kind of comment for documentation, known conveniently as a
+*documentation comment*, that will generate HTML documentation. The HTML
 displays the contents of documentation comments for public API items intended
 for programmers interested in knowing how to *use* your crate as opposed to how
 your crate is *implemented*.
@@ -53,12 +53,12 @@ HTMLドキュメントを生成します。クレートの*実装*法とは対�
 Documentation comments use three slashes, `///`, instead of two and support
 Markdown notation for formatting the text. Place documentation comments just
 before the item they’re documenting. Listing 14-1 shows documentation comments
-for an `add_one` function in a crate named `my_crate`:
+for an `add_one` function in a crate named `my_crate`.
 -->
 
 ドキュメンテーションコメントは、2つではなく、3連スラッシュ、`///`を使用し、テキストを整形するMarkdown記法もサポートしています。
 ドキュメント対象の要素の直前にドキュメンテーションコメントを配置してください。
-リスト14-1は、`my_crate`という名のクレートの`add_one`関数用のドキュメンテーションコメントを示しています:
+リスト14-1は、`my_crate`という名のクレートの`add_one`関数用のドキュメンテーションコメントを示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
@@ -67,19 +67,7 @@ for an `add_one` function in a crate named `my_crate`:
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust,ignore
-/// Adds one to the number given.
-/// 与えられた数値に1を足す。
-///
-/// # Examples
-///
-/// ```
-/// let five = 5;
-///
-/// assert_eq!(6, my_crate::add_one(5));
-/// ```
-pub fn add_one(x: i32) -> i32 {
-    x + 1
-}
+{{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-01/src/lib.rs}}
 ```
 
 <!--
@@ -145,18 +133,18 @@ authors commonly use in their documentation:
 
 <!--
 * **Panics**: The scenarios in which the function being documented could
-`panic!`. Callers of the function who don’t want their programs to panic should
-make sure they don’t call the function in these situations.
+  panic. Callers of the function who don’t want their programs to panic should
+  make sure they don’t call the function in these situations.
 * **Errors**: If the function returns a `Result`, describing the kinds of
-errors that might occur and what conditions might cause those errors to be
-returned can be helpful to callers so they can write code to handle the
-different kinds of errors in different ways.
+  errors that might occur and what conditions might cause those errors to be
+  returned can be helpful to callers so they can write code to handle the
+  different kinds of errors in different ways.
 * **Safety**: If the function is `unsafe` to call (we discuss unsafety in
-Chapter 19), there should be a section explaining why the function is unsafe
-and covering the invariants that the function expects callers to uphold.
+  Chapter 19), there should be a section explaining why the function is unsafe
+  and covering the invariants that the function expects callers to uphold.
 -->
 
-* **Panics**: ドキュメント対象の関数が`panic!`する可能性のある筋書きです。プログラムをパニックさせたくない関数の使用者は、
+* **Panics**: ドキュメント対象の関数がパニックする可能性のある筋書きです。プログラムをパニックさせたくない関数の使用者は、
 これらの状況で関数が呼ばれないことを確かめる必要があります。
 * **Errors**: 関数が`Result`を返すなら、起きうるエラーの種類とどんな条件がそれらのエラーを引き起こす可能性があるのか解説すると、
 呼び出し側の役に立つので、エラーの種類によって処理するコードを変えて書くことができます。
@@ -165,12 +153,12 @@ and covering the invariants that the function expects callers to uphold.
 
 <!--
 Most documentation comments don’t need all of these sections, but this is a
-good checklist to remind you of the aspects of your code that people calling
-your code will be interested in knowing about.
+good checklist to remind you of the aspects of your code users will be
+interested in knowing about.
 -->
 
 多くのドキュメンテーションコメントでは、これら全てのセクションが必要になることはありませんが、
-これは自分のコードを呼び出している人が知りたいと思うコードの方向性を思い出させてくれるいいチェックリストになります。
+これはコードの利用者が知りたいと思うコードの方向性を思い出させてくれるいいチェックリストになります。
 
 <!--
 #### Documentation Comments as Tests
@@ -194,13 +182,19 @@ function from Listing 14-1, we will see a section in the test results like this:
 動かない例がついているよりも悪いものもありません。リスト14-1から`add_one`関数のドキュメンテーションとともに、
 `cargo test`を走らせたら、テスト結果に以下のような区域が見られます:
 
+<!-- manual-regeneration
+cd listings/ch14-more-about-cargo/listing-14-01/
+cargo test
+copy just the doc-tests section below
+-->
+
 ```text
    Doc-tests my_crate
 
 running 1 test
 test src/lib.rs - add_one (line 5) ... ok
 
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.27s
 ```
 
 <!--
@@ -210,7 +204,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 <!--
 Now if we change either the function or the example so the `assert_eq!` in the
 example panics and run `cargo test` again, we’ll see that the doc tests catch
-that the example and the code are out of sync from one another!
+that the example and the code are out of sync with each other!
 -->
 
 さて、例の`assert_eq!`がパニックするように、関数か例を変更し、再度`cargo test`を実行したら、
@@ -223,26 +217,25 @@ docテストが、例とコードがお互いに同期されていないこと�
 #### 含まれている要素にコメントする
 
 <!--
-Another style of doc comment, `//!`, adds documentation to the item that
-contains the comments rather than adding documentation to the items following
-the comments. We typically use these doc comments inside the crate root file
-(*src/lib.rs* by convention) or inside a module to document the crate or the
-module as a whole.
+The style of doc comment `//!` adds documentation to the item that contains the
+comments rather than to the items following the comments. We typically use
+these doc comments inside the crate root file (*src/lib.rs* by convention) or
+inside a module to document the crate or the module as a whole.
 -->
 
-docコメントの別スタイル、`//!`は、コメントに続く要素にドキュメンテーションを付け加えるのではなく、
-コメントを含む要素にドキュメンテーションを付け加えます。典型的には、クレートのルートファイル(慣例的には、*src/lib.rs*)内部や、
+`//!`スタイルのdocコメントは、コメントに続く要素にではなく、コメントを含む要素にドキュメンテーションを付け加えます。
+典型的には、クレートのルートファイル(慣例的には、*src/lib.rs*)内部や、
 モジュールの内部で使用して、クレートやモジュール全体にドキュメントをつけます。
 
 <!--
-For example, if we want to add documentation that describes the purpose of the
-`my_crate` crate that contains the `add_one` function, we can add documentation
-comments that start with `//!` to the beginning of the *src/lib.rs* file, as
-shown in Listing 14-2:
+For example, to add documentation that describes the purpose of the `my_crate`
+crate that contains the `add_one` function, we add documentation comments that
+start with `//!` to the beginning of the *src/lib.rs* file, as shown in Listing
+14-2:
 -->
 
-例えば、`add_one`関数を含む`my_crate`クレートの目的を解説するドキュメンテーションを追加したいのなら、
-`//!`で始まるドキュメンテーションコメントを*src/lib.rs*ファイルの先頭につけることができます。
+例えば、`add_one`関数を含む`my_crate`クレートの目的を解説するドキュメンテーションを追加するには、
+`//!`で始まるドキュメンテーションコメントを*src/lib.rs*ファイルの先頭につけます。
 リスト14-2に示したようにですね:
 
 <!--
@@ -252,17 +245,7 @@ shown in Listing 14-2:
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust,ignore
-//! # My Crate
-//!
-//! `my_crate` is a collection of utilities to make performing certain
-//! calculations more convenient.
-
-//! #自分のクレート
-//!
-//! `my_crate`は、ユーティリティの集まりであり、特定の計算をより便利に行うことができます。
-
-/// Adds one to the number given.
-// --snip--
+{{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-02/src/lib.rs:here}}
 ```
 
 <!--
@@ -276,13 +259,13 @@ whole</span>
 Notice there isn’t any code after the last line that begins with `//!`. Because
 we started the comments with `//!` instead of `///`, we’re documenting the item
 that contains this comment rather than an item that follows this comment. In
-this case, the item that contains this comment is the *src/lib.rs* file, which
-is the crate root. These comments describe the entire crate.
+this case, that item is the *src/lib.rs* file, which is the crate root. These
+comments describe the entire crate.
 -->
 
 `//!`で始まる最後の行のあとにコードがないことに注目してください。`///`ではなく、`//!`でコメントを開始しているので、
 このコメントに続く要素ではなく、このコメントを含む要素にドキュメントをつけているわけです。
-今回の場合、このコメントを含む要素は*src/lib.rs*ファイルであり、クレートのルートです。
+今回の場合、そのような要素は*src/lib.rs*ファイルであり、クレートのルートです。
 これらのコメントは、クレート全体を解説しています。
 
 <!--
@@ -310,37 +293,17 @@ including the comment describing the crate as a whole</span>
 <!--
 Documentation comments within items are useful for describing crates and
 modules especially. Use them to explain the overall purpose of the container to
-help your crate users understand the crate’s organization.
+help your users understand the crate’s organization.
 -->
 
 要素内のドキュメンテーションコメントは、特にクレートやモジュールを解説するのに有用です。
-コンテナの全体の目的を説明し、クレートの使用者がクレートの体系を理解する手助けをするのに使用してください。
+コンテナの全体の目的を説明し、使用者がクレートの体系を理解する手助けをするのに使用してください。
 
 <!--
 ### Exporting a Convenient Public API with `pub use`
 -->
 
 ### `pub use`で便利な公開APIをエクスポートする
-
-<!--
-In Chapter 7, we covered how to organize our code into modules using the `mod`
-keyword, how to make items public using the `pub` keyword, and how to bring
-items into a scope with the `use` keyword. However, the structure that makes
-sense to you while you’re developing a crate might not be very convenient for
-your users. You might want to organize your structs in a hierarchy containing
-multiple levels, but then people who want to use a type you’ve defined deep in
-the hierarchy might have trouble finding out that type exists. They might also
-be annoyed at having to enter `use`
-`my_crate::some_module::another_module::UsefulType;` rather than `use`
-`my_crate::UsefulType;`.
--->
-
-第7章において、`mod`キーワードを使用してモジュールにコードを体系化する方法、`pub`キーワードで要素を公開にする方法、
-`use`キーワードで要素をスコープに導入する方法について講義しました。しかしながら、クレートの開発中に、
-自分にとって意味のある構造は、ユーザにはあまり便利ではない可能性があります。複数階層を含む階層で、
-自分の構造体を体系化したくなるかもしれませんが、それから階層の深いところで定義した型を使用したい人は、
-型が存在することを見つけ出すのに困難を伴う可能性もあります。また、そのような人は、
-`use my_crate::UsefulType`の代わりに`use my_crate::some_module::another_module::UsefulType;`と入力するのを煩わしく感じる可能性もあります。
 
 <!--
 The structure of your public API is a major consideration when publishing a
@@ -353,10 +316,28 @@ has a large module hierarchy.
 自分よりもその構造に馴染みがないですし、クレートのモジュール階層が大きければ、使用したい部分を見つけるのが困難になる可能性があります。
 
 <!--
+In Chapter 7, we covered how to make items public using the `pub` keyword, and
+bring items into a scope with the `use` keyword. However, the structure that
+makes sense to you while you’re developing a crate might not be very convenient
+for your users. You might want to organize your structs in a hierarchy
+containing multiple levels, but then people who want to use a type you’ve
+defined deep in the hierarchy might have trouble finding out that type exists.
+They might also be annoyed at having to enter `use`
+`my_crate::some_module::another_module::UsefulType;` rather than `use`
+`my_crate::UsefulType;`.
+-->
+
+第7章において、`pub`キーワードで要素を公開にする方法、`use`キーワードで要素をスコープに導入する方法について講義しました。
+しかしながら、クレートの開発中に自分にとって意味のある構造は、ユーザにはあまり便利ではない可能性があります。
+複数階層を含む階層で自分の構造体を体系化したくなるかもしれませんが、それから階層の深いところで定義した型を使用したい人は、
+型が存在することを見つけ出すのに困難を伴う可能性もあります。また、そのような人は、
+`use my_crate::UsefulType`の代わりに`use my_crate::some_module::another_module::UsefulType;`と入力するのを煩わしく感じる可能性もあります。
+
+<!--
 The good news is that if the structure *isn’t* convenient for others to use
 from another library, you don’t have to rearrange your internal organization:
 instead, you can re-export items to make a public structure that’s different
-than your private structure by using `pub use`. Re-exporting takes a public
+from your private structure by using `pub use`. Re-exporting takes a public
 item in one location and makes it public in another location, as if it were
 defined in the other location instead.
 -->
@@ -382,42 +363,8 @@ function named `mix`, as shown in Listing 14-3:
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust,ignore
-//! # Art
-//!
-//! A library for modeling artistic concepts.
-//! #芸術
-//!
-//! 芸術的な概念をモデル化するライブラリ。
-
-pub mod kinds {
-    /// The primary colors according to the RYB color model.
-    /// RYBカラーモデルによる主色
-    pub enum PrimaryColor {
-        Red,
-        Yellow,
-        Blue,
-    }
-
-    /// The secondary colors according to the RYB color model.
-    /// RYBカラーモデルによる副色
-    pub enum SecondaryColor {
-        Orange,
-        Green,
-        Purple,
-    }
-}
-
-pub mod utils {
-    use kinds::*;
-
-    /// Combines two primary colors in equal amounts to create
-    /// a secondary color.
-    ///2つの主色を同じ割合で混合し、副色にする
-    pub fn mix(c1: PrimaryColor, c2: PrimaryColor) -> SecondaryColor {
-        // --snip--
-    }
-}
+```rust,noplayground,test_harness
+{{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-03/src/lib.rs:here}}
 ```
 
 <!--
@@ -458,13 +405,13 @@ see them.
 
 <!--
 Another crate that depends on this library would need `use` statements that
-import the items from `art`, specifying the module structure that’s currently
-defined. Listing 14-4 shows an example of a crate that uses the `PrimaryColor`
-and `mix` items from the `art` crate:
+bring the items from `art` into scope, specifying the module structure that’s
+currently defined. Listing 14-4 shows an example of a crate that uses the
+`PrimaryColor` and `mix` items from the `art` crate:
 -->
 
 このライブラリに依存する別のクレートは、現在定義されているモジュール構造を指定して、
-`art`の要素をインポートする`use`文が必要になるでしょう。リスト14-4は、
+`art`の要素をスコープ内に持ち込む`use`文が必要になるでしょう。リスト14-4は、
 `art`クレートから`PrimaryColor`と`mix`要素を使用するクレートの例を示しています:
 
 <!--
@@ -474,16 +421,7 @@ and `mix` items from the `art` crate:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-extern crate art;
-
-use art::kinds::PrimaryColor;
-use art::utils::mix;
-
-fn main() {
-    let red = PrimaryColor::Red;
-    let yellow = PrimaryColor::Yellow;
-    mix(red, yellow);
-}
+{{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-04/src/main.rs}}
 ```
 
 <!--
@@ -497,22 +435,19 @@ its internal structure exported</span>
 The author of the code in Listing 14-4, which uses the `art` crate, had to
 figure out that `PrimaryColor` is in the `kinds` module and `mix` is in the
 `utils` module. The module structure of the `art` crate is more relevant to
-developers working on the `art` crate than to developers using the `art` crate.
-The internal structure that organizes parts of the crate into the `kinds`
-module and the `utils` module doesn’t contain any useful information for
-someone trying to understand how to use the `art` crate. Instead, the `art`
-crate’s module structure causes confusion because developers have to figure out
-where to look, and the structure is inconvenient because developers must
-specify the module names in the `use` statements.
+developers working on the `art` crate than to those using it. The internal
+structure doesn’t contain any useful information for someone trying to
+understand how to use the `art` crate, but rather causes confusion because
+developers who use it have to figure out where to look, and must specify the
+module names in the `use` statements.
 -->
 
-リスト14-4は`art`クレートを使用していますが、このコードの筆者は、`PrimaryColor`が`kinds`モジュールにあり、
+リスト14-4は`art`クレートを使用していますが、このコードの作者は、`PrimaryColor`が`kinds`モジュールにあり、
 `mix`が`utils`モジュールにあることを理解しなければなりませんでした。`art`クレートのモジュール構造は、
 `art`クレートの使用者よりも、`art`クレートに取り組む開発者などに関係が深いです。
-クレートの一部を`kinds`モジュールと`utils`モジュールに体系化する内部構造は、`art`クレートの使用方法を理解しようとする人には、
-何も役に立つ情報を含んでいません。代わりに、開発者がどこを見るべきか計算する必要があるので、
-`art`クレートのモジュール構造は混乱を招き、また、開発者はモジュール名を`use`文で指定しなければならないので、
-この構造は不便です。
+この内部構造は`art`クレートの使用方法を理解しようとする人とって役に立つ情報を何も含んでおらず、むしろ、
+利用者はどこを見ればよいのか探し出す必要があり、モジュール名を`use`文で指定しなければならないので、
+混乱を招くものです。
 
 <!--
 To remove the internal organization from the public API, we can modify the
@@ -530,21 +465,7 @@ items at the top level, as shown in Listing 14-5:
 <span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust,ignore
-//! # Art
-//!
-//! A library for modeling artistic concepts.
-
-pub use kinds::PrimaryColor;
-pub use kinds::SecondaryColor;
-pub use utils::mix;
-
-pub mod kinds {
-    // --snip--
-}
-
-pub mod utils {
-    // --snip--
-}
+{{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-05/src/lib.rs:here}}
 ```
 
 <!--
@@ -592,14 +513,7 @@ structure in Listing 14-5, as shown in Listing 14-6:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-extern crate art;
-
-use art::PrimaryColor;
-use art::mix;
-
-fn main() {
-    // --snip--
-}
+{{#rustdoc_include ../listings/ch14-more-about-cargo/listing-14-06/src/main.rs:here}}
 ```
 
 <!--
@@ -612,11 +526,14 @@ the `art` crate</span>
 <!--
 In cases where there are many nested modules, re-exporting the types at the top
 level with `pub use` can make a significant difference in the experience of
-people who use the crate.
+people who use the crate. Another common use of `pub use` is to re-export
+definitions of a dependency in the current crate to make that crate's
+definitions part of your crate’s public API.
 -->
 
 ネストされたモジュールがたくさんあるような場合、最上位階層で`pub use`により型を再エクスポートすることは、
-クレートの使用者の経験に大きな違いを生みます。
+クレートの使用者の経験に大きな違いを生みます。別のよくある`pub use`の使用法は、
+依存クレートの定義をクレートの公開APIの一部とするために、現在のクレートの中で依存クレートの定義を再エクスポートすることです。
 
 <!--
 Creating a useful public API structure is more of an art than a science, and
@@ -640,24 +557,24 @@ differs from their public API.
 
 <!--
 Before you can publish any crates, you need to create an account on
-[crates.io](https://crates.io) and get an API token. To do so,
-visit the home page at [crates.io](https://crates.io) and log in
-via a GitHub account. (The GitHub account is currently a requirement, but the
-site might support other ways of creating an account in the future.) Once
-you're logged in, visit your account settings at
+[crates.io](https://crates.io/) and get an API token. To do so,
+visit the home page at [crates.io](https://crates.io/) and log
+in via a GitHub account. (The GitHub account is currently a requirement, but
+the site might support other ways of creating an account in the future.) Once
+you’re logged in, visit your account settings at
 [https://crates.io/me/](https://crates.io/me/) and retrieve your
 API key. Then run the `cargo login` command with your API key, like this:
 -->
 
-クレートを公開する前に、[crates.io](https://crates.io)のアカウントを作成し、
-APIトークンを取得する必要があります。そうするには、[crates.io](https://crates.io)のホームページを訪れ、
+クレートを公開する前に、[crates.io](https://crates.io/)のアカウントを作成し、
+APIトークンを取得する必要があります。そうするには、[crates.io](https://crates.io/)のホームページを訪れ、
 Githubアカウントでログインしてください。(現状は、Githubアカウントがなければなりませんが、
 いずれは他の方法でもアカウントを作成できるようになる可能性があります。)ログインしたら、
 [https://crates.io/me/](https://crates.io/me/)で自分のアカウントの設定に行き、
 APIキーを取り扱ってください。そして、`cargo login`コマンドをAPIキーとともに実行してください。
 以下のようにですね:
 
-```text
+```console
 $ cargo login abcdefghijklmnopqrstuvwxyz012345
 ```
 
@@ -665,12 +582,13 @@ $ cargo login abcdefghijklmnopqrstuvwxyz012345
 This command will inform Cargo of your API token and store it locally in
 *~/.cargo/credentials*. Note that this token is a *secret*: do not share it
 with anyone else. If you do share it with anyone for any reason, you should
-revoke it and generate a new token on [crates.io](https://crates.io)
+revoke it and generate a new token on [crates.io](https://crates.io/)
+.
 -->
 
 このコマンドは、CargoにAPIトークンを知らせ、*~/.cargo/credentials*にローカルに保存します。
 このトークンは、*秘密*です: 他人とは共有しないでください。なんらかの理由で他人と実際に共有してしまったら、
-古いものを破棄して[crates.io](https://crates.io)で新しいトークンを生成するべきです。
+古いものを破棄して[crates.io](https://crates.io/)で新しいトークンを生成するべきです。
 
 <!--
 ### Adding Metadata to a New Crate
@@ -679,30 +597,31 @@ revoke it and generate a new token on [crates.io](https://crates.io)
 ### 新しいクレートにメタデータを追加する
 
 <!--
-Now that you have an account, let’s say you have a crate you want to publish.
-Before publishing, you’ll need to add some metadata to your crate by adding it
-to the `[package]` section of the crate’s *Cargo.toml* file.
+Let’s say you have a crate you want to publish. Before publishing, you’ll need
+to add some metadata in the `[package]` section of the crate’s *Cargo.toml*
+file.
 -->
 
-アカウントはできたので、公開したいクレートがあるとしましょう。公開前に、
-*Cargo.toml*ファイルの`[package]`セクションに追加することでクレートにメタデータを追加する必要があるでしょう。
+公開したいクレートがあるとしましょう。公開前に、
+*Cargo.toml*ファイルの`[package]`セクションにメタデータを追加する必要があるでしょう。
 
 <!--
 Your crate will need a unique name. While you’re working on a crate locally,
 you can name a crate whatever you’d like. However, crate names on
-[crates.io](https://crates.io) are allocated on a first-come,
+[crates.io](https://crates.io/) are allocated on a first-come,
 first-served basis. Once a crate name is taken, no one else can publish a crate
-with that name. Search for the name you want to use on the site to find out
-whether it has been used. If it hasn’t, edit the name in the *Cargo.toml* file
-under `[package]` to use the name for publishing, like so:
+with that name. Before attempting to publish a crate, search for the name you
+want to use. If the name has been used, you will need to find another name and
+edit the `name` field in the *Cargo.toml* file under the `[package]` section to
+use the new name for publishing, like so:
 -->
 
-クレートには、独自の名前が必要でしょう。クレートをローカルで作成している間、
-クレートの名前はなんでもいい状態でした。ところが、[crates.io](https://crates.io)のクレート名は、
+クレートには、一意な名前が必要でしょう。クレートをローカルで作成している間、
+クレートの名前はなんでもいい状態でした。ところが、[crates.io](https://crates.io/)のクレート名は、
 最初に来たもの勝ちの精神で付与されていますので、一旦クレート名が取られてしまったら、
-その名前のクレートを他の人が公開することは絶対できません。もう使われているか、
-サイトで使いたい名前を検索してください。まだなら、*Cargo.toml*ファイルの`[package]`以下の名前を編集して、
-名前を公開用に使ってください。以下のように:
+その名前のクレートを他の人が公開することは絶対できません。クレートを公開しようとする前に使いたい名前を検索してください。
+すでに使用されている場合は、他の名前を探して、*Cargo.toml*ファイルの`[package]`セクション下の`name`フィールドを編集して、
+公開用に新しい名前を使う必要があるでしょう。以下のように:
 
 <!--
 <span class="filename">Filename: Cargo.toml</span>
@@ -720,47 +639,49 @@ Even if you’ve chosen a unique name, when you run `cargo publish` to publish
 the crate at this point, you’ll get a warning and then an error:
 -->
 
-たとえ、独自の名前を選択していたとしても、この時点で`cargo publish`を実行すると、警告とエラーが出ます:
+たとえ、一意な名前を選択していたとしても、この時点で`cargo publish`を実行すると、警告とエラーが出ます:
 
-```text
+<!-- manual-regeneration
+cd listings/ch14-more-about-cargo/listing-14-01/
+cargo publish
+copy just the relevant lines below
+-->
+
+```console
 $ cargo publish
-    Updating registry `https://github.com/rust-lang/crates.io-index`
-warning: manifest has no description, license, license-file, documentation,
-homepage or repository.
-(警告: マニフェストに説明、ライセンス、ライセンスファイル、ドキュメンテーション、ホームページ、
-リポジトリがありません)
+    Updating crates.io index
+warning: manifest has no description, license, license-file, documentation, homepage or repository.
+See https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata for more info.
+(警告: マニフェストに説明、ライセンス、ライセンスファイル、ドキュメンテーション、ホームページ、リポジトリがありません。
+さらなる情報については https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata を参照してください。)
 --snip--
-error: api errors: missing or empty metadata fields: description, license.
-(エラー: APIエラー: 存在しないメタデータフィールド: description, license)
+error: failed to publish to registry at https://crates.io
+(エラー: https://crates.ioにあるレジストリへの公開に失敗しました)
+
+Caused by:
+  the remote server responded with an error: missing or empty metadata fields: description, license. Please see https://doc.rust-lang.org/cargo/reference/manifest.html for how to upload metadata
+(原因:
+  リモートサーバがエラーを返しました: 存在しないか空のメタデータフィールド: description, license. メタデータをアップロードする方法については https://doc.rust-lang.org/cargo/reference/manifest.html を参照してください)
 ```
 
 <!--
-The reason is that you’re missing some crucial information: a description and
+This errors because you’re missing some crucial information: a description and
 license are required so people will know what your crate does and under what
-terms they can use it. To rectify this error, you need to include this
-information in the *Cargo.toml* file.
+terms they can use it. In *Cargo.toml*, add a description that's just a
+sentence or two, because it will appear with your crate in search results. For
+the `license` field, you need to give a *license identifier value*. The [Linux
+Foundation’s Software Package Data Exchange (SPDX)][spdx] lists the identifiers
+you can use for this value. For example, to specify that you’ve licensed your
+crate using the MIT License, add the `MIT` identifier:
 -->
 
-原因は、大事な情報を一部入れていないからです: 説明とライセンスは、
+これがエラーになるのは、大事な情報を一部入れていないからです: 説明とライセンスは、
 他の人があなたのクレートは何をし、どんな条件の元で使っていいのかを知るために必要なのです。
-このエラーを解消するには、*Cargo.toml*ファイルにこの情報を入れ込む必要があります。
-
-<!--
-Add a description that is just a sentence or two, because it will appear with
-your crate in search results. For the `license` field, you need to give a
-*license identifier value*. The [Linux Foundation’s Software Package Data
-Exchange (SPDX)][spdx] lists the identifiers you can use for this value. For
-example, to specify that you’ve licensed your crate using the MIT License, add
-the `MIT` identifier:
--->
-
-1文か2文程度の説明をつけてください。これは、検索結果に表示されますからね。
+*Cargo.toml*に1文か2文程度の説明をつけてください。これは、検索結果に表示されますからね。
 `license`フィールドには、*ライセンス識別子*を与える必要があります。
 [Linux団体のSoftware Package Data Exchange(SPDX)][spdx]に、この値に使用できる識別子が列挙されています。
 例えば、自分のクレートをMITライセンスでライセンスするためには、
 `MIT`識別子を追加してください:
-
-[spdx]: http://spdx.org/licenses/
 
 <!--
 <span class="filename">Filename: Cargo.toml</span>
@@ -799,12 +720,11 @@ Rust自体と同じようにプロジェクトをライセンスします。こ�
 プロジェクトに複数のライセンスを持たせることもできることを模擬しています。
 
 <!--
-With a unique name, the version, the author details that `cargo new` added
-when you created the crate, your description, and a license added, the
+With a unique name, the version, your description, and a license added, the
 *Cargo.toml* file for a project that is ready to publish might look like this:
 -->
 
-独自の名前、バージョン、クレート作成時に`cargo new`が追加した筆者の詳細、説明、ライセンスが追加され、
+一意な名前、バージョン、説明、ライセンスが追加され、
 公開準備のできたプロジェクト用の`Cargo.toml`ファイルは以下のような見た目になっていることでしょう:
 
 <!--
@@ -817,7 +737,7 @@ when you created the crate, your description, and a license added, the
 [package]
 name = "guessing_game"
 version = "0.1.0"
-authors = ["Your Name <you@example.com>"]
+edition = "2021"
 description = "A fun game where you guess what number the computer has chosen."
               (コンピュータが選択した数字を言い当てる面白いゲーム)
 license = "MIT OR Apache-2.0"
@@ -844,26 +764,26 @@ easily.
 Now that you’ve created an account, saved your API token, chosen a name for
 your crate, and specified the required metadata, you’re ready to publish!
 Publishing a crate uploads a specific version to
-[crates.io](https://crates.io) for others to use.
+[crates.io](https://crates.io/) for others to use.
 -->
 
 アカウントを作成し、APIトークンを保存し、クレートの名前を決め、必要なメタデータを指定したので、
 公開する準備が整いました！クレートを公開すると、特定のバージョンが、
-[crates.io](http://crates.io)に他の人が使用できるようにアップロードされます。
+[crates.io](http://crates.io/)に他の人が使用できるようにアップロードされます。
 
 <!--
-Be careful when publishing a crate because a publish is *permanent*. The
-version can never be overwritten, and the code cannot be deleted. One major
-goal of [crates.io](https://crates.io) is to act as a permanent
-archive of code so that builds of all projects that depend on crates from
-[crates.io](https://crates.io) will continue to work. Allowing
+Be careful, because a publish is *permanent*. The version can never be
+overwritten, and the code cannot be deleted. One major goal of
+[crates.io](https://crates.io/) is to act as a permanent archive
+of code so that builds of all projects that depend on crates from
+[crates.io](https://crates.io/) will continue to work. Allowing
 version deletions would make fulfilling that goal impossible. However, there is
 no limit to the number of crate versions you can publish.
 -->
 
-公開は*永久*なので、クレートの公開時には気をつけてください。バージョンは絶対に上書きできず、
-コードも削除できません。[crates.io](https://crates.io)の一つの主な目標が、
-[crates.io](https://crates.io)のクレートに依存している全てのプロジェクトのビルドが、
+公開は*永久*なので、気をつけてください。バージョンは絶対に上書きできず、
+コードも削除できません。[crates.io](https://crates.io/)の一つの主な目標が、
+[crates.io](https://crates.io/)のクレートに依存している全てのプロジェクトのビルドが、
 動き続けるようにコードの永久アーカイブとして機能することなのです。バージョン削除を可能にしてしまうと、
 その目標を達成するのが不可能になってしまいます。ですが、公開できるクレートバージョンの数に制限はありません。
 
@@ -873,15 +793,21 @@ Run the `cargo publish` command again. It should succeed now:
 
 再度`cargo publish`コマンドを実行してください。今度は成功するはずです:
 
-```text
+<!-- manual-regeneration
+go to some valid crate, publish a new version
+cargo publish
+copy just the relevant lines below
+-->
+
+```console
 $ cargo publish
- Updating registry `https://github.com/rust-lang/crates.io-index`
-Packaging guessing_game v0.1.0 (file:///projects/guessing_game)
-Verifying guessing_game v0.1.0 (file:///projects/guessing_game)
-Compiling guessing_game v0.1.0
+    Updating crates.io index
+   Packaging guessing_game v0.1.0 (file:///projects/guessing_game)
+   Verifying guessing_game v0.1.0 (file:///projects/guessing_game)
+   Compiling guessing_game v0.1.0
 (file:///projects/guessing_game/target/package/guessing_game-0.1.0)
- Finished dev [unoptimized + debuginfo] target(s) in 0.19 secs
-Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.19s
+   Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
 ```
 
 <!--
@@ -910,13 +836,16 @@ Then run `cargo publish` to upload the new version.
 [セマンティックバージョンルール][semver]を使用して加えた変更の種類に基づいて次の適切なバージョン番号を決定してください。
 そして、`cargo publish`を実行し、新バージョンをアップロードします。
 
-[semver]: http://semver.org/
-
+<!-- Old link, do not remove -->
 <!--
-### Removing Versions from Crates.io with `cargo yank`
+<a id="removing-versions-from-cratesio-with-cargo-yank"></a>
 -->
 
-### `cargo yank`でCrates.ioからバージョンを削除する
+<!--
+### Deprecating Versions from Crates.io with `cargo yank`
+-->
+
+### `cargo yank`でCrates.ioからバージョンを非推奨化する
 
 <!--
 最後の行。辞書には、yankingはグイっと引っ張ることとしかないが、ここでは取り下げと意訳しておく
@@ -934,27 +863,39 @@ supports *yanking* a crate version.
 Cargoはクレートバージョンの *取り下げ(yank)* をサポートしています。
 
 <!--
-Yanking a version prevents new projects from starting to depend on that version
-while allowing all existing projects that depend on it to continue to download
-and depend on that version. Essentially, a yank means that all projects with a
-*Cargo.lock* will not break, and any future *Cargo.lock* files generated will
-not use the yanked version.
+Yanking a version prevents new projects from depending on that version while
+allowing all existing projects that depend on it to continue. Essentially, a
+yank means that all projects with a *Cargo.lock* will not break, and any future
+*Cargo.lock* files generated will not use the yanked version.
 -->
 
-バージョンを取り下げると、既存のプロジェクトは、引き続きダウンロードしたりそのバージョンに依存したりしつづけられますが、
-新規プロジェクトが新しくそのバージョンに依存しだすことは防止されます。つまるところ、取り下げは、
+バージョンを取り下げると、それに依存するすべての既存のプロジェクトは引き続き依存することができますが、
+新規プロジェクトがそのバージョンに依存することはできなくなります。つまるところ、取り下げは、
 すでに*Cargo.lock*が存在するプロジェクトは壊さないが、将来的に生成された*Cargo.lock*ファイルは
 取り下げられたバージョンを使わない、ということを意味します。
 
 <!--
-To yank a version of a crate, run `cargo yank` and specify which version you
-want to yank:
+To yank a version of a crate, in the directory of the crate that you’ve
+previously published, run `cargo yank` and specify which version you want to
+yank. For example, if we've published a crate named `guessing_game` version
+1.0.1 and we want to yank it, in the project directory for `guessing_game` we'd
+run:
+
 -->
 
-あるバージョンのクレートを取り下げるには、`cargo yank`を実行し、取り下げたいバージョンを指定します:
+あるバージョンのクレートを取り下げるには、以前公開したクレートのディレクトリで、取り下げたいバージョンを指定して`cargo yank`を実行してください。
+例えば、`guessing_game`という名前のクレートのバージョン1.0.1を公開したことがあり、それを取り下げたい場合は、
+`guessing_game`のプロジェクトディレクトリで以下を実行します:
 
-```text
+<!-- manual-regeneration:
+cargo yank carol-test --version 2.1.0
+cargo yank carol-test --version 2.1.0 --undo
+-->
+
+```console
 $ cargo yank --vers 1.0.1
+    Updating crates.io index
+        Yank guessing_game@1.0.1
 ```
 
 <!--
@@ -964,15 +905,19 @@ to start depending on a version again:
 
 `--undo`をコマンドに付与することで、取り下げを取り消し、再度あるバージョンにプロジェクトを依存させ始めることもできます:
 
-```text
+```console
 $ cargo yank --vers 1.0.1 --undo
+    Updating crates.io index
+      Unyank guessing_game@1.0.1
 ```
 
 <!--
-A yank *does not* delete any code. For example, the yank feature is not
-intended for deleting accidentally uploaded secrets. If that happens, you must
-reset those secrets immediately.
+A yank *does not* delete any code. It cannot, for example, delete accidentally
+uploaded secrets. If that happens, you must reset those secrets immediately.
 -->
 
-取り下げは、コードの削除は一切し*ません*。例として、取り下げ機能は、誤ってアップロードされた秘密鍵を削除するためのものではありません。
+取り下げは、コードの削除は一切*しません*。例えば、誤ってアップロードされた秘密鍵を削除することはできません。
 もしそうなってしまったら、即座に秘密鍵をリセットしなければなりません。
+
+[spdx]: http://spdx.org/licenses/
+[semver]: http://semver.org/

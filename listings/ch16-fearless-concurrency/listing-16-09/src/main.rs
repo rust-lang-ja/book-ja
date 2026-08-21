@@ -7,6 +7,7 @@ fn main() {
     thread::spawn(move || {
         let val = String::from("hi");
         tx.send(val).unwrap();
+        //       "valは{}です"
         println!("val is {}", val);
     });
 

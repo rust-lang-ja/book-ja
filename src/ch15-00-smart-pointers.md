@@ -10,70 +10,68 @@ memory. This address refers to, or “points at,” some other data. The most
 common kind of pointer in Rust is a reference, which you learned about in
 Chapter 4. References are indicated by the `&` symbol and borrow the value they
 point to. They don’t have any special capabilities other than referring to
-data. Also, they don’t have any overhead and are the kind of pointer we use
-most often.
+data, and have no overhead.
 -->
 
 *ポインタ*は、メモリのアドレスを含む変数の一般的な概念です。このアドレスは、何らかの他のデータを参照、または「指します」。
-Rustにおいて最もありふれた種類のポインタは参照です。参照については第4章で習いましたね。参照は`&`記号で示唆され、指している値を借用します。データを参照すること以外に特別な能力は何もありません。
-また、オーバーヘッドもなく、ポインタの中では最も頻繁に使われます。
+Rustにおいて最もありふれた種類のポインタは参照です。参照については第4章で習いましたね。参照は`&`記号で示唆され、指している値を借用します。
+データを参照すること以外に特別な能力は何もなく、オーバーヘッドもありません。
 
 <!--
-*Smart pointers*, on the other hand, are data structures that not only act like
-a pointer but also have additional metadata and capabilities. The concept of
+*Smart pointers*, on the other hand, are data structures that act like a
+pointer but also have additional metadata and capabilities. The concept of
 smart pointers isn’t unique to Rust: smart pointers originated in C++ and exist
-in other languages as well. In Rust, the different smart pointers defined in
-the standard library provide functionality beyond that provided by references.
-One example that we’ll explore in this chapter is the *reference counting*
-smart pointer type. This pointer enables you to have multiple owners of data by
-keeping track of the number of owners and, when no owners remain, cleaning up
-the data.
+in other languages as well. Rust has a variety of smart pointers defined in the
+standard library that provide functionality beyond that provided by references.
+To explore the general concept, we’ll look at a couple of different examples of
+smart pointers, including a *reference counting* smart pointer type. This
+pointer enables you to allow data to have multiple owners by keeping track of
+the number of owners and, when no owners remain, cleaning up the data.
 -->
 
-一方、*スマートポインタ*は、ポインタのように振る舞うだけでなく、追加のメタデータと能力があるデータ構造です。
+一方、*スマートポインタ*は、ポインタのように振る舞いますが、追加のメタデータと能力があるデータ構造です。
 スマートポインタという概念は、Rustに特有のものではありません。スマートポインタは、C++に端を発し、
-他の言語にも存在しています。Rustでは、標準ライブラリに定義された色々なスマートポインタが、
-参照以上の機能を提供します。この章で探究する一つの例が、*参照カウント*方式のスマートポインタ型です。
+他の言語にも存在しています。Rustには、参照以上の機能を提供する色々なスマートポインタが標準ライブラリに定義されています。
+一般的な概念を探索するために、いくつかのスマートポインタの例を見ていきますが、その一つが*参照カウント*方式のスマートポインタ型です。
 このポインタのおかげでデータに複数の所有者を持たせることができます。
 所有者の数を追いかけ、所有者がいなくなったらデータの片付けをしてくれるからです。
 
 <!--
-In Rust, which uses the concept of ownership and borrowing, an additional
-difference between references and smart pointers is that references are
-pointers that only borrow data; in contrast, in many cases, smart pointers
-*own* the data they point to.
+Rust, with its concept of ownership and borrowing, has an additional difference
+between references and smart pointers: while references only borrow data, in
+many cases, smart pointers *own* the data they point to.
 -->
 
-所有権と借用の概念を使うRustにおいて、参照とスマートポインタにはもう1つ違いがあります。参照はデータを借用するだけのポインタなのです。
-対照的に多くの場合、スマートポインタは指しているデータを*所有*します。
+所有権と借用の概念を持つRustでは、参照とスマートポインタにはもう1つ違いがあります:
+参照はデータを借用するだけである一方で、スマートポインタは、多くの場合、指しているデータを*所有*します。
 
 <!--
-We’ve already encountered a few smart pointers in this book, such as `String`
-and `Vec<T>` in Chapter 8, although we didn’t call them smart pointers at the
-time. Both these types count as smart pointers because they own some memory and
-allow you to manipulate it. They also have metadata (such as their capacity)
-and extra capabilities or guarantees (such as with `String` ensuring its data
-will always be valid UTF-8).
+Though we didn’t call them as such at the time, we’ve already encountered a few
+smart pointers in this book, including `String` and `Vec<T>` in Chapter 8. Both
+these types count as smart pointers because they own some memory and allow you
+to manipulate it. They also have metadata and extra capabilities or guarantees.
+`String`, for example, stores its capacity as metadata and has the extra
+ability to ensure its data will always be valid UTF-8.
 -->
 
-私達はすでに、この本の中でいくつかのスマートポインタに遭遇してきました。例えば第8章の`String`や`Vec<T>`です。ただし、私達はそれらをスマートポインタとは呼んでいませんでした。
-これらの型がどちらもスマートポインタに数えられるのは、あるメモリを所有しそれを弄ることができるからです。
-また、メタデータ（キャパシティなど）や追加の能力、あるいは保証（`String`ならデータが常に有効なUTF-8であると保証することなど）もあります。
+そのときはそう呼ばなかったものの、私達はすでに、この本の中でいくつかのスマートポインタに遭遇してきました。
+例えば第8章の`String`や`Vec<T>`です。これらの型はどちらも、あるメモリを所有しそれを弄ることができるので、
+スマートポインタと見なされます。また、メタデータや追加の能力、あるいは保証もあります。
+例えば`String`は、その許容量をメタデータとして保持し、データが常に有効なUTF-8であると保証する追加の能力を持ちます。
 
 <!--
-Smart pointers are usually implemented using structs. The characteristic that
-distinguishes a smart pointer from an ordinary struct is that smart pointers
-implement the `Deref` and `Drop` traits. The `Deref` trait allows an instance
-of the smart pointer struct to behave like a reference so you can write code
-that works with either references or smart pointers. The `Drop` trait allows
-you to customize the code that is run when an instance of the smart pointer
-goes out of scope. In this chapter, we’ll discuss both traits and demonstrate
-why they’re important to smart pointers.
+Smart pointers are usually implemented using structs. Unlike an ordinary
+struct, smart pointers implement the `Deref` and `Drop` traits. The `Deref`
+trait allows an instance of the smart pointer struct to behave like a reference
+so you can write your code to work with either references or smart pointers.
+The `Drop` trait allows you to customize the code that’s run when an instance
+of the smart pointer goes out of scope. In this chapter, we’ll discuss both
+traits and demonstrate why they’re important to smart pointers.
 -->
 
-スマートポインタは普通、構造体を使用して実装されています。スマートポインタを通常の構造体と区別する特徴は、
-スマートポインタが`Deref`と`Drop`トレイトを実装していることです。`Deref`トレイトにより、スマートポインタ構造体のインスタンスは、
-参照のように振る舞うことができるので、参照あるいはスマートポインタのどちらとも動作するコードを書くことができます。
+スマートポインタは普通、構造体を使用して実装されています。通常の構造体とは異なり、
+スマートポインタが`Deref`と`Drop`トレイトを実装します。`Deref`トレイトにより、スマートポインタ構造体のインスタンスは、
+参照のように振る舞うことができるので、参照あるいはスマートポインタのどちらとも動作するようにコードを書くことができます。
 `Drop`トレイトにより、スマートポインタのインスタンスがスコープを外れた時に走るコードをカスタマイズすることができます。
 この章では、どちらのトレイトについても議論し、これらのトレイトがスマートポインタにとって重要な理由を説明します。
 
@@ -92,7 +90,7 @@ cover the most common smart pointers in the standard library:
 * `Box<T>` for allocating values on the heap
 * `Rc<T>`, a reference counting type that enables multiple ownership
 * `Ref<T>` and `RefMut<T>`, accessed through `RefCell<T>`, a type that enforces
-the borrowing rules at runtime instead of compile time
+  the borrowing rules at runtime instead of compile time
 -->
 
 * ヒープに値を確保する`Box<T>`

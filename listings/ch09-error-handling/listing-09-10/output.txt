@@ -1,0 +1,18 @@
+$ cargo run
+   Compiling error-handling v0.1.0 (file:///projects/error-handling)
+error[E0277]: the `?` operator can only be used in a function that returns `Result` or `Option` (or another type that implements `FromResidual`)
+(エラー: `?`演算子は`Result`または`Option`(あるいはその他`FromResidual`を実装する型)を返す関数内でのみ使用できます
+ --> src/main.rs:4:48
+  |
+3 | fn main() {
+  | --------- this function should return `Result` or `Option` to accept `?`
+             (`?`を使えるようにするには、この関数は`Result`または`Option`を返すべきです)
+4 |     let greeting_file = File::open("hello.txt")?;
+  |                                                ^ cannot use the `?` operator in a function that returns `()`
+                                                    (`()`を返す関数内では`?`演算子を使用できません)
+  |
+  = help: the trait `FromResidual<Result<Infallible, std::io::Error>>` is not implemented for `()`
+   (ヘルプ: トレイト`FromResidual<Result<Infallible, std::io::Error>>`は`()`に対して実装されていません)
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `error-handling` (bin "error-handling") due to 1 previous error

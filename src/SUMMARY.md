@@ -73,12 +73,12 @@
 <!--
 - [Enums and Pattern Matching](ch06-00-enums.md)
     - [Defining an Enum](ch06-01-defining-an-enum.md)
-    - [The `match` Control Flow Operator](ch06-02-match.md)
+    - [The `match` Control Flow Construct](ch06-02-match.md)
     - [Concise Control Flow with `if let`](ch06-03-if-let.md)
 -->
 - [Enumとパターンマッチング](ch06-00-enums.md)
     - [Enumを定義する](ch06-01-defining-an-enum.md)
-    - [`match`制御フロー演算子](ch06-02-match.md)
+    - [`match`制御フロー構造](ch06-02-match.md)
     - [`if let`で簡潔な制御フロー](ch06-03-if-let.md)
 
 <!--
@@ -116,7 +116,7 @@
 - [Error Handling](ch09-00-error-handling.md)
     - [Unrecoverable Errors with `panic!`](ch09-01-unrecoverable-errors-with-panic.md)
     - [Recoverable Errors with `Result`](ch09-02-recoverable-errors-with-result.md)
-    - [To `panic!` or Not To `panic!`](ch09-03-to-panic-or-not-to-panic.md)
+    - [To `panic!` or Not to `panic!`](ch09-03-to-panic-or-not-to-panic.md)
 -->
 - [エラー処理](ch09-00-error-handling.md)
     - [`panic!`で回復不能なエラー](ch09-01-unrecoverable-errors-with-panic.md)
@@ -169,13 +169,13 @@
 
 <!--
 - [Functional Language Features: Iterators and Closures](ch13-00-functional-features.md)
-    - [Closures: Anonymous Functions that Can Capture Their Environment](ch13-01-closures.md)
+    - [Closures: Anonymous Functions that Capture Their Environment](ch13-01-closures.md)
     - [Processing a Series of Items with Iterators](ch13-02-iterators.md)
     - [Improving Our I/O Project](ch13-03-improving-our-io-project.md)
     - [Comparing Performance: Loops vs. Iterators](ch13-04-performance.md)
 -->
 - [関数型言語の機能：イテレータとクロージャ](ch13-00-functional-features.md)
-    - [クロージャ：環境をキャプチャできる匿名関数](ch13-01-closures.md)
+    - [クロージャ：環境をキャプチャする匿名関数](ch13-01-closures.md)
     - [一連の要素をイテレータで処理する](ch13-02-iterators.md)
     - [入出力プロジェクトを改善する](ch13-03-improving-our-io-project.md)
     - [パフォーマンス比較：ループVSイテレータ](ch13-04-performance.md)

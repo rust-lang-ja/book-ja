@@ -6,56 +6,50 @@
 
 <!--
 To improve our program, we’ll fix four problems that have to do with the
-program’s structure and how it’s handling potential errors.
+program’s structure and how it’s handling potential errors. First, our `main`
+function now performs two tasks: it parses arguments and reads files. As our
+program grows, the number of separate tasks the `main` function handles will
+increase. As a function gains responsibilities, it becomes more difficult to
+reason about, harder to test, and harder to change without breaking one of its
+parts. It’s best to separate functionality so each function is responsible for
+one task.
 -->
 
 プログラムを改善するために、プログラムの構造と起こりうるエラーに対処する方法に関連する4つの問題を修正していきましょう。
-
-<!--
-First, our `main` function now performs two tasks: it parses arguments and
-opens files. For such a small function, this isn’t a major problem. However, if
-we continue to grow our program inside `main`, the number of separate tasks the
-`main` function handles will increase. As a function gains responsibilities, it
-becomes more difficult to reason about, harder to test, and harder to change
-without breaking one of its parts. It’s best to separate functionality so each
-function is responsible for one task.
--->
-
-1番目は、`main`関数が2つの仕事を受け持っていることです: 引数を解析し、ファイルを開いています。
-このような小さな関数なら、これは、大した問題ではありませんが、`main`内でプログラムを巨大化させ続けたら、
-`main`関数が扱う個別の仕事の数も増えていきます。関数が責任を受け持つごとに、
+1番目は、`main`関数が2つの仕事を受け持っていることです: 引数を解析し、ファイルを読んでいます。
+プログラムが大きくなるにつれて、`main`関数が扱う個別の仕事の数も増えていきます。関数が責任を受け持つごとに、
 正しいことを確認しにくくなり、テストも行いづらくなり、機能を壊さずに変更するのも困難になっていきます。
 機能を小分けして、各関数が1つの仕事のみに責任を持つようにするのが最善です。
 
 <!--
-This issue also ties into the second problem: although `query` and `filename`
-are configuration variables to our program, variables like `f` and `contents`
-are used to perform the program’s logic. The longer `main` becomes, the more
-variables we’ll need to bring into scope; the more variables we have in scope,
-the harder it will be to keep track of the purpose of each. It’s best to group
-the configuration variables into one structure to make their purpose clear.
+This issue also ties into the second problem: although `query` and `file_path`
+are configuration variables to our program, variables like `contents` are used
+to perform the program’s logic. The longer `main` becomes, the more variables
+we’ll need to bring into scope; the more variables we have in scope, the harder
+it will be to keep track of the purpose of each. It’s best to group the
+configuration variables into one structure to make their purpose clear.
 -->
 
-この問題は、2番目の問題にも結びついています: `query`と`filename`はプログラムの設定用変数ですが、
-`f`や`contents`といった変数は、プログラムのロジックを担っています。`main`が長くなるほど、
+この問題は、2番目の問題にも結びついています: `query`と`file_path`はプログラムの設定用変数ですが、
+`contents`などの変数は、プログラムのロジックを担っています。`main`が長くなるほど、
 スコープに入れるべき変数も増えます。そして、スコープにある変数が増えれば、各々の目的を追うのも大変になるわけです。
 設定用変数を一つの構造に押し込め、目的を明瞭化するのが最善です。
 
 <!--
 The third problem is that we’ve used `expect` to print an error message when
-opening the file fails, but the error message just prints `file not found`.
-Opening a file can fail in a number of ways besides the file being missing: for
-example, the file might exist, but we might not have permission to open it.
-Right now, if we’re in that situation, we’d print the `file not found` error
-message, which would give the user the wrong information!
+reading the file fails, but the error message just prints `Should have been
+able to read the file`. Reading a file can fail in a number of ways: for
+example, the file could be missing, or we might not have permission to open it.
+Right now, regardless of the situation, we’d print the same error message for
+everything, which wouldn’t give the user any information!
 -->
 
-3番目の問題は、ファイルを開き損ねた時に`expect`を使ってエラーメッセージを出力しているのに、
-エラーメッセージが`ファイルが見つかりませんでした`としか表示しないことです。
-ファイルを開く行為は、ファイルが存在しない以外にもいろんな方法で失敗することがあります:
-例えば、ファイルは存在するかもしれないけれど、開く権限がないかもしれないなどです。
-現時点では、そのような状況になった時、「ファイルが見つかりませんでした」というエラーメッセージを出力し、
-これはユーザに間違った情報を与えるのです。
+3番目の問題は、ファイルを読み込み損ねた時に`expect`を使ってエラーメッセージを出力しているのに、
+エラーメッセージが`Should have been able to read the file`としか表示しないことです。
+ファイルを読む行為は、いろんな方法で失敗することがあります:
+例えば、ファイルが無いのかもしれないし、それを開く権限が無いのかもしれません。
+現時点では、状況にかかわらず、すべてに対して同一のエラーメッセージを出力していて、
+これではユーザに何の情報も与えていないでしょう！
 
 <!--
 1行目最後の方のandを順接の理由で訳している
@@ -65,8 +59,8 @@ message, which would give the user the wrong information!
 Fourth, we use `expect` repeatedly to handle different errors, and if the user
 runs our program without specifying enough arguments, they’ll get an `index out
 of bounds` error from Rust that doesn’t clearly explain the problem. It would
-be best if all the error-handling code was in one place so future maintainers
-have only one place to consult in the code if the error-handling logic needs to
+be best if all the error-handling code were in one place so future maintainers
+had only one place to consult the code if the error-handling logic needed to
 change. Having all the error-handling code in one place will also ensure that
 we’re printing messages that will be meaningful to our end users.
 -->
@@ -92,22 +86,22 @@ Let’s address these four problems by refactoring our project.
 <!--
 The organizational problem of allocating responsibility for multiple tasks to
 the `main` function is common to many binary projects. As a result, the Rust
-community has developed a process to use as a guideline for splitting the
-separate concerns of a binary program when `main` starts getting large. The
-process has the following steps:
+community has developed guidelines for splitting the separate concerns of a
+binary program when `main` starts getting large. This process has the following
+steps:
 -->
 
 `main`関数に複数の仕事の責任を割り当てるという構造上の問題は、多くのバイナリプロジェクトでありふれています。
-結果として、`main`が肥大化し始めた際にバイナリプログラムの個別の責任を分割するためにガイドラインとして活用できる工程をRustコミュニティは、
+結果として、`main`が肥大化し始めた際にバイナリプログラムの個別の責任を分割するためのガイドラインをRustコミュニティは、
 開発しました。この工程は、以下のような手順になっています:
 
 <!--
 * Split your program into a *main.rs* and a *lib.rs* and move your program’s
-logic to *lib.rs*.
+  logic to *lib.rs*.
 * As long as your command line parsing logic is small, it can remain in
-*main.rs*.
+  *main.rs*.
 * When the command line parsing logic starts getting complicated, extract it
-from *main.rs* and move it to *lib.rs*.
+  from *main.rs* and move it to *lib.rs*.
 -->
 
 * プログラムを*main.rs*と*lib.rs*に分け、ロジックを*lib.rs*に移動する。
@@ -135,17 +129,17 @@ should be limited to the following:
 
 <!--
 This pattern is about separating concerns: *main.rs* handles running the
-program, and *lib.rs* handles all the logic of the task at hand. Because we
-can’t test the `main` function directly, this structure lets us test all of
-your program’s logic by moving it into functions in *lib.rs*. The only code
-that remains in *main.rs* will be small enough to verify its correctness by
-reading it. Let’s rework our program by following this process.
+program, and *lib.rs* handles all the logic of the task at hand. Because you
+can’t test the `main` function directly, this structure lets you test all of
+your program’s logic by moving it into functions in *lib.rs*. The code that
+remains in *main.rs* will be small enough to verify its correctness by reading
+it. Let’s rework our program by following this process.
 -->
 
 このパターンは、責任の分離についてです: *main.rs*はプログラムの実行を行い、
 そして、*lib.rs*が手にある仕事のロジック全てを扱います。`main`関数を直接テストすることはできないので、
 この構造により、プログラムのロジック全てを*lib.rs*の関数に移すことでテストできるようになります。
-*main.rs*に残る唯一のコードは、読めばその正当性が評価できるだけ小規模になるでしょう。
+*main.rs*に残るコードは、読めばその正当性が評価できるだけ小規模になるでしょう。
 この工程に従って、プログラムのやり直しをしましょう。
 
 <!--
@@ -172,20 +166,7 @@ function `parse_config`, which we’ll define in *src/main.rs* for the moment.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let (query, filename) = parse_config(&args);
-
-    // --snip--
-}
-
-fn parse_config(args: &[String]) -> (&str, &str) {
-    let query = &args[1];
-    let filename = &args[2];
-
-    (query, filename)
-}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-05/src/main.rs:here}}
 ```
 
 <!--
@@ -198,26 +179,26 @@ fn parse_config(args: &[String]) -> (&str, &str) {
 <!--
 We’re still collecting the command line arguments into a vector, but instead of
 assigning the argument value at index 1 to the variable `query` and the
-argument value at index 2 to the variable `filename` within the `main`
+argument value at index 2 to the variable `file_path` within the `main`
 function, we pass the whole vector to the `parse_config` function. The
 `parse_config` function then holds the logic that determines which argument
 goes in which variable and passes the values back to `main`. We still create
-the `query` and `filename` variables in `main`, but `main` no longer has the
+the `query` and `file_path` variables in `main`, but `main` no longer has the
 responsibility of determining how the command line arguments and variables
 correspond.
 -->
 
 それでもまだ、コマンドライン引数をベクタに集結させていますが、`main`関数内で引数の値の添え字1を変数`query`に、
-添え字2を変数`filename`に代入する代わりに、ベクタ全体を`parse_config`関数に渡しています。
+添え字2を変数`file_path`に代入する代わりに、ベクタ全体を`parse_config`関数に渡しています。
 そして、`parse_config`関数にはどの引数がどの変数に入り、それらの値を`main`に返すというロジックが存在します。
-まだ`main`内に`query`と`filename`という変数を生成していますが、もう`main`は、
+まだ`main`内に`query`と`file_path`という変数を生成していますが、もう`main`は、
 コマンドライン引数と変数がどう対応するかを決定する責任は持ちません。
 
 <!--
 This rework may seem like overkill for our small program, but we’re refactoring
 in small, incremental steps. After making this change, run the program again to
 verify that the argument parsing still works. It’s good to check your progress
-often, to help you identify the cause of problems when they occur.
+often, to help identify the cause of problems when they occur.
 -->
 
 このやり直しは、私たちの小規模なプログラムにはやりすぎに思えるかもしれませんが、
@@ -244,8 +225,8 @@ the right abstraction yet.
 Another indicator that shows there’s room for improvement is the `config` part
 of `parse_config`, which implies that the two values we return are related and
 are both part of one configuration value. We’re not currently conveying this
-meaning in the structure of the data other than grouping the two values into
-a tuple; we could put the two values into one struct and give each of the
+meaning in the structure of the data other than by grouping the two values into
+a tuple; we’ll instead put the two values into one struct and give each of the
 struct fields a meaningful name. Doing so will make it easier for future
 maintainers of this code to understand how the different values relate to each
 other and what their purpose is.
@@ -254,16 +235,8 @@ other and what their purpose is.
 まだ改善の余地があると示してくれる他の徴候は、`parse_config`の`config`の部分であり、
 返却している二つの値は関係があり、一つの設定値の一部にどちらもなることを暗示しています。
 現状では、一つのタプルにまとめていること以外、この意味をデータの構造に載せていません;
-この二つの値を1構造体に置き換え、構造体のフィールドそれぞれに意味のある名前をつけることもできるでしょう。
+この二つの値を1構造体に置き換え、構造体のフィールドそれぞれに意味のある名前をつけましょう。
 そうすることで将来このコードのメンテナンス者が、異なる値が相互に関係する仕方や、目的を理解しやすくできるでしょう。
-
-<!--
-> Note: Some people call this anti-pattern of using primitive values when a
-> complex type would be more appropriate *primitive obsession*.
--->
-
-> 注釈: この複雑型(complex type)がより適切な時に組み込みの値を使うアンチパターンを、
-> *primitive obsession*(`訳注`: 初めて聞いた表現。*組み込み型強迫観念*といったところだろうか)と呼ぶ人もいます。
 
 <!--
 Listing 12-6 shows the improvements to the `parse_config` function.
@@ -277,34 +250,8 @@ Listing 12-6 shows the improvements to the `parse_config` function.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,should_panic
-# use std::env;
-# use std::fs::File;
-#
-fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let config = parse_config(&args);
-
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.filename);
-
-    let mut f = File::open(config.filename).expect("file not found");
-
-    // --snip--
-}
-
-struct Config {
-    query: String,
-    filename: String,
-}
-
-fn parse_config(args: &[String]) -> Config {
-    let query = args[1].clone();
-    let filename = args[2].clone();
-
-    Config { query, filename }
-}
+```rust,should_panic,noplayground
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-06/src/main.rs:here}}
 ```
 
 <!--
@@ -316,16 +263,16 @@ instance of a `Config` struct</span>
 
 <!--
 We’ve added a struct named `Config` defined to have fields named `query` and
-`filename`. The signature of `parse_config` now indicates that it returns a
-`Config` value. In the body of `parse_config`, where we used to return string
-slices that reference `String` values in `args`, we now define `Config` to
-contain owned `String` values. The `args` variable in `main` is the owner of
+`file_path`. The signature of `parse_config` now indicates that it returns a
+`Config` value. In the body of `parse_config`, where we used to return
+string slices that reference `String` values in `args`, we now define `Config`
+to contain owned `String` values. The `args` variable in `main` is the owner of
 the argument values and is only letting the `parse_config` function borrow
 them, which means we’d violate Rust’s borrowing rules if `Config` tried to take
 ownership of the values in `args`.
 -->
 
-`query`と`filename`というフィールドを持つよう定義された`Config`という構造体を追加しました。
+`query`と`file_path`というフィールドを持つよう定義された`Config`という構造体を追加しました。
 `parse_config`のシグニチャは、これで`Config`値を返すと示すようになりました。`parse_config`の本体では、
 以前は`args`の`String`値を参照する文字列スライスを返していましたが、
 今では所有する`String`値を含むように`Config`を定義しています。`main`の`args`変数は引数値の所有者であり、
@@ -333,17 +280,16 @@ ownership of the values in `args`.
 Rustの借用規則に違反してしまうことを意味します。
 
 <!--
-We could manage the `String` data in a number of different ways, but the
-easiest, though somewhat inefficient, route is to call the `clone` method on
-the values. This will make a full copy of the data for the `Config` instance to
-own, which takes more time and memory than storing a reference to the string
-data. However, cloning the data also makes our code very straightforward
-because we don’t have to manage the lifetimes of the references; in this
-circumstance, giving up a little performance to gain simplicity is a worthwhile
-trade-off.
+There are a number of ways we could manage the `String` data; the easiest,
+though somewhat inefficient, route is to call the `clone` method on the values.
+This will make a full copy of the data for the `Config` instance to own, which
+takes more time and memory than storing a reference to the string data.
+However, cloning the data also makes our code very straightforward because we
+don’t have to manage the lifetimes of the references; in this circumstance,
+giving up a little performance to gain simplicity is a worthwhile trade-off.
 -->
 
-`String`のデータは、多くの異なる手法で管理できますが、最も単純だけれどもどこか非効率的な手段は、
+`String`のデータを管理する方法は複数あります; 最も単純だけれども多少非効率的な手段は、
 値に対して`clone`メソッドを呼び出すことです。これにより、`Config`インスタンスが所有するデータの総コピーが生成されるので、
 文字列データへの参照を保持するよりも時間とメモリを消費します。ですが、データをクローンすることで、
 コードがとても素直にもなります。というのも、参照のライフタイムを管理する必要がないからです。
@@ -353,21 +299,22 @@ trade-off.
 > ### The Trade-Offs of Using `clone`
 >
 > There’s a tendency among many Rustaceans to avoid using `clone` to fix
-> ownership problems because of its runtime cost. In Chapter 13, you’ll learn
-> how to use more efficient methods in this type of situation. But for now,
-> it’s okay to copy a few strings to continue making progress because we’ll
-> make these copies only once and your filename and query string are very
-> small. It’s better to have a working program that’s a bit inefficient than to
-> try to hyperoptimize code on your first pass. As you become more experienced
-> with Rust, it’ll be easier to start with the most efficient solution, but for
-> now, it’s perfectly acceptable to call `clone`.
+> ownership problems because of its runtime cost. In
+> [Chapter 13][ch13], you’ll learn how to use more efficient
+> methods in this type of situation. But for now, it’s okay to copy a few
+> strings to continue making progress because you’ll make these copies only
+> once and your file path and query string are very small. It’s better to have
+> a working program that’s a bit inefficient than to try to hyperoptimize code
+> on your first pass. As you become more experienced with Rust, it’ll be
+> easier to start with the most efficient solution, but for now, it’s
+> perfectly acceptable to call `clone`.
 -->
 
 > ### `clone`を使用する代償
 >
 > 実行時コストのために`clone`を使用して所有権問題を解消するのを避ける傾向が多くのRustaceanにあります。
-> 第13章で、この種の状況においてより効率的なメソッドの使用法を学ぶでしょう。ですがとりあえずは、
-> これらのコピーをするのは1回だけですし、ファイル名とクエリ文字列は非常に小さなものなので、
+> [第13章][ch13]で、この種の状況においてより効率的なメソッドの使用法を学ぶでしょう。ですがとりあえずは、
+> これらのコピーをするのは1回だけですし、ファイルパスとクエリ文字列は非常に小さなものなので、
 > いくつかの文字列をコピーして進捗するのは良しとしましょう。最初の通り道でコードを究極的に効率化しようとするよりも、
 > ちょっと非効率的でも動くプログラムを用意する方がいいでしょう。もっとRustの経験を積めば、
 > 最も効率的な解決法から開始することも簡単になるでしょうが、今は、`clone`を呼び出すことは完璧に受け入れられることです。
@@ -375,21 +322,21 @@ trade-off.
 <!--
 We’ve updated `main` so it places the instance of `Config` returned by
 `parse_config` into a variable named `config`, and we updated the code that
-previously used the separate `query` and `filename` variables so it now uses
+previously used the separate `query` and `file_path` variables so it now uses
 the fields on the `Config` struct instead.
 -->
 
 `main`を更新したので、`parse_config`から返された`Config`のインスタンスを`config`という変数に置くようになり、
-以前は個別の`query`と`filename`変数を使用していたコードを更新したので、代わりに`Config`構造体のフィールドを使用するようになりました。
+以前は個別の`query`と`file_path`変数を使用していたコードを更新したので、代わりに`Config`構造体のフィールドを使用するようになりました。
 
 <!--
-Now our code more clearly conveys that `query` and `filename` are related and
+Now our code more clearly conveys that `query` and `file_path` are related and
 that their purpose is to configure how the program will work. Any code that
 uses these values knows to find them in the `config` instance in the fields
 named for their purpose.
 -->
 
-これでコードは`query`と`filename`が関連していることと、その目的がプログラムの振る舞い方を設定するということをより明確に伝えます。
+これでコードは`query`と`file_path`が関連していることと、その目的がプログラムの振る舞い方を設定するということをより明確に伝えます。
 これらの値を使用するあらゆるコードは、`config`インスタンスの目的の名前を冠したフィールドにそれらを発見することを把握しています。
 
 <!--
@@ -401,15 +348,15 @@ named for their purpose.
 <!--
 So far, we’ve extracted the logic responsible for parsing the command line
 arguments from `main` and placed it in the `parse_config` function. Doing so
-helped us to see that the `query` and `filename` values were related and that
+helped us to see that the `query` and `file_path` values were related and that
 relationship should be conveyed in our code. We then added a `Config` struct to
-name the related purpose of `query` and `filename` and to be able to return the
+name the related purpose of `query` and `file_path` and to be able to return the
 values’ names as struct field names from the `parse_config` function.
 -->
 
 ここまでで、コマンドライン引数を解析する責任を負ったロジックを`main`から抽出し、`parse_config`関数に配置しました。
-そうすることで`query`と`filename`の値が関連し、その関係性がコードに載っていることを確認する助けになりました。
-それから`Config`構造体を追加して`query`と`filename`の関係する目的を名前付けし、
+そうすることで`query`と`file_path`の値が関連し、その関係性がコードに載っていることを確認する助けになりました。
+それから`Config`構造体を追加して`query`と`file_path`の関係する目的を名前付けし、
 構造体のフィールド名として`parse_config`関数からその値の名前を返すことができています。
 
 <!--
@@ -436,32 +383,8 @@ shows the changes we need to make.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,should_panic
-# use std::env;
-#
-fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let config = Config::new(&args);
-
-    // --snip--
-}
-
-# struct Config {
-#     query: String,
-#     filename: String,
-# }
-#
-// --snip--
-
-impl Config {
-    fn new(args: &[String]) -> Config {
-        let query = args[1].clone();
-        let filename = args[2].clone();
-
-        Config { query, filename }
-    }
-}
+```rust,should_panic,noplayground
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-07/src/main.rs:here}}
 ```
 
 <!--
@@ -498,25 +421,18 @@ without any arguments; it will look like this:
 さて、エラー処理の修正に取り掛かりましょう。ベクタが2個以下の要素しか含んでいないときに`args`ベクタの添え字1か2にアクセスしようとすると、
 プログラムがパニックすることを思い出してください。試しに引数なしでプログラムを実行してください。すると、こんな感じになります:
 
-```text
-$ cargo run
-   Compiling minigrep v0.1.0 (file:///projects/minigrep)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
-     Running `target/debug/minigrep`
-thread 'main' panicked at 'index out of bounds: the len is 1
-but the index is 1', src/main.rs:29:21
-(スレッド'main'は、「境界外アクセス: 長さは1なのに添え字も1です」でパニックしました)
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-07/output.txt}}
 ```
 
 <!--
 The line `index out of bounds: the len is 1 but the index is 1` is an error
 message intended for programmers. It won’t help our end users understand what
-happened and what they should do instead. Let’s fix that now.
+they should do instead. Let’s fix that now.
 -->
 
 `境界外アクセス: 長さは1なのに添え字も1です`という行は、プログラマ向けのエラーメッセージです。
-エンドユーザが起きたことと代わりにすべきことを理解する手助けにはならないでしょう。これを今修正しましょう。
+エンドユーザが代わりにすべきことを理解する手助けにはならないでしょう。これを今修正しましょう。
 
 <!--
 #### Improving the Error Message
@@ -527,12 +443,11 @@ happened and what they should do instead. Let’s fix that now.
 <!--
 In Listing 12-8, we add a check in the `new` function that will verify that the
 slice is long enough before accessing index 1 and 2. If the slice isn’t long
-enough, the program panics and displays a better error message than the `index
-out of bounds` message.
+enough, the program panics and displays a better error message.
 -->
 
 リスト12-8で、`new`関数に、添え字1と2にアクセスする前にスライスが十分長いことを実証するチェックを追加しています。
-スライスの長さが十分でなければ、プログラムはパニックし、`境界外インデックス`よりもいいエラーメッセージを表示します。
+スライスの長さが十分でなければ、プログラムはパニックし、より良いエラーメッセージを表示します。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -541,13 +456,7 @@ out of bounds` message.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-// --snip--
-fn new(args: &[String]) -> Config {
-    if args.len() < 3 {
-        // 引数の数が足りません
-        panic!("not enough arguments");
-    }
-    // --snip--
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-08/src/main.rs:here}}
 ```
 
 <!--
@@ -558,16 +467,16 @@ arguments</span>
 <span class="caption">リスト12-8: 引数の数のチェックを追加する</span>
 
 <!--
-This code is similar to the `Guess::new` function we wrote in Listing 9-9,
-where we called `panic!` when the `value` argument was out of the range of
-valid values. Instead of checking for a range of values here, we’re checking
-that the length of `args` is at least 3 and the rest of the function can
-operate under the assumption that this condition has been met. If `args` has
-fewer than three items, this condition will be true, and we call the `panic!`
-macro to end the program immediately.
+This code is similar to [the `Guess::new` function we wrote in Listing
+9-13][ch9-custom-types], where we called `panic!` when the
+`value` argument was out of the range of valid values. Instead of checking for
+a range of values here, we’re checking that the length of `args` is at least 3
+and the rest of the function can operate under the assumption that this
+condition has been met. If `args` has fewer than three items, this condition
+will be true, and we call the `panic!` macro to end the program immediately.
 -->
 
-このコードは、リスト9-9で記述した`value`引数が正常な値の範囲外だった時に`panic!`を呼び出した`Guess::new`関数と似ています。
+このコードは、`value`引数が正常な値の範囲外だった時に`panic!`を呼び出していた、[リスト9-13の中で書いた`Guess::new`関数][ch9-custom-types]と似ています。
 ここでは、値の範囲を確かめる代わりに、`args`の長さが少なくとも3であることを確かめていて、
 関数の残りの部分は、この条件が満たされているという前提のもとで処理を行うことができます。
 `args`に2要素以下しかなければ、この条件は真になり、`panic!`マクロを呼び出して、即座にプログラムを終了させます。
@@ -579,60 +488,62 @@ arguments again to see what the error looks like now:
 
 では、`new`のこの追加の数行がある状態で、再度引数なしでプログラムを走らせ、エラーがどんな見た目か確かめましょう:
 
-```text
-$ cargo run
-   Compiling minigrep v0.1.0 (file:///projects/minigrep)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
-     Running `target/debug/minigrep`
-thread 'main' panicked at 'not enough arguments', src/main.rs:30:12
-(スレッド'main'は「引数が足りません」でパニックしました)
-note: Run with `RUST_BACKTRACE=1` for a backtrace.
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-08/output.txt}}
 ```
 
 <!--
 This output is better: we now have a reasonable error message. However, we also
 have extraneous information we don’t want to give to our users. Perhaps using
-the technique we used in Listing 9-9 isn’t the best to use here: a call to
-`panic!` is more appropriate for a programming problem than a usage problem, as
-discussed in Chapter 9. Instead, we can use the other technique you learned
-about in Chapter 9—returning a `Result` that indicates either success or an
-error.
+the technique we used in Listing 9-13 isn’t the best to use here: a call to
+`panic!` is more appropriate for a programming problem than a usage problem,
+[as discussed in Chapter 9][ch9-error-guidelines]. Instead,
+we’ll use the other technique you learned about in Chapter 9—[returning a
+`Result`][ch9-result] that indicates either success or an error.
 -->
 
 この出力の方がマシです: これでエラーメッセージが合理的になりました。ですが、
 ユーザに与えたくない追加の情報も含まれてしまっています。おそらく、
-ここではリスト9-9で使用したテクニックを使用するのは最善ではありません: 
-`panic!`の呼び出しは、第9章で議論したように、使用の問題よりもプログラミング上の問題により適しています。
-代わりに、第9章で学んだもう一つのテクニックを使用することができます。成功か失敗かを示唆する`Result`を返すことです。
+ここではリスト9-13で使用したテクニックを使用するのは最善ではありません: 
+`panic!`の呼び出しは、[第9章で議論したように][ch9-error-guidelines]、使用の問題よりもプログラミング上の問題により適しています。
+代わりに、第9章で学んだもう一つのテクニックを使用しましょう。成功か失敗かを示唆する[`Result`を返す][ch9-result]ことです。
 
+<!-- Old headings. Do not remove or links may break. -->
 <!--
-#### Returning a `Result` from `new` Instead of Calling `panic!`
+<a id="returning-a-result-from-new-instead-of-calling-panic"></a>
 -->
 
-#### `panic!`を呼び出す代わりに`new`から`Result`を返す
+<!--
+#### Returning a `Result` Instead of Calling `panic!`
+-->
+
+#### `panic!`を呼び出す代わりに`Result`を返す
 
 <!--
 We can instead return a `Result` value that will contain a `Config` instance in
-the successful case and will describe the problem in the error case. When
-`Config::new` is communicating to `main`, we can use the `Result` type to
-signal there was a problem. Then we can change `main` to convert an `Err`
-variant into a more practical error for our users without the surrounding text
-about `thread 'main'` and `RUST_BACKTRACE` that a call to `panic!` causes.
+the successful case and will describe the problem in the error case. We’re also
+going to change the function name from `new` to `build` because many
+programmers expect `new` functions to never fail. When `Config::build` is
+communicating to `main`, we can use the `Result` type to signal there was a
+problem. Then we can change `main` to convert an `Err` variant into a more
+practical error for our users without the surrounding text about `thread
+'main'` and `RUST_BACKTRACE` that a call to `panic!` causes.
 -->
 
 代わりに、成功時には`Config`インスタンスを含み、エラー時には問題に言及する`Result`値を返すことができます。
-`Config::new`が`main`と対話する時、`Result`型を使用して問題があったと信号を送ることができます。
+また、多くのプログラマは`new`関数は決して失敗しないことを期待するので、関数名を`new`から`build`に変更します。
+`Config::build`が`main`と対話する時、`Result`型を使用して問題があったと信号を送ることができます。
 それから`main`を変更して、`panic!`呼び出しが引き起こしていた`thread 'main'`と`RUST_BACKTRACE`に関する周囲のテキストがない、
 ユーザ向けのより実用的なエラーに`Err`列挙子を変換することができます。
 
 <!--
-Listing 12-9 shows the changes we need to make to the return value of
-`Config::new` and the body of the function needed to return a `Result`. Note
-that this won’t compile until we update `main` as well, which we’ll do in the
-next listing.
+Listing 12-9 shows the changes we need to make to the return value of the
+function we’re now calling `Config::build` and the body of the function needed
+to return a `Result`. Note that this won’t compile until we update `main` as
+well, which we’ll do in the next listing.
 -->
 
-リスト12-9は、`Config::new`の戻り値に必要な変更と`Result`を返すのに必要な関数の本体を示しています。
+リスト12-9は、新しく`Config::build`と呼ばれる関数の戻り値に必要な変更と、`Result`を返すのに必要な関数の本体を示しています。
 `main`も更新するまで、これはコンパイルできないことに注意してください。その更新は次のリストで行います。
 
 <!--
@@ -641,77 +552,69 @@ next listing.
 
 <span class="filename">ファイル名: src/main.rs</span>
 
-```rust,ignore
-impl Config {
-    fn new(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        }
-
-        let query = args[1].clone();
-        let filename = args[2].clone();
-
-        Ok(Config { query, filename })
-    }
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-09/src/main.rs:here}}
 ```
 
 <!--
 <span class="caption">Listing 12-9: Returning a `Result` from
-`Config::new`</span>
+`Config::build`</span>
 -->
 
-<span class="caption">リスト12-9: `Config::new`から`Result`を返却する</span>
+<span class="caption">リスト12-9: `Config::build`から`Result`を返却する</span>
 
 <!--
-Our `new` function now returns a `Result` with a `Config` instance in the
-success case and a `&'static str` in the error case. Recall from “The Static
-Lifetime” section in Chapter 10 that `&'static str` is the type of string
-literals, which is our error message type for now.
+Our `build` function returns a `Result` with a `Config` instance in the success
+case and a `&'static str` in the error case. Our error values will always be
+string literals that have the `'static` lifetime.
 -->
 
-`new`関数は、これで、成功時には`Config`インスタンスを、エラー時には`&'static str`を伴う`Result`を返すようになりました。
-第10章の「静的ライフタイム」節から`&'static str`は文字列リテラルの型であることを思い出してください。
-これは、今はエラーメッセージの型になっています。
+`build`関数は、成功時には`Config`インスタンスを、エラー時には`&'static str`を伴う`Result`を返すようになりました。
+ここ使うエラー値は常に、`'static`ライフタイムを持つ文字列リテラルになります。
 
 <!--
-We’ve made two changes in the body of the `new` function: instead of calling
-`panic!` when the user doesn’t pass enough arguments, we now return an `Err`
-value, and we’ve wrapped the `Config` return value in an `Ok`. These changes
-make the function conform to its new type signature.
+We’ve made two changes in the body of the function: instead of calling `panic!`
+when the user doesn’t pass enough arguments, we now return an `Err` value, and
+we’ve wrapped the `Config` return value in an `Ok`. These changes make the
+function conform to its new type signature.
 -->
 
-`new`関数の本体で2つ変更を行いました: 十分な数の引数をユーザが渡さなかった場合に`panic!`を呼び出す代わりに、
+関数の本体で2つ変更を行いました: 十分な数の引数をユーザが渡さなかった場合に`panic!`を呼び出す代わりに、
 今は`Err`値を返し、`Config`戻り値を`Ok`に包んでいます。これらの変更により、関数が新しい型シグニチャに適合するわけです。
 
 <!--
-Returning an `Err` value from `Config::new` allows the `main` function to
-handle the `Result` value returned from the `new` function and exit the process
-more cleanly in the error case.
+Returning an `Err` value from `Config::build` allows the `main` function to
+handle the `Result` value returned from the `build` function and exit the
+process more cleanly in the error case.
 -->
 
-`Config::new`から`Err`値を返すことにより、`main`関数は、`new`関数から返ってくる`Result`値を処理し、
+`Config::build`から`Err`値を返すことにより、`main`関数は、`build`関数から返ってくる`Result`値を処理し、
 エラー時により綺麗にプロセスから抜け出すことができます。
 
+<!-- Old headings. Do not remove or links may break. -->
 <!--
-#### Calling `Config::new` and Handling Errors
+<a id="calling-confignew-and-handling-errors"></a>
 -->
 
-#### `Config::new`を呼び出し、エラーを処理する
+<!--
+#### Calling `Config::build` and Handling Errors
+-->
+
+#### `Config::build`を呼び出し、エラーを処理する
 
 <!--
 To handle the error case and print a user-friendly message, we need to update
-`main` to handle the `Result` being returned by `Config::new`, as shown in
+`main` to handle the `Result` being returned by `Config::build`, as shown in
 Listing 12-10. We’ll also take the responsibility of exiting the command line
-tool with a nonzero error code from `panic!` and implement it by hand. A
-nonzero exit status is a convention to signal to the process that called our
-program that the program exited with an error state.
+tool with a nonzero error code away from `panic!` and instead implement it by
+hand. A nonzero exit status is a convention to signal to the process that
+called our program that the program exited with an error state.
 -->
 
 エラーケースを処理し、ユーザフレンドリーなメッセージを出力するために、`main`を更新して、
-リスト12-10に示したように`Config::new`から返されている`Result`を処理する必要があります。
+リスト12-10に示したように`Config::build`から返されている`Result`を処理する必要があります。
 また、`panic!`からコマンドラインツールを0以外のエラーコードで抜け出す責任も奪い取り、
-手作業でそれも実装します。0以外の終了コードは、
+代わりに手作業でそれを実装します。0以外の終了コードは、
 我々のプログラムを呼び出したプロセスにプログラムがエラー状態で終了したことを通知する慣習です。
 
 <!--
@@ -721,73 +624,59 @@ program that the program exited with an error state.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-use std::process;
-
-fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let config = Config::new(&args).unwrap_or_else(|err| {
-        // 引数解析時に問題
-        println!("Problem parsing arguments: {}", err);
-        process::exit(1);
-    });
-
-    // --snip--
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-10/src/main.rs:here}}
 ```
 
 <!--
-<span class="caption">Listing 12-10: Exiting with an error code if creating a
-new `Config` fails</span>
+<span class="caption">Listing 12-10: Exiting with an error code if building a
+`Config` fails</span>
 -->
 
-<span class="caption">リスト12-10: 新しい`Config`作成に失敗したら、エラーコードで終了する</span>
+<span class="caption">リスト12-10: `Config`構築に失敗したら、エラーコードで終了する</span>
 
 <!--
-In this listing, we’ve used a method we haven’t covered before:
+In this listing, we’ve used a method we haven’t covered in detail yet:
 `unwrap_or_else`, which is defined on `Result<T, E>` by the standard library.
 Using `unwrap_or_else` allows us to define some custom, non-`panic!` error
 handling. If the `Result` is an `Ok` value, this method’s behavior is similar
 to `unwrap`: it returns the inner value `Ok` is wrapping. However, if the value
 is an `Err` value, this method calls the code in the *closure*, which is an
 anonymous function we define and pass as an argument to `unwrap_or_else`. We’ll
-cover closures in more detail in Chapter 13. For now, you just need to know
-that `unwrap_or_else` will pass the inner value of the `Err`, which in this
-case is the static string `not enough arguments` that we added in Listing 12-9,
-to our closure in the argument `err` that appears between the vertical pipes.
-The code in the closure can then use the `err` value when it runs.
+cover closures in more detail in [Chapter 13][ch13]. For now,
+you just need to know that `unwrap_or_else` will pass the inner value of the
+`Err`, which in this case is the static string `"not enough arguments"` that we
+added in Listing 12-9, to our closure in the argument `err` that appears
+between the vertical pipes. The code in the closure can then use the `err`
+value when it runs.
 -->
 
-このリストにおいて、以前には講義していないメソッドを使用しました: `unwrap_or_else`です。
+このリストにおいて、まだ詳しく扱っていないメソッドを使用しました: `unwrap_or_else`です。
 これは標準ライブラリで`Result<T, E>`に定義されています。`unwrap_or_else`を使うことで、
 `panic!`ではない何らか独自のエラー処理を定義できるのです。この`Result`が`Ok`値だったら、
 このメソッドの振る舞いは`unwrap`に似ています: `Ok`が包んでいる中身の値を返すのです。
 しかし、値が`Err`値なら、このメソッドは、*クロージャ*内でコードを呼び出し、
-クロージャは私たちが定義し、引数として`unwrap_or_else`に渡す匿名関数です。クロージャについては第13章で詳しく講義します。
-とりあえず、`unwrap_or_else`は、今回リスト12-9で追加した`not enough arguments`という静的文字列の`Err`の中身を、
+クロージャは私たちが定義し、引数として`unwrap_or_else`に渡す匿名関数です。クロージャについては[第13章][ch13]で詳しく講義します。
+とりあえず、`unwrap_or_else`は、今回リスト12-9で追加した`"not enough arguments"`という静的文字列の`Err`の中身を、
 縦棒の間に出現する`err`引数のクロージャに渡していることだけ知っておく必要があります。
 クロージャのコードはそれから、実行された時に`err`値を使用できます。
 
 <!--
-We’ve added a new `use` line to import `process` from the standard library. The
-code in the closure that will be run in the error case is only two lines: we
-print the `err` value and then call `process::exit`. The `process::exit`
-function will stop the program immediately and return the number that was
-passed as the exit status code. This is similar to the `panic!`-based handling
-we used in Listing 12-8, but we no longer get all the extra output. Let’s try
-it:
+We’ve added a new `use` line to bring `process` from the standard library into
+scope. The code in the closure that will be run in the error case is only two
+lines: we print the `err` value and then call `process::exit`. The
+`process::exit` function will stop the program immediately and return the
+number that was passed as the exit status code. This is similar to the
+`panic!`-based handling we used in Listing 12-8, but we no longer get all the
+extra output. Let’s try it:
 -->
 
-新規`use`行を追加して標準ライブラリから`process`をインポートしました。クロージャ内のエラー時に走るコードは、
+新規`use`行を追加して標準ライブラリから`process`をスコープ内に持ち込みました。クロージャ内のエラー時に走るコードは、
 たった2行です: `err`の値を出力し、それから`process::exit`を呼び出します。`process::exit`関数は、
 即座にプログラムを停止させ、渡された数字を終了コードとして返します。これは、リスト12-8で使用した`panic!`ベースの処理と似ていますが、
 もう余計な出力はされません。試しましょう:
 
-```text
-$ cargo run
-   Compiling minigrep v0.1.0 (file:///projects/minigrep)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.48 secs
-     Running `target/debug/minigrep`
-Problem parsing arguments: not enough arguments
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-10/output.txt}}
 ```
 
 <!--
@@ -804,16 +693,16 @@ Great! This output is much friendlier for our users.
 
 <!--
 Now that we’ve finished refactoring the configuration parsing, let’s turn to
-the program’s logic. As we stated in “Separation of Concerns for Binary
-Projects”, we’ll extract a function named `run` that will hold all the logic
-currently in the `main` function that isn’t involved with setting up
-configuration or handling errors. When we’re done, `main` will be concise and
-easy to verify by inspection, and we’ll be able to write tests for all the
-other logic.
+the program’s logic. As we stated in [“Separation of Concerns for Binary
+Projects”](#separation-of-concerns-for-binary-projects), we’ll
+extract a function named `run` that will hold all the logic currently in the
+`main` function that isn’t involved with setting up configuration or handling
+errors. When we’re done, `main` will be concise and easy to verify by
+inspection, and we’ll be able to write tests for all the other logic.
 -->
 
 これで設定解析のリファクタリングが終了したので、プログラムのロジックに目を向けましょう。
-「バイナリプロジェクトの責任の分離」で述べたように、
+[「バイナリプロジェクトの責任の分離」](#バイナリプロジェクトの責任の分離)で述べたように、
 現在`main`関数に存在する設定のセットアップやエラー処理に関わらない全てのロジックを保持することになる`run`という関数を抽出します。
 やり終わったら、`main`は簡潔かつ視察で確かめやすくなり、他のロジック全部に対してテストを書くことができるでしょう。
 
@@ -833,26 +722,7 @@ defining the function in *src/main.rs*.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-fn main() {
-    // --snip--
-
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.filename);
-
-    run(config);
-}
-
-fn run(config: Config) {
-    let mut f = File::open(config.filename).expect("file not found");
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)
-        .expect("something went wrong reading the file");
-
-    println!("With text:\n{}", contents);
-}
-
-// --snip--
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-11/src/main.rs:here}}
 ```
 
 <!--
@@ -885,15 +755,15 @@ With you next to me, I'll drive to wherever you like. (君が隣にいる状態�
 
 <!--
 With the remaining program logic separated into the `run` function, we can
-improve the error handling, as we did with `Config::new` in Listing 12-9.
+improve the error handling, as we did with `Config::build` in Listing 12-9.
 Instead of allowing the program to panic by calling `expect`, the `run`
 function will return a `Result<T, E>` when something goes wrong. This will let
-us further consolidate into `main` the logic around handling errors in a
+us further consolidate the logic around handling errors into `main` in a
 user-friendly way. Listing 12-12 shows the changes we need to make to the
 signature and body of `run`.
 -->
 
-残りのプログラムロジックが`run`関数に隔離されたので、リスト12-9の`Config::new`のように、
+残りのプログラムロジックが`run`関数に隔離されたので、リスト12-9の`Config::build`のように、
 エラー処理を改善することができます。`expect`を呼び出してプログラムにパニックさせる代わりに、
 `run`関数は、何か問題が起きた時に`Result<T, E>`を返します。これにより、
 さらにエラー処理周りのロジックをユーザに優しい形で`main`に統合することができます。
@@ -906,20 +776,7 @@ signature and body of `run`.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-use std::error::Error;
-
-// --snip--
-
-fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    let mut f = File::open(config.filename)?;
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)?;
-
-    println!("With text:\n{}", contents);
-
-    Ok(())
-}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-12/src/main.rs:here}}
 ```
 
 <!--
@@ -942,35 +799,37 @@ returned the unit type, `()`, and we keep that as the value returned in the
 <!--
 For the error type, we used the *trait object* `Box<dyn Error>` (and we’ve
 brought `std::error::Error` into scope with a `use` statement at the top).
-We’ll cover trait objects in Chapter 17. For now, just know that `Box<dyn
-Error>` means the function will return a type that implements the `Error`
-trait, but we don’t have to specify what particular type the return value will
-be. This gives us flexibility to return error values that may be of different
-types in different error cases. The `dyn` keyword is short for “dynamic.”
+We’ll cover trait objects in [Chapter 17][ch17]. For now, just
+know that `Box<dyn Error>` means the function will return a type that
+implements the `Error` trait, but we don’t have to specify what particular type
+the return value will be. This gives us flexibility to return error values that
+may be of different types in different error cases. The `dyn` keyword is short
+for “dynamic.”
 -->
 
 エラー型については、*トレイトオブジェクト*の`Box<dyn Error>`を使用しました(同時に冒頭で`use`文により、
-`std::error::Error`をスコープに導入しています)。トレイトオブジェクトについては、第17章で講義します。
+`std::error::Error`をスコープに導入しています)。トレイトオブジェクトについては、[第17章][ch17]で講義します。
 とりあえず、`Box<dyn Error>`は、関数が`Error`トレイトを実装する型を返すことを意味しますが、
 戻り値の型を具体的に指定しなくても良いことを知っておいてください。これにより、
 エラーケースによって異なる型のエラー値を返す柔軟性を得ます。`dyn` キーワードは、"dynamic"の略です。
 
 <!--
-Second, we’ve removed the calls to `expect` in favor of the `?` operator, as we
-talked about in Chapter 9. Rather than `panic!` on an error, the `?` operator
-will return the error value from the current function for the caller to handle.
+Second, we’ve removed the call to `expect` in favor of the `?` operator, as we
+talked about in [Chapter 9][ch9-question-mark]. Rather than
+`panic!` on an error, `?` will return the error value from the current function
+for the caller to handle.
 -->
 
-2番目に、`expect`の呼び出しよりも`?`演算子を選択して取り除きました。第9章で語りましたね。
-エラーでパニックするのではなく、`?`演算子は呼び出し元が処理できるように、現在の関数からエラー値を返します。
+2番目に、[第9章][ch9-question-mark]で書いたのと同様に、`?`演算子で`expect`の呼び出しを置き換えました。
+エラーでパニックするのではなく、`?`は呼び出し元が処理できるように、現在の関数からエラー値を返します。
 
 <!--
-Third, the `run` function now returns an `Ok` value in the success case. We’ve
-declared the `run` function’s success type as `()` in the signature, which
-means we need to wrap the unit type value in the `Ok` value. This `Ok(())`
-syntax might look a bit strange at first, but using `()` like this is the
-idiomatic way to indicate that we’re calling `run` for its side effects only;
-it doesn’t return a value we need.
+Third, the `run` function now returns an `Ok` value in the success case.
+We’ve declared the `run` function’s success type as `()` in the signature,
+which means we need to wrap the unit type value in the `Ok` value. This
+`Ok(())` syntax might look a bit strange at first, but using `()` like this is
+the idiomatic way to indicate that we’re calling `run` for its side effects
+only; it doesn’t return a value we need.
 -->
 
 3番目に、`run`関数は今、成功時に`Ok`値を返すようになりました。`run`関数の成功型は、
@@ -984,14 +843,8 @@ When you run this code, it will compile but will display a warning:
 
 このコードを実行すると、コンパイルは通るものの、警告が表示されるでしょう:
 
-```text
-warning: unused `std::result::Result` which must be used
-(警告: 使用されなければならない`std::result::Result`が未使用です)
-  --> src/main.rs:18:5
-   |
-18 |     run(config);
-   |     ^^^^^^^^^^^^
-= note: #[warn(unused_must_use)] on by default
+```console
+{{#include ../listings/ch12-an-io-project/listing-12-12/output.txt}}
 ```
 
 <!--
@@ -1018,10 +871,10 @@ have some error-handling code here! Let’s rectify that problem now.
 
 <!--
 We’ll check for errors and handle them using a technique similar to one we used
-with `Config::new` in Listing 12-10, but with a slight difference:
+with `Config::build` in Listing 12-10, but with a slight difference:
 -->
 
-リスト12-10の`Config::new`に対して行った方法に似たテクニックを使用してエラーを確認し、扱いますが、
+リスト12-10の`Config::build`に対して行った方法に似たテクニックを使用してエラーを確認し、扱いますが、
 少し違いがあります:
 
 <!--
@@ -1031,33 +884,22 @@ with `Config::new` in Listing 12-10, but with a slight difference:
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-fn main() {
-    // --snip--
-
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.filename);
-
-    if let Err(e) = run(config) {
-        println!("Application error: {}", e);
-
-        process::exit(1);
-    }
-}
+{{#rustdoc_include ../listings/ch12-an-io-project/no-listing-01-handling-errors-in-main/src/main.rs:here}}
 ```
 
 <!--
 We use `if let` rather than `unwrap_or_else` to check whether `run` returns an
 `Err` value and call `process::exit(1)` if it does. The `run` function doesn’t
-return a value that we want to `unwrap` in the same way that `Config::new`
-returns the `Config` instance. Because `run` returns `()` in the success case
+return a value that we want to `unwrap` in the same way that `Config::build`
+returns the `Config` instance. Because `run` returns `()` in the success case,
 we only care about detecting an error, so we don’t need `unwrap_or_else` to
-return the unwrapped value because it would only be `()`.
+return the unwrapped value, which would only be `()`.
 -->
 
 `unwrap_or_else`ではなく、`if let`で`run`が`Err`値を返したかどうかを確認し、そうなら`process::exit(1)`を呼び出しています。
-`run`関数は、`Config::new`が`Config`インスタンスを返すのと同じように`unwrap`したい値を返すことはありません。
-`run`は成功時に`()`を返すので、エラーを検知することにのみ興味があり、`()`でしかないので、
-`unwrap_or_else`に包まれた値を返してもらう必要はないのです。
+`run`関数は、`Config::build`が`Config`インスタンスを返すのと同じように`unwrap`したい値を返すことはありません。
+`run`は成功時に`()`を返すので、エラーを検知することにのみ興味があり、
+ただの`()`でしかない包まれた値を、`unwrap_or_else`に返してもらう必要はないのです。
 
 <!--
 The bodies of the `if let` and the `unwrap_or_else` functions are the same in
@@ -1074,12 +916,13 @@ both cases: we print the error and exit.
 
 <!--
 Our `minigrep` project is looking good so far! Now we’ll split the
-*src/main.rs* file and put some code into the *src/lib.rs* file so we can test
-it and have a *src/main.rs* file with fewer responsibilities.
+*src/main.rs* file and put some code into the *src/lib.rs* file. That way we
+can test the code and have a *src/main.rs* file with fewer responsibilities.
 -->
 
-ここまで`minigrep`は良さそうですね！では、テストを行え、*src/main.rs*ファイルの責任が減らせるように、
-*src/main.rs*ファイルを分割し、一部のコードを*src/lib.rs*ファイルに置きましょう。
+ここまで`minigrep`は良さそうですね！
+では、*src/main.rs*ファイルを分割し、一部のコードを*src/lib.rs*ファイルに置きましょう。
+そのようにして、コードをテストし、*src/main.rs*ファイルの責任を減らすことができます。
 
 <!--
 Let’s move all the code that isn’t the `main` function from *src/main.rs* to
@@ -1092,17 +935,17 @@ Let’s move all the code that isn’t the `main` function from *src/main.rs* to
 * The `run` function definition
 * The relevant `use` statements
 * The definition of `Config`
-* The `Config::new` function definition
+* The `Config::build` function definition
 -->
 
 * `run`関数定義
 * 関係する`use`文
 * `Config`の定義
-* `Config::new`関数定義
+* `Config::build`関数定義
 
 <!--
 The contents of *src/lib.rs* should have the signatures shown in Listing 12-13
-(we’ve omitted the bodies of the functions for brevity). Note that this won't
+(we’ve omitted the bodies of the functions for brevity). Note that this won’t
 compile until we modify *src/main.rs* in Listing 12-14.
 -->
 
@@ -1115,25 +958,8 @@ compile until we modify *src/main.rs* in Listing 12-14.
 
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust,ignore
-use std::error::Error;
-use std::fs::File;
-use std::io::prelude::*;
-
-pub struct Config {
-    pub query: String,
-    pub filename: String,
-}
-
-impl Config {
-    pub fn new(args: &[String]) -> Result<Config, &'static str> {
-        // --snip--
-    }
-}
-
-pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    // --snip--
-}
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-13/src/lib.rs:here}}
 ```
 
 <!--
@@ -1144,12 +970,12 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 <span class="caption">リスト12-13: `Config`と`run`を*src/lib.rs*に移動する</span>
 
 <!--
-We’ve made liberal use of `pub` here: on `Config`, on its fields and its
-`new` method, and on the `run` function. We now have a library crate that has a
-public API that we can test!
+We’ve made liberal use of the `pub` keyword: on `Config`, on its fields and its
+`build` method, and on the `run` function. We now have a library crate that has
+a public API we can test!
 -->
 
-ここでは、寛大に`pub`を使用しています: `Config`のフィールドと`new`メソッドと`run`関数です。
+ここでは寛大に`pub`キーワードを使用しています: `Config`のフィールドと`build`メソッドと`run`関数です。
 これでテスト可能な公開APIのあるライブラリクレートができました！
 
 <!--
@@ -1167,38 +993,25 @@ binary crate in *src/main.rs*, as shown in Listing 12-14.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-extern crate minigrep;
-
-use std::env;
-use std::process;
-
-use minigrep::Config;
-
-fn main() {
-    // --snip--
-    if let Err(e) = minigrep::run(config) {
-        // --snip--
-    }
-}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-14/src/main.rs:here}}
 ```
 
 <!--
-<span class="caption">Listing 12-14: Bringing the `minigrep` crate into the
-scope of *src/main.rs*</span>
+<span class="caption">Listing 12-14: Using the `minigrep` library crate in
+*src/main.rs*</span>
 -->
 
-<span class="caption">リスト12-14: `minigrep`クレートを*src/main.rs*のスコープに持っていく</span>
+<span class="caption">リスト12-14: *src/main.rs*で`minigrep`ライブラリクレートを使用する</span>
 
 <!--
-To bring the library crate into the binary crate, we use `extern crate
-minigrep`. Then we add a `use minigrep::Config` line to bring the `Config` type
-into scope, and we prefix the `run` function with our crate name. Now all the
-functionality should be connected and should work. Run the program with `cargo
-run` and make sure everything works correctly.
+We add a `use minigrep::Config` line to bring the `Config` type from the
+library crate into the binary crate’s scope, and we prefix the `run` function
+with our crate name. Now all the functionality should be connected and should
+work. Run the program with `cargo run` and make sure everything works
+correctly.
 -->
 
-ライブラリクレートをバイナリクレートに持っていくのに、`extern crate minigrep`を使用しています。
-それから`use minigrep::Config`行を追加して`Config`型をスコープに持ってきて、
+`use minigrep::Config`の行を追加することで、`Config`型をライブラリクレートからバイナリクレートのスコープに持ってきて、
 `run`関数にクレート名を接頭辞として付けます。これで全機能が連結され、動くはずです。
 `cargo run`でプログラムを走らせて、すべてがうまくいっていることを確かめてください。
 
@@ -1220,3 +1033,19 @@ write some tests!
 
 古いコードでは大変だけれども、新しいコードでは楽なことをして新発見のモジュール性を活用しましょう:
 テストを書くのです！
+
+<!--
+[ch13]: ch13-00-functional-features.html
+[ch9-custom-types]: ch09-03-to-panic-or-not-to-panic.html#creating-custom-types-for-validation
+[ch9-error-guidelines]: ch09-03-to-panic-or-not-to-panic.html#guidelines-for-error-handling
+[ch9-result]: ch09-02-recoverable-errors-with-result.html
+[ch17]: ch17-00-oop.html
+[ch9-question-mark]: ch09-02-recoverable-errors-with-result.html#a-shortcut-for-propagating-errors-the--operator
+-->
+
+[ch13]: ch13-00-functional-features.html
+[ch9-custom-types]: ch09-03-to-panic-or-not-to-panic.html#検証のために独自の型を作る
+[ch9-error-guidelines]: ch09-03-to-panic-or-not-to-panic.html#エラー処理のガイドライン
+[ch9-result]: ch09-02-recoverable-errors-with-result.html
+[ch17]: ch17-00-oop.html
+[ch9-question-mark]: ch09-02-recoverable-errors-with-result.html#エラー委譲のショートカット-演算子

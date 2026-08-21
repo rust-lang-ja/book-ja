@@ -22,8 +22,11 @@ fn main() {
                 width: 75,
                 height: 10,
                 options: vec![
+                    // はい
                     String::from("Yes"),
+                    // 多分
                     String::from("Maybe"),
+                    // いいえ
                     String::from("No"),
                 ],
             }),

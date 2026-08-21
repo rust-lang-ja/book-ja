@@ -2,9 +2,14 @@
 //! # Art
 //!
 //! A library for modeling artistic concepts.
+//!
+//! # 芸術
+//!
+//! 芸術的な概念をモデル化するライブラリ。
 
 pub mod kinds {
     /// The primary colors according to the RYB color model.
+    /// RYBカラーモデルによる主色。
     pub enum PrimaryColor {
         Red,
         Yellow,
@@ -12,6 +17,7 @@ pub mod kinds {
     }
 
     /// The secondary colors according to the RYB color model.
+    /// RYBカラーモデルによる副色。
     pub enum SecondaryColor {
         Orange,
         Green,
@@ -24,13 +30,12 @@ pub mod utils {
 
     /// Combines two primary colors in equal amounts to create
     /// a secondary color.
+    /// 2つの主色を同じ割合で混合し、副色にする。
     pub fn mix(c1: PrimaryColor, c2: PrimaryColor) -> SecondaryColor {
         // --snip--
         // ANCHOR_END: here
-        SecondaryColor::Orange
+        unimplemented!();
         // ANCHOR: here
     }
 }
 // ANCHOR_END: here
-
-fn main() {}

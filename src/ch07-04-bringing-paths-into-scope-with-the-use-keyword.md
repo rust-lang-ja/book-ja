@@ -4,18 +4,17 @@
 ## `use`キーワードでパスをスコープに持ち込む
 
 <!--
-It might seem like the paths we’ve written to call functions so far are
-inconveniently long and repetitive. For example, in Listing 7-7, whether we
-chose the absolute or relative path to the `add_to_waitlist` function, every
-time we wanted to call `add_to_waitlist` we had to specify `front_of_house` and
-`hosting` too. Fortunately, there’s a way to simplify this process. We can
-bring a path into a scope once and then call the items in that path as if
-they’re local items with the `use` keyword.
+Having to write out the paths to call functions can feel inconvenient and
+repetitive. In Listing 7-7, whether we chose the absolute or relative path to
+the `add_to_waitlist` function, every time we wanted to call `add_to_waitlist`
+we had to specify `front_of_house` and `hosting` too. Fortunately, there’s a
+way to simplify this process: we can create a shortcut to a path with the `use`
+keyword once, and then use the shorter name everywhere else in the scope.
 -->
-これまで関数呼び出しのために書いてきたパスは、長く、繰り返しも多くて不便なものでした。
-例えば、Listing 7-7 においては、絶対パスを使うか相対パスを使うかにかかわらず、`add_to_waitlist`関数を呼ぼうと思うたびに`front_of_house`と`hosting`も指定しないといけませんでした。
-ありがたいことに、この手続きを簡単化する方法があります。
-`use`キーワードを使うことで、パスを一度スコープに持ち込んでしまえば、それ以降はパス内の要素がローカルにあるかのように呼び出すことができるのです。
+関数を呼び出すためにパスを略さずに書かなくてはならないのは、繰り返しも多くて不便に感じられるでしょう。
+リスト7-7においては、絶対パスを使うか相対パスを使うかにかかわらず、`add_to_waitlist`関数を呼ぼうと思うたびに`front_of_house`と`hosting`も指定しないといけませんでした。
+ありがたいことに、この手続きを簡単化する方法があります:
+一度`use`キーワードを使ってショートカットを作成すれば、そのスコープ内であればどこでも、より短い名前を使用できます。
 
 <!--
 In Listing 7-11, we bring the `crate::front_of_house::hosting` module into the
@@ -23,22 +22,22 @@ scope of the `eat_at_restaurant` function so we only have to specify
 `hosting::add_to_waitlist` to call the `add_to_waitlist` function in
 `eat_at_restaurant`.
 -->
-Listing 7-11 では、`crate::front_of_house::hosting`モジュールを`eat_at_restaurant`関数のスコープに持ち込むことで、`eat_at_restaurant`において、`hosting::add_to_waitlist`と指定するだけで`add_to_waitlist`関数を呼び出せるようにしています。
+リスト7-11では、`crate::front_of_house::hosting`モジュールを`eat_at_restaurant`関数のスコープに持ち込むことで、`eat_at_restaurant`において、`hosting::add_to_waitlist`と指定するだけで`add_to_waitlist`関数を呼び出せるようにしています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-11/src/lib.rs:here}}
+```rust,noplayground,test_harness
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-11/src/lib.rs}}
 ```
 
 <!--
 <span class="caption">Listing 7-11: Bringing a module into scope with
 `use`</span>
 -->
-<span class="caption">Listing 7-11: `use` でモジュールをスコープに持ち込む</span>
+<span class="caption">リスト7-11: `use` でモジュールをスコープに持ち込む</span>
 
 <!--
 Adding `use` and a path in a scope is similar to creating a symbolic link in
@@ -52,27 +51,47 @@ also check privacy, like any other paths.
 スコープに`use`で持ち込まれたパスも、他のパスと同じようにプライバシーがチェックされます。
 
 <!--
-You can also bring an item into scope with `use` and a relative path. Listing
-7-12 shows how to specify a relative path to get the same behavior as in
-Listing 7-11.
+Note that `use` only creates the shortcut for the particular scope in which the
+`use` occurs. Listing 7-12 moves the `eat_at_restaurant` function into a new
+child module named `customer`, which is then a different scope than the `use`
+statement, so the function body won’t compile:
 -->
-`use`と相対パスで要素をスコープに持ち込むこともできます。
-Listing 7-12 はListing 7-11 と同じふるまいを得るためにどう相対パスを書けば良いかを示しています。
+`use`は、`use`が出現した特定のスコープでのみ使えるショートカットを作成することに注意してください。
+リスト7-12は`eat_at_restaurant`関数を新しい子モジュール`customer`の中に移動していますが、このモジュールは`use`文とは異なるスコープなので、この関数本体はコンパイルできないでしょう:
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-12/src/lib.rs:here}}
+```rust,noplayground,test_harness,does_not_compile,ignore
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-12/src/lib.rs}}
 ```
 
 <!--
-<span class="caption">Listing 7-12: Bringing a module into scope with `use` and
-a relative path</span>
+<span class="caption">Listing 7-12: A `use` statement only applies in the scope
+it’s in</span>
 -->
-<span class="caption">Listing 7-12: モジュールを`use`と相対パスを使ってスコープに持ち込む</span>
+<span class="caption">リスト7-12: `use`文はそれが属するスコープ内にのみ適用される</span>
+
+<!--
+The compiler error shows that the shortcut no longer applies within the
+`customer` module:
+-->
+コンパイルエラーは`customer`モジュール内ではショートカットが適用されないことを示しています:
+
+```console
+{{#include ../listings/ch07-managing-growing-projects/listing-07-12/output.txt}}
+```
+
+<!--
+Notice there’s also a warning that the `use` is no longer used in its scope! To
+fix this problem, move the `use` within the `customer` module too, or reference
+the shortcut in the parent module with `super::hosting` within the child
+`customer` module.
+-->
+`use`がそのスコープ内で使用されていないという警告も出ていることに気づくでしょう！
+この問題を修正するには、`use`も`customer`モジュールの中に移動するか、`customer`子モジュールの中で`super::hosting`によって親モジュールにあるショートカットを参照してください。
 
 <!--
 ### Creating Idiomatic `use` Paths
@@ -85,34 +104,36 @@ crate::front_of_house::hosting` and then called `hosting::add_to_waitlist` in
 `eat_at_restaurant` rather than specifying the `use` path all the way out to
 the `add_to_waitlist` function to achieve the same result, as in Listing 7-13.
 -->
-Listing 7-11 を見て、なぜ`use crate::front_of_house::hosting`と書いて`eat_at_restaurant`内で`hosting::add_to_waitlist`と呼び出したのか不思議に思っているかもしれません。Listing 7-13 のように、`use`で`add_to_waitlist`までのパスをすべて指定しても同じ結果が得られるのに、と。
+リスト7-11を見て、なぜ`use crate::front_of_house::hosting`と書いて`eat_at_restaurant`内で`hosting::add_to_waitlist`と呼び出したのか不思議に思っているかもしれません。リスト7-13のように、`use`で`add_to_waitlist`までのパスをすべて指定しても同じ結果が得られるのに、と。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-13/src/lib.rs:here}}
+```rust,noplayground,test_harness
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-13/src/lib.rs}}
 ```
 
 <!--
 <span class="caption">Listing 7-13: Bringing the `add_to_waitlist` function
 into scope with `use`, which is unidiomatic</span>
 -->
-<span class="caption">Listing 7-13: `add_to_waitlist` 関数を`use` でスコープに持ち込む。このやりかたは慣例的ではない</span>
+<span class="caption">リスト7-13: `add_to_waitlist` 関数を`use` でスコープに持ち込む。このやりかたは慣例的ではない</span>
 
 <!--
 Although both Listing 7-11 and 7-13 accomplish the same task, Listing 7-11 is
 the idiomatic way to bring a function into scope with `use`. Bringing the
-function’s parent module into scope with `use` so we have to specify the parent
-module when calling the function makes it clear that the function isn’t locally
-defined while still minimizing repetition of the full path. The code in Listing
-7-13 is unclear as to where `add_to_waitlist` is defined.
+function’s parent module into scope with `use` means we have to specify the
+parent module when calling the function. Specifying the parent module when
+calling the function makes it clear that the function isn’t locally defined
+while still minimizing repetition of the full path. The code in Listing 7-13 is
+unclear as to where `add_to_waitlist` is defined.
 -->
-Listing 7-11 も 7-13 もおなじ仕事をしてくれますが、関数をスコープに`use`で持ち込む場合、Listing 7-11 のほうが慣例的なやり方です。
-関数の親モジュールを`use`で持ち込むことで、関数を呼び出す際、毎回親モジュールを指定しなければならないようにすれば、フルパスを繰り返して書くことを抑えつつ、関数がローカルで定義されていないことを明らかにできます。
-Listing 7-13 のコードではどこで`add_to_waitlist`が定義されたのかが不明瞭です。
+リスト7-11も7-13もおなじ仕事をしてくれますが、関数をスコープに`use`で持ち込む場合、リスト7-11のほうが慣例的なやり方です。
+関数の親モジュールを`use`で持ち込むということは、関数を呼び出す際、毎回親モジュールを指定しなければならないということです。
+関数を呼び出すときに親モジュールを指定することで、フルパスを繰り返して書くことを抑えつつ、関数がローカルで定義されていないことを明らかにできます。
+リスト7-13のコードではどこで`add_to_waitlist`が定義されたのかが不明瞭です。
 
 <!--
 On the other hand, when bringing in structs, enums, and other items with `use`,
@@ -121,7 +142,7 @@ to bring the standard library’s `HashMap` struct into the scope of a binary
 crate.
 -->
 一方で、構造体やenumその他の要素を`use`で持ち込むときは、フルパスを書くのが慣例的です。
-Listing 7-14 は標準ライブラリの`HashMap`構造体をバイナリクレートのスコープに持ち込む慣例的なやり方を示しています。
+リスト7-14は標準ライブラリの`HashMap`構造体をバイナリクレートのスコープに持ち込む慣例的なやり方を示しています。
 
 
 <!--
@@ -137,7 +158,7 @@ Listing 7-14 は標準ライブラリの`HashMap`構造体をバイナリクレ�
 <span class="caption">Listing 7-14: Bringing `HashMap` into scope in an
 idiomatic way</span>
 -->
-<span class="caption">Listing 7-14: `HashMap`を慣例的なやり方でスコープに持ち込む</span>
+<span class="caption">リスト7-14: `HashMap`を慣例的なやり方でスコープに持ち込む</span>
 
 <!--
 There’s no strong reason behind this idiom: it’s just the convention that has
@@ -152,14 +173,14 @@ shows how to bring two `Result` types into scope that have the same name but
 different parent modules and how to refer to them.
 -->
 同じ名前の2つの要素を`use`でスコープに持ち込むのはRustでは許されないので、そのときこの慣例は例外的に不可能です。
-Listing 7-15は、同じ名前を持つけれど異なる親モジュールを持つ2つの`Result`型をスコープに持ち込み、それらを参照するやり方を示しています。
+リスト7-15は、同じ名前を持つけれど異なる親モジュールを持つ2つの`Result`型をスコープに持ち込み、それらを参照するやり方を示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
+```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-15/src/lib.rs:here}}
 ```
 
@@ -167,7 +188,7 @@ Listing 7-15は、同じ名前を持つけれど異なる親モジュールを�
 <span class="caption">Listing 7-15: Bringing two types with the same name into
 the same scope requires using their parent modules.</span>
 -->
-<span class="caption">Listing 7-15: 同じ名前を持つ2つの型を同じスコープに持ち込むには親モジュールを使わないといけない。</span>
+<span class="caption">リスト7-15: 同じ名前を持つ2つの型を同じスコープに持ち込むには親モジュールを使わないといけない。</span>
 
 <!--
 As you can see, using the parent modules distinguishes the two `Result` types.
@@ -186,18 +207,18 @@ meant when we used `Result`.
 <!--
 There’s another solution to the problem of bringing two types of the same name
 into the same scope with `use`: after the path, we can specify `as` and a new
-local name, or alias, for the type. Listing 7-16 shows another way to write the
-code in Listing 7-15 by renaming one of the two `Result` types using `as`.
+local name, or *alias*, for the type. Listing 7-16 shows another way to write
+the code in Listing 7-15 by renaming one of the two `Result` types using `as`.
 -->
-同じ名前の2つの型を`use`を使って同じスコープに持ち込むという問題には、もう一つ解決策があります。パスの後に、`as`と型の新しいローカル名、即ちエイリアスを指定すればよいのです。
-Listing 7-16 は、Listing 7-15 のコードを、2つの`Result`型のうち一つを`as`を使ってリネームするという別のやり方で書いたものを表しています。
+同じ名前の2つの型を`use`を使って同じスコープに持ち込むという問題には、もう一つ解決策があります。パスの後に、`as`と型の新しいローカル名、即ち*エイリアス*を指定すればよいのです。
+リスト7-16は、リスト7-15のコードを、2つの`Result`型のうち一つを`as`を使ってリネームするという別のやり方で書いたものを表しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
+```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-16/src/lib.rs:here}}
 ```
 
@@ -205,7 +226,7 @@ Listing 7-16 は、Listing 7-15 のコードを、2つの`Result`型のうち一
 <span class="caption">Listing 7-16: Renaming a type when it’s brought into
 scope with the `as` keyword</span>
 -->
-<span class="caption">Listing 7-16: 型がスコープに持ち込まれた時、`as`キーワードを使ってその名前を変えている</span>
+<span class="caption">リスト7-16: 型がスコープに持ち込まれた時、`as`キーワードを使ってその名前を変えている</span>
 
 <!--
 In the second `use` statement, we chose the new name `IoResult` for the
@@ -214,7 +235,7 @@ that we’ve also brought into scope. Listing 7-15 and Listing 7-16 are
 considered idiomatic, so the choice is up to you!
 -->
 2つめの`use`文では、`std::io::Result`に、`IoResult`という新たな名前を選んでやります。`std::fmt`の`Result`もスコープに持ち込んでいますが、この名前はこれとは衝突しません。
-Listing 7-15もListing 7-16も慣例的とみなされているので、どちらを使っても構いませんよ！
+リスト7-15もリスト7-16も慣例的とみなされているので、どちらを使っても構いませんよ！
 
 <!--
 ### Re-exporting Names with `pub use`
@@ -237,31 +258,32 @@ their scope.
 Listing 7-17 shows the code in Listing 7-11 with `use` in the root module
 changed to `pub use`.
 -->
-Listing 7-17 は Listing 7-11 のコードのルートモジュールでの`use`を`pub use`に変更したものを示しています。
+リスト7-17はリスト7-11のコードのルートモジュールでの`use`を`pub use`に変更したものを示しています。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-17/src/lib.rs:here}}
+```rust,noplayground,test_harness
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-17/src/lib.rs}}
 ```
 
 <!--
 <span class="caption">Listing 7-17: Making a name available for any code to use
 from a new scope with `pub use`</span>
 -->
-<span class="caption">Listing 7-17: `pub use`で、新たなスコープのコードがその名前を使えるようにする</span>
+<span class="caption">リスト7-17: `pub use`で、新たなスコープのコードがその名前を使えるようにする</span>
 
 <!--
-By using `pub use`, external code can now call the `add_to_waitlist` function
-using `hosting::add_to_waitlist`. If we hadn’t specified `pub use`, the
-`eat_at_restaurant` function could call `hosting::add_to_waitlist` in its
-scope, but external code couldn’t take advantage of this new path.
+Before this change, external code would have to call the `add_to_waitlist`
+function by using the path
+`restaurant::front_of_house::hosting::add_to_waitlist()`. Now that this `pub
+use` has re-exported the `hosting` module from the root module, external code
+can now use the path `restaurant::hosting::add_to_waitlist()` instead.
 -->
-`pub use`を使うことで、外部のコードが`hosting::add_to_waitlist`を使って`add_to_waitlist`関数を呼び出せるようになりました。
-`pub use`を使っていなければ、`eat_at_restaurant`関数は`hosting::add_to_waitlist`を自らのスコープ内で使えるものの、外部のコードはこの新しいパスを利用することはできないでしょう。
+この変更を行う前の状態では、外部のコードはパス`restaurant::front_of_house::hosting::add_to_waitlist()`を使用して`add_to_wishlist`関数を呼ばなくてはなりませんでした。
+この`pub use`によってルートモジュールから`hosting`モジュールを再公開された今、外部のコードはパス`restaurant::hosting::add_to_waitlist()`を使用できるようになりました。
 
 <!--
 Re-exporting is useful when the internal structure of your code is different
@@ -271,13 +293,17 @@ about “front of house” and “back of house.” But customers visiting a res
 probably won’t think about the parts of the restaurant in those terms. With
 `pub use`, we can write our code with one structure but expose a different
 structure. Doing so makes our library well organized for programmers working on
-the library and programmers calling the library.
+the library and programmers calling the library. We’ll look at another example
+of `pub use` and how it affects your crate’s documentation in the [“Exporting a
+Convenient Public API with `pub use`”][ch14-pub-use] section of
+Chapter 14.
 -->
 再公開は、あなたのコードの内部構造と、あなたのコードを呼び出すプログラマーたちのその領域に関しての見方が異なるときに有用です。
 例えば、レストランの比喩では、レストランを経営している人は「接客部門 (front of house)」と「後方部門 (back of house)」のことについて考えるでしょう。
 しかし、レストランを訪れるお客さんは、そのような観点からレストランの部門について考えることはありません。
 `pub use`を使うことで、ある構造でコードを書きつつも、別の構造で公開するということが可能になります。
 こうすることで、私達のライブラリを、ライブラリを開発するプログラマにとっても、ライブラリを呼び出すプログラマにとっても、よく整理されたものとすることができます。
+第14章の[「`pub use`で便利な公開APIをエクスポートする」][ch14-pub-use]の節で、`pub use`の別の例と、それがクレートのドキュメンテーションにどう影響するかを見ることにしましょう。
 
 <!--
 ### Using External Packages
@@ -337,13 +363,13 @@ using `use` to bring items from their crates into scope.
 Rustコミュニティに所属する人々が[crates.io](https://crates.io/)でたくさんのパッケージを利用できるようにしてくれており、上と同じステップを踏めばそれらをあなたのパッケージに取り込むことができます：あなたのパッケージの *Cargo.toml* ファイルにそれらを書き並べ、`use`を使って要素をクレートからスコープへと持ち込めばよいのです。
 
 <!--
-Note that the standard library (`std`) is also a crate that’s external to our
+Note that the standard `std` library is also a crate that’s external to our
 package. Because the standard library is shipped with the Rust language, we
 don’t need to change *Cargo.toml* to include `std`. But we do need to refer to
 it with `use` to bring items from there into our package’s scope. For example,
 with `HashMap` we would use this line:
 -->
-標準ライブラリ (`std`) も、私達のパッケージの外部にあるクレートだということに注意してください。
+標準`std`ライブラリも、私達のパッケージの外部にあるクレートだということに注意してください。
 標準ライブラリはRust言語に同梱されているので、 *Cargo.toml* を `std`を含むように変更する必要はありません。
 しかし、その要素をそこから私達のパッケージのスコープに持ち込むためには、`use`を使って参照する必要はあります。
 例えば、`HashMap`には次の行を使います。
@@ -370,7 +396,7 @@ files. For example, these two `use` statements we had in the Guessing Game in
 Listing 2-4 bring items from `std` into scope:
 -->
 同じクレートか同じモジュールで定義された複数の要素を使おうとする時、それぞれの要素を一行一行並べると、縦に大量のスペースを取ってしまいます。
-例えば、Listing 2-4の数当てゲームで使った次の2つの`use`文が`std`からスコープへ要素を持ち込みました。
+例えば、リスト2-4の数当てゲームで使った次の2つの`use`文が`std`からスコープへ要素を持ち込みました。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -388,7 +414,7 @@ colons, and then curly brackets around a list of the parts of the paths that
 differ, as shown in Listing 7-18.
 -->
 代わりに、ネストしたパスを使うことで、同じ一連の要素を1行でスコープに持ち込めます。
-これをするには、Listing 7-18 に示されるように、パスの共通部分を書き、2つのコロンを続け、そこで波括弧で互いに異なる部分のパスのリストを囲みます。
+これをするには、リスト7-18に示されるように、パスの共通部分を書き、2つのコロンを続け、そこで波括弧で互いに異なる部分のパスのリストを囲みます。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -403,7 +429,7 @@ differ, as shown in Listing 7-18.
 <span class="caption">Listing 7-18: Specifying a nested path to bring multiple
 items with the same prefix into scope</span>
 -->
-<span class="caption">Listing 7-18: 同じプレフィックスをもつ複数の要素をスコープに持ち込むためにネストしたパスを指定する</span>
+<span class="caption">リスト7-18: 同じプレフィックスをもつ複数の要素をスコープに持ち込むためにネストしたパスを指定する</span>
 
 <!--
 In bigger programs, bringing many items into scope from the same crate or
@@ -419,14 +445,14 @@ two `use` statements that share a subpath. For example, Listing 7-19 shows two
 `std::io::Write` into scope.
 -->
 ネストしたパスはパスのどの階層においても使うことができます。これはサブパスを共有する2つの`use`文を合体させるときに有用です。
-例えば、Listing 7-19 は2つの`use`文を示しています：1つは`std::io`をスコープに持ち込み、もう一つは`std::io::Write`をスコープに持ち込んでいます。
+例えば、リスト7-19は2つの`use`文を示しています：1つは`std::io`をスコープに持ち込み、もう一つは`std::io::Write`をスコープに持ち込んでいます。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
+```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-19/src/lib.rs}}
 ```
 
@@ -434,21 +460,21 @@ two `use` statements that share a subpath. For example, Listing 7-19 shows two
 <span class="caption">Listing 7-19: Two `use` statements where one is a subpath
 of the other</span>
 -->
-<span class="caption">Listing 7-19: 片方がもう片方のサブパスである2つの`use`文</span>
+<span class="caption">リスト7-19: 片方がもう片方のサブパスである2つの`use`文</span>
 
 <!--
 The common part of these two paths is `std::io`, and that’s the complete first
 path. To merge these two paths into one `use` statement, we can use `self` in
 the nested path, as shown in Listing 7-20.
 -->
-これらの2つのパスの共通部分は`std::io`であり、そしてこれは最初のパスにほかなりません。これらの2つのパスを1つの`use`文へと合体させるには、Listing 7-20 に示されるように、ネストしたパスに`self`を使いましょう。
+これらの2つのパスの共通部分は`std::io`であり、そしてこれは最初のパスにほかなりません。これらの2つのパスを1つの`use`文へと合体させるには、リスト7-20に示されるように、ネストしたパスに`self`を使いましょう。
 
 <!--
 <span class="filename">Filename: src/lib.rs</span>
 -->
 <span class="filename">ファイル名: src/lib.rs</span>
 
-```rust
+```rust,noplayground
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-20/src/lib.rs}}
 ```
 
@@ -456,7 +482,7 @@ the nested path, as shown in Listing 7-20.
 <span class="caption">Listing 7-20: Combining the paths in Listing 7-19 into
 one `use` statement</span>
 -->
-<span class="caption">Listing 7-20: Listing 7-19 のパスを一つの `use` 文に合体させる</span>
+<span class="caption">リスト7-20: リスト7-19のパスを一つの `use` 文に合体させる</span>
 
 <!--
 This line brings `std::io` and `std::io::Write` into scope.
@@ -470,7 +496,7 @@ This line brings `std::io` and `std::io::Write` into scope.
 
 <!--
 If we want to bring *all* public items defined in a path into scope, we can
-specify that path followed by `*`, the glob operator:
+specify that path followed by the `*` glob operator:
 -->
 パスにおいて定義されているすべての公開要素をスコープに持ち込みたいときは、glob演算子 `*` をそのパスの後ろに続けて書きましょう：
 
@@ -499,5 +525,11 @@ for more information on that pattern.
 glob演算子はしばしば、テストの際、テストされるあらゆるものを`tests`モジュールに持ち込むために使われます。これについては11章[テストの書き方][writing-tests]の節で話します。
 glob演算子はプレリュードパターンの一部としても使われることがあります：そのようなパターンについて、より詳しくは[標準ライブラリのドキュメント](https://doc.rust-lang.org/std/prelude/index.html#other-preludes)をご覧ください。
 
+<!--
+[ch14-pub-use]: ch14-02-publishing-to-crates-io.html#exporting-a-convenient-public-api-with-pub-use
+[rand]: ch02-00-guessing-game-tutorial.html#generating-a-random-number
+[writing-tests]: ch11-01-writing-tests.html#how-to-write-tests
+-->
+[ch14-pub-use]: ch14-02-publishing-to-crates-io.html#pub-useで便利な公開apiをエクスポートする
 [rand]: ch02-00-guessing-game-tutorial.html#乱数を生成する
 [writing-tests]: ch11-01-writing-tests.html#テストの記述法

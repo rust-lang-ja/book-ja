@@ -12,7 +12,7 @@ impl<'a, T> LimitTracker<'a, T>
 where
     T: Messenger,
 {
-    pub fn new(messenger: &T, max: usize) -> LimitTracker<T> {
+    pub fn new(messenger: &'a T, max: usize) -> LimitTracker<'a, T> {
         LimitTracker {
             messenger,
             value: 0,
@@ -26,11 +26,14 @@ where
         let percentage_of_max = self.value as f64 / self.max as f64;
 
         if percentage_of_max >= 1.0 {
+            //                  "エラー: 割り当てを超えています!"
             self.messenger.send("Error: You are over your quota!");
         } else if percentage_of_max >= 0.9 {
+            //        "緊急警告: 割り当ての90%以上を使用してしまいました!"
             self.messenger
                 .send("Urgent warning: You've used up over 90% of your quota!");
         } else if percentage_of_max >= 0.75 {
+            //        "警告: 割り当ての75%以上を使用してしまいました!"
             self.messenger
                 .send("Warning: You've used up over 75% of your quota!");
         }

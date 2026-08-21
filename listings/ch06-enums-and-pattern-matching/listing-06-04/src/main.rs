@@ -1,9 +1,9 @@
 // ANCHOR: here
-#[derive(Debug)] // so we can inspect the state in a minute
+#[derive(Debug)] // すぐに州を検査できるように
 enum UsState {
     Alabama,
     Alaska,
-    // --snip--
+    // --略--
 }
 
 enum Coin {

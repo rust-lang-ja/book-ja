@@ -1,0 +1,22 @@
+$ cargo run
+   Compiling chapter10 v0.1.0 (file:///projects/chapter10)
+error[E0597]: `x` does not live long enough
+(エラー[E0597]: `x`の生存期間が短すぎます)
+ --> src/main.rs:6:13
+  |
+5 |         let x = 5;
+  |             - binding `x` declared here
+  |              (束縛`x`はここで宣言されています)
+6 |         r = &x;
+  |             ^^ borrowed value does not live long enough
+  |               (借用された値の生存期間が短すぎます)
+7 |     }
+  |     - `x` dropped here while still borrowed
+  |      (`x`は借用されている間にここでドロップされました)
+8 |
+9 |     println!("r: {}", r);
+  |                       - borrow later used here
+  |                        (その後、借用はここで使われています)
+
+For more information about this error, try `rustc --explain E0597`.
+error: could not compile `chapter10` (bin "chapter10") due to 1 previous error

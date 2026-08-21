@@ -5,44 +5,46 @@
 ## スライス型
 
 <!--
-Another data type that does not have ownership is the *slice*. Slices let you
-reference a contiguous sequence of elements in a collection rather than the
-whole collection.
+*Slices* let you reference a contiguous sequence of elements in a collection
+rather than the whole collection. A slice is a kind of reference, so it does
+not have ownership.
 -->
 
-所有権のない別のデータ型は、*スライス*です。スライスにより、コレクション全体ではなく、
-その内の一連の要素を参照することができます。
+*スライス*により、コレクション全体ではなく、その内の連続した要素の列を参照することができます。
+スライスは参照の一種であり、そのため所有権を持っていません。
 
 <!--
-Here’s a small programming problem: write a function that takes a string and
-returns the first word it finds in that string. If the function doesn’t find a
-space in the string, the whole string must be one word, so the entire string
-should be returned.
+Here’s a small programming problem: write a function that takes a string of
+words separated by spaces and returns the first word it finds in that string.
+If the function doesn’t find a space in the string, the whole string must be
+one word, so the entire string should be returned.
 -->
 
-ちょっとしたプログラミングの問題を考えてみましょう: 文字列を受け取って、その文字列中の最初の単語を返す関数を書いてください。
+ちょっとしたプログラミングの問題を考えてみましょう: スペースで区切られた複数の単語からなる文字列を受け取って、その文字列中の最初の単語を返す関数を書いてください。
 関数が文字列中に空白を見つけられなかったら、文字列全体が一つの単語に違いないので、文字列全体が返されるべきです。
 
 <!--
-Let’s think about the signature of this function:
+Let’s work through how we’d write the signature of this function without using
+slices, to understand the problem that slices will solve:
 -->
 
-この関数のシグニチャについて考えてみましょう:
+スライスが解決しようとしている問題を理解するために、スライスを使わずにこの関数のシグネチャをどう書くかという問題を通して、
+考えてみましょう。
 
 ```rust,ignore
 fn first_word(s: &String) -> ?
 ```
 
 <!--
-This function, `first_word`, has a `&String` as a parameter. We don’t want
+The `first_word` function has a `&String` as a parameter. We don’t want
 ownership, so this is fine. But what should we return? We don’t really have a
 way to talk about *part* of a string. However, we could return the index of the
-end of the word. Let’s try that, as shown in Listing 4-7.
+end of the word, indicated by a space. Let’s try that, as shown in Listing 4-7.
 -->
 
-この関数、`first_word`は引数に`&String`をとります。所有権はいらないので、これで十分です。
+`first_word`関数は引数に`&String`をとります。所有権はいらないので、これで十分です。
 ですが、何を返すべきでしょうか？文字列の*一部*について語る方法が全くありません。しかし、
-単語の終端の添え字を返すことができますね。リスト4-7に示したように、その方法を試してみましょう。
+空白によって示される単語の終端の添え字を返すことができますね。リスト4-7に示したように、その方法を試してみましょう。
 
 <!--
 <span class="filename">Filename: src/main.rs</span>
@@ -64,7 +66,7 @@ byte index value into the `String` parameter</span>
 <!--
 Because we need to go through the `String` element by element and check whether
 a value is a space, we’ll convert our `String` to an array of bytes using the
-`as_bytes` method:
+`as_bytes` method.
 -->
 
 `String`の値を要素ごとに見て、空白かどうかを確かめる必要があるので、
@@ -85,35 +87,37 @@ Next, we create an iterator over the array of bytes using the `iter` method:
 ```
 
 <!--
-We’ll discuss iterators in more detail in Chapter 13. For now, know that `iter`
-is a method that returns each element in a collection and that `enumerate`
-wraps the result of `iter` and returns each element as part of a tuple instead.
-The first element of the tuple returned from `enumerate` is the index, and the
-second element is a reference to the element. This is a bit more convenient
-than calculating the index ourselves.
+We’ll discuss iterators in more detail in [Chapter 13][ch13].
+For now, know that `iter` is a method that returns each element in a collection
+and that `enumerate` wraps the result of `iter` and returns each element as
+part of a tuple instead. The first element of the tuple returned from
+`enumerate` is the index, and the second element is a reference to the element.
+This is a bit more convenient than calculating the index ourselves.
 -->
 
-イテレータについて詳しくは、第13章で議論します。今は、`iter`は、コレクション内の各要素を返すメソッドであること、
+イテレータについて詳しくは、[第13章][ch13]で議論します。今は、`iter`は、コレクション内の各要素を返すメソッドであること、
 `enumerate`が`iter`の結果をラップして、（結果をそのまま返す）代わりにタプルの一部として各要素を返すことを知っておいてください。
 `enumerate`から返ってくるタプルの第1要素は、添え字であり、2番目の要素は、(コレクションの）要素への参照になります。
 これは、手動で添え字を計算するよりも少しだけ便利です。
 
 <!--
 Because the `enumerate` method returns a tuple, we can use patterns to
-destructure that tuple, just like everywhere else in Rust. So in the `for`
-loop, we specify a pattern that has `i` for the index in the tuple and `&item`
-for the single byte in the tuple. Because we get a reference to the element
-from `.iter().enumerate()`, we use `&` in the pattern.
+destructure that tuple. We’ll be discussing patterns more in [Chapter
+6][ch6]. In the `for` loop, we specify a pattern that has `i`
+for the index in the tuple and `&item` for the single byte in the tuple.
+Because we get a reference to the element from `.iter().enumerate()`, we use
+`&` in the pattern.
 -->
 
-`enumerate`メソッドがタプルを返すので、Rustのあらゆる場所同様、パターンを使って、そのタプルを分配できます。
-従って、`for`ループ内で、タプルの添え字に対する`i`とタプルの1バイトに対応する`&item`を含むパターンを指定しています。
+`enumerate`メソッドがタプルを返すので、パターンを使って、そのタプルを分配できます。
+パターンについては[第6章][ch6]でさらに議論します。
+`for`ループ内で、タプルの添え字に対する`i`とタプルの1バイトに対応する`&item`を含むパターンを指定しています。
 `.iter().enumerate()`から要素への参照を取得するので、パターンに`&`を使っています。
 
 <!--
 Inside the `for` loop, we search for the byte that represents the space by
 using the byte literal syntax. If we find a space, we return the position.
-Otherwise, we return the length of the string by using `s.len()`:
+Otherwise, we return the length of the string by using `s.len()`.
 -->
 
 `for`ループ内で、バイトリテラル表記を使用して空白を表すバイトを検索しています。空白が見つかったら、その位置を返します。
@@ -184,8 +188,8 @@ fn second_word(s: &String) -> (usize, usize) {
 <!--
 Now we’re tracking a starting *and* an ending index, and we have even more
 values that were calculated from data in a particular state but aren’t tied to
-that state at all. We now have three unrelated variables floating around that
-need to be kept in sync.
+that state at all. We have three unrelated variables floating around that need
+to be kept in sync.
 -->
 
 今、私たちは開始*と*終端の添え字を追うようになりました。特定の状態のデータから計算されたが、
@@ -214,29 +218,23 @@ A *string slice* is a reference to part of a `String`, and it looks like this:
 ```
 
 <!--
-This is similar to taking a reference to the whole `String` but with the extra
-`[0..5]` bit. Rather than a reference to the entire `String`, it’s a reference
-to a portion of the `String`.
+Rather than a reference to the entire `String`, `hello` is a reference to a
+portion of the `String`, specified in the extra `[0..5]` bit. We create slices
+using a range within brackets by specifying `[starting_index..ending_index]`,
+where `starting_index` is the first position in the slice and `ending_index` is
+one more than the last position in the slice. Internally, the slice data
+structure stores the starting position and the length of the slice, which
+corresponds to `ending_index` minus `starting_index`. So, in the case of `let
+world = &s[6..11];`, `world` would be a slice that contains a pointer to the
+byte at index 6 of `s` with a length value of `5`.
 -->
 
-これは、`String`全体への参照を取ることに似ていますが、余計な`[0..5]`という部分が付いています。
-`String`全体への参照ではなく、`String`の一部への参照です。
-
-<!--
-We can create slices using a range within brackets by specifying
-`[starting_index..ending_index]`, where `starting_index` is the first position
-in the slice and `ending_index` is one more than the last position in the
-slice. Internally, the slice data structure stores the starting position and
-the length of the slice, which corresponds to `ending_index` minus
-`starting_index`. So in the case of `let world = &s[6..11];`, `world` would be
-a slice that contains a pointer to the 7th byte (counting from 1) of `s` with a length value of 5.
--->
-
-`[starting_index..ending_index]`と指定することで、角かっこに範囲を使い、スライスを生成できます。
+`hello`は`String`全体への参照ではなく、追加の`[0..5]`という部分で指定された、`String`の一部への参照です。
+`[starting_index..ending_index]`と指定することで、角かっこに範囲を使い、スライスを生成します。
 ここで、`starting_index`はスライスの最初の位置、`ending_index`はスライスの終端位置よりも、
 1大きい値です。内部的には、スライスデータ構造は、開始地点とスライスの長さを保持しており、
 スライスの長さは`ending_index`から`starting_index`を引いたものに対応します。以上より、
-`let world = &s[6..11];`の場合には、`world`は`s`の添え字6のバイトへのポインタと5という長さを持つスライスになるでしょう。
+`let world = &s[6..11];`の場合には、`world`は`s`の添え字6のバイトへのポインタと`5`という長さを持つスライスになるでしょう。
 
 <!--
 Figure 4-6 shows this in a diagram.
@@ -245,10 +243,16 @@ Figure 4-6 shows this in a diagram.
 図4-6は、これを図解しています。
 
 <!--
-<img alt="world containing a pointer to the 6th byte of String s and a length 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
+<img alt="Three tables: a table representing the stack data of s, which points
+to the byte at index 0 in a table of the string data &quot;hello world&quot; on
+the heap. The third table rep-resents the stack data of the slice world, which
+has a length value of 5 and points to byte 6 of the heap data table."
+src="img/trpl04-06.svg" class="center" style="width: 50%;" />
 -->
 
-<img alt="文字列sの6バイト目へのポインタと長さ5を保持するworld" src="img/trpl04-06.svg" class="center" style="width: 50%;" />
+<img alt="3個の表: sのスタックデータを表現するテーブルは、ヒープ上の文字列データ&quot;hello world&quot;のテーブル内の添え字0のバイトを指している。
+3個目の表はスライスworldのスタックデータを表現していて、長さの値5を持ち、ヒープデータの表のバイト6を指している。"
+src="img/trpl04-06.svg" class="center" style="width: 50%;" />
 
 <!--
 <span class="caption">Figure 4-6: String slice referring to part of a
@@ -258,11 +262,11 @@ Figure 4-6 shows this in a diagram.
 <span class="caption">図4-6: `String`オブジェクトの一部を参照する文字列スライス</span>
 
 <!--
-With Rust’s `..` range syntax, if you want to start at the first index (zero),
-you can drop the value before the two periods. In other words, these are equal:
+With Rust’s `..` range syntax, if you want to start at index 0, you can drop
+the value before the two periods. In other words, these are equal:
 -->
 
-Rustの`..`という範囲記法で、最初の番号(ゼロ)から始めたければ、2連ピリオドの前に値を書かなければいいです。
+Rustの`..`という範囲記法で、添え字0から始めたければ、2連ピリオドの前に値を書かなければいいです。
 換言すれば、これらは等価です:
 
 ```rust
@@ -338,10 +342,10 @@ slice. The type that signifies “string slice” is written as `&str`:
 ```
 
 <!--
-We get the index for the end of the word in the same way as we did in Listing
-4-7, by looking for the first occurrence of a space. When we find a space, we
-return a string slice using the start of the string and the index of the space
-as the starting and ending indices.
+We get the index for the end of the word the same way we did in Listing 4-7, by
+looking for the first occurrence of a space. When we find a space, we return a
+string slice using the start of the string and the index of the space as the
+starting and ending indices.
 -->
 
 リスト4-7で取った方法と同じように、最初の空白を探すことで単語の終端の添え字を取得しています。
@@ -367,7 +371,7 @@ fn second_word(s: &String) -> &str {
 ```
 
 <!--
-We now have a straightforward API that’s much harder to mess up, because the
+We now have a straightforward API that’s much harder to mess up because the
 compiler will ensure the references into the `String` remain valid. Remember
 the bug in the program in Listing 4-8, when we got the index to the end of the
 first word but then cleared the string so our index was invalid? That code was
@@ -409,20 +413,30 @@ Here’s the compiler error:
 <!--
 Recall from the borrowing rules that if we have an immutable reference to
 something, we cannot also take a mutable reference. Because `clear` needs to
-truncate the `String`, it needs to get a mutable reference. Rust disallows
-this, and compilation fails. Not only has Rust made our API easier to use, but
-it has also eliminated an entire class of errors at compile time!
+truncate the `String`, it needs to get a mutable reference. The `println!`
+after the call to `clear` uses the reference in `word`, so the immutable
+reference must still be active at that point. Rust disallows the mutable
+reference in `clear` and the immutable reference in `word` from existing at the
+same time, and compilation fails. Not only has Rust made our API easier to use,
+but it has also eliminated an entire class of errors at compile time!
 -->
 
 借用規則から、何かへの不変な参照がある時、さらに可変な参照を得ることはできないことを思い出してください。
-`clear`は`String`を切り詰める必要があるので、可変な参照を得る必要があります。Rustはこれを認めないので、コンパイルが失敗します。
+`clear`は`String`を切り詰める必要があるので、可変な参照を得る必要があります。
+`clear`の呼び出しの後の`println!`は`word`中の参照を使用するので、不変参照はその時点でもまだ有効でなくてはいけません。
+Rustは`clear`中の可変参照と`word`中の不変参照が同時に存在することを認めないので、コンパイルが失敗します。
 RustのおかげでAPIが使いやすくなるだけでなく、ある種のエラー全てを完全にコンパイル時に排除してくれるのです！
 
+<!-- Old heading. Do not remove or links may break. -->
 <!--
-#### String Literals Are Slices
+<a id="string-literals-are-slices"></a>
 -->
 
-#### 文字列リテラルはスライスである
+<!--
+#### String Literals as Slices
+-->
+
+#### スライスとしての文字列リテラル
 
 <!--
 Recall that we talked about string literals being stored inside the binary. Now
@@ -485,13 +499,22 @@ a string slice for the type of the `s` parameter</span>
 
 <!--
 If we have a string slice, we can pass that directly. If we have a `String`, we
-can pass a slice of the entire `String`. Defining a function to take a string
-slice instead of a reference to a `String` makes our API more general and useful
-without losing any functionality:
+can pass a slice of the `String` or a reference to the `String`. This
+flexibility takes advantage of *deref coercions*, a feature we will cover in
+[“Implicit Deref Coercions with Functions and
+Methods”][deref-coercions] section of Chapter 15.
 -->
 
 もし、文字列スライスがあるなら、それを直接渡せます。`String`があるなら、
-その`String`全体のスライスを渡せます。`String`への参照の代わりに文字列スライスを取るよう関数を定義すると、
+その`String`のスライスか、`String`への参照を渡せます。この柔軟性は、第15章の[「関数やメソッドで暗黙的な参照外し型強制」][deref-coercions]で扱う機能、
+*参照外し型強制*の利点を活用して実現されています。
+
+<!--
+Defining a function to take a string slice instead of a reference to a `String`
+makes our API more general and useful without losing any functionality:
+-->
+
+`String`への参照の代わりに文字列スライスを取るよう関数を定義すると、
 何も機能を失うことなくAPIをより一般的で有益なものにできるのです。
 
 <span class="filename">Filename: src/main.rs</span>
@@ -508,7 +531,7 @@ without losing any functionality:
 
 <!--
 String slices, as you might imagine, are specific to strings. But there’s a
-more general slice type, too. Consider this array:
+more general slice type too. Consider this array:
 -->
 
 文字列リテラルは、ご想像通り、文字列に特化したものです。ですが、もっと一般的なスライス型も存在します。
@@ -519,8 +542,8 @@ let a = [1, 2, 3, 4, 5];
 ```
 
 <!--
-Just as we might want to refer to a part of a string, we might want to refer
-to part of an array. We’d do so like this:
+Just as we might want to refer to part of a string, we might want to refer to
+part of an array. We’d do so like this:
 -->
 
 文字列の一部を参照したくなる可能性があるのと同様、配列の一部を参照したくなる可能性もあります。
@@ -530,6 +553,8 @@ to part of an array. We’d do so like this:
 let a = [1, 2, 3, 4, 5];
 
 let slice = &a[1..3];
+
+assert_eq!(slice, &[2, 3]);
 ```
 
 <!--
@@ -573,6 +598,13 @@ Chapter 5 and look at grouping pieces of data together in a `struct`.
 第5章に移って、`struct`でデータをグループ化することについて見ていきましょう。
 
 <!--
+[ch13]: ch13-02-iterators.html
+[ch6]: ch06-02-match.html#patterns-that-bind-to-values
 [strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
+[deref-coercions]: ch15-02-deref.html#implicit-deref-coercions-with-functions-and-methods
 -->
+
+[ch13]: ch13-02-iterators.html
+[ch6]: ch06-02-match.html#値に束縛されるパターン
 [strings]: ch08-02-strings.html#文字列でutf-8でエンコードされたテキストを保持する
+[deref-coercions]: ch15-02-deref.html#関数やメソッドで暗黙的な参照外し型強制

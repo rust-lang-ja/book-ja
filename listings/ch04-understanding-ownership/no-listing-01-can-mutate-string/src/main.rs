@@ -2,8 +2,8 @@ fn main() {
     // ANCHOR: here
     let mut s = String::from("hello");
 
-    s.push_str(", world!"); // push_str() appends a literal to a String
+    s.push_str(", world!"); // push_str()関数は、リテラルをStringに付け加える
 
-    println!("{}", s); // This will print `hello, world!`
+    println!("{}", s); // これは`hello, world!`と出力する
                        // ANCHOR_END: here
 }

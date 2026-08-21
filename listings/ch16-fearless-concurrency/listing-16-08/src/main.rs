@@ -10,5 +10,6 @@ fn main() {
     });
 
     let received = rx.recv().unwrap();
+    //       "取得しました: {}"
     println!("Got: {}", received);
 }

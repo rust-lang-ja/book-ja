@@ -9,5 +9,6 @@ fn main() {
         height: 50,
     };
 
+    // rect1は{}です
     println!("rect1 is {}", rect1);
 }

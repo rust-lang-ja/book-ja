@@ -18,6 +18,7 @@ fn main() {
         children: RefCell::new(vec![]),
     });
 
+    //       "leafの親 = {:?}"
     println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
 
     let branch = Rc::new(Node {

@@ -7,38 +7,36 @@
 <!--
 The `if let` syntax lets you combine `if` and `let` into a less verbose way to
 handle values that match one pattern while ignoring the rest. Consider the
-program in Listing 6-6 that matches on an `Option<u8>` value but only wants to
-execute code if the value is 3.
+program in Listing 6-6 that matches on an `Option<u8>` value in the
+`config_max` variable but only wants to execute code if the value is the `Some`
+variant.
 -->
 
 `if let`記法で`if`と`let`をより冗長性の少ない方法で組み合わせ、残りを無視しつつ、一つのパターンにマッチする値を扱うことができます。
-`Option<u8>`にマッチするけれど、値が3の時にだけコードを実行したい、リスト6-6のプログラムを考えてください。
+`config_max`変数の`Option<u8>`値にマッチするけれど、値が`Some`列挙子の時にだけコードを実行したい、リスト6-6のプログラムを考えてください。
 
 ```rust
-let some_u8_value = Some(0u8);
-match some_u8_value {
-    Some(3) => println!("three"),
-    _ => (),
-}
+{{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-06/src/main.rs:here}}
 ```
 
 <!--
 <span class="caption">Listing 6-6: A `match` that only cares about executing
-code when the value is `Some(3)`</span>
+code when the value is `Some`</span>
 -->
 
-<span class="caption">リスト6-6: 値が`Some(3)`の時だけコードを実行する`match`</span>
+<span class="caption">リスト6-6: 値が`Some`の時だけコードを実行する`match`</span>
 
 <!--
-We want to do something with the `Some(3)` match but do nothing with any other
-`Some<u8>` value or the `None` value. To satisfy the `match` expression, we
-have to add `_ => ()` after processing just one variant, which is a lot of
-boilerplate code to add.
+If the value is `Some`, we print out the value in the `Some` variant by binding
+the value to the variable `max` in the pattern. We don’t want to do anything
+with the `None` value. To satisfy the `match` expression, we have to add `_ =>
+()` after processing just one variant, which is annoying boilerplate code to
+add.
 -->
 
-`Some(3)`にマッチした時だけ何かをし、他の`Some<u8>`値や`None`値の時には何もしたくありません。
-`match`式を満たすためには、列挙子を一つだけ処理した後に`_ => ()`を追加しなければなりません。
-これでは、追加すべき定型コードが多すぎます。
+値が`Some`の場合は、その`Some`列挙子の値をパターン内の変数`max`に束縛することで、それを出力します。
+`None`値に対しては何もしたくありません。
+`match`式の要件を満たすためには、列挙子を一つだけ処理した後に`_ => ()`を追加しなければなりませんが、これは煩わしい定型コードです。
 
 <!--
 Instead, we could write this in a shorter way using `if let`. The following
@@ -49,20 +47,23 @@ code behaves the same as the `match` in Listing 6-6:
 リスト6-6の`match`と同じように振る舞います:
 
 ```rust
-# let some_u8_value = Some(0u8);
-if let Some(3) = some_u8_value {
-    println!("three");
-}
+{{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-12-if-let/src/main.rs:here}}
 ```
 
 <!--
 The syntax `if let` takes a pattern and an expression separated by an equal
 sign. It works the same way as a `match`, where the expression is given to the
-`match` and the pattern is its first arm.
+`match` and the pattern is its first arm. In this case, the pattern is
+`Some(max)`, and the `max` binds to the value inside the `Some`. We can then
+use `max` in the body of the `if let` block in the same way we used `max` in
+the corresponding `match` arm. The code in the `if let` block isn’t run if the
+value doesn’t match the pattern.
 -->
 
-`if let`という記法は等号記号で区切られたパターンと式を取り、式が`match`に与えられ、パターンが最初のアームになった`match`と、
-同じ動作をします。
+`if let`という記法は等号記号で区切られたパターンと式を取り、式が`match`に与えられ、パターンが最初のアームになった`match`と同じ動作をします。
+この場合は、パターンは`Some(max)`で`max`は`Some`内の値に束縛されます。
+そうすると、対応する`match`アームの中で`max`を使用したのと全く同じように、`if let`ブロックの本体の中で`max`を使用することができます。
+値がパターンにマッチしない場合は、`if let`ブロック内のコードは実行されません。
 
 <!--
 Using `if let` means less typing, less indentation, and less boilerplate code.
@@ -91,7 +92,7 @@ We can include an `else` with an `if let`. The block of code that goes with the
 `Coin` enum definition in Listing 6-4, where the `Quarter` variant also held a
 `UsState` value. If we wanted to count all non-quarter coins we see while also
 announcing the state of the quarters, we could do that with a `match`
-expression like this:
+expression, like this:
 -->
 
 `if let`では、`else`を含むこともできます。`else`に入るコードブロックは、
@@ -101,53 +102,17 @@ expression like this:
 見かけたクォーター以外のコインの枚数を数えたいなら、以下のように`match`式で実現することができるでしょう:
 
 ```rust
-# #[derive(Debug)]
-# enum UsState {
-#    Alabama,
-#    Alaska,
-# }
-#
-# enum Coin {
-#    Penny,
-#    Nickel,
-#    Dime,
-#    Quarter(UsState),
-# }
-# let coin = Coin::Penny;
-let mut count = 0;
-match coin {
-    // {:?}州のクォーターコイン
-    Coin::Quarter(state) => println!("State quarter from {:?}!", state),
-    _ => count += 1,
-}
+{{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-13-count-and-announce-match/src/main.rs:here}}
 ```
 
 <!--
-Or we could use an `if let` and `else` expression like this:
+Or we could use an `if let` and `else` expression, like this:
 -->
 
 または、以下のように`if let`と`else`を使うこともできるでしょう:
 
 ```rust
-# #[derive(Debug)]
-# enum UsState {
-#    Alabama,
-#    Alaska,
-# }
-#
-# enum Coin {
-#    Penny,
-#    Nickel,
-#    Dime,
-#    Quarter(UsState),
-# }
-# let coin = Coin::Penny;
-let mut count = 0;
-if let Coin::Quarter(state) = coin {
-    println!("State quarter from {:?}!", state);
-} else {
-    count += 1;
-}
+{{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/no-listing-14-count-and-announce-if-let-else/src/main.rs:here}}
 ```
 
 <!--
@@ -180,7 +145,7 @@ enumの値がデータを内部に含む場合、処理すべきケースの数�
 <!--
 Your Rust programs can now express concepts in your domain using structs and
 enums. Creating custom types to use in your API ensures type safety: the
-compiler will make certain your functions get only values of the type each
+compiler will make certain your functions only get values of the type each
 function expects.
 -->
 

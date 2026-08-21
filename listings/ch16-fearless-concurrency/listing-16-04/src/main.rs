@@ -7,7 +7,7 @@ fn main() {
         println!("Here's a vector: {:?}", v);
     });
 
-    drop(v); // oh no!
+    drop(v); // あちゃー！
 
     handle.join().unwrap();
 }

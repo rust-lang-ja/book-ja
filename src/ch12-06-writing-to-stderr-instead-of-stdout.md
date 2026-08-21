@@ -5,28 +5,28 @@
 ## 標準出力ではなく標準エラーにエラーメッセージを書き込む
 
 <!--
-At the moment we’re writing all of our output to the terminal using the
-`println!` function. Most terminals provide two kinds of output: *standard
-output* (`stdout`) for general information and *standard error* (`stderr`)
-for error messages. This distinction enables users to choose to direct the
+At the moment, we’re writing all of our output to the terminal using the
+`println!` macro. In most terminals, there are two kinds of output: *standard
+output* (`stdout`) for general information and *standard error* (`stderr`) for
+error messages. This distinction enables users to choose to direct the
 successful output of a program to a file but still print error messages to the
 screen.
 -->
 
-現時点では、すべての出力を`println!`関数を使用して端末に書き込んでいます。多くの端末は、
-2種類の出力を提供します: 普通の情報用の*標準出力*(`stdout`)とエラーメッセージ用の*標準エラー出力*(`stderr`)です。
+現時点では、すべての出力を`println!`マクロを使用して端末に書き込んでいます。多くの端末には、
+2種類の出力があります: 普通の情報用の*標準出力*(`stdout`)とエラーメッセージ用の*標準エラー出力*(`stderr`)です。
 この差異のおかげで、ユーザは、エラーメッセージを画面に表示しつつ、
 プログラムの成功した出力をファイルにリダイレクトすることを選択できます。
 
 <!--
-The `println!` function is only capable of printing to standard output, so we
+The `println!` macro is only capable of printing to standard output, so we
 have to use something else to print to standard error.
 -->
 
-`println!`関数は、標準出力に出力する能力しかないので、標準エラーに出力するには他のものを使用しなければなりません。
+`println!`マクロは、標準出力に出力する能力しかないので、標準エラーに出力するには他のものを使用しなければなりません。
 
 <!--
-### Checking Where Errors Are Written to
+### Checking Where Errors Are Written
 -->
 
 ### エラーが書き込まれる場所を確認する
@@ -35,9 +35,9 @@ have to use something else to print to standard error.
 First, let’s observe how the content printed by `minigrep` is currently being
 written to standard output, including any error messages we want to write to
 standard error instead. We’ll do that by redirecting the standard output stream
-to a file while also intentionally causing an error. We won’t redirect the
-standard error stream, so any content sent to standard error will continue to
-display on the screen.
+to a file while intentionally causing an error. We won’t redirect the standard
+error stream, so any content sent to standard error will continue to display on
+the screen.
 -->
 
 まず、`minigrep`に出力される中身が、代わりに標準エラーに書き込みたいいかなるエラーメッセージも含め、
@@ -58,15 +58,15 @@ we’re about to see that it saves the error message output to a file instead!
 目撃するところです！
 
 <!--
-The way to demonstrate this behavior is by running the program with `>` and the
-filename, *output.txt*, that we want to redirect the standard output stream to.
-We won’t pass any arguments, which should cause an error:
+To demonstrate this behavior, we’ll run the program with `>` and the file path,
+*output.txt*, that we want to redirect the standard output stream to. We won’t
+pass any arguments, which should cause an error:
 -->
 
-この動作をデモする方法は、`>`と標準出力ストリームをリダイレクトする先のファイル名、*output.txt*でプログラムを走らせることによります。
+この動作をデモするために、`>`と、標準出力ストリームをリダイレクトする先のファイルパスである*output.txt*を付けて、プログラムを走らせましょう。
 引数は何も渡さず、そうするとエラーが起きるはずです:
 
-```text
+```console
 $ cargo run > output.txt
 ```
 
@@ -88,7 +88,7 @@ Problem parsing arguments: not enough arguments
 <!--
 Yup, our error message is being printed to standard output. It’s much more
 useful for error messages like this to be printed to standard error so only
-data from a successful run ends up in the file. We'll change that.
+data from a successful run ends up in the file. We’ll change that.
 -->
 
 そうです。エラーメッセージは標準出力に出力されているのです。このようなエラーメッセージは標準エラーに出力され、
@@ -121,20 +121,7 @@ instead.
 <span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
-fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let config = Config::new(&args).unwrap_or_else(|err| {
-        eprintln!("Problem parsing arguments: {}", err);
-        process::exit(1);
-    });
-
-    if let Err(e) = minigrep::run(config) {
-        eprintln!("Application error: {}", e);
-
-        process::exit(1);
-    }
-}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-24/src/main.rs:here}}
 ```
 
 <!--
@@ -145,14 +132,13 @@ instead of standard output using `eprintln!`</span>
 <span class="caption">リスト12-24: `eprintln!`を使って標準出力ではなく、標準エラーにエラーメッセージを書き込む</span>
 
 <!--
-After changing `println!` to `eprintln!`, let’s run the program again in the
-same way, without any arguments and redirecting standard output with `>`:
+Let’s now run the program again in the same way, without any arguments and
+redirecting standard output with `>`:
 -->
 
-`println!`を`eprintln!`に変えてから、再度同じようにプログラムを実行しましょう。
-引数なしかつ、標準出力を`>`でリダイレクトしてね:
+それでは再度同じように、引数なしで、標準出力を`>`でリダイレクトしつつ、プログラムを実行しましょう:
 
-```text
+```console
 $ cargo run > output.txt
 Problem parsing arguments: not enough arguments
 ```
@@ -171,8 +157,8 @@ redirect standard output to a file, like so:
 
 再度、標準出力をファイルにリダイレクトしてエラーは起こさない引数でプログラムを走らせましょう。以下のようにですね:
 
-```text
-$ cargo run to poem.txt > output.txt
+```console
+$ cargo run -- to poem.txt > output.txt
 ```
 
 <!--
@@ -210,15 +196,15 @@ and standard error for error output as appropriate.
 This chapter recapped some of the major concepts you’ve learned so far and
 covered how to perform common I/O operations in Rust. By using command line
 arguments, files, environment variables, and the `eprintln!` macro for printing
-errors, you’re now prepared to write command line applications. By using the
-concepts in previous chapters, your code will be well organized, store data
+errors, you’re now prepared to write command line applications. Combined with
+the concepts in previous chapters, your code will be well organized, store data
 effectively in the appropriate data structures, handle errors nicely, and be
 well tested.
 -->
 
 この章では、ここまでに学んできた主要な概念の一部を念押しし、Rustで入出力処理を行う方法を講義しました。
 コマンドライン引数、ファイル、環境変数、そしてエラー出力に`eprintln!`マクロを使用することで、
-もう、コマンドラインアプリケーションを書く準備ができています。以前の章の概念を使用することで、
+もう、コマンドラインアプリケーションを書く準備ができています。以前の章の概念と組み合わせて、
 コードはうまく体系化され、適切なデータ構造に効率的にデータを保存し、エラーをうまく扱い、
 よくテストされるでしょう。
 

@@ -27,21 +27,23 @@ them early will give you a strong core to start from.
 これらの基礎は全てのRustプログラムに存在するものであり、それらを早期に学ぶことにより、強力な基礎を築くことになるでしょう。
 
 <!--
-> ### Keywords
+> #### Keywords
 >
-> The Rust language has a set of *keywords* that have been reserved for use by
-> the language only, much as in other languages. Keep in mind that you cannot
-> use these words as names of variables or functions. Most of the keywords have
+> The Rust language has a set of *keywords* that are reserved for use by the
+> language only, much as in other languages. Keep in mind that you cannot use
+> these words as names of variables or functions. Most of the keywords have
 > special meanings, and you’ll be using them to do various tasks in your Rust
 > programs; a few have no current functionality associated with them but have
 > been reserved for functionality that might be added to Rust in the future. You
-> can find a list of the keywords in Appendix A.
+> can find a list of the keywords in [Appendix A][appendix_a].
 -->
 
-> ### キーワード
+> #### キーワード
 >
 > Rust言語にも他の言語同様、キーワードが存在し、これらは言語だけが使用できるようになっています。
 > これらの単語は、変数や関数名には使えないことを弁えておいてください。ほとんどのキーワードは、特別な意味を持っており、
 > 自らのRustプログラムにおいて、様々な作業をこなすために使用することができます;
 > いくつかは、紐付けられた機能がないものの、将来Rustに追加されるかもしれない機能用に予約されています。
-> キーワードの一覧は、付録Aで確認できます。
+> キーワードの一覧は、[付録A][appendix_a]で確認できます。
+
+[appendix_a]: appendix-01-keywords.md

@@ -1,14 +1,19 @@
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
 warning: unused `Result` that must be used
-(警告: 使用されなければならない`std::result::Result`が使用されていません)
+(警告: 使用されなければならない`Result`が使用されていません)
   --> src/main.rs:10:5
    |
 10 |     io::stdin().read_line(&mut guess);
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
-   = note: `#[warn(unused_must_use)]` on by default
    = note: this `Result` may be an `Err` variant, which should be handled
+   = note: `#[warn(unused_must_use)]` on by default
+help: use `let _ = ...` to ignore the resulting value
+(ヘルプ: 結果の値を無視するには `let _ = ...` を使用してください)
+   |
+10 |     let _ = io::stdin().read_line(&mut guess);
+   |     +++++++
 
 warning: `guessing_game` (bin "guessing_game") generated 1 warning
     Finished dev [unoptimized + debuginfo] target(s) in 0.59s

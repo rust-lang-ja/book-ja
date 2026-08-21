@@ -24,11 +24,11 @@ Rustの標準ライブラリは、*コレクション*と呼ばれる多くの�
 Rustのプログラムにおいて、非常に頻繁に使用される3つのコレクションについて議論しましょう。
 
 <!--
-* A *vector* allows us to store a variable number of values next to each other.
+* A *vector* allows you to store a variable number of values next to each other.
 * A *string* is a collection of characters. We’ve mentioned the `String` type
-previously, but in this chapter we’ll talk about it in depth.
-* A *hash map* allows us to associate a value with a particular key. It’s a
-particular implementation of the more general data structure called a *map*.
+  previously, but in this chapter we’ll talk about it in depth.
+* A *hash map* allows you to associate a value with a particular key. It’s a
+  particular implementation of the more general data structure called a *map*.
 -->
 
 * *ベクタ型*は、可変長の値を並べて保持できる。
@@ -45,11 +45,11 @@ see [the documentation][collections].
 標準ライブラリで提供されている他の種のコレクションについて学ぶには、
 [ドキュメント][collections]を参照されたし。
 
-[collections]: https://doc.rust-lang.org/std/collections/index.html
-
 <!--
 We’ll discuss how to create and update vectors, strings, and hash maps, as well
 as what makes each special.
 -->
 
 ベクタ型、文字列、ハッシュマップの生成と更新方法や、各々が特別な点について議論していきましょう。
+
+[collections]: https://doc.rust-lang.org/std/collections/index.html

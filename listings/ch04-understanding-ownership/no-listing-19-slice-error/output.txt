@@ -7,18 +7,14 @@ error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immuta
 16 |     let word = first_word(&s);
    |                           -- immutable borrow occurs here
    |                             (不変借用はここで発生しています)
-17 | 
+17 |
 18 |     s.clear(); // error!
    |     ^^^^^^^^^ mutable borrow occurs here
    |              (可変借用はここで発生しています)
-19 | 
+19 |
 20 |     println!("the first word is: {}", word);
    |                                       ---- immutable borrow later used here
                                                 (不変借用はその後ここで使われています)
 
-error: aborting due to previous error
-
 For more information about this error, try `rustc --explain E0502`.
-error: could not compile `ownership`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `ownership` (bin "ownership") due to 1 previous error

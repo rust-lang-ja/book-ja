@@ -1,14 +1,18 @@
 $ cargo run
    Compiling drop-example v0.1.0 (file:///projects/drop-example)
 error[E0040]: explicit use of destructor method
+(エラー: デストラクタメソッドを明示的に使用しています)
   --> src/main.rs:16:7
    |
 16 |     c.drop();
    |       ^^^^ explicit destructor calls not allowed
-
-error: aborting due to previous error
+   |           (明示的なデストラクタの呼び出しは許可されません)
+   |
+help: consider using `drop` function
+(ヘルプ: `drop`関数の使用を検討してください)
+   |
+16 |     drop(c);
+   |     +++++ ~
 
 For more information about this error, try `rustc --explain E0040`.
-error: could not compile `drop-example`.
-
-To learn more, run the command again with --verbose.
+error: could not compile `drop-example` (bin "drop-example") due to 1 previous error

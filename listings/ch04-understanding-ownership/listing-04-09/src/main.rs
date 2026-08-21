@@ -16,14 +16,21 @@ fn first_word(s: &str) -> &str {
 fn main() {
     let my_string = String::from("hello world");
 
-    // first_word works on slices of `String`s
-    // first_wordは`String`のスライスに対して機能する
+    // `first_word` works on slices of `String`s, whether partial or whole
+    // `first_word`は`String`の全体または部分へのスライスに対して機能する
+    let word = first_word(&my_string[0..6]);
     let word = first_word(&my_string[..]);
+    // `first_word` also works on references to `String`s, which are equivalent
+    // to whole slices of `String`s
+    // `first_word`は`String`の参照に対しても機能する。この場合は
+    // `String`全体へのスライスと同等。
+    let word = first_word(&my_string);
 
     let my_string_literal = "hello world";
 
-    // first_word works on slices of string literals
-    // first_wordは文字列リテラルのスライスに対して機能する
+    // `first_word` works on slices of string literals, whether partial or whole
+    // `first_word`は文字列リテラルの全体または部分へのスライスに対して機能する
+    let word = first_word(&my_string_literal[0..6]);
     let word = first_word(&my_string_literal[..]);
 
     // Because string literals *are* string slices already,

@@ -1,15 +1,9 @@
 fn main() {
     // ANCHOR: here
-    enum SpreadsheetCell {
-        Int(i32),
-        Float(f64),
-        Text(String),
-    }
+    {
+        let v = vec![1, 2, 3, 4];
 
-    let row = vec![
-        SpreadsheetCell::Int(3),
-        SpreadsheetCell::Text(String::from("blue")),
-        SpreadsheetCell::Float(10.12),
-    ];
-    // ANCHOR_END: here
+        // vで作業をする
+    } // <- vはここでスコープを抜け、解放される
+      // ANCHOR_END: here
 }

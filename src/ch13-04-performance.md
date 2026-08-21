@@ -5,13 +5,13 @@
 ## パフォーマンス比較: ループVSイテレータ
 
 <!--
-To determine whether to use loops or iterators, you need to know which version
-of our `search` functions is faster: the version with an explicit `for` loop or
-the version with iterators.
+To determine whether to use loops or iterators, you need to know which
+implementation is faster: the version of the `search` function with an explicit
+`for` loop or the version with iterators.
 -->
 
-ループを使うべきかイテレータを使うべきか決定するために、`search`関数のうち、どちらのバージョンが速いか知る必要があります:
-明示的な`for`ループがあるバージョンと、イテレータのバージョンです。
+ループを使うべきかイテレータを使うべきか決定するために、どちらの実装が速いか知る必要があります:
+明示的な`for`ループを使うバージョンの`search`関数と、イテレータを使うバージョンです。
 
 <!--
 We ran a benchmark by loading the entire contents of *The Adventures of
@@ -42,7 +42,7 @@ performance-wise.
 これら2つの実装がパフォーマンス的にどう比較されるかを大まかに把握することだからです。
 
 <!--
-For a more comprehensive benchmark, you should check various texts of
+For a more comprehensive benchmark, you should check using various texts of
 various sizes as the `contents`, different words and words of different lengths
 as the `query`, and all kinds of other variations. The point is this:
 iterators, although a high-level abstraction, get compiled down to roughly the
@@ -53,7 +53,7 @@ Stroustrup, the original designer and implementor of C++, defines
 *zero-overhead* in “Foundations of C++” (2012):
 -->
 
-より包括的なベンチマークとするためには、いろんなサイズの様々なテキストを`contents`として、異なる単語、異なる長さの単語を`query`として、
+より包括的なベンチマークとするためには、いろんなサイズの様々なテキストを`contents`として使用して、異なる単語、異なる長さの単語を`query`として、
 他のあらゆる種類のバリエーションを確認するべきです。重要なのは: イテレータは、
 高度な抽象化にも関わらず、低レベルのコードを自身で書いているかのように、ほぼ同じコードにコンパイルされることです。
 イテレータは、Rustの*ゼロコスト抽象化*の一つであり、これは、抽象化を使うことが追加の実行時オーバーヘッドを生まないことを意味しています。
@@ -78,7 +78,7 @@ code uses an iterator chain to do some math on three variables in scope: a
 to shift data in `qlp_shift`. We’ve declared the variables within this example
 but not given them any values; although this code doesn’t have much meaning
 outside of its context, it’s still a concise, real-world example of how Rust
-translates high-level ideas to low-level code:
+translates high-level ideas to low-level code.
 -->
 
 別の例として、以下のコードは、オーディオデコーダから取ってきました。デコードアルゴリズムは、
@@ -86,7 +86,7 @@ translates high-level ideas to low-level code:
 イテレータ連結をしてスコープにある3つの変数に計算を行っています: `buffer`というデータのスライス、
 12の`coefficients`(係数)の配列、`qlp_shift`でデータをシフトする量です。この例の中で変数を宣言しましたが、
 値は与えていません; このコードは、文脈の外では大して意味を持ちませんが、
-それでもRustが高レベルな考えを低レベルなコードに翻訳する簡潔で現実的な例になっています:
+それでもRustが高レベルな考えを低レベルなコードに翻訳する簡潔で現実的な例になっています。
 
 ```rust,ignore
 let buffer: &mut [i32];

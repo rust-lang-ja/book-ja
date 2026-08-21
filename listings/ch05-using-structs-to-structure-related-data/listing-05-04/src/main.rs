@@ -1,16 +1,16 @@
 struct User {
+    active: bool,
     username: String,
     email: String,
     sign_in_count: u64,
-    active: bool,
 }
 
 // ANCHOR: here
 fn build_user(email: String, username: String) -> User {
     User {
-        email: email,
-        username: username,
         active: true,
+        username: username,
+        email: email,
         sign_in_count: 1,
     }
 }
